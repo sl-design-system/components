@@ -30,6 +30,9 @@ node_modules/
 # Optional npm cache directory
 .npm
 
+# Wireit cache directory
+.wireit
+
 # Optional eslint cache
 .eslintcache
 

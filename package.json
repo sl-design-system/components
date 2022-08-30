@@ -2,6 +2,17 @@
   "name": "design-system",
   "packageManager": "yarn@3.2.3",
   "private": true,
+  "workspaces": [
+    "packages/core"
+  ],
+  "scripts": {
+    "clean": "wireit"
+  },
+  "wireit": {
+    "clean": {
+      "command": "rimraf dist"
+    }
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.36.0",
     "@typescript-eslint/parser": "^5.36.0",

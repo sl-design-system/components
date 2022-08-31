@@ -1,1 +1,10 @@
-{}
+{
+  "name": "@slds/core",
+  "description": "SLDS Core Web Components",
+  "version": "0.0.1",
+  "type": "module",
+  "devDependencies": {
+    "typescript": "^4.8.2",
+    "wireit": "^0.7.1"
+  }
+}

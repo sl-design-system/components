@@ -45,6 +45,9 @@ node_modules/
 # Yarn Integrity file
 .yarn-integrity
 
+# Yarn optimization file
+.yarn/install-state.gz
+
 # dotenv environment variables file
 .env
 .env.test

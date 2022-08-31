@@ -1,5 +1,5 @@
 {
-  "name": "design-system",
+  "name": "@slds/root",
   "packageManager": "yarn@3.2.3",
   "private": true,
   "workspaces": [
@@ -14,6 +14,7 @@
     }
   },
   "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.6.4",
     "@typescript-eslint/eslint-plugin": "^5.36.0",
     "@typescript-eslint/parser": "^5.36.0",
     "eslint": "^8.23.0",

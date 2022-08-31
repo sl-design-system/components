@@ -1,0 +1,84 @@
+{
+  "H1": {
+    "value": {
+      "fontFamily": "arboria",
+      "fontWeight": "700",
+      "letterSpacing": "-2%",
+      "fontSize": "48px"
+    },
+    "type": "typography",
+    "description": "Used for page titles"
+  },
+  "H2": {
+    "value": {
+      "fontFamily": "arboria",
+      "fontWeight": "700",
+      "letterSpacing": "-2%",
+      "fontSize": "36px"
+    },
+    "type": "typography"
+  },
+  "H3": {
+    "value": {
+      "fontFamily": "arboria",
+      "fontWeight": "700",
+      "letterSpacing": "-2%",
+      "fontSize": "24px"
+    },
+    "type": "typography"
+  },
+  "H4": {
+    "value": {
+      "fontFamily": "arboria",
+      "fontWeight": "700",
+      "letterSpacing": "-2%",
+      "fontSize": "20px"
+    },
+    "type": "typography"
+  },
+  "H5": {
+    "value": {
+      "fontFamily": "arboria",
+      "fontWeight": "700",
+      "letterSpacing": "-2%",
+      "fontSize": "16px"
+    },
+    "type": "typography"
+  },
+  "H6": {
+    "value": {
+      "fontFamily": "arboria",
+      "fontWeight": "700",
+      "letterSpacing": "-2%",
+      "fontSize": "14px"
+    },
+    "type": "typography"
+  },
+  "Body small": {
+    "value": {
+      "fontFamily": "Open Sans",
+      "fontWeight": "Regular",
+      "lineHeight": "140%",
+      "fontSize": "12px"
+    },
+    "type": "typography"
+  },
+  "Body medium": {
+    "value": {
+      "fontFamily": "Open Sans",
+      "fontWeight": "Regular",
+      "lineHeight": "140%",
+      "fontSize": "14px"
+    },
+    "type": "typography"
+  },
+  "Body large": {
+    "value": {
+      "fontFamily": "Open Sans",
+      "fontWeight": "Regular",
+      "lineHeight": "140%",
+      "fontSize": "16px"
+    },
+    "type": "typography"
+  }
+}

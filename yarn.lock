@@ -90,6 +90,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lit/reactive-element@npm:^1.3.0, @lit/reactive-element@npm:^1.4.0":
+  version: 1.4.1
+  resolution: "@lit/reactive-element@npm:1.4.1"
+  checksum: 7bc477c1e383618d2b859e0e1f26064497c85a027c561aef7b1a658fb0a28a24771284d9f5a54cc0d34b1114c729e585d3d21e2a0c3a1a2f4f644aea9c4ad852
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -155,6 +162,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@slds/core@workspace:packages/core"
   dependencies:
+    lit: ^2.3.1
+    tslib: ^2.4.0
     typescript: ^4.8.2
     wireit: ^0.7.1
   languageName: unknown
@@ -198,6 +207,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 6bf5337bc447b706bb5b4431d37686aa2ea6d07cfd6f79cc31de80170d6ff9b1c7384a9c0ccbc45b3f512bae9e9f75c2e12109806a15331dc94e8a8db6dbb4ac
+  languageName: node
+  linkType: hard
+
+"@types/trusted-types@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@types/trusted-types@npm:2.0.2"
+  checksum: 8c5253d7a297ba375b1dff7704013fb8d31c08c681d257db9e7e0624309cbb4a1e0c916bdd5a8c378992391126af0adb731720ba7642244a2f2c1ff42aba5bcf
   languageName: node
   linkType: hard
 
@@ -1916,6 +1932,36 @@ __metadata:
     prelude-ls: ^1.2.1
     type-check: ~0.4.0
   checksum: effb03cad7c89dfa5bd4f6989364bfc79994c2042ec5966cb9b95990e2edee5cd8969ddf42616a0373ac49fac1403437deaf6e9050fbbaa3546093a59b9ac94e
+  languageName: node
+  linkType: hard
+
+"lit-element@npm:^3.2.0":
+  version: 3.2.2
+  resolution: "lit-element@npm:3.2.2"
+  dependencies:
+    "@lit/reactive-element": ^1.3.0
+    lit-html: ^2.2.0
+  checksum: 516897ef91838a77bbf80473ff05e4f39e768c383786910acd44717510e71d1a582435fdbae28ae54bd6f62c613917bbeb9a30aacd020a75270ea897b24c1cf8
+  languageName: node
+  linkType: hard
+
+"lit-html@npm:^2.2.0, lit-html@npm:^2.3.0":
+  version: 2.3.1
+  resolution: "lit-html@npm:2.3.1"
+  dependencies:
+    "@types/trusted-types": ^2.0.2
+  checksum: 6f758828c8199923529d76c5af4a6d45b558bb25e317026fb243a18bc68205576c4ed94afda154cb556950b81909027229c2d4bf421bc97552587f584bbcb13a
+  languageName: node
+  linkType: hard
+
+"lit@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "lit@npm:2.3.1"
+  dependencies:
+    "@lit/reactive-element": ^1.4.0
+    lit-element: ^3.2.0
+    lit-html: ^2.3.0
+  checksum: 7ca5dde792bd03bf2a1f162f4d376d191913b3e8fc37c7bafb36cdde5c3b81e934a1a9a3c38efd92aacd2ca4858b40434e49c90b370da9802caaa92c05fb3b63
   languageName: node
   linkType: hard
 

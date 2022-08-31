@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "strictNullChecks": true
+  },
+  "allowSyntheticDefaultImports": false,
+  "include": ["src"],
+  "exclude": ["dist", "node_modules", "./storybook", "**/*.stories.ts", "**/*.tsx"],
+  "references": [
+    { "path": "./src/button/entrypoint.tsconfig.json" },
+    { "path": "./src/input/entrypoint.tsconfig.json" }
+  ]
+}

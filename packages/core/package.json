@@ -3,8 +3,27 @@
   "description": "SLDS Core Web Components",
   "version": "0.0.1",
   "type": "module",
+  "scripts": {
+    "build": "wireit",
+    "build:ts": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "build:ts"
+      ]
+    },
+    "build:ts": {
+      "command": "tsc -b ./tsconfig.build.json --pretty",
+      "clean": "if-file-deleted"
+    }
+  },
   "devDependencies": {
     "typescript": "^4.8.2",
     "wireit": "^0.7.1"
+  },
+  "dependencies": {
+    "lit": "^2.3.1",
+    "tslib": "^2.4.0"
   }
 }

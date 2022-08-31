@@ -6,9 +6,15 @@
     "packages/core"
   ],
   "scripts": {
+    "build": "wireit",
     "clean": "wireit"
   },
   "wireit": {
+    "build": {
+      "dependencies": [
+        "./packages/core:build"
+      ]
+    },
     "clean": {
       "command": "rimraf dist"
     }

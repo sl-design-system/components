@@ -193,6 +193,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@slds/tokens@workspace:packages/tokens"
   dependencies:
+    lodash: ^4.17.21
     style-dictionary: ^3.7.1
   languageName: unknown
   linkType: soft
@@ -2108,7 +2109,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15":
+"lodash@npm:^4.17.15, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c

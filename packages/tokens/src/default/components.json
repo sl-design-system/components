@@ -1,0 +1,10 @@
+{
+  "text": {
+    "heading": {
+      "0": {
+        "fontFamily": { "value": "{text.typeset.fontFamily.heading}" },
+        "fontSize": { "value": "{text.typeset.fontSize.md}" }
+      }
+    }
+  }
+}

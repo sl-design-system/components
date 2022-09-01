@@ -1,0 +1,37 @@
+{
+  "color": {
+    "palette": {
+      "primary": {
+        "base": { "value": "#1f97f9" },
+        "100": { "value": "#97cffc" }
+      },
+      "secondary": {
+        "base": { "value": "#ff8205" },
+        "100": { "value": "#ffbf80" }
+      },
+      "success": {
+        "base": { "value": "#13c3a3" },
+        "100": { "value": "#61efd5" }
+      },
+      "warning": {
+        "base": { "value": "#ff8205" },
+        "100": { "value": "#ffbf80" }
+      },
+      "danger": {
+        "base": { "value": "#ed1d23" },
+        "100": { "value": "#f68e91" }
+      }
+    }
+  },
+  "text": {
+    "typeset": {
+      "fontFamily": {
+        "heading": { "value": "arboria" }
+      },
+      "fontSize": {
+        "sm": { "value": 12 },
+        "md": { "value": 14 }
+      }
+    }
+  }
+}

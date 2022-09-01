@@ -3,6 +3,7 @@
   "description": "SLDS Design Tokens",
   "version": "0.0.1",
   "devDependencies": {
+    "lodash": "^4.17.21",
     "style-dictionary": "^3.7.1"
   }
 }

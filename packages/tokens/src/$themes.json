@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": "449e41c0b79397c25c33901ab5f3d8368791872f",
+    "name": "Sanoma Learning - Light",
+    "selectedTokenSets": {
+      "global": "disabled",
+      "core": "source",
+      "Typography": "disabled",
+      "sanoma-learning/light": "enabled",
+      "sanoma-learning/dark": "disabled",
+      "magister/light": "disabled",
+      "magister/dark": "disabled"
+    },
+    "$figmaStyleReferences": {}
+  },
+  {
+    "id": "a00a0a39a93c4999fa17c244b2d1efa344b553a5",
+    "name": "Sanoma Learning - Dark",
+    "selectedTokenSets": {
+      "global": "disabled",
+      "core": "source",
+      "Typography": "disabled",
+      "sanoma-learning/light": "enabled",
+      "sanoma-learning/dark": "enabled",
+      "magister/light": "disabled",
+      "magister/dark": "disabled"
+    },
+    "$figmaStyleReferences": {}
+  }
+]

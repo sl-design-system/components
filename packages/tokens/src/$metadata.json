@@ -1,9 +1,11 @@
 {
   "tokenSetOrder": [
     "global",
-    "sanoma-learning",
-    "Core",
+    "sanoma-learning/light",
+    "core",
     "Typography",
-    "magister"
+    "magister/dark",
+    "magister/light",
+    "sanoma-learning/dark"
   ]
 }

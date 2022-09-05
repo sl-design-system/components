@@ -1,0 +1,9 @@
+{
+  "tokenSetOrder": [
+    "global",
+    "sanoma-learning",
+    "Core",
+    "Typography",
+    "magister"
+  ]
+}

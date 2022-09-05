@@ -1,0 +1,122 @@
+{
+  "border": {
+    "radius": {
+      "none": {
+        "value": "0px",
+        "type": "borderRadius",
+        "description": "border.radius.none"
+      },
+      "sm": {
+        "value": "2px",
+        "type": "borderRadius",
+        "description": "border.radius.sm"
+      },
+      "md": {
+        "value": "4px",
+        "type": "borderRadius",
+        "description": "border.radius.md"
+      },
+      "lg": {
+        "value": "6px",
+        "type": "borderRadius",
+        "description": "border.radius.lg"
+      },
+      "xl": {
+        "value": "8px",
+        "type": "borderRadius",
+        "description": "border.radius.xl"
+      },
+      "full": {
+        "value": "100%",
+        "type": "borderRadius",
+        "description": "border.radius.full"
+      }
+    },
+    "width": {
+      "none": {
+        "value": "0px",
+        "type": "borderWidth",
+        "description": "border.width.none"
+      },
+      "sm": {
+        "value": "1px",
+        "type": "borderWidth",
+        "description": "border.width.sm"
+      },
+      "md": {
+        "value": "2px",
+        "type": "borderWidth",
+        "description": "border.width.md"
+      }
+    }
+  },
+  "size": {
+    "none": {
+      "value": "none",
+      "type": "sizing",
+      "description": "size.none"
+    },
+    "xs": {
+      "value": "16px",
+      "type": "sizing",
+      "description": "size.xs"
+    },
+    "sm": {
+      "value": "24px",
+      "type": "sizing",
+      "description": "size.xs"
+    },
+    "md": {
+      "value": "32px",
+      "type": "sizing",
+      "description": "size.md"
+    },
+    "lg": {
+      "value": "40px",
+      "type": "sizing",
+      "description": "size.lg"
+    },
+    "xl": {
+      "value": "48px",
+      "type": "sizing",
+      "description": "size.xl"
+    }
+  },
+  "space": {
+    "none": {
+      "value": "0px",
+      "type": "spacing",
+      "description": "space.none"
+    },
+    "xs": {
+      "value": "2",
+      "type": "spacing",
+      "description": "space.xs"
+    },
+    "sm": {
+      "value": "4",
+      "type": "spacing",
+      "description": "space.sm"
+    },
+    "md": {
+      "value": "8",
+      "type": "spacing",
+      "description": "space.md"
+    },
+    "lg": {
+      "value": "16",
+      "type": "spacing",
+      "description": "space.lg"
+    },
+    "xl": {
+      "value": "24",
+      "type": "spacing",
+      "description": "space.xl"
+    },
+    "2xl": {
+      "value": "32",
+      "type": "spacing",
+      "description": "space.2xl"
+    }
+  }
+}

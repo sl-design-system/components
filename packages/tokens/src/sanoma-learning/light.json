@@ -15,7 +15,7 @@
               "description": "color.button.primary.solid.idle.foreground"
             },
             "border": {
-              "value": "rgba ({color.palette.primary.500}, {opacity.transparent})",
+              "value": "rgba ({color.palette.primary.500},{opacity.transparent})",
               "type": "color",
               "description": "color.button.primary.solid.idle.border"
             }

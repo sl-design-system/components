@@ -6,25 +6,49 @@
         "type": "borderRadius",
         "description": "border.radius.none"
       },
+      "3xs": {
+        "value": "2",
+        "type": "borderRadius",
+        "description": "border.radius.3xs"
+      },
+      "2xs": {
+        "value": "4",
+        "type": "borderRadius",
+        "description": "border.radius.2xs"
+      },
+      "xs": {
+        "value": "6",
+        "type": "borderRadius",
+        "description": "border.radius.xs"
+      },
       "sm": {
-        "value": "2px",
+        "value": "8",
         "type": "borderRadius",
         "description": "border.radius.sm"
       },
       "md": {
-        "value": "4px",
+        "value": "10",
         "type": "borderRadius",
         "description": "border.radius.md"
       },
       "lg": {
-        "value": "6px",
+        "value": "12",
         "type": "borderRadius",
         "description": "border.radius.lg"
       },
       "xl": {
-        "value": "8px",
+        "value": "14",
         "type": "borderRadius",
         "description": "border.radius.xl"
+      },
+      "2xl": {
+        "value": "16",
+        "type": "borderRadius"
+      },
+      "3xl": {
+        "value": "18",
+        "type": "borderRadius",
+        "description": "border.radius.3xl"
       },
       "full": {
         "value": "100%",
@@ -38,15 +62,40 @@
         "type": "borderWidth",
         "description": "border.width.none"
       },
+      "2xs": {
+        "value": "0.5",
+        "type": "borderWidth",
+        "description": "2xs"
+      },
+      "xs": {
+        "value": "1",
+        "type": "borderWidth",
+        "description": "border.width.xs"
+      },
       "sm": {
-        "value": "1px",
+        "value": "2",
         "type": "borderWidth",
         "description": "border.width.sm"
       },
       "md": {
-        "value": "2px",
+        "value": "3",
         "type": "borderWidth",
         "description": "border.width.md"
+      },
+      "lg": {
+        "value": "4",
+        "type": "borderWidth",
+        "description": "border.width.lg"
+      },
+      "xl": {
+        "value": "5",
+        "type": "borderWidth",
+        "description": "border.width.xl"
+      },
+      "2xl": {
+        "value": "6",
+        "type": "borderWidth",
+        "description": "border.width.2xl"
       }
     }
   },
@@ -113,65 +162,100 @@
       "type": "sizing",
       "description": "size.none"
     },
+    "4xs": {
+      "value": "2",
+      "type": "sizing",
+      "description": "size.4xs"
+    },
+    "3xs": {
+      "value": "4",
+      "type": "sizing",
+      "description": "size.3xs"
+    },
+    "2xs": {
+      "value": "8",
+      "type": "sizing",
+      "description": "size.2xs"
+    },
     "xs": {
-      "value": "16px",
+      "value": "16",
       "type": "sizing",
       "description": "size.xs"
     },
     "sm": {
-      "value": "24px",
+      "value": "24",
       "type": "sizing",
       "description": "size.xs"
     },
     "md": {
-      "value": "32px",
+      "value": "32",
       "type": "sizing",
       "description": "size.md"
     },
     "lg": {
-      "value": "40px",
+      "value": "40",
       "type": "sizing",
       "description": "size.lg"
     },
     "xl": {
-      "value": "48px",
+      "value": "48",
       "type": "sizing",
       "description": "size.xl"
+    },
+    "2xl": {
+      "value": "56",
+      "type": "sizing",
+      "description": "size.2xl"
+    },
+    "3xl": {
+      "value": "64",
+      "type": "sizing",
+      "description": "size.3xl"
+    },
+    "4xl": {
+      "value": "72",
+      "type": "sizing",
+      "description": "size.4xl"
     }
   },
   "space": {
     "none": {
-      "value": "0px",
+      "value": "0",
       "type": "spacing",
       "description": "space.none"
     },
+    "2xs": {
+      "value": "2",
+      "type": "spacing",
+      "description": "space.2xs"
+    },
     "xs": {
-      "value": "2px",
+      "value": "4",
       "type": "spacing",
       "description": "space.xs"
     },
     "sm": {
-      "value": "4px",
+      "value": "8",
       "type": "spacing",
       "description": "space.sm"
     },
     "md": {
-      "value": "8px",
+      "value": "16",
       "type": "spacing",
       "description": "space.md"
     },
     "lg": {
-      "value": "16px",
+      "value": "16",
       "type": "spacing",
       "description": "space.lg"
     },
     "xl": {
-      "value": "24px",
+      "value": "24",
       "type": "spacing",
       "description": "space.xl"
     },
     "2xl": {
-      "value": "32px",
+      "value": "32",
       "type": "spacing",
       "description": "space.2xl"
     }
@@ -189,6 +273,18 @@
         },
         "type": "boxShadow",
         "description": "box.shadow.none"
+      },
+      "xs": {
+        "value": {
+          "x": "{size.none}",
+          "y": "{size.none}",
+          "blur": "{size.xs}",
+          "spread": "{size.none}",
+          "color": "rgba({color.palette.black.base}, {opacity.600})",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow",
+        "description": "box.shadow.100"
       }
     }
   }

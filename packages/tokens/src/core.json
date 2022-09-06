@@ -52,7 +52,7 @@
   },
   "size": {
     "none": {
-      "value": "none",
+      "value": "0px",
       "type": "sizing",
       "description": "size.none"
     },
@@ -89,32 +89,32 @@
       "description": "space.none"
     },
     "xs": {
-      "value": "2",
+      "value": "2px",
       "type": "spacing",
       "description": "space.xs"
     },
     "sm": {
-      "value": "4",
+      "value": "4px",
       "type": "spacing",
       "description": "space.sm"
     },
     "md": {
-      "value": "8",
+      "value": "8px",
       "type": "spacing",
       "description": "space.md"
     },
     "lg": {
-      "value": "16",
+      "value": "16px",
       "type": "spacing",
       "description": "space.lg"
     },
     "xl": {
-      "value": "24",
+      "value": "24px",
       "type": "spacing",
       "description": "space.xl"
     },
     "2xl": {
-      "value": "32",
+      "value": "32px",
       "type": "spacing",
       "description": "space.2xl"
     }

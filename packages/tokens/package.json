@@ -2,8 +2,24 @@
   "name": "@slds/tokens",
   "description": "SLDS Design Tokens",
   "version": "0.0.1",
+  "scripts": {
+    "build": "wireit",
+    "build:transformer": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "build:transform"
+      ]
+    },
+    "build:transform": {
+      "command": "token-transformer"
+    }
+  },
   "devDependencies": {
     "lodash": "^4.17.21",
-    "style-dictionary": "^3.7.1"
+    "style-dictionary": "^3.7.1",
+    "token-transformer": "^0.0.25",
+    "wireit": "^0.7.1"
   }
 }

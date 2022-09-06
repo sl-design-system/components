@@ -175,5 +175,21 @@
       "type": "spacing",
       "description": "space.2xl"
     }
+  },
+  "box": {
+    "shadow": {
+      "none": {
+        "value": {
+          "x": "{size.none}",
+          "y": "{size.none}",
+          "blur": "{size.none}",
+          "spread": "{size.none}",
+          "color": "#000000",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow",
+        "description": "box.shadow.none"
+      }
+    }
   }
 }

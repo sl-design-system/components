@@ -511,5 +511,47 @@
         }
       }
     }
+  },
+  "text": {
+    "typeset": {
+      "fontFamily": {
+        "heading": {
+          "value": "The Message",
+          "type": "fontFamilies",
+          "description": "text.typeset.fontFamily.heading"
+        },
+        "body": {
+          "value": "The Message",
+          "type": "fontFamilies",
+          "description": "text.typeset.fontFamily.body"
+        }
+      },
+      "fontWeight": {
+        "regular": {
+          "value": "Regular",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.regular"
+        },
+        "demibold": {
+          "value": "DemiBold",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.demibold"
+        },
+        "bold": {
+          "value": "Bold",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.bold"
+        }
+      },
+      "heading": {
+        "0": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.heading}",
+            "fontWeight": "{text.typeset.fontWeight.bold}"
+          },
+          "type": "typography"
+        }
+      }
+    }
   }
 }

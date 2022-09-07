@@ -547,7 +547,12 @@
         "0": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.heading}",
-            "fontWeight": "{text.typeset.fontWeight.bold}"
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.5xl}",
+            "fontSize": "{text.typeset.fontSize.5xl}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "textCase": "{text.typeset.textCase.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
           },
           "type": "typography"
         }

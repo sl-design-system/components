@@ -503,6 +503,38 @@
           "type": "textCase",
           "description": "text.typeset.textCase.capitalize"
         }
+      },
+      "letterSpacing": {
+        "none": {
+          "value": "0%",
+          "type": "letterSpacing",
+          "description": "text.typeset.letterSpacing.none"
+        },
+        "xs": {
+          "value": "-2%",
+          "type": "letterSpacing",
+          "description": "text.typeset.letterSpacing.xs"
+        },
+        "sm": {
+          "value": "-1%",
+          "type": "letterSpacing",
+          "description": "text.typeset.letterSpacing.sm"
+        },
+        "md": {
+          "value": "0%",
+          "type": "letterSpacing",
+          "description": "text.typeset.letterSpacing.md"
+        },
+        "lg": {
+          "value": "1%",
+          "type": "letterSpacing",
+          "description": "text.typeset.letterSpacing.lg"
+        },
+        "xl": {
+          "value": "2%",
+          "type": "letterSpacing",
+          "description": "text.typeset.letterSpacing.xl"
+        }
       }
     }
   }

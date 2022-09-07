@@ -169,6 +169,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@slds/magister@workspace:packages/tokens/src/magister":
+  version: 0.0.0-use.local
+  resolution: "@slds/magister@workspace:packages/tokens/src/magister"
+  languageName: unknown
+  linkType: soft
+
 "@slds/root@workspace:.":
   version: 0.0.0-use.local
   resolution: "@slds/root@workspace:."
@@ -185,6 +191,15 @@ __metadata:
     prettier: ^2.7.1
     rimraf: ^3.0.2
     typescript: ^4.8.2
+    wireit: ^0.7.1
+  languageName: unknown
+  linkType: soft
+
+"@slds/sanoma-learning@workspace:packages/tokens/src/sanoma-learning":
+  version: 0.0.0-use.local
+  resolution: "@slds/sanoma-learning@workspace:packages/tokens/src/sanoma-learning"
+  dependencies:
+    token-transformer: ^0.0.25
     wireit: ^0.7.1
   languageName: unknown
   linkType: soft

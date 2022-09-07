@@ -1,19 +1,19 @@
 {
   "name": "@slds/tokens",
-  "description": "SLDS Design Tokens",
+  "description": "Sanoma Learning Design System Tokens",
   "version": "0.0.1",
+  "type": "module",
+  "workspaces": [
+    "src/*"
+  ],
   "scripts": {
-    "build": "wireit",
-    "build:transformer": "wireit"
+    "build": "wireit"
   },
   "wireit": {
     "build": {
       "dependencies": [
-        "build:transform"
+        "./src/sanoma-learning:build"
       ]
-    },
-    "build:transform": {
-      "command": "token-transformer"
     }
   },
   "devDependencies": {

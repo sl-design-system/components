@@ -15,7 +15,7 @@ const tokenSets = Object
 
 await (async () => {
   return new Promise((resolve, reject) => {
-    exec(`yarn run token-transformer .. tokens.json ${tokenSets.join(',')}`, error => {
+    exec(`yarn run token-transformer .. tokens.json ${tokenSets.join(',')} --resolveReferences=false`, error => {
       if (error) {
         reject(error);
       }
@@ -27,6 +27,7 @@ await (async () => {
 
 StyleDictionary
   .registerFileHeader(FileHeaders.legal)
+  .registerTransform(Transforms.shadow)
   .registerTransform(Transforms.sizePx)
   .registerTransformGroup(TransformGroups.css)
   .extend({

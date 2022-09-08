@@ -2,7 +2,7 @@
   "border": {
     "radius": {
       "none": {
-        "value": "0px",
+        "value": "0",
         "type": "borderRadius",
         "description": "border.radius.none"
       },
@@ -58,7 +58,7 @@
     },
     "width": {
       "none": {
-        "value": "0px",
+        "value": "0",
         "type": "borderWidth",
         "description": "border.width.none"
       },
@@ -158,7 +158,7 @@
   },
   "size": {
     "none": {
-      "value": "0px",
+      "value": "0",
       "type": "sizing",
       "description": "size.none"
     },

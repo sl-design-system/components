@@ -5,6 +5,7 @@ export const css = {
     'attribute/color',
     'name/cti/kebab',
     'time/seconds',
-    'size/px'
+    'size/px',
+    'shadow/css'
   ]
 };

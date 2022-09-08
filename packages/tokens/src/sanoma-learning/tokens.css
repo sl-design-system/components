@@ -3,12 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Wed, 07 Sep 2022 12:22:00 GMT
+ * Generated on Thu, 08 Sep 2022 07:45:57 GMT
  */
 
 :root {
-  --sl-box-shadow-xs: [object Object];
-  --sl-box-shadow-none: [object Object];
   --sl-space-2xl: 32px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -28,7 +26,7 @@
   --sl-size-2xs: 8px;
   --sl-size-3xs: 4px;
   --sl-size-4xs: 2px;
-  --sl-size-none: 0pxpx;
+  --sl-size-none: 0px;
   --sl-opacity-transparent: 0;
   --sl-opacity-1000: 1;
   --sl-opacity-900: 0.8;
@@ -47,8 +45,8 @@
   --sl-border-width-sm: 2px;
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
-  --sl-border-width-none: 0pxpx;
-  --sl-border-radius-full: 100%px;
+  --sl-border-width-none: 0px;
+  --sl-border-radius-full: 100%;
   --sl-border-radius-3xl: 18px;
   --sl-border-radius-2xl: 16px;
   --sl-border-radius-xl: 14px;
@@ -58,7 +56,58 @@
   --sl-border-radius-xs: 6px;
   --sl-border-radius-2xs: 4px;
   --sl-border-radius-3xs: 2px;
-  --sl-border-radius-none: 0pxpx;
+  --sl-border-radius-none: 0px;
+  --sl-text-typeset-letter-spacing-xl: 2%;
+  --sl-text-typeset-letter-spacing-lg: 1%;
+  --sl-text-typeset-letter-spacing-md: 0%;
+  --sl-text-typeset-letter-spacing-sm: -1%;
+  --sl-text-typeset-letter-spacing-xs: -2%;
+  --sl-text-typeset-letter-spacing-none: 0%;
+  --sl-text-typeset-text-case-capitalize: capitalize;
+  --sl-text-typeset-text-case-lowercase: lowercase;
+  --sl-text-typeset-text-case-uppercase: uppercase;
+  --sl-text-typeset-text-case-none: none;
+  --sl-text-typeset-text-decoration-strikethrough: strikethrough;
+  --sl-text-typeset-text-decoration-underline: underline;
+  --sl-text-typeset-text-decoration-none: none;
+  --sl-text-typeset-paragraph-spacing-5xl: 64;
+  --sl-text-typeset-paragraph-spacing-4xl: 58;
+  --sl-text-typeset-paragraph-spacing-3xl: 42;
+  --sl-text-typeset-paragraph-spacing-2xl: 34;
+  --sl-text-typeset-paragraph-spacing-xl: 28;
+  --sl-text-typeset-paragraph-spacing-lg: 24;
+  --sl-text-typeset-paragraph-spacing-md: 22;
+  --sl-text-typeset-paragraph-spacing-sm: 18;
+  --sl-text-typeset-paragraph-spacing-xs: 14;
+  --sl-text-typeset-paragraph-spacing-none: 0;
+  --sl-text-typeset-line-height-5xl: 64;
+  --sl-text-typeset-line-height-4xl: 58;
+  --sl-text-typeset-line-height-3xl: 42;
+  --sl-text-typeset-line-height-2xl: 34;
+  --sl-text-typeset-line-height-xl: 28;
+  --sl-text-typeset-line-height-lg: 24;
+  --sl-text-typeset-line-height-md: 22;
+  --sl-text-typeset-line-height-sm: 16;
+  --sl-text-typeset-line-height-xs: 14;
+  --sl-text-typeset-font-size-5xl: 54;
+  --sl-text-typeset-font-size-4xl: 48;
+  --sl-text-typeset-font-size-3xl: 32;
+  --sl-text-typeset-font-size-2xl: 24;
+  --sl-text-typeset-font-size-xl: 18;
+  --sl-text-typeset-font-size-lg: 16;
+  --sl-text-typeset-font-size-md: 14;
+  --sl-text-typeset-font-size-sm: 12;
+  --sl-text-typeset-font-size-xs: 10;
+  --sl-text-typeset-font-familty-icon: Font Awesome 6 Pro;
+  --sl-text-typeset-font-weight-icon-solid: Solid;
+  --sl-text-typeset-font-weight-icon-regular: Regular;
+  --sl-text-typeset-font-weight-icon-light: Light;
+  --sl-text-typeset-font-weight-icon-thin: Thin;
+  --sl-text-typeset-font-weight-bold: Bold;
+  --sl-text-typeset-font-weight-demibold: DemiBold;
+  --sl-text-typeset-font-weight-regular: Regular;
+  --sl-text-typeset-font-family-body: The Message;
+  --sl-text-typeset-font-family-heading: The Message;
   --sl-color-palette-warning-base: #FFD10F;
   --sl-color-palette-warning-900: #2B2317;
   --sl-color-palette-warning-800: #453822;
@@ -157,16 +206,19 @@
   --sl-color-palette-primary-150: #B1DFC1;
   --sl-color-palette-primary-100: #DAEEE0;
   --sl-color-palette-primary-50: #FBFCFB;
-  --sl-color-button-primary-solid-disabled-border: #bcbcbc00;
-  --sl-color-button-primary-solid-disabled-foreground: #EAEAEA;
-  --sl-color-button-primary-solid-disabled-background: #BCBCBC;
-  --sl-color-button-primary-solid-active-border: #1e292200;
-  --sl-color-button-primary-solid-active-foreground: #FBFCFB;
-  --sl-color-button-primary-solid-active-background: #1e2922a3;
-  --sl-color-button-primary-solid-hover-border: #1e292200;
-  --sl-color-button-primary-solid-hover-foreground: #FBFCFB;
-  --sl-color-button-primary-solid-hover-background: #1e29227a;
-  --sl-color-button-primary-solid-idle-border: rgba (#487E5C,0);
-  --sl-color-button-primary-solid-idle-foreground: #FBFCFB;
-  --sl-color-button-primary-solid-idle-background: #487E5C;
+  --sl-box-shadow-xs: var(--sl-size-none) var(--sl-size-none) var(--sl-size-xs) var(--sl-size-none) rgba(var(--sl-color-palette-black-base), var(--sl-opacity-600));
+  --sl-box-shadow-none: var(--sl-size-none) var(--sl-size-none) var(--sl-size-none) var(--sl-size-none) #000000;
+  --sl-text-typeset-heading-0: [object Object];
+  --sl-color-button-primary-solid-disabled-border: rgba(var(--sl-color-palette-neutral-200), 0);
+  --sl-color-button-primary-solid-disabled-foreground: var(--sl-color-palette-neutral-100);
+  --sl-color-button-primary-solid-disabled-background: var(--sl-color-palette-neutral-200);
+  --sl-color-button-primary-solid-active-border: rgba(var(--sl-color-palette-primary-900), 0);
+  --sl-color-button-primary-solid-active-foreground: var(--sl-color-palette-primary-50);
+  --sl-color-button-primary-solid-active-background: rgba(var(--sl-color-palette-primary-900), var(--sl-opacity-800));
+  --sl-color-button-primary-solid-hover-border: rgba(var(--sl-color-palette-primary-900), 0);
+  --sl-color-button-primary-solid-hover-foreground: var(--sl-color-palette-primary-50);
+  --sl-color-button-primary-solid-hover-background: rgba(var(--sl-color-palette-primary-900), var(--sl-opacity-700));
+  --sl-color-button-primary-solid-idle-border: rgba (var(--sl-color-palette-primary-500),0);
+  --sl-color-button-primary-solid-idle-foreground: var(--sl-color-palette-primary-50);
+  --sl-color-button-primary-solid-idle-background: var(--sl-color-palette-primary-500);
 }

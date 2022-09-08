@@ -1,7 +1,7 @@
 [
   {
     "id": "449e41c0b79397c25c33901ab5f3d8368791872f",
-    "name": "Sanoma Learning - Light",
+    "name": "sanoma-learning/light",
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",
@@ -15,7 +15,7 @@
   },
   {
     "id": "a00a0a39a93c4999fa17c244b2d1efa344b553a5",
-    "name": "Sanoma Learning - Dark",
+    "name": "sanoma-learning/dark",
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",

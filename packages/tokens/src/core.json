@@ -260,32 +260,18 @@
       "description": "space.2xl"
     }
   },
-  "box": {
-    "shadow": {
-      "none": {
-        "value": {
-          "x": "{size.none}",
-          "y": "{size.none}",
-          "blur": "{size.none}",
-          "spread": "{size.none}",
-          "color": "#000000",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "box.shadow.none"
+  "shadow": {
+    "card": {
+      "value": {
+        "x": "{size.none}",
+        "y": "{size.4xs}",
+        "blur": "{size.4xs}",
+        "spread": "{size.none}",
+        "color": "rgba({color.palette.black.base}, {opacity.600})",
+        "type": "dropShadow"
       },
-      "xs": {
-        "value": {
-          "x": "{size.none}",
-          "y": "{size.none}",
-          "blur": "{size.xs}",
-          "spread": "{size.none}",
-          "color": "rgba({color.palette.black.base}, {opacity.600})",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "box.shadow.100"
-      }
+      "type": "boxShadow",
+      "description": "shadow.card"
     }
   },
   "text": {

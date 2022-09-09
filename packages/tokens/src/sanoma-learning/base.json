@@ -760,7 +760,7 @@
               "letterSpacing": "{text.typeset.letterSpacing.lg}",
               "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
               "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.uppercase}"
+              "textCase": "{text.typeset.textCase.none}"
             },
             "type": "typography",
             "description": "text.typeset.button.sm.idle"
@@ -774,7 +774,7 @@
               "letterSpacing": "{text.typeset.letterSpacing.lg}",
               "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
               "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.uppercase}"
+              "textCase": "{text.typeset.textCase.none}"
             },
             "type": "typography",
             "description": "text.typeset.button.sm.hover"
@@ -790,7 +790,7 @@
               "letterSpacing": "{text.typeset.letterSpacing.lg}",
               "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
               "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.uppercase}"
+              "textCase": "{text.typeset.textCase.none}"
             },
             "type": "typography",
             "description": "text.typeset.button.md.idle"
@@ -804,7 +804,7 @@
               "letterSpacing": "{text.typeset.letterSpacing.lg}",
               "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
               "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.uppercase}"
+              "textCase": "{text.typeset.textCase.none}"
             },
             "type": "typography",
             "description": "text.typeset.button.md.hover"
@@ -814,13 +814,13 @@
           "idle": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{text.typeset.lineHeight.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
-              "letterSpacing": "{text.typeset.letterSpacing.lg}",
+              "letterSpacing": "{text.typeset.letterSpacing.xl}",
               "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
               "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.uppercase}"
+              "textCase": "{text.typeset.textCase.none}"
             },
             "type": "typography",
             "description": "text.typeset.button.lg.idle"
@@ -828,13 +828,13 @@
           "hover": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{text.typeset.lineHeight.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
-              "letterSpacing": "{text.typeset.letterSpacing.lg}",
+              "letterSpacing": "{text.typeset.letterSpacing.xl}",
               "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
               "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.uppercase}"
+              "textCase": "{text.typeset.textCase.none}"
             },
             "type": "typography",
             "description": "text.typeset.button.lg.hover"

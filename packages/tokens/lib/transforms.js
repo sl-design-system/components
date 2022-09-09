@@ -1,3 +1,17 @@
+export const palette = {
+  name: 'attribute/palette',
+  type: 'attribute',
+  transformer: token => {
+    const { category, type } = token.attributes;
+
+    if (category === 'color' && type === 'palette') {
+      token.palette = true;
+    }
+
+    return token;
+  }
+};
+
 export const shadow = {
   name: 'shadow/css',
   type: 'value',

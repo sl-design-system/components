@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import StyleDictionary from 'style-dictionary';
 import * as FileHeaders from './lib/file-headers.js';
+import * as Formats from './lib/formats.js';
 import * as Transforms from './lib/transforms.js';
 import * as TransformGroups from './lib/transform-groups.js';
 import themes from './src/$themes.json' assert { type: 'json' };
@@ -27,6 +28,8 @@ await (async () => {
 
 StyleDictionary
   .registerFileHeader(FileHeaders.legal)
+  .registerFormat(Formats.cssVariables)
+  .registerTransform(Transforms.palette)
   .registerTransform(Transforms.shadow)
   .registerTransform(Transforms.sizePx)
   .registerTransformGroup(TransformGroups.css)

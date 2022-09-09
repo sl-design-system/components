@@ -5,6 +5,7 @@ export const cssVariables = {
   formatter: ({ dictionary, options: { selector = ':root' }, file }) => {
     const tokens = dictionary.allTokens
       .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
+      .filter(token => typeof token.value !== 'object')
       .map(token => {
         let value = token.value;
 
@@ -33,8 +34,9 @@ export const cssVariables = {
         } else {
           return StyleDictionary.formatHelpers.createPropertyFormatter({ format: 'css', dictionary, outputReferences: true })(token);
         }
-      });
+      })
+      .join('\n');
 
-    return StyleDictionary.formatHelpers.fileHeader({ file }) + `${selector} {\n${tokens.join('\n')}\n}\n`;
+    return StyleDictionary.formatHelpers.fileHeader({ file }) + `${selector} {\n${tokens}\n}\n`;
   }
 };

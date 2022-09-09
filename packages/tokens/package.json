@@ -3,17 +3,23 @@
   "description": "Sanoma Learning Design System Tokens",
   "version": "0.0.1",
   "type": "module",
-  "workspaces": [
-    "src/*"
-  ],
   "scripts": {
-    "build": "wireit"
+    "build": "wireit",
+    "build:sanoma-learning/light": "wireit",
+    "build:sanoma-learning/dark": "wireit"
   },
   "wireit": {
     "build": {
       "dependencies": [
-        "./src/sanoma-learning:build"
+        "build:sanoma-learning/light",
+        "build:sanoma-learning/dark"
       ]
+    },
+    "build:sanoma-learning/light": {
+      "command": "yarn node --no-warnings build.js sanoma-learning/light"
+    },
+    "build:sanoma-learning/dark": {
+      "command": "yarn node --no-warnings build.js sanoma-learning/dark"
     }
   },
   "devDependencies": {

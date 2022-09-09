@@ -6,8 +6,10 @@ import * as Transforms from './lib/transforms.js';
 import * as TransformGroups from './lib/transform-groups.js';
 import themes from './src/$themes.json' assert { type: 'json' };
 
-const name = process.argv.at(2),
-  theme = themes.find(theme => theme.name === name);
+const id = process.argv.at(2),
+  [name, variant] = id.split('/'),
+  theme = themes.find(theme => theme.name === id),
+  output = `dist/${name}/${variant}.json`;
 
 const tokenSets = Object
   .entries(theme.selectedTokenSets)
@@ -16,15 +18,15 @@ const tokenSets = Object
 
 await (async () => {
   return new Promise((resolve, reject) => {
-    exec(`yarn run token-transformer .. tokens.json ${tokenSets.join(',')} --resolveReferences=false`, error => {
+    exec(`yarn run token-transformer src ${output} ${tokenSets.join(',')} --resolveReferences=false`, error => {
       if (error) {
         reject(error);
       }
     
       resolve();
     });
-  })
-});
+  });
+})();
 
 StyleDictionary
   .registerFileHeader(FileHeaders.legal)
@@ -34,7 +36,7 @@ StyleDictionary
   .registerTransform(Transforms.sizePx)
   .registerTransformGroup(TransformGroups.css)
   .extend({
-    source: ['tokens.json'],
+    source: [output],
     platforms: {
       css: {
         transformGroup: 'css',
@@ -42,7 +44,7 @@ StyleDictionary
         buildPath: './',
         files: [
           {
-            destination: 'tokens.css',
+            destination: `dist/${name}/${variant}.css`,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',

@@ -13,7 +13,8 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "./packages/core:build"
+        "./packages/core:build",
+        "./packages/tokens:build"
       ]
     },
     "clean": {

@@ -53,6 +53,11 @@ export const scssMixins = {
         return prev;
       }, {});
 
+    const keys = {
+      paragraphSpacing: 'marginBottom',
+      textCase: 'textTransform'
+    };
+
     const mixins = Object.entries(groupMap)
       .map(([name, token]) => {
         const props = Object.entries(token.original.value)
@@ -64,6 +69,10 @@ export const scssMixins = {
                 value = value.toString().replace(ref.value, () => `var(--${ref.name})`);
               }
             });
+
+            if (keys[key]) {
+              key = keys[key];
+            }
 
             key = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 

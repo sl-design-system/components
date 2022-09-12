@@ -2,6 +2,7 @@
   "name": "@slds/tokens",
   "description": "Sanoma Learning Design System Tokens",
   "version": "0.0.1",
+  "private": true,
   "type": "module",
   "scripts": {
     "build": "wireit",

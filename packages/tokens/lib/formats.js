@@ -4,8 +4,8 @@ export const cssVariables = {
   name: 'css/variables',
   formatter: ({ dictionary, options: { selector = ':root' }, file }) => {
     const tokens = dictionary.allTokens
-      .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
       .filter(token => typeof token.value !== 'object')
+      .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
       .map(token => {
         let value = token.value;
 
@@ -38,5 +38,42 @@ export const cssVariables = {
       .join('\n');
 
     return StyleDictionary.formatHelpers.fileHeader({ file }) + `${selector} {\n${tokens}\n}\n`;
+  }
+};
+
+export const scssMixins = {
+  name: 'scss/mixins',
+  formatter: ({ dictionary, options = {}, file }) => {
+    const groupMap = dictionary.allTokens
+      .filter(token => typeof token.value === 'object')
+      .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
+      .reduce((prev, curr) => {
+        prev[curr.name] = curr;
+
+        return prev;
+      }, {});
+
+    return Object.entries(groupMap)
+      .map(([name, token]) => {
+        const props = Object.entries(token.original.value)
+          .map(([key, originalValue]) => {            
+            let value = token.value[key];
+
+            dictionary.getReferences(originalValue).forEach(ref => {
+              if (ref.name && ref.value) {
+                value = value.toString().replace(ref.value, () => `var(--${ref.name})`);
+              }
+            });
+
+            key = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+            return `  ${key}: ${value};`;
+          })
+          .join('\n');
+
+        return `@mixin sl-${name} {\n${props}\n}`;
+      })
+      .join('\n');
+    // return StyleDictionary.formatHelpers.fileHeader({ file }) + `${selector} {\n${tokens}\n}\n`;
   }
 };

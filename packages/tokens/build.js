@@ -31,6 +31,7 @@ await (async () => {
 StyleDictionary
   .registerFileHeader(FileHeaders.legal)
   .registerFormat(Formats.cssVariables)
+  .registerFormat(Formats.scssMixins)
   .registerTransform(Transforms.palette)
   .registerTransform(Transforms.shadow)
   .registerTransform(Transforms.sizePx)
@@ -46,6 +47,19 @@ StyleDictionary
           {
             destination: `dist/${name}/${variant}.css`,
             format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true
+            }
+          }
+        ]
+      },
+      scss: {
+        transformGroup: 'css',
+        files: [
+          {
+            destination: `dist/${name}/${variant}.scss`,
+            format: 'scss/mixins',
             options: {
               fileHeader: 'sl/legal',
               outputReferences: true

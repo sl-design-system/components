@@ -43,7 +43,7 @@ export const cssVariables = {
 
 export const scssMixins = {
   name: 'scss/mixins',
-  formatter: ({ dictionary, options = {}, file }) => {
+  formatter: ({ dictionary, file }) => {
     const groupMap = dictionary.allTokens
       .filter(token => typeof token.value === 'object')
       .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
@@ -53,7 +53,7 @@ export const scssMixins = {
         return prev;
       }, {});
 
-    return Object.entries(groupMap)
+    const mixins = Object.entries(groupMap)
       .map(([name, token]) => {
         const props = Object.entries(token.original.value)
           .map(([key, originalValue]) => {            
@@ -74,6 +74,7 @@ export const scssMixins = {
         return `@mixin sl-${name} {\n${props}\n}\n`;
       })
       .join('\n');
-    // return StyleDictionary.formatHelpers.fileHeader({ file }) + `${selector} {\n${tokens}\n}\n`;
+
+    return StyleDictionary.formatHelpers.fileHeader({ file }) + mixins;
   }
 };

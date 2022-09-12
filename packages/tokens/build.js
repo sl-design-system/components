@@ -58,7 +58,7 @@ StyleDictionary
         transformGroup: 'css',
         files: [
           {
-            destination: `dist/${name}/${variant}.scss`,
+            destination: `dist/${name}/mixins.scss`,
             format: 'scss/mixins',
             options: {
               fileHeader: 'sl/legal',

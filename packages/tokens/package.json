@@ -23,7 +23,6 @@
     }
   },
   "devDependencies": {
-    "lodash": "^4.17.21",
     "style-dictionary": "^3.7.1",
     "token-transformer": "^0.0.26",
     "wireit": "^0.7.1"

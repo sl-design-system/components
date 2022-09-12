@@ -71,7 +71,7 @@ export const scssMixins = {
           })
           .join('\n');
 
-        return `@mixin sl-${name} {\n${props}\n}`;
+        return `@mixin sl-${name} {\n${props}\n}\n`;
       })
       .join('\n');
     // return StyleDictionary.formatHelpers.fileHeader({ file }) + `${selector} {\n${tokens}\n}\n`;

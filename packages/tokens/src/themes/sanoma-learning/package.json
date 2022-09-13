@@ -7,7 +7,16 @@
   },
   "wireit": {
     "build": {
-      "command": "echo build"
+      "command": "yarn node --no-warnings ../../../build.js sanoma-learning",
+      "files": [
+        "../../figma/*.json",
+        "../../figma/sanoma-learning/*.json"
+      ],
+      "output": [
+        "*.js",
+        "*.css",
+        "*.scss"
+      ]
     }
   }
 }

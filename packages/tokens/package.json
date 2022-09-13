@@ -1,26 +1,20 @@
 {
   "name": "@slds/tokens",
-  "description": "Sanoma Learning Design System Tokens",
+  "description": "SLDS Design Tokens",
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "src/themes/sanoma-learning"
+  ],
   "scripts": {
-    "build": "wireit",
-    "build:sanoma-learning/light": "wireit",
-    "build:sanoma-learning/dark": "wireit"
+    "build": "wireit"
   },
   "wireit": {
     "build": {
       "dependencies": [
-        "build:sanoma-learning/light",
-        "build:sanoma-learning/dark"
+        "./src/themes/sanoma-learning:build"
       ]
-    },
-    "build:sanoma-learning/light": {
-      "command": "yarn node --no-warnings build.js sanoma-learning/light"
-    },
-    "build:sanoma-learning/dark": {
-      "command": "yarn node --no-warnings build.js sanoma-learning/dark"
     }
   },
   "devDependencies": {

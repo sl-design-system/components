@@ -1,0 +1,13 @@
+{
+  "name": "@slds/sanoma-learning",
+  "description": "SLDS Theme for Sanoma Learning",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "echo build"
+    }
+  }
+}

@@ -189,6 +189,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@slds/sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning":
+  version: 0.0.0-use.local
+  resolution: "@slds/sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning"
+  languageName: unknown
+  linkType: soft
+
 "@slds/tokens@workspace:packages/tokens":
   version: 0.0.0-use.local
   resolution: "@slds/tokens@workspace:packages/tokens"

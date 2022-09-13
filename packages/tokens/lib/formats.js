@@ -1,5 +1,52 @@
 import StyleDictionary from 'style-dictionary';
 
+export const cssClasses = {
+  name: 'css/classes',
+  formatter: ({ dictionary, options: { selector = ':root' }, file }) => {
+    const groupMap = dictionary.allTokens
+      .filter(token => typeof token.value === 'object')
+      .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
+      .reduce((prev, curr) => {
+        prev[curr.name] = curr;
+
+        return prev;
+      }, {});
+
+    const keys = {
+      paragraphSpacing: 'marginBottom',
+      textCase: 'textTransform'
+    };
+
+    const classes = Object.entries(groupMap)
+      .map(([name, token]) => {
+        const props = Object.entries(token.original.value)
+          .map(([key, originalValue]) => {            
+            let value = token.value[key];
+
+            dictionary.getReferences(originalValue).forEach(ref => {
+              if (ref.name && ref.value) {
+                value = value.toString().replace(ref.value, () => `var(--${ref.name})`);
+              }
+            });
+
+            if (keys[key]) {
+              key = keys[key];
+            }
+
+            key = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+            return `  ${key}: ${value};`;
+          })
+          .join('\n');
+
+        return `.${name} {\n${props}\n}\n`;
+      })
+      .join('\n');
+
+    return StyleDictionary.formatHelpers.fileHeader({ file }) + classes;
+  }
+};
+
 export const cssVariables = {
   name: 'css/variables',
   formatter: ({ dictionary, options: { selector = ':root' }, file }) => {

@@ -63,23 +63,8 @@ StyleDictionary
   .registerTransform(Transforms.sizePx)
   .registerTransformGroup(TransformGroups.css)
   .extend({
-    source: ['base.json'],
+    source: ['base.json', 'light.json', 'dark.json'],
     platforms: {
-      base: {
-        transformGroup: 'css',
-        prefix: 'sl',
-        buildPath: './',
-        files: [
-          {
-            destination: 'base.css',
-            format: 'css/variables',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true
-            }
-          }
-        ]
-      },
       global: {
         transformGroup: 'css',
         prefix: 'sl',
@@ -107,6 +92,22 @@ StyleDictionary
             }
           }
         ]
+      },
+      variants: {
+        transformGroup: 'css',
+        prefix: 'sl',
+        buildPath: './',
+        files: themes.map(theme => {
+          return {
+            destination: `${theme.variant}.css`,
+            format: 'css/variables',
+            filter: token => token.filePath.startsWith(theme.variant),
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true
+            }
+          };
+        })
       }
     }
   })

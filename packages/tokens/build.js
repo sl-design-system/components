@@ -55,6 +55,7 @@ await Promise.all(themes.map(({ variant, tokenSets }) => {
 
 StyleDictionary
   .registerFileHeader(FileHeaders.legal)
+  .registerFormat(Formats.cssAllInOne)
   .registerFormat(Formats.cssClasses)
   .registerFormat(Formats.cssVariables)
   .registerFormat(Formats.scssMixins)
@@ -65,6 +66,21 @@ StyleDictionary
   .extend({
     source: ['base.json', 'light.json', 'dark.json'],
     platforms: {
+      all: {
+        transformGroup: 'css',
+        prefix: 'sl',
+        buildPath: './',
+        files: [
+          {
+            destination: 'all.css',
+            format: 'css/all-in-one',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true
+            }
+          }
+        ]
+      },
       global: {
         transformGroup: 'css',
         prefix: 'sl',

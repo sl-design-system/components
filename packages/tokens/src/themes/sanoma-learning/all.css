@@ -207,4 +207,44 @@
   --sl-color-palette-secondary-100: 218 238 224;
   --sl-color-palette-secondary-50: 251 252 251;
   --sl-shadow-card: var(--sl-size-none) var(--sl-size-4xs) var(--sl-size-4xs) var(--sl-size-none) rgba(rgb(var(--sl-color-palette-black-base)), var(--sl-opacity-600));
+
+  @media (prefers-color-scheme: light) {
+    --sl-color-button-primary-ghost-idle-background: rgba(var(--sl-color-palette-primary-base) / 0);
+    --sl-color-button-primary-outline-disabled-border: rgb(var(--sl-color-palette-primary-200));
+    --sl-color-button-primary-outline-disabled-foreground: rgb(var(--sl-color-palette-primary-200));
+    --sl-color-button-primary-outline-disabled-background: rgba(var(--sl-color-palette-primary-base) / 0);
+    --sl-color-button-primary-outline-active-border: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-button-primary-outline-active-foreground: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-button-primary-outline-active-background: rgba(var(--sl-color-palette-primary-base) / 0);
+    --sl-color-button-primary-outline-hover-border: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-button-primary-outline-hover-foreground: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-button-primary-outline-hover-background: rgba(var(--sl-color-palette-primary-base) / var(--sl-opacity-200));
+    --sl-color-button-primary-outline-idle-border: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-button-primary-outline-idle-foreground: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-button-primary-outline-idle-background: rgba(var(--sl-color-palette-primary-base) / 0);
+    --sl-color-button-primary-subtle-disabled-border: rgba(var(--sl-color-palette-neutral-100) / 0);
+    --sl-color-button-primary-subtle-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-button-primary-subtle-disabled-background: rgb(var(--sl-color-palette-primary-100));
+    --sl-color-button-primary-subtle-active-border: rgba(var(--sl-color-palette-primary-base) /0);
+    --sl-color-button-primary-subtle-active-foreground: rgb(var(--sl-color-palette-primary-900));
+    --sl-color-button-primary-subtle-active-background: rgba(var(--sl-color-palette-primary-150) / var(--sl-opacity-600));
+    --sl-color-button-primary-subtle-hover-border: rgba(var(--sl-color-palette-secondary-base) / 0);
+    --sl-color-button-primary-subtle-hover-foreground: rgb(var(--sl-color-palette-primary-900));
+    --sl-color-button-primary-subtle-hover-background: rgba(var(--sl-color-palette-primary-150) / var(--sl-opacity-900));
+    --sl-color-button-primary-subtle-idle-border: rgba(var(--sl-color-palette-secondary-100) /0);
+    --sl-color-button-primary-subtle-idle-foreground: rgb(var(--sl-color-palette-primary-900));
+    --sl-color-button-primary-subtle-idle-background: rgba(var(--sl-color-palette-primary-150) / var(--sl-opacity-600));
+    --sl-color-button-primary-solid-disabled-border: rgba(var(--sl-color-palette-primary-200) / 0);
+    --sl-color-button-primary-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-100));
+    --sl-color-button-primary-solid-disabled-background: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-button-primary-solid-active-border: rgba(var(--sl-color-palette-primary-base) / var(--sl-opacity-500));
+    --sl-color-button-primary-solid-active-foreground: rgb(var(--sl-color-palette-primary-50));
+    --sl-color-button-primary-solid-active-background: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-button-primary-solid-hover-border: rgba(var(--sl-color-palette-secondary-base) / 0);
+    --sl-color-button-primary-solid-hover-foreground: rgb(var(--sl-color-palette-primary-50));
+    --sl-color-button-primary-solid-hover-background: rgba(var(--sl-color-palette-primary-base) / var(--sl-opacity-800));
+    --sl-color-button-primary-solid-idle-border: rgba(var(--sl-color-palette-primary-base) / 0);
+    --sl-color-button-primary-solid-idle-foreground: rgb(var(--sl-color-palette-primary-50));
+    --sl-color-button-primary-solid-idle-background: rgb(var(--sl-color-palette-primary-base));
+  }
 }

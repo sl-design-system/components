@@ -276,7 +276,7 @@
   },
   "text": {
     "typeset": {
-      "fontFamilty": {
+      "fontFamily": {
         "icon": {
           "value": "Font Awesome 6 Pro",
           "type": "fontFamilies",

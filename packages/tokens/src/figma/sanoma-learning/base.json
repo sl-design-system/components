@@ -748,97 +748,97 @@
             "description": "text.typeset.body.lg.bold"
           }
         }
+      }
+    },
+    "button": {
+      "sm": {
+        "idle": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "letterSpacing": "{text.typeset.letterSpacing.lg}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "textCase": "{text.typeset.textCase.none}"
+          },
+          "type": "typography",
+          "description": "text.button.sm.idle"
+        },
+        "hover": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "letterSpacing": "{text.typeset.letterSpacing.lg}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "textCase": "{text.typeset.textCase.none}"
+          },
+          "type": "typography",
+          "description": "text.button.sm.hover"
+        }
       },
-      "button": {
-        "sm": {
-          "idle": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
-              "lineHeight": "{text.typeset.lineHeight.sm}",
-              "fontSize": "{text.typeset.fontSize.sm}",
-              "letterSpacing": "{text.typeset.letterSpacing.lg}",
-              "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
-              "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.none}"
-            },
-            "type": "typography",
-            "description": "text.typeset.button.sm.idle"
+      "md": {
+        "idle": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "letterSpacing": "{text.typeset.letterSpacing.lg}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "textCase": "{text.typeset.textCase.none}"
           },
-          "hover": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
-              "lineHeight": "{text.typeset.lineHeight.sm}",
-              "fontSize": "{text.typeset.fontSize.sm}",
-              "letterSpacing": "{text.typeset.letterSpacing.lg}",
-              "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
-              "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.none}"
-            },
-            "type": "typography",
-            "description": "text.typeset.button.sm.hover"
-          }
+          "type": "typography",
+          "description": "text.button.md.idle"
         },
-        "md": {
-          "idle": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
-              "lineHeight": "{text.typeset.lineHeight.md}",
-              "fontSize": "{text.typeset.fontSize.md}",
-              "letterSpacing": "{text.typeset.letterSpacing.lg}",
-              "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
-              "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.none}"
-            },
-            "type": "typography",
-            "description": "text.typeset.button.md.idle"
+        "hover": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "letterSpacing": "{text.typeset.letterSpacing.lg}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "textCase": "{text.typeset.textCase.none}"
           },
-          "hover": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
-              "lineHeight": "{text.typeset.lineHeight.md}",
-              "fontSize": "{text.typeset.fontSize.md}",
-              "letterSpacing": "{text.typeset.letterSpacing.lg}",
-              "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
-              "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.none}"
-            },
-            "type": "typography",
-            "description": "text.typeset.button.md.hover"
-          }
+          "type": "typography",
+          "description": "text.button.md.hover"
+        }
+      },
+      "lg": {
+        "idle": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.xl}",
+            "fontSize": "{text.typeset.fontSize.xl}",
+            "letterSpacing": "{text.typeset.letterSpacing.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "textCase": "{text.typeset.textCase.none}"
+          },
+          "type": "typography",
+          "description": "text.button.lg.idle"
         },
-        "lg": {
-          "idle": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{text.typeset.lineHeight.xl}",
-              "fontSize": "{text.typeset.fontSize.xl}",
-              "letterSpacing": "{text.typeset.letterSpacing.none}",
-              "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
-              "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.none}"
-            },
-            "type": "typography",
-            "description": "text.typeset.button.lg.idle"
+        "hover": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.xl}",
+            "fontSize": "{text.typeset.fontSize.xl}",
+            "letterSpacing": "{text.typeset.letterSpacing.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "textCase": "{text.typeset.textCase.none}"
           },
-          "hover": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{text.typeset.lineHeight.xl}",
-              "fontSize": "{text.typeset.fontSize.xl}",
-              "letterSpacing": "{text.typeset.letterSpacing.none}",
-              "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
-              "textDecoration": "{text.typeset.textDecoration.none}",
-              "textCase": "{text.typeset.textCase.none}"
-            },
-            "type": "typography",
-            "description": "text.typeset.button.lg.hover"
-          }
+          "type": "typography",
+          "description": "text.button.lg.hover"
         }
       }
     }

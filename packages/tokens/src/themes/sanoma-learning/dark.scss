@@ -1,0 +1,60 @@
+/**
+ * Copyright 2022 Sanoma Learning
+ * SPDX-License-Identifier: Apache-2.0
+ * 
+ * Do not edit directly
+ * Generated on Thu, 15 Sep 2022 09:28:49 GMT
+ */
+
+@mixin sl-theme-dark {
+  --sl-color-body-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-body-background: rgb(var(--sl-color-palette-secondary-900));
+  --sl-color-button-primary-ghost-disabled-border: rgba(var(--sl-color-palette-primary-150) / 0);
+  --sl-color-button-primary-ghost-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-button-primary-ghost-disabled-background: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-ghost-active-border: rgba(var(--sl-color-palette-primary-150) / 0);
+  --sl-color-button-primary-ghost-active-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-ghost-active-background: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-ghost-hover-border: rgba(var(--sl-color-palette-primary-150) / 0);
+  --sl-color-button-primary-ghost-hover-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-ghost-hover-background: rgba(var(--sl-color-palette-primary-150) / var(--sl-opacity-500));
+  --sl-color-button-primary-ghost-idle-border: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-ghost-idle-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-ghost-idle-background: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-outline-disabled-border: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-button-primary-outline-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-button-primary-outline-disabled-background: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-outline-active-border: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-outline-active-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-outline-active-background: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-outline-hover-border: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-outline-hover-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-outline-hover-background: rgba(var(--sl-color-palette-primary-50) / var(--sl-opacity-300));
+  --sl-color-button-primary-outline-idle-border: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-outline-idle-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-outline-idle-background: rgba(var(--sl-color-palette-primary-base) / 0);
+  --sl-color-button-primary-subtle-disabled-border: rgba(var(--sl-color-palette-neutral-300) / 0);
+  --sl-color-button-primary-subtle-disabled-foreground: rgb(var(--sl-color-palette-primary-100));
+  --sl-color-button-primary-subtle-disabled-background: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-button-primary-subtle-active-border: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-subtle-active-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-subtle-active-background: rgba(var(--sl-color-palette-primary-50) / var(--sl-opacity-500));
+  --sl-color-button-primary-subtle-hover-border: rgba(var(--sl-color-palette-primary-150) / 0);
+  --sl-color-button-primary-subtle-hover-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-subtle-hover-background: rgba(var(--sl-color-palette-primary-150) / var(--sl-opacity-700));
+  --sl-color-button-primary-subtle-idle-border: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-subtle-idle-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-subtle-idle-background: rgba(var(--sl-color-palette-primary-50) / var(--sl-opacity-500));
+  --sl-color-button-primary-solid-disabled-border: rgba(var(--sl-color-palette-primary-100) / 0);
+  --sl-color-button-primary-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-button-primary-solid-disabled-background: rgb(var(--sl-color-palette-primary-100));
+  --sl-color-button-primary-solid-active-border: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-solid-active-foreground: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-button-primary-solid-active-background: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-solid-hover-border: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-solid-hover-foreground: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-button-primary-solid-hover-background: rgba(var(--sl-color-palette-primary-50) / var(--sl-opacity-900));
+  --sl-color-button-primary-solid-idle-border: rgba(var(--sl-color-palette-primary-50) / 0);
+  --sl-color-button-primary-solid-idle-foreground: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-button-primary-solid-idle-background: rgb(var(--sl-color-palette-primary-50));
+}

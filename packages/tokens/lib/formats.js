@@ -1,20 +1,5 @@
 import StyleDictionary from 'style-dictionary';
 
-const groupTokens = (dictionary) => {
-  const groups = { base: [], light: [], dark: [] };
-
-  dictionary.allTokens
-    .filter(token => typeof token.value !== 'object')
-    .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
-    .forEach(token => {
-      const group = token.filePath.split('.')[0];
-
-      groups[group].push(token);
-    });
-
-  return groups;
-};
-
 const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
   let value = token.value;
 
@@ -45,30 +30,11 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
   }
 };
 
-export const cssAllInOne = {
-  name: 'css/all-in-one',
-  formatter: ({ dictionary, options: { selector = ':root' }, file }) => {
-    const groups = groupTokens(dictionary);
-
-    let output = `${groups.base.map(token => tokenToCss(dictionary, token, { prefix: '  ' })).join('\n')}`;
-
-    if (groups.light.length) {
-      output += `\n\n  @media (prefers-color-scheme: light) {\n${groups.light.map(token => tokenToCss(dictionary, token, { prefix: '    ' })).join('\n')}\n  }`;
-    }
-
-    if (groups.dark.length) {
-      output += `\n\n  @media (prefers-color-scheme: dark) {\n${groups.dark.map(token => tokenToCss(dictionary, token, { prefix: '    ' })).join('\n')}\n  }`;
-    }
-
-    return StyleDictionary.formatHelpers.fileHeader({ file }) + `${selector} {\n${output}\n}\n`;
-  }
-};
-
-export const cssClasses = {
-  name: 'css/classes',
+export const cssTypography = {
+  name: 'custom/css/typography',
   formatter: ({ dictionary, file }) => {
     const groupMap = dictionary.allTokens
-      .filter(token => typeof token.value === 'object')
+      .filter(token => token.type === 'typography')
       .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
       .reduce((prev, curr) => {
         prev[curr.name] = curr;
@@ -112,51 +78,24 @@ export const cssClasses = {
 };
 
 export const cssVariables = {
-  name: 'css/variables',
-  formatter: ({ dictionary, options: { selector = ':root' }, file }) => {
+  name: 'custom/css/variables',
+  formatter: ({ dictionary, options, file }) => {
     const tokens = dictionary.allTokens
       .filter(token => typeof token.value !== 'object')
+      .filter(token => options.filterFile ? token.filePath === options.filterFile : true)
       .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
-      .map(token => {
-        let value = token.value;
-
-        if (token.palette) {
-          const { rgb: { r, g, b }} = token.attributes;
-
-          return `  --${token.name}: ${r} ${g} ${b};`;
-        } else if (dictionary.usesReference(token.original.value) && typeof value === 'string') {
-          const refs = dictionary.getReferences(token.original.value);
-
-          refs.forEach(ref => {
-            if (ref.value && ref.name) {
-              if (ref.palette && !value.startsWith('rgba(')) {
-                value = value.replace(ref.value, () => `rgb(var(--${ref.name}))`);
-              } else {
-                value = value.replace(ref.value, () => `var(--${ref.name})`);
-
-                if (value.startsWith('rgba')) {
-                  value = value.replace(',', ' /');
-                }
-              }
-            }
-          });
-
-          return `  --${token.name}: ${value};`;
-        } else {
-          return StyleDictionary.formatHelpers.createPropertyFormatter({ format: 'css', dictionary, outputReferences: true })(token);
-        }
-      })
+      .map(token => tokenToCss(dictionary, token, { prefix: '  ' }))
       .join('\n');
 
-    return StyleDictionary.formatHelpers.fileHeader({ file }) + `${selector} {\n${tokens}\n}\n`;
+    return StyleDictionary.formatHelpers.fileHeader({ file }) + `${options.selector || ':root'} {\n${tokens}\n}\n`;
   }
 };
 
-export const scssMixins = {
-  name: 'scss/mixins',
+export const scssTypography = {
+  name: 'custom/scss/typography',
   formatter: ({ dictionary, file }) => {
     const groupMap = dictionary.allTokens
-      .filter(token => typeof token.value === 'object')
+      .filter(token => token.type === 'typography')
       .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
       .reduce((prev, curr) => {
         prev[curr.name] = curr;
@@ -191,10 +130,26 @@ export const scssMixins = {
           })
           .join('\n');
 
-        return `@mixin sl-${name} {\n${props}\n}\n`;
+        return `@mixin ${name} {\n${props}\n}\n`;
       })
       .join('\n');
 
     return StyleDictionary.formatHelpers.fileHeader({ file }) + mixins;
+  }
+};
+
+export const scssVariables = {
+  name: 'custom/scss/variables',
+  formatter: ({ dictionary, file, options }) => {    
+    const tokens = dictionary.allTokens
+      .filter(token => options.filterFile ? token.filePath === options.filterFile : true)
+      .filter(token => typeof token.value !== 'object')
+      .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
+      .map(token => tokenToCss(dictionary, token, { prefix: '  ' }))
+      .join('\n');
+
+    const mixinName = options.mixinName || 'sl-theme-base';
+    
+    return StyleDictionary.formatHelpers.fileHeader({ file }) + `@mixin ${mixinName} {\n${tokens}\n}\n`;
   }
 };

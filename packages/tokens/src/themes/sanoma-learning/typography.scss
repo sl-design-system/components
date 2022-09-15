@@ -1,0 +1,227 @@
+/**
+ * Copyright 2022 Sanoma Learning
+ * SPDX-License-Identifier: Apache-2.0
+ * 
+ * Do not edit directly
+ * Generated on Thu, 15 Sep 2022 09:28:49 GMT
+ */
+
+@mixin sl-text-button-lg-hover {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-xl);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-button-lg-idle {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-xl);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-button-md-hover {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-button-md-idle {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-button-sm-hover {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-button-sm-idle {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-body-lg-bold {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-body-lg-demibold {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-body-lg-normal {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-body-md-bold {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-body-md-demibold {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-body-md-normal {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-body-sm-bold {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-body-sm-demibold {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-body-sm-normal {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-typeset-heading-4 {
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
+}
+
+@mixin sl-text-typeset-heading-3 {
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xl);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+}
+
+@mixin sl-text-typeset-heading-2 {
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-2xl);
+  font-size: var(--sl-text-typeset-font-size-2xl);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+}
+
+@mixin sl-text-typeset-heading-1 {
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-3xl);
+  font-size: var(--sl-text-typeset-font-size-3xl);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-sm);
+}
+
+@mixin sl-text-typeset-heading-0 {
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-4xl);
+  font-size: var(--sl-text-typeset-font-size-4xl);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-xs);
+}

@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Wed, 14 Sep 2022 09:15:21 GMT
+ * Generated on Thu, 15 Sep 2022 09:28:49 GMT
  */
 
-:root {
+@mixin sl-theme-base {
   --sl-space-2xl: 32px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -80,15 +80,15 @@
   --sl-text-typeset-paragraph-spacing-sm: 18px;
   --sl-text-typeset-paragraph-spacing-xs: 14px;
   --sl-text-typeset-paragraph-spacing-none: 0px;
-  --sl-text-typeset-line-height-5xl: 64;
-  --sl-text-typeset-line-height-4xl: 58;
-  --sl-text-typeset-line-height-3xl: 42;
-  --sl-text-typeset-line-height-2xl: 34;
-  --sl-text-typeset-line-height-xl: 28;
-  --sl-text-typeset-line-height-lg: 24;
-  --sl-text-typeset-line-height-md: 22;
-  --sl-text-typeset-line-height-sm: 16;
-  --sl-text-typeset-line-height-xs: 14;
+  --sl-text-typeset-line-height-5xl: 64px;
+  --sl-text-typeset-line-height-4xl: 58px;
+  --sl-text-typeset-line-height-3xl: 42px;
+  --sl-text-typeset-line-height-2xl: 34px;
+  --sl-text-typeset-line-height-xl: 28px;
+  --sl-text-typeset-line-height-lg: 24px;
+  --sl-text-typeset-line-height-md: 22px;
+  --sl-text-typeset-line-height-sm: 16px;
+  --sl-text-typeset-line-height-xs: 14px;
   --sl-text-typeset-font-size-5xl: 54;
   --sl-text-typeset-font-size-4xl: 48;
   --sl-text-typeset-font-size-3xl: 32;
@@ -98,7 +98,6 @@
   --sl-text-typeset-font-size-md: 14;
   --sl-text-typeset-font-size-sm: 12;
   --sl-text-typeset-font-size-xs: 10;
-  --sl-text-typeset-font-familty-icon: Font Awesome 6 Pro;
   --sl-text-typeset-font-weight-icon-solid: Solid;
   --sl-text-typeset-font-weight-icon-regular: Regular;
   --sl-text-typeset-font-weight-icon-light: Light;
@@ -106,6 +105,7 @@
   --sl-text-typeset-font-weight-bold: Bold;
   --sl-text-typeset-font-weight-demibold: DemiBold;
   --sl-text-typeset-font-weight-regular: Regular;
+  --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
   --sl-text-typeset-font-family-body: The Message;
   --sl-text-typeset-font-family-heading: The Message;
   --sl-color-palette-warning-base: 255 209 15;

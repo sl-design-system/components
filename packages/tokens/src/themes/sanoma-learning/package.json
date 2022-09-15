@@ -14,8 +14,10 @@
       ],
       "output": [
         "*.js",
+        "*.json",
         "*.css",
-        "*.scss"
+        "*.scss",
+        "!package.json"
       ]
     }
   }

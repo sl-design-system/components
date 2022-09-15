@@ -3,10 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Wed, 14 Sep 2022 09:15:21 GMT
+ * Generated on Thu, 15 Sep 2022 09:28:49 GMT
  */
 
-:root {
+@mixin sl-theme-light {
+  --sl-color-body-foreground: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-body-background: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-ghost-disabled-border: rba(rgb(var(--sl-color-palette-primary-base)), 0);
+  --sl-color-button-primary-ghost-disabled-foreground: rgb(var(--sl-color-palette-primary-200));
+  --sl-color-button-primary-ghost-disabled-background: rgba(var(--sl-color-palette-primary-base) / 0);
+  --sl-color-button-primary-ghost-active-border: rba(rgb(var(--sl-color-palette-primary-base)), 0);
+  --sl-color-button-primary-ghost-active-foreground: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-button-primary-ghost-active-background: rgba(var(--sl-color-palette-primary-base) / 0);
+  --sl-color-button-primary-ghost-hover-border: rgba(var(--sl-color-palette-primary-150) / 0);
+  --sl-color-button-primary-ghost-hover-foreground: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-button-primary-ghost-hover-background: rgba(var(--sl-color-palette-primary-150) / var(--sl-opacity-600));
+  --sl-color-button-primary-ghost-idle-border: rba(rgb(var(--sl-color-palette-primary-base)), 0);
+  --sl-color-button-primary-ghost-idle-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-color-button-primary-ghost-idle-background: rgba(var(--sl-color-palette-primary-base) / 0);
   --sl-color-button-primary-outline-disabled-border: rgb(var(--sl-color-palette-primary-200));
   --sl-color-button-primary-outline-disabled-foreground: rgb(var(--sl-color-palette-primary-200));

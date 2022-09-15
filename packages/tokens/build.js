@@ -1,12 +1,13 @@
 import { exec } from 'child_process';
+import { promises as fs } from 'fs';
+import { join } from 'path';
+import sass from 'sass';
 import StyleDictionary from 'style-dictionary';
 import * as FileHeaders from './lib/file-headers.js';
 import * as Formats from './lib/formats.js';
 import * as Transforms from './lib/transforms.js';
 import * as TransformGroups from './lib/transform-groups.js';
 import figmaThemes from './src/figma/$themes.json' assert { type: 'json' };
-
-const cwd = new URL('.', import.meta.url).pathname;
 
 // The name, e.g. "sanoma-learning"
 const name = process.argv.at(2);
@@ -37,6 +38,8 @@ themes.push({
   tokenSets: ['core', `${name}/base`]
 });
 
+const cwd = new URL('.', import.meta.url).pathname;
+
 // Run the token transformer for all variants
 await Promise.all(themes.map(({ variant, tokenSets }) => {
   return new Promise((resolve, reject) => {
@@ -55,76 +58,128 @@ await Promise.all(themes.map(({ variant, tokenSets }) => {
 
 StyleDictionary
   .registerFileHeader(FileHeaders.legal)
-  .registerFormat(Formats.cssAllInOne)
-  .registerFormat(Formats.cssClasses)
+  .registerFormat(Formats.cssTypography)
   .registerFormat(Formats.cssVariables)
-  .registerFormat(Formats.scssMixins)
+  .registerFormat(Formats.scssTypography)
+  .registerFormat(Formats.scssVariables)
   .registerTransform(Transforms.palette)
   .registerTransform(Transforms.shadow)
   .registerTransform(Transforms.sizePx)
-  .registerTransformGroup(TransformGroups.css)
-  .extend({
-    source: ['base.json', 'light.json', 'dark.json'],
-    platforms: {
-      all: {
-        transformGroup: 'css',
-        prefix: 'sl',
-        buildPath: './',
-        files: [
-          {
-            destination: 'all.css',
-            format: 'css/all-in-one',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true
-            }
+  .registerTransformGroup(TransformGroups.css);
+
+StyleDictionary.extend({
+  source: ['base.json'],
+  platforms: {
+    base: {
+      transformGroup: 'css',
+      prefix: 'sl',
+      files: [
+        {
+          destination: 'base.scss',
+          format: 'custom/scss/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            mixinName: 'sl-theme-base',
+            outputReferences: true
           }
-        ]
-      },
-      global: {
-        transformGroup: 'css',
-        prefix: 'sl',
-        buildPath: './',
-        files: [
-          {
-            destination: 'global.css',
-            format: 'css/classes',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true
-            }
+        }
+      ]
+    },
+    typography: {
+      transformGroup: 'css',
+      prefix: 'sl',
+      files: [
+        {
+          destination: 'typography.scss',
+          format: 'custom/scss/typography',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true
           }
-        ]
-      },
-      mixins: {
-        transformGroup: 'css',
-        files: [
-          {
-            destination: 'mixins.scss',
-            format: 'scss/mixins',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true
-            }
+        },
+        {
+          destination: 'typography.css',
+          format: 'custom/css/typography',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true
           }
-        ]
-      },
-      variants: {
-        transformGroup: 'css',
-        prefix: 'sl',
-        buildPath: './',
-        files: themes.map(theme => {
-          return {
-            destination: `${theme.variant}.css`,
-            format: 'css/variables',
-            filter: token => token.filePath.startsWith(theme.variant),
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true
-            }
-          };
-        })
-      }
+        }
+      ]
     }
-  })
-  .buildAllPlatforms();
+  }
+}).buildAllPlatforms();
+
+// Build base & light styles
+StyleDictionary.extend({
+  include: ['base.json'],
+  source: ['light.json'],
+  platforms: {
+    variants: {
+      transformGroup: 'css',
+      prefix: 'sl',
+      files: [
+        {
+          destination: 'light.scss',
+          format: 'custom/scss/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            filterFile: 'light.json',
+            mixinName: 'sl-theme-light',
+            outputReferences: true
+          }
+        }
+      ]
+    }
+  }
+}).buildAllPlatforms();
+
+// Build dark styles
+StyleDictionary.extend({
+  include: ['base.json'],
+  source: ['dark.json'],
+  platforms: {
+    variants: {
+      transformGroup: 'css',
+      prefix: 'sl',
+      files: [
+        {
+          destination: 'dark.scss',
+          format: 'custom/scss/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            filterFile: 'dark.json',
+            mixinName: 'sl-theme-dark',
+            outputReferences: true
+          }
+        }
+      ]
+    }
+  }
+}).buildAllPlatforms();
+
+// Build all.css
+const { css } = sass.compileString(`
+  @import 'base.scss';
+  @import 'dark.scss';
+  @import 'light.scss';
+  
+  :root {
+    @include sl-theme-base;
+  }
+  
+  @media (prefers-color-scheme: light) {
+    :root {
+      @include sl-theme-light;
+    }
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      @include sl-theme-dark;
+    }
+  }
+  `, { loadPaths: [join(cwd, `src/themes/${name}`)] });
+
+await fs.writeFile(join(cwd, `src/themes/${name}/all.css`), css);
+

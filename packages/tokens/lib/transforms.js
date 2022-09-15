@@ -25,7 +25,16 @@ export const shadow = {
 export const sizePx = {
   name: 'size/px',
   type: 'value',
-  matcher: token => ['borderRadius', 'borderWidth', 'paragraphSpacing', 'sizing', 'spacing'].includes(token.type),
+  matcher: token =>
+    [
+      'borderRadius', 
+      'borderWidth', 
+      'fontWeights', 
+      'lineHeights', 
+      'paragraphSpacing', 
+      'sizing', 
+      'spacing'
+    ].includes(token.type),
   transformer: token => (typeof token.value === 'string' ? token.value : `${token.value}px`)
 };
 

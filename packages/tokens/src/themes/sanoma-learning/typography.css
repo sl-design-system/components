@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Wed, 14 Sep 2022 09:15:21 GMT
+ * Generated on Thu, 15 Sep 2022 09:28:49 GMT
  */
 
-.sl-text-typeset-button-lg-hover {
+.sl-text-button-lg-hover {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xl);
@@ -17,7 +17,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-.sl-text-typeset-button-lg-idle {
+.sl-text-button-lg-idle {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xl);
@@ -28,7 +28,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-.sl-text-typeset-button-md-hover {
+.sl-text-button-md-hover {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-md);
@@ -39,7 +39,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-.sl-text-typeset-button-md-idle {
+.sl-text-button-md-idle {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-md);
@@ -50,7 +50,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-.sl-text-typeset-button-sm-hover {
+.sl-text-button-sm-hover {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-sm);
@@ -61,7 +61,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-.sl-text-typeset-button-sm-idle {
+.sl-text-button-sm-idle {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-sm);

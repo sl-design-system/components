@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "wireit",
-    "build:ts": "wireit"
+    "build:ts": "wireit",
+    "storybook": "npx storybook dev -p 6006",
+    "build-storybook": "npx storybook build"
   },
   "wireit": {
     "build": {
@@ -19,6 +21,16 @@
     }
   },
   "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "@mdx-js/react": "^1.6.22",
+    "@storybook/addon-docs": "^7.0.0-alpha.33",
+    "@storybook/addon-essentials": "^7.0.0-alpha.33",
+    "@storybook/addon-links": "^7.0.0-alpha.33",
+    "@storybook/web-components": "^7.0.0-alpha.33",
+    "@storybook/web-components-webpack5": "^7.0.0-alpha.33",
+    "babel-loader": "^8.2.5",
+    "lit-html": "^2.3.1",
+    "storybook": "future",
     "typescript": "^4.8.3",
     "wireit": "^0.7.1"
   },

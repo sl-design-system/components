@@ -14,9 +14,6 @@
   "references": [
     {
       "path": "./tsconfig.build.json"
-    },
-    {
-      "path": "./.storybook/tsconfig.json"
     }
   ]
 }

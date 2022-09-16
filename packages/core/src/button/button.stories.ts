@@ -1,4 +1,4 @@
-import './register';
+import './register.js';
 import { html } from 'lit';
 
 export default {
@@ -6,5 +6,5 @@ export default {
 }
 
 export const API = ({}) => {
-  return html`<sl-button></sl-button>`;
+  return html`<sl-button>Button</sl-button>`;
 };

@@ -286,14 +286,30 @@
     },
     "body": {
       "background": {
-        "value": "{color.palette.secondary.900}",
+        "value": "{color.palette.neutral.800}",
         "type": "color",
         "description": "color.body.background"
       },
       "foreground": {
-        "value": "{color.palette.primary.50}",
+        "value": "{color.palette.white.base}",
         "type": "color",
         "description": "color.body.foreground"
+      }
+    },
+    "surface": {
+      "solid": {
+        "primary": {
+          "background": {
+            "value": "{color.palette.primary.base}",
+            "type": "color",
+            "description": "color.surface.solid.primary.background"
+          },
+          "foreground": {
+            "value": "{color.palette.primary.50}",
+            "type": "color",
+            "description": "color.surface.solid.primary.foreground"
+          }
+        }
       }
     }
   }

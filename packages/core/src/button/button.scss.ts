@@ -13,7 +13,7 @@ export default css`
 
   :host {
     --_border-radius: var(--sl-border-radius-button);
-    --_padding: var(--sl-space-button-lg);
+    --_padding: var(--sl-size-button-lg) var(--sl-space-button-lg);
   }
 
   :host {
@@ -23,13 +23,40 @@ export default css`
     color: var(--_color);
     cursor: pointer;
     display: inline-flex;
+    font: var(--_font);
     padding: var(--_padding);
   }
 
+  :host([disabled]) {
+    cursor: default;
+    pointer-events: none;
+  }
+
   :host([fill='solid']) {
+    --_border-width: var(--sl-border-width-button-solid, var(--sl-border-width-button));
+  }
+
+  :host([fill='solid'][variant='primary']) {
     --_background: var(--sl-color-button-primary-solid-idle-background);
     --_border-color: var(--sl-color-button-primary-solid-idle-border);
-    --_border-width: var(--sl-border-width-button-outline, var(--sl-border-width-button));
     --_color: var(--sl-color-button-primary-solid-idle-foreground);
+  }
+
+  :host([fill='solid'][variant='secondary']) {
+    --_background: var(--sl-color-button-secondary-solid-idle-background);
+    --_border-color: var(--sl-color-button-secondary-solid-idle-border);
+    --_color: var(--sl-color-button-secondary-solid-idle-foreground);
+  }
+
+  :host([size='sm']) {
+    --_font: var(--sl-text-button-sm);
+  }
+
+  :host([size='md']) {
+    --_font: var(--sl-text-button-md);
+  }
+
+  :host([size='lg']) {
+    --_font: var(--sl-text-button-lg);
   }
 `;

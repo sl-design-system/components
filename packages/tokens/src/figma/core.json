@@ -245,17 +245,17 @@
       "description": "space.md"
     },
     "lg": {
-      "value": "16",
+      "value": "24",
       "type": "spacing",
       "description": "space.lg"
     },
     "xl": {
-      "value": "24",
+      "value": "32",
       "type": "spacing",
       "description": "space.xl"
     },
     "2xl": {
-      "value": "32",
+      "value": "40",
       "type": "spacing",
       "description": "space.2xl"
     }

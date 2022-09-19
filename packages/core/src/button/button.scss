@@ -39,6 +39,12 @@
   --_background: var(--sl-color-button-secondary-solid-idle-background);
   --_border-color: var(--sl-color-button-secondary-solid-idle-border);
   --_color: var(--sl-color-button-secondary-solid-idle-foreground);
+
+  &[disabled] {
+    --_background: var(--sl-color-button-secondary-solid-disabled-background);
+    --_border-color: var(--sl-color-button-secondary-solid-disabled-border);
+    --_color: var(--sl-color-button-secondary-solid-disabled-foreground);
+  }
 }
 
 :host([size='sm']) {

@@ -42,6 +42,12 @@ export default css`
     --_color: var(--sl-color-button-primary-solid-idle-foreground);
   }
 
+  :host([fill='solid'][variant='primary'])[disabled] {
+    --_background: var(--sl-color-button-primary-solid-disabled-background);
+    --_border-color: var(--sl-color-button-primary-solid-disabled-border);
+    --_color: var(--sl-color-button-primary-solid-disabled-foreground);
+  }
+
   :host([fill='solid'][variant='secondary']) {
     --_background: var(--sl-color-button-secondary-solid-idle-background);
     --_border-color: var(--sl-color-button-secondary-solid-idle-border);

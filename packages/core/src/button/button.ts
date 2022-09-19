@@ -13,6 +13,8 @@ export class Button extends LitElement {
   /** @private */
   static styles: CSSResultGroup = styles;
 
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
   /** The button fill. */
   @property({ reflect: true }) fill: ButtonFill = 'solid';
 

@@ -27,6 +27,12 @@
   --_background: var(--sl-color-button-primary-solid-idle-background);
   --_border-color: var(--sl-color-button-primary-solid-idle-border);
   --_color: var(--sl-color-button-primary-solid-idle-foreground);
+
+  &[disabled] {
+    --_background: var(--sl-color-button-primary-solid-disabled-background);
+    --_border-color: var(--sl-color-button-primary-solid-disabled-border);
+    --_color: var(--sl-color-button-primary-solid-disabled-foreground);
+  }
 }
 
 :host([fill='solid'][variant='secondary']) {

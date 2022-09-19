@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Mon, 19 Sep 2022 11:39:24 GMT
+ * Generated on Mon, 19 Sep 2022 15:11:57 GMT
  */
 :root {
   --sl-opacity-transparent: 0;
@@ -88,22 +88,22 @@
   --sl-text-typeset-line-height-md: 22px;
   --sl-text-typeset-line-height-sm: 16px;
   --sl-text-typeset-line-height-xs: 14px;
-  --sl-text-typeset-font-size-5xl: 54;
-  --sl-text-typeset-font-size-4xl: 48;
-  --sl-text-typeset-font-size-3xl: 32;
-  --sl-text-typeset-font-size-2xl: 24;
-  --sl-text-typeset-font-size-xl: 18;
-  --sl-text-typeset-font-size-lg: 16;
-  --sl-text-typeset-font-size-md: 14;
-  --sl-text-typeset-font-size-sm: 12;
-  --sl-text-typeset-font-size-xs: 10;
+  --sl-text-typeset-font-size-5xl: 54px;
+  --sl-text-typeset-font-size-4xl: 48px;
+  --sl-text-typeset-font-size-3xl: 32px;
+  --sl-text-typeset-font-size-2xl: 24px;
+  --sl-text-typeset-font-size-xl: 18px;
+  --sl-text-typeset-font-size-lg: 16px;
+  --sl-text-typeset-font-size-md: 14px;
+  --sl-text-typeset-font-size-sm: 12px;
+  --sl-text-typeset-font-size-xs: 10px;
   --sl-text-typeset-font-weight-icon-solid: Solid;
-  --sl-text-typeset-font-weight-icon-regular: Regular;
-  --sl-text-typeset-font-weight-icon-light: Light;
-  --sl-text-typeset-font-weight-icon-thin: Thin;
-  --sl-text-typeset-font-weight-bold: Bold;
-  --sl-text-typeset-font-weight-demibold: DemiBold;
-  --sl-text-typeset-font-weight-regular: Regular;
+  --sl-text-typeset-font-weight-icon-regular: 400;
+  --sl-text-typeset-font-weight-icon-light: 300;
+  --sl-text-typeset-font-weight-icon-thin: 100;
+  --sl-text-typeset-font-weight-bold: 700;
+  --sl-text-typeset-font-weight-demibold: 600;
+  --sl-text-typeset-font-weight-regular: 400;
   --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
   --sl-text-typeset-font-family-body: The Message;
   --sl-text-typeset-font-family-heading: The Message;
@@ -213,4 +213,24 @@
   --sl-border-radius-button: var(--sl-border-radius-xs);
   --sl-space-button-lg: var(--sl-space-xl);
   --sl-size-button-lg: var(--sl-size-4xl);
+  --sl-text-button-lg-hover: 600 18px/28px The Message;
+  --sl-text-button-lg-idle: 600 18px/28px The Message;
+  --sl-text-button-md-hover: 700 14px/22px The Message;
+  --sl-text-button-md-idle: 700 14px/22px The Message;
+  --sl-text-button-sm-hover: 700 12px/16px The Message;
+  --sl-text-button-sm-idle: 700 12px/16px The Message;
+  --sl-text-typeset-body-lg-bold: 700 16px/24px The Message;
+  --sl-text-typeset-body-lg-demibold: 600 16px/24px The Message;
+  --sl-text-typeset-body-lg-normal: 400 16px/24px The Message;
+  --sl-text-typeset-body-md-bold: 700 14px/22px The Message;
+  --sl-text-typeset-body-md-demibold: 600 14px/22px The Message;
+  --sl-text-typeset-body-md-normal: 400 14px/22px The Message;
+  --sl-text-typeset-body-sm-bold: 700 12px/16px The Message;
+  --sl-text-typeset-body-sm-demibold: 600 12px/16px The Message;
+  --sl-text-typeset-body-sm-normal: 400 12px/16px The Message;
+  --sl-text-typeset-heading-4: 700 16px/24px The Message;
+  --sl-text-typeset-heading-3: 400 18px/28px The Message;
+  --sl-text-typeset-heading-2: 700 24px/34px The Message;
+  --sl-text-typeset-heading-1: 400 32px/42px The Message;
+  --sl-text-typeset-heading-0: 700 48px/58px The Message;
 }

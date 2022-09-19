@@ -59,9 +59,9 @@ await Promise.all(themes.map(({ variant, tokenSets }) => {
 StyleDictionary
   .registerFileHeader(FileHeaders.legal)
   .registerFormat(Formats.cssTypography)
-  .registerFormat(Formats.cssVariables)
   .registerFormat(Formats.scssTypography)
   .registerFormat(Formats.scssVariables)
+  .registerTransform(Transforms.fontWeights)
   .registerTransform(Transforms.palette)
   .registerTransform(Transforms.shadow)
   .registerTransform(Transforms.sizePx)

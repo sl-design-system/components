@@ -1,6 +1,15 @@
+/**
+ * Copyright 2022 Sanoma Learning
+ * SPDX-License-Identifier: Apache-2.0
+ * 
+ * Do not edit directly
+ * Generated on Mon, 19 Sep 2022 11:39:24 GMT
+ */
 :root {
-  --sl-color-body-foreground: rgb(var(--sl-color-palette-primary-50));
-  --sl-color-body-background: rgb(var(--sl-color-palette-secondary-900));
+  --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-surface-solid-primary-background: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-body-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-body-background: rgb(var(--sl-color-palette-neutral-800));
   --sl-color-button-primary-ghost-disabled-border: rgba(var(--sl-color-palette-primary-150) / 0);
   --sl-color-button-primary-ghost-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-button-primary-ghost-disabled-background: rgba(var(--sl-color-palette-primary-50) / 0);

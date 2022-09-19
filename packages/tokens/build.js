@@ -158,28 +158,65 @@ StyleDictionary.extend({
   }
 }).buildAllPlatforms();
 
-// Build all.css
-const { css } = sass.compileString(`
-  @import 'base.scss';
-  @import 'dark.scss';
-  @import 'light.scss';
-  
-  :root {
-    @include sl-theme-base;
-  }
-  
-  @media (prefers-color-scheme: light) {
-    :root {
-      @include sl-theme-light;
-    }
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    :root {
-      @include sl-theme-dark;
-    }
-  }
-  `, { loadPaths: [join(cwd, `src/themes/${name}`)] });
+const files = [
+  {
+    input: `
+      @import 'base.scss';
+      @import 'dark.scss';
+      @import 'light.scss';
+      
+      :root {
+        @include sl-theme-base;
+      }
+      
+      @media (prefers-color-scheme: light) {
+        :root {
+          @include sl-theme-light;
+        }
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        :root {
+          @include sl-theme-dark;
+        }
+      }
+      `,
+    output: 'all.css'
+  },
+  {
+    input: `
+      @import 'base.scss';
 
-await fs.writeFile(join(cwd, `src/themes/${name}/all.css`), css);
+      :root {
+        @include sl-theme-base;
+      }
+    `,
+    output: 'base.css'
+  },
+  {
+    input: `
+      @import 'light.scss';
 
+      :root {
+        @include sl-theme-light;
+      }
+    `,
+    output: 'light.css'
+  },
+  {
+    input: `
+      @import 'dark.scss';
+
+      :root {
+        @include sl-theme-dark;
+      }
+    `,
+    output: 'dark.css'
+  }
+];
+
+for (const { input, output } of files) {
+  const { css } = sass.compileString(input, { loadPaths: [join(cwd, `src/themes/${name}`)] });
+  
+  await fs.writeFile(join(cwd, `src/themes/${name}/${output}`), css);
+}

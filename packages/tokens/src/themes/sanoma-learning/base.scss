@@ -3,30 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Thu, 15 Sep 2022 09:29:47 GMT
+ * Generated on Mon, 19 Sep 2022 11:39:24 GMT
  */
 
 @mixin sl-theme-base {
-  --sl-space-2xl: 32px;
-  --sl-space-xl: 24px;
-  --sl-space-lg: 16px;
-  --sl-space-md: 16px;
-  --sl-space-sm: 8px;
-  --sl-space-xs: 4px;
-  --sl-space-2xs: 2px;
-  --sl-space-none: 0px;
-  --sl-size-4xl: 72px;
-  --sl-size-3xl: 64px;
-  --sl-size-2xl: 56px;
-  --sl-size-xl: 48px;
-  --sl-size-lg: 40px;
-  --sl-size-md: 32px;
-  --sl-size-sm: 24px;
-  --sl-size-xs: 16px;
-  --sl-size-2xs: 8px;
-  --sl-size-3xs: 4px;
-  --sl-size-4xs: 2px;
-  --sl-size-none: 0px;
   --sl-opacity-transparent: 0;
   --sl-opacity-1000: 1;
   --sl-opacity-900: 0.8;
@@ -57,6 +37,26 @@
   --sl-border-radius-2xs: 4px;
   --sl-border-radius-3xs: 2px;
   --sl-border-radius-none: 0px;
+  --sl-space-2xl: 32px;
+  --sl-space-xl: 24px;
+  --sl-space-lg: 16px;
+  --sl-space-md: 16px;
+  --sl-space-sm: 8px;
+  --sl-space-xs: 4px;
+  --sl-space-2xs: 2px;
+  --sl-space-none: 0px;
+  --sl-size-4xl: 72px;
+  --sl-size-3xl: 64px;
+  --sl-size-2xl: 56px;
+  --sl-size-xl: 48px;
+  --sl-size-lg: 40px;
+  --sl-size-md: 32px;
+  --sl-size-sm: 24px;
+  --sl-size-xs: 16px;
+  --sl-size-2xs: 8px;
+  --sl-size-3xs: 4px;
+  --sl-size-4xs: 2px;
+  --sl-size-none: 0px;
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
   --sl-text-typeset-letter-spacing-md: 0%;
@@ -207,4 +207,11 @@
   --sl-color-palette-secondary-100: 218 238 224;
   --sl-color-palette-secondary-50: 251 252 251;
   --sl-shadow-card: var(--sl-size-none) var(--sl-size-4xs) var(--sl-size-4xs) var(--sl-size-none) rgba(rgb(var(--sl-color-palette-black-base)), var(--sl-opacity-600));
+  --sl-border-width-button-ghost: var(--sl-border-width-none);
+  --sl-border-width-button-outline: var(--sl-border-width-md);
+  --sl-border-width-button-subtle: var(--sl-border-width-none);
+  --sl-border-width-button-solid: var(--sl-border-width-none);
+  --sl-border-radius-button: var(--sl-border-radius-xs);
+  --sl-space-button-lg: var(--sl-space-xl);
+  --sl-size-button-lg: var(--sl-size-4xl);
 }

@@ -334,16 +334,62 @@
     },
     "body": {
       "background": {
-        "value": "{color.palette.primary.50}",
+        "value": "{color.palette.white.base}",
         "type": "color",
-        "description": "color.body.background",
+        "description": "color.body.default.background",
         "failedToResolve": true
       },
       "foreground": {
         "value": "{color.palette.primary.base}",
         "type": "color",
-        "description": "color.body.foreground",
+        "description": "color.body.default.foreground",
         "failedToResolve": true
+      }
+    },
+    "surface": {
+      "solid": {
+        "primary": {
+          "background": {
+            "value": "{color.palette.primary.base}",
+            "type": "color",
+            "description": "color.surface.solid.primary.background",
+            "failedToResolve": true
+          },
+          "foreground": {
+            "value": "{color.palette.primary.50}",
+            "type": "color",
+            "description": "color.surface.solid.primary.foreground",
+            "failedToResolve": true
+          }
+        },
+        "secondary": {
+          "background": {
+            "value": "{color.palette.secondary.400}",
+            "type": "color",
+            "description": "color.surface.solid.secondary.background",
+            "failedToResolve": true
+          },
+          "foreground": {
+            "value": "{color.palette.secondary.50}",
+            "type": "color",
+            "description": "color.surface.solid.secondary.foreground",
+            "failedToResolve": true
+          }
+        },
+        "accent": {
+          "backgorund": {
+            "value": "{color.palette.accent.base}",
+            "type": "color",
+            "description": "color.surface.solid.accent.backgorund",
+            "failedToResolve": true
+          },
+          "foreground": {
+            "value": "{color.palette.accent.50}",
+            "type": "color",
+            "description": "color.surface.solid.accent.foreground",
+            "failedToResolve": true
+          }
+        }
       }
     }
   }

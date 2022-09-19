@@ -1,0 +1,17 @@
+{
+  "name": "@slds/storybook-addon-themes",
+  "license": "ISC",
+  "description": "Storybook addon for setting SLDS themes",
+  "private": true,
+  "version": "1.0.0",
+  "main": "preset.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@storybook/addons": "^7.0.0-alpha.33",
+    "@storybook/api": "^7.0.0-alpha.33",
+    "@storybook/components": "^7.0.0-alpha.33",
+    "@storybook/theming": "^7.0.0-alpha.33"
+  }
+}

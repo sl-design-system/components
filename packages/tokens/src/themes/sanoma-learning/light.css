@@ -1,12 +1,4 @@
-/**
- * Copyright 2022 Sanoma Learning
- * SPDX-License-Identifier: Apache-2.0
- * 
- * Do not edit directly
- * Generated on Thu, 15 Sep 2022 09:29:47 GMT
- */
-
-@mixin sl-theme-light {
+:root {
   --sl-color-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-color-body-background: rgb(var(--sl-color-palette-primary-50));
   --sl-color-button-primary-ghost-disabled-border: rba(rgb(var(--sl-color-palette-primary-base)), 0);
@@ -29,20 +21,22 @@
   --sl-color-button-primary-outline-active-background: rgba(var(--sl-color-palette-primary-base) / 0);
   --sl-color-button-primary-outline-hover-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-button-primary-outline-hover-foreground: rgb(var(--sl-color-palette-primary-base));
-  --sl-color-button-primary-outline-hover-background: rgba(var(--sl-color-palette-primary-base) / var(--sl-opacity-200));
+  --sl-color-button-primary-outline-hover-background: rgba(
+    var(--sl-color-palette-primary-base) / var(--sl-opacity-200)
+  );
   --sl-color-button-primary-outline-idle-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-button-primary-outline-idle-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-color-button-primary-outline-idle-background: rgba(var(--sl-color-palette-primary-base) / 0);
   --sl-color-button-primary-subtle-disabled-border: rgba(var(--sl-color-palette-neutral-100) / 0);
   --sl-color-button-primary-subtle-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-button-primary-subtle-disabled-background: rgb(var(--sl-color-palette-primary-100));
-  --sl-color-button-primary-subtle-active-border: rgba(var(--sl-color-palette-primary-base) /0);
+  --sl-color-button-primary-subtle-active-border: rgba(var(--sl-color-palette-primary-base) / 0);
   --sl-color-button-primary-subtle-active-foreground: rgb(var(--sl-color-palette-primary-900));
   --sl-color-button-primary-subtle-active-background: rgba(var(--sl-color-palette-primary-150) / var(--sl-opacity-600));
   --sl-color-button-primary-subtle-hover-border: rgba(var(--sl-color-palette-secondary-base) / 0);
   --sl-color-button-primary-subtle-hover-foreground: rgb(var(--sl-color-palette-primary-900));
   --sl-color-button-primary-subtle-hover-background: rgba(var(--sl-color-palette-primary-150) / var(--sl-opacity-900));
-  --sl-color-button-primary-subtle-idle-border: rgba(var(--sl-color-palette-secondary-100) /0);
+  --sl-color-button-primary-subtle-idle-border: rgba(var(--sl-color-palette-secondary-100) / 0);
   --sl-color-button-primary-subtle-idle-foreground: rgb(var(--sl-color-palette-primary-900));
   --sl-color-button-primary-subtle-idle-background: rgba(var(--sl-color-palette-primary-150) / var(--sl-opacity-600));
   --sl-color-button-primary-solid-disabled-border: rgba(var(--sl-color-palette-primary-200) / 0);

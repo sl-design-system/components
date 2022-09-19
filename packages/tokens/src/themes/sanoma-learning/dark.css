@@ -1,12 +1,4 @@
-/**
- * Copyright 2022 Sanoma Learning
- * SPDX-License-Identifier: Apache-2.0
- * 
- * Do not edit directly
- * Generated on Thu, 15 Sep 2022 09:29:47 GMT
- */
-
-@mixin sl-theme-dark {
+:root {
   --sl-color-body-foreground: rgb(var(--sl-color-palette-primary-50));
   --sl-color-body-background: rgb(var(--sl-color-palette-secondary-900));
   --sl-color-button-primary-ghost-disabled-border: rgba(var(--sl-color-palette-primary-150) / 0);

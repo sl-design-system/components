@@ -42,6 +42,18 @@ export default css`
     --_color: var(--sl-color-button-primary-solid-idle-foreground);
   }
 
+  :host([fill='solid'][variant='primary']):hover {
+    --_background: var(--sl-color-button-primary-solid-hover-background);
+    --_border-color: var(--sl-color-button-primary-solid-hover-border);
+    --_color: var(--sl-color-button-primary-solid-hover-foreground);
+  }
+
+  :host([fill='solid'][variant='primary']):active {
+    --_background: var(--sl-color-button-primary-solid-active-background);
+    --_border-color: var(--sl-color-button-primary-solid-active-border);
+    --_color: var(--sl-color-button-primary-solid-active-foreground);
+  }
+
   :host([fill='solid'][variant='primary'])[disabled] {
     --_background: var(--sl-color-button-primary-solid-disabled-background);
     --_border-color: var(--sl-color-button-primary-solid-disabled-border);
@@ -52,6 +64,18 @@ export default css`
     --_background: var(--sl-color-button-secondary-solid-idle-background);
     --_border-color: var(--sl-color-button-secondary-solid-idle-border);
     --_color: var(--sl-color-button-secondary-solid-idle-foreground);
+  }
+
+  :host([fill='solid'][variant='secondary']):hover {
+    --_background: var(--sl-color-button-secondary-solid-hover-background);
+    --_border-color: var(--sl-color-button-secondary-solid-hover-border);
+    --_color: var(--sl-color-button-secondary-solid-hover-foreground);
+  }
+
+  :host([fill='solid'][variant='secondary']):active {
+    --_background: var(--sl-color-button-secondary-solid-active-background);
+    --_border-color: var(--sl-color-button-secondary-solid-active-border);
+    --_color: var(--sl-color-button-secondary-solid-active-foreground);
   }
 
   :host([fill='solid'][variant='secondary'])[disabled] {

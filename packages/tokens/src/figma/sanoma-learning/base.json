@@ -842,5 +842,56 @@
         }
       }
     }
+  },
+  "size": {
+    "button": {
+      "lg": {
+        "value": "{size.4xl}",
+        "type": "sizing",
+        "description": "size.button.lg"
+      }
+    }
+  },
+  "space": {
+    "button": {
+      "lg": {
+        "value": "{space.xl}",
+        "type": "spacing",
+        "description": "space.button.lg"
+      }
+    }
+  },
+  "border": {
+    "radius": {
+      "button": {
+        "value": "{border.radius.xs}",
+        "type": "borderRadius",
+        "description": "border.radius.button"
+      }
+    },
+    "width": {
+      "button": {
+        "solid": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.solid"
+        },
+        "subtle": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.subtle"
+        },
+        "outline": {
+          "value": "{border.width.md}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        },
+        "ghost": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
+        }
+      }
+    }
   }
 }

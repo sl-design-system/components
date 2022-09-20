@@ -2,4 +2,16 @@ function managerEntries(entry = []) {
   return [...entry, require.resolve('./register')];
 }
 
-module.exports = { managerEntries };
+function previewHead(head) {
+  return `
+    ${head}
+    <style>
+      body { 
+        background: var(--sl-color-body-background);
+        color: var(--sl-color-body-foreground);
+      }
+    </style>
+  `;
+}
+
+module.exports = { managerEntries, previewHead };

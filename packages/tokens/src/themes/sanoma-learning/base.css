@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Tue, 20 Sep 2022 08:02:48 GMT
+ * Generated on Tue, 20 Sep 2022 11:24:47 GMT
  */
 :root {
   --sl-size-4xl: 72px;
@@ -37,14 +37,6 @@
   --sl-space-xs: 4px;
   --sl-space-2xs: 2px;
   --sl-space-none: 0px;
-  --sl-border-width-2xl: 6px;
-  --sl-border-width-xl: 5px;
-  --sl-border-width-lg: 4px;
-  --sl-border-width-md: 3px;
-  --sl-border-width-sm: 2px;
-  --sl-border-width-xs: 1px;
-  --sl-border-width-2xs: 0.5px;
-  --sl-border-width-none: 0px;
   --sl-border-radius-full: 100%;
   --sl-border-radius-3xl: 18px;
   --sl-border-radius-2xl: 16px;
@@ -56,6 +48,14 @@
   --sl-border-radius-2xs: 4px;
   --sl-border-radius-3xs: 2px;
   --sl-border-radius-none: 0px;
+  --sl-border-width-2xl: 6px;
+  --sl-border-width-xl: 5px;
+  --sl-border-width-lg: 4px;
+  --sl-border-width-md: 3px;
+  --sl-border-width-sm: 2px;
+  --sl-border-width-xs: 1px;
+  --sl-border-width-2xs: 0.5px;
+  --sl-border-width-none: 0px;
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
   --sl-text-typeset-letter-spacing-md: 0%;
@@ -206,17 +206,38 @@
   --sl-color-palette-secondary-100: 218 238 224;
   --sl-color-palette-secondary-50: 251 252 251;
   --sl-shadow-card: var(--sl-size-none) var(--sl-size-4xs) var(--sl-size-4xs) var(--sl-size-none) rgba(rgb(var(--sl-color-palette-black-base)), var(--sl-opacity-600));
-  --sl-space-button-lg: var(--sl-space-lg);
-  --sl-space-button-md: var(--sl-space-md);
-  --sl-space-button-sm: var(--sl-space-sm);
+  --sl-space-button-ghost-lg-inline: var(--sl-space-xl);
+  --sl-space-button-ghost-lg-block: var(--sl-space-lg);
+  --sl-space-button-ghost-md-inline: var(--sl-space-lg);
+  --sl-space-button-ghost-md-block: var(--sl-space-md);
+  --sl-space-button-ghost-sm-inline: var(--sl-space-md);
+  --sl-space-button-ghost-sm-block: var(--sl-space-md);
+  --sl-space-button-outline-lg-inline: var(--sl-space-xl);
+  --sl-space-button-outline-lg-block: var(--sl-space-lg);
+  --sl-space-button-outline-md-inline: var(--sl-space-xl);
+  --sl-space-button-outline-md-block: var(--sl-space-md);
+  --sl-space-button-outline-sm-inline: var(--sl-space-md);
+  --sl-space-button-outline-sm-block: var(--sl-space-md);
+  --sl-space-button-subtle-lg-inline: var(--sl-space-xl);
+  --sl-space-button-subtle-lg-block: var(--sl-space-lg);
+  --sl-space-button-subtle-md-inline: var(--sl-space-lg);
+  --sl-space-button-subtle-md-block: var(--sl-space-md);
+  --sl-space-button-subtle-sm-inline: var(--sl-space-md);
+  --sl-space-button-subtle-sm-block: var(--sl-space-md);
+  --sl-space-button-solid-lg-inline: var(--sl-space-xl);
+  --sl-space-button-solid-lg-block: var(--sl-space-lg);
+  --sl-space-button-solid-md-inline: var(--sl-space-lg);
+  --sl-space-button-solid-md-block: var(--sl-space-md);
+  --sl-space-button-solid-sm-inline: var(--sl-space-md);
+  --sl-space-button-solid-sm-block: var(--sl-space-md);
   --sl-border-width-button-ghost: var(--sl-border-width-none);
   --sl-border-width-button-outline: var(--sl-border-width-md);
   --sl-border-width-button-subtle: var(--sl-border-width-none);
   --sl-border-width-button-solid: var(--sl-border-width-none);
   --sl-border-radius-button: var(--sl-border-radius-xs);
-  --sl-text-button-lg: 600 18px/28px The Message;
-  --sl-text-button-md: 600 16px/24px The Message;
-  --sl-text-button-sm: 600 14px/22px The Message;
+  --sl-text-button-lg: 600 18px/24px The Message;
+  --sl-text-button-md: 600 16px/22px The Message;
+  --sl-text-button-sm: 600 14px/16px The Message;
   --sl-text-typeset-body-lg-bold: 700 16px/24px The Message;
   --sl-text-typeset-body-lg-demibold: 600 16px/24px The Message;
   --sl-text-typeset-body-lg-normal: 400 16px/24px The Message;

@@ -3,27 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Tue, 20 Sep 2022 08:02:48 GMT
+ * Generated on Tue, 20 Sep 2022 11:24:47 GMT
  */
 
 .sl-text-button-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
-  line-height: var(--sl-text-typeset-line-height-xl);
+  line-height: var(--sl-text-typeset-line-height-lg);
   font-size: var(--sl-text-typeset-font-size-xl);
 }
 
 .sl-text-button-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
-  line-height: var(--sl-text-typeset-line-height-lg);
+  line-height: var(--sl-text-typeset-line-height-md);
   font-size: var(--sl-text-typeset-font-size-lg);
 }
 
 .sl-text-button-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
-  line-height: var(--sl-text-typeset-line-height-md);
+  line-height: var(--sl-text-typeset-line-height-sm);
   font-size: var(--sl-text-typeset-font-size-md);
 }
 

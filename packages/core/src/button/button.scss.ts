@@ -23,7 +23,8 @@ export default css`
     cursor: pointer;
     display: inline-flex;
     font: var(--_font);
-    padding: var(--_padding);
+    padding-block: var(--_padding-block);
+    padding-inline: var(--_padding-inline);
   }
 
   :host([disabled]) {
@@ -33,6 +34,21 @@ export default css`
 
   :host([fill='ghost']) {
     --_border-width: var(--sl-border-width-button-ghost, var(--sl-border-width-button));
+  }
+
+  :host([fill='ghost'][size='sm']) {
+    --_padding-block: var(--sl-space-button-ghost-sm-block, var(--sl-space-button-sm-block));
+    --_padding-inline: var(--sl-space-button-ghost-sm-inline, var(--sl-space-button-sm-inline));
+  }
+
+  :host([fill='ghost'][size='md']) {
+    --_padding-block: var(--sl-space-button-ghost-md-block, var(--sl-space-button-md-block));
+    --_padding-inline: var(--sl-space-button-ghost-md-inline, var(--sl-space-button-md-inline));
+  }
+
+  :host([fill='ghost'][size='lg']) {
+    --_padding-block: var(--sl-space-button-ghost-lg-block, var(--sl-space-button-lg-block));
+    --_padding-inline: var(--sl-space-button-ghost-lg-inline, var(--sl-space-button-lg-inline));
   }
 
   :host([fill='ghost'][variant='primary']) {
@@ -63,6 +79,21 @@ export default css`
     --_border-width: var(--sl-border-width-button-outline, var(--sl-border-width-button));
   }
 
+  :host([fill='outline'][size='sm']) {
+    --_padding-block: var(--sl-space-button-outline-sm-block, var(--sl-space-button-sm-block));
+    --_padding-inline: var(--sl-space-button-outline-sm-inline, var(--sl-space-button-sm-inline));
+  }
+
+  :host([fill='outline'][size='md']) {
+    --_padding-block: var(--sl-space-button-outline-md-block, var(--sl-space-button-md-block));
+    --_padding-inline: var(--sl-space-button-outline-md-inline, var(--sl-space-button-md-inline));
+  }
+
+  :host([fill='outline'][size='lg']) {
+    --_padding-block: var(--sl-space-button-outline-lg-block, var(--sl-space-button-lg-block));
+    --_padding-inline: var(--sl-space-button-outline-lg-inline, var(--sl-space-button-lg-inline));
+  }
+
   :host([fill='outline'][variant='primary']) {
     --_background: var(--sl-color-button-primary-outline-idle-background);
     --_border-color: var(--sl-color-button-primary-outline-idle-border);
@@ -89,6 +120,21 @@ export default css`
 
   :host([fill='solid']) {
     --_border-width: var(--sl-border-width-button-solid, var(--sl-border-width-button));
+  }
+
+  :host([fill='solid'][size='sm']) {
+    --_padding-block: var(--sl-space-button-solid-sm-block, var(--sl-space-button-sm-block));
+    --_padding-inline: var(--sl-space-button-solid-sm-inline, var(--sl-space-button-sm-inline));
+  }
+
+  :host([fill='solid'][size='md']) {
+    --_padding-block: var(--sl-space-button-solid-md-block, var(--sl-space-button-md-block));
+    --_padding-inline: var(--sl-space-button-solid-md-inline, var(--sl-space-button-md-inline));
+  }
+
+  :host([fill='solid'][size='lg']) {
+    --_padding-block: var(--sl-space-button-solid-lg-block, var(--sl-space-button-lg-block));
+    --_padding-inline: var(--sl-space-button-solid-lg-inline, var(--sl-space-button-lg-inline));
   }
 
   :host([fill='solid'][variant='primary']) {
@@ -141,6 +187,21 @@ export default css`
 
   :host([fill='subtle']) {
     --_border-width: var(--sl-border-width-button-subtle, var(--sl-border-width-button));
+  }
+
+  :host([fill='subtle'][size='sm']) {
+    --_padding-block: var(--sl-space-button-subtle-sm-block, var(--sl-space-button-sm-block));
+    --_padding-inline: var(--sl-space-button-subtle-sm-inline, var(--sl-space-button-sm-inline));
+  }
+
+  :host([fill='subtle'][size='md']) {
+    --_padding-block: var(--sl-space-button-subtle-md-block, var(--sl-space-button-md-block));
+    --_padding-inline: var(--sl-space-button-subtle-md-inline, var(--sl-space-button-md-inline));
+  }
+
+  :host([fill='subtle'][size='lg']) {
+    --_padding-block: var(--sl-space-button-subtle-lg-block, var(--sl-space-button-lg-block));
+    --_padding-inline: var(--sl-space-button-subtle-lg-inline, var(--sl-space-button-lg-inline));
   }
 
   :host([fill='subtle'][variant='primary']) {

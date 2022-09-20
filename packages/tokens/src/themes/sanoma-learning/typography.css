@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Tue, 20 Sep 2022 11:24:47 GMT
+ * Generated on Tue, 20 Sep 2022 11:53:27 GMT
  */
 
 .sl-text-button-lg {
@@ -22,8 +22,8 @@
 
 .sl-text-button-sm {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-demibold);
-  line-height: var(--sl-text-typeset-line-height-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
   font-size: var(--sl-text-typeset-font-size-md);
 }
 

@@ -801,7 +801,7 @@
           "description": "border.width.button.subtle"
         },
         "outline": {
-          "value": "{border.width.md}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },
@@ -856,7 +856,7 @@
       "subtle": {
         "sm": {
           "block": {
-            "value": "{space.md}",
+            "value": "{space.sm}",
             "type": "spacing",
             "description": "space.button.subtle.sm.block"
           },
@@ -880,12 +880,12 @@
         },
         "lg": {
           "block": {
-            "value": "{space.lg}",
+            "value": "{space.md}",
             "type": "spacing",
             "description": "space.button.subtle.lg.block"
           },
           "inline": {
-            "value": "{space.xl}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.subtle.lg.inline"
           }
@@ -894,36 +894,36 @@
       "outline": {
         "sm": {
           "block": {
-            "value": "{space.md}",
+            "value": "{space.sm} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.outline.sm.block"
           },
           "inline": {
-            "value": "{space.md}",
+            "value": "{space.md} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.outline.sm.inline"
           }
         },
         "md": {
           "block": {
-            "value": "{space.md}",
+            "value": "{space.md} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.outline.md.block"
           },
           "inline": {
-            "value": "{space.xl}",
+            "value": "{space.lg} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.outline.md.inline"
           }
         },
         "lg": {
           "block": {
-            "value": "{space.lg}",
+            "value": "{space.md} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.outline.lg.block"
           },
           "inline": {
-            "value": "{space.xl}",
+            "value": "{space.lg} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.outline.lg.inline"
           }
@@ -932,7 +932,7 @@
       "ghost": {
         "sm": {
           "block": {
-            "value": "{space.md}",
+            "value": "{space.sm}",
             "type": "spacing",
             "description": "space.button.ghost.sm.block"
           },
@@ -956,12 +956,12 @@
         },
         "lg": {
           "block": {
-            "value": "{space.lg}",
+            "value": "{space.md}",
             "type": "spacing",
             "description": "space.button.ghost.lg.block"
           },
           "inline": {
-            "value": "{space.xl}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.ghost.lg.inline"
           }

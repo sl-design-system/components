@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Mon, 19 Sep 2022 15:11:57 GMT
+ * Generated on Tue, 20 Sep 2022 06:58:01 GMT
  */
 
 @mixin sl-text-button-lg-hover {
@@ -11,10 +11,10 @@
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xl);
   font-size: var(--sl-text-typeset-font-size-xl);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-none);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
+  letter-spacing: ;
+  margin-bottom: ;
+  text-decoration: ;
+  text-transform: ;
 }
 
 @mixin sl-text-button-lg-idle {
@@ -22,10 +22,10 @@
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xl);
   font-size: var(--sl-text-typeset-font-size-xl);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-none);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
+  letter-spacing: ;
+  margin-bottom: ;
+  text-decoration: ;
+  text-transform: ;
 }
 
 @mixin sl-text-button-md-hover {
@@ -33,21 +33,21 @@
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-md);
   font-size: var(--sl-text-typeset-font-size-md);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
+  letter-spacing: ;
+  margin-bottom: ;
+  text-decoration: ;
+  text-transform: ;
 }
 
 @mixin sl-text-button-md-idle {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-text-typeset-line-height-md);
-  font-size: var(--sl-text-typeset-font-size-md);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  letter-spacing: ;
+  margin-bottom: ;
+  text-decoration: ;
+  text-transform: ;
 }
 
 @mixin sl-text-button-sm-hover {
@@ -55,21 +55,21 @@
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-sm);
   font-size: var(--sl-text-typeset-font-size-sm);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
+  letter-spacing: ;
+  margin-bottom: ;
+  text-decoration: ;
+  text-transform: ;
 }
 
 @mixin sl-text-button-sm-idle {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-text-typeset-line-height-sm);
-  font-size: var(--sl-text-typeset-font-size-sm);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+  letter-spacing: ;
+  margin-bottom: ;
+  text-decoration: ;
+  text-transform: ;
 }
 
 @mixin sl-text-typeset-body-lg-bold {

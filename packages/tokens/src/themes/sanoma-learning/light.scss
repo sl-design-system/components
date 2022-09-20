@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Mon, 19 Sep 2022 15:11:57 GMT
+ * Generated on Tue, 20 Sep 2022 06:58:01 GMT
  */
 
 @mixin sl-theme-light {
@@ -15,6 +15,18 @@
   --sl-color-surface-solid-primary-background: rgb(var(--sl-color-palette-primary-base));
   --sl-color-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-color-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-button-secondary-solid-disabled-border: rgba(var(--sl-color-palette-secondary-200) / 0);
+  --sl-color-button-secondary-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-button-secondary-solid-disabled-background: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-button-secondary-solid-active-border: rgba(var(--sl-color-palette-secondary-base) / var(--sl-opacity-500));
+  --sl-color-button-secondary-solid-active-foreground: rgb(var(--sl-color-palette-secondary-900));
+  --sl-color-button-secondary-solid-active-background: rgb(var(--sl-color-palette-secondary-base));
+  --sl-color-button-secondary-solid-hover-border: rgba(var(--sl-color-palette-secondary-base) / 0);
+  --sl-color-button-secondary-solid-hover-foreground: rgb(var(--sl-color-palette-secondary-900));
+  --sl-color-button-secondary-solid-hover-background: rgba(var(--sl-color-palette-secondary-base) / var(--sl-opacity-800));
+  --sl-color-button-secondary-solid-idle-border: rgba(var(--sl-color-palette-secondary-base) / 0);
+  --sl-color-button-secondary-solid-idle-foreground: rgb(var(--sl-color-palette-secondary-900));
+  --sl-color-button-secondary-solid-idle-background: rgb(var(--sl-color-palette-secondary-base));
   --sl-color-button-primary-ghost-disabled-border: rba(rgb(var(--sl-color-palette-primary-base)), 0);
   --sl-color-button-primary-ghost-disabled-foreground: rgb(var(--sl-color-palette-primary-200));
   --sl-color-button-primary-ghost-disabled-background: rgba(var(--sl-color-palette-primary-base) / 0);
@@ -57,7 +69,7 @@
   --sl-color-button-primary-solid-active-border: rgba(var(--sl-color-palette-primary-base) / var(--sl-opacity-500));
   --sl-color-button-primary-solid-active-foreground: rgb(var(--sl-color-palette-primary-50));
   --sl-color-button-primary-solid-active-background: rgb(var(--sl-color-palette-primary-base));
-  --sl-color-button-primary-solid-hover-border: rgba(var(--sl-color-palette-secondary-base) / 0);
+  --sl-color-button-primary-solid-hover-border: rgba(var(--sl-color-palette-primary-base) / 0);
   --sl-color-button-primary-solid-hover-foreground: rgb(var(--sl-color-palette-primary-50));
   --sl-color-button-primary-solid-hover-background: rgba(var(--sl-color-palette-primary-base) / var(--sl-opacity-800));
   --sl-color-button-primary-solid-idle-border: rgba(var(--sl-color-palette-primary-base) / 0);

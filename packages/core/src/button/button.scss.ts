@@ -13,7 +13,6 @@ export default css`
 
   :host {
     --_border-radius: var(--sl-border-radius-button);
-    --_padding: var(--sl-size-button-lg) var(--sl-space-button-lg);
   }
 
   :host {
@@ -86,13 +85,16 @@ export default css`
 
   :host([size='sm']) {
     --_font: var(--sl-text-button-sm);
+    --_padding: var(--sl-space-button-sm);
   }
 
   :host([size='md']) {
     --_font: var(--sl-text-button-md);
+    --_padding: var(--sl-space-button-md);
   }
 
   :host([size='lg']) {
     --_font: var(--sl-text-button-lg);
+    --_padding: var(--sl-space-button-lg);
   }
 `;

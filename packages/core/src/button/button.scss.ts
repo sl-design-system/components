@@ -41,19 +41,19 @@ export default css`
     --_color: var(--sl-color-button-primary-ghost-idle-foreground);
   }
 
-  :host([fill='ghost'][variant='primary']):hover {
+  :host([fill='ghost'][variant='primary']:hover) {
     --_background: var(--sl-color-button-primary-ghost-hover-background);
     --_border-color: var(--sl-color-button-primary-ghost-hover-border);
     --_color: var(--sl-color-button-primary-ghost-hover-foreground);
   }
 
-  :host([fill='ghost'][variant='primary']):active {
+  :host([fill='ghost'][variant='primary']:active) {
     --_background: var(--sl-color-button-primary-ghost-active-background);
     --_border-color: var(--sl-color-button-primary-ghost-active-border);
     --_color: var(--sl-color-button-primary-ghost-active-foreground);
   }
 
-  :host([fill='ghost'][variant='primary'])[disabled] {
+  :host([fill='ghost'][variant='primary'][disabled]) {
     --_background: var(--sl-color-button-primary-ghost-disabled-background);
     --_border-color: var(--sl-color-button-primary-ghost-disabled-border);
     --_color: var(--sl-color-button-primary-ghost-disabled-foreground);
@@ -69,19 +69,19 @@ export default css`
     --_color: var(--sl-color-button-primary-outline-idle-foreground);
   }
 
-  :host([fill='outline'][variant='primary']):hover {
+  :host([fill='outline'][variant='primary']:hover) {
     --_background: var(--sl-color-button-primary-outline-hover-background);
     --_border-color: var(--sl-color-button-primary-outline-hover-border);
     --_color: var(--sl-color-button-primary-outline-hover-foreground);
   }
 
-  :host([fill='outline'][variant='primary']):active {
+  :host([fill='outline'][variant='primary']:active) {
     --_background: var(--sl-color-button-primary-outline-active-background);
     --_border-color: var(--sl-color-button-primary-outline-active-border);
     --_color: var(--sl-color-button-primary-outline-active-foreground);
   }
 
-  :host([fill='outline'][variant='primary'])[disabled] {
+  :host([fill='outline'][variant='primary'][disabled]) {
     --_background: var(--sl-color-button-primary-outline-disabled-background);
     --_border-color: var(--sl-color-button-primary-outline-disabled-border);
     --_color: var(--sl-color-button-primary-outline-disabled-foreground);
@@ -97,13 +97,13 @@ export default css`
     --_color: var(--sl-color-button-primary-solid-idle-foreground);
   }
 
-  :host([fill='solid'][variant='primary']):hover {
+  :host([fill='solid'][variant='primary']:hover) {
     --_background: var(--sl-color-button-primary-solid-hover-background);
     --_border-color: var(--sl-color-button-primary-solid-hover-border);
     --_color: var(--sl-color-button-primary-solid-hover-foreground);
   }
 
-  :host([fill='solid'][variant='primary']):active {
+  :host([fill='solid'][variant='primary']:active) {
     --_background: var(--sl-color-button-primary-solid-active-background);
     --_border-color: var(--sl-color-button-primary-solid-active-border);
     --_color: var(--sl-color-button-primary-solid-active-foreground);
@@ -121,13 +121,13 @@ export default css`
     --_color: var(--sl-color-button-secondary-solid-idle-foreground);
   }
 
-  :host([fill='solid'][variant='secondary']):hover {
+  :host([fill='solid'][variant='secondary']:hover) {
     --_background: var(--sl-color-button-secondary-solid-hover-background);
     --_border-color: var(--sl-color-button-secondary-solid-hover-border);
     --_color: var(--sl-color-button-secondary-solid-hover-foreground);
   }
 
-  :host([fill='solid'][variant='secondary']):active {
+  :host([fill='solid'][variant='secondary']:active) {
     --_background: var(--sl-color-button-secondary-solid-active-background);
     --_border-color: var(--sl-color-button-secondary-solid-active-border);
     --_color: var(--sl-color-button-secondary-solid-active-foreground);
@@ -149,19 +149,19 @@ export default css`
     --_color: var(--sl-color-button-primary-subtle-idle-foreground);
   }
 
-  :host([fill='subtle'][variant='primary']):hover {
+  :host([fill='subtle'][variant='primary']:hover) {
     --_background: var(--sl-color-button-primary-subtle-hover-background);
     --_border-color: var(--sl-color-button-primary-subtle-hover-border);
     --_color: var(--sl-color-button-primary-subtle-hover-foreground);
   }
 
-  :host([fill='subtle'][variant='primary']):active {
+  :host([fill='subtle'][variant='primary']:active) {
     --_background: var(--sl-color-button-primary-subtle-active-background);
     --_border-color: var(--sl-color-button-primary-subtle-active-border);
     --_color: var(--sl-color-button-primary-subtle-active-foreground);
   }
 
-  :host([fill='subtle'][variant='primary'])[disabled] {
+  :host([fill='subtle'][variant='primary'][disabled]) {
     --_background: var(--sl-color-button-primary-subtle-disabled-background);
     --_border-color: var(--sl-color-button-primary-subtle-disabled-border);
     --_color: var(--sl-color-button-primary-subtle-disabled-foreground);

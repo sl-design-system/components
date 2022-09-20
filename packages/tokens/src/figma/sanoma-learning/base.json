@@ -755,7 +755,7 @@
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.md}",
+          "lineHeight": "{text.typeset.lineHeight.sm}",
           "fontSize": "{text.typeset.fontSize.md}"
         },
         "type": "typography"
@@ -764,7 +764,7 @@
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.lg}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
           "fontSize": "{text.typeset.fontSize.lg}"
         },
         "type": "typography"
@@ -773,21 +773,21 @@
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.xl}",
+          "lineHeight": "{text.typeset.lineHeight.lg}",
           "fontSize": "{text.typeset.fontSize.xl}"
         },
         "type": "typography"
       }
     }
   },
+  "borderRadius": {
+    "button": {
+      "value": "{border.radius.xs}",
+      "type": "borderRadius",
+      "description": "borderRadius.button"
+    }
+  },
   "border": {
-    "radius": {
-      "button": {
-        "value": "{border.radius.xs}",
-        "type": "borderRadius",
-        "description": "border.radius.button"
-      }
-    },
     "width": {
       "button": {
         "solid": {
@@ -815,20 +815,157 @@
   },
   "space": {
     "button": {
-      "sm": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.sm"
+      "solid": {
+        "sm": {
+          "block": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.solid.sm.block"
+          },
+          "inline": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.solid.sm.inline"
+          }
+        },
+        "md": {
+          "block": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.solid.md.block"
+          },
+          "inline": {
+            "value": "{space.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.md.inline"
+          }
+        },
+        "lg": {
+          "block": {
+            "value": "{space.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.lg.block"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.lg.inline"
+          }
+        }
       },
-      "md": {
-        "value": "{space.md}",
-        "type": "spacing",
-        "description": "space.button.md"
+      "subtle": {
+        "sm": {
+          "block": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.subtle.sm.block"
+          },
+          "inline": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.subtle.sm.inline"
+          }
+        },
+        "md": {
+          "block": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.subtle.md.block"
+          },
+          "inline": {
+            "value": "{space.lg}",
+            "type": "spacing",
+            "description": "space.button.subtle.md.inline"
+          }
+        },
+        "lg": {
+          "block": {
+            "value": "{space.lg}",
+            "type": "spacing",
+            "description": "space.button.subtle.lg.block"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.subtle.lg.inline"
+          }
+        }
       },
-      "lg": {
-        "value": "{space.lg}",
-        "type": "spacing",
-        "description": "space.button.lg"
+      "outline": {
+        "sm": {
+          "block": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.outline.sm.block"
+          },
+          "inline": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.outline.sm.inline"
+          }
+        },
+        "md": {
+          "block": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.outline.md.block"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.outline.md.inline"
+          }
+        },
+        "lg": {
+          "block": {
+            "value": "{space.lg}",
+            "type": "spacing",
+            "description": "space.button.outline.lg.block"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.outline.lg.inline"
+          }
+        }
+      },
+      "ghost": {
+        "sm": {
+          "block": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.ghost.sm.block"
+          },
+          "inline": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.ghost.sm.inline"
+          }
+        },
+        "md": {
+          "block": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.ghost.md.block"
+          },
+          "inline": {
+            "value": "{space.lg}",
+            "type": "spacing",
+            "description": "space.button.ghost.md.inline"
+          }
+        },
+        "lg": {
+          "block": {
+            "value": "{space.lg}",
+            "type": "spacing",
+            "description": "space.button.ghost.lg.block"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.ghost.lg.inline"
+          }
+        }
       }
     }
   }

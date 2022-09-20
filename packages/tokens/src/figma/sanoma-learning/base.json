@@ -754,8 +754,8 @@
       "sm": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.sm}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.lg}",
           "fontSize": "{text.typeset.fontSize.md}"
         },
         "type": "typography"
@@ -818,7 +818,7 @@
       "solid": {
         "sm": {
           "block": {
-            "value": "{space.md}",
+            "value": "{space.sm}",
             "type": "spacing",
             "description": "space.button.solid.sm.block"
           },
@@ -842,12 +842,12 @@
         },
         "lg": {
           "block": {
-            "value": "{space.lg}",
+            "value": "{space.md}",
             "type": "spacing",
             "description": "space.button.solid.lg.block"
           },
           "inline": {
-            "value": "{space.xl}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.solid.lg.inline"
           }

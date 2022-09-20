@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Tue, 20 Sep 2022 11:53:27 GMT
+ * Generated on Tue, 20 Sep 2022 11:57:58 GMT
  */
 :root {
   --sl-size-4xl: 72px;
@@ -235,8 +235,8 @@
   --sl-border-width-button-subtle: var(--sl-border-width-none);
   --sl-border-width-button-solid: var(--sl-border-width-none);
   --sl-border-radius-button: var(--sl-border-radius-xs);
-  --sl-text-button-lg: 600 18px/24px The Message;
-  --sl-text-button-md: 600 16px/22px The Message;
+  --sl-text-button-lg: 400 18px/24px The Message;
+  --sl-text-button-md: 400 16px/16px The Message;
   --sl-text-button-sm: 400 14px/24px The Message;
   --sl-text-typeset-body-lg-bold: 700 16px/24px The Message;
   --sl-text-typeset-body-lg-demibold: 600 16px/24px The Message;

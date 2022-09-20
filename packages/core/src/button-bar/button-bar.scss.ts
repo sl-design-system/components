@@ -12,8 +12,8 @@ export default css`
   }
 
   :host {
-    --align: flex-start;
-    --direction: row;
+    --_align: flex-start;
+    --_direction: row;
     --gap-h: 1rem;
     --gap-v: 0.5rem;
   }
@@ -21,22 +21,22 @@ export default css`
   :host {
     align-items: center;
     display: flex;
-    flex-direction: var(--direction);
+    flex-direction: var(--_direction);
     flex-wrap: wrap;
     gap: var(--gap-v) var(--gap-h);
-    justify-content: var(--align);
+    justify-content: var(--_align);
   }
 
   :host([align='center']) {
-    --align: center;
+    --_align: center;
   }
 
   :host([align='end']) {
-    --align: flex-end;
+    --_align: flex-end;
   }
 
   :host([align='space-between']) {
-    --align: space-between;
+    --_align: space-between;
   }
 
   :host([icon-only]) {
@@ -45,6 +45,6 @@ export default css`
   }
 
   :host([reverse]) {
-    --direction: row-reverse;
+    --_direction: row-reverse;
   }
 `;

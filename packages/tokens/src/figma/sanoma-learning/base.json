@@ -752,94 +752,31 @@
     },
     "button": {
       "sm": {
-        "idle": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "fontSize": "{text.typeset.fontSize.md}",
-            "letterSpacing": "",
-            "paragraphSpacing": "",
-            "textDecoration": "",
-            "textCase": ""
-          },
-          "type": "typography",
-          "description": "text.button.sm.idle"
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.md}"
         },
-        "hover": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "letterSpacing": "",
-            "paragraphSpacing": "",
-            "textDecoration": "",
-            "textCase": ""
-          },
-          "type": "typography",
-          "description": "text.button.sm.hover"
-        }
+        "type": "typography"
       },
       "md": {
-        "idle": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
-            "lineHeight": "{text.typeset.lineHeight.lg}",
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "letterSpacing": "",
-            "paragraphSpacing": "",
-            "textDecoration": "",
-            "textCase": ""
-          },
-          "type": "typography",
-          "description": "text.button.md.idle"
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.lg}",
+          "fontSize": "{text.typeset.fontSize.lg}"
         },
-        "hover": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "fontSize": "{text.typeset.fontSize.md}",
-            "letterSpacing": "",
-            "paragraphSpacing": "",
-            "textDecoration": "",
-            "textCase": ""
-          },
-          "type": "typography",
-          "description": "text.button.md.hover"
-        }
+        "type": "typography"
       },
       "lg": {
-        "idle": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.xl}",
-            "fontSize": "{text.typeset.fontSize.xl}",
-            "letterSpacing": "",
-            "paragraphSpacing": "",
-            "textDecoration": "",
-            "textCase": ""
-          },
-          "type": "typography",
-          "description": "text.button.lg.idle"
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.xl}",
+          "fontSize": "{text.typeset.fontSize.xl}"
         },
-        "hover": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.xl}",
-            "fontSize": "{text.typeset.fontSize.xl}",
-            "letterSpacing": "",
-            "paragraphSpacing": "",
-            "textDecoration": "",
-            "textCase": ""
-          },
-          "type": "typography",
-          "description": "text.button.lg.hover"
-        }
+        "type": "typography"
       }
     }
   },
@@ -878,20 +815,20 @@
   },
   "space": {
     "button": {
-      "lg": {
-        "value": "{space.lg}",
+      "sm": {
+        "value": "{space.sm}",
         "type": "spacing",
-        "description": "space.button.lg"
+        "description": "space.button.sm"
       },
       "md": {
         "value": "{space.md}",
         "type": "spacing",
         "description": "space.button.md"
       },
-      "sm": {
-        "value": "{space.sm}",
+      "lg": {
+        "value": "{space.lg}",
         "type": "spacing",
-        "description": "space.button.sm"
+        "description": "space.button.lg"
       }
     }
   }

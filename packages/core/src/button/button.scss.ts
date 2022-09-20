@@ -31,6 +31,62 @@ export default css`
     pointer-events: none;
   }
 
+  :host([fill='ghost']) {
+    --_border-width: var(--sl-border-width-button-ghost, var(--sl-border-width-button));
+  }
+
+  :host([fill='ghost'][variant='primary']) {
+    --_background: var(--sl-color-button-primary-ghost-idle-background);
+    --_border-color: var(--sl-color-button-primary-ghost-idle-border);
+    --_color: var(--sl-color-button-primary-ghost-idle-foreground);
+  }
+
+  :host([fill='ghost'][variant='primary']):hover {
+    --_background: var(--sl-color-button-primary-ghost-hover-background);
+    --_border-color: var(--sl-color-button-primary-ghost-hover-border);
+    --_color: var(--sl-color-button-primary-ghost-hover-foreground);
+  }
+
+  :host([fill='ghost'][variant='primary']):active {
+    --_background: var(--sl-color-button-primary-ghost-active-background);
+    --_border-color: var(--sl-color-button-primary-ghost-active-border);
+    --_color: var(--sl-color-button-primary-ghost-active-foreground);
+  }
+
+  :host([fill='ghost'][variant='primary'])[disabled] {
+    --_background: var(--sl-color-button-primary-ghost-disabled-background);
+    --_border-color: var(--sl-color-button-primary-ghost-disabled-border);
+    --_color: var(--sl-color-button-primary-ghost-disabled-foreground);
+  }
+
+  :host([fill='outline']) {
+    --_border-width: var(--sl-border-width-button-outline, var(--sl-border-width-button));
+  }
+
+  :host([fill='outline'][variant='primary']) {
+    --_background: var(--sl-color-button-primary-outline-idle-background);
+    --_border-color: var(--sl-color-button-primary-outline-idle-border);
+    --_color: var(--sl-color-button-primary-outline-idle-foreground);
+  }
+
+  :host([fill='outline'][variant='primary']):hover {
+    --_background: var(--sl-color-button-primary-outline-hover-background);
+    --_border-color: var(--sl-color-button-primary-outline-hover-border);
+    --_color: var(--sl-color-button-primary-outline-hover-foreground);
+  }
+
+  :host([fill='outline'][variant='primary']):active {
+    --_background: var(--sl-color-button-primary-outline-active-background);
+    --_border-color: var(--sl-color-button-primary-outline-active-border);
+    --_color: var(--sl-color-button-primary-outline-active-foreground);
+  }
+
+  :host([fill='outline'][variant='primary'])[disabled] {
+    --_background: var(--sl-color-button-primary-outline-disabled-background);
+    --_border-color: var(--sl-color-button-primary-outline-disabled-border);
+    --_color: var(--sl-color-button-primary-outline-disabled-foreground);
+  }
+
   :host([fill='solid']) {
     --_border-width: var(--sl-border-width-button-solid, var(--sl-border-width-button));
   }
@@ -81,6 +137,34 @@ export default css`
     --_background: var(--sl-color-button-secondary-solid-disabled-background);
     --_border-color: var(--sl-color-button-secondary-solid-disabled-border);
     --_color: var(--sl-color-button-secondary-solid-disabled-foreground);
+  }
+
+  :host([fill='subtle']) {
+    --_border-width: var(--sl-border-width-button-subtle, var(--sl-border-width-button));
+  }
+
+  :host([fill='subtle'][variant='primary']) {
+    --_background: var(--sl-color-button-primary-subtle-idle-background);
+    --_border-color: var(--sl-color-button-primary-subtle-idle-border);
+    --_color: var(--sl-color-button-primary-subtle-idle-foreground);
+  }
+
+  :host([fill='subtle'][variant='primary']):hover {
+    --_background: var(--sl-color-button-primary-subtle-hover-background);
+    --_border-color: var(--sl-color-button-primary-subtle-hover-border);
+    --_color: var(--sl-color-button-primary-subtle-hover-foreground);
+  }
+
+  :host([fill='subtle'][variant='primary']):active {
+    --_background: var(--sl-color-button-primary-subtle-active-background);
+    --_border-color: var(--sl-color-button-primary-subtle-active-border);
+    --_color: var(--sl-color-button-primary-subtle-active-foreground);
+  }
+
+  :host([fill='subtle'][variant='primary'])[disabled] {
+    --_background: var(--sl-color-button-primary-subtle-disabled-background);
+    --_border-color: var(--sl-color-button-primary-subtle-disabled-border);
+    --_color: var(--sl-color-button-primary-subtle-disabled-foreground);
   }
 
   :host([size='sm']) {

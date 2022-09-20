@@ -3,73 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Tue, 20 Sep 2022 06:58:01 GMT
+ * Generated on Tue, 20 Sep 2022 08:02:48 GMT
  */
 
-@mixin sl-text-button-lg-hover {
+@mixin sl-text-button-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xl);
   font-size: var(--sl-text-typeset-font-size-xl);
-  letter-spacing: ;
-  margin-bottom: ;
-  text-decoration: ;
-  text-transform: ;
 }
 
-@mixin sl-text-button-lg-idle {
+@mixin sl-text-button-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
-  line-height: var(--sl-text-typeset-line-height-xl);
-  font-size: var(--sl-text-typeset-font-size-xl);
-  letter-spacing: ;
-  margin-bottom: ;
-  text-decoration: ;
-  text-transform: ;
-}
-
-@mixin sl-text-button-md-hover {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-text-typeset-line-height-md);
-  font-size: var(--sl-text-typeset-font-size-md);
-  letter-spacing: ;
-  margin-bottom: ;
-  text-decoration: ;
-  text-transform: ;
-}
-
-@mixin sl-text-button-md-idle {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-lg);
   font-size: var(--sl-text-typeset-font-size-lg);
-  letter-spacing: ;
-  margin-bottom: ;
-  text-decoration: ;
-  text-transform: ;
 }
 
-@mixin sl-text-button-sm-hover {
+@mixin sl-text-button-sm {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-text-typeset-line-height-sm);
-  font-size: var(--sl-text-typeset-font-size-sm);
-  letter-spacing: ;
-  margin-bottom: ;
-  text-decoration: ;
-  text-transform: ;
-}
-
-@mixin sl-text-button-sm-idle {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-md);
   font-size: var(--sl-text-typeset-font-size-md);
-  letter-spacing: ;
-  margin-bottom: ;
-  text-decoration: ;
-  text-transform: ;
 }
 
 @mixin sl-text-typeset-body-lg-bold {

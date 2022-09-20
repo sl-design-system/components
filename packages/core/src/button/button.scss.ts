@@ -109,7 +109,7 @@ export default css`
     --_color: var(--sl-color-button-primary-solid-active-foreground);
   }
 
-  :host([fill='solid'][variant='primary'])[disabled] {
+  :host([fill='solid'][variant='primary'][disabled]) {
     --_background: var(--sl-color-button-primary-solid-disabled-background);
     --_border-color: var(--sl-color-button-primary-solid-disabled-border);
     --_color: var(--sl-color-button-primary-solid-disabled-foreground);
@@ -133,7 +133,7 @@ export default css`
     --_color: var(--sl-color-button-secondary-solid-active-foreground);
   }
 
-  :host([fill='solid'][variant='secondary'])[disabled] {
+  :host([fill='solid'][variant='secondary'][disabled]) {
     --_background: var(--sl-color-button-secondary-solid-disabled-background);
     --_border-color: var(--sl-color-button-secondary-solid-disabled-border);
     --_color: var(--sl-color-button-secondary-solid-disabled-foreground);

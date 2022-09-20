@@ -94,12 +94,12 @@
     --_border-color: var(--sl-color-button-primary-solid-active-border);
     --_color: var(--sl-color-button-primary-solid-active-foreground);
   }
+}
 
-  &[disabled] {
-    --_background: var(--sl-color-button-primary-solid-disabled-background);
-    --_border-color: var(--sl-color-button-primary-solid-disabled-border);
-    --_color: var(--sl-color-button-primary-solid-disabled-foreground);
-  }
+:host([fill='solid'][variant='primary'][disabled]) {
+  --_background: var(--sl-color-button-primary-solid-disabled-background);
+  --_border-color: var(--sl-color-button-primary-solid-disabled-border);
+  --_color: var(--sl-color-button-primary-solid-disabled-foreground);
 }
 
 :host([fill='solid'][variant='secondary']) {
@@ -118,12 +118,12 @@
     --_border-color: var(--sl-color-button-secondary-solid-active-border);
     --_color: var(--sl-color-button-secondary-solid-active-foreground);
   }
+}
 
-  &[disabled] {
-    --_background: var(--sl-color-button-secondary-solid-disabled-background);
-    --_border-color: var(--sl-color-button-secondary-solid-disabled-border);
-    --_color: var(--sl-color-button-secondary-solid-disabled-foreground);
-  }
+:host([fill='solid'][variant='secondary'][disabled]) {
+  --_background: var(--sl-color-button-secondary-solid-disabled-background);
+  --_border-color: var(--sl-color-button-secondary-solid-disabled-border);
+  --_color: var(--sl-color-button-secondary-solid-disabled-foreground);
 }
 
 :host([fill='subtle']) {

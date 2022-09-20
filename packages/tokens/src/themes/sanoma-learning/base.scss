@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Do not edit directly
- * Generated on Tue, 20 Sep 2022 06:58:01 GMT
+ * Generated on Tue, 20 Sep 2022 08:02:48 GMT
  */
 
 @mixin sl-theme-base {
@@ -207,20 +207,17 @@
   --sl-color-palette-secondary-100: 218 238 224;
   --sl-color-palette-secondary-50: 251 252 251;
   --sl-shadow-card: var(--sl-size-none) var(--sl-size-4xs) var(--sl-size-4xs) var(--sl-size-none) rgba(rgb(var(--sl-color-palette-black-base)), var(--sl-opacity-600));
-  --sl-space-button-sm: var(--sl-space-sm);
-  --sl-space-button-md: var(--sl-space-md);
   --sl-space-button-lg: var(--sl-space-lg);
+  --sl-space-button-md: var(--sl-space-md);
+  --sl-space-button-sm: var(--sl-space-sm);
   --sl-border-width-button-ghost: var(--sl-border-width-none);
   --sl-border-width-button-outline: var(--sl-border-width-md);
   --sl-border-width-button-subtle: var(--sl-border-width-none);
   --sl-border-width-button-solid: var(--sl-border-width-none);
   --sl-border-radius-button: var(--sl-border-radius-xs);
-  --sl-text-button-lg-hover: 600 18px/28px The Message;
-  --sl-text-button-lg-idle: 600 18px/28px The Message;
-  --sl-text-button-md-hover: 700 14px/22px The Message;
-  --sl-text-button-md-idle: 700 16px/24px The Message;
-  --sl-text-button-sm-hover: 700 12px/16px The Message;
-  --sl-text-button-sm-idle: 700 14px/22px The Message;
+  --sl-text-button-lg: 600 18px/28px The Message;
+  --sl-text-button-md: 600 16px/24px The Message;
+  --sl-text-button-sm: 600 14px/22px The Message;
   --sl-text-typeset-body-lg-bold: 700 16px/24px The Message;
   --sl-text-typeset-body-lg-demibold: 600 16px/24px The Message;
   --sl-text-typeset-body-lg-normal: 400 16px/24px The Message;

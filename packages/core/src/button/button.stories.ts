@@ -82,7 +82,7 @@ export const Variants: Story = {
       <sl-button variant="info">Info</sl-button>
       <sl-button variant="info" disabled>Disabled</sl-button>
       <sl-button variant="warning">Warning</sl-button>
-      <sl-button variant="warning" disabled>Warning</sl-button>
+      <sl-button variant="warning" disabled>Disabled</sl-button>
     </div>
   `
 };

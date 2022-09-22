@@ -28,6 +28,11 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
       }
     });
 
+    // Wrap the value inside a calc() function if it contains an expression
+    if (!value.startsWith('rgb') && [' - ', ' + ', ' / '].some(expr => value.indexOf(expr) !== -1)) {
+      value = `calc(${value})`;
+    }
+
     return `${options.prefix}--${token.name}: ${value};`;
   } else {
     return StyleDictionary.formatHelpers.createPropertyFormatter({ format: 'css', dictionary, outputReferences: true })(token);

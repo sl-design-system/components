@@ -210,12 +210,12 @@
   --sl-space-button-ghost-md-block: var(--sl-space-md);
   --sl-space-button-ghost-sm-inline: var(--sl-space-md);
   --sl-space-button-ghost-sm-block: var(--sl-space-sm);
-  --sl-space-button-outline-lg-inline: var(--sl-space-lg) - var(--sl-border-width-button-outline);
-  --sl-space-button-outline-lg-block: var(--sl-space-md) - var(--sl-border-width-button-outline);
-  --sl-space-button-outline-md-inline: var(--sl-space-lg) - var(--sl-border-width-button-outline);
-  --sl-space-button-outline-md-block: var(--sl-space-md) - var(--sl-border-width-button-outline);
-  --sl-space-button-outline-sm-inline: var(--sl-space-md) - var(--sl-border-width-button-outline);
-  --sl-space-button-outline-sm-block: var(--sl-space-sm) - var(--sl-border-width-button-outline);
+  --sl-space-button-outline-lg-inline: calc(var(--sl-space-lg) - var(--sl-border-width-button-outline));
+  --sl-space-button-outline-lg-block: calc(var(--sl-space-md) - var(--sl-border-width-button-outline));
+  --sl-space-button-outline-md-inline: calc(var(--sl-space-lg) - var(--sl-border-width-button-outline));
+  --sl-space-button-outline-md-block: calc(var(--sl-space-md) - var(--sl-border-width-button-outline));
+  --sl-space-button-outline-sm-inline: calc(var(--sl-space-md) - var(--sl-border-width-button-outline));
+  --sl-space-button-outline-sm-block: calc(var(--sl-space-sm) - var(--sl-border-width-button-outline));
   --sl-space-button-subtle-lg-inline: var(--sl-space-lg);
   --sl-space-button-subtle-lg-block: var(--sl-space-md);
   --sl-space-button-subtle-md-inline: var(--sl-space-lg);

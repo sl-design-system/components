@@ -3,6 +3,7 @@ module.exports = {
   addons: [
     '../../../tools/storybook-addon-themes',
     '@storybook/addon-a11y',
+    '@storybook/addon-actions',
     '@storybook/addon-links',
     {
       name: '@storybook/addon-essentials',

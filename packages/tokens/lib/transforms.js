@@ -1,3 +1,24 @@
+const FONT_WEIGHTS = {
+  Thin: 100,
+  ExtraLight: 200,
+  Light: 300,
+  Regular: 400,
+  Medium: 500,
+  DemiBold: 600,
+  SemiBold: 600,
+  Bold: 700,
+  ExtraBold: 800,
+  Black: 900,
+  ExtraBlack: 950
+};
+
+export const fontWeights = {
+  name: 'css/font-weight',
+  type: 'value',
+  matcher: token => token.type === 'fontWeights',
+  transformer: token => FONT_WEIGHTS[token.value] ?? token.value
+};
+
 export const palette = {
   name: 'attribute/palette',
   type: 'attribute',
@@ -28,8 +49,8 @@ export const sizePx = {
   matcher: token =>
     [
       'borderRadius', 
-      'borderWidth', 
-      'fontWeights', 
+      'borderWidth',
+      'fontSizes',
       'lineHeights', 
       'paragraphSpacing', 
       'sizing', 

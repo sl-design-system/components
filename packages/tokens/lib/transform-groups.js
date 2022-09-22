@@ -6,6 +6,7 @@ export const css = {
     'attribute/palette',
     'name/cti/kebab',
     'time/seconds',
+    'css/font-weight',
     'size/px',
     'shadow/css'
   ]

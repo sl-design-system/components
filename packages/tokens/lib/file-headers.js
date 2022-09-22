@@ -3,9 +3,7 @@ export const legal = {
   fileHeader(defaultMessage) {
     return [
       'Copyright 2022 Sanoma Learning',
-      'SPDX-License-Identifier: Apache-2.0',
-      '',
-      ...defaultMessage
+      'SPDX-License-Identifier: Apache-2.0'
     ];
   }
 };

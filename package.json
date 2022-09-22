@@ -4,7 +4,9 @@
   "private": true,
   "workspaces": [
     "packages/core",
-    "packages/tokens"
+    "packages/tokens",
+    "scripts",
+    "tools/storybook-addon-themes"
   ],
   "scripts": {
     "build": "wireit",
@@ -33,6 +35,10 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
+    "sass": "^1.54.9",
+    "stylelint": "^14.12.0",
+    "stylelint-config-sass-guidelines": "^9.0.1",
+    "stylelint-prettier": "^2.0.0",
     "typescript": "^4.8.3",
     "wireit": "^0.7.1"
   }

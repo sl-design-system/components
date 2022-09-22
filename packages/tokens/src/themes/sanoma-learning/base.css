@@ -2,8 +2,7 @@
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
  */
-
-@mixin sl-theme-base {
+:root {
   --sl-size-4xl: 72px;
   --sl-size-3xl: 64px;
   --sl-size-2xl: 56px;

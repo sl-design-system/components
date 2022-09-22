@@ -2,8 +2,7 @@
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
  */
-
-@mixin sl-theme-dark {
+:root {
   --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-primary-50));
   --sl-color-surface-solid-primary-background: rgb(var(--sl-color-palette-primary-base));
   --sl-color-body-foreground: rgb(var(--sl-color-palette-white-base));

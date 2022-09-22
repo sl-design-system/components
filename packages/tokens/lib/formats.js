@@ -7,6 +7,10 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
     const { rgb: { r, g, b }} = token.attributes;
 
     return `${options.prefix}--${token.name}: ${r} ${g} ${b};`;
+  } else if (typeof value === 'object' && token.type === 'typography') {
+    let output = `${value.fontWeight} ${value.fontSize}/${value.lineHeight} ${value.fontFamily}`;
+
+    return `${options.prefix}--${token.name}: ${output};`;
   } else if (dictionary.usesReference(token.original.value) && typeof value === 'string') {
     const refs = dictionary.getReferences(token.original.value);
 
@@ -23,6 +27,11 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
         }
       }
     });
+
+    // Wrap the value inside a calc() function if it contains an expression
+    if (!value.startsWith('rgb') && [' - ', ' + ', ' / '].some(expr => value.indexOf(expr) !== -1)) {
+      value = `calc(${value})`;
+    }
 
     return `${options.prefix}--${token.name}: ${value};`;
   } else {
@@ -74,20 +83,6 @@ export const cssTypography = {
       .join('\n');
 
     return StyleDictionary.formatHelpers.fileHeader({ file }) + classes;
-  }
-};
-
-export const cssVariables = {
-  name: 'custom/css/variables',
-  formatter: ({ dictionary, options, file }) => {
-    const tokens = dictionary.allTokens
-      .filter(token => typeof token.value !== 'object')
-      .filter(token => options.filterFile ? token.filePath === options.filterFile : true)
-      .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
-      .map(token => tokenToCss(dictionary, token, { prefix: '  ' }))
-      .join('\n');
-
-    return StyleDictionary.formatHelpers.fileHeader({ file }) + `${options.selector || ':root'} {\n${tokens}\n}\n`;
   }
 };
 
@@ -143,9 +138,9 @@ export const scssVariables = {
   formatter: ({ dictionary, file, options }) => {    
     const tokens = dictionary.allTokens
       .filter(token => options.filterFile ? token.filePath === options.filterFile : true)
-      .filter(token => typeof token.value !== 'object')
       .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
       .map(token => tokenToCss(dictionary, token, { prefix: '  ' }))
+      .filter(token => !!token)
       .join('\n');
 
     const mixinName = options.mixinName || 'sl-theme-base';

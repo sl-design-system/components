@@ -2,8 +2,7 @@
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
  */
-
-@mixin sl-theme-light {
+:root {
   --sl-color-surface-solid-accent-foreground: rgb(var(--sl-color-palette-accent-50));
   --sl-color-surface-solid-accent-backgorund: rgb(var(--sl-color-palette-accent-base));
   --sl-color-surface-solid-secondary-foreground: rgb(var(--sl-color-palette-secondary-50));

@@ -17,6 +17,7 @@
         "*.json",
         "*.css",
         "*.scss",
+        "!fonts.css",
         "!package.json"
       ]
     }

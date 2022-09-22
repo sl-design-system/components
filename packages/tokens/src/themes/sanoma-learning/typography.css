@@ -1,75 +1,27 @@
 /**
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
- * 
- * Do not edit directly
- * Generated on Thu, 15 Sep 2022 09:28:49 GMT
  */
 
-.sl-text-button-lg-hover {
+.sl-text-button-lg {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-demibold);
-  line-height: var(--sl-text-typeset-line-height-xl);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
   font-size: var(--sl-text-typeset-font-size-xl);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-none);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-.sl-text-button-lg-idle {
+.sl-text-button-md {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-demibold);
-  line-height: var(--sl-text-typeset-line-height-xl);
-  font-size: var(--sl-text-typeset-font-size-xl);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-none);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
-}
-
-.sl-text-button-md-hover {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-text-typeset-line-height-md);
-  font-size: var(--sl-text-typeset-font-size-md);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
-}
-
-.sl-text-button-md-idle {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-text-typeset-line-height-md);
-  font-size: var(--sl-text-typeset-font-size-md);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
-}
-
-.sl-text-button-sm-hover {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-sm);
-  font-size: var(--sl-text-typeset-font-size-sm);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
+  font-size: var(--sl-text-typeset-font-size-lg);
 }
 
-.sl-text-button-sm-idle {
+.sl-text-button-sm {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-text-typeset-line-height-sm);
-  font-size: var(--sl-text-typeset-font-size-sm);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
-  text-decoration: var(--sl-text-typeset-text-decoration-none);
-  text-transform: var(--sl-text-typeset-text-case-none);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-md);
 }
 
 .sl-text-typeset-body-lg-bold {

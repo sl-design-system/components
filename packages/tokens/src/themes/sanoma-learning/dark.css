@@ -1,9 +1,6 @@
 /**
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
- * 
- * Do not edit directly
- * Generated on Tue, 20 Sep 2022 11:57:58 GMT
  */
 :root {
   --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-primary-50));

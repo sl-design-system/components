@@ -1,9 +1,6 @@
 /**
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
- * 
- * Do not edit directly
- * Generated on Tue, 20 Sep 2022 11:57:58 GMT
  */
 :root {
   --sl-size-4xl: 72px;
@@ -206,24 +203,24 @@
   --sl-color-palette-secondary-100: 218 238 224;
   --sl-color-palette-secondary-50: 251 252 251;
   --sl-shadow-card: var(--sl-size-none) var(--sl-size-4xs) var(--sl-size-4xs) var(--sl-size-none) rgba(rgb(var(--sl-color-palette-black-base)), var(--sl-opacity-600));
-  --sl-space-button-ghost-lg-inline: var(--sl-space-xl);
-  --sl-space-button-ghost-lg-block: var(--sl-space-lg);
+  --sl-space-button-ghost-lg-inline: var(--sl-space-lg);
+  --sl-space-button-ghost-lg-block: var(--sl-space-md);
   --sl-space-button-ghost-md-inline: var(--sl-space-lg);
   --sl-space-button-ghost-md-block: var(--sl-space-md);
   --sl-space-button-ghost-sm-inline: var(--sl-space-md);
-  --sl-space-button-ghost-sm-block: var(--sl-space-md);
-  --sl-space-button-outline-lg-inline: var(--sl-space-xl);
-  --sl-space-button-outline-lg-block: var(--sl-space-lg);
-  --sl-space-button-outline-md-inline: var(--sl-space-xl);
-  --sl-space-button-outline-md-block: var(--sl-space-md);
-  --sl-space-button-outline-sm-inline: var(--sl-space-md);
-  --sl-space-button-outline-sm-block: var(--sl-space-md);
-  --sl-space-button-subtle-lg-inline: var(--sl-space-xl);
-  --sl-space-button-subtle-lg-block: var(--sl-space-lg);
+  --sl-space-button-ghost-sm-block: var(--sl-space-sm);
+  --sl-space-button-outline-lg-inline: var(--sl-space-lg) - var(--sl-border-width-button-outline);
+  --sl-space-button-outline-lg-block: var(--sl-space-md) - var(--sl-border-width-button-outline);
+  --sl-space-button-outline-md-inline: var(--sl-space-lg) - var(--sl-border-width-button-outline);
+  --sl-space-button-outline-md-block: var(--sl-space-md) - var(--sl-border-width-button-outline);
+  --sl-space-button-outline-sm-inline: var(--sl-space-md) - var(--sl-border-width-button-outline);
+  --sl-space-button-outline-sm-block: var(--sl-space-sm) - var(--sl-border-width-button-outline);
+  --sl-space-button-subtle-lg-inline: var(--sl-space-lg);
+  --sl-space-button-subtle-lg-block: var(--sl-space-md);
   --sl-space-button-subtle-md-inline: var(--sl-space-lg);
   --sl-space-button-subtle-md-block: var(--sl-space-md);
   --sl-space-button-subtle-sm-inline: var(--sl-space-md);
-  --sl-space-button-subtle-sm-block: var(--sl-space-md);
+  --sl-space-button-subtle-sm-block: var(--sl-space-sm);
   --sl-space-button-solid-lg-inline: var(--sl-space-lg);
   --sl-space-button-solid-lg-block: var(--sl-space-md);
   --sl-space-button-solid-md-inline: var(--sl-space-lg);
@@ -231,7 +228,7 @@
   --sl-space-button-solid-sm-inline: var(--sl-space-md);
   --sl-space-button-solid-sm-block: var(--sl-space-sm);
   --sl-border-width-button-ghost: var(--sl-border-width-none);
-  --sl-border-width-button-outline: var(--sl-border-width-md);
+  --sl-border-width-button-outline: var(--sl-border-width-sm);
   --sl-border-width-button-subtle: var(--sl-border-width-none);
   --sl-border-width-button-solid: var(--sl-border-width-none);
   --sl-border-radius-button: var(--sl-border-radius-xs);

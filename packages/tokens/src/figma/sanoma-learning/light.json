@@ -719,12 +719,12 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.neutral.300}",
+              "value": "rgba({color.palette.info.base}, {opacity.500})",
               "type": "color",
               "description": "color.button.info.solid.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.100}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.info.solid.disabled.foreground"
             }
@@ -769,12 +769,12 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.info.100}",
+              "value": "rgba({color.palette.info.100}, {opacity.500})",
               "type": "color",
               "description": "color.button.info.subtle.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.info.subtle.disabled.foreground"
             }
@@ -844,7 +844,7 @@
               "description": "color.button.info.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.neutral.200}",
+              "value": "rgba({color.palette.info.base}, {opacity.500})",
               "type": "color",
               "description": "color.button.info.outline.disabled.border"
             }

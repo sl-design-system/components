@@ -75,6 +75,8 @@ export const Variants: Story = {
       <sl-button disabled>Disabled</sl-button>
       <sl-button variant="secondary">Secondary</sl-button>
       <sl-button variant="secondary" disabled>Disabled</sl-button>
+      <sl-button variant="accent">Accent</sl-button>
+      <sl-button variant="accent" disabled>Disabled</sl-button>
       <sl-button variant="success">Success</sl-button>
       <sl-button variant="success" disabled>Disabled</sl-button>
       <sl-button variant="danger">Danger</sl-button>

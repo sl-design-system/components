@@ -99,6 +99,30 @@ export default css`
     --_color: var(--sl-color-button-secondary-ghost-disabled-foreground);
   }
 
+  :host([fill='ghost'][variant='accent']) {
+    --_background: var(--sl-color-button-accent-ghost-idle-background);
+    --_border-color: var(--sl-color-button-accent-ghost-idle-border);
+    --_color: var(--sl-color-button-accent-ghost-idle-foreground);
+  }
+
+  :host([fill='ghost'][variant='accent']:hover) {
+    --_background: var(--sl-color-button-accent-ghost-hover-background);
+    --_border-color: var(--sl-color-button-accent-ghost-hover-border);
+    --_color: var(--sl-color-button-accent-ghost-hover-foreground);
+  }
+
+  :host([fill='ghost'][variant='accent']:active) {
+    --_background: var(--sl-color-button-accent-ghost-active-background);
+    --_border-color: var(--sl-color-button-accent-ghost-active-border);
+    --_color: var(--sl-color-button-accent-ghost-active-foreground);
+  }
+
+  :host([fill='ghost'][variant='accent'][disabled]) {
+    --_background: var(--sl-color-button-accent-ghost-disabled-background);
+    --_border-color: var(--sl-color-button-accent-ghost-disabled-border);
+    --_color: var(--sl-color-button-accent-ghost-disabled-foreground);
+  }
+
   :host([fill='ghost'][variant='success']) {
     --_background: var(--sl-color-button-success-ghost-idle-background);
     --_border-color: var(--sl-color-button-success-ghost-idle-border);
@@ -260,6 +284,30 @@ export default css`
     --_background: var(--sl-color-button-secondary-outline-disabled-background);
     --_border-color: var(--sl-color-button-secondary-outline-disabled-border);
     --_color: var(--sl-color-button-secondary-outline-disabled-foreground);
+  }
+
+  :host([fill='outline'][variant='accent']) {
+    --_background: var(--sl-color-button-accent-outline-idle-background);
+    --_border-color: var(--sl-color-button-accent-outline-idle-border);
+    --_color: var(--sl-color-button-accent-outline-idle-foreground);
+  }
+
+  :host([fill='outline'][variant='accent']:hover) {
+    --_background: var(--sl-color-button-accent-outline-hover-background);
+    --_border-color: var(--sl-color-button-accent-outline-hover-border);
+    --_color: var(--sl-color-button-accent-outline-hover-foreground);
+  }
+
+  :host([fill='outline'][variant='accent']:active) {
+    --_background: var(--sl-color-button-accent-outline-active-background);
+    --_border-color: var(--sl-color-button-accent-outline-active-border);
+    --_color: var(--sl-color-button-accent-outline-active-foreground);
+  }
+
+  :host([fill='outline'][variant='accent'][disabled]) {
+    --_background: var(--sl-color-button-accent-outline-disabled-background);
+    --_border-color: var(--sl-color-button-accent-outline-disabled-border);
+    --_color: var(--sl-color-button-accent-outline-disabled-foreground);
   }
 
   :host([fill='outline'][variant='success']) {
@@ -425,6 +473,30 @@ export default css`
     --_color: var(--sl-color-button-secondary-solid-disabled-foreground);
   }
 
+  :host([fill='solid'][variant='accent']) {
+    --_background: var(--sl-color-button-accent-solid-idle-background);
+    --_border-color: var(--sl-color-button-accent-solid-idle-border);
+    --_color: var(--sl-color-button-accent-solid-idle-foreground);
+  }
+
+  :host([fill='solid'][variant='accent']:hover) {
+    --_background: var(--sl-color-button-accent-solid-hover-background);
+    --_border-color: var(--sl-color-button-accent-solid-hover-border);
+    --_color: var(--sl-color-button-accent-solid-hover-foreground);
+  }
+
+  :host([fill='solid'][variant='accent']:active) {
+    --_background: var(--sl-color-button-accent-solid-active-background);
+    --_border-color: var(--sl-color-button-accent-solid-active-border);
+    --_color: var(--sl-color-button-accent-solid-active-foreground);
+  }
+
+  :host([fill='solid'][variant='accent'][disabled]) {
+    --_background: var(--sl-color-button-accent-solid-disabled-background);
+    --_border-color: var(--sl-color-button-accent-solid-disabled-border);
+    --_color: var(--sl-color-button-accent-solid-disabled-foreground);
+  }
+
   :host([fill='solid'][variant='success']) {
     --_background: var(--sl-color-button-success-solid-idle-background);
     --_border-color: var(--sl-color-button-success-solid-idle-border);
@@ -586,6 +658,30 @@ export default css`
     --_background: var(--sl-color-button-secondary-subtle-disabled-background);
     --_border-color: var(--sl-color-button-secondary-subtle-disabled-border);
     --_color: var(--sl-color-button-secondary-subtle-disabled-foreground);
+  }
+
+  :host([fill='subtle'][variant='accent']) {
+    --_background: var(--sl-color-button-accent-subtle-idle-background);
+    --_border-color: var(--sl-color-button-accent-subtle-idle-border);
+    --_color: var(--sl-color-button-accent-subtle-idle-foreground);
+  }
+
+  :host([fill='subtle'][variant='accent']:hover) {
+    --_background: var(--sl-color-button-accent-subtle-hover-background);
+    --_border-color: var(--sl-color-button-accent-subtle-hover-border);
+    --_color: var(--sl-color-button-accent-subtle-hover-foreground);
+  }
+
+  :host([fill='subtle'][variant='accent']:active) {
+    --_background: var(--sl-color-button-accent-subtle-active-background);
+    --_border-color: var(--sl-color-button-accent-subtle-active-border);
+    --_color: var(--sl-color-button-accent-subtle-active-foreground);
+  }
+
+  :host([fill='subtle'][variant='accent'][disabled]) {
+    --_background: var(--sl-color-button-accent-subtle-disabled-background);
+    --_border-color: var(--sl-color-button-accent-subtle-disabled-border);
+    --_color: var(--sl-color-button-accent-subtle-disabled-foreground);
   }
 
   :host([fill='subtle'][variant='success']) {

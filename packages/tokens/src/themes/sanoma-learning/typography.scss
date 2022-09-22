@@ -5,16 +5,16 @@
 
 @mixin sl-text-button-lg {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-lg);
-  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-lg);
 }
 
 @mixin sl-text-button-md {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-sm);
-  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-md);
 }
 
 @mixin sl-text-button-sm {

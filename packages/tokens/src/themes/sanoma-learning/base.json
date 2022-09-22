@@ -1005,18 +1005,18 @@
       "md": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.sm}",
-          "fontSize": "{text.typeset.fontSize.lg}"
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.lg}",
+          "fontSize": "{text.typeset.fontSize.md}"
         },
         "type": "typography"
       },
       "lg": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.lg}",
-          "fontSize": "{text.typeset.fontSize.xl}"
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.sm}",
+          "fontSize": "{text.typeset.fontSize.lg}"
         },
         "type": "typography"
       }
@@ -1156,7 +1156,7 @@
       "solid": {
         "sm": {
           "block": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "space.button.solid.sm.block"
           },
@@ -1168,12 +1168,12 @@
         },
         "md": {
           "block": {
-            "value": "{space.md}",
+            "value": "{space.sm}",
             "type": "spacing",
             "description": "space.button.solid.md.block"
           },
           "inline": {
-            "value": "{space.lg}",
+            "value": "{space.md}",
             "type": "spacing",
             "description": "space.button.solid.md.inline"
           }
@@ -1194,7 +1194,7 @@
       "subtle": {
         "sm": {
           "block": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "space.button.subtle.sm.block"
           },
@@ -1206,12 +1206,12 @@
         },
         "md": {
           "block": {
-            "value": "{space.md}",
+            "value": "{space.sm}",
             "type": "spacing",
             "description": "space.button.subtle.md.block"
           },
           "inline": {
-            "value": "{space.lg}",
+            "value": "{space.md}",
             "type": "spacing",
             "description": "space.button.subtle.md.inline"
           }
@@ -1232,7 +1232,7 @@
       "outline": {
         "sm": {
           "block": {
-            "value": "{space.sm} - {border.width.button.outline}",
+            "value": "{space.xs} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.outline.sm.block"
           },
@@ -1244,12 +1244,12 @@
         },
         "md": {
           "block": {
-            "value": "{space.md} - {border.width.button.outline}",
+            "value": "{space.sm} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.outline.md.block"
           },
           "inline": {
-            "value": "{space.lg} - {border.width.button.outline}",
+            "value": "{space.md} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.outline.md.inline"
           }
@@ -1270,7 +1270,7 @@
       "ghost": {
         "sm": {
           "block": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "space.button.ghost.sm.block"
           },
@@ -1282,12 +1282,12 @@
         },
         "md": {
           "block": {
-            "value": "{space.md}",
+            "value": "{space.sm}",
             "type": "spacing",
             "description": "space.button.ghost.md.block"
           },
           "inline": {
-            "value": "{space.lg}",
+            "value": "{space.md}",
             "type": "spacing",
             "description": "space.button.ghost.md.inline"
           }

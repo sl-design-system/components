@@ -1,6 +1,6 @@
 $fills: ghost, outline, solid, subtle;
 $sizes: sm, md, lg;
-$variants: primary, secondary, success, danger, info, warning;
+$variants: primary, secondary, accent, success, danger, info, warning;
 
 :host {
   --_border-radius: var(--sl-border-radius-button);

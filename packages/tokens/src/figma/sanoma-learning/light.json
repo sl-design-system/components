@@ -390,7 +390,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.neutral.base}, {opacity.transparent})",
+              "value": "rgba({color.palette.secondary.base}, {opacity.transparent})",
               "type": "color",
               "description": "color.button.secondary.outline.disabled.background"
             },
@@ -834,7 +834,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.neutral.base}, {opacity.transparent})",
+              "value": "rgba({color.palette.info.base}, {opacity.transparent})",
               "type": "color",
               "description": "color.button.info.outline.disabled.background"
             },
@@ -1056,7 +1056,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.neutral.base}, {opacity.transparent})",
+              "value": "rgba({color.palette.success.base}, {opacity.transparent})",
               "type": "color",
               "description": "color.button.success.outline.disabled.background"
             },
@@ -1163,12 +1163,12 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.neutral.300}",
+              "value": "rgba({color.palette.warning.base}, {opacity.500})",
               "type": "color",
               "description": "color.button.warning.solid.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.100}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.warning.solid.disabled.foreground"
             }
@@ -1213,12 +1213,12 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.neutral.100}",
+              "value": "rgba({color.palette.warning.100}, {opacity.500})",
               "type": "color",
               "description": "color.button.warning.subtle.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.warning.subtle.disabled.foreground"
             }
@@ -1278,7 +1278,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.neutral.base}, {opacity.transparent})",
+              "value": "rgba({color.palette.warning.base}, {opacity.transparent})",
               "type": "color",
               "description": "color.button.warning.outline.disabled.background"
             },
@@ -1288,7 +1288,7 @@
               "description": "color.button.warning.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.neutral.200}",
+              "value": "rgba({color.palette.warning.base}, {opacity.500})",
               "type": "color",
               "description": "color.button.warning.outline.disabled.border"
             }
@@ -1500,7 +1500,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.neutral.base}, {opacity.transparent})",
+              "value": "rgba({color.palette.danger.base}, {opacity.transparent})",
               "type": "color",
               "description": "color.button.danger.outline.disabled.background"
             },

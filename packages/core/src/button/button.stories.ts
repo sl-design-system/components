@@ -10,7 +10,7 @@ export default {
 export const API: Story = {
   args: {
     fill: 'solid',
-    size: 'lg',
+    size: 'md',
     text: 'Button',
     variant: 'primary'
   },
@@ -30,7 +30,7 @@ export const API: Story = {
     variant: {
       control: {
         type: 'radio',
-        options: ['primary', 'secondary']
+        options: ['primary', 'secondary', 'success', 'danger', 'info', 'warning']
       }
     }
   },
@@ -62,11 +62,27 @@ export const Sizes: Story = {
 
 export const Variants: Story = {
   render: () => html`
-    <sl-button-bar>
+    <style>
+      .grid {
+        display: inline-grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+      }
+    </style>
+    <div class="grid">
       <sl-button>Primary</sl-button>
-      <sl-button disabled>Primary disabled</sl-button>
+      <sl-button disabled>Disabled</sl-button>
       <sl-button variant="secondary">Secondary</sl-button>
-      <sl-button variant="secondary" disabled>Secondary disabled</sl-button>
-    </sl-button-bar>
+      <sl-button variant="secondary" disabled>Disabled</sl-button>
+      <sl-button variant="success">Success</sl-button>
+      <sl-button variant="success" disabled>Disabled</sl-button>
+      <sl-button variant="danger">Danger</sl-button>
+      <sl-button variant="danger" disabled>Disabled</sl-button>
+      <sl-button variant="info">Info</sl-button>
+      <sl-button variant="info" disabled>Disabled</sl-button>
+      <sl-button variant="warning">Warning</sl-button>
+      <sl-button variant="warning" disabled>Warning</sl-button>
+    </div>
   `
 };

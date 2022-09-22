@@ -7,7 +7,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonFill = 'ghost' | 'outline' | 'solid' | 'subtle';
 
-export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'info' | 'warning';
 
 export class Button extends LitElement {
   /** @private */
@@ -19,7 +19,7 @@ export class Button extends LitElement {
   @property({ reflect: true }) fill: ButtonFill = 'solid';
 
   /** Size. */
-  @property({ reflect: true }) size: ButtonSize = 'lg';
+  @property({ reflect: true }) size: ButtonSize = 'md';
 
   /** The variant. */
   @property({ reflect: true }) variant: ButtonVariant = 'primary';

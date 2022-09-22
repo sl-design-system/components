@@ -516,7 +516,7 @@
               "description": "color.button.accent.subtle.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.accent.900}",
+              "value": "{color.palette.accent.600}",
               "type": "color",
               "description": "color.button.accent.subtle.idle.foreground"
             }

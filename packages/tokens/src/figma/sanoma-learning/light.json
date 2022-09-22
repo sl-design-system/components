@@ -738,7 +738,7 @@
               "description": "color.button.info.subtle.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.info.900}",
+              "value": "{color.palette.info.base}",
               "type": "color",
               "description": "color.button.info.subtle.idle.foreground"
             }

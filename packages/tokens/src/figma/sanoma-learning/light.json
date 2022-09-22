@@ -528,7 +528,7 @@
               "description": "color.button.accent.subtle.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.accent.900}",
+              "value": "{color.palette.accent.600}",
               "type": "color",
               "description": "color.button.accent.subtle.hover.foreground"
             }
@@ -540,7 +540,7 @@
               "description": "color.button.accent.subtle.active.background"
             },
             "foreground": {
-              "value": "{color.palette.accent.900}",
+              "value": "{color.palette.accent.600}",
               "type": "color",
               "description": "color.button.accent.subtle.active.foreground"
             }
@@ -1404,7 +1404,7 @@
               "description": "color.button.danger.subtle.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.900}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.subtle.idle.foreground"
             }
@@ -1416,7 +1416,7 @@
               "description": "color.button.danger.subtle.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.900}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.subtle.hover.foreground"
             }
@@ -1428,19 +1428,19 @@
               "description": "color.button.danger.subtle.active.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.900}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.subtle.active.foreground"
             }
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.palette.neutral.100}",
               "type": "color",
               "description": "color.button.danger.subtle.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.300}",
+              "value": "{color.palette.neutral.300}",
               "type": "color",
               "description": "color.button.danger.subtle.disabled.foreground"
             }

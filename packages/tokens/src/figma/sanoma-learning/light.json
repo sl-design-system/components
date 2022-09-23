@@ -53,7 +53,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.primary.base}, {opacity.500})",
+              "value": "rgba({color.palette.primary.base}, {opacity.600})",
               "type": "color",
               "description": "color.button.primary.solid.disabled.background"
             },
@@ -103,7 +103,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.primary.100}, {opacity.500})",
+              "value": "rgba({color.palette.primary.100}, {opacity.600})",
               "type": "color",
               "description": "color.button.primary.subtle.disabled.background"
             },
@@ -173,12 +173,12 @@
               "description": "color.button.primary.outline.disabled.background"
             },
             "foreground": {
-              "value": "rgba({color.palette.primary.base}, {opacity.500})",
+              "value": "rgba({color.palette.primary.base}, {opacity.600})",
               "type": "color",
               "description": "color.button.primary.outline.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.primary.base}, {opacity.500})",
+              "value": "rgba({color.palette.primary.base}, {opacity.600})",
               "type": "color",
               "description": "color.button.primary.outline.disabled.border"
             }
@@ -275,7 +275,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.secondary.base}, {opacity.500})",
+              "value": "rgba({color.palette.secondary.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.secondary.solid.disabled.background"
             },
@@ -325,7 +325,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.secondary.100}, {opacity.500})",
+              "value": "rgba({color.palette.secondary.100}, {opacity.700})",
               "type": "color",
               "description": "color.button.secondary.subtle.disabled.background"
             },
@@ -400,7 +400,7 @@
               "description": "color.button.secondary.outline.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.secondary.base}, {opacity.500})",
+              "value": "rgba({color.palette.secondary.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.secondary.outline.disabled.border"
             }
@@ -497,7 +497,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.accent.base}, {opacity.500})",
+              "value": "rgba({color.palette.accent.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.accent.solid.disabled.background"
             },
@@ -547,7 +547,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.accent.100}, {opacity.500})",
+              "value": "rgba({color.palette.accent.100}, {opacity.700})",
               "type": "color",
               "description": "color.button.accent.solid.disabled.background"
             },
@@ -622,7 +622,7 @@
               "description": "color.button.accent.outline.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.accent.base}, {opacity.500})",
+              "value": "rgba({color.palette.accent.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.accent.outline.disabled.border"
             }
@@ -719,7 +719,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.info.base}, {opacity.500})",
+              "value": "rgba({color.palette.info.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.info.solid.disabled.background"
             },
@@ -769,7 +769,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.info.100}, {opacity.500})",
+              "value": "rgba({color.palette.info.100}, {opacity.700})",
               "type": "color",
               "description": "color.button.info.subtle.disabled.background"
             },
@@ -844,7 +844,7 @@
               "description": "color.button.info.outline.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.info.base}, {opacity.500})",
+              "value": "rgba({color.palette.info.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.info.outline.disabled.border"
             }
@@ -941,7 +941,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.secondary.base}, {opacity.500})",
+              "value": "rgba({color.palette.secondary.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.success.solid.disabled.background"
             },
@@ -991,7 +991,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.secondary.100}, {opacity.500})",
+              "value": "rgba({color.palette.secondary.100}, {opacity.700})",
               "type": "color",
               "description": "color.button.success.subtle.disabled.background"
             },
@@ -1066,7 +1066,7 @@
               "description": "color.button.success.outline.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.secondary.base}, {opacity.500})",
+              "value": "rgba({color.palette.secondary.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.success.outline.disabled.border"
             }
@@ -1163,7 +1163,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.warning.base}, {opacity.500})",
+              "value": "rgba({color.palette.warning.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.warning.solid.disabled.background"
             },
@@ -1213,7 +1213,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.warning.100}, {opacity.500})",
+              "value": "rgba({color.palette.warning.100}, {opacity.700})",
               "type": "color",
               "description": "color.button.warning.subtle.disabled.background"
             },
@@ -1288,7 +1288,7 @@
               "description": "color.button.warning.outline.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.warning.base}, {opacity.500})",
+              "value": "rgba({color.palette.warning.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.warning.outline.disabled.border"
             }
@@ -1385,12 +1385,12 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.danger.base}, {opacity.500})",
+              "value": "rgba({color.palette.danger.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.danger.solid.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.danger.solid.disabled.foreground"
             }
@@ -1435,7 +1435,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.accent.100}, {opacity.500})",
+              "value": "rgba({color.palette.accent.100}, {opacity.700})",
               "type": "color",
               "description": "color.button.danger.subtle.disabled.background"
             },
@@ -1510,7 +1510,7 @@
               "description": "color.button.danger.outline.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.accent.base}, {opacity.500})",
+              "value": "rgba({color.palette.accent.base}, {opacity.700})",
               "type": "color",
               "description": "color.button.danger.outline.disabled.border"
             }

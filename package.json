@@ -10,7 +10,10 @@
   ],
   "scripts": {
     "build": "wireit",
-    "clean": "wireit"
+    "clean": "wireit",
+    "docs": "wireit",
+    "lint": "wireit",
+    "test": "wireit"
   },
   "wireit": {
     "build": {
@@ -21,6 +24,15 @@
     },
     "clean": {
       "command": "rimraf dist"
+    },
+    "docs": {
+      "command": "echo Building docs"
+    },
+    "lint": {
+      "command": "echo Linting"
+    },
+    "test": {
+      "command": "echo Testing 1 2 3"
     }
   },
   "devDependencies": {

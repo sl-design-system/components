@@ -8,7 +8,7 @@ on:
 
 permissions:
   contents: read
-  security_events: write
+  security-events: write
 
 jobs:
   eslint:

@@ -240,22 +240,22 @@
       "description": "space.sm"
     },
     "md": {
-      "value": "16",
+      "value": "12",
       "type": "spacing",
       "description": "space.md"
     },
     "lg": {
-      "value": "24",
+      "value": "16",
       "type": "spacing",
       "description": "space.lg"
     },
     "xl": {
-      "value": "32",
+      "value": "24",
       "type": "spacing",
       "description": "space.xl"
     },
     "2xl": {
-      "value": "40",
+      "value": "30",
       "type": "spacing",
       "description": "space.2xl"
     }
@@ -521,6 +521,32 @@
           "type": "letterSpacing",
           "description": "text.typeset.letterSpacing.xl"
         }
+      }
+    }
+  },
+  "animation": {
+    "duration": {
+      "fast": {
+        "value": "90ms",
+        "type": "other",
+        "description": "animation.duration.fast"
+      },
+      "normal": {
+        "value": "200ms",
+        "type": "other",
+        "description": "animation.duration.normal"
+      },
+      "slow": {
+        "value": "500ms",
+        "type": "other",
+        "description": "animation.duration.slow"
+      }
+    },
+    "easing": {
+      "ease-in-out": {
+        "value": "ease-in-out",
+        "type": "other",
+        "description": "animation.easing.ease-in-out"
       }
     }
   }

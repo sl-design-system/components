@@ -805,7 +805,7 @@
   },
   "space": {
     "button": {
-      "solid": {
+      "default": {
         "sm": {
           "block": {
             "value": "{space.xs}",
@@ -825,19 +825,19 @@
             "description": "space.button.solid.md.block"
           },
           "inline": {
-            "value": "{space.md}",
+            "value": "{space.button.default.lg.block}",
             "type": "spacing",
             "description": "space.button.solid.md.inline"
           }
         },
         "lg": {
           "block": {
-            "value": "{space.md}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.solid.lg.block"
           },
           "inline": {
-            "value": "{space.lg}",
+            "value": "{space.xl}",
             "type": "spacing",
             "description": "space.button.solid.lg.inline"
           }
@@ -846,12 +846,12 @@
       "outline": {
         "sm": {
           "block": {
-            "value": "{space.xs} - {border.width.button.outline}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "space.button.outline.sm.block"
           },
           "inline": {
-            "value": "{space.md} - {border.width.button.outline}",
+            "value": "{space.md}",
             "type": "spacing",
             "description": "space.button.outline.sm.inline"
           }
@@ -888,6 +888,22 @@
       "value": "{animation.duration.normal}, {animation.easing.ease-in-out}",
       "type": "other",
       "description": "animation.button"
+    }
+  },
+  "boxShadow": {
+    "button": {
+      "sm": {
+        "value": {
+          "x": "0",
+          "y": "0",
+          "blur": "0",
+          "spread": "2",
+          "color": "rgba({color.palette.info.base},{opacity.400})",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow",
+        "description": "boxShadow.button.sm"
+      }
     }
   }
 }

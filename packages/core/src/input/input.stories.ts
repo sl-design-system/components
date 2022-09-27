@@ -14,79 +14,74 @@ export const API: Story = {
     text: 'Button',
     variant: 'primary'
   },
-  argTypes: {
-    fill: {
-      control: {
-        type: 'inline-radio',
-        options: ['ghost', 'outline', 'solid', 'subtle']
-      }
-    },
-    size: {
-      control: {
-        type: 'inline-radio',
-        options: ['sm', 'md', 'lg']
-      }
-    },
-    variant: {
-      control: {
-        type: 'radio',
-        options: ['primary', 'secondary', 'success', 'danger', 'info', 'warning']
-      }
-    }
-  },
-  render: ({ fill, size, text, variant }) => html`<sl-input>input test</sl-input>
-    <sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>
+  // argTypes: {
+  //   fill: {
+  //     control: {
+  //       type: 'inline-radio',
+  //       options: ['ghost', 'outline', 'solid', 'subtle']
+  //     }
+  //   },
+  //   size: {
+  //     control: {
+  //       type: 'inline-radio',
+  //       options: ['sm', 'md', 'lg']
+  //     }
+  //   },
+  //   variant: {
+  //     control: {
+  //       type: 'radio',
+  //       options: ['primary', 'secondary', 'success', 'danger', 'info', 'warning']
+  //     }
+  //   }
+  // },
+  render: ({ /*fill, size, text, variant*/ }) => html`
+    <form>
+        <label for="input-1">label
+          <sl-input id="input-1" placeholder="placeholder"></sl-input>
+        </label>
+    </form>
+  `
+  // <sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>
+};
+
+export const InputTest: Story = {
+  render: () => html`
+    <form>
+      <label for="test1">label</label>
+      <sl-input id="test1"></sl-input>
+    </form>
   `
 };
 
-/*
-export const Fills: Story = {
+export const InputTestArialabelledbyExample: Story = {
   render: () => html`
-    <sl-button-bar>
-      <sl-button fill="ghost">Ghost</sl-button>
-      <sl-button fill="outline">Outline</sl-button>
-      <sl-button fill="solid">Solid</sl-button>
-      <sl-button fill="subtle">Subtle</sl-button>
-    </sl-button-bar>
+    <form>
+      <label id="test2">label second</label>
+      <sl-input placeholder="placeholder"></sl-input>
+    </form>
+<!--    aria-labelledby="test1"-->
+    <!--ariaLabelledby="test2"-->
   `
 };
 
-export const Sizes: Story = {
+export const InputTest3: Story = {
   render: () => html`
-    <sl-button-bar>
-      <sl-button size="sm">Small</sl-button>
-      <sl-button size="md">Medium</sl-button>
-      <sl-button size="lg">Large</sl-button>
-    </sl-button-bar>
+    <form id="formId">
+      <label for="test3">label second</label>
+      <sl-input id="test3" placeholder="placeholder"></sl-input>
+    </form>
+    <!--    aria-labelledby="test1"-->
+    <!--ariaLabelledby="test3"-->
   `
 };
 
-export const Variants: Story = {
+export const InputTest4: Story = {
   render: () => html`
-    <style>
-      .grid {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: 1fr 1fr;
-        justify-items: center;
-      }
-    </style>
-    <div class="grid">
-      <sl-button>Primary</sl-button>
-      <sl-button disabled>Disabled</sl-button>
-      <sl-button variant="secondary">Secondary</sl-button>
-      <sl-button variant="secondary" disabled>Disabled</sl-button>
-      <sl-button variant="accent">Accent</sl-button>
-      <sl-button variant="accent" disabled>Disabled</sl-button>
-      <sl-button variant="success">Success</sl-button>
-      <sl-button variant="success" disabled>Disabled</sl-button>
-      <sl-button variant="danger">Danger</sl-button>
-      <sl-button variant="danger" disabled>Disabled</sl-button>
-      <sl-button variant="info">Info</sl-button>
-      <sl-button variant="info" disabled>Disabled</sl-button>
-      <sl-button variant="warning">Warning</sl-button>
-      <sl-button variant="warning" disabled>Disabled</sl-button>
-    </div>
+    <form id="formId4">
+      <label id="test4" for="test5">label second</label>
+      <sl-input id="test5" placeholder="placeholder"></sl-input>
+    </form>
+<!--    aria-labelledby="test1"-->
+    <!--ariaLabelledby="test3"-->
   `
 };
-*/

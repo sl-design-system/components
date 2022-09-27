@@ -1,0 +1,72 @@
+/*
+$fills: ghost, outline, solid, subtle;
+$sizes: sm, md, lg;
+$variants: primary, secondary, success, danger, info, warning;
+
+:host {
+  --_border-radius: var(--sl-border-radius-button);
+}
+
+:host {
+  background: var(--_background);
+  border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--_border-radius);
+  color: var(--_color);
+  cursor: pointer;
+  display: inline-flex;
+  font: var(--_font);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+}
+
+:host([disabled]) {
+  cursor: default;
+  pointer-events: none;
+}
+
+@each $fill in $fills {
+  :host([fill='#{$fill}']) {
+    --_border-width: var(--sl-border-width-button-#{$fill}, var(--sl-border-width-button));
+  }
+
+  @each $size in $sizes {
+    :host([fill='#{$fill}'][size='#{$size}']) {
+      --_padding-block: var(--sl-space-button-#{$fill}-#{$size}-block, var(--sl-space-button-#{$size}-block));
+      --_padding-inline: var(--sl-space-button-#{$fill}-#{$size}-inline, var(--sl-space-button-#{$size}-inline));
+    }
+  }
+
+  @each $variant in $variants {
+    :host([fill='#{$fill}'][variant='#{$variant}']) {
+      --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
+      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
+      --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
+    }
+
+    :host([fill='#{$fill}'][variant='#{$variant}']:hover) {
+      --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
+      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
+      --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);
+    }
+
+    :host([fill='#{$fill}'][variant='#{$variant}']:active) {
+      --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
+      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
+      --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);
+    }
+
+    :host([fill='#{$fill}'][variant='#{$variant}'][disabled]) {
+      --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
+      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
+      --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
+    }
+  }
+}
+
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_font: var(--sl-text-button-#{$size});
+    --_padding: var(--sl-space-button-#{$size});
+  }
+}
+*/

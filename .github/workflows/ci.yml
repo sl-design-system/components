@@ -1,7 +1,6 @@
 name: CI
 
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
@@ -13,13 +12,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'yarn'
-      - run: yarn install
+      - run: yarn install --immutable
       - run: yarn build
       - run: yarn test

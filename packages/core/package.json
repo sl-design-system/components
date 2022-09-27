@@ -7,8 +7,8 @@
     "build": "wireit",
     "build:scss": "wireit",
     "build:ts": "wireit",
-    "storybook": "npx storybook dev -p 6006",
-    "build-storybook": "npx storybook build"
+    "docs": "wireit",
+    "storybook": "wireit"
   },
   "wireit": {
     "build": {
@@ -36,23 +36,32 @@
       "files": [
         "src/**/*.ts"
       ]
+    },
+    "docs": {
+      "command": "storybook build -o dist/storybook --quiet",
+      "dependencies": [
+        "build"
+      ]
+    },
+    "storybook": {
+      "command": "storybook dev -p 6006 --quiet"
     }
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
     "@mdx-js/react": "^1.6.22",
-    "@storybook/addon-a11y": "7.0.0-alpha.33",
-    "@storybook/addon-docs": "^7.0.0-alpha.33",
-    "@storybook/addon-essentials": "^7.0.0-alpha.33",
-    "@storybook/addon-links": "^7.0.0-alpha.33",
-    "@storybook/addon-storysource": "7.0.0-alpha.33",
-    "@storybook/web-components": "^7.0.0-alpha.33",
-    "@storybook/web-components-webpack5": "^7.0.0-alpha.33",
+    "@storybook/addon-a11y": "7.0.0-alpha.34",
+    "@storybook/addon-docs": "^7.0.0-alpha.34",
+    "@storybook/addon-essentials": "^7.0.0-alpha.34",
+    "@storybook/addon-links": "^7.0.0-alpha.34",
+    "@storybook/addon-storysource": "7.0.0-alpha.34",
+    "@storybook/web-components": "^7.0.0-alpha.34",
+    "@storybook/web-components-webpack5": "^7.0.0-alpha.34",
     "babel-loader": "^8.2.5",
     "lit-html": "^2.3.1",
-    "storybook": "future",
+    "storybook": "^7.0.0-alpha.34",
     "typescript": "^4.8.3",
-    "wireit": "^0.7.1"
+    "wireit": "^0.7.2"
   },
   "dependencies": {
     "lit": "^2.3.1",

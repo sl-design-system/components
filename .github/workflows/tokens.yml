@@ -28,6 +28,7 @@ jobs:
         uses: GuillaumeFalourd/git-commit-push@v1.3
         with:
           commit_message: '⚙️ Generate token assets'
+          target_branch: ${{ github.event.pull_request.head.ref }}
         # run: |
         #   git config user.name "${{ env.CI_COMMIT_AUTHOR }}"
         #   git config user.email "username@users.noreply.github.com"

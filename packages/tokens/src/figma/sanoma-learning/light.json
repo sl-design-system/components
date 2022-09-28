@@ -1,7 +1,7 @@
 {
   "body": {
     "background": {
-      "value": "{color.palette.white.base}",
+      "value": "{color.palette.accent.base}",
       "type": "color",
       "description": "color.body.default.background"
     },

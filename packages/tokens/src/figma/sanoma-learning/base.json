@@ -892,17 +892,17 @@
   },
   "boxShadow": {
     "button": {
-      "sm": {
+      "default": {
         "value": {
           "x": "0",
           "y": "0",
           "blur": "0",
-          "spread": "2",
-          "color": "rgba({color.palette.info.base},{opacity.400})",
+          "spread": "3",
+          "color": "rgba({color.palette.info.base},{opacity.600})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
-        "description": "boxShadow.button.sm"
+        "description": "boxShadow.button.default"
       }
     }
   }

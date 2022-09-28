@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - 'packages/tokens/src/figma/**'
 
   workflow_dispatch:
 

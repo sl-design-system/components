@@ -2,14 +2,13 @@ name: Tokens
 
 on:
   push:
-    branches: 
-      - '!main'
+    branches-ignore: 
+      - main
     paths: 
       - 'packages/tokens/src/figma/**'
 
 permissions: 
   contents: write
-  pull-requests: write
 
 jobs:
   build:

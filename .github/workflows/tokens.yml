@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -30,5 +32,6 @@ jobs:
           git config user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git config user.email "username@users.noreply.github.com"
           git add .
+          git status
           git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
           git push      

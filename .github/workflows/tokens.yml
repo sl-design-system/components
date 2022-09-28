@@ -1,9 +1,9 @@
 name: Tokens
 
 on:
-  pull_request:
+  push:
     branches: 
-      - main
+      - '!main'
     paths: 
       - 'packages/tokens/src/figma/**'
 

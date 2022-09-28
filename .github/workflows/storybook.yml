@@ -1,14 +1,9 @@
 name: Storybook
 
 on:
-  push:
-    branches: 
-      - main
   pull_request:
-    branches: 
+    branches:
       - main
-    paths:
-      - '!packages/tokens/src/figma/**'
 
   workflow_dispatch:
 

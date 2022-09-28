@@ -885,7 +885,7 @@
   },
   "animation": {
     "button": {
-      "value": "{animation.duration.normal}, {animation.easing.ease-in-out}",
+      "value": "{animation.duration.normal} {animation.easing.ease-in-out}",
       "type": "other",
       "description": "animation.button"
     }

@@ -9,16 +9,16 @@ export default {
 
 export const API: Story = {
   args: {
-    fill: 'solid',
+    fill: 'default',
     size: 'md',
     text: 'Button',
-    variant: 'primary'
+    variant: 'default'
   },
   argTypes: {
     fill: {
       control: {
         type: 'inline-radio',
-        options: ['ghost', 'outline', 'solid', 'subtle']
+        options: ['default', 'outline']
       }
     },
     size: {
@@ -30,7 +30,7 @@ export const API: Story = {
     variant: {
       control: {
         type: 'radio',
-        options: ['primary', 'secondary', 'success', 'danger', 'info', 'warning']
+        options: ['default', 'primary', 'success', 'warning', 'danger']
       }
     }
   },
@@ -42,10 +42,8 @@ export const API: Story = {
 export const Fills: Story = {
   render: () => html`
     <sl-button-bar>
-      <sl-button fill="ghost">Ghost</sl-button>
+      <sl-button fill="default">Default</sl-button>
       <sl-button fill="outline">Outline</sl-button>
-      <sl-button fill="solid">Solid</sl-button>
-      <sl-button fill="subtle">Subtle</sl-button>
     </sl-button-bar>
   `
 };
@@ -71,20 +69,16 @@ export const Variants: Story = {
       }
     </style>
     <div class="grid">
-      <sl-button>Primary</sl-button>
+      <sl-button>Default</sl-button>
       <sl-button disabled>Disabled</sl-button>
-      <sl-button variant="secondary">Secondary</sl-button>
-      <sl-button variant="secondary" disabled>Disabled</sl-button>
-      <sl-button variant="accent">Accent</sl-button>
-      <sl-button variant="accent" disabled>Disabled</sl-button>
+      <sl-button variant="primary">Primary</sl-button>
+      <sl-button variant="primary" disabled>Disabled</sl-button>
       <sl-button variant="success">Success</sl-button>
       <sl-button variant="success" disabled>Disabled</sl-button>
-      <sl-button variant="danger">Danger</sl-button>
-      <sl-button variant="danger" disabled>Disabled</sl-button>
-      <sl-button variant="info">Info</sl-button>
-      <sl-button variant="info" disabled>Disabled</sl-button>
       <sl-button variant="warning">Warning</sl-button>
       <sl-button variant="warning" disabled>Disabled</sl-button>
+      <sl-button variant="danger">Danger</sl-button>
+      <sl-button variant="danger" disabled>Disabled</sl-button>
     </div>
   `
 };

@@ -25,9 +25,9 @@ jobs:
       - run: yarn install --immutable
       - run: yarn workspace @slds/tokens build
       - id: changes
-        uses: UnicornGlobal/has-changes-action@v1.0.11
+        uses: mskri/check-uncommitted-changes-action@v1.0.1
       - name: Commit and push generated token assets
-        if: steps.changes.outputs.changed == 1
+        if: steps.changes.outputs.changes != ''
         env: 
           CI_COMMIT_MESSAGE: Generate token assets
           CI_COMMIT_AUTHOR: CI

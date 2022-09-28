@@ -14,31 +14,10 @@ export const API: Story = {
     text: 'Button',
     variant: 'primary'
   },
-  // argTypes: {
-  //   fill: {
-  //     control: {
-  //       type: 'inline-radio',
-  //       options: ['ghost', 'outline', 'solid', 'subtle']
-  //     }
-  //   },
-  //   size: {
-  //     control: {
-  //       type: 'inline-radio',
-  //       options: ['sm', 'md', 'lg']
-  //     }
-  //   },
-  //   variant: {
-  //     control: {
-  //       type: 'radio',
-  //       options: ['primary', 'secondary', 'success', 'danger', 'info', 'warning']
-  //     }
-  //   }
-  // },
   render: ({ /*fill, size, text, variant*/ }) => html`
     <form>
-        <label for="input-1">label
-          <sl-input id="input-1" placeholder="placeholder"></sl-input>
-        </label>
+        <label id="input-1" for="input-2">label</label>
+          <sl-input id="input-2" placeholder="placeholder"></sl-input>
     </form>
   `
   // <sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>
@@ -67,7 +46,7 @@ export const InputTestArialabelledbyExample: Story = {
 export const InputTest3: Story = {
   render: () => html`
     <form id="formId">
-      <label for="test3">label second</label>
+      <label for="test3">label 3</label>
       <sl-input id="test3" placeholder="placeholder"></sl-input>
     </form>
     <!--    aria-labelledby="test1"-->
@@ -78,7 +57,7 @@ export const InputTest3: Story = {
 export const InputTest4: Story = {
   render: () => html`
     <form id="formId4">
-      <label id="test4" for="test5">label second</label>
+      <label id="test4" for="test5">label 4</label>
       <sl-input id="test5" placeholder="placeholder"></sl-input>
     </form>
 <!--    aria-labelledby="test1"-->

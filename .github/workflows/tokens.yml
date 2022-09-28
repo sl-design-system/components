@@ -24,7 +24,10 @@ jobs:
           cache: 'yarn'
       - run: yarn install --immutable
       - run: yarn workspace @slds/tokens build
-      - name: Commit and push all changed files
+      - id: changes
+        uses: UnicornGlobal/has-changes-action@v1.0.11
+      - name: Commit and push generated token assets
+        if: steps.changes.outputs.changed == 1
         env: 
           CI_COMMIT_MESSAGE: Generate token assets
           CI_COMMIT_AUTHOR: CI

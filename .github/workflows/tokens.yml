@@ -2,8 +2,10 @@ name: Tokens
 
 on:
   pull_request:
-    branches: ['main']
-    paths: ['packages/tokens/src/figma/**']
+    branches: 
+      - main
+    paths: 
+      - 'packages/tokens/src/figma/**'
 
 permissions: 
   contents: write

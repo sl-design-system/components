@@ -4,12 +4,18 @@
     "name": "sanoma-learning/light",
     "selectedTokenSets": {
       "core": "enabled",
-      "sanoma-learning/base": "enabled",
-      "sanoma-learning/light": "enabled",
-      "sanoma-learning/dark": "disabled",
+      "bingel/base": "disabled",
+      "bingel/light": "disabled",
+      "bingel/dark": "disabled",
       "magister/base": "disabled",
       "magister/light": "disabled",
-      "magister/dark": "disabled"
+      "magister/dark": "disabled",
+      "max-online/base": "disabled",
+      "max-online/light": "disabled",
+      "max-online/dark": "disabled",
+      "sanoma-learning/base": "enabled",
+      "sanoma-learning/light": "enabled",
+      "sanoma-learning/dark": "disabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:d48001ec2d75d36a13f1588a7e9a5014145f36c9,",
@@ -328,12 +334,18 @@
     "name": "sanoma-learning/dark",
     "selectedTokenSets": {
       "core": "enabled",
-      "sanoma-learning/base": "enabled",
-      "sanoma-learning/light": "disabled",
-      "sanoma-learning/dark": "enabled",
+      "bingel/base": "disabled",
+      "bingel/light": "disabled",
+      "bingel/dark": "disabled",
       "magister/base": "disabled",
       "magister/light": "disabled",
-      "magister/dark": "disabled"
+      "magister/dark": "disabled",
+      "max-online/base": "disabled",
+      "max-online/light": "disabled",
+      "max-online/dark": "disabled",
+      "sanoma-learning/base": "enabled",
+      "sanoma-learning/light": "enabled",
+      "sanoma-learning/dark": "disabled"
     },
     "$figmaStyleReferences": {}
   }

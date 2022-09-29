@@ -5,7 +5,7 @@ import styles from './button.scss.js';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-export type ButtonFill = 'default' | 'outline';
+export type ButtonFill = 'default' | 'outline' | 'pill';
 
 export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
 

@@ -1,0 +1,25 @@
+{
+  "name": "@slds/max-online",
+  "description": "SLDS Theme for MAX Online",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "yarn node --no-warnings ../../../build.js max-online",
+      "files": [
+        "../../figma/*.json",
+        "../../figma/max-online/*.json"
+      ],
+      "output": [
+        "*.js",
+        "*.json",
+        "*.css",
+        "*.scss",
+        "!fonts.css",
+        "!package.json"
+      ]
+    }
+  }
+}

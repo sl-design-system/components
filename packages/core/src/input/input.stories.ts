@@ -32,7 +32,7 @@ export const InputTest: Story = {
   `
 };
 
-export const InputTestArialabelledbyExample: Story = {
+/*export const InputTestArialabelledbyExample: Story = {
   render: () => html`
     <form>
       <label id="test2">label second</label>
@@ -41,7 +41,7 @@ export const InputTestArialabelledbyExample: Story = {
 <!--    aria-labelledby="test1"-->
     <!--ariaLabelledby="test2"-->
   `
-};
+};*/
 
 export const InputTest3: Story = {
   render: () => html`
@@ -60,6 +60,23 @@ export const InputTest4: Story = {
       <label id="test4" for="test5">label 4</label>
       <sl-input id="test5" placeholder="placeholder"></sl-input>
     </form>
+    <label for="my-input">Label</label>
+    <input id="my-input">
+    <label for='label_for'>Enter search text </label>
+    <input type='text' id='label_for'>
+<!--    aria-labelledby="test1"-->
+    <!--ariaLabelledby="test3"-->
+  `
+};
+
+export const Test: Story = {
+  render: () => html`
+    <form id="formId5">
+      <label for="my-input5">Label</label>
+      <sl-input id="my-input5"></sl-input>
+    </form>
+    <label for="my-input6">Label</label>
+    <sl-input id="my-input6"></sl-input>
 <!--    aria-labelledby="test1"-->
     <!--ariaLabelledby="test3"-->
   `

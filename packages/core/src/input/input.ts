@@ -1,10 +1,13 @@
 import {html, LitElement, TemplateResult} from 'lit';
 import {property, query} from "lit/decorators.js";
 
+let nextUniqueId = 0;
+
 export class Input extends LitElement {
   static formAssociated = true;
 
-  @property() placeholder?: string;
+  // @property() placeholder?: string;
+  @property() placeholder = '';
 
   @property() id!: string;
 
@@ -220,32 +223,45 @@ export class Input extends LitElement {
     }*/
 
   firstUpdated(): void {
-    console.log('this.input in render in firstUpdated', this.input, this.#internals.labels);
+    console.log('this.input in render in firstUpdated', this.input, this.#internals, this.#internals.labels);
     // for (const label of this.#internals.labels) {
     //   label.addEventListener('click', doFocus)
     // }
     this.#internals.labels.forEach(label => {
       // label.addEventListener('click', this.onClick(event, this.input));
+      // id = `dna-tab-${nextUniqueId++}`;
+      (label as HTMLLabelElement).id = `sl-input-label-${nextUniqueId++}`;
       label.addEventListener('click', (event: Event) => this.onClick(event, this.input));
       const ref = new WeakRef(label);
       console.log('ref', ref);
       this.#labels.add(ref);
     });
-    console.log('this.#labels', this.#labels);
+    this.setAttribute('tabindex', '0');
+    console.log('this.#labels', this.#labels, this.#internals.labels, this.input);
+    this.input.setAttribute('aria-labelledby', (this.#internals.labels[0] as HTMLLabelElement)?.id);
+    this.setAttribute('aria-labelledby', (this.#internals.labels[0] as HTMLLabelElement)?.id);
   }
 
   onClick(event: Event, input: HTMLInputElement): void {
     console.log('event', event, this.input/*, this.#internals.labels*/, input);
-    (event.target as HTMLElement).focus();
-    this.input?.focus();
+    // (event.target as HTMLElement).focus();
+    // this.focus();
+    // this.setAttribute('tabindex', '0');
+    // this.input.focus();
+    // this.input.setAttribute('tabindex', '0');
+    this.focus();
+    event.preventDefault();
     // event.stopPropagation();
   }
 
   render(): TemplateResult {
+    console.log('in render', this.#internals.labels, (this.#internals.labels[0] as HTMLLabelElement), (this.#internals.labels[0] as HTMLLabelElement)?.id);
     // console.log('this.input in render', this.input, this, this.shadowRoot?.querySelector('input'));
     // this.#internals.labels
     // console.log('this.#internals.labels', this.#internals.labels[0], this.#internals.labels, (this.#internals.labels[0] as HTMLElement)?.innerText, (this.#internals.labels[0] as HTMLLabelElement)?.id);
-    return html`<input .id="${(this.#internals.labels[0] as HTMLLabelElement)?.htmlFor}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}" value="${this.value}"/>`;
+    return html`<input @focusin="${this.#onInput}" .id="${this.id}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}" value="${this.value}"/>`;
+    // .id="${(this.#internals.labels[0] as HTMLLabelElement)?.htmlFor}"
+
     // <input class="first-input" type="text"/>
     // <input .id="${(this.#internals.labels[0] as HTMLLabelElement)?.htmlFor}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}" value="${this.value}"/>
   }
@@ -254,6 +270,15 @@ export class Input extends LitElement {
   // <label for="${this.id}">labelka</label>
   // htmlFor
   // ${this.id}
+
+  #onInput(event: Event): void {
+    // const { focus } = event.target as HTMLInputElement;
+    //
+    // this.focus = focus;
+    this.focus();
+    event.preventDefault();
+  }
+
   disconnectedCallback(): void {
     // label.removeEventListener('click', this.onClick(event, this.input));
     this.#internals.labels.forEach(label => {

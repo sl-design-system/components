@@ -5,9 +5,9 @@ import styles from './button.scss.js';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-export type ButtonFill = 'ghost' | 'outline' | 'solid' | 'subtle';
+export type ButtonFill = 'default' | 'outline';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'info' | 'warning';
+export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
 
 export class Button extends LitElement {
   /** @private */
@@ -16,13 +16,19 @@ export class Button extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** The button fill. */
-  @property({ reflect: true }) fill: ButtonFill = 'solid';
+  @property({ reflect: true }) fill: ButtonFill = 'default';
 
   /** Size. */
   @property({ reflect: true }) size: ButtonSize = 'md';
 
   /** The variant. */
-  @property({ reflect: true }) variant: ButtonVariant = 'primary';
+  @property({ reflect: true }) variant: ButtonVariant = 'default';
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('tabindex', '0');
+  }
 
   render(): TemplateResult {
     return html`<slot></slot>`;

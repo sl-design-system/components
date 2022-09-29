@@ -40,22 +40,6 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
   } else if (dictionary.usesReference(token.original.value) && typeof value === 'string') {
     value = replaceReferences(dictionary, token.original.value, value);
 
-    // const refs = dictionary.getReferences(token.original.value);
-
-    // refs.forEach(ref => {
-    //   if (ref.value && ref.name) {
-    //     if (ref.palette && !value.startsWith('rgba(')) {
-    //       value = value.replace(ref.value, () => `rgb(var(--${ref.name}))`);
-    //     } else {
-    //       value = value.replace(ref.value, () => `var(--${ref.name})`);
-
-    //       if (value.startsWith('rgba')) {
-    //         value = value.replace(',', ' /');
-    //       }
-    //     }
-    //   }
-    // });
-
     // Wrap the value inside a calc() function if it contains an expression
     if (!value.startsWith('rgb') && [' - ', ' + ', ' / '].some(expr => value.indexOf(expr) !== -1)) {
       value = `calc(${value})`;

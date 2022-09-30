@@ -1426,19 +1426,5 @@
       "type": "sizing",
       "description": "size.4xl"
     }
-  },
-  "shadow": {
-    "card": {
-      "value": {
-        "x": "{size.none}",
-        "y": "{size.4xs}",
-        "blur": "{size.4xs}",
-        "spread": "{size.none}",
-        "color": "rgba({color.palette.black.base}, {opacity.600})",
-        "type": "dropShadow"
-      },
-      "type": "boxShadow",
-      "description": "shadow.card"
-    }
   }
 }

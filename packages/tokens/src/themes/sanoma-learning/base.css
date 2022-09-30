@@ -206,7 +206,6 @@
   --sl-color-palette-secondary-150: 177 223 193;
   --sl-color-palette-secondary-100: 218 238 224;
   --sl-color-palette-secondary-50: 251 252 251;
-  --sl-shadow-card: var(--sl-size-none) var(--sl-size-4xs) var(--sl-size-4xs) var(--sl-size-none) rgba(rgb(var(--sl-color-palette-black-base)), var(--sl-opacity-600));
   --sl-box-shadow-button-default: 0 0 0 3 rgba(rgb(var(--sl-color-palette-info-base)),var(--sl-opacity-600));
   --sl-animation-button: var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   --sl-space-button-outline-lg-inline: calc(var(--sl-space-lg) - var(--sl-border-width-button-outline));

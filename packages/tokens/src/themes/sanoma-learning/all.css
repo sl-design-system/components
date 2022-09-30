@@ -106,13 +106,13 @@
   --sl-text-typeset-font-size-md: 14px;
   --sl-text-typeset-font-size-sm: 12px;
   --sl-text-typeset-font-size-xs: 10px;
+  --sl-text-typeset-font-weight-bold: 700;
+  --sl-text-typeset-font-weight-demibold: 600;
+  --sl-text-typeset-font-weight-regular: 400;
   --sl-text-typeset-font-weight-icon-solid: Solid;
   --sl-text-typeset-font-weight-icon-regular: 400;
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
-  --sl-text-typeset-font-weight-bold: 700;
-  --sl-text-typeset-font-weight-demibold: 600;
-  --sl-text-typeset-font-weight-regular: 400;
   --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
   --sl-text-typeset-font-family-body: The Message;
   --sl-text-typeset-font-family-heading: The Message;
@@ -254,12 +254,6 @@
   :root {
     --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-surface-solid-accent-foreground: rgb(var(--sl-color-palette-accent-50));
-    --sl-color-surface-solid-accent-background: rgb(var(--sl-color-palette-accent-base));
-    --sl-color-surface-solid-secondary-foreground: rgb(var(--sl-color-palette-secondary-50));
-    --sl-color-surface-solid-secondary-background: rgb(var(--sl-color-palette-secondary-400));
-    --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-primary-50));
-    --sl-color-surface-solid-primary-background: rgb(var(--sl-color-palette-primary-base));
     --sl-color-button-danger-outline-disabled-border: rgba(var(--sl-color-palette-accent-base) / var(--sl-opacity-700));
     --sl-color-button-danger-outline-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-danger-outline-disabled-background: rgba(var(--sl-color-palette-danger-base) / 0);

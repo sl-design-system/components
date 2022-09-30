@@ -6,6 +6,9 @@
     "sanoma-learning/dark",
     "magister/base",
     "magister/light",
-    "magister/dark"
+    "bingel/base",
+    "bingel/light",
+    "max-online/base",
+    "max-online/light"
   ]
 }

@@ -6,30 +6,59 @@ let nextUniqueId = 0;
 export class Input extends LitElement {
   static formAssociated = true;
 
-  // @property() placeholder?: string;
   @property() placeholder = '';
 
   @property() id!: string;
 
-  @property() value = '';
-
-  // @property() ariaLabelledby?: string;
+  // @property() value = '';
 
   #internals: ElementInternals = this.attachInternals();
 
-  #labels: Set<WeakRef<any>> = new Set<WeakRef<any>>;
+  #labels: Set<WeakRef<Node>> = new Set<WeakRef<Node>>;
 
   // invalid: boolean;
-
   // pristine: boolean;
 
-  @property()
-  validationError?: string;
+  @property() invalid = false;
+
+  @property() pristine = true;
+
+  @property() validationError?: string;
 
   @query('input') input!: HTMLInputElement; //HTMLInputElement /*| null | undefined*/; //Input;
   // @query('.first-input') input?: HTMLInputElement;
 
   // input?: Input;
+
+  get validity() {
+    return this.#internals.validity;
+  }
+  get validationMessage() {
+    return this.#internals.validationMessage;
+  }
+  get willValidate() {
+    return this.#internals.willValidate;
+  }
+  checkValidity() {
+    return this.#internals.checkValidity();
+  }
+  reportValidity() {
+    return this.#internals.reportValidity();
+  }
+
+  get value() {
+    return this.input.value;
+  }
+
+  set value(value: string) {
+    console.log('value in set', value);
+    this.input.value = value;
+    this.#internals.setFormValue(value);
+  }
+
+  get form() {
+    return this.#internals.form;
+  }
 
   // constructor() {
   //   super();
@@ -223,35 +252,24 @@ export class Input extends LitElement {
     }*/
 
   firstUpdated(): void {
+    console.log('this.form, this.value', this.form, this.value);
     console.log('this.input in render in firstUpdated', this.input, this.#internals, this.#internals.labels);
-    // for (const label of this.#internals.labels) {
-    //   label.addEventListener('click', doFocus)
-    // }
     this.#internals.labels.forEach(label => {
-      // label.addEventListener('click', this.onClick(event, this.input));
-      // id = `dna-tab-${nextUniqueId++}`;
       (label as HTMLLabelElement).id = `sl-input-label-${nextUniqueId++}`;
-      label.addEventListener('click', (event: Event) => this.onClick(event, this.input));
+      label.addEventListener('click', (event: Event) => this.onClick(event));
       const ref = new WeakRef(label);
-      console.log('ref', ref);
       this.#labels.add(ref);
     });
-    this.setAttribute('tabindex', '0');
-    console.log('this.#labels', this.#labels, this.#internals.labels, this.input);
-    this.input.setAttribute('aria-labelledby', (this.#internals.labels[0] as HTMLLabelElement)?.id);
-    this.setAttribute('aria-labelledby', (this.#internals.labels[0] as HTMLLabelElement)?.id);
+
+    const label = (this.#internals.labels[0] as HTMLLabelElement);
+    this.input.setAttribute('aria-labelledby', label.id);
+    this.input.setAttribute('aria-label', label.innerText);
+    this.setAttribute('aria-labelledby', label.id);
   }
 
-  onClick(event: Event, input: HTMLInputElement): void {
-    console.log('event', event, this.input/*, this.#internals.labels*/, input);
-    // (event.target as HTMLElement).focus();
-    // this.focus();
-    // this.setAttribute('tabindex', '0');
-    // this.input.focus();
-    // this.input.setAttribute('tabindex', '0');
-    this.focus();
+  onClick(event: Event): void {
+    this.input.focus();
     event.preventDefault();
-    // event.stopPropagation();
   }
 
   render(): TemplateResult {
@@ -259,30 +277,17 @@ export class Input extends LitElement {
     // console.log('this.input in render', this.input, this, this.shadowRoot?.querySelector('input'));
     // this.#internals.labels
     // console.log('this.#internals.labels', this.#internals.labels[0], this.#internals.labels, (this.#internals.labels[0] as HTMLElement)?.innerText, (this.#internals.labels[0] as HTMLLabelElement)?.id);
-    return html`<input @focusin="${this.#onInput}" .id="${this.id}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}" value="${this.value}"/>`;
+    return html`<input .id="${this.id}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}"/>`;
+    // value="${this.value}"
     // .id="${(this.#internals.labels[0] as HTMLLabelElement)?.htmlFor}"
 
     // <input class="first-input" type="text"/>
     // <input .id="${(this.#internals.labels[0] as HTMLLabelElement)?.htmlFor}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}" value="${this.value}"/>
   }
-  // aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.htmlFor}"
-  // <slot></slot>
-  // <label for="${this.id}">labelka</label>
-  // htmlFor
-  // ${this.id}
-
-  #onInput(event: Event): void {
-    // const { focus } = event.target as HTMLInputElement;
-    //
-    // this.focus = focus;
-    this.focus();
-    event.preventDefault();
-  }
 
   disconnectedCallback(): void {
-    // label.removeEventListener('click', this.onClick(event, this.input));
-    this.#internals.labels.forEach(label => {
-      label.removeEventListener('click', (event: Event) => this.onClick(event, this.input));
+    this.#labels.forEach(label => {
+      label.deref()?.removeEventListener('click', (event: Event) => this.onClick(event));
     });
   }
 }

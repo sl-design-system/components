@@ -11,6 +11,31 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
+  --sl-transform-button-primary-default-active: translateY(2px);
+  --sl-transform-button-default-default-active: translateY(2px);
+  --sl-box-shadow-button-primary-default-active: 0px 0px 0px 0px #004390;
+  --sl-box-shadow-button-primary-default-idle: 0px 2px 0px 0px #004390;
+  --sl-box-shadow-button-default-default-active: 0px 0px 0px 0px #aab3bd;
+  --sl-box-shadow-button-default-default-idle: 0px 2px 0px 0px #aab3bd;
+  --sl-border-radius-button: 22px;
+  --sl-color-button-primary-default-active-border: #0068c8;
+  --sl-color-button-primary-default-active-foreground: #ffffff;
+  --sl-color-button-primary-default-active-background: #006cce;
+  --sl-color-button-primary-default-hover-border: #0068c8;
+  --sl-color-button-primary-default-hover-foreground: #ffffff;
+  --sl-color-button-primary-default-hover-background: #006cce;
+  --sl-color-button-primary-default-idle-border: #0068c8;
+  --sl-color-button-primary-default-idle-foreground: #ffffff;
+  --sl-color-button-primary-default-idle-background: #0074df;
+  --sl-color-button-default-default-active-border: #e5e8eb;
+  --sl-color-button-default-default-active-foreground: #002f62;
+  --sl-color-button-default-default-active-background: #ffffff;
+  --sl-color-button-default-default-hover-border: #e5e8eb;
+  --sl-color-button-default-default-hover-foreground: #002f62;
+  --sl-color-button-default-default-hover-background: #ffffff;
+  --sl-color-button-default-default-idle-border: #e5e8eb;
+  --sl-color-button-default-default-idle-foreground: #002f62;
+  --sl-color-button-default-default-idle-background: #ffffff;
   --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
@@ -56,10 +81,15 @@
   --sl-text-typeset-font-size-md: 14px;
   --sl-text-typeset-font-size-sm: 12px;
   --sl-text-typeset-font-size-xs: 10px;
+  --sl-text-typeset-font-weight-bold: 700;
+  --sl-text-typeset-font-weight-demibold: 600;
+  --sl-text-typeset-font-weight-regular: 400;
   --sl-text-typeset-font-weight-icon-solid: Solid;
   --sl-text-typeset-font-weight-icon-regular: 400;
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
+  --sl-text-typeset-font-family-body: open-sans;
+  --sl-text-typeset-font-family-heading: open-sans;
   --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
@@ -111,4 +141,15 @@
   --sl-border-radius-2xs: 4px;
   --sl-border-radius-3xs: 2px;
   --sl-border-radius-none: 0px;
+  --sl-text-button-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg)/var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl)/var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm)/var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-space-button-default-lg-inline: var(--sl-space-xl);
+  --sl-space-button-default-lg-block: var(--sl-space-lg);
+  --sl-space-button-default-md-block: var(--sl-space-sm);
+  --sl-space-button-default-sm-inline: var(--sl-space-md);
+  --sl-space-button-default-sm-block: var(--sl-space-xs);
+  --sl-border-width-button-outline: var(--sl-border-width-xs);
+  --sl-border-width-button-default: var(--sl-border-width-sm);
+  --sl-space-button-default-md-inline: var(--sl-space-button-default-lg-block);
 }

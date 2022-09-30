@@ -12,12 +12,14 @@ $variants: default, primary, success, warning, danger;
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
   color: var(--_color);
   cursor: pointer;
   display: inline-flex;
   font: var(--_font);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
+  transform: var(--_transform);
   transition: var(--_animation);
   transition-property: background, border-color, border-radius, box-shadow, color;
 }
@@ -48,31 +50,53 @@ $variants: default, primary, success, warning, danger;
     :host([fill='#{$fill}'][variant='#{$variant}']) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
+      --_box-shadow: var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
+      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:focus) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-focus-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
+      --_box-shadow: var(
+        --sl-box-shadow-button-#{$variant}-#{$fill}-focus,
+        var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle)
+      );
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-focus-foreground);
+      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:hover) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
+      --_box-shadow: var(
+        --sl-box-shadow-button-#{$variant}-#{$fill}-hover,
+        var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle)
+      );
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);
+      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-hover);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:active) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
+      --_box-shadow: var(
+        --sl-box-shadow-button-#{$variant}-#{$fill}-active,
+        var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle)
+      );
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);
+      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-active);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}'][disabled]) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
+      --_box-shadow: var(
+        --sl-box-shadow-button-#{$variant}-#{$fill}-disabled,
+        var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle)
+      );
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
+      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
     }
   }
 }

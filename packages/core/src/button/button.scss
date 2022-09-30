@@ -12,7 +12,7 @@ $variants: default, primary, success, warning, danger;
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
+  box-shadow: var(--_box-shadow, none);
   color: var(--_color);
   cursor: pointer;
   display: inline-flex;
@@ -30,7 +30,6 @@ $variants: default, primary, success, warning, danger;
 }
 
 :host(:focus) {
-  box-shadow: var(--sl-box-shadow-button-default);
   outline: none;
 }
 
@@ -58,12 +57,15 @@ $variants: default, primary, success, warning, danger;
     :host([fill='#{$fill}'][variant='#{$variant}']:focus) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-focus-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
+      --_color: var(--sl-color-button-#{$variant}-#{$fill}-focus-foreground);
+      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
+    }
+
+    :host([fill='#{$fill}'][variant='#{$variant}']:focus-visible) {
       --_box-shadow: var(
         --sl-box-shadow-button-#{$variant}-#{$fill}-focus,
         var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle)
       );
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-focus-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:hover) {

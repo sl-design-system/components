@@ -7,17 +7,17 @@ const replaceReferences = (dictionary, originalValue, value) => {
 
   dictionary.getReferences(originalValue).forEach(ref => {
     if (ref.value && ref.name) {
-      if (ref.palette && !value.startsWith('rgba(')) {
+      if (ref.palette && !value.includes('rgba(')) {
         value = value.replace(ref.value, () => `rgb(var(--${ref.name}))`);
       } else {
         value = value.replace(ref.value, () => `var(--${ref.name})`);
-
-        if (value.startsWith('rgba')) {
-          value = value.replace(',', ' /');
-        }
       }
     }
   });
+
+  if (value.includes('rgba(')) {
+    value = value.replace(',', ' /');
+  }
 
   return value;
 };

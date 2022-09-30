@@ -21,7 +21,7 @@ export default css`
     background: var(--_background);
     border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_border-radius);
-    box-shadow: var(--_box-shadow);
+    box-shadow: var(--_box-shadow, none);
     color: var(--_color);
     cursor: pointer;
     display: inline-flex;
@@ -39,7 +39,6 @@ export default css`
   }
 
   :host(:focus) {
-    box-shadow: var(--sl-box-shadow-button-default);
     outline: none;
   }
 
@@ -73,9 +72,12 @@ export default css`
   :host([fill='default'][variant='default']:focus) {
     --_background: var(--sl-color-button-default-default-focus-background);
     --_border-color: var(--sl-color-button-default-default-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-default-default-focus, var(--sl-box-shadow-button-default-default-idle));
     --_color: var(--sl-color-button-default-default-focus-foreground);
     --_transform: var(--sl-transform-button-default-default-focus);
+  }
+
+  :host([fill='default'][variant='default']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-default-default-focus, var(--sl-box-shadow-button-default-default-idle));
   }
 
   :host([fill='default'][variant='default']:hover) {
@@ -113,9 +115,12 @@ export default css`
   :host([fill='default'][variant='primary']:focus) {
     --_background: var(--sl-color-button-primary-default-focus-background);
     --_border-color: var(--sl-color-button-primary-default-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-primary-default-focus, var(--sl-box-shadow-button-primary-default-idle));
     --_color: var(--sl-color-button-primary-default-focus-foreground);
     --_transform: var(--sl-transform-button-primary-default-focus);
+  }
+
+  :host([fill='default'][variant='primary']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-primary-default-focus, var(--sl-box-shadow-button-primary-default-idle));
   }
 
   :host([fill='default'][variant='primary']:hover) {
@@ -153,9 +158,12 @@ export default css`
   :host([fill='default'][variant='success']:focus) {
     --_background: var(--sl-color-button-success-default-focus-background);
     --_border-color: var(--sl-color-button-success-default-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-success-default-focus, var(--sl-box-shadow-button-success-default-idle));
     --_color: var(--sl-color-button-success-default-focus-foreground);
     --_transform: var(--sl-transform-button-success-default-focus);
+  }
+
+  :host([fill='default'][variant='success']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-success-default-focus, var(--sl-box-shadow-button-success-default-idle));
   }
 
   :host([fill='default'][variant='success']:hover) {
@@ -193,9 +201,12 @@ export default css`
   :host([fill='default'][variant='warning']:focus) {
     --_background: var(--sl-color-button-warning-default-focus-background);
     --_border-color: var(--sl-color-button-warning-default-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-warning-default-focus, var(--sl-box-shadow-button-warning-default-idle));
     --_color: var(--sl-color-button-warning-default-focus-foreground);
     --_transform: var(--sl-transform-button-warning-default-focus);
+  }
+
+  :host([fill='default'][variant='warning']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-warning-default-focus, var(--sl-box-shadow-button-warning-default-idle));
   }
 
   :host([fill='default'][variant='warning']:hover) {
@@ -233,9 +244,12 @@ export default css`
   :host([fill='default'][variant='danger']:focus) {
     --_background: var(--sl-color-button-danger-default-focus-background);
     --_border-color: var(--sl-color-button-danger-default-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-danger-default-focus, var(--sl-box-shadow-button-danger-default-idle));
     --_color: var(--sl-color-button-danger-default-focus-foreground);
     --_transform: var(--sl-transform-button-danger-default-focus);
+  }
+
+  :host([fill='default'][variant='danger']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-danger-default-focus, var(--sl-box-shadow-button-danger-default-idle));
   }
 
   :host([fill='default'][variant='danger']:hover) {
@@ -292,9 +306,12 @@ export default css`
   :host([fill='outline'][variant='default']:focus) {
     --_background: var(--sl-color-button-default-outline-focus-background);
     --_border-color: var(--sl-color-button-default-outline-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-default-outline-focus, var(--sl-box-shadow-button-default-outline-idle));
     --_color: var(--sl-color-button-default-outline-focus-foreground);
     --_transform: var(--sl-transform-button-default-outline-focus);
+  }
+
+  :host([fill='outline'][variant='default']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-default-outline-focus, var(--sl-box-shadow-button-default-outline-idle));
   }
 
   :host([fill='outline'][variant='default']:hover) {
@@ -332,9 +349,12 @@ export default css`
   :host([fill='outline'][variant='primary']:focus) {
     --_background: var(--sl-color-button-primary-outline-focus-background);
     --_border-color: var(--sl-color-button-primary-outline-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-primary-outline-focus, var(--sl-box-shadow-button-primary-outline-idle));
     --_color: var(--sl-color-button-primary-outline-focus-foreground);
     --_transform: var(--sl-transform-button-primary-outline-focus);
+  }
+
+  :host([fill='outline'][variant='primary']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-primary-outline-focus, var(--sl-box-shadow-button-primary-outline-idle));
   }
 
   :host([fill='outline'][variant='primary']:hover) {
@@ -372,9 +392,12 @@ export default css`
   :host([fill='outline'][variant='success']:focus) {
     --_background: var(--sl-color-button-success-outline-focus-background);
     --_border-color: var(--sl-color-button-success-outline-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-success-outline-focus, var(--sl-box-shadow-button-success-outline-idle));
     --_color: var(--sl-color-button-success-outline-focus-foreground);
     --_transform: var(--sl-transform-button-success-outline-focus);
+  }
+
+  :host([fill='outline'][variant='success']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-success-outline-focus, var(--sl-box-shadow-button-success-outline-idle));
   }
 
   :host([fill='outline'][variant='success']:hover) {
@@ -412,9 +435,12 @@ export default css`
   :host([fill='outline'][variant='warning']:focus) {
     --_background: var(--sl-color-button-warning-outline-focus-background);
     --_border-color: var(--sl-color-button-warning-outline-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-warning-outline-focus, var(--sl-box-shadow-button-warning-outline-idle));
     --_color: var(--sl-color-button-warning-outline-focus-foreground);
     --_transform: var(--sl-transform-button-warning-outline-focus);
+  }
+
+  :host([fill='outline'][variant='warning']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-warning-outline-focus, var(--sl-box-shadow-button-warning-outline-idle));
   }
 
   :host([fill='outline'][variant='warning']:hover) {
@@ -452,9 +478,12 @@ export default css`
   :host([fill='outline'][variant='danger']:focus) {
     --_background: var(--sl-color-button-danger-outline-focus-background);
     --_border-color: var(--sl-color-button-danger-outline-focus-border);
-    --_box-shadow: var(--sl-box-shadow-button-danger-outline-focus, var(--sl-box-shadow-button-danger-outline-idle));
     --_color: var(--sl-color-button-danger-outline-focus-foreground);
     --_transform: var(--sl-transform-button-danger-outline-focus);
+  }
+
+  :host([fill='outline'][variant='danger']:focus-visible) {
+    --_box-shadow: var(--sl-box-shadow-button-danger-outline-focus, var(--sl-box-shadow-button-danger-outline-idle));
   }
 
   :host([fill='outline'][variant='danger']:hover) {

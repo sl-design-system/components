@@ -58,14 +58,3 @@ export const sizePx = {
     ].includes(token.type),
   transformer: token => (typeof token.value === 'string' ? token.value : `${token.value}px`)
 };
-
-export const typography = {
-  name: 'typography/scss',
-  type: 'value',
-  transitive: true,
-  matcher: token => token.type === 'typography',
-  transformer: token => {
-    console.log('typography', token);
-    return '';
-  }
-};

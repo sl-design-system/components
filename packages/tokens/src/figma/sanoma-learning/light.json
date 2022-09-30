@@ -873,46 +873,6 @@
           }
         }
       }
-    },
-    "surface": {
-      "solid": {
-        "primary": {
-          "background": {
-            "value": "{color.palette.primary.base}",
-            "type": "color",
-            "description": "color.surface.solid.primary.background"
-          },
-          "foreground": {
-            "value": "{color.palette.primary.50}",
-            "type": "color",
-            "description": "color.surface.solid.primary.foreground"
-          }
-        },
-        "secondary": {
-          "background": {
-            "value": "{color.palette.secondary.400}",
-            "type": "color",
-            "description": "color.surface.solid.secondary.background"
-          },
-          "foreground": {
-            "value": "{color.palette.secondary.50}",
-            "type": "color",
-            "description": "color.surface.solid.secondary.foreground"
-          }
-        },
-        "accent": {
-          "background": {
-            "value": "{color.palette.accent.base}",
-            "type": "color",
-            "description": "color.surface.solid.accent.background"
-          },
-          "foreground": {
-            "value": "{color.palette.accent.50}",
-            "type": "color",
-            "description": "color.surface.solid.accent.foreground"
-          }
-        }
-      }
     }
   }
 }

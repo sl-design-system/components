@@ -56,10 +56,25 @@ export const InputTest4: Story = {
 export const Test: Story = {
   render: () => html`
     <form id="formId5">
-      <label for="my-input5">Label</label>
-      <sl-input id="my-input5"></sl-input>
+      <label for="my-input5">Label in form</label>
+      <sl-input id="my-input5"
+                custom-error-display
+                type="text"
+                required
+                minlength="5"
+                data-tooShort="Type at least 5 characters"
+                data-valueMissing="This field is required">
+      </sl-input>
+      <div class="error-message"></div>
+      <!--<button type="submit" onClick="noRefCheck(){}">Send</button>-->
     </form>
     <label for="my-input6">Label</label>
     <sl-input id="my-input6"></sl-input>
   `
+  // onclick="withPreventDefault({action : onClick})"
 };
+
+/*const withPreventDefault = ({action}: { action: any }) => (e: Event) => {
+  e.preventDefault();
+  return action(e);
+};*/

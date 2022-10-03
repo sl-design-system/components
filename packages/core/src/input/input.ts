@@ -1,4 +1,4 @@
-import {html, LitElement, TemplateResult} from 'lit';
+import {html, LitElement, PropertyValues, TemplateResult} from 'lit';
 import {property, query} from "lit/decorators.js";
 
 let nextUniqueId = 0;
@@ -19,7 +19,7 @@ export class Input extends LitElement {
   // invalid: boolean;
   // pristine: boolean;
 
-  @property() invalid = false;
+  // @property() invalid = false;
 
   @property() pristine = true;
 
@@ -60,6 +60,22 @@ export class Input extends LitElement {
     return this.#internals.form;
   }
 
+  get validateOnChange() {
+    return this.hasAttribute('validate-on-change');
+  }
+
+  get customErrorDisplay() {
+    return this.hasAttribute('custom-error-display');
+  }
+
+  get invalid() {
+    return this.hasAttribute('invalid');
+  }
+
+  set invalid(isInvalid: boolean) {
+    isInvalid && this.customErrorDisplay ? this.setAttribute('invalid', '') : this.removeAttribute('invalid');
+  }
+
   // constructor() {
   //   super();
   //
@@ -68,13 +84,7 @@ export class Input extends LitElement {
   //   this.#internals = this.attachInternals();
   // }
 
-  /*  get customErrorDisplay() {
-      return this.hasAttribute('custom-error-display');
-    }
-
-    get validateOnChange() {
-      return this.hasAttribute('validate-on-change');
-    }
+  /*
 
     get invalid() {
       return this.hasAttribute('invalid');
@@ -144,6 +154,37 @@ export class Input extends LitElement {
     get validateOnChange() {
       return this.hasAttribute('validate-on-change');
     }*/
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    // if (this.shadowRoot) {
+    //   // this.input = this.shadowRoot.querySelector('input');
+    //   console.log('this.shadowRoot.querySelector(\'input\')', this.shadowRoot.querySelector('input'));
+    // }
+    //
+    // console.log('this.input', this.input);
+    // [
+    //   'type',
+    //   'value',
+    //   'placeholder',
+    //   'required',
+    //   'min',
+    //   'max',
+    //   'minLength',  // <-- camelCase!
+    //   'maxLength',  // <-- camelCase!
+    //   'pattern'
+    // ].forEach((attr) => {
+    //   const attrValue = attr === 'required' ? this.hasAttribute(attr) : this.getAttribute(attr);
+    //
+    //   console.log('attrValue', attr, attrValue/*attrValue*/);
+    //
+    //   if(attrValue !== null && attrValue !== undefined) {
+    //     // this.input[attr] = attrValue;
+    //     this.input.setAttribute(attr, attrValue.toString());
+    //   }
+    // });
+  }
 
   /*  connectedCallback() {
       console.log('this.input', this.input, this.shadowRoot?.querySelector('input'));
@@ -252,7 +293,55 @@ export class Input extends LitElement {
     }*/
 
   firstUpdated(): void {
-    console.log('this.form, this.value', this.form, this.value);
+    [
+      'type',
+      'value',
+      'placeholder',
+      'required',
+      'min',
+      'max',
+      'minLength',  // <-- camelCase!
+      'maxLength',  // <-- camelCase!
+      'pattern'
+    ].forEach((attr) => {
+      const attrValue = attr === 'required' ? this.hasAttribute(attr) : this.getAttribute(attr);
+
+      console.log('attrValue', attr, attrValue/*attrValue*/);
+
+      if(attrValue !== null && attrValue !== undefined) {
+        // this.input[attr] = attrValue;
+        this.input.setAttribute(attr, attrValue.toString());
+      }
+    });
+
+
+    this.input.addEventListener('change', (e) => {
+      if(this.validateOnChange) {
+        this.pristine = false;
+      }
+
+      // we also want to dispatch a `change` event from
+      // our custom element
+      const clone = new Event(e.type, e); //e.constructor(e.type, e);
+      this.dispatchEvent(clone);
+
+      // set the element's validity whenever the value of the
+      // <input> changes
+      this.validateInput();
+    });
+
+    this.addEventListener('invalid', (e) => {
+      this.invalid = true;
+      this.pristine = false;
+
+      // when a custom error needs to be displayed,
+      // prevent the native error from showing
+      if(this.customErrorDisplay) {
+        e.preventDefault();
+      }
+    });
+
+    console.log('this.form, this.value', this.form, this.value, this.input.value);
     console.log('this.input in render in firstUpdated', this.input, this.#internals, this.#internals.labels);
     this.#internals.labels.forEach(label => {
       (label as HTMLLabelElement).id = `sl-input-label-${nextUniqueId++}`;
@@ -265,6 +354,13 @@ export class Input extends LitElement {
     this.input.setAttribute('aria-labelledby', label.id);
     this.input.setAttribute('aria-label', label.innerText);
     this.setAttribute('aria-labelledby', label.id);
+
+
+    this.validateInput();
+  }
+
+  willUpdate(changes: PropertyValues<this>): void {
+    console.log('changes in willUpdate', changes);
   }
 
   onClick(event: Event): void {
@@ -283,6 +379,57 @@ export class Input extends LitElement {
 
     // <input class="first-input" type="text"/>
     // <input .id="${(this.#internals.labels[0] as HTMLLabelElement)?.htmlFor}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}" value="${this.value}"/>
+  }
+
+  validateInput() {
+    // get the validity of the internal <input>
+    const validState = this.input.validity;
+
+    // reset this.invalid before validating again
+    this.invalid = false;
+
+    // TODO: the rest of input validation...
+    // if the input is invalid, show the correct error
+    if(!validState.valid) {
+      // loop through the error reasons
+      for(let state in validState) {
+        // get the name of the data attribute that holds the
+        //error message
+        const attr = `data-${state.toString()}`;
+        // if there is an error and corresponding attribute holding
+        // the message
+        console.log('attr in validateInput', attr);
+
+
+        if(/*validState[state]*/state) {
+          this.validationError = state.toString();
+          this.invalid = !this.pristine && !validState.valid;
+
+          // get the correct error message
+          const errorMessage = this.hasAttribute(attr) ?
+            this.getAttribute(attr) : this.input.validationMessage;
+          console.log('this.validationError', this.validationError, errorMessage);
+          // set the validity error reason and the corresponding
+          // message
+          this.#internals.setValidity(
+            {[this.validationError]: true},
+            errorMessage?.toString()
+          );
+          console.log('this.invalid', this.invalid, this.customErrorDisplay);
+
+          // when a custom error needs to be displayed,
+          // dispatch the 'invalid' event manually so consuming code
+          // can use this as a hook to get the correct error message
+          // and display it
+          if(this.invalid && this.customErrorDisplay) {
+            this.dispatchEvent(new Event('invalid'));
+          }
+        }
+      }
+    }
+    else {
+      this.#internals.setValidity({});
+    }
   }
 
   disconnectedCallback(): void {

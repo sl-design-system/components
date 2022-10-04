@@ -1,9 +1,32 @@
-import {html, LitElement, PropertyValues, TemplateResult} from 'lit';
+import {CSSResultGroup, css, html, LitElement, PropertyValues, TemplateResult} from 'lit';
 import {property, query} from "lit/decorators.js";
+// import styles from './input.scss.js';
 
 let nextUniqueId = 0;
 
 export class Input extends LitElement {
+  /** @private */
+  // static styles: CSSResultGroup = styles;
+
+  static styles = css`
+    :host([invalid]) > input {
+       border-color: red;
+       border-radius: 3px;
+    }
+
+    .error-message {
+      display: none;
+      border: 1px solid #ff0000;
+      color: #ff0000;
+      padding: 5px;
+    }
+
+    [invalid] ~ .error-message {
+      display: inline-block;
+      margin-top: 5px;
+    }
+  `;
+
   static formAssociated = true;
 
   @property() placeholder = '';
@@ -15,6 +38,18 @@ export class Input extends LitElement {
   #internals: ElementInternals = this.attachInternals();
 
   #labels: Set<WeakRef<Node>> = new Set<WeakRef<Node>>;
+
+  #attributes = [
+    'type',
+    'value',
+    'placeholder',
+    'required',
+    'min',
+    'max',
+    'minLength',
+    'maxLength',
+    'pattern'
+  ];
 
   // invalid: boolean;
   // pristine: boolean;
@@ -73,6 +108,7 @@ export class Input extends LitElement {
   }
 
   set invalid(isInvalid: boolean) {
+    console.log('isInvalid in invalid', isInvalid);
     isInvalid && this.customErrorDisplay ? this.setAttribute('invalid', '') : this.removeAttribute('invalid');
   }
 
@@ -293,17 +329,20 @@ export class Input extends LitElement {
     }*/
 
   firstUpdated(): void {
-    [
+    this.invalid = false;
+    this.pristine = true;
+
+    /*[
       'type',
       'value',
       'placeholder',
       'required',
       'min',
       'max',
-      'minLength',  // <-- camelCase!
-      'maxLength',  // <-- camelCase!
+      'minLength',
+      'maxLength',
       'pattern'
-    ].forEach((attr) => {
+    ]*/this.#attributes.forEach((attr) => {
       const attrValue = attr === 'required' ? this.hasAttribute(attr) : this.getAttribute(attr);
 
       console.log('attrValue', attr, attrValue/*attrValue*/);
@@ -381,7 +420,7 @@ export class Input extends LitElement {
     // <input .id="${(this.#internals.labels[0] as HTMLLabelElement)?.htmlFor}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}" value="${this.value}"/>
   }
 
-  validateInput() {
+  validateInput(): void {
     // get the validity of the internal <input>
     const validState = this.input.validity;
 
@@ -404,6 +443,7 @@ export class Input extends LitElement {
         if(/*validState[state]*/state) {
           this.validationError = state.toString();
           this.invalid = !this.pristine && !validState.valid;
+          console.log('!this.pristine, !validState.valid', this.pristine, !this.pristine, !validState.valid, !this.pristine && !validState.valid);
 
           // get the correct error message
           const errorMessage = this.hasAttribute(attr) ?

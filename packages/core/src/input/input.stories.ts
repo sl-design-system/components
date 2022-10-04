@@ -2,6 +2,7 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit';
 import '../button-bar/register.js';
 import './register.js';
+import Props from "@storybook/addon-links/dist/react";
 
 export default {
   title: 'Input'
@@ -53,11 +54,42 @@ export const InputTest4: Story = {
   `
 };
 
-export const Test: Story = {
-  render: () => html`
+// export const Test: Story = {
+export const Test: Story = (_: any, {loaded: {input}}: any) => {
+  // form: document.querySelector('form'),
+  // input: document.querySelector('sl-input'),
+  // errorMessage: document.querySelector('.error-message'),
+
+  // (form as HTMLFormElement).addEventListener('submit', (e: Event) => {
+  //   e.preventDefault();
+  // });
+  //
+  // input.addEventListener('invalid', (e: Event) => {
+  //   errorMessage.textContent = input.validationMessage;
+  // });
+
+  const message = () => {
+    return document.querySelector('sl-input')?.validationMessage;
+  };
+
+  /*render: () =>*/return html/*template:*/ `
+    <style>
+      .error-message {
+        display: none;
+        border: 1px solid #ff0000;
+        color: #ff0000;
+        padding: 5px;
+      }
+
+      [invalid] ~ .error-message {
+        display: inline-block;
+        margin-top: 5px;
+      }
+    </style>
     <form id="formId5">
       <label for="my-input5">Label in form</label>
       <sl-input id="my-input5"
+                validate-on-change
                 custom-error-display
                 type="text"
                 required
@@ -65,14 +97,39 @@ export const Test: Story = {
                 data-tooShort="Type at least 5 characters"
                 data-valueMissing="This field is required">
       </sl-input>
-      <div class="error-message"></div>
+      <div class="error-message">test error message ${input?.validationMessage} ${message} ${document.querySelector('sl-input')?.validationMessage}</div>
       <!--<button type="submit" onClick="noRefCheck(){}">Send</button>-->
     </form>
     <label for="my-input6">Label</label>
     <sl-input id="my-input6"></sl-input>
-  `
-  // onclick="withPreventDefault({action : onClick})"
+  `//,
+  // props: { form, input, errorMessage },
+  //
+  // errorMessage: document.querySelector('.error-message'),
+  //
+  // form: document.querySelector('form')?.addEventListener('submit', (e: Event) => {
+  //   e.preventDefault();
+  // }),
+  //
+  // input: document.querySelector('sl-input')?.addEventListener('invalid', (e: Event) => {
+  //   this.errorMessage.textContent = document.querySelector('sl-input')?.validationMessage;
+  // })
 };
+
+/*export const ExampleWithText = Test.bind({});
+ExampleWithText.play = async () => {
+  // The play function interacts with the component and looks for the text
+  await document.querySelector('sl-input');
+};*/
+
+Test.loaders = [async () => ({input: await document.querySelector('sl-input')})];
+
+
+/*Test.args = {
+  form: document.querySelector('form'),
+  input: HTMLElement, //document.querySelector('sl-input'),
+  errorMessage: HTMLElement //document.querySelector('.error-message')
+};*/
 
 /*const withPreventDefault = ({action}: { action: any }) => (e: Event) => {
   e.preventDefault();

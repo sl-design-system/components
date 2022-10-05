@@ -85,6 +85,10 @@ export const Test: Story = (_: any, {loaded: {input}}: any) => {
         display: inline-block;
         margin-top: 5px;
       }
+
+      /*label + [invalid] {
+        color: red;
+      }*/
     </style>
     <form id="formId5">
       <label for="my-input5">Label in form</label>
@@ -94,10 +98,11 @@ export const Test: Story = (_: any, {loaded: {input}}: any) => {
                 type="text"
                 required
                 minlength="5"
-                data-tooShort="Type at least 5 characters"
+                data-tooShort="Type at least 5 characters, please"
                 data-valueMissing="This field is required">
       </sl-input>
       <div class="error-message">test error message ${input?.validationMessage} ${message} ${document.querySelector('sl-input')?.validationMessage}</div>
+      <div style="color: blue;">${document.querySelector('sl-input')?.validationMessage}</div>
       <!--<button type="submit" onClick="noRefCheck(){}">Send</button>-->
     </form>
     <label for="my-input6">Label</label>

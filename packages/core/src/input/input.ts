@@ -9,20 +9,38 @@ export class Input extends LitElement {
   // static styles: CSSResultGroup = styles;
 
   static styles = css`
+    :host {
+      display: block;
+    }
+
+    input {
+      margin-top: 3px;
+      border: 1px solid #d3d3d3;
+      border-radius: 3px;
+      padding: 5px 7px;
+      // box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
+    }
+
+    input:focus-visible {
+      box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
+      border-color: hsl(207, 95%, calc(55% - 8% * 2));
+      outline: none;
+    }
+
     :host([invalid]) > input {
-       border-color: red;
+       border-color: #ed1d23; //red;
        border-radius: 3px;
     }
 
     .with-error {
       display: none;
-      color: #ff0000;
-      padding: 5px;
+      color: #ed1d23; //#ff0000;
+      padding: 5px 0;
     }
 
     :host([invalid]) > .with-error {
-      display: inline-block;
-      margin-top: 5px;
+      display: block; // inline-block;
+      // margin-top: 5px;
     }
   `;
 
@@ -203,15 +221,10 @@ export class Input extends LitElement {
   }
 
   validateInput(): void {
-    // get the validity of the internal <input>
     const validState = this.input.validity;
-    // reset this.invalid before validating again
     this.invalid = false;
 
-    // TODO: the rest of input validation...
-    // if the input is invalid, show the correct error
     if (!validState.valid) {
-      // loop through the error reasons
       for (let state in validState) {
       //   for (let state of Array.of(validState)) {
       //     for (let state = 1; state <= Array.of(validState).length; state++) {
@@ -227,18 +240,16 @@ export class Input extends LitElement {
         const temp = validState[state as keyof ValidityState]
         console.log('....temp', temp);
 
-        if(/*validState[state]*//*state*/ /*validState*/ /*temp*/ validState[state as keyof ValidityState]) {
+        if(/*temp*/ validState[state as keyof ValidityState]) {
           this.validationError = state.toString();
           this.invalid = !this.pristine && !validState.valid;
           console.log('!this.pristine, !validState.valid', this.pristine, !this.pristine, !validState.valid, !this.pristine && !validState.valid);
 
-          // get the correct error message
           const errorMessage = this.hasAttribute(attr) ?
             this.getAttribute(attr) : this.input.validationMessage;
           console.log('errorMessage', errorMessage);
           console.log('this.validationError', this.validationError, errorMessage);
-          // set the validity error reason and the corresponding
-          // message
+
           this.#internals.setValidity(
             {[this.validationError]: true},
             errorMessage?.toString()
@@ -250,10 +261,12 @@ export class Input extends LitElement {
           // dispatch the 'invalid' event manually so consuming code
           // can use this as a hook to get the correct error message
           // and display it
-          if(this.invalid && this.customErrorDisplay) {
+          if(this.invalid /*&& this.customErrorDisplay*/) {
             this.dispatchEvent(new Event('invalid'));
           }
         }
+
+        this.dispatchEvent(new Event('onValidate'));
       }
     }
     else {

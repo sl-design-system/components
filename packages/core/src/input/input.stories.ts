@@ -3,6 +3,8 @@ import { html } from 'lit';
 import '../button-bar/register.js';
 import './register.js';
 import Props from "@storybook/addon-links/dist/react";
+import { useArgs } from '@storybook/client-api';
+import {Input} from "./input";
 
 export default {
   title: 'Input'
@@ -55,7 +57,10 @@ export const InputTest4: Story = {
 };
 
 // export const Test: Story = {
-export const Test: Story = (_: any, {loaded: {input}}: any) => {
+// export const Test: Story = (_: any, {loaded: {input}}: any, {isInvalid}: boolean) => {
+//   export const Test: Story = ({args: {isInvalid}}: any, test2: test2}) => {
+//   export const Test = (args: { isInvalid: boolean}) => {
+    export const Test = ({ isInvalid, messageValidation }: { isInvalid: boolean, messageValidation: string }) => {
   // form: document.querySelector('form'),
   // input: document.querySelector('sl-input'),
   // errorMessage: document.querySelector('.error-message'),
@@ -68,12 +73,41 @@ export const Test: Story = (_: any, {loaded: {input}}: any) => {
   //   errorMessage.textContent = input.validationMessage;
   // });
 
+  // const [_, updateArgs] = useArgs();
+
+  const [_, updateArgs] = useArgs(),
+    onInvalid = (event: Event) => {
+    console.log('event in story', event, event.target, (event.target as Input).validationMessage);
+    // event.target.addEventListener()
+      updateArgs({isInvalid: true, messageValidation: (event.target as Input).validationMessage});
+    },
+    onChange = (event: Event) => {
+    if ((event.target as Input).validity.valid) {
+      updateArgs({isInvalid: false, messageValidation: ''});
+    }
+      console.log('event in story onchange', event, event.target, 'attribute invalid???', (event.target as Input).invalid, (event.target as HTMLInputElement).validity.valid, (event.target as Input).validationMessage, (event.target as Input).validity.valid);
+    },
+    onClone = (event: Event) => {
+      console.log('event in story onclone', event, event.target, (event.target as Input).validationMessage);
+    },
+    onValidateEvent = (event: Event) => {
+      console.log('event in story onValidateEvent', event, event.target, (event.target as Input).validationMessage);
+    },
+    onSubmit = (event: Event) => {
+      event.preventDefault();
+      console.log('event in story submittt', event, event.target, (event.target as Input).validationMessage);
+    };
+
   const message = () => {
     return document.querySelector('sl-input')?.validationMessage;
   };
 
   /*render: () =>*/return html/*template:*/ `
     <style>
+      label {
+        font-size: 14px;
+      }
+
       .error-message {
         display: none;
         border: 1px solid #ff0000;
@@ -92,8 +126,12 @@ export const Test: Story = (_: any, {loaded: {input}}: any) => {
     </style>
     <form id="formId5">
       <label for="my-input5">Label in form</label>
+      <div>test ${isInvalid} ${messageValidation}</div>
       <sl-input id="my-input5"
-                validate-on-change
+                @change="${onChange}"
+                @invalid="${onInvalid}"
+                @clone="${onClone}"
+                @onValidate="${onValidateEvent}"
                 custom-error-display
                 type="text"
                 required
@@ -101,13 +139,17 @@ export const Test: Story = (_: any, {loaded: {input}}: any) => {
                 data-tooShort="Type at least 5 characters, please"
                 data-valueMissing="This field is required">
       </sl-input>
-      <div class="error-message">test error message ${input?.validationMessage} ${message} ${document.querySelector('sl-input')?.validationMessage}</div>
+      <div class="error-message">test error message ${message} ${document.querySelector('sl-input')?.validationMessage}</div>
       <div style="color: blue;">${document.querySelector('sl-input')?.validationMessage}</div>
       <!--<button type="submit" onClick="noRefCheck(){}">Send</button>-->
+      <button type="submit" @submit="${onSubmit}">Send</button>
     </form>
     <label for="my-input6">Label</label>
     <sl-input id="my-input6"></sl-input>
   `//,
+
+      //validate-on-change
+      // ${input?.validationMessage}
   // props: { form, input, errorMessage },
   //
   // errorMessage: document.querySelector('.error-message'),
@@ -119,6 +161,13 @@ export const Test: Story = (_: any, {loaded: {input}}: any) => {
   // input: document.querySelector('sl-input')?.addEventListener('invalid', (e: Event) => {
   //   this.errorMessage.textContent = document.querySelector('sl-input')?.validationMessage;
   // })
+
+  // on inValid = event => updateArgs();
+};
+
+Test.args = {
+  isInvalid: false,
+  messageValidation: ''
 };
 
 /*export const ExampleWithText = Test.bind({});
@@ -127,7 +176,7 @@ ExampleWithText.play = async () => {
   await document.querySelector('sl-input');
 };*/
 
-Test.loaders = [async () => ({input: await document.querySelector('sl-input')})];
+// Test.loaders = [async () => ({input: await document.querySelector('sl-input')})];
 
 
 /*Test.args = {

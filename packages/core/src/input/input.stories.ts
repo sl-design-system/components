@@ -2,7 +2,6 @@ import { Story } from '@storybook/web-components';
 import { html } from 'lit';
 import '../button-bar/register.js';
 import './register.js';
-import Props from "@storybook/addon-links/dist/react";
 import { useArgs } from '@storybook/client-api';
 import {Input} from "./input";
 
@@ -25,42 +24,11 @@ export const API: Story = {
   `
 };
 
-export const InputTest: Story = {
-  render: () => html`
-    <form>
-      <label for="test1">label</label>
-      <sl-input id="test1"></sl-input>
-    </form>
-  `
-};
 
-export const InputTest3: Story = {
-  render: () => html`
-    <form id="formId">
-      <label for="test3">label 3</label>
-      <sl-input id="test3" placeholder="placeholder"></sl-input>
-    </form>
-  `
-};
-
-export const InputTest4: Story = {
-  render: () => html`
-    <form id="formId4">
-      <label id="test4" for="test5">label 4</label>
-      <sl-input id="test5" placeholder="placeholder"></sl-input>
-    </form>
-    <label for="my-input">Label</label>
-    <input id="my-input">
-    <label for='label_for'>Enter search text </label>
-    <input type='text' id='label_for'>
-  `
-};
-
-// export const Test: Story = {
 // export const Test: Story = (_: any, {loaded: {input}}: any, {isInvalid}: boolean) => {
 //   export const Test: Story = ({args: {isInvalid}}: any, test2: test2}) => {
 //   export const Test = (args: { isInvalid: boolean}) => {
-    export const Test = ({ isInvalid, messageValidation }: { isInvalid: boolean, messageValidation: string }) => {
+    export const InputInForm = ({ isInvalid, messageValidation }: { isInvalid: boolean, messageValidation: string }) => {
   // form: document.querySelector('form'),
   // input: document.querySelector('sl-input'),
   // errorMessage: document.querySelector('.error-message'),
@@ -126,7 +94,7 @@ export const InputTest4: Story = {
     </style>
     <form id="formId5">
       <label for="my-input5">Label in form</label>
-      <div>test ${isInvalid} ${messageValidation}</div>
+      <div>${messageValidation}</div>
       <sl-input id="my-input5"
                 @change="${onChange}"
                 @invalid="${onInvalid}"
@@ -135,17 +103,17 @@ export const InputTest4: Story = {
                 custom-error-display
                 type="text"
                 required
+                data-valueMissing="This field is required"
                 minlength="5"
-                data-tooShort="Type at least 5 characters, please"
-                data-valueMissing="This field is required">
+                data-tooShort="Type at least 5 characters, please">
       </sl-input>
-      <div class="error-message">test error message ${message} ${document.querySelector('sl-input')?.validationMessage}</div>
-      <div style="color: blue;">${document.querySelector('sl-input')?.validationMessage}</div>
       <!--<button type="submit" onClick="noRefCheck(){}">Send</button>-->
       <button type="submit" @submit="${onSubmit}">Send</button>
     </form>
+    <form id="formId50">
     <label for="my-input6">Label</label>
-    <sl-input id="my-input6"></sl-input>
+    <sl-input id="my-input6" type="text" custom-error-display validate-on-change required data-valueMissing="This field is required..."></sl-input>
+    </form>
   `//,
 
       //validate-on-change
@@ -165,27 +133,113 @@ export const InputTest4: Story = {
   // on inValid = event => updateArgs();
 };
 
-Test.args = {
+InputInForm.args = {
   isInvalid: false,
   messageValidation: ''
 };
 
-/*export const ExampleWithText = Test.bind({});
-ExampleWithText.play = async () => {
-  // The play function interacts with the component and looks for the text
-  await document.querySelector('sl-input');
-};*/
+export const InputValidation = ({ isInvalid, messageValidation }: { isInvalid: boolean, messageValidation: string }) => {
+  const [_, updateArgs] = useArgs(),
+    onInvalid = (event: Event) => {
+      console.log('event in story', event, event.target, (event.target as Input).validationMessage);
+      updateArgs({isInvalid: true, messageValidation: (event.target as Input).validationMessage});
+    },
+    onChange = (event: Event) => {
+      console.log('(event.target as Input). checkvalidity in onchange event story', (event.target as Input).checkValidity());
+      if ((event.target as Input).validity.valid) {
+        updateArgs({isInvalid: false, messageValidation: ''});
+      }
+      console.log('event in story onchange', event, event.target, 'attribute invalid???', (event.target as Input).invalid, (event.target as HTMLInputElement).validity.valid, (event.target as Input).validationMessage, (event.target as Input).validity.valid);
+    },
+    onClone = (event: Event) => {
+      console.log('event in story onclone', event, event.target, (event.target as Input).validationMessage);
+    },
+    onValidateEvent = (event: Event) => {
+      console.log('event in story onValidateEvent', event, event.target, (event.target as Input).validationMessage);
+    },
+    onBlur = (event: Event) => {
+      console.log('event in story onBlur', event, event.target, (event.target as Input).validationMessage);
+      updateArgs({isInvalid: true, messageValidation: (event.target as Input).validationMessage})
+    };
 
-// Test.loaders = [async () => ({input: await document.querySelector('sl-input')})];
+  return html`
+    <style>
+      label {
+        font-size: 14px;
+      }
+
+      .error-message {
+        display: none;
+        border: 1px solid #ff0000;
+        color: #ff0000;
+        padding: 5px;
+      }
+
+      [invalid] ~ .error-message {
+        display: inline-block;
+        margin-top: 5px;
+      }
+    </style>
+    <form id="formId7">
+      <label for="my-input7">Label in form</label>
+      <sl-input id="my-input7"
+                @change="${onChange}"
+                @invalid="${onInvalid}"
+                @clone="${onClone}"
+                @onValidate="${onValidateEvent}"
+                @blur="${onBlur}"
+                validate-on-change
+                custom-error-display
+                type="text"
+                required
+                minlength="5"
+                data-tooShort="Type at least 5 characters, please"
+                data-valueMissing="This field is required">
+      </sl-input>
+      <div>${messageValidation}</div>
+    </form>
+  `//,
+};
+
+InputValidation.args = {
+  isInvalid: false,
+  messageValidation: ''
+};
 
 
-/*Test.args = {
-  form: document.querySelector('form'),
-  input: HTMLElement, //document.querySelector('sl-input'),
-  errorMessage: HTMLElement //document.querySelector('.error-message')
-};*/
+export const InputWithErrorMessageOutsideOfTheSLInput = ({ isInvalid, messageValidation }: { isInvalid: boolean, messageValidation: string }) => {
+  const [_, updateArgs] = useArgs(),
+      onBlur = (event: Event) => {
+        console.log('event in story onBlur', event, event.target, (event.target as Input).validationMessage);
+        updateArgs({isInvalid: true, messageValidation: (event.target as Input).validationMessage})
+      };
 
-/*const withPreventDefault = ({action}: { action: any }) => (e: Event) => {
-  e.preventDefault();
-  return action(e);
-};*/
+  return html`
+    <style>
+      label {
+        font-size: 14px;
+      }
+
+      .validation-message {
+        display: none;
+        color: #ed1d23;
+        font-size: 14px;
+        padding: 0;
+      }
+
+      [invalid] ~ .validation-message {
+        display: inline-block;
+      }
+    </style>
+    <p>Input without form</p>
+    <p>Checking validation on blur with validation message outside the shadow DOM</p>
+    <label for="my-input-6">Label</label>
+    <sl-input id="my-input-6" type="text" @blur="${onBlur}" custom-error-display validate-on-change required data-valueMissing="This field is required..."></sl-input>
+    <div class="validation-message">${messageValidation}</div>
+  `
+};
+
+InputWithErrorMessageOutsideOfTheSLInput.args = {
+  isInvalid: false,
+  messageValidation: ''
+};

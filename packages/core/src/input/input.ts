@@ -1,14 +1,14 @@
 import {CSSResultGroup, css, html, LitElement, PropertyValues, TemplateResult} from 'lit';
 import {property, query} from "lit/decorators.js";
-// import styles from './input.scss.js';
+import styles from './input.scss.js';
 
 let nextUniqueId = 0;
 
 export class Input extends LitElement {
   /** @private */
-  // static styles: CSSResultGroup = styles;
+  static styles: CSSResultGroup = styles;
 
-  static styles = css`
+/*  static styles = css`
     :host {
       display: block;
     }
@@ -42,7 +42,7 @@ export class Input extends LitElement {
       display: block; // inline-block;
       // margin-top: 5px;
     }
-  `;
+  `;*/
 
   static formAssociated = true;
 
@@ -83,27 +83,28 @@ export class Input extends LitElement {
 
   // input?: Input;
 
-  get validity() {
+  get validity(): ValidityState {
     return this.#internals.validity;
   }
 
-  get validationMessage() {
+  get validationMessage(): string {
     return this.#internals.validationMessage;
   }
 
-  get willValidate() {
+  get willValidate(): boolean {
     return this.#internals.willValidate;
   }
 
-  checkValidity() {
+  checkValidity(): boolean {
+    console.log('checkValidity goes --- this.#internals.checkValidity()', this.#internals.checkValidity());
     return this.#internals.checkValidity();
   }
 
-  reportValidity() {
+  reportValidity(): boolean {
     return this.#internals.reportValidity();
   }
 
-  get value() {
+  get value(): string {
     return this.input.value;
   }
 
@@ -113,19 +114,19 @@ export class Input extends LitElement {
     this.#internals.setFormValue(value);
   }
 
-  get form() {
+  get form(): HTMLFormElement | null {
     return this.#internals.form;
   }
 
-  get validateOnChange() {
+  get validateOnChange(): boolean {
     return this.hasAttribute('validate-on-change');
   }
 
-  get customErrorDisplay() {
+  get customErrorDisplay(): boolean {
     return this.hasAttribute('custom-error-display');
   }
 
-  get invalid() {
+  get invalid(): boolean {
     return this.hasAttribute('invalid');
   }
 
@@ -165,6 +166,8 @@ export class Input extends LitElement {
       const clone = new Event(e.type, e); //e.constructor(e.type, e);
       this.dispatchEvent(clone);
 
+      console.log('idzie change event', e, clone);
+
       // set the element's validity whenever the value of the
       // <input> changes
       this.validateInput();
@@ -173,6 +176,8 @@ export class Input extends LitElement {
     this.addEventListener('invalid', (e) => {
       this.invalid = true;
       this.pristine = false;
+
+      console.log('idzie invalid event', e);
 
       // when a custom error needs to be displayed,
       // prevent the native error from showing
@@ -208,11 +213,12 @@ export class Input extends LitElement {
   }
 
   render(): TemplateResult {
-    console.log('in render', this.#internals.labels, (this.#internals.labels[0] as HTMLLabelElement), (this.#internals.labels[0] as HTMLLabelElement)?.id);
+    console.log('in render', this.#internals.labels, (this.#internals.labels[0] as HTMLLabelElement), (this.#internals.labels[0] as HTMLLabelElement)?.id, this.validationMessage);
     // console.log('this.input in render', this.input, this, this.shadowRoot?.querySelector('input'));
     // this.#internals.labels
     // console.log('this.#internals.labels', this.#internals.labels[0], this.#internals.labels, (this.#internals.labels[0] as HTMLElement)?.innerText, (this.#internals.labels[0] as HTMLLabelElement)?.id);
-    return html`<input .id="${this.id}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}"/><div class="with-error">${this.validationMessage}</div>`;
+    return html`<input .id="${this.id}" aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}" .placeholder="${this.placeholder}"/>
+    <div class="with-error">${this.validationMessage}</div>`;
     // value="${this.value}"
     // .id="${(this.#internals.labels[0] as HTMLLabelElement)?.htmlFor}"
 
@@ -261,17 +267,18 @@ export class Input extends LitElement {
           // dispatch the 'invalid' event manually so consuming code
           // can use this as a hook to get the correct error message
           // and display it
-          if(this.invalid /*&& this.customErrorDisplay*/) {
+          if(this.invalid /*&& this.customErrorDisplay*/) { /*&& this.customErrorDisplay*/
             this.dispatchEvent(new Event('invalid'));
           }
         }
 
-        this.dispatchEvent(new Event('onValidate'));
+        // this.dispatchEvent(new Event('onValidate'));
       }
     }
     else {
       this.#internals.setValidity({});
     }
+    // this.checkValidity();
   }
 
   disconnectedCallback(): void {

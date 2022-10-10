@@ -2,12 +2,30 @@
   display: block;
 }
 
+:host([invalid]) {
+  input {
+    border-color: red;
+  }
+}
+
+:host([invalid]) {
+  input {
+    border-color: #ed1d23;
+    border-radius: 3px;
+  }
+}
+
+:host([invalid]) {
+  .with-error {
+    display: block;
+  }
+}
+
 input {
   margin-top: 3px;
   border: 1px solid #d3d3d3;
   border-radius: 3px;
   padding: 5px 7px;
-  // box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }
 
 input:focus-visible {
@@ -16,24 +34,8 @@ input:focus-visible {
   outline: none;
 }
 
-:host([invalid]) {
-  input {
-    border-color: red;
-  }
-}
-
-:host([invalid]) > input {
-  border-color: #ed1d23; //red;
-  border-radius: 3px;
-}
-
 .with-error {
   display: none;
-  color: #ed1d23; //#ff0000;
+  color: #ed1d23;
   padding: 5px 0;
-}
-
-:host([invalid]) > .with-error {
-  display: block; // inline-block;
-  // margin-top: 5px;
 }

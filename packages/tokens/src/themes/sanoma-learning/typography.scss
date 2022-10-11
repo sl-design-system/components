@@ -6,25 +6,25 @@
 @mixin sl-text-button-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-lg);
-  font-size: var(--sl-text-typeset-font-size-xl);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-lg);
 }
 
 @mixin sl-text-button-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-sm);
-  font-size: var(--sl-text-typeset-font-size-lg);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-md);
 }
 
 @mixin sl-text-button-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-lg);
-  font-size: var(--sl-text-typeset-font-size-md);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-sm);
 }
 
-@mixin sl-text-typeset-body-lg-bold {
+@mixin sl-text-body-lg-bold {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-lg);
@@ -35,7 +35,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-typeset-body-lg-demibold {
+@mixin sl-text-body-lg-demibold {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-lg);
@@ -46,7 +46,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-typeset-body-lg-normal {
+@mixin sl-text-body-lg-normal {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-lg);
@@ -57,7 +57,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-typeset-body-md-bold {
+@mixin sl-text-body-md-bold {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-md);
@@ -68,7 +68,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-typeset-body-md-demibold {
+@mixin sl-text-body-md-demibold {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-md);
@@ -79,7 +79,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-typeset-body-md-normal {
+@mixin sl-text-body-md-normal {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-md);
@@ -90,7 +90,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-typeset-body-sm-bold {
+@mixin sl-text-body-sm-bold {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-sm);
@@ -101,7 +101,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-typeset-body-sm-demibold {
+@mixin sl-text-body-sm-demibold {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-sm);
@@ -112,7 +112,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-typeset-body-sm-normal {
+@mixin sl-text-body-sm-normal {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-sm);
@@ -123,7 +123,7 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-typeset-heading-4 {
+@mixin sl-text-heading-4 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-lg);
@@ -134,7 +134,7 @@
   letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
 }
 
-@mixin sl-text-typeset-heading-3 {
+@mixin sl-text-heading-3 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-xl);
@@ -145,7 +145,7 @@
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
 }
 
-@mixin sl-text-typeset-heading-2 {
+@mixin sl-text-heading-2 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-2xl);
@@ -156,7 +156,7 @@
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
 }
 
-@mixin sl-text-typeset-heading-1 {
+@mixin sl-text-heading-1 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-3xl);
@@ -167,7 +167,7 @@
   letter-spacing: var(--sl-text-typeset-letter-spacing-sm);
 }
 
-@mixin sl-text-typeset-heading-0 {
+@mixin sl-text-heading-0 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-4xl);

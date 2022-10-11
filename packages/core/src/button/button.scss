@@ -1,9 +1,11 @@
-$fills: ghost, outline, solid, subtle;
+$fills: default, outline;
 $sizes: sm, md, lg;
-$variants: primary, secondary, success, danger, info, warning;
+$variants: default, primary, success, warning, danger;
 
 :host {
+  --_background: var(--sl-color-button-default-idle-background);
   --_border-radius: var(--sl-border-radius-button);
+  --_animation: var(--sl-animation-button);
 }
 
 :host {
@@ -16,11 +18,18 @@ $variants: primary, secondary, success, danger, info, warning;
   font: var(--_font);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
+  transition: var(--_animation);
+  transition-property: background, border-color, border-radius, box-shadow, color;
 }
 
 :host([disabled]) {
   cursor: default;
   pointer-events: none;
+}
+
+:host(:focus) {
+  box-shadow: var(--sl-box-shadow-button-default);
+  outline: none;
 }
 
 @each $fill in $fills {
@@ -40,6 +49,12 @@ $variants: primary, secondary, success, danger, info, warning;
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
+    }
+
+    :host([fill='#{$fill}'][variant='#{$variant}']:focus) {
+      --_background: var(--sl-color-button-#{$variant}-#{$fill}-focus-background);
+      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
+      --_color: var(--sl-color-button-#{$variant}-#{$fill}-focus-foreground);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:hover) {

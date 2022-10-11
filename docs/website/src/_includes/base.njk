@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>{{title}}</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<base href="/">
+<link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.81/dist/themes/light.css"/>
+<link rel="stylesheet" href="https://nordcdn.net/ds/css/1.4.1/nord.min.css" integrity="sha384-4n7JH/PweezbHxnqbwyHUj8rlAKy6TkOAk48Yn3KYNxGemTqVi6+hG+SPw6c4Vwc" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.82/dist/components/badge/badge.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.82/dist/components/button/button.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.82/dist/components/card/card.js"></script>
+<script type="module" src="https://nordcdn.net/ds/components/1.14.3/index.js" integrity="sha384-Tdw2C87BJCkx7qWHmTIyO5YWc780wkFL1oT/386AiCcDvTd4xorxJaZhOIF4Fkrb" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% include "./sidebar.njk" %}
+    <main>
+        <header>
+            <h1>{{title}}</h1>
+        </header>
+        {{content | safe}}
+    </main>
+</body>
+</html>

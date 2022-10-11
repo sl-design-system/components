@@ -1,0 +1,28 @@
+{
+  "name": "ds_11ty_docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "npx @11ty/eleventy --input=src --serve --config=.eleventy.cjs",
+    "build": "npx @11ty/eleventy --input=src",
+    "watch": "npx @11ty/eleventy --input=src --watch",
+    "debug": "DEBUG=* npx @11ty/eleventy --input=src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.2",
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^4.1.0"
+  },
+  "dependencies": {
+    "@lit-labs/eleventy-plugin-lit": "^0.2.3",
+    "@webcomponents/template-shadowroot": "^0.1.0",
+    "lit": "^2.3.1",
+    "typescript": "^4.8.2"
+  }
+}

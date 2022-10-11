@@ -1,0 +1,69 @@
+:root:not(.light) {
+    --background-color: #202124;
+    --second-background-color: #4C4D4F;
+    --third-background-color: #363739;
+    --menu-second-color: #363739;
+    --primary-color: #363739;
+    --font-color: #ffffff;
+    --secondary-font-color: rgba(226, 232, 240, 1);
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --n-color-surface: #363739;
+    --n-color-background: #363739;
+    --n-color-text-weak: #ffffff;
+    --sl-panel-background-color: transparent;
+    --sl-color-neutral-0: #363739;
+    --sl-color-neutral-700: #ffffff;
+    --n-color-text: #ffffff;
+    --n-button-background-color: transparent;
+    --n-tab-color: #668cff;
+    --n-color-text-link: #668cff;
+}
+
+:root.light {
+    --background-color: #f8f9fa;
+    --second-background-color: #041c52;
+    --third-background-color: #ffffff;
+    --menu-second-color: rgba(138,174,255,.2);
+    --primary-color: rgba(138,174,255,.2);
+    --font-color: #212529;
+    --secondary-font-color: #495057;
+    --n-color-surface: rgb(255, 255, 255);
+    --n-color-background: rgb(255, 255, 255);
+}
+
+.theme-icon {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    width: 2.5rem;
+    height: 2.5rem;
+    box-shadow: var(--box-shadow);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0.5rem;
+    border-color: rgba(226, 232, 240, 0);
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 500ms;
+}
+
+:root:not(.light) .theme-icon .icon-light {
+    display: none;
+}
+
+:root:not(.light) .theme-icon .icon-dark {
+    display: inline-block;
+    color: white;
+}
+
+:root.light .theme-icon .icon-light {
+    display: inline-block;
+}
+
+:root.light .theme-icon .icon-dark {
+    display: none;
+}

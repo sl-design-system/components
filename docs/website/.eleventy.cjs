@@ -21,9 +21,13 @@ module.exports = function(eleventyConfig) {
         html: true,
     };
 
+  eleventyConfig.setBrowserSyncConfig({
+    files: './public/css/**/*.css'
+  });
+
     eleventyConfig.setLibrary("md", markdownIt(options));
 
-    eleventyConfig.addPassthroughCopy('./src/css');
+    // eleventyConfig.addPassthroughCopy('./src/css');
 
     eleventyConfig.addPassthroughCopy('./src/assets');
 

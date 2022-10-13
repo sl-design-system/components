@@ -1,4 +1,4 @@
 {
   "layout": "base.njk",
-  "tags": "posts"
+  "tags": "categories"
 }

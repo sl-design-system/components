@@ -1,3 +1,8 @@
+---
+layout: base.njk
+myOtherData: hello
+---
+
 {#<header>
   <h1>{{title}}</h1>
   <h2>testtt</h2>
@@ -9,7 +14,7 @@
 <h2>Code</h2>
 {{content | safe}}#}
 
-<!doctype html>
+{#<!doctype html>
 <html lang="en">
 <head>
   <title>{{title}}</title>
@@ -23,6 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
   <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.82/dist/components/badge/badge.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.82/dist/components/button/button.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.82/dist/components/card/card.js"></script>
@@ -39,9 +45,25 @@
   <h2>Usage</h2>
   <h2>Accessibility</h2>
   <h2>Code</h2>
+  <div>{{ collections.components }}</div>
+  {% set navPages = collections.components %}
+  {% for category in navPages %}
+    <div> [ {{ category.templateContent }} ]( {{ category.data.title}} ) </div>
+  {% endfor %}
   {{content | safe}}
 </main>
 </body>
-</html>
+</html>#}
+
+
+<h2>Overview</h2>
+  {% include "./overview.njk" %}
+<h2>Specs</h2>
+<h2>Usage</h2>
+<h2>Accessibility</h2>
+<h2>Code</h2>
+<div>
+  {{content | safe}}
+</div>
 
 

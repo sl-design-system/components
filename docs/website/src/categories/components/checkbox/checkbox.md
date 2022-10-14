@@ -2,9 +2,7 @@
 title: Checkbox component
 layout: "components/components.njk"
 eleventyNavigation:
+  parent: Components
   key: Checkbox
+  order: 4
 ---
-
-this is checkbox
-
-{% include "./overview.md" %}

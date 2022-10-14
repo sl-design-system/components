@@ -11,6 +11,11 @@ eleventyNavigation:
   }
 </style>
 
+<h3 id="id12">test 1</h3>
+
+### [Anchor Link](#anchor-link)
+#  Anchor Link
+
 ## Overview
 
 ### Key Points
@@ -86,3 +91,9 @@ SL DS components:
     </p>
   </nord-tab-panel>
 </nord-tab-group>
+
+
+### [1. Anchor Link](#anchor-link)
+
+<a href="#id12">link to test {{page.url}}</a>
+<a href="{{page.url}}#id12">link_2 to test {{page.url}}</a>

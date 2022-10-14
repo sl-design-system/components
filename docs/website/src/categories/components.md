@@ -18,7 +18,7 @@ title: Components
   }
 </style>
 
-Components list test test2 test3
+Components list
 <div class="wrapper">
 {% for component in collections.components %}
   <div class="component">
@@ -27,7 +27,6 @@ Components list test test2 test3
   <a href="{{ component.url | url }}">{{ component.data.title }}</a>
   </nord-card>
   </div>
-<div>{{ component.data }}</div>
-<div>templatecontent: {{ component.templateContent }}</div>
 {% endfor %}
 </div>
+

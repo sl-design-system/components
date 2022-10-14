@@ -3,7 +3,7 @@ title: Spinner
 eleventyNavigation:
   parent: Components
   key: Spinner
-  order: 4
+  order: 5
 ---
 
 Spinner component example

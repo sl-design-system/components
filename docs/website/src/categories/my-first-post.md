@@ -8,4 +8,6 @@ eleventyNavigation:
 
 First page content
 
-# <sl-button size="small">Click me</sl-button>
+# sl button
+
+<sl-button size="small">Click me</sl-button>

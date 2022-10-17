@@ -1,0 +1,150 @@
+:not(:defined) {
+  visibility: visible;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--second-background-color, #041c52);
+  color: var(--font-color);
+}
+
+main {
+  background-color: var(--background-color);
+  width: 100%;
+  margin-top: 16px;
+  margin-right: 16px;
+  border-radius: 8px 8px 0 0;
+  padding: 36px 72px 0;
+  transition: background 300ms linear;
+}
+
+a {
+  color: var(--font-color);
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 260px;
+  background: var(--second-background-color);
+}
+
+nav h1 {
+  font-size: 18px;
+  margin: 36px 16px 16px;
+}
+
+nav * > a {
+  color: #eff2fb;
+  text-decoration: none;
+}
+
+nav ul {
+  list-style: none;
+  color: #eff2fb;
+  padding-left: 16px;
+  position: relative;
+}
+
+ul {
+  list-style: none;
+}
+
+nav * > li,
+nav > li {
+  padding: 8px 0;
+  position: relative;
+}
+
+.ds-sublist {
+  display: none;
+  padding: 8px 0 0 24px;
+}
+
+.ds-sublist--active {
+  display: block;
+}
+
+.ds-menu--expanded {
+  animation: slideDown 200ms ease-in-out forwards;
+  transform-origin: top center;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ds-link {
+  color: #eff2fb;
+  transition: color 300ms;
+}
+
+.ds-link:hover {
+  color: #668cff;
+}
+
+.ds-link--active,
+.ds-sub-link--active {
+  color: #668cff;
+}
+
+.ds-link--active::before {
+  background: #668cff;
+  content: "";
+  height: 41px;
+  left: -16px;
+  position: absolute;
+  top: 0;
+  width: 2px;
+}
+
+.ds-search {
+  background: var(--menu-second-color);
+  padding: 8px;
+  margin: 8px 16px;
+  border-radius: 3px;
+  border: none;
+}
+
+nord-tab-group {
+  background: var(--third-background-color);
+}
+
+pre {
+  background: var(--primary-color);
+  padding: 16px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.token.deleted {
+  background-color: hsla(350deg, 100%, 88%, 0.47);
+}
+
+.token.inserted {
+  background-color: hsla(120deg, 73%, 75%, 0.35);
+}
+
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+  display: block;
+}
+
+/*# sourceMappingURL=main.css.map */

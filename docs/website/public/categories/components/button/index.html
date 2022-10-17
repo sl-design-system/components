@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Welcome to Sanoma Learning Design System</title>
+<title>Button</title>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="stylesheet"
@@ -43,16 +43,16 @@
             </li>
         
             <li id="/categories/components/" >
-                <a class="ds-link " href="/categories/components/">Components</a>
+                <a class="ds-link  ds-link--active" href="/categories/components/">Components</a>
                 
-                        <ul role="list" class="ds-sublist  ">
+                        <ul role="list" class="ds-sublist  ds-sublist--active ">
                             
                                 <li>
                                     <a class="ds-link" href="/categories/components/badge/">Badge</a>
                                 </li>
                             
                                 <li>
-                                    <a class="ds-link" href="/categories/components/button/">Button</a>
+                                    <a class="ds-link ds-sub-link--active" href="/categories/components/button/">Button</a>
                                 </li>
                             
                                 <li>
@@ -200,37 +200,98 @@ document.querySelector('.theme-icon').addEventListener("click", () => {
 
     <main>
         <header>
-            <h1>Welcome to Sanoma Learning Design System</h1>
+            <h1>Button</h1>
         </header>
-        <style>
-.collections {
-  border-radius: 3px;
-  width: 50%;
-  padding: 16px 0;
-  box-shadow: 0 0 0 1px lightgray,0 1px 5px rgba(12, 12, 12, 0.05),0 0 40px rgba(12, 12, 12, 0.015);
-}
+        
+<h1>Tabs</h1>
+
+<ul>
+  
+    <li id="/categories/my-first-post/" >
+      <a class="ds-link " href="/categories/my-first-post/">First</a>
+      
+    </li>
+  
+    <li id="/categories/my-second-post/" >
+      <a class="ds-link " href="/categories/my-second-post/">Second</a>
+      
+    </li>
+  
+    <li id="/categories/components/" >
+      <a class="ds-link  ds-link--active" href="/categories/components/">Components</a>
+      
+        <ul role="list" class="ds-sublist  ds-sublist--active ">
+          
+            <li>
+              <a class="ds-link" href="/categories/components/badge/">Badge</a>
+            </li>
+          
+            <li>
+              <a class="ds-link ds-sub-link--active" href="/categories/components/button/">Button</a>
+            </li>
+          
+            <li>
+              <a class="ds-link" href="/categories/components/card/">Card</a>
+            </li>
+          
+            <li>
+              <a class="ds-link" href="/categories/components/checkbox/">Checkbox</a>
+            </li>
+          
+            <li>
+              <a class="ds-link" href="/categories/components/spinner/">Spinner</a>
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li id="/categories/design-tokens/" >
+      <a class="ds-link " href="/categories/design-tokens/">Design Tokens</a>
+      
+        <ul role="list" class="ds-sublist  ">
+          
+            <li>
+              <a class="ds-link" href="/categories/design-tokens/color/">Color</a>
+            </li>
+          
+            <li>
+              <a class="ds-link" href="/categories/design-tokens/border/">Border</a>
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+</ul>
+
+
+<ul><li><a href="/">/</a></li><li><a href="/categories/components/">/categories/components/</a></li><li><a href="/categories/my-first-post/">/categories/my-first-post/</a></li><li><a href="/categories/my-second-post/">/categories/my-second-post/</a></li><li><a href="/categories/design-tokens/">/categories/design-tokens/</a></li><li><a href="/categories/components/button/">/categories/components/button/</a></li><li><a href="/categories/components/card/">/categories/components/card/</a></li><li><a href="/categories/components/spinner/">/categories/components/spinner/</a></li><li><a href="/categories/components/badge/">/categories/components/badge/</a></li><li><a href="/categories/components/checkbox/">/categories/components/checkbox/</a></li><li><a href="/categories/design-tokens/border/">/categories/design-tokens/border/</a></li><li><a href="/categories/design-tokens/color/">/categories/design-tokens/color/</a></li><li><a href="/categories/components/checkbox/overview/">/categories/components/checkbox/overview/</a></li><li><a href="/categories/components/checkbox/specs/">/categories/components/checkbox/specs/</a></li></ul>
+
+
+
+
+
+<style>  
+  h3 {
+    margin-bottom: 16px;
+  }
 </style>
-<p><demo-greeter  name="World"><template shadowroot="open"><style>
-    b { color: var(--n-tab-color); }
-  </style><!--lit-part xwnoM4TMwfE=-->Hello <b><!--lit-part-->World<!--/lit-part--><slot></slot></b>!<!--/lit-part--></template> test</demo-greeter></p>
-<p><my-element><template shadowroot="open"><style>
-    :host {
-      display: inline-block;
-      padding: 10px;
-      background: var(--menu-second-color);
-      border-radius: 3px;
-    }
-    
-    .planet {
-      color: var(--n-color-accent, blue);
-    }
-  </style><!--lit-part eslokFIvni8=-->
-      <span 
-        ><!--lit-node 0--><!--lit-part-->I am internally created<!--/lit-part-->
-        <span class="planet"><!--lit-part-->Web Component<!--/lit-part--></span>
-      </span>
-    <!--/lit-part--></template></my-element></p>
-<p>Teaser page</p>
+<h3 id="id12">test 1</h3>
+<h3 id="anchor-link" tabindex="-1"><a class="header-anchor" href="#anchor-link"><a href="#anchor-link">Anchor Link</a></a></h3>
+<h1 id="anchor-link-1" tabindex="-1"><a class="header-anchor" href="#anchor-link-1">Anchor Link</a></h1>
+<h2 id="overview" tabindex="-1"><a class="header-anchor" href="#overview">Overview</a></h2>
+<h3 id="key-points" tabindex="-1"><a class="header-anchor" href="#key-points">Key Points</a></h3>
+<h3 id="live-demo" tabindex="-1"><a class="header-anchor" href="#live-demo">Live demo</a></h3>
+<h3 id="resources" tabindex="-1"><a class="header-anchor" href="#resources">Resources</a></h3>
+<h2 id="specs" tabindex="-1"><a class="header-anchor" href="#specs">Specs</a></h2>
+<h3 id="anatomy" tabindex="-1"><a class="header-anchor" href="#anatomy">Anatomy</a></h3>
+<h3 id="variants" tabindex="-1"><a class="header-anchor" href="#variants">Variants</a></h3>
+<h3 id="types" tabindex="-1"><a class="header-anchor" href="#types">Types</a></h3>
+<h3 id="behaviour" tabindex="-1"><a class="header-anchor" href="#behaviour">Behaviour</a></h3>
+<h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage">Usage</a></h2>
+<h2 id="accessibility" tabindex="-1"><a class="header-anchor" href="#accessibility">Accessibility</a></h2>
+<h2 id="code" tabindex="-1"><a class="header-anchor" href="#code">Code</a></h2>
 <p>SL DS components:<br>
 <sl-button>Primary</sl-button><br>
 <sl-button disabled>Disabled</sl-button><br>
@@ -244,50 +305,47 @@ document.querySelector('.theme-icon').addEventListener("click", () => {
 <sl-button variant="info" disabled>Disabled</sl-button><br>
 <sl-button variant="warning">Warning</sl-button><br>
 <sl-button variant="warning" disabled>Disabled</sl-button></p>
-<p>Light / dark mode</p>
-<div class="collections">
-<ul>
-<li>
-<p><a href="/categories/components/"> Components </a></p>
-</li>
-<li>
-<p><a href="/categories/my-first-post/"> Getting started </a></p>
-</li>
-<li>
-<p><a href="/categories/my-second-post/"> Second </a></p>
-</li>
-<li>
-<p><a href="/categories/design-tokens/"> Design Tokens </a></p>
-</li>
-<li>
-<p><a href="/categories/components/button/"> Button </a></p>
-</li>
-<li>
-<p><a href="/categories/components/card/"> Card </a></p>
-</li>
-<li>
-<p><a href="/categories/components/spinner/"> Spinner </a></p>
-</li>
-<li>
-<p><a href="/categories/components/badge/"> Badge </a></p>
-</li>
-<li>
-<p><a href="/categories/components/checkbox/"> Checkbox component </a></p>
-</li>
-<li>
-<p><a href="/categories/design-tokens/border/"> Border </a></p>
-</li>
-<li>
-<p><a href="/categories/design-tokens/color/"> Color </a></p>
-</li>
-<li>
-<p><a href="/categories/components/checkbox/overview/"> Checkbox overview </a></p>
-</li>
-<li>
-<p><a href="/categories/components/checkbox/specs/"> Checkbox specs </a></p>
-</li>
-</ul>
-</div>
+<nord-tab-group label="Title">
+  <nord-tab slot="tab">Overview</nord-tab>
+  <nord-tab-panel>
+  <h3>
+      Nordhealth button examples inside shoelace card
+  </h3>
+  <sl-card>
+        <nord-button href="#">Default</nord-button>
+        <nord-button href="#" variant="primary">Primary</nord-button>
+        <nord-button href="#" variant="danger">Danger</nord-button>
+        <nord-button href="#" variant="dashed">
+          <nord-icon slot="start" size="s" name="interface-filter"></nord-icon>
+          Filter
+        </nord-button>
+        <nord-button href="#">
+          <nord-icon size="s" color="var(--n-color-icon)" name="interface-menu-small" label="Options"></nord-icon>
+        </nord-button>
+        <nord-button href="#" variant="plain">Plain</nord-button>
+        <nord-button href="#" disabled>Disabled</nord-button>
+  </sl-card>
+  </nord-tab-panel>
+  <nord-tab slot="tab">Tab 2</nord-tab>
+  <nord-tab-panel>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quasi, incidunt eum ad, rerum dolorum sequi
+      numquam illum deleniti nobis doloremque asperiores natus perferendis, recusandae at dolorem et aperiam totam.
+    </p>
+  </nord-tab-panel>
+  <nord-tab slot="tab">Tab 3</nord-tab>
+  <nord-tab-panel>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, aperiam doloribus. Dolore, eaque. Distinctio
+      consequatur alias quae commodi praesentium recusandae libero, voluptate veniam. Commodi, velit ad ex sequi ut
+      fugit?
+    </p>
+  </nord-tab-panel>
+</nord-tab-group>
+<h3 id="1.-anchor-link" tabindex="-1"><a class="header-anchor" href="#1.-anchor-link"><a href="#anchor-link">1. Anchor Link</a></a></h3>
+<p><a href="#id12">link to test /categories/components/button/</a><br>
+<a href="/categories/components/button/#id12">link_2 to test /categories/components/button/</a></p>
+
 
     </main>
 </body>

@@ -1,0 +1,25 @@
+{
+  "name": "@slds/bingel",
+  "description": "SLDS Theme for Bingel",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "yarn node --no-warnings ../../../build.js bingel",
+      "files": [
+        "../../figma/*.json",
+        "../../figma/bingel/*.json"
+      ],
+      "output": [
+        "*.js",
+        "*.json",
+        "*.css",
+        "*.scss",
+        "!fonts.css",
+        "!package.json"
+      ]
+    }
+  }
+}

@@ -11,6 +11,12 @@ eleventyNavigation:
   }
 </style>
 
+Tabs
+<div class="tabs-wrapper">
+  <a href="#overview" class="tablink active">Overview</a>
+  <a href="#resources" class="tablink">Resources</a>
+</div>
+
 <h3 id="id12">test 1</h3>
 
 ### [Anchor Link](#anchor-link)

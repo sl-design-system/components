@@ -2,6 +2,9 @@
   "name": "@slds/max-online",
   "description": "SLDS Theme for MAX Online",
   "version": "0.0.0",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "wireit"
   },

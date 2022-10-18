@@ -2,6 +2,9 @@
   "name": "@slds/core",
   "description": "SLDS Core Web Components",
   "version": "0.0.0",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
   "type": "module",
   "scripts": {
     "build": "wireit",

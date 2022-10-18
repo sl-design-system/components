@@ -13,6 +13,7 @@
     "clean": "wireit",
     "docs": "wireit",
     "lint": "wireit",
+    "release": "wireit",
     "test": "wireit"
   },
   "wireit": {
@@ -32,6 +33,9 @@
     },
     "lint": {
       "command": "echo Linting"
+    },
+    "release": {
+      "command": "echo Release"
     },
     "test": {
       "command": "echo Testing 1 2 3"

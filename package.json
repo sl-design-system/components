@@ -2,6 +2,10 @@
   "name": "@slds/root",
   "packageManager": "yarn@3.2.3",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git"
+  },
   "workspaces": [
     "packages/core",
     "packages/tokens",

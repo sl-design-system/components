@@ -1,7 +1,7 @@
 {
   "name": "@slds/max-online",
   "description": "SLDS Theme for MAX Online",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "scripts": {
     "build": "wireit"
   },

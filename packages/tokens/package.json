@@ -1,8 +1,13 @@
 {
   "name": "@slds/tokens",
   "description": "SLDS Design Tokens",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git",
+    "directory": "packages/tokens"
+  },
   "type": "module",
   "workspaces": [
     "src/themes/bingel",

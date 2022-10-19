@@ -2,6 +2,10 @@
   "name": "@slds/root",
   "packageManager": "yarn@3.2.3",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git"
+  },
   "workspaces": [
     "packages/core",
     "packages/tokens",
@@ -13,6 +17,7 @@
     "clean": "wireit",
     "docs": "wireit",
     "lint": "wireit",
+    "publish": "wireit",
     "test": "wireit"
   },
   "wireit": {
@@ -33,11 +38,18 @@
     "lint": {
       "command": "echo Linting"
     },
+    "release": {
+      "command": "yarn changeset publish",
+      "dependencies": [
+        "build"
+      ]
+    },
     "test": {
       "command": "echo Testing 1 2 3"
     }
   },
   "devDependencies": {
+    "@changesets/cli": "^2.25.0",
     "@custom-elements-manifest/analyzer": "^0.6.4",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",

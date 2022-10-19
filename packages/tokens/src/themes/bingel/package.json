@@ -1,7 +1,15 @@
 {
   "name": "@slds/bingel",
   "description": "SLDS Theme for Bingel",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git",
+    "directory": "packages/tokens/src/themes/bingel"
+  },
   "scripts": {
     "build": "wireit"
   },

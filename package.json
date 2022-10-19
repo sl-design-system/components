@@ -17,7 +17,7 @@
     "clean": "wireit",
     "docs": "wireit",
     "lint": "wireit",
-    "publish": "wireit",
+    "release": "wireit",
     "test": "wireit"
   },
   "wireit": {

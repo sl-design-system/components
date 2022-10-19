@@ -17,7 +17,7 @@
     "clean": "wireit",
     "docs": "wireit",
     "lint": "wireit",
-    "release": "wireit",
+    "publish": "wireit",
     "test": "wireit"
   },
   "wireit": {
@@ -39,7 +39,10 @@
       "command": "echo Linting"
     },
     "release": {
-      "command": "echo Release"
+      "command": "yarn changeset publish",
+      "dependencies": [
+        "build"
+      ]
     },
     "test": {
       "command": "echo Testing 1 2 3"

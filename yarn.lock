@@ -1591,6 +1591,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@changesets/changelog-github@npm:^0.4.7":
+  version: 0.4.7
+  resolution: "@changesets/changelog-github@npm:0.4.7"
+  dependencies:
+    "@changesets/get-github-info": ^0.5.1
+    "@changesets/types": ^5.2.0
+    dotenv: ^8.1.0
+  checksum: 1d37e7369ce66f2e23ad122910511eba7d3d61dbb87cfd7c309491b819458473fcd5697dce5aa0762d7e531e38a44390f98b2afb61983604b563a9e9fc85586c
+  languageName: node
+  linkType: hard
+
 "@changesets/cli@npm:^2.25.0":
   version: 2.25.0
   resolution: "@changesets/cli@npm:2.25.0"
@@ -1668,6 +1679,16 @@ __metadata:
     fs-extra: ^7.0.1
     semver: ^5.4.1
   checksum: 2feb4dd2e92601fbb08cb11be0d320474fab4c4100139fe6380dbab7bd1846f4814d1207e66cdf7f95329d1f5774de630f1803cf767e2f377cb055bd1f9c76fb
+  languageName: node
+  linkType: hard
+
+"@changesets/get-github-info@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@changesets/get-github-info@npm:0.5.1"
+  dependencies:
+    dataloader: ^1.4.0
+    node-fetch: ^2.5.0
+  checksum: f4ad9f091ef214ade45661298b2fc6af7b79f207a32e4e1de60407bdf5342a6c4ab96cea0ec86f9303191e5f5b1567fe197a02c99e0ce6ad04ce1309ca34bbef
   languageName: node
   linkType: hard
 
@@ -2258,6 +2279,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@slds/root@workspace:."
   dependencies:
+    "@changesets/changelog-github": ^0.4.7
     "@changesets/cli": ^2.25.0
     "@custom-elements-manifest/analyzer": ^0.6.4
     "@typescript-eslint/eslint-plugin": ^5.38.1
@@ -5967,6 +5989,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dataloader@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "dataloader@npm:1.4.0"
+  checksum: 5fa4c843b9e60195092f1fc7e2acaff318ed46886dc670ddff683bc560f12d4079e6d1e77749501b7e111a8582d26a2aa2a2fbe6d7d5e1520cef64f4e1fd242d
+  languageName: node
+  linkType: hard
+
 "debounce@npm:1.2.1":
   version: 1.2.1
   resolution: "debounce@npm:1.2.1"
@@ -6341,7 +6370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^8.0.0":
+"dotenv@npm:^8.0.0, dotenv@npm:^8.1.0":
   version: 8.6.0
   resolution: "dotenv@npm:8.6.0"
   checksum: 6750431dea8efbd54b9f2d9681b04e1ccc7989486461dcf058bb708d9e3d63b04115fcdf8840e38ad1e24a4a2e1e7c1560626c5e3ac7bc09371b127c49e2d45f
@@ -11029,7 +11058,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
+"node-fetch@npm:^2.5.0, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:

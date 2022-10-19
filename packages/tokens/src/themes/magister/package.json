@@ -3,7 +3,7 @@
   "description": "SLDS Theme for Magister",
   "version": "0.0.0",
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",

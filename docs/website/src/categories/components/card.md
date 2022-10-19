@@ -3,7 +3,7 @@ title: Card
 eleventyNavigation:
   parent: Components
   key: Card
-  order: 3
+  order: 4
 ---
 <style>
   nord-card {

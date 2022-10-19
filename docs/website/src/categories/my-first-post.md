@@ -1,8 +1,8 @@
 ---
-title: Getting started
+title: What's new
 eleventyNavigation:
   parent: Pages
-  key: First
+  key: What's new
   order: 1
 ---
 

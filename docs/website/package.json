@@ -18,7 +18,8 @@
   "devDependencies": {
     "@11ty/eleventy": "^1.0.2",
     "@11ty/eleventy-navigation": "^0.3.5",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^4.1.0"
+    "@11ty/eleventy-plugin-syntaxhighlight": "^4.1.0",
+    "prettier": "^2.7.1"
   },
   "dependencies": {
     "@lit-labs/eleventy-plugin-lit": "^0.2.3",

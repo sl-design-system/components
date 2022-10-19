@@ -1,0 +1,14 @@
+main {
+  background-color: var(--background-color);
+  width: 100%;
+  margin: 16px 16px 0 260px;
+  border-radius: 8px 8px 0 0;
+  padding: 36px 72px 0;
+  transition: background 300ms linear;
+}
+
+.header-anchor {
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=content.css.map */

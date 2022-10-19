@@ -71,6 +71,7 @@ module.exports = function(eleventyConfig) {
 
 
   eleventyConfig.setBrowserSyncConfig({
+    notify: true,
     files: './public/css/**/*.css'
   });
 

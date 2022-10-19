@@ -3,7 +3,7 @@ title: Button
 eleventyNavigation:
   parent: Components
   key: Button
-  order: 2
+  order: 3
 ---
 <style>  
   h3 {
@@ -47,56 +47,94 @@ Tabs
 ## Code
 
 SL DS components:
-<sl-button>Primary</sl-button>
-<sl-button disabled>Disabled</sl-button>
-<sl-button variant="secondary">Secondary</sl-button>
-<sl-button variant="secondary" disabled>Disabled</sl-button>
-<sl-button variant="success">Success</sl-button>
-<sl-button variant="success" disabled>Disabled</sl-button>
-<sl-button variant="danger">Danger</sl-button>
-<sl-button variant="danger" disabled>Disabled</sl-button>
-<sl-button variant="info">Info</sl-button>
-<sl-button variant="info" disabled>Disabled</sl-button>
-<sl-button variant="warning">Warning</sl-button>
-<sl-button variant="warning" disabled>Disabled</sl-button>
+<div>
+  <sl-button>Primary</sl-button>
+  <sl-button disabled>Disabled</sl-button>
+  <sl-button variant="secondary">Secondary</sl-button>
+  <sl-button variant="secondary" disabled>Disabled</sl-button>
+  <sl-button variant="success">Success</sl-button>
+  <sl-button variant="success" disabled>Disabled</sl-button>
+  <sl-button variant="danger">Danger</sl-button>
+  <sl-button variant="danger" disabled>Disabled</sl-button>
+  <sl-button variant="info">Info</sl-button>
+  <sl-button variant="info" disabled>Disabled</sl-button>
+  <sl-button variant="warning">Warning</sl-button>
+  <sl-button variant="warning" disabled>Disabled</sl-button>
+</div>
 
-<nord-tab-group label="Title">
-  <nord-tab slot="tab">Overview</nord-tab>
-  <nord-tab-panel>
-  <h3>
-      Nordhealth button examples inside shoelace card
-  </h3>
-  <sl-card>
-        <nord-button href="#">Default</nord-button>
-        <nord-button href="#" variant="primary">Primary</nord-button>
-        <nord-button href="#" variant="danger">Danger</nord-button>
-        <nord-button href="#" variant="dashed">
-          <nord-icon slot="start" size="s" name="interface-filter"></nord-icon>
-          Filter
-        </nord-button>
-        <nord-button href="#">
-          <nord-icon size="s" color="var(--n-color-icon)" name="interface-menu-small" label="Options"></nord-icon>
-        </nord-button>
-        <nord-button href="#" variant="plain">Plain</nord-button>
-        <nord-button href="#" disabled>Disabled</nord-button>
-  </sl-card>
-  </nord-tab-panel>
-  <nord-tab slot="tab">Tab 2</nord-tab>
-  <nord-tab-panel>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quasi, incidunt eum ad, rerum dolorum sequi
-      numquam illum deleniti nobis doloremque asperiores natus perferendis, recusandae at dolorem et aperiam totam.
-    </p>
-  </nord-tab-panel>
-  <nord-tab slot="tab">Tab 3</nord-tab>
-  <nord-tab-panel>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, aperiam doloribus. Dolore, eaque. Distinctio
-      consequatur alias quae commodi praesentium recusandae libero, voluptate veniam. Commodi, velit ad ex sequi ut
-      fugit?
-    </p>
-  </nord-tab-panel>
-</nord-tab-group>
+[//]: # (<nord-tab-group label="Title">)
+
+[//]: # (  <nord-tab slot="tab">Overview</nord-tab>)
+
+[//]: # (  <nord-tab-panel>)
+
+[//]: # (  <h3>)
+
+[//]: # (      Nordhealth button examples inside shoelace card)
+
+[//]: # (  </h3>)
+
+[//]: # (  <sl-card>)
+
+[//]: # (        <nord-button href="#">Default</nord-button>)
+
+[//]: # (        <nord-button href="#" variant="primary">Primary</nord-button>)
+
+[//]: # (        <nord-button href="#" variant="danger">Danger</nord-button>)
+
+[//]: # (        <nord-button href="#" variant="dashed">)
+
+[//]: # (          <nord-icon slot="start" size="s" name="interface-filter"></nord-icon>)
+
+[//]: # (          Filter)
+
+[//]: # (        </nord-button>)
+
+[//]: # (        <nord-button href="#">)
+
+[//]: # (          <nord-icon size="s" color="var&#40;--n-color-icon&#41;" name="interface-menu-small" label="Options"></nord-icon>)
+
+[//]: # (        </nord-button>)
+
+[//]: # (        <nord-button href="#" variant="plain">Plain</nord-button>)
+
+[//]: # (        <nord-button href="#" disabled>Disabled</nord-button>)
+
+[//]: # (  </sl-card>)
+
+[//]: # (  </nord-tab-panel>)
+
+[//]: # (  <nord-tab slot="tab">Tab 2</nord-tab>)
+
+[//]: # (  <nord-tab-panel>)
+
+[//]: # (    <p>)
+
+[//]: # (      Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quasi, incidunt eum ad, rerum dolorum sequi)
+
+[//]: # (      numquam illum deleniti nobis doloremque asperiores natus perferendis, recusandae at dolorem et aperiam totam.)
+
+[//]: # (    </p>)
+
+[//]: # (  </nord-tab-panel>)
+
+[//]: # (  <nord-tab slot="tab">Tab 3</nord-tab>)
+
+[//]: # (  <nord-tab-panel>)
+
+[//]: # (    <p>)
+
+[//]: # (      Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, aperiam doloribus. Dolore, eaque. Distinctio)
+
+[//]: # (      consequatur alias quae commodi praesentium recusandae libero, voluptate veniam. Commodi, velit ad ex sequi ut)
+
+[//]: # (      fugit?)
+
+[//]: # (    </p>)
+
+[//]: # (  </nord-tab-panel>)
+
+[//]: # (</nord-tab-group>)
 
 
 ### [1. Anchor Link](#anchor-link)

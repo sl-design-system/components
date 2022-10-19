@@ -1,1 +1,1 @@
-﻿### Design system docs example using 11ty
+﻿### SL Design system documentation based on 11ty

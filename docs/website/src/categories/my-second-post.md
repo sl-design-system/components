@@ -1,8 +1,8 @@
 ---
-title: Second
+title: Getting started
 eleventyNavigation:
   parent: Pages
-  key: Second
+  key: Getting Started
   order: 2
 ---
 

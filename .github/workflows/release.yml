@@ -27,7 +27,7 @@ jobs:
           node-version: 16
           cache: 'yarn'
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@slds'
+          scope: '@sanomalearning'
 
       - run: yarn install --immutable
 

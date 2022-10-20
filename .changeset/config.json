@@ -11,7 +11,7 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@slds/scripts",
-    "@slds/storybook-addon-themes"
+    "@sanomalearning/slds-scripts",
+    "@sanomalearning/storybook-addon-themes"
   ]
 }

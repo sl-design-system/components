@@ -1,5 +1,5 @@
 {
-  "name": "@slds/core",
+  "name": "@sanomalearning/slds-core",
   "description": "SLDS Core Web Components",
   "version": "0.0.1",
   "publishConfig": {

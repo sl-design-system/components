@@ -1,4 +1,4 @@
-# @slds/core
+# @sanomalearning/slds-core
 
 ## 0.0.1
 

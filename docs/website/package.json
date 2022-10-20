@@ -12,7 +12,8 @@
     "start": "npm-run-all build:sass --parallel watch:sass watch:eleventy",
     "build": "npm-run-all build:sass build:eleventy",
     "debug": "DEBUG=* npx @11ty/eleventy --input=src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier:write": "prettier --write ."
   },
   "license": "????",
   "devDependencies": {

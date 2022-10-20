@@ -2227,22 +2227,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sindresorhus/is@npm:^0.14.0":
-  version: 0.14.0
-  resolution: "@sindresorhus/is@npm:0.14.0"
-  checksum: 7247aa9314d4fc3df9b3f63d8b5b962a89c7600a5db1f268546882bfc4d31a975a899f5f42a09dd41a11e58636e6402f7c40f92df853aee417247bb11faee9a0
-  languageName: node
-  linkType: hard
-
-"@slds/bingel@workspace:packages/tokens/src/themes/bingel":
+"@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel":
   version: 0.0.0-use.local
-  resolution: "@slds/bingel@workspace:packages/tokens/src/themes/bingel"
+  resolution: "@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel"
   languageName: unknown
   linkType: soft
 
-"@slds/core@workspace:packages/core":
+"@sanomalearning/slds-core@workspace:packages/core":
   version: 0.0.0-use.local
-  resolution: "@slds/core@workspace:packages/core"
+  resolution: "@sanomalearning/slds-core@workspace:packages/core"
   dependencies:
     "@babel/core": ^7.19.3
     "@mdx-js/react": ^1.6.22
@@ -2263,21 +2256,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@slds/magister@workspace:packages/tokens/src/themes/magister":
+"@sanomalearning/slds-magister@workspace:packages/tokens/src/themes/magister":
   version: 0.0.0-use.local
-  resolution: "@slds/magister@workspace:packages/tokens/src/themes/magister"
+  resolution: "@sanomalearning/slds-magister@workspace:packages/tokens/src/themes/magister"
   languageName: unknown
   linkType: soft
 
-"@slds/max-online@workspace:packages/tokens/src/themes/max-online":
+"@sanomalearning/slds-max-online@workspace:packages/tokens/src/themes/max-online":
   version: 0.0.0-use.local
-  resolution: "@slds/max-online@workspace:packages/tokens/src/themes/max-online"
+  resolution: "@sanomalearning/slds-max-online@workspace:packages/tokens/src/themes/max-online"
   languageName: unknown
   linkType: soft
 
-"@slds/root@workspace:.":
+"@sanomalearning/slds-root@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@slds/root@workspace:."
+  resolution: "@sanomalearning/slds-root@workspace:."
   dependencies:
     "@changesets/changelog-github": ^0.4.7
     "@changesets/cli": ^2.25.0
@@ -2301,23 +2294,34 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@slds/sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning":
+"@sanomalearning/slds-sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning":
   version: 0.0.0-use.local
-  resolution: "@slds/sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning"
+  resolution: "@sanomalearning/slds-sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning"
   languageName: unknown
   linkType: soft
 
-"@slds/scripts@workspace:scripts":
+"@sanomalearning/slds-scripts@workspace:scripts":
   version: 0.0.0-use.local
-  resolution: "@slds/scripts@workspace:scripts"
+  resolution: "@sanomalearning/slds-scripts@workspace:scripts"
   dependencies:
     globby: ^13.1.2
   languageName: unknown
   linkType: soft
 
-"@slds/storybook-addon-themes@workspace:tools/storybook-addon-themes":
+"@sanomalearning/slds-tokens@workspace:packages/tokens":
   version: 0.0.0-use.local
-  resolution: "@slds/storybook-addon-themes@workspace:tools/storybook-addon-themes"
+  resolution: "@sanomalearning/slds-tokens@workspace:packages/tokens"
+  dependencies:
+    sass: ^1.55.0
+    style-dictionary: ^3.7.1
+    token-transformer: ^0.0.27
+    wireit: ^0.7.2
+  languageName: unknown
+  linkType: soft
+
+"@sanomalearning/storybook-addon-themes@workspace:tools/storybook-addon-themes":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/storybook-addon-themes@workspace:tools/storybook-addon-themes"
   dependencies:
     "@storybook/addons": ^7.0.0-alpha.33
     "@storybook/api": ^7.0.0-alpha.33
@@ -2326,16 +2330,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@slds/tokens@workspace:packages/tokens":
-  version: 0.0.0-use.local
-  resolution: "@slds/tokens@workspace:packages/tokens"
-  dependencies:
-    sass: ^1.55.0
-    style-dictionary: ^3.7.1
-    token-transformer: ^0.0.27
-    wireit: ^0.7.2
-  languageName: unknown
-  linkType: soft
+"@sindresorhus/is@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "@sindresorhus/is@npm:0.14.0"
+  checksum: 7247aa9314d4fc3df9b3f63d8b5b962a89c7600a5db1f268546882bfc4d31a975a899f5f42a09dd41a11e58636e6402f7c40f92df853aee417247bb11faee9a0
+  languageName: node
+  linkType: hard
 
 "@storybook/addon-a11y@npm:7.0.0-alpha.34":
   version: 7.0.0-alpha.34

@@ -68,7 +68,6 @@
       ]
     },
     "lint:ts": {
-      "#command": "eslint --color --cache --cache-location .eslintcache --ext .ts src",
       "command": "eslint --color --ext .ts src",
       "files": [
         "../../.eslintignore",

@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button.scss.js';
@@ -7,27 +7,43 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonFill = 'default' | 'outline' | 'pill';
 
+export type ButtonType = 'button' | 'reset' | 'submit';
+
 export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
 
 export class Button extends LitElement {
   /** @private */
   static styles: CSSResultGroup = styles;
 
+  /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** The button fill. */
   @property({ reflect: true }) fill: ButtonFill = 'default';
 
-  /** Size. */
+  /** Button ARIA role. Defaults to `button`. */
+  @property({ reflect: true }) role = 'button';
+
+  /** Button size. */
   @property({ reflect: true }) size: ButtonSize = 'md';
 
-  /** The variant. */
+  /**
+   * The button type. Defaults to `button`, but can be set to `submit` when used in a form.
+   * @type {button | reset | submit}
+   */
+  @property() type: ButtonType = 'button';
+
+  /**
+   * The button variant. If no variant is specified, it uses the default button style.
+   */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
 
-  connectedCallback(): void {
-    super.connectedCallback();
+  firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
 
-    this.setAttribute('tabindex', '0');
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
   }
 
   render(): TemplateResult {

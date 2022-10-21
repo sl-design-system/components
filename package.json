@@ -48,7 +48,9 @@
       ]
     },
     "test": {
-      "command": "echo Testing 1 2 3"
+      "dependencies": [
+        "./packages/core:test"
+      ]
     }
   },
   "devDependencies": {

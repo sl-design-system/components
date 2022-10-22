@@ -53,8 +53,8 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Storybook preview
-            ${{ steps.deploy.outputs.static_web_app_url }}
+            ###🕸 Storybook preview
+            You can view a preview [here](${{ steps.deploy.outputs.static_web_app_url }}).
           edit-mode: replace
 
   cleanup:

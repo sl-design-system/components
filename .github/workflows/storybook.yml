@@ -53,8 +53,8 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ###🕸 Storybook preview
-            You can view a preview [here](${{ steps.deploy.outputs.static_web_app_url }}).
+            ### 🕸 Storybook preview
+            You can view a preview [here](${{ steps.deploy.outputs.static_web_app_url }}) (commit [#${{ github.event.pull_request.head.sha }}](https://github.com/sanomalearning/design-system/commit/${{ github.event.pull_request.head.sha }})).
           edit-mode: replace
 
   cleanup:

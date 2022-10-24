@@ -10,7 +10,23 @@
     "edubase/light",
     "magister/base",
     "magister/light",
-    "max-online/base",
-    "max-online/light"
+    "clickedu/base",
+    "clickedu/light",
+    "diddit/base",
+    "diddit/light",
+    "editorial/base",
+    "editorial/light",
+    "itslearning/base",
+    "itslearning/light",
+    "kampus/base",
+    "kampus/light",
+    "max/base",
+    "max/light",
+    "npm/base",
+    "npm/light",
+    "sesame/base",
+    "sesame/light",
+    "teas/base",
+    "teas/light"
   ]
 }

@@ -22,7 +22,7 @@ jobs:
           node-version: 16
           cache: 'yarn'
       - run: yarn install --immutable
-      - run: yarn workspace @slds/tokens build
+      - run: yarn workspace @sanomalearning/slds-tokens build
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: '⚙️ Generate theme tokens'

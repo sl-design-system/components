@@ -139,7 +139,7 @@ export const scssTypography = {
           })
           .join('\n');
 
-        return `@mixin ${name} {\n${props}\n}\n`;
+        return props.length ? `@mixin ${name} {\n${props}\n}\n` : '';
       })
       .join('\n');
 

@@ -2321,6 +2321,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sanomalearning/slds-clickedu@workspace:packages/tokens/src/themes/clickedu":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-clickedu@workspace:packages/tokens/src/themes/clickedu"
+  languageName: unknown
+  linkType: soft
+
 "@sanomalearning/slds-core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-core@workspace:packages/core"
@@ -2352,15 +2358,51 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sanomalearning/slds-diddit@workspace:packages/tokens/src/themes/diddit":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-diddit@workspace:packages/tokens/src/themes/diddit"
+  languageName: unknown
+  linkType: soft
+
+"@sanomalearning/slds-editorial@workspace:packages/tokens/src/themes/editorial":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-editorial@workspace:packages/tokens/src/themes/editorial"
+  languageName: unknown
+  linkType: soft
+
+"@sanomalearning/slds-edubase@workspace:packages/tokens/src/themes/edubase":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-edubase@workspace:packages/tokens/src/themes/edubase"
+  languageName: unknown
+  linkType: soft
+
+"@sanomalearning/slds-itslearning@workspace:packages/tokens/src/themes/itslearning":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-itslearning@workspace:packages/tokens/src/themes/itslearning"
+  languageName: unknown
+  linkType: soft
+
+"@sanomalearning/slds-kampus@workspace:packages/tokens/src/themes/kampus":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-kampus@workspace:packages/tokens/src/themes/kampus"
+  languageName: unknown
+  linkType: soft
+
 "@sanomalearning/slds-magister@workspace:packages/tokens/src/themes/magister":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-magister@workspace:packages/tokens/src/themes/magister"
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-max-online@workspace:packages/tokens/src/themes/max-online":
+"@sanomalearning/slds-max@workspace:packages/tokens/src/themes/max":
   version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-max-online@workspace:packages/tokens/src/themes/max-online"
+  resolution: "@sanomalearning/slds-max@workspace:packages/tokens/src/themes/max"
+  languageName: unknown
+  linkType: soft
+
+"@sanomalearning/slds-npm@workspace:packages/tokens/src/themes/npm":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-npm@workspace:packages/tokens/src/themes/npm"
   languageName: unknown
   linkType: soft
 
@@ -2406,10 +2448,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sanomalearning/slds-sesame@workspace:packages/tokens/src/themes/sesame":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-sesame@workspace:packages/tokens/src/themes/sesame"
+  languageName: unknown
+  linkType: soft
+
+"@sanomalearning/slds-teas@workspace:packages/tokens/src/themes/teas":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-teas@workspace:packages/tokens/src/themes/teas"
+  languageName: unknown
+  linkType: soft
+
 "@sanomalearning/slds-tokens@workspace:packages/tokens":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-tokens@workspace:packages/tokens"
   dependencies:
+    rimraf: ^3.0.2
     sass: ^1.55.0
     style-dictionary: ^3.7.1
     token-transformer: ^0.0.27

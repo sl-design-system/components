@@ -139,7 +139,7 @@ export const scssTypography = {
           })
           .join('\n');
 
-        return `@mixin ${name} {\n${props}\n}\n`;
+        return `@mixin ${name} {\n${props}${props.length ? '\n' : ''}}\n`;
       })
       .join('\n');
 
@@ -159,6 +159,6 @@ export const scssVariables = {
 
     const mixinName = options.mixinName || 'sl-theme-base';
 
-    return StyleDictionary.formatHelpers.fileHeader({ file }) + `@mixin ${mixinName} {\n${tokens}\n}\n`;
+    return StyleDictionary.formatHelpers.fileHeader({ file }) + `@mixin ${mixinName} {\n${tokens}${tokens.length ? '\n' : ''}}\n`;
   }
 };

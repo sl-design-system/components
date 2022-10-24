@@ -1,6 +1,6 @@
 {
-  "name": "@sanomalearning/slds-max-online",
-  "description": "SLDS Theme for MAX Online",
+  "name": "@sanomalearning/slds-kampus",
+  "description": "SLDS Theme for Kampus",
   "version": "0.0.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -8,17 +8,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sanomalearning/design-system.git",
-    "directory": "packages/tokens/src/themes/max-online"
+    "directory": "packages/tokens/src/themes/kampus"
   },
   "scripts": {
     "build": "wireit"
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build.js max-online",
+      "command": "yarn node --no-warnings ../../../build.js kampus",
       "files": [
         "../../figma/*.json",
-        "../../figma/max-online/*.json"
+        "../../figma/kampus/*.json"
       ],
       "output": [
         "*.js",

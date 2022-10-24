@@ -4,10 +4,12 @@
     "sanoma-learning/base",
     "sanoma-learning/light",
     "sanoma-learning/dark",
-    "magister/base",
-    "magister/light",
     "bingel/base",
     "bingel/light",
+    "edubase/base",
+    "edubase/light",
+    "magister/base",
+    "magister/light",
     "max-online/base",
     "max-online/light"
   ]

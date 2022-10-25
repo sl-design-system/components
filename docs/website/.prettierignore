@@ -1,0 +1,4 @@
+**/assets
+
+# Ignore all MD files:
+*.md

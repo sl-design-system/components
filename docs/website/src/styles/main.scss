@@ -7,7 +7,6 @@
 @import 'layout/content.scss';
 @import 'layout/navigation.scss';
 
-
 nord-tab-group {
   background: var(--third-background-color);
 }
@@ -22,6 +21,7 @@ pre {
 .token.deleted {
   background-color: hsl(350deg 100% 88% / 47%);
 }
+
 .token.inserted {
   background-color: hsl(120deg 73% 75% / 35%);
 }

@@ -1,12 +1,13 @@
 :root:not(.light) {
   --background-color: #202124;
-  --second-background-color: #4C4D4F;
+  --second-background-color: #4c4d4f;
   --third-background-color: #363739;
   --menu-second-color: #363739;
   --primary-color: #363739;
   --font-color: #ffffff;
   --secondary-font-color: rgba(226, 232, 240, 1);
-  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --n-color-surface: #363739;
   --n-color-background: #363739;
   --n-color-text-weak: #ffffff;
@@ -23,8 +24,8 @@
   --background-color: #f8f9fa;
   --second-background-color: #041c52;
   --third-background-color: #ffffff;
-  --menu-second-color: rgba(138,174,255,.2);
-  --primary-color: rgba(138,174,255,.2);
+  --menu-second-color: rgba(138, 174, 255, 0.2);
+  --primary-color: rgba(138, 174, 255, 0.2);
   --font-color: #212529;
   --secondary-font-color: #495057;
   --n-color-surface: rgb(255, 255, 255);

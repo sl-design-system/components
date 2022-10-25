@@ -77,8 +77,6 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.setLibrary("md", mdIt/*markdownIt(options)*/);
 
-    // eleventyConfig.addPassthroughCopy('./src/css');
-
     eleventyConfig.addPassthroughCopy('./src/assets');
 
   const fs = require("fs");

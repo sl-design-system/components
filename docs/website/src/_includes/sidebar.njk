@@ -1,4 +1,4 @@
-<nav class="ds__sidebar ds-flow--xs">
+<nav class="ds-sidebar ds-flow--xs">
   <h1 class="ds-title">
     <a href="/">Sanoma Learning Design System</a>
   </h1>
@@ -6,7 +6,7 @@
   {% include "./search.njk" %}
 
   {% set navPages = collections.all | eleventyNavigation("Pages") %}
-  <ul>
+  <ul class="ds-list">
     {% for entry in navPages %}
       <li id="{{ entry.url }}" {% if entry.url == page.url %} class="active"{% endif %}>
         <a

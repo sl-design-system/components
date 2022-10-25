@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<nav class="ds__sidebar ds-flow--xs">
+<nav class="ds-sidebar ds-flow--xs">
   <h1 class="ds-title">
     <a href="/">Sanoma Learning Design System</a>
   </h1>
@@ -36,19 +36,19 @@
 
 
   
-  <ul>
+  <ul class="ds-list">
     
-      <li id="/categories/my-first-post/" >
+      <li id="/categories/whats-new/" >
         <a
           class="ds-link "
-          href="/categories/my-first-post/">What&#39;s new</a>
+          href="/categories/whats-new/">What&#39;s new</a>
         
       </li>
     
-      <li id="/categories/my-second-post/" >
+      <li id="/categories/getting-started/" >
         <a
           class="ds-link "
-          href="/categories/my-second-post/">Getting Started</a>
+          href="/categories/getting-started/">Getting Started</a>
         
       </li>
     
@@ -202,11 +202,15 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
 </main>
 <script type="text/javascript">
   const tabsContainer = document.querySelector('.tabs-wrapper');
-const tabs = tabsContainer.querySelectorAll('.tablink');
+const tabs = tabsContainer?.querySelectorAll('.tablink');
 
-for (let i = 0; i < tabs.length; i++) {
-  tabs[i].addEventListener('click', function () {
-    const current = tabsContainer.querySelectorAll('.active');
+for (let i = 0; i < tabs?.length; i++) {
+  tabs[i]?.addEventListener('click', function () {
+    if (!tabsContainer) {
+      return;
+    }
+
+    const current = tabsContainer?.querySelectorAll('.active');
     current[0].className = current[0].className.replace(' active', '');
     this.className += ' active';
   });

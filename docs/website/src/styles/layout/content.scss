@@ -1,10 +1,9 @@
 main {
   background-color: var(--background-color);
   width: 100%;
-  margin: 16px 16px 0 260px;
-  border-radius: 8px 8px 0 0;
+  margin-left: 260px;
   padding: 36px 72px 0;
-  transition: background 300ms linear;
+  transition: background 300ms ease-in-out;
 }
 
 .header-anchor {

@@ -7,12 +7,6 @@ module.exports = {
       "airbnb-base",
       "eslint:recommended"
     ],
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
     "rules": {
     }
 }

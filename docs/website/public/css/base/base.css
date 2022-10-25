@@ -5,6 +5,11 @@
 html {
   scroll-behavior: smooth;
 }
+@media (min-height: 60px) {
+  html {
+    scroll-padding-top: 70px;
+  }
+}
 
 @media screen and (prefers-reduced-motion: reduce) {
   html {

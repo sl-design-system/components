@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<nav class="ds__sidebar ds-flow--xs">
+<nav class="ds-sidebar ds-flow--xs">
   <h1 class="ds-title">
     <a href="/">Sanoma Learning Design System</a>
   </h1>
@@ -36,19 +36,19 @@
 
 
   
-  <ul>
+  <ul class="ds-list">
     
-      <li id="/categories/my-first-post/" >
+      <li id="/categories/whats-new/" >
         <a
           class="ds-link "
-          href="/categories/my-first-post/">What&#39;s new</a>
+          href="/categories/whats-new/">What&#39;s new</a>
         
       </li>
     
-      <li id="/categories/my-second-post/" >
+      <li id="/categories/getting-started/" >
         <a
           class="ds-link "
-          href="/categories/my-second-post/">Getting Started</a>
+          href="/categories/getting-started/">Getting Started</a>
         
       </li>
     
@@ -172,106 +172,6 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
     <h1>Button</h1>
   </header>
   
-<h1>Tabs</h1>
-
-<ul>
-  
-    <li id="/categories/my-first-post/" >
-      <a
-        class="ds-link "
-        href="/categories/my-first-post/">What&#39;s new</a>
-      
-    </li>
-  
-    <li id="/categories/my-second-post/" >
-      <a
-        class="ds-link "
-        href="/categories/my-second-post/">Getting Started</a>
-      
-    </li>
-  
-    <li id="/categories/components/" >
-      <a
-        class="ds-link  ds-link--active"
-        href="/categories/components/">Components</a>
-      
-        <ul role="list"
-            class="ds-sublist  ds-sublist--active ">
-          
-            <li>
-              <a class="ds-link"
-                 href="/categories/components/overview/">Overview</a>
-            </li>
-          
-            <li>
-              <a class="ds-link"
-                 href="/categories/components/badge/">Badge</a>
-            </li>
-          
-            <li>
-              <a class="ds-link ds-sub-link--active"
-                 href="/categories/components/button/">Button</a>
-            </li>
-          
-            <li>
-              <a class="ds-link"
-                 href="/categories/components/card/">Card</a>
-            </li>
-          
-            <li>
-              <a class="ds-link"
-                 href="/categories/components/checkbox/">Checkbox</a>
-            </li>
-          
-            <li>
-              <a class="ds-link"
-                 href="/categories/components/spinner/">Spinner</a>
-            </li>
-          
-        </ul>
-      
-    </li>
-  
-    <li id="/categories/design-tokens/" >
-      <a
-        class="ds-link "
-        href="/categories/design-tokens/">Design Tokens</a>
-      
-        <ul role="list"
-            class="ds-sublist  ">
-          
-            <li>
-              <a class="ds-link"
-                 href="/categories/design-tokens/color/">Color</a>
-            </li>
-          
-            <li>
-              <a class="ds-link"
-                 href="/categories/design-tokens/border/">Border</a>
-            </li>
-          
-        </ul>
-      
-    </li>
-  
-    <li id="/categories/contributing/" >
-      <a
-        class="ds-link "
-        href="/categories/contributing/">Contributing</a>
-      
-    </li>
-  
-    <li id="/categories/FAQs/" >
-      <a
-        class="ds-link "
-        href="/categories/FAQs/">FAQs</a>
-      
-    </li>
-  
-</ul>
-
-
-<ul><li><a href="/categories/components/badge/">/categories/components/badge/</a></li><li><a href="/categories/components/">/categories/components/</a></li><li><a href="/categories/design-tokens/color/">/categories/design-tokens/color/</a></li><li><a href="/categories/components/checkbox/">/categories/components/checkbox/</a></li><li><a href="/categories/components/card/">/categories/components/card/</a></li><li><a href="/categories/components/button/">/categories/components/button/</a></li><li><a href="/categories/contributing/">/categories/contributing/</a></li><li><a href="/categories/design-tokens/border/">/categories/design-tokens/border/</a></li><li><a href="/categories/design-tokens/">/categories/design-tokens/</a></li><li><a href="/categories/my-first-post/">/categories/my-first-post/</a></li><li><a href="/categories/my-second-post/">/categories/my-second-post/</a></li><li><a href="/categories/components/checkbox/specs/">/categories/components/checkbox/specs/</a></li><li><a href="/categories/components/spinner/">/categories/components/spinner/</a></li><li><a href="/categories/components/overview/">/categories/components/overview/</a></li><li><a href="/categories/components/checkbox/overview/">/categories/components/checkbox/overview/</a></li><li><a href="/">/</a></li><li><a href="/categories/FAQs/">/categories/FAQs/</a></li></ul>
 
 
 
@@ -282,15 +182,18 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
     margin-bottom: 16px;
   }
 </style>
-<p>Tabs</p>
 <div class="tabs-wrapper">
   <a href="#overview" class="tablink active">Overview</a>
-  <a href="#resources" class="tablink">Resources</a>
+  <a href="#specs" class="tablink">Specs</a>
+  <a href="#usage" class="tablink">Usage</a>
+  <a href="#accessibility" class="tablink">Accessibility</a>
+  <a href="#code" class="tablink">Code</a>
 </div>
 <h3 id="id12">test 1</h3>
 <h3 id="anchor-link" tabindex="-1"><a class="header-anchor" href="#anchor-link"><a href="#anchor-link">Anchor Link</a></a></h3>
 <h1 id="anchor-link-1" tabindex="-1"><a class="header-anchor" href="#anchor-link-1">Anchor Link</a></h1>
 <h2 id="overview" tabindex="-1"><a class="header-anchor" href="#overview">Overview</a></h2>
+<p>Button component overview</p>
 <h3 id="key-points" tabindex="-1"><a class="header-anchor" href="#key-points">Key Points</a></h3>
 <h3 id="live-demo" tabindex="-1"><a class="header-anchor" href="#live-demo">Live demo</a></h3>
 <h3 id="resources" tabindex="-1"><a class="header-anchor" href="#resources">Resources</a></h3>
@@ -301,6 +204,7 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
 <h3 id="behaviour" tabindex="-1"><a class="header-anchor" href="#behaviour">Behaviour</a></h3>
 <h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage">Usage</a></h2>
 <h2 id="accessibility" tabindex="-1"><a class="header-anchor" href="#accessibility">Accessibility</a></h2>
+<p>WCAG part</p>
 <h2 id="code" tabindex="-1"><a class="header-anchor" href="#code">Code</a></h2>
 <p>SL DS components:</p>
 <div>
@@ -325,11 +229,15 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
 </main>
 <script type="text/javascript">
   const tabsContainer = document.querySelector('.tabs-wrapper');
-const tabs = tabsContainer.querySelectorAll('.tablink');
+const tabs = tabsContainer?.querySelectorAll('.tablink');
 
-for (let i = 0; i < tabs.length; i++) {
-  tabs[i].addEventListener('click', function () {
-    const current = tabsContainer.querySelectorAll('.active');
+for (let i = 0; i < tabs?.length; i++) {
+  tabs[i]?.addEventListener('click', function () {
+    if (!tabsContainer) {
+      return;
+    }
+
+    const current = tabsContainer?.querySelectorAll('.active');
     current[0].className = current[0].className.replace(' active', '');
     this.className += ' active';
   });

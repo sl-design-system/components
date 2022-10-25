@@ -1,49 +1,70 @@
-nav {
+.ds-sidebar {
   display: flex;
   flex-direction: column;
   position: fixed;
   height: 100%;
   width: 260px;
   background: var(--second-background-color);
+  transition: background 300ms ease-in-out;
 }
-
-nav h1 {
+.ds-sidebar .ds-title {
   font-size: 18px;
   margin: 36px 16px 16px;
 }
-
-nav * > a {
+.ds-sidebar .ds-title a {
   color: #eff2fb;
   text-decoration: none;
 }
-
-nav ul {
+.ds-sidebar .ds-link {
+  color: #eff2fb;
+  text-decoration: none;
+}
+.ds-sidebar .ds-list {
   list-style: none;
   color: #eff2fb;
   padding-left: 16px;
   position: relative;
 }
-
-ul {
-  list-style: none;
-}
-
-nav * > li,
-nav > li {
+.ds-sidebar li {
   padding: 8px 0;
   position: relative;
 }
-
-.ds-sublist {
+.ds-sidebar .ds-link {
+  color: #eff2fb;
+  transition: color 300ms;
+}
+.ds-sidebar .ds-link:hover {
+  color: #668cff;
+}
+.ds-sidebar .ds-link--active,
+.ds-sidebar .ds-sub-link--active {
+  color: #668cff;
+}
+.ds-sidebar .ds-link--active::before {
+  background: #668cff;
+  content: "";
+  height: 41px;
+  left: -16px;
+  position: absolute;
+  top: 0;
+  width: 2px;
+}
+.ds-sidebar .ds-search {
+  background: var(--menu-second-color);
+  padding: 8px;
+  margin: 8px 16px;
+  border-radius: 3px;
+  border: none;
+}
+.ds-sidebar .ds-sublist {
+  list-style: none;
   display: none;
   padding: 8px 0 0 24px;
 }
-
-.ds-sublist--active {
+.ds-sidebar .ds-sublist--active {
   display: block;
 }
-
-.ds-menu--expanded {
+.ds-sidebar .ds-menu--expanded {
   animation: slideDown 200ms ease-in-out forwards;
   transform-origin: top center;
 }
@@ -57,37 +78,6 @@ nav > li {
     opacity: 1;
     transform: translateY(0);
   }
-}
-.ds-link {
-  color: #eff2fb;
-  transition: color 300ms;
-}
-
-.ds-link:hover {
-  color: #668cff;
-}
-
-.ds-link--active,
-.ds-sub-link--active {
-  color: #668cff;
-}
-
-.ds-link--active::before {
-  background: #668cff;
-  content: "";
-  height: 41px;
-  left: -16px;
-  position: absolute;
-  top: 0;
-  width: 2px;
-}
-
-.ds-search {
-  background: var(--menu-second-color);
-  padding: 8px;
-  margin: 8px 16px;
-  border-radius: 3px;
-  border: none;
 }
 
 /*# sourceMappingURL=navigation.css.map */

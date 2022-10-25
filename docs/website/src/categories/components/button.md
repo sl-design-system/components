@@ -11,10 +11,12 @@ eleventyNavigation:
   }
 </style>
 
-Tabs
 <div class="tabs-wrapper">
   <a href="#overview" class="tablink active">Overview</a>
-  <a href="#resources" class="tablink">Resources</a>
+  <a href="#specs" class="tablink">Specs</a>
+  <a href="#usage" class="tablink">Usage</a>
+  <a href="#accessibility" class="tablink">Accessibility</a>
+  <a href="#code" class="tablink">Code</a>
 </div>
 
 <h3 id="id12">test 1</h3>
@@ -23,6 +25,8 @@ Tabs
 #  Anchor Link
 
 ## Overview
+
+Button component overview
 
 ### Key Points
 
@@ -43,6 +47,8 @@ Tabs
 ## Usage
 
 ## Accessibility
+
+WCAG part
 
 ## Code
 

@@ -8,4 +8,18 @@
   box-shadow: inset 0 -0.175em #ffffff, inset 0 -0.2em #668cff;
 }
 
+.tabs-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  background-color: var(--background-color);
+}
+
+.tabs-wrapper.fixed {
+  position: fixed;
+  top: 83px;
+}
+
 /*# sourceMappingURL=tabs.css.map */

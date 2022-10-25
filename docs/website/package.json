@@ -8,7 +8,7 @@
     "watch:sass": "npx sass --watch src/styles:public/css",
     "build:sass": "npx sass src/styles:public/css",
     "watch:eleventy": "npx @11ty/eleventy --input=src --serve --config=.eleventy.cjs",
-    "build:eleventy": "npx @11ty/eleventy --input=src --config=.eleventy.cjs",
+    "build:eleventy": "npx @11ty/eleventy --input=src --output=public --config=.eleventy.cjs",
     "start": "npm-run-all build:sass --parallel watch:sass watch:eleventy",
     "build": "npm-run-all build:sass build:eleventy",
     "debug": "DEBUG=* npx @11ty/eleventy --input=src",

@@ -6,4 +6,9 @@ export interface Person {
   status: string;
 }
 
-export declare function getPeople(): Promise<Person[]>;
+export interface People {
+  hierarchyLevelSize: number;
+  people: Person[];
+}
+
+export declare function getPeople(): Promise<People>;

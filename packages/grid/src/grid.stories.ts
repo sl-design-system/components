@@ -9,7 +9,7 @@ export default {
 
 export const API: Story = {
   loaders: [
-    async () => ({ people: await getPeople() })
+    async () => ({ people: (await getPeople()).people })
   ],
   render: (args, { loaded: { people }}) => html`
     <sl-grid .items=${people}>

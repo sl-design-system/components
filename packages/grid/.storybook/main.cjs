@@ -17,5 +17,8 @@ module.exports = {
     name: '@storybook/web-components-webpack5',
     options: {}
   },
+  core: {
+    disableTelemetry: true
+  },
   staticDirs: [{ from: '../../tokens/src/themes', to: '/themes' }]
 };

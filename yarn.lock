@@ -2405,6 +2405,7 @@ __metadata:
     "@open-wc/scoped-elements": ^2.1.3
     "@open-wc/testing": ^3.1.6
     "@sanomalearning/slds-core": "*"
+    "@sanomalearning/storybook-demo-data": "*"
     "@storybook/addon-a11y": ^7.0.0-alpha.43
     "@storybook/addon-docs": ^7.0.0-alpha.43
     "@storybook/addon-essentials": ^7.0.0-alpha.43
@@ -2531,6 +2532,12 @@ __metadata:
     "@storybook/api": ^7.0.0-alpha.33
     "@storybook/components": ^7.0.0-alpha.33
     "@storybook/theming": ^7.0.0-alpha.33
+  languageName: unknown
+  linkType: soft
+
+"@sanomalearning/storybook-demo-data@*, @sanomalearning/storybook-demo-data@workspace:tools/storybook-demo-data":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/storybook-demo-data@workspace:tools/storybook-demo-data"
   languageName: unknown
   linkType: soft
 

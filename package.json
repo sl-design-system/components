@@ -11,7 +11,8 @@
     "packages/grid",
     "packages/tokens",
     "scripts",
-    "tools/storybook-addon-themes"
+    "tools/storybook-addon-themes",
+    "tools/storybook-demo-data"
   ],
   "scripts": {
     "build": "wireit",

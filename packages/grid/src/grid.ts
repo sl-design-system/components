@@ -17,7 +17,11 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>
       <table>
-        <thead></thead>
+        <thead>
+          <tr>
+            ${this.columns.map(col => col.renderHeaderCell())}
+          </tr>
+        </thead>
         <tbody>
           ${virtualize({ items: this.items, renderItem: item => this.renderItem(item) })}
         </tbody>

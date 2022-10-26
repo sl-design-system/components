@@ -8,6 +8,7 @@
   },
   "workspaces": [
     "packages/core",
+    "packages/grid",
     "packages/tokens",
     "scripts",
     "tools/storybook-addon-themes"
@@ -25,6 +26,7 @@
     "build": {
       "dependencies": [
         "./packages/core:build",
+        "./packages/grid:build",
         "./packages/tokens:build"
       ]
     },

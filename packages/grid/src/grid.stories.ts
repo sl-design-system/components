@@ -12,7 +12,7 @@ export const API: Story = {
     async () => ({ people: (await getPeople()).people })
   ],
   render: (args, { loaded: { people }}) => html`
-    <sl-grid .items=${people}>
+    <sl-grid .items=${people} style="height: 300px">
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>

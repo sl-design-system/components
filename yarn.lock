@@ -2065,6 +2065,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lit-labs/virtualizer@npm:^0.7.2":
+  version: 0.7.2
+  resolution: "@lit-labs/virtualizer@npm:0.7.2"
+  dependencies:
+    event-target-shim: ^6.0.2
+    lit: ^2.0.0
+    tslib: ^2.0.3
+  checksum: c4c1eff6423d7392f103b6c337e531f94d182f67f57fca7eb9c446967e4d73a8293b6c33f8055f9b9e6b3bd8369a507cac62379bd74b68aca5d5c13ee4933e80
+  languageName: node
+  linkType: hard
+
 "@lit/localize@npm:^0.11.4":
   version: 0.11.4
   resolution: "@lit/localize@npm:0.11.4"
@@ -2400,6 +2411,7 @@ __metadata:
   resolution: "@sanomalearning/slds-grid@workspace:packages/grid"
   dependencies:
     "@babel/core": ^7.19.6
+    "@lit-labs/virtualizer": ^0.7.2
     "@lit/localize": ^0.11.4
     "@mdx-js/react": ^1.6.22
     "@open-wc/scoped-elements": ^2.1.3
@@ -8142,6 +8154,13 @@ __metadata:
   version: 1.8.1
   resolution: "etag@npm:1.8.1"
   checksum: 12be11ef62fb9817314d790089a0a49fae4e1b50594135dcb8076312b7d7e470884b5100d249b28c18581b7fd52f8b485689ffae22a11ed9ec17377a33a08f84
+  languageName: node
+  linkType: hard
+
+"event-target-shim@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "event-target-shim@npm:6.0.2"
+  checksum: e40b89effb1bd0fdd44dd198e3b61669c2bff89b680a8156c50480b5df8d4364208d1db09fbe823211005651558415691cb3ff72c22618eb154e55282b8b0481
   languageName: node
   linkType: hard
 

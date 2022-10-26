@@ -3,6 +3,8 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 
 export class GridColumn<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
+  @property() header?: string;
+
   @property() path?: string;
 
   render(): TemplateResult {
@@ -10,7 +12,7 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
   }
 
   renderHeaderCell(): TemplateResult {
-    return html`<th>${this.path}</th>`;
+    return html`<th>${this.header || this.path}</th>`;
   }
 
   renderContentCell(item: T): TemplateResult {

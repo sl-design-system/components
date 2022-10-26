@@ -3,6 +3,7 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import sass from 'sass';
 import StyleDictionary from 'style-dictionary';
+import stylelint from 'stylelint';
 import * as FileHeaders from './lib/file-headers.js';
 import * as Formats from './lib/formats.js';
 import * as Transforms from './lib/transforms.js';
@@ -220,3 +221,12 @@ for (const { input, output } of files) {
   
   await fs.writeFile(join(cwd, `src/themes/${name}/${output}`), css);
 }
+
+await stylelint.lint({ 
+  cwd,
+  files: [
+    `src/themes/${name}/*.css`, 
+    `src/themes/${name}/*.scss`
+  ],
+  fix: true
+});

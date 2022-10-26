@@ -12,23 +12,23 @@
   --sl-box-shadow-button-default-default-idle: 0px 2px 0px 0px #aab3bd;
   --sl-border-radius-button: 22px;
   --sl-color-button-primary-default-active-border: #0068c8;
-  --sl-color-button-primary-default-active-foreground: #ffffff;
+  --sl-color-button-primary-default-active-foreground: #fff;
   --sl-color-button-primary-default-active-background: #006cce;
   --sl-color-button-primary-default-hover-border: #0068c8;
-  --sl-color-button-primary-default-hover-foreground: #ffffff;
+  --sl-color-button-primary-default-hover-foreground: #fff;
   --sl-color-button-primary-default-hover-background: #006cce;
   --sl-color-button-primary-default-idle-border: #0068c8;
-  --sl-color-button-primary-default-idle-foreground: #ffffff;
+  --sl-color-button-primary-default-idle-foreground: #fff;
   --sl-color-button-primary-default-idle-background: #0074df;
   --sl-color-button-default-default-active-border: #e5e8eb;
   --sl-color-button-default-default-active-foreground: #002f62;
-  --sl-color-button-default-default-active-background: #ffffff;
+  --sl-color-button-default-default-active-background: #fff;
   --sl-color-button-default-default-hover-border: #e5e8eb;
   --sl-color-button-default-default-hover-foreground: #002f62;
-  --sl-color-button-default-default-hover-background: #ffffff;
+  --sl-color-button-default-default-hover-background: #fff;
   --sl-color-button-default-default-idle-border: #e5e8eb;
   --sl-color-button-default-default-idle-foreground: #002f62;
-  --sl-color-button-default-default-idle-background: #ffffff;
+  --sl-color-button-default-default-idle-background: #fff;
   --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
@@ -134,9 +134,12 @@
   --sl-border-radius-2xs: 4px;
   --sl-border-radius-3xs: 2px;
   --sl-border-radius-none: 0px;
-  --sl-text-button-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg)/var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl)/var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm)/var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-space-button-default-lg-inline: var(--sl-space-xl);
   --sl-space-button-default-lg-block: var(--sl-space-lg);
   --sl-space-button-default-md-block: var(--sl-space-sm);

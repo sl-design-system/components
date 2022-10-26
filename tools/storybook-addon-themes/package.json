@@ -1,5 +1,5 @@
 {
-  "name": "@slds/storybook-addon-themes",
+  "name": "@sanomalearning/storybook-addon-themes",
   "license": "ISC",
   "description": "Storybook addon for setting SLDS themes",
   "private": true,

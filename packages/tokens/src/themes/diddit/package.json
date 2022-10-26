@@ -1,0 +1,33 @@
+{
+  "name": "@sanomalearning/slds-diddit",
+  "description": "SLDS Theme for Diddit",
+  "version": "0.0.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git",
+    "directory": "packages/tokens/src/themes/diddit"
+  },
+  "scripts": {
+    "build": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "yarn node --no-warnings ../../../build.js diddit",
+      "files": [
+        "../../figma/*.json",
+        "../../figma/diddit/*.json"
+      ],
+      "output": [
+        "*.js",
+        "*.json",
+        "*.css",
+        "*.scss",
+        "!fonts.css",
+        "!package.json"
+      ]
+    }
+  }
+}

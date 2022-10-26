@@ -1,1 +1,233 @@
-{}
+{
+  "color": {
+    "button": {
+      "default": {
+        "default": {
+          "idle": {
+            "background": {
+              "value": "#ffffff",
+              "type": "color",
+              "description": "color.button.default.idle.background"
+            },
+            "foreground": {
+              "value": "#1f97f9",
+              "type": "color",
+              "description": "color.button.default.idle.foreground"
+            },
+            "border": {
+              "value": "#1f97f9",
+              "type": "color",
+              "description": "color.button.default.idle.border"
+            }
+          },
+          "hover": {
+            "background": {
+              "value": "#e6f3fe",
+              "type": "color",
+              "description": "color.button.default.idle.background"
+            },
+            "foreground": {
+              "value": "#1f97f9",
+              "type": "color",
+              "description": "color.button.default.idle.foreground"
+            },
+            "border": {
+              "value": "#1f97f9",
+              "type": "color",
+              "description": "color.button.default.idle.border"
+            }
+          }
+        }
+      },
+      "primary": {
+        "default": {
+          "idle": {
+            "background": {
+              "value": "#1f97f9",
+              "type": "color",
+              "description": "color.button.primary.solid.idle.background"
+            },
+            "foreground": {
+              "value": "#ffffff",
+              "type": "color",
+              "description": "color.button.primary.solid.idle.foreground"
+            },
+            "border": {
+              "value": "#1f97f9",
+              "type": "color",
+              "description": "color.button.primary.solid.idle.border"
+            }
+          },
+          "hover": {
+            "background": {
+              "value": "#006cce",
+              "type": "color",
+              "description": "color.button.primary.solid.idle.background"
+            },
+            "foreground": {
+              "value": "#ffffff",
+              "type": "color",
+              "description": "color.button.primary.solid.idle.foreground"
+            },
+            "border": {
+              "value": "#0068c8",
+              "type": "color",
+              "description": "color.button.primary.solid.idle.border"
+            }
+          },
+          "active": {
+            "background": {
+              "value": "#056dc2",
+              "type": "color",
+              "description": "color.button.primary.solid.idle.background"
+            },
+            "foreground": {
+              "value": "#ffffff",
+              "type": "color",
+              "description": "color.button.primary.solid.idle.foreground"
+            },
+            "border": {
+              "value": "#056dc2",
+              "type": "color",
+              "description": "color.button.primary.solid.idle.border"
+            }
+          }
+        }
+      }
+    }
+  },
+  "text": {
+    "typeset": {
+      "fontFamily": {
+        "heading": {
+          "value": "open-sans",
+          "type": "fontFamilies",
+          "description": "text.typeset.fontFamily.heading"
+        },
+        "body": {
+          "value": "open-sans",
+          "type": "fontFamilies",
+          "description": "text.typeset.fontFamily.body"
+        }
+      },
+      "fontWeight": {
+        "regular": {
+          "value": "Regular",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.regular"
+        },
+        "demibold": {
+          "value": "DemiBold",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.demibold"
+        },
+        "bold": {
+          "value": "Bold",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.bold"
+        }
+      }
+    },
+    "button": {
+      "sm": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.sm}",
+          "fontSize": "{text.typeset.fontSize.sm}"
+        },
+        "type": "typography"
+      },
+      "md": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.sm}",
+          "fontSize": "{text.typeset.fontSize.md}"
+        },
+        "type": "typography"
+      },
+      "lg": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.sm}",
+          "fontSize": "{text.typeset.fontSize.lg}"
+        },
+        "type": "typography"
+      }
+    }
+  },
+  "borderRadius": {
+    "button": {
+      "value": "{border.radius.sm}",
+      "type": "borderRadius",
+      "description": "borderRadius.button"
+    }
+  },
+  "border": {
+    "width": {
+      "button": {
+        "default": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "outline": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        }
+      }
+    }
+  },
+  "space": {
+    "button": {
+      "default": {
+        "sm": {
+          "block": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "space.button.solid.sm.block"
+          },
+          "inline": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.solid.sm.inline"
+          }
+        },
+        "md": {
+          "block": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.md.block"
+          },
+          "inline": {
+            "value": "{space.button.default.lg.block}",
+            "type": "spacing",
+            "description": "space.button.solid.md.inline"
+          }
+        },
+        "lg": {
+          "block": {
+            "value": "{space.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.lg.block"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.lg.inline"
+          }
+        }
+      }
+    }
+  },
+  "animation": {
+    "button": {
+      "value": "{animation.duration.normal} {animation.easing.ease-in-out}",
+      "type": "other",
+      "description": "animation.button"
+    }
+  }
+}

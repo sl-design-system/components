@@ -9,20 +9,23 @@ eleventyNavigation:
   h3 {
     margin-bottom: 16px;
   }
+
+.ds-buttons-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 16px;
+  margin: 16px 0;
+}
 </style>
 
-<div class="tabs-wrapper">
-  <a href="#overview" class="tablink active">Overview</a>
-  <a href="#specs" class="tablink">Specs</a>
-  <a href="#usage" class="tablink">Usage</a>
-  <a href="#accessibility" class="tablink">Accessibility</a>
-  <a href="#code" class="tablink">Code</a>
+<div class="ds-tabs-wrapper">
+  <a href="#overview" class="ds-tab active">Overview</a>
+  <a href="#specs" class="ds-tab">Specs</a>
+  <a href="#usage" class="ds-tab">Usage</a>
+  <a href="#accessibility" class="ds-tab">Accessibility</a>
+  <a href="#code" class="ds-tab">Code</a>
 </div>
-
-<h3 id="id12">test 1</h3>
-
-### [Anchor Link](#anchor-link)
-#  Anchor Link
 
 ## Overview
 
@@ -53,7 +56,7 @@ WCAG part
 ## Code
 
 SL DS components:
-<div>
+<div class="ds-buttons-wrapper">
   <sl-button>Primary</sl-button>
   <sl-button disabled>Disabled</sl-button>
   <sl-button variant="secondary">Secondary</sl-button>
@@ -67,83 +70,3 @@ SL DS components:
   <sl-button variant="warning">Warning</sl-button>
   <sl-button variant="warning" disabled>Disabled</sl-button>
 </div>
-
-[//]: # (<nord-tab-group label="Title">)
-
-[//]: # (  <nord-tab slot="tab">Overview</nord-tab>)
-
-[//]: # (  <nord-tab-panel>)
-
-[//]: # (  <h3>)
-
-[//]: # (      Nordhealth button examples inside shoelace card)
-
-[//]: # (  </h3>)
-
-[//]: # (  <sl-card>)
-
-[//]: # (        <nord-button href="#">Default</nord-button>)
-
-[//]: # (        <nord-button href="#" variant="primary">Primary</nord-button>)
-
-[//]: # (        <nord-button href="#" variant="danger">Danger</nord-button>)
-
-[//]: # (        <nord-button href="#" variant="dashed">)
-
-[//]: # (          <nord-icon slot="start" size="s" name="interface-filter"></nord-icon>)
-
-[//]: # (          Filter)
-
-[//]: # (        </nord-button>)
-
-[//]: # (        <nord-button href="#">)
-
-[//]: # (          <nord-icon size="s" color="var&#40;--n-color-icon&#41;" name="interface-menu-small" label="Options"></nord-icon>)
-
-[//]: # (        </nord-button>)
-
-[//]: # (        <nord-button href="#" variant="plain">Plain</nord-button>)
-
-[//]: # (        <nord-button href="#" disabled>Disabled</nord-button>)
-
-[//]: # (  </sl-card>)
-
-[//]: # (  </nord-tab-panel>)
-
-[//]: # (  <nord-tab slot="tab">Tab 2</nord-tab>)
-
-[//]: # (  <nord-tab-panel>)
-
-[//]: # (    <p>)
-
-[//]: # (      Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quasi, incidunt eum ad, rerum dolorum sequi)
-
-[//]: # (      numquam illum deleniti nobis doloremque asperiores natus perferendis, recusandae at dolorem et aperiam totam.)
-
-[//]: # (    </p>)
-
-[//]: # (  </nord-tab-panel>)
-
-[//]: # (  <nord-tab slot="tab">Tab 3</nord-tab>)
-
-[//]: # (  <nord-tab-panel>)
-
-[//]: # (    <p>)
-
-[//]: # (      Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, aperiam doloribus. Dolore, eaque. Distinctio)
-
-[//]: # (      consequatur alias quae commodi praesentium recusandae libero, voluptate veniam. Commodi, velit ad ex sequi ut)
-
-[//]: # (      fugit?)
-
-[//]: # (    </p>)
-
-[//]: # (  </nord-tab-panel>)
-
-[//]: # (</nord-tab-group>)
-
-
-### [1. Anchor Link](#anchor-link)
-
-<a href="#id12">link to test {{page.url}}</a>
-<a href="{{page.url}}#id12">link_2 to test {{page.url}}</a>

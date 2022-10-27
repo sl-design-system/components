@@ -132,9 +132,9 @@
     
   </ul>
 
-  <button type="button" class="theme-icon" aria-label="Toggle between dark and light mode">
-  <img class="icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon">
-  <img class="icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun">
+  <button type="button" class="ds-theme-icon" aria-label="Toggle between dark and light mode">
+  <img class="ds-icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon">
+  <img class="ds-icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun">
 </button>
 
 <script type="text/javascript">
@@ -158,7 +158,7 @@ if (isLight()) {
   toggleLightClass();
 }
 
-document.querySelector('.theme-icon').addEventListener('click', () => {
+document.querySelector('.ds-theme-icon').addEventListener('click', () => {
   toggleLocalStorageItem();
   toggleLightClass();
 });
@@ -181,8 +181,8 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
 
 </main>
 <script type="text/javascript">
-  const tabsContainer = document.querySelector('.tabs-wrapper');
-const tabs = tabsContainer?.querySelectorAll('.tablink');
+  const tabsContainer = document.querySelector('.ds-tabs-wrapper');
+const tabs = tabsContainer?.querySelectorAll('.ds-tab');
 
 for (let i = 0; i < tabs?.length; i++) {
   tabs[i]?.addEventListener('click', function () {
@@ -190,7 +190,7 @@ for (let i = 0; i < tabs?.length; i++) {
       return;
     }
 
-    const current = tabsContainer?.querySelectorAll('.active');
+    const current = tabsContainer.querySelectorAll('.active');
     current[0].className = current[0].className.replace(' active', '');
     this.className += ' active';
   });

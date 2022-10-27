@@ -132,9 +132,9 @@
     
   </ul>
 
-  <button type="button" class="theme-icon" aria-label="Toggle between dark and light mode">
-  <img class="icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon">
-  <img class="icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun">
+  <button type="button" class="ds-theme-icon" aria-label="Toggle between dark and light mode">
+  <img class="ds-icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon">
+  <img class="ds-icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun">
 </button>
 
 <script type="text/javascript">
@@ -158,7 +158,7 @@ if (isLight()) {
   toggleLightClass();
 }
 
-document.querySelector('.theme-icon').addEventListener('click', () => {
+document.querySelector('.ds-theme-icon').addEventListener('click', () => {
   toggleLocalStorageItem();
   toggleLightClass();
 });
@@ -179,14 +179,13 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
 
 <p>Spinner component example</p>
 <p><nord-spinner size="xl"></nord-spinner></p>
-<pre><code class="language-html">&lt;nord-spinner size=&quot;xl&quot;&gt;&lt;/nord-spinner&gt;
-</code></pre>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nord-spinner</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>xl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>nord-spinner</span><span class="token punctuation">></span></span></code></pre>
 
 
 </main>
 <script type="text/javascript">
-  const tabsContainer = document.querySelector('.tabs-wrapper');
-const tabs = tabsContainer?.querySelectorAll('.tablink');
+  const tabsContainer = document.querySelector('.ds-tabs-wrapper');
+const tabs = tabsContainer?.querySelectorAll('.ds-tab');
 
 for (let i = 0; i < tabs?.length; i++) {
   tabs[i]?.addEventListener('click', function () {
@@ -194,7 +193,7 @@ for (let i = 0; i < tabs?.length; i++) {
       return;
     }
 
-    const current = tabsContainer?.querySelectorAll('.active');
+    const current = tabsContainer.querySelectorAll('.active');
     current[0].className = current[0].className.replace(' active', '');
     this.className += ' active';
   });

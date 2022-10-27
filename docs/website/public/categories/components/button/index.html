@@ -132,9 +132,9 @@
     
   </ul>
 
-  <button type="button" class="theme-icon" aria-label="Toggle between dark and light mode">
-  <img class="icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon">
-  <img class="icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun">
+  <button type="button" class="ds-theme-icon" aria-label="Toggle between dark and light mode">
+  <img class="ds-icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon">
+  <img class="ds-icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun">
 </button>
 
 <script type="text/javascript">
@@ -158,7 +158,7 @@ if (isLight()) {
   toggleLightClass();
 }
 
-document.querySelector('.theme-icon').addEventListener('click', () => {
+document.querySelector('.ds-theme-icon').addEventListener('click', () => {
   toggleLocalStorageItem();
   toggleLightClass();
 });
@@ -181,17 +181,22 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
   h3 {
     margin-bottom: 16px;
   }
+
+.ds-buttons-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 16px;
+  margin: 16px 0;
+}
 </style>
-<div class="tabs-wrapper">
-  <a href="#overview" class="tablink active">Overview</a>
-  <a href="#specs" class="tablink">Specs</a>
-  <a href="#usage" class="tablink">Usage</a>
-  <a href="#accessibility" class="tablink">Accessibility</a>
-  <a href="#code" class="tablink">Code</a>
+<div class="ds-tabs-wrapper">
+  <a href="#overview" class="ds-tab active">Overview</a>
+  <a href="#specs" class="ds-tab">Specs</a>
+  <a href="#usage" class="ds-tab">Usage</a>
+  <a href="#accessibility" class="ds-tab">Accessibility</a>
+  <a href="#code" class="ds-tab">Code</a>
 </div>
-<h3 id="id12">test 1</h3>
-<h3 id="anchor-link" tabindex="-1"><a class="header-anchor" href="#anchor-link"><a href="#anchor-link">Anchor Link</a></a></h3>
-<h1 id="anchor-link-1" tabindex="-1"><a class="header-anchor" href="#anchor-link-1">Anchor Link</a></h1>
 <h2 id="overview" tabindex="-1"><a class="header-anchor" href="#overview">Overview</a></h2>
 <p>Button component overview</p>
 <h3 id="key-points" tabindex="-1"><a class="header-anchor" href="#key-points">Key Points</a></h3>
@@ -207,7 +212,7 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
 <p>WCAG part</p>
 <h2 id="code" tabindex="-1"><a class="header-anchor" href="#code">Code</a></h2>
 <p>SL DS components:</p>
-<div>
+<div class="ds-buttons-wrapper">
   <sl-button>Primary</sl-button>
   <sl-button disabled>Disabled</sl-button>
   <sl-button variant="secondary">Secondary</sl-button>
@@ -221,15 +226,12 @@ document.querySelector('.theme-icon').addEventListener('click', () => {
   <sl-button variant="warning">Warning</sl-button>
   <sl-button variant="warning" disabled>Disabled</sl-button>
 </div>
-<h3 id="1.-anchor-link" tabindex="-1"><a class="header-anchor" href="#1.-anchor-link"><a href="#anchor-link">1. Anchor Link</a></a></h3>
-<p><a href="#id12">link to test /categories/components/button/</a><br>
-<a href="/categories/components/button/#id12">link_2 to test /categories/components/button/</a></p>
 
 
 </main>
 <script type="text/javascript">
-  const tabsContainer = document.querySelector('.tabs-wrapper');
-const tabs = tabsContainer?.querySelectorAll('.tablink');
+  const tabsContainer = document.querySelector('.ds-tabs-wrapper');
+const tabs = tabsContainer?.querySelectorAll('.ds-tab');
 
 for (let i = 0; i < tabs?.length; i++) {
   tabs[i]?.addEventListener('click', function () {
@@ -237,7 +239,7 @@ for (let i = 0; i < tabs?.length; i++) {
       return;
     }
 
-    const current = tabsContainer?.querySelectorAll('.active');
+    const current = tabsContainer.querySelectorAll('.active');
     current[0].className = current[0].className.replace(' active', '');
     this.className += ' active';
   });

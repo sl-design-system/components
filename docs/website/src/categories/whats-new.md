@@ -6,8 +6,6 @@ eleventyNavigation:
   order: 1
 ---
 
-First page content
-
-# sl button
+### sl button
 
 <sl-button size="small">Click me</sl-button>

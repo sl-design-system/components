@@ -132,9 +132,9 @@
     
   </ul>
 
-  <button type="button" class="theme-icon" aria-label="Toggle between dark and light mode">
-  <img class="icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon">
-  <img class="icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun">
+  <button type="button" class="ds-theme-icon" aria-label="Toggle between dark and light mode">
+  <img class="ds-icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon">
+  <img class="ds-icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun">
 </button>
 
 <script type="text/javascript">
@@ -158,7 +158,7 @@ if (isLight()) {
   toggleLightClass();
 }
 
-document.querySelector('.theme-icon').addEventListener('click', () => {
+document.querySelector('.ds-theme-icon').addEventListener('click', () => {
   toggleLocalStorageItem();
   toggleLightClass();
 });
@@ -218,9 +218,6 @@ ul {
 <p><a href="/categories/components/card/"> Card </a></p>
 </li>
 <li>
-<p><a href="/categories/components/button/"> Button </a></p>
-</li>
-<li>
 <p><a href="/categories/contributing/"> Contributing </a></p>
 </li>
 <li>
@@ -228,9 +225,6 @@ ul {
 </li>
 <li>
 <p><a href="/categories/design-tokens/"> Design Tokens </a></p>
-</li>
-<li>
-<p><a href="/categories/whats-new/"> What's new </a></p>
 </li>
 <li>
 <p><a href="/categories/getting-started/"> Getting started </a></p>
@@ -242,21 +236,27 @@ ul {
 <p><a href="/categories/components/spinner/"> Spinner </a></p>
 </li>
 <li>
-<p><a href="/categories/components/overview/"> Overview </a></p>
-</li>
-<li>
 <p><a href="/categories/components/checkbox/overview/"> Checkbox overview </a></p>
 </li>
 <li>
 <p><a href="/categories/FAQs/"> FAQs </a></p>
+</li>
+<li>
+<p><a href="/categories/components/button/"> Button </a></p>
+</li>
+<li>
+<p><a href="/categories/components/overview/"> Overview </a></p>
+</li>
+<li>
+<p><a href="/categories/whats-new/"> What's new </a></p>
 </li>
 </ul>
 </div>
 
 </main>
 <script type="text/javascript">
-  const tabsContainer = document.querySelector('.tabs-wrapper');
-const tabs = tabsContainer?.querySelectorAll('.tablink');
+  const tabsContainer = document.querySelector('.ds-tabs-wrapper');
+const tabs = tabsContainer?.querySelectorAll('.ds-tab');
 
 for (let i = 0; i < tabs?.length; i++) {
   tabs[i]?.addEventListener('click', function () {
@@ -264,7 +264,7 @@ for (let i = 0; i < tabs?.length; i++) {
       return;
     }
 
-    const current = tabsContainer?.querySelectorAll('.active');
+    const current = tabsContainer.querySelectorAll('.active');
     current[0].className = current[0].className.replace(' active', '');
     this.className += ' active';
   });

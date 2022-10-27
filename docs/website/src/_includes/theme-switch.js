@@ -18,7 +18,7 @@ if (isLight()) {
   toggleLightClass();
 }
 
-document.querySelector('.theme-icon').addEventListener('click', () => {
+document.querySelector('.ds-theme-icon').addEventListener('click', () => {
   toggleLocalStorageItem();
   toggleLightClass();
 });

@@ -13,6 +13,8 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
 
   @property() items: T[] = [];
 
+  @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
+
   render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>

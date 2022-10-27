@@ -218,31 +218,4 @@ nord-tab-group {
   background: var(--third-background-color);
 }
 
-pre {
-  background: var(--primary-color);
-  padding: 16px;
-  border-radius: 3px;
-  font-size: 14px;
-}
-
-.token.deleted {
-  background-color: hsla(350deg, 100%, 88%, 0.47);
-}
-
-.token.inserted {
-  background-color: hsla(120deg, 73%, 75%, 0.35);
-}
-
-.token.prefix.unchanged,
-.token.prefix.inserted,
-.token.prefix.deleted {
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.token.inserted:not(.prefix),
-.token.deleted:not(.prefix) {
-  display: block;
-}
-
 /*# sourceMappingURL=main.css.map */

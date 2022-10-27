@@ -1,25 +1,25 @@
 module.exports = {
-  'root': true,
-  'parser': 'espree',
+  root: true,
+  parser: 'espree',
     'env': {
         'browser': true,
         'es2021': true
     },
-  'parserOptions': {
+  parserOptions: {
     'ecmaVersion': 'latest',
     'sourceType': 'module'
   },
   plugins: ['unused-imports'],
-  'extends': [
+  extends: [
     'eslint:recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
   ],
-  'rules': {
+  rules: {
     'no-duplicate-imports': 'error',
     'unused-imports/no-unused-imports': 'error',
     'import/named': 'off',
     'import/no-unresolved': 'off',
-    'import/prefer-default-export': 'off',
+    'import/prefer-default-export': 'off'
   }
 }

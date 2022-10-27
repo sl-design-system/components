@@ -1,4 +1,5 @@
 import type { TemplateResult } from 'lit';
+import { humanize } from '@sanomalearning/slds-core/utils/string.js';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -12,7 +13,15 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
   }
 
   renderHeaderCell(): TemplateResult {
-    return html`<th>${this.header || this.path}</th>`;
+    let label = this.header;
+
+    if (!label && this.path) {
+      label = humanize(this.path);
+    } else if (!label) {
+      label = 'No path set';
+    }
+
+    return html`<th>${label}</th>`;
   }
 
   renderContentCell(item: T): TemplateResult {

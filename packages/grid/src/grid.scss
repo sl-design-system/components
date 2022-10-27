@@ -1,6 +1,7 @@
 :host {
   --_border: 1px solid #eee;
   --_border-radius: 3px;
+  --_cell-border: 1px solid #eee;
   --_cell-font: 300 14px/24px Arial;
   --_cell-padding: 0.25rem 1rem;
   --_header-background: #fff;
@@ -16,6 +17,10 @@
 
 :host([no-border]) {
   --_border: none;
+}
+
+:host([no-row-border]) {
+  --_cell-border: none;
 }
 
 table {
@@ -46,7 +51,7 @@ td {
 
 th {
   background: var(--_header-background);
-  border-bottom: var(--_border);
+  border-bottom: var(--_cell-border);
   padding: var(--_header-padding);
 }
 
@@ -55,5 +60,5 @@ td {
 }
 
 tr:not(:first-of-type) td {
-  border-top: var(--_border);
+  border-top: var(--_cell-border);
 }

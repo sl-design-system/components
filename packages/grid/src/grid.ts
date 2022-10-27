@@ -15,6 +15,8 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
 
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
+  @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
+
   render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>

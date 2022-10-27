@@ -9,13 +9,14 @@ export default {
 
 export const API: Story = {
   args: {
-    noBorder: false
+    noBorder: false,
+    noRowBorder: false
   },
   loaders: [
     async () => ({ people: (await getPeople()).people })
   ],
-  render: ({ noBorder }, { loaded: { people }}) => html`
-    <sl-grid .noBorder=${noBorder} .items=${people} style="height: 300px">
+  render: ({ noBorder, noRowBorder }, { loaded: { people }}) => html`
+    <sl-grid .noBorder=${noBorder} .noRowBorder=${noRowBorder} .items=${people} style="height: 300px">
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>

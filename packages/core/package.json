@@ -11,6 +11,9 @@
     "directory": "packages/core"
   },
   "type": "module",
+  "exports": {
+    "./utils/string.js": "./dist/components/utils/string.js"
+  },
   "scripts": {
     "build": "wireit",
     "build:scss": "wireit",

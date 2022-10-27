@@ -1,20 +1,20 @@
 .ds-tab {
-  padding: 16px;
   font-size: 16px;
+  padding: 16px;
   text-decoration: none;
 }
 .ds-tab.active {
+  box-shadow: inset 0 -0.175em #fff, inset 0 -0.3em #668cff;
   color: #668cff;
-  box-shadow: inset 0 -0.175em #ffffff, inset 0 -0.3em #668cff;
 }
 
 .ds-tabs-wrapper {
+  background-color: var(--background-color);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   position: sticky;
   top: 0;
-  background-color: var(--background-color);
 }
 
 .ds-tabs-wrapper.fixed {

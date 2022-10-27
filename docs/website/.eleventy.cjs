@@ -15,9 +15,7 @@ module.exports = function(eleventyConfig) {
     ],
   });
 
-  module.exports = function(eleventyConfig) {
-    eleventyConfig.addPlugin(syntaxHighlight);
-  };
+  eleventyConfig.addPlugin(syntaxHighlight);
 
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
@@ -43,7 +41,6 @@ module.exports = function(eleventyConfig) {
   })
     .disable('code')
     .use(markdownItAnchor, {
-      // permalink: true,
       permalink: anchor.permalink.headerLink(),
       slugify: markdownItSlugify,
       permalinkBefore: true,
@@ -51,18 +48,6 @@ module.exports = function(eleventyConfig) {
       permalinkSymbol: '#',
       level: [1, 2, 3, 4],
     });
-
-  /*    .use(markdownItAnchor, {
-      // level: 1,
-      level: [1,2,3,4],
-      // slugify: string => string,
-      permalink: true,
-      // renderPermalink: (slug, opts, state, permalink) => {},
-      permalinkClass: 'header-anchor',
-      permalinkSymbol: '#',
-      permalinkBefore: false
-    });*/
-
 
   eleventyConfig.setBrowserSyncConfig({
     notify: true,

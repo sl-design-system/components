@@ -214,8 +214,5 @@ main {
     transform: translateY(0);
   }
 }
-nord-tab-group {
-  background: var(--third-background-color);
-}
 
 /*# sourceMappingURL=main.css.map */

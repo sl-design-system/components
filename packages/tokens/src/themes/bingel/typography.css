@@ -5,21 +5,21 @@
 
 .sl-text-button-lg {
   font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-sm);
-  font-size: var(--sl-text-typeset-font-size-lg);
 }
 
 .sl-text-button-md {
   font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xl);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-lg);
-  font-size: var(--sl-text-typeset-font-size-xl);
 }
 
 .sl-text-button-sm {
   font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-md);
-  font-size: var(--sl-text-typeset-font-size-sm);
 }

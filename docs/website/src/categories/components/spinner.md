@@ -7,9 +7,3 @@ eleventyNavigation:
 ---
 
 Spinner component example
-
-<nord-spinner size="xl"></nord-spinner>
-
-```html
-<nord-spinner size="xl"></nord-spinner>
-```

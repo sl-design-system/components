@@ -18,9 +18,6 @@ ul {
 }
 </style>
 
-<my-element></my-element>
-
-
 <div class="collections">
 {% for category in collections.categories %}
 - [ {{ category.data.title }} ]( {{ category.url }} )

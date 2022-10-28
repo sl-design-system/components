@@ -2,3 +2,6 @@
 
 # Ignore all MD files:
 *.md
+
+# Ignore all njk files
+*.njk

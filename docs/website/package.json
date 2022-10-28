@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "@lit-labs/eleventy-plugin-lit": "^0.2.3",
-    "@sanomalearning/slds-core": "^0.0.1",
     "@webcomponents/template-shadowroot": "^0.1.0",
     "html-minifier": "^4.0.0",
     "lit": "^2.3.1",

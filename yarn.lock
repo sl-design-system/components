@@ -2462,7 +2462,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-core@^0.0.1, @sanomalearning/slds-core@workspace:packages/core":
+"@sanomalearning/slds-core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-core@workspace:packages/core"
   dependencies:
@@ -2507,7 +2507,6 @@ __metadata:
     "@11ty/eleventy-navigation": ^0.3.5
     "@11ty/eleventy-plugin-syntaxhighlight": ^4.1.0
     "@lit-labs/eleventy-plugin-lit": ^0.2.3
-    "@sanomalearning/slds-core": ^0.0.1
     "@webcomponents/template-shadowroot": ^0.1.0
     eslint: ^8.26.0
     eslint-plugin-import: ^2.26.0

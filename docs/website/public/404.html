@@ -1,4 +1,130 @@
-<!doctype html><html lang="en"><head><title>Sanoma Learning Design System Documentation</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"><link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet"><script type="module" src="@sanomalearning/slds-core/dist/components/button/button.js"></script><link rel="stylesheet" href="/css/main.css"></head><body><nav class="ds-sidebar ds-flow--xs"><h1 class="ds-title"><a href="/">Sanoma Learning Design System</a></h1><div><input class="ds-search" type="search" id="search" name="search" value=""></div><ul class="ds-list"><li id="/categories/whats-new/"><a class="ds-link" href="/categories/whats-new/">What&#39;s new</a></li><li id="/categories/getting-started/"><a class="ds-link" href="/categories/getting-started/">Getting Started</a></li><li id="/categories/components/"><a class="ds-link" href="/categories/components/">Components</a><ul role="list" class="ds-sublist"><li><a class="ds-link" href="/categories/components/overview/">Overview</a></li><li><a class="ds-link" href="/categories/components/badge/">Badge</a></li><li><a class="ds-link" href="/categories/components/button/">Button</a></li><li><a class="ds-link" href="/categories/components/card/">Card</a></li><li><a class="ds-link" href="/categories/components/checkbox/">Checkbox</a></li><li><a class="ds-link" href="/categories/components/spinner/">Spinner</a></li></ul></li><li id="/categories/design-tokens/"><a class="ds-link" href="/categories/design-tokens/">Design Tokens</a><ul role="list" class="ds-sublist"><li><a class="ds-link" href="/categories/design-tokens/color/">Color</a></li><li><a class="ds-link" href="/categories/design-tokens/border/">Border</a></li></ul></li><li id="/categories/contributing/"><a class="ds-link" href="/categories/contributing/">Contributing</a></li><li id="/categories/FAQs/"><a class="ds-link" href="/categories/FAQs/">FAQs</a></li></ul><button type="button" class="ds-theme-icon" aria-label="Toggle between dark and light mode"><img class="ds-icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon"> <img class="ds-icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun"></button><script type="text/javascript">function isLight() {
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sanoma Learning Design System Documentation</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <nav class="ds-sidebar ds-flow--xs">
+  <h1 class="ds-title">
+    <a href="/">Sanoma Learning Design System</a>
+  </h1>
+
+  <div>
+  <input class="ds-search" type="search" id="search" name="search" value="" />
+</div>
+
+
+  
+  <ul class="ds-list">
+    
+      <li id="/categories/whats-new/" >
+        <a
+          class="ds-link "
+          href="/categories/whats-new/">What&#39;s new</a>
+        
+      </li>
+    
+      <li id="/categories/getting-started/" >
+        <a
+          class="ds-link "
+          href="/categories/getting-started/">Getting Started</a>
+        
+      </li>
+    
+      <li id="/categories/components/" >
+        <a
+          class="ds-link "
+          href="/categories/components/">Components</a>
+        
+          <ul role="list"
+              class="ds-sublist  ">
+            
+              <li>
+                <a class="ds-link"
+                   href="/categories/components/overview/">Overview</a>
+              </li>
+            
+              <li>
+                <a class="ds-link"
+                   href="/categories/components/badge/">Badge</a>
+              </li>
+            
+              <li>
+                <a class="ds-link"
+                   href="/categories/components/button/">Button</a>
+              </li>
+            
+              <li>
+                <a class="ds-link"
+                   href="/categories/components/card/">Card</a>
+              </li>
+            
+              <li>
+                <a class="ds-link"
+                   href="/categories/components/checkbox/">Checkbox</a>
+              </li>
+            
+              <li>
+                <a class="ds-link"
+                   href="/categories/components/spinner/">Spinner</a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li id="/categories/design-tokens/" >
+        <a
+          class="ds-link "
+          href="/categories/design-tokens/">Design Tokens</a>
+        
+          <ul role="list"
+              class="ds-sublist  ">
+            
+              <li>
+                <a class="ds-link"
+                   href="/categories/design-tokens/color/">Color</a>
+              </li>
+            
+              <li>
+                <a class="ds-link"
+                   href="/categories/design-tokens/border/">Border</a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li id="/categories/contributing/" >
+        <a
+          class="ds-link "
+          href="/categories/contributing/">Contributing</a>
+        
+      </li>
+    
+      <li id="/categories/FAQs/" >
+        <a
+          class="ds-link "
+          href="/categories/FAQs/">FAQs</a>
+        
+      </li>
+    
+  </ul>
+
+  <button type="button" class="ds-theme-icon" aria-label="Toggle between dark and light mode">
+  <img class="ds-icon-light" src="/assets/icons/bootstrap-icons/moon.svg" alt="moon" />
+  <img class="ds-icon-dark" src="/assets/icons/bootstrap-icons/sun.svg" alt="sun" />
+</button>
+
+<script type="text/javascript">
+  function isLight() {
   return localStorage.getItem('light-mode');
 }
 
@@ -21,7 +147,22 @@ if (isLight()) {
 document.querySelector('.ds-theme-icon').addEventListener('click', () => {
   toggleLocalStorageItem();
   toggleLightClass();
-});</script></nav><main><header><h1></h1></header><h1 id="404-page-not-found" tabindex="-1"><a class="header-anchor" href="#404-page-not-found">404 - Page Not found!</a></h1><p>We couldn’t find the content you were looking for.</p></main><script type="text/javascript">const tabsContainer = document.querySelector('.ds-tabs-wrapper');
+});
+
+</script>
+
+</nav>
+
+    <main>
+      <header>
+        <h1></h1>
+      </header>
+      <h1 id="404-page-not-found" tabindex="-1"><a class="header-anchor" href="#404-page-not-found">404 - Page Not found!</a></h1>
+<p>We couldn’t find the content you were looking for.</p>
+
+    </main>
+    <script type="text/javascript">
+      const tabsContainer = document.querySelector('.ds-tabs-wrapper');
 const tabs = tabsContainer?.querySelectorAll('.ds-tab');
 
 for (let i = 0; i < tabs?.length; i++) {
@@ -34,4 +175,8 @@ for (let i = 0; i < tabs?.length; i++) {
     current[0].className = current[0].className.replace(' active', '');
     this.className += ' active';
   });
-}</script></body></html>
+}
+
+    </script>
+  </body>
+</html>

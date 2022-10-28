@@ -2345,6 +2345,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sanomalearning/example-data@*, @sanomalearning/example-data@workspace:tools/example-data":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/example-data@workspace:tools/example-data"
+  languageName: unknown
+  linkType: soft
+
 "@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel"
@@ -2414,8 +2420,8 @@ __metadata:
     "@lit-labs/virtualizer": ^0.7.2
     "@mdx-js/react": ^1.6.22
     "@open-wc/testing": ^3.1.6
+    "@sanomalearning/example-data": "*"
     "@sanomalearning/slds-core": "*"
-    "@sanomalearning/storybook-demo-data": "*"
     "@storybook/addon-a11y": ^7.0.0-alpha.45
     "@storybook/addon-docs": ^7.0.0-alpha.45
     "@storybook/addon-essentials": ^7.0.0-alpha.45
@@ -2540,12 +2546,6 @@ __metadata:
     "@storybook/api": ^7.0.0-alpha.33
     "@storybook/components": ^7.0.0-alpha.33
     "@storybook/theming": ^7.0.0-alpha.33
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/storybook-demo-data@*, @sanomalearning/storybook-demo-data@workspace:tools/storybook-demo-data":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/storybook-demo-data@workspace:tools/storybook-demo-data"
   languageName: unknown
   linkType: soft
 

@@ -1,7 +1,7 @@
 {
-  "name": "@sanomalearning/storybook-demo-data",
+  "name": "@sanomalearning/example-data",
   "license": "ISC",
-  "description": "Demo data for storybook examples",
+  "description": "Example data for SL Design System",
   "private": true,
   "version": "1.0.0",
   "main": "index.js",

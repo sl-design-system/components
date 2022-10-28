@@ -96,7 +96,7 @@
     "@babel/core": "^7.19.6",
     "@mdx-js/react": "^1.6.22",
     "@open-wc/testing": "^3.1.6",
-    "@sanomalearning/storybook-demo-data": "*",
+    "@sanomalearning/example-data": "*",
     "@storybook/addon-a11y": "^7.0.0-alpha.45",
     "@storybook/addon-docs": "^7.0.0-alpha.45",
     "@storybook/addon-essentials": "^7.0.0-alpha.45",

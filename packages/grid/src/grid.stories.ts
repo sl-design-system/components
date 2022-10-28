@@ -1,4 +1,4 @@
-import { getPeople } from '@sanomalearning/storybook-demo-data';
+import { getPeople } from '@sanomalearning/example-data';
 import { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './register.js';

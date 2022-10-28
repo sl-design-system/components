@@ -20,6 +20,22 @@
   <input class="ds-search" type="search" id="search" name="search" value="" />
 </div>
 
+<div>
+  <input class="ds-search" type="search" id="search" name="search" value="" />
+</div>
+
+<script type="text/javascript">
+  const searchInput = document.querySelector('.ds-search');
+
+// console.log(searchInput);
+
+document.querySelector('.ds-search').addEventListener('focus', () => {
+  const searchText = searchInput.textContent;
+  console.log(searchInput);
+});
+
+</script>
+
 
   
   <ul class="ds-list">

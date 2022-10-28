@@ -20,6 +20,22 @@
   <input class="ds-search" type="search" id="search" name="search" value="" />
 </div>
 
+<div>
+  <input class="ds-search" type="search" id="search" name="search" value="" />
+</div>
+
+<script type="text/javascript">
+  const searchInput = document.querySelector('.ds-search');
+
+// console.log(searchInput);
+
+document.querySelector('.ds-search').addEventListener('focus', () => {
+  const searchText = searchInput.textContent;
+  console.log(searchInput);
+});
+
+</script>
+
 
   
   <ul class="ds-list">
@@ -221,6 +237,172 @@ ul {
 </li>
 </ul>
 </div>
+<style>
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 32px;
+  }
+
+  .component {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+<p>Components list</p>
+<div class="wrapper">
+  <div class="component">
+  <h3>Checkbox component</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/checkbox/">Checkbox component</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Checkbox specs</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/checkbox/specs/">Checkbox specs</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Checkbox overview</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/checkbox/overview/">Checkbox overview</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Button</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/button/">Button</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Overview</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/overview/">Overview</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Badge</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/badge/">Badge</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Card</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/card/">Card</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Spinner</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/spinner/">Spinner</a>
+  </nord-card>
+  </div>
+</div>
+<style>
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 32px;
+  }
+
+  .component {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+<p>Components list</p>
+<div class="wrapper">
+  <div class="component">
+  <h3>Color</h3>
+  <nord-card padding="l">
+  <a href="/categories/design-tokens/color/">Color</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Border</h3>
+  <nord-card padding="l">
+  <a href="/categories/design-tokens/border/">Border</a>
+  </nord-card>
+  </div>
+</div>
+<p>specs content</p>
+<p>to jest specs content</p>
+<p>overview content<br>
+test</p>
+<style>  
+  h3 {
+    margin-bottom: 16px;
+  }
+
+.ds-buttons-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 16px;
+  margin: 16px 0;
+}
+</style>
+<div class="ds-tabs-wrapper">
+  <a href="#overview" class="ds-tab active">Overview</a>
+  <a href="#specs" class="ds-tab">Specs</a>
+  <a href="#usage" class="ds-tab">Usage</a>
+  <a href="#accessibility" class="ds-tab">Accessibility</a>
+  <a href="#code" class="ds-tab">Code</a>
+</div>
+<h2 id="overview" tabindex="-1"><a class="header-anchor" href="#overview">Overview</a></h2>
+<p>Button component overview</p>
+<h3 id="key-points" tabindex="-1"><a class="header-anchor" href="#key-points">Key Points</a></h3>
+<h3 id="live-demo" tabindex="-1"><a class="header-anchor" href="#live-demo">Live demo</a></h3>
+<h3 id="resources" tabindex="-1"><a class="header-anchor" href="#resources">Resources</a></h3>
+<h2 id="specs" tabindex="-1"><a class="header-anchor" href="#specs">Specs</a></h2>
+<h3 id="anatomy" tabindex="-1"><a class="header-anchor" href="#anatomy">Anatomy</a></h3>
+<h3 id="variants" tabindex="-1"><a class="header-anchor" href="#variants">Variants</a></h3>
+<h3 id="types" tabindex="-1"><a class="header-anchor" href="#types">Types</a></h3>
+<h3 id="behaviour" tabindex="-1"><a class="header-anchor" href="#behaviour">Behaviour</a></h3>
+<h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage">Usage</a></h2>
+<h2 id="accessibility" tabindex="-1"><a class="header-anchor" href="#accessibility">Accessibility</a></h2>
+<p>WCAG part</p>
+<h2 id="code" tabindex="-1"><a class="header-anchor" href="#code">Code</a></h2>
+<p>SL DS components:</p>
+<div class="ds-buttons-wrapper">
+  <sl-button>Primary</sl-button>
+  <sl-button disabled>Disabled</sl-button>
+  <sl-button variant="secondary">Secondary</sl-button>
+  <sl-button variant="secondary" disabled>Disabled</sl-button>
+  <sl-button variant="success">Success</sl-button>
+  <sl-button variant="success" disabled>Disabled</sl-button>
+  <sl-button variant="danger">Danger</sl-button>
+  <sl-button variant="danger" disabled>Disabled</sl-button>
+  <sl-button variant="info">Info</sl-button>
+  <sl-button variant="info" disabled>Disabled</sl-button>
+  <sl-button variant="warning">Warning</sl-button>
+  <sl-button variant="warning" disabled>Disabled</sl-button>
+</div>
+<h2 id="components-overview" tabindex="-1"><a class="header-anchor" href="#components-overview">Components Overview</a></h2>
+<p>Badge component</p>
+<p>Card component example...</p>
+<p>Spinner component example</p>
+<p>Sanoma Learning Design System ...</p>
+<p><my-element><template shadowroot="open"><style>
+    :host {
+      display: inline-block;
+      padding: 10px;
+      background: var(--menu-second-color);
+      border-radius: 3px;
+    }
+
+    .planet {
+      color: var(--n-color-accent, blue);
+    }
+  </style><!--lit-part eslokFIvni8=-->
+      <span 
+        ><!--lit-node 0--><!--lit-part-->I am internally created<!--/lit-part-->
+        <span class="planet"><!--lit-part-->Web Component<!--/lit-part--></span>
+      </span>
+    <!--/lit-part--></template></my-element></p>
+
     </main>
     <script type="text/javascript">
       const tabsContainer = document.querySelector('.ds-tabs-wrapper');

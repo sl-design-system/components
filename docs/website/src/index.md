@@ -23,3 +23,7 @@ ul {
 - [ {{ category.data.title }} ]( {{ category.url }} )
 {% endfor %}
 </div>
+
+{% for category in collections.categories %}
+{% excerpt category %}
+{% endfor %}

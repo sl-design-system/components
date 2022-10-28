@@ -1,5 +1,5 @@
 import { getPeople } from '@sanomalearning/storybook-demo-data';
-import { Story } from '@storybook/web-components';
+import { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './register.js';
 
@@ -7,7 +7,7 @@ export default {
   title: 'Grid'
 };
 
-export const API: Story = {
+export const API: StoryObj = {
   args: {
     noBorder: false,
     noRowBorder: false

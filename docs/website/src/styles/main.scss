@@ -1,39 +1,8 @@
-@import 'dark-light-mode.scss';
+@import 'dark-light-mode';
 
-@import 'base/base.scss';
+@import 'base/base';
 
-@import 'components/tabs.scss';
+@import 'components/tabs';
 
-@import 'layout/content.scss';
-@import 'layout/navigation.scss';
-
-nord-tab-group {
-  background: var(--third-background-color);
-}
-
-pre {
-  background: var(--primary-color);
-  padding: 16px;
-  border-radius: 3px;
-  font-size: 14px;
-}
-
-.token.deleted {
-  background-color: hsl(350deg 100% 88% / 47%);
-}
-
-.token.inserted {
-  background-color: hsl(120deg 73% 75% / 35%);
-}
-
-.token.prefix.unchanged,
-.token.prefix.inserted,
-.token.prefix.deleted {
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.token.inserted:not(.prefix),
-.token.deleted:not(.prefix) {
-  display: block;
-}
+@import 'layout/content';
+@import 'layout/navigation';

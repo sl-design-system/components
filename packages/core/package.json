@@ -115,6 +115,7 @@
     "@web/test-runner-commands": "^0.6.5",
     "@web/test-runner-playwright": "^0.9.0",
     "babel-loader": "^8.2.5",
+    "element-internals-polyfill": "^1.1.15",
     "lit-html": "^2.4.0",
     "sinon": "^14.0.1",
     "storybook": "^7.0.0-alpha.40",

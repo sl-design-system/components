@@ -20,6 +20,8 @@ export class Checkbox extends FormControlMixin(LitElement) {
   connectedCallback(): void {
     super.connectedCallback();
 
+    this.internals.role = 'checkbox';
+
     this.addEventListener('click', () => (this.checked = !this.checked));
   }
 

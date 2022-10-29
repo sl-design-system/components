@@ -20,20 +20,24 @@ export class Checkbox extends FormControlMixin(LitElement) {
   connectedCallback(): void {
     super.connectedCallback();
 
-    this.addEventListener('click', () => {
-      this.checked = !this.checked;
+    this.addEventListener('click', () => (this.checked = !this.checked));
+  }
+
+  updated(changes: PropertyValues<this>): void {
+    if (changes.has('checked') || changes.has('indeterminate')) {
+      this.internals.ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
+
+      if (this.indeterminate) {
+        this.internals.states.add('--indeterminate');
+      } else {
+        this.internals.states.delete('--indeterminate');
+      }
 
       if (this.checked) {
         this.internals.states.add('--checked');
       } else {
         this.internals.states.delete('--checked');
       }
-    });
-  }
-
-  updated(changes: PropertyValues<this>): void {
-    if (changes.has('checked') || changes.has('indeterminate')) {
-      this.internals.ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
     }
 
     if (changes.has('checked') || changes.has('value')) {

@@ -10,10 +10,13 @@ export const API: StoryObj = {
   args: {
     checked: false,
     disabled: false,
+    indeterminate: false,
     text: 'Toggle me',
     value: '12345'
   },
-  render: ({ checked, disabled, text, value }) => html`
-    <sl-checkbox ?checked=${checked} ?disabled=${disabled} .value=${value}>${text}</sl-checkbox>
+  render: ({ checked, disabled, indeterminate, text, value }) => html`
+    <sl-checkbox ?checked=${checked} ?disabled=${disabled} .indeterminate=${indeterminate} .value=${value}
+      >${text}</sl-checkbox
+    >
   `
 };

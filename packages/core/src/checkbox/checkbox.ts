@@ -20,6 +20,10 @@ export class Checkbox extends FormControlMixin(LitElement) {
     return html``;
   }
 
+  resetFormControl(): void {
+    this.checked = this.hasAttribute('checked');
+  }
+
   shouldFormValueUpdate(): boolean {
     return this.checked;
   }

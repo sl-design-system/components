@@ -1,4 +1,4 @@
-import { Story } from '@storybook/web-components';
+import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../button-bar/register.js';
 import './register.js';
@@ -7,7 +7,7 @@ export default {
   title: 'Button'
 };
 
-export const API: Story = {
+export const API: StoryObj = {
   args: {
     fill: 'default',
     size: 'md',
@@ -39,7 +39,7 @@ export const API: Story = {
   `
 };
 
-export const Fills: Story = {
+export const Fills: StoryObj = {
   render: () => html`
     <sl-button-bar>
       <sl-button fill="default">Default</sl-button>
@@ -48,7 +48,7 @@ export const Fills: Story = {
   `
 };
 
-export const Sizes: Story = {
+export const Sizes: StoryObj = {
   render: () => html`
     <sl-button-bar>
       <sl-button size="sm">Small</sl-button>
@@ -58,7 +58,7 @@ export const Sizes: Story = {
   `
 };
 
-export const Variants: Story = {
+export const Variants: StoryObj = {
   render: () => html`
     <style>
       .grid {

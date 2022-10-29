@@ -5,7 +5,7 @@
   --_path-length: 22.910259;
   --_size: 1rem;
   --_stroke: #fff;
-  --_stroke-dashoffset: var(--path-length);
+  --_stroke-dashoffset: var(--_path-length);
   --_transition: 200ms ease-in-out;
 }
 
@@ -21,7 +21,7 @@
   pointer-events: none;
 }
 
-:host(:--checked) svg {
+:host(:--checked) {
   --_background: #000;
   --_stroke-dashoffset: 0;
 }
@@ -49,4 +49,5 @@ path {
   stroke-dasharray: var(--_path-length);
   stroke-dashoffset: var(--_stroke-dashoffset);
   stroke-width: 3px;
+  transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
 }

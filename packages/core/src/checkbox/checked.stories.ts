@@ -21,6 +21,10 @@ export const API: StoryObj = {
   `
 };
 
+export const Indeterminate: StoryObj = {
+  render: () => html`<sl-checkbox indeterminate>Indeterminate</sl-checkbox>`
+};
+
 export const Overflow: StoryObj = {
   render: () => html`
     <sl-checkbox

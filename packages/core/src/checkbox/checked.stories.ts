@@ -20,3 +20,13 @@ export const API: StoryObj = {
     >
   `
 };
+
+export const Overflow: StoryObj = {
+  render: () => html`
+    <sl-checkbox
+      >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla
+      consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident
+      enim.</sl-checkbox
+    >
+  `
+};

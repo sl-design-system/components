@@ -2,6 +2,7 @@
   --_background: #fff;
   --_border: 1px solid #ccc;
   --_border-radius: 3px;
+  --_gap: 0.25rem;
   --_path-length: 22.910259;
   --_size: 1rem;
   --_stroke: #fff;
@@ -10,10 +11,10 @@
 }
 
 :host {
-  align-items: center;
+  align-items: start;
   cursor: pointer;
   display: inline-flex;
-  gap: 0.25rem;
+  gap: var(--_gap);
 }
 
 :host(:disabled) {

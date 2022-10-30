@@ -26,6 +26,11 @@
   --_stroke-dashoffset: 0;
 }
 
+:host([state--checked]) {
+  --_background: #000;
+  --_stroke-dashoffset: 0;
+}
+
 .box {
   display: inline-flex;
   flex-shrink: 0;

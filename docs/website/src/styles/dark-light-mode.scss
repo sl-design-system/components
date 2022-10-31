@@ -1,0 +1,73 @@
+:root:not(.light) {
+  --background-color: #202124;
+  --second-background-color: #4c4d4f;
+  --third-background-color: #363739;
+  --menu-second-color: #363739;
+  --primary-color: #363739;
+  --font-color: #fff;
+  --secondary-font-color: rgba(226, 232, 240, 1);
+  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --n-color-surface: #363739;
+  --n-color-background: #363739;
+  --n-color-text-weak: #fff;
+  --sl-panel-background-color: transparent;
+  --sl-color-neutral-0: #363739;
+  --sl-color-neutral-700: #fff;
+  --n-color-text: #fff;
+  --n-button-background-color: transparent;
+  --n-tab-color: #668cff;
+  --n-color-text-link: #668cff;
+}
+
+:root.light {
+  --background-color: #f8f9fa;
+  --second-background-color: #041c52;
+  --third-background-color: #fff;
+  --menu-second-color: rgba(138, 174, 255, 0.2);
+  --primary-color: rgba(138, 174, 255, 0.2);
+  --font-color: #212529;
+  --secondary-font-color: #495057;
+  --n-color-surface: rgb(255, 255, 255);
+  --n-color-background: rgb(255, 255, 255);
+}
+
+.ds-theme-icon {
+  align-items: center;
+  background-color: var(--primary-color);
+  border-color: rgba(226, 232, 240, 0);
+  border-radius: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 16px;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  display: flex;
+  font-size: 1em;
+  height: 2.5rem;
+  justify-content: center;
+  left: 16px;
+  position: absolute;
+  transition: all 500ms;
+  width: 2.5rem;
+}
+
+:root:not(.light) {
+  .ds-icon-light {
+    display: none;
+  }
+
+  .ds-icon-dark {
+    color: #fff;
+    display: inline-block;
+  }
+}
+
+:root.light {
+  .ds-icon-light {
+    display: inline-block;
+  }
+
+  .ds-icon-dark {
+    display: none;
+  }
+}

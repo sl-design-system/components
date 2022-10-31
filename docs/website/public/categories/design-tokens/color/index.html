@@ -27,11 +27,9 @@
 <script type="text/javascript">
   const searchInput = document.querySelector('.ds-search');
 
-// console.log(searchInput);
-
 document.querySelector('.ds-search').addEventListener('focus', () => {
   const searchText = searchInput.textContent;
-  console.log(searchInput, searchText);
+  console.log(searchInput, searchText, searchInput.value);
 });
 
 </script>
@@ -175,6 +173,17 @@ document.querySelector('.ds-theme-icon').addEventListener('click', () => {
       </header>
       
     </main>
+    <div class="field">
+      <label for="searchField">Search</label>
+      <input type="search" placeholder="Search..." id="searchField" />
+    </div>
+    <ol id="searchResults" />
+    <div id="noResultsFound" style="display: none">
+      <p>No results found.</p>
+    </div>
+    <!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+    <script type="text/javascript" src="./../js/search2.js"></script>
     <script type="text/javascript">
       const tabsContainer = document.querySelector('.ds-tabs-wrapper');
 const tabs = tabsContainer?.querySelectorAll('.ds-tab');

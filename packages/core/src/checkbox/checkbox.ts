@@ -1,14 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { FormControlMixin } from '@open-wc/form-control';
 import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
-import { FormControlMixin } from '../form/index.js';
 import styles from './checkbox.scss.js';
 
 export class Checkbox extends FormControlMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
-
-  #labels: Set<WeakRef<Node>> = new Set<WeakRef<Node>>();
 
   /** Whether the checkbox is checked. */
   @property({ type: Boolean }) checked = false;
@@ -25,10 +23,6 @@ export class Checkbox extends FormControlMixin(LitElement) {
     this.internals.role = 'checkbox';
 
     this.addEventListener('click', () => (this.checked = !this.checked));
-  }
-
-  firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
   }
 
   updated(changes: PropertyValues<this>): void {
@@ -64,10 +58,6 @@ export class Checkbox extends FormControlMixin(LitElement) {
       </span>
       <slot></slot>
     `;
-  }
-
-  onLabelClick(event: Event): void {
-    console.log('click', event.target);
   }
 
   resetFormControl(): void {

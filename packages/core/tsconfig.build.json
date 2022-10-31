@@ -10,6 +10,8 @@
   "exclude": ["dist", "node_modules", "./storybook", "**/*.tsx"],
   "references": [
     { "path": "./src/button/entrypoint.tsconfig.json" },
+    { "path": "./src/button-bar/entrypoint.tsconfig.json" },
+    { "path": "./src/checkbox/entrypoint.tsconfig.json" },
     { "path": "./src/input/entrypoint.tsconfig.json" }
   ]
 }

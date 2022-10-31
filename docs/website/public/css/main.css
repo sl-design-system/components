@@ -85,12 +85,12 @@ html {
   }
 }
 body {
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  min-height: 100vh;
-  margin: 0;
   background: var(--second-background-color, #041c52);
   color: var(--font-color);
+  display: flex;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  min-height: 100vh;
 }
 
 a {
@@ -123,10 +123,10 @@ a {
 
 main {
   background-color: var(--background-color);
-  width: 100%;
   margin-left: 260px;
   padding: 36px 72px 0;
   transition: background 300ms ease-in-out;
+  width: 100%;
 }
 
 .header-anchor {
@@ -134,17 +134,18 @@ main {
 }
 
 .ds-sidebar {
+  background: var(--second-background-color);
   display: flex;
   flex-direction: column;
-  position: fixed;
   height: 100%;
-  width: 260px;
-  background: var(--second-background-color);
+  position: fixed;
   transition: background 300ms ease-in-out;
+  width: 260px;
 }
 .ds-sidebar .ds-title {
   font-size: 18px;
   margin: 36px 16px 16px;
+  /* stylelint-disable-next-line max-nesting-depth */
 }
 .ds-sidebar .ds-title a {
   color: #eff2fb;
@@ -155,8 +156,8 @@ main {
   text-decoration: none;
 }
 .ds-sidebar .ds-list {
-  list-style: none;
   color: #eff2fb;
+  list-style: none;
   padding-left: 16px;
   position: relative;
 }
@@ -186,14 +187,14 @@ main {
 }
 .ds-sidebar .ds-search {
   background: var(--menu-second-color);
-  padding: 8px;
-  margin: 8px 16px;
+  border: 0;
   border-radius: 3px;
-  border: none;
+  margin: 8px 16px;
+  padding: 8px;
 }
 .ds-sidebar .ds-sublist {
-  list-style: none;
   display: none;
+  list-style: none;
   padding: 8px 0 0 24px;
 }
 .ds-sidebar .ds-sublist--active {

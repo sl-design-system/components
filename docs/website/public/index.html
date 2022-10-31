@@ -31,7 +31,7 @@
 
 document.querySelector('.ds-search').addEventListener('focus', () => {
   const searchText = searchInput.textContent;
-  console.log(searchInput);
+  console.log(searchInput, searchText);
 });
 
 </script>
@@ -188,52 +188,52 @@ ul {
 <div class="collections">
 <ul>
 <li>
-<p><a href="/categories/components/"> Components </a></p>
-</li>
-<li>
-<p><a href="/categories/design-tokens/color/"> Color </a></p>
-</li>
-<li>
-<p><a href="/categories/components/checkbox/"> Checkbox component </a></p>
-</li>
-<li>
-<p><a href="/categories/contributing/"> Contributing </a></p>
-</li>
-<li>
-<p><a href="/categories/design-tokens/border/"> Border </a></p>
-</li>
-<li>
-<p><a href="/categories/design-tokens/"> Design Tokens </a></p>
-</li>
-<li>
-<p><a href="/categories/components/checkbox/specs/"> Checkbox specs </a></p>
-</li>
-<li>
-<p><a href="/categories/components/checkbox/overview/"> Checkbox overview </a></p>
-</li>
-<li>
 <p><a href="/categories/FAQs/"> FAQs </a></p>
 </li>
 <li>
-<p><a href="/categories/components/button/"> Button </a></p>
-</li>
-<li>
-<p><a href="/categories/components/overview/"> Overview </a></p>
-</li>
-<li>
-<p><a href="/categories/whats-new/"> What's new </a></p>
+<p><a href="/categories/components/"> Components </a></p>
 </li>
 <li>
 <p><a href="/categories/components/badge/"> Badge </a></p>
 </li>
 <li>
+<p><a href="/categories/components/button/"> Button </a></p>
+</li>
+<li>
 <p><a href="/categories/components/card/"> Card </a></p>
+</li>
+<li>
+<p><a href="/categories/components/checkbox/"> Checkbox component </a></p>
+</li>
+<li>
+<p><a href="/categories/components/checkbox/overview/"> Checkbox overview </a></p>
+</li>
+<li>
+<p><a href="/categories/components/checkbox/specs/"> Checkbox specs </a></p>
+</li>
+<li>
+<p><a href="/categories/components/overview/"> Overview </a></p>
 </li>
 <li>
 <p><a href="/categories/components/spinner/"> Spinner </a></p>
 </li>
 <li>
+<p><a href="/categories/contributing/"> Contributing </a></p>
+</li>
+<li>
+<p><a href="/categories/design-tokens/"> Design Tokens </a></p>
+</li>
+<li>
+<p><a href="/categories/design-tokens/border/"> Border </a></p>
+</li>
+<li>
+<p><a href="/categories/design-tokens/color/"> Color </a></p>
+</li>
+<li>
 <p><a href="/categories/getting-started/"> Getting started </a></p>
+</li>
+<li>
+<p><a href="/categories/whats-new/"> What's new </a></p>
 </li>
 </ul>
 </div>
@@ -252,21 +252,9 @@ ul {
 <p>Components list</p>
 <div class="wrapper">
   <div class="component">
-  <h3>Checkbox component</h3>
+  <h3>Badge</h3>
   <nord-card padding="l">
-  <a href="/categories/components/checkbox/">Checkbox component</a>
-  </nord-card>
-  </div>
-  <div class="component">
-  <h3>Checkbox specs</h3>
-  <nord-card padding="l">
-  <a href="/categories/components/checkbox/specs/">Checkbox specs</a>
-  </nord-card>
-  </div>
-  <div class="component">
-  <h3>Checkbox overview</h3>
-  <nord-card padding="l">
-  <a href="/categories/components/checkbox/overview/">Checkbox overview</a>
+  <a href="/categories/components/badge/">Badge</a>
   </nord-card>
   </div>
   <div class="component">
@@ -276,21 +264,33 @@ ul {
   </nord-card>
   </div>
   <div class="component">
-  <h3>Overview</h3>
-  <nord-card padding="l">
-  <a href="/categories/components/overview/">Overview</a>
-  </nord-card>
-  </div>
-  <div class="component">
-  <h3>Badge</h3>
-  <nord-card padding="l">
-  <a href="/categories/components/badge/">Badge</a>
-  </nord-card>
-  </div>
-  <div class="component">
   <h3>Card</h3>
   <nord-card padding="l">
   <a href="/categories/components/card/">Card</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Checkbox component</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/checkbox/">Checkbox component</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Checkbox overview</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/checkbox/overview/">Checkbox overview</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Checkbox specs</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/checkbox/specs/">Checkbox specs</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Overview</h3>
+  <nord-card padding="l">
+  <a href="/categories/components/overview/">Overview</a>
   </nord-card>
   </div>
   <div class="component">
@@ -300,37 +300,7 @@ ul {
   </nord-card>
   </div>
 </div>
-<style>
-  .wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 32px;
-  }
-
-  .component {
-    display: flex;
-    flex-direction: column;
-  }
-</style>
-<p>Components list</p>
-<div class="wrapper">
-  <div class="component">
-  <h3>Color</h3>
-  <nord-card padding="l">
-  <a href="/categories/design-tokens/color/">Color</a>
-  </nord-card>
-  </div>
-  <div class="component">
-  <h3>Border</h3>
-  <nord-card padding="l">
-  <a href="/categories/design-tokens/border/">Border</a>
-  </nord-card>
-  </div>
-</div>
-<p>specs content</p>
-<p>to jest specs content</p>
-<p>overview content<br>
-test</p>
+<p>Badge component</p>
 <style>  
   h3 {
     margin-bottom: 16px;
@@ -380,10 +350,40 @@ test</p>
   <sl-button variant="warning">Warning</sl-button>
   <sl-button variant="warning" disabled>Disabled</sl-button>
 </div>
-<h2 id="components-overview" tabindex="-1"><a class="header-anchor" href="#components-overview">Components Overview</a></h2>
-<p>Badge component</p>
 <p>Card component example...</p>
+<p>overview content<br>
+test</p>
+<p>specs content</p>
+<p>to jest specs content</p>
+<h2 id="components-overview" tabindex="-1"><a class="header-anchor" href="#components-overview">Components Overview</a></h2>
 <p>Spinner component example</p>
+<style>
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 32px;
+  }
+
+  .component {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+<p>Components list</p>
+<div class="wrapper">
+  <div class="component">
+  <h3>Border</h3>
+  <nord-card padding="l">
+  <a href="/categories/design-tokens/border/">Border</a>
+  </nord-card>
+  </div>
+  <div class="component">
+  <h3>Color</h3>
+  <nord-card padding="l">
+  <a href="/categories/design-tokens/color/">Color</a>
+  </nord-card>
+  </div>
+</div>
 <p>Sanoma Learning Design System ...</p>
 <p><my-element><template shadowroot="open"><style>
     :host {

@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/web-components';
+import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../button-bar/register.js';
 import './register.js';

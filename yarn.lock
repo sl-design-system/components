@@ -2353,6 +2353,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@open-wc/form-control@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "@open-wc/form-control@npm:0.4.1"
+  checksum: d04bda7256c21b4f42970439eab822dfbf374d9268d6f4a4a8040b5680e3e9d4dd9b0580cd224daa2be55d4f4755c95dae51460ecf7213a34c8d863de4af7780
+  languageName: node
+  linkType: hard
+
 "@open-wc/scoped-elements@npm:^2.1.3":
   version: 2.1.3
   resolution: "@open-wc/scoped-elements@npm:2.1.3"
@@ -2494,6 +2501,7 @@ __metadata:
     "@babel/core": ^7.19.6
     "@lit/localize": ^0.11.4
     "@mdx-js/react": ^1.6.22
+    "@open-wc/form-control": ^0.4.1
     "@open-wc/scoped-elements": ^2.1.3
     "@open-wc/testing": ^3.1.6
     "@storybook/addon-a11y": ^7.0.0-alpha.45
@@ -2508,6 +2516,7 @@ __metadata:
     "@web/test-runner-commands": ^0.6.5
     "@web/test-runner-playwright": ^0.9.0
     babel-loader: ^8.2.5
+    element-internals-polyfill: ^1.1.15
     lit: ^2.4.0
     lit-html: ^2.4.0
     sinon: ^14.0.1
@@ -7951,6 +7960,13 @@ __metadata:
   version: 1.4.251
   resolution: "electron-to-chromium@npm:1.4.251"
   checksum: 379a01fde7b9e986abd91152bdad70c91f22008fae235a2cf677d8c68b6a5e83ba2516d514c4991db8a3aee1170900142d4adcffc39f155aab16cb9e7eafca64
+  languageName: node
+  linkType: hard
+
+"element-internals-polyfill@npm:^1.1.15":
+  version: 1.1.15
+  resolution: "element-internals-polyfill@npm:1.1.15"
+  checksum: 555aa42c7a6ac7c8833fc31831dab41715b3ae5e4882e20d21af31c2ff7267359813dafcc660531fbba7575675f340bd4f6f1cfa82d3d3366806a9e04ccf5239
   languageName: node
   linkType: hard
 

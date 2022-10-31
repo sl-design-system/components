@@ -1,0 +1,32 @@
+$sticky-breakpoint: 60px;
+
+:not(:defined) {
+  visibility: visible;
+}
+
+html {
+  scroll-behavior: smooth;
+
+  @media (min-height: $sticky-breakpoint) {
+    scroll-padding-top: 70px;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--second-background-color, #041c52);
+  color: var(--font-color);
+  display: flex;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--font-color);
+}

@@ -1,11 +1,18 @@
 {
-  "name": "@slds/root",
+  "name": "@sanomalearning/slds-root",
   "packageManager": "yarn@3.2.3",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git"
+  },
   "workspaces": [
+    "docs/website",
     "packages/core",
+    "packages/grid",
     "packages/tokens",
     "scripts",
+    "tools/example-data",
     "tools/storybook-addon-themes"
   ],
   "scripts": {
@@ -13,12 +20,15 @@
     "clean": "wireit",
     "docs": "wireit",
     "lint": "wireit",
+    "postinstall": "husky install",
+    "release": "wireit",
     "test": "wireit"
   },
   "wireit": {
     "build": {
       "dependencies": [
         "./packages/core:build",
+        "./packages/grid:build",
         "./packages/tokens:build"
       ]
     },
@@ -31,26 +41,41 @@
       ]
     },
     "lint": {
-      "command": "echo Linting"
+      "dependencies": [
+        "./packages/core:lint"
+      ]
+    },
+    "release": {
+      "command": "yarn changeset publish",
+      "dependencies": [
+        "build"
+      ]
     },
     "test": {
-      "command": "echo Testing 1 2 3"
+      "dependencies": [
+        "./packages/core:test"
+      ]
     }
   },
   "devDependencies": {
+    "@11ty/eleventy": "^1.0.2",
+    "@changesets/changelog-github": "^0.4.7",
+    "@changesets/cli": "^2.25.0",
     "@custom-elements-manifest/analyzer": "^0.6.4",
-    "@typescript-eslint/eslint-plugin": "^5.38.1",
-    "@typescript-eslint/parser": "^5.38.1",
-    "eslint": "^8.24.0",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^3.5.1",
+    "eslint-import-resolver-typescript": "^3.5.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "sass": "^1.55.0",
-    "stylelint": "^14.13.0",
+    "stylelint": "^14.14.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^2.0.0",
     "typescript": "^4.8.4",

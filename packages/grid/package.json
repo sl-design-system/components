@@ -1,0 +1,122 @@
+{
+  "name": "@sanomalearning/slds-grid",
+  "description": "SLDS Grid components",
+  "version": "0.0.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git",
+    "directory": "packages/grid"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "wireit",
+    "build:scss": "wireit",
+    "build:ts": "wireit",
+    "docs": "wireit",
+    "lint": "wireit",
+    "lint:scss": "wireit",
+    "lint:ts": "wireit",
+    "storybook": "wireit",
+    "test": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "build:ts"
+      ]
+    },
+    "build:scss": {
+      "command": "yarn node ../../scripts/package-css.mjs ../core/src/styles/shared.scss",
+      "files": [
+        "../../.stylelintrc.cjs",
+        "../../scripts/package-css.mjs",
+        "src/**/*.scss"
+      ],
+      "output": [
+        "src/**/*.scss.ts"
+      ]
+    },
+    "build:ts": {
+      "command": "tsc -b ./tsconfig.build.json --pretty",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "../core:build",
+        "build:scss"
+      ],
+      "files": [
+        "src/**/*.ts"
+      ]
+    },
+    "docs": {
+      "command": "storybook build -o dist/storybook --quiet",
+      "dependencies": [
+        "build"
+      ]
+    },
+    "lint": {
+      "dependencies": [
+        "lint:scss",
+        "lint:ts"
+      ]
+    },
+    "lint:scss": {
+      "command": "stylelint \"src/**/*.scss\" --color",
+      "files": [
+        "../../.stylelintrc.cjs",
+        "src/**/*.scss"
+      ]
+    },
+    "lint:ts": {
+      "command": "eslint --color --ext .ts src",
+      "files": [
+        "../../.eslintignore",
+        "../../.eslintrc.cjs",
+        "../../.prettierrc.cjs",
+        "src/**/*.ts"
+      ]
+    },
+    "storybook": {
+      "command": "storybook dev -p 6006 --quiet"
+    },
+    "test": {
+      "command": "wtr --static-logging",
+      "dependencies": [
+        "build:ts"
+      ],
+      "files": [
+        "web-test-runner.config.mjs",
+        "dist/**/*.spec.js"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@mdx-js/react": "^1.6.22",
+    "@open-wc/testing": "^3.1.6",
+    "@sanomalearning/example-data": "*",
+    "@storybook/addon-a11y": "^7.0.0-alpha.45",
+    "@storybook/addon-docs": "^7.0.0-alpha.45",
+    "@storybook/addon-essentials": "^7.0.0-alpha.45",
+    "@storybook/addon-links": "^7.0.0-alpha.45",
+    "@storybook/addon-storysource": "^7.0.0-alpha.45",
+    "@storybook/web-components": "^7.0.0-alpha.45",
+    "@storybook/web-components-webpack5": "^7.0.0-alpha.45",
+    "@types/sinon": "^10.0.13",
+    "@web/test-runner": "^0.15.0",
+    "@web/test-runner-commands": "^0.6.5",
+    "@web/test-runner-playwright": "^0.9.0",
+    "babel-loader": "^8.2.5",
+    "lit-html": "^2.4.0",
+    "sinon": "^14.0.1",
+    "storybook": "^7.0.0-alpha.45",
+    "typescript": "^4.8.4",
+    "wireit": "^0.7.2"
+  },
+  "dependencies": {
+    "@lit-labs/virtualizer": "^0.7.2",
+    "@sanomalearning/slds-core": "*"
+  }
+}

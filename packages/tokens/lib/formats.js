@@ -1,32 +1,44 @@
 import StyleDictionary from 'style-dictionary';
 
+const replaceReferences = (dictionary, originalValue, value) => {
+  if (!dictionary.usesReference(originalValue)) {
+    return value;
+  }
+
+  dictionary.getReferences(originalValue).forEach(ref => {
+    if (ref.value && ref.name) {
+      if (ref.palette && !value.includes('rgba(')) {
+        value = value.replace(ref.value, () => `rgb(var(--${ref.name}))`);
+      } else {
+        value = value.replace(ref.value, () => `var(--${ref.name})`);
+      }
+    }
+  });
+
+  if (value.includes('rgba(')) {
+    value = value.replace(',', ' /');
+  }
+
+  return value;
+};
+
 const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
   let value = token.value;
 
   if (token.palette) {
-    const { rgb: { r, g, b }} = token.attributes;
+    const {
+      rgb: { r, g, b }
+    } = token.attributes;
 
     return `${options.prefix}--${token.name}: ${r} ${g} ${b};`;
   } else if (typeof value === 'object' && token.type === 'typography') {
-    let output = `${value.fontWeight} ${value.fontSize}/${value.lineHeight} ${value.fontFamily}`;
+    const [fontFamily, fontSize, fontWeight, lineHeight] = ['fontFamily', 'fontSize', 'fontWeight', 'lineHeight'].map(
+      attr => replaceReferences(dictionary, token.original.value[attr], value[attr].toString())
+    );
 
-    return `${options.prefix}--${token.name}: ${output};`;
+    return `${options.prefix}--${token.name}: ${fontWeight} ${fontSize}/${lineHeight} ${fontFamily};`;
   } else if (dictionary.usesReference(token.original.value) && typeof value === 'string') {
-    const refs = dictionary.getReferences(token.original.value);
-
-    refs.forEach(ref => {
-      if (ref.value && ref.name) {
-        if (ref.palette && !value.startsWith('rgba(')) {
-          value = value.replace(ref.value, () => `rgb(var(--${ref.name}))`);
-        } else {
-          value = value.replace(ref.value, () => `var(--${ref.name})`);
-
-          if (value.startsWith('rgba')) {
-            value = value.replace(',', ' /');
-          }
-        }
-      }
-    });
+    value = replaceReferences(dictionary, token.original.value, value);
 
     // Wrap the value inside a calc() function if it contains an expression
     if (!value.startsWith('rgb') && [' - ', ' + ', ' / '].some(expr => value.indexOf(expr) !== -1)) {
@@ -35,7 +47,9 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
 
     return `${options.prefix}--${token.name}: ${value};`;
   } else {
-    return StyleDictionary.formatHelpers.createPropertyFormatter({ format: 'css', dictionary, outputReferences: true })(token);
+    return StyleDictionary.formatHelpers.createPropertyFormatter({ format: 'css', dictionary, outputReferences: true })(
+      token
+    );
   }
 };
 
@@ -125,7 +139,7 @@ export const scssTypography = {
           })
           .join('\n');
 
-        return `@mixin ${name} {\n${props}\n}\n`;
+        return `@mixin ${name} {\n${props}${props.length ? '\n' : ''}}\n`;
       })
       .join('\n');
 
@@ -135,16 +149,16 @@ export const scssTypography = {
 
 export const scssVariables = {
   name: 'custom/scss/variables',
-  formatter: ({ dictionary, file, options }) => {    
+  formatter: ({ dictionary, file, options }) => {
     const tokens = dictionary.allTokens
-      .filter(token => options.filterFile ? token.filePath === options.filterFile : true)
+      .filter(token => (options.filterFile ? token.filePath === options.filterFile : true))
       .sort(StyleDictionary.formatHelpers.sortByReference(dictionary))
       .map(token => tokenToCss(dictionary, token, { prefix: '  ' }))
       .filter(token => !!token)
       .join('\n');
 
     const mixinName = options.mixinName || 'sl-theme-base';
-    
-    return StyleDictionary.formatHelpers.fileHeader({ file }) + `@mixin ${mixinName} {\n${tokens}\n}\n`;
+
+    return StyleDictionary.formatHelpers.fileHeader({ file }) + `@mixin ${mixinName} {\n${tokens}${tokens.length ? '\n' : ''}}\n`;
   }
 };

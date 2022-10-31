@@ -25,6 +25,10 @@ export const Indeterminate: StoryObj = {
   render: () => html`<sl-checkbox indeterminate>Indeterminate</sl-checkbox>`
 };
 
+export const NoText: StoryObj = {
+  render: () => html`<sl-checkbox aria-label="Hello world"></sl-checkbox>`
+};
+
 export const Overflow: StoryObj = {
   render: () => html`
     <sl-checkbox

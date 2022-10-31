@@ -38,3 +38,10 @@ export const Overflow: StoryObj = {
     >
   `
 };
+
+export const WithLabel: StoryObj = {
+  render: () => html`
+    <label for="checkbox">Label</label>
+    <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+  `
+};

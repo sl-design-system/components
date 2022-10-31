@@ -19,7 +19,6 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  */
 export class ButtonBar extends LitElement {
   /** @private */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   static styles: CSSResultGroup = styles;
 
   /**

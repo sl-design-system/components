@@ -5,6 +5,7 @@ const markdownIt = require('markdown-it');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
+const fs = require('fs');
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(litPlugin, {
@@ -58,7 +59,6 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy('./src/assets');
 
-  const fs = require('fs');
   const NOT_FOUND_PATH = 'public/404.html';
 
   eleventyConfig.setBrowserSyncConfig({

@@ -13,7 +13,6 @@ export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'dan
 
 export class Button extends LitElement {
   /** @private */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   static styles: CSSResultGroup = styles;
 
   /** Whether the button is disabled. */

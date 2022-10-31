@@ -1,0 +1,72 @@
+---
+title: Button
+eleventyNavigation:
+  parent: Components
+  key: Button
+  order: 3
+---
+<style>  
+  h3 {
+    margin-bottom: 16px;
+  }
+
+.ds-buttons-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 16px;
+  margin: 16px 0;
+}
+</style>
+
+<div class="ds-tabs-wrapper">
+  <a href="#overview" class="ds-tab active">Overview</a>
+  <a href="#specs" class="ds-tab">Specs</a>
+  <a href="#usage" class="ds-tab">Usage</a>
+  <a href="#accessibility" class="ds-tab">Accessibility</a>
+  <a href="#code" class="ds-tab">Code</a>
+</div>
+
+## Overview
+
+Button component overview
+
+### Key Points
+
+### Live demo
+
+### Resources
+
+## Specs
+
+### Anatomy
+
+### Variants
+
+### Types
+
+### Behaviour
+
+## Usage
+
+## Accessibility
+
+WCAG part
+
+## Code
+
+SL DS components:
+<div class="ds-buttons-wrapper">
+  <sl-button>Primary</sl-button>
+  <sl-button disabled>Disabled</sl-button>
+  <sl-button variant="secondary">Secondary</sl-button>
+  <sl-button variant="secondary" disabled>Disabled</sl-button>
+  <sl-button variant="success">Success</sl-button>
+  <sl-button variant="success" disabled>Disabled</sl-button>
+  <sl-button variant="danger">Danger</sl-button>
+  <sl-button variant="danger" disabled>Disabled</sl-button>
+  <sl-button variant="info">Info</sl-button>
+  <sl-button variant="info" disabled>Disabled</sl-button>
+  <sl-button variant="warning">Warning</sl-button>
+  <sl-button variant="warning" disabled>Disabled</sl-button>
+</div>

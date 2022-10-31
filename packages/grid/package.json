@@ -1,25 +1,16 @@
 {
-  "name": "@sanomalearning/slds-core",
-  "description": "SLDS Core Web Components",
-  "version": "0.0.1",
+  "name": "@sanomalearning/slds-grid",
+  "description": "SLDS Grid components",
+  "version": "0.0.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/sanomalearning/design-system.git",
-    "directory": "packages/core"
+    "directory": "packages/grid"
   },
   "type": "module",
-  "exports": {
-    "./button": "./dist/components/button/index.js",
-    "./button/register.js": "./dist/components/button/register.js",
-    "./button-bar": "./dist/components/button-bar/index.js",
-    "./button-bar/register.js": "./dist/components/button-bar/register.js",
-    "./checkbox": "./dist/components/checkbox/index.js",
-    "./checkbox/register.js": "./dist/components/checkbox/register.js",
-    "./utils/string.js": "./dist/components/utils/string.js"
-  },
   "scripts": {
     "build": "wireit",
     "build:scss": "wireit",
@@ -38,7 +29,7 @@
       ]
     },
     "build:scss": {
-      "command": "yarn node ../../scripts/package-css.mjs src/styles/shared.scss",
+      "command": "yarn node ../../scripts/package-css.mjs ../core/src/styles/shared.scss",
       "files": [
         "../../.stylelintrc.cjs",
         "../../scripts/package-css.mjs",
@@ -52,6 +43,7 @@
       "command": "tsc -b ./tsconfig.build.json --pretty",
       "clean": "if-file-deleted",
       "dependencies": [
+        "../core:build",
         "build:scss"
       ],
       "files": [
@@ -104,6 +96,7 @@
     "@babel/core": "^7.19.6",
     "@mdx-js/react": "^1.6.22",
     "@open-wc/testing": "^3.1.6",
+    "@sanomalearning/example-data": "*",
     "@storybook/addon-a11y": "^7.0.0-alpha.45",
     "@storybook/addon-docs": "^7.0.0-alpha.45",
     "@storybook/addon-essentials": "^7.0.0-alpha.45",
@@ -116,7 +109,6 @@
     "@web/test-runner-commands": "^0.6.5",
     "@web/test-runner-playwright": "^0.9.0",
     "babel-loader": "^8.2.5",
-    "element-internals-polyfill": "^1.1.15",
     "lit-html": "^2.4.0",
     "sinon": "^14.0.1",
     "storybook": "^7.0.0-alpha.45",
@@ -124,10 +116,7 @@
     "wireit": "^0.7.2"
   },
   "dependencies": {
-    "@lit/localize": "^0.11.4",
-    "@open-wc/form-control": "^0.4.1",
-    "@open-wc/scoped-elements": "^2.1.3",
-    "lit": "^2.4.0",
-    "tslib": "^2.4.0"
+    "@lit-labs/virtualizer": "^0.7.2",
+    "@sanomalearning/slds-core": "*"
   }
 }

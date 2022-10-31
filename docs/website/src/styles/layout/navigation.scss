@@ -1,16 +1,17 @@
 .ds-sidebar {
+  background: var(--second-background-color);
   display: flex;
   flex-direction: column;
-  position: fixed;
   height: 100%;
-  width: 260px;
-  background: var(--second-background-color);
+  position: fixed;
   transition: background 300ms ease-in-out;
+  width: 260px;
 
   .ds-title {
     font-size: 18px;
     margin: 36px 16px 16px;
 
+    /* stylelint-disable-next-line max-nesting-depth */
     a {
       color: #eff2fb;
       text-decoration: none;
@@ -23,8 +24,8 @@
   }
 
   .ds-list {
-    list-style: none;
     color: #eff2fb;
+    list-style: none;
     padding-left: 16px;
     position: relative;
   }
@@ -60,15 +61,15 @@
 
   .ds-search {
     background: var(--menu-second-color);
-    padding: 8px;
-    margin: 8px 16px;
+    border: 0;
     border-radius: 3px;
-    border: none;
+    margin: 8px 16px;
+    padding: 8px;
   }
 
   .ds-sublist {
-    list-style: none;
     display: none;
+    list-style: none;
     padding: 8px 0 0 24px;
   }
 

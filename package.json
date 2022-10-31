@@ -10,7 +10,8 @@
     "packages/core",
     "packages/tokens",
     "scripts",
-    "tools/storybook-addon-themes"
+    "tools/storybook-addon-themes",
+    "docs/website"
   ],
   "scripts": {
     "build": "wireit",
@@ -54,6 +55,7 @@
     }
   },
   "devDependencies": {
+    "@11ty/eleventy": "^1.0.2",
     "@changesets/changelog-github": "^0.4.7",
     "@changesets/cli": "^2.25.0",
     "@custom-elements-manifest/analyzer": "^0.6.4",

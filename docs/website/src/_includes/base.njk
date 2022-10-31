@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sanoma Learning Design System Documentation</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    {% include "./sidebar.njk" %}
+    <main>
+      <header>
+        <h1>{{ title }}</h1>
+      </header>
+      {{ content | safe }}
+    </main>
+    <script type="text/javascript">
+      {% include "./../js/tabs.js" %}
+    </script>
+  </body>
+</html>

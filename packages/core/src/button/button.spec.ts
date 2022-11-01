@@ -26,10 +26,6 @@ describe('sl-button', () => {
       expect(el).to.have.attribute('tabindex', '10');
     });
 
-    it('should have a button role', () => {
-      expect(el).to.have.attribute('role', 'button');
-    });
-
     it('should be size medium', () => {
       expect(el).to.have.attribute('size', 'md');
     });

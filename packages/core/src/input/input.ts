@@ -57,12 +57,16 @@ export class Input extends FormControlMixin(LitElement) {
 
   render(): TemplateResult {
     return html`
-      <input
-        @input="${this.#onInput}"
-        ?required=${this.required}
-        .placeholder="${this.placeholder}"
-        .value=${this.value}
-      />
+      <div class="wrapper" part="wrapper">
+        <slot name="prefix"></slot>
+        <input
+          @input="${this.#onInput}"
+          ?required=${this.required}
+          .placeholder="${this.placeholder}"
+          .value=${this.value}
+        />
+        <slot name="suffix"></slot>
+      </div>
     `;
   }
 

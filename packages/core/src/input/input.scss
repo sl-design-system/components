@@ -1,5 +1,6 @@
 :host {
-  --_border: 1px solid #d3d3d3;
+  --_border: 1px solid var(--_border-color);
+  --_border-color: #d3d3d3;
   --_border-radius: 3px;
 }
 
@@ -13,40 +14,38 @@
   pointer-events: none;
 }
 
-:host([invalid]) {
-  input {
-    border-color: #c00;
-  }
+:host(:focus-within) {
+  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
+  --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
+}
+
+:host(:invalid) {
+  --_border-color: #c00;
 }
 
 :host([invalid]) {
-  input {
-    border-color: #ed1d23;
-    border-radius: 3px;
-  }
+  --_border-color: #c00;
 }
 
-:host([invalid]) {
-  .with-error {
-    display: block;
-  }
+.wrapper {
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  padding: calc(0.25rem - 1px) 0.5rem;
+  transition: 0.2s ease-in-out;
+  transition-property: background, border, box-shadow, color, filter;
 }
 
 input {
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  margin-top: 3px;
-  padding: 5px 7px;
-}
-
-input:focus-visible {
-  border-color: hsl(207, 95%, calc(55% - 8% * 2));
-  box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
+  appearance: none;
+  border: 0;
+  font: inherit;
+  line-height: 24px;
+  margin: 0;
   outline: none;
-}
+  padding: 0;
 
-.with-error {
-  color: #ed1d23;
-  display: none;
-  padding: 5px 0;
+  &:focus {
+    outline: none;
+  }
 }

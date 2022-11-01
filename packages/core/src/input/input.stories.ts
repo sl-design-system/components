@@ -10,11 +10,16 @@ export const API: StoryObj = {
   args: {
     disabled: false,
     placeholder: 'This is placeholder',
+    prefix: '',
     required: false,
+    suffix: '',
     value: ''
   },
-  render: ({ disabled, placeholder, required, value }) => html`
-    <sl-input ?disabled=${disabled} ?required=${required} .placeholder=${placeholder} .value=${value}></sl-input>
+  render: ({ disabled, placeholder, prefix, required, suffix, value }) => html`
+    <sl-input ?disabled=${disabled} ?required=${required} .placeholder=${placeholder} .value=${value}>
+      ${prefix ? html`<span slot="prefix">${prefix}</span>` : ''}
+      ${suffix ? html`<span slot="suffix">${suffix}</span>` : ''}
+    </sl-input>
   `
 };
 

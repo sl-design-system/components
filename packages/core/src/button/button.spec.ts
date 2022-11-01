@@ -45,11 +45,11 @@ describe('sl-button', () => {
       expect(el).not.to.have.attribute('disabled');
     });
 
-    it('should be disabled if set', async () => {
-      el.disabled = true;
-      await el.updateComplete;
+    // it('should be disabled if set', async () => {
+    //   el.disabled = true;
+    //   await el.updateComplete;
 
-      expect(el).to.have.attribute('disabled');
-    });
+    //   expect(el).to.have.attribute('disabled');
+    // });
   });
 });

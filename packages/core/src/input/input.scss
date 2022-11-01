@@ -1,10 +1,21 @@
 :host {
-  display: block;
+  --_border: 1px solid #d3d3d3;
+  --_border-radius: 3px;
+}
+
+:host {
+  align-items: center;
+  display: inline-flex;
+}
+
+:host(:disabled) {
+  cursor: default;
+  pointer-events: none;
 }
 
 :host([invalid]) {
   input {
-    border-color: red;
+    border-color: #c00;
   }
 }
 
@@ -22,20 +33,20 @@
 }
 
 input {
+  border: var(--_border);
+  border-radius: var(--_border-radius);
   margin-top: 3px;
-  border: 1px solid #d3d3d3;
-  border-radius: 3px;
   padding: 5px 7px;
 }
 
 input:focus-visible {
-  box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
   border-color: hsl(207, 95%, calc(55% - 8% * 2));
+  box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
   outline: none;
 }
 
 .with-error {
-  display: none;
   color: #ed1d23;
+  display: none;
   padding: 5px 0;
 }

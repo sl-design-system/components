@@ -1,196 +1,72 @@
-import {CSSResultGroup, html, LitElement, TemplateResult} from 'lit';
-import {property, query} from "lit/decorators.js";
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { FormControlMixin } from '@open-wc/form-control';
+import { LitElement, html } from 'lit';
+import { property, query } from 'lit/decorators.js';
 import styles from './input.scss.js';
 
-let nextUniqueId = 0;
-
-export class Input extends LitElement {
+export class Input extends FormControlMixin(LitElement) {
   /** @private */
-  static styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = styles;
 
-  static formAssociated = true;
-
-  @property() placeholder = '';
-
-  @property() id!: string;
-
-  @property() pristine = true;
-
-  @property() validationError?: string;
-
-  @query('input') input!: HTMLInputElement;
-
-  @query('.with-error') errorMessageElement!: HTMLDivElement;
-
-  @property({ type: String }) validationErrorMessage: string = "Hello LitElement";
-
-  #internals: ElementInternals = this.attachInternals();
-
-  #labels: Set<WeakRef<Node>> = new Set<WeakRef<Node>>;
-
-  #validationAttributes = [
-    'type',
-    'value',
-    'placeholder',
-    'required',
-    'min',
-    'max',
-    'minLength',
-    'maxLength',
-    'pattern'
-  ];
-
-  get validity(): ValidityState {
-    return this.#internals.validity;
-  }
-
-  get validationMessage(): string {
-    return this.#internals.validationMessage;
-  }
-
-  get willValidate(): boolean {
-    return this.#internals.willValidate;
-  }
-
-  checkValidity(): boolean {
-    return this.#internals.checkValidity();
-  }
-
-  reportValidity(): boolean {
-    return this.#internals.reportValidity();
-  }
-
-  get value(): string {
-    return this.input.value;
-  }
-
-  set value(value: string) {
-    this.input.value = value;
-    this.#internals.setFormValue(value);
-  }
-
-  get form(): HTMLFormElement | null {
-    return this.#internals.form;
-  }
-
-  get validateOnChange(): boolean {
-    return this.hasAttribute('validate-on-change');
-  }
-
-  get customErrorDisplay(): boolean {
-    return this.hasAttribute('custom-error-display');
-  }
-
-  get invalid(): boolean {
-    return this.hasAttribute('invalid');
-  }
-
-  set invalid(isInvalid: boolean) {
-    isInvalid && this.customErrorDisplay ? this.setAttribute('invalid', '') : this.removeAttribute('invalid');
-  }
-
-
-  firstUpdated(): void {
-    this.invalid = false;
-    this.pristine = true;
-
-    this.#validationAttributes.forEach((attr) => {
-      const attrValue = attr === 'required' ? this.hasAttribute(attr) : this.getAttribute(attr);
-      if(attrValue !== null && attrValue !== undefined) {
-        this.input.setAttribute(attr, attrValue.toString());
-      }
-    });
-
-    this.input.addEventListener('change', (event) => {
-      if(this.validateOnChange) {
-        this.pristine = false;
-      }
-
-      const clone = new Event(event.type, event);
-      this.dispatchEvent(clone);
-
-      this.validateInput();
-    });
-
-    this.addEventListener('invalid', (event) => {
-      this.invalid = true;
-      this.pristine = false;
-
-      if(this.customErrorDisplay) {
-        event.preventDefault();
-      }
-    });
-
-    this.#internals.labels.forEach(label => {
-      (label as HTMLLabelElement).id = `sl-input-label-${nextUniqueId++}`;
-      label.addEventListener('click', (event: Event) => this.onClick(event));
-      const ref = new WeakRef(label);
-      this.#labels.add(ref);
-    });
-
-    const label = (this.#internals.labels[0] as HTMLLabelElement);
-    this.input.setAttribute('aria-labelledby', label.id);
-    this.input.setAttribute('aria-label', label.innerText);
-    this.setAttribute('aria-labelledby', label.id);
-
-    this.errorMessageElement.id = `sl-input-error-msg-${nextUniqueId++}`;
-    this.input.setAttribute('aria-describedby', this.errorMessageElement.id);
-
-    this.validateInput();
-  }
-
-  onClick(event: Event): void {
-    this.input.focus();
+  #onClick = (event: Event): void => {
     event.preventDefault();
-  }
 
-  onBlur(): void {
-    this.validationErrorMessage = this.#internals.validationMessage;
+    this.input.focus();
   };
 
-  validateInput(): void {
-    const validState = this.input.validity;
-    this.invalid = false;
-
-    if (!validState.valid) {
-      for (let state in validState) {
-        const attr = `content-${state.toString()}`;
-
-        if(validState[state as keyof ValidityState]) {
-          this.validationError = state.toString();
-          this.invalid = !this.pristine && !validState.valid;
-
-          const errorMessage = this.hasAttribute(attr) ? this.getAttribute(attr) : this.input.validationMessage;
-
-          this.#internals.setValidity(
-            {[this.validationError]: true},
-            errorMessage?.toString()
-          );
-
-          if(this.invalid && this.customErrorDisplay) {
-            this.dispatchEvent(new Event('invalid'));
-          }
-        }
-      }
+  #onKeydown = (event: KeyboardEvent): void => {
+    if (event.key === 'Enter' && this.form) {
+      this.form.requestSubmit();
     }
-    else {
-      this.#internals.setValidity({});
+  };
+
+  @query('input') private input!: HTMLInputElement;
+
+  /** Placeholder text in the input. */
+  @property() placeholder = '';
+
+  /** Whether this input must be filled in before form submission. */
+  @property({ type: Boolean, reflect: true }) required = false;
+
+  /** The value of the input. */
+  @property() value = '';
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    this.addEventListener('click', this.#onClick);
+    this.addEventListener('invalid', this.#onClick);
+    this.addEventListener('keydown', this.#onKeydown);
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener('click', this.#onClick);
+    this.removeEventListener('invalid', this.#onClick);
+    this.removeEventListener('keydown', this.#onKeydown);
+
+    super.disconnectedCallback();
+  }
+
+  updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('value')) {
+      this.setValue(this.value);
     }
   }
 
   render(): TemplateResult {
-    return html`<input
-      @blur="${this.validateOnChange ? this.onBlur : null}"
-      .id="${this.id}"
-      aria-labelledby="${(this.#internals.labels[0] as HTMLLabelElement)?.id}"
-      .placeholder="${this.placeholder}"/>
-    <div class="with-error">${this.validateOnChange ? this.validationErrorMessage : this.validationMessage}</div>
+    return html`
+      <input
+        @input="${this.#onInput}"
+        ?required=${this.required}
+        .placeholder="${this.placeholder}"
+        .value=${this.value}
+      />
     `;
   }
 
-  disconnectedCallback(): void {
-    this.#labels.forEach(label => {
-      label.deref()?.removeEventListener('click', (event: Event) => this.onClick(event));
-    });
+  #onInput({ target }: Event & { target: HTMLInputElement }): void {
+    this.value = target.value;
   }
 }

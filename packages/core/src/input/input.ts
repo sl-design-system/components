@@ -5,6 +5,13 @@ import { property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import styles from './input.scss.js';
 
+/**
+ * Single line text input component.
+ *
+ * @csspart wrapper - The wrapper container
+ * @slot prefix - Content shown before the input
+ * @slot suffix - Content shown after the input
+ */
 export class Input extends FormControlMixin(LitElement) {
   /** @private */
   static formControlValidators = [maxLengthValidator, minLengthValidator, requiredValidator];

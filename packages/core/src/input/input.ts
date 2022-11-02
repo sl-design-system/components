@@ -1,32 +1,52 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { FormControlMixin } from '@open-wc/form-control';
+import { FormControlMixin, maxLengthValidator, minLengthValidator, requiredValidator } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { live } from 'lit/directives/live.js';
 import styles from './input.scss.js';
 
 export class Input extends FormControlMixin(LitElement) {
+  /** @private */
+  static formControlValidators = [maxLengthValidator, minLengthValidator, requiredValidator];
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
   #onClick = (event: Event): void => {
     event.preventDefault();
 
-    this.input.focus();
+    this.validationTarget?.focus();
   };
 
   #onKeydown = (event: KeyboardEvent): void => {
     if (event.key === 'Enter' && this.form) {
-      this.form.requestSubmit();
+      this.form?.requestSubmit();
     }
   };
 
-  @query('input') private input!: HTMLInputElement;
+  /** Maximum length (number of characters). */
+  @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
+
+  /** Minimum length (number of characters). */
+  @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
   /** Placeholder text in the input. */
   @property() placeholder = '';
 
   /** Whether this input must be filled in before form submission. */
-  @property({ type: Boolean, reflect: true }) required = false;
+  @property({ type: Boolean }) required = false;
+
+  /**
+   * The input type. Only text types are valid here. For other types,
+   * see their respective components.
+   */
+  @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text';
+
+  /** The validation message shown when the control is invalid. */
+  @property() validationMessage = '';
+
+  /** The element that will be focused when the validity state is reported. */
+  @query('input') validationTarget?: HTMLInputElement;
 
   /** The value of the input. */
   @property() value = '';
@@ -35,20 +55,32 @@ export class Input extends FormControlMixin(LitElement) {
     super.connectedCallback();
 
     this.addEventListener('click', this.#onClick);
-    this.addEventListener('invalid', this.#onClick);
     this.addEventListener('keydown', this.#onKeydown);
   }
 
   disconnectedCallback(): void {
     this.removeEventListener('click', this.#onClick);
-    this.removeEventListener('invalid', this.#onClick);
     this.removeEventListener('keydown', this.#onKeydown);
 
     super.disconnectedCallback();
   }
 
-  updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  willUpdate(changes: PropertyValues<this>): void {
+    if (changes.has('maxLength')) {
+      if (this.maxLength) {
+        this.validationTarget?.setAttribute('maxlength', this.maxLength.toString());
+      } else {
+        this.validationTarget?.removeAttribute('maxlength');
+      }
+    }
+
+    if (changes.has('minLength')) {
+      if (this.minLength) {
+        this.validationTarget?.setAttribute('minlength', this.minLength.toString());
+      } else {
+        this.validationTarget?.removeAttribute('minlength');
+      }
+    }
 
     if (changes.has('value')) {
       this.setValue(this.value);
@@ -61,13 +93,22 @@ export class Input extends FormControlMixin(LitElement) {
         <slot name="prefix"></slot>
         <input
           @input="${this.#onInput}"
-          ?required=${this.required}
           .placeholder="${this.placeholder}"
-          .value=${this.value}
+          .type=${this.type}
+          .value=${live(this.value)}
         />
         <slot name="suffix"></slot>
       </div>
+      ${this.validationMessage ? html`<div class="validation">${this.validationMessage}</div>` : ''}
     `;
+  }
+
+  resetFormControl(): void {
+    this.value = '';
+  }
+
+  validationMessageCallback(message: string): void {
+    this.validationMessage = message;
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {

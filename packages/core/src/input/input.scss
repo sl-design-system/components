@@ -2,11 +2,14 @@
   --_border: 1px solid var(--_border-color);
   --_border-color: #d3d3d3;
   --_border-radius: 3px;
+  --_gap: 0.25rem;
 }
 
 :host {
-  align-items: center;
+  align-items: start;
   display: inline-flex;
+  flex-direction: column;
+  gap: var(--_gap);
 }
 
 :host(:disabled) {
@@ -19,11 +22,11 @@
   --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }
 
-:host(:invalid) {
+:host(:invalid:--show-error) {
   --_border-color: #c00;
 }
 
-:host([invalid]) {
+:host([internals-invalid][state--show-error]) {
   --_border-color: #c00;
 }
 
@@ -48,4 +51,8 @@ input {
   &:focus {
     outline: none;
   }
+}
+
+.validation {
+  color: #c00;
 }

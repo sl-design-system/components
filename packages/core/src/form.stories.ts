@@ -78,3 +78,35 @@ export const Vertical: StoryObj = {
     </form>
   `
 };
+
+export const Validation: StoryObj = {
+  render: () => html`
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      label {
+        margin-bottom: 0.25rem;
+      }
+      label:not(:first-of-type) {
+        margin-top: 1rem;
+      }
+      label:has(+ [required])::after {
+        content: ' *';
+      }
+    </style>
+    <form @submit=${onSubmit}>
+      <label for="input">Input</label>
+      <sl-input id="input" name="input" placeholder="I am required" required></sl-input>
+
+      <label for="checkbox">Checkbox</label>
+      <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">I am required</sl-checkbox>
+
+      <sl-button-bar align="end">
+        <sl-button type="reset">Reset</sl-button>
+        <sl-button type="submit">Submit</sl-button>
+      </sl-button-bar>
+    </form>
+  `
+};

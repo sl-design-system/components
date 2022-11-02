@@ -8,7 +8,8 @@ module.exports = {
     {
       name: '@storybook/addon-essentials',
       options: {
-        backgrounds: false
+        backgrounds: false,
+        docs: false
       }
     },
     '@storybook/addon-storysource'

@@ -18,9 +18,7 @@ module.exports = {
   ignorePatterns: [
     '**/*.e2e.tsx',
     '**/*.scss.ts',
-    '**/*.spec.ts',
-    '**/*.stories.js',
-    '**/*.stories.ts'
+    '**/*.stories.js'
   ],
   rules: {
     '@typescript-eslint/array-type': [

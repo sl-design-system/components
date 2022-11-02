@@ -26,7 +26,7 @@ export class Input extends FormControlMixin(LitElement) {
   };
 
   #onKeydown = (event: KeyboardEvent): void => {
-    if (event.key === 'Enter' && this.form) {
+    if (event.key === 'Enter') {
       this.form?.requestSubmit();
     }
   };
@@ -41,7 +41,7 @@ export class Input extends FormControlMixin(LitElement) {
   @property() placeholder = '';
 
   /** Whether this input must be filled in before form submission. */
-  @property({ type: Boolean }) required = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
   /**
    * The input type. Only text types are valid here. For other types,

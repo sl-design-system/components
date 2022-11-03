@@ -1,6 +1,7 @@
 :host {
   --_background: #fff;
-  --_border: 1px solid #ccc;
+  --_border: 1px solid var(--_border-color);
+  --_border-color: #ccc;
   --_border-radius: 3px;
   --_gap: 0.25rem;
   --_path-length: 22.910259;
@@ -15,11 +16,17 @@
   cursor: pointer;
   display: inline-flex;
   gap: var(--_gap);
+  outline: none;
 }
 
 :host(:disabled) {
   cursor: default;
   pointer-events: none;
+}
+
+:host(:focus-within) {
+  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
+  --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }
 
 :host(:--checked) {
@@ -33,15 +40,18 @@
 }
 
 .box {
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
   display: inline-flex;
   flex-shrink: 0;
+  transition: 0.2s ease-in-out;
+  transition-property: background, border, box-shadow, color, filter;
 }
 
 svg {
   align-self: center;
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
   box-sizing: border-box;
   fill: none;
   height: var(--_size);

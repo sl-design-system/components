@@ -97,8 +97,8 @@ export const Validation: StoryObj = {
       }
     </style>
     <form @submit=${onSubmit}>
-      <label for="input">Input</label>
-      <sl-input id="input" name="input" placeholder="I am required" required></sl-input>
+      <label for="input">Label for the input</label>
+      <sl-input id="input" name="input" placeholder="This is a placeholder" required></sl-input>
 
       <label for="checkbox">Checkbox</label>
       <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">I am required</sl-checkbox>

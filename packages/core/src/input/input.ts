@@ -31,6 +31,9 @@ export class Input extends FormControlMixin(LitElement) {
     }
   };
 
+  /** Specifies which type of data the browser can use to pre-fill the input. */
+  @property() autocomplete = 'off';
+
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
 
@@ -73,6 +76,22 @@ export class Input extends FormControlMixin(LitElement) {
   }
 
   willUpdate(changes: PropertyValues<this>): void {
+    if (changes.has('value')) {
+      this.setValue(this.value);
+    }
+  }
+
+  updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('autocomplete')) {
+      if (this.autocomplete) {
+        this.validationTarget?.setAttribute('autocomplete', this.autocomplete);
+      } else {
+        this.validationTarget?.removeAttribute('autocomplete');
+      }
+    }
+
     if (changes.has('maxLength')) {
       if (this.maxLength) {
         this.validationTarget?.setAttribute('maxlength', this.maxLength.toString());
@@ -88,10 +107,6 @@ export class Input extends FormControlMixin(LitElement) {
         this.validationTarget?.removeAttribute('minlength');
       }
     }
-
-    if (changes.has('value')) {
-      this.setValue(this.value);
-    }
   }
 
   render(): TemplateResult {
@@ -99,14 +114,16 @@ export class Input extends FormControlMixin(LitElement) {
       <div class="wrapper" part="wrapper">
         <slot name="prefix"></slot>
         <input
+          aria-describedby="validation"
           @input="${this.#onInput}"
+          ?required=${this.required}
           .placeholder="${this.placeholder}"
           .type=${this.type}
           .value=${live(this.value)}
         />
         <slot name="suffix"></slot>
       </div>
-      ${this.validationMessage ? html`<div class="validation">${this.validationMessage}</div>` : ''}
+      ${this.validationMessage ? html`<div id="validation" class="validation">${this.validationMessage}</div>` : ''}
     `;
   }
 
@@ -115,6 +132,10 @@ export class Input extends FormControlMixin(LitElement) {
   }
 
   validationMessageCallback(message: string): void {
+    if ('ariaDescription' in this.internals) {
+      (this.internals as unknown as { ariaDescription: string }).ariaDescription = message;
+    }
+
     this.validationMessage = message;
   }
 

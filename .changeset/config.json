@@ -12,7 +12,6 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "@sanomalearning/changesets-changelog",
-    "@sanomalearning/example-data",
     "@sanomalearning/slds-scripts",
     "@sanomalearning/storybook-addon-themes"
   ]

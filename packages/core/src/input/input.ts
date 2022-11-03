@@ -25,6 +25,8 @@ export class Input extends FormControlMixin(LitElement) {
     this.validationTarget?.focus();
   };
 
+  #onInvalid = (event: Event): void => event.preventDefault();
+
   #onKeydown = (event: KeyboardEvent): void => {
     if (event.key === 'Enter') {
       this.form?.requestSubmit();
@@ -65,11 +67,13 @@ export class Input extends FormControlMixin(LitElement) {
     super.connectedCallback();
 
     this.addEventListener('click', this.#onClick);
+    this.addEventListener('invalid', this.#onInvalid);
     this.addEventListener('keydown', this.#onKeydown);
   }
 
   disconnectedCallback(): void {
     this.removeEventListener('click', this.#onClick);
+    this.removeEventListener('invalid', this.#onInvalid);
     this.removeEventListener('keydown', this.#onKeydown);
 
     super.disconnectedCallback();

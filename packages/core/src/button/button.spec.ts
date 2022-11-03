@@ -26,10 +26,6 @@ describe('sl-button', () => {
       expect(el).to.have.attribute('tabindex', '10');
     });
 
-    it('should have a button role', () => {
-      expect(el).to.have.attribute('role', 'button');
-    });
-
     it('should be size medium', () => {
       expect(el).to.have.attribute('size', 'md');
     });
@@ -45,11 +41,11 @@ describe('sl-button', () => {
       expect(el).not.to.have.attribute('disabled');
     });
 
-    it('should be disabled if set', async () => {
-      el.disabled = true;
-      await el.updateComplete;
+    // it('should be disabled if set', async () => {
+    //   el.disabled = true;
+    //   await el.updateComplete;
 
-      expect(el).to.have.attribute('disabled');
-    });
+    //   expect(el).to.have.attribute('disabled');
+    // });
   });
 });

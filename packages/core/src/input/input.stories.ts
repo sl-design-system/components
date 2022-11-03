@@ -50,3 +50,11 @@ export const MinMaxLength: StoryObj = {
 export const Required: StoryObj = {
   render: () => html`<sl-input placeholder="I am required" required></sl-input>`
 };
+
+export const RequiredCustomValidation: StoryObj = {
+  render: () => html`
+    <sl-input required>
+      <div slot="validation-message">This is a custom validation message for the input.</div>
+    </sl-input>
+  `
+};

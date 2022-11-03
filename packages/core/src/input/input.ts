@@ -127,7 +127,13 @@ export class Input extends FormControlMixin(LitElement) {
         />
         <slot name="suffix"></slot>
       </div>
-      ${this.validationMessage ? html`<div id="validation" class="validation">${this.validationMessage}</div>` : ''}
+      ${this.validationMessage
+        ? html`
+            <div id="validation" class="validation">
+              <slot name="validation-message">${this.validationMessage}</slot>
+            </div>
+          `
+        : ''}
     `;
   }
 

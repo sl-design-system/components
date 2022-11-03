@@ -1590,6 +1590,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@changesets/get-github-info@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@changesets/get-github-info@npm:0.5.1"
+  dependencies:
+    dataloader: ^1.4.0
+    node-fetch: ^2.5.0
+  checksum: f4ad9f091ef214ade45661298b2fc6af7b79f207a32e4e1de60407bdf5342a6c4ab96cea0ec86f9303191e5f5b1567fe197a02c99e0ce6ad04ce1309ca34bbef
+  languageName: node
+  linkType: hard
+
 "@changesets/get-release-plan@npm:^3.0.15":
   version: 3.0.15
   resolution: "@changesets/get-release-plan@npm:3.0.15"
@@ -2462,6 +2472,7 @@ __metadata:
   dependencies:
     "@11ty/eleventy": ^1.0.2
     "@changesets/cli": ^2.25.2
+    "@changesets/get-github-info": ^0.5.1
     "@custom-elements-manifest/analyzer": ^0.6.6
     "@typescript-eslint/eslint-plugin": ^5.42.0
     "@typescript-eslint/parser": ^5.42.0
@@ -7250,6 +7261,13 @@ __metadata:
   version: 4.0.0
   resolution: "data-uri-to-buffer@npm:4.0.0"
   checksum: 940461017d78a15a01c9a3f7ba964c634c7b4d6db5cbb2547dc3c743395abe3e6ba582f05b3c259b150bf3715558641255f89afb704d94859a8505871d07618f
+  languageName: node
+  linkType: hard
+
+"dataloader@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "dataloader@npm:1.4.0"
+  checksum: 5fa4c843b9e60195092f1fc7e2acaff318ed46886dc670ddff683bc560f12d4079e6d1e77749501b7e111a8582d26a2aa2a2fbe6d7d5e1520cef64f4e1fd242d
   languageName: node
   linkType: hard
 
@@ -13219,7 +13237,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
+"node-fetch@npm:2.6.7, node-fetch@npm:^2.5.0, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:

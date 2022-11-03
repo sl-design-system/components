@@ -61,6 +61,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^1.0.2",
     "@changesets/cli": "^2.25.2",
+    "@changesets/get-github-info": "^0.5.1",
     "@custom-elements-manifest/analyzer": "^0.6.6",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",

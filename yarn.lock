@@ -1590,16 +1590,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/get-github-info@npm:^0.5.1":
-  version: 0.5.1
-  resolution: "@changesets/get-github-info@npm:0.5.1"
-  dependencies:
-    dataloader: ^1.4.0
-    node-fetch: ^2.5.0
-  checksum: f4ad9f091ef214ade45661298b2fc6af7b79f207a32e4e1de60407bdf5342a6c4ab96cea0ec86f9303191e5f5b1567fe197a02c99e0ce6ad04ce1309ca34bbef
-  languageName: node
-  linkType: hard
-
 "@changesets/get-release-plan@npm:^3.0.15":
   version: 3.0.15
   resolution: "@changesets/get-release-plan@npm:3.0.15"
@@ -2314,16 +2304,6 @@ __metadata:
   checksum: 7151753160d15ba2b259461a6c25b3932150994ea52dba8fd3144f634c7647c2e56733d986e2c15de67c4d96a9ee7d6278efa6d2e626a7169898fd64adc0f90c
   languageName: node
   linkType: hard
-
-"@sanomalearning/changesets-changelog@workspace:tools/changesets-changelog":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/changesets-changelog@workspace:tools/changesets-changelog"
-  dependencies:
-    "@changesets/get-github-info": ^0.5.1
-    "@changesets/types": ^5.2.0
-    dotenv: ^8.1.0
-  languageName: unknown
-  linkType: soft
 
 "@sanomalearning/example-data@*, @sanomalearning/example-data@workspace:tools/example-data":
   version: 0.0.0-use.local
@@ -7273,13 +7253,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dataloader@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "dataloader@npm:1.4.0"
-  checksum: 5fa4c843b9e60195092f1fc7e2acaff318ed46886dc670ddff683bc560f12d4079e6d1e77749501b7e111a8582d26a2aa2a2fbe6d7d5e1520cef64f4e1fd242d
-  languageName: node
-  linkType: hard
-
 "debounce@npm:1.2.1, debounce@npm:^1.2.0":
   version: 1.2.1
   resolution: "debounce@npm:1.2.1"
@@ -7708,7 +7681,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^8.0.0, dotenv@npm:^8.1.0":
+"dotenv@npm:^8.0.0":
   version: 8.6.0
   resolution: "dotenv@npm:8.6.0"
   checksum: 6750431dea8efbd54b9f2d9681b04e1ccc7989486461dcf058bb708d9e3d63b04115fcdf8840e38ad1e24a4a2e1e7c1560626c5e3ac7bc09371b127c49e2d45f
@@ -13246,7 +13219,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7, node-fetch@npm:^2.5.0, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
+"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:

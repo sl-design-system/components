@@ -1510,17 +1510,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/changelog-github@npm:^0.4.7":
-  version: 0.4.7
-  resolution: "@changesets/changelog-github@npm:0.4.7"
-  dependencies:
-    "@changesets/get-github-info": ^0.5.1
-    "@changesets/types": ^5.2.0
-    dotenv: ^8.1.0
-  checksum: 1d37e7369ce66f2e23ad122910511eba7d3d61dbb87cfd7c309491b819458473fcd5697dce5aa0762d7e531e38a44390f98b2afb61983604b563a9e9fc85586c
-  languageName: node
-  linkType: hard
-
 "@changesets/cli@npm:^2.25.2":
   version: 2.25.2
   resolution: "@changesets/cli@npm:2.25.2"
@@ -2326,6 +2315,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sanomalearning/changesets-changelog@workspace:tools/changesets-changelog":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/changesets-changelog@workspace:tools/changesets-changelog"
+  dependencies:
+    "@changesets/get-github-info": ^0.5.1
+    "@changesets/types": ^5.2.0
+    dotenv: ^8.1.0
+  languageName: unknown
+  linkType: soft
+
 "@sanomalearning/example-data@*, @sanomalearning/example-data@workspace:tools/example-data":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/example-data@workspace:tools/example-data"
@@ -2482,7 +2481,6 @@ __metadata:
   resolution: "@sanomalearning/slds-root@workspace:."
   dependencies:
     "@11ty/eleventy": ^1.0.2
-    "@changesets/changelog-github": ^0.4.7
     "@changesets/cli": ^2.25.2
     "@custom-elements-manifest/analyzer": ^0.6.6
     "@typescript-eslint/eslint-plugin": ^5.42.0

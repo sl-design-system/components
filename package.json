@@ -12,6 +12,7 @@
     "packages/grid",
     "packages/tokens",
     "scripts",
+    "tools/changesets-changelog",
     "tools/example-data",
     "tools/storybook-addon-themes"
   ],
@@ -59,7 +60,6 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^1.0.2",
-    "@changesets/changelog-github": "^0.4.7",
     "@changesets/cli": "^2.25.2",
     "@custom-elements-manifest/analyzer": "^0.6.6",
     "@typescript-eslint/eslint-plugin": "^5.42.0",

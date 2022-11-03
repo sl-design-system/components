@@ -1,0 +1,17 @@
+{
+  "name": "@sanomalearning/changesets-changelog",
+  "version": "0.0.0",
+  "description": "A changelog entry generator for GitHub that links to commits and PRs",
+  "license": "MIT",
+  "repository": "https://github.com/changesets/changesets/tree/main/packages/changelog-github",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "dependencies": {
+    "@changesets/get-github-info": "^0.5.1",
+    "@changesets/types": "^5.2.0",
+    "dotenv": "^8.1.0"
+  }
+}

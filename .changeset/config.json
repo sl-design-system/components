@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.2.0/schema.json",
   "changelog": [
-    "@sanomalearning/changesets-changelog",
+    "./changelog-format.js",
     { "repo": "sanomalearning/design-system" }
   ],  
   "commit": false,
@@ -11,7 +11,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@sanomalearning/changesets-changelog",
     "@sanomalearning/slds-scripts",
     "@sanomalearning/storybook-addon-themes"
   ]

@@ -12,7 +12,7 @@ export class Radio extends LitElement {
     event.preventDefault();
     event.stopPropagation();
 
-    this.checked = !this.checked;
+    this.checked = true;
   };
 
   protected internals: ElementInternals & IElementInternals;

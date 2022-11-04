@@ -22,7 +22,13 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   };
 
   #onKeydown = (event: KeyboardEvent): void => {
-    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key) || !this.radios) {
+    const keys = [
+      'Home',
+      'End',
+      ...(this.orientation === 'vertical' ? ['ArrowDown', 'ArrowUp'] : ['ArrowLeft', 'ArrowRight'])
+    ];
+
+    if (!keys.includes(event.key) || !this.radios) {
       return;
     }
 
@@ -35,8 +41,10 @@ export class RadioGroup extends FormControlMixin(LitElement) {
 
     switch (event.key) {
       case 'ArrowDown':
+      case 'ArrowRight':
         index += 1;
         break;
+      case 'ArrowLeft':
       case 'ArrowUp':
         index -= 1;
         break;

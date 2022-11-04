@@ -1,0 +1,13 @@
+:host {
+  --_gap: 1rem;
+}
+
+:host {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--_gap);
+}
+
+:host([orientation='horizontal']) {
+  flex-direction: row;
+}

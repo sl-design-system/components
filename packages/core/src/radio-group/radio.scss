@@ -1,0 +1,27 @@
+:host {
+  --_background: #fff;
+  --_border: 1px solid #ccc;
+  --_gap: 0.25rem;
+  --_size: 1rem;
+}
+
+:host {
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--_gap);
+}
+
+:host(:disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+.control {
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: 100%;
+  display: inline-flex;
+  flex-shrink: 0;
+  height: var(--_size);
+  width: var(--_size);
+}

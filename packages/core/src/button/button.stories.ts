@@ -16,22 +16,16 @@ export const API: StoryObj = {
   },
   argTypes: {
     fill: {
-      control: {
-        type: 'inline-radio',
-        options: ['default', 'outline']
-      }
+      control: 'inline-radio',
+      options: ['default', 'outline']
     },
     size: {
-      control: {
-        type: 'inline-radio',
-        options: ['sm', 'md', 'lg']
-      }
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg']
     },
     variant: {
-      control: {
-        type: 'radio',
-        options: ['default', 'primary', 'success', 'warning', 'danger']
-      }
+      control: 'radio',
+      options: ['default', 'primary', 'success', 'warning', 'danger']
     }
   },
   render: ({ fill, size, text, variant }) => html`

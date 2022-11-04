@@ -80,7 +80,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
 
   render(): TemplateResult {
     return html`
-      <span class="box" tabindex=${this.disabled ? '0' : '-1'}>
+      <span class="box">
         <svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
           ${this.indeterminate
             ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`

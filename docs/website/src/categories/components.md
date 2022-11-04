@@ -5,18 +5,7 @@ eleventyNavigation:
   order: 5
 title: Components
 ---
-<style>
-  .wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 32px;
-  }
-
-  .component {
-    display: flex;
-    flex-direction: column;
-  }
-</style>
+<link href="/css/categories/components.css" rel="stylesheet" type="text/css">
 
 Components list
 <div class="wrapper">

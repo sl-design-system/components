@@ -18,17 +18,20 @@
       </header>
       {{ content | safe }}
     </main>
-    <div class="field">
+{#    <div class="field">
       <label for="searchField">Search</label>
       <input type="search" placeholder="Search..." id="searchField" />
     </div>
-    <ol id="searchResults" />
+    <ol id="searchResults"></ol>
     <div id="noResultsFound" style="display: none">
       <p>No results found.</p>
-    </div>
+    </div>#}
     <!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
-    <script type="text/javascript" src="./../js/search2.js"></script>
+    {#<script type="text/javascript" src="./../js/search2.js"></script>#}
+    <script type="text/javascript">
+      {% include "./../js/search2.js" %}
+    </script>
     <script type="text/javascript">
       {% include "./../js/tabs.js" %}
     </script>

@@ -1,25 +1,7 @@
-{#<div>
-  <input class="ds-search" type="search" id="search" name="search" value="{{ searchTerm }}" />
-</div>#}
+<input id="searchField" class="ds-search" type="search" placeholder="Search" />
 
-{#<div>
-  <input class="ds-search" type="search" id="search" name="search" value="{{ value }}" />
-</div>#}
+<ol id="searchResults" class="ds-search-results"></ol>
 
-{#<div class="field">#}
-  {#<label for="searchField">Search</label>#}
-  <input class="ds-search" type="search" placeholder="Search..." id="searchField" />
-{#</div>#}
-
-<ol id="searchResults" class="ds-search-results">
-  {#<div id="noResultsFound" style="display: none; color: #ffffff">
-    <p>No results found.</p>
-  </div>#}
-</ol>
 <div id="noResultsFound" class="ds-no-results">
   <p>No results found.</p>
 </div>
-
-<script type="text/javascript">
-  {% include "./../js/search.js" %}
-</script>

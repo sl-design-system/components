@@ -18,6 +18,7 @@ module.exports = {
   ignorePatterns: [
     '**/*.e2e.tsx',
     '**/*.scss.ts',
+    '**/*.spec.ts',
     '**/*.stories.js'
   ],
   rules: {

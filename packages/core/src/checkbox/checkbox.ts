@@ -8,8 +8,27 @@ export class Checkbox extends FormControlMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  #onClick = (): void => {
+    this.checked = !this.checked;
+  };
+
+  #onKeydown = (event: KeyboardEvent): void => {
+    if (this.disabled) {
+      return;
+    }
+
+    if (['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+
+      this.checked = !this.checked;
+    }
+  };
+
   /** Whether the checkbox is checked. */
   @property({ type: Boolean }) checked = false;
+
+  /** Whether the checkbox is disabled. */
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** Whether the checkbox has the indeterminate state. */
   @property({ type: Boolean }) indeterminate = false;
@@ -22,7 +41,19 @@ export class Checkbox extends FormControlMixin(LitElement) {
 
     this.internals.role = 'checkbox';
 
-    this.addEventListener('click', () => (this.checked = !this.checked));
+    this.addEventListener('click', this.#onClick);
+    this.addEventListener('keydown', this.#onKeydown);
+
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener('click', this.#onClick);
+    this.removeEventListener('keydown', this.#onKeydown);
+
+    super.disconnectedCallback();
   }
 
   updated(changes: PropertyValues<this>): void {
@@ -49,7 +80,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
 
   render(): TemplateResult {
     return html`
-      <span class="box">
+      <span class="box" tabindex=${this.disabled ? '0' : '-1'}>
         <svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
           ${this.indeterminate
             ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`

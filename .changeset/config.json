@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.2.0/schema.json",
   "changelog": [
-    "@changesets/changelog-github",
+    "./changelog-format.js",
     { "repo": "sanomalearning/design-system" }
   ],  
   "commit": false,

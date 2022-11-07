@@ -14,10 +14,8 @@ export const API: StoryObj = {
   },
   argTypes: {
     align: {
-      control: {
-        type: 'select',
-        options: ['start', 'center', 'end', 'space-between']
-      }
+      control: 'select',
+      options: ['start', 'center', 'end', 'space-between']
     }
   },
   render: ({ align, reverse }) => html`

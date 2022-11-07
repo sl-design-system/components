@@ -55,15 +55,15 @@ export class Input extends FormControlMixin(LitElement) {
   @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text';
 
   /** The validation message shown when the control is invalid. */
-  @property() validationMessage = '';
+  @property() override validationMessage = '';
 
   /** The element that will be focused when the validity state is reported. */
-  @query('input') validationTarget?: HTMLInputElement;
+  @query('input') override validationTarget?: HTMLInputElement;
 
   /** The value of the input. */
   @property() value = '';
 
-  connectedCallback(): void {
+  override connectedCallback(): void {
     super.connectedCallback();
 
     this.addEventListener('click', this.#onClick);
@@ -71,7 +71,7 @@ export class Input extends FormControlMixin(LitElement) {
     this.addEventListener('keydown', this.#onKeydown);
   }
 
-  disconnectedCallback(): void {
+  override disconnectedCallback(): void {
     this.removeEventListener('click', this.#onClick);
     this.removeEventListener('invalid', this.#onInvalid);
     this.removeEventListener('keydown', this.#onKeydown);
@@ -79,13 +79,13 @@ export class Input extends FormControlMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  willUpdate(changes: PropertyValues<this>): void {
+  override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('value')) {
       this.setValue(this.value);
     }
   }
 
-  updated(changes: PropertyValues<this>): void {
+  override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     if (changes.has('autocomplete')) {
@@ -113,7 +113,7 @@ export class Input extends FormControlMixin(LitElement) {
     }
   }
 
-  render(): TemplateResult {
+  override render(): TemplateResult {
     return html`
       <div class="wrapper" part="wrapper">
         <slot name="prefix"></slot>
@@ -137,11 +137,11 @@ export class Input extends FormControlMixin(LitElement) {
     `;
   }
 
-  resetFormControl(): void {
+  override resetFormControl(): void {
     this.value = '';
   }
 
-  validationMessageCallback(message: string): void {
+  override validationMessageCallback(message: string): void {
     if ('ariaDescription' in this.internals) {
       (this.internals as unknown as { ariaDescription: string }).ariaDescription = message;
     }

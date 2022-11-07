@@ -40,3 +40,13 @@ export const Disabled: StoryObj = {
     </sl-radio-group>
   `
 };
+
+export const Selected: StoryObj = {
+  render: () => html`
+    <sl-radio-group selected="2">
+      <sl-radio value="1">One</sl-radio>
+      <sl-radio value="2">Two</sl-radio>
+      <sl-radio value="3">Three</sl-radio>
+    </sl-radio-group>
+  `
+};

@@ -33,7 +33,7 @@ export class Radio extends LitElement {
     this.internals.role = 'radio';
   }
 
-  connectedCallback(): void {
+  override connectedCallback(): void {
     super.connectedCallback();
 
     this.addEventListener('click', this.#onClick);
@@ -43,13 +43,13 @@ export class Radio extends LitElement {
     }
   }
 
-  disconnectedCallback(): void {
+  override disconnectedCallback(): void {
     this.removeEventListener('click', this.#onClick);
 
     super.disconnectedCallback();
   }
 
-  updated(changes: PropertyValues<this>): void {
+  override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     if (changes.has('checked')) {
@@ -63,7 +63,7 @@ export class Radio extends LitElement {
     }
   }
 
-  render(): TemplateResult {
+  override render(): TemplateResult {
     return html`
       <div class="control"></div>
       <slot></slot>

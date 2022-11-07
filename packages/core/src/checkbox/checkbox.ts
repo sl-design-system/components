@@ -36,7 +36,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
   /** The value of the checkbox when checked. */
   @property() value = '';
 
-  connectedCallback(): void {
+  override connectedCallback(): void {
     super.connectedCallback();
 
     this.internals.role = 'checkbox';
@@ -49,14 +49,14 @@ export class Checkbox extends FormControlMixin(LitElement) {
     }
   }
 
-  disconnectedCallback(): void {
+  override disconnectedCallback(): void {
     this.removeEventListener('click', this.#onClick);
     this.removeEventListener('keydown', this.#onKeydown);
 
     super.disconnectedCallback();
   }
 
-  updated(changes: PropertyValues<this>): void {
+  override updated(changes: PropertyValues<this>): void {
     if (changes.has('checked') || changes.has('indeterminate')) {
       this.internals.ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
 
@@ -78,7 +78,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
     }
   }
 
-  render(): TemplateResult {
+  override render(): TemplateResult {
     return html`
       <span class="box">
         <svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
@@ -91,11 +91,11 @@ export class Checkbox extends FormControlMixin(LitElement) {
     `;
   }
 
-  resetFormControl(): void {
+  override resetFormControl(): void {
     this.checked = this.hasAttribute('checked');
   }
 
-  shouldFormValueUpdate(): boolean {
+  override shouldFormValueUpdate(): boolean {
     return this.checked;
   }
 }

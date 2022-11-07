@@ -56,7 +56,9 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     this.#observer = new MutationObserver(mutationList => {
       mutationList.forEach(mutation => {
         if (mutation.attributeName === 'checked' && mutation.oldValue === null) {
-          this.#updateSelected((mutation.target as Radio).value);
+          this.selected = (mutation.target as Radio).value;
+
+          this.#updateSelected(this.selected);
         }
       });
     });

@@ -25,3 +25,14 @@ export const API: StoryObj = {
     </sl-radio-group>
   `
 };
+
+export const Disabled: StoryObj = {
+  render: () => html`
+    <sl-radio-group>
+      <sl-radio value="1">One</sl-radio>
+      <sl-radio disabled value="2">Two (disabled)</sl-radio>
+      <sl-radio value="3">Three</sl-radio>
+      <sl-radio disabled value="4">Four (disabled)</sl-radio>
+    </sl-radio-group>
+  `
+};

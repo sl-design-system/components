@@ -2489,6 +2489,7 @@ __metadata:
     "@11ty/eleventy-plugin-syntaxhighlight": ^4.2.0
     "@lit-labs/eleventy-plugin-lit": ^0.2.3
     "@webcomponents/template-shadowroot": ^0.1.0
+    elasticlunr: ^0.9.5
     eslint: ^8.26.0
     eslint-plugin-import: ^2.26.0
     html-minifier: ^4.0.0
@@ -7912,6 +7913,13 @@ __metadata:
   bin:
     ejs: bin/cli.js
   checksum: a6bd58633c5b3ae19a2bfea1b94033585ad85c87ec15961f8c89c93ffdafb8b2358af827f37f7552b35d9f5393fdbd98d35a8cbcd0ee2540b7f9f7a194e86a1a
+  languageName: node
+  linkType: hard
+
+"elasticlunr@npm:^0.9.5":
+  version: 0.9.5
+  resolution: "elasticlunr@npm:0.9.5"
+  checksum: 5ecd1cab20338df40e0eced9310f352f528325d2bd559fcecfc46bb0009244e19dd7d96f88deecb78549ff15bd5f2881b3279db699b586052e66958a1aa6e2d4
   languageName: node
   linkType: hard
 

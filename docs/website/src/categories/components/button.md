@@ -5,19 +5,7 @@ eleventyNavigation:
   key: Button
   order: 3
 ---
-<style>  
-  h3 {
-    margin-bottom: 16px;
-  }
-
-.ds-buttons-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 16px;
-  row-gap: 16px;
-  margin: 16px 0;
-}
-</style>
+<link href="/css/categories/components/button.css" rel="stylesheet" type="text/css">
 
 <div class="ds-tabs-wrapper">
   <a href="#overview" class="ds-tab active">Overview</a>

@@ -18,6 +18,10 @@
       </header>
       {{ content | safe }}
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+    <script type="text/javascript">
+      {% include "./../js/search.js" %}
+    </script>
     <script type="text/javascript">
       {% include "./../js/tabs.js" %}
     </script>

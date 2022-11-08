@@ -1,0 +1,10 @@
+.wrapper {
+  display: grid;
+  gap: 0 32px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.component {
+  display: flex;
+  flex-direction: column;
+}

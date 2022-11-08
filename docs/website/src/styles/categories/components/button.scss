@@ -3,9 +3,8 @@ h3 {
 }
 
 .ds-buttons-wrapper {
-  column-gap: 16px;
   display: flex;
   flex-wrap: wrap;
+  gap: 16px;
   margin: 16px 0;
-  row-gap: 16px;
 }

@@ -1,6 +1,7 @@
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import { tooltip } from './tooltip-directive.js';
+import './register.js';
 
 export default {
   title: 'Tooltip'

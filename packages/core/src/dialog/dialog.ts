@@ -67,12 +67,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     } else if (!this.disableClose && this.dialog) {
       const rect = this.dialog.getBoundingClientRect();
 
+      // Check if the user clicked on the backdrop
       if (
         event.clientY < rect.top ||
         event.clientY > rect.bottom ||
         event.clientX < rect.left ||
         event.clientX > rect.right
       ) {
+        // If so, close the dialog
         this.dialog.close();
       }
     }

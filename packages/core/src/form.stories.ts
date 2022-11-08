@@ -4,6 +4,7 @@ import './button/register.js';
 import './button-bar/register.js';
 import './checkbox/register.js';
 import './input/register.js';
+import './radio-group/register.js';
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),
@@ -42,6 +43,13 @@ export const Horizontal: StoryObj = {
       <label for="checkbox">Checkbox</label>
       <sl-checkbox id="checkbox" name="checkbox" value="checkbox">Checkbox</sl-checkbox>
 
+      <label for="radio-group">Radio group</label>
+      <sl-radio-group id="radio-group" name="radioGroup">
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+      </sl-radio-group>
+
       <sl-button-bar align="end">
         <sl-button type="reset">Reset</sl-button>
         <sl-button type="submit">Submit</sl-button>
@@ -70,6 +78,13 @@ export const Vertical: StoryObj = {
 
       <label for="checkbox">Checkbox</label>
       <sl-checkbox id="checkbox" name="checkbox" value="checkbox">Checkbox</sl-checkbox>
+
+      <label for="radio-group">Radio group</label>
+      <sl-radio-group id="radio-group" name="radioGroup">
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+      </sl-radio-group>
 
       <sl-button-bar align="end">
         <sl-button type="reset">Reset</sl-button>
@@ -102,6 +117,13 @@ export const Validation: StoryObj = {
 
       <label for="checkbox">Checkbox</label>
       <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">I am required</sl-checkbox>
+
+      <label for="radio-group">Radio group</label>
+      <sl-radio-group id="radio-group" name="radioGroup">
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+      </sl-radio-group>
 
       <sl-button-bar align="end">
         <sl-button type="reset">Reset</sl-button>

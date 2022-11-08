@@ -51,7 +51,7 @@ export class Button extends FormControlMixin(LitElement) {
   /** The button variant. If no variant is specified, it uses the default button style. */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
 
-  connectedCallback(): void {
+  override connectedCallback(): void {
     super.connectedCallback();
 
     this.internals.role = 'button';
@@ -60,14 +60,14 @@ export class Button extends FormControlMixin(LitElement) {
     this.addEventListener('keydown', this.#onKeydown);
   }
 
-  disconnectedCallback(): void {
+  override disconnectedCallback(): void {
     this.removeEventListener('click', this.#onClick);
     this.removeEventListener('keydown', this.#onKeydown);
 
     super.disconnectedCallback();
   }
 
-  firstUpdated(changes: PropertyValues<this>): void {
+  override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
     if (!this.hasAttribute('tabindex')) {
@@ -75,7 +75,7 @@ export class Button extends FormControlMixin(LitElement) {
     }
   }
 
-  render(): TemplateResult {
+  override render(): TemplateResult {
     return html`<slot></slot>`;
   }
 }

@@ -19,8 +19,7 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  */
 export class ButtonBar extends LitElement {
   /** @private */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  static styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = styles;
 
   /**
    * How the buttons are aligned with the bar.
@@ -34,7 +33,7 @@ export class ButtonBar extends LitElement {
   /** If set, the button order is reversed. */
   @property({ type: Boolean, reflect: true }) reverse = false;
 
-  render(): TemplateResult {
+  override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 

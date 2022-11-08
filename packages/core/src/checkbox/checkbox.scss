@@ -24,7 +24,7 @@
   pointer-events: none;
 }
 
-:host(:focus-within) {
+:host(:focus-visible) {
   --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
   --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }

@@ -8,7 +8,7 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
 
   @property() path?: string;
 
-  render(): TemplateResult {
+  override render(): TemplateResult {
     return html``;
   }
 

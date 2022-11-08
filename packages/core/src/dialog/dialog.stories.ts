@@ -8,12 +8,12 @@ export default {
   title: 'Dialog'
 };
 
+const onClick = (event: Event & { target: HTMLElement }): void => {
+  (event.target.nextElementSibling as Dialog).showModal();
+};
+
 export const API: StoryObj = {
   render: () => {
-    const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.nextElementSibling as Dialog).showModal();
-    };
-
     return html`
       <sl-button @click=${onClick}>Show Dialog</sl-button>
       <sl-dialog>
@@ -29,4 +29,15 @@ export const API: StoryObj = {
       </sl-dialog>
     `;
   }
+};
+
+export const DisableClose: StoryObj = {
+  render: () => html`
+    <sl-button @click=${onClick}>Show Dialog</sl-button>
+    <sl-dialog disable-close>
+      <span slot="title">Disable close</span>
+      <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>
+      <sl-button slot="action" sl-dialog-close>Close</sl-button>
+    </sl-dialog>
+  `
 };

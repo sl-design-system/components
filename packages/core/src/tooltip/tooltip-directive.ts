@@ -1,7 +1,7 @@
 import type { DirectiveParameters, ElementPart } from 'lit/directive.js';
-import type { Tooltip } from './tooltip.js';
 import { Directive, directive } from 'lit/directive.js';
 import { render } from 'lit';
+import { Tooltip } from './tooltip.js';
 
 export class TooltipDirective extends Directive {
   content?: unknown;
@@ -31,6 +31,11 @@ export class TooltipDirective extends Directive {
 
   setupLazy(): void {
     this.didSetupLazy = true;
+
+    Tooltip.lazy(this.part!.element, (tooltip: Tooltip) => {
+      this.tooltip = tooltip;
+      this.renderContent();
+    });
   }
 }
 

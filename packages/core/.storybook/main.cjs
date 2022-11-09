@@ -1,5 +1,5 @@
 module.exports = {
-  stories: ['../dist/**/*.stories.js'],
+  stories: ['../dist/components/**/*.stories.js'],
   addons: [
     '../../../tools/storybook-addon-themes',
     '@storybook/addon-a11y',
@@ -8,7 +8,8 @@ module.exports = {
     {
       name: '@storybook/addon-essentials',
       options: {
-        backgrounds: false
+        backgrounds: false,
+        docs: false
       }
     },
     '@storybook/addon-storysource'

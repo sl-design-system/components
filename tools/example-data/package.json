@@ -1,0 +1,12 @@
+{
+  "name": "@sanomalearning/example-data",
+  "license": "ISC",
+  "description": "Example data for SL Design System",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

@@ -1,0 +1,69 @@
+:host {
+  --_background: #fff;
+  --_border: 1px solid var(--_border-color);
+  --_border-color: #ccc;
+  --_border-radius: 3px;
+  --_gap: 0.25rem;
+  --_path-length: 22.910259;
+  --_size: 1rem;
+  --_stroke: #fff;
+  --_stroke-dashoffset: var(--_path-length);
+  --_transition: 200ms ease-in-out;
+}
+
+:host {
+  align-items: start;
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--_gap);
+  outline: none;
+}
+
+:host(:disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+:host(:focus-visible) {
+  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
+  --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
+}
+
+:host(:--checked) {
+  --_background: #000;
+  --_stroke-dashoffset: 0;
+}
+
+:host([state--checked]) {
+  --_background: #000;
+  --_stroke-dashoffset: 0;
+}
+
+.box {
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  display: inline-flex;
+  flex-shrink: 0;
+  transition: 0.2s ease-in-out;
+  transition-property: background, border, box-shadow, color, filter;
+}
+
+svg {
+  align-self: center;
+  box-sizing: border-box;
+  fill: none;
+  height: var(--_size);
+  transition: var(--_transition);
+  transition-property: background, border, box-shadow, fill;
+  width: var(--_size);
+}
+
+path {
+  stroke: var(--_stroke);
+  stroke-dasharray: var(--_path-length);
+  stroke-dashoffset: var(--_stroke-dashoffset);
+  stroke-width: 3px;
+  transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
+}

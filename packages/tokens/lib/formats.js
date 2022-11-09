@@ -7,14 +7,10 @@ const replaceReferences = (dictionary, originalValue, value) => {
 
   dictionary.getReferences(originalValue).forEach(ref => {
     if (ref.value && ref.name) {
-      if (ref.palette && !value.startsWith('rgba(')) {
+      if (ref.palette && !value.includes('rgba(')) {
         value = value.replace(ref.value, () => `rgb(var(--${ref.name}))`);
       } else {
         value = value.replace(ref.value, () => `var(--${ref.name})`);
-
-        if (value.startsWith('rgba')) {
-          value = value.replace(',', ' /');
-        }
       }
     }
   });
@@ -139,7 +135,7 @@ export const scssTypography = {
           })
           .join('\n');
 
-        return `@mixin ${name} {\n${props}\n}\n`;
+        return `@mixin ${name} {\n${props}${props.length ? '\n' : ''}}\n`;
       })
       .join('\n');
 
@@ -159,6 +155,6 @@ export const scssVariables = {
 
     const mixinName = options.mixinName || 'sl-theme-base';
 
-    return StyleDictionary.formatHelpers.fileHeader({ file }) + `@mixin ${mixinName} {\n${tokens}\n}\n`;
+    return StyleDictionary.formatHelpers.fileHeader({ file }) + `@mixin ${mixinName} {\n${tokens}${tokens.length ? '\n' : ''}}\n`;
   }
 };

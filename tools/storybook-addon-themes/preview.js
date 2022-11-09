@@ -4,6 +4,24 @@ export const decorators = [withTheme];
 export const globals = {
   themes: [
     {
+      id: 'bingel/light',
+      name: 'Bingel (light)',
+      color: '#0074df',
+      fonts: 'https://use.typekit.net/xrr8gdw.css'
+    },
+    {
+      id: 'magister/light',
+      name: 'Magister (light)',
+      color: '#1f97f9',
+      fonts: 'https://use.typekit.net/zkq0zzv.css'
+    },
+    {
+      id: 'max-online/light',
+      name: 'MAX Online (light)',
+      color: '#253646',
+      fonts: 'https://use.typekit.net/doq6twb.css'
+    },
+    {
       id: 'sanoma-learning/light',
       name: 'Sanoma Learning (light)',
       color: '#56CC8A',

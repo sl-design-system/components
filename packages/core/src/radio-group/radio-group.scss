@@ -1,0 +1,15 @@
+:host {
+  --_gap: 0.5rem;
+}
+
+:host {
+  align-items: start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--_gap);
+}
+
+:host([orientation='horizontal']) {
+  --_gap: 1rem;
+  flex-direction: row;
+}

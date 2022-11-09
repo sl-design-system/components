@@ -9,13 +9,12 @@ eleventyExcludeFromCollections: true
 Hold tight! This documentation website is coming soon.
 
 <div class="ds-teaser__card-wrapper">
-<a href="https://github.com/orgs/sanomalearning/projects/2" class="ds-teaser__card">
+<a href="https://github.com/orgs/sanomalearning/projects/2" target="_blank" class="ds-teaser__card">
 <div class="ds-teaser__card-text">
   <p class="ds-teaser__card-text-heading">Planning</p>
 See more info here
 </div>
-<div class="ds-teaser__card-icon">
-<img src="/assets/teaser-page/github.svg" alt="github" />
+<div class="ds-teaser__card-icon ds-teaser__card-icon--github">
 </div>
 </a>
 
@@ -24,8 +23,7 @@ See more info here
   <p class="ds-teaser__card-text-heading">Slack</p>
 #sl-design-system
 </div>
-<div class="ds-teaser__card-icon">
-  <img src="/assets/teaser-page/slack.svg" alt="slack" />
+<div class="ds-teaser__card-icon ds-teaser__card-icon--slack">
 </div>
 </a>
 </div>

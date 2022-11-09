@@ -1,5 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
+import { EventsController } from '../utils/controllers/events.js';
 import styles from './tooltip.scss.js';
 
 const ENTER_EVENTS = ['pointerenter', 'focus'];
@@ -23,11 +24,39 @@ export class Tooltip extends LitElement {
     ENTER_EVENTS.forEach(eventName => target.addEventListener(eventName, createTooltip));
   }
 
+  #events = new EventsController(this);
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    const root = this.getRootNode();
+
+    this.#events.listen(root, 'focusin', this.#onShow);
+    this.#events.listen(root, 'focusout', this.#onHide);
+    this.#events.listen(root, 'keydown', this.#onKeydown);
+    this.#events.listen(root, 'mouseover', this.#onShow);
+    this.#events.listen(root, 'mouseout', this.#onHide);
+  }
+
   override render(): TemplateResult {
     return html`<slot></slot>`;
   }
 
   show(): void {
     console.log('show');
+  }
+
+  #onHide(event: Event): void {
+    console.log('hide', event);
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      console.log('keydown');
+    }
+  }
+
+  #onShow(event: Event): void {
+    console.log('show', event);
   }
 }

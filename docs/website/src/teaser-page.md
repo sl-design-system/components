@@ -3,91 +3,43 @@ layout: teaser-page/teaser-page.njk
 eleventyExcludeFromCollections: true
 ---
 <div class="ds-teaser">
-<img src="" class="ds-teaser_logo" alt="sanoma learning logo" />
-
-[//]: # (<img src="/assets/teaser-page/squares/arrow-dots-square.png" class="ds-teaser-background ds-teaser_dots" alt="dots background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/chat-square.png" class="ds-teaser-background ds-teaser_chat" alt="chat background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/arrow-square.png" class="ds-teaser-background ds-teaser_arrow" alt="arrow background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/user-square.png" class="ds-teaser-background ds-teaser_user" alt="user background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/arrow-dots-square.png" class="ds-teaser-background ds-teaser_dots-second" alt="dots background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/empty-square.png" class="ds-teaser-background ds-teaser_empty" alt="empty square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/empty-square.png" class="ds-teaser-background ds-teaser_empty-second" alt="empty square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/right-arrow-square.png" class="ds-teaser-background ds-teaser_right-arrow" alt="right arrow square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/list-square.png" class="ds-teaser-background ds-teaser_list" alt="list square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/mobile-square.png" class="ds-teaser-background ds-teaser_mobile" alt="mobile square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/arrow-left-square.png" class="ds-teaser-background ds-teaser_left-arrow" alt="arrow left square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/notification-square.png" class="ds-teaser-background ds-teaser_notification" alt="notification square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/message-square.png" class="ds-teaser-background ds-teaser_message" alt="message square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/arrow-dots-half-square.png" class="ds-teaser-background ds-teaser_dots-half" alt="dots square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/mobile-bottom-square.png" class="ds-teaser-background ds-teaser_mobile-bottom" alt="mobile square background" />)
-
-[//]: # ()
-[//]: # (<img src="/assets/teaser-page/squares/empty-half-square.png" class="ds-teaser-background ds-teaser_empty-half" alt="empty square background" />)
+<img src="" class="ds-teaser__logo" alt="sanoma learning logo" />
 
 
+<div class="ds-teaser-background ds-teaser__dots"></div>
 
-<div class="ds-teaser-background ds-teaser_dots"></div>
+<div class="ds-teaser-background ds-teaser__chat"></div>
 
-<div class="ds-teaser-background ds-teaser_chat"></div>
+<div class="ds-teaser-background ds-teaser__arrow"></div>
 
-<div class="ds-teaser-background ds-teaser_arrow"></div>
+<div class="ds-teaser-background ds-teaser__user"></div>
 
-<img src="/assets/teaser-page/squares/user-square.png" class="ds-teaser-background ds-teaser_user" alt="user background" />
+<div class="ds-teaser-background ds-teaser__dots-second"></div>
 
-<img src="/assets/teaser-page/squares/arrow-dots-square.png" class="ds-teaser-background ds-teaser_dots-second" alt="dots background" />
+<div class="ds-teaser-background ds-teaser__empty"></div>
 
-<img src="/assets/teaser-page/squares/empty-square.png" class="ds-teaser-background ds-teaser_empty" alt="empty square background" />
+<div class="ds-teaser-background ds-teaser__empty-second"></div>
 
-<img src="/assets/teaser-page/squares/empty-square.png" class="ds-teaser-background ds-teaser_empty-second" alt="empty square background" />
+<div class="ds-teaser-background ds-teaser__right-arrow"></div>
 
-<img src="/assets/teaser-page/squares/right-arrow-square.png" class="ds-teaser-background ds-teaser_right-arrow" alt="right arrow square background" />
+<div class="ds-teaser-background ds-teaser__list"></div>
 
-<img src="/assets/teaser-page/squares/list-square.png" class="ds-teaser-background ds-teaser_list" alt="list square background" />
+<div class="ds-teaser-background ds-teaser__mobile"></div>
 
-<img src="/assets/teaser-page/squares/mobile-square.png" class="ds-teaser-background ds-teaser_mobile" alt="mobile square background" />
+<div class="ds-teaser-background ds-teaser__left-arrow"></div>
 
-<img src="/assets/teaser-page/squares/arrow-left-square.png" class="ds-teaser-background ds-teaser_left-arrow" alt="arrow left square background" />
+<div class="ds-teaser-background ds-teaser__notification"></div>
 
-<img src="/assets/teaser-page/squares/notification-square.png" class="ds-teaser-background ds-teaser_notification" alt="notification square background" />
+<div class="ds-teaser-background ds-teaser__message"></div>
 
-<img src="/assets/teaser-page/squares/message-square.png" class="ds-teaser-background ds-teaser_message" alt="message square background" />
+<div class="ds-teaser-background ds-teaser__dots-half"></div>
 
-<img src="/assets/teaser-page/squares/arrow-dots-half-square.png" class="ds-teaser-background ds-teaser_dots-half" alt="dots square background" />
+<div class="ds-teaser-background ds-teaser__mobile-bottom"></div>
 
-<img src="/assets/teaser-page/squares/mobile-bottom-square.png" class="ds-teaser-background ds-teaser_mobile-bottom" alt="mobile square background" />
-
-<img src="/assets/teaser-page/squares/empty-half-square.png" class="ds-teaser-background ds-teaser_empty-half" alt="empty square background" />
+<div class="ds-teaser-background ds-teaser__empty-half"></div>
 
 <div class="ds-teaser__wrapper">
-<h1>Sanoma Learning Design System</h1>
+<h1>Sanoma Learning <span class="ds-teaser__heading-part">Design System</span></h1>
 
 Hold tight! This documentation website is coming soon.
 

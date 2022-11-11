@@ -71,8 +71,6 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
     }
 
     override hidePopover(): void {
-      console.log('hidePopover', this.popoverOpen);
-
       if (!this.popoverOpen) {
         return;
       }
@@ -83,7 +81,7 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
         super.hidePopover();
         this.open = false;
       } else {
-        this.dispatchEvent(new Event('hide', { bubbles: true, composed: true }));
+        this.dispatchEvent(new Event('popoverhide', { bubbles: true, composed: true }));
       }
 
       // let hasElementChildren = false;
@@ -119,7 +117,7 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
           { once: true }
         );
       } else {
-        this.dispatchEvent(new Event('show', { bubbles: true, composed: true }));
+        this.dispatchEvent(new Event('popovershow', { bubbles: true, composed: true }));
       }
 
       this.positionPopover();

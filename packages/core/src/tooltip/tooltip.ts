@@ -1,15 +1,18 @@
+import type { Placement } from '../popover/utils/position-anchored-element.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
+import { AnchoredPopoverMixin } from '../popover/mixins/anchored-popover.js';
+import { popoverMixinStyles } from '../popover/mixins/popover.js';
 import { EventsController } from '../utils/controllers/events.js';
 import styles from './tooltip.scss.js';
 
-const ENTER_EVENTS = ['pointerenter', 'focus'];
-// LEAVE_EVENTS = ['pointerleave', 'blur', 'keydown', 'click'];
-
-export class Tooltip extends LitElement {
+/**
+ * Tooltip component.
+ */
+export class Tooltip extends AnchoredPopoverMixin(LitElement) {
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [popoverMixinStyles, styles];
 
   static lazy(target: Element, callback: (target: Tooltip) => void): void {
     const createTooltip = (): void => {
@@ -19,18 +22,33 @@ export class Tooltip extends LitElement {
       tooltip.showPopover();
 
       // We only need to create the tooltip once, so ignore all future events.
-      ENTER_EVENTS.forEach(eventName => target.removeEventListener(eventName, createTooltip));
+      ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
     };
 
-    ENTER_EVENTS.forEach(eventName => target.addEventListener(eventName, createTooltip));
+    ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
   }
 
   #events = new EventsController(this);
 
-  /** Tooltip placement. */
-  @property() placement = 'bottom';
+  #matchesAnchor = (element: Element): boolean => {
+    return !!this.id && element.nodeType === Node.ELEMENT_NODE && this.id === element.getAttribute('aria-describedby');
+  };
 
-  @state() open = false;
+  #onHide = ({ target }: Event): void => {
+    if (this.#matchesAnchor(target as Element)) {
+      this.hidePopover();
+    }
+  };
+
+  #onShow = ({ target }: Event): void => {
+    if (this.#matchesAnchor(target as HTMLElement)) {
+      this.anchorElement = target as HTMLElement;
+      this.showPopover();
+    }
+  };
+
+  /** Tooltip placement. */
+  @property() placement: Placement = 'bottom';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -39,50 +57,14 @@ export class Tooltip extends LitElement {
 
     const root = this.getRootNode();
 
+    this.#events.listen(root, 'click', this.#onHide, { capture: true });
     this.#events.listen(root, 'focusin', this.#onShow);
     this.#events.listen(root, 'focusout', this.#onHide);
-    this.#events.listen(root, 'keydown', this.#onKeydown);
-    this.#events.listen(root, 'mouseover', this.#onShow);
-    this.#events.listen(root, 'mouseout', this.#onHide);
+    this.#events.listen(root, 'pointerover', this.#onShow);
+    this.#events.listen(root, 'pointerout', this.#onHide);
   }
 
   override render(): TemplateResult {
     return html`<slot></slot>`;
-  }
-
-  override showPopover(): void {
-    console.log('show popover');
-
-    if (super.showPopover && !this.matches(':open')) {
-      super.showPopover();
-      this.open = true;
-    } else {
-      console.log('do it ourselves!');
-    }
-  }
-
-  override hidePopover(): void {
-    if (super.hidePopover && this.matches(':open')) {
-      super.hidePopover();
-      this.open = false;
-    } else {
-      console.log('do it ourselves');
-    }
-  }
-
-  #onHide(event: Event): void {
-    console.log('hide', event);
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      console.log('keydown');
-    }
-  }
-
-  #onShow(): void {
-    console.log('onShow', this);
-
-    this.showPopover();
   }
 }

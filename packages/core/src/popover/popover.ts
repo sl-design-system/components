@@ -35,16 +35,13 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
     }
   };
 
-  /** The default popover attribute value. */
-  protected defaultPopoverValue?: 'auto' | 'manual';
-
   /** Popover placement relative to the anchor. */
   @property() placement: Placement = 'top';
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('popover', this.defaultPopoverValue || '');
+    this.setAttribute('popover', '');
   }
 
   override disconnectedCallback(): void {

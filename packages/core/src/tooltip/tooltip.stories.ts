@@ -5,11 +5,15 @@ import '../button/register.js';
 import './register.js';
 
 export default {
-  title: 'Tooltip'
+  title: 'Tooltip',
+  parameters: {
+    layout: 'centered'
+  }
 };
 
 export const API: StoryObj = {
   args: {
+    message: 'Tooltip',
     position: 'bottom'
   },
   argTypes: {
@@ -18,12 +22,12 @@ export const API: StoryObj = {
       options: ['top', 'right', 'bottom', 'left']
     }
   },
-  render: ({ position }) => html`
+  render: ({ message, position }) => html`
     <sl-button aria-describedby="tooltip">Button</sl-button>
-    <sl-tooltip id="tooltip" .position=${position}>Tooltip</sl-tooltip>
+    <sl-tooltip id="tooltip" .position=${position}>${message}</sl-tooltip>
   `
 };
 
 export const Directive: StoryObj = {
-  render: () => html`<span ${tooltip('Hello world')}>I have a tooltip</span>`
+  render: () => html`<sl-button ${tooltip('This tooltip is from a directive')}>I have a tooltip</sl-button>`
 };

@@ -71,6 +71,8 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
     }
 
     override hidePopover(): void {
+      console.log('hidePopover', this.popoverOpen);
+
       if (!this.popoverOpen) {
         return;
       }

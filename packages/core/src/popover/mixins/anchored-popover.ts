@@ -12,9 +12,28 @@ export function AnchoredPopoverMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<AnchoredInterface & PopoverInterface> {
   class AnchoredPopupElement extends AnchoredMixin(PopoverMixin(constructor)) {
+    #onHide = (event: Event): void => {
+      console.log('hide', event);
+
+      this.hidePopover();
+      this.cleanupPopover();
+    };
+
     placement: Placement = 'bottom';
 
     cleanupFloatingUI?: () => void;
+
+    override connectedCallback(): void {
+      super.connectedCallback();
+
+      this.addEventListener('popoverhide', this.#onHide);
+    }
+
+    override disconnectedCallback(): void {
+      this.removeEventListener('popoverhide', this.#onHide);
+
+      super.disconnectedCallback();
+    }
 
     positionPopover(): void {
       if (supportsAnchor || !this.anchorElement) {
@@ -35,11 +54,6 @@ export function AnchoredPopoverMixin<T extends Constructor<ReactiveElement>>(
         delete this.cleanupFloatingUI;
       }
     }
-
-    handleHide = (_event?: Event): void => {
-      this.hidePopover();
-      this.cleanupPopover();
-    };
   }
 
   return AnchoredPopupElement;

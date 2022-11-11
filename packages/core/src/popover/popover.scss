@@ -1,3 +1,16 @@
 :host {
-  background: #fff;
+  --_background: #fff;
+  --_border: 1px solid #ccc;
+  --_border-radius: 3px;
+  --_padding: 0.25rem 0.5rem;
+}
+
+:host {
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+}
+
+.container {
+  padding: var(--_padding);
 }

@@ -20,10 +20,12 @@ export function AnchoredPopoverMixin<T extends Constructor<ReactiveElement>>(
       if (supportsAnchor) {
         return;
       }
+
       const offsetOptions = {
         mainAxis: parseFloat(this.getAttribute('main-axis') || '6'),
         crossAxis: parseFloat(this.getAttribute('cross-axis') || '0')
       };
+
       this.cleanupFloatingUI = positionAnchoredElement(this, this.anchorElement, this.placement, offsetOptions);
     }
 

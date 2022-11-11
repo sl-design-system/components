@@ -4,33 +4,42 @@ import { supportsAnchor } from '../../utils/css.js';
 
 export interface AnchoredInterface {
   anchorElement: HTMLElement;
+
+  addEventListenersToAnchor(): void;
+  removeEventListenersFromAnchor(): void;
 }
 
 export function AnchoredMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<AnchoredInterface> {
   class AnchoredElement extends constructor {
+    #anchorElement!: HTMLElement;
+
     get anchorElement(): HTMLElement {
-      return this._anchorElement;
+      return this.#anchorElement;
     }
 
     set anchorElement(anchor: HTMLElement) {
-      if (anchor === this.anchorElement) return;
+      if (anchor === this.anchorElement) {
+        return;
+      }
+
       if (this.anchorElement) {
         this.removeEventListenersFromAnchor();
+
         if (supportsAnchor) {
           this.anchorElement.style.anchorName = '';
         }
       }
-      this._anchorElement = anchor;
+
+      this.#anchorElement = anchor;
+
       if (supportsAnchor) {
         this.anchorElement.style.anchorName = '--anchor';
       }
-      console.log('y');
+
       this.addEventListenersToAnchor();
     }
-
-    private _anchorElement!: HTMLElement;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     addEventListenersToAnchor(): void {}
@@ -55,15 +64,22 @@ export function AnchoredMixin<T extends Constructor<ReactiveElement>>(
     override firstUpdated(changes: PropertyValues<this>): void {
       super.firstUpdated(changes);
 
-      this.resolveAnchor();
+      this.#resolveAnchor();
     }
 
-    resolveAnchor(): void {
+    #resolveAnchor(): void {
       const id = this.getAttribute('anchor');
-      if (!id) return;
-      const parent = this.getRootNode() as HTMLElement;
-      const target = parent.querySelector(`#${id}`) as HTMLElement;
-      if (!target) return;
+      if (!id) {
+        return;
+      }
+
+      const root = this.getRootNode() as HTMLElement,
+        target = root.querySelector(`#${id}`) as HTMLElement;
+
+      if (!target) {
+        return;
+      }
+
       this.anchorElement = target;
     }
   }

@@ -1,3 +1,24 @@
+@supports selector(:open) {
+  :host(:open) {
+    display: flex;
+    pointer-events: auto;
+  }
+}
+
+@supports not selector(:open) {
+  :host([popover-open]) {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@supports not selector(:top-layer) {
+  :host {
+    z-index: var(--sl-layer-tooltip-z-index, 11501);
+  }
+}
+
 :host {
   --_background: #fff;
   --_border: 0;
@@ -14,5 +35,8 @@
   box-shadow: var(--_box-shadow);
   color: var(--_color);
   display: inline-flex;
+  opacity: 0;
   padding: var(--_padding);
+  pointer-events: none;
+  position: fixed;
 }

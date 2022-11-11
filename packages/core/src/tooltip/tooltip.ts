@@ -1,5 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/events.js';
 import styles from './tooltip.scss.js';
 
@@ -15,7 +16,7 @@ export class Tooltip extends LitElement {
       const tooltip = document.createElement('sl-tooltip');
       callback(tooltip);
       target.parentNode?.insertBefore(tooltip, target.nextSibling);
-      tooltip.show();
+      tooltip.showPopover();
 
       // We only need to create the tooltip once, so ignore all future events.
       ENTER_EVENTS.forEach(eventName => target.removeEventListener(eventName, createTooltip));
@@ -26,8 +27,15 @@ export class Tooltip extends LitElement {
 
   #events = new EventsController(this);
 
+  /** Tooltip placement. */
+  @property() placement = 'bottom';
+
+  @state() open = false;
+
   override connectedCallback(): void {
     super.connectedCallback();
+
+    this.setAttribute('popover', 'manual');
 
     const root = this.getRootNode();
 
@@ -42,8 +50,24 @@ export class Tooltip extends LitElement {
     return html`<slot></slot>`;
   }
 
-  show(): void {
-    console.log('show');
+  override showPopover(): void {
+    console.log('show popover');
+
+    if (super.showPopover && !this.matches(':open')) {
+      super.showPopover();
+      this.open = true;
+    } else {
+      console.log('do it ourselves!');
+    }
+  }
+
+  override hidePopover(): void {
+    if (super.hidePopover && this.matches(':open')) {
+      super.hidePopover();
+      this.open = false;
+    } else {
+      console.log('do it ourselves');
+    }
   }
 
   #onHide(event: Event): void {
@@ -56,7 +80,9 @@ export class Tooltip extends LitElement {
     }
   }
 
-  #onShow(event: Event): void {
-    console.log('show', event);
+  #onShow(): void {
+    console.log('onShow', this);
+
+    this.showPopover();
   }
 }

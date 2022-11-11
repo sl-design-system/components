@@ -1,0 +1,22 @@
+@supports selector(:open) {
+  :host(:open) {
+    display: flex;
+    pointer-events: auto;
+  }
+}
+
+@supports not selector(:open) {
+  :host([popover-open]) {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+:host {
+  display: flex;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+}

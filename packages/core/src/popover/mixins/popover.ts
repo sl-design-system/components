@@ -77,8 +77,11 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
 
       this.popoverOpen = false;
 
-      if (super.hidePopover && this.matches(':open')) {
-        super.hidePopover();
+      if (super.hidePopover) {
+        if (this.matches(':open')) {
+          super.hidePopover();
+        }
+
         this.open = false;
       } else {
         this.dispatchEvent(new Event('popoverhide', { bubbles: true, composed: true }));
@@ -105,17 +108,12 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
 
       this.popoverOpen = true;
 
-      if (super.showPopover && !this.matches(':open')) {
-        super.showPopover();
-        this.open = true;
+      if (super.showPopover) {
+        if (!this.matches(':open')) {
+          super.showPopover();
+        }
 
-        this.addEventListener(
-          'hide',
-          () => {
-            this.open = false;
-          },
-          { once: true }
-        );
+        this.open = true;
       } else {
         this.dispatchEvent(new Event('popovershow', { bubbles: true, composed: true }));
       }

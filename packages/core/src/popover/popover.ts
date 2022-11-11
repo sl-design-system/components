@@ -23,6 +23,18 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
 
   #onDocumentClick = (event: Event): void => this.#onClick(event);
 
+  #onDocumentKeydown = (event: KeyboardEvent): void => {
+    if (event.defaultPrevented) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (event.key === 'Escape') {
+      this.open = false;
+    }
+  };
+
   /** The default popover attribute value. */
   protected defaultPopoverValue?: 'auto' | 'manual';
 
@@ -84,12 +96,14 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
   async #setup(): Promise<void> {
     if (!supportsTopLayer) {
       document.documentElement.addEventListener('click', this.#onDocumentClick);
+      document.documentElement.addEventListener('keydown', this.#onDocumentKeydown);
     }
   }
 
   async #teardown(): Promise<void> {
     if (!supportsTopLayer) {
       document.documentElement.removeEventListener('click', this.#onDocumentClick);
+      document.documentElement.removeEventListener('keydown', this.#onDocumentKeydown);
     }
   }
 }

@@ -33,6 +33,15 @@ export const Directive: StoryObj = {
   render: () => html`<sl-button ${tooltip('This tooltip is from a directive')}>I have a tooltip</sl-button>`
 };
 
+export const Overflow: StoryObj = {
+  render: () => html`
+    <div style="overflow: hidden">
+      <sl-button aria-describedby="tooltip">Button</sl-button>
+      <sl-tooltip id="tooltip">This appears outside the overflow parent</sl-tooltip>
+    </div>
+  `
+};
+
 export const Shared: StoryObj = {
   render: () => html`
     <sl-button-bar>

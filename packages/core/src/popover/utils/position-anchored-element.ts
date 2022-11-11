@@ -1,7 +1,6 @@
 import type { OffsetOptions } from '@floating-ui/core';
 import type { Placement } from '@floating-ui/dom';
 import { autoUpdate, computePosition, flip, offset, shift, size } from '@floating-ui/dom';
-import { topLayer } from './top-layer.js';
 export type { Placement };
 
 function roundByDPR(num: number): number {
@@ -30,7 +29,8 @@ export const positionAnchoredElement = (
   offsetOptions: OffsetOptions = {}
 ): (() => void) => {
   const cleanup = autoUpdate(anchor, element, () => {
-    void computePosition(anchor, element, {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    computePosition(anchor, element, {
       strategy: 'fixed',
       placement,
       middleware: [
@@ -40,7 +40,7 @@ export const positionAnchoredElement = (
         }),
         offset(offsetOptions),
         //   autoPlacement({allowedPlacements: placements[placement]}),
-        // Make sure that the overlay is contained by the visisble page.
+        // Make sure that the overlay is contained by the visible page.
         size({
           padding: REQUIRED_DISTANCE_TO_EDGE,
           apply: ({ availableWidth, availableHeight, rects: { floating } }) => {
@@ -55,8 +55,7 @@ export const positionAnchoredElement = (
               height: appliedHeight
             });
           }
-        }),
-        topLayer()
+        })
       ]
     }).then(({ x, y, placement: actualPlacement }) => {
       Object.assign(element.style, {

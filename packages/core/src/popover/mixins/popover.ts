@@ -1,5 +1,6 @@
 import type { Constructor } from '../../utils/mixin-types.js';
-import type { PropertyValues, ReactiveElement } from 'lit';
+import type { CSSResultGroup, PropertyValues, ReactiveElement } from 'lit';
+import { css } from 'lit';
 import { property } from 'lit/decorators.js';
 import { firstFocusableSelector, supportsTopLayer } from '../../utils/css.js';
 
@@ -10,6 +11,38 @@ export interface PopoverInterface {
   popoverOpen: boolean;
   receivesFocus?: 'auto';
 }
+
+export const popoverMixinStyles: CSSResultGroup = css`
+  @supports selector(:open) {
+    :host(:open) {
+      display: flex;
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  @supports not selector(:open) {
+    :host([popover-open]) {
+      display: flex;
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  :host {
+    background: none;
+    border: 0;
+    display: flex;
+    left: 0px;
+    margin: 0;
+    opacity: 0;
+    overflow: visible;
+    padding: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0px;
+  }
+`;
 
 export function PopoverMixin<T extends Constructor<ReactiveElement>>(
   constructor: T

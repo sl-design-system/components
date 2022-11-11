@@ -3,7 +3,7 @@ import type { PropertyValues, ReactiveElement } from 'lit';
 import { supportsAnchor } from '../../utils/css.js';
 
 export interface AnchoredInterface {
-  anchorElement: HTMLElement;
+  anchorElement?: HTMLElement;
 
   addEventListenersToAnchor(): void;
   removeEventListenersFromAnchor(): void;
@@ -13,13 +13,13 @@ export function AnchoredMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<AnchoredInterface> {
   class AnchoredElement extends constructor {
-    #anchorElement!: HTMLElement;
+    #anchorElement?: HTMLElement;
 
-    get anchorElement(): HTMLElement {
+    get anchorElement(): HTMLElement | undefined {
       return this.#anchorElement;
     }
 
-    set anchorElement(anchor: HTMLElement) {
+    set anchorElement(anchor: HTMLElement | undefined) {
       if (anchor === this.anchorElement) {
         return;
       }
@@ -34,7 +34,7 @@ export function AnchoredMixin<T extends Constructor<ReactiveElement>>(
 
       this.#anchorElement = anchor;
 
-      if (supportsAnchor) {
+      if (supportsAnchor && this.anchorElement) {
         this.anchorElement.style.anchorName = '--anchor';
       }
 

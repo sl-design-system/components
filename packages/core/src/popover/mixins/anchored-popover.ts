@@ -17,7 +17,7 @@ export function AnchoredPopoverMixin<T extends Constructor<ReactiveElement>>(
     cleanupFloatingUI?: () => void;
 
     positionPopover(): void {
-      if (supportsAnchor) {
+      if (supportsAnchor || !this.anchorElement) {
         return;
       }
 

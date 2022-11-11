@@ -2,6 +2,7 @@ import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import { tooltip } from './tooltip-directive.js';
 import '../button/register.js';
+import '../button-bar/register.js';
 import './register.js';
 
 export default {
@@ -30,4 +31,18 @@ export const API: StoryObj = {
 
 export const Directive: StoryObj = {
   render: () => html`<sl-button ${tooltip('This tooltip is from a directive')}>I have a tooltip</sl-button>`
+};
+
+export const Shared: StoryObj = {
+  render: () => html`
+    <sl-button-bar>
+      <sl-button aria-describedby="tooltip">We</sl-button>
+      <sl-button aria-describedby="tooltip">all</sl-button>
+      <sl-button aria-describedby="tooltip">share</sl-button>
+      <sl-button aria-describedby="tooltip">the</sl-button>
+      <sl-button aria-describedby="tooltip">same</sl-button>
+      <sl-button aria-describedby="tooltip">tooltip</sl-button>
+    </sl-button-bar>
+    <sl-tooltip id="tooltip">I am shared between different elements</sl-tooltip>
+  `
 };

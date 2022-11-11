@@ -74,8 +74,6 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
       return;
     }
 
-    console.log('toggle open', !this.open);
-
     this.open = !this.open;
   }
 

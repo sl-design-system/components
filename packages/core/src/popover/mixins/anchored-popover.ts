@@ -12,9 +12,7 @@ export function AnchoredPopoverMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<AnchoredInterface & PopoverInterface> {
   class AnchoredPopupElement extends AnchoredMixin(PopoverMixin(constructor)) {
-    #onHide = (event: Event): void => {
-      console.log('hide', event);
-
+    #onPopoverHide = (): void => {
       this.hidePopover();
       this.cleanupPopover();
     };
@@ -26,11 +24,11 @@ export function AnchoredPopoverMixin<T extends Constructor<ReactiveElement>>(
     override connectedCallback(): void {
       super.connectedCallback();
 
-      this.addEventListener('popoverhide', this.#onHide);
+      this.addEventListener('popoverhide', this.#onPopoverHide);
     }
 
     override disconnectedCallback(): void {
-      this.removeEventListener('popoverhide', this.#onHide);
+      this.removeEventListener('popoverhide', this.#onPopoverHide);
 
       super.disconnectedCallback();
     }

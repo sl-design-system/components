@@ -50,6 +50,23 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
   class PopoverElement extends constructor {
     #popoverOpen = false;
 
+    #onDocumentClick = (): void => {
+      this.open = false;
+    };
+
+    #onDocumentKeydown = (event: KeyboardEvent): void => {
+      if (event.defaultPrevented) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (event.key === 'Escape') {
+        this.open = false;
+      }
+    };
+
+    /** Whether the popover is open or not. */
     @property({ type: Boolean }) open = false;
 
     @property({ attribute: 'receives-focus' }) receivesFocus?: 'auto';
@@ -70,36 +87,37 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    override hidePopover(): void {
-      if (!this.popoverOpen) {
-        return;
-      }
+    override disconnectedCallback(): void {
+      this.#cleanup();
 
-      this.popoverOpen = false;
-
-      if (super.hidePopover) {
-        if (this.matches(':open')) {
-          super.hidePopover();
-        }
-
-        this.open = false;
-      } else {
-        this.dispatchEvent(new Event('popoverhide', { bubbles: true, composed: true }));
-      }
-
-      // let hasElementChildren = false;
-      // this.shadowRoot
-      //   ?.querySelector('slot')
-      //   ?.assignedElements()
-      //   ?.forEach(element => {
-      //     hasElementChildren = true;
-      //     element.toggleAttribute('open', false);
-      //   });
-      // this.toggleAttribute('has-element-children', hasElementChildren);
+      super.disconnectedCallback();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    positionPopover(): void {}
+    override willUpdate(changes: PropertyValues<this>): void {
+      super.willUpdate(changes);
+
+      if (changes.has('open')) {
+        if (this.open) {
+          this.showPopover();
+        } else if (typeof changes.get('open') !== 'undefined') {
+          this.hidePopover();
+        }
+      }
+    }
+
+    override updated(changes: PropertyValues<this>): void {
+      super.updated(changes);
+
+      if (changes.has('open') && this.open && this.getAttribute('popover') !== 'manual') {
+        requestAnimationFrame(() => {
+          const firstFocusable = this.querySelector(firstFocusableSelector) as HTMLElement;
+          if (firstFocusable) {
+            console.log(firstFocusable);
+            firstFocusable.focus();
+          }
+        });
+      }
+    }
 
     override showPopover(): void {
       if (this.popoverOpen) {
@@ -120,6 +138,8 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
 
       this.positionPopover();
 
+      void this.#setup();
+
       // let hasElementChildren = false;
       // this.shadowRoot
       //   ?.querySelector('slot')
@@ -131,17 +151,54 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
       // this.toggleAttribute('has-element-children', hasElementChildren);
     }
 
-    override updated(changes: PropertyValues<this>): void {
-      super.updated(changes);
+    override hidePopover(): void {
+      if (!this.popoverOpen) {
+        return;
+      }
 
-      if (changes.has('open') && this.open && this.getAttribute('popover') !== 'manual') {
-        requestAnimationFrame(() => {
-          const firstFocusable = this.querySelector(firstFocusableSelector) as HTMLElement;
-          if (firstFocusable) {
-            console.log(firstFocusable);
-            firstFocusable.focus();
-          }
-        });
+      this.popoverOpen = false;
+
+      if (super.hidePopover) {
+        if (this.matches(':open')) {
+          super.hidePopover();
+        }
+
+        this.open = false;
+      } else {
+        this.dispatchEvent(new Event('popoverhide', { bubbles: true, composed: true }));
+      }
+
+      this.#cleanup();
+
+      // let hasElementChildren = false;
+      // this.shadowRoot
+      //   ?.querySelector('slot')
+      //   ?.assignedElements()
+      //   ?.forEach(element => {
+      //     hasElementChildren = true;
+      //     element.toggleAttribute('open', false);
+      //   });
+      // this.toggleAttribute('has-element-children', hasElementChildren);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    positionPopover(): void {}
+
+    /** Setup light dismiss handlers if no top-layer and not a manual popover. */
+    async #setup(): Promise<void> {
+      if (!supportsTopLayer && this.getAttribute('popover') !== 'manual') {
+        await new Promise(resolve => setTimeout(resolve));
+
+        document.documentElement.addEventListener('click', this.#onDocumentClick);
+        document.documentElement.addEventListener('keydown', this.#onDocumentKeydown);
+      }
+    }
+
+    /** Cleanup light dismiss handlers. */
+    #cleanup(): void {
+      if (!supportsTopLayer && this.getAttribute('popover') !== 'manual') {
+        document.documentElement.removeEventListener('click', this.#onDocumentClick);
+        document.documentElement.removeEventListener('keydown', this.#onDocumentKeydown);
       }
     }
   }

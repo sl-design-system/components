@@ -1,8 +1,7 @@
 import type { Placement } from './utils/position-anchored-element.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { supportsTopLayer } from '../utils/css.js';
 import { AnchoredPopoverMixin } from './mixins/anchored-popover.js';
 import styles from './popover.scss.js';
 import { popoverMixinStyles } from './mixins/popover.js';
@@ -21,20 +20,6 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
     event.preventDefault();
   };
 
-  #onDocumentClick = (event: Event): void => this.#onClick(event);
-
-  #onDocumentKeydown = (event: KeyboardEvent): void => {
-    if (event.defaultPrevented) {
-      return;
-    }
-
-    event.preventDefault();
-
-    if (event.key === 'Escape') {
-      this.open = false;
-    }
-  };
-
   /** Popover placement relative to the anchor. */
   @property() placement: Placement = 'top';
 
@@ -44,27 +29,9 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
     this.setAttribute('popover', '');
   }
 
-  override disconnectedCallback(): void {
-    void this.#teardown();
-
-    super.disconnectedCallback();
-  }
-
-  override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('open')) {
-      if (this.open) {
-        this.showPopover();
-        void this.#setup();
-      } else if (typeof changes.get('open') !== 'undefined') {
-        this.hidePopover();
-        void this.#teardown();
-      }
-    }
-  }
-
   override render(): TemplateResult {
     return html`
-      <div @click=${this.#onContainerClick} class="container" part="container">
+      <div @click=${(event: Event) => event.stopPropagation()} class="container" part="container">
         <slot></slot>
       </div>
     `;
@@ -84,23 +51,5 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
     }
 
     this.open = !this.open;
-  }
-
-  #onContainerClick(event: Event): void {
-    event.stopPropagation();
-  }
-
-  async #setup(): Promise<void> {
-    if (!supportsTopLayer) {
-      document.documentElement.addEventListener('click', this.#onDocumentClick);
-      document.documentElement.addEventListener('keydown', this.#onDocumentKeydown);
-    }
-  }
-
-  async #teardown(): Promise<void> {
-    if (!supportsTopLayer) {
-      document.documentElement.removeEventListener('click', this.#onDocumentClick);
-      document.documentElement.removeEventListener('keydown', this.#onDocumentKeydown);
-    }
   }
 }

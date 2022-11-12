@@ -18,6 +18,11 @@ dialog {
   box-shadow: var(--_box-shadow);
   flex-direction: column;
   gap: var(--_gap);
+
+  &::backdrop {
+    backdrop-filter: blur(3px);
+    transition: backdrop-filter 0.5s ease;
+  }
 }
 
 dialog[open] {

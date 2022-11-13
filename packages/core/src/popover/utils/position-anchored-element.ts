@@ -65,6 +65,8 @@ export const positionAnchoredElement = (
     });
   });
   return () => {
+    element.removeAttribute('actual-placement');
+
     cleanup();
   };
 };

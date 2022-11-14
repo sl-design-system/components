@@ -1,5 +1,131 @@
 {
   "color": {
+    "palette": {
+      "primary": {
+        "50": {
+          "value": "#FEFEFE",
+          "type": "color",
+          "description": "color.palette.primary.50"
+        },
+        "100": {
+          "value": "#EAEAEA",
+          "type": "color",
+          "description": "color.palette.primary.100"
+        },
+        "150": {
+          "value": "#D5D5D5",
+          "type": "color",
+          "description": "color.palette.primary.150"
+        },
+        "200": {
+          "value": "#BCBCBC",
+          "type": "color",
+          "description": "color.palette.primary.200"
+        },
+        "300": {
+          "value": "#A2A1A1",
+          "type": "color",
+          "description": "color.palette.primary.300"
+        },
+        "400": {
+          "value": "#898989",
+          "type": "color",
+          "description": "color.palette.primary.400"
+        },
+        "500": {
+          "value": "#737373",
+          "type": "color",
+          "description": "color.palette.primary.500"
+        },
+        "600": {
+          "value": "#605F5F",
+          "type": "color",
+          "description": "color.palette.primary.600"
+        },
+        "700": {
+          "value": "#4E4E4E",
+          "type": "color",
+          "description": "color.palette.primary.700"
+        },
+        "800": {
+          "value": "#3E3D3D",
+          "type": "color",
+          "description": "color.palette.primary.800"
+        },
+        "900": {
+          "value": "#262626",
+          "type": "color",
+          "description": "color.palette.primary.900"
+        },
+        "base": {
+          "value": "#1f97f9",
+          "type": "color",
+          "description": "color.palette.primary.base"
+        }
+      },
+      "accent": {
+        "50": {
+          "value": "#FBFCFB",
+          "type": "color",
+          "description": "color.palette.secondary.50"
+        },
+        "100": {
+          "value": "#DAEEE0",
+          "type": "color",
+          "description": "color.palette.secondary.100"
+        },
+        "150": {
+          "value": "#B1DFC1",
+          "type": "color",
+          "description": "color.palette.secondary.150"
+        },
+        "200": {
+          "value": "#66CE91",
+          "type": "color",
+          "description": "color.palette.secondary.200"
+        },
+        "300": {
+          "value": "#54B27B",
+          "type": "color",
+          "description": "color.palette.secondary.300"
+        },
+        "400": {
+          "value": "#4F966B",
+          "type": "color",
+          "description": "color.palette.secondary.400"
+        },
+        "500": {
+          "value": "#487E5C",
+          "type": "color",
+          "description": "color.palette.secondary.500"
+        },
+        "600": {
+          "value": "#40684E",
+          "type": "color",
+          "description": "color.palette.secondary.600"
+        },
+        "700": {
+          "value": "#365441",
+          "type": "color",
+          "description": "color.palette.secondary.700"
+        },
+        "800": {
+          "value": "#2E4234",
+          "type": "color",
+          "description": "color.palette.secondary.800"
+        },
+        "900": {
+          "value": "#1E2922",
+          "type": "color",
+          "description": "color.palette.secondary.900"
+        },
+        "base": {
+          "value": "#FF7733",
+          "type": "color",
+          "description": "color.palette.secondary.base"
+        }
+      }
+    },
     "button": {
       "default": {
         "default": {
@@ -112,7 +238,7 @@
         "icon": {
           "value": "Font Awesome 6 Pro",
           "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.icon"
+          "description": "text.typeset.fontFamilty.icon"
         }
       },
       "fontWeight": {

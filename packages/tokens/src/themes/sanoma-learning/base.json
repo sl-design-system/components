@@ -466,7 +466,7 @@
         "icon": {
           "value": "Font Awesome 6 Pro",
           "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.icon"
+          "description": "text.typeset.fontFamilty.icon"
         }
       },
       "fontWeight": {

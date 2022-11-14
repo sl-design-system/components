@@ -2624,6 +2624,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sanomalearning/slds-storybook@workspace:docs/storybook":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-storybook@workspace:docs/storybook"
+  dependencies:
+    "@storybook/addon-a11y": ^7.0.0-alpha.49
+    "@storybook/addon-docs": ^7.0.0-alpha.49
+    "@storybook/addon-essentials": ^7.0.0-alpha.49
+    "@storybook/addon-links": ^7.0.0-alpha.49
+    "@storybook/addon-storysource": ^7.0.0-alpha.49
+    "@storybook/web-components": ^7.0.0-alpha.49
+    "@storybook/web-components-webpack5": ^7.0.0-alpha.49
+    lit-html: ^2.4.0
+    storybook: ^7.0.0-alpha.49
+    wireit: ^0.7.2
+  languageName: unknown
+  linkType: soft
+
 "@sanomalearning/slds-teas@workspace:packages/tokens/src/themes/teas":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-teas@workspace:packages/tokens/src/themes/teas"

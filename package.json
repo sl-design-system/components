@@ -7,6 +7,7 @@
     "url": "https://github.com/sanomalearning/design-system.git"
   },
   "workspaces": [
+    "docs/storybook",
     "docs/website",
     "packages/core",
     "packages/grid",

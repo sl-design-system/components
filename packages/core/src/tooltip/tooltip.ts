@@ -7,6 +7,8 @@ import { popoverMixinStyles } from '../popover/mixins/popover.js';
 import { EventsController } from '../utils/controllers/events.js';
 import styles from './tooltip.scss.js';
 
+let nextUniqueId = 0;
+
 /**
  * Tooltip component.
  */
@@ -17,8 +19,14 @@ export class Tooltip extends AnchoredPopoverMixin(LitElement) {
   static lazy(target: Element, callback: (target: Tooltip) => void): void {
     const createTooltip = (): void => {
       const tooltip = document.createElement('sl-tooltip');
+      tooltip.id = `sl-tooltip-${nextUniqueId++}`;
+
       callback(tooltip);
+
       target.parentNode?.insertBefore(tooltip, target.nextSibling);
+      target.setAttribute('aria-describedby', tooltip.id);
+
+      tooltip.anchorElement = target as HTMLElement;
       tooltip.showPopover();
 
       // We only need to create the tooltip once, so ignore all future events.

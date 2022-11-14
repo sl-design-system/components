@@ -49,7 +49,7 @@ export const Autofocus: StoryObj = {
         <label>Label</label>
         <sl-input autofocus placeholder="Input"></sl-input>
         <sl-button-bar align="end">
-          <sl-button size="sm" type="submit">Save</sl-button>
+          <sl-button size="sm">Save</sl-button>
         </sl-button-bar>
       </form>
     </sl-popover>

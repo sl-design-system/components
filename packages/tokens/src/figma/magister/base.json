@@ -371,6 +371,82 @@
           "type": "color",
           "description": "color.palette.warning.base"
         }
+      },
+      "danger": {
+        "50": {
+          "value": "#FEFEFE",
+          "type": "color",
+          "description": "color.palette.danger.50"
+        },
+        "100": {
+          "value": "#F9E6E6",
+          "type": "color",
+          "description": "color.palette.danger.100"
+        },
+        "150": {
+          "value": "#F9CBCA",
+          "type": "color",
+          "description": "color.palette.danger.150"
+        },
+        "200": {
+          "value": "#FAA6A5",
+          "type": "color",
+          "description": "color.palette.danger.200"
+        },
+        "300": {
+          "value": "#FA7C7E",
+          "type": "color",
+          "description": "color.palette.danger.300"
+        },
+        "400": {
+          "value": "#E65B60",
+          "type": "color",
+          "description": "color.palette.danger.400"
+        },
+        "500": {
+          "value": "#BB5254",
+          "type": "color",
+          "description": "color.palette.danger.500"
+        },
+        "600": {
+          "value": "#984749",
+          "type": "color",
+          "description": "color.palette.danger.600"
+        },
+        "700": {
+          "value": "#783D3D",
+          "type": "color",
+          "description": "color.palette.danger.700"
+        },
+        "800": {
+          "value": "#5C3232",
+          "type": "color",
+          "description": "color.palette.danger.800"
+        },
+        "900": {
+          "value": "#382020",
+          "type": "color",
+          "description": "color.palette.danger.900"
+        },
+        "base": {
+          "value": "#FA5F66",
+          "type": "color",
+          "description": "color.palette.danger.base"
+        }
+      },
+      "black": {
+        "base": {
+          "value": "#233243",
+          "type": "color",
+          "description": "color.palette.black.base"
+        }
+      },
+      "white": {
+        "base": {
+          "value": "#FEFEFE",
+          "type": "color",
+          "description": "color.palette.white.base"
+        }
       }
     },
     "button": {

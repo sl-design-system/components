@@ -68,9 +68,9 @@
   --sl-color-button-warning-default-idle-border: rgb(var(--sl-color-palette-warning-base));
   --sl-color-button-warning-default-idle-foreground: rgb(var(--sl-color-palette-warning-900));
   --sl-color-button-warning-default-idle-background: rgb(var(--sl-color-palette-warning-base));
-  --sl-color-button-success-outline-disabled-border: rgba(var(--sl-color-palette-secondary-400), var(--sl-opacity-700));
+  --sl-color-button-success-outline-disabled-border: rgba(var(--sl-color-palette-accent-400), var(--sl-opacity-700));
   --sl-color-button-success-outline-disabled-foreground: rgba(
-    var(--sl-color-palette-secondary-400),
+    var(--sl-color-palette-accent-400),
     var(--sl-opacity-700)
   );
   --sl-color-button-success-outline-disabled-background: rgb(var(--sl-color-palette-white-base));
@@ -86,10 +86,10 @@
   --sl-color-button-success-outline-idle-border: rgb(var(--sl-color-palette-success-400));
   --sl-color-button-success-outline-idle-foreground: rgb(var(--sl-color-palette-success-400));
   --sl-color-button-success-outline-idle-background: rgb(var(--sl-color-palette-white-base));
-  --sl-color-button-success-default-disabled-border: rgba(var(--sl-color-palette-secondary-400), var(--sl-opacity-700));
+  --sl-color-button-success-default-disabled-border: rgba(var(--sl-color-palette-accent-400), var(--sl-opacity-700));
   --sl-color-button-success-default-disabled-foreground: rgb(var(--sl-color-palette-neutral-50));
   --sl-color-button-success-default-disabled-background: rgba(
-    var(--sl-color-palette-secondary-400),
+    var(--sl-color-palette-accent-400),
     var(--sl-opacity-700)
   );
   --sl-color-button-success-default-focus-border: rgb(var(--sl-color-palette-success-400));

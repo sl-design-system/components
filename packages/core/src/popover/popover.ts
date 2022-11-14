@@ -1,7 +1,7 @@
 import type { Placement } from './utils/position-anchored-element.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { AnchoredPopoverMixin } from './mixins/anchored-popover.js';
 import styles from './popover.scss.js';
 import { popoverMixinStyles } from './mixins/popover.js';
@@ -20,6 +20,9 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
     event.preventDefault();
   };
 
+  /** The arrow linking the popover to the anchor element. */
+  @query('.arrow') arrow!: Element;
+
   /** Popover placement relative to the anchor. */
   @property() placement: Placement = 'top';
 
@@ -33,6 +36,14 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
     return html`
       <div @click=${(event: Event) => event.stopPropagation()} class="container" part="container">
         <slot></slot>
+      </div>
+      <div class="arrow">
+        <svg xmlns="http://www.w3.org/svg/2000" width="24" height="12" viewBox="0 0 24 12">
+          <defs>
+            <clipPath id="modal-arrow-cut-stroke-top"><path d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path></clipPath>
+          </defs>
+          <path clip-path="url(#modal-arrow-cut-stroke-top)" d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path>
+        </svg>
       </div>
     `;
   }

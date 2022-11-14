@@ -2,8 +2,8 @@ import type { Constructor } from '../../utils/mixin-types.js';
 import type { ReactiveElement } from 'lit';
 import type { AnchoredInterface } from './anchored.js';
 import type { PopoverInterface } from './popover.js';
-import type { Placement } from '../utils/position-anchored-element.js';
-import { positionAnchoredElement } from '../utils/position-anchored-element.js';
+import type { Placement, PositionAnchoredElementOptions } from '../utils/position-anchored-element.js';
+import { flipPlacement, positionAnchoredElement } from '../utils/position-anchored-element.js';
 import { supportsAnchor } from '../../utils/css.js';
 import { PopoverMixin } from './popover.js';
 import { AnchoredMixin } from './anchored.js';
@@ -17,8 +17,13 @@ export function AnchoredPopoverMixin<T extends Constructor<ReactiveElement>>(
       this.cleanupPopover();
     };
 
+    /** The arrow pointing to the anchor element. */
+    arrow?: HTMLElement;
+
+    /** The placement of the popover relative to the anchor element. */
     placement: Placement = 'bottom';
 
+    /** Cleanup callback for floating-ui. */
     cleanupFloatingUI?: () => void;
 
     override connectedCallback(): void {
@@ -38,12 +43,22 @@ export function AnchoredPopoverMixin<T extends Constructor<ReactiveElement>>(
         return;
       }
 
-      const offsetOptions = {
-        mainAxis: parseFloat(this.getAttribute('main-axis') || '6'),
-        crossAxis: parseFloat(this.getAttribute('cross-axis') || '0')
+      const offset: [number, number] = [
+        parseFloat(this.getAttribute('cross-axis') || '0'),
+        parseFloat(this.getAttribute('main-axis') || '12')
+      ];
+
+      const options: PositionAnchoredElementOptions = {
+        arrow: this.arrow,
+        positions: [
+          { placement: this.placement, offset },
+          { placement: flipPlacement(this.placement), offset }
+        ],
+        // TODO: get this from the theme somehow
+        viewportMargin: 8
       };
 
-      this.cleanupFloatingUI = positionAnchoredElement(this, this.anchorElement, this.placement, offsetOptions);
+      this.cleanupFloatingUI = positionAnchoredElement(this, this.anchorElement, options);
     }
 
     cleanupPopover(): void {

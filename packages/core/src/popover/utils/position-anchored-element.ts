@@ -1,4 +1,4 @@
-import type { OffsetOptions } from '@floating-ui/core';
+import { arrow } from '@floating-ui/core';
 import type { Placement } from '@floating-ui/dom';
 import { autoUpdate, computePosition, flip, offset, shift, size } from '@floating-ui/dom';
 export type { Placement };
@@ -17,56 +17,78 @@ const virtualTrigger = false;
 //     left: ['left', 'right'] as Placement[],
 //     right: ['right', 'left'] as Placement[],
 // }
-// See: https://spectrum.adobe.com/page/popover/#Container-padding
-const REQUIRED_DISTANCE_TO_EDGE = 8;
-// See: https://github.com/adobe/spectrum-web-components/issues/910
+
 const MIN_OVERLAY_HEIGHT = 25;
+
+export interface PositionAnchoredElementOptions {
+  arrow?: HTMLElement;
+  positions: Array<{ placement: Placement; offset?: [number, number] }>;
+  viewportMargin?: number;
+}
+
+export const flipPlacement = (placement: Placement): Placement => {
+  // Position can have a secondary part (-start, -end); we are only
+  // interested in the first part.
+  const [, pos] = /(\w+).*$/.exec(placement) || [];
+
+  if (pos === 'top' || pos === 'bottom') {
+    return pos === 'top' ? 'bottom' : 'top';
+  } else {
+    return pos === 'left' ? 'right' : 'left';
+  }
+};
 
 export const positionAnchoredElement = (
   element: HTMLElement,
   anchor: HTMLElement,
-  placement: Placement,
-  offsetOptions: OffsetOptions = {}
+  options: PositionAnchoredElementOptions
 ): (() => void) => {
   const cleanup = autoUpdate(anchor, element, () => {
+    const { viewportMargin = 0 } = options,
+      { placement, offset: [crossAxis, mainAxis] = [0, 0] } = options.positions[0];
+
+    const middleware = [
+      shift({ padding: viewportMargin }),
+      flip({ fallbackPlacements: options.positions.slice(1).map(({ placement }) => placement) }),
+      offset({ mainAxis, crossAxis }),
+      size({
+        padding: viewportMargin,
+        apply: ({ availableWidth, availableHeight, rects: { floating } }) => {
+          // Make sure that the overlay is contained by the visible page.
+          const maxHeight = Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight));
+          const actualHeight = floating.height;
+          initialHeight = !isConstrained && !virtualTrigger ? actualHeight : initialHeight || actualHeight;
+          isConstrained = actualHeight < initialHeight || maxHeight <= actualHeight;
+          const appliedHeight = isConstrained ? `${maxHeight}px` : '';
+          Object.assign(element.style, {
+            maxWidth: `${Math.floor(availableWidth)}px`,
+            maxHeight: appliedHeight,
+            height: appliedHeight
+          });
+        }
+      })
+    ];
+
+    if (options.arrow) {
+      middleware.push(arrow({ element: options.arrow }));
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     computePosition(anchor, element, {
       strategy: 'fixed',
       placement,
-      middleware: [
-        shift({ padding: REQUIRED_DISTANCE_TO_EDGE }),
-        flip({
-          padding: REQUIRED_DISTANCE_TO_EDGE
-        }),
-        offset(offsetOptions),
-        //   autoPlacement({allowedPlacements: placements[placement]}),
-        // Make sure that the overlay is contained by the visible page.
-        size({
-          padding: REQUIRED_DISTANCE_TO_EDGE,
-          apply: ({ availableWidth, availableHeight, rects: { floating } }) => {
-            const maxHeight = Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight));
-            const actualHeight = floating.height;
-            initialHeight = !isConstrained && !virtualTrigger ? actualHeight : initialHeight || actualHeight;
-            isConstrained = actualHeight < initialHeight || maxHeight <= actualHeight;
-            const appliedHeight = isConstrained ? `${maxHeight}px` : '';
-            Object.assign(element.style, {
-              maxWidth: `${Math.floor(availableWidth)}px`,
-              maxHeight: appliedHeight,
-              height: appliedHeight
-            });
-          }
-        })
-      ]
-    }).then(({ x, y, placement: actualPlacement }) => {
+      middleware
+    }).then(({ x, y, middlewareData: { arrow }, placement: actualPlacement }) => {
       Object.assign(element.style, {
         transform: `translate(${roundByDPR(x)}px, ${roundByDPR(y)}px)`
       });
       element.setAttribute('actual-placement', actualPlacement);
+
+      if (arrow && options.arrow) {
+        options.arrow.style.transform = `translateX(${arrow.x || 0}px)`;
+      }
     });
   });
-  return () => {
-    element.removeAttribute('actual-placement');
 
-    cleanup();
-  };
+  return () => cleanup();
 };

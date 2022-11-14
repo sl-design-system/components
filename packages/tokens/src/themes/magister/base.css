@@ -123,6 +123,18 @@
   --sl-color-button-default-default-idle-border: #1f97f9;
   --sl-color-button-default-default-idle-foreground: #1f97f9;
   --sl-color-button-default-default-idle-background: #fff;
+  --sl-color-palette-info-base: 31 151 249;
+  --sl-color-palette-info-900: 35 50 67;
+  --sl-color-palette-info-800: 46 73 102;
+  --sl-color-palette-info-700: 51 90 129;
+  --sl-color-palette-info-600: 53 107 161;
+  --sl-color-palette-info-500: 50 127 200;
+  --sl-color-palette-info-400: 32 149 246;
+  --sl-color-palette-info-300: 116 174 234;
+  --sl-color-palette-info-200: 163 197 232;
+  --sl-color-palette-info-150: 203 220 237;
+  --sl-color-palette-info-100: 231 238 245;
+  --sl-color-palette-info-50: 254 254 254;
   --sl-color-palette-neutral-base: 34 34 34;
   --sl-color-palette-neutral-900: 38 38 38;
   --sl-color-palette-neutral-800: 62 61 61;

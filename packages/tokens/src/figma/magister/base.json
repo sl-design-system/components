@@ -67,62 +67,62 @@
         "50": {
           "value": "#FEFEFE",
           "type": "color",
-          "description": "color.palette.secondary.50"
+          "description": "color.palette.accent.50"
         },
         "100": {
           "value": "#FAEBE4",
           "type": "color",
-          "description": "color.palette.secondary.100"
+          "description": "color.palette.accent.100"
         },
         "150": {
           "value": "#FBD4C1",
           "type": "color",
-          "description": "color.palette.secondary.150"
+          "description": "color.palette.accent.150"
         },
         "200": {
           "value": "#FDB491",
           "type": "color",
-          "description": "color.palette.secondary.200"
+          "description": "color.palette.accent.200"
         },
         "300": {
           "value": "#FF8F59",
           "type": "color",
-          "description": "color.palette.secondary.300"
+          "description": "color.palette.accent.300"
         },
         "400": {
           "value": "#EE7233",
           "type": "color",
-          "description": "color.palette.secondary.400"
+          "description": "color.palette.accent.400"
         },
         "500": {
           "value": "#C86434",
           "type": "color",
-          "description": "color.palette.secondary.500"
+          "description": "color.palette.accent.500"
         },
         "600": {
           "value": "#A65832",
           "type": "color",
-          "description": "color.palette.secondary.600"
+          "description": "color.palette.accent.600"
         },
         "700": {
           "value": "#894C2E",
           "type": "color",
-          "description": "color.palette.secondary.700"
+          "description": "color.palette.accent.700"
         },
         "800": {
           "value": "#70402A",
           "type": "color",
-          "description": "color.palette.secondary.800"
+          "description": "color.palette.accent.800"
         },
         "900": {
           "value": "#4D2F21",
           "type": "color",
-          "description": "color.palette.secondary.900"
+          "description": "color.palette.accent.900"
         },
         "base": {
           "value": "#FF7733",
           "type": "color",
-          "description": "color.palette.secondary.base"
+          "description": "color.palette.accent.base"
         }
       }
     },

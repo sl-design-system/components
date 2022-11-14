@@ -63,7 +63,7 @@
       ]
     },
     "docs": {
-      "command": "storybook build -o dist/storybook --quiet",
+      "command": "storybook build -o ../../docs/dist/core --quiet",
       "dependencies": [
         "build"
       ]

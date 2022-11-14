@@ -22,5 +22,15 @@ module.exports = {
   },
   core: {
     disableTelemetry: true
+  },
+  refs: {
+    core: {
+      title: 'Core',
+      url: '/core/'
+    },
+    core: {
+      title: 'Grid',
+      url: '/grid/'
+    }
   }
 };

@@ -11,14 +11,15 @@
   "type": "module",
   "scripts": {
     "storybook": "wireit",
-    "build": "storybook build"
+    "build": "wireit"
   },
   "wireit": {
     "build": {
-      "command": "echo build..."
-    },
-    "build:storybook": {
-      "command": "storybook build --quiet"
+      "command": "storybook build -o dist --quiet",
+      "dependencies": [
+        "../../packages/core:docs",
+        "../../packages/grid:docs"
+      ]
     },
     "storybook": {
       "command": "storybook dev -p 6006 --quiet"

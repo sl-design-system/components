@@ -39,7 +39,7 @@
     },
     "docs": {
       "dependencies": [
-        "./packages/core:docs"
+        "./docs/storybook:build"
       ]
     },
     "lint": {

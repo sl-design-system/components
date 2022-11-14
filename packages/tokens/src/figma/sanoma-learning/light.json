@@ -437,7 +437,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.secondary.400}, {opacity.700})",
+              "value": "rgba({color.palette.accent.400}, {opacity.700})",
               "type": "color",
               "description": "color.button.success.default.disabled.background"
             },
@@ -447,7 +447,7 @@
               "description": "color.button.success.default.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.secondary.400}, {opacity.700})",
+              "value": "rgba({color.palette.accent.400}, {opacity.700})",
               "type": "color",
               "description": "color.button.success.default.disabled.border"
             }
@@ -529,12 +529,12 @@
               "description": "color.button.success.outline.disabled.background"
             },
             "foreground": {
-              "value": "rgba({color.palette.secondary.400}, {opacity.700})",
+              "value": "rgba({color.palette.accent.400}, {opacity.700})",
               "type": "color",
               "description": "color.button.success.outline.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.secondary.400}, {opacity.700})",
+              "value": "rgba({color.palette.accent.400}, {opacity.700})",
               "type": "color",
               "description": "color.button.success.outline.disabled.border"
             }

@@ -29,7 +29,7 @@ export const API: StoryObj = {
   `
 };
 
-export const Autofocus: StoryObj = {
+export const Focus: StoryObj = {
   render: () => html`
     <style>
       sl-popover form {
@@ -47,7 +47,7 @@ export const Autofocus: StoryObj = {
     <sl-popover anchor="button">
       <form>
         <label>Label</label>
-        <sl-input autofocus placeholder="Input"></sl-input>
+        <sl-input placeholder="Input"></sl-input>
         <sl-button-bar align="end">
           <sl-button size="sm">Save</sl-button>
         </sl-button-bar>

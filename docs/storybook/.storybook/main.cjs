@@ -32,5 +32,6 @@ module.exports = {
       title: 'Grid',
       url: '/grid/'
     }
-  }
+  },
+  staticDirs: [{ from: '../../../packages/tokens/src/themes', to: '/themes' }]
 };

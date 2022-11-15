@@ -2500,6 +2500,7 @@ __metadata:
     prettier: ^2.7.1
     sass: ^1.55.0
     slugify: ^1.6.5
+    typescript: ^4.8.4
   languageName: unknown
   linkType: soft
 

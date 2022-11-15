@@ -7,8 +7,8 @@ function previewHead(head) {
     ${head}
     <style>
       body { 
-        background: var(--sl-color-body-background, #fff);
-        color: var(--sl-color-body-foreground, #333);
+        background: var(--sl-body-background, #fff);
+        color: var(--sl-body-foreground, #333);
       }
     </style>
   `;

@@ -24,6 +24,7 @@
     "lint": "wireit",
     "postinstall": "husky install",
     "release": "wireit",
+    "reset": "wireit",
     "test": "wireit"
   },
   "wireit": {
@@ -39,7 +40,9 @@
     },
     "docs": {
       "dependencies": [
-        "./docs/storybook:build"
+        "./docs/storybook:build",
+        "./packages/core:docs",
+        "./packages/grid:docs"
       ]
     },
     "lint": {
@@ -52,6 +55,9 @@
       "dependencies": [
         "build"
       ]
+    },
+    "reset": {
+      "command": "rimraf \"**/.wireit\""
     },
     "test": {
       "dependencies": [

@@ -28,7 +28,7 @@ module.exports = {
       title: 'Core',
       url: '/core/'
     },
-    core: {
+    grid: {
       title: 'Grid',
       url: '/grid/'
     }

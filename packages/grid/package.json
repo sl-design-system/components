@@ -53,7 +53,8 @@
     "docs": {
       "command": "storybook build -o ../../docs/dist/grid --quiet",
       "dependencies": [
-        "build"
+        "build",
+        "../../docs/storybook:build"
       ]
     },
     "lint": {

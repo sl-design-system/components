@@ -2615,6 +2615,8 @@ __metadata:
   resolution: "@sanomalearning/slds-scripts@workspace:scripts"
   dependencies:
     globby: ^13.1.2
+    sass: ^1.56.1
+    stylelint: ^14.15.0
   languageName: unknown
   linkType: soft
 
@@ -7190,6 +7192,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cosmiconfig@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "cosmiconfig@npm:7.1.0"
+  dependencies:
+    "@types/parse-json": ^4.0.0
+    import-fresh: ^3.2.1
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+    yaml: ^1.10.0
+  checksum: b923ff6af581638128e5f074a5450ba12c0300b71302398ea38dbeabd33bbcaa0245ca9adbedfcf284a07da50f99ede5658c80bb3e39e2ce770a99d28a21ef03
+  languageName: node
+  linkType: hard
+
 "cross-fetch@npm:3.1.5":
   version: 3.1.5
   resolution: "cross-fetch@npm:3.1.5"
@@ -11660,6 +11675,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"known-css-properties@npm:^0.26.0":
+  version: 0.26.0
+  resolution: "known-css-properties@npm:0.26.0"
+  checksum: ff780e35f9fa506cd05e444fbba3e525074c2e516a08a942aa696b2b3663c600b0ec4d831a1d6a2e047e7527501e45d6a5974edebe0e95a2531cf48270281f6e
+  languageName: node
+  linkType: hard
+
 "koa-compose@npm:^4.1.0":
   version: 4.1.0
   resolution: "koa-compose@npm:4.1.0"
@@ -14404,6 +14426,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.4.19":
+  version: 8.4.19
+  resolution: "postcss@npm:8.4.19"
+  dependencies:
+    nanoid: ^3.3.4
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: f33594fa0a2b629043deada34171744891054255baa49150d77f08f68edec1fa7eb9740e64c3a32e6f476c16e9e592af942fcf55f93051673dd208c0aee1d60b
+  languageName: node
+  linkType: hard
+
 "preferred-pm@npm:^3.0.0":
   version: 3.0.3
   resolution: "preferred-pm@npm:3.0.3"
@@ -15671,6 +15704,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sass@npm:^1.56.1":
+  version: 1.56.1
+  resolution: "sass@npm:1.56.1"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+    immutable: ^4.0.0
+    source-map-js: ">=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: b86aa154c63a1ebebdcb992d28637121bdd06fb84a7d537ab4c3a25dee2c640aebc9c0c071b73e9c9c26e0de4f46f44003b224828af7b38dd501a3be83ac4023
+  languageName: node
+  linkType: hard
+
 "scheduler@npm:^0.19.1":
   version: 0.19.1
   resolution: "scheduler@npm:0.19.1"
@@ -16770,6 +16816,54 @@ __metadata:
   languageName: node
   linkType: hard
 
+"stylelint@npm:^14.15.0":
+  version: 14.15.0
+  resolution: "stylelint@npm:14.15.0"
+  dependencies:
+    "@csstools/selector-specificity": ^2.0.2
+    balanced-match: ^2.0.0
+    colord: ^2.9.3
+    cosmiconfig: ^7.1.0
+    css-functions-list: ^3.1.0
+    debug: ^4.3.4
+    fast-glob: ^3.2.12
+    fastest-levenshtein: ^1.0.16
+    file-entry-cache: ^6.0.1
+    global-modules: ^2.0.0
+    globby: ^11.1.0
+    globjoin: ^0.1.4
+    html-tags: ^3.2.0
+    ignore: ^5.2.0
+    import-lazy: ^4.0.0
+    imurmurhash: ^0.1.4
+    is-plain-object: ^5.0.0
+    known-css-properties: ^0.26.0
+    mathml-tag-names: ^2.1.3
+    meow: ^9.0.0
+    micromatch: ^4.0.5
+    normalize-path: ^3.0.0
+    picocolors: ^1.0.0
+    postcss: ^8.4.19
+    postcss-media-query-parser: ^0.2.3
+    postcss-resolve-nested-selector: ^0.1.1
+    postcss-safe-parser: ^6.0.0
+    postcss-selector-parser: ^6.0.10
+    postcss-value-parser: ^4.2.0
+    resolve-from: ^5.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    style-search: ^0.1.0
+    supports-hyperlinks: ^2.3.0
+    svg-tags: ^1.0.0
+    table: ^6.8.1
+    v8-compile-cache: ^2.3.0
+    write-file-atomic: ^4.0.2
+  bin:
+    stylelint: bin/stylelint.js
+  checksum: 979bbef56f4d7649cc354bd35c96d0847d09ac0653db1094eb7eb5a4a16f8cf68856c584a2eb396d66c0d4a5ba44d3dd229074ec19712e3d46f9cf59d872d1e1
+  languageName: node
+  linkType: hard
+
 "supports-color@npm:^2.0.0":
   version: 2.0.0
   resolution: "supports-color@npm:2.0.0"
@@ -16874,6 +16968,19 @@ __metadata:
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
   checksum: e03ba3ea1d625368d196eeedebaf0df072bbd8ce1604fd149cd5f3d988487062dda016638099df952bb28cefc3418ab108fcf0084bef7a9121d20985d6358298
+  languageName: node
+  linkType: hard
+
+"table@npm:^6.8.1":
+  version: 6.8.1
+  resolution: "table@npm:6.8.1"
+  dependencies:
+    ajv: ^8.0.1
+    lodash.truncate: ^4.4.2
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+  checksum: 591ed84b2438b01c9bc02248e2238e21e8bfb73654bc5acca0d469053eb39be3db2f57d600dcf08ac983b6f50f80842c44612c03877567c2afee3aec4a033e5f
   languageName: node
   linkType: hard
 

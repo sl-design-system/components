@@ -65,7 +65,8 @@
     "docs": {
       "command": "storybook build -o ../../docs/dist/core --quiet",
       "dependencies": [
-        "build"
+        "build",
+        "../../docs/storybook:build"
       ]
     },
     "lint": {

@@ -54,12 +54,9 @@
 }
 
 body {
-  align-items: center;
   background-color: var(--background-color);
   color: var(--font-color);
   font-family: 'The Message', sans-serif;
-  height: 0;
-  justify-content: center;
 }
 
 h1 {
@@ -181,20 +178,6 @@ p {
   grid-row: 1 / 1;
 }
 
-.ds-teaser__logo {
-  background-image: var(--logo-smaller);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: block;
-  grid-column: 1/1;
-  height: 32px;
-  margin: auto;
-  transition: 300ms ease-in-out;
-  width: 32px;
-  z-index: 1;
-}
-
 .ds-teaser__empty,
 .ds-teaser__dots-second,
 .ds-teaser__message,
@@ -214,7 +197,18 @@ p {
 }
 
 .ds-teaser__logo {
+  background-image: var(--logo-smaller);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+  grid-column: 1/1;
   grid-row: 1;
+  height: 32px;
+  margin: auto;
+  transition: 300ms ease-in-out;
+  width: 32px;
+  z-index: 1;
 }
 
 .ds-teaser__mobile {
@@ -261,21 +255,13 @@ p {
     height: 40px;
     transition: all 300ms ease-in-out;
     width: 40px;
-    z-index: 1;
   }
 }
 
 @media screen and (min-width: 720px) {
   .ds-teaser {
-    bottom: 0;
-    display: grid;
-    gap: 0;
     grid-template-columns: repeat(6, [col-start] 1fr);
     grid-template-rows: repeat(7, 120px);
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
   }
 
   .ds-teaser__mobile {
@@ -301,7 +287,6 @@ p {
     height: 20px;
     transition: all 300ms ease-in-out;
     width: 100%;
-    z-index: 1;
   }
 
   .ds-teaser__chat {
@@ -409,15 +394,7 @@ p {
 
 @media screen and (min-width: 960px) {
   .ds-teaser {
-    bottom: 0;
-    display: grid;
-    gap: 0;
     grid-template-columns: repeat(8, [col-start] 1fr);
-    grid-template-rows: repeat(7, 120px);
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
   }
 
   .ds-teaser__empty,
@@ -515,15 +492,7 @@ p {
 
 @media screen and (min-width: 1200px) {
   .ds-teaser {
-    bottom: 0;
-    display: grid;
-    gap: 0;
     grid-template-columns: repeat(10, [col-start] 1fr);
-    grid-template-rows: repeat(7, 120px);
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
   }
 
   .ds-teaser__empty,
@@ -617,15 +586,7 @@ p {
 
 @media screen and (min-width: 1400px) {
   .ds-teaser {
-    bottom: 0;
-    display: grid;
-    gap: 0;
     grid-template-columns: repeat(12, [col-start] 1fr);
-    grid-template-rows: repeat(7, 120px);
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
   }
 
   .ds-teaser__empty,

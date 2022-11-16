@@ -7,6 +7,7 @@
     "url": "https://github.com/sanomalearning/design-system.git"
   },
   "workspaces": [
+    "docs/storybook",
     "docs/website",
     "packages/core",
     "packages/grid",
@@ -23,6 +24,7 @@
     "lint": "wireit",
     "postinstall": "husky install",
     "release": "wireit",
+    "reset": "wireit",
     "test": "wireit"
   },
   "wireit": {
@@ -38,7 +40,9 @@
     },
     "docs": {
       "dependencies": [
-        "./packages/core:docs"
+        "./docs/storybook:build",
+        "./packages/core:docs",
+        "./packages/grid:docs"
       ]
     },
     "lint": {
@@ -51,6 +55,9 @@
       "dependencies": [
         "build"
       ]
+    },
+    "reset": {
+      "command": "rimraf \"**/.wireit\""
     },
     "test": {
       "dependencies": [

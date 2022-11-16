@@ -4,14 +4,24 @@
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git",
+    "directory": "docs/website"
+  },
   "type": "module",
   "scripts": {
-    "watch:sass": "sass --watch src/styles:public/css",
-    "build:sass": "sass src/styles:public/css",
+    "build": "wireit",
+    "build:site": "wireit",
+    "build:teaser": "wireit",
+    "clean": "wireit",
+    "styles:site": "wireit",
+    "styles:teaser": "wireit",
+    "watch:sass": "sass --watch src/styles:dist/css",
+    "build:sass": "sass src/styles:dist/css",
     "watch:eleventy": "eleventy --input=src --serve --config=.eleventy.cjs",
-    "build:eleventy": "NODE_ENV=production eleventy --input=src --output=public --config=.eleventy.cjs",
+    "build:eleventy": "NODE_ENV=production eleventy --input=src --output=dist --config=.eleventy.cjs",
     "start": "npm-run-all build:sass --parallel watch:sass watch:eleventy",
-    "build": "npm-run-all build:sass build:eleventy",
     "debug": "DEBUG=* eleventy --input=src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettier:write": "prettier --write 'src/**/*'",
@@ -19,15 +29,45 @@
     "lint:scss": "stylelint 'src/**/*.scss' --color",
     "lint": "npm-run-all lint:eslint lint:scss"
   },
-  "author": "",
-  "license": "",
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "build:site",
+        "build:teaser"
+      ]
+    },
+    "build:site": {
+      "command": "eleventy --config=site.cjs",
+      "dependencies": [
+        "styles:site"
+      ]
+    },
+    "build:teaser": {
+      "command": "eleventy --config=teaser.cjs",
+      "dependencies": [
+        "styles:teaser"
+      ]
+    },
+    "clean": {
+      "command": "rimraf dist"
+    },
+    "styles:site": {
+      "command": "sass src/site:dist/site"
+    },
+    "styles:teaser": {
+      "command": "sass src/teaser:dist/teaser"
+    }
+  },
   "devDependencies": {
     "@11ty/eleventy": "^1.0.2",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
     "eslint": "^8.27.0",
     "eslint-plugin-import": "^2.26.0",
-    "prettier": "^2.7.1"
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "wireit": "^0.7.3"
   },
   "dependencies": {
     "@lit-labs/eleventy-plugin-lit": "^0.2.3",
@@ -37,7 +77,6 @@
     "lit": "^2.4.1",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.5",
-    "npm-run-all": "^4.1.5",
     "sass": "^1.56.1",
     "slugify": "^1.6.5",
     "stylelint": "^14.14.1",

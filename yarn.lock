@@ -2515,10 +2515,12 @@ __metadata:
     markdown-it-anchor: ^8.6.5
     npm-run-all: ^4.1.5
     prettier: ^2.7.1
+    rimraf: ^3.0.2
     sass: ^1.56.1
     slugify: ^1.6.5
     stylelint: ^14.14.1
     stylelint-prettier: ^2.0.0
+    wireit: ^0.7.3
   languageName: unknown
   linkType: soft
 
@@ -8179,7 +8181,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-abstract@npm:^1.19.0, es-abstract@npm:^1.19.1, es-abstract@npm:^1.19.2, es-abstract@npm:^1.19.5, es-abstract@npm:^1.20.0":
+"es-abstract@npm:^1.19.0, es-abstract@npm:^1.19.1, es-abstract@npm:^1.19.2, es-abstract@npm:^1.19.5, es-abstract@npm:^1.20.0, es-abstract@npm:^1.20.4":
   version: 1.20.4
   resolution: "es-abstract@npm:1.20.4"
   dependencies:
@@ -16569,13 +16571,13 @@ __metadata:
   linkType: hard
 
 "string.prototype.padend@npm:^3.0.0":
-  version: 3.1.3
-  resolution: "string.prototype.padend@npm:3.1.3"
+  version: 3.1.4
+  resolution: "string.prototype.padend@npm:3.1.4"
   dependencies:
     call-bind: ^1.0.2
-    define-properties: ^1.1.3
-    es-abstract: ^1.19.1
-  checksum: c713de3b48f6c773c72012dfad99d3865e714d9c9f8ea8656852b21a9bf5d6ccbcbf553e14ef2b6cbdff45db935103322a1fab87dfda8021fd8c8af432195aeb
+    define-properties: ^1.1.4
+    es-abstract: ^1.20.4
+  checksum: 11feb9ae51a32febc73bb3b38d29900405c736f47613badff773ab830f23faad796c43d51e18090cada975b82831f66bdcb6b5353739a019b7fcc321900205ad
   languageName: node
   linkType: hard
 
@@ -18306,6 +18308,21 @@ __metadata:
   bin:
     wireit: bin/wireit.js
   checksum: f369b050ce686a49c7997e9595fbe2198448714ef34b3629da2c539b05a7188319a0e9a8e8eadb2465e7b2b64c9f0075814620ab3f8806b61db6986fb5c93de4
+  languageName: node
+  linkType: hard
+
+"wireit@npm:^0.7.3":
+  version: 0.7.3
+  resolution: "wireit@npm:0.7.3"
+  dependencies:
+    braces: ^3.0.2
+    chokidar: ^3.5.3
+    fast-glob: ^3.2.11
+    jsonc-parser: ^3.0.0
+    proper-lockfile: ^4.1.2
+  bin:
+    wireit: bin/wireit.js
+  checksum: 5896bf5e9248254d8454f18beeb8466e1431780d04db3181a85a3ad644402939bc6e2f08b8e55f49a0a1e7821f8133ea6c7831e0a473d8933bcda4c887d0d6a2
   languageName: node
   linkType: hard
 

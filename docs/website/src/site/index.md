@@ -1,6 +1,6 @@
 ---
-title: Welcome to Sanoma Learning Design System
-layout: "base.njk"
+title: Welcome to the Sanoma Learning Design System
+layout: base.njk
 eleventyNavigation:
   key: Pages
 ---

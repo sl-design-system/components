@@ -4,6 +4,7 @@
   --_border-radius: 3px;
   --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
   --_gap: 0.5rem;
+  --_max-inline-size: 500px;
   --_spacing: 0.5rem;
 }
 
@@ -16,10 +17,48 @@ dialog {
   border: var(--_border);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
+  display: flex;
   flex-direction: column;
   gap: var(--_gap);
+  inset: 0;
+  margin: auto;
+  max-block-size: min(80vh, 100%);
+  max-block-size: min(80dvb, 100%);
+  max-inline-size: min(90vw, var(--_max-inline-size));
+  opacity: 0;
+  padding: 1rem;
+  position: fixed;
+  transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
+
+  &::backdrop {
+    backdrop-filter: blur(3px);
+    transition: backdrop-filter 0.5s ease;
+  }
 }
 
 dialog[open] {
-  display: flex;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog {
+    animation: scale-down 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
+    animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
+  }
+
+  dialog[open] {
+    animation: slide-in-up 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
+  }
+}
+
+@keyframes scale-down {
+  to {
+    transform: scale(0.75);
+  }
+}
+
+@keyframes slide-in-up {
+  0% {
+    transform: translateY(100%);
+  }
 }

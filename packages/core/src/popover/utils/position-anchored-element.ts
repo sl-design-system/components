@@ -11,12 +11,6 @@ function roundByDPR(num: number): number {
 let initialHeight: number;
 let isConstrained: boolean;
 const virtualTrigger = false;
-// const placements: Record<string, Placement[]> = {
-//     top: ['top', 'bottom'] as Placement[],
-//     bottom: ['bottom', 'top'] as Placement[],
-//     left: ['left', 'right'] as Placement[],
-//     right: ['right', 'left'] as Placement[],
-// }
 
 const MIN_OVERLAY_HEIGHT = 25;
 

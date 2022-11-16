@@ -46,7 +46,7 @@ export const ScrollingBody: StoryObj = {
   render: () => html`
     <style>
       sl-button {
-        margin: 50vh 0 100vh 0;
+        margin: 50vh 0 100vh;
       }
     </style>
     <sl-button @click=${onClick}>Show Dialog</sl-button>

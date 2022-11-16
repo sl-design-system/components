@@ -63,6 +63,7 @@ export class Tooltip extends AnchoredPopoverMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('popover', 'manual');
+    this.setAttribute('role', 'tooltip');
 
     const root = this.getRootNode();
 

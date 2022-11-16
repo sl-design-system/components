@@ -33,14 +33,14 @@ export const popoverMixinStyles: CSSResultGroup = css`
     background: none;
     border: 0;
     display: flex;
-    left: 0px;
+    left: 0;
     margin: 0;
     opacity: 0;
     overflow: visible;
     padding: 0;
     pointer-events: none;
     position: fixed;
-    top: 0px;
+    top: 0;
   }
 `;
 
@@ -111,10 +111,8 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
       if (changes.has('open') && this.open && this.getAttribute('popover') !== 'manual') {
         requestAnimationFrame(() => {
           const firstFocusable = this.querySelector(firstFocusableSelector) as HTMLElement;
-          if (firstFocusable) {
-            console.log(firstFocusable);
-            firstFocusable.focus();
-          }
+
+          firstFocusable?.focus();
         });
       }
     }
@@ -139,16 +137,6 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
       this.positionPopover();
 
       void this.#setup();
-
-      // let hasElementChildren = false;
-      // this.shadowRoot
-      //   ?.querySelector('slot')
-      //   ?.assignedElements()
-      //   ?.forEach(element => {
-      //     hasElementChildren = true;
-      //     element.toggleAttribute('open', true);
-      //   });
-      // this.toggleAttribute('has-element-children', hasElementChildren);
     }
 
     override hidePopover(): void {
@@ -169,16 +157,6 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
       }
 
       this.#cleanup();
-
-      // let hasElementChildren = false;
-      // this.shadowRoot
-      //   ?.querySelector('slot')
-      //   ?.assignedElements()
-      //   ?.forEach(element => {
-      //     hasElementChildren = true;
-      //     element.toggleAttribute('open', false);
-      //   });
-      // this.toggleAttribute('has-element-children', hasElementChildren);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function

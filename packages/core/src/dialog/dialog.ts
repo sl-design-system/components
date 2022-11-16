@@ -37,7 +37,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <dialog @cancel=${this.#onCancel} @click=${this.#onClick} .role=${this.role} part="dialog">
+      <dialog
+        @cancel=${this.#onCancel}
+        @click=${this.#onClick}
+        @close=${this.#onClose}
+        .role=${this.role}
+        part="dialog"
+      >
         <slot name="header">
           <slot name="title"></slot>
         </slot>
@@ -53,6 +59,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   showModal(): void {
     this.dialog?.showModal();
+
+    // Disable scrolling while the dialog is open
+    document.documentElement.style.overflow = 'hidden';
   }
 
   #onCancel(event: Event): void {
@@ -78,5 +87,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         this.dialog.close();
       }
     }
+  }
+
+  #onClose(): void {
+    // Reenable scrolling after the dialog has closed
+    document.documentElement.style.overflow = '';
   }
 }

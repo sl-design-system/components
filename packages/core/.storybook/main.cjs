@@ -21,5 +21,8 @@ module.exports = {
   core: {
     disableTelemetry: true
   },
-  staticDirs: [{ from: '../../tokens/src/themes', to: '/themes' }]
+  staticDirs: [
+    { from: '../src', to: '/src' },
+    { from: '../../tokens/src/themes', to: '/themes' }
+  ]
 };

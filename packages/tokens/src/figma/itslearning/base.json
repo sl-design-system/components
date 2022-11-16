@@ -189,62 +189,62 @@
       },
       "info": {
         "50": {
-          "value": "#FDFEFE",
+          "value": "#FEFEFE",
           "type": "color",
           "description": "color.palette.info.50"
         },
         "100": {
-          "value": "#E0F0F5",
+          "value": "#ECF0F3",
           "type": "color",
           "description": "color.palette.info.100"
         },
         "150": {
-          "value": "#B6E1EE",
+          "value": "#D6DFE6",
           "type": "color",
           "description": "color.palette.info.150"
         },
         "200": {
-          "value": "#66CFED",
+          "value": "#BBCBD8",
           "type": "color",
           "description": "color.palette.info.200"
         },
         "300": {
-          "value": "#2BB8D9",
+          "value": "#9AB5C9",
           "type": "color",
           "description": "color.palette.info.300"
         },
         "400": {
-          "value": "#399DB7",
+          "value": "#799FBD",
           "type": "color",
           "description": "color.palette.info.400"
         },
         "500": {
-          "value": "#3C8599",
+          "value": "#538BB4",
           "type": "color",
           "description": "color.palette.info.500"
         },
         "600": {
-          "value": "#3A707F",
+          "value": "#2279AE",
           "type": "color",
           "description": "color.palette.info.600"
         },
         "700": {
-          "value": "#365C68",
+          "value": "#216793",
           "type": "color",
           "description": "color.palette.info.700"
         },
         "800": {
-          "value": "#2F4B54",
+          "value": "#265576",
           "type": "color",
           "description": "color.palette.info.800"
         },
         "900": {
-          "value": "#243339",
+          "value": "#233F53",
           "type": "color",
           "description": "color.palette.info.900"
         },
         "base": {
-          "value": "#0DCAF0",
+          "value": "#1376AE",
           "type": "color",
           "description": "color.palette.info.base"
         }
@@ -306,7 +306,7 @@
           "description": "color.palette.success.900"
         },
         "base": {
-          "value": "#20c997",
+          "value": "#3CA63A",
           "type": "color",
           "description": "color.palette.success.base"
         }
@@ -437,7 +437,7 @@
       },
       "black": {
         "base": {
-          "value": "#333333",
+          "value": "#2D2A38",
           "type": "color",
           "description": "color.palette.black.base"
         }

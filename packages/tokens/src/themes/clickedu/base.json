@@ -932,52 +932,52 @@
           "description": "color.palette.danger.50"
         },
         "100": {
-          "value": "#F7ECEA",
+          "value": "#F6EAE9",
           "type": "color",
           "description": "color.palette.danger.100"
         },
         "150": {
-          "value": "#F3D9D4",
+          "value": "#F2D2D2",
           "type": "color",
           "description": "color.palette.danger.150"
         },
         "200": {
-          "value": "#F0BDB2",
+          "value": "#EEB4B3",
           "type": "color",
           "description": "color.palette.danger.200"
         },
         "300": {
-          "value": "#EC9D8D",
+          "value": "#EA9190",
           "type": "color",
           "description": "color.palette.danger.300"
         },
         "400": {
-          "value": "#E87C67",
+          "value": "#E56C6E",
           "type": "color",
           "description": "color.palette.danger.400"
         },
         "500": {
-          "value": "#E25840",
+          "value": "#DE434E",
           "type": "color",
           "description": "color.palette.danger.500"
         },
         "600": {
-          "value": "#D92F1B",
+          "value": "#BE3740",
           "type": "color",
           "description": "color.palette.danger.600"
         },
         "700": {
-          "value": "#C21408",
+          "value": "#993439",
           "type": "color",
           "description": "color.palette.danger.700"
         },
         "800": {
-          "value": "#9C2213",
+          "value": "#7A2F31",
           "type": "color",
           "description": "color.palette.danger.800"
         },
         "900": {
-          "value": "#6E2216",
+          "value": "#4F2424",
           "type": "color",
           "description": "color.palette.danger.900"
         },

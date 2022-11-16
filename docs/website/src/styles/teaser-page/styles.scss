@@ -5,24 +5,21 @@
   font-family: 'The Message';
   font-style: normal;
   font-weight: 400;
-  src: url('./../../assets/fonts/the_message-regular.woff2') format('woff2'),
-    url('./../../assets/fonts/The Message-Regular.ttf') format('truetype');
+  src: url('./../../assets/fonts/the-message-regular.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'The Message';
   font-style: normal;
   font-weight: 600;
-  src: url('./../../assets/fonts/the_message-demibold.woff2') format('woff2'),
-    url('./../../assets/fonts/The Message-DemiBold.ttf') format('truetype');
+  src: url('./../../assets/fonts/the-message-demibold.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'The Message';
   font-style: normal;
   font-weight: 700;
-  src: url('./../../assets/fonts/the_message-bold.woff2') format('woff2'),
-    url('./../../assets/fonts/The Message-Bold.ttf') format('truetype');
+  src: url('./../../assets/fonts/the-message-bold.woff2') format('woff2');
 }
 
 :root {
@@ -45,8 +42,8 @@
     --card-background-color: #56cc8a;
     --card-hover-color: #54b27b;
     --card-font-color: #222;
-    --github-icon: url('./../../assets/teaser-page/github_dark.svg');
-    --slack-icon: url('./../../assets/teaser-page/slack_dark.svg');
+    --github-icon: url('./../../assets/teaser-page/github-dark.svg');
+    --slack-icon: url('./../../assets/teaser-page/slack-dark.svg');
     --logo: url('./../../assets/teaser-page/logo-light.svg');
     --logo-small: url('./../../assets/teaser-page/logo-small-light.svg');
     --logo-smaller: url('./../../assets/teaser-page/logo-smaller-light.svg');

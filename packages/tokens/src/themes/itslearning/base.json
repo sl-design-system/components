@@ -132,57 +132,57 @@
           "description": "color.palette.neutral.50"
         },
         "100": {
-          "value": "#EAECED",
+          "value": "#F9F9F9",
           "type": "color",
           "description": "color.palette.neutral.100"
         },
         "150": {
-          "value": "#D1D5DA",
+          "value": "#F2F2F2",
           "type": "color",
           "description": "color.palette.neutral.150"
         },
         "200": {
-          "value": "#B6BDC4",
+          "value": "#ECECEC",
           "type": "color",
           "description": "color.palette.neutral.200"
         },
         "300": {
-          "value": "#9CA2A9",
+          "value": "#E1E1E1",
           "type": "color",
           "description": "color.palette.neutral.300"
         },
         "400": {
-          "value": "#848A8F",
+          "value": "#CFCFCF",
           "type": "color",
           "description": "color.palette.neutral.400"
         },
         "500": {
-          "value": "#6F7478",
+          "value": "#9B9B9B",
           "type": "color",
           "description": "color.palette.neutral.500"
         },
         "600": {
-          "value": "#5D6064",
+          "value": "#757575",
           "type": "color",
           "description": "color.palette.neutral.600"
         },
         "700": {
-          "value": "#4C4E51",
+          "value": "#565656",
           "type": "color",
           "description": "color.palette.neutral.700"
         },
         "800": {
-          "value": "#3C3E40",
+          "value": "#4A4A4A",
           "type": "color",
           "description": "color.palette.neutral.800"
         },
         "900": {
-          "value": "#262628",
+          "value": "#333333",
           "type": "color",
           "description": "color.palette.neutral.900"
         },
         "base": {
-          "value": "#000000",
+          "value": "#333333",
           "type": "color",
           "description": "color.palette.neutral.base"
         }
@@ -437,14 +437,14 @@
       },
       "black": {
         "base": {
-          "value": "#000000",
+          "value": "#333333",
           "type": "color",
           "description": "color.palette.black.base"
         }
       },
       "white": {
         "base": {
-          "value": "#FEFEFE",
+          "value": "#F9F9F9",
           "type": "color",
           "description": "color.palette.white.base"
         }

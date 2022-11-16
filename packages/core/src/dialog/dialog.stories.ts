@@ -41,3 +41,17 @@ export const DisableClose: StoryObj = {
     </sl-dialog>
   `
 };
+
+export const ScrollingBody: StoryObj = {
+  render: () => html`
+    <style>
+      sl-button {
+        margin: 50vh 0 100vh;
+      }
+    </style>
+    <sl-button @click=${onClick}>Show Dialog</sl-button>
+    <sl-dialog>
+      <div>You cannot scroll the body once the dialog is open.</div>
+    </sl-dialog>
+  `
+};

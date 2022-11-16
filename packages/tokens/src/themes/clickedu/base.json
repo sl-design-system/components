@@ -741,62 +741,62 @@
       },
       "info": {
         "50": {
-          "value": "#FEFEFE",
+          "value": "#FDFEFE",
           "type": "color",
           "description": "color.palette.info.50"
         },
         "100": {
-          "value": "#E8EEEE",
+          "value": "#E0F0F5",
           "type": "color",
           "description": "color.palette.info.100"
         },
         "150": {
-          "value": "#CEDCDB",
+          "value": "#B6E1EE",
           "type": "color",
           "description": "color.palette.info.150"
         },
         "200": {
-          "value": "#AEC7C6",
+          "value": "#66CFED",
           "type": "color",
           "description": "color.palette.info.200"
         },
         "300": {
-          "value": "#88B1AF",
+          "value": "#2BB8D9",
           "type": "color",
           "description": "color.palette.info.300"
         },
         "400": {
-          "value": "#609C99",
+          "value": "#399DB7",
           "type": "color",
           "description": "color.palette.info.400"
         },
         "500": {
-          "value": "#2B8986",
+          "value": "#3C8599",
           "type": "color",
           "description": "color.palette.info.500"
         },
         "600": {
-          "value": "#1B7471",
+          "value": "#3A707F",
           "type": "color",
           "description": "color.palette.info.600"
         },
         "700": {
-          "value": "#23615E",
+          "value": "#365C68",
           "type": "color",
           "description": "color.palette.info.700"
         },
         "800": {
-          "value": "#244E4C",
+          "value": "#2F4B54",
           "type": "color",
           "description": "color.palette.info.800"
         },
         "900": {
-          "value": "#1E3534",
+          "value": "#243339",
           "type": "color",
           "description": "color.palette.info.900"
         },
         "base": {
-          "value": "#0dcaf0",
+          "value": "#0DCAF0",
           "type": "color",
           "description": "color.palette.info.base"
         }

@@ -30,7 +30,6 @@ jobs:
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
-          path: 'docs/website/dist'
+          path: 'docs/website/dist/teaser'
       - id: deployment
         uses: actions/deploy-pages@v1

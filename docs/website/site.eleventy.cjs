@@ -6,14 +6,14 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
 const fs = require('fs');
-const searchFilter = require("./src/js/filters/searchFilter.cjs");
+const searchFilter = require("./src/site/js/filters/searchFilter.cjs");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',
     componentModules: [
-      './src/js/demo-greeter.js',
-      './src/js/my-element.js',
+      './src/site/js/demo-greeter.js',
+      './src/site/js/my-element.js',
     ],
   });
 
@@ -21,10 +21,10 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
-  eleventyConfig.addFilter("search", searchFilter);
+  eleventyConfig.addFilter('search', searchFilter);
 
-  eleventyConfig.addCollection("content", collection => {
-    return [...collection.getFilteredByGlob("./src/categories/**/*.md")];
+  eleventyConfig.addCollection('content', collection => {
+    return [...collection.getFilteredByGlob('./src/site/categories/**/*.md')];
   });
 
   function removeExtraText(s) {
@@ -59,14 +59,16 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.setBrowserSyncConfig({
     notify: true,
-    files: './public/css/**/*.css',
+    files: './dist/site/css/**/*.css',
   });
 
   eleventyConfig.setLibrary('md', mdIt/*markdownIt(options)*/);
 
-  eleventyConfig.addPassthroughCopy('./src/assets');
+  eleventyConfig
+    .addPassthroughCopy({ './src/shared/assets': 'assets' })
+    .addPassthroughCopy('./src/site/assets');
 
-  const NOT_FOUND_PATH = 'public/404.html';
+  const NOT_FOUND_PATH = 'dist/site/404.html';
 
   eleventyConfig.setBrowserSyncConfig({
     callbacks: {
@@ -94,13 +96,14 @@ module.exports = function(eleventyConfig) {
         collapseWhitespace: true,
       });
     }
+
     return content;
   });
 
   return {
     dir: {
-      input: 'src',
-      output: 'public',
+      input: 'src/site',
+      output: 'dist/site',
     },
     passthroughFileCopy: true,
   };

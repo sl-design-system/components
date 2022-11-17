@@ -1,5 +1,5 @@
-@import './../base/reset';
-@import './../base/base';
+@import '../../shared/styles/reset';
+@import '../../shared/styles/base';
 
 @font-face {
   font-family: 'The Message';
@@ -28,11 +28,11 @@
   --card-background-color: #000;
   --card-hover-color: #3e3d3d;
   --card-font-color: #fefefe;
-  --github-icon: url('./../../assets/teaser-page/github.svg');
-  --slack-icon: url('./../../assets/teaser-page/slack.svg');
-  --logo: url('./../../assets/teaser-page/logo.svg');
-  --logo-small: url('./../../assets/teaser-page/logo-small.svg');
-  --logo-smaller: url('./../../assets/teaser-page/logo-smaller.svg');
+  --github-icon: url('../assets/github.svg');
+  --slack-icon: url('../assets/slack.svg');
+  --logo: url('../assets/logo.svg');
+  --logo-small: url('../assets/logo-small.svg');
+  --logo-smaller: url('../assets/logo-smaller.svg');
 }
 
 @media (prefers-color-scheme: dark) {
@@ -42,11 +42,11 @@
     --card-background-color: #56cc8a;
     --card-hover-color: #54b27b;
     --card-font-color: #222;
-    --github-icon: url('./../../assets/teaser-page/github-dark.svg');
-    --slack-icon: url('./../../assets/teaser-page/slack-dark.svg');
-    --logo: url('./../../assets/teaser-page/logo-light.svg');
-    --logo-small: url('./../../assets/teaser-page/logo-small-light.svg');
-    --logo-smaller: url('./../../assets/teaser-page/logo-smaller-light.svg');
+    --github-icon: url('../assets/github-dark.svg');
+    --slack-icon: url('../assets/slack-dark.svg');
+    --logo: url('../assets/logo-light.svg');
+    --logo-small: url('../assets/logo-small-light.svg');
+    --logo-smaller: url('../assets/logo-smaller-light.svg');
   }
 }
 
@@ -76,6 +76,7 @@ p {
 
 .ds-teaser-background {
   aspect-ratio: 1;
+  background-color: #fff;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -210,13 +211,13 @@ p {
 
 .ds-teaser__mobile {
   aspect-ratio: auto;
-  background-image: url('./../../assets/teaser-page/squares/mobile-top-square.png');
+  background-image: url('../assets/squares/mobile-top-square.png');
   grid-column: col-start 2 / span 3;
   grid-row: 1 / 4;
 }
 
 .ds-teaser__arrow {
-  background-image: url('./../../assets/teaser-page/squares/arrow-top-square.png');
+  background-image: url('../assets/squares/arrow-top-square.png');
   grid-column: col-start 3 / span 1;
   grid-row: 4;
 }
@@ -234,7 +235,7 @@ p {
 }
 
 .ds-teaser__user {
-  background-image: url('./../../assets/teaser-page/squares/user-red-square.png');
+  background-image: url('../assets/squares/user-red-square.png');
   grid-column: col-start 1 / span 1;
   grid-row: 4;
 }
@@ -288,7 +289,7 @@ p {
 
   .ds-teaser__chat {
     aspect-ratio: auto;
-    background-image: url('./../../assets/teaser-page/squares/chat-square.png');
+    background-image: url('../assets/squares/chat-square.png');
     grid-column: col-start 3 / span 2;
     grid-row: 2 / 4;
     height: auto;
@@ -302,7 +303,7 @@ p {
   }
 
   .ds-teaser__arrow {
-    background-image: url('./../../assets/teaser-page/squares/arrow-square.png');
+    background-image: url('../assets/squares/arrow-square.png');
     grid-column: col-start 6 / span 1;
     grid-row: 1;
     height: auto;
@@ -311,13 +312,13 @@ p {
   }
 
   .ds-teaser__user {
-    background-image: url('./../../assets/teaser-page/squares/user-square.png');
+    background-image: url('../assets/squares/user-square.png');
     grid-column: col-start 1 / span 1;
     grid-row: 3;
   }
 
   .ds-teaser__left-arrow {
-    background-image: url('./../../assets/teaser-page/squares/arrow-left-square.png');
+    background-image: url('../assets/squares/arrow-left-square.png');
     grid-column: col-start 6 / span 1;
     grid-row: 1;
     height: auto;
@@ -326,7 +327,7 @@ p {
   }
 
   .ds-teaser__notification {
-    background-image: url('./../../assets/teaser-page/squares/notification-part-square.png');
+    background-image: url('../assets/squares/notification-part-square.png');
     grid-column: col-start 6 / span 1;
     grid-row: 7;
     height: auto;
@@ -335,7 +336,7 @@ p {
   }
 
   .ds-teaser__dots-half {
-    background-image: url('./../../assets/teaser-page/squares/arrow-dots-square.png');
+    background-image: url('../assets/squares/arrow-dots-square.png');
     grid-column: col-start 2 / span 1;
     grid-row: 7;
     height: auto;
@@ -345,7 +346,7 @@ p {
 
   .ds-teaser__mobile-bottom {
     aspect-ratio: auto;
-    background-image: url('./../../assets/teaser-page/squares/mobile-bottom-part-square.png');
+    background-image: url('../assets/squares/mobile-bottom-part-square.png');
     grid-column: col-start 4 / span 2;
     grid-row: 8;
     height: auto;
@@ -430,7 +431,7 @@ p {
   }
 
   .ds-teaser__empty-second {
-    background-image: url('./../../assets/teaser-page/squares/empty-square.png');
+    background-image: url('../assets/squares/empty-square.png');
     grid-column: col-start 8 / span 1;
     grid-row: 3;
     height: auto;
@@ -439,7 +440,7 @@ p {
   }
 
   .ds-teaser__right-arrow {
-    background-image: url('./../../assets/teaser-page/squares/right-arrow-square.png');
+    background-image: url('../assets/squares/right-arrow-square.png');
     grid-column: col-start 1 / span 1;
     grid-row: 4;
     height: auto;
@@ -454,7 +455,7 @@ p {
 
   .ds-teaser__notification {
     aspect-ratio: 2;
-    background-image: url('./../../assets/teaser-page/squares/notification-square.png');
+    background-image: url('../assets/squares/notification-square.png');
     grid-column: col-start 1 / span 2;
     grid-row: 7;
   }
@@ -465,7 +466,7 @@ p {
   }
 
   .ds-teaser__mobile-bottom {
-    background-image: url('./../../assets/teaser-page/squares/mobile-bottom-square.png');
+    background-image: url('../assets/squares/mobile-bottom-square.png');
     grid-column: col-start 6 / span 2;
     grid-row: 7 / 9;
   }
@@ -505,7 +506,7 @@ p {
   }
 
   .ds-teaser__dots {
-    background-image: url('./../../assets/teaser-page/squares/arrow-dots-square.png');
+    background-image: url('../assets/squares/arrow-dots-square.png');
     grid-column: col-start 3 / span 1;
     grid-row: 1;
     height: auto;
@@ -543,7 +544,7 @@ p {
   }
 
   .ds-teaser__list {
-    background-image: url('./../../assets/teaser-page/squares/list-square.png');
+    background-image: url('../assets/squares/list-square.png');
     grid-column: col-start 10 / span 1;
     grid-row: 4;
     height: auto;
@@ -572,7 +573,7 @@ p {
   }
 
   .ds-teaser__empty-half {
-    background-image: url('./../../assets/teaser-page/squares/empty-half-square.png');
+    background-image: url('../assets/squares/empty-half-square.png');
     grid-column: col-start 10 / span 1;
     grid-row: 8;
     height: auto;
@@ -625,13 +626,13 @@ p {
   }
 
   .ds-teaser__dots-second {
-    background-image: url('./../../assets/teaser-page/squares/arrow-dots-square.png');
+    background-image: url('../assets/squares/arrow-dots-square.png');
     grid-column: col-start 12 / span 1;
     grid-row: 2;
   }
 
   .ds-teaser__empty {
-    background-image: url('./../../assets/teaser-page/squares/empty-square.png');
+    background-image: url('../assets/squares/empty-square.png');
     grid-column: col-start 1 / span 1;
     grid-row: 3;
   }
@@ -652,7 +653,7 @@ p {
   }
 
   .ds-teaser__mobile {
-    background-image: url('./../../assets/teaser-page/squares/mobile-square.png');
+    background-image: url('../assets/squares/mobile-square.png');
     display: block;
     grid-column: col-start 1 / span 1;
     grid-row: 5 / 7;
@@ -669,7 +670,7 @@ p {
   }
 
   .ds-teaser__message {
-    background-image: url('./../../assets/teaser-page/squares/message-square.png');
+    background-image: url('../assets/squares/message-square.png');
     grid-column: col-start 12 / span 1;
     grid-row: 7;
   }

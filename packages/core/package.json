@@ -80,7 +80,7 @@
       ]
     },
     "lint:scss": {
-      "command": "stylelint \"src/**/*.scss\" --color",
+      "command": "stylelint 'src/**/*.scss' --color",
       "files": [
         "../../.stylelintrc.cjs",
         "src/**/*.scss"

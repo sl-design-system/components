@@ -23,3 +23,7 @@ ul {
 - [ {{ category.data.title }} ]( {{ category.url }} )
 {% endfor %}
 </div>
+
+test
+<ds-tabs></ds-tabs>
+<ds-test-element></ds-test-element>

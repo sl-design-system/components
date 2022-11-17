@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  parser: 'espree',
+  // parser: 'babel-eslint',
     'env': {
         'browser': true,
         'es2021': true

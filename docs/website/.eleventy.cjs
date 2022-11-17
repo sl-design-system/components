@@ -7,15 +7,33 @@ const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
 const fs = require('fs');
 const searchFilter = require("./src/js/filters/searchFilter.cjs");
+const CleanCSS = require('clean-css');
+
+// dev mode build
+const DEV = process.env.NODE_ENV === 'DEV';
+// where the JS files are outputted
+const jsFolder = DEV ? 'lib' : 'build';
+// where to output 11ty output
+const outputFolder = DEV ? 'public' : 'dist';
 
 module.exports = function(eleventyConfig) {
+  eleventyConfig
+    .addPassthroughCopy({ [`${jsFolder}/`]: 'js/' })
+    // .addPassthroughCopy('./src/styles')
+    // .addPassthroughCopy('./src')
+    /*.addPassthroughCopy('./src/categories')*/;
+
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',
-    componentModules: [
-      './src/js/demo-greeter.js',
-      './src/js/my-element.js',
-    ],
+    // componentModules: [
+    //   './src/js/demo-greeter.js',
+    //   './src/js/my-element.js',
+    // ],
+    componentModules: [`./${jsFolder}/ssr.js`],
   });
+
+  // add this for 11ty's --watch flag. We don't use it in this example
+  eleventyConfig.addWatchTarget(`./${jsFolder}/**/*.js`);
 
   eleventyConfig.addPlugin(syntaxHighlight);
 
@@ -66,7 +84,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy('./src/assets');
 
-  const NOT_FOUND_PATH = 'public/404.html';
+  const NOT_FOUND_PATH = `${outputFolder}/404.html`;
 
   eleventyConfig.setBrowserSyncConfig({
     callbacks: {
@@ -86,6 +104,21 @@ module.exports = function(eleventyConfig) {
     },
   });
 
+  /**
+   * Inline the Rollup-bundled version of a JavaScript module. Path is relative
+   * to ./lib or ./build.
+   *
+   * In dev mode, instead directly import the module, which has already been
+   * symlinked directly to the TypeScript output directory.
+   */
+  eleventyConfig.addShortcode('inlinejs', (path) => {
+    if (DEV) {
+      return `<script type="module" src="/js/${path}"></script>`;
+    }
+    const script = fsSync.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
+    return `<script type="module">${script}</script>`;
+  });
+
   eleventyConfig.addTransform('htmlMinifier', content => {
     if (process.env.NODE_ENV === 'production') {
       return htmlMinifier.minify(content, {
@@ -97,10 +130,34 @@ module.exports = function(eleventyConfig) {
     return content;
   });
 
+  /**
+   * Bundle, minify, and inline a CSS file. Path is relative to ./site/css/.
+   *
+   * In dev mode, instead import the CSS file directly.
+   */
+  // eleventyConfig.addShortcode('inlinecss', (path) => {
+  //   if (DEV) {
+  //     return `<link rel="stylesheet" href="/css/${path}">`;
+  //   }
+  //   const result = new CleanCSS({ inline: ['local'] }).minify([
+  //     `./src/styles/${path}`,
+  //   ]);
+  //   if (result.errors.length > 0 || result.warnings.length > 0) {
+  //     throw new Error(
+  //       `CleanCSS errors/warnings on file ${path}:\n\n${[
+  //         ...result.errors,
+  //         ...result.warnings,
+  //       ].join('\n')}`
+  //     );
+  //   }
+  //   return `<style>${result.styles}</style>`;
+  // });
+
   return {
     dir: {
       input: 'src',
-      output: 'public',
+      output: outputFolder,
+      //'public',
     },
     passthroughFileCopy: true,
   };

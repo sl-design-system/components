@@ -18,16 +18,25 @@
     "lint:eslint": "eslint -c .eslintrc.cjs src",
     "lint:scss": "stylelint 'src/**/*.scss' --color",
     "lint:scss-fix": "stylelint 'src/**/*.scss' --fix",
-    "lint": "npm-run-all lint:eslint lint:scss"
+    "lint": "npm-run-all lint:eslint lint:scss",
+    "serve:dev": "wireit",
+    "build:dev": "wireit",
+    "build:dev:eleventy": "wireit",
+    "build:dev:ts": "wireit",
+    "build:type-check": "wireit"
   },
   "wireit": {
     "watch:sass": {
-      "command": "sass --watch src/styles:public/css"
+      "command": "sass --watch src/styles:public/styles"
     },
     "build:sass": {
-      "command": "sass src/styles:public/css",
-      "files": ["src/styles"],
-      "output": ["public/css"]
+      "command": "NODE_ENV=DEV sass src/styles:public/styles",
+      "files": [
+        "src/styles"
+      ],
+      "output": [
+        "public/styles"
+      ]
     },
     "watch:eleventy": {
       "command": "eleventy --input=src --serve --config=.eleventy.cjs",
@@ -84,6 +93,58 @@
     },
     "lint": {
       "command": "sass --watch src/styles:public/css"
+    },
+    "build:dev": {
+      "dependencies": [
+        "build:sass",
+        "build:dev:eleventy",
+        "build:dev:ts",
+        "build:type-check"
+      ]
+    },
+    "build:dev:eleventy": {
+      "command": "NODE_ENV=DEV eleventy --config=.eleventy.cjs",
+      "dependencies": [
+        "build:sass",
+        "build:dev:ts"
+      ],
+      "files": [
+        "lib/**/*",
+        "src/**/*",
+        ".eleventy.cjs"
+      ]
+    },
+    "build:dev:ts": {
+      "command": "NODE_ENV=DEV node esbuild.config.mjs",
+      "files": [
+        "src/ts/**/*",
+        "tsconfig.json",
+        "esbuild.config.mjs"
+      ],
+      "output": [
+        "lib/**/*"
+      ]
+    },
+    "build:type-check": {
+      "command": "tsc -p tsconfig.json --pretty --incremental",
+      "files": [
+        "src/**/*",
+        "tsconfig.json"
+      ],
+      "clean": "if-file-deleted",
+      "output": [
+        "tsconfig.tsbuildinfo"
+      ]
+    },
+    "serve:dev": {
+      "command": "wds --watch --root-dir public --open",
+      "service": true,
+      "dependencies": [
+        {
+          "script": "build:dev",
+          "cascade": false
+        }
+      ]
     }
   },
   "author": "",
@@ -92,24 +153,32 @@
     "@11ty/eleventy": "^1.0.2",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
+    "@lit-labs/eleventy-plugin-lit": "^0.2.3",
+    "@luncheon/esbuild-plugin-gzip": "^0.1.0",
+    "@web/dev-server": "^0.1.35",
+    "@webcomponents/template-shadowroot": "^0.1.0",
+    "babel-eslint": "^10.1.0",
+    "clean-css": "^5.3.1",
+    "esbuild": "^0.15.14",
+    "esbuild-plugin-minify-html-literals": "^1.0.1",
     "eslint": "^8.27.0",
     "eslint-plugin-import": "^2.26.0",
-    "prettier": "^2.7.1"
-  },
-  "dependencies": {
-    "@lit-labs/eleventy-plugin-lit": "^0.2.3",
-    "@webcomponents/template-shadowroot": "^0.1.0",
-    "elasticlunr": "^0.9.5",
     "html-minifier": "^4.0.0",
-    "lit": "^2.4.1",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.5",
     "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
     "sass": "^1.56.1",
     "slugify": "^1.6.5",
     "stylelint": "^14.14.1",
     "stylelint-prettier": "^2.0.0",
+    "tiny-glob": "^0.2.9",
     "typescript": "^4.8.4",
     "wireit": "^0.7.3"
+  },
+  "dependencies": {
+    "@11ty/is-land": "^3.0.0",
+    "elasticlunr": "^0.9.5",
+    "lit": "^2.4.1"
   }
 }

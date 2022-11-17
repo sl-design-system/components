@@ -15,15 +15,10 @@
     "build:site": "wireit",
     "build:teaser": "wireit",
     "clean": "wireit",
+    "start": "wireit",
+    "start:teaser": "wireit",
     "styles:site": "wireit",
     "styles:teaser": "wireit",
-    "watch:sass": "sass --watch src/styles:dist/css",
-    "build:sass": "sass src/styles:dist/css",
-    "watch:eleventy": "eleventy --input=src --serve --config=.eleventy.cjs",
-    "build:eleventy": "NODE_ENV=production eleventy --input=src --output=dist --config=.eleventy.cjs",
-    "start": "npm-run-all build:sass --parallel watch:sass watch:eleventy",
-    "debug": "DEBUG=* eleventy --input=src",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "prettier:write": "prettier --write 'src/**/*'",
     "lint:eslint": "eslint -c .eslintrc.cjs src",
     "lint:scss": "stylelint 'src/**/*.scss' --color",
@@ -37,13 +32,13 @@
       ]
     },
     "build:site": {
-      "command": "eleventy --config=site.cjs",
+      "command": "eleventy --config=site.eleventy.cjs",
       "dependencies": [
         "styles:site"
       ]
     },
     "build:teaser": {
-      "command": "eleventy --config=teaser.cjs",
+      "command": "eleventy --config=teaser.eleventy.cjs",
       "dependencies": [
         "styles:teaser"
       ]
@@ -51,11 +46,36 @@
     "clean": {
       "command": "rimraf dist"
     },
+    "start": {
+      "command": "eleventy --config=site.eleventy.cjs --serve",
+      "service": true,
+      "files": ["site.eleventy.cjs"],
+      "dependencies": [
+        {
+          "script": "styles:site",
+          "cascade": false
+        }        
+      ]
+    },
+    "start:teaser": {
+      "command": "eleventy --config=teaser.eleventy.cjs --serve",
+      "service": true,
+      "files": ["teaser.eleventy.cjs"],
+      "dependencies": [
+        {
+          "script": "styles:teaser",
+          "cascade": false
+        }        
+      ]
+    },
     "styles:site": {
       "command": "sass src/site:dist/site"
     },
     "styles:teaser": {
-      "command": "sass src/teaser:dist/teaser"
+      "command": "sass src/teaser:dist/teaser",
+      "files": [
+        "src/teaser/**/*.scss"
+      ]
     }
   },
   "devDependencies": {

@@ -20,6 +20,11 @@ module.exports = function(eleventyConfig) {
     }
   });
 
+  eleventyConfig.setBrowserSyncConfig({
+    notify: true,
+    files: './dist/teaser/**/*.css',
+  });
+  
   return {
     dir: {
       input: 'src/teaser',

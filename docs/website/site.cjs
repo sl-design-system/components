@@ -59,7 +59,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.setBrowserSyncConfig({
     notify: true,
-    files: './dist/css/**/*.css',
+    files: './dist/site/css/**/*.css',
   });
 
   eleventyConfig.setLibrary('md', mdIt/*markdownIt(options)*/);
@@ -68,7 +68,7 @@ module.exports = function(eleventyConfig) {
     .addPassthroughCopy({ './src/shared/assets': 'assets' })
     .addPassthroughCopy('./src/site/assets');
 
-  const NOT_FOUND_PATH = 'dist/404.html';
+  const NOT_FOUND_PATH = 'dist/site/404.html';
 
   eleventyConfig.setBrowserSyncConfig({
     callbacks: {

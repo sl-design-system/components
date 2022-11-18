@@ -1,3 +1,5 @@
+import type { GridColumnRenderer } from './column.js';
+import type { Person } from '@sanomalearning/example-data';
 import { getPeople } from '@sanomalearning/example-data';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -21,4 +23,21 @@ export const API: StoryObj = {
       <sl-grid-column path="profession"></sl-grid-column>
     </sl-grid>
   `
+};
+
+export const ColumnRenderer: StoryObj = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    const nameRenderer: GridColumnRenderer<Person> = person => {
+      return html`${person.firstName} ${person.lastName}`;
+    };
+
+    return html`
+      <sl-grid .items=${people} style="height: 300px">
+        <sl-grid-column header="Name" .renderer=${nameRenderer}></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="profession"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };

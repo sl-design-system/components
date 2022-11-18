@@ -41,3 +41,17 @@ export const ColumnRenderer: StoryObj = {
     `;
   }
 };
+
+export const StickyColumns: StoryObj = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} style="height: 300px">
+      <sl-grid-column path="firstName" sticky></sl-grid-column>
+      <sl-grid-column path="lastName" sticky></sl-grid-column>
+      <sl-grid-column path="email"></sl-grid-column>
+      <sl-grid-column path="address.phone"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+      <sl-grid-column path="address.street"></sl-grid-column>
+    </sl-grid>
+  `
+};

@@ -29,7 +29,8 @@ export class Radio extends LitElement {
   constructor() {
     super();
 
-    this.internals = this.attachInternals();
+    // Fixes typescript error due to missing aria attributes
+    this.internals = this.attachInternals() as ElementInternals & IElementInternals;
     this.internals.role = 'radio';
   }
 

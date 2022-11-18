@@ -194,57 +194,57 @@
           "description": "color.palette.info.50"
         },
         "100": {
-          "value": "#ECF0F3",
+          "value": "#ECF8FF",
           "type": "color",
           "description": "color.palette.info.100"
         },
         "150": {
-          "value": "#D6DFE6",
+          "value": "#D6EAFF",
           "type": "color",
           "description": "color.palette.info.150"
         },
         "200": {
-          "value": "#BBCBD8",
+          "value": "#ADD2F7",
           "type": "color",
           "description": "color.palette.info.200"
         },
         "300": {
-          "value": "#9AB5C9",
+          "value": "#7DAFE4",
           "type": "color",
           "description": "color.palette.info.300"
         },
         "400": {
-          "value": "#799FBD",
+          "value": "#5497DB",
           "type": "color",
           "description": "color.palette.info.400"
         },
         "500": {
-          "value": "#538BB4",
+          "value": "#2879C7",
           "type": "color",
           "description": "color.palette.info.500"
         },
         "600": {
-          "value": "#2279AE",
+          "value": "#0055B0",
           "type": "color",
           "description": "color.palette.info.600"
         },
         "700": {
-          "value": "#216793",
+          "value": "#00458F",
           "type": "color",
           "description": "color.palette.info.700"
         },
         "800": {
-          "value": "#265576",
+          "value": "#0f3B73",
           "type": "color",
           "description": "color.palette.info.800"
         },
         "900": {
-          "value": "#233F53",
+          "value": "#142C4E",
           "type": "color",
           "description": "color.palette.info.900"
         },
         "base": {
-          "value": "#1376AE",
+          "value": "#00458F",
           "type": "color",
           "description": "color.palette.info.base"
         }
@@ -368,7 +368,7 @@
           "description": "color.palette.warning.900"
         },
         "base": {
-          "value": "#FFC107",
+          "value": "#FFDB98",
           "type": "color",
           "description": "color.palette.warning.base"
         }

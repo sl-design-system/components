@@ -19,6 +19,7 @@
     "lint:scss": "stylelint 'src/**/*.scss' --color",
     "lint:scss-fix": "stylelint 'src/**/*.scss' --fix",
     "lint": "npm-run-all lint:eslint lint:scss",
+    "dev": "npm run serve:dev --watch",
     "serve:dev": "wireit",
     "build:dev": "wireit",
     "build:dev:eleventy": "wireit",

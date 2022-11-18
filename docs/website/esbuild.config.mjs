@@ -11,6 +11,7 @@ const jsFolder = DEV ? 'lib' : 'build';
 // you want to add SSR'd files here so that you can hydrate them later with
 // <is-land import="js/components/element-definition.js"></is-land>
 const tsEntrypoints = [
+  './src/ts/components/my-counter.ts',
   './src/ts/components/tabs-component.ts',
   './src/ts/components/test-component.ts',
   // also include a bundle for each individual page

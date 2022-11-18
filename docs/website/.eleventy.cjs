@@ -6,7 +6,7 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
 const fs = require('fs');
-const searchFilter = require("./src/js/filters/searchFilter.cjs");
+const searchFilter = require("./src/scripts/filters/searchFilter.cjs");
 const CleanCSS = require('clean-css');
 
 // dev mode build
@@ -112,10 +112,11 @@ module.exports = function(eleventyConfig) {
    * symlinked directly to the TypeScript output directory.
    */
   eleventyConfig.addShortcode('inlinejs', (path) => {
+    console.log('path', path);
     if (DEV) {
       return `<script type="module" src="/js/${path}"></script>`;
     }
-    const script = fsSync.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
+    const script = fs.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
     return `<script type="module">${script}</script>`;
   });
 

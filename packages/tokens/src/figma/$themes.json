@@ -697,8 +697,8 @@
       "magister/base": "disabled",
       "magister/light": "disabled",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/light": "disabled",
-      "sanoma-learning/dark": "enabled",
+      "sanoma-learning/light": "enabled",
+      "sanoma-learning/dark": "disabled",
       "sanoma-learning/desktop": "enabled"
     },
     "$figmaStyleReferences": {}

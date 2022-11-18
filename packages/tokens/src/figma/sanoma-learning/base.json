@@ -685,7 +685,7 @@
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.xl}",
+          "lineHeight": "{text.typeset.lineHeight.lg}",
           "fontSize": "{text.typeset.fontSize.md}"
         },
         "type": "typography"
@@ -694,7 +694,7 @@
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.2xl}",
+          "lineHeight": "{text.typeset.lineHeight.sm}",
           "fontSize": "{text.typeset.fontSize.lg}"
         },
         "type": "typography"
@@ -727,74 +727,78 @@
   "space": {
     "button": {
       "default": {
-        "block": {
-          "sm": {
+        "sm": {
+          "block": {
             "value": "{space.xs}",
             "type": "spacing",
-            "description": "space.button.solid.block.sm"
+            "description": "space.button.solid.sm.block"
           },
-          "md": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
-          },
-          "lg": {
+          "inline": {
             "value": "{space.md}",
             "type": "spacing",
-            "description": "space.button.solid.block.lg"
+            "description": "space.button.solid.sm.inline"
           }
         },
-        "inline": {
-          "sm": {
+        "md": {
+          "block": {
             "value": "{space.sm}",
             "type": "spacing",
-            "description": "space.button.solid.inline.sm"
+            "description": "space.button.solid.md.block"
           },
-          "md": {
-            "value": "{space.md}",
+          "inline": {
+            "value": "{space.button.default.lg.block}",
             "type": "spacing",
-            "description": "space.button.solid.inline.md"
-          },
-          "lg": {
+            "description": "space.button.solid.md.inline"
+          }
+        },
+        "lg": {
+          "block": {
             "value": "{space.lg}",
             "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "description": "space.button.solid.lg.block"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.lg.inline"
           }
         }
       },
       "outline": {
-        "block": {
-          "sm": {
+        "sm": {
+          "block": {
             "value": "{space.xs}",
             "type": "spacing",
-            "description": "space.button.outline.block.sm"
+            "description": "space.button.outline.sm.block"
           },
-          "md": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.outline.block.md"
-          },
-          "lg": {
+          "inline": {
             "value": "{space.md}",
             "type": "spacing",
-            "description": "space.button.outline.block.lg"
+            "description": "space.button.outline.sm.inline"
           }
         },
-        "inline": {
-          "sm": {
-            "value": "{space.sm}",
+        "md": {
+          "block": {
+            "value": "{space.sm} - {border.width.button.outline}",
             "type": "spacing",
-            "description": "space.button.outline.inline.sm"
+            "description": "space.button.outline.md.block"
           },
-          "md": {
-            "value": "{space.md}",
+          "inline": {
+            "value": "{space.md} - {border.width.button.outline}",
             "type": "spacing",
-            "description": "space.button.outline.inline.md"
+            "description": "space.button.outline.md.inline"
+          }
+        },
+        "lg": {
+          "block": {
+            "value": "{space.md} - {border.width.button.outline}",
+            "type": "spacing",
+            "description": "space.button.outline.lg.block"
           },
-          "lg": {
-            "value": "{space.lg}",
+          "inline": {
+            "value": "{space.lg} - {border.width.button.outline}",
             "type": "spacing",
-            "description": "space.button.outline.inline.lg"
+            "description": "space.button.outline.lg.inline"
           }
         }
       }
@@ -805,39 +809,6 @@
       "value": "{animation.duration.normal} {animation.easing.ease-in-out}",
       "type": "other",
       "description": "animation.button"
-    }
-  },
-  "comp": {
-    "button": {
-      "sm": {
-        "value": {
-          "horizontalPadding": "{space.button.default.sm.block}",
-          "borderRadius": "{borderRadius.button}",
-          "borderWidth": "{border.width.button.default}",
-          "itemSpacing": "{space.button.default.sm.block}"
-        },
-        "type": "composition"
-      },
-      "md": {
-        "value": {
-          "verticalPadding": "{space.button.default.md.block}",
-          "horizontalPadding": "{space.button.outline.md.inline}",
-          "spacing": "{space.button.default.md.block}",
-          "borderRadius": "{borderRadius.button}",
-          "borderWidth": "{border.width.button.default}"
-        },
-        "type": "composition"
-      },
-      "lg": {
-        "value": {
-          "verticalPadding": "{space.button.default.lg.block}",
-          "horizontalPadding": "{space.button.outline.lg.inline}",
-          "spacing": "{space.button.default.lg.block}",
-          "borderRadius": "{borderRadius.button}",
-          "borderWidth": "{border.width.button.default}"
-        },
-        "type": "composition"
-      }
     }
   },
   "boxShadow": {
@@ -855,18 +826,6 @@
             },
             "type": "boxShadow",
             "description": "boxShadow.button.default"
-          },
-          "no_shadow": {
-            "value": {
-              "x": "0",
-              "y": "0",
-              "blur": "0",
-              "spread": "0",
-              "color": "",
-              "type": "dropShadow"
-            },
-            "type": "boxShadow",
-            "description": "boxShadow.button.no_shadow"
           }
         }
       }

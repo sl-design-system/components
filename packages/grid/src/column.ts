@@ -6,6 +6,31 @@ import { getNameByPath, getValueByPath } from './utils.js';
 export type GridColumnRenderer<T> = (model: T) => TemplateResult;
 
 export class GridColumn<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
+  /**
+   * Automatically sets the width of the column based on the column contents when this is set to `true`.
+   *
+   * For performance reasons the column width is calculated automatically only once when the grid items
+   * are rendered for the first time and the calculation only considers the rows which are currently
+   * rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell
+   * content changes, the column width might not match the contents anymore.
+   *
+   * Hidden columns are ignored in the calculation and their widths are not automatically updated when
+   * you show a column that was initially hidden.
+   *
+   * You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.
+   *
+   * The column width may still grow larger when `grow` is not 0.
+   */
+  @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
+
+  /**
+   * The ratio with which the column will grow relative to the other columns.
+   * A ratio of 0 means the column width is fixed.
+   *
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow}
+   */
+  @property({ type: Number }) grow = 1;
+
   /** The label for the column header. */
   @property() header?: string;
 
@@ -18,11 +43,14 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean, reflect: true }) sticky?: boolean;
 
-  renderHeaderCell(): TemplateResult {
+  /** Width of the cells for this column. */
+  @property() width = '100px';
+
+  renderHeader(): TemplateResult {
     return html`<th>${this.header ?? getNameByPath(this.path)}</th>`;
   }
 
-  renderContentCell(item: T): TemplateResult {
+  renderData(item: T): TemplateResult {
     if (this.renderer) {
       return html`<td>${this.renderer(item)}</td>`;
     } else {

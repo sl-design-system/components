@@ -43,13 +43,11 @@ tr {
 
 th,
 td {
-  flex-grow: 1;
   font: var(--_cell-font);
   overflow: hidden;
   text-align: start;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 100px;
 }
 
 th {

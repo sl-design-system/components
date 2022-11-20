@@ -30,6 +30,14 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
             :where(td, th):nth-child(${index + 1}) {
               flex-grow: ${col.grow};
               width: ${col.width};
+              ${
+                col.sticky
+                  ? `
+                    left: 0;
+                    position: sticky;
+                  `
+                  : ''
+              }
             }
           `;
         })}

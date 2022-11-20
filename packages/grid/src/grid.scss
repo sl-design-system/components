@@ -1,6 +1,7 @@
 :host {
   --_border: 1px solid #eee;
   --_border-radius: 3px;
+  --_cell-background: #fff;
   --_cell-border: 1px solid #eee;
   --_cell-font: 300 14px/24px Arial;
   --_cell-padding: 0.25rem 1rem;
@@ -63,6 +64,7 @@ th {
 }
 
 td {
+  background: var(--_cell-background);
   padding: var(--_cell-padding);
 }
 

@@ -41,8 +41,14 @@ tr {
   width: 100%;
 }
 
+tbody {
+  // Workaround for https://github.com/lit/lit/issues/3470
+  contain: none !important;
+}
+
 th,
 td {
+  flex-shrink: 0;
   font: var(--_cell-font);
   overflow: hidden;
   text-align: start;

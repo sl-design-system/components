@@ -43,13 +43,32 @@ export const ColumnRenderer: StoryObj = {
   }
 };
 
+export const Scrolling: StoryObj = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    const nameRenderer: GridColumnRenderer<Person> = ({ firstName, lastName }) => {
+      return html`${firstName} ${lastName}`;
+    };
+
+    return html`
+      <sl-grid .items=${people} style="height: 300px">
+        <sl-grid-column header="Name" .renderer=${nameRenderer} width="150px"></sl-grid-column>
+        <sl-grid-column path="email" width="250px"></sl-grid-column>
+        <sl-grid-column path="profession" width="180px"></sl-grid-column>
+        <sl-grid-column path="address.phone" width="200px"></sl-grid-column>
+        <sl-grid-column path="address.street" width="300px"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const StickyColumns: StoryObj = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} style="height: 300px">
       <sl-grid-column path="firstName" sticky></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-column path="email"></sl-grid-column>
+      <sl-grid-column path="email" width="200px"></sl-grid-column>
       <sl-grid-column path="address.phone"></sl-grid-column>
       <sl-grid-column path="profession"></sl-grid-column>
       <sl-grid-column path="address.street"></sl-grid-column>

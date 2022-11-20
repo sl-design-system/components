@@ -27,7 +27,7 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
       <style>
         ${this.columns.map((col, index) => {
           return `
-            td:nth-child(${index + 1}) {
+            :where(td, th):nth-child(${index + 1}) {
               flex-grow: ${col.grow};
               width: ${col.width};
             }

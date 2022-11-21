@@ -7,32 +7,20 @@ const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
 const fs = require('fs');
 const searchFilter = require("./src/scripts/filters/searchFilter.cjs");
-const CleanCSS = require('clean-css');
 
-// dev mode build
 const DEV = process.env.NODE_ENV === 'DEV';
-// where the JS files are outputted
 const jsFolder = DEV ? 'lib' : 'build';
-// where to output 11ty output
 const outputFolder = DEV ? 'public' : 'dist';
 
 module.exports = function(eleventyConfig) {
   eleventyConfig
-    .addPassthroughCopy({ [`${jsFolder}/`]: 'js/' })
-    // .addPassthroughCopy('./src/styles')
-    // .addPassthroughCopy('./src')
-    /*.addPassthroughCopy('./src/categories')*/;
+    .addPassthroughCopy({ [`${jsFolder}/`]: 'js/' });
 
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',
-    // componentModules: [
-    //   './src/js/demo-greeter.js',
-    //   './src/js/my-element.js',
-    // ],
     componentModules: [`./${jsFolder}/ssr.js`],
   });
 
-  // add this for 11ty's --watch flag. We don't use it in this example
   eleventyConfig.addWatchTarget(`./${jsFolder}/**/*.js`);
 
   eleventyConfig.addPlugin(syntaxHighlight);
@@ -91,6 +79,7 @@ module.exports = function(eleventyConfig) {
       ready: function(err, bs) {
 
         bs.addMiddleware('*', (req, res) => {
+          console.log('req i res', req, res);
           if (!fs.existsSync(NOT_FOUND_PATH)) {
             throw new Error(`Expected a \`${NOT_FOUND_PATH}\` file but could not find one. Did you create a 404.html template?`);
           }
@@ -104,13 +93,17 @@ module.exports = function(eleventyConfig) {
     },
   });
 
-  /**
-   * Inline the Rollup-bundled version of a JavaScript module. Path is relative
-   * to ./lib or ./build.
-   *
-   * In dev mode, instead directly import the module, which has already been
-   * symlinked directly to the TypeScript output directory.
-   */
+  eleventyConfig.setBrowserSyncConfig({
+    middleware: [
+      function (req, res, next) {
+        if (/^[^.]+$/.test(req.url)) {
+          res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        }
+        next();
+      }
+    ]
+  });
+
   eleventyConfig.addShortcode('inlinejs', (path) => {
     console.log('path', path);
     if (DEV) {
@@ -121,7 +114,7 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addTransform('htmlMinifier', content => {
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'PROD') {
       return htmlMinifier.minify(content, {
         useShortDoctype: true,
         removeComments: true,
@@ -131,34 +124,10 @@ module.exports = function(eleventyConfig) {
     return content;
   });
 
-  /**
-   * Bundle, minify, and inline a CSS file. Path is relative to ./site/css/.
-   *
-   * In dev mode, instead import the CSS file directly.
-   */
-  // eleventyConfig.addShortcode('inlinecss', (path) => {
-  //   if (DEV) {
-  //     return `<link rel="stylesheet" href="/css/${path}">`;
-  //   }
-  //   const result = new CleanCSS({ inline: ['local'] }).minify([
-  //     `./src/styles/${path}`,
-  //   ]);
-  //   if (result.errors.length > 0 || result.warnings.length > 0) {
-  //     throw new Error(
-  //       `CleanCSS errors/warnings on file ${path}:\n\n${[
-  //         ...result.errors,
-  //         ...result.warnings,
-  //       ].join('\n')}`
-  //     );
-  //   }
-  //   return `<style>${result.styles}</style>`;
-  // });
-
   return {
     dir: {
       input: 'src',
       output: outputFolder,
-      //'public',
     },
     passthroughFileCopy: true,
   };

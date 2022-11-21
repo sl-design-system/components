@@ -7,30 +7,31 @@
   "type": "module",
   "scripts": {
     "watch:sass": "wireit",
-    "build:sass": "wireit",
     "watch:eleventy": "wireit",
-    "build:eleventy": "wireit",
-    "start": "wireit",
-    "build": "wireit",
+    "build:dev:sass": "wireit",
+    "build:prod:sass": "wireit",
     "debug": "DEBUG=* eleventy --input=src",
     "test": "echo 'Error: no test specified yet' && exit 1",
     "prettier:write": "prettier --write 'src/**/*'",
-    "lint:eslint": "eslint -c .eslintrc.cjs src",
     "lint:scss": "stylelint 'src/**/*.scss' --color",
     "lint:scss-fix": "stylelint 'src/**/*.scss' --fix",
-    "lint": "npm-run-all lint:eslint lint:scss",
+    "start": "npm run serve",
     "dev": "npm run serve:dev --watch",
+    "serve": "wireit",
     "serve:dev": "wireit",
     "build:dev": "wireit",
     "build:dev:eleventy": "wireit",
     "build:dev:ts": "wireit",
-    "build:type-check": "wireit"
+    "build:type-check": "wireit",
+    "build:prod": "wireit",
+    "build:prod:eleventy": "wireit",
+    "build:prod:ts": "wireit"
   },
   "wireit": {
     "watch:sass": {
       "command": "sass --watch src/styles:public/styles"
     },
-    "build:sass": {
+    "build:dev:sass": {
       "command": "NODE_ENV=DEV sass src/styles:public/styles",
       "files": [
         "src/styles"
@@ -39,10 +40,19 @@
         "public/styles"
       ]
     },
+    "build:prod:sass": {
+      "command": "NODE_ENV=PROD sass src/styles:dist/styles",
+      "files": [
+        "src/styles"
+      ],
+      "output": [
+        "dist/styles"
+      ]
+    },
     "watch:eleventy": {
       "command": "eleventy --input=src --serve --config=.eleventy.cjs",
       "dependencies": [
-        "build:sass"
+        "build:dev:sass"
       ],
       "files": [
         "src/**/*",
@@ -51,53 +61,10 @@
       "output": [
         "public"
       ]
-    },
-    "build:eleventy": {
-      "command": "NODE_ENV=production eleventy --config=.eleventy.cjs",
-      "files": [
-        "src/**/*",
-        "eleventy.cjs"
-      ],
-      "output": [
-        "public"
-      ]
-    },
-    "start": {
-      "dependencies": [
-        "watch:sass",
-        "watch:eleventy"
-      ]
-    },
-    "build": {
-      "dependencies": [
-        "build:sass",
-        "build:eleventy"
-      ]
-    },
-    "debug": {
-      "command": "sass --watch src/styles:public/css"
-    },
-    "test": {
-      "command": "sass --watch src/styles:public/css"
-    },
-    "prettier:write": {
-      "command": "sass --watch src/styles:public/css"
-    },
-    "lint:eslint": {
-      "command": "sass --watch src/styles:public/css"
-    },
-    "lint:scss": {
-      "command": "sass --watch src/styles:public/css"
-    },
-    "lint:scss-fix": {
-      "command": "sass --watch src/styles:public/css"
-    },
-    "lint": {
-      "command": "sass --watch src/styles:public/css"
     },
     "build:dev": {
       "dependencies": [
-        "build:sass",
+        "build:dev:sass",
         "build:dev:eleventy",
         "build:dev:ts",
         "build:type-check"
@@ -106,7 +73,7 @@
     "build:dev:eleventy": {
       "command": "NODE_ENV=DEV eleventy --config=.eleventy.cjs",
       "dependencies": [
-        "build:sass",
+        "build:dev:sass",
         "build:dev:ts"
       ],
       "files": [
@@ -137,12 +104,52 @@
         "tsconfig.tsbuildinfo"
       ]
     },
+    "build:prod": {
+      "dependencies": [
+        "build:prod:sass",
+        "build:prod:eleventy",
+        "build:prod:ts"
+      ]
+    },
+    "build:prod:eleventy": {
+      "command": "NODE_ENV=PROD eleventy --config=.eleventy.cjs",
+      "dependencies": [
+        "build:prod:sass",
+        "build:prod:ts"
+      ],
+      "files": [
+        "build/**/*",
+        "src/**/*",
+        "eleventy.cjs"
+      ]
+    },
+    "build:prod:ts": {
+      "command": "NODE_ENV=PROD node esbuild.config.mjs",
+      "files": [
+        "src/ts/**/*",
+        "tsconfig.json",
+        "esbuild.config.mjs"
+      ],
+      "output": [
+        "build/**/*"
+      ]
+    },
     "serve:dev": {
       "command": "wds --watch --root-dir public --open",
       "service": true,
       "dependencies": [
         {
           "script": "build:dev",
+          "cascade": false
+        }
+      ]
+    },
+    "serve": {
+      "command": "wds --watch --root-dir dist",
+      "service": true,
+      "dependencies": [
+        {
+          "script": "build:prod",
           "cascade": false
         }
       ]
@@ -159,7 +166,6 @@
     "@web/dev-server": "^0.1.35",
     "@webcomponents/template-shadowroot": "^0.1.0",
     "babel-eslint": "^10.1.0",
-    "clean-css": "^5.3.1",
     "esbuild": "^0.15.14",
     "esbuild-plugin-minify-html-literals": "^1.0.1",
     "eslint": "^8.27.0",

@@ -3,22 +3,14 @@ import gzipPlugin from '@luncheon/esbuild-plugin-gzip';
 import { minifyHTMLLiteralsPlugin } from 'esbuild-plugin-minify-html-literals';
 import tinyGlob from 'tiny-glob';
 
-// dev mode build
 const DEV = process.env.NODE_ENV === 'DEV';
 const jsFolder = DEV ? 'lib' : 'build';
 
-// can use glob syntax. this will create a bundle for those specific files.
-// you want to add SSR'd files here so that you can hydrate them later with
-// <is-land import="js/components/element-definition.js"></is-land>
 const tsEntrypoints = [
   './src/ts/components/my-counter.ts',
-  './src/ts/components/tabs-component.ts',
   './src/ts/components/test-component.ts',
-  // also include a bundle for each individual page
-  // './src/pages/*.ts',
-  // SSR stuff
-  './src/ssr-utils/lit-hydrate-support.ts',
-  './src/ssr-utils/is-land.ts'
+  './src/ts/ssr-utils/lit-hydrate-support.ts',
+  './src/ts/ssr-utils/is-land.ts'
 ];
 const filesPromises = tsEntrypoints.map(async (entry) => tinyGlob(entry));
 const entryPoints = (await Promise.all(filesPromises)).flat();
@@ -36,7 +28,6 @@ let config = {
 
 let componentsBuild = Promise.resolve();
 
-// development build
 if (DEV) {
   componentsBuild = esbuild
     .build({
@@ -44,11 +35,7 @@ if (DEV) {
       entryPoints,
     })
     .catch(() => process.exit(1));
-
-  // production build
 } else {
-  // config must be same for SSR and client builds to prevent hydration template
-  // mismatches because we minify the templates in prod
   config = {
     bundle: true,
     outdir: jsFolder,

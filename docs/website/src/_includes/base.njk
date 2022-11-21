@@ -4,11 +4,10 @@
     <title>Sanoma Learning Design System Documentation</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- MUST be loaded before any lit bundle. allows hydration of SSRd components -->
+    <!-- MUST be loaded before any lit bundle. allows hydration of SSRed components -->
     <script type="module" src="/js/ssr-utils/lit-hydrate-support.js"></script>
     <!-- Loads definition for <is-land>. See docs for @11ty/is-land for usage -->
     <script type="module" src="/js/ssr-utils/is-land.js"></script>
-    <!-- inlines the declarative shadow dom polyfill for FF and Safari -->
     {% inlinejs "dsd-polyfill.js" %}
     <!-- if JS is disabled just show the contents without the polyfill -->
     <noscript><style>body[dsd-pending] {display: block !important;}</style></noscript>

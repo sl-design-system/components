@@ -1,4 +1,5 @@
-import { withTheme } from './decorator';
+import { withTheme } from './decorator.js';
+import { updateTheme } from './theme.js';
 
 export const decorators = [withTheme];
 export const globals = {
@@ -36,3 +37,5 @@ export const globals = {
   ],
   selectedTheme: 'sanoma-learning/light'
 };
+
+updateTheme(globals.themes.find(t => t.id === globals.selectedTheme));

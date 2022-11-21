@@ -1,0 +1,13 @@
+main {
+  background-color: var(--background-color);
+  margin-left: 260px;
+  padding: 36px 72px 0;
+  transition: background 300ms ease-in-out;
+  width: 100%;
+}
+
+.header-anchor {
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=content.css.map */

@@ -6,12 +6,12 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
 const fs = require('fs');
-const searchFilter = require("./src/site/js/filters/searchFilter.cjs");
-// const searchFilter = require("./src/scripts/filters/searchFilter.cjs");
-//
-// const DEV = process.env.NODE_ENV === 'DEV';
-// const jsFolder = DEV ? 'lib' : 'build';
-// const outputFolder = DEV ? 'public' : 'dist';
+// const searchFilter = require("./src/site/js/filters/searchFilter.cjs");
+const searchFilter = require("./src/site/scripts/filters/searchFilter.cjs");
+
+const DEV = process.env.NODE_ENV === 'DEV';
+const jsFolder = DEV ? 'lib' : 'build';
+const outputFolder = DEV ? 'public' : 'dist';
 
 
 module.exports = function(eleventyConfig) {
@@ -20,7 +20,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',
-    componentModules: [`./${jsFolder}/ssr.js`],
+    componentModules: [`./${jsFolder}/site/ssr.js`],
     // componentModules: [
     //   './src/site/js/demo-greeter.js',
     //   './src/site/js/my-element.js',
@@ -146,7 +146,7 @@ module.exports = function(eleventyConfig) {
   return {
     dir: {
       input: 'src/site',
-      output: 'dist/site',
+      output: `${outputFolder}/site`,
     },
     // dir: {
     //   input: 'src',

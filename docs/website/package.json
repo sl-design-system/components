@@ -37,6 +37,8 @@
     "serve:dev": "wireit",
     "build:dev": "wireit",
     "build:dev:eleventy": "wireit",
+    "build:teaser:dev:eleventy": "wireit",
+    "build:teaser:dev:sass": "wireit",
     "build:dev:ts": "wireit",
     "build:type-check": "wireit",
     "build:prod": "wireit",
@@ -90,7 +92,7 @@
         "src/**/*.ts"
       ]
     },
-    "start2": {
+    "start": {
       "command": "eleventy --config=site.eleventy.cjs --serve",
       "service": true,
       "files": [
@@ -129,12 +131,21 @@
       "command": "sass --watch src/styles:public/styles"
     },
     "build:dev:sass": {
-      "command": "NODE_ENV=DEV sass src/styles:public/styles",
+      "command": "NODE_ENV=DEV sass src/site/styles:public/site/styles",
       "files": [
-        "src/styles"
+        "src/site/styles"
       ],
       "output": [
-        "public/styles"
+        "public/site/styles"
+      ]
+    },
+    "build:teaser:dev:sass": {
+      "command": "NODE_ENV=DEV sass src/teaser/styles:public/teaser/styles",
+      "files": [
+        "src/teaser/styles"
+      ],
+      "output": [
+        "public/teaser/styles"
       ]
     },
     "build:prod:sass": {
@@ -168,26 +179,36 @@
       ]
     },
     "build:dev:eleventy": {
-      "command": "NODE_ENV=DEV eleventy --config=.eleventy.cjs",
+      "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
         "build:dev:sass",
         "build:dev:ts"
       ],
       "files": [
-        "lib/**/*",
-        "src/**/*",
-        ".eleventy.cjs"
+        "lib/site/**/*",
+        "src/site/**/*",
+        "site.eleventy.cjs"
+      ]
+    },
+    "build:teaser:dev:eleventy": {
+      "command": "NODE_ENV=DEV eleventy --config=teaser.eleventy.cjs",
+      "dependencies": [
+        "build:teaser:dev:sass"
+      ],
+      "files": [
+        "src/teaser/**/*",
+        "teaser.eleventy.cjs"
       ]
     },
     "build:dev:ts": {
       "command": "NODE_ENV=DEV node esbuild.config.mjs",
       "files": [
-        "src/ts/**/*",
+        "src/site/ts/**/*",
         "tsconfig.json",
         "esbuild.config.mjs"
       ],
       "output": [
-        "lib/**/*"
+        "lib/site/**/*"
       ]
     },
     "build:type-check": {
@@ -232,7 +253,7 @@
       ]
     },
     "serve:dev": {
-      "command": "wds --watch --root-dir public --open",
+      "command": "wds --watch --root-dir public/site --open",
       "service": true,
       "dependencies": [
         {

@@ -739,7 +739,7 @@
   },
   "borderRadius": {
     "button": {
-      "value": "{border.radius.2xs}",
+      "value": "{border.radius.3xs}",
       "type": "borderRadius",
       "description": "borderRadius.button"
     }
@@ -832,6 +832,23 @@
             "type": "spacing",
             "description": "space.button.outline.inline.lg"
           }
+        }
+      },
+      "gap": {
+        "sm": {
+          "value": "{space.2xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.sm}"
+        },
+        "md": {
+          "value": "{space.button.default.block.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.button.default.block.md}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
         }
       }
     }

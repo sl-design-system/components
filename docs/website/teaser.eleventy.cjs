@@ -2,6 +2,7 @@ const htmlMinifier = require('html-minifier');
 
 // dev mode build
 const DEV = process.env.NODE_ENV === 'DEV';
+const outputFolder = DEV ? 'public' : 'dist';
 
 module.exports = function(eleventyConfig) {
   eleventyConfig
@@ -22,13 +23,13 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.setBrowserSyncConfig({
     notify: true,
-    files: './dist/teaser/**/*.css',
+    files: './public/teaser/styles/**/*.css',
   });
-  
+
   return {
     dir: {
       input: 'src/teaser',
-      output: 'dist/teaser',
+      output: `${outputFolder}/teaser`,
     },
     passthroughFileCopy: true,
   };

@@ -8,7 +8,7 @@ class DemoGreeter extends LitElement {
   `;
 
   static properties = {
-    name: {},
+    name: {}
   };
 
   render() {

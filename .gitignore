@@ -57,6 +57,9 @@ node_modules/
 
 # Dist files & folders
 **/dist
+docs/website/lib
+docs/website/public
+docs/website/build
 
 # Generated files
 *.scss.ts

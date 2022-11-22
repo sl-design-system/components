@@ -1,7 +1,7 @@
-const elasticlunr = require("elasticlunr");
+const elasticlunr = require('elasticlunr');
 
-module.exports = function(collection) {
-  const index = elasticlunr(function() {
+module.exports = function (collection) {
+  const index = elasticlunr(function () {
     this.setRef('id');
     this.addField('title');
     this.addField('content');

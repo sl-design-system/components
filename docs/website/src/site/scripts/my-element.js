@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit';
 export class MyElement extends LitElement {
   static properties = {
     greeting: {},
-    element: {},
+    element: {}
   };
 
   static styles = css`

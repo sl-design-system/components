@@ -1,14 +1,14 @@
 (function (window, document) {
   'use strict';
 
-  const search = (event) => {
+  const search = event => {
     const results = window.searchIndex.search(event.target.value, {
       fields: {
         title: { boost: 2 },
-        content: { boost: 1 },
+        content: { boost: 1 }
       },
       bool: 'OR',
-      expand: true,
+      expand: true
     });
 
     const keyword = event.target.value;
@@ -26,7 +26,7 @@
 
     if (results.length) {
       noResultsElement.style.display = 'none';
-      results.map((result) => {
+      results.map(result => {
         let { id, title, content } = result.doc;
         const element = document.createElement('li');
         resultsElement.appendChild(element);
@@ -42,7 +42,7 @@
         const pContent = document.createElement('p');
         if (content && keyword) {
           if (content.toLowerCase().includes(keyword.toLowerCase())) {
-            content = content.replace(regEx, (textPart) => {
+            content = content.replace(regEx, textPart => {
               return ' <mark>' + textPart + '</mark>';
             });
           }
@@ -62,13 +62,13 @@
     }
   };
 
-  fetch('/search-index.json').then((response) =>
-    response.json().then((rawIndex) => {
+  fetch('/search-index.json').then(response =>
+    response.json().then(rawIndex => {
       // eslint-disable-next-line no-undef
       elasticlunr.clearStopWords(); /** Remove default stop words, we can add customized stop words*/
       // eslint-disable-next-line no-undef
       window.searchIndex = elasticlunr.Index.load(rawIndex);
       document.getElementById('searchField').addEventListener('input', search);
-    }),
+    })
   );
 })(window, document);

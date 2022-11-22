@@ -6,25 +6,20 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
 const fs = require('fs');
-// const searchFilter = require("./src/site/js/filters/searchFilter.cjs");
 const searchFilter = require("./src/site/scripts/filters/searchFilter.cjs");
+const anchor = require('markdown-it-anchor');
 
 const DEV = process.env.NODE_ENV === 'DEV';
 const jsFolder = DEV ? 'lib' : 'build';
 const outputFolder = DEV ? 'public' : 'dist';
 
-
 module.exports = function(eleventyConfig) {
   eleventyConfig
-    .addPassthroughCopy({ [`${jsFolder}/`]: 'js/' });
+    .addPassthroughCopy({ [`${jsFolder}/site`]: 'js/' });
 
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',
     componentModules: [`./${jsFolder}/site/ssr.js`],
-    // componentModules: [
-    //   './src/site/js/demo-greeter.js',
-    //   './src/site/js/my-element.js',
-    // ],
   });
 
   eleventyConfig.addWatchTarget(`./${jsFolder}/**/*.js`);
@@ -32,12 +27,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
 
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
-
-  // eleventyConfig.addFilter("search", searchFilter);
-  //
-  // eleventyConfig.addCollection("content", collection => {
-  //   return [...collection.getFilteredByGlob("./src/categories/**/*.md")];
-  // });
 
   eleventyConfig.addFilter('search', searchFilter);
 
@@ -58,8 +47,6 @@ module.exports = function(eleventyConfig) {
     return slugify(removeExtraText(s), { lower: true, remove: /[:’'`,]/g });
   }
 
-  const anchor = require('markdown-it-anchor');
-
   let mdIt = markdownIt({
     html: true,
     breaks: true,
@@ -77,21 +64,16 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.setBrowserSyncConfig({
     notify: true,
-    // files: './public/css/**/*.css',
-    files: './dist/site/css/**/*.css',
+    files: './public/site/styles/**/*.css',
   });
 
-  eleventyConfig.setLibrary('md', mdIt/*markdownIt(options)*/);
-
-  // eleventyConfig.addPassthroughCopy('./src/assets');
+  eleventyConfig.setLibrary('md', mdIt);
 
   eleventyConfig
     .addPassthroughCopy({ './src/shared/assets': 'assets' })
     .addPassthroughCopy('./src/site/assets');
 
-  // const NOT_FOUND_PATH = `${outputFolder}/404.html`;
-
-  const NOT_FOUND_PATH = 'dist/site/404.html';
+  const NOT_FOUND_PATH = `${outputFolder}/site/404.html`;
 
   eleventyConfig.setBrowserSyncConfig({
     callbacks: {
@@ -123,11 +105,10 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addShortcode('inlinejs', (path) => {
-    console.log('path', path);
     if (DEV) {
       return `<script type="module" src="/js/${path}"></script>`;
     }
-    const script = fs.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
+    const script = fs.readFileSync(`${jsFolder}/site/${path}`, 'utf8').trim();
     return `<script type="module">${script}</script>`;
   });
 
@@ -148,10 +129,6 @@ module.exports = function(eleventyConfig) {
       input: 'src/site',
       output: `${outputFolder}/site`,
     },
-    // dir: {
-    //   input: 'src',
-    //   output: outputFolder,
-    // },
     passthroughFileCopy: true,
   };
 };

@@ -11,58 +11,47 @@
   },
   "type": "module",
   "scripts": {
-    "build": "wireit",
-    "build:site": "wireit",
-    "build:teaser": "wireit",
+    "build:dev": "wireit",
+    "build:prod": "wireit",
+    "start:site": "wireit",
+    "start:teaser": "wireit",
+    "dev:site": "wireit",
+    "dev:teaser": "wireit",
+    "serve:site": "wireit",
+    "serve:teaser": "wireit",
+    "serve:site:dev": "wireit",
+    "serve:teaser:dev": "wireit",
+    "build:site:dev": "wireit",
+    "build:teaser:dev": "wireit",
+    "build:site:dev:eleventy": "wireit",
+    "build:teaser:dev:eleventy": "wireit",
+    "build:site:dev:styles": "wireit",
+    "build:teaser:dev:styles": "wireit",
+    "build:site:dev:ts": "wireit",
+    "build:type-check": "wireit",
+    "build:site:prod": "wireit",
+    "build:teaser:prod": "wireit",
+    "build:site:prod:eleventy": "wireit",
+    "build:teaser:prod:eleventy": "wireit",
+    "build:site:prod:styles": "wireit",
+    "build:teaser:prod:styles": "wireit",
+    "build:site:prod:ts": "wireit",
     "clean": "wireit",
     "lint": "wireit",
     "lint:scss": "wireit",
-    "lint:ts": "wireit",
-    "start:teaser": "wireit",
-    "styles:site": "wireit",
-    "styles:teaser": "wireit",
-    "build:dev:sass": "wireit",
-    "build:prod:sass": "wireit",
-    "build:teaser:prod:sass": "wireit",
-    "debug": "DEBUG=* eleventy --input=src",
-    "test": "echo 'Error: no test specified yet' && exit 1",
-    "start": "wireit",
-    "dev": "wireit",
-    "dev:teaser": "wireit",
-    "serve": "wireit",
-    "serve:teaser": "wireit",
-    "serve:dev": "wireit",
-    "serve:teaser:dev": "wireit",
-    "build:dev": "wireit",
-    "build:teaser:dev": "wireit",
-    "build:dev:eleventy": "wireit",
-    "build:teaser:dev:eleventy": "wireit",
-    "build:teaser:dev:sass": "wireit",
-    "build:dev:ts": "wireit",
-    "build:type-check": "wireit",
-    "build:prod": "wireit",
-    "build:teaser:prod": "wireit",
-    "build:prod:eleventy": "wireit",
-    "build:teaser:prod:eleventy": "wireit",
-    "build:prod:ts": "wireit"
+    "lint:ts": "wireit"
   },
   "wireit": {
-    "build": {
+    "build:dev": {
       "dependencies": [
-        "build:site",
-        "build:teaser"
+        "build:site:dev",
+        "build:teaser:dev"
       ]
     },
-    "build:site": {
-      "command": "eleventy --config=site.eleventy.cjs",
+    "build:prod": {
       "dependencies": [
-        "styles:site"
-      ]
-    },
-    "build:teaser": {
-      "command": "eleventy --config=teaser.eleventy.cjs",
-      "dependencies": [
-        "styles:teaser"
+        "build:site:prod",
+        "build:teaser:prod"
       ]
     },
     "clean": {
@@ -93,29 +82,7 @@
         "src/**/*.ts"
       ]
     },
-    "start:teaser": {
-      "command": "eleventy --config=teaser.eleventy.cjs --serve",
-      "service": true,
-      "files": [
-        "teaser.eleventy.cjs"
-      ],
-      "dependencies": [
-        {
-          "script": "styles:teaser",
-          "cascade": false
-        }
-      ]
-    },
-    "styles:site": {
-      "command": "sass src/site:dist/site"
-    },
-    "styles:teaser": {
-      "command": "sass --watch src/teaser:dist/teaser",
-      "files": [
-        "src/teaser/**/*.scss"
-      ]
-    },
-    "build:dev:sass": {
+    "build:site:dev:styles": {
       "command": "NODE_ENV=DEV sass src/site/styles:public/site/styles",
       "files": [
         "src/site/styles"
@@ -124,7 +91,7 @@
         "public/site/styles"
       ]
     },
-    "build:teaser:dev:sass": {
+    "build:teaser:dev:styles": {
       "command": "NODE_ENV=DEV sass src/teaser/styles:public/teaser/styles",
       "files": [
         "src/teaser/styles"
@@ -133,7 +100,7 @@
         "public/teaser/styles"
       ]
     },
-    "build:prod:sass": {
+    "build:site:prod:styles": {
       "command": "NODE_ENV=PROD sass src/site/styles:dist/site/styles",
       "files": [
         "src/site/styles"
@@ -142,7 +109,7 @@
         "dist/site/styles"
       ]
     },
-    "build:teaser:prod:sass": {
+    "build:teaser:prod:styles": {
       "command": "NODE_ENV=PROD sass src/teaser/styles:dist/teaser/styles",
       "files": [
         "src/teaser/styles"
@@ -151,25 +118,25 @@
         "dist/teaser/styles"
       ]
     },
-    "build:dev": {
+    "build:site:dev": {
       "dependencies": [
-        "build:dev:sass",
-        "build:dev:eleventy",
-        "build:dev:ts",
+        "build:site:dev:styles",
+        "build:site:dev:eleventy",
+        "build:site:dev:ts",
         "build:type-check"
       ]
     },
     "build:teaser:dev": {
       "dependencies": [
-        "build:teaser:dev:sass",
+        "build:teaser:dev:styles",
         "build:teaser:dev:eleventy"
       ]
     },
-    "build:dev:eleventy": {
+    "build:site:dev:eleventy": {
       "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
-        "build:dev:sass",
-        "build:dev:ts"
+        "build:site:dev:styles",
+        "build:site:dev:ts"
       ],
       "files": [
         "lib/site/**/*",
@@ -181,7 +148,7 @@
       "command": "NODE_ENV=DEV eleventy --config=teaser.eleventy.cjs",
       "dependencies": [
         {
-          "script": "build:teaser:dev:sass",
+          "script": "build:teaser:dev:styles",
           "cascade": false
         }],
       "files": [
@@ -189,7 +156,7 @@
         "teaser.eleventy.cjs"
       ]
     },
-    "build:dev:ts": {
+    "build:site:dev:ts": {
       "command": "NODE_ENV=DEV node esbuild.config.mjs",
       "files": [
         "src/site/ts/**/*",
@@ -211,24 +178,24 @@
         "tsconfig.tsbuildinfo"
       ]
     },
-    "build:prod": {
+    "build:site:prod": {
       "dependencies": [
-        "build:prod:sass",
-        "build:prod:eleventy",
-        "build:prod:ts"
+        "build:site:prod:styles",
+        "build:site:prod:eleventy",
+        "build:site:prod:ts"
       ]
     },
     "build:teaser:prod": {
       "dependencies": [
-        "build:teaser:prod:sass",
+        "build:teaser:prod:styles",
         "build:teaser:prod:eleventy"
       ]
     },
-    "build:prod:eleventy": {
+    "build:site:prod:eleventy": {
       "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
       "dependencies": [
-        "build:prod:sass",
-        "build:prod:ts"
+        "build:site:prod:styles",
+        "build:site:prod:ts"
       ],
       "files": [
         "build/site/**/*",
@@ -239,14 +206,14 @@
     "build:teaser:prod:eleventy": {
       "command": "NODE_ENV=PROD eleventy --config=teaser.eleventy.cjs",
       "dependencies": [
-        "build:teaser:prod:sass"
+        "build:teaser:prod:styles"
       ],
       "files": [
         "src/teaser/**/*",
         "teaser.eleventy.cjs"
       ]
     },
-    "build:prod:ts": {
+    "build:site:prod:ts": {
       "command": "NODE_ENV=PROD node esbuild.config.mjs",
       "files": [
         "src/site/ts/**/*",
@@ -257,24 +224,28 @@
         "build/**/*"
       ]
     },
-    "start": {
-      "command": "yarn run serve --watch",
+    "start:site": {
+      "command": "yarn run serve:site --watch",
       "service": true
     },
-    "dev": {
-      "command": "yarn run serve:dev --watch",
+    "start:teaser": {
+      "command": "yarn run serve:teaser --watch",
+      "service": true
+    },
+    "dev:site": {
+      "command": "yarn run serve:site:dev --watch",
       "service": true
     },
     "dev:teaser": {
       "command": "yarn run serve:teaser:dev --watch",
       "service": true
     },
-    "serve:dev": {
+    "serve:site:dev": {
       "command": "wds --watch --root-dir public/site --open",
       "service": true,
       "dependencies": [
         {
-          "script": "build:dev",
+          "script": "build:site:dev",
           "cascade": false
         }
       ]
@@ -289,12 +260,12 @@
         }
       ]
     },
-    "serve": {
+    "serve:site": {
       "command": "wds --watch --root-dir dist/site",
       "service": true,
       "dependencies": [
         {
-          "script": "build:prod",
+          "script": "build:site:prod",
           "cascade": false
         }
       ]

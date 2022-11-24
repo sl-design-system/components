@@ -21,6 +21,12 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
   /** Hides the border between rows when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    void this.recalculateColumnWidths();
+  }
+
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>
@@ -29,7 +35,7 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
           return `
             :where(td, th):nth-child(${index + 1}) {
               flex-grow: ${col.grow};
-              width: ${col.width};
+              width: ${col.width || '100px'};
               ${
                 col.sticky
                   ? `
@@ -64,8 +70,20 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     `;
   }
 
-  recalculateColumnWidths(): void {
-    console.log('TODO: recalculateColumnWidths');
+  /** Updates the `width` of all columns which have `autoWidth` set to `true`. */
+  async recalculateColumnWidths(): Promise<void> {
+    await this.updateComplete;
+
+    this.columns
+      .filter(col => !col.hidden && col.autoWidth)
+      .forEach(col => {
+        const index = this.columns.indexOf(col),
+          cells = this.renderRoot.querySelectorAll(`:where(td, th):nth-child(${index + 1})`);
+
+        console.log({ index, cells });
+      });
+
+    this.requestUpdate('columns');
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

@@ -44,7 +44,16 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
   @property({ type: Boolean, reflect: true }) sticky?: boolean;
 
   /** Width of the cells for this column. */
-  @property() width = '100px';
+  @property() width?: string;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // If width and autoWidth are not set, set autoWidth to true
+    if (!this.width && this.autoWidth === undefined) {
+      this.autoWidth = true;
+    }
+  }
 
   renderHeader(): TemplateResult {
     return html`<th>${this.header ?? getNameByPath(this.path)}</th>`;

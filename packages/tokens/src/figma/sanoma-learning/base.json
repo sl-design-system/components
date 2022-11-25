@@ -127,7 +127,7 @@
       },
       "neutral": {
         "50": {
-          "value": "#FEFEFE",
+          "value": "#f3f3f3",
           "type": "color",
           "description": "color.palette.neutral.50"
         },
@@ -765,7 +765,7 @@
       "default": {
         "block": {
           "sm": {
-            "value": "{space.xs}",
+            "value": "{space.sm}",
             "type": "spacing",
             "description": "space.button.solid.block.sm"
           },

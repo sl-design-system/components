@@ -43,8 +43,8 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean, reflect: true }) sticky?: boolean;
 
-  /** Width of the cells for this column. */
-  @property() width?: string;
+  /** Width of the cells for this column in pixels. */
+  @property() width?: number;
 
   override connectedCallback(): void {
     super.connectedCallback();

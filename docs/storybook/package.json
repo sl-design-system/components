@@ -22,15 +22,15 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.0.0-alpha.49",
-    "@storybook/addon-docs": "^7.0.0-alpha.49",
-    "@storybook/addon-essentials": "^7.0.0-alpha.49",
-    "@storybook/addon-links": "^7.0.0-alpha.49",
-    "@storybook/addon-storysource": "^7.0.0-alpha.49",
-    "@storybook/web-components": "^7.0.0-alpha.49",
-    "@storybook/web-components-webpack5": "^7.0.0-alpha.49",
+    "@storybook/addon-a11y": "^7.0.0-alpha.53",
+    "@storybook/addon-docs": "^7.0.0-alpha.53",
+    "@storybook/addon-essentials": "^7.0.0-alpha.53",
+    "@storybook/addon-links": "^7.0.0-alpha.53",
+    "@storybook/addon-storysource": "^7.0.0-alpha.53",
+    "@storybook/web-components": "^7.0.0-alpha.53",
+    "@storybook/web-components-webpack5": "^7.0.0-alpha.53",
     "lit-html": "^2.4.0",
-    "storybook": "^7.0.0-alpha.49",
-    "wireit": "^0.7.2"
+    "storybook": "^7.0.0-alpha.53",
+    "wireit": "^0.8.0"
   }
 }

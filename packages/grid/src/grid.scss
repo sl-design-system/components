@@ -1,6 +1,7 @@
 :host {
   --_border: 1px solid #eee;
   --_border-radius: 3px;
+  --_cell-background: #fff;
   --_cell-border: 1px solid #eee;
   --_cell-font: 300 14px/24px Arial;
   --_cell-padding: 0.25rem 1rem;
@@ -26,7 +27,8 @@
 table {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  min-width: 100%;
+  width: fit-content;
 }
 
 thead {
@@ -43,10 +45,12 @@ tr {
 
 th,
 td {
-  flex-grow: 1;
+  flex-shrink: 0;
   font: var(--_cell-font);
+  overflow: hidden;
   text-align: start;
-  width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 th {
@@ -56,6 +60,7 @@ th {
 }
 
 td {
+  background: var(--_cell-background);
   padding: var(--_cell-padding);
 }
 

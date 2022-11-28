@@ -118,7 +118,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.56.1",
     "slugify": "^1.6.5",
-    "wireit": "^0.7.3"
+    "wireit": "^0.8.0"
   },
   "dependencies": {
     "elasticlunr": "^0.9.5",

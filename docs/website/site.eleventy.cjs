@@ -113,7 +113,7 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addTransform('htmlMinifier', content => {
-    if (process.env.NODE_ENV === 'PROD') {
+    if (process.env.NODE_ENV !== 'DEV') {
       return htmlMinifier.minify(content, {
         useShortDoctype: true,
         removeComments: true,

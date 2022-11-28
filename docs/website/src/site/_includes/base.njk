@@ -9,7 +9,7 @@
     <script type="module" src="/js/ssr-utils/is-land.js"></script>
     {% inlinejs "dsd-polyfill.js" %}
     <!-- if JS is disabled just show the contents without the polyfill -->
-    <noscript><style>body[dsd-pending] {display: block !important;}</style></noscript>
+    <noscript><style>body[dsd-pending] {visibility: visible !important;}</style></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />

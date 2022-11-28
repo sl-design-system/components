@@ -150,7 +150,8 @@
         {
           "script": "build:teaser:dev:styles",
           "cascade": false
-        }],
+        }
+      ],
       "files": [
         "src/teaser/**/*",
         "teaser.eleventy.cjs"

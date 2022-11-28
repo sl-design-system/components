@@ -33,7 +33,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
 
   /** The ARIA role of the dialog. */
-  @property() role: 'dialog' | 'alertdialog' = 'dialog';
+  @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
   override render(): TemplateResult {
     return html`

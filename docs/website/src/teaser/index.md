@@ -20,6 +20,8 @@ eleventyExcludeFromCollections: true
   <div class="ds-teaser-background ds-teaser__dots-half"></div>
   <div class="ds-teaser-background ds-teaser__mobile-bottom"></div>
   <div class="ds-teaser-background ds-teaser__empty-half"></div>
+  <div class="ds-teaser-background ds-teaser__user-bottom"></div>
+  <div class="ds-teaser-background ds-teaser__chat-bottom"></div>
   
   <div class="ds-teaser__wrapper">
     <h1>Sanoma Learning <span class="ds-teaser__heading-part">Design System</span></h1>    

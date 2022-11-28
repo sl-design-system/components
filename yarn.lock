@@ -8080,8 +8080,8 @@ __metadata:
   linkType: hard
 
 "engine.io@npm:~6.2.0":
-  version: 6.2.0
-  resolution: "engine.io@npm:6.2.0"
+  version: 6.2.1
+  resolution: "engine.io@npm:6.2.1"
   dependencies:
     "@types/cookie": ^0.4.1
     "@types/cors": ^2.8.12
@@ -8093,7 +8093,7 @@ __metadata:
     debug: ~4.3.1
     engine.io-parser: ~5.0.3
     ws: ~8.2.3
-  checksum: 19b9c07a2f21e9cbb40f12bc6174907af834fe97a6a3547b73d570bd6dc114d13a140eb8fae00365cdc50b352dc74dc1bdb422b492d280f47ab82dbd48a33ed8
+  checksum: 5b730ec03d3b7b701027aeed2eadf2918429659e5be857efd6da4235be4e423834382ae2cfe0a35954e4efa85a1005ad63dc3ad0f4f8514af8e70e7fbc677c4e
   languageName: node
   linkType: hard
 

@@ -23,3 +23,19 @@ ul {
 - [ {{ category.data.title }} ]( {{ category.url }} )
 {% endfor %}
 </div>
+
+### Not SSR:
+<ds-test-element></ds-test-element>
+
+### SSR:
+<is-land on:interaction="pointerenter" import="/js/components/test-component.js">
+<ds-test-element count="10"></ds-test-element>
+</is-land>
+
+### SSR:
+<is-land on:interaction="pointerenter" import="/js/components/my-counter.js">
+<my-counter></my-counter>
+</is-land>
+
+### not SSR:
+<my-counter></my-counter>

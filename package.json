@@ -67,7 +67,7 @@
     },
     "website": {
       "dependencies": [
-        "./docs/website:build:teaser"
+        "./docs/website:build:teaser:prod"
       ]
     }
   },

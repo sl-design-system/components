@@ -6,16 +6,23 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
 const fs = require('fs');
-const searchFilter = require("./src/site/js/filters/searchFilter.cjs");
+const searchFilter = require("./src/site/scripts/filters/searchFilter.cjs");
+const anchor = require('markdown-it-anchor');
+
+const DEV = process.env.NODE_ENV === 'DEV';
+const jsFolder = DEV ? 'lib' : 'build';
+const outputFolder = DEV ? 'public' : 'dist';
 
 module.exports = function(eleventyConfig) {
+  eleventyConfig
+    .addPassthroughCopy({ [`${jsFolder}/site`]: 'js/' });
+
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',
-    componentModules: [
-      './src/site/js/demo-greeter.js',
-      './src/site/js/my-element.js',
-    ],
+    componentModules: [`./${jsFolder}/site/ssr.js`],
   });
+
+  eleventyConfig.addWatchTarget(`./${jsFolder}/**/*.js`);
 
   eleventyConfig.addPlugin(syntaxHighlight);
 
@@ -40,8 +47,6 @@ module.exports = function(eleventyConfig) {
     return slugify(removeExtraText(s), { lower: true, remove: /[:’'`,]/g });
   }
 
-  const anchor = require('markdown-it-anchor');
-
   let mdIt = markdownIt({
     html: true,
     breaks: true,
@@ -59,16 +64,16 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.setBrowserSyncConfig({
     notify: true,
-    files: './dist/site/css/**/*.css',
+    files: './public/site/styles/**/*.css',
   });
 
-  eleventyConfig.setLibrary('md', mdIt/*markdownIt(options)*/);
+  eleventyConfig.setLibrary('md', mdIt);
 
   eleventyConfig
     .addPassthroughCopy({ './src/shared/assets': 'assets' })
     .addPassthroughCopy('./src/site/assets');
 
-  const NOT_FOUND_PATH = 'dist/site/404.html';
+  const NOT_FOUND_PATH = `${outputFolder}/site/404.html`;
 
   eleventyConfig.setBrowserSyncConfig({
     callbacks: {
@@ -88,8 +93,27 @@ module.exports = function(eleventyConfig) {
     },
   });
 
+  eleventyConfig.setBrowserSyncConfig({
+    middleware: [
+      function (req, res, next) {
+        if (/^[^.]+$/.test(req.url)) {
+          res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        }
+        next();
+      }
+    ]
+  });
+
+  eleventyConfig.addShortcode('inlinejs', (path) => {
+    if (DEV) {
+      return `<script type="module" src="/js/${path}"></script>`;
+    }
+    const script = fs.readFileSync(`${jsFolder}/site/${path}`, 'utf8').trim();
+    return `<script type="module">${script}</script>`;
+  });
+
   eleventyConfig.addTransform('htmlMinifier', content => {
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV !== 'DEV') {
       return htmlMinifier.minify(content, {
         useShortDoctype: true,
         removeComments: true,
@@ -103,7 +127,7 @@ module.exports = function(eleventyConfig) {
   return {
     dir: {
       input: 'src/site',
-      output: 'dist/site',
+      output: `${outputFolder}/site`,
     },
     passthroughFileCopy: true,
   };

@@ -21,7 +21,7 @@
 
 :root.light {
   --background-color: #f8f9fa;
-  --second-background-color: #222; //#041c52;
+  --second-background-color: var(--ds-color-black); //#222; //#041c52;
   --third-background-color: #fff;
   --menu-second-color: rgba(138, 174, 255, 0.2);
   --primary-color: rgba(138, 174, 255, 0.2);

@@ -41,22 +41,22 @@
   }
 
   .ds-link:hover {
-    color: #668cff;
+    color: var(--ds-color-green);
   }
 
   .ds-link--active,
   .ds-sub-link--active {
-    color: #668cff;
+    color: var(--ds-color-green);
   }
 
   .ds-link--active::before {
-    background: #668cff;
+    background: var(--ds-color-green);
     content: '';
-    height: 41px;
+    height: 40px;
     left: -16px;
     position: absolute;
     top: 0;
-    width: 2px;
+    width: 4px;
   }
 
   .ds-search {
@@ -95,6 +95,15 @@
     background-color: #1e90ff;
     border-radius: 3px;
   }
+}
+
+.ds-sidebar__logo {
+  background-image: url('../assets/logo.svg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 32px;
+  margin: 32px 24px;
 }
 
 .ds-sidebar--searching {

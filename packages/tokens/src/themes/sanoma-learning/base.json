@@ -65,62 +65,62 @@
       },
       "accent": {
         "50": {
-          "value": "#FEFEFE",
+          "value": "#EDF2FC",
           "type": "color",
           "description": "color.palette.accent.50"
         },
         "100": {
-          "value": "#E6EAF3",
+          "value": "#E1E9FA",
           "type": "color",
           "description": "color.palette.accent.100"
         },
         "150": {
-          "value": "#CCD6EA",
+          "value": "#CBDDF7",
           "type": "color",
           "description": "color.palette.accent.150"
         },
         "200": {
-          "value": "#A9BCE3",
+          "value": "#AAC7FA",
           "type": "color",
           "description": "color.palette.accent.200"
         },
         "300": {
-          "value": "#82A1E3",
+          "value": "#9ABCFF",
           "type": "color",
           "description": "color.palette.accent.300"
         },
         "400": {
-          "value": "#5885EE",
+          "value": "#6996FF",
           "type": "color",
           "description": "color.palette.accent.400"
         },
         "500": {
-          "value": "#396BE8",
+          "value": "#3366FF",
           "type": "color",
           "description": "color.palette.accent.500"
         },
         "600": {
-          "value": "#375BB2",
+          "value": "#1E45C3",
           "type": "color",
           "description": "color.palette.accent.600"
         },
         "700": {
-          "value": "#324C89",
+          "value": "#09298E",
           "type": "color",
           "description": "color.palette.accent.700"
         },
         "800": {
-          "value": "#2B3D65",
+          "value": "#00175F",
           "type": "color",
           "description": "color.palette.accent.800"
         },
         "900": {
-          "value": "#1D263B",
+          "value": "#000D33",
           "type": "color",
           "description": "color.palette.accent.900"
         },
         "base": {
-          "value": "#3971FF",
+          "value": "#3366FF",
           "type": "color",
           "description": "color.palette.accent.base"
         }
@@ -251,7 +251,7 @@
       },
       "success": {
         "50": {
-          "value": "#FBFCFB",
+          "value": "#EBF5EE",
           "type": "color",
           "description": "color.palette.success.50"
         },
@@ -312,7 +312,7 @@
       },
       "warning": {
         "50": {
-          "value": "#FEFEFD",
+          "value": "#FDF8E3",
           "type": "color",
           "description": "color.palette.warning.50"
         },
@@ -374,7 +374,7 @@
       },
       "danger": {
         "50": {
-          "value": "#FEFEFE",
+          "value": "#FCEFEF",
           "type": "color",
           "description": "color.palette.danger.50"
         },

@@ -1,5 +1,9 @@
 $sticky-breakpoint: 60px;
 
+:root {
+  --font-color: #212529;
+}
+
 :not(:defined) {
   visibility: visible;
 }
@@ -19,7 +23,7 @@ html {
 }
 
 body {
-  background: var(--second-background-color, #041c52);
+  //background: var(--second-background-color, #041c52);
   color: var(--font-color);
   display: flex;
   font-family: 'Poppins', sans-serif;

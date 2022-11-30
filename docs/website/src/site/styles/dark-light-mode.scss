@@ -1,3 +1,5 @@
+/** for the future use
+/*
 :root:not(.light) {
   --background-color: #202124;
   --second-background-color: #4c4d4f;
@@ -16,12 +18,11 @@
   --n-color-text: #fff;
   --n-button-background-color: transparent;
   --n-tab-color: #668cff;
-  --n-color-text-link: #668cff;
 }
 
 :root.light {
   --background-color: #f8f9fa;
-  --second-background-color: var(--ds-color-black); //#222; //#041c52;
+  --second-background-color: var(--ds-color-black);
   --third-background-color: #fff;
   --menu-second-color: rgba(138, 174, 255, 0.2);
   --primary-color: rgba(138, 174, 255, 0.2);
@@ -29,6 +30,45 @@
   --secondary-font-color: #495057;
   --n-color-surface: rgb(255, 255, 255);
   --n-color-background: rgb(255, 255, 255);
+}*/
+
+:root {
+  --background-color: #f8f9fa;
+  --second-background-color: #041c52;
+  --third-background-color: #fff;
+  --menu-second-color: rgba(138, 174, 255, 0.2);
+  --primary-color: rgba(138, 174, 255, 0.2);
+  --font-color: #212529;
+  --secondary-font-color: #495057;
+  --n-color-surface: rgb(255, 255, 255);
+  --n-color-background: rgb(255, 255, 255);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #f8f9fa;
+    --second-background-color: var(--ds-color-black);
+    --third-background-color: #363739;
+    --menu-second-color: #363739;
+    --primary-color: #363739;
+    --font-color: #212529;
+    --secondary-font-color: rgba(226, 232, 240, 1);
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --n-color-surface: #363739;
+    --n-color-background: #363739;
+    --n-color-text-weak: #fff;
+    --sl-panel-background-color: transparent;
+    --sl-color-neutral-0: #363739;
+    --sl-color-neutral-700: #fff;
+    --n-color-text: #fff;
+    --n-button-background-color: transparent;
+    --n-tab-color: #668cff;
+    --n-color-text-link: #668cff;
+  }
+}
+
+a {
+  color: var(--font-color);
 }
 
 .ds-theme-icon {

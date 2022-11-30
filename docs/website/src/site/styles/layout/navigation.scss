@@ -4,7 +4,7 @@
   flex-direction: column;
   height: 100%;
   position: fixed;
-  transition: background 300ms ease-in-out;
+  //transition: background 300ms ease-out;
   width: 272px;
 
   .ds-title {
@@ -18,7 +18,8 @@
     }
   }
 
-  .ds-link {
+  .ds-link,
+  .ds-sidebar__help {
     color: #eff2fb;
     text-decoration: none;
   }
@@ -31,7 +32,10 @@
   }
 
   li {
-    padding: 8px 0;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
     position: relative;
   }
 
@@ -92,7 +96,7 @@
   }
 
   mark {
-    background-color: #1e90ff;
+    background-color: var(--ds-color-green); //#1e90ff;
     border-radius: 3px;
   }
 }
@@ -104,6 +108,34 @@
   background-size: contain;
   height: 32px;
   margin: 32px 24px;
+}
+
+.ds-sidebar__arrow {
+  background-image: url('../assets/icons/angle-right.svg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 40px;
+  margin-right: 24px;
+  transition: transform 300ms ease-in-out;
+  width: 8px;
+  //transform:rotate(180deg);
+}
+
+.ds-sidebar__arrow--active {
+  //background-color: red;
+  //-webkit-mask: url('../assets/icons/angle-right.svg') no-repeat 50% 50%;
+  //mask: url('../assets/icons/angle-right.svg') no-repeat 50% 50%;
+  filter: sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
+  //background-image: url('../assets/icons/angle-down.svg');
+  //width: 12px;
+  transform: rotate(90deg);
+}
+
+.ds-sidebar__help {
+  bottom: 26px;
+  margin-left: 40px;
+  position: absolute;
 }
 
 .ds-sidebar--searching {

@@ -15,7 +15,8 @@
           class="ds-link{% if page.url == entry.url %} ds-link--active{% endif %} {% if page.url.includes(entry.url) %} ds-link--active{% endif %}"
           href="{{ entry.url | url }}">{{ entry.title }}</a>
         {% if entry.children | length %}
-          <ul role="list"
+          <span class="ds-sidebar__arrow {% if page.url == entry.url %} ds-sidebar__arrow--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar__arrow--active{% endif %}"></span>
+          {#<ul role="list"
               class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
             {% for child in entry.children %}
               <li>
@@ -23,11 +24,23 @@
                    href="{{ child.url }}">{{ child.title }}</a>
               </li>
             {% endfor %}
-          </ul>
+          </ul>#}
         {% endif %}
       </li>
+      {% if entry.children | length %}
+        <ul role="list"
+            class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
+          {% for child in entry.children %}
+            <li>
+              <a class="ds-link{% if page.url == child.url %} ds-sub-link--active{% endif %}"
+                 href="{{ child.url }}">{{ child.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     {% endfor %}
   </ul>
 
-  {% include "./theme-switch.njk" %}
+  {#{% include "./theme-switch.njk" %}#}
+  <a href="/" class="ds-sidebar__help">Help and feedback</a>
 </nav>

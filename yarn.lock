@@ -2185,14 +2185,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/virtualizer@npm:^0.7.2":
-  version: 0.7.2
-  resolution: "@lit-labs/virtualizer@npm:0.7.2"
+"@lit-labs/virtualizer@npm:0.0.0-masonry-preview-20221107225026":
+  version: 0.0.0-masonry-preview-20221107225026
+  resolution: "@lit-labs/virtualizer@npm:0.0.0-masonry-preview-20221107225026"
   dependencies:
     event-target-shim: ^6.0.2
     lit: ^2.0.0
     tslib: ^2.0.3
-  checksum: c4c1eff6423d7392f103b6c337e531f94d182f67f57fca7eb9c446967e4d73a8293b6c33f8055f9b9e6b3bd8369a507cac62379bd74b68aca5d5c13ee4933e80
+  checksum: 773ee32a8e4169da1c68c4d5d0e1b80a56502818a81deec4150c50d5520155f5578b5df02dc7582f84153fc73bbf626724af7136b6579ca183fba07db1a9f774
   languageName: node
   linkType: hard
 
@@ -2571,7 +2571,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-grid@workspace:packages/grid"
   dependencies:
-    "@lit-labs/virtualizer": ^0.7.2
+    "@lit-labs/virtualizer": 0.0.0-masonry-preview-20221107225026
     "@open-wc/testing": ^3.1.7
     "@sanomalearning/example-data": "*"
     "@sanomalearning/slds-core": "*"

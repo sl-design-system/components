@@ -114,7 +114,7 @@
     "wireit": "^0.8.0"
   },
   "dependencies": {
-    "@lit-labs/virtualizer": "^0.7.2",
+    "@lit-labs/virtualizer": "0.0.0-masonry-preview-20221107225026",
     "@sanomalearning/slds-core": "*"
   }
 }

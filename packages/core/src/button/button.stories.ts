@@ -5,31 +5,30 @@ import './register.js';
 
 export default {
   title: 'Button',
+  args: {
+    fill: 'default',
+    size: 'sm',
+    variant: 'default'
+  },
   argTypes: {
     fill: {
       control: 'inline-radio',
-      options: ['default', 'outline'],
-      defaultValue: 'default'
+      options: ['default', 'outline']
     },
     size: {
       control: 'inline-radio',
-      options: ['sm', 'md', 'lg'],
-      defaultValue: 'sm'
+      options: ['sm', 'md', 'lg']
     },
     variant: {
       control: 'radio',
-      options: ['default', 'primary', 'success', 'warning', 'danger'],
-      defaultValue: 'default'
+      options: ['default', 'primary', 'success', 'warning', 'danger']
     }
   }
 };
 
 export const API: StoryObj = {
   args: {
-    fill: 'default',
-    size: 'md',
-    text: 'Button',
-    variant: 'default'
+    text: 'Button'
   },
   render: ({ fill, size, text, variant }) => html`
     <sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>

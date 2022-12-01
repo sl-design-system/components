@@ -289,6 +289,21 @@
           "value": "Solid",
           "type": "fontWeights",
           "description": "text.typeset.fontWeight.icon-solid"
+        },
+        "regular": {
+          "value": "Regular",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.regular"
+        },
+        "demibold": {
+          "value": "DemiBold",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.demibold"
+        },
+        "bold": {
+          "value": "Bold",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.bold"
         }
       },
       "fontSize": {

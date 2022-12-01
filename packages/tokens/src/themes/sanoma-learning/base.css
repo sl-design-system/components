@@ -26,6 +26,7 @@
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
   --sl-opacity-100: 0.04;
+  --sl-box-shadow-button-default-default-no-shadow: 0px 0px 0px 0px;
   --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
@@ -98,16 +99,31 @@
   --sl-text-typeset-font-size-md: 14px;
   --sl-text-typeset-font-size-sm: 12px;
   --sl-text-typeset-font-size-xs: 10px;
+  --sl-text-typeset-font-weight-bold: 700;
+  --sl-text-typeset-font-weight-demibold: 600;
+  --sl-text-typeset-font-weight-regular: 400;
   --sl-text-typeset-font-weight-icon-solid: Solid;
   --sl-text-typeset-font-weight-icon-regular: 400;
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
-  --sl-text-typeset-font-weight-bold: 700;
-  --sl-text-typeset-font-weight-demibold: 600;
-  --sl-text-typeset-font-weight-regular: 400;
   --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
-  --sl-text-typeset-font-family-body: The Message;
+  --sl-text-typeset-font-family-font-icon: Font Awesome 6 Pro;
+  --sl-text-typeset-font-family-body: Source Sans Pro;
   --sl-text-typeset-font-family-heading: The Message;
+  --sl-color-palette-white-base: 254 254 254;
+  --sl-color-palette-black-base: 34 34 34;
+  --sl-color-palette-danger-base: 250 95 102;
+  --sl-color-palette-danger-900: 56 32 32;
+  --sl-color-palette-danger-800: 92 50 50;
+  --sl-color-palette-danger-700: 120 61 61;
+  --sl-color-palette-danger-600: 152 71 73;
+  --sl-color-palette-danger-500: 187 82 84;
+  --sl-color-palette-danger-400: 230 91 96;
+  --sl-color-palette-danger-300: 250 124 126;
+  --sl-color-palette-danger-200: 250 166 165;
+  --sl-color-palette-danger-150: 249 203 202;
+  --sl-color-palette-danger-100: 249 230 230;
+  --sl-color-palette-danger-50: 252 239 239;
   --sl-color-palette-warning-base: 255 209 15;
   --sl-color-palette-warning-900: 43 35 23;
   --sl-color-palette-warning-800: 69 56 34;
@@ -119,7 +135,19 @@
   --sl-color-palette-warning-200: 222 160 36;
   --sl-color-palette-warning-150: 254 209 21;
   --sl-color-palette-warning-100: 249 235 172;
-  --sl-color-palette-warning-50: 254 254 253;
+  --sl-color-palette-warning-50: 253 248 227;
+  --sl-color-palette-success-base: 86 204 138;
+  --sl-color-palette-success-900: 30 41 34;
+  --sl-color-palette-success-800: 46 66 52;
+  --sl-color-palette-success-700: 54 84 65;
+  --sl-color-palette-success-600: 64 104 78;
+  --sl-color-palette-success-500: 72 126 92;
+  --sl-color-palette-success-400: 79 150 107;
+  --sl-color-palette-success-300: 84 178 123;
+  --sl-color-palette-success-200: 102 206 145;
+  --sl-color-palette-success-150: 177 223 193;
+  --sl-color-palette-success-100: 218 238 224;
+  --sl-color-palette-success-50: 235 245 238;
   --sl-color-palette-info-base: 57 113 255;
   --sl-color-palette-info-900: 29 38 59;
   --sl-color-palette-info-800: 43 61 101;
@@ -132,42 +160,6 @@
   --sl-color-palette-info-150: 204 214 234;
   --sl-color-palette-info-100: 230 234 243;
   --sl-color-palette-info-50: 254 254 254;
-  --sl-color-palette-danger-base: 250 95 102;
-  --sl-color-palette-danger-900: 56 32 32;
-  --sl-color-palette-danger-800: 92 50 50;
-  --sl-color-palette-danger-700: 120 61 61;
-  --sl-color-palette-danger-600: 152 71 73;
-  --sl-color-palette-danger-500: 187 82 84;
-  --sl-color-palette-danger-400: 230 91 96;
-  --sl-color-palette-danger-300: 250 124 126;
-  --sl-color-palette-danger-200: 250 166 165;
-  --sl-color-palette-danger-150: 249 203 202;
-  --sl-color-palette-danger-100: 249 230 230;
-  --sl-color-palette-danger-50: 254 254 254;
-  --sl-color-palette-accent-base: 250 95 102;
-  --sl-color-palette-accent-900: 56 32 32;
-  --sl-color-palette-accent-800: 92 50 50;
-  --sl-color-palette-accent-700: 120 61 61;
-  --sl-color-palette-accent-600: 152 71 73;
-  --sl-color-palette-accent-500: 187 82 84;
-  --sl-color-palette-accent-400: 230 91 96;
-  --sl-color-palette-accent-300: 250 124 126;
-  --sl-color-palette-accent-200: 250 166 165;
-  --sl-color-palette-accent-150: 249 203 202;
-  --sl-color-palette-accent-100: 249 230 230;
-  --sl-color-palette-accent-50: 254 254 254;
-  --sl-color-palette-success-base: 86 204 138;
-  --sl-color-palette-success-900: 30 41 34;
-  --sl-color-palette-success-800: 46 66 52;
-  --sl-color-palette-success-700: 54 84 65;
-  --sl-color-palette-success-600: 64 104 78;
-  --sl-color-palette-success-500: 72 126 92;
-  --sl-color-palette-success-400: 79 150 107;
-  --sl-color-palette-success-300: 84 178 123;
-  --sl-color-palette-success-200: 102 206 145;
-  --sl-color-palette-success-150: 177 223 193;
-  --sl-color-palette-success-100: 218 238 224;
-  --sl-color-palette-success-50: 251 252 251;
   --sl-color-palette-neutral-base: 34 34 34;
   --sl-color-palette-neutral-900: 38 38 38;
   --sl-color-palette-neutral-800: 62 61 61;
@@ -179,9 +171,19 @@
   --sl-color-palette-neutral-200: 188 188 188;
   --sl-color-palette-neutral-150: 213 213 213;
   --sl-color-palette-neutral-100: 234 234 234;
-  --sl-color-palette-neutral-50: 254 254 254;
-  --sl-color-palette-white-base: 254 254 254;
-  --sl-color-palette-black-base: 34 34 34;
+  --sl-color-palette-neutral-50: 243 243 243;
+  --sl-color-palette-accent-base: 51 102 255;
+  --sl-color-palette-accent-900: 0 13 51;
+  --sl-color-palette-accent-800: 0 23 95;
+  --sl-color-palette-accent-700: 9 41 142;
+  --sl-color-palette-accent-600: 30 69 195;
+  --sl-color-palette-accent-500: 51 102 255;
+  --sl-color-palette-accent-400: 105 150 255;
+  --sl-color-palette-accent-300: 154 188 255;
+  --sl-color-palette-accent-200: 170 199 250;
+  --sl-color-palette-accent-150: 203 221 247;
+  --sl-color-palette-accent-100: 225 233 250;
+  --sl-color-palette-accent-50: 237 242 252;
   --sl-color-palette-primary-base: 34 34 34;
   --sl-color-palette-primary-900: 38 38 38;
   --sl-color-palette-primary-800: 62 61 61;
@@ -194,40 +196,38 @@
   --sl-color-palette-primary-150: 213 213 213;
   --sl-color-palette-primary-100: 234 234 234;
   --sl-color-palette-primary-50: 254 254 254;
-  --sl-color-palette-secondary-base: 86 204 138;
-  --sl-color-palette-secondary-900: 30 41 34;
-  --sl-color-palette-secondary-800: 46 66 52;
-  --sl-color-palette-secondary-700: 54 84 65;
-  --sl-color-palette-secondary-600: 64 104 78;
-  --sl-color-palette-secondary-500: 72 126 92;
-  --sl-color-palette-secondary-400: 79 150 107;
-  --sl-color-palette-secondary-300: 84 178 123;
-  --sl-color-palette-secondary-200: 102 206 145;
-  --sl-color-palette-secondary-150: 177 223 193;
-  --sl-color-palette-secondary-100: 218 238 224;
-  --sl-color-palette-secondary-50: 251 252 251;
+  --sl-component-button-md: [object Object];
+  --sl-component-button-lg: [object Object];
   --sl-box-shadow-button-default-default-focus: 0px 0px 0px 3px
-    rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-600));
+    rgba(var(--sl-color-palette-info-base), var(--sl-opacity-600));
   --sl-animation-button: var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
-  --sl-space-button-outline-lg-inline: calc(var(--sl-space-lg) - var(--sl-border-width-button-outline));
-  --sl-space-button-outline-lg-block: calc(var(--sl-space-md) - var(--sl-border-width-button-outline));
-  --sl-space-button-outline-md-inline: calc(var(--sl-space-md) - var(--sl-border-width-button-outline));
-  --sl-space-button-outline-md-block: calc(var(--sl-space-sm) - var(--sl-border-width-button-outline));
-  --sl-space-button-outline-sm-inline: var(--sl-space-md);
-  --sl-space-button-outline-sm-block: var(--sl-space-xs);
-  --sl-space-button-default-lg-inline: var(--sl-space-xl);
-  --sl-space-button-default-lg-block: var(--sl-space-lg);
-  --sl-space-button-default-md-block: var(--sl-space-sm);
-  --sl-space-button-default-sm-inline: var(--sl-space-md);
-  --sl-space-button-default-sm-block: var(--sl-space-xs);
+  --sl-space-button-gap-sm: var(--sl-space-2xs);
+  --sl-space-button-outline-inline-lg: var(--sl-space-lg);
+  --sl-space-button-outline-inline-md: var(--sl-space-md);
+  --sl-space-button-outline-inline-sm: var(--sl-space-sm);
+  --sl-space-button-outline-block-lg: var(--sl-space-md);
+  --sl-space-button-outline-block-md: var(--sl-space-sm);
+  --sl-space-button-outline-block-sm: var(--sl-space-xs);
+  --sl-space-button-default-inline-lg: var(--sl-space-lg);
+  --sl-space-button-default-inline-md: var(--sl-space-md);
+  --sl-space-button-default-inline-sm: var(--sl-space-sm);
+  --sl-space-button-default-block-lg: var(--sl-space-md);
+  --sl-space-button-default-block-md: var(--sl-space-sm);
+  --sl-space-button-default-block-sm: var(--sl-space-sm);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-xs);
-  --sl-border-radius-button: var(--sl-border-radius-2xs);
-  --sl-text-button-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+  --sl-border-radius-button: var(--sl-border-radius-3xs);
+  --sl-text-button-font-icon-lg: var(--sl-text-typeset-font-weight-regular) 15 / var(--sl-text-typeset-line-height-sm)
+    var(--sl-text-typeset-font-family-font-icon);
+  --sl-text-button-font-icon-md: var(--sl-text-typeset-font-weight-regular) 13 / var(--sl-text-typeset-line-height-sm)
+    var(--sl-text-typeset-font-family-font-icon);
+  --sl-text-button-font-icon-sm: var(--sl-text-typeset-font-weight-regular) 11 / var(--sl-text-typeset-line-height-sm)
+    var(--sl-text-typeset-font-family-font-icon);
+  --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
@@ -257,5 +257,6 @@
     var(--sl-text-typeset-line-height-3xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
-  --sl-space-button-default-md-inline: var(--sl-space-button-default-lg-block);
+  --sl-space-button-gap-lg: var(--sl-space-button-default-block-md);
+  --sl-space-button-gap-md: var(--sl-space-button-default-block-sm);
 }

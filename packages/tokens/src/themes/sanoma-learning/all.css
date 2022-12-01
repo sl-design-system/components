@@ -116,7 +116,7 @@
   --sl-text-typeset-font-weight-icon-thin: 100;
   --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
   --sl-text-typeset-font-family-font-icon: Font Awesome 6 Pro;
-  --sl-text-typeset-font-family-body: Source Sans Pro;
+  --sl-text-typeset-font-family-body: source-sans-pro;
   --sl-text-typeset-font-family-heading: The Message;
   --sl-color-palette-white-base: 254 254 254;
   --sl-color-palette-black-base: 34 34 34;
@@ -208,7 +208,8 @@
   --sl-component-button-lg: [object Object];
   --sl-box-shadow-button-default-default-focus: 0px 0px 0px 3px
     rgba(var(--sl-color-palette-info-base), var(--sl-opacity-600));
-  --sl-animation-button: var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
+  --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
+  --sl-animation-button-duration: var(--sl-animation-duration-normal);
   --sl-space-button-gap-sm: var(--sl-space-2xs);
   --sl-space-button-outline-inline-lg: var(--sl-space-lg);
   --sl-space-button-outline-inline-md: var(--sl-space-md);
@@ -219,9 +220,9 @@
   --sl-space-button-default-inline-lg: var(--sl-space-lg);
   --sl-space-button-default-inline-md: var(--sl-space-md);
   --sl-space-button-default-inline-sm: var(--sl-space-sm);
-  --sl-space-button-default-block-lg: var(--sl-space-md);
-  --sl-space-button-default-block-md: var(--sl-space-sm);
-  --sl-space-button-default-block-sm: var(--sl-space-sm);
+  --sl-space-button-default-block-lg: var(--sl-space-none);
+  --sl-space-button-default-block-md: var(--sl-space-none);
+  --sl-space-button-default-block-sm: var(--sl-space-none);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-xs);
   --sl-border-radius-button: var(--sl-border-radius-3xs);

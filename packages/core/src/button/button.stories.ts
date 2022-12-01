@@ -4,7 +4,24 @@ import '../button-bar/register.js';
 import './register.js';
 
 export default {
-  title: 'Button'
+  title: 'Button',
+  argTypes: {
+    fill: {
+      control: 'inline-radio',
+      options: ['default', 'outline'],
+      defaultValue: 'default'
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg'],
+      defaultValue: 'sm'
+    },
+    variant: {
+      control: 'radio',
+      options: ['default', 'primary', 'success', 'warning', 'danger'],
+      defaultValue: 'default'
+    }
+  }
 };
 
 export const API: StoryObj = {
@@ -14,46 +31,53 @@ export const API: StoryObj = {
     text: 'Button',
     variant: 'default'
   },
-  argTypes: {
-    fill: {
-      control: 'inline-radio',
-      options: ['default', 'outline']
-    },
-    size: {
-      control: 'inline-radio',
-      options: ['sm', 'md', 'lg']
-    },
-    variant: {
-      control: 'radio',
-      options: ['default', 'primary', 'success', 'warning', 'danger']
-    }
-  },
   render: ({ fill, size, text, variant }) => html`
     <sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>
   `
 };
 
 export const Fills: StoryObj = {
-  render: () => html`
+  argTypes: {
+    fill: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: ({ size, variant }) => html`
     <sl-button-bar>
-      <sl-button fill="default">Default</sl-button>
-      <sl-button fill="outline">Outline</sl-button>
+      <sl-button fill="default" .size=${size} .variant=${variant}>Default</sl-button>
+      <sl-button fill="outline" .size=${size} .variant=${variant}>Outline</sl-button>
     </sl-button-bar>
   `
 };
 
 export const Sizes: StoryObj = {
-  render: () => html`
+  argTypes: {
+    size: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: ({ fill, variant }) => html`
     <sl-button-bar>
-      <sl-button size="sm">Small</sl-button>
-      <sl-button size="md">Medium</sl-button>
-      <sl-button size="lg">Large</sl-button>
+      <sl-button .fill=${fill} size="sm" .variant=${variant}>Small</sl-button>
+      <sl-button .fill=${fill} size="md" .variant=${variant}>Medium</sl-button>
+      <sl-button .fill=${fill} size="lg" .variant=${variant}>Large</sl-button>
     </sl-button-bar>
   `
 };
 
 export const Variants: StoryObj = {
-  render: () => html`
+  argTypes: {
+    variant: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: ({ fill, size }) => html`
     <style>
       .grid {
         display: inline-grid;
@@ -63,16 +87,16 @@ export const Variants: StoryObj = {
       }
     </style>
     <div class="grid">
-      <sl-button>Default</sl-button>
-      <sl-button disabled>Disabled</sl-button>
-      <sl-button variant="primary">Primary</sl-button>
-      <sl-button variant="primary" disabled>Disabled</sl-button>
-      <sl-button variant="success">Success</sl-button>
-      <sl-button variant="success" disabled>Disabled</sl-button>
-      <sl-button variant="warning">Warning</sl-button>
-      <sl-button variant="warning" disabled>Disabled</sl-button>
-      <sl-button variant="danger">Danger</sl-button>
-      <sl-button variant="danger" disabled>Disabled</sl-button>
+      <sl-button .fill=${fill} .size=${size}>Default</sl-button>
+      <sl-button .fill=${fill} .size=${size} disabled>Disabled</sl-button>
+      <sl-button .fill=${fill} .size=${size} variant="primary">Primary</sl-button>
+      <sl-button .fill=${fill} .size=${size} variant="primary" disabled>Disabled</sl-button>
+      <sl-button .fill=${fill} .size=${size} variant="success">Success</sl-button>
+      <sl-button .fill=${fill} .size=${size} variant="success" disabled>Disabled</sl-button>
+      <sl-button .fill=${fill} .size=${size} variant="warning">Warning</sl-button>
+      <sl-button .fill=${fill} .size=${size} variant="warning" disabled>Disabled</sl-button>
+      <sl-button .fill=${fill} .size=${size} variant="danger">Danger</sl-button>
+      <sl-button .fill=${fill} .size=${size} variant="danger" disabled>Disabled</sl-button>
     </div>
   `
 };

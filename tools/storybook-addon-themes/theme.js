@@ -17,9 +17,15 @@ export const updateTheme = (theme) => {
   }
 
   if (theme?.fonts) {
-    fonts ??= document.head.appendChild(document.createElement('link'));
-    fonts.href = theme.fonts;
-    fonts.rel = 'stylesheet';
+    if (fonts?.length !== theme.fonts.length) {
+      fonts = new Array(theme.fonts.length);
+    }
+
+    theme.fonts.forEach((font, index) => {
+      fonts[index] ??= document.head.appendChild(document.createElement('link'));
+      fonts[index].href = font;
+      fonts[index].rel = 'stylesheet';
+    });
   }
 };
 

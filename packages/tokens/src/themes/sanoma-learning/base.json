@@ -459,7 +459,7 @@
           "description": "text.typeset.fontFamily.heading"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "source-sans-pro",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.body"
         },
@@ -1120,17 +1120,17 @@
       "default": {
         "block": {
           "sm": {
-            "value": "{space.sm}",
+            "value": "{space.none}",
             "type": "spacing",
             "description": "space.button.solid.block.sm"
           },
           "md": {
-            "value": "{space.sm}",
+            "value": "{space.none}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.md}",
+            "value": "{space.none}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
           }
@@ -1149,7 +1149,7 @@
           "lg": {
             "value": "{space.lg}",
             "type": "spacing",
-            "description": "space.button.solid.inline.lg"
+            "description": "space.button.solid.inline.xl"
           }
         }
       },
@@ -1250,9 +1250,16 @@
   },
   "animation": {
     "button": {
-      "value": "{animation.duration.normal} {animation.easing.ease-in-out}",
-      "type": "other",
-      "description": "animation.button"
+      "duration": {
+        "value": "{animation.duration.normal}",
+        "type": "other",
+        "description": "animation.button.duration"
+      },
+      "easing": {
+        "value": "{animation.easing.ease-in-out}",
+        "type": "other",
+        "description": "animation.button.easing"
+      }
     },
     "duration": {
       "fast": {

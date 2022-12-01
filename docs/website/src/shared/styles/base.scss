@@ -9,6 +9,7 @@ $sticky-breakpoint: 60px;
 }
 
 html {
+  font-size: 62.5%;
   scroll-behavior: smooth;
 
   @media (min-height: $sticky-breakpoint) {
@@ -31,6 +32,35 @@ body {
   min-height: 100vh;
 }
 
-a {
-  color: var(--font-color);
-}
+//a {
+//  color: var(--font-color);
+//}
+
+//a,
+//a:link,
+//a:visited,
+//a:focus,
+//a:hover,
+//a:active {
+//  text-decoration: none;
+//  cursor: pointer;
+//  color: black;
+//}
+
+//:any-link,
+//:any-link:active,
+//a:-webkit-any-link {
+//  color: black;
+//}
+//
+//:-webkit-any-link {
+//  color: black;
+//}
+//
+//:-moz-any-link {
+//  color: black;
+//}
+//
+//:any-link {
+//  color: black;
+//}

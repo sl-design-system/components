@@ -1,9 +1,12 @@
-<nav class="ds-sidebar ds-flow--xs">
+<nav class="ds-sidebar-nav ds-flow--xs">
   {#<h1 class="ds-title">
     <a href="/">design system</a>
   </h1>#}
 
-  <a href="/" class="ds-sidebar__logo"></a>
+
+  <a href="/" class="ds-sidebar-nav__logo"></a>
+
+  <button class="ds-sidebar-nav__close-button" onclick="hideMenu()">close</button>
 
   {% include "./search.njk" %}
 
@@ -13,9 +16,10 @@
       <li id="{{ entry.url }}" {% if entry.url == page.url %} class="active"{% endif %}>
         <a
           class="ds-link{% if page.url == entry.url %} ds-link--active{% endif %} {% if page.url.includes(entry.url) %} ds-link--active{% endif %}"
-          href="{{ entry.url | url }}">{{ entry.title }}</a>
-        {% if entry.children | length %}
-          <span class="ds-sidebar__arrow {% if page.url == entry.url %} ds-sidebar__arrow--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar__arrow--active{% endif %}"></span>
+          href="{{ entry.url | url }}" data-content="{{ entry.title }}">{{ entry.title }}
+          {% if entry.children | length %}
+          <span class="ds-sidebar-nav__arrow {% if page.url == entry.url %} ds-sidebar-nav__arrow--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar-nav__arrow--active{% endif %}"></span>
+        </a>
           {#<ul role="list"
               class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
             {% for child in entry.children %}
@@ -32,7 +36,7 @@
             class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
           {% for child in entry.children %}
             <li>
-              <a class="ds-link{% if page.url == child.url %} ds-sub-link--active{% endif %}"
+              <a class="ds-link ds-sublist__link{% if page.url == child.url %} ds-sub-link--active{% endif %}"
                  href="{{ child.url }}">{{ child.title }}</a>
             </li>
           {% endfor %}
@@ -41,6 +45,13 @@
     {% endfor %}
   </ul>
 
+
   {#{% include "./theme-switch.njk" %}#}
-  <a href="/" class="ds-sidebar__help">Help and feedback</a>
+  {#<a href="/" class="ds-sidebar__help">Help and feedback</a>#}
 </nav>
+<section>
+  <a href="/" class="ds-sidebar__help">Help and feedback</a>
+</section>
+<script type="text/javascript">
+  {% include "./navigation.js" %}
+</script>

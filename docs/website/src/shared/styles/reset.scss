@@ -9,3 +9,13 @@
 :where(body, h1, h2, h3, h4, p, figure, blockquote, dl, dd) {
   margin: 0;
 }
+
+:where(a) {
+  color: #000;
+
+  a:any-link {
+    color: #000 !important;
+  }
+}
+
+//a:-webkit-any-link { color: -webkit-link !important; }

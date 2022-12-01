@@ -12,3 +12,37 @@
 [dsd-pending] {
   visibility: hidden;
 }
+
+//:where(a, a:-webkit-any-link) {
+//  color: inherit;
+//  //margin: 30px;
+//  a:-webkit-any-link { color: inherit !important; }
+//}
+
+//a  {
+//  color: #eff2fb;
+//  &:focus, &:visited {
+//    color: inherit;
+//  }
+//}
+//
+////a:-webkit-any-link { color: -webkit-link !important; }
+//a:-webkit-any-link { color: inherit; }
+//
+//a, a:visited, a:hover, a:active {
+//  text-decoration: none;
+//  color: black;
+//}
+//
+//a:-webkit-any-link {
+//  color: black;
+//}
+//
+//body a, body a:visited, body a:hover, body a:active {
+//  text-decoration: none;
+//  color: black;
+//}
+//
+//body a {
+//  color: black;
+//}

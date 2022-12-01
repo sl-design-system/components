@@ -7,7 +7,7 @@ export default {
   title: 'Button',
   args: {
     fill: 'default',
-    size: 'sm',
+    size: 'md',
     variant: 'default'
   },
   argTypes: {

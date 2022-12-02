@@ -463,15 +463,10 @@
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.body"
         },
-        "fontIcon": {
-          "value": "Font Awesome 6 Pro",
-          "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.fontIcon"
-        },
         "icon": {
           "value": "Font Awesome 6 Pro",
           "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.icon"
+          "description": "text.typeset.fontFamily.fontIcon"
         }
       },
       "fontWeight": {
@@ -965,10 +960,10 @@
           "type": "typography"
         }
       },
-      "fontIcon": {
+      "icon": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.fontIcon}",
+            "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": 11
@@ -977,7 +972,7 @@
         },
         "md": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.fontIcon}",
+            "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": 13
@@ -986,7 +981,7 @@
         },
         "lg": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.fontIcon}",
+            "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": 15
@@ -1117,76 +1112,38 @@
   },
   "space": {
     "button": {
-      "default": {
-        "block": {
-          "sm": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.block.sm"
-          },
-          "md": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
-          },
-          "lg": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
-          }
+      "block": {
+        "sm": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "space.button.solid.block.sm"
         },
-        "inline": {
-          "sm": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.sm"
-          },
-          "md": {
-            "value": "{space.md}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
-          },
-          "lg": {
-            "value": "{space.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.xl"
-          }
+        "md": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        },
+        "lg": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "space.button.solid.block.lg"
         }
       },
-      "outline": {
-        "block": {
-          "sm": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "space.button.outline.block.sm"
-          },
-          "md": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.outline.block.md"
-          },
-          "lg": {
-            "value": "{space.md}",
-            "type": "spacing",
-            "description": "space.button.outline.block.lg"
-          }
+      "inline": {
+        "sm": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.sm"
         },
-        "inline": {
-          "sm": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.outline.inline.sm"
-          },
-          "md": {
-            "value": "{space.md}",
-            "type": "spacing",
-            "description": "space.button.outline.inline.md"
-          },
-          "lg": {
-            "value": "{space.lg}",
-            "type": "spacing",
-            "description": "space.button.outline.inline.lg"
-          }
+        "md": {
+          "value": "{space.md}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        },
+        "lg": {
+          "value": "{space.lg}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.xl"
         }
       },
       "gap": {
@@ -1196,12 +1153,12 @@
           "description": "{space.button.gap.sm}"
         },
         "md": {
-          "value": "{space.button.default.block.sm}",
+          "value": "{space.button.block.sm}",
           "type": "spacing",
           "description": "{space.button.gap.md}"
         },
         "lg": {
-          "value": "{space.button.default.block.md}",
+          "value": "{space.button.block.md}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
         }
@@ -1288,33 +1245,29 @@
   },
   "boxShadow": {
     "button": {
-      "default": {
-        "default": {
-          "focus": {
-            "value": {
-              "x": 0,
-              "y": 0,
-              "blur": 0,
-              "spread": 3,
-              "color": "rgba({color.palette.info.base},{opacity.600})",
-              "type": "dropShadow"
-            },
-            "type": "boxShadow",
-            "description": "boxShadow.button.default"
-          },
-          "no_shadow": {
-            "value": {
-              "x": 0,
-              "y": 0,
-              "blur": 0,
-              "spread": 0,
-              "color": "",
-              "type": "dropShadow"
-            },
-            "type": "boxShadow",
-            "description": "boxShadow.button.no_shadow"
-          }
-        }
+      "focus": {
+        "value": {
+          "x": 0,
+          "y": 0,
+          "blur": 0,
+          "spread": 3,
+          "color": "rgba({color.palette.info.base},{opacity.600})",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow",
+        "description": "boxShadow.button.focus"
+      },
+      "none": {
+        "value": {
+          "x": 0,
+          "y": 0,
+          "blur": 0,
+          "spread": 0,
+          "color": "",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow",
+        "description": "boxShadow.button.none"
       }
     }
   },

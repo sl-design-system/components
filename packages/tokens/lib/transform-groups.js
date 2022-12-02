@@ -8,6 +8,6 @@ export const css = {
     'time/seconds',
     'css/font-weight',
     'size/px',
-    'shadow/css'
+    'boxShadow/css'
   ]
 };

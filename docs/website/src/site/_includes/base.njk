@@ -21,13 +21,13 @@
     <link rel="icon" media="(prefers-color-scheme: dark)" href="./../../assets/favicon/sl-favicon-32-white.png" sizes="32x32">
   </head>
   <body dsd-pending>
+    <nav class="ds-top-navigation">
+      <button class="ds-top-navigation__hamburger" onclick="showMenu()"></button>
+    </nav>
     <aside class="ds-sidebar ds-sidebar--closed">
       {% include "./sidebar.njk" %}
     </aside>
-    <nav class="ds-top-navigation">
-      <button class="ds-top-navigation__hamburger" onclick="showMenu()">hamburger</button>
-    </nav>
-    <main>
+    <main class="ds-container">
       <header>
         <h1>{{ title }}</h1>
       </header>

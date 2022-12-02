@@ -2,11 +2,9 @@
   {#<h1 class="ds-title">
     <a href="/">design system</a>
   </h1>#}
-
+  <button class="ds-sidebar-nav__close-button" onclick="hideMenu()"></button>
 
   <a href="/" class="ds-sidebar-nav__logo"></a>
-
-  <button class="ds-sidebar-nav__close-button" onclick="hideMenu()">close</button>
 
   {% include "./search.njk" %}
 
@@ -49,7 +47,7 @@
   {#{% include "./theme-switch.njk" %}#}
   {#<a href="/" class="ds-sidebar__help">Help and feedback</a>#}
 </nav>
-<section>
+<section class="ds-sidebar__bottom-section">
   <a href="/" class="ds-sidebar__help">Help and feedback</a>
 </section>
 <script type="text/javascript">

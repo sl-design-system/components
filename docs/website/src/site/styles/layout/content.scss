@@ -1,9 +1,22 @@
-main {
+$md-breakpoint: 580px;
+
+.ds-container {
   background-color: var(--background-color);
-  margin-left: 27.2rem;
-  padding: 36px 72px 0;
-  transition: background 300ms ease-in-out;
+  margin-left: 0;
+  padding: 56px 72px 0;
+  transform: translateX(0);
+  transition: transform 400ms, background 300ms ease-in-out, opacity 300ms;
   width: 100%;
+}
+
+@media screen and (min-width: $md-breakpoint) {
+  .ds-container {
+    padding: 36px 72px 0;
+    //margin-left: 27.2rem;
+    transform: translateX(27.2rem);
+    transition: transform 400ms;
+    width: calc(100% - 27.2rem);
+  }
 }
 
 .header-anchor {

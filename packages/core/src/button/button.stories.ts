@@ -35,6 +35,92 @@ export const API: StoryObj = {
   `
 };
 
+export const All: StoryObj = {
+  render: () => html`
+    <style>
+      .grid {
+        display: inline-grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        justify-items: center;
+      }
+    </style>
+    <div class="grid">
+      <sl-button fill="default" size="sm">Default</sl-button>
+      <sl-button fill="default" size="sm" variant="primary">Primary</sl-button>
+      <sl-button fill="default" size="sm" variant="success">Success</sl-button>
+      <sl-button fill="default" size="sm" variant="warning">Warning</sl-button>
+      <sl-button fill="default" size="sm" variant="danger">Danger</sl-button>
+
+      <sl-button disabled fill="default" size="sm">Default</sl-button>
+      <sl-button disabled fill="default" size="sm" variant="primary">Primary</sl-button>
+      <sl-button disabled fill="default" size="sm" variant="success">Success</sl-button>
+      <sl-button disabled fill="default" size="sm" variant="warning">Warning</sl-button>
+      <sl-button disabled fill="default" size="sm" variant="danger">Danger</sl-button>
+
+      <sl-button fill="outline" size="sm">Default</sl-button>
+      <sl-button fill="outline" size="sm" variant="primary">Primary</sl-button>
+      <sl-button fill="outline" size="sm" variant="success">Success</sl-button>
+      <sl-button fill="outline" size="sm" variant="warning">Warning</sl-button>
+      <sl-button fill="outline" size="sm" variant="danger">Danger</sl-button>
+
+      <sl-button disabled fill="outline" size="sm">Default</sl-button>
+      <sl-button disabled fill="outline" size="sm" variant="primary">Primary</sl-button>
+      <sl-button disabled fill="outline" size="sm" variant="success">Success</sl-button>
+      <sl-button disabled fill="outline" size="sm" variant="warning">Warning</sl-button>
+      <sl-button disabled fill="outline" size="sm" variant="danger">Danger</sl-button>
+
+      <sl-button fill="default" size="md">Default</sl-button>
+      <sl-button fill="default" size="md" variant="primary">Primary</sl-button>
+      <sl-button fill="default" size="md" variant="success">Success</sl-button>
+      <sl-button fill="default" size="md" variant="warning">Warning</sl-button>
+      <sl-button fill="default" size="md" variant="danger">Danger</sl-button>
+
+      <sl-button disabled fill="default" size="md">Default</sl-button>
+      <sl-button disabled fill="default" size="md" variant="primary">Primary</sl-button>
+      <sl-button disabled fill="default" size="md" variant="success">Success</sl-button>
+      <sl-button disabled fill="default" size="md" variant="warning">Warning</sl-button>
+      <sl-button disabled fill="default" size="md" variant="danger">Danger</sl-button>
+
+      <sl-button fill="outline" size="md">Default</sl-button>
+      <sl-button fill="outline" size="md" variant="primary">Primary</sl-button>
+      <sl-button fill="outline" size="md" variant="success">Success</sl-button>
+      <sl-button fill="outline" size="md" variant="warning">Warning</sl-button>
+      <sl-button fill="outline" size="md" variant="danger">Danger</sl-button>
+
+      <sl-button disabled fill="outline" size="md">Default</sl-button>
+      <sl-button disabled fill="outline" size="md" variant="primary">Primary</sl-button>
+      <sl-button disabled fill="outline" size="md" variant="success">Success</sl-button>
+      <sl-button disabled fill="outline" size="md" variant="warning">Warning</sl-button>
+      <sl-button disabled fill="outline" size="md" variant="danger">Danger</sl-button>
+
+      <sl-button fill="default" size="lg">Default</sl-button>
+      <sl-button fill="default" size="lg" variant="primary">Primary</sl-button>
+      <sl-button fill="default" size="lg" variant="success">Success</sl-button>
+      <sl-button fill="default" size="lg" variant="warning">Warning</sl-button>
+      <sl-button fill="default" size="lg" variant="danger">Danger</sl-button>
+
+      <sl-button disabled fill="default" size="lg">Default</sl-button>
+      <sl-button disabled fill="default" size="lg" variant="primary">Primary</sl-button>
+      <sl-button disabled fill="default" size="lg" variant="success">Success</sl-button>
+      <sl-button disabled fill="default" size="lg" variant="warning">Warning</sl-button>
+      <sl-button disabled fill="default" size="lg" variant="danger">Danger</sl-button>
+
+      <sl-button fill="outline" size="lg">Default</sl-button>
+      <sl-button fill="outline" size="lg" variant="primary">Primary</sl-button>
+      <sl-button fill="outline" size="lg" variant="success">Success</sl-button>
+      <sl-button fill="outline" size="lg" variant="warning">Warning</sl-button>
+      <sl-button fill="outline" size="lg" variant="danger">Danger</sl-button>
+
+      <sl-button disabled fill="outline" size="lg">Default</sl-button>
+      <sl-button disabled fill="outline" size="lg" variant="primary">Primary</sl-button>
+      <sl-button disabled fill="outline" size="lg" variant="success">Success</sl-button>
+      <sl-button disabled fill="outline" size="lg" variant="warning">Warning</sl-button>
+      <sl-button disabled fill="outline" size="lg" variant="danger">Danger</sl-button>
+    </div>
+  `
+};
+
 export const Fills: StoryObj = {
   argTypes: {
     fill: {

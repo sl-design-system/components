@@ -1,4 +1,5 @@
 import type { TemplateResult } from 'lit';
+import type { Grid } from './grid.js';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { getNameByPath, getValueByPath } from './utils.js';
@@ -6,6 +7,9 @@ import { getNameByPath, getValueByPath } from './utils.js';
 export type GridColumnRenderer<T> = (model: T) => TemplateResult;
 
 export class GridColumn<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
+  /** The grid instance the column is shown in. */
+  #grid?: Grid<T>;
+
   /**
    * Automatically sets the width of the column based on the column contents when this is set to `true`.
    *
@@ -45,6 +49,14 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
 
   /** Width of the cells for this column in pixels. */
   @property() width?: number;
+
+  get grid(): Grid<T> | undefined {
+    return this.#grid;
+  }
+
+  set grid(grid: Grid<T> | undefined) {
+    this.#grid = grid;
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();

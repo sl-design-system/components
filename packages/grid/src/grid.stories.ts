@@ -44,11 +44,19 @@ export const ColumnRenderer: StoryObj = {
 };
 
 export const SelectionColumn: StoryObj = {
+  argTypes: {
+    autoSelect: {
+      control: 'boolean'
+    },
+    selectAll: {
+      control: 'boolean'
+    }
+  },
   loaders: [async () => ({ people: (await getPeople()).people })],
-  render: (_, { loaded: { people } }) => {
+  render: ({ autoSelect, selectAll }, { loaded: { people } }) => {
     return html`
       <sl-grid .items=${people}>
-        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-selection-column .autoSelect=${autoSelect} .selectAll=${selectAll}></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>

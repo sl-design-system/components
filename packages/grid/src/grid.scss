@@ -45,6 +45,8 @@ tr {
 
 th,
 td {
+  align-items: center;
+  display: inline-flex;
   flex-shrink: 0;
   font: var(--_cell-font);
   overflow: hidden;

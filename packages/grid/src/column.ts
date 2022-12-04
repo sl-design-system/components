@@ -7,9 +7,6 @@ import { getNameByPath, getValueByPath } from './utils.js';
 export type GridColumnRenderer<T> = (model: T) => TemplateResult;
 
 export class GridColumn<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
-  /** The grid instance the column is shown in. */
-  #grid?: Grid<T>;
-
   /**
    * Automatically sets the width of the column based on the column contents when this is set to `true`.
    *
@@ -26,6 +23,9 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
    * The column width may still grow larger when `grow` is not 0.
    */
   @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
+
+  /** The parent grid instance. */
+  @property({ attribute: false }) grid?: Grid<T>;
 
   /**
    * The ratio with which the column will grow relative to the other columns.
@@ -49,14 +49,6 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
 
   /** Width of the cells for this column in pixels. */
   @property() width?: number;
-
-  get grid(): Grid<T> | undefined {
-    return this.#grid;
-  }
-
-  set grid(grid: Grid<T> | undefined) {
-    this.#grid = grid;
-  }
 
   override connectedCallback(): void {
     super.connectedCallback();

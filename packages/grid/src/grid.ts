@@ -107,10 +107,12 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const elements = event.target.assignedElements({ flatten: true });
+    const elements = event.target.assignedElements({ flatten: true }),
+      columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
-    this.columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
-    this.columns.forEach(col => (col.grid = this));
+    columns.forEach(col => (col.grid = this));
+
+    this.columns = columns;
   }
 
   #onVisibilityChanged(): void {

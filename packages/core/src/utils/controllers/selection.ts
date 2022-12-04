@@ -14,13 +14,17 @@ export class SelectionController<T> {
    * The current selection; these are either the selected items, or the unselected items,
    * depending on the the value of #selectAll.
    */
-  #selection = new Set();
+  #selection = new Set<T>();
 
   /** The total number of items in the selection. */
   count = 0;
 
   /** Whether more than 1 item can be selected at a time. */
   multiple = false;
+
+  get selection(): Set<T> {
+    return this.#selection;
+  }
 
   constructor(host: ReactiveControllerHost, options?: Partial<SelectionControllerOptions>) {
     this.#host = host;
@@ -42,6 +46,8 @@ export class SelectionController<T> {
   }
 
   selectAll(): void {
+    console.log('selectAll()');
+
     this.#selectAll = true;
     this.#selection.clear();
     this.#host.requestUpdate();

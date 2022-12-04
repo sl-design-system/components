@@ -1,5 +1,4 @@
 import type { PropertyValues, TemplateResult } from 'lit';
-import type { Grid } from './grid.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { localized, msg } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
@@ -25,18 +24,6 @@ export class GridSelectionColumn<
   /** When true, all items are selected. */
   @property({ type: Boolean, attribute: 'select-all' }) selectAll?: boolean;
 
-  override set grid(grid: Grid) {
-    super.grid = grid;
-
-    if (grid) {
-      grid.selection.multiple = true;
-
-      if (this.selectAll) {
-        this.grid.selection.selectAll();
-      }
-    }
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -46,8 +33,12 @@ export class GridSelectionColumn<
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('selectAll')) {
-      this.grid?.selection.selectAll();
+    if (changes.has('grid') && this.grid) {
+      this.grid.selection.multiple = true;
+
+      if (this.selectAll) {
+        this.grid.selection.selectAll();
+      }
     }
   }
 
@@ -55,12 +46,10 @@ export class GridSelectionColumn<
     const checked = this.grid?.selection.areAllSelected(),
       indeterminate = this.grid?.selection.areSomeSelected();
 
-    console.log({ checked, indeterminate });
-
     return html`
       <th>
         <sl-checkbox
-          @change=${this.#onToggleSelectAll}
+          @change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelectAll(detail)}
           ?checked=${checked}
           ?indeterminate=${indeterminate}
           aria-label=${msg('Select all')}
@@ -72,12 +61,14 @@ export class GridSelectionColumn<
   override renderData(item: T): TemplateResult {
     const checked = this.grid?.selection.isSelected(item);
 
-    return html`<td>
-      <sl-checkbox
-        @change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
-        ?checked=${checked}
-      ></sl-checkbox>
-    </td>`;
+    return html`
+      <td>
+        <sl-checkbox
+          @change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
+          ?checked=${checked}
+        ></sl-checkbox>
+      </td>
+    `;
   }
 
   #onToggleSelect(item: T, checked: boolean): void {
@@ -90,8 +81,8 @@ export class GridSelectionColumn<
     }
   }
 
-  #onToggleSelectAll({ detail }: CustomEvent<boolean>): void {
-    this.selectAll = detail;
+  #onToggleSelectAll(checked: boolean): void {
+    this.selectAll = checked;
 
     if (this.selectAll) {
       this.grid?.selection.selectAll();

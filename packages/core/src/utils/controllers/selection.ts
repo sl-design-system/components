@@ -12,7 +12,7 @@ export class SelectionController<T> {
 
   /**
    * The current selection; these are either the selected items, or the unselected items,
-   * depending on the the value of #selectAll.
+   * depending on the value of #selectAll.
    */
   #selection = new Set<T>();
 

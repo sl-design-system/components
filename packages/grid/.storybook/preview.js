@@ -1,3 +1,5 @@
+import 'element-internals-polyfill';
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {

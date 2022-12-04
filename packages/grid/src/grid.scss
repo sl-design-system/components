@@ -13,7 +13,6 @@
   border: var(--_border);
   border-radius: var(--_border-radius);
   display: block;
-  overflow: auto;
 }
 
 :host([no-border]) {

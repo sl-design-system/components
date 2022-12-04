@@ -34,7 +34,7 @@ export const ColumnRenderer: StoryObj = {
     };
 
     return html`
-      <sl-grid .items=${people} style="height: 300px">
+      <sl-grid .items=${people} style="height: 300px; overflow: auto">
         <sl-grid-column header="Name" .renderer=${nameRenderer}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>
@@ -73,7 +73,7 @@ export const StickyColumns: StoryObj = {
     };
 
     return html`
-      <sl-grid .items=${people} style="height: 300px">
+      <sl-grid .items=${people} style="height: 300px; overflow: auto">
         <sl-grid-column header="Name" .renderer=${nameRenderer} sticky></sl-grid-column>
         <sl-grid-column path="email" sticky></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>

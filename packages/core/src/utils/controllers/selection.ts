@@ -46,8 +46,6 @@ export class SelectionController<T> {
   }
 
   selectAll(): void {
-    console.log('selectAll()');
-
     this.#selectAll = true;
     this.#selection.clear();
     this.#host.requestUpdate();

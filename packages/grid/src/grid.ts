@@ -3,6 +3,7 @@ import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
 
@@ -73,8 +74,10 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
   }
 
   renderItem(item: T): TemplateResult {
+    const selected = this.selection.isSelected(item);
+
     return html`
-      <tr>
+      <tr class=${classMap({ selected })} part="row ${selected ? 'selected' : ''}">
         ${this.columns.map(col => col.renderData(item))}
       </tr>
     `;

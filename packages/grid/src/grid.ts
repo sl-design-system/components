@@ -1,7 +1,9 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
+import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
 
@@ -11,6 +13,9 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
 
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
+
+  /** Selection manager. */
+  readonly selection = new SelectionController<T>(this);
 
   /** The columns in the grid. */
   @state() columns: Array<GridColumn<T>> = [];
@@ -23,6 +28,12 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
 
   /** Hides the border between rows when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    if (changes.has('items')) {
+      this.selection.count = this.items.length;
+    }
+  }
 
   override render(): TemplateResult {
     return html`
@@ -52,7 +63,10 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
           </tr>
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged}>
-          ${virtualize({ items: this.items, renderItem: item => this.renderItem(item) })}
+          ${virtualize({
+            items: this.items,
+            renderItem: item => this.renderItem(item)
+          })}
         </tbody>
         <tfoot></tfoot>
       </table>
@@ -60,8 +74,10 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
   }
 
   renderItem(item: T): TemplateResult {
+    const selected = this.selection.isSelected(item);
+
     return html`
-      <tr>
+      <tr class=${classMap({ selected })} part="row ${selected ? 'selected' : ''}">
         ${this.columns.map(col => col.renderData(item))}
       </tr>
     `;
@@ -94,9 +110,12 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const elements = event.target.assignedElements({ flatten: true });
+    const elements = event.target.assignedElements({ flatten: true }),
+      columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
-    this.columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
+    columns.forEach(col => (col.grid = this));
+
+    this.columns = columns;
   }
 
   #onVisibilityChanged(): void {

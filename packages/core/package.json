@@ -26,6 +26,8 @@
     "./radio-group/register.js": "./dist/components/radio-group/register.js",
     "./tooltip": "./dist/components/tooltip/index.js",
     "./tooltip/register.js": "./dist/components/tooltip/register.js",
+    "./utils/controllers": "./dist/components/utils/controllers/index.js",
+    "./utils/decorators": "./dist/components/utils/decorators/index.js",
     "./utils/string.js": "./dist/components/utils/string.js"
   },
   "scripts": {

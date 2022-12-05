@@ -1,7 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { EventEmitter } from '../utils/decorators/event.js';
 import { FormControlMixin } from '@open-wc/form-control';
 import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
+import { event } from '../utils/decorators/event.js';
 import styles from './checkbox.scss.js';
 
 export class Checkbox extends FormControlMixin(LitElement) {
@@ -10,6 +12,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
 
   #onClick = (): void => {
     this.checked = !this.checked;
+    this.change.emit(this.checked);
   };
 
   #onKeydown = (event: KeyboardEvent): void => {
@@ -21,8 +24,11 @@ export class Checkbox extends FormControlMixin(LitElement) {
       event.preventDefault();
 
       this.checked = !this.checked;
+      this.change.emit(this.checked);
     }
   };
+
+  @event() change!: EventEmitter<boolean>;
 
   /** Whether the checkbox is checked. */
   @property({ type: Boolean }) checked = false;

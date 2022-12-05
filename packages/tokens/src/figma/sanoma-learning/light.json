@@ -688,7 +688,7 @@
               "description": "color.button.default.focus.background"
             },
             "foreground": {
-              "value": "{color.palette.warning.200}",
+              "value": "{color.palette.warning.600}",
               "type": "color",
               "description": "color.button.default.focus.foreground"
             },

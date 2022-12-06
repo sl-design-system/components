@@ -1,5 +1,6 @@
 import type { Button } from './button.js';
 import { expect, fixture } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
 import './register.js';
@@ -22,6 +23,19 @@ describe('sl-button', () => {
 
     it('should allow for a custom tabindex', async () => {
       el.tabIndex = 10;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('tabindex', '10');
+    });
+
+    it('should remember the tabindex when being enabled', async () => {
+      el.tabIndex = 10;
+      await el.updateComplete;
+      
+      el.disabled = true;
+      await el.updateComplete;
+      
+      el.disabled = false;
       await el.updateComplete;
 
       expect(el).to.have.attribute('tabindex', '10');
@@ -93,10 +107,32 @@ describe('sl-button', () => {
       expect((el.constructor as any).formAssociated).to.be.true;
     });
 
+    it('should be associated with the form', () => {
+      expect(el.form).to.equal(form);
+    })
+
     it('should call requestSubmit() on the form when clicked', () => {
       const requestSubmit = stub(form, 'requestSubmit').returns(undefined);
       
       el.click();
+
+      expect(requestSubmit).to.have.been.calledOnce;
+    });
+
+    it('should call requestSubmit() on the form when Enter is typed', async () => {
+      const requestSubmit = stub(form, 'requestSubmit').returns(undefined);
+      
+      el.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(requestSubmit).to.have.been.calledOnce;
+    });
+
+    it('should call requestSubmit() on the form when Space is typed', async () => {
+      const requestSubmit = stub(form, 'requestSubmit').returns(undefined);
+      
+      el.focus();
+      await sendKeys({ press: 'Space'});
 
       expect(requestSubmit).to.have.been.calledOnce;
     });

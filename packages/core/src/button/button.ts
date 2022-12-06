@@ -20,9 +20,9 @@ export class Button extends FormControlMixin(LitElement) {
     if (this.hasAttribute('disabled')) {
       event.preventDefault();
       event.stopPropagation();
-    } else if (this.type === 'reset' && !event.defaultPrevented) {
+    } else if (this.type === 'reset') {
       this.form?.reset();
-    } else if (this.type === 'submit' && !event.defaultPrevented) {
+    } else if (this.type === 'submit') {
       this.form?.requestSubmit();
     }
   };

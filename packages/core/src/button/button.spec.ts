@@ -1,6 +1,7 @@
 import type { Button } from './button.js';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
+import { restore, spy, stub } from 'sinon';
 import './register.js';
 
 describe('sl-button', () => {
@@ -37,15 +38,76 @@ describe('sl-button', () => {
       expect(el).to.have.attribute('size', 'sm');
     });
 
-    it('should not be disabled', () => {
-      expect(el).not.to.have.attribute('disabled');
+    it('should be large size when set', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('size', 'lg');
     });
 
-    // it('should be disabled if set', async () => {
-    //   el.disabled = true;
-    //   await el.updateComplete;
+    it('should have a default variant', () => {
+      expect(el).to.have.attribute('variant', 'default');
+    });
+  });
 
-    //   expect(el).to.have.attribute('disabled');
-    // });
+  describe('disabled', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-button>Hello world</sl-button>`);
+    });
+
+    it('should not be disabled by default', () => {
+      expect(el).not.to.have.attribute('disabled');
+      expect(el).not.to.match(':disabled');
+    });
+
+    it('should have the :disabled pseudo class', () => {
+      el.setAttribute('disabled', '');
+
+      expect(el).to.match(':disabled');
+    });
+
+    it('should have a tabindex of -1', async () => {
+      el.setAttribute('disabled', '');
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('tabindex', '-1');
+    });
+  });
+
+  describe('form integration', () => {
+    let form: HTMLFormElement;
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+          <sl-button type="submit">Submit</sl-button>
+        </form>
+      `);
+
+      el = form.firstElementChild as Button;
+    });
+
+    afterEach(() => restore());
+
+    it('should have the form associated flag', () => {
+      expect((el.constructor as any).formAssociated).to.be.true;
+    });
+
+    it('should call requestSubmit() on the form when clicked', () => {
+      const requestSubmit = stub(form, 'requestSubmit').returns(undefined);
+      
+      el.click();
+
+      expect(requestSubmit).to.have.been.calledOnce;
+    });
+
+    it('should not call requestSubmit() if the button has type button', () => {
+      const requestSubmit = spy(form, 'requestSubmit');
+      
+      el.type = 'button';
+      el.click();
+
+      expect(requestSubmit).not.to.have.been.called;
+    });
   });
 });

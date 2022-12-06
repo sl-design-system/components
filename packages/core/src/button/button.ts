@@ -36,6 +36,12 @@ export class Button extends FormControlMixin(LitElement) {
     }
   };
 
+  /** The original tabIndex before disabled. */
+  #originalTabIndex = 0;
+
+  /** Whether the button is disabled. */
+  @property({ type: Boolean }) disabled?: boolean;
+
   /** The button fill. */
   @property({ reflect: true }) fill: ButtonFill = 'default';
 
@@ -72,6 +78,18 @@ export class Button extends FormControlMixin(LitElement) {
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('disabled')) {
+      if (this.disabled) {
+        this.#originalTabIndex = this.tabIndex;
+      }
+
+      this.tabIndex = this.disabled ? -1 : this.#originalTabIndex;
     }
   }
 

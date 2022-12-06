@@ -1,4 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { GridSorter, GridSorterChange, GridSorterDirection } from './sorter.js';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { LitElement, html } from 'lit';
@@ -13,6 +14,9 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
 
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
+
+  /** The sorters for this grid. */
+  #sorters: GridSorter[] = [];
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
@@ -57,7 +61,7 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
         })}
       </style>
       <table>
-        <thead>
+        <thead @directionChange=${this.#onDirectionChange} @sorterChange=${this.#onSorterChange}>
           <tr>
             ${this.columns.map(col => col.renderHeader())}
           </tr>
@@ -109,6 +113,12 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     this.requestUpdate('columns');
   }
 
+  #onDirectionChange({ detail: direction, target }: CustomEvent<GridSorterDirection> & { target: GridSorter }): void {
+    console.log({ direction });
+
+    this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
+  }
+
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
@@ -116,6 +126,14 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     columns.forEach(col => (col.grid = this));
 
     this.columns = columns;
+  }
+
+  #onSorterChange({ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter }): void {
+    if (detail === 'added') {
+      this.#sorters = [...this.#sorters, target];
+    } else {
+      this.#sorters = this.#sorters.filter(sorter => sorter !== target);
+    }
   }
 
   #onVisibilityChanged(): void {

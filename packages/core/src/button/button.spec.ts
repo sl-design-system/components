@@ -1,6 +1,6 @@
 import type { Button } from './button.js';
 import { expect, fixture } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
 import './register.js';
@@ -15,6 +15,12 @@ describe('sl-button', () => {
 
     it('should render correctly', () => {
       expect(el).shadowDom.to.equalSnapshot();
+    });
+
+    it('should have a button role', async () => {
+      const { role } = await a11ySnapshot({ selector: 'sl-button' }) as any;
+
+      expect(role).to.equal('button');
     });
 
     it('should have a tabindex', () => {

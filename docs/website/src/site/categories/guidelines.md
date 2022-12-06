@@ -2,6 +2,6 @@
 eleventyNavigation:
   parent: Pages
   key: Guidelines
-  order: 6
+  order: 3
 title: Guidelines
 ---

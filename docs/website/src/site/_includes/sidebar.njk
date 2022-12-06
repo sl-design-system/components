@@ -13,11 +13,13 @@
     {% for entry in navPages %}
       <li id="{{ entry.url }}" {% if entry.url == page.url %} class="active"{% endif %}>
         <a
-          class="ds-link{% if page.url == entry.url %} ds-link--active{% endif %} {% if page.url.includes(entry.url) %} ds-link--active{% endif %}"
-          href="{% if not entry.children | length %}{{ entry.url | url }}{% endif %}" data-content="{{ entry.title }}">{{ entry.title }}
+          class="ds-link{% if page.url == entry.url %} ds-link--active{% endif %} {% if page.url.includes(entry.url) %} ds-link--active{% endif %} {% if entry.children | length %}ds-link__has-submenu{% endif %}"
+          href="{% if not entry.children | length %}{{ entry.url | url }}{% endif %}" data-content="{{ entry.title }}"
+          onclick="{% if entry.children | length %} showSubmenu.apply(this, arguments) {% endif %}">{{ entry.title }}
           {% if entry.children | length %}
           <span class="ds-sidebar-nav__arrow {% if page.url == entry.url %} ds-sidebar-nav__arrow--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar-nav__arrow--active{% endif %}"></span>
         </a>
+        {#href="{% if not entry.children | length %}{{ entry.url | url }}{% endif %}"#}
           {#<ul role="list"
               class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
             {% for child in entry.children %}

@@ -65,6 +65,19 @@ export const SelectionColumn: StoryObj = {
   }
 };
 
+export const SortableColumns: StoryObj = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    return html`
+      <sl-grid .items=${people}>
+        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const StickyColumns: StoryObj = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {

@@ -1,6 +1,6 @@
 ---
-name: Story template
-about: Sprint story template
+name: Story
+about: New story for a sprint
 title: ''
 labels: ''
 assignees: ''

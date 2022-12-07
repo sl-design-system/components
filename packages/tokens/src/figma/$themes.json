@@ -720,9 +720,9 @@
       "color.button.danger.default.hover.border": "S:c4c20d808dfcc98bb5d0c2e890d710ea0b4a4bf2,",
       "color.button.danger.default.active.border": "S:e09c2b93705de76bfcaaa607109ea8c2bbb50845,",
       "color.button.danger.default.disabled.border": "S:fa7b24dc25733e484bcc57a1806ab0268673473d,",
-      "text.button.text.sm": "S:6340a4dcddca32317e8e0d93faa4b43002a10d03,",
-      "text.button.text.md": "S:68c1cd0a8d1359147c63d974f7cfe04f7109d351,",
-      "text.button.text.lg": "S:e05b44ce2a98f29d6a38a930870e92585a0d6734,",
+      "text.button.text.sm": "S:704dc806d758a3524ed53ab42286b9b86e82262f,",
+      "text.button.text.md": "S:9d961a044e920069858e0d714533c7f6fc2946d8,",
+      "text.button.text.lg": "S:8400079fd9737a47136487645c8c60b9154c094d,",
       "text.heading.0": "S:a796037bbb7bfbcf2ff75668f51fe9c8583821b8,",
       "text.heading.1": "S:fb54c4a26da190dc5f9448427d42ec9eccf65976,",
       "text.heading.2": "S:502ac87c449c51b9b0448eb1a44dc8693bc479af,",
@@ -740,8 +740,7 @@
       "text.button.fontIcon.sm": "S:fcc051cafa9208eb7c440f053189cadc9a631a3b,",
       "text.button.fontIcon.md": "S:ed5b3b827c1857123ae402d2cc6f4a535a26f62c,",
       "text.button.fontIcon.lg": "S:73ce703f062b89a94a84b9ec27e9d4410d119f82,",
-      "boxShadow.button.default.default.focus": "S:db98ef6ad4fa85def9f0117d9a03f413b791b6fd,",
-      "boxShadow.button.default.default.no_shadow": "S:eade49499ab89c827b9f1dca3483afbf5b137f68,"
+      "boxShadow.button.default.default.focus": "S:db98ef6ad4fa85def9f0117d9a03f413b791b6fd,"
     }
   },
   {

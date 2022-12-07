@@ -2555,6 +2555,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sanomalearning/slds-editor@workspace:packages/editor":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-editor@workspace:packages/editor"
+  dependencies:
+    "@open-wc/testing": ^3.1.7
+    "@sanomalearning/slds-core": "*"
+    "@storybook/addon-a11y": ^7.0.0-alpha.53
+    "@storybook/addon-docs": ^7.0.0-alpha.53
+    "@storybook/addon-essentials": ^7.0.0-alpha.53
+    "@storybook/addon-links": ^7.0.0-alpha.53
+    "@storybook/addon-storysource": ^7.0.0-alpha.53
+    "@storybook/web-components": ^7.0.0-alpha.53
+    "@storybook/web-components-webpack5": ^7.0.0-alpha.53
+    "@types/sinon": ^10.0.13
+    "@web/test-runner": ^0.15.0
+    "@web/test-runner-commands": ^0.6.5
+    "@web/test-runner-playwright": ^0.9.0
+    lit-html: ^2.4.0
+    sinon: ^14.0.2
+    storybook: ^7.0.0-alpha.53
+    typescript: ^4.9.3
+    wireit: ^0.9.1
+  languageName: unknown
+  linkType: soft
+
 "@sanomalearning/slds-editorial@workspace:packages/tokens/src/themes/editorial":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-editorial@workspace:packages/tokens/src/themes/editorial"
@@ -18437,6 +18462,21 @@ __metadata:
   bin:
     wireit: bin/wireit.js
   checksum: cbc72135aa7f3e4b5b88def74217ac3b657a6dd91cad2353892e2d24e672ff9a1fc001a9395ba5efebe501f8337502bd03e59e3419999542a2332e5ae848658b
+  languageName: node
+  linkType: hard
+
+"wireit@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "wireit@npm:0.9.1"
+  dependencies:
+    braces: ^3.0.2
+    chokidar: ^3.5.3
+    fast-glob: ^3.2.11
+    jsonc-parser: ^3.0.0
+    proper-lockfile: ^4.1.2
+  bin:
+    wireit: bin/wireit.js
+  checksum: d871b60063176e474f65a447706e15ef84aec70796fc8c9ea0f12fbb26f871e007b65f38120d4315108115cf45f3d8806962cb031c53e3bd1bf836992c5896db
   languageName: node
   linkType: hard
 

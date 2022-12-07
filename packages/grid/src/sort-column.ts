@@ -1,9 +1,9 @@
 import type { TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { getNameByPath } from '@sanomalearning/slds-core/utils';
 import { html } from 'lit';
 import { GridColumn } from './column.js';
-import { getNameByPath } from './utils.js';
 import { GridSorter } from './sorter.js';
 
 export class GridSortColumn extends ScopedElementsMixin(GridColumn) {

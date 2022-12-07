@@ -28,7 +28,10 @@ export class GridSorter extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.tabIndex = 0;
+
     this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this, 'keydown', this.#onKeydown);
 
     this.sorterChange.emit('added');
   }
@@ -74,6 +77,20 @@ export class GridSorter extends LitElement {
   }
 
   #onClick(): void {
+    this.#toggleDirection();
+    this.directionChange.emit(this.direction);
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if ([' ', 'Enter'].includes(event.key)) {
+      event.preventDefault();
+
+      this.#toggleDirection();
+      this.directionChange.emit(this.direction);
+    }
+  }
+
+  #toggleDirection(): void {
     if (this.direction === 'asc') {
       this.direction = 'desc';
     } else if (this.direction === 'desc') {
@@ -81,7 +98,5 @@ export class GridSorter extends LitElement {
     } else {
       this.direction = 'asc';
     }
-
-    this.directionChange.emit(this.direction);
   }
 }

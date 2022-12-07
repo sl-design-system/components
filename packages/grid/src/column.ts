@@ -1,8 +1,8 @@
 import type { TemplateResult } from 'lit';
 import type { Grid } from './grid.js';
+import { getNameByPath, getValueByPath } from '@sanomalearning/slds-core/utils';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { getNameByPath, getValueByPath } from './utils.js';
 
 export type GridColumnRenderer<T> = (model: T) => TemplateResult;
 

@@ -17,7 +17,7 @@ export class SelectionController<T> {
   #selection = new Set<T>();
 
   /** The total number of items in the selection. */
-  count = 0;
+  size = 0;
 
   /** Whether more than 1 item can be selected at a time. */
   multiple = false;
@@ -71,7 +71,7 @@ export class SelectionController<T> {
     if (this.#selectAll) {
       return this.#selection.size === 0;
     } else {
-      return this.#selection.size === this.count;
+      return this.#selection.size === this.size;
     }
   }
 
@@ -79,9 +79,9 @@ export class SelectionController<T> {
     const { size } = this.#selection;
 
     if (this.#selectAll) {
-      return size > 0 && size !== this.count;
+      return size > 0 && size !== this.size;
     } else {
-      return size > 0 && size < this.count;
+      return size > 0 && size < this.size;
     }
   }
 

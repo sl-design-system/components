@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import type { PropertyValues, TemplateResult } from 'lit';
 import type { DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
 import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
@@ -33,6 +33,20 @@ export class GridSorter extends LitElement {
     this.sorterChange.emit('added');
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('direction')) {
+      const header = this.closest('th');
+
+      if (!this.direction) {
+        header?.removeAttribute('aria-sort');
+      } else {
+        header?.setAttribute('aria-sort', this.direction === 'asc' ? 'ascending' : 'descending');
+      }
+    }
+  }
+
   override disconnectedCallback(): void {
     this.sorterChange.emit('removed');
 
@@ -42,14 +56,16 @@ export class GridSorter extends LitElement {
   override render(): TemplateResult {
     return html`
       <slot></slot>
-      ${choose(
-        this.direction,
-        [
-          ['asc', () => html`⬆️`],
-          ['desc', () => html`⬇️`]
-        ],
-        () => html`↕️`
-      )}
+      <span aria-hidden="true" class="direction">
+        ${choose(
+          this.direction,
+          [
+            ['asc', () => html`⬆️`],
+            ['desc', () => html`⬇️`]
+          ],
+          () => html`↕️`
+        )}
+      </span>
     `;
   }
 

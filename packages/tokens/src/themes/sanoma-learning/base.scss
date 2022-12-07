@@ -27,7 +27,7 @@
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
   --sl-opacity-100: 0.04;
-  --sl-box-shadow-button-default-default-no-shadow: 0px 0px 0px 0px;
+  --sl-box-shadow-button-default-default-none: 0px 0px 0px 0px;
   --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
@@ -108,8 +108,7 @@
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
   --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
-  --sl-text-typeset-font-family-font-icon: Font Awesome 6 Pro;
-  --sl-text-typeset-font-family-body: Source Sans Pro;
+  --sl-text-typeset-font-family-body: source-sans-pro;
   --sl-text-typeset-font-family-heading: The Message;
   --sl-color-palette-white-base: 254 254 254;
   --sl-color-palette-black-base: 34 34 34;
@@ -202,34 +201,29 @@
   --sl-box-shadow-button-default-default-focus: 0px 0px 0px 3px
     rgba(var(--sl-color-palette-info-base), var(--sl-opacity-600));
   --sl-animation-button: var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
+  --sl-space-button-gap-md: var(--sl-space-xs);
   --sl-space-button-gap-sm: var(--sl-space-2xs);
-  --sl-space-button-outline-inline-lg: var(--sl-space-lg);
-  --sl-space-button-outline-inline-md: var(--sl-space-md);
-  --sl-space-button-outline-inline-sm: var(--sl-space-sm);
-  --sl-space-button-outline-block-lg: var(--sl-space-md);
-  --sl-space-button-outline-block-md: var(--sl-space-sm);
-  --sl-space-button-outline-block-sm: var(--sl-space-xs);
-  --sl-space-button-default-inline-lg: var(--sl-space-lg);
-  --sl-space-button-default-inline-md: var(--sl-space-md);
-  --sl-space-button-default-inline-sm: var(--sl-space-sm);
-  --sl-space-button-default-block-lg: var(--sl-space-md);
-  --sl-space-button-default-block-md: var(--sl-space-sm);
-  --sl-space-button-default-block-sm: var(--sl-space-sm);
+  --sl-space-button-inline-lg: var(--sl-space-md);
+  --sl-space-button-inline-md: var(--sl-space-sm);
+  --sl-space-button-inline-sm: var(--sl-space-sm);
+  --sl-space-button-block-lg: var(--sl-space-sm);
+  --sl-space-button-block-md: var(--sl-space-sm);
+  --sl-space-button-block-sm: var(--sl-space-xs);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-xs);
   --sl-border-radius-button: var(--sl-border-radius-3xs);
   --sl-text-button-font-icon-lg: var(--sl-text-typeset-font-weight-regular) 15 / var(--sl-text-typeset-line-height-sm)
-    var(--sl-text-typeset-font-family-font-icon);
+    var(--sl-text-typeset-font-family-icon);
   --sl-text-button-font-icon-md: var(--sl-text-typeset-font-weight-regular) 13 / var(--sl-text-typeset-line-height-sm)
-    var(--sl-text-typeset-font-family-font-icon);
+    var(--sl-text-typeset-font-family-icon);
   --sl-text-button-font-icon-sm: var(--sl-text-typeset-font-weight-regular) 11 / var(--sl-text-typeset-line-height-sm)
-    var(--sl-text-typeset-font-family-font-icon);
+    var(--sl-text-typeset-font-family-icon);
   --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
@@ -258,6 +252,5 @@
     var(--sl-text-typeset-line-height-3xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
-  --sl-space-button-gap-lg: var(--sl-space-button-default-block-md);
-  --sl-space-button-gap-md: var(--sl-space-button-default-block-sm);
+  --sl-space-button-gap-lg: var(--sl-space-button-block-md);
 }

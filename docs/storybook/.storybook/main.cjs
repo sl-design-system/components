@@ -11,7 +11,7 @@ module.exports = {
     {
       name: '@storybook/addon-essentials',
       options: {
-        backgrounds: false
+        backgrounds: false      
       }
     },
     '@storybook/addon-storysource'

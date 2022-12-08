@@ -1,4 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { GridSorter, GridSorterChange } from './sorter.js';
+import type { DataSource, DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
+import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { LitElement, html } from 'lit';
@@ -14,14 +17,20 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
 
+  /** The sorters for this grid. */
+  #sorters: GridSorter[] = [];
+
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
 
   /** The columns in the grid. */
   @state() columns: Array<GridColumn<T>> = [];
 
+  /** Provide your own implementation for getting the data. */
+  @property({ attribute: false }) dataSource?: DataSource<T>;
+
   /** An array of items to be displayed in the grid. */
-  @property() items: T[] = [];
+  @property() items?: T[];
 
   /** Hide the border around the grid when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
@@ -31,7 +40,21 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
 
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('items')) {
-      this.selection.count = this.items.length;
+      if (this.items) {
+        this.dataSource = new ArrayDataSource(this.items);
+        this.selection.size = this.dataSource.size;
+      } else {
+        this.dataSource = undefined;
+        this.selection.size = 0;
+      }
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('dataSource') && this.dataSource) {
+      this.dataSource?.addEventListener('update', () => (this.selection.size = this.dataSource?.size ?? 0));
     }
   }
 
@@ -57,14 +80,14 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
         })}
       </style>
       <table>
-        <thead>
+        <thead @directionChange=${this.#onDirectionChange} @sorterChange=${this.#onSorterChange}>
           <tr>
             ${this.columns.map(col => col.renderHeader())}
           </tr>
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged}>
           ${virtualize({
-            items: this.items,
+            items: this.dataSource?.items,
             renderItem: item => this.renderItem(item)
           })}
         </tbody>
@@ -109,6 +132,12 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     this.requestUpdate('columns');
   }
 
+  #onDirectionChange({ target }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {
+    this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
+
+    this.#applySorters();
+  }
+
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
@@ -118,12 +147,37 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     this.columns = columns;
   }
 
+  #onSorterChange({ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter }): void {
+    if (detail === 'added') {
+      this.#sorters = [...this.#sorters, target];
+    } else {
+      this.#sorters = this.#sorters.filter(sorter => sorter !== target);
+    }
+  }
+
   #onVisibilityChanged(): void {
     if (!this.#initialColumnWidthsCalculated) {
       this.#initialColumnWidthsCalculated = true;
 
       void this.recalculateColumnWidths();
     }
+  }
+
+  #applySorters(): void {
+    if (!this.dataSource) {
+      return;
+    }
+
+    const { direction, path } = this.#sorters.find(sorter => !!sorter.direction) || {};
+
+    if (direction && path) {
+      this.dataSource.sortValue = { path, direction };
+    } else {
+      this.dataSource.sortValue = undefined;
+    }
+
+    this.dataSource.update();
+    this.requestUpdate();
   }
 
   #getStickyColumnOffset(index: number): number {

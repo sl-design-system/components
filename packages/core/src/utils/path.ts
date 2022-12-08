@@ -1,4 +1,4 @@
-import { humanize } from '@sanomalearning/slds-core/utils/string.js';
+import { humanize } from './string.js';
 
 export const getNameByPath = (path?: string): string => {
   if (!path) {
@@ -7,6 +7,17 @@ export const getNameByPath = (path?: string): string => {
     const parts = path.split('.');
 
     return humanize(parts[parts.length - 1]);
+  }
+};
+
+export const getStringByPath = (object: unknown, path = ''): string => {
+  const value = getValueByPath(object, path);
+
+  if (value) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    return value.toString();
+  } else {
+    return '';
   }
 };
 

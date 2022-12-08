@@ -9,13 +9,14 @@ import { property } from 'lit/decorators.js';
 import styles from './editor.scss.js';
 import { createContentNode } from './utils.js';
 import { marks, nodes } from './schema.js';
+import { setHTML } from './commands.js';
 
 export class Editor extends FormControlMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
   /** The ProseMirror editor view instance. */
-  #editor?: EditorView;
+  #view?: EditorView;
 
   #events = new EventsController(this);
 
@@ -32,14 +33,14 @@ export class Editor extends FormControlMixin(LitElement) {
   }
 
   override firstUpdated(): void {
-    this.#editor ??= this.createEditor();
+    this.#view ??= this.createEditor();
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('value')) {
-      console.log({ value: this.value });
+    if (changes.has('value') && this.#view) {
+      setHTML(this.value || '')(this.#view?.state, this.#view?.dispatch, this.#view);
     }
   }
 

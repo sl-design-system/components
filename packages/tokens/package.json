@@ -54,7 +54,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.56.1",
     "style-dictionary": "^3.7.1",
-    "token-transformer": "^0.0.27",
-    "wireit": "^0.9.0"
+    "token-transformer": "^0.0.28",
+    "wireit": "^0.9.1"
   }
 }

@@ -1,8 +1,5 @@
 <nav class="ds-sidebar-nav ds-flow--xs">
-  {#<h1 class="ds-title">
-    <a href="/">design system</a>
-  </h1>#}
-  <button class="ds-sidebar-nav__close-button"></button>{#onclick="hideMenu()"#}
+  <button class="ds-sidebar-nav__close-button"></button>
 
   <a href="/" class="ds-sidebar-nav__logo"></a>
 
@@ -14,9 +11,7 @@
       <li id="{{ entry.url }}" {% if entry.url == page.url %} class="active"{% endif %}>
         <a
           class="ds-sidebar-nav__link{% if page.url == entry.url %} ds-sidebar-nav__link--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar-nav__link--active{% endif %} {% if entry.children | length %}ds-sidebar-nav__link--has-submenu{% endif %}"
-          href="{% if not entry.children | length %}{{ entry.url | url }}{% endif %}" data-content="{{ entry.title }}"
-          >
-          {#onclick="{% if entry.children | length %} showSubmenu.apply(this, arguments) {% endif %}"#}
+          href="{% if not entry.children | length %}{{ entry.url | url }}{% endif %}" data-content="{{ entry.title }}">
           {{ entry.title }}
           {% if entry.children | length %}
           <span class="ds-sidebar-nav__arrow {% if page.url == entry.url %} ds-sidebar-nav__arrow--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar-nav__arrow--active{% endif %}"></span>
@@ -39,15 +34,13 @@
           {% for child in entry.children %}
             <li>
               <a class="ds-sidebar-nav__sublist-link{% if page.url == child.url %} ds-sidebar-nav__sublist-link--active{% endif %}"
-                 href="{{ child.url }}">{{ child.title }}</a>{#ds-link#}
+                 href="{{ child.url }}">{{ child.title }}</a>
             </li>
           {% endfor %}
         </ul>
       {% endif %}
     {% endfor %}
   </ul>
-
-
   {#{% include "./theme-switch.njk" %}#}
   {#<a href="/" class="ds-sidebar__help">Help and feedback</a>#}
 </nav>

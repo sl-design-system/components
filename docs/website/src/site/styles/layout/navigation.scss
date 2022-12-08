@@ -52,7 +52,7 @@ $md-breakpoint: 580px;
   background-image: url('../assets/icons/messages-question.svg');
   background-position: left;
   background-repeat: no-repeat;
-  background-size: 20px; //contain;
+  background-size: 20px;
   bottom: 26px;
   color: #eff2fb;
   font-size: 1.6rem;
@@ -68,7 +68,6 @@ $md-breakpoint: 580px;
 }
 
 .ds-sidebar--closed {
-  //left: -300px;
   transform: translateX(-27.2rem);
 
   .ds-sidebar-nav,
@@ -131,9 +130,6 @@ $md-breakpoint: 580px;
 
   .ds-sidebar--opened + .ds-container::before {
     content: none;
-    //background: inherit;
-    //opacity: 1;
-    //backdrop-filter: none;
   }
 }
 
@@ -142,34 +138,7 @@ $md-breakpoint: 580px;
   display: flex;
   flex-direction: column;
   margin-bottom: 64px;
-  width: 100%; //27.2rem; //272px;
-
-  //.ds-title {
-  //  font-size: 18px;
-  //  margin: 36px 16px 16px;
-  //
-  //  /* stylelint-disable-next-line max-nesting-depth */
-  //  a {
-  //    color: #eff2fb;
-  //    text-decoration: none;
-  //  }
-  //}
-
-  //.ds-sidebar-nav__link,
-  //.ds-sidebar-nav__sublist-link,
-  //.ds-sidebar__help {
-  //  color: #eff2fb;
-  //  font-size: 1.6rem;
-  //  text-decoration: none;
-  //}
-  //
-  //.ds-sidebar-nav__list {
-  //  color: #eff2fb;
-  //  list-style: none;
-  //  padding: 0;
-  //  //padding-left: 16px;
-  //  position: relative;
-  //}
+  width: 100%;
 
   li {
     align-items: center;
@@ -178,66 +147,6 @@ $md-breakpoint: 580px;
     padding: 8px 0;
     position: relative;
   }
-
-  //.ds-sidebar-nav__link {
-  //  align-items: center;
-  //  color: #eff2fb;
-  //  display: flex;
-  //  justify-content: space-between;
-  //  //transition: opacity 300ms;
-  //  line-height: 3.4rem; // TODO different for submenu
-  //  padding: 3px 24px 3px 36px;
-  //  transition: color 200ms linear;
-  //  width: 100%;
-  //}
-  //
-  //.ds-sidebar-nav__sublist-link {
-  //  display: flex;
-  //  align-items: center;
-  //  justify-content: space-between;
-  //  color: #eff2fb;
-  //  line-height: 3.2rem; // TODO different for submenu
-  //  transition: color 200ms linear;
-  //  padding-left: 58px;
-  //  width: 100%;
-  //}
-  //
-  //.ds-sidebar-nav__sublist-link:active//,
-  ///*.ds-sublist__link:link,
-  //.ds-sublist__link:visited */ {
-  //  transition: none;
-  //}
-  //
-  //.ds-sidebar-nav__link:active,
-  //.ds-sidebar-nav__sublist-link:active {
-  //  color: var(--ds-color-green);
-  //}
-  //
-  //.ds-sidebar-nav__link:hover,
-  //.ds-sidebar-nav__sublist-link:hover {
-  //  color: var(--ds-color-green);
-  //  opacity: 1;
-  //
-  //  .ds-sidebar-nav__arrow {
-  //    filter: sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
-  //  }
-  //}
-  //
-  //.ds-sidebar-nav__link--active,
-  //.ds-sidebar-nav__sublist-link--active {
-  //  color: var(--ds-color-green);
-  //  font-weight: 600;
-  //}
-  //
-  //.ds-sidebar-nav__link--active::before {
-  //  background: var(--ds-color-green);
-  //  content: '';
-  //  height: 40px;
-  //  left: 0; //-16px;
-  //  position: absolute;
-  //  top: 8px;
-  //  width: 4px;
-  //}
 
   .ds-search {
     background: var(--menu-second-color);
@@ -252,7 +161,7 @@ $md-breakpoint: 580px;
   .ds-sublist {
     display: none;
     list-style: none;
-    padding: 0; //8px 0 0 24px;
+    padding: 0;
   }
 
   .ds-sublist--active {
@@ -273,7 +182,7 @@ $md-breakpoint: 580px;
   }
 
   mark {
-    background-color: var(--ds-color-green); //#1e90ff;
+    background-color: var(--ds-color-green);
     border-radius: 3px;
   }
 }
@@ -283,8 +192,7 @@ $md-breakpoint: 580px;
   color: #eff2fb;
   display: flex;
   justify-content: space-between;
-  //transition: opacity 300ms;
-  line-height: 3.4rem; // TODO different for submenu
+  line-height: 3.4rem;
   padding: 3px 24px 3px 36px;
   transition: color 200ms linear;
   width: 100%;
@@ -295,7 +203,7 @@ $md-breakpoint: 580px;
   color: #eff2fb;
   display: flex;
   justify-content: space-between;
-  line-height: 3.2rem; // TODO different for submenu
+  line-height: 3.2rem;
   padding-left: 58px;
   transition: color 200ms linear;
   width: 100%;

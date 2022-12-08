@@ -7,5 +7,5 @@ export default {
 };
 
 export const API: StoryObj = {
-  render: () => html`<sl-editor></sl-editor>`
+  render: () => html`<sl-editor value="<b>Hello</b> <em>world</em>!"></sl-editor>`
 };

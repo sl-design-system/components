@@ -2523,6 +2523,8 @@ __metadata:
     element-internals-polyfill: ^1.1.16
     lit: ^2.4.1
     lit-html: ^2.4.0
+    react: ^18.2.0
+    react-dom: ^18.2.0
     sinon: ^14.0.2
     storybook: ^7.0.0-beta.0
     tslib: ^2.4.1
@@ -2597,6 +2599,8 @@ __metadata:
     "@web/test-runner-commands": ^0.6.5
     "@web/test-runner-playwright": ^0.9.0
     lit-html: ^2.4.0
+    react: ^18.2.0
+    react-dom: ^18.2.0
     sinon: ^14.0.2
     storybook: ^7.0.0-beta.0
     typescript: ^4.9.4
@@ -12343,7 +12347,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.0.0, loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.0.0, loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -15146,6 +15150,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "react-dom@npm:18.2.0"
+  dependencies:
+    loose-envify: ^1.1.0
+    scheduler: ^0.23.0
+  peerDependencies:
+    react: ^18.2.0
+  checksum: 66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
+  languageName: node
+  linkType: hard
+
 "react-inspector@npm:^6.0.0":
   version: 6.0.1
   resolution: "react-inspector@npm:6.0.1"
@@ -15186,6 +15202,15 @@ __metadata:
   peerDependencies:
     react: ">= 0.14.0"
   checksum: 2bf57a1ea151f688efc7eba355677577c9bb55f05f9df7ef86627aae42f63f505486cddf3f4a628aecc51ec75e89beb9533201570d03201c4bf7d69d61d2545d
+  languageName: node
+  linkType: hard
+
+"react@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "react@npm:18.2.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: b562d9b569b0cb315e44b48099f7712283d93df36b19a39a67c254c6686479d3980b7f013dc931f4a5a3ae7645eae6386b4aa5eea933baa54ecd0f9acb0902b8
   languageName: node
   linkType: hard
 
@@ -15835,6 +15860,15 @@ __metadata:
   bin:
     sass: sass.js
   checksum: b86aa154c63a1ebebdcb992d28637121bdd06fb84a7d537ab4c3a25dee2c640aebc9c0c071b73e9c9c26e0de4f46f44003b224828af7b38dd501a3be83ac4023
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.23.0":
+  version: 0.23.0
+  resolution: "scheduler@npm:0.23.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: b777f7ca0115e6d93e126ac490dbd82642d14983b3079f58f35519d992fa46260be7d6e6cede433a92db70306310c6f5f06e144f0e40c484199e09c1f7be53dd
   languageName: node
   linkType: hard
 

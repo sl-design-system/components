@@ -26,7 +26,7 @@ $variants: default, primary, success, warning, danger;
   transition-property: background, border-color, border-radius, box-shadow, color;
 }
 
-:host([disabled]) {
+:host(:where(:disabled, [internals-disabled])) {
   --_cursor: default;
   pointer-events: none;
 }
@@ -95,7 +95,7 @@ $variants: default, primary, success, warning, danger;
       --_box-shadow: var(--sl-box-shadow-button-#{$variant}-#{$fill}-focus, var(--sl-box-shadow-button-focus, none));
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}'][disabled]) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:where(:disabled, [internals-disabled])) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
       --_box-shadow: var(

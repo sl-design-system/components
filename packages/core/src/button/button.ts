@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { FormControlMixin } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -39,9 +39,6 @@ export class Button extends FormControlMixin(LitElement) {
   /** The original tabIndex before disabled. */
   #originalTabIndex = 0;
 
-  /** Whether the button is disabled. */
-  @property({ type: Boolean }) disabled?: boolean;
-
   /** The button fill. */
   @property({ reflect: true }) fill: ButtonFill = 'default';
 
@@ -64,6 +61,10 @@ export class Button extends FormControlMixin(LitElement) {
 
     this.addEventListener('click', this.#onClick);
     this.addEventListener('keydown', this.#onKeydown);
+
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
   }
 
   override disconnectedCallback(): void {
@@ -73,24 +74,12 @@ export class Button extends FormControlMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = 0;
+  formDisabledCallback(disabled: boolean): void {
+    if (disabled) {
+      this.#originalTabIndex = this.tabIndex;
     }
-  }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('disabled')) {
-      if (this.disabled) {
-        this.#originalTabIndex = this.tabIndex;
-      }
-
-      this.tabIndex = this.disabled ? -1 : this.#originalTabIndex;
-    }
+    this.tabIndex = disabled ? -1 : this.#originalTabIndex;
   }
 
   override render(): TemplateResult {

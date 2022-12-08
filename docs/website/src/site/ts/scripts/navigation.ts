@@ -5,9 +5,9 @@ const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   closeButton = document.querySelector('.ds-sidebar-nav__close-button') as HTMLButtonElement,
   menuButton = document.querySelector('.ds-top-navigation__hamburger') as HTMLButtonElement,
   submenus = document.querySelectorAll('.ds-sublist'),
-  links = document.querySelectorAll('.ds-link'),
+  links = document.querySelectorAll('.ds-sidebar-nav__link'),
   arrows = document.querySelectorAll('.ds-sidebar-nav__arrow'),
-  linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-link__has-submenu');
+  linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu');
 
 let previouslyOpened: Element, previouslyOpenedSubmenu: Element;
 
@@ -89,10 +89,10 @@ function setActiveItem(): void {
     arrowElement = activeLink?.children[0],
     submenu = activeLink?.parentElement?.nextElementSibling;
 
-  activeLink?.classList.add('ds-link--active');
+  activeLink?.classList.add('ds-sidebar-nav__link--active');
   arrowElement?.classList.add('ds-sidebar-nav__arrow--active');
 
-  if (activeLink?.classList.contains('ds-link__has-submenu') && submenu) {
+  if (activeLink?.classList.contains('ds-sidebar-nav__link--has-submenu') && submenu) {
     openSubmenu(submenu);
   }
 }
@@ -116,10 +116,10 @@ function showSubmenu(event: Event): void {
   }
 
   if (menuItem !== previouslyOpened && submenu !== previouslyOpenedSubmenu) {
-    previouslyOpened?.classList.remove('ds-link--active');
+    previouslyOpened?.classList.remove('ds-sidebar-nav__link--active');
     closeSubmenu(previouslyOpenedSubmenu);
   }
-  menuItem.classList.add('ds-link--active');
+  menuItem.classList.add('ds-sidebar-nav__link--active');
   arrowElement.classList.add('ds-sidebar-nav__arrow--active');
   openSubmenu(submenu);
   previouslyOpened = menuItem;
@@ -127,7 +127,7 @@ function showSubmenu(event: Event): void {
 }
 
 function clearAllActiveElements(): void {
-  links.forEach(link => link.classList.remove('ds-link--active'));
+  links.forEach(link => link.classList.remove('ds-sidebar-nav__link--active'));
   arrows.forEach(arrow => arrow.classList.remove('ds-sidebar-nav__arrow--active'));
   submenus.forEach(submenu => closeSubmenu(submenu));
 }
@@ -150,10 +150,13 @@ function closeSubmenu(element: Element): void {
 
 function closeSubmenus(): void {
   links.forEach(link => {
-    if (link.classList.contains('ds-link__has-submenu') && link.classList.contains('ds-link--active')) {
-      link.classList.remove('ds-link--active');
-    } else if (link.classList.contains('ds-link--active')) {
-      link.classList.remove('ds-link--active');
+    if (
+      link.classList.contains('ds-sidebar-nav__link--has-submenu') &&
+      link.classList.contains('ds-sidebar-nav__link--active')
+    ) {
+      link.classList.remove('ds-sidebar-nav__link--active');
+    } else if (link.classList.contains('ds-sidebar-nav__link--active')) {
+      link.classList.remove('ds-sidebar-nav__link--active');
     }
   });
 

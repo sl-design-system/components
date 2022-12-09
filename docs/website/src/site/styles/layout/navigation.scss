@@ -1,4 +1,4 @@
-$md-breakpoint: 580px;
+$md-breakpoint: 600px;
 // TODO breakpoints move to other file with breakpoints
 
 .ds-top-navigation {
@@ -17,6 +17,7 @@ $md-breakpoint: 580px;
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
+  overflow-y: auto;
   position: fixed;
   transform: translateX(-27.2rem);
   transition: transform 400ms;
@@ -49,7 +50,7 @@ $md-breakpoint: 580px;
 }
 
 .ds-sidebar__help {
-  background-image: url('../assets/icons/messages-question.svg');
+  background-image: var(--help-icon); //url('../assets/icons/messages-question.svg');
   background-position: left;
   background-repeat: no-repeat;
   background-size: 20px;
@@ -78,7 +79,8 @@ $md-breakpoint: 580px;
 
 .ds-sidebar--opened + .ds-container::before {
   backdrop-filter: blur(2px);
-  background-color: rgba(34, 34, 34, 0.64);
+  backdrop-filter: blur(2px);
+  background-color: var(--filter-color); //rgba(34, 34, 34, 0.64);
   bottom: 0;
   content: '';
   left: 0;
@@ -149,8 +151,9 @@ $md-breakpoint: 580px;
   }
 
   .ds-search {
-    background: var(--menu-second-color);
-    border: 0;
+    background: var(--input-menu-background); //var(--menu-second-color);
+    //border: 0;
+    border: 1px solid rgba(var(--ds-color-light-grey), 0.6); // TODO: change border
     border-radius: 6px;
     color: var(--ds-color-white);
     height: 40px;
@@ -189,7 +192,7 @@ $md-breakpoint: 580px;
 
 .ds-sidebar-nav__link {
   align-items: center;
-  color: #eff2fb;
+  color: var(--menu-font-color); //#eff2fb;
   display: flex;
   justify-content: space-between;
   line-height: 3.4rem;
@@ -200,7 +203,7 @@ $md-breakpoint: 580px;
 
 .ds-sidebar-nav__sublist-link {
   align-items: center;
-  color: #eff2fb;
+  color: var(--menu-font-color); //#eff2fb;
   display: flex;
   justify-content: space-between;
   line-height: 3.2rem;
@@ -224,7 +227,7 @@ $md-breakpoint: 580px;
   opacity: 1;
 
   .ds-sidebar-nav__arrow {
-    filter: sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
+    filter: var(--angle-active); //sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
   }
 }
 
@@ -241,7 +244,7 @@ $md-breakpoint: 580px;
 .ds-sidebar-nav__link,
 .ds-sidebar-nav__sublist-link,
 .ds-sidebar__help {
-  color: #eff2fb;
+  color: var(--menu-font-color); //#eff2fb;
   font-size: 1.6rem;
   text-decoration: none;
 }
@@ -253,14 +256,14 @@ $md-breakpoint: 580px;
 }
 
 .ds-sidebar-nav__list {
-  color: #eff2fb;
+  color: var(--menu-font-color); //#eff2fb;
   list-style: none;
   padding: 0;
   position: relative;
 }
 
 .ds-sidebar-nav__logo {
-  background-image: url('../assets/logo.svg');
+  background-image: var(--logo); //url('../assets/logo.svg');
   background-position: left;
   background-repeat: no-repeat;
   background-size: contain;
@@ -269,7 +272,7 @@ $md-breakpoint: 580px;
 }
 
 .ds-sidebar-nav__arrow {
-  background-image: url('../assets/icons/angle-right.svg');
+  background-image: var(--angle); //url('../assets/icons/angle-right.svg');
   background-position: left;
   background-repeat: no-repeat;
   background-size: contain;
@@ -280,14 +283,14 @@ $md-breakpoint: 580px;
 }
 
 .ds-sidebar-nav__arrow--active {
-  filter: sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
+  filter: var(--angle-active); //sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
   transform: rotate(90deg);
   transition: transform 300ms ease-in-out;
 }
 
 .ds-sidebar__help {
   bottom: 26px;
-  color: #eff2fb;
+  color: var(--menu-font-color); //#eff2fb;
   font-size: 1.6rem;
   margin-left: 40px;
   position: absolute;

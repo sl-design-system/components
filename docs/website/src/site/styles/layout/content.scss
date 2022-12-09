@@ -1,9 +1,9 @@
-$md-breakpoint: 580px;
+$md-breakpoint: 600px;
 
 .ds-container {
   //background-color: var(--background-color);
   margin-left: 0;
-  padding: 56px 72px 0;
+  padding: 56px 42px 0;
   transform: translateX(0);
   transition: transform 400ms, background 300ms ease-in-out, opacity 300ms;
   width: 100%;

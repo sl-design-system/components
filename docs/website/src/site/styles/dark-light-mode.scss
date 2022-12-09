@@ -34,24 +34,33 @@
 
 :root {
   --background-color: #f8f9fa;
-  --second-background-color: #041c52;
+  --second-background-color: var(--ds-color-ghost-white);
   --third-background-color: #fff;
   --menu-second-color: rgba(138, 174, 255, 0.2);
   --primary-color: rgba(138, 174, 255, 0.2);
   --font-color: #212529;
+  --menu-font-color: var(--ds-color-raisin-black);
   --secondary-font-color: #495057;
   --n-color-surface: rgb(255, 255, 255);
   --n-color-background: rgb(255, 255, 255);
+  --input-menu-background: var(--ds-color-faux-white);
+  --input-menu--border: var(--ds-color-light-grey);
+  --filter-color: rgba(34, 34, 34, 0.12);
+  --logo: url('../assets/logo-black.svg');
+  --help-icon: url('../assets/icons/messages-question-black.svg');
+  --angle: url('../assets/icons/angle-right-black.svg');
+  --angle-active: invert(80%) sepia(8%) saturate(2931%) hue-rotate(90deg) brightness(91%) contrast(78%);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-color: #f8f9fa;
+    --background-color: #f8f9fa; //var(--ds-color-raisin-black);
     --second-background-color: var(--ds-color-black);
     --third-background-color: #363739;
     --menu-second-color: #363739;
     --primary-color: #363739;
     --font-color: #212529;
+    --menu-font-color: var(--ds-color-lotion);
     --secondary-font-color: rgba(226, 232, 240, 1);
     --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --n-color-surface: #363739;
@@ -64,6 +73,13 @@
     --n-button-background-color: transparent;
     --n-tab-color: #668cff;
     --n-color-text-link: #668cff;
+    --input-menu-background: var(--ds-color-outer-space);
+    //--input-menu--border: var(--ds-color-light-grey);
+    --filter-color: rgba(34, 34, 34, 0.64);
+    --logo: url('../assets/logo.svg');
+    --help-icon: url('../assets/icons/messages-question.svg');
+    --angle: url('../assets/icons/angle-right.svg');
+    --angle-active: sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
   }
 }
 

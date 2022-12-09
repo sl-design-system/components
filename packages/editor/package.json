@@ -51,7 +51,7 @@
       ]
     },
     "docs": {
-      "command": "storybook build -o ../../docs/dist/grid --quiet",
+      "command": "storybook build -o ../../docs/dist/editor --quiet",
       "dependencies": [
         "build",
         "../../docs/storybook:build"

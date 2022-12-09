@@ -2573,6 +2573,8 @@ __metadata:
     "@web/test-runner-commands": ^0.6.5
     "@web/test-runner-playwright": ^0.9.0
     lit-html: ^2.4.0
+    prosemirror-commands: ^1.5.0
+    prosemirror-keymap: ^1.2.0
     prosemirror-model: ^1.18.3
     prosemirror-state: ^1.4.2
     prosemirror-view: ^1.29.1
@@ -14916,6 +14918,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prosemirror-commands@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "prosemirror-commands@npm:1.5.0"
+  dependencies:
+    prosemirror-model: ^1.0.0
+    prosemirror-state: ^1.0.0
+    prosemirror-transform: ^1.0.0
+  checksum: ef3f6d2552654d3d794790cb06f023c1301b7ff5737d9a60f049604a44f64f81dabbe71c9556b5fced995366f0aebd58c37e724f1fc6316e8fbcf3f136e9822f
+  languageName: node
+  linkType: hard
+
+"prosemirror-keymap@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "prosemirror-keymap@npm:1.2.0"
+  dependencies:
+    prosemirror-state: ^1.0.0
+    w3c-keyname: ^2.2.0
+  checksum: 6e5bf4c03efd8a529443da0279993893722fe797b7d7a124065effb6118d5a236233c6b4a25487c0a57e86987e9748b82c890e513d98a974bcde0d3d38aa6e96
+  languageName: node
+  linkType: hard
+
 "prosemirror-model@npm:^1.0.0, prosemirror-model@npm:^1.16.0, prosemirror-model@npm:^1.18.3":
   version: 1.18.3
   resolution: "prosemirror-model@npm:1.18.3"
@@ -18251,6 +18274,13 @@ __metadata:
   version: 3.1.0
   resolution: "void-elements@npm:3.1.0"
   checksum: 0b8686f9f9aa44012e9bd5eabf287ae0cde409b9a2854c5a2335cb83920c957668ac5876e3f0d158dd424744ac411a7270e64128556b451ed3bec875ef18534d
+  languageName: node
+  linkType: hard
+
+"w3c-keyname@npm:^2.2.0":
+  version: 2.2.6
+  resolution: "w3c-keyname@npm:2.2.6"
+  checksum: 28f0123438c276661f05dc9d11693feeec413e5c0a0356158e798011108a8245d4f37d850921b314bd0e305bec855ef0f7ad6aa71cfc2479cce48ae957afde19
   languageName: node
   linkType: hard
 

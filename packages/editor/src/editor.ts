@@ -1,7 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { FormControlMixin } from '@open-wc/form-control';
 import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
+import { baseKeymap } from 'prosemirror-commands';
 import { Schema } from 'prosemirror-model';
+import { keymap } from 'prosemirror-keymap';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { LitElement, html } from 'lit';
@@ -100,7 +102,7 @@ export class Editor extends FormControlMixin(LitElement) {
     const schema = this.createSchema(),
       doc = createContentNode(schema, this.value);
 
-    return EditorState.create({ schema, doc });
+    return EditorState.create({ schema, doc, plugins: [keymap(baseKeymap)] });
   }
 
   #onFocusout(): void {

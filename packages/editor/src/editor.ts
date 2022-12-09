@@ -7,7 +7,7 @@ import { EditorView } from 'prosemirror-view';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './editor.scss.js';
-import { createContentNode } from './utils.js';
+import { createContentNode, getHTML } from './utils.js';
 import { marks, nodes } from './schema.js';
 import { setHTML } from './commands.js';
 
@@ -15,13 +15,30 @@ export class Editor extends FormControlMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** Manage events. */
+  #events = new EventsController(this);
+
+  /** The value of the content in the editor. */
+  #value?: string;
+
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
 
-  #events = new EventsController(this);
+  @property()
+  get value(): string | undefined {
+    return this.#value;
+  }
 
-  /** The value of the editor. */
-  @property() value?: string;
+  set value(value: string | undefined) {
+    const oldValue = this.#value;
+    this.#value = value;
+
+    if (this.#view) {
+      setHTML(value || '')(this.#view.state, this.#view.dispatch, this.#view);
+    }
+
+    this.requestUpdate('value', oldValue);
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -39,8 +56,11 @@ export class Editor extends FormControlMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('value') && this.#view) {
-      setHTML(this.value || '')(this.#view?.state, this.#view?.dispatch, this.#view);
+    if (changes.has('value')) {
+      const fragment = document.createDocumentFragment();
+
+      this.innerHTML = '';
+      this.append(fragment);
     }
   }
 
@@ -84,6 +104,10 @@ export class Editor extends FormControlMixin(LitElement) {
   }
 
   #onFocusout(): void {
-    console.log('focusout');
+    if (!this.#view) {
+      return;
+    }
+
+    this.#value = getHTML(this.#view.state);
   }
 }

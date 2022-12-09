@@ -28,6 +28,10 @@ module.exports = {
       title: 'Core',
       url: '/core/'
     },
+    editor: {
+      title: 'Editor',
+      url: '/editor/'
+    },
     grid: {
       title: 'Grid',
       url: '/grid/'

@@ -126,7 +126,6 @@
     "@web/test-runner-commands": "^0.6.5",
     "@web/test-runner-playwright": "^0.9.0",
     "element-internals-polyfill": "^1.1.17",
-    "lit-html": "2.4.0",
     "sinon": "^14.0.2",
     "storybook": "^7.0.0-beta.2",
     "typescript": "^4.9.4",

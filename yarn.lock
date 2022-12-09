@@ -2213,6 +2213,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lit/reactive-element@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@lit/reactive-element@npm:1.5.0"
+  checksum: fd2cb311ea3f7981abdcaa2e433b9f16bb26f6a507ab86a1185117997ea300988dad3f9d0690199f5559349d492b81d21cfbc81f623cfb07ee155ce424ed9306
+  languageName: node
+  linkType: hard
+
 "@luncheon/esbuild-plugin-gzip@npm:^0.1.0":
   version: 0.1.0
   resolution: "@luncheon/esbuild-plugin-gzip@npm:0.1.0"
@@ -2521,7 +2528,7 @@ __metadata:
     "@web/test-runner-commands": ^0.6.5
     "@web/test-runner-playwright": ^0.9.0
     element-internals-polyfill: ^1.1.17
-    lit: 2.4.1
+    lit: ^2.5.0
     sinon: ^14.0.2
     storybook: ^7.0.0-beta.2
     tslib: ^2.4.1
@@ -2552,7 +2559,7 @@ __metadata:
     esbuild: ^0.15.18
     esbuild-plugin-minify-html-literals: ^1.0.1
     html-minifier: ^4.0.0
-    lit: 2.4.1
+    lit: ^2.5.0
     markdown-it: ^13.0.1
     markdown-it-anchor: ^8.6.5
     rimraf: ^3.0.2
@@ -2694,7 +2701,7 @@ __metadata:
     "@storybook/addon-storysource": ^7.0.0-beta.2
     "@storybook/web-components": ^7.0.0-beta.2
     "@storybook/web-components-webpack5": ^7.0.0-beta.2
-    lit-html: 2.4.0
+    lit-html: ^2.5.0
     react: ^18.2.0
     react-dom: ^18.2.0
     storybook: ^7.0.0-beta.2
@@ -12010,7 +12017,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:2.4.0, lit-html@npm:^2.0.0, lit-html@npm:^2.2.0, lit-html@npm:^2.3.0, lit-html@npm:^2.4.0":
+"lit-html@npm:^2.0.0, lit-html@npm:^2.2.0, lit-html@npm:^2.3.0, lit-html@npm:^2.4.0":
   version: 2.4.0
   resolution: "lit-html@npm:2.4.0"
   dependencies:
@@ -12019,14 +12026,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:2.4.1":
-  version: 2.4.1
-  resolution: "lit@npm:2.4.1"
+"lit-html@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "lit-html@npm:2.5.0"
   dependencies:
-    "@lit/reactive-element": ^1.4.0
-    lit-element: ^3.2.0
-    lit-html: ^2.4.0
-  checksum: 1c95efd953c868e4593d2d66e8ddb3a13853584a86c287d93e61ca8665bd682e1e76abf45d8e78377dc6bbabe150ac0ed0d61174cf2d1b5ee8080109b1688990
+    "@types/trusted-types": ^2.0.2
+  checksum: b74c6103df80ffc84c8d0140078c24c09d030cd0c8e13f21cc238fd10a6b4e54ed66da4a037009ae16ba5706cd98de056c167226a3eeb4d7663ed8c768e3c16f
   languageName: node
   linkType: hard
 
@@ -12038,6 +12043,17 @@ __metadata:
     lit-element: ^3.2.0
     lit-html: ^2.4.0
   checksum: a1ca32cb2bf6acecdda3ba3930f73f0f0600c9cd21b0e69f33c428d64a763932c7aaff3c047dd675c26c6efb355770f7bb0eaa4c31dd696c042f829f9b3954f9
+  languageName: node
+  linkType: hard
+
+"lit@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "lit@npm:2.5.0"
+  dependencies:
+    "@lit/reactive-element": ^1.5.0
+    lit-element: ^3.2.0
+    lit-html: ^2.5.0
+  checksum: ea0415499019f073740379729fb6e82b32107b60260cf2de7b3ce0bc6acc430ba1f2ba87dba158144aaeac4d4680b30f391de7b9912cff53bda8d25b957a9f32
   languageName: node
   linkType: hard
 

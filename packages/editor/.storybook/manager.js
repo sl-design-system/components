@@ -1,4 +1,4 @@
-import { addons } from '@storybook/manager-api';
+import { addons } from '@storybook/addons';
 
 addons.setConfig({
   enableShortcuts: false

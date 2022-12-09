@@ -1,5 +1,30 @@
 import type { Attrs, DOMOutputSpec, Mark, MarkSpec, NodeSpec, Node as PMNode } from 'prosemirror-model';
 
+export declare type EditorMarks =
+  | 'link'
+  | 'em'
+  | 'strong'
+  | 'code'
+  | 'underline'
+  | 'strikethrough'
+  | 'subscript'
+  | 'superscript';
+// | 'style';
+
+export declare type EditorNodes =
+  | 'doc'
+  | 'paragraph'
+  | 'blockquote'
+  | 'horizontalRule'
+  | 'heading'
+  | 'codeBlock'
+  | 'text'
+  | 'image'
+  | 'hardBreak'
+  | 'listItem'
+  | 'orderedList'
+  | 'bulletList';
+
 const SLOT = 0; // https://prosemirror.net/docs/guide/#schema.serialization_and_parsing
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -32,7 +57,7 @@ export const commonAttributes = (): Attrs => {
   };
 };
 
-export const marks: { [key: string]: MarkSpec } = {
+export const marks: Record<EditorMarks, MarkSpec> = {
   /**
    * A link. Has `href` and `title` attributes. `title` defaults to an empty string.
    * Rendered and parsed as an `<a>` element.
@@ -183,7 +208,7 @@ const getAttributes = (node: string | HTMLElement): Attrs => {
   return result;
 };
 
-export const nodes: { [key: string]: NodeSpec } = {
+export const nodes: Record<EditorNodes, NodeSpec> = {
   /** The top level document node. */
   doc: {
     content: 'block+'

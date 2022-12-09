@@ -1,7 +1,10 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { EditorMarks, EditorNodes } from './schema.js';
+import type { Plugin } from 'prosemirror-state';
 import { FormControlMixin } from '@open-wc/form-control';
 import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
 import { baseKeymap } from 'prosemirror-commands';
+import { history } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
 import { keymap } from 'prosemirror-keymap';
 import { EditorState } from 'prosemirror-state';
@@ -12,6 +15,7 @@ import styles from './editor.scss.js';
 import { createContentNode, getHTML } from './utils.js';
 import { marks, nodes } from './schema.js';
 import { setHTML } from './commands.js';
+import { buildKeymap, buildListKeymap } from './keymap.js';
 
 export class Editor extends FormControlMixin(LitElement) {
   /** @private */
@@ -25,6 +29,9 @@ export class Editor extends FormControlMixin(LitElement) {
 
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
+
+  /** Additional plugins. */
+  @property({ attribute: false }) plugins?: Plugin[];
 
   @property()
   get value(): string | undefined {
@@ -94,7 +101,7 @@ export class Editor extends FormControlMixin(LitElement) {
     return editor;
   }
 
-  createSchema(): Schema {
+  createSchema(): Schema<EditorNodes, EditorMarks> {
     return new Schema({ marks, nodes });
   }
 
@@ -102,7 +109,17 @@ export class Editor extends FormControlMixin(LitElement) {
     const schema = this.createSchema(),
       doc = createContentNode(schema, this.value);
 
-    return EditorState.create({ schema, doc, plugins: [keymap(baseKeymap)] });
+    return EditorState.create({
+      schema,
+      doc,
+      plugins: [
+        history(),
+        keymap(buildListKeymap(schema)),
+        keymap(buildKeymap(schema)),
+        keymap(baseKeymap),
+        ...(this.plugins || [])
+      ]
+    });
   }
 
   #onFocusout(): void {

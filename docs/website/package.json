@@ -305,6 +305,6 @@
   "dependencies": {
     "@11ty/is-land": "^3.0.0",
     "elasticlunr": "^0.9.5",
-    "lit": "^2.5.0"
+    "lit": "2.4.1"
   }
 }

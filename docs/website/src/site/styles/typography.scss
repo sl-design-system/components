@@ -1,3 +1,58 @@
+@font-face {
+  font-family: 'The Message';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./../../assets/fonts/the-message-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'The Message';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./../../assets/fonts/the-message-demibold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'The Message';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./../../assets/fonts/the-message-bold.woff2') format('woff2');
+}
+
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./../../assets/fonts/source-sans-pro-v21-latin-regular.woff2') format('woff2');
+}
+/* source-sans-pro-600 - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./../../assets/fonts/source-sans-pro-v21-latin-600.woff2') format('woff2');
+}
+/* source-sans-pro-700 - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./../../assets/fonts/source-sans-pro-v21-latin-700.woff2') format('woff2');
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1,
+h1,
+h1,
+h4,
+h5 {
+  font-family: 'The Message', sans-serif;
+}
+
 h1 {
   font-size: 3rem;
 }

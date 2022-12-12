@@ -93,7 +93,6 @@ export class Editor extends FormControlMixin(LitElement) {
         dispatchTransaction: function (tr) {
           // `this` is bound to the view instance.
           (this as unknown as EditorView).updateState(this.state.apply(tr));
-          // that.toolBarChanges.next(getToolBarState(this.state));
         }
       }
     );

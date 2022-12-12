@@ -9,7 +9,6 @@ export declare type EditorMarks =
   | 'strikethrough'
   | 'subscript'
   | 'superscript';
-// | 'style';
 
 export declare type EditorNodes =
   | 'doc'
@@ -30,20 +29,19 @@ const SLOT = 0; // https://prosemirror.net/docs/guide/#schema.serialization_and_
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const isEmpty = (obj: Object): boolean => Object.keys(obj).length === 0;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const removeEntries = (obj: any, predicate: (key: string) => boolean): Record<string, string> => {
+export const removeEntries = (
+  obj: Record<string, unknown>,
+  predicate: (key: string) => boolean
+): Record<string, string> => {
   return (
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     Object.keys(obj)
       .filter(key => predicate(key))
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
       .reduce((acc, curr: any) => Object.assign(acc, { [curr]: obj[curr] }), {})
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const removeEmptyEntries = (obj: any): Record<string, string> => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+export const removeEmptyEntries = (obj: Record<string, unknown>): Record<string, string> => {
   const predicate = (key: string): boolean => obj[key] !== null && obj[key] !== undefined && obj[key] !== '';
 
   return removeEntries(obj, predicate);

@@ -10,6 +10,7 @@
     "url": "https://github.com/sanomalearning/design-system.git",
     "directory": "packages/tokens/src/themes/sanoma-learning"
   },
+  "type": "module",
   "scripts": {
     "build": "wireit"
   },
@@ -29,5 +30,9 @@
         "!package.json"
       ]
     }
+  },
+  "dependencies": {
+    "@fortawesome/pro-regular-svg-icons": "^6.2.1",
+    "@sanomalearning/slds-core": "*"
   }
 }

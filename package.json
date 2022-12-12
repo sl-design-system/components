@@ -12,6 +12,7 @@
     "packages/core",
     "packages/grid",
     "packages/tokens",
+    "packages/tokens/src/themes/*",
     "scripts",
     "tools/changesets-changelog",
     "tools/example-data",

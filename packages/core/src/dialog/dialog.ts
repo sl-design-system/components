@@ -35,6 +35,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.inert = true;
+  }
+
   override render(): TemplateResult {
     return html`
       <dialog
@@ -58,10 +64,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   showModal(): void {
+    this.inert = false;
     this.dialog?.showModal();
 
     // Disable scrolling while the dialog is open
     document.documentElement.style.overflow = 'hidden';
+  }
+
+  close(): void {
+    if (this.dialog?.open) {
+      this.dialog?.close();
+    }
   }
 
   #onCancel(event: Event): void {
@@ -92,5 +105,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onClose(): void {
     // Reenable scrolling after the dialog has closed
     document.documentElement.style.overflow = '';
+
+    this.inert = true;
   }
 }

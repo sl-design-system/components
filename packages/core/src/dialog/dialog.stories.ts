@@ -25,7 +25,7 @@ export const API: StoryObj = {
           anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor
           magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
         </p>
-        <sl-button slot="action" sl-dialog-close>Close</sl-button>
+        <sl-button slot="action" sl-dialog-close autofocus>Close</sl-button>
       </sl-dialog>
     `;
   }

@@ -10,6 +10,7 @@
     "docs/storybook",
     "docs/website",
     "packages/core",
+    "packages/editor",
     "packages/grid",
     "packages/tokens",
     "scripts",
@@ -32,6 +33,7 @@
     "build": {
       "dependencies": [
         "./packages/core:build",
+        "./packages/editor:build",
         "./packages/grid:build",
         "./packages/tokens:build"
       ]
@@ -43,6 +45,7 @@
       "dependencies": [
         "./docs/storybook:build",
         "./packages/core:docs",
+        "./packages/editor:docs",
         "./packages/grid:docs"
       ]
     },

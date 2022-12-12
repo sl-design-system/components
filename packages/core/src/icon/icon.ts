@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './icon.scss.js';
 
 export type IconResolver = (name: string) => string;
@@ -9,11 +10,15 @@ export class Icon extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** @private */
+  static resolver: IconResolver = _ => 'No icon found';
+
   static registerIcon(name: string, icon: string): void {
     console.log('registerIcon', { name, icon });
   }
 
   static registerResolver(resolver: IconResolver): void {
+    this.resolver = resolver;
     console.log('registerResolver', resolver);
   }
 
@@ -43,6 +48,10 @@ export class Icon extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`Hello world`;
+    if (this.name) {
+      return html`${unsafeHTML(Icon.resolver(this.name))}`;
+    } else {
+      return html`No icon name set`;
+    }
   }
 }

@@ -5,7 +5,7 @@
     "strict": true,
     "esModuleInterop": false,
     "declaration": true,
-    "outDir": "dist/components",
+    "outDir": "src",
     "rootDir": "src",
     "emitDecoratorMetadata": false
   },

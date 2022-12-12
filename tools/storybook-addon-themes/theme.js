@@ -21,5 +21,7 @@ export const updateTheme = (theme) => {
     fonts.href = theme.fonts;
     fonts.rel = 'stylesheet';
   }
+
+  theme.setup?.();
 };
 

@@ -26,8 +26,7 @@ export declare type EditorNodes =
 
 const SLOT = 0; // https://prosemirror.net/docs/guide/#schema.serialization_and_parsing
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const isEmpty = (obj: Object): boolean => Object.keys(obj).length === 0;
+export const isEmpty = (obj: Record<string, unknown>): boolean => Object.keys(obj).length === 0;
 
 export const removeEntries = (
   obj: Record<string, unknown>,

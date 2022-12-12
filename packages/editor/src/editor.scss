@@ -1,0 +1,32 @@
+:host {
+  --_border: 1px solid var(--_border-color);
+  --_border-color: #d3d3d3;
+  --_border-radius: 3px;
+  --_padding-block: 8px;
+  --_padding-inline: 8px;
+}
+
+:host {
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  display: block;
+}
+
+:host(:focus) {
+  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
+  outline: none;
+}
+
+.mount {
+  outline: none;
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+}
+
+h1 {
+  margin-block: 0 8px;
+}
+
+p {
+  margin-block: 0 4px;
+}

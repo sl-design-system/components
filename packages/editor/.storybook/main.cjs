@@ -1,8 +1,5 @@
 module.exports = {
-  stories: [
-    '../stories/**/*.stories.mdx', 
-    '../stories/**/*.stories.@(js|jsx|ts|tsx)'
-  ],
+  stories: ['../dist/components/**/*.stories.js'],
   addons: [
     '../../../tools/storybook-addon-themes',
     '@storybook/addon-a11y',
@@ -11,7 +8,8 @@ module.exports = {
     {
       name: '@storybook/addon-essentials',
       options: {
-        backgrounds: false
+        backgrounds: false,
+        docs: false
       }
     },
     '@storybook/addon-storysource'
@@ -23,19 +21,5 @@ module.exports = {
   core: {
     disableTelemetry: true
   },
-  refs: {
-    core: {
-      title: 'Core',
-      url: '/core/'
-    },
-    editor: {
-      title: 'Editor',
-      url: '/editor/'
-    },
-    grid: {
-      title: 'Grid',
-      url: '/grid/'
-    }
-  },
-  staticDirs: [{ from: '../../../packages/tokens/src/themes', to: '/themes' }]
+  staticDirs: [{ from: '../../tokens/src/themes', to: '/themes' }]
 };

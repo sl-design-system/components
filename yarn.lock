@@ -2438,13 +2438,13 @@ __metadata:
   dependencies:
     "@open-wc/testing": ^3.1.7
     "@sanomalearning/slds-core": "*"
-    "@storybook/addon-a11y": ^7.0.0-alpha.53
-    "@storybook/addon-docs": ^7.0.0-alpha.53
-    "@storybook/addon-essentials": ^7.0.0-alpha.53
-    "@storybook/addon-links": ^7.0.0-alpha.53
-    "@storybook/addon-storysource": ^7.0.0-alpha.53
-    "@storybook/web-components": ^7.0.0-alpha.53
-    "@storybook/web-components-webpack5": ^7.0.0-alpha.53
+    "@storybook/addon-a11y": ^7.0.0-beta.3
+    "@storybook/addon-docs": ^7.0.0-beta.3
+    "@storybook/addon-essentials": ^7.0.0-beta.3
+    "@storybook/addon-links": ^7.0.0-beta.3
+    "@storybook/addon-storysource": ^7.0.0-beta.3
+    "@storybook/web-components": ^7.0.0-beta.3
+    "@storybook/web-components-webpack5": ^7.0.0-beta.3
     "@types/sinon": ^10.0.13
     "@web/test-runner": ^0.15.0
     "@web/test-runner-commands": ^0.6.5
@@ -2459,7 +2459,7 @@ __metadata:
     prosemirror-state: ^1.4.2
     prosemirror-view: ^1.29.1
     sinon: ^14.0.2
-    storybook: ^7.0.0-alpha.53
+    storybook: ^7.0.0-beta.3
     typescript: ^4.9.3
     wireit: ^0.9.1
   languageName: unknown
@@ -11863,7 +11863,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:^2.0.0, lit-html@npm:^2.2.0, lit-html@npm:^2.3.0, lit-html@npm:^2.5.0":
+"lit-html@npm:^2.0.0, lit-html@npm:^2.2.0, lit-html@npm:^2.3.0, lit-html@npm:^2.4.0, lit-html@npm:^2.5.0":
   version: 2.5.0
   resolution: "lit-html@npm:2.5.0"
   dependencies:
@@ -17265,7 +17265,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^2.9.2 || ^3.0.0 || ^4.0.0, typescript@npm:^4.6.2, typescript@npm:^4.9.4":
+"typescript@npm:^2.9.2 || ^3.0.0 || ^4.0.0, typescript@npm:^4.6.2, typescript@npm:^4.9.3, typescript@npm:^4.9.4":
   version: 4.9.4
   resolution: "typescript@npm:4.9.4"
   bin:
@@ -17285,7 +17285,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^2.9.2 || ^3.0.0 || ^4.0.0#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@^2.9.2 || ^3.0.0 || ^4.0.0#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.4#~builtin<compat/typescript>":
   version: 4.9.4
   resolution: "typescript@patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=a1c5e5"
   bin:
@@ -18081,7 +18081,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wireit@npm:^0.9.2":
+"wireit@npm:^0.9.1, wireit@npm:^0.9.2":
   version: 0.9.2
   resolution: "wireit@npm:0.9.2"
   dependencies:
@@ -18093,21 +18093,6 @@ __metadata:
   bin:
     wireit: bin/wireit.js
   checksum: 91164b000aca39b6661b8171a319dd57ea81d7b29de234e32610eb68e90c9706ec45f6fac42043697fe0b4ea37f82f58996006e476b4fc308c07cbdae62b57e5
-  languageName: node
-  linkType: hard
-
-"wireit@npm:^0.9.1":
-  version: 0.9.1
-  resolution: "wireit@npm:0.9.1"
-  dependencies:
-    braces: ^3.0.2
-    chokidar: ^3.5.3
-    fast-glob: ^3.2.11
-    jsonc-parser: ^3.0.0
-    proper-lockfile: ^4.1.2
-  bin:
-    wireit: bin/wireit.js
-  checksum: d871b60063176e474f65a447706e15ef84aec70796fc8c9ea0f12fbb26f871e007b65f38120d4315108115cf45f3d8806962cb031c53e3bd1bf836992c5896db
   languageName: node
   linkType: hard
 

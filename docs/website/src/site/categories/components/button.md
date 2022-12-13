@@ -49,12 +49,4 @@ SL DS components:
   <sl-button disabled>Disabled</sl-button>
   <sl-button variant="secondary">Secondary</sl-button>
   <sl-button variant="secondary" disabled>Disabled</sl-button>
-  <sl-button variant="success">Success</sl-button>
-  <sl-button variant="success" disabled>Disabled</sl-button>
-  <sl-button variant="danger">Danger</sl-button>
-  <sl-button variant="danger" disabled>Disabled</sl-button>
-  <sl-button variant="info">Info</sl-button>
-  <sl-button variant="info" disabled>Disabled</sl-button>
-  <sl-button variant="warning">Warning</sl-button>
-  <sl-button variant="warning" disabled>Disabled</sl-button>
 </div>

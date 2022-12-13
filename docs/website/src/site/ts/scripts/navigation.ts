@@ -54,7 +54,10 @@ function showMenu(): void {
 }
 
 function handleWidthChange(matches: boolean): void {
-  if (matches && menu.classList.contains('ds-sidebar--opened')) {
+  if (matches && menu.classList.contains('ds-sidebar--closed')) {
+    topNavigation.style.display = 'none';
+  } else if (matches && menu.classList.contains('ds-sidebar--opened')) {
+    topNavigation.style.display = 'none';
     toggleMenu();
     showMenu();
   } else {
@@ -65,14 +68,15 @@ function handleWidthChange(matches: boolean): void {
 
 function toggleMenu(open = false): void {
   if (open) {
+    topNavigation.style.display = 'none';
     menu.classList.remove('ds-sidebar--closed');
     menu.classList.add('ds-sidebar--opened');
-    topNavigation.style.opacity = '0';
+    closeButton.setAttribute('tabindex', '1');
     closeButton.focus();
   } else {
+    topNavigation.style.display = 'block';
     menu.classList.remove('ds-sidebar--opened');
     menu.classList.add('ds-sidebar--closed');
-    topNavigation.style.opacity = '1';
     menuButton.focus();
   }
 }

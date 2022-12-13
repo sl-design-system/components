@@ -1,9 +1,8 @@
-$md-breakpoint: 600px;
+@import './../breakpoints';
 
 .ds-container {
-  //background-color: var(--background-color);
   margin-left: 0;
-  padding: 56px 42px 0;
+  padding: 5.6rem 4.2rem 0;
   transform: translateX(0);
   transition: transform 400ms, background 300ms ease-in-out, opacity 300ms;
   width: 100%;
@@ -11,8 +10,7 @@ $md-breakpoint: 600px;
 
 @media screen and (min-width: $md-breakpoint) {
   .ds-container {
-    padding: 36px 72px 0;
-    //margin-left: 27.2rem;
+    padding: 3.6rem 7.2rem 0;
     transform: translateX(27.2rem);
     transition: transform 400ms;
     width: calc(100% - 27.2rem);
@@ -20,5 +18,6 @@ $md-breakpoint: 600px;
 }
 
 .header-anchor {
+  font-size: inherit;
   text-decoration: none;
 }

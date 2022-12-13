@@ -75,9 +75,7 @@
     --n-color-text: #fff;
     --n-button-background-color: transparent;
     --n-tab-color: #668cff;
-    //--n-color-text-link: #668cff;
     --input-menu-background: var(--ds-color-outer-space);
-    //--input-menu--border: var(--ds-color-light-grey);
     --filter-color: rgba(34, 34, 34, 0.64);
     --top-navbar-color: var(--ds-color-black);
     --hamburger-filter: brightness(0.6);
@@ -88,10 +86,6 @@
     --angle-active: sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
   }
 }
-
-//a {
-//  color: var(--font-color);
-//}
 
 .ds-theme-icon {
   align-items: center;

@@ -1,2 +1,1 @@
-import './test';
 import './navigation';

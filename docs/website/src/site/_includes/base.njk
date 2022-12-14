@@ -23,13 +23,14 @@
   </head>
   <body dsd-pending>
     <nav class="ds-top-navigation">
-      <button class="ds-top-navigation__hamburger"></button>
+      <button class="ds-top-navigation__hamburger" aria-expanded="false" aria-haspopup="menu" aria-controls="main-menu" aria-label="Show navigation menu"></button>
+      <a href="/" class="ds-top-navigation__logo" title="Go to homepage"></a>
     </nav>
-    <aside class="ds-sidebar ds-sidebar--closed">
+    <aside id="main-menu" class="ds-sidebar ds-sidebar--closed" role="menu" aria-label="Main menu">
       {% include "./sidebar.njk" %}
     </aside>
     <main class="ds-container">
-      <button class="ds-sidebar-nav__close-button"></button>
+{#      <button class="ds-sidebar-nav__close-button" aria-label="close button"></button>#}
       <header>
         <h1>{{ title }}</h1>
       </header>

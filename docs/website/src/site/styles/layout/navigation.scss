@@ -4,9 +4,8 @@ $transition-timing: 300ms;
 
 .ds-top-navigation {
   background: var(--top-navbar-color);
-  border-bottom: 1px solid var(--ds-color-bright-grey);
-  display: block;
-  height: 5rem;
+  display: flex;
+  padding: 3.2rem 2.4rem 2.4rem;
   position: fixed;
   width: 100vw;
   z-index: 1;
@@ -26,18 +25,22 @@ $transition-timing: 300ms;
   z-index: 1;
 }
 
+.ds-sidebar__top-section {
+  align-items: center;
+  display: flex;
+  padding: 3.2rem 2.4rem 2.4rem;
+  //border-bottom: 1px solid var(--ds-color-bright-grey);
+}
+
 .ds-sidebar-nav__close-button {
   background-color: transparent;
-  background-image: url('../assets/icons/close.svg');
+  background-image: var(--close-icon);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 1.6rem;
+  background-size: cover; //1.2rem;
   border: 0;
   height: 3.2rem;
   opacity: 0.8;
-  position: absolute;
-  right: 1.4rem;
-  top: 0.8rem;
   transition: $transition-timing;
   width: 3.2rem;
   z-index: 3;
@@ -79,8 +82,9 @@ $transition-timing: 300ms;
 }
 
 .ds-sidebar--opened + .ds-container::before {
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px); /* stylelint-disable-line */
   background-color: var(--filter-color);
   bottom: 0;
   content: '';
@@ -100,12 +104,28 @@ $transition-timing: 300ms;
   border: 0;
   cursor: pointer;
   height: 3.2rem;
-  margin: 0.8rem 1.6rem;
+  margin-right: 0.8rem;
   transition: $transition-timing;
   width: 3.2rem;
 
   &:hover {
     filter: var(--hamburger-filter);
+  }
+}
+
+.ds-top-navigation__logo {
+  background-image: var(--logo);
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 3.2rem;
+  margin: auto;
+  width: 100%;
+
+  &:focus-visible {
+    border-radius: 0.6rem;
+    box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.2);
+    outline: none;
   }
 }
 
@@ -156,12 +176,12 @@ $transition-timing: 300ms;
     border-radius: 0.6rem;
     color: var(--ds-color-white);
     height: 4rem;
-    margin: 0.8rem 2.4rem 1.4rem;
+    margin: 0 2.4rem 2.4rem;
     padding: 0.8rem;
 
     &:focus-visible {
       border-radius: 0.6rem;
-      box-shadow: 0 0 0 3px rgba(var(--ds-color-emerald-rgb), 0.2);
+      box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.2);
       outline: none;
     }
   }
@@ -190,7 +210,7 @@ $transition-timing: 300ms;
   }
 
   mark {
-    background-color: var(--ds-color-green);
+    background-color: var(--highlight-color);
     border-radius: 0.3rem;
   }
 }
@@ -224,12 +244,12 @@ $transition-timing: 300ms;
 
 .ds-sidebar-nav__link:active,
 .ds-sidebar-nav__sublist-link:active {
-  color: var(--ds-color-green);
+  color: var(--highlight-color);
 }
 
 .ds-sidebar-nav__link:hover,
 .ds-sidebar-nav__sublist-link:hover {
-  color: var(--ds-color-green);
+  color: var(--highlight-color);
   opacity: 1;
 
   .ds-sidebar-nav__arrow {
@@ -238,7 +258,7 @@ $transition-timing: 300ms;
 }
 
 .ds-sidebar-nav__link--active::before {
-  background: var(--ds-color-green);
+  background: var(--highlight-color);
   content: '';
   height: 4rem;
   left: 0;
@@ -256,19 +276,20 @@ $transition-timing: 300ms;
   text-decoration: none;
 
   &:focus-visible {
-    box-shadow: inset 0 0 0 3px rgba(var(--ds-color-emerald-rgb), 0.2);
+    box-shadow: inset 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.2);
     outline: none;
   }
 }
 
 .ds-sidebar-nav__link--active,
 .ds-sidebar-nav__sublist-link--active {
-  color: var(--ds-color-green);
+  color: var(--highlight-color);
 }
 
 .ds-sidebar-nav__list {
   color: var(--menu-font-color);
   list-style: none;
+  margin: 0;
   padding: 0;
   position: relative;
 }
@@ -283,11 +304,12 @@ $transition-timing: 300ms;
   background-repeat: no-repeat;
   background-size: contain;
   height: 3.2rem;
-  margin: 3.2rem 2.4rem;
+  margin: auto 0.8rem; //3.2rem 2.4rem;
+  width: 100%;
 
   &:focus-visible {
     border-radius: 0.6rem;
-    box-shadow: 0 0 0 3px rgba(var(--ds-color-emerald-rgb), 0.2);
+    box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.2);
     outline: none;
   }
 }

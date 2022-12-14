@@ -36,6 +36,7 @@
   --background-color: #f8f9fa;
   --second-background-color: var(--ds-color-ghost-white);
   --third-background-color: #fff;
+  --highlight-color: var(--ds-color-blue);
   --menu-second-color: rgba(138, 174, 255, 0.2);
   --primary-color: rgba(138, 174, 255, 0.2);
   --font-color: #212529;
@@ -49,10 +50,11 @@
   --top-navbar-color: var(--ds-color-white);
   --hamburger-filter: brightness(3.5);
   --hamburger-icon: url('../assets/icons/hamburger.svg');
+  --close-icon: url('../assets/icons/close.svg');
   --logo: url('../assets/logo-black.svg');
   --help-icon: url('../assets/icons/messages-question-black.svg');
   --angle: url('../assets/icons/angle-right-black.svg');
-  --angle-active: invert(80%) sepia(8%) saturate(2931%) hue-rotate(90deg) brightness(91%) contrast(78%);
+  --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%); //invert(80%) sepia(8%) saturate(2931%) hue-rotate(90deg) brightness(91%) contrast(78%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -60,6 +62,7 @@
     --background-color: #f8f9fa; //var(--ds-color-raisin-black);
     --second-background-color: var(--ds-color-black);
     --third-background-color: #363739;
+    --highlight-color: var(--ds-color-blueberry);
     --menu-second-color: #363739;
     --primary-color: #363739;
     --font-color: #212529;
@@ -80,10 +83,12 @@
     --top-navbar-color: var(--ds-color-black);
     --hamburger-filter: brightness(0.6);
     --hamburger-icon: url('../assets/icons/hamburger-light.svg');
+    --close-icon: url('../assets/icons/close-light.svg');
     --logo: url('../assets/logo.svg');
     --help-icon: url('../assets/icons/messages-question.svg');
     --angle: url('../assets/icons/angle-right.svg');
-    --angle-active: sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
+    --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
+      brightness(107%) contrast(101%); //sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
   }
 }
 

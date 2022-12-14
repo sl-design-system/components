@@ -68,13 +68,15 @@ function handleWidthChange(matches: boolean): void {
 
 function toggleMenu(open = false): void {
   if (open) {
+    menuButton.setAttribute('aria-expanded', 'true');
     topNavigation.style.display = 'none';
     menu.classList.remove('ds-sidebar--closed');
     menu.classList.add('ds-sidebar--opened');
     closeButton.setAttribute('tabindex', '1');
     closeButton.focus();
   } else {
-    topNavigation.style.display = 'block';
+    menuButton.setAttribute('aria-expanded', 'false');
+    topNavigation.style.display = 'flex';
     menu.classList.remove('ds-sidebar--opened');
     menu.classList.add('ds-sidebar--closed');
     menuButton.focus();
@@ -97,6 +99,7 @@ function setActiveItem(): void {
   arrowElement?.classList.add('ds-sidebar-nav__arrow--active');
 
   if (activeLink?.classList.contains('ds-sidebar-nav__link--has-submenu') && submenu) {
+    activeLink.setAttribute('aria-expanded', 'true');
     openSubmenu(submenu);
   }
 }
@@ -125,6 +128,7 @@ function showSubmenu(event: Event): void {
   }
   menuItem.classList.add('ds-sidebar-nav__link--active');
   arrowElement.classList.add('ds-sidebar-nav__arrow--active');
+  menuItem.setAttribute('aria-expanded', 'true');
   openSubmenu(submenu);
   previouslyOpened = menuItem;
   previouslyOpenedSubmenu = submenu;
@@ -158,6 +162,7 @@ function closeSubmenus(): void {
       link.classList.contains('ds-sidebar-nav__link--has-submenu') &&
       link.classList.contains('ds-sidebar-nav__link--active')
     ) {
+      link.setAttribute('aria-expanded', 'false');
       link.classList.remove('ds-sidebar-nav__link--active');
     } else if (link.classList.contains('ds-sidebar-nav__link--active')) {
       link.classList.remove('ds-sidebar-nav__link--active');

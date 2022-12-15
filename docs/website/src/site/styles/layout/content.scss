@@ -8,16 +8,16 @@
   width: 100%;
 }
 
+.header-anchor {
+  font-size: inherit;
+  text-decoration: none;
+}
+
 @media screen and (min-width: $md-breakpoint) {
   .ds-container {
     padding: 3.6rem 7.2rem 0;
     transform: translateX(27.2rem);
-    transition: transform 400ms;
+    transition: none;
     width: calc(100% - 27.2rem);
   }
-}
-
-.header-anchor {
-  font-size: inherit;
-  text-decoration: none;
 }

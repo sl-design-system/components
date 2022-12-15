@@ -24,47 +24,14 @@ html {
 }
 
 body {
-  //background: var(--second-background-color, #041c52);
   color: var(--font-color);
   display: flex;
   font-family: 'Poppins', sans-serif;
   margin: 0;
   min-height: 100vh;
+  transition: 0ms;
 }
 
 button {
   cursor: pointer;
 }
-
-//a {
-//  color: var(--font-color);
-//}
-
-//a,
-//a:link,
-//a:visited,
-//a:focus,
-//a:hover,
-//a:active {
-//  text-decoration: none;
-//  cursor: pointer;
-//  color: black;
-//}
-
-//:any-link,
-//:any-link:active,
-//a:-webkit-any-link {
-//  color: black;
-//}
-//
-//:-webkit-any-link {
-//  color: black;
-//}
-//
-//:-moz-any-link {
-//  color: black;
-//}
-//
-//:any-link {
-//  color: black;
-//}

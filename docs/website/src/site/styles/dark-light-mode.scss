@@ -30,66 +30,6 @@
   --secondary-font-color: #495057;
   --n-color-surface: rgb(255, 255, 255);
   --n-color-background: rgb(255, 255, 255);
-}*/
-
-:root {
-  --background-color: #f8f9fa;
-  --second-background-color: var(--ds-color-ghost-white);
-  --third-background-color: #fff;
-  --highlight-color: var(--ds-color-blue);
-  --menu-second-color: rgba(138, 174, 255, 0.2);
-  --primary-color: rgba(138, 174, 255, 0.2);
-  --font-color: #212529;
-  --menu-font-color: var(--ds-color-raisin-black);
-  --secondary-font-color: #495057;
-  --n-color-surface: rgb(255, 255, 255);
-  --n-color-background: rgb(255, 255, 255);
-  --input-menu-background: var(--ds-color-faux-white);
-  --input-menu--border: var(--ds-color-light-grey);
-  --filter-color: rgba(34, 34, 34, 0.12);
-  --top-navbar-color: var(--ds-color-white);
-  --hamburger-filter: brightness(3.5);
-  --hamburger-icon: url('../assets/icons/hamburger.svg');
-  --close-icon: url('../assets/icons/close.svg');
-  --logo: url('../assets/logo-black.svg');
-  --help-icon: url('../assets/icons/messages-question-black.svg');
-  --angle: url('../assets/icons/angle-right-black.svg');
-  --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%); //invert(80%) sepia(8%) saturate(2931%) hue-rotate(90deg) brightness(91%) contrast(78%);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: #f8f9fa; //var(--ds-color-raisin-black);
-    --second-background-color: var(--ds-color-black);
-    --third-background-color: #363739;
-    --highlight-color: var(--ds-color-blueberry);
-    --menu-second-color: #363739;
-    --primary-color: #363739;
-    --font-color: #212529;
-    --menu-font-color: var(--ds-color-lotion);
-    --secondary-font-color: rgba(226, 232, 240, 1);
-    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --n-color-surface: #363739;
-    //--n-color-background: #363739;
-    //--n-color-text-weak: #fff;
-    // --sl-panel-background-color: transparent;
-    //--sl-color-neutral-0: #363739;
-    //--sl-color-neutral-700: #fff;
-    --n-color-text: #fff;
-    --n-button-background-color: transparent;
-    --n-tab-color: #668cff;
-    --input-menu-background: var(--ds-color-outer-space);
-    --filter-color: rgba(34, 34, 34, 0.64);
-    --top-navbar-color: var(--ds-color-black);
-    --hamburger-filter: brightness(0.6);
-    --hamburger-icon: url('../assets/icons/hamburger-light.svg');
-    --close-icon: url('../assets/icons/close-light.svg');
-    --logo: url('../assets/logo.svg');
-    --help-icon: url('../assets/icons/messages-question.svg');
-    --angle: url('../assets/icons/angle-right.svg');
-    --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
-      brightness(107%) contrast(101%); //sepia(82%) saturate(1478%) hue-rotate(67deg) brightness(93%) contrast(70%);
-  }
 }
 
 .ds-theme-icon {
@@ -130,5 +70,64 @@
 
   .ds-icon-dark {
     display: none;
+  }
+}
+*/
+
+:root {
+  --background-color: var(--ds-color-white);
+  --second-background-color: var(--ds-color-ghost-white);
+  --third-background-color: #fff;
+  --highlight-color: var(--ds-color-blue);
+  --menu-second-color: rgba(138, 174, 255, 0.2);
+  --primary-color: rgba(138, 174, 255, 0.2);
+  --font-color: #212529;
+  --menu-font-color: var(--ds-color-raisin-black);
+  --input-menu-background: var(--ds-color-black-rgb);
+  --input-menu--border: var(--ds-color-light-grey);
+  --filter-color: rgba(34, 34, 34, 0.12);
+  --top-navbar-color: var(--ds-color-white);
+  --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.32);
+  --hamburger-filter: brightness(3.5);
+  --hamburger-icon: url('../assets/icons/hamburger.svg');
+  --close-icon: url('../assets/icons/close.svg');
+  --menu-button-hover: var(--ds-color-blue-rgb);
+  --logo: url('../assets/logo-black.svg');
+  --search-icon: url('../assets/icons/search.svg');
+  --search-color: var(--ds-color-black);
+  --help-icon: url('../assets/icons/messages-question-light-grey.svg');
+  --help-icon-hover: url('../assets/icons/messages-question-black.svg');
+  --angle: url('../assets/icons/angle-right-black.svg');
+  --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
+  --help-color: var(--ds-color-black-rgb);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: var(--ds-color-white);
+    --second-background-color: var(--ds-color-black);
+    --third-background-color: #363739;
+    --highlight-color: var(--ds-color-blueberry);
+    --menu-second-color: #363739;
+    --primary-color: #363739;
+    --font-color: #212529;
+    --menu-font-color: var(--ds-color-lotion);
+    --input-menu-background: var(--ds-color-faux-white-rgb);
+    --filter-color: rgba(34, 34, 34, 0.64);
+    --top-navbar-color: var(--ds-color-black);
+    --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
+    --hamburger-filter: brightness(0.6);
+    --hamburger-icon: url('../assets/icons/hamburger-light.svg');
+    --close-icon: url('../assets/icons/close-light.svg');
+    --menu-button-hover: rgba(var(--ds-color-blue-rgb), 0.32);
+    --logo: url('../assets/logo.svg');
+    --search-icon: url('../assets/icons/search-light.svg');
+    --search-color: var(--ds-color-faux-white);
+    --help-icon: url('../assets/icons/messages-question-grey.svg');
+    --help-icon-hover: url('../assets/icons/messages-question.svg');
+    --angle: url('../assets/icons/angle-right.svg');
+    --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
+      brightness(107%) contrast(101%);
+    --help-color: var(--ds-color-faux-white-rgb);
   }
 }

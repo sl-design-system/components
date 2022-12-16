@@ -1,7 +1,8 @@
 import type { TemplateResult } from 'lit';
+import type { Grid } from './grid.js';
+import { getNameByPath, getValueByPath } from '@sanomalearning/slds-core/utils';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { getNameByPath, getValueByPath } from './utils.js';
 
 export type GridColumnRenderer<T> = (model: T) => TemplateResult;
 
@@ -22,6 +23,9 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
    * The column width may still grow larger when `grow` is not 0.
    */
   @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
+
+  /** The parent grid instance. */
+  @property({ attribute: false }) grid?: Grid<T>;
 
   /**
    * The ratio with which the column will grow relative to the other columns.

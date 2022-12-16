@@ -29,12 +29,7 @@
   --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }
 
-:host(:--checked) {
-  --_background: #000;
-  --_stroke-dashoffset: 0;
-}
-
-:host([state--checked]) {
+:host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
   --_background: #000;
   --_stroke-dashoffset: 0;
 }

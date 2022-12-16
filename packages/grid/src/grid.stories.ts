@@ -34,10 +34,45 @@ export const ColumnRenderer: StoryObj = {
     };
 
     return html`
-      <sl-grid .items=${people} style="height: 300px">
+      <sl-grid .items=${people} style="height: 300px; overflow: auto">
         <sl-grid-column header="Name" .renderer=${nameRenderer}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const SelectionColumn: StoryObj = {
+  argTypes: {
+    autoSelect: {
+      control: 'boolean'
+    },
+    selectAll: {
+      control: 'boolean'
+    }
+  },
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: ({ autoSelect, selectAll }, { loaded: { people } }) => {
+    return html`
+      <sl-grid .items=${people}>
+        <sl-grid-selection-column .autoSelect=${autoSelect} .selectAll=${selectAll}></sl-grid-selection-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const SortableColumns: StoryObj = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    return html`
+      <sl-grid .items=${people}>
+        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
       </sl-grid>
     `;
   }
@@ -51,7 +86,7 @@ export const StickyColumns: StoryObj = {
     };
 
     return html`
-      <sl-grid .items=${people} style="height: 300px">
+      <sl-grid .items=${people} style="height: 300px; overflow: auto">
         <sl-grid-column header="Name" .renderer=${nameRenderer} sticky></sl-grid-column>
         <sl-grid-column path="email" sticky></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>

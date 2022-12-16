@@ -7,6 +7,8 @@ eleventyNavigation:
 ---
 <link href="/css/categories/components/button.css" rel="stylesheet" type="text/css">
 
+[//]: # ( TODO: create tabs as a web component)
+
 <div class="ds-tabs-wrapper">
   <a href="#overview" class="ds-tab active">Overview</a>
   <a href="#specs" class="ds-tab">Specs</a>

@@ -33,20 +33,19 @@ $transition-timing: 300ms;
 
 .ds-sidebar-nav__close-button {
   aspect-ratio: 1;
-  background-color: transparent;
-  background-image: var(--close-icon);
-  background-position: center;
-  background-repeat: no-repeat;
+  background: transparent var(--close-icon) no-repeat center;
   background-size: cover;
   border: 0;
   height: 3.2rem;
   opacity: 0.8;
-  transition: $transition-timing linear;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-transition: background-color $transition-timing ease-in, background-image 1ms;
+  transition: background-color $transition-timing ease-in;
   width: 3.2rem;
   z-index: 3;
 
   &:hover {
-    background-color: var(--menu-button-hover);
+    background: var(--menu-button-hover) var(--close-icon) no-repeat center;
     border-radius: 4px;
   }
 
@@ -64,7 +63,7 @@ $transition-timing: 300ms;
   background-position: left;
   background-repeat: no-repeat;
   background-size: 2rem;
-  bottom: 2.6rem;
+  bottom: 1.8rem;
   color: rgba(var(--help-color), 0.64);
   font-size: 1.6rem;
   line-height: 3.4rem;
@@ -72,7 +71,7 @@ $transition-timing: 300ms;
   padding-left: 2.4rem;
   position: absolute;
   text-decoration: none;
-  transition: $transition-timing linear;
+  transition: backround $transition-timing, color $transition-timing;
 
   &:hover {
     background-image: var(--help-icon-hover);
@@ -172,7 +171,7 @@ $transition-timing: 300ms;
 }
 
 .ds-sidebar-nav__search {
-  background-color: rgba(var(--input-menu-background), 0.04); // TODO: change background states
+  background-color: var(--input-menu-background);
   background-image: var(--search-icon);
   background-position: left;
   background-position-x: 1.6rem;
@@ -184,10 +183,10 @@ $transition-timing: 300ms;
   font-size: 1.6rem;
   font-weight: 400;
   height: 4rem;
-  line-height: 2.4rem;
+  line-height: 2rem;
   margin: 0 2.4rem 2.4rem;
   padding: 0.8rem 1.6rem 0.8rem 4rem;
-  transition: box-shadow 200ms linear;
+  transition: box-shadow 200ms linear, background-color $transition-timing linear;
 
   &::placeholder {
     color: var(--search-color);
@@ -197,6 +196,10 @@ $transition-timing: 300ms;
     border-radius: 0.6rem;
     box-shadow: 0 0 0 2px var(--ds-color-blue);
     outline: none;
+  }
+
+  &:hover {
+    background-color: var(--input-menu-background--hover);
   }
 }
 
@@ -226,7 +229,7 @@ $transition-timing: 300ms;
   font-weight: 600;
   justify-content: space-between;
   line-height: 3.4rem;
-  padding: 0.3rem 2.4rem 0.3rem 3.2rem;
+  padding: 0.3rem 3.2rem;
   transition: color 200ms linear;
   width: 100%;
 }
@@ -325,16 +328,21 @@ $transition-timing: 300ms;
   background-image: var(--angle);
   background-position: left;
   background-repeat: no-repeat;
-  background-size: contain;
   display: inline-flex;
   height: 3.4rem;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-transition: transform $transition-timing ease-in-out;
   transition: transform $transition-timing ease-in-out;
   width: 0.8rem;
 }
 
 .ds-sidebar-nav__arrow--active {
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-filter: var(--angle-active);
   filter: var(--angle-active);
   transform: rotate(90deg);
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-transition: transform $transition-timing ease-in-out;
   transition: transform $transition-timing ease-in-out;
 }
 
@@ -342,7 +350,7 @@ $transition-timing: 300ms;
   .ds-sidebar-nav__results {
     display: block;
     list-style-type: none;
-    margin: 1.6rem 0 6rem 1.6rem;
+    margin: 1.6rem;
     overflow-y: auto;
     padding: 0.4rem;
     transition: background $transition-timing ease-in-out;
@@ -384,7 +392,7 @@ $transition-timing: 300ms;
   display: none;
 }
 
-@media screen and (min-width: $md-breakpoint) {
+@media screen and (min-width: $lg-breakpoint) {
   .ds-top-navigation {
     display: none;
   }
@@ -420,35 +428,5 @@ $transition-timing: 300ms;
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  0% {
-    transform: translateX(500px) scale(0.2);
-  }
-
-  100% {
-    transform: translateX(0) scale(1);
-  }
-}
-
-@keyframes slideUp {
-  0% {
-    transform: translateY(300px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes expand {
-  0% {
-    transform: translateX(1400px);
-  }
-
-  100% {
-    transform: translateX(0);
   }
 }

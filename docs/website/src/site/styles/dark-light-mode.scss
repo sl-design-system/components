@@ -1,4 +1,7 @@
-/** for the future use */
+/**
+ * left for the future use
+*/
+
 /*
 :root:not(.light) {
   --background-color: #202124;
@@ -77,13 +80,11 @@
 :root {
   --background-color: var(--ds-color-white);
   --second-background-color: var(--ds-color-ghost-white);
-  --third-background-color: #fff;
   --highlight-color: var(--ds-color-blue);
   --menu-second-color: rgba(138, 174, 255, 0.2);
-  --primary-color: rgba(138, 174, 255, 0.2);
-  --font-color: #212529;
   --menu-font-color: var(--ds-color-raisin-black);
-  --input-menu-background: var(--ds-color-black-rgb);
+  --input-menu-background: rgba(var(--ds-color-black-rgb), 0.04);
+  --input-menu-background--hover: rgba(var(--ds-color-black-rgb), 0.08);
   --input-menu--border: var(--ds-color-light-grey);
   --filter-color: rgba(34, 34, 34, 0.12);
   --top-navbar-color: var(--ds-color-white);
@@ -106,13 +107,11 @@
   :root {
     --background-color: var(--ds-color-white);
     --second-background-color: var(--ds-color-black);
-    --third-background-color: #363739;
     --highlight-color: var(--ds-color-blueberry);
     --menu-second-color: #363739;
-    --primary-color: #363739;
-    --font-color: #212529;
     --menu-font-color: var(--ds-color-lotion);
-    --input-menu-background: var(--ds-color-faux-white-rgb);
+    --input-menu-background: rgba(var(--ds-color-faux-white-rgb), 0.16);
+    --input-menu-background--hover: rgba(var(--ds-color-faux-white-rgb), 0.2);
     --filter-color: rgba(34, 34, 34, 0.64);
     --top-navbar-color: var(--ds-color-black);
     --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);

@@ -1,6 +1,6 @@
 const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   container = document.querySelector('.ds-container'),
-  mediaQueryList: MediaQueryList = window.matchMedia('(min-width: 600px)'),
+  mediaQueryList: MediaQueryList = window.matchMedia('(min-width: 900px)'),
   topNavigation = document.querySelector('.ds-top-navigation') as HTMLElement,
   closeButton = document.querySelector('.ds-sidebar-nav__close-button') as HTMLButtonElement,
   menuButton = document.querySelector('.ds-top-navigation__hamburger') as HTMLButtonElement,

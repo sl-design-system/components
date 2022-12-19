@@ -6,4 +6,10 @@ layout: base.njk
 <h2>Usage</h2>
 <h2>Accessibility</h2>
 <h2>Code</h2>
-#} {{ content | safe }}
+#} {#{{ content | safe }}#}
+
+  <header class="ds-component__heading">
+    <h1>{{ title }}</h1>
+    <div>{{ description }}</div>
+  </header>
+  {{ content | safe }}

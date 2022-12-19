@@ -1,7 +1,9 @@
 .ds-tab {
   color: rgba(34, 34, 34, 0.6);
-  font-size: 16px;
-  padding: 16px;
+  cursor: pointer;
+  font-size: 14px; // TODO: change all to rem
+  line-height: 18px;
+  padding: 3px;
   text-decoration: none;
 
   &.active {
@@ -14,6 +16,7 @@
   background-color: var(--background-color);
   display: flex;
   flex-direction: row;
+  justify-content: center;
   //flex-wrap: wrap;
   position: sticky;
   top: 0;

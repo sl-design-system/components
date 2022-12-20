@@ -4,7 +4,7 @@ import { useGlobals } from '@storybook/api';
 import { Icons, IconButton, TooltipLinkList, WithTooltip } from '@storybook/components';
 import { styled } from '@storybook/theming';
 
-export const ColorIcon = styled.span(
+const ColorIcon = styled.span(
   ({ background }) => ({
     borderRadius: '50%',
     display: 'block',

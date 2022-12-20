@@ -37,7 +37,7 @@ export class Button extends FormControlMixin(LitElement) {
   };
 
   /** The original tabIndex before disabled. */
-  #originalTabIndex = 0;
+  private originalTabIndex = 0;
 
   /** The button fill. */
   @property({ reflect: true }) fill: ButtonFill = 'default';
@@ -76,10 +76,10 @@ export class Button extends FormControlMixin(LitElement) {
 
   formDisabledCallback(disabled: boolean): void {
     if (disabled) {
-      this.#originalTabIndex = this.tabIndex;
+      this.originalTabIndex = this.tabIndex;
     }
 
-    this.tabIndex = disabled ? -1 : this.#originalTabIndex;
+    this.tabIndex = disabled ? -1 : this.originalTabIndex;
   }
 
   override render(): TemplateResult {

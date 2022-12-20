@@ -8,11 +8,13 @@
     <script type="module" src="/js/ssr-utils/lit-hydrate-support.js"></script>
     <script type="module" src="/js/ssr-utils/is-land.js"></script>
     {% inlinejs "dsd-polyfill.js" %}
+    <script type="module" src="/js/scripts/main.js"></script>
     <!-- if JS is disabled just show the contents without the polyfill -->
     <noscript><style>body[dsd-pending] {visibility: visible !important;}</style></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.typekit.net/kes1hoh.css">
     <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
     <link rel="stylesheet" href="/styles/main.css" />
     <link rel="icon" media="(prefers-color-scheme: light)" href="./../../assets/favicon/sl-favicon-16-black.png" sizes="16x16">
@@ -21,11 +23,17 @@
     <link rel="icon" media="(prefers-color-scheme: dark)" href="./../../assets/favicon/sl-favicon-32-white.png" sizes="32x32">
   </head>
   <body dsd-pending>
-    {% include "./sidebar.njk" %}
-    <main>
-      {#<header>
-        <h1>{{ title }}</h1>
-      </header>#}
+    <nav class="ds-top-navigation">
+      <button class="ds-top-navigation__hamburger" aria-expanded="false" aria-haspopup="menu" aria-controls="main-menu" aria-label="Show navigation menu"></button>
+      <a href="/" class="ds-top-navigation__logo" title="Go to homepage"></a>
+    </nav>
+    <aside id="main-menu" class="ds-sidebar ds-sidebar--closed" role="menu" aria-label="Main menu">
+      {% include "./sidebar.njk" %}
+    </aside>
+    <main class="ds-container">
+{#      <header>#}
+{#        <h1>{{ title }}</h1>#}
+{#      </header>#}
       {{ content | safe }}
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>

@@ -2,7 +2,7 @@
 eleventyNavigation:
   parent: Pages
   key: Design Tokens
-  order: 6
+  order: 4
 title: Design Tokens
 ---
 <link href="/css/categories/components.css" rel="stylesheet" type="text/css">

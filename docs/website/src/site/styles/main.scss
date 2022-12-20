@@ -3,6 +3,7 @@
 
 @import 'dark-light-mode';
 @import 'variables';
+@import 'typography';
 
 @import 'components/tabs';
 
@@ -13,4 +14,10 @@
 
 [dsd-pending] {
   visibility: hidden;
+}
+
+*:focus-visible {
+  border-radius: 0.6rem;
+  box-shadow: var(--focus-box-shadow);
+  outline: none;
 }

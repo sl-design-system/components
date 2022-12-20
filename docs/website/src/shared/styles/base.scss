@@ -1,14 +1,19 @@
-$sticky-breakpoint: 60px;
+$sticky-breakpoint: 88px;
+
+:root {
+  --font-color: #212529;
+}
 
 :not(:defined) {
   visibility: visible;
 }
 
 html {
+  font-size: 62.5%;
   scroll-behavior: smooth;
 
   @media (min-height: $sticky-breakpoint) {
-    scroll-padding-top: 70px;
+    scroll-padding-top: 98px;
   }
 }
 
@@ -19,7 +24,6 @@ html {
 }
 
 body {
-  background: var(--second-background-color, #041c52);
   color: var(--font-color);
   display: flex;
   font-family: 'Poppins', sans-serif;
@@ -27,6 +31,6 @@ body {
   min-height: 100vh;
 }
 
-a {
-  color: var(--font-color);
+button {
+  cursor: pointer;
 }

@@ -2,13 +2,24 @@
   color: rgba(34, 34, 34, 0.6);
   cursor: pointer;
   font-size: 14px; // TODO: change all to rem
+  font-weight: 600;
   line-height: 18px;
   padding: 3px;
   text-decoration: none;
 
   &.active {
-    box-shadow: inset 0 -0.175em #fff, inset 0 -0.3em #36f;
+    box-shadow: 0 2px var(--ds-color-blue); // inset 0 -0.175em #fff, inset 0 -0.3em #36f;
     color: #222;
+
+    //&:after {
+    //  background: var(--highlight-color);
+    //  content: "";
+    //  height: 4rem;
+    //  left: 0;
+    //  position: absolute;
+    //  top: 0;
+    //  width: 4px;
+    //}
   }
 }
 
@@ -17,6 +28,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin: 1.6rem 0;
   //flex-wrap: wrap;
   position: sticky;
   top: 0;

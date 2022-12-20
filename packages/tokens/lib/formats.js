@@ -15,10 +15,6 @@ const replaceReferences = (dictionary, originalValue, value) => {
     }
   });
 
-  if (value.includes('rgba(')) {
-    value = value.replace(',', ' /');
-  }
-
   return value;
 };
 

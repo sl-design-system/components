@@ -64,7 +64,7 @@ StyleDictionary
   .registerFormat(Formats.scssVariables)
   .registerTransform(Transforms.fontWeights)
   .registerTransform(Transforms.palette)
-  .registerTransform(Transforms.shadow)
+  .registerTransform(Transforms.boxShadow)
   .registerTransform(Transforms.sizePx)
   .registerTransformGroup(TransformGroups.css);
 

@@ -78,55 +78,55 @@
 */
 
 :root {
+  --angle: url('../assets/icons/angle-right-black.svg');
+  --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
   --background-color: var(--ds-color-white);
-  --second-background-color: var(--ds-color-ghost-white);
-  --highlight-color: var(--ds-color-blue);
-  --menu-second-color: rgba(138, 174, 255, 0.2);
-  --menu-font-color: var(--ds-color-raisin-black);
-  --input-menu-background: rgba(var(--ds-color-black-rgb), 0.04);
-  --input-menu-background--hover: rgba(var(--ds-color-black-rgb), 0.08);
-  --input-menu--border: var(--ds-color-light-grey);
+  --close-icon: url('../assets/icons/close.svg');
   --filter-color: rgba(34, 34, 34, 0.12);
-  --top-navbar-color: var(--ds-color-white);
   --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.32);
   --hamburger-filter: brightness(3.5);
   --hamburger-icon: url('../assets/icons/hamburger.svg');
-  --close-icon: url('../assets/icons/close.svg');
-  --menu-button-hover: var(--ds-color-blue-rgb);
-  --logo: url('../assets/logo-black.svg');
-  --search-icon: url('../assets/icons/search.svg');
-  --search-color: var(--ds-color-black);
+  --help-color: var(--ds-color-black-rgb);
   --help-icon: url('../assets/icons/messages-question-light-grey.svg');
   --help-icon-hover: url('../assets/icons/messages-question-black.svg');
-  --angle: url('../assets/icons/angle-right-black.svg');
-  --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
-  --help-color: var(--ds-color-black-rgb);
+  --highlight-color: var(--ds-color-blue);
+  --input-menu-background: rgba(var(--ds-color-black-rgb), 0.04);
+  --input-menu-background--hover: rgba(var(--ds-color-black-rgb), 0.08);
+  --input-menu--border: var(--ds-color-light-grey);
+  --logo: url('../assets/logo-black.svg');
+  --menu-button-hover: var(--ds-color-blue-rgb);
+  --menu-font-color: var(--ds-color-raisin-black);
+  --menu-second-color: rgba(138, 174, 255, 0.2);
+  --search-color: var(--ds-color-black);
+  --search-icon: url('../assets/icons/search.svg');
+  --second-background-color: var(--ds-color-ghost-white);
+  --top-navbar-color: var(--ds-color-white);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-color: var(--ds-color-white);
-    --second-background-color: var(--ds-color-black);
-    --highlight-color: var(--ds-color-blueberry);
-    --menu-second-color: #363739;
-    --menu-font-color: var(--ds-color-lotion);
-    --input-menu-background: rgba(var(--ds-color-faux-white-rgb), 0.16);
-    --input-menu-background--hover: rgba(var(--ds-color-faux-white-rgb), 0.2);
-    --filter-color: rgba(34, 34, 34, 0.64);
-    --top-navbar-color: var(--ds-color-black);
-    --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
-    --hamburger-filter: brightness(0.6);
-    --hamburger-icon: url('../assets/icons/hamburger-light.svg');
-    --close-icon: url('../assets/icons/close-light.svg');
-    --menu-button-hover: rgba(var(--ds-color-blue-rgb), 0.32);
-    --logo: url('../assets/logo.svg');
-    --search-icon: url('../assets/icons/search-light.svg');
-    --search-color: var(--ds-color-faux-white);
-    --help-icon: url('../assets/icons/messages-question-grey.svg');
-    --help-icon-hover: url('../assets/icons/messages-question.svg');
     --angle: url('../assets/icons/angle-right.svg');
     --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
       brightness(107%) contrast(101%);
+    --background-color: var(--ds-color-white);
+    --close-icon: url('../assets/icons/close-light.svg');
+    --filter-color: rgba(34, 34, 34, 0.64);
+    --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
+    --hamburger-filter: brightness(0.6);
+    --hamburger-icon: url('../assets/icons/hamburger-light.svg');
     --help-color: var(--ds-color-faux-white-rgb);
+    --help-icon: url('../assets/icons/messages-question-grey.svg');
+    --help-icon-hover: url('../assets/icons/messages-question.svg');
+    --highlight-color: var(--ds-color-blueberry);
+    --input-menu-background: rgba(var(--ds-color-faux-white-rgb), 0.16);
+    --input-menu-background--hover: rgba(var(--ds-color-faux-white-rgb), 0.2);
+    --logo: url('../assets/logo.svg');
+    --menu-button-hover: rgba(var(--ds-color-blue-rgb), 0.32);
+    --menu-font-color: var(--ds-color-lotion);
+    --menu-second-color: #363739;
+    --search-color: var(--ds-color-faux-white);
+    --search-icon: url('../assets/icons/search-light.svg');
+    --second-background-color: var(--ds-color-black);
+    --top-navbar-color: var(--ds-color-black);
   }
 }

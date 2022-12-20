@@ -19,30 +19,8 @@
   src: url('./../../assets/fonts/the-message-bold.woff2') format('woff2');
 }
 
-/* source-sans-pro-regular - latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: url('./../../assets/fonts/source-sans-pro-v21-latin-regular.woff2') format('woff2');
-}
-/* source-sans-pro-600 - latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 600;
-  src: url('./../../assets/fonts/source-sans-pro-v21-latin-600.woff2') format('woff2');
-}
-/* source-sans-pro-700 - latin */
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: url('./../../assets/fonts/source-sans-pro-v21-latin-700.woff2') format('woff2');
-}
-
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'source-sans-pro', sans-serif;
 }
 
 h1,

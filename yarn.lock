@@ -1424,16 +1424,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.4":
-  version: 7.20.0
-  resolution: "@babel/runtime@npm:7.20.0"
-  dependencies:
-    regenerator-runtime: ^0.13.10
-  checksum: 945bc7d406c5b39be3e72c9c8cc2ba4aa71e0ec0df8493b39c5af295e7ce728aa917783f80244a4e9f9c0f827988d88722b1c9e45845a3dd753e1025f72d787e
-  languageName: node
-  linkType: hard
-
-"@babel/runtime@npm:^7.20.1":
+"@babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.20.1, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.4":
   version: 7.20.6
   resolution: "@babel/runtime@npm:7.20.6"
   dependencies:
@@ -9828,20 +9819,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^13.1.2":
-  version: 13.1.2
-  resolution: "globby@npm:13.1.2"
-  dependencies:
-    dir-glob: ^3.0.1
-    fast-glob: ^3.2.11
-    ignore: ^5.2.0
-    merge2: ^1.4.1
-    slash: ^4.0.0
-  checksum: 3366575f4de8862558bfd931cae2c7ed5192f8ce9488e4c65da5aadedcadae36f7625bd85ada77aad3ba93ca0627b424e53f07172f7d12e67eec419694357d33
-  languageName: node
-  linkType: hard
-
-"globby@npm:^13.1.3":
+"globby@npm:^13.1.2, globby@npm:^13.1.3":
   version: 13.1.3
   resolution: "globby@npm:13.1.3"
   dependencies:
@@ -15149,13 +15127,6 @@ __metadata:
   version: 1.4.2
   resolution: "regenerate@npm:1.4.2"
   checksum: f73c9eba5d398c818edc71d1c6979eaa05af7a808682749dd079f8df2a6d91a9b913db216c2c9b03e0a8ba2bba8701244a93f45211afbff691c32c7b275db1b8
-  languageName: node
-  linkType: hard
-
-"regenerator-runtime@npm:^0.13.10":
-  version: 0.13.10
-  resolution: "regenerator-runtime@npm:0.13.10"
-  checksum: 2990a7a998ff6bf5caf5597c5671751f447560c5060ae5628469620a7ce640131bf0744c506d63c2166783121535da4ed782c3383371f945fb9a37481598a761
   languageName: node
   linkType: hard
 

@@ -5,5 +5,3 @@ eleventyNavigation:
   key: Spinner
   order: 6
 ---
-
-Spinner component example

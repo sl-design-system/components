@@ -6,4 +6,4 @@ eleventyNavigation:
   order: 1
 ---
 
-## Components Overview
+ Components Overview

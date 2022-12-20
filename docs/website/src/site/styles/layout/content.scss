@@ -1,11 +1,24 @@
-main {
-  background-color: var(--background-color);
-  margin-left: 260px;
-  padding: 36px 72px 0;
-  transition: background 300ms ease-in-out;
+@import './../breakpoints';
+
+.ds-container {
+  margin-left: 0;
+  padding: 9.6rem 3.2rem 0;
+  transform: translateX(0);
+  transition: transform 400ms, background 300ms ease-in-out, opacity 300ms;
   width: 100%;
 }
 
 .header-anchor {
+  color: var(--ds-color-raisin-black);
+  font-size: inherit;
   text-decoration: none;
+}
+
+@media screen and (min-width: $lg-breakpoint) {
+  .ds-container {
+    padding: 3.6rem 7.2rem 0;
+    transform: translateX(27.2rem);
+    transition: none;
+    width: calc(100% - 27.2rem);
+  }
 }

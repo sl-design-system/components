@@ -9,6 +9,7 @@ const jsFolder = DEV ? 'lib/site' : 'build/site';
 const tsEntrypoints = [
   './src/site/ts/components/my-counter.ts',
   './src/site/ts/components/test-component.ts',
+  './src/site/ts/scripts/*.ts',
   './src/site/ts/ssr-utils/lit-hydrate-support.ts',
   './src/site/ts/ssr-utils/is-land.ts'
 ];

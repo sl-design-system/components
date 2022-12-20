@@ -1,7 +1,7 @@
 ---
-title: FAQs
+title: FAQ
 eleventyNavigation:
   parent: Pages
-  key: FAQs
-  order: 8
+  key: FAQ
+  order: 7
 ---

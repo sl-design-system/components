@@ -5,5 +5,3 @@ eleventyNavigation:
   key: Card
   order: 4
 ---
-
-Card component example...

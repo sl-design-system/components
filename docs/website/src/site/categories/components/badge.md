@@ -5,5 +5,3 @@ eleventyNavigation:
   key: Badge
   order: 2
 ---
-
-Badge component

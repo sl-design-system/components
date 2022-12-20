@@ -1,5 +1,5 @@
 ---
-title: Checkbox overview
+title: Checkbox
 layout: "components/overview.njk"
 eleventyNavigation:
   parent: Checkbox

@@ -70,7 +70,7 @@
     },
     "website": {
       "dependencies": [
-        "./docs/website:build:teaser:prod"
+        "./docs/website:build:prod"
       ]
     }
   },

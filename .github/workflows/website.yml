@@ -28,11 +28,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    if: github.event_name == 'push'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -42,6 +39,15 @@ jobs:
           cache: 'yarn'
       - run: yarn install --immutable
       - run: yarn website
+
+  deploy:
+    if: github.event_name == 'push'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
@@ -52,14 +58,8 @@ jobs:
   preview:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
+    needs: build
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-      - run: yarn install --immutable
-      - run: yarn website
       - uses: azure/static-web-apps-deploy@v1
         id: deploy
         with:

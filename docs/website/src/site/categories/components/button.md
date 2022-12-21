@@ -83,6 +83,7 @@ eleventyNavigation:
 
 [//]: # (</dna-tabs>)
 
+<div class="ds-tabs">
 <div class="ds-tabs-wrapper">
   <a href="#overview" class="ds-tab active">Overview</a>
   <a href="#specs" class="ds-tab">Specs</a>
@@ -90,20 +91,45 @@ eleventyNavigation:
   <a href="#accessibility" class="ds-tab">Accessibility</a>
   <a href="#code" class="ds-tab">Code</a>
 </div>
+<div class="slider">
+<div class="indicator"></div>
+</div>
+<div class="ds-tabs__tab-content-wrapper">
+<div class="ds-tabs__tab-content ds-tabs__tab-content--active">
+tab 1
+</div>
+<div class="ds-tabs__tab-content">
+tab 2
+</div>
+<div class="ds-tabs__tab-content">
+</div>
+</div>
+</div>
 
 
-<div class="ds-tabs-wrapper">
-  <a id="overview" class="ds-tab active">Overview</a>
-  <a id="specs" class="ds-tab">Specs</a>
-  <a id="usage" class="ds-tab">Usage</a>
-  <a id="accessibility" class="ds-tab">Accessibility</a>
-  <a id="code" class="ds-tab">Code</a>
-</div>
-<div id="overview" class="ds-tab-content">
-  <h3>London</h3>
-  <p>London is the capital city of England.</p>
-test
-</div>
+[//]: # (<div class="ds-tabs-wrapper">)
+
+[//]: # (  <a id="overview" class="ds-tab active">Overview</a>)
+
+[//]: # (  <a id="specs" class="ds-tab">Specs</a>)
+
+[//]: # (  <a id="usage" class="ds-tab">Usage</a>)
+
+[//]: # (  <a id="accessibility" class="ds-tab">Accessibility</a>)
+
+[//]: # (  <a id="code" class="ds-tab">Code</a>)
+
+[//]: # (</div>)
+
+[//]: # (<div id="overview" class="ds-tab-content">)
+
+[//]: # (  <h3>London</h3>)
+
+[//]: # (  <p>London is the capital city of England.</p>)
+
+[//]: # (test)
+
+[//]: # (</div>)
 
 ## Overview
 

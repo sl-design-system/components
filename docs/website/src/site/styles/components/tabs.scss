@@ -1,4 +1,31 @@
+@import './../breakpoints';
+
+//$tab-count: 5;
+//$slider-selector: "~ .slider";
+//
+//@mixin tabs(
+//  $slider-selector: $slider-selector) {
+//
+//  @for $i from 1 through $tab-count {
+//    &.active:nth-of-type(#{$i}) {
+//      #{$slider-selector} {
+//        transform: translateX(#{100% * ($i - 1)});
+//      }
+//    }
+//  }
+//}
+
+.ds-tabs {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); // TODO: only for sticky and for the whole navbar
+  font-size: 20px;
+  margin: 1.6rem 0;
+  overflow: hidden;
+  position: sticky;
+  top: 88px;
+}
+
 .ds-tab {
+  // @include tabs;
   color: rgba(34, 34, 34, 0.6);
   cursor: pointer;
   font-size: 14px; // TODO: change all to rem
@@ -6,9 +33,11 @@
   line-height: 18px;
   padding: 3px;
   text-decoration: none;
+  transition: color 300ms linear;
 
-  &.active {
-    box-shadow: 0 2px var(--ds-color-blue); // inset 0 -0.175em #fff, inset 0 -0.3em #36f;
+  &.active:not(:focus-visible) {
+    //@include tabs;
+    //box-shadow: 0 2px var(--ds-color-blue); // inset 0 -0.175em #fff, inset 0 -0.3em #36f;
     color: #222;
 
     //&:after {
@@ -21,6 +50,10 @@
     //  width: 4px;
     //}
   }
+
+  &:hover {
+    color: #000;
+  }
 }
 
 .ds-tabs-wrapper {
@@ -28,7 +61,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 1.6rem 0;
+  //margin: 1.6rem 0;
   //flex-wrap: wrap;
   position: sticky;
   top: 0;
@@ -37,4 +70,35 @@
 .ds-tabs-wrapper.fixed {
   position: fixed;
   top: 86px;
+}
+
+.slider {
+  position: relative;
+  //width: #{100%/$tab-count};
+  transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
+
+  .indicator {
+    background: var(--ds-color-blue); //$accent;
+    border-radius: 1px;
+    //margin: 0 auto;
+    height: 2px; //$indicator-height;
+    max-width: 100%;
+    position: relative;
+    transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
+    width: 50px; //$indicator-width;
+  }
+}
+
+.ds-tabs__tab-content--active {
+  display: block;
+}
+
+.ds-tabs__tab-content:not(.ds-tabs__tab-content--active) {
+  display: none;
+}
+
+@media screen and (min-width: $lg-breakpoint) {
+  .ds-tabs {
+    top: 0;
+  }
 }

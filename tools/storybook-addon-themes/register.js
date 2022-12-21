@@ -1,8 +1,8 @@
 import React from 'react';
-import { addons, types } from '@storybook/addons';
-import { useGlobals } from '@storybook/api';
+import { addons, types, useAddonState, useGlobals } from '@storybook/manager-api';
 import { Icons, IconButton, TooltipLinkList, WithTooltip } from '@storybook/components';
 import { styled } from '@storybook/theming';
+import { ADDON_ID } from './constants.js';
 
 const ColorIcon = styled.span(
   ({ background }) => ({
@@ -28,46 +28,26 @@ const createThemeSelectorItem = ({ id, name, color }, selectedTheme, update) => 
   };
 };
 
-const updateThemeInIframes = (themes, id) => {  
-  if (id === undefined) {
-    return;
-  }
-
-  document.querySelectorAll('iframe[data-is-storybook]').forEach(iframe => {
-    const body = iframe.contentWindow.document.body;
-
-    for (const theme of themes) {
-      if (theme.id === id) {
-        body?.classList.add(theme.id);
-      } else {
-        body?.classList.remove(theme.id);
-      }
-    }
-  });
-};
-
-addons.register('my/toolbar', api => {
-  addons.add('my-toolbar-addon/toolbar', {
+addons.register(ADDON_ID, () => {
+  addons.add(ADDON_ID, {
     title: 'Theme switcher',
     type: types.TOOL,
     match: ({ viewMode }) => !!(viewMode && viewMode.match(/^(story|docs)$/)),
     render: () => {
-      const [{ themes, selectedTheme }, updateGlobals] = useGlobals(),
-        updateTheme = id => updateGlobals({ selectedTheme: id });
+      const [{ themes, selectedTheme }] = useGlobals(),
+        [state, setState] = useAddonState(ADDON_ID, { selected: selectedTheme }),
+        updateTheme = id => setState({ selected: id });
 
       let items = [];
       if (Array.isArray(themes)) {
-        items = themes.map(theme => createThemeSelectorItem(theme, selectedTheme, updateTheme));
-
-        const theme = themes.find(t => t.id === selectedTheme) || themes[0];
-        updateThemeInIframes(themes, theme.id);
+        items = themes.map(theme => createThemeSelectorItem(theme, state.selected, updateTheme));
       }
 
       return (
         <WithTooltip placement="top" trigger="click" tooltip={() => <TooltipLinkList links={items} />}>
           <IconButton
             key="theme"
-            active={selectedTheme}
+            active={state.selected}
             title="Change the theme of the preview"
           >
             <Icons icon="paintbrush" />

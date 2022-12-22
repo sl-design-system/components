@@ -5,7 +5,7 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-export type GridColumnParts<T> = (model: T) => string;
+export type GridColumnParts<T> = (model: T) => string | undefined;
 export type GridColumnRenderer<T> = (model: T) => TemplateResult;
 
 export class GridColumn<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
@@ -78,10 +78,10 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
       parts = this.parts(item);
     }
 
-    if (this.renderer) {
-      return html`<td part=${ifDefined(parts)}>${this.renderer(item)}</td>`;
-    } else {
-      return html`<td part=${ifDefined(parts)}>${this.path ? getValueByPath(item, this.path) : 'No path set'}</td>`;
-    }
+    return html`
+      <td part=${ifDefined(parts)}>
+        ${this.renderer ? this.renderer(item) : this.path ? getValueByPath(item, this.path) : 'No path set'}
+      </td>
+    `;
   }
 }

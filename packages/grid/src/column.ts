@@ -3,7 +3,9 @@ import type { Grid } from './grid.js';
 import { getNameByPath, getValueByPath } from '@sanomalearning/slds-core/utils';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
+export type GridColumnParts<T> = (model: T) => string;
 export type GridColumnRenderer<T> = (model: T) => TemplateResult;
 
 export class GridColumn<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
@@ -44,6 +46,9 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
   /** The path to the value for this column. */
   @property() path?: string;
 
+  /** Custom parts to be set on the `<td>` so it can be styled externally. */
+  @property() parts?: string | GridColumnParts<T>;
+
   /** Renderer function for the column value of each cell. */
   @property({ attribute: false }) renderer?: GridColumnRenderer<T>;
 
@@ -67,10 +72,16 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
   }
 
   renderData(item: T): TemplateResult {
+    let parts = this.parts;
+
+    if (typeof this.parts === 'function') {
+      parts = this.parts(item);
+    }
+
     if (this.renderer) {
-      return html`<td>${this.renderer(item)}</td>`;
+      return html`<td part=${ifDefined(parts)}>${this.renderer(item)}</td>`;
     } else {
-      return html`<td>${this.path ? getValueByPath(item, this.path) : 'No path set'}</td>`;
+      return html`<td part=${ifDefined(parts)}>${this.path ? getValueByPath(item, this.path) : 'No path set'}</td>`;
     }
   }
 }

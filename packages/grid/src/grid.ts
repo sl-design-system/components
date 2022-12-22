@@ -10,6 +10,8 @@ import { classMap } from 'lit/directives/class-map.js';
 import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
 
+export type GridItemParts<T> = (model: T) => string | undefined;
+
 export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
@@ -30,7 +32,10 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
   @property({ attribute: false }) dataSource?: DataSource<T>;
 
   /** An array of items to be displayed in the grid. */
-  @property() items?: T[];
+  @property({ type: Array }) items?: T[];
+
+  /** Custom parts to be set on the `<tr>` so it can be styled externally. */
+  @property({ attribute: false }) itemParts?: GridItemParts<T>;
 
   /** Hide the border around the grid when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
@@ -101,10 +106,16 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
   }
 
   renderItem(item: T, index: number): TemplateResult {
-    const selected = this.selection.isSelected(item);
+    const selected = this.selection.isSelected(item),
+      parts = [
+        'row',
+        index % 2 === 0 ? 'odd' : 'even',
+        ...(selected ? ['selected'] : []),
+        ...(this.itemParts?.(item)?.split(' ') || [])
+      ];
 
     return html`
-      <tr class=${classMap({ selected })} part="row ${index % 2 === 0 ? 'odd' : 'even'} ${selected ? 'selected' : ''}">
+      <tr class=${classMap({ selected })} part=${parts.join(' ')}>
         ${this.columns.map(col => col.renderData(item))}
       </tr>
     `;

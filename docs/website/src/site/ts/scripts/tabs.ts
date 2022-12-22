@@ -1,16 +1,42 @@
 const tabsContainer = document.querySelector('.ds-tabs');
+const tabsHeaderContainer = document.querySelector('.ds-tabs__container') as Element;
 const tabsWrapper = document.querySelector('.ds-tabs-wrapper');
 const tabs: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-tab');
 const slider = tabsContainer?.querySelector('.slider') as HTMLElement;
 const indicator = slider?.querySelector('.indicator') as HTMLElement;
+const tabsContents = tabsContainer?.querySelectorAll('.ds-tabs__tab-content');
 let current = tabsWrapper?.querySelector('.active');
+let currentContent: Element;
+let nextUniqueId = 0;
 
 window.onload = () => {
   if (!tabsWrapper || !current) {
     return;
   }
-  // const current = tabsWrapper.querySelectorAll('.active');
+  tabs.forEach(tab => {
+    tab.setAttribute('id', `ds-tab-${nextUniqueId++}`);
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-selected', 'false');
+  });
+  // tabs.forEach(tab => tab.setAttribute('id', `ds-tab-${nextUniqueId++}`));
+  // tabs.forEach(tab => tab.setAttribute('role', 'tab'));
+  // tabs.forEach(tab => tab.setAttribute('aria-selected', 'false'));
+  tabsContents?.forEach((tabContent, id) => {
+    tabContent.setAttribute('id', `ds-tab-content-${nextUniqueId++}`);
+    tabContent.setAttribute('role', 'tabpanel');
+    tabContent.setAttribute('aria-labelledby', tabs[id].getAttribute('id') as string);
+    tabContent.classList.add('ds-tabs__tab-content--hidden');
+  });
+
+  // tabsContents?.forEach(tabContent => tabContent.setAttribute('id', `ds-tab-content-${nextUniqueId++}`));
+  // tabsContents?.forEach(tab => tab.setAttribute('role', 'tabpanel'));
+  // tabsContents?.forEach((tab, id) => tab.setAttribute('aria-labelledby', tabs[id].getAttribute('id') as string));
+  // tabsContents?.forEach(tabContent => tabContent.classList.add('ds-tabs__tab-content--hidden'));
   selectTab(current);
+
+  console.log('tabsHeaderContainer', tabsHeaderContainer);
+
+  // observer.observe(tabsHeaderContainer);
 };
 
 window.onresize = () => {
@@ -27,12 +53,96 @@ tabs?.forEach(tab => {
   };
 });
 
+document.addEventListener('sticky-change', e => {
+  console.log('event on sticky change', e);
+});
+
+// function observeStickyHeaderChanges(container) {
+//   observeHeaders(container);
+// }
+//
+// observeStickyHeaderChanges(document.querySelector('#scroll-container'));
+//
+// function observeHeaders(container) {
+//   const observer = new IntersectionObserver(
+//     (records, observer) => {
+//       for (const record of records) {
+//         const targetInfo = record.boundingClientRect;
+//         const stickyTarget = record.target.parentElement.querySelector('.sticky');
+//         const rootBoundsInfo = record.rootBounds;
+//
+//         // Started sticking.
+//         if (targetInfo.bottom < rootBoundsInfo.top) {
+//           fireEvent(true, stickyTarget);
+//         }
+//
+//         // Stopped sticking.
+//         if (targetInfo.bottom >= rootBoundsInfo.top && targetInfo.bottom < rootBoundsInfo.bottom) {
+//           fireEvent(false, stickyTarget);
+//         }
+//       }
+//     },
+//     { threshold: [0], root: container }
+//   );
+//
+//   // Add the top sentinels to each section and attach an observer.
+//   const sentinels = addSentinels(container, 'sticky_sentinel--top');
+//   sentinels.forEach(el => observer.observe(el));
+// }
+
+/*const observer2 = new IntersectionObserver(([e]) => {
+  console.log(e, e.intersectionRatio);
+  // e.target.classList.toggle('is-pinned', e.intersectionRatio < 1),
+  //   {
+  //     threshold: [1]
+  //   };
+  if (e.intersectionRatio > 1) {
+    e.target.classList.add('active');
+  } else {
+    e.target.classList.remove('active');
+  }
+});*/
+
+const config = {
+  root: null, // Sets the framing element to the viewport
+  rootMargin: '88px', // TODO change for the desktop version on resize as well
+  threshold: 1
+};
+
+const observer = new IntersectionObserver(
+  entries =>
+    entries.forEach(({ target, intersectionRatio }) => {
+      const tabsContainer = target.querySelector('.ds-tabs__container');
+      console.log('intersectionRatio', intersectionRatio, target, tabsContainer, entries);
+      if (!tabsContainer) {
+        return;
+      }
+      if (intersectionRatio >= 1) {
+        tabsContainer.classList.add('ds-tabs__container--sticky');
+      } else {
+        tabsContainer.classList.remove('ds-tabs__container--sticky');
+      }
+    }),
+  config
+);
+
+observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
+
 function selectTab(tab: Element): void {
   console.log('event tab', tab);
-  if (!tabs) {
+  if (!tabs || !tabsContents) {
     return;
   }
 
+  current?.setAttribute('aria-selected', 'false');
+  tab.setAttribute('aria-selected', 'true');
+  const tabContent = Array.from(tabsContents).find(tabContent => {
+    if (tabContent.getAttribute('aria-labelledby') === tab.getAttribute('id')) {
+      return tabContent;
+    }
+  });
+  currentContent?.classList.replace('ds-tabs__tab-content--active', 'ds-tabs__tab-content--hidden');
+  tabContent?.classList.replace('ds-tabs__tab-content--hidden', 'ds-tabs__tab-content--active');
   for (let i = 0; i < tabs?.length; i++) {
     console.log('tabs width', tabsContainer?.clientWidth);
     //tabs[i].addEventListener('click', function () {
@@ -62,6 +172,7 @@ function selectTab(tab: Element): void {
 
     alignTabIndicator(current);
     current = tab;
+    currentContent = tabContent as Element;
     //});
   }
 }

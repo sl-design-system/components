@@ -15,16 +15,30 @@
 //  }
 //}
 
-.ds-tabs {
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); // TODO: only for sticky and for the whole navbar
-  font-size: 20px;
-  margin: 1.6rem 0;
-  overflow: hidden;
+.ds-tabs__container {
+  margin: auto -24px;
+  overflow-x: hidden;
+  //box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 88px;
 }
 
+.ds-tabs__container--sticky {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ds-tabs {
+  // box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); // TODO: only for sticky and for the whole navbar
+  font-size: 20px;
+  margin: 1.6rem 0;
+  //overflow: hidden;
+  //position: sticky;
+  //top: 88px;
+}
+
 .ds-tab {
+  background: none;
+  border: 0;
   // @include tabs;
   color: rgba(34, 34, 34, 0.6);
   cursor: pointer;
@@ -63,8 +77,8 @@
   justify-content: center;
   //margin: 1.6rem 0;
   //flex-wrap: wrap;
-  position: sticky;
-  top: 0;
+  //position: sticky;
+  //top: 0;
 }
 
 .ds-tabs-wrapper.fixed {
@@ -75,7 +89,7 @@
 .slider {
   position: relative;
   //width: #{100%/$tab-count};
-  transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
+  transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
 
   .indicator {
     background: var(--ds-color-blue); //$accent;
@@ -84,7 +98,7 @@
     height: 2px; //$indicator-height;
     max-width: 100%;
     position: relative;
-    transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
+    transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
     width: 50px; //$indicator-width;
   }
 }
@@ -93,12 +107,23 @@
   display: block;
 }
 
+.ds-tabs__tab-content--hidden {
+  display: none;
+}
+
 .ds-tabs__tab-content:not(.ds-tabs__tab-content--active) {
   display: none;
 }
 
 @media screen and (min-width: $lg-breakpoint) {
-  .ds-tabs {
+  //.ds-tabs {
+  //  top: 0;
+  //}
+
+  .ds-tabs__container {
+    //position: sticky;
+    //top: 0;
+    margin: auto;
     top: 0;
   }
 }

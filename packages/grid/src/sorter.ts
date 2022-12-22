@@ -21,6 +21,7 @@ export class GridSorter extends LitElement {
 
   @event() directionChange!: EventEmitter<DataSourceSortDirection | undefined>;
 
+  /** The path to the value used for sorting.  */
   @property() path?: string;
 
   @event() sorterChange!: EventEmitter<GridSorterChange>;

@@ -3,9 +3,12 @@ $sizes: sm, md, lg;
 $variants: default, primary, success, warning, danger;
 
 :host {
+  --_animation: var(--sl-animation-button);
   --_background: var(--sl-color-button-default-idle-background);
   --_border-radius: var(--sl-border-radius-button);
-  --_animation: var(--sl-animation-button);
+  --_cursor: pointer;
+  --_transition-duration: var(--sl-animation-button-duration);
+  --_transition-easing: var(--sl-animation-button-easing);
 }
 
 :host {
@@ -14,34 +17,39 @@ $variants: default, primary, success, warning, danger;
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow, none);
   color: var(--_color);
-  cursor: pointer;
+  cursor: var(--_cursor);
   display: inline-flex;
   font: var(--_font);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transform: var(--_transform);
-  transition: var(--_animation);
   transition-property: background, border-color, border-radius, box-shadow, color;
 }
 
-:host([disabled]) {
-  cursor: default;
+:host(:where(:disabled, [internals-disabled])) {
+  --_cursor: default;
   pointer-events: none;
 }
 
-:host(:focus) {
+:host(:focus),
+:host(:focus-visible) {
   outline: none;
+}
+
+:host([fill]) {
+  transition-duration: var(--_transition-duration);
+  transition-timing-function: var(--_transition-easing);
 }
 
 @each $fill in $fills {
   :host([fill='#{$fill}']) {
-    --_border-width: var(--sl-border-width-button-#{$fill}, var(--sl-border-width-button));
+    --_border-width: var(--sl-border-width-button-#{$fill});
   }
 
   @each $size in $sizes {
     :host([fill='#{$fill}'][size='#{$size}']) {
-      --_padding-block: var(--sl-space-button-#{$fill}-#{$size}-block, var(--sl-space-button-#{$size}-block));
-      --_padding-inline: var(--sl-space-button-#{$fill}-#{$size}-inline, var(--sl-space-button-#{$size}-inline));
+      --_padding-block: var(--sl-space-button-#{$fill}-block-#{$size}, var(--sl-space-button-block-#{$size}));
+      --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size}, var(--sl-space-button-inline-#{$size}));
     }
   }
 
@@ -59,13 +67,6 @@ $variants: default, primary, success, warning, danger;
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-focus-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
-    }
-
-    :host([fill='#{$fill}'][variant='#{$variant}']:focus-visible) {
-      --_box-shadow: var(
-        --sl-box-shadow-button-#{$variant}-#{$fill}-focus,
-        var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle)
-      );
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:hover) {
@@ -90,7 +91,11 @@ $variants: default, primary, success, warning, danger;
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-active);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}'][disabled]) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:focus-visible) {
+      --_box-shadow: var(--sl-box-shadow-button-#{$variant}-#{$fill}-focus, var(--sl-box-shadow-button-focus, none));
+    }
+
+    :host([fill='#{$fill}'][variant='#{$variant}']:where(:disabled, [internals-disabled])) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
       --_box-shadow: var(
@@ -105,7 +110,6 @@ $variants: default, primary, success, warning, danger;
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_font: var(--sl-text-button-#{$size});
-    --_padding: var(--sl-space-button-#{$size});
+    --_font: var(--sl-text-button-text-#{$size});
   }
 }

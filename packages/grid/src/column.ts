@@ -7,6 +7,9 @@ import { property } from 'lit/decorators.js';
 export type GridColumnRenderer<T> = (model: T) => TemplateResult;
 
 export class GridColumn<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
+  /** The alignment of the content within the column. */
+  @property() align: 'start' | 'center' | 'end' = 'start';
+
   /**
    * Automatically sets the width of the column based on the column contents when this is set to `true`.
    *

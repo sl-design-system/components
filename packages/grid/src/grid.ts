@@ -38,6 +38,9 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
   /** Hides the border between rows when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
 
+  /** Uses alternating background colors for the rows when set. */
+  @property({ type: Boolean, reflect: true }) striped?: boolean;
+
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('items')) {
       if (this.items) {
@@ -66,6 +69,7 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
           return `
             :where(td, th):nth-child(${index + 1}) {
               flex-grow: ${col.grow};
+              justify-content: ${col.align};
               width: ${col.width || '100'}px;
               ${
                 col.sticky
@@ -88,7 +92,7 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
         <tbody @visibilityChanged=${this.#onVisibilityChanged}>
           ${virtualize({
             items: this.dataSource?.items,
-            renderItem: item => this.renderItem(item)
+            renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
         <tfoot></tfoot>
@@ -96,11 +100,11 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     `;
   }
 
-  renderItem(item: T): TemplateResult {
+  renderItem(item: T, index: number): TemplateResult {
     const selected = this.selection.isSelected(item);
 
     return html`
-      <tr class=${classMap({ selected })} part="row ${selected ? 'selected' : ''}">
+      <tr class=${classMap({ selected })} part="row ${index % 2 === 0 ? 'odd' : 'even'} ${selected ? 'selected' : ''}">
         ${this.columns.map(col => col.renderData(item))}
       </tr>
     `;

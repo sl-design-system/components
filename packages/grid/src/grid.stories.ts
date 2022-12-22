@@ -12,13 +12,20 @@ export default {
 export const API: StoryObj = {
   args: {
     noBorder: false,
-    noRowBorder: false
+    noRowBorder: false,
+    striped: true
   },
   loaders: [async () => ({ people: (await getPeople()).people })],
-  render: ({ noBorder, noRowBorder }, { loaded: { people } }) => html`
-    <sl-grid .noBorder=${noBorder} .noRowBorder=${noRowBorder} .items=${people} style="height: 300px">
+  render: ({ noBorder, noRowBorder, striped }, { loaded: { people } }) => html`
+    <sl-grid
+      .noBorder=${noBorder}
+      .noRowBorder=${noRowBorder}
+      .items=${people}
+      .striped=${striped}
+      style="height: 300px; overflow: auto"
+    >
       <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column align="end" path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
       <sl-grid-column path="address.phone"></sl-grid-column>
       <sl-grid-column path="profession"></sl-grid-column>

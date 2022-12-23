@@ -100,6 +100,9 @@
   --search-color: var(--ds-color-black);
   --search-icon: url('../assets/icons/search.svg');
   --second-background-color: var(--ds-color-ghost-white);
+  --tab-color: rgba(var(--ds-color-black-rgb), 0.6);
+  --tab-color--active: var(--ds-color-black);
+  --text-color: var(--ds-color-black);
   --top-navbar-color: var(--ds-color-white);
 }
 
@@ -108,7 +111,7 @@
     --angle: url('../assets/icons/angle-right.svg');
     --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
       brightness(107%) contrast(101%);
-    --background-color: var(--ds-color-white);
+    --background-color: var(--ds-color-black);
     --close-icon: url('../assets/icons/close-light.svg');
     --filter-color: rgba(34, 34, 34, 0.64);
     --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
@@ -127,6 +130,9 @@
     --search-color: var(--ds-color-faux-white);
     --search-icon: url('../assets/icons/search-light.svg');
     --second-background-color: var(--ds-color-black);
+    --tab-color: rgba(var(--ds-color-faux-white-rgb), 0.64);
+    --tab-color--active: var(--ds-color-faux-white);
+    --text-color: var(--ds-color-white);
     --top-navbar-color: var(--ds-color-black);
   }
 }

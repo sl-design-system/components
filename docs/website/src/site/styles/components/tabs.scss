@@ -20,7 +20,7 @@
   overflow-x: hidden;
   //box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   position: sticky;
-  top: 88px;
+  top: 78px; //88px;
 }
 
 .ds-tabs__container--sticky {
@@ -30,7 +30,7 @@
 .ds-tabs {
   // box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); // TODO: only for sticky and for the whole navbar
   font-size: 20px;
-  margin: 1.6rem 0;
+  //margin: 1.6rem 0;
   //overflow: hidden;
   //position: sticky;
   //top: 88px;
@@ -40,7 +40,7 @@
   background: none;
   border: 0;
   // @include tabs;
-  color: rgba(34, 34, 34, 0.6);
+  color: var(--tab-color); //rgba(34, 34, 34, 0.6);
   cursor: pointer;
   font-size: 14px; // TODO: change all to rem
   font-weight: 600;
@@ -52,7 +52,7 @@
   &.active:not(:focus-visible) {
     //@include tabs;
     //box-shadow: 0 2px var(--ds-color-blue); // inset 0 -0.175em #fff, inset 0 -0.3em #36f;
-    color: #222;
+    color: var(--tab-color--active); //#222;
 
     //&:after {
     //  background: var(--highlight-color);
@@ -71,7 +71,7 @@
 }
 
 .ds-tabs-wrapper {
-  background-color: var(--background-color);
+  background-color: var(--background-color); //var(--background-color);
   display: flex;
   flex-direction: row;
   justify-content: center;

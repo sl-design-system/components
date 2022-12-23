@@ -5,6 +5,9 @@ const tabs: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-tab');
 const slider = tabsContainer?.querySelector('.slider') as HTMLElement;
 const indicator = slider?.querySelector('.indicator') as HTMLElement;
 const tabsContents = tabsContainer?.querySelectorAll('.ds-tabs__tab-content');
+// const container = document.querySelector('.ds-container');
+// const menu = document.querySelector('.ds-sidebar') as HTMLElement;
+
 let current = tabsWrapper?.querySelector('.active');
 let currentContent: Element;
 let nextUniqueId = 0;
@@ -104,20 +107,31 @@ document.addEventListener('sticky-change', e => {
 });*/
 
 const config = {
-  root: null, // Sets the framing element to the viewport
-  rootMargin: '88px', // TODO change for the desktop version on resize as well
+  root: null, //null, // Sets the framing element to the viewport
+  rootMargin: '104px', //'112px', // TODO change for the desktop version on resize as well
   threshold: 1
 };
 
 const observer = new IntersectionObserver(
   entries =>
-    entries.forEach(({ target, intersectionRatio }) => {
+    entries.forEach(({ boundingClientRect, rootBounds, target, intersectionRatio }) => {
       const tabsContainer = target.querySelector('.ds-tabs__container');
-      console.log('intersectionRatio', intersectionRatio, target, tabsContainer, entries);
+      // console.log(
+      //   'intersectionRatio',
+      //   intersectionRatio,
+      //   target,
+      //   tabsContainer,
+      //   entries,
+      //   entries[0]?.boundingClientRect.bottom < entries[0].rootBounds?.bottom,
+      //   entries[0]?.intersectionRect.bottom < entries[0].rootBounds?.bottom,
+      //   entries[0]?.boundingClientRect.height < entries[0].rootBounds?.bottom,
+      //   entries[0]?.boundingClientRect.bottom > entries[0].rootBounds?.bottom,
+      //   boundingClientRect.bottom > rootBounds.bottom - 112 //142
+      // );
       if (!tabsContainer) {
         return;
       }
-      if (intersectionRatio >= 1) {
+      if (rootBounds && intersectionRatio >= 1 && boundingClientRect.bottom > rootBounds.bottom + rootBounds.top) {
         tabsContainer.classList.add('ds-tabs__container--sticky');
       } else {
         tabsContainer.classList.remove('ds-tabs__container--sticky');
@@ -130,6 +144,9 @@ observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
 
 function selectTab(tab: Element): void {
   console.log('event tab', tab);
+
+  // observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
+
   if (!tabs || !tabsContents) {
     return;
   }
@@ -174,6 +191,8 @@ function selectTab(tab: Element): void {
     current = tab;
     currentContent = tabContent as Element;
     //});
+    observer.disconnect();
+    observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
   }
 }
 

@@ -5,7 +5,7 @@ $transition-timing: 300ms;
 .ds-top-navigation {
   background: var(--top-navbar-color);
   display: flex;
-  padding: 3.2rem 2.4rem 2.4rem;
+  padding: 3.2rem 2.4rem 1.4rem; // 3.2rem 2.4rem 2.4rem;
   position: fixed;
   width: 100vw;
   z-index: 1;

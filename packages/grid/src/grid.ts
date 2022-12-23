@@ -9,10 +9,11 @@ import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
+import { GridColumnGroup } from './column-group.js';
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 
-export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
+export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -70,29 +71,11 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>
       <style>
-        ${this.columns.map((col, index) => {
-          return `
-            :where(td, th):nth-child(${index + 1}) {
-              flex-grow: ${col.grow};
-              justify-content: ${col.align};
-              width: ${col.width || '100'}px;
-              ${
-                col.sticky
-                  ? `
-                    left: ${this.#getStickyColumnOffset(index)}px;
-                    position: sticky;
-                  `
-                  : ''
-              }
-            }
-          `;
-        })}
+        ${this.renderStyles()}
       </style>
       <table>
         <thead @directionChange=${this.#onDirectionChange} @sorterChange=${this.#onSorterChange}>
-          <tr>
-            ${this.columns.map(col => col.renderHeader())}
-          </tr>
+          ${this.renderHeader()}
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged}>
           ${virtualize({
@@ -105,8 +88,59 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     `;
   }
 
+  renderStyles(): TemplateResult {
+    const rows = this.#getHeaderRows(this.columns);
+
+    return html`
+      ${rows.slice(0, -1).map((row, rowIndex) => {
+        return row.map((col, colIndex) => {
+          return `
+            thead tr:nth-child(${rowIndex + 1}) th:nth-child(${colIndex + 1}) {
+              flex-grow: ${(col as GridColumnGroup<T>).columns.length};
+              justify-content: ${col.align};
+              width: ${col.width || '100'}px;
+            }
+          `;
+        });
+      })}
+      ${rows[rows.length - 1].map((col, index) => {
+        return `
+          :where(td, thead tr:last-of-type th):nth-child(${index + 1}) {
+            flex-grow: ${col.grow};
+            justify-content: ${col.align};
+            width: ${col.width || '100'}px;
+            ${
+              col.sticky
+                ? `
+                  left: ${this.#getStickyColumnOffset(index)}px;
+                  position: sticky;
+                `
+                : ''
+            }
+          }
+        `;
+      })}
+    `;
+  }
+
+  renderHeader(): TemplateResult {
+    const rows = this.#getHeaderRows(this.columns);
+
+    return html`
+      ${rows.map(
+        row =>
+          html`
+            <tr>
+              ${row.map(col => col.renderHeader())}
+            </tr>
+          `
+      )}
+    `;
+  }
+
   renderItem(item: T, index: number): TemplateResult {
-    const selected = this.selection.isSelected(item),
+    const rows = this.#getHeaderRows(this.columns),
+      selected = this.selection.isSelected(item),
       parts = [
         'row',
         index % 2 === 0 ? 'odd' : 'even',
@@ -116,7 +150,7 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
 
     return html`
       <tr class=${classMap({ selected })} part=${parts.join(' ')}>
-        ${this.columns.map(col => col.renderData(item))}
+        ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;
   }
@@ -126,7 +160,9 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
     // Do not remove, this is needed; not sure why
     await this.updateComplete;
 
-    this.columns
+    const rows = this.#getHeaderRows(this.columns);
+
+    rows[rows.length - 1]
       .filter(col => !col.hidden && col.autoWidth)
       .forEach(col => {
         const index = this.columns.indexOf(col),
@@ -193,6 +229,16 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
 
     this.dataSource.update();
     this.requestUpdate();
+  }
+
+  #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
+    const children = columns
+      .filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup)
+      .reduce((acc: Array<Array<GridColumn<T>>>, cur) => {
+        return [...acc, ...this.#getHeaderRows(cur.columns)];
+      }, []);
+
+    return children.length ? [[...columns], children.flat(2)] : [[...columns]];
   }
 
   #getStickyColumnOffset(index: number): number {

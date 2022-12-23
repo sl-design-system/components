@@ -7,12 +7,14 @@ import { GridColumn } from './column.js';
 export class GridColumnGroup<T extends { [x: string]: unknown } = Record<string, unknown>> extends GridColumn<T> {
   #width?: number;
 
+  /** The nested columns in the group. */
   @state() columns: Array<GridColumn<T>> = [];
 
   override set width(value: number) {
     this.#width = value;
   }
 
+  /** The width of the group column is either manually specified, or the sum of the nested columns. */
   override get width(): number {
     return this.#width ?? this.columns.reduce((acc, cur) => acc + (cur.width || 100), 0);
   }

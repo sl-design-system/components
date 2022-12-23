@@ -4,9 +4,13 @@ import { getNameByPath, getValueByPath } from '@sanomalearning/slds-core/utils';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 
-export type GridColumnRenderer<T> = (model: T) => TemplateResult;
+export type GridColumnHeaderRenderer = () => TemplateResult;
+
+export type GridColumnDataRenderer<T> = (model: T) => TemplateResult;
 
 export class GridColumn<T extends { [x: string]: unknown } = Record<string, unknown>> extends LitElement {
+  #width?: number;
+
   /**
    * Automatically sets the width of the column based on the column contents when this is set to `true`.
    *
@@ -36,19 +40,26 @@ export class GridColumn<T extends { [x: string]: unknown } = Record<string, unkn
   @property({ type: Number }) grow = 1;
 
   /** The label for the column header. */
-  @property() header?: string;
+  @property() header?: string | GridColumnHeaderRenderer;
 
   /** The path to the value for this column. */
   @property() path?: string;
 
   /** Renderer function for the column value of each cell. */
-  @property({ attribute: false }) renderer?: GridColumnRenderer<T>;
+  @property({ attribute: false }) renderer?: GridColumnDataRenderer<T>;
 
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean, reflect: true }) sticky?: boolean;
 
+  set width(value: number | undefined) {
+    this.#width = value;
+  }
+
   /** Width of the cells for this column in pixels. */
-  @property() width?: number;
+  @property()
+  get width(): number | undefined {
+    return this.#width;
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();

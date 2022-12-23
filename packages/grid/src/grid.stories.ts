@@ -1,4 +1,4 @@
-import type { GridColumnRenderer } from './column.js';
+import type { GridColumnDataRenderer } from './column.js';
 import type { Person } from '@sanomalearning/example-data';
 import type { StoryObj } from '@storybook/web-components';
 import { getPeople } from '@sanomalearning/example-data';
@@ -26,10 +26,28 @@ export const API: StoryObj = {
   `
 };
 
+export const ColumnGroups: StoryObj = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people}>
+      <sl-grid-column-group header="Name">
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+      </sl-grid-column-group>
+      <sl-grid-column-group header="Address">
+        <sl-grid-column path="address.street"></sl-grid-column>
+        <sl-grid-column path="address.city"></sl-grid-column>
+        <sl-grid-column path="address.zip"></sl-grid-column>
+        <sl-grid-column path="address.state"></sl-grid-column>
+      </sl-grid-column-group>
+    </sl-grid>
+  `
+};
+
 export const ColumnRenderer: StoryObj = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const nameRenderer: GridColumnRenderer<Person> = ({ firstName, lastName }) => {
+    const nameRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
       return html`${firstName} ${lastName}`;
     };
 
@@ -81,7 +99,7 @@ export const SortableColumns: StoryObj = {
 export const StickyColumns: StoryObj = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const nameRenderer: GridColumnRenderer<Person> = ({ firstName, lastName }) => {
+    const nameRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
       return html`${firstName} ${lastName}`;
     };
 

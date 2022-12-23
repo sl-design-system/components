@@ -3,6 +3,7 @@ import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { localized, msg } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Checkbox } from '@sanomalearning/slds-core/checkbox';
+import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
@@ -17,6 +18,8 @@ export class GridSelectionColumn<
       'sl-checkbox': Checkbox
     };
   }
+
+  #events = new EventsController(this);
 
   /** When true, the active rows get selected automatically. */
   @property({ type: Boolean, attribute: 'auto-select' }) autoSelect?: boolean;
@@ -34,6 +37,8 @@ export class GridSelectionColumn<
     super.updated(changes);
 
     if (changes.has('grid') && this.grid) {
+      this.#events.listen(this.grid, 'sl-active-item-change', this.#onActiveItemChange);
+
       this.grid.selection.multiple = true;
 
       if (this.selectAll) {
@@ -69,6 +74,10 @@ export class GridSelectionColumn<
         ></sl-checkbox>
       </td>
     `;
+  }
+
+  #onActiveItemChange({ detail }: CustomEvent<T | undefined>): void {
+    console.log('sl-active-item-change', detail);
   }
 
   #onToggleSelect(item: T, checked: boolean): void {

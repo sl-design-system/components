@@ -11,6 +11,10 @@ customElements.define('sl-grid-sort-column', GridSortColumn);
 customElements.define('sl-grid-sorter', GridSorter);
 
 declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-active-item-change': CustomEvent;
+  }
+
   interface HTMLElementTagNameMap {
     'sl-grid': Grid;
     'sl-grid-column': GridColumn;

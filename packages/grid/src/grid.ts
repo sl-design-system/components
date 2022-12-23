@@ -1,8 +1,10 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
+import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import type { DataSource, DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
-import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
+import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
+import { event } from '@sanomalearning/slds-core/utils/decorators';
 import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -24,6 +26,12 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
+
+  /** The active item in the grid. */
+  @state() activeItem?: T;
+
+  /** Emits when the active item changes */
+  @event() activeItemChange!: EventEmitter<T | undefined>;
 
   /** The columns in the grid. */
   @state() columns: Array<GridColumn<T>> = [];
@@ -115,7 +123,11 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
       ];
 
     return html`
-      <tr class=${classMap({ selected })} part=${parts.join(' ')}>
+      <tr
+        @click=${(event: Event) => this.#onClickRow(event, item)}
+        class=${classMap({ selected })}
+        part=${parts.join(' ')}
+      >
         ${this.columns.map(col => col.renderData(item))}
       </tr>
     `;
@@ -145,6 +157,11 @@ export class Grid<T extends { [x: string]: unknown } = Record<string, unknown>> 
       });
 
     this.requestUpdate('columns');
+  }
+
+  #onClickRow(event: Event, item: T): void {
+    this.activeItem = item;
+    this.activeItemChange.emit(this.activeItem);
   }
 
   #onDirectionChange({ target }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {

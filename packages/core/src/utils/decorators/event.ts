@@ -16,9 +16,17 @@ export class EventEmitter<T> {
   constructor(private target: HTMLElement, private eventName: string, private options?: EventOptions) {}
 
   emit(value: T, options?: EventOptions): boolean {
-    options = { bubbles: true, composed: true, ...this.options, ...options };
+    let event: Event;
 
-    return this.target.dispatchEvent(new CustomEvent<T>(this.eventName, { detail: value, ...options }));
+    if (value instanceof Event) {
+      event = value;
+    } else {
+      options = { bubbles: true, composed: true, ...this.options, ...options };
+
+      event = new CustomEvent<T>(this.eventName, { detail: value, ...options });
+    }
+
+    return this.target.dispatchEvent(event);
   }
 }
 

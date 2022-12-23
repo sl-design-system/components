@@ -13,6 +13,11 @@ import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 
+export interface GridActiveItemChangeEvent<T = unknown> {
+  item?: T;
+  originalTarget: EventTarget | null;
+}
+
 export type GridItemParts<T> = (model: T) => string | undefined;
 
 export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
@@ -32,7 +37,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   @state() activeItem?: T;
 
   /** Emits when the active item changes */
-  @event() activeItemChange!: EventEmitter<T | undefined>;
+  @event() activeItemChange!: EventEmitter<GridActiveItemChangeEvent<T>>;
 
   /** The columns in the grid. */
   @state() columns: Array<GridColumn<T>> = [];
@@ -197,7 +202,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onClickRow(event: Event, item: T): void {
     this.activeItem = item;
-    this.activeItemChange.emit(this.activeItem);
+    this.activeItemChange.emit({ item: this.activeItem, originalTarget: event.target });
   }
 
   #onDirectionChange({ target }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {

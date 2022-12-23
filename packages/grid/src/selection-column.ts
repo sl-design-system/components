@@ -1,4 +1,5 @@
 import type { PropertyValues, TemplateResult } from 'lit';
+import type { GridActiveItemChangeEvent } from './grid.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { localized, msg } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
@@ -76,11 +77,15 @@ export class GridSelectionColumn<
     `;
   }
 
-  #onActiveItemChange({ detail }: CustomEvent<T | undefined>): void {
-    if (this.autoSelect && detail) {
-      this.selectAll = false;
-      this.grid?.selection.toggle(detail);
+  #onActiveItemChange({ detail: { item, originalTarget } }: CustomEvent<GridActiveItemChangeEvent<T>>): void {
+    const isCheckbox = (originalTarget as HTMLElement)?.tagName.toLowerCase() === 'sl-checkbox';
+
+    if (!this.autoSelect || !item || isCheckbox) {
+      return;
     }
+
+    this.selectAll = false;
+    this.grid?.selection.toggle(item);
   }
 
   #onToggleSelect(item: T, checked: boolean): void {

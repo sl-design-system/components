@@ -1,3 +1,4 @@
+import type { GridActiveItemChangeEvent } from './grid.js';
 import { Grid } from './grid.js';
 import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
@@ -14,7 +15,8 @@ customElements.define('sl-grid-sorter', GridSorter);
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-active-item-change': CustomEvent;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    'sl-active-item-change': CustomEvent<GridActiveItemChangeEvent<any>>;
   }
 
   interface HTMLElementTagNameMap {

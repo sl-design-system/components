@@ -16,7 +16,7 @@ customElements.define('sl-grid-sorter', GridSorter);
 declare global {
   interface GlobalEventHandlersEventMap {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    'sl-active-item-change': CustomEvent<GridActiveItemChangeEvent<any>>;
+    'sl-active-item-change': GridActiveItemChangeEvent<any>;
   }
 
   interface HTMLElementTagNameMap {

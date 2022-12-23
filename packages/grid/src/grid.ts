@@ -1,11 +1,11 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
-import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
+import type { EventEmitter, EventOptions } from '@sanomalearning/slds-core/utils/decorators';
 import type { DataSource, DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
+import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
 import { event } from '@sanomalearning/slds-core/utils/decorators';
-import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -13,9 +13,10 @@ import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 
-export interface GridActiveItemChangeEvent<T = unknown> {
-  item?: T;
-  originalTarget: EventTarget | null;
+export class GridActiveItemChangeEvent<T> extends Event {
+  constructor(public readonly item: T, public readonly originalTarget: EventTarget | null, options?: EventOptions) {
+    super('sl-active-item-change', options);
+  }
 }
 
 export type GridItemParts<T> = (model: T) => string | undefined;
@@ -202,7 +203,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onClickRow(event: Event, item: T): void {
     this.activeItem = item;
-    this.activeItemChange.emit({ item: this.activeItem, originalTarget: event.target });
+    this.activeItemChange.emit(new GridActiveItemChangeEvent(this.activeItem, event.target));
   }
 
   #onDirectionChange({ target }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {

@@ -7,6 +7,7 @@
   --_header-background: #fff;
   --_header-font-weight: 600;
   --_header-padding: 0.5rem 1rem;
+  --_selected-background: #338bff0f;
   --_striped-background: #f9f9f9;
 }
 
@@ -45,6 +46,10 @@ tr {
   display: flex;
   margin: 0;
   width: 100%;
+
+  &[part~='selected'] {
+    --_cell-background: var(--_selected-background);
+  }
 }
 
 th,

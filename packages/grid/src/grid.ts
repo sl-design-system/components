@@ -1,15 +1,23 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
+import type { EventEmitter, EventOptions } from '@sanomalearning/slds-core/utils/decorators';
 import type { DataSource, DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
-import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
+import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
+import { event } from '@sanomalearning/slds-core/utils/decorators';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
+
+export class GridActiveItemChangeEvent<T> extends Event {
+  constructor(public readonly item: T, public readonly originalTarget: EventTarget | null, options?: EventOptions) {
+    super('sl-active-item-change', options);
+  }
+}
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 
@@ -25,6 +33,12 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
+
+  /** The active item in the grid. */
+  @state() activeItem?: T;
+
+  /** Emits when the active item changes */
+  @event() activeItemChange!: EventEmitter<GridActiveItemChangeEvent<T>>;
 
   /** The columns in the grid. */
   @state() columns: Array<GridColumn<T>> = [];
@@ -74,7 +88,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         ${this.renderStyles()}
       </style>
       <table>
-        <thead @directionChange=${this.#onDirectionChange} @sorterChange=${this.#onSorterChange}>
+        <thead @sl-direction-change=${this.#onDirectionChange} @sl-sorter-change=${this.#onSorterChange}>
           ${this.renderHeader()}
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged}>
@@ -149,7 +163,11 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       ];
 
     return html`
-      <tr class=${classMap({ selected })} part=${parts.join(' ')}>
+      <tr
+        @click=${(event: Event) => this.#onClickRow(event, item)}
+        class=${classMap({ selected })}
+        part=${parts.join(' ')}
+      >
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;
@@ -181,6 +199,11 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       });
 
     this.requestUpdate('columns');
+  }
+
+  #onClickRow(event: Event, item: T): void {
+    this.activeItem = item;
+    this.activeItemChange.emit(new GridActiveItemChangeEvent(this.activeItem, event.target));
   }
 
   #onDirectionChange({ target }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {

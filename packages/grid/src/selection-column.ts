@@ -11,7 +11,7 @@ import { GridColumn } from './column.js';
 
 @localized()
 export class GridSelectionColumn<
-  T extends { [x: string]: unknown } = Record<string, unknown>
+  T extends Record<string, unknown> = Record<string, unknown>
 > extends ScopedElementsMixin(GridColumn) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {

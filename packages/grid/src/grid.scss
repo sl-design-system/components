@@ -7,6 +7,7 @@
   --_header-background: #fff;
   --_header-font-weight: 600;
   --_header-padding: 0.5rem 1rem;
+  --_striped-background: #f9f9f9;
 }
 
 :host {
@@ -21,6 +22,10 @@
 
 :host([no-row-border]) {
   --_cell-border: none;
+}
+
+:host([striped]) tr[part~='odd'] {
+  --_cell-background: var(--_striped-background);
 }
 
 table {

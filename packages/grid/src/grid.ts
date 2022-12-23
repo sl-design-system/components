@@ -11,6 +11,8 @@ import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 
+export type GridItemParts<T> = (model: T) => string | undefined;
+
 export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
@@ -31,13 +33,19 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   @property({ attribute: false }) dataSource?: DataSource<T>;
 
   /** An array of items to be displayed in the grid. */
-  @property() items?: T[];
+  @property({ type: Array }) items?: T[];
+
+  /** Custom parts to be set on the `<tr>` so it can be styled externally. */
+  @property({ attribute: false }) itemParts?: GridItemParts<T>;
 
   /** Hide the border around the grid when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
   /** Hides the border between rows when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
+
+  /** Uses alternating background colors for the rows when set. */
+  @property({ type: Boolean, reflect: true }) striped?: boolean;
 
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('items')) {
@@ -72,7 +80,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         <tbody @visibilityChanged=${this.#onVisibilityChanged}>
           ${virtualize({
             items: this.dataSource?.items,
-            renderItem: item => this.renderItem(item)
+            renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
         <tfoot></tfoot>
@@ -89,6 +97,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
           return `
             thead tr:nth-child(${rowIndex + 1}) th:nth-child(${colIndex + 1}) {
               flex-grow: ${(col as GridColumnGroup<T>).columns.length};
+              justify-content: ${col.align};
               width: ${col.width || '100'}px;
             }
           `;
@@ -98,6 +107,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         return `
           :where(td, thead tr:last-of-type th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
+            justify-content: ${col.align};
             width: ${col.width || '100'}px;
             ${
               col.sticky
@@ -128,12 +138,18 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     `;
   }
 
-  renderItem(item: T): TemplateResult {
+  renderItem(item: T, index: number): TemplateResult {
     const rows = this.#getHeaderRows(this.columns),
-      selected = this.selection.isSelected(item);
+      selected = this.selection.isSelected(item),
+      parts = [
+        'row',
+        index % 2 === 0 ? 'odd' : 'even',
+        ...(selected ? ['selected'] : []),
+        ...(this.itemParts?.(item)?.split(' ') || [])
+      ];
 
     return html`
-      <tr class=${classMap({ selected })} part="row ${selected ? 'selected' : ''}">
+      <tr class=${classMap({ selected })} part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;

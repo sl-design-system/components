@@ -82,7 +82,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         ${this.renderStyles()}
       </style>
       <table>
-        <thead @directionChange=${this.#onDirectionChange} @sorterChange=${this.#onSorterChange}>
+        <thead @sl-direction-change=${this.#onDirectionChange} @sl-sorter-change=${this.#onSorterChange}>
           ${this.renderHeader()}
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged}>

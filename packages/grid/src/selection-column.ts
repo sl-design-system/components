@@ -54,7 +54,7 @@ export class GridSelectionColumn<
     return html`
       <th>
         <sl-checkbox
-          @change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelectAll(detail)}
+          @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelectAll(detail)}
           ?checked=${checked}
           ?indeterminate=${indeterminate}
           aria-label=${msg('Select all')}
@@ -69,7 +69,7 @@ export class GridSelectionColumn<
     return html`
       <td>
         <sl-checkbox
-          @change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
+          @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
           ?checked=${checked}
         ></sl-checkbox>
       </td>
@@ -77,7 +77,10 @@ export class GridSelectionColumn<
   }
 
   #onActiveItemChange({ detail }: CustomEvent<T | undefined>): void {
-    console.log('sl-active-item-change', detail);
+    if (this.autoSelect && detail) {
+      this.selectAll = false;
+      this.grid?.selection.toggle(detail);
+    }
   }
 
   #onToggleSelect(item: T, checked: boolean): void {

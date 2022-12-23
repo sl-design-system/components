@@ -3,6 +3,7 @@ import type { EventEmitter } from '../utils/decorators/event.js';
 import { FormControlMixin } from '@open-wc/form-control';
 import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
+import { EventsController } from '../utils/controllers/events.js';
 import { event } from '../utils/decorators/event.js';
 import styles from './checkbox.scss.js';
 
@@ -10,23 +11,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  #onClick = (): void => {
-    this.checked = !this.checked;
-    this.change.emit(this.checked);
-  };
-
-  #onKeydown = (event: KeyboardEvent): void => {
-    if (this.disabled) {
-      return;
-    }
-
-    if (['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-
-      this.checked = !this.checked;
-      this.change.emit(this.checked);
-    }
-  };
+  #events = new EventsController(this);
 
   @event() change!: EventEmitter<boolean>;
 
@@ -47,19 +32,12 @@ export class Checkbox extends FormControlMixin(LitElement) {
 
     this.internals.role = 'checkbox';
 
-    this.addEventListener('click', this.#onClick);
-    this.addEventListener('keydown', this.#onKeydown);
+    this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this, 'keydown', this.#onKeydown);
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
-  }
-
-  override disconnectedCallback(): void {
-    this.removeEventListener('click', this.#onClick);
-    this.removeEventListener('keydown', this.#onKeydown);
-
-    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -103,5 +81,23 @@ export class Checkbox extends FormControlMixin(LitElement) {
 
   override shouldFormValueUpdate(): boolean {
     return this.checked;
+  }
+
+  #onClick(): void {
+    this.checked = !this.checked;
+    this.change.emit(this.checked);
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (this.disabled) {
+      return;
+    }
+
+    if (['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+
+      this.checked = !this.checked;
+      this.change.emit(this.checked);
+    }
   }
 }

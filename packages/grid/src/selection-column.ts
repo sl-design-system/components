@@ -77,8 +77,8 @@ export class GridSelectionColumn<
     `;
   }
 
-  #onActiveItemChange({ item, originalTarget }: GridActiveItemChangeEvent<T>): void {
-    const isCheckbox = (originalTarget as HTMLElement)?.tagName.toLowerCase() === 'sl-checkbox';
+  #onActiveItemChange({ item, relatedEvent }: GridActiveItemChangeEvent<T>): void {
+    const isCheckbox = (relatedEvent?.target as HTMLElement)?.tagName.toLowerCase() === 'sl-checkbox';
 
     if (!this.autoSelect || !item || isCheckbox) {
       return;

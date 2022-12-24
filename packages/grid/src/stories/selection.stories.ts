@@ -1,4 +1,6 @@
+import type { Grid, GridActiveItemChangeEvent } from '../index.js';
 import type { StoryObj } from '@storybook/web-components';
+import type { Person } from '@sanomalearning/example-data';
 import { getPeople } from '@sanomalearning/example-data';
 import { html } from 'lit';
 import '../register.js';
@@ -8,7 +10,25 @@ export default {
 };
 
 export const Single: StoryObj = {
-  render: () => html``
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    const onActiveItemChange = ({
+      item,
+      target: grid
+    }: GridActiveItemChangeEvent<Person> & { target: Grid<Person> }): void => {
+      grid.selection.select(item);
+    };
+
+    return html`
+      <sl-grid @sl-active-item-change=${onActiveItemChange} .items=${people}>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="profession"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };
 
 export const Multiple: StoryObj = {

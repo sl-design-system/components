@@ -25,7 +25,3 @@ export const ColumnRenderer: StoryObj = {
     `;
   }
 };
-
-export const HeaderRenderer: StoryObj = {
-  render: () => html``
-};

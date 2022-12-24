@@ -14,7 +14,7 @@ import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 
 export class GridActiveItemChangeEvent<T> extends Event {
-  constructor(public readonly item: T, public readonly originalTarget: EventTarget | null, options?: EventOptions) {
+  constructor(public readonly item: T, public readonly relatedEvent: Event | null, options?: EventOptions) {
     super('sl-active-item-change', options);
   }
 }
@@ -203,7 +203,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onClickRow(event: Event, item: T): void {
     this.activeItem = item;
-    this.activeItemChange.emit(new GridActiveItemChangeEvent(this.activeItem, event.target));
+    this.activeItemChange.emit(new GridActiveItemChangeEvent(this.activeItem, event));
   }
 
   #onDirectionChange({ target }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {

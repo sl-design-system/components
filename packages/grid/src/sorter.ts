@@ -1,4 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { GridColumn } from './column.js';
 import type { DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
 import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
@@ -16,13 +17,13 @@ export class GridSorter extends LitElement {
 
   #events = new EventsController(this);
 
+  /** The grid column.  */
+  @property({ attribute: false }) column!: GridColumn;
+
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;
 
   @event() directionChange!: EventEmitter<DataSourceSortDirection | undefined>;
-
-  /** The path to the value used for sorting.  */
-  @property() path?: string;
 
   @event() sorterChange!: EventEmitter<GridSorterChange>;
 

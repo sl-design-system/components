@@ -17,7 +17,7 @@ export class GridSortColumn extends ScopedElementsMixin(GridColumn) {
   override renderHeader(): TemplateResult {
     return html`
       <th>
-        <sl-grid-sorter .path=${this.path}>${this.header ?? getNameByPath(this.path)}</sl-grid-sorter>
+        <sl-grid-sorter .column=${this}>${this.header ?? getNameByPath(this.path)}</sl-grid-sorter>
       </th>
     `;
   }

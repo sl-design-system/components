@@ -1,3 +1,4 @@
+import type { GridFilterChangeEvent } from './filter.js';
 import type { GridActiveItemChangeEvent } from './grid.js';
 import { Grid } from './grid.js';
 import { GridColumn } from './column.js';
@@ -21,6 +22,7 @@ declare global {
   interface GlobalEventHandlersEventMap {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     'sl-active-item-change': GridActiveItemChangeEvent<any>;
+    'sl-filter-change': GridFilterChangeEvent;
   }
 
   interface HTMLElementTagNameMap {

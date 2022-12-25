@@ -1,11 +1,19 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { GridColumn } from './column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Input } from '@sanomalearning/slds-core/input';
-import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import { event } from '@sanomalearning/slds-core/utils/decorators';
 import { LitElement, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import styles from './filter.scss.js';
+
+export class GridFilterChangeEvent extends Event {
+  constructor(public readonly column: GridColumn, public readonly value: string) {
+    super('sl-filter-change', { bubbles: true, composed: true });
+  }
+}
 
 export class GridFilter extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -18,7 +26,22 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  @event() filterChange!: EventEmitter<string>;
+  /** The filter value. */
+  #value = '';
+
+  /** The grid column. */
+  @property({ attribute: false }) column!: GridColumn;
+
+  @event() filterChange!: EventEmitter<GridFilterChangeEvent>;
+
+  set value(value: string) {
+    this.#value = value;
+  }
+
+  @property()
+  get value(): string {
+    return this.#value;
+  }
 
   override render(): TemplateResult {
     return html`
@@ -30,8 +53,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   }
 
   #onInput({ target }: Event & { target: Input }): void {
-    const value = target.value.trim();
-
-    this.filterChange.emit(value);
+    this.value = target.value.trim();
+    this.filterChange.emit(new GridFilterChangeEvent(this.column, this.value));
   }
 }

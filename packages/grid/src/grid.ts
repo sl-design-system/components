@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
-import type { EventEmitter, EventOptions } from '@sanomalearning/slds-core/utils/decorators';
+import type { GridFilterChangeEvent } from './filter.js';
+import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import type { DataSource, DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
@@ -14,8 +15,8 @@ import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 
 export class GridActiveItemChangeEvent<T> extends Event {
-  constructor(public readonly item: T, public readonly relatedEvent: Event | null, options?: EventOptions) {
-    super('sl-active-item-change', options);
+  constructor(public readonly item: T, public readonly relatedEvent: Event | null) {
+    super('sl-active-item-change', { bubbles: true, composed: true });
   }
 }
 
@@ -216,8 +217,8 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#applySorters();
   }
 
-  #onFilterChange({ detail: value }: CustomEvent<string>): void {
-    console.log('onFilterChange', value);
+  #onFilterChange({ column, value }: GridFilterChangeEvent): void {
+    console.log('onFilterChange', column, value);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
@@ -250,10 +251,10 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       return;
     }
 
-    const { direction, path } = this.#sorters.find(sorter => !!sorter.direction) || {};
+    const { column, direction } = this.#sorters.find(sorter => !!sorter.direction) || {};
 
-    if (direction && path) {
-      this.dataSource.sortValue = { path, direction };
+    if (column?.path && direction) {
+      this.dataSource.sortValue = { path: column.path, direction };
     } else {
       this.dataSource.sortValue = undefined;
     }

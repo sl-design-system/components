@@ -17,7 +17,7 @@ export class GridFilterColumn extends ScopedElementsMixin(GridColumn) {
   override renderHeader(): TemplateResult {
     return html`
       <th>
-        <sl-grid-filter .path=${this.path}>${this.header ?? getNameByPath(this.path)}</sl-grid-filter>
+        <sl-grid-filter .column=${this}>${this.header ?? getNameByPath(this.path)}</sl-grid-filter>
       </th>
     `;
   }

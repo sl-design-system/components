@@ -1,8 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
-import type { GridFilter, GridFilterChange, GridFilterValueChangeEvent } from './filter.js';
+import type { GridFilter, GridFilterChange } from './filter.js';
 import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
-import type { DataSource, DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
+import type {
+  DataSource,
+  DataSourceFilterValue,
+  DataSourceSortDirection
+} from '@sanomalearning/slds-core/utils/data-source';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
@@ -229,9 +233,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     }
   }
 
-  #onFilterValueChange({ column, value }: GridFilterValueChangeEvent): void {
-    console.log('onFilterValueChange', column, value);
-
+  #onFilterValueChange(): void {
     this.#applyFilters();
   }
 
@@ -265,6 +267,11 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       return;
     }
 
+    const filterValues: DataSourceFilterValue[] = this.#filters
+      .filter(filter => !!filter.value)
+      .map(filter => ({ path: filter.column.path || '', value: filter.value }));
+
+    this.dataSource.filterValues = filterValues;
     this.dataSource.update();
     this.requestUpdate();
   }

@@ -1,6 +1,8 @@
-export type DataSourceFilter<T> = (value: unknown, labelPath?: string) => DataSourceFilterFunction<T>;
+export type DataSourceFilterValue = { path: string; value: string };
 
 export type DataSourceFilterFunction<T> = (item: T, index: number, array: T[]) => boolean;
+
+export type DataSourceFilter<T> = (filters: DataSourceFilterValue[]) => DataSourceFilterFunction<T>;
 
 export type DataSourceSortDirection = 'asc' | 'desc';
 
@@ -14,11 +16,8 @@ export abstract class DataSource<T> extends EventTarget {
   /** The filter implementation. */
   filter?: DataSourceFilter<T>;
 
-  /** The path to the label for use when filtering. */
-  filterLabelPath?: string;
-
-  /** The value to filter on. */
-  filterValue?: string;
+  /** The values to filter on. */
+  filterValues?: DataSourceFilterValue[];
 
   /** The sorter implementation. */
   sorter?: DataSourceSorter<T>;

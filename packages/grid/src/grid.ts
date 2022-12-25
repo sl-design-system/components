@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
-import type { GridFilterChangeEvent } from './filter.js';
+import type { GridFilter, GridFilterChange, GridFilterValueChangeEvent } from './filter.js';
 import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import type { DataSource, DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
@@ -25,6 +25,9 @@ export type GridItemParts<T> = (model: T) => string | undefined;
 export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** The filters for this grid. */
+  #filters: GridFilter[] = [];
 
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
@@ -92,6 +95,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         <thead
           @sl-direction-change=${this.#onDirectionChange}
           @sl-filter-change=${this.#onFilterChange}
+          @sl-filter-value-change=${this.#onFilterValueChange}
           @sl-sorter-change=${this.#onSorterChange}
         >
           ${this.renderHeader()}
@@ -217,8 +221,18 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#applySorters();
   }
 
-  #onFilterChange({ column, value }: GridFilterChangeEvent): void {
-    console.log('onFilterChange', column, value);
+  #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter }): void {
+    if (detail === 'added') {
+      this.#filters = [...this.#filters, target];
+    } else {
+      this.#filters = this.#filters.filter(filter => filter !== target);
+    }
+  }
+
+  #onFilterValueChange({ column, value }: GridFilterValueChangeEvent): void {
+    console.log('onFilterValueChange', column, value);
+
+    this.#applyFilters();
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
@@ -244,6 +258,15 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
       void this.recalculateColumnWidths();
     }
+  }
+
+  #applyFilters(): void {
+    if (!this.dataSource) {
+      return;
+    }
+
+    this.dataSource.update();
+    this.requestUpdate();
   }
 
   #applySorters(): void {

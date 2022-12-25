@@ -9,9 +9,11 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './filter.scss.js';
 
-export class GridFilterChangeEvent extends Event {
+export type GridFilterChange = 'added' | 'removed';
+
+export class GridFilterValueChangeEvent extends Event {
   constructor(public readonly column: GridColumn, public readonly value: string) {
-    super('sl-filter-change', { bubbles: true, composed: true });
+    super('sl-filter-value-change', { bubbles: true, composed: true });
   }
 }
 
@@ -32,7 +34,9 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   /** The grid column. */
   @property({ attribute: false }) column!: GridColumn;
 
-  @event() filterChange!: EventEmitter<GridFilterChangeEvent>;
+  @event() filterChange!: EventEmitter<GridFilterChange>;
+
+  @event() filterValueChange!: EventEmitter<GridFilterValueChangeEvent>;
 
   set value(value: string) {
     this.#value = value;
@@ -41,6 +45,18 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   @property()
   get value(): string {
     return this.#value;
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.filterChange.emit('added');
+  }
+
+  override disconnectedCallback(): void {
+    this.filterChange.emit('removed');
+
+    super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
@@ -54,6 +70,6 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   #onInput({ target }: Event & { target: Input }): void {
     this.value = target.value.trim();
-    this.filterChange.emit(new GridFilterChangeEvent(this.column, this.value));
+    this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
   }
 }

@@ -3,14 +3,14 @@
 }
 
 :host {
-  align-items: stretch;
-  display: inline-flex;
-  flex-direction: column;
-  gap: var(--_gap);
+  display: block;
   width: 100%;
 }
 
-.name {
+label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--_gap);
   text-align: start;
 }
 

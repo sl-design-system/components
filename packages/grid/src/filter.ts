@@ -45,10 +45,10 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div class="name">
+      <label>
         <slot></slot>
-      </div>
-      <sl-input @input=${this.#onInput} placeholder="Filter"></sl-input>
+        <sl-input @input=${this.#onInput} placeholder="Filter"></sl-input>
+      </label>
     `;
   }
 

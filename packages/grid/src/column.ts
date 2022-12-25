@@ -1,6 +1,6 @@
 import type { TemplateResult } from 'lit';
 import type { Grid } from './grid.js';
-import { getNameByPath, getValueByPath } from '@sanomalearning/slds-core/utils';
+import { dasherize, getNameByPath, getValueByPath } from '@sanomalearning/slds-core/utils';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -84,10 +84,16 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
   }
 
   renderData(item: T): TemplateResult {
-    let parts = this.parts;
+    let parts;
 
-    if (typeof this.parts === 'function') {
+    if (typeof this.parts === 'string') {
+      parts = this.parts;
+    } else if (typeof this.parts === 'function') {
       parts = this.parts(item);
+    }
+
+    if (this.path) {
+      parts = `${dasherize(this.path.replaceAll('.', '-'))} ${parts || ''}`.trim();
     }
 
     return html`

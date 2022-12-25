@@ -58,7 +58,7 @@ export class ArrayDataSource<T> extends DataSource<T> {
     }
 
     this.#items = items;
-    this.dispatchEvent(new CustomEvent<void>('update'));
+    this.dispatchEvent(new CustomEvent<void>('sl-update'));
   }
 
   #filter(value: string, labelPath?: string): DataSourceFilterFunction<T> {

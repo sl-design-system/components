@@ -77,7 +77,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     super.updated(changes);
 
     if (changes.has('dataSource') && this.dataSource) {
-      this.dataSource?.addEventListener('update', () => (this.selection.size = this.dataSource?.size ?? 0));
+      this.dataSource?.addEventListener('sl-update', () => (this.selection.size = this.dataSource?.size ?? 0));
     }
   }
 
@@ -88,7 +88,11 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         ${this.renderStyles()}
       </style>
       <table>
-        <thead @sl-direction-change=${this.#onDirectionChange} @sl-sorter-change=${this.#onSorterChange}>
+        <thead
+          @sl-direction-change=${this.#onDirectionChange}
+          @sl-filter-change=${this.#onFilterChange}
+          @sl-sorter-change=${this.#onSorterChange}
+        >
           ${this.renderHeader()}
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged}>
@@ -210,6 +214,10 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
 
     this.#applySorters();
+  }
+
+  #onFilterChange({ detail: value }: CustomEvent<string>): void {
+    console.log('onFilterChange', value);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

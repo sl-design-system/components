@@ -1,5 +1,5 @@
 import type { DataSourceFilterFunction, DataSourceFilterValue, DataSourceSortFunction } from './data-source.js';
-import { getStringByPath } from '../path.js';
+import { getStringByPath, getValueByPath } from '../path.js';
 import { DataSource } from './data-source.js';
 
 export class ArrayDataSource<T> extends DataSource<T> {
@@ -60,23 +60,14 @@ export class ArrayDataSource<T> extends DataSource<T> {
     this.dispatchEvent(new CustomEvent<void>('sl-update'));
   }
 
-  #filter(_values: DataSourceFilterValue[]): DataSourceFilterFunction<T> {
-    // const regex = new RegExp(value, 'i');
+  #filter(values: DataSourceFilterValue[]): DataSourceFilterFunction<T> {
+    const filters = values.map(({ path, value }) => {
+      const regex = new RegExp(value, 'i');
 
-    // if (!labelPath) {
-    //   return item => {
-    //     if (typeof item === 'string') {
-    //       return regex.test(item);
-    //     } else {
-    //       // We can't filter an object we don't know
-    //       return true;
-    //     }
-    //   };
-    // }
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      return (item: T) => regex.test(`${getValueByPath(item, path)}`);
+    });
 
-    // // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    // return item => regex.test(`${getValueByPath(item, labelPath)}`);
-
-    return () => true;
+    return item => filters.every(fn => fn(item));
   }
 }

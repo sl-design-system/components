@@ -1,9 +1,19 @@
 :host {
-  --_gap: 0.5rem;
+  --_gap: 0.25rem;
 }
 
 :host {
+  align-items: stretch;
   display: inline-flex;
   flex-direction: column;
   gap: var(--_gap);
+  width: 100%;
+}
+
+.name {
+  text-align: start;
+}
+
+sl-input {
+  font-weight: normal;
 }

@@ -17,6 +17,11 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   override render(): TemplateResult {
-    return html`<slot></slot>FILTER`;
+    return html`
+      <div class="name">
+        <slot></slot>
+      </div>
+      <sl-input placeholder="Filter"></sl-input>
+    `;
   }
 }

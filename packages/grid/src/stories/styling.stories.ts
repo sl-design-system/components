@@ -77,10 +77,10 @@ export const Parts: StoryObj = {
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>
         <sl-grid-column
+          .renderer=${ratingRenderer}
           align="end"
           header="Customer rating (0-10)"
-          parts="customer-rating"
-          .renderer=${ratingRenderer}
+          path="customer-rating"
         ></sl-grid-column>
       </sl-grid>
     `;

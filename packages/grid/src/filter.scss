@@ -1,0 +1,9 @@
+:host {
+  --_gap: 0.5rem;
+}
+
+:host {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--_gap);
+}

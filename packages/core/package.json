@@ -20,6 +20,8 @@
     "./checkbox/register.js": "./dist/components/checkbox/register.js",
     "./dialog": "./dist/components/dialog/index.js",
     "./dialog/register.js": "./dist/components/dialog/register.js",
+    "./input": "./dist/components/input/index.js",
+    "./input/register.js": "./dist/components/input/register.js",
     "./popover": "./dist/components/popover/index.js",
     "./popover/register.js": "./dist/components/popover/register.js",
     "./radio-group": "./dist/components/radio-group/index.js",

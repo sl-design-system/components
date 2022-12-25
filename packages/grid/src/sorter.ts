@@ -1,4 +1,4 @@
-import type { PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
 import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
@@ -12,7 +12,7 @@ export type GridSorterChange = 'added' | 'removed';
 
 export class GridSorter extends LitElement {
   /** @private */
-  static override styles = styles;
+  static override styles: CSSResultGroup = styles;
 
   #events = new EventsController(this);
 

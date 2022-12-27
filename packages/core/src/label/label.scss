@@ -1,3 +1,7 @@
 :host {
-  font-weight: bold;
+  --_font-weight: 600;
+}
+
+:host {
+  font-weight: var(--_font-weight);
 }

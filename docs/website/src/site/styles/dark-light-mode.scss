@@ -86,6 +86,8 @@
   --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.32);
   --hamburger-filter: brightness(3.5);
   --hamburger-icon: url('../assets/icons/hamburger.svg');
+  --heading-background: var(--ds-color-blue);
+  --heading-color: var(--ds-color-faux-white);
   --help-color: var(--ds-color-black-rgb);
   --help-icon: url('../assets/icons/messages-question-light-grey.svg');
   --help-icon-hover: url('../assets/icons/messages-question-black.svg');
@@ -102,6 +104,8 @@
   --second-background-color: var(--ds-color-ghost-white);
   --tab-color: rgba(var(--ds-color-black-rgb), 0.6);
   --tab-color--active: var(--ds-color-black);
+  --tab-color--hover: var(--ds-color-black);
+  --tab-indicator-background: var(--ds-color-blue);
   --text-color: var(--ds-color-black);
   --top-navbar-color: var(--ds-color-white);
 }
@@ -117,6 +121,8 @@
     --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
     --hamburger-filter: brightness(0.6);
     --hamburger-icon: url('../assets/icons/hamburger-light.svg');
+    --heading-background: var(--ds-color-blueberry);
+    --heading-color: var(--ds-color-raisin-black);
     --help-color: var(--ds-color-faux-white-rgb);
     --help-icon: url('../assets/icons/messages-question-grey.svg');
     --help-icon-hover: url('../assets/icons/messages-question.svg');
@@ -132,6 +138,8 @@
     --second-background-color: var(--ds-color-black);
     --tab-color: rgba(var(--ds-color-faux-white-rgb), 0.64);
     --tab-color--active: var(--ds-color-faux-white);
+    --tab-color--hover: var(--ds-color-faux-white);
+    --tab-indicator-background: var(--ds-color-blueberry);
     --text-color: var(--ds-color-white);
     --top-navbar-color: var(--ds-color-black);
   }

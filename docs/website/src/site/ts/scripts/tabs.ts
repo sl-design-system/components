@@ -1,3 +1,5 @@
+import { getActiveElement } from '../utils/active-element';
+
 const tabsContainer = document.querySelector('.ds-tabs');
 const tabsHeaderContainer = document.querySelector('.ds-tabs__container') as Element;
 const tabsWrapper = document.querySelector('.ds-tabs-wrapper');
@@ -31,6 +33,8 @@ window.onload = () => {
     tabContent.classList.add('ds-tabs__tab-content--hidden');
   });
 
+  setScrollable();
+
   // tabsContents?.forEach(tabContent => tabContent.setAttribute('id', `ds-tab-content-${nextUniqueId++}`));
   // tabsContents?.forEach(tab => tab.setAttribute('role', 'tabpanel'));
   // tabsContents?.forEach((tab, id) => tab.setAttribute('aria-labelledby', tabs[id].getAttribute('id') as string));
@@ -46,8 +50,46 @@ window.onresize = () => {
   if (!tabsWrapper || !current) {
     return;
   }
+  // const //tabsHeaderContainer, //wrapper = tabsHeaderContainer?.querySelector('.wrapper') as HTMLElement,
+  //   { clientWidth, scrollLeft, scrollWidth } = tabsHeaderContainer,
+  //   scrollable = scrollWidth <= clientWidth;
+  //
+  // console.log(
+  //   'tabsHeaderContainer, clientWidth, scrollLeft, scrollWidth, scrollable',
+  //   tabsHeaderContainer,
+  //   clientWidth,
+  //   scrollLeft,
+  //   scrollWidth,
+  //   scrollable
+  // );
+  //
+  // tabsWrapper.classList.toggle('ds-tabs-wrapper--scrollable', scrollable);
+
+  setScrollable();
+
   // const current = tabsWrapper.querySelectorAll('.active');
   selectTab(current);
+};
+
+window.onkeydown = (event: KeyboardEvent) => {
+  onKeydown(event);
+};
+
+// tabsWrapper
+//   ? (tabsWrapper.scroll = event => {
+//       console.log('scroll');
+//       onScroll(event);
+//     })
+//   : null;
+//
+// document.onscroll = event => {
+//   console.log('onscroll', event);
+//   onScroll(event);
+// };
+
+(tabsWrapper as HTMLElement).onscroll = event => {
+  console.log('scroll 222');
+  onScroll(event);
 };
 
 tabs?.forEach(tab => {
@@ -141,6 +183,39 @@ const observer = new IntersectionObserver(
 );
 
 observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
+
+function setScrollable(): void {
+  if (!tabsWrapper) {
+    return;
+  }
+
+  const //tabsHeaderContainer, //wrapper = tabsHeaderContainer?.querySelector('.wrapper') as HTMLElement,
+    { clientWidth, scrollLeft, scrollWidth } = tabsWrapper,
+    scrollable = scrollWidth > clientWidth;
+
+  console.log(
+    'tabsHeaderContainer, clientWidth, scrollLeft, scrollWidth, scrollable',
+    tabsHeaderContainer,
+    clientWidth,
+    scrollLeft,
+    scrollWidth,
+    scrollable,
+    tabsHeaderContainer.getBoundingClientRect().width,
+    tabsContainer?.clientWidth,
+    tabsContainer?.getBoundingClientRect().width,
+    tabsContainer?.clientWidth,
+    tabsContainer?.scrollWidth,
+    window.innerWidth,
+    window.outerWidth,
+    tabsContainer ? tabsContainer?.clientWidth < window.innerWidth : null,
+    tabsWrapper.clientWidth,
+    tabsWrapper.getBoundingClientRect().width,
+    tabsWrapper.scrollWidth,
+    tabsWrapper.getBoundingClientRect().width < tabsWrapper.scrollWidth
+  );
+
+  tabsWrapper.classList.toggle('ds-tabs-wrapper--scrollable', scrollable);
+}
 
 function selectTab(tab: Element): void {
   console.log('event tab', tab);
@@ -236,3 +311,30 @@ function alignTabIndicator(tab: Element): void {
 //     tabIndicator.style.left = `calc(calc(100% / 4) * ${i})`;
 //   });
 // }
+
+function onKeydown(event: KeyboardEvent): void {
+  const keys = ['ArrowLeft', 'ArrowRight'];
+
+  if (!keys.includes(event.key)) {
+    return;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  const focusedTab = getActiveElement(event.target as Node) as HTMLElement;
+
+  let index: number = Array.from(tabs).indexOf(focusedTab);
+  index += event.key === keys[0] ? -1 : 1;
+  index = index % tabs.length;
+
+  const nextTab = tabs[index];
+  if (nextTab) {
+    nextTab.focus();
+  }
+}
+
+function onScroll(event: Event): void {
+  console.log((event.target as HTMLElement).scrollLeft, slider.scrollLeft, current?.scrollLeft);
+  // slider.style.left = `-${(event.target as HTMLElement).scrollLeft}px`;
+  slider.scrollTo({ left: (event.target as HTMLElement).scrollLeft });
+  console.log((event.target as HTMLElement).scrollLeft, slider.scrollLeft);
+}

@@ -10,9 +10,9 @@
 }
 
 .ds-component__heading {
-  background-color: #36f;
+  background-color: var(--heading-background); //#36f;
   border-radius: 6px;
-  color: #fefefe;
+  color: var(--heading-color); //#fefefe;
   margin-bottom: 16px;
   padding: 16px 24px;
 }

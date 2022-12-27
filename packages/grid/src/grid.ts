@@ -1,7 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
-import type { EventEmitter, EventOptions } from '@sanomalearning/slds-core/utils/decorators';
-import type { DataSource, DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
+import type { GridFilter, GridFilterChange } from './filter.js';
+import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
+import type {
+  DataSource,
+  DataSourceFilterValue,
+  DataSourceSortDirection
+} from '@sanomalearning/slds-core/utils/data-source';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
@@ -14,8 +19,8 @@ import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 
 export class GridActiveItemChangeEvent<T> extends Event {
-  constructor(public readonly item: T, public readonly relatedEvent: Event | null, options?: EventOptions) {
-    super('sl-active-item-change', options);
+  constructor(public readonly item: T, public readonly relatedEvent: Event | null) {
+    super('sl-active-item-change', { bubbles: true, composed: true });
   }
 }
 
@@ -24,6 +29,9 @@ export type GridItemParts<T> = (model: T) => string | undefined;
 export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** The filters for this grid. */
+  #filters: GridFilter[] = [];
 
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
@@ -77,7 +85,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     super.updated(changes);
 
     if (changes.has('dataSource') && this.dataSource) {
-      this.dataSource?.addEventListener('update', () => (this.selection.size = this.dataSource?.size ?? 0));
+      this.dataSource?.addEventListener('sl-update', () => (this.selection.size = this.dataSource?.size ?? 0));
     }
   }
 
@@ -88,7 +96,12 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         ${this.renderStyles()}
       </style>
       <table>
-        <thead @sl-direction-change=${this.#onDirectionChange} @sl-sorter-change=${this.#onSorterChange}>
+        <thead
+          @sl-direction-change=${this.#onDirectionChange}
+          @sl-filter-change=${this.#onFilterChange}
+          @sl-filter-value-change=${this.#onFilterValueChange}
+          @sl-sorter-change=${this.#onSorterChange}
+        >
           ${this.renderHeader()}
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged}>
@@ -212,6 +225,18 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#applySorters();
   }
 
+  #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter }): void {
+    if (detail === 'added') {
+      this.#filters = [...this.#filters, target];
+    } else {
+      this.#filters = this.#filters.filter(filter => filter !== target);
+    }
+  }
+
+  #onFilterValueChange(): void {
+    this.#applyFilters();
+  }
+
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
@@ -237,15 +262,29 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     }
   }
 
+  #applyFilters(): void {
+    if (!this.dataSource) {
+      return;
+    }
+
+    const filterValues: DataSourceFilterValue[] = this.#filters
+      .filter(filter => !!filter.value)
+      .map(filter => ({ path: filter.column.path || '', value: filter.value }));
+
+    this.dataSource.filterValues = filterValues;
+    this.dataSource.update();
+    this.requestUpdate();
+  }
+
   #applySorters(): void {
     if (!this.dataSource) {
       return;
     }
 
-    const { direction, path } = this.#sorters.find(sorter => !!sorter.direction) || {};
+    const { column, direction } = this.#sorters.find(sorter => !!sorter.direction) || {};
 
-    if (direction && path) {
-      this.dataSource.sortValue = { path, direction };
+    if (column?.path && direction) {
+      this.dataSource.sortValue = { path: column.path, direction };
     } else {
       this.dataSource.sortValue = undefined;
     }

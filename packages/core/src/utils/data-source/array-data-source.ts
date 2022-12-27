@@ -1,4 +1,4 @@
-import type { DataSourceFilterFunction, DataSourceSortFunction } from './data-source.js';
+import type { DataSourceFilterFunction, DataSourceFilterValue, DataSourceSortFunction } from './data-source.js';
 import { getStringByPath, getValueByPath } from '../path.js';
 import { DataSource } from './data-source.js';
 
@@ -26,9 +26,8 @@ export class ArrayDataSource<T> extends DataSource<T> {
   update(): void {
     let items = [...this.#originalItems];
 
-    if (this.filterValue) {
-      const filterFn: DataSourceFilterFunction<T> =
-        this.filter?.(this.filterValue, this.filterLabelPath) || this.#filter(this.filterValue, this.filterLabelPath);
+    if (this.filterValues) {
+      const filterFn: DataSourceFilterFunction<T> = this.filter?.(this.filterValues) || this.#filter(this.filterValues);
 
       items = items.filter(filterFn);
     }
@@ -58,24 +57,17 @@ export class ArrayDataSource<T> extends DataSource<T> {
     }
 
     this.#items = items;
-    this.dispatchEvent(new CustomEvent<void>('update'));
+    this.dispatchEvent(new CustomEvent<void>('sl-update'));
   }
 
-  #filter(value: string, labelPath?: string): DataSourceFilterFunction<T> {
-    const regex = new RegExp(value, 'i');
+  #filter(values: DataSourceFilterValue[]): DataSourceFilterFunction<T> {
+    const filters = values.map(({ path, value }) => {
+      const regex = new RegExp(value, 'i');
 
-    if (!labelPath) {
-      return item => {
-        if (typeof item === 'string') {
-          return regex.test(item);
-        } else {
-          // We can't filter an object we don't know
-          return true;
-        }
-      };
-    }
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      return (item: T) => regex.test(`${getValueByPath(item, path)}`);
+    });
 
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    return item => regex.test(`${getValueByPath(item, labelPath)}`);
+    return item => filters.every(fn => fn(item));
   }
 }

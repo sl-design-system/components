@@ -75,11 +75,16 @@ export class Label extends LitElement {
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
     const nodes = target.assignedNodes({ flatten: true });
 
-    this.#label ??= this.querySelector('label[slot="label"]') || document.createElement('label');
-    this.#label.htmlFor = this.for ?? '';
-    this.#label.slot = 'label';
-    this.#label.append(...nodes);
-    this.append(this.#label);
+    if (this.#label && nodes.length) {
+      this.#label.innerHTML = '';
+      this.#label.append(...nodes);
+    } else {
+      this.#label ??= this.querySelector('label[slot="label"]') || document.createElement('label');
+      this.#label.htmlFor = this.for ?? '';
+      this.#label.slot = 'label';
+      this.#label.append(...nodes);
+      this.append(this.#label);
+    }
   }
 
   #update(): void {

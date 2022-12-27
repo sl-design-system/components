@@ -49,32 +49,13 @@ export const Required: StoryObj = {
   render: () => html`
     <style>
       form {
-        display: grid;
-        grid-template-rows: repeat(3, [label] auto 0.25rem [control] auto 0.5rem);
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
       }
 
-      sl-label {
-        grid-row: label 1;
-      }
-
-      sl-input {
-        grid-row: control 1;
-      }
-
-      sl-label:nth-of-type(2) {
-        grid-row: label 2;
-      }
-
-      sl-input:nth-of-type(2) {
-        grid-row: control 2;
-      }
-
-      sl-label:nth-of-type(3) {
-        grid-row: label 3;
-      }
-
-      sl-input:nth-of-type(3) {
-        grid-row: control 3;
+      sl-input:not(:last-of-type) {
+        margin-block-end: 0.5rem;
       }
     </style>
     <form>
@@ -94,32 +75,13 @@ export const Optional: StoryObj = {
   render: () => html`
     <style>
       form {
-        display: grid;
-        grid-template-rows: repeat(3, [label] auto 0.25rem [control] auto 0.5rem);
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
       }
 
-      sl-label {
-        grid-row: label 1;
-      }
-
-      sl-input {
-        grid-row: control 1;
-      }
-
-      sl-label:nth-of-type(2) {
-        grid-row: label 2;
-      }
-
-      sl-input:nth-of-type(2) {
-        grid-row: control 2;
-      }
-
-      sl-label:nth-of-type(3) {
-        grid-row: label 3;
-      }
-
-      sl-input:nth-of-type(3) {
-        grid-row: control 3;
+      sl-input:not(:last-of-type) {
+        margin-block-end: 0.5rem;
       }
     </style>
     <form>

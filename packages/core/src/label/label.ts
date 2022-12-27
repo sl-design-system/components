@@ -1,4 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { FormControlInterface } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './label.scss.js';
@@ -17,25 +18,28 @@ export class Label extends LitElement {
   @property() for?: string;
 
   /** The associated form control. */
-  @state() formControl: HTMLElement | null = null;
+  @state() formControl: (HTMLElement & FormControlInterface) | null = null;
 
-  /** Whether the associated form control is required. */
+  /** Whether this label should be marked as optional. */
+  @state() optional?: boolean;
+
+  /** Whether this label should be marked as required. */
   @state() required?: boolean;
 
-  override updated(changes: PropertyValues<this>): void {
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
     if (changes.has('for')) {
       if (this.for) {
         this.#label?.setAttribute('for', this.for);
-        this.formControl = (this.getRootNode() as Element)?.querySelector(`#${this.for}`);
+        this.formControl = (this.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+          `#${this.for}`
+        );
       } else {
         this.#label?.removeAttribute('for');
         this.formControl = null;
       }
     }
-  }
-
-  override willUpdate(changes: PropertyValues<this>): void {
-    super.willUpdate(changes);
 
     if (changes.has('formControl')) {
       if (this.formControl) {
@@ -47,7 +51,7 @@ export class Label extends LitElement {
         this.#observer?.disconnect();
         this.#observer = undefined;
 
-        this.required = undefined;
+        this.optional = this.required = undefined;
       }
     }
   }
@@ -63,6 +67,7 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label"></slot>
+      ${this.optional ? html`<span class="optional">(optional)</span>` : ''}
       ${this.required ? html`<span class="required">*</span>` : ''}
     `;
   }
@@ -70,7 +75,7 @@ export class Label extends LitElement {
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
     const nodes = target.assignedNodes({ flatten: true });
 
-    this.#label ??= document.createElement('label');
+    this.#label ??= this.querySelector('label[slot="label"]') || document.createElement('label');
     this.#label.htmlFor = this.for ?? '';
     this.#label.slot = 'label';
     this.#label.append(...nodes);
@@ -78,6 +83,22 @@ export class Label extends LitElement {
   }
 
   #update(): void {
-    this.required = this.formControl?.hasAttribute('required');
+    const { form } = this.formControl || {},
+      required = this.formControl?.hasAttribute('required');
+
+    if (form) {
+      const requiredCount = Array.from(form.elements).reduce((acc, cur) => {
+        return cur.hasAttribute('required') ? acc + 1 : acc;
+      }, 0);
+
+      const optionalCount = form.elements.length - requiredCount,
+        showRequired = requiredCount <= optionalCount;
+
+      this.optional = !required && !showRequired;
+      this.required = required && showRequired;
+    } else {
+      this.optional = false;
+      this.required = required;
+    }
   }
 }

@@ -81,10 +81,10 @@ export const Required: StoryObj = {
       <sl-label for="input">This label should be marked as required</sl-label>
       <sl-input required id="input"></sl-input>
 
-      <sl-label for="input2">Input 2</sl-label>
+      <sl-label for="input2">Optional input</sl-label>
       <sl-input id="input2"></sl-input>
 
-      <sl-label for="input3">Input 3</sl-label>
+      <sl-label for="input3">Optional input</sl-label>
       <sl-input id="input3"></sl-input>
     </form>
   `
@@ -126,10 +126,10 @@ export const Optional: StoryObj = {
       <sl-label for="input">This label should be marked as optional</sl-label>
       <sl-input id="input"></sl-input>
 
-      <sl-label for="input2">Input 2</sl-label>
+      <sl-label for="input2">Required input</sl-label>
       <sl-input required id="input2"></sl-input>
 
-      <sl-label for="input3">Input 3</sl-label>
+      <sl-label for="input3">Required input</sl-label>
       <sl-input required id="input3"></sl-input>
     </form>
   `

@@ -2719,7 +2719,6 @@ __metadata:
     "@storybook/addon-essentials": ^7.0.0-beta.15
     "@storybook/addon-links": ^7.0.0-beta.15
     "@storybook/addon-storysource": ^7.0.0-beta.15
-    "@storybook/web-components": ^7.0.0-beta.15
     "@storybook/web-components-webpack5": ^7.0.0-beta.15
     lit-html: ^2.5.0
     react: ^18.2.0
@@ -3915,7 +3914,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/web-components@npm:7.0.0-beta.15, @storybook/web-components@npm:^7.0.0-beta.15":
+"@storybook/web-components@npm:7.0.0-beta.15":
   version: 7.0.0-beta.15
   resolution: "@storybook/web-components@npm:7.0.0-beta.15"
   dependencies:

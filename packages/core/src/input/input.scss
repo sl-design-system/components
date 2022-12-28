@@ -27,6 +27,14 @@
   --_border-color: #c00;
 }
 
+:host(:user-invalid) {
+  --_border-color: #c00;
+
+  .validation {
+    display: block;
+  }
+}
+
 :host([internals-invalid][state--show-error]) {
   --_border-color: #c00;
 }
@@ -59,4 +67,5 @@ input {
 
 .validation {
   color: #c00;
+  display: none;
 }

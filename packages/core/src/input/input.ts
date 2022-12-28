@@ -1,13 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { Validator } from '../utils/form-control/index.js';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
-import {
-  FormControlMixin,
-  maxLengthValidator,
-  minLengthValidator,
-  requiredValidator
-} from '../utils/form-control/index.js';
+import { FormControlMixin, requiredValidator } from '../utils/form-control/index.js';
 import { EventsController } from '../utils/controllers/index.js';
 import styles from './input.scss.js';
 
@@ -20,7 +16,8 @@ import styles from './input.scss.js';
  */
 export class Input extends FormControlMixin(LitElement) {
   /** @private */
-  static formControlValidators = [maxLengthValidator, minLengthValidator, requiredValidator];
+  static formControlValidators: Validator[] = [requiredValidator];
+  // static formControlValidators: Validator[] = [maxLengthValidator, minLengthValidator, requiredValidator];
 
   /** @private */
   static override styles: CSSResultGroup = styles;

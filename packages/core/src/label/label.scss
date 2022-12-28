@@ -1,0 +1,12 @@
+:host {
+  --_font-weight: 600;
+}
+
+:host {
+  font-weight: var(--_font-weight);
+}
+
+.optional,
+.required {
+  margin-left: 0.25rem;
+}

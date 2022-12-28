@@ -3,6 +3,7 @@ import { FormControlMixin, maxLengthValidator, minLengthValidator, requiredValid
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
+import { EventsController } from '../utils/controllers/index.js';
 import styles from './input.scss.js';
 
 /**
@@ -19,19 +20,7 @@ export class Input extends FormControlMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  #onClick = (event: Event): void => {
-    event.preventDefault();
-
-    this.validationTarget?.focus();
-  };
-
-  #onInvalid = (event: Event): void => event.preventDefault();
-
-  #onKeydown = (event: KeyboardEvent): void => {
-    if (event.key === 'Enter') {
-      this.form?.requestSubmit();
-    }
-  };
+  #events = new EventsController(this);
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete = 'off';
@@ -66,17 +55,9 @@ export class Input extends FormControlMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.addEventListener('click', this.#onClick);
-    this.addEventListener('invalid', this.#onInvalid);
-    this.addEventListener('keydown', this.#onKeydown);
-  }
-
-  override disconnectedCallback(): void {
-    this.removeEventListener('click', this.#onClick);
-    this.removeEventListener('invalid', this.#onInvalid);
-    this.removeEventListener('keydown', this.#onKeydown);
-
-    super.disconnectedCallback();
+    this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this, 'invalid', this.#onInvalid);
+    this.#events.listen(this, 'keydown', this.#onKeydown);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -149,7 +130,23 @@ export class Input extends FormControlMixin(LitElement) {
     this.validationMessage = message;
   }
 
+  #onClick(event: Event): void {
+    event.preventDefault();
+
+    this.validationTarget?.focus();
+  }
+
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
+  }
+
+  #onInvalid(event: Event): void {
+    event.preventDefault();
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.form?.requestSubmit();
+    }
   }
 }

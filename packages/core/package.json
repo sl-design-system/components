@@ -22,6 +22,8 @@
     "./dialog/register.js": "./dist/components/dialog/register.js",
     "./input": "./dist/components/input/index.js",
     "./input/register.js": "./dist/components/input/register.js",
+    "./label": "./dist/components/label/index.js",
+    "./label/register.js": "./dist/components/label/register.js",
     "./popover": "./dist/components/popover/index.js",
     "./popover/register.js": "./dist/components/popover/register.js",
     "./radio-group": "./dist/components/radio-group/index.js",

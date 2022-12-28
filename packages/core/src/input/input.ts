@@ -1,8 +1,13 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { FormControlMixin, maxLengthValidator, minLengthValidator, requiredValidator } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
+import {
+  FormControlMixin,
+  maxLengthValidator,
+  minLengthValidator,
+  requiredValidator
+} from '../utils/form-control/index.js';
 import { EventsController } from '../utils/controllers/index.js';
 import styles from './input.scss.js';
 
@@ -25,6 +30,9 @@ export class Input extends FormControlMixin(LitElement) {
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete = 'off';
 
+  /** The element that will be focused when the validity state is reported. */
+  @query('input') input?: HTMLInputElement;
+
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
 
@@ -43,12 +51,6 @@ export class Input extends FormControlMixin(LitElement) {
    */
   @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text';
 
-  /** The validation message shown when the control is invalid. */
-  @property() override validationMessage = '';
-
-  /** The element that will be focused when the validity state is reported. */
-  @query('input') override validationTarget?: HTMLInputElement;
-
   /** The value of the input. */
   @property() value = '';
 
@@ -56,7 +58,6 @@ export class Input extends FormControlMixin(LitElement) {
     super.connectedCallback();
 
     this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this, 'invalid', this.#onInvalid);
     this.#events.listen(this, 'keydown', this.#onKeydown);
   }
 
@@ -71,25 +72,25 @@ export class Input extends FormControlMixin(LitElement) {
 
     if (changes.has('autocomplete')) {
       if (this.autocomplete) {
-        this.validationTarget?.setAttribute('autocomplete', this.autocomplete);
+        this.input?.setAttribute('autocomplete', this.autocomplete);
       } else {
-        this.validationTarget?.removeAttribute('autocomplete');
+        this.input?.removeAttribute('autocomplete');
       }
     }
 
     if (changes.has('maxLength')) {
       if (this.maxLength) {
-        this.validationTarget?.setAttribute('maxlength', this.maxLength.toString());
+        this.input?.setAttribute('maxlength', this.maxLength.toString());
       } else {
-        this.validationTarget?.removeAttribute('maxlength');
+        this.input?.removeAttribute('maxlength');
       }
     }
 
     if (changes.has('minLength')) {
       if (this.minLength) {
-        this.validationTarget?.setAttribute('minlength', this.minLength.toString());
+        this.input?.setAttribute('minlength', this.minLength.toString());
       } else {
-        this.validationTarget?.removeAttribute('minlength');
+        this.input?.removeAttribute('minlength');
       }
     }
   }
@@ -108,40 +109,38 @@ export class Input extends FormControlMixin(LitElement) {
         />
         <slot name="suffix"></slot>
       </div>
-      ${this.validationMessage
-        ? html`
+      ${this.validity.valid
+        ? ''
+        : html`
             <div id="validation" class="validation">
-              <slot name="validation-message">${this.validationMessage}</slot>
+              <slot name="validation-message">HOHOHOHO</slot>
             </div>
-          `
-        : ''}
+          `}
     `;
   }
 
-  override resetFormControl(): void {
+  override formResetCallback(): void {
+    super.formResetCallback();
+
     this.value = '';
   }
 
-  override validationMessageCallback(message: string): void {
-    if ('ariaDescription' in this.internals) {
-      (this.internals as unknown as { ariaDescription: string }).ariaDescription = message;
-    }
+  // override validationMessageCallback(message: string): void {
+  //   if ('ariaDescription' in this.internals) {
+  //     (this.internals as unknown as { ariaDescription: string }).ariaDescription = message;
+  //   }
 
-    this.validationMessage = message;
-  }
+  //   this.validationMessage = message;
+  // }
 
   #onClick(event: Event): void {
     event.preventDefault();
 
-    this.validationTarget?.focus();
+    this.input?.focus();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
-  }
-
-  #onInvalid(event: Event): void {
-    event.preventDefault();
   }
 
   #onKeydown(event: KeyboardEvent): void {

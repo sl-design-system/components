@@ -102,7 +102,46 @@ eleventyNavigation:
 
 ## Overview
 
+<div>
+  Component preview
+</div>
+
 Button component overview
+
+> Dorothy followed her through many of the beautiful rooms in her castle.
+>
+> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+
+<div class="ds-success">
+
+### Do
+  - Curabitur vel bibendum lorem
+  - Morbi convallis convallis diam sit amet lacinia
+  - Aliquam in elementum tellus
+
+</div>
+<div class="ds-danger">
+
+  ### Don't
+
+  - Curabitur vel bibendum lorem
+  - Morbi convallis convallis diam sit amet lacinia
+  - Aliquam in elementum tellus
+
+</div>
+
+<div class="ds-success--small">
+Do small
+</div>
+<div class="ds-danger--small">
+Don't small
+</div>
+
+## Variants
+
+table 
+
+[//]: # (TODO: generate table from json)
 
 ### Key Points
 

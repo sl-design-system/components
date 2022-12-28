@@ -82,6 +82,7 @@
   --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
   --background-color: var(--ds-color-white);
   --close-icon: url('../assets/icons/close.svg');
+  --error-icon: url('../assets/icons/error-dark.svg');
   --filter-color: rgba(34, 34, 34, 0.12);
   --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.32);
   --hamburger-filter: brightness(3.5);
@@ -102,6 +103,7 @@
   --search-color: var(--ds-color-black);
   --search-icon: url('../assets/icons/search.svg');
   --second-background-color: var(--ds-color-ghost-white);
+  --success-icon: url('../assets/icons/check-dark.svg');
   --tab-color: rgba(var(--ds-color-black-rgb), 0.6);
   --tab-color--active: var(--ds-color-black);
   --tab-color--hover: var(--ds-color-black);
@@ -117,6 +119,7 @@
       brightness(107%) contrast(101%);
     --background-color: var(--ds-color-black);
     --close-icon: url('../assets/icons/close-light.svg');
+    --error-icon: url('../assets/icons/error.svg');
     --filter-color: rgba(34, 34, 34, 0.64);
     --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
     --hamburger-filter: brightness(0.6);
@@ -136,6 +139,7 @@
     --search-color: var(--ds-color-faux-white);
     --search-icon: url('../assets/icons/search-light.svg');
     --second-background-color: var(--ds-color-black);
+    --success-icon: url('../assets/icons/check.svg');
     --tab-color: rgba(var(--ds-color-faux-white-rgb), 0.64);
     --tab-color--active: var(--ds-color-faux-white);
     --tab-color--hover: var(--ds-color-faux-white);

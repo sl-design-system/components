@@ -51,7 +51,9 @@
   font-size: 14px; // TODO: change all to rem
   font-weight: 600;
   line-height: 18px;
-  padding: 3px;
+  margin: 0.3rem;
+  //padding: 3px;
+  padding: 0;
   text-decoration: none;
   transition: color 300ms linear;
 
@@ -85,7 +87,7 @@
   display: flex; // inline-flex;
   flex-direction: row;
   justify-content: center;
-  margin: 0.3rem 0;
+  //margin: 0.3rem 0;
   //margin: 1.6rem 0;
   //flex-wrap: wrap;
   //position: sticky;
@@ -126,8 +128,19 @@
   }
 }
 
+.ds-tabs__tab-content-wrapper {
+  padding: 1.2rem 0;
+}
+
 .ds-tabs__tab-content--active {
   display: block;
+  animation: {
+    direction: normal;
+    duration: 300ms;
+    iteration-count: 1;
+    name: tabContent;
+    timing-function: ease-in-out;
+  }
 }
 
 .ds-tabs__tab-content--hidden {
@@ -148,5 +161,17 @@
     //top: 0;
     margin: auto;
     top: 0;
+  }
+}
+
+@keyframes tabContent {
+  from {
+    opacity: 0;
+    transform: translateY(5%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
   }
 }

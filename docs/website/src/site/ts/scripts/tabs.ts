@@ -265,6 +265,19 @@ function selectTab(tab: Element): void {
     alignTabIndicator(current);
     current = tab;
     currentContent = tabContent as Element;
+
+    console.log(
+      '(tab as HTMLElement).offsetLeft - (tabsWrapper as HTMLElement).offsetLeft',
+      (tab as HTMLElement).offsetLeft,
+      (tab as HTMLElement).offsetLeft - (tabsWrapper as HTMLElement).offsetLeft,
+      (tabsWrapper as HTMLElement).offsetLeft,
+      (tab as HTMLElement).scrollLeft,
+      (tabContent as HTMLElement).scrollLeft,
+      (tabContent as HTMLElement).offsetLeft
+    );
+    // const tabOffset = (tab as HTMLElement).offsetLeft - (tabsWrapper as HTMLElement).offsetLeft;
+    //tabsWrapper.scrollTo({ left: -(tab as HTMLElement).offsetLeft });
+    // tabsWrapper.scrollTo({ left: (tabContent as HTMLElement).offsetLeft }); // TODO: show active tab
     //});
     observer.disconnect();
     observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
@@ -278,6 +291,10 @@ function alignTabIndicator(tab: Element): void {
 
   slider.style.left = `${tab.getBoundingClientRect().left - tabsWrapper.getBoundingClientRect().left}px`; //`calc(calc(100% / 4) * ${i})`;
   indicator.style.width = `${tab.getBoundingClientRect().width}px`;
+  //slider.scrollTo({ left: tab.getBoundingClientRect().left - tabsWrapper.getBoundingClientRect().left });
+  // slider.scrollTo({ left: tab.scrollLeft });
+  console.log('tabsWrapper.scrollLeft', tabsWrapper.scrollLeft, tab.scrollLeft, tab.scrollWidth);
+  // tabsWrapper.scrollTo({ left: -tabsWrapper.scrollLeft });
 }
 
 // for (let i = 0; i < tabs?.length; i++) {
@@ -336,5 +353,10 @@ function onScroll(event: Event): void {
   console.log((event.target as HTMLElement).scrollLeft, slider.scrollLeft, current?.scrollLeft);
   // slider.style.left = `-${(event.target as HTMLElement).scrollLeft}px`;
   slider.scrollTo({ left: (event.target as HTMLElement).scrollLeft });
+  // const sliderScrollLeft = (event.target as HTMLElement).scrollLeft;
   console.log((event.target as HTMLElement).scrollLeft, slider.scrollLeft);
+  if (!current || !tabsWrapper) {
+    return;
+  }
+  slider.style.left = `${current.getBoundingClientRect().left - tabsWrapper.getBoundingClientRect().left}px`; // - sliderScrollLeft
 }

@@ -1,21 +1,32 @@
+import { dasherize } from '../string.js';
 import { decorateProperty } from './base.js';
 
 export interface EventOptions {
-  /** indicate if event bubbles up through the DOM or not */
+  /** Indicate if event bubbles up through the DOM or not */
   bubbles?: boolean;
-  /** indicate if event is cancelable */
+  /** Indicate if event is cancelable */
   cancelable?: boolean;
-  /** indicate if event can bubble across the boundary between the shadow DOM and the light DOM */
+  /** Indicate if event can bubble across the boundary between the shadow DOM and the light DOM */
   composed?: boolean;
+  /** Custom event name */
+  name?: string;
 }
 
 export class EventEmitter<T> {
   constructor(private target: HTMLElement, private eventName: string, private options?: EventOptions) {}
 
   emit(value: T, options?: EventOptions): boolean {
-    options = { bubbles: true, composed: true, ...this.options, ...options };
+    let event: Event;
 
-    return this.target.dispatchEvent(new CustomEvent<T>(this.eventName, { detail: value, ...options }));
+    if (value instanceof Event) {
+      event = value;
+    } else {
+      options = { bubbles: true, composed: true, ...this.options, ...options };
+
+      event = new CustomEvent<T>(this.eventName, { detail: value, ...options });
+    }
+
+    return this.target.dispatchEvent(event);
   }
 }
 
@@ -23,9 +34,12 @@ export class EventEmitter<T> {
 export function event(options?: EventOptions): any {
   return decorateProperty({
     descriptor: (key: PropertyKey) => {
+      // Use the `sl-my-event-name` naming convention
+      const eventName = options?.name ?? `sl-${dasherize(key.toString())}`;
+
       return {
         get(this: HTMLElement) {
-          return new EventEmitter(this, key.toString(), options);
+          return new EventEmitter(this, eventName, options);
         },
         enumerable: true,
         configurable: true

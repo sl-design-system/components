@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   stories: ['../dist/components/**/*.stories.js'],
   addons: [
     '../../../tools/storybook-addon-themes',
@@ -8,8 +8,8 @@ module.exports = {
     {
       name: '@storybook/addon-essentials',
       options: {
-        backgrounds: false,
-        docs: false
+        actions: false,
+        backgrounds: false
       }
     },
     '@storybook/addon-storysource'

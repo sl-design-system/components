@@ -67,6 +67,14 @@ export class SelectionController<T> {
     this.#host.requestUpdate();
   }
 
+  toggle(item: T): void {
+    if (this.isSelected(item)) {
+      this.deselect(item);
+    } else {
+      this.select(item);
+    }
+  }
+
   areAllSelected(): boolean {
     if (this.#selectAll) {
       return this.#selection.size === 0;

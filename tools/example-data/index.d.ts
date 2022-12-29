@@ -1,10 +1,10 @@
-export interface Person {
+export type Person = {
   firstName: string;
   lastName: string;
   email: string;
   profession: string;
   status: string;
-}
+};
 
 export interface People {
   hierarchyLevelSize: number;

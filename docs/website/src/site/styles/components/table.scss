@@ -1,0 +1,24 @@
+.ds-table {
+  border: 1px solid #eaeaea;
+  border-radius: 6px;
+  margin: 8px auto;
+
+  table {
+    border-collapse: collapse;
+    font-size: 1.2rem;
+    line-height: 130%;
+    width: 100%;
+  }
+
+  thead {
+    background: #f3f3f3;
+    border: 1px solid #eaeaea;
+    padding: 8px 16px;
+    text-align: left;
+  }
+
+  th,
+  td {
+    padding: 8px 16px;
+  }
+}

@@ -6,7 +6,6 @@ eleventyNavigation:
   key: Button
   order: 3
 ---
-<link href="/css/categories/components/button.css" rel="stylesheet" type="text/css">
 
 [//]: # (Left for the future use)
 [//]: # (<div class="ds-tabs-wrapper">)
@@ -100,21 +99,26 @@ eleventyNavigation:
 
 <div class="ds-tabs__tab-content ds-tabs__tab-content--active">
 
-## Overview
 
-<div>
-  Component preview
+<div class="ds-example">
+
+  <sl-button fill="default" size="sm">Default</sl-button>
+
 </div>
 
-Button component overview
+<div class="ds-code">
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+  ```html
+  <sl-button fill="default" size="sm">Default</sl-button>
+  ```
+
+</div>
+
+[//]: # (TODO: add button to copy code)
 
 <div class="ds-success">
 
-### Do
+  ### Do
   - Curabitur vel bibendum lorem
   - Morbi convallis convallis diam sit amet lacinia
   - Aliquam in elementum tellus
@@ -142,6 +146,16 @@ Don't small
 table 
 
 [//]: # (TODO: generate table from json)
+
+<div class="ds-table">
+
+| name   | purpose | other element |
+|--------|---------|---------------|
+| first  | row     | element       |
+| second | row     | content       |
+| third  | example | row           |
+
+</div>
 
 ### Key Points
 
@@ -359,3 +373,20 @@ SL DS components:
 [//]: # (  <sl-button variant="secondary" disabled>Disabled</sl-button>)
 
 [//]: # (</div>)
+
+
+<div vertical class="ds-tabs">
+  <div class="ds-tabs__container">
+    <div class="ds-tabs-wrapper">
+      <button class="ds-tab active">Overview</button>
+      <button class="ds-tab">Specs</button>
+      <button class="ds-tab">Usage</button>
+      <button class="ds-tab">Accessibility</button>
+      <button class="ds-tab">Code</button>
+    </div>
+    <div class="slider">
+      <div class="indicator"></div>
+    </div>
+  </div>
+  <div class="ds-tabs__tab-content-wrapper">
+</div>

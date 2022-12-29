@@ -43,6 +43,13 @@ window.onload = () => {
 
   console.log('tabsHeaderContainer', tabsHeaderContainer);
 
+  (tabsWrapper as HTMLElement).onscroll = event => {
+    console.log('scroll 222');
+    onScroll(event);
+  };
+
+  observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element); // TODO: change, not working? why?
+
   // observer.observe(tabsHeaderContainer);
 };
 
@@ -87,10 +94,10 @@ window.onkeydown = (event: KeyboardEvent) => {
 //   onScroll(event);
 // };
 
-(tabsWrapper as HTMLElement).onscroll = event => {
-  console.log('scroll 222');
-  onScroll(event);
-};
+// (tabsWrapper as HTMLElement).onscroll = event => {
+//   console.log('scroll 222');
+//   onScroll(event);
+// };
 
 tabs?.forEach(tab => {
   tab.onclick = (event: MouseEvent) => {
@@ -158,18 +165,18 @@ const observer = new IntersectionObserver(
   entries =>
     entries.forEach(({ boundingClientRect, rootBounds, target, intersectionRatio }) => {
       const tabsContainer = target.querySelector('.ds-tabs__container');
-      // console.log(
-      //   'intersectionRatio',
-      //   intersectionRatio,
-      //   target,
-      //   tabsContainer,
-      //   entries,
-      //   entries[0]?.boundingClientRect.bottom < entries[0].rootBounds?.bottom,
-      //   entries[0]?.intersectionRect.bottom < entries[0].rootBounds?.bottom,
-      //   entries[0]?.boundingClientRect.height < entries[0].rootBounds?.bottom,
-      //   entries[0]?.boundingClientRect.bottom > entries[0].rootBounds?.bottom,
-      //   boundingClientRect.bottom > rootBounds.bottom - 112 //142
-      // );
+      console.log(
+        'intersectionRatio',
+        intersectionRatio,
+        target,
+        tabsContainer,
+        entries,
+        entries[0]?.boundingClientRect.bottom < entries[0].rootBounds?.bottom,
+        entries[0]?.intersectionRect.bottom < entries[0].rootBounds?.bottom,
+        entries[0]?.boundingClientRect.height < entries[0].rootBounds?.bottom,
+        entries[0]?.boundingClientRect.bottom > entries[0].rootBounds?.bottom,
+        boundingClientRect.bottom > rootBounds.bottom - 112 //142
+      );
       if (!tabsContainer) {
         return;
       }
@@ -182,7 +189,7 @@ const observer = new IntersectionObserver(
   config
 );
 
-observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
+// observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
 
 function setScrollable(): void {
   if (!tabsWrapper) {

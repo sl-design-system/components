@@ -304,6 +304,7 @@
   },
   "dependencies": {
     "@11ty/is-land": "^3.0.0",
+    "@sanomalearning/slds-core": "^0.0.2",
     "elasticlunr": "^0.9.5",
     "lit": "^2.5.0"
   }

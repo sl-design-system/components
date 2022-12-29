@@ -82,6 +82,10 @@
   --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
   --background-color: var(--ds-color-white);
   --close-icon: url('../assets/icons/close.svg');
+  --code-border: var(--ds-color-bright-grey);
+  --copy-icon: url('../assets/icons/copy.svg');
+  --copy-button-background: var(--ds-color-concrete);
+  --copy-button-border: var(--ds-color-bright-grey);
   --error-icon: url('../assets/icons/error-dark.svg');
   --filter-color: rgba(34, 34, 34, 0.12);
   --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.32);
@@ -92,6 +96,7 @@
   --help-color: var(--ds-color-black-rgb);
   --help-icon: url('../assets/icons/messages-question-light-grey.svg');
   --help-icon-hover: url('../assets/icons/messages-question-black.svg');
+  --helper-text: var(--ds-color-black);
   --highlight-color: var(--ds-color-blue);
   --input-menu-background: rgba(var(--ds-color-black-rgb), 0.04);
   --input-menu-background--hover: rgba(var(--ds-color-black-rgb), 0.08);
@@ -119,6 +124,10 @@
       brightness(107%) contrast(101%);
     --background-color: var(--ds-color-black);
     --close-icon: url('../assets/icons/close-light.svg');
+    --code-border: var(--ds-color-blck-olive);
+    --copy-icon: url('../assets/icons/copy-light.svg');
+    --copy-button-background: var(--ds-color-blck-olive);
+    --copy-button-border: var(--ds-color-tundora);
     --error-icon: url('../assets/icons/error.svg');
     --filter-color: rgba(34, 34, 34, 0.64);
     --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
@@ -129,6 +138,7 @@
     --help-color: var(--ds-color-faux-white-rgb);
     --help-icon: url('../assets/icons/messages-question-grey.svg');
     --help-icon-hover: url('../assets/icons/messages-question.svg');
+    --helper-text: var(--ds-color-faux-white);
     --highlight-color: var(--ds-color-blueberry);
     --input-menu-background: rgba(var(--ds-color-faux-white-rgb), 0.16);
     --input-menu-background--hover: rgba(var(--ds-color-faux-white-rgb), 0.2);

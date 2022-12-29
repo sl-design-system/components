@@ -15,6 +15,22 @@
 //  }
 //}
 
+.ds-tabs {
+  // box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); // TODO: only for sticky and for the whole navbar
+  font-size: 20px;
+  //margin: 1.6rem 0;
+  //overflow: hidden;
+  //position: sticky;
+  //top: 88px;
+
+  //&[vertical] {
+  //  /* stylelint-disable-next-line max-nesting-depth */
+  //  .ds-tabs-wrapper {
+  //    flex-direction: column;
+  //  }
+  //}
+}
+
 .ds-tabs__container {
   //box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   background-color: var(--background-color);
@@ -31,15 +47,6 @@
 .ds-tabs__container--sticky {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   //background-color: var(--background-color);
-}
-
-.ds-tabs {
-  // box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); // TODO: only for sticky and for the whole navbar
-  font-size: 20px;
-  //margin: 1.6rem 0;
-  //overflow: hidden;
-  //position: sticky;
-  //top: 88px;
 }
 
 .ds-tab {
@@ -149,6 +156,32 @@
 
 .ds-tabs__tab-content:not(.ds-tabs__tab-content--active) {
   display: none;
+}
+
+.ds-tabs[vertical] {
+  /* stylelint-disable-next-line max-nesting-depth */
+  .ds-tabs-wrapper {
+    flex-direction: column;
+  }
+
+  .ds-tabs__container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+
+  // TODO: bertical tabs with subtabs
+
+  .indicator {
+    background-color: var(--tab-indicator-background); //var(--ds-color-blue); //$accent;
+    border-radius: 1px;
+    //margin: 0 auto;
+    height: 100%; //2px; //$indicator-height;
+    position: relative;
+    transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
+    width: 2px;
+    //width: 50px; //$indicator-width;
+  }
 }
 
 @media screen and (min-width: $lg-breakpoint) {

@@ -1,0 +1,204 @@
+.ds-code {
+  margin-bottom: 2.4rem;
+  position: relative;
+
+  pre {
+    border: 1px solid var(--code-border); //#EAEAEA;
+    border-radius: 0 0 0.6rem 0.6rem;
+    margin: 0;
+  }
+}
+
+.ds-code__copy-button {
+  background-color: var(--copy-button-background); //#F3F3F3;
+  background-image: var(--copy-icon);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.4rem;
+  border: 1px solid var(--copy-button-border); //#EAEAEA;
+  border-radius: 6px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  height: 3.2rem;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 3.2rem;
+
+  // dark:
+  //border: 1px solid #4E4E4E;
+  //box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.ds-example {
+  align-items: center;
+  background: var(--copy-button-background); //#F3F3F3;
+  border: 1px solid var(--code-border); //#EAEAEA;
+  border-radius: 0.6rem 0.6rem 0 0;
+  display: flex;
+  justify-content: center;
+  min-height: 16rem;
+}
+
+/**
+   * a11y-dark theme for JavaScript, CSS, and HTML
+   * Based on the okaidia theme: https://github.com/PrismJS/prism/blob/gh-pages/themes/prism-okaidia.css
+   * @author ericwbailey
+   */
+
+code[class*='language-'],
+pre[class*='language-'] {
+  background: none;
+  color: var(--text-color); //#f8f8f2;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; // TODO: change font to exact one
+  font-size: 1.2rem;
+
+  hyphens: none;
+  hyphens: none;
+  hyphens: none;
+  hyphens: none;
+  line-height: 1.5;
+  padding: 2.4rem 1.6rem;
+
+  tab-size: 4;
+  tab-size: 4;
+  tab-size: 4;
+  text-align: left;
+  white-space: pre;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+}
+
+/* Code blocks */
+pre[class*='language-'] {
+  // padding: 1em;
+  // margin: 0.5em 0;
+  overflow: auto;
+  // border-radius: 0.3em;
+}
+
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+  background: var(--background-color); //#2b2b2b;
+}
+
+/* Inline code */
+:not(pre) > code[class*='language-'] {
+  border-radius: 0.3em;
+  padding: 0.1em;
+  white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #d4d0ab;
+}
+
+.token.punctuation {
+  color: var(--text-color); //#fefefe;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--highlight-color); //#ffa07a;
+}
+
+.token.boolean,
+.token.number {
+  color: #00e0e0;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--highlight-color); //#abe338;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: #00e0e0;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function {
+  color: var(--text-color); //#ffd700;
+}
+
+.token.keyword {
+  color: #00e0e0;
+}
+
+.token.regex,
+.token.important {
+  color: #ffd700;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+@media screen and (-ms-high-contrast: active) {
+  code[class*='language-'],
+  pre[class*='language-'] {
+    background: window;
+    color: windowText;
+  }
+
+  :not(pre) > code[class*='language-'],
+  pre[class*='language-'] {
+    background: window;
+  }
+
+  .token.important {
+    background: highlight;
+    color: window;
+    font-weight: normal;
+  }
+
+  .token.atrule,
+  .token.attr-value,
+  .token.function,
+  .token.keyword,
+  .token.operator,
+  .token.selector {
+    font-weight: bold;
+  }
+
+  .token.attr-value,
+  .token.comment,
+  .token.doctype,
+  .token.function,
+  .token.keyword,
+  .token.operator,
+  .token.property,
+  .token.string {
+    color: highlight;
+  }
+
+  .token.attr-value,
+  .token.url {
+    font-weight: normal;
+  }
+}

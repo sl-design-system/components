@@ -9,6 +9,9 @@
     <script type="module" src="/js/ssr-utils/is-land.js"></script>
     {% inlinejs "dsd-polyfill.js" %}
     <script type="module" src="/js/scripts/main.js"></script>
+    <script type="module" src="@sanomalearning/slds-core"></script>
+    <script type="module" src="@sanomalearning/slds-core@workspace:packages/dist/components/button/index.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@sanomalearning/slds-core@0.0.2/dist/components/button/index.js"></script>
     <!-- if JS is disabled just show the contents without the polyfill -->
     <noscript><style>body[dsd-pending] {visibility: visible !important;}</style></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,6 +34,7 @@
       {% include "./sidebar.njk" %}
     </aside>
     <main class="ds-container">
+      {#<sl-button>Button</sl-button>#}
 {#      <header>#}
 {#        <h1>{{ title }}</h1>#}
 {#      </header>#}

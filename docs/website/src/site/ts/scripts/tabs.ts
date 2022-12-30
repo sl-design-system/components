@@ -1,24 +1,81 @@
-import { getActiveElement } from '../utils/active-element';
+import { getActiveElement } from '../utils/active-element.js';
 
-const tabsContainer = document.querySelector('.ds-tabs');
+/*const*/ let tabsContainer = document.querySelector('.ds-tabs');
 const tabsHeaderContainer = document.querySelector('.ds-tabs__container') as Element;
-const tabsWrapper = document.querySelector('.ds-tabs-wrapper');
-const tabs: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-tab');
-const slider = tabsContainer?.querySelector('.slider') as HTMLElement;
-const indicator = slider?.querySelector('.indicator') as HTMLElement;
-const tabsContents = tabsContainer?.querySelectorAll('.ds-tabs__tab-content');
+// const tabsWrapper = document.querySelector('.ds-tabs-wrapper');
+// const tabs: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-tab');
+/*const*/ let slider = tabsContainer?.querySelector('.slider') as HTMLElement;
+/*const*/ let indicator = slider?.querySelector('.indicator') as HTMLElement;
+// const tabsContents = tabsContainer?.querySelectorAll('.ds-tabs__tab-content');
+// const container = document.querySelector('.ds-container');
+// const tabsContentWrapper = document.querySelector('.ds-tabs__tab-content-wrapper');
 // const container = document.querySelector('.ds-container');
 // const menu = document.querySelector('.ds-sidebar') as HTMLElement;
 
-let current = tabsWrapper?.querySelector('.active');
+let tabsContainers: NodeListOf<Element>;
+let verticalTabsContainers: NodeListOf<Element>;
+let horizontalTabsContainers: NodeListOf<Element>;
+let tabsWrapper: Element;
+let tabsContentWrapper: Element;
+let tabs: NodeListOf<HTMLElement>;
+let tabsContents: NodeListOf<Element>;
+let current: Element;
 let currentContent: Element;
 let nextUniqueId = 0;
+let headerAnchors: NodeListOf<Element>;
 
 window.onload = () => {
+  console.log('tabsContainer onload', tabsContainer, tabsContentWrapper, tabsContainer);
+
+  tabsContainers = document.querySelectorAll('.ds-tabs');
+  console.log('tabsContainers onload 2 length', tabsContainers, tabsContainers.length);
+  verticalTabsContainers = document.querySelectorAll('.ds-tabs[vertical]'); //Array.of(tabsContainers);
+  // .filter(tabs =>
+  //   Array.of(tabs).filter(tabs => (tabs as Element).hasAttribute('vertical'))
+  // );
+  horizontalTabsContainers = document.querySelectorAll('.ds-tabs[horizontal]');
+
+  console.log('tabsContainers onload 2', tabsContainers, verticalTabsContainers, horizontalTabsContainers);
+  tabsWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs-wrapper') as Element;
+
+  // current = tabsWrapper.querySelector('.active') as Element;
+
+  tabsContentWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs__tab-content-wrapper') as Element;
+
+  tabs = horizontalTabsContainers[0].querySelectorAll('.ds-tab');
+
+  tabsContainer = document.createElement('div');
+  tabsContainer.classList.add('ds-tabs__container');
+  // horizontalTabsContainers[0].appendChild(tabsContainer);
+  horizontalTabsContainers[0].insertBefore(tabsContainer, tabsContentWrapper);
+
+  tabsWrapper = document.createElement('div');
+  tabsWrapper.classList.add('ds-tabs-wrapper');
+  tabsContainer.appendChild(tabsWrapper);
+
+  slider = document.createElement('div');
+  slider.classList.add('slider');
+  tabsContainer.appendChild(slider);
+
+  indicator = document.createElement('div');
+  indicator.classList.add('indicator');
+  slider.appendChild(indicator);
+
+  // tabsWrapper.appendChild(tabs[0]);
+
+  tabs.forEach(tab => tabsWrapper.appendChild(tab));
+
+  current = tabsWrapper.querySelector('.active') as Element;
+
+  tabsContents = horizontalTabsContainers[0]?.querySelectorAll('.ds-tabs__tab-content');
+
+  console.log('tabs, tabsContents', tabs, tabsContents, tabsWrapper);
+
   if (!tabsWrapper || !current) {
     return;
   }
   tabs.forEach(tab => {
+    console.log('tab w foreach', tab);
     tab.setAttribute('id', `ds-tab-${nextUniqueId++}`);
     tab.setAttribute('role', 'tab');
     tab.setAttribute('aria-selected', 'false');
@@ -33,24 +90,72 @@ window.onload = () => {
     tabContent.classList.add('ds-tabs__tab-content--hidden');
   });
 
+  console.log('tabs, tabsContents', tabs, tabsContents, tabsWrapper);
+
   setScrollable();
+
+  // tabsContentWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs__tab-content-wrapper') as Element;
 
   // tabsContents?.forEach(tabContent => tabContent.setAttribute('id', `ds-tab-content-${nextUniqueId++}`));
   // tabsContents?.forEach(tab => tab.setAttribute('role', 'tabpanel'));
   // tabsContents?.forEach((tab, id) => tab.setAttribute('aria-labelledby', tabs[id].getAttribute('id') as string));
   // tabsContents?.forEach(tabContent => tabContent.classList.add('ds-tabs__tab-content--hidden'));
+  console.log('current at the beginning', current);
   selectTab(current);
 
   console.log('tabsHeaderContainer', tabsHeaderContainer);
 
-  (tabsWrapper as HTMLElement).onscroll = event => {
-    console.log('scroll 222');
-    onScroll(event);
-  };
+  if (tabsWrapper) {
+    (tabsWrapper as HTMLElement).onscroll = event => {
+      console.log('scroll 222');
+      onScroll(event);
+    };
+  }
 
-  observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element); // TODO: change, not working? why?
+  // tabsContentWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs__tab-content-wrapper') as Element;
+  console.log(
+    '--tabsContentWrapper',
+    tabsContentWrapper,
+    horizontalTabsContainers[0].querySelector('.ds-tabs__tab-content-wrapper') as Element
+  );
+
+  // if (/*tabsContainer*/ tabsContentWrapper) {
+  //   observer.observe(/*tabsHeaderContainer*/ /*tabsContainer*/ tabsContentWrapper); // TODO: change, not working? why?
+  // }
 
   // observer.observe(tabsHeaderContainer);
+
+  tabs?.forEach(tab => {
+    tab.onclick = (event: MouseEvent) => {
+      selectTab(event.target as Element);
+    };
+  });
+
+  headerAnchors = document.querySelectorAll('.header-anchor');
+  const headerAnchorsParents = Array.from(headerAnchors).map(element => {
+    return element.parentElement;
+  });
+  // TODO: generate vertical tabs from headerAnchorsParents
+
+  headerAnchorsParents.forEach(headerAnchorParent => {
+    if (headerAnchorParent) {
+      const verticalTab = document.createElement('a');
+      verticalTab.setAttribute('href', `#${headerAnchorParent.id}`);
+      if (headerAnchorParent.tagName === 'H2') {
+        verticalTab.classList.add('ds-tab--vertical');
+      } else {
+        verticalTab.classList.add('ds-tab__submenu--vertical');
+      }
+      console.log('verrrtical tab', verticalTab, headerAnchorParent.tagName);
+      //verticalTab.headerAnchorParent.document.createElement('div');
+    }
+  });
+
+  // const headerAnchorsParents = Array.of(headerAnchors).filter(anchor => anchor[1].parentElement);
+  console.log('headerAnchors', headerAnchors, headerAnchorsParents);
+  headerAnchors.forEach(tab => {
+    verticalObserver.observe(tab);
+  });
 };
 
 window.onresize = () => {
@@ -99,11 +204,11 @@ window.onkeydown = (event: KeyboardEvent) => {
 //   onScroll(event);
 // };
 
-tabs?.forEach(tab => {
+/*tabs?.forEach(tab => {
   tab.onclick = (event: MouseEvent) => {
     selectTab(event.target as Element);
   };
-});
+});*/
 
 document.addEventListener('sticky-change', e => {
   console.log('event on sticky change', e);
@@ -156,15 +261,15 @@ document.addEventListener('sticky-change', e => {
 });*/
 
 const config = {
-  root: null, //null, // Sets the framing element to the viewport
-  rootMargin: '104px', //'112px', // TODO change for the desktop version on resize as well
+  root: null, //container, //null, //container, //null, //null, // Sets the framing element to the viewport
+  rootMargin: '104px', //'104px', //'112px', // TODO change for the desktop version on resize as well
   threshold: 1
 };
 
 const observer = new IntersectionObserver(
   entries =>
     entries.forEach(({ boundingClientRect, rootBounds, target, intersectionRatio }) => {
-      const tabsContainer = target.querySelector('.ds-tabs__container');
+      const tabsContainer = target.previousSibling as Element; //.querySelector('.ds-tabs__container');
       console.log(
         'intersectionRatio',
         intersectionRatio,
@@ -180,14 +285,44 @@ const observer = new IntersectionObserver(
       if (!tabsContainer) {
         return;
       }
+
+      console.log('tabsContainer', tabsContainer, tabsContainer.classList);
       if (rootBounds && intersectionRatio >= 1 && boundingClientRect.bottom > rootBounds.bottom + rootBounds.top) {
         tabsContainer.classList.add('ds-tabs__container--sticky');
       } else {
         tabsContainer.classList.remove('ds-tabs__container--sticky');
       }
+      console.log('tabsContainer2', tabsContainer, tabsContainer.classList);
     }),
   config
 );
+
+// TODO: generate vertical tabs
+
+const verticalObserver = new IntersectionObserver(entries => {
+  console.log('entries vertical', entries);
+  entries.forEach(entry => {
+    const id = entry.target.getAttribute('href');
+    console.log(
+      'entries vertical --- id',
+      entry.intersectionRatio,
+      id,
+      id ? verticalTabsContainers[0].querySelector(`[href="${id}"]`) : 'nothing'
+    );
+    if (!id) {
+      return;
+    }
+    const verticalTabLink = verticalTabsContainers[0].querySelector(`[href="${id}"]`);
+    if (!verticalTabLink) {
+      return;
+    }
+    if (entry.intersectionRatio > 0) {
+      verticalTabLink.classList.add('active');
+    } else {
+      verticalTabLink.classList.remove('active');
+    }
+  });
+});
 
 // observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
 
@@ -197,29 +332,29 @@ function setScrollable(): void {
   }
 
   const //tabsHeaderContainer, //wrapper = tabsHeaderContainer?.querySelector('.wrapper') as HTMLElement,
-    { clientWidth, scrollLeft, scrollWidth } = tabsWrapper,
+    { clientWidth, /*scrollLeft,*/ scrollWidth } = tabsWrapper,
     scrollable = scrollWidth > clientWidth;
 
-  console.log(
-    'tabsHeaderContainer, clientWidth, scrollLeft, scrollWidth, scrollable',
-    tabsHeaderContainer,
-    clientWidth,
-    scrollLeft,
-    scrollWidth,
-    scrollable,
-    tabsHeaderContainer.getBoundingClientRect().width,
-    tabsContainer?.clientWidth,
-    tabsContainer?.getBoundingClientRect().width,
-    tabsContainer?.clientWidth,
-    tabsContainer?.scrollWidth,
-    window.innerWidth,
-    window.outerWidth,
-    tabsContainer ? tabsContainer?.clientWidth < window.innerWidth : null,
-    tabsWrapper.clientWidth,
-    tabsWrapper.getBoundingClientRect().width,
-    tabsWrapper.scrollWidth,
-    tabsWrapper.getBoundingClientRect().width < tabsWrapper.scrollWidth
-  );
+  // console.log(
+  //   'tabsHeaderContainer, clientWidth, scrollLeft, scrollWidth, scrollable',
+  //   tabsHeaderContainer,
+  //   clientWidth,
+  //   scrollLeft,
+  //   scrollWidth,
+  //   scrollable,
+  //   tabsHeaderContainer.getBoundingClientRect().width,
+  //   tabsContainer?.clientWidth,
+  //   tabsContainer?.getBoundingClientRect().width,
+  //   tabsContainer?.clientWidth,
+  //   tabsContainer?.scrollWidth,
+  //   window.innerWidth,
+  //   window.outerWidth,
+  //   tabsContainer ? tabsContainer?.clientWidth < window.innerWidth : null,
+  //   tabsWrapper.clientWidth,
+  //   tabsWrapper.getBoundingClientRect().width,
+  //   tabsWrapper.scrollWidth,
+  //   tabsWrapper.getBoundingClientRect().width < tabsWrapper.scrollWidth
+  // );
 
   tabsWrapper.classList.toggle('ds-tabs-wrapper--scrollable', scrollable);
 }
@@ -270,6 +405,7 @@ function selectTab(tab: Element): void {
     // indicator.style.width = `${current[0].getBoundingClientRect().width}px`;
 
     alignTabIndicator(current);
+    console.log('currenttt', current);
     current = tab;
     currentContent = tabContent as Element;
 
@@ -286,8 +422,15 @@ function selectTab(tab: Element): void {
     //tabsWrapper.scrollTo({ left: -(tab as HTMLElement).offsetLeft });
     // tabsWrapper.scrollTo({ left: (tabContent as HTMLElement).offsetLeft }); // TODO: show active tab
     //});
-    observer.disconnect();
-    observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
+    observer?.disconnect();
+    console.log('tabsContentWrapper w selectTab', tabsContentWrapper);
+    observer.observe(/*tabsHeaderContainer*/ /*tabsContainer as Element*/ tabsContentWrapper);
+    console.log(
+      'observer.root, observer.rootMargin, observer.thresholds',
+      observer.root,
+      observer.rootMargin,
+      observer.thresholds
+    );
   }
 }
 
@@ -295,6 +438,7 @@ function alignTabIndicator(tab: Element): void {
   if (!tabsWrapper) {
     return;
   }
+  console.log('alignTabIndicator????');
 
   slider.style.left = `${tab.getBoundingClientRect().left - tabsWrapper.getBoundingClientRect().left}px`; //`calc(calc(100% / 4) * ${i})`;
   indicator.style.width = `${tab.getBoundingClientRect().width}px`;
@@ -343,7 +487,6 @@ function onKeydown(event: KeyboardEvent): void {
     return;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const focusedTab = getActiveElement(event.target as Node) as HTMLElement;
 
   let index: number = Array.from(tabs).indexOf(focusedTab);

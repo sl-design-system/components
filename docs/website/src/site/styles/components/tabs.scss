@@ -42,6 +42,7 @@
   //overflow-x: scroll;
   ////padding: var(--margin) 0 calc(var(--spacing) + var(--indicator-size));
   //scrollbar-width: none;
+  z-index: 1;
 }
 
 .ds-tabs__container--sticky {
@@ -50,6 +51,46 @@
 }
 
 .ds-tab {
+  background: none;
+  border: 0;
+  // @include tabs;
+  color: var(--tab-color); //rgba(34, 34, 34, 0.6);
+  cursor: pointer;
+  font-size: 14px; // TODO: change all to rem
+  font-weight: 600;
+  line-height: 18px;
+  margin: 0.3rem;
+  //padding: 3px;
+  padding: 0;
+  text-decoration: none;
+  transition: color 300ms linear;
+
+  &.active:not(:focus-visible) {
+    //@include tabs;
+    //box-shadow: 0 2px var(--ds-color-blue); // inset 0 -0.175em #fff, inset 0 -0.3em #36f;
+    color: var(--tab-color--active); //#222;
+
+    //&:after {
+    //  background: var(--highlight-color);
+    //  content: "";
+    //  height: 4rem;
+    //  left: 0;
+    //  position: absolute;
+    //  top: 0;
+    //  width: 4px;
+    //}
+  }
+
+  &:hover {
+    color: var(--tab-color--hover); //#000;
+  }
+
+  &:focus-visible {
+    border-radius: 0.3rem;
+  }
+}
+
+.ds-tab--vertical {
   background: none;
   border: 0;
   // @include tabs;
@@ -159,7 +200,15 @@
 }
 
 .ds-tabs[vertical] {
-  /* stylelint-disable-next-line max-nesting-depth */
+  display: none;
+
+  .ds-tabs__container {
+    display: none;
+  }
+}
+
+/*.ds-tabs[vertical] {
+  !* stylelint-disable-next-line max-nesting-depth *!
   .ds-tabs-wrapper {
     flex-direction: column;
   }
@@ -168,6 +217,7 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
+    top: 40%;
   }
 
   // TODO: bertical tabs with subtabs
@@ -182,7 +232,7 @@
     width: 2px;
     //width: 50px; //$indicator-width;
   }
-}
+}*/
 
 @media screen and (min-width: $lg-breakpoint) {
   //.ds-tabs {
@@ -194,6 +244,42 @@
     //top: 0;
     margin: auto;
     top: 0;
+  }
+
+  .ds-tabs__tab-content {
+    //padding: 1.2rem 0;
+    display: grid;
+    grid-column-gap: 1.6rem;
+    grid-template-columns: 7fr 1fr;
+  }
+
+  .ds-tabs[vertical] {
+    display: block;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-tabs-wrapper {
+      flex-direction: column;
+    }
+
+    .ds-tabs__container {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: center;
+      top: 40%;
+    }
+
+    // TODO: bertical tabs with subtabs
+
+    .indicator {
+      background-color: var(--tab-indicator-background); //var(--ds-color-blue); //$accent;
+      border-radius: 1px;
+      //margin: 0 auto;
+      height: 100%; //2px; //$indicator-height;
+      position: relative;
+      transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
+      width: 2px;
+      //width: 50px; //$indicator-width;
+    }
   }
 }
 

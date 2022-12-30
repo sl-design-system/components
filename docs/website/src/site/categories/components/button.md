@@ -82,23 +82,41 @@ eleventyNavigation:
 
 [//]: # (</dna-tabs>)
 
-<div class="ds-tabs">
-  <div class="ds-tabs__container">
-    <div class="ds-tabs-wrapper">
-      <button class="ds-tab active">Overview</button>
-      <button class="ds-tab">Specs</button>
-      <button class="ds-tab">Usage</button>
-      <button class="ds-tab">Accessibility</button>
-      <button class="ds-tab">Code</button>
-    </div>
-    <div class="slider">
-      <div class="indicator"></div>
-    </div>
-  </div>
+<div horizontal class="ds-tabs">
+    <button class="ds-tab active">Overview</button>
+    <button class="ds-tab">Specs</button>
+    <button class="ds-tab">Usage</button>
+    <button class="ds-tab">Accessibility</button>
+    <button class="ds-tab">Code</button>
+
+[//]: # (  <div class="ds-tabs__container">)
+
+[//]: # (    <div class="ds-tabs-wrapper">)
+[//]: # (      <button class="ds-tab active">Overview</button>)
+
+[//]: # (      <button class="ds-tab">Specs</button>)
+
+[//]: # (      <button class="ds-tab">Usage</button>)
+
+[//]: # (      <button class="ds-tab">Accessibility</button>)
+
+[//]: # (      <button class="ds-tab">Code</button>)
+
+[//]: # (    </div>)
+
+[//]: # (    <div class="slider">)
+
+[//]: # (      <div class="indicator"></div>)
+
+[//]: # (    </div>)
+[//]: # (  </div>)
   <div class="ds-tabs__tab-content-wrapper">
 
 <div class="ds-tabs__tab-content ds-tabs__tab-content--active">
 
+<div class="ds-tabs__tab-container">
+
+## Overview
 
 <div class="ds-example">
 
@@ -155,6 +173,8 @@ table
 | second | row     | content       |
 | third  | example | row           |
 
+
+
 </div>
 
 ### Key Points
@@ -180,6 +200,23 @@ torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctu
 scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. 
 Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. 
 Aliquam in elementum tellus.
+
+</div>
+
+<div vertical class="ds-tabs">
+  <div class="ds-tabs__container">
+    <div class="ds-tabs-wrapper">
+      <a href="#overview" class="ds-tab--vertical active">Overview</a>
+      <a href="#variants" class="ds-tab--vertical active">Variants</a>
+      <a href="#key-points" class="ds-tab--vertical active">Key Points</a>
+    </div>
+    <div class="slider">
+      <div class="indicator"></div>
+    </div>
+  </div>
+
+[//]: # (  <div class="ds-tabs__tab-content-wrapper"></div>)
+</div>
 
 </div>
 
@@ -375,18 +412,32 @@ SL DS components:
 [//]: # (</div>)
 
 
-<div vertical class="ds-tabs">
-  <div class="ds-tabs__container">
-    <div class="ds-tabs-wrapper">
-      <button class="ds-tab active">Overview</button>
-      <button class="ds-tab">Specs</button>
-      <button class="ds-tab">Usage</button>
-      <button class="ds-tab">Accessibility</button>
-      <button class="ds-tab">Code</button>
-    </div>
-    <div class="slider">
-      <div class="indicator"></div>
-    </div>
-  </div>
-  <div class="ds-tabs__tab-content-wrapper">
-</div>
+[//]: # (<div vertical class="ds-tabs">)
+
+[//]: # (  <div class="ds-tabs__container">)
+
+[//]: # (    <div class="ds-tabs-wrapper">)
+
+[//]: # (      <button class="ds-tab active">Overview</button>)
+
+[//]: # (      <button class="ds-tab">Specs</button>)
+
+[//]: # (      <button class="ds-tab">Usage</button>)
+
+[//]: # (      <button class="ds-tab">Accessibility</button>)
+
+[//]: # (      <button class="ds-tab">Code</button>)
+
+[//]: # (    </div>)
+
+[//]: # (    <div class="slider">)
+
+[//]: # (      <div class="indicator"></div>)
+
+[//]: # (    </div>)
+
+[//]: # (  </div>)
+
+[//]: # (  <div class="ds-tabs__tab-content-wrapper"></div>)
+
+[//]: # (</div>)

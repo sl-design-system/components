@@ -17,7 +17,7 @@
 
 .ds-tabs {
   // box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); // TODO: only for sticky and for the whole navbar
-  font-size: 20px;
+  font-size: 2rem;
   //margin: 1.6rem 0;
   //overflow: hidden;
   //position: sticky;
@@ -34,7 +34,7 @@
 .ds-tabs__container {
   //box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   background-color: var(--background-color);
-  margin: auto -24px;
+  margin: auto -2.4rem;
   overflow-x: hidden;
   position: sticky;
   top: 78px; //88px;
@@ -56,7 +56,7 @@
   // @include tabs;
   color: var(--tab-color); //rgba(34, 34, 34, 0.6);
   cursor: pointer;
-  font-size: 14px; // TODO: change all to rem
+  font-size: 1.4rem; // TODO: change all to rem
   font-weight: 600;
   line-height: 18px;
   margin: 0.3rem;
@@ -96,12 +96,54 @@
   // @include tabs;
   color: var(--tab-color); //rgba(34, 34, 34, 0.6);
   cursor: pointer;
-  font-size: 14px; // TODO: change all to rem
-  font-weight: 600;
+  font-size: 1.4rem; // TODO: change all to rem
+  font-weight: 400;
   line-height: 18px;
   margin: 0.3rem;
+  padding-left: 8px;
   //padding: 3px;
-  padding: 0;
+  //padding: 0;
+  text-decoration: none;
+  transition: color 300ms linear;
+
+  &.active:not(:focus-visible) {
+    //@include tabs;
+    //box-shadow: 0 2px var(--ds-color-blue); // inset 0 -0.175em #fff, inset 0 -0.3em #36f;
+    color: var(--tab-color--active); //#222;
+
+    //&:after {
+    //  background: var(--highlight-color);
+    //  content: "";
+    //  height: 4rem;
+    //  left: 0;
+    //  position: absolute;
+    //  top: 0;
+    //  width: 4px;
+    //}
+  }
+
+  &:hover {
+    color: var(--tab-color--hover); //#000;
+  }
+
+  &:focus-visible {
+    border-radius: 0.3rem;
+  }
+}
+
+.ds-tab__submenu--vertical {
+  background: none;
+  border: 0;
+  // @include tabs;
+  color: var(--tab-color); //rgba(34, 34, 34, 0.6);
+  cursor: pointer;
+  font-size: 1.4rem; // TODO: change all to rem
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0.3rem;
+  padding-left: 16px;
+  //padding: 3px;
+  //padding: 0;
   text-decoration: none;
   transition: color 300ms linear;
 
@@ -155,6 +197,7 @@
 }
 
 .ds-tabs-wrapper.fixed {
+  // TODO: not necessary???
   position: fixed;
   top: 86px;
 }
@@ -265,7 +308,7 @@
       display: flex;
       flex-direction: row-reverse;
       justify-content: center;
-      top: 40%;
+      top: 25%; //40%;
     }
 
     // TODO: bertical tabs with subtabs

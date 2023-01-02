@@ -112,160 +112,173 @@ eleventyNavigation:
 [//]: # (  </div>)
   <div class="ds-tabs__tab-content-wrapper">
 
-<div class="ds-tabs__tab-content ds-tabs__tab-content--active">
+  <div class="ds-tabs__tab-content ds-tabs__tab-content--active">
 
-<div class="ds-tabs__tab-container">
+  [//]: # (<div class="ds-tabs__tab-container">)
 
-## Overview
+  ## Overview
 
-<div class="ds-example">
+  <div class="ds-example">
 
-  <sl-button fill="default" size="sm">Default</sl-button>
+    <sl-button fill="default" size="sm">Default</sl-button>
 
-</div>
+  </div>
 
-<div class="ds-code">
+  <div class="ds-code">
 
   ```html
   <sl-button fill="default" size="sm">Default</sl-button>
   ```
 
-</div>
+  </div>
 
-[//]: # (TODO: add button to copy code)
+  [//]: # (TODO: add button to copy code)
 
-<div class="ds-success">
+  <div class="ds-success">
 
   ### Do
   - Curabitur vel bibendum lorem
-  - Morbi convallis convallis diam sit amet lacinia
-  - Aliquam in elementum tellus
+    - Morbi convallis convallis diam sit amet lacinia
+    - Aliquam in elementum tellus
 
-</div>
-<div class="ds-danger">
+  </div>
+
+  <div class="ds-danger">
 
   ### Don't
 
   - Curabitur vel bibendum lorem
-  - Morbi convallis convallis diam sit amet lacinia
-  - Aliquam in elementum tellus
+    - Morbi convallis convallis diam sit amet lacinia
+    - Aliquam in elementum tellus
 
-</div>
-
-<div class="ds-success--small">
-Do small
-</div>
-<div class="ds-danger--small">
-Don't small
-</div>
-
-## Variants
-
-table 
-
-[//]: # (TODO: generate table from json)
-
-<div class="ds-table">
-
-| name   | purpose | other element |
-|--------|---------|---------------|
-| first  | row     | element       |
-| second | row     | content       |
-| third  | example | row           |
-
-
-
-</div>
-
-### Key Points
-
-### Live demo
-
-### Resources
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus.
-Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed
-risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora
-torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac
-scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna.
-Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia.
-Aliquam in elementum tellus.
-
-## Specs
-
-## Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. 
-Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed 
-risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora 
-torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac 
-scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. 
-Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. 
-Aliquam in elementum tellus.
-
-</div>
-
-<div vertical class="ds-tabs">
-  <div class="ds-tabs__container">
-    <div class="ds-tabs-wrapper">
-      <a href="#overview" class="ds-tab--vertical active">Overview</a>
-      <a href="#variants" class="ds-tab--vertical active">Variants</a>
-      <a href="#key-points" class="ds-tab--vertical active">Key Points</a>
-    </div>
-    <div class="slider">
-      <div class="indicator"></div>
-    </div>
   </div>
 
-[//]: # (  <div class="ds-tabs__tab-content-wrapper"></div>)
-</div>
+  <div class="ds-success--small">
+  Do small
+  </div>
 
-</div>
+  <div class="ds-danger--small">
+  Don't small
+  </div>
 
-<div class="ds-tabs__tab-content">
+  ## Variants
+  
+  table 
+  
+  [//]: # (TODO: generate table from json)
+  
+  <div class="ds-table">
+  
+  | name   | purpose | other element |
+  |--------|---------|---------------|
+  | first  | row     | element       |
+  | second | row     | content       |
+  | third  | example | row           |
+  
 
-## Specs
 
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  </div>
+  
+  ### Key Points
+  
+  ### Live demo
+  
+  ### Resources
+  Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus.
+  Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed
+  risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora
+  torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac
+  scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna.
+  Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia.
+  Aliquam in elementum tellus.
+  
+  ## Specs
 
-### Anatomy
+  ## Lorem ipsum dolor sit amet
+  Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. 
+  Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed 
+  risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora 
+  torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac 
+  scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. 
+  Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. 
+  Aliquam in elementum tellus.
 
-### Variants
+[//]: # (</div>)
 
-### Types
+[//]: # (<div vertical class="ds-tabs">)
 
-### Behaviour
-</div>
+[//]: # (  <div class="ds-tabs__container">)
 
-<div class="ds-tabs__tab-content">
+[//]: # (    <div class="ds-tabs-wrapper">)
 
-## Usage
+[//]: # (      <a href="#overview" class="ds-tab--vertical active">Overview</a>)
 
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+[//]: # (      <a href="#variants" class="ds-tab--vertical">Variants</a>)
 
-</div>
+[//]: # (      <a href="#key-points" class="ds-tab--vertical">Key Points</a>)
 
-<div class="ds-tabs__tab-content">
+[//]: # (    </div>)
 
-## Accessibility
+[//]: # (    <div class="slider">)
 
-WCAG part
+[//]: # (      <div class="indicator"></div>)
 
-</div>
+[//]: # (    </div>)
 
-<div class="ds-tabs__tab-content">
+[//]: # (  </div>)
 
-## Code
+[//]: # ()
+[//]: # ([//]: # &#40;  <div class="ds-tabs__tab-content-wrapper"></div>&#41;)
+[//]: # (</div>)
 
-SL DS components:
-<div class="ds-buttons-wrapper">
-  <sl-button>Primary</sl-button>
-  <sl-button disabled>Disabled</sl-button>
-  <sl-button variant="secondary">Secondary</sl-button>
-  <sl-button variant="secondary" disabled>Disabled</sl-button>
-</div>
+  </div>
 
-</div>
+  <div class="ds-tabs__tab-content">
+  
+  ## Specs
+  
+  Lorem ipsum dolor sit amet
+  Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  
+  ### Anatomy
+  
+  ### Variants
+  
+  ### Types
+  
+  ### Behaviour
+  </div>
+
+  <div class="ds-tabs__tab-content">
+  
+  ## Usage
+  
+  Lorem ipsum dolor sit amet
+  Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  
+  </div>
+
+  <div class="ds-tabs__tab-content">
+  
+  ## Accessibility
+  
+  WCAG part
+  
+  </div>
+
+  <div class="ds-tabs__tab-content">
+  
+  ## Code
+  
+  SL DS components:
+    <div class="ds-buttons-wrapper">
+      <sl-button>Primary</sl-button>
+      <sl-button disabled>Disabled</sl-button>
+      <sl-button variant="secondary">Secondary</sl-button>
+      <sl-button variant="secondary" disabled>Disabled</sl-button>
+    </div>
+  
+  </div>
 
 </div>
 </div>

@@ -29,13 +29,13 @@ window.onload = () => {
 
   tabsContainers = document.querySelectorAll('.ds-tabs');
   console.log('tabsContainers onload 2 length', tabsContainers, tabsContainers.length);
-  verticalTabsContainers = document.querySelectorAll('.ds-tabs[vertical]'); //Array.of(tabsContainers);
+  // verticalTabsContainers = document.querySelectorAll('.ds-tabs[vertical]'); //Array.of(tabsContainers);
   // .filter(tabs =>
   //   Array.of(tabs).filter(tabs => (tabs as Element).hasAttribute('vertical'))
   // );
   horizontalTabsContainers = document.querySelectorAll('.ds-tabs[horizontal]');
 
-  console.log('tabsContainers onload 2', tabsContainers, verticalTabsContainers, horizontalTabsContainers);
+  // console.log('tabsContainers onload 2', tabsContainers, verticalTabsContainers, horizontalTabsContainers);
   tabsWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs-wrapper') as Element;
 
   // current = tabsWrapper.querySelector('.active') as Element;
@@ -83,11 +83,28 @@ window.onload = () => {
   // tabs.forEach(tab => tab.setAttribute('id', `ds-tab-${nextUniqueId++}`));
   // tabs.forEach(tab => tab.setAttribute('role', 'tab'));
   // tabs.forEach(tab => tab.setAttribute('aria-selected', 'false'));
+  console.log('111 tabs, tabsContents', tabs, tabsContents, tabsWrapper);
+
   tabsContents?.forEach((tabContent, id) => {
     tabContent.setAttribute('id', `ds-tab-content-${nextUniqueId++}`);
     tabContent.setAttribute('role', 'tabpanel');
     tabContent.setAttribute('aria-labelledby', tabs[id].getAttribute('id') as string);
     tabContent.classList.add('ds-tabs__tab-content--hidden');
+    let tabContentChildren = [];
+    tabContentChildren = Array.from(tabContent.childNodes);
+    console.log('tabContentChildren', tabContentChildren);
+    const tabContainer = document.createElement('div');
+    tabContainer.classList.add('ds-tabs__tab-container');
+    console.log('tabContainer in tabcontents', tabContainer, tabContentChildren);
+    //tabContainer.appendChild(tabContentChildren);
+    tabContentChildren.forEach(content => {
+      console.log('contenttt', content, tabContentChildren.length);
+      tabContainer.appendChild(content);
+    });
+    console.log('tabContainer', tabContainer, tabContentChildren.length);
+    // tabContentChildren.forEach(content => tabContainer.appendChild(content));
+    tabContent.appendChild(tabContainer);
+    generateVerticalTabs(tabContent);
   });
 
   console.log('tabs, tabsContents', tabs, tabsContents, tabsWrapper);
@@ -131,31 +148,33 @@ window.onload = () => {
     };
   });
 
-  headerAnchors = document.querySelectorAll('.header-anchor');
-  const headerAnchorsParents = Array.from(headerAnchors).map(element => {
-    return element.parentElement;
-  });
-  // TODO: generate vertical tabs from headerAnchorsParents
+  // headerAnchors = document.querySelectorAll('.header-anchor');
+  // const headerAnchorsParents = Array.from(headerAnchors).map(element => {
+  //   return element.parentElement;
+  // });
+  // // TODO: generate vertical tabs from headerAnchorsParents
+  //
+  // headerAnchorsParents.forEach(headerAnchorParent => {
+  //   if (headerAnchorParent) {
+  //     const verticalTab = document.createElement('a');
+  //     verticalTab.setAttribute('href', `#${headerAnchorParent.id}`);
+  //     if (headerAnchorParent.tagName === 'H2') {
+  //       verticalTab.classList.add('ds-tab--vertical');
+  //     } else {
+  //       verticalTab.classList.add('ds-tab__submenu--vertical');
+  //     }
+  //     console.log('verrrtical tab', verticalTab, headerAnchorParent.tagName);
+  //     //verticalTab.headerAnchorParent.document.createElement('div');
+  //   }
+  // });
+  //
+  // // const headerAnchorsParents = Array.of(headerAnchors).filter(anchor => anchor[1].parentElement);
+  // console.log('headerAnchors', headerAnchors, headerAnchorsParents);
+  // headerAnchors.forEach(tab => {
+  //   verticalObserver.observe(tab);
+  // });
 
-  headerAnchorsParents.forEach(headerAnchorParent => {
-    if (headerAnchorParent) {
-      const verticalTab = document.createElement('a');
-      verticalTab.setAttribute('href', `#${headerAnchorParent.id}`);
-      if (headerAnchorParent.tagName === 'H2') {
-        verticalTab.classList.add('ds-tab--vertical');
-      } else {
-        verticalTab.classList.add('ds-tab__submenu--vertical');
-      }
-      console.log('verrrtical tab', verticalTab, headerAnchorParent.tagName);
-      //verticalTab.headerAnchorParent.document.createElement('div');
-    }
-  });
-
-  // const headerAnchorsParents = Array.of(headerAnchors).filter(anchor => anchor[1].parentElement);
-  console.log('headerAnchors', headerAnchors, headerAnchorsParents);
-  headerAnchors.forEach(tab => {
-    verticalObserver.observe(tab);
-  });
+  // generateVerticalTabs();
 };
 
 window.onresize = () => {
@@ -260,6 +279,82 @@ document.addEventListener('sticky-change', e => {
   }
 });*/
 
+function generateVerticalTabs(verticalTabContent: Element): void {
+  // const verticalTabContent = document.querySelector('.ds-tabs__tab-content');
+  if (!verticalTabContent) {
+    return;
+  }
+  console.log('horizontalTabContent', verticalTabContent);
+
+  const verticalTabsContainers = document.createElement('div');
+  verticalTabsContainers.setAttribute('vertical', '');
+  verticalTabsContainers.classList.add('ds-tabs');
+
+  const verticalTabsContainer = document.createElement('div');
+  verticalTabsContainer.classList.add('ds-tabs__container');
+  verticalTabsContainers.appendChild(verticalTabsContainer);
+
+  verticalTabContent.appendChild(verticalTabsContainers);
+
+  const verticalTabsWrapper = document.createElement('div');
+  verticalTabsWrapper.classList.add('ds-tabs-wrapper');
+  verticalTabsContainer.appendChild(verticalTabsWrapper);
+
+  const verticalSlider = document.createElement('div');
+  verticalSlider.classList.add('slider');
+  verticalTabsContainer.appendChild(verticalSlider);
+
+  const verticalIndicator = document.createElement('div');
+  verticalIndicator.classList.add('indicator');
+  verticalSlider.appendChild(verticalIndicator);
+
+  headerAnchors = verticalTabContent.querySelectorAll('.header-anchor');
+  const headerAnchorsParents = Array.from(headerAnchors).map(element => {
+    return element.parentElement;
+  });
+  // TODO: generate vertical tabs from headerAnchorsParents
+
+  const verticalTabs: HTMLElement[] = [];
+
+  headerAnchorsParents.forEach(headerAnchorParent => {
+    console.log('headerAnchorParent', headerAnchorParent);
+    if (headerAnchorParent) {
+      const verticalTab = document.createElement('a');
+      verticalTab.setAttribute('href', `#${headerAnchorParent.id}`);
+      verticalTab.textContent = headerAnchorParent.textContent;
+      if (headerAnchorParent.tagName === 'H2') {
+        verticalTab.classList.add('ds-tab--vertical');
+      } else {
+        verticalTab.classList.add('ds-tab__submenu--vertical');
+      }
+      console.log('verrrtical tab', verticalTab, headerAnchorParent.tagName);
+      //verticalTab.headerAnchorParent.document.createElement('div');
+      verticalTabs.push(verticalTab);
+      verticalTabs[0].classList.add('active');
+    }
+  });
+
+  //verticalTabsWrapper.appendChild()
+  verticalTabs.forEach(tab => verticalTabsWrapper.appendChild(tab));
+
+  // const headerAnchorsParents = Array.of(headerAnchors).filter(anchor => anchor[1].parentElement);
+  console.log('headerAnchors --2', headerAnchors, headerAnchorsParents, verticalTabs, verticalTabsWrapper);
+  headerAnchors.forEach(tab => {
+    console.log('tabbsbbbbb', tab);
+    verticalObserver.observe(tab);
+  });
+
+  // verticalTabs.forEach(tab => {
+  //   console.log('tabbsbbbbb', tab);
+  //   verticalObserver.observe(tab);
+  // });
+
+  // verticalObserver.observe(verticalTabs);
+  //});
+
+  // TODO: observer not working?
+}
+
 const config = {
   root: null, //container, //null, //container, //null, //null, // Sets the framing element to the viewport
   rootMargin: '104px', //'104px', //'112px', // TODO change for the desktop version on resize as well
@@ -308,11 +403,12 @@ const verticalObserver = new IntersectionObserver(entries => {
       entry.intersectionRatio,
       id,
       id ? verticalTabsContainers[0].querySelector(`[href="${id}"]`) : 'nothing'
-    );
+    ); // TODO: use exact tabs container, not only first one, it's empty for now - fix this
     if (!id) {
       return;
     }
     const verticalTabLink = verticalTabsContainers[0].querySelector(`[href="${id}"]`);
+    console.log('verticalTabLink', verticalTabLink);
     if (!verticalTabLink) {
       return;
     }

@@ -4,6 +4,8 @@ import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
 import styles from './input.scss.js';
 
+let nextUniqueId = 0;
+
 /**
  * Single line text input component.
  *
@@ -26,6 +28,9 @@ export class Input extends LitElement {
 
   /** No interaction is possible with this control when disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** Hint text or indicator that a hint is slotted. */
+  @property() hint?: string;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -51,11 +56,16 @@ export class Input extends LitElement {
   /** The value of the input. */
   @property() value = '';
 
-  override connectedCallback(): void {
-    super.connectedCallback();
+  constructor() {
+    super();
 
+    this.input.id = `sl-input-${nextUniqueId++}`;
     this.input.slot = 'input';
     this.append(this.input);
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
 
     this.#events.listen(this, 'click', this.#onClick);
     this.#events.listen(this, 'keydown', this.#onKeydown);
@@ -74,6 +84,10 @@ export class Input extends LitElement {
 
     if (changes.has('disabled')) {
       this.input.toggleAttribute('disabled', this.disabled);
+    }
+
+    if (changes.has('hint')) {
+      this.#updateHint();
     }
 
     if (changes.has('maxLength')) {
@@ -97,7 +111,11 @@ export class Input extends LitElement {
     }
 
     if (changes.has('placeholder')) {
-      this.input.placeholder = this.placeholder ?? '';
+      if (this.placeholder) {
+        this.input.setAttribute('placeholder', this.placeholder);
+      } else {
+        this.input.removeAttribute('placeholder');
+      }
     }
 
     if (changes.has('required')) {
@@ -120,6 +138,7 @@ export class Input extends LitElement {
         <slot name="input"></slot>
         <slot name="suffix"></slot>
       </div>
+      <slot @slotchange=${() => this.#updateHint()} name="hint"></slot>
       ${this.input.matches(':invalid')
         ? html`
             <div id="validation" class="validation">
@@ -143,6 +162,23 @@ export class Input extends LitElement {
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       this.input.form?.requestSubmit();
+    }
+  }
+
+  #updateHint(): void {
+    const hint = this.querySelector('[slot="hint"]');
+
+    if (hint) {
+      hint.id ||= `sl-input-hint-${nextUniqueId}`;
+
+      this.input.setAttribute('aria-describedby', hint.id);
+    } else if (this.hint) {
+      const div = document.createElement('div');
+      div.innerText = this.hint;
+      div.slot = 'hint';
+      this.append(div);
+    } else {
+      this.input.removeAttribute('aria-describedby');
     }
   }
 }

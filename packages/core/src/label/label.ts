@@ -2,11 +2,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { FormControlInterface } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { Input } from '../input/index.js';
 import styles from './label.scss.js';
 
 export class Label extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** The actual form control id this label links to. */
+  #formControlId?: string;
 
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
@@ -26,15 +30,37 @@ export class Label extends LitElement {
   /** Whether this label should be marked as required. */
   @state() required?: boolean;
 
+  override disconnectedCallback(): void {
+    this.#observer?.disconnect();
+    this.#observer = undefined;
+
+    super.disconnectedCallback();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
     if (changes.has('for')) {
       if (this.for) {
-        this.#label?.setAttribute('for', this.for);
         this.formControl = (this.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
           `#${this.for}`
         );
+
+        // If the form control is an <sl-input>, automatically associate the label
+        // with the <input> in the light DOM
+        if (this.formControl instanceof Input) {
+          void this.formControl.updateComplete.then(() => {
+            const input = this.formControl?.querySelector('input');
+
+            if (input) {
+              this.#formControlId = input.id;
+              this.#label?.setAttribute('for', input.id);
+            }
+          });
+        } else {
+          this.#formControlId = this.for;
+          this.#label?.setAttribute('for', this.for);
+        }
       } else {
         this.#label?.removeAttribute('for');
         this.formControl = null;
@@ -56,13 +82,6 @@ export class Label extends LitElement {
     }
   }
 
-  override disconnectedCallback(): void {
-    this.#observer?.disconnect();
-    this.#observer = undefined;
-
-    super.disconnectedCallback();
-  }
-
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
@@ -80,7 +99,7 @@ export class Label extends LitElement {
       this.#label.append(...nodes);
     } else {
       this.#label ??= this.querySelector('label[slot="label"]') || document.createElement('label');
-      this.#label.htmlFor = this.for ?? '';
+      this.#label.htmlFor = this.#formControlId ?? '';
       this.#label.slot = 'label';
       this.#label.append(...nodes);
       this.append(this.#label);

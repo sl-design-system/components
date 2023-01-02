@@ -51,6 +51,44 @@ export const Label: StoryObj = {
   `
 };
 
+export const Hint: StoryObj = {
+  render: () => html`
+    <style>
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    </style>
+    <div>
+      <sl-label for="input">Nickname</sl-label>
+      <sl-input id="input" hint="What would you like people to call you?"></sl-input>
+    </div>
+  `
+};
+
+export const RichLabelHint: StoryObj = {
+  render: () => html`
+    <style>
+      div:not([slot]) {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    </style>
+    <div>
+      <sl-label for="input">
+        <label slot="label">Custom <i>label</i></label>
+      </sl-label>
+      <sl-input id="input">
+        <div slot="hint">
+          Hint is an accessible way to provide <strong>additional information</strong> that might help the user
+        </div>
+      </sl-input>
+    </div>
+  `
+};
+
 export const PrefixSuffix: StoryObj = {
   render: () => html`
     <sl-input>

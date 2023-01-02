@@ -2,6 +2,7 @@ import type { IElementInternals } from 'element-internals-polyfill';
 import type { ReactiveElement } from 'lit';
 import type { Constructor } from '../mixin-types.js';
 import type { Validator } from './validators.js';
+import { property } from 'lit/decorators.js';
 import { EventsController } from '../controllers/events.js';
 
 export type CustomValidityState = Partial<Record<keyof ValidityState, boolean>>;
@@ -10,6 +11,9 @@ export interface FormControlInterface {
   readonly form: HTMLFormElement;
   readonly internals: ElementInternals & IElementInternals;
   readonly validity: ValidityState;
+
+  disabled?: boolean;
+  required?: boolean;
 
   checkValidity(): boolean;
   formResetCallback(): void;
@@ -71,6 +75,12 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      * whenever an attribute changes or on some other event.
      */
     #value: FormValue = '';
+
+    /** Whether the form control is disabled. */
+    @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+    /** Whether this input must be filled in before form submission. */
+    @property({ type: Boolean, reflect: true }) required?: boolean;
 
     /** The ElementInternals instance for the control. */
     internals = this.attachInternals() as ElementInternals & IElementInternals;

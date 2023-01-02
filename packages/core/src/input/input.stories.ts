@@ -1,5 +1,6 @@
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import '../label/register.js';
 import './register.js';
 
 export default {
@@ -31,6 +32,22 @@ export const API: StoryObj = {
       ${prefix ? html`<span slot="prefix">${prefix}</span>` : ''}
       ${suffix ? html`<span slot="suffix">${suffix}</span>` : ''}
     </sl-input>
+  `
+};
+
+export const Label: StoryObj = {
+  render: () => html`
+    <style>
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    </style>
+    <div>
+      <sl-label for="input">What is your name?</sl-label>
+      <sl-input id="input"></sl-input>
+    </div>
   `
 };
 

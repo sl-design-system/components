@@ -39,18 +39,7 @@
   --_border-color: #c00;
 }
 
-.wrapper {
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
-  display: flex;
-  padding: calc(0.25rem - 1px) 0.5rem;
-  transition: 0.2s ease-in-out;
-  transition-property: background, border, box-shadow, color, filter;
-  width: 100%;
-}
-
-input {
+slot[name='input']::slotted(input) {
   appearance: none;
   border: 0;
   flex: 1;
@@ -63,6 +52,17 @@ input {
   &:focus {
     outline: none;
   }
+}
+
+.wrapper {
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  display: flex;
+  padding: calc(0.25rem - 1px) 0.5rem;
+  transition: 0.2s ease-in-out;
+  transition-property: background, border, box-shadow, color, filter;
+  width: 100%;
 }
 
 .validation {

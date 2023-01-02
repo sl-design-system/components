@@ -35,6 +35,10 @@ export const API: StoryObj = {
   `
 };
 
+export const Disabled: StoryObj = {
+  render: () => html`<sl-input disabled value="I am disabled"></sl-input>`
+};
+
 export const Label: StoryObj = {
   render: () => html`
     <style>

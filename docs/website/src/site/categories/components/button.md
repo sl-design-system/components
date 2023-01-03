@@ -134,6 +134,8 @@ eleventyNavigation:
 
   [//]: # (TODO: add button to copy code)
 
+  <ds-alert></ds-alert>
+
   <div class="ds-success">
 
   ### Do
@@ -180,8 +182,13 @@ eleventyNavigation:
   </div>
   
   ### Key Points
-  
-  ### Live demo
+  Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus.
+  Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed
+  risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora
+  torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac
+  scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna.
+  Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia.
+  Aliquam in elementum tellus.
   
   ### Resources
   Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus.
@@ -191,8 +198,6 @@ eleventyNavigation:
   scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna.
   Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia.
   Aliquam in elementum tellus.
-  
-  ## Specs
 
   ## Lorem ipsum dolor sit amet
   Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. 
@@ -240,13 +245,19 @@ eleventyNavigation:
   Lorem ipsum dolor sit amet
   Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
   
-  ### Anatomy
+  ## Anatomy
+
+  Lorem ipsum dolor sit amet
   
-  ### Variants
+  ## Variants
+
+  Lorem ipsum dolor sit amet
   
-  ### Types
+  ## Types
+
+  Lorem ipsum dolor sit amet
   
-  ### Behaviour
+  ## Behaviour
   </div>
 
   <div class="ds-tabs__tab-content">
@@ -256,6 +267,14 @@ eleventyNavigation:
   Lorem ipsum dolor sit amet
   Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
   
+  ## How to use
+
+  Lorem ipsum dolor sit amet
+
+  ## Content
+
+  Lorem ipsum dolor sit amet
+
   </div>
 
   <div class="ds-tabs__tab-content">

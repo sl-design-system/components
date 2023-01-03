@@ -40,7 +40,7 @@
     padding-left: 1.6rem;
   }
 
-  h3 {
+  h3/*:not(#not-important)*/ {
     font-size: 16px;
     font-weight: 700;
     line-height: 20px;
@@ -86,6 +86,13 @@
     //}
   }
 }
+
+//.ds-success__heading,
+//.ds-danger__heading {
+//  font-size: 16px;
+//  font-weight: 700;
+//  line-height: 20px;
+//}
 
 .ds-success--small {
   background-color: rgba(var(--ds-color-emerald-rgb), 0.08);

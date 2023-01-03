@@ -2,3 +2,4 @@
 import './components/test-component.js';
 import './components/my-counter.js';
 // import './components/tabs/register.js';
+import './components/alert/alert.js';

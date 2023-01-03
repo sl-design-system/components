@@ -10,7 +10,8 @@ export default {
 export const API: StoryObj = {
   args: {
     disabled: false,
-    placeholder: 'This is placeholder',
+    hint: '',
+    placeholder: 'Type something here',
     prefix: '',
     required: false,
     suffix: '',
@@ -20,10 +21,11 @@ export const API: StoryObj = {
     maxLength: { type: 'number' },
     minLength: { type: 'number' }
   },
-  render: ({ disabled, maxLength, minLength, placeholder, prefix, required, suffix, value }) => html`
+  render: ({ disabled, hint, maxLength, minLength, placeholder, prefix, required, suffix, value }) => html`
     <sl-input
       ?disabled=${disabled}
       ?required=${required}
+      .hint=${hint}
       .maxLength=${maxLength}
       .minLength=${minLength}
       .placeholder=${placeholder}

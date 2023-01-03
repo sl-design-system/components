@@ -1,7 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
+import { dasherize } from '../utils/index.js';
 import styles from './input.scss.js';
 
 let nextUniqueId = 0;
@@ -23,6 +24,9 @@ export class Input extends LitElement {
   /** The input element in the light DOM. */
   input = document.createElement('input');
 
+  /** Element internals instance. */
+  internals = this.attachInternals();
+
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete = 'off';
 
@@ -31,6 +35,12 @@ export class Input extends LitElement {
 
   /** Hint text or indicator that a hint is slotted. */
   @property() hint?: string;
+
+  /**
+   * Whether the form control is invalid.
+   * @private
+   */
+  @state() invalid?: boolean;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -68,7 +78,8 @@ export class Input extends LitElement {
     super.connectedCallback();
 
     this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this, 'keydown', this.#onKeydown);
+    this.#events.listen(this.input, 'keydown', this.#onKeydown);
+    this.#events.listen(this.input, 'invalid', this.#onInvalid);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -88,6 +99,14 @@ export class Input extends LitElement {
 
     if (changes.has('hint')) {
       this.#updateHint();
+    }
+
+    if (changes.has('invalid')) {
+      if (this.invalid) {
+        this.internals.states.add('--user-invalid');
+      } else {
+        this.internals.states.delete('--user-invalid');
+      }
     }
 
     if (changes.has('maxLength')) {
@@ -139,14 +158,24 @@ export class Input extends LitElement {
         <slot name="suffix"></slot>
       </div>
       <slot @slotchange=${() => this.#updateHint()} name="hint"></slot>
-      ${this.input.matches(':invalid')
-        ? html`
-            <div id="validation" class="validation">
-              <slot name="validation-message">HOHOHOHO</slot>
-            </div>
-          `
-        : ''}
+      ${this.invalid ? html`<div id="validation" class="validation">${this.renderValidationMessage()}</div>` : ''}
     `;
+  }
+
+  renderValidationMessage(): TemplateResult | undefined {
+    const state = this.#getInvalidState(this.input.validity);
+
+    if (state) {
+      return html`<slot .name=${dasherize(state)}>${this.input.validationMessage}</slot>`;
+    }
+  }
+
+  checkValidity(): boolean {
+    return this.input.checkValidity();
+  }
+
+  reportValidity(): boolean {
+    return this.input.reportValidity();
   }
 
   #onClick(event: Event): void {
@@ -157,6 +186,12 @@ export class Input extends LitElement {
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
+  }
+
+  #onInvalid(event: Event): void {
+    event.preventDefault();
+
+    this.invalid = !this.input.validity.valid;
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -172,6 +207,10 @@ export class Input extends LitElement {
       hint.id ||= `sl-input-hint-${nextUniqueId}`;
 
       this.input.setAttribute('aria-describedby', hint.id);
+
+      if (this.hint) {
+        hint.innerHTML = this.hint;
+      }
     } else if (this.hint) {
       const div = document.createElement('div');
       div.innerText = this.hint;
@@ -179,6 +218,30 @@ export class Input extends LitElement {
       this.append(div);
     } else {
       this.input.removeAttribute('aria-describedby');
+    }
+  }
+
+  #getInvalidState(validity: ValidityState): keyof ValidityState | undefined {
+    if (validity.badInput) {
+      return 'badInput';
+    } else if (validity.customError) {
+      return 'customError';
+    } else if (validity.patternMismatch) {
+      return 'patternMismatch';
+    } else if (validity.rangeOverflow) {
+      return 'rangeOverflow';
+    } else if (validity.rangeUnderflow) {
+      return 'rangeUnderflow';
+    } else if (validity.stepMismatch) {
+      return 'stepMismatch';
+    } else if (validity.tooLong) {
+      return 'tooLong';
+    } else if (validity.tooShort) {
+      return 'tooShort';
+    } else if (validity.typeMismatch) {
+      return 'typeMismatch';
+    } else if (validity.valueMissing) {
+      return 'valueMissing';
     }
   }
 }

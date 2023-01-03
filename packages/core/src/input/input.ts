@@ -1,10 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { IElementInternals } from 'element-internals-polyfill';
+import { localized } from '@lit/localize';
 import { LitElement, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
 import { HintMixin } from '../utils/form-control/index.js';
-import { dasherize } from '../utils/index.js';
 import styles from './input.scss.js';
+import { ValidationController } from './validation.js';
 
 let nextUniqueId = 0;
 
@@ -15,6 +17,7 @@ let nextUniqueId = 0;
  * @slot prefix - Content shown before the input
  * @slot suffix - Content shown after the input
  */
+@localized()
 export class Input extends HintMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
@@ -23,22 +26,19 @@ export class Input extends HintMixin(LitElement) {
   #events = new EventsController(this);
 
   /** The input element in the light DOM. */
-  input = document.createElement('input');
+  #input = document.createElement('input');
+
+  /** Validation controller. */
+  #validation = new ValidationController(this, this.#input);
 
   /** Element internals instance. */
-  internals = this.attachInternals();
+  internals = this.attachInternals() as ElementInternals & IElementInternals;
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete = 'off';
 
   /** No interaction is possible with this control when disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
-
-  /**
-   * Whether the form control is invalid.
-   * @private
-   */
-  @state() invalid?: boolean;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -53,7 +53,7 @@ export class Input extends HintMixin(LitElement) {
   @property() placeholder = '';
 
   /** Whether this form control is a required field. */
-  @property({ type: Boolean, reflect: true }) required?: boolean;
+  @property({ type: Boolean }) required?: boolean;
 
   /**
    * The input type. Only text types are valid here. For other types,
@@ -67,17 +67,16 @@ export class Input extends HintMixin(LitElement) {
   constructor() {
     super();
 
-    this.input.id = `sl-input-${nextUniqueId++}`;
-    this.input.slot = 'input';
-    this.append(this.input);
+    this.#input.id = `sl-input-${nextUniqueId++}`;
+    this.#input.slot = 'input';
+    this.append(this.#input);
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this.input, 'keydown', this.#onKeydown);
-    this.#events.listen(this.input, 'invalid', this.#onInvalid);
+    this.#events.listen(this.#input, 'keydown', this.#onKeydown);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -85,62 +84,55 @@ export class Input extends HintMixin(LitElement) {
 
     if (changes.has('autocomplete')) {
       if (this.autocomplete) {
-        this.input.setAttribute('autocomplete', this.autocomplete);
+        this.#input.setAttribute('autocomplete', this.autocomplete);
       } else {
-        this.input.removeAttribute('autocomplete');
+        this.#input.removeAttribute('autocomplete');
       }
     }
 
     if (changes.has('disabled')) {
-      this.input.toggleAttribute('disabled', this.disabled);
-    }
-
-    if (changes.has('invalid')) {
-      if (this.invalid) {
-        this.internals.states.add('--user-invalid');
-      } else {
-        this.internals.states.delete('--user-invalid');
-      }
+      this.#input.toggleAttribute('disabled', this.disabled);
     }
 
     if (changes.has('maxLength')) {
       if (this.maxLength) {
-        this.input.setAttribute('maxlength', this.maxLength.toString());
+        this.#input.setAttribute('maxlength', this.maxLength.toString());
       } else {
-        this.input.removeAttribute('maxlength');
+        this.#input.removeAttribute('maxlength');
       }
     }
 
     if (changes.has('minLength')) {
       if (this.minLength) {
-        this.input.setAttribute('minlength', this.minLength.toString());
+        this.#input.setAttribute('minlength', this.minLength.toString());
       } else {
-        this.input.removeAttribute('minlength');
+        this.#input.removeAttribute('minlength');
       }
     }
 
     if (changes.has('name')) {
-      this.input.name = this.name ?? '';
+      this.#input.name = this.name ?? '';
     }
 
     if (changes.has('placeholder')) {
       if (this.placeholder) {
-        this.input.setAttribute('placeholder', this.placeholder);
+        this.#input.setAttribute('placeholder', this.placeholder);
       } else {
-        this.input.removeAttribute('placeholder');
+        this.#input.removeAttribute('placeholder');
       }
     }
 
     if (changes.has('required')) {
-      this.input.toggleAttribute('required', this.required);
+      this.#input.toggleAttribute('required', this.required);
     }
 
     if (changes.has('type')) {
-      this.input.type = this.type;
+      this.#input.type = this.type;
     }
 
-    if (changes.has('value')) {
-      this.input.value = this.value ?? '';
+    // Only update the input when the value is different
+    if (changes.has('value') && this.value !== this.#input.value) {
+      this.#input.value = this.value ?? '';
     }
   }
 
@@ -151,70 +143,23 @@ export class Input extends HintMixin(LitElement) {
         <slot name="input"></slot>
         <slot name="suffix"></slot>
       </div>
-      ${this.renderHintSlot()}
-      ${this.invalid ? html`<div id="validation" class="validation">${this.renderValidationMessage()}</div>` : ''}
+      ${this.renderHintSlot()} ${this.#validation.render()}
     `;
-  }
-
-  renderValidationMessage(): TemplateResult | undefined {
-    const state = this.#getInvalidState(this.input.validity);
-
-    if (state) {
-      return html`<slot .name=${dasherize(state)}>${this.input.validationMessage}</slot>`;
-    }
-  }
-
-  checkValidity(): boolean {
-    return this.input.checkValidity();
-  }
-
-  reportValidity(): boolean {
-    return this.input.reportValidity();
   }
 
   #onClick(event: Event): void {
     event.preventDefault();
 
-    this.input?.focus();
+    this.#input.focus();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
   }
 
-  #onInvalid(event: Event): void {
-    event.preventDefault();
-
-    this.invalid = !this.input.validity.valid;
-  }
-
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
-      this.input.form?.requestSubmit();
-    }
-  }
-
-  #getInvalidState(validity: ValidityState): keyof ValidityState | undefined {
-    if (validity.badInput) {
-      return 'badInput';
-    } else if (validity.customError) {
-      return 'customError';
-    } else if (validity.patternMismatch) {
-      return 'patternMismatch';
-    } else if (validity.rangeOverflow) {
-      return 'rangeOverflow';
-    } else if (validity.rangeUnderflow) {
-      return 'rangeUnderflow';
-    } else if (validity.stepMismatch) {
-      return 'stepMismatch';
-    } else if (validity.tooLong) {
-      return 'tooLong';
-    } else if (validity.tooShort) {
-      return 'tooShort';
-    } else if (validity.typeMismatch) {
-      return 'typeMismatch';
-    } else if (validity.valueMissing) {
-      return 'valueMissing';
+      this.#input.form?.requestSubmit();
     }
   }
 }

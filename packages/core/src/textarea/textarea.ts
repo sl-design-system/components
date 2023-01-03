@@ -76,7 +76,8 @@ export class Textarea extends HintMixin(LitElement) {
       this.textarea.toggleAttribute('required', this.required);
     }
 
-    if (changes.has('value')) {
+    // Only update the textarea when the value is different
+    if (changes.has('value') && this.value !== this.textarea.value) {
       this.textarea.value = this.value ?? '';
     }
   }

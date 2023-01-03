@@ -14,6 +14,8 @@ export interface FormControlInterface {
 
   disabled?: boolean;
   required?: boolean;
+  validationMessage?: string;
+  value?: string;
 
   checkValidity(): boolean;
   formResetCallback(): void;

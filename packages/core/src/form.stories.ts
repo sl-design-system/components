@@ -100,6 +100,7 @@ export const Validation: StoryObj = {
   render: () => html`
     <style>
       form {
+        align-items: start;
         display: flex;
         flex-direction: column;
       }
@@ -109,10 +110,14 @@ export const Validation: StoryObj = {
       sl-label:not(:first-of-type) {
         margin-top: 1rem;
       }
+      sl-input,
+      sl-button-bar {
+        align-self: stretch;
+      }
     </style>
     <form @submit=${onSubmit}>
       <sl-label for="input">Label for the input</sl-label>
-      <sl-input id="input" name="input" placeholder="This is a placeholder" required></sl-input>
+      <sl-input id="input" minlength="8" name="input" placeholder="Type at least 8 characters here" required></sl-input>
 
       <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">I am required</sl-checkbox>

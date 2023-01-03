@@ -55,6 +55,6 @@ slot[name='input']::slotted(input) {
   width: 100%;
 }
 
-.validation {
+[part='error'] {
   color: #c00;
 }

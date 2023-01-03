@@ -106,6 +106,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
   }
 
   #onClose(): void {
+    console.log('onClose in drawer');
     // Reenable scrolling after the dialog has closed
     document.documentElement.style.overflow = '';
 

@@ -3,6 +3,7 @@ import type { FormControlInterface } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { Input } from '../input/index.js';
+import { Textarea } from '../textarea/index.js';
 import styles from './label.scss.js';
 
 export class Label extends LitElement {
@@ -46,11 +47,12 @@ export class Label extends LitElement {
           `#${this.for}`
         );
 
-        // If the form control is an <sl-input>, automatically associate the label
-        // with the <input> in the light DOM
-        if (this.formControl instanceof Input) {
+        // If the form control is an <sl-input> or <sl-textarea>,
+        // automatically associate the label with the <input> or
+        // <textarea> in the light DOM
+        if (this.formControl instanceof Input || this.formControl instanceof Textarea) {
           void this.formControl.updateComplete.then(() => {
-            const input = this.formControl?.querySelector('input');
+            const input = this.formControl?.querySelector('input, textarea');
 
             if (input) {
               this.#formControlId = input.id;

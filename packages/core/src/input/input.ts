@@ -2,6 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
+import { HintMixin } from '../utils/form-control/index.js';
 import { dasherize } from '../utils/index.js';
 import styles from './input.scss.js';
 
@@ -14,7 +15,7 @@ let nextUniqueId = 0;
  * @slot prefix - Content shown before the input
  * @slot suffix - Content shown after the input
  */
-export class Input extends LitElement {
+export class Input extends HintMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -32,9 +33,6 @@ export class Input extends LitElement {
 
   /** No interaction is possible with this control when disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
-
-  /** Hint text or indicator that a hint is slotted. */
-  @property() hint?: string;
 
   /**
    * Whether the form control is invalid.
@@ -97,10 +95,6 @@ export class Input extends LitElement {
       this.input.toggleAttribute('disabled', this.disabled);
     }
 
-    if (changes.has('hint')) {
-      this.#updateHint();
-    }
-
     if (changes.has('invalid')) {
       if (this.invalid) {
         this.internals.states.add('--user-invalid');
@@ -157,7 +151,7 @@ export class Input extends LitElement {
         <slot name="input"></slot>
         <slot name="suffix"></slot>
       </div>
-      <slot @slotchange=${() => this.#updateHint()} name="hint"></slot>
+      ${this.renderHintSlot()}
       ${this.invalid ? html`<div id="validation" class="validation">${this.renderValidationMessage()}</div>` : ''}
     `;
   }
@@ -197,27 +191,6 @@ export class Input extends LitElement {
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       this.input.form?.requestSubmit();
-    }
-  }
-
-  #updateHint(): void {
-    const hint = this.querySelector('[slot="hint"]');
-
-    if (hint) {
-      hint.id ||= `sl-input-hint-${nextUniqueId}`;
-
-      this.input.setAttribute('aria-describedby', hint.id);
-
-      if (this.hint) {
-        hint.innerHTML = this.hint;
-      }
-    } else if (this.hint) {
-      const div = document.createElement('div');
-      div.innerText = this.hint;
-      div.slot = 'hint';
-      this.append(div);
-    } else {
-      this.input.removeAttribute('aria-describedby');
     }
   }
 

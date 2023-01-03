@@ -7,7 +7,10 @@
 }
 
 :host {
-  display: block;
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--_gap);
 }
 
 :host(:disabled) {

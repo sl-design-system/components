@@ -28,6 +28,8 @@
     "./popover/register.js": "./dist/components/popover/register.js",
     "./radio-group": "./dist/components/radio-group/index.js",
     "./radio-group/register.js": "./dist/components/radio-group/register.js",
+    "./textarea": "./dist/components/textarea/index.js",
+    "./textarea/register.js": "./dist/components/textarea/register.js",
     "./tooltip": "./dist/components/tooltip/index.js",
     "./tooltip/register.js": "./dist/components/tooltip/register.js",
     "./utils": "./dist/components/utils/index.js",

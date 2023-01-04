@@ -7,6 +7,13 @@ eleventyNavigation:
   order: 3
 ---
 
+[//]: # (import { Button } from "@sanomalearning/slds-core/button";)
+
+[//]: # (<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.87/dist/components/button/button.js"></script>)
+<script type="text/javascript">
+      {% include "@sanomalearning/slds-core/button" %}
+</script>
+
 [//]: # (Left for the future use)
 [//]: # (<div class="ds-tabs-wrapper">)
 
@@ -83,7 +90,7 @@ eleventyNavigation:
 [//]: # (</dna-tabs>)
 
 <div horizontal class="ds-tabs">
-    <button class="ds-tab active">Overview</button>
+    <button class="ds-tab">Overview</button>
     <button class="ds-tab">Specs</button>
     <button class="ds-tab">Usage</button>
     <button class="ds-tab">Accessibility</button>
@@ -112,11 +119,13 @@ eleventyNavigation:
 [//]: # (  </div>)
   <div class="ds-tabs__tab-content-wrapper">
 
-  <div class="ds-tabs__tab-content ds-tabs__tab-content--active">
+  <div class="ds-tabs__tab-content">
 
   [//]: # (<div class="ds-tabs__tab-container">)
 
   ## Overview
+
+<sl-button fill="default" size="sm">Default</sl-button>
 
   <div class="ds-example">
 
@@ -134,7 +143,41 @@ eleventyNavigation:
 
   [//]: # (TODO: add button to copy code)
 
-  <ds-alert></ds-alert>
+  <ds-alert heading="Do">
+
+    - Curabitur vel bibendum lorem
+    - Morbi convallis convallis diam sit amet lacinia
+    - Aliquam in elementum tellus
+
+  </ds-alert>
+
+  <ds-alert variant="danger" heading="test">
+
+    jnfdiuhfiudh
+
+  </ds-alert>
+
+  <ds-alert heading="Don't" variant="danger">
+  
+    - Curabitur vel bibendum lorem
+    - Morbi convallis convallis diam sit amet lacinia
+    - Aliquam in elementum tellus
+
+  </ds-alert>
+
+
+  <ds-alert heading="Dont" variant="success-small">
+
+    Do small
+
+  </ds-alert>
+
+
+  <ds-alert heading="Don't" variant="danger-small">
+
+    Don't small
+
+  </ds-alert>
 
   <div class="ds-success">
 

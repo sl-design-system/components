@@ -5,6 +5,7 @@
   pre {
     border: 1px solid var(--code-border); //#EAEAEA;
     border-radius: 0 0 0.6rem 0.6rem;
+    border-top: 0;
     margin: 0;
   }
 }
@@ -49,20 +50,14 @@ code[class*='language-'],
 pre[class*='language-'] {
   background: none;
   color: var(--text-color); //#f8f8f2;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; // TODO: change font to exact one
+  font-family: 'source-code-pro', monospace; //Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; // TODO: change font to exact one
   font-size: 1.2rem;
-
-  hyphens: none;
-  hyphens: none;
-  hyphens: none;
   hyphens: none;
   line-height: 1.5;
   padding: 2.4rem 1.6rem;
-
-  tab-size: 4;
-  tab-size: 4;
   tab-size: 4;
   text-align: left;
+  text-shadow: none;
   white-space: pre;
   word-break: normal;
   word-spacing: normal;

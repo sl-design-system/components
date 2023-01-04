@@ -23,3 +23,13 @@
   box-shadow: var(--focus-box-shadow);
   outline: none;
 }
+
+$sticky-breakpoint: 88px;
+
+html {
+  font-size: 62.5%;
+
+  @media (min-height: $sticky-breakpoint) {
+    scroll-padding-top: 28px;
+  }
+}

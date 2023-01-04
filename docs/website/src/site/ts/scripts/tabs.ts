@@ -25,7 +25,8 @@ let nextUniqueId = 0;
 let headerAnchors: NodeListOf<Element>;
 const headerAnchorsParentsAll: Array<HTMLElement | undefined> = []; //Element[];
 // let verticalSliderElement: HTMLElement;
-// let verticalIndicatorElement: HTMLElement;
+// let verticalIndicatorElement: HTMLElement; // TODO: needed to slign vertically
+let currentVerticalTabLink: Element;
 
 const verticalTabsAll: HTMLElement[] = [];
 
@@ -48,6 +49,7 @@ window.onload = () => {
   tabsContentWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs__tab-content-wrapper') as Element;
 
   tabs = horizontalTabsContainers[0].querySelectorAll('.ds-tab');
+  tabs[0].classList.add('active');
 
   tabsContainer = document.createElement('div');
   tabsContainer.classList.add('ds-tabs__container');
@@ -73,6 +75,8 @@ window.onload = () => {
   current = tabsWrapper.querySelector('.active') as Element;
 
   tabsContents = horizontalTabsContainers[0]?.querySelectorAll('.ds-tabs__tab-content');
+
+  tabsContents[0].classList.add('ds-tabs__tab-content--active');
 
   console.log('tabs, tabsContents', tabs, tabsContents, tabsWrapper);
 
@@ -425,6 +429,11 @@ const observer = new IntersectionObserver(
 
 // TODO: generate vertical tabs
 
+const verticalConfig = {
+  root: null //document.querySelector('.ds-tabs__tab-content-wrapper') //null, //container, //null, //container, //null, //null, // Sets the framing element to the viewport
+  //rootMargin: '104px', //'104px', //'112px', // TODO change for the desktop version on resize as well
+  //threshold: 1
+};
 const verticalObserver = new IntersectionObserver(entries => {
   console.log('entries vertical', entries, verticalTabsContainers, verticalTabsAll);
   entries.forEach(entry => {
@@ -449,21 +458,43 @@ const verticalObserver = new IntersectionObserver(entries => {
     if (!id) {
       return;
     }
+
     // const verticalTabLink = verticalTabsContainers[0].querySelector(`[href="${id}"]`);
     const verticalTabLink = verticalTabsAll.find(element => (element as HTMLAnchorElement).hash === `#${id}`);
     //console.log('elem hash vert', (element as HTMLAnchorElement).hash, `#${id}`);
-    console.log('verticalTabLink', entry.intersectionRatio, verticalTabLink, verticalTabsAll);
+    console.log(
+      'verticalTabLink',
+      entry.boundingClientRect.y,
+      tabsContentWrapper,
+      tabsContainers,
+      entry,
+      entry.intersectionRatio,
+      verticalTabLink,
+      verticalTabsAll,
+      entry.target,
+      currentVerticalTabLink,
+      entry.rootBounds
+    );
     if (!verticalTabLink) {
       return;
     }
-    if (entry.intersectionRatio > 0) {
+    // currentVerticalTabLink?.classList.remove('active');
+    if (
+      entry.intersectionRatio > 0 &&
+      verticalTabLink !== currentVerticalTabLink &&
+      entry.intersectionRect.top > 0 &&
+      entry.boundingClientRect.y > 0
+    ) {
       // verticalTabsAll.forEach(tab => tab.classList.remove('active'));
+      // currentVerticalTabLink.classList.remove('active');
       verticalTabLink.classList.add('active');
+      // currentVerticalTabLink = verticalTabLink;
     } else {
       verticalTabLink.classList.remove('active');
     }
+    currentVerticalTabLink = verticalTabLink;
   });
-});
+}, verticalConfig);
 
 // observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
 
@@ -514,6 +545,11 @@ function selectTab(tab: Element): void {
     (tab as HTMLElement).offsetLeft - (tabsContainer as HTMLElement)?.offsetLeft /*wrapper.offsetLeft*/
   );
   // TODO: prepare scrolling on select like #updateSelectionIndicator in tab bar
+  const start = (tab as HTMLElement).offsetLeft - (tabsContainer as HTMLElement)?.offsetLeft - 24;
+
+  setTimeout(() => {
+    tabsWrapper.scrollTo({ left: start, behavior: 'smooth' });
+  }, 100);
 
   current?.setAttribute('aria-selected', 'false');
   tab.setAttribute('aria-selected', 'true');

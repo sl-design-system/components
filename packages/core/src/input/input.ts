@@ -70,7 +70,10 @@ export class Input extends ValidationMixin(HintMixin(LitElement)) {
       this.input.autocomplete ||= 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
       this.input.slot = 'input';
-      this.append(this.input);
+
+      if (!this.input.parentElement) {
+        this.append(this.input);
+      }
     }
 
     this.#events.listen(this, 'click', this.#onClick);
@@ -171,8 +174,8 @@ export class Input extends ValidationMixin(HintMixin(LitElement)) {
     this.value = target.value;
   }
 
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
+  #onKeydown({ key }: KeyboardEvent): void {
+    if (key === 'Enter') {
       this.input.form?.requestSubmit();
     }
   }
@@ -181,8 +184,9 @@ export class Input extends ValidationMixin(HintMixin(LitElement)) {
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
 
+    // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (inputs.length) {
-      this.input = inputs.at(0) as HTMLInputElement;
+      this.input = this.validationHost = inputs.at(0) as HTMLInputElement;
       this.input.autocomplete ||= 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
     }

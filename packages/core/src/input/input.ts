@@ -3,7 +3,7 @@ import type { IElementInternals } from 'element-internals-polyfill';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
-import { HintMixin, ValidationMixin } from '../utils/form-control/index.js';
+import { HintMixin, ValidationMixin, validationStyles } from '../utils/form-control/index.js';
 import styles from './input.scss.js';
 
 let nextUniqueId = 0;
@@ -17,7 +17,7 @@ let nextUniqueId = 0;
  */
 export class Input extends ValidationMixin(HintMixin(LitElement)) {
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [validationStyles, styles];
 
   /** Events controller. */
   #events = new EventsController(this);

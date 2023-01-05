@@ -3,14 +3,14 @@ import type { IElementInternals } from 'element-internals-polyfill';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
-import { HintMixin, ValidationMixin } from '../utils/form-control/index.js';
+import { HintMixin, ValidationMixin, validationStyles } from '../utils/form-control/index.js';
 import styles from './textarea.scss.js';
 
 let nextUniqueId = 0;
 
 export class Textarea extends ValidationMixin(HintMixin(LitElement)) {
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [validationStyles, styles];
 
   /** Event controller. */
   #events = new EventsController(this);

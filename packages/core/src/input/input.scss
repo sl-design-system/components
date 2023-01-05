@@ -55,7 +55,3 @@ slot[name='input']::slotted(input) {
   transition-property: background, border, box-shadow, color, filter;
   width: 100%;
 }
-
-[part='error'] {
-  color: #c00;
-}

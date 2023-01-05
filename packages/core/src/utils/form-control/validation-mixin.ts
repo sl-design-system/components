@@ -1,10 +1,13 @@
 import type { IElementInternals } from 'element-internals-polyfill';
-import type { ReactiveElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, ReactiveElement, TemplateResult } from 'lit';
 import type { Constructor } from '../mixin-types.js';
 import { localized, msg, str } from '@lit/localize';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { EventsController } from '../controllers/events.js';
+import styles from './validation-mixin.scss.js';
+
+export const validationStyles: CSSResultGroup = styles;
 
 export interface ValidationInterface {
   readonly form: HTMLFormElement | null;

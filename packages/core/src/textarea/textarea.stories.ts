@@ -1,3 +1,4 @@
+import type { Textarea } from './textarea.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../label/register.js';
@@ -81,4 +82,33 @@ export const RichLabelHint: StoryObj = {
       </sl-textarea>
     </div>
   `
+};
+
+export const MinMaxLength: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Textarea)?.reportValidity();
+    };
+
+    return html`
+      <sl-textarea minlength="3" maxlength="5" placeholder="Min 3 and max 5 chars" required></sl-textarea>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
+};
+
+export const CustomValidation: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Textarea)?.reportValidity();
+    };
+
+    return html`
+      <sl-textarea minlength="3" maxlength="5" required="true">
+        <div slot="too-short">You need to enter at least 3 characters here; this is a custom message.</div>
+        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
+      </sl-textarea>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
 };

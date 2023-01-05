@@ -1,8 +1,8 @@
-import type { Drawer, DrawerAttachement } from './drawer.js';
+import type { Drawer, DrawerAttachment } from './drawer.js';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
-import './register.js';
 import { SinonSpy, spy, stub } from 'sinon';
+import './register.js';
 
 describe('sl-drawer', () => {
   let el: Drawer;
@@ -28,7 +28,7 @@ describe('sl-drawer', () => {
   
     ['right', 'left', 'top', 'bottom'].forEach(attachment => {
       it(`should support ${attachment} attachment`, async () => {
-        el.attachment = attachment as DrawerAttachement;
+        el.attachment = attachment as DrawerAttachment;
         await el.updateComplete;
   
         expect(el).to.have.attribute('attachment', attachment);
@@ -61,8 +61,7 @@ describe('sl-drawer', () => {
     it('should not close the drawer when the cancel event is fired but close is disabled', async () => {
       const dialog = el.renderRoot.querySelector('dialog');
       const cancelEvent = new Event('cancel');
-      const cancelEventSpy = spy(cancelEvent,'preventDefault')
-
+      const cancelEventSpy = spy(cancelEvent,'preventDefault');
       
       el.disableClose = true;
       el.showModal();
@@ -78,8 +77,7 @@ describe('sl-drawer', () => {
     it('should close the drawer when the cancel event is fired and close isn`t disabled', async () => {
       const dialog = el.renderRoot.querySelector('dialog');
       const cancelEvent = new Event('cancel');
-      const cancelEventSpy = spy(cancelEvent,'preventDefault')
-
+      const cancelEventSpy = spy(cancelEvent,'preventDefault');
       
       el.disableClose = false;
       el.showModal();

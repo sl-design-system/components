@@ -87,7 +87,7 @@ export class Textarea extends HintMixin(LitElement) {
       <div class="wrapper" part"wrapper">
         <slot name="textarea"></slot>
       </div>
-      ${this.renderHintSlot()}
+      ${this.renderHint()}
     `;
   }
 

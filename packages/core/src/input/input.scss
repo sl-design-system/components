@@ -11,6 +11,7 @@
   display: inline-flex;
   flex-direction: column;
   gap: var(--_gap);
+  vertical-align: top;
 }
 
 :host(:disabled) {

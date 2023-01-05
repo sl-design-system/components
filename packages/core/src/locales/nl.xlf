@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 <file target-language="nl" source-language="en" original="lit-localize-inputs" datatype="plaintext">
 <body>
+<trans-unit id="s1e4177e8de76dfc9">
+  <source>Please match the specified pattern.</source>
+  <target>Dit veld volgt niet het gespecificeerde patroon.</target>
+</trans-unit>
 <trans-unit id="s45d6e41483a83f82">
   <source>This field must be at least <x id="0" equiv-text="${count}"/> character<x id="1" equiv-text="${count &gt; 1 ? 's' : ''}"/> long.</source>
   <target>Dit veld moet tenminste <x id="0" equiv-text="${count}"/> karakter<x id="1" equiv-text="${count &gt; 1 ? 's' : ''}"/> lang zijn.</target>

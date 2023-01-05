@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { FormControlMixin } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { EventsController } from '../utils/controllers/events.js';
 import styles from './button.scss.js';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -12,29 +12,18 @@ export type ButtonType = 'button' | 'reset' | 'submit';
 
 export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
 
-export class Button extends FormControlMixin(LitElement) {
+export class Button extends LitElement {
+  /** @private */
+  static formAssociated = true;
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  #onClick = (event: Event): void => {
-    if (this.hasAttribute('disabled')) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else if (this.type === 'reset') {
-      this.form?.reset();
-    } else if (this.type === 'submit') {
-      this.form?.requestSubmit();
-    }
-  };
+  /** Event controller. */
+  #events = new EventsController(this);
 
-  #onKeydown = (event: KeyboardEvent): void => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      this.click();
-
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  };
+  /** Element internals. */
+  internals = this.attachInternals();
 
   /** The original tabIndex before disabled. */
   private originalTabIndex = 0;
@@ -54,24 +43,21 @@ export class Button extends FormControlMixin(LitElement) {
   /** The button variant. If no variant is specified, it uses the default button style. */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
 
+  get form(): HTMLFormElement | undefined {
+    return this.internals.form;
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.internals.role = 'button';
 
-    this.addEventListener('click', this.#onClick);
-    this.addEventListener('keydown', this.#onKeydown);
+    this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this, 'keydown', this.#onKeydown);
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
-  }
-
-  override disconnectedCallback(): void {
-    this.removeEventListener('click', this.#onClick);
-    this.removeEventListener('keydown', this.#onKeydown);
-
-    super.disconnectedCallback();
   }
 
   formDisabledCallback(disabled: boolean): void {
@@ -84,5 +70,25 @@ export class Button extends FormControlMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`<slot></slot>`;
+  }
+
+  #onClick(event: Event): void {
+    if (this.hasAttribute('disabled')) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else if (this.type === 'reset') {
+      this.form?.reset();
+    } else if (this.type === 'submit') {
+      this.form?.requestSubmit();
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.click();
+
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 }

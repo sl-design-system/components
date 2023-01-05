@@ -1,5 +1,7 @@
+import type { Input } from './index.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import '../button/register.js';
 import '../label/register.js';
 import './register.js';
 
@@ -47,7 +49,6 @@ export const Label: StoryObj = {
       div {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
     </style>
     <div>
@@ -63,7 +64,6 @@ export const Hint: StoryObj = {
       div {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
     </style>
     <div>
@@ -79,7 +79,6 @@ export const RichLabelHint: StoryObj = {
       div:not([slot]) {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
     </style>
     <div>
@@ -105,17 +104,52 @@ export const PrefixSuffix: StoryObj = {
 };
 
 export const MinMaxLength: StoryObj = {
-  render: () => html`<sl-input maxlength="5" minlength="3" placeholder="Min 3, max 5 chars"></sl-input>`
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Input)?.reportValidity();
+    };
+
+    return html`
+      <sl-input minlength="3" maxlength="5" placeholder="Min 3 and max 5 chars" required></sl-input>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
 };
 
-export const Required: StoryObj = {
-  render: () => html`<sl-input placeholder="I am required" required></sl-input>`
+export const Pattern: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Input)?.reportValidity();
+    };
+
+    return html`
+      <sl-input pattern=".{3,5}" placeholder="Min 3 and max 5 chars using pattern" required></sl-input>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
 };
 
-export const Validation: StoryObj = {
+export const CustomInput: StoryObj = {
   render: () => html`
-    <sl-input minlength="3" maxlength="5" required>
-      <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
+    <sl-label for="custom">Custom input</sl-label>
+    <sl-input id="custom">
+      <input id="foo" slot="input" placeholder="I am a custom input" />
     </sl-input>
   `
+};
+
+export const CustomValidation: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Input)?.reportValidity();
+    };
+
+    return html`
+      <sl-input minlength="3" maxlength="5" required="true">
+        <div slot="too-short">You need to enter at least 3 characters here; this is a custom message.</div>
+        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
+      </sl-input>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
 };

@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
 
 export interface HintInterface {
   hint?: string;
-  renderHintSlot(): TemplateResult;
+  renderHint(): TemplateResult;
 }
 
 let nextUniqueId = 0;
@@ -23,7 +23,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
       }
     }
 
-    renderHintSlot(): TemplateResult {
+    renderHint(): TemplateResult {
       return html`<slot @slotchange=${() => this.#updateHint()} name="hint"></slot>`;
     }
 

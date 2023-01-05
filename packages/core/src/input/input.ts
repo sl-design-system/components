@@ -1,41 +1,35 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { IElementInternals } from 'element-internals-polyfill';
-import { localized } from '@lit/localize';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
-import { HintMixin } from '../utils/form-control/index.js';
+import { HintMixin, ValidationMixin } from '../utils/form-control/index.js';
 import styles from './input.scss.js';
-import { ValidationController } from './validation.js';
 
 let nextUniqueId = 0;
 
 /**
  * Single line text input component.
  *
- * @csspart wrapper - The wrapper container
  * @slot prefix - Content shown before the input
+ * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
  */
-@localized()
-export class Input extends HintMixin(LitElement) {
+export class Input extends ValidationMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Event controller. */
+  /** Events controller. */
   #events = new EventsController(this);
 
   /** The input element in the light DOM. */
-  #input = document.createElement('input');
+  input!: HTMLInputElement;
 
-  /** Validation controller. */
-  #validation = new ValidationController(this, this.#input);
-
-  /** Element internals instance. */
+  /** Element internals. */
   internals = this.attachInternals() as ElementInternals & IElementInternals;
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
-  @property() autocomplete = 'off';
+  @property() autocomplete?: string;
 
   /** No interaction is possible with this control when disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -49,8 +43,11 @@ export class Input extends HintMixin(LitElement) {
   /** The name of the form control. */
   @property() name?: string;
 
+  /** Validation using pattern. */
+  @property() pattern?: string;
+
   /** Placeholder text in the input. */
-  @property() placeholder = '';
+  @property() placeholder?: string;
 
   /** Whether this form control is a required field. */
   @property({ type: Boolean }) required?: boolean;
@@ -64,19 +61,20 @@ export class Input extends HintMixin(LitElement) {
   /** The value of the input. */
   @property() value = '';
 
-  constructor() {
-    super();
-
-    this.#input.id = `sl-input-${nextUniqueId++}`;
-    this.#input.slot = 'input';
-    this.append(this.#input);
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
 
+    if (!this.input) {
+      this.input = this.validationHost =
+        this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input.autocomplete ||= 'off';
+      this.input.id ||= `sl-input-${nextUniqueId++}`;
+      this.input.slot = 'input';
+      this.append(this.input);
+    }
+
     this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this.#input, 'keydown', this.#onKeydown);
+    this.#events.listen(this.input, 'keydown', this.#onKeydown);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -84,73 +82,89 @@ export class Input extends HintMixin(LitElement) {
 
     if (changes.has('autocomplete')) {
       if (this.autocomplete) {
-        this.#input.setAttribute('autocomplete', this.autocomplete);
+        this.input.setAttribute('autocomplete', this.autocomplete);
       } else {
-        this.#input.removeAttribute('autocomplete');
+        this.input.removeAttribute('autocomplete');
       }
     }
 
     if (changes.has('disabled')) {
-      this.#input.toggleAttribute('disabled', this.disabled);
+      this.input.toggleAttribute('disabled', this.disabled);
+    }
+
+    if (changes.has('invalid')) {
+      if (this.invalid) {
+        this.internals.states.add('--user-invalid');
+      } else {
+        this.internals.states.delete('--user-invalid');
+      }
     }
 
     if (changes.has('maxLength')) {
       if (this.maxLength) {
-        this.#input.setAttribute('maxlength', this.maxLength.toString());
+        this.input.setAttribute('maxlength', this.maxLength.toString());
       } else {
-        this.#input.removeAttribute('maxlength');
+        this.input.removeAttribute('maxlength');
       }
     }
 
     if (changes.has('minLength')) {
       if (this.minLength) {
-        this.#input.setAttribute('minlength', this.minLength.toString());
+        this.input.setAttribute('minlength', this.minLength.toString());
       } else {
-        this.#input.removeAttribute('minlength');
+        this.input.removeAttribute('minlength');
       }
     }
 
     if (changes.has('name')) {
-      this.#input.name = this.name ?? '';
+      this.input.name = this.name ?? '';
+    }
+
+    if (changes.has('pattern')) {
+      if (this.pattern) {
+        this.input.setAttribute('pattern', this.pattern);
+      } else {
+        this.input.removeAttribute('pattern');
+      }
     }
 
     if (changes.has('placeholder')) {
       if (this.placeholder) {
-        this.#input.setAttribute('placeholder', this.placeholder);
+        this.input.setAttribute('placeholder', this.placeholder);
       } else {
-        this.#input.removeAttribute('placeholder');
+        this.input.removeAttribute('placeholder');
       }
     }
 
     if (changes.has('required')) {
-      this.#input.toggleAttribute('required', this.required);
+      this.input.toggleAttribute('required', this.required);
     }
 
     if (changes.has('type')) {
-      this.#input.type = this.type;
+      this.input.type = this.type;
     }
 
     // Only update the input when the value is different
-    if (changes.has('value') && this.value !== this.#input.value) {
-      this.#input.value = this.value ?? '';
+    if (changes.has('value') && this.value !== this.input.value) {
+      this.input.value = this.value ?? '';
     }
   }
 
   override render(): TemplateResult {
     return html`
-      <div @input=${this.#onInput} class="wrapper" part="wrapper">
+      <div @input=${this.#onInput} class="wrapper">
         <slot name="prefix"></slot>
-        <slot name="input"></slot>
+        <slot @slotchange=${this.#onSlotchange} name="input"></slot>
         <slot name="suffix"></slot>
       </div>
-      ${this.renderHintSlot()} ${this.#validation.render()}
+      ${this.renderHint()} ${this.renderValidation()}
     `;
   }
 
   #onClick(event: Event): void {
     event.preventDefault();
 
-    this.#input.focus();
+    this.input.focus();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
@@ -159,7 +173,18 @@ export class Input extends HintMixin(LitElement) {
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
-      this.#input.form?.requestSubmit();
+      this.input.form?.requestSubmit();
+    }
+  }
+
+  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = event.target.assignedElements({ flatten: true }),
+      inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
+
+    if (inputs.length) {
+      this.input = inputs.at(0) as HTMLInputElement;
+      this.input.autocomplete ||= 'off';
+      this.input.id ||= `sl-input-${nextUniqueId++}`;
     }
   }
 }

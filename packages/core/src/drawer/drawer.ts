@@ -1,10 +1,8 @@
 import type { TemplateResult } from 'lit-html';
 import type { CSSResultGroup } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import type { ButtonSize } from '../button/button.js';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { ButtonBar } from '../button-bar/index.js';
 import styles from './drawer.scss.js';
 
 export type DrawerAttachement = 'right' | 'left' | 'top' | 'bottom';
@@ -12,20 +10,11 @@ export type DrawerAttachement = 'right' | 'left' | 'top' | 'bottom';
 /**
  * A dialog component for displaying modal UI.
  *
- * @slot action - Area where action buttons are placed
  * @slot default - Body content for the dialog
- * @slot footer - Footer content for the dialog
  * @slot header - Header content for the dialog
  * @slot title - The title of the dialog
  */
-export class Drawer extends ScopedElementsMixin(LitElement) {
-  /** @private */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-button-bar': ButtonBar
-    };
-  }
-
+export class Drawer extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -35,10 +24,13 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
 
   /** The ARIA role of the dialog. */
-  @property() override role: 'dialog' | 'alertdialog' = 'dialog';
+  @property() override role: 'dialog' | 'section' = 'dialog';
 
   /** The side of the screen where the drawer is attached */
   @property({ reflect: true }) attachment: DrawerAttachement = 'right';
+
+  /** The size of the button */
+  @property() closeButtonSize: ButtonSize = 'sm';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -53,12 +45,16 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @close=${this.#onClose}
         .role=${this.role}
+        aria-labelledby="title"
         part="dialog"
       >
-        <sl-button sl-dialog-close size="sm">x</sl-button>
-        <slot name="header">
-          <slot name="title"></slot>
-        </slot>
+        <div>
+          <sl-button sl-dialog-close .size="${this.closeButtonSize}" aria-label="back to page" title="close"
+            >x</sl-button
+          >
+          <slot name="title" id="title"></slot>
+          <slot name="actions"></slot>
+        </div>
         <slot name="body">
           <slot></slot>
         </slot>

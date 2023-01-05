@@ -1,56 +1,62 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { IElementInternals } from 'element-internals-polyfill';
 import { LitElement, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
-import { HintMixin } from '../utils/form-control/index.js';
+import { HintMixin, ValidationMixin } from '../utils/form-control/index.js';
 import styles from './textarea.scss.js';
 
 let nextUniqueId = 0;
 
-export class Textarea extends HintMixin(LitElement) {
+export class Textarea extends ValidationMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
   /** Event controller. */
   #events = new EventsController(this);
 
-  /** The textarea. */
-  textarea = document.createElement('textarea');
+  /** Element internals. */
+  internals = this.attachInternals() as ElementInternals & IElementInternals;
+
+  /** The textarea in the light DOM. */
+  textarea!: HTMLTextAreaElement;
 
   /** No interaction is possible with this control when disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /**
-   * Whether the form control is invalid.
-   * @private
-   */
-  @state() invalid?: boolean;
+  /** Maximum length (number of characters). */
+  @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
+
+  /** Minimum length (number of characters). */
+  @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
   /** The name of the form control. */
   @property() name?: string;
 
   /** Placeholder text in the input. */
-  @property() placeholder = '';
+  @property() placeholder?: string;
 
   /** Whether this form control is a required field. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
-  /** The value of the input. */
+  /** The value of the textarea. */
   @property() value = '';
-
-  constructor() {
-    super();
-
-    this.textarea.id = `sl-textarea-${nextUniqueId++}`;
-    this.textarea.slot = 'textarea';
-    this.append(this.textarea);
-  }
 
   override connectedCallback(): void {
     super.connectedCallback();
 
+    if (!this.textarea) {
+      this.textarea = this.validationHost =
+        this.querySelector<HTMLTextAreaElement>('textarea[slot="input"]') || document.createElement('textarea');
+      this.textarea.id ||= `sl-textarea-${nextUniqueId++}`;
+      this.textarea.slot = 'textarea';
+
+      if (!this.textarea.parentElement) {
+        this.append(this.textarea);
+      }
+    }
+
     this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this.textarea, 'invalid', this.#onInvalid);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -58,6 +64,30 @@ export class Textarea extends HintMixin(LitElement) {
 
     if (changes.has('disabled')) {
       this.textarea.toggleAttribute('disabled', this.disabled);
+    }
+
+    if (changes.has('invalid')) {
+      if (this.invalid) {
+        this.internals.states.add('--user-invalid');
+      } else {
+        this.internals.states.delete('--user-invalid');
+      }
+    }
+
+    if (changes.has('maxLength')) {
+      if (this.maxLength) {
+        this.textarea.setAttribute('maxlength', this.maxLength.toString());
+      } else {
+        this.textarea.removeAttribute('maxlength');
+      }
+    }
+
+    if (changes.has('minLength')) {
+      if (this.minLength) {
+        this.textarea.setAttribute('minlength', this.minLength.toString());
+      } else {
+        this.textarea.removeAttribute('minlength');
+      }
     }
 
     if (changes.has('name')) {
@@ -84,10 +114,10 @@ export class Textarea extends HintMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div class="wrapper" part"wrapper">
-        <slot name="textarea"></slot>
+      <div @input=${this.#onInput} class="wrapper">
+        <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
       </div>
-      ${this.renderHint()}
+      ${this.renderHint()} ${this.renderValidation()}
     `;
   }
 
@@ -97,9 +127,20 @@ export class Textarea extends HintMixin(LitElement) {
     this.textarea.focus();
   }
 
-  #onInvalid(event: Event): void {
-    event.preventDefault();
+  #onInput({ target }: Event & { target: HTMLTextAreaElement }): void {
+    this.value = target.value;
+  }
 
-    this.invalid = !this.textarea.validity.valid;
+  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = event.target.assignedElements({ flatten: true }),
+      textareas = elements.filter(
+        (el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement && el !== this.textarea
+      );
+
+    // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
+    if (textareas.length) {
+      this.textarea = this.validationHost = textareas.at(0) as HTMLTextAreaElement;
+      this.textarea.id ||= `sl-input-${nextUniqueId++}`;
+    }
   }
 }

@@ -24,9 +24,11 @@ let currentContent: Element;
 let nextUniqueId = 0;
 let headerAnchors: NodeListOf<Element>;
 const headerAnchorsParentsAll: Array<HTMLElement | undefined> = []; //Element[];
-// let verticalSliderElement: HTMLElement;
-// let verticalIndicatorElement: HTMLElement; // TODO: needed to slign vertically
+let verticalSliderElement: HTMLElement;
+//let verticalIndicatorElement: HTMLElement; // TODO: needed to align vertically
 let currentVerticalTabLink: Element;
+const verticalTabsWrapperAll: Element[] = [];
+let currentVerticalTabsContainer: Element;
 
 const verticalTabsAll: HTMLElement[] = [];
 
@@ -116,12 +118,12 @@ window.onload = () => {
     generateVerticalTabs(tabContent);
   });
 
-  /*headerAnchors*/ /*verticalTabsAll*/ headerAnchorsParentsAll.forEach(tab => {
-    console.log('tabbsbbbbb', tab);
-    if (tab) {
-      verticalObserver.observe(tab);
-    }
-  });
+  // /*headerAnchors*/ /*verticalTabsAll*/ headerAnchorsParentsAll.forEach(tab => {
+  //   console.log('tabbsbbbbb', tab, tab?.parentElement);
+  //   if (tab) {
+  //     verticalObserver.observe(tab);
+  //   }
+  // });
 
   console.log('tabs, tabsContents', tabs, tabsContents, tabsWrapper, verticalTabsAll, headerAnchors);
 
@@ -163,6 +165,13 @@ window.onload = () => {
       selectTab(event.target as Element);
     };
   });
+
+  // verticalTabsAll?.forEach(verticalTab => {
+  //   verticalTab.onclick = (event: MouseEvent) => {
+  //     console.log('verticalTab in sele event', event, verticalTabsAll);
+  //     selectVerticalTab(event.target as Element);
+  //   };
+  // });
 
   // headerAnchors = document.querySelectorAll('.header-anchor');
   // const headerAnchorsParents = Array.from(headerAnchors).map(element => {
@@ -315,6 +324,7 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   const verticalTabsWrapper = document.createElement('div');
   verticalTabsWrapper.classList.add('ds-tabs-wrapper');
   verticalTabsContainer.appendChild(verticalTabsWrapper);
+  verticalTabsWrapperAll.push(verticalTabsWrapper);
 
   const verticalSlider = document.createElement('div');
   verticalSlider.classList.add('vertical-slider');
@@ -329,11 +339,27 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   verticalIndicatorElement = verticalIndicator;
 
   headerAnchors = verticalTabContent.querySelectorAll('.header-anchor');
+  let prevElement: Element;
   const headerAnchorsParents = Array.from(headerAnchors)
     .map(element => {
-      console.log('element in headerAnchors', element, element.parentElement);
+      console.log('element in headerAnchors', element, element.parentElement?.parentNode);
       // return element.parentElement?.tagName === 'H2' ? element.parentElement;
       if (element.parentElement?.tagName === 'H2') {
+        if (element.parentElement.parentNode) {
+          (element.parentElement.parentNode as Element).id = element.parentElement.id;
+        }
+        /*        if (prevElement) {
+          const textNodes = getTextNodesBetween(
+            // TODO: not necessary?
+            verticalTabContent.firstChild,
+            prevElement.parentElement,
+            element.parentElement
+          );
+          console.log('textNodes', textNodes);
+        }*/
+        prevElement = element;
+        console.log(prevElement);
+        // console.log('textNodes', textNodes);
         return element.parentElement;
       }
       return;
@@ -342,6 +368,43 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   // TODO: generate vertical tabs from headerAnchorsParents
   /*headerAnchorsParentsAll = */ headerAnchorsParentsAll.push(...headerAnchorsParents);
   console.log('hheader anchor parents', headerAnchorsParents, headerAnchorsParentsAll);
+
+  /*  function getTextNodesBetween(rootNode, startNode, endNode) {
+    let pastStartNode = false,
+      reachedEndNode = false,
+      textNodes = [];
+
+    function getTextNodes(node) {
+      node = node.childNodes;
+      console.log('node.childNodes', node, node.childNodes, node.childNodes?.length, startNode, endNode, node.nodeType);
+      if (node == startNode) {
+        pastStartNode = true;
+      } else if (node == endNode) {
+        reachedEndNode = true;
+      } else if (node.nodeType == 1) {
+        console.log('1-nooooode', node, pastStartNode, !reachedEndNode, startNode);
+        if (pastStartNode && !reachedEndNode /!*&& !/^\s*$/.test(node.nodeValue)*!/) {
+          console.log('nooooode', node);
+          textNodes.push(node);
+        }
+      } else {
+        for (let i = 0, len = node.length; !reachedEndNode && i < len; ++i) {
+          console.log('node.childNodes[i]', node[i]);
+          getTextNodes(node[i]);
+          // textNodes.push(node);
+        }
+      }
+    }
+
+    getTextNodes(rootNode);
+    return textNodes;
+  }*/
+
+  // const x = document.getElementById('x'),
+  //   y = document.getElementById('y');
+
+  // const textNodes = getTextNodesBetween(verticalTabContent, x, y);
+  // console.log(textNodes);
 
   const verticalTabs: HTMLElement[] = [];
 
@@ -368,6 +431,8 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   //verticalTabsWrapper.appendChild()
   verticalTabs.forEach(tab => verticalTabsWrapper.appendChild(tab));
 
+  currentVerticalTabLink = verticalTabs[0];
+
   console.log('verticalTabs it is', verticalTabs);
 
   verticalTabsAll.push(...verticalTabs);
@@ -388,6 +453,13 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   //});
 
   // TODO: observer not working?
+
+  verticalTabsAll?.forEach(verticalTab => {
+    verticalTab.onclick = (event: MouseEvent) => {
+      console.log('verticalTab in sele event', event, /*verticalTabsAll, */ (event.target as HTMLAnchorElement)?.href);
+      selectVerticalTab(event.target as Element);
+    };
+  });
 }
 
 const config = {
@@ -400,18 +472,18 @@ const observer = new IntersectionObserver(
   entries =>
     entries.forEach(({ boundingClientRect, rootBounds, target, intersectionRatio }) => {
       const tabsContainer = target.previousSibling as Element; //.querySelector('.ds-tabs__container');
-      console.log(
-        'intersectionRatio',
-        intersectionRatio,
-        target,
-        tabsContainer,
-        entries,
-        entries[0]?.boundingClientRect.bottom < entries[0].rootBounds?.bottom,
-        entries[0]?.intersectionRect.bottom < entries[0].rootBounds?.bottom,
-        entries[0]?.boundingClientRect.height < entries[0].rootBounds?.bottom,
-        entries[0]?.boundingClientRect.bottom > entries[0].rootBounds?.bottom,
-        boundingClientRect.bottom > rootBounds.bottom - 112 //142
-      );
+      // console.log(
+      //   'intersectionRatio',
+      //   intersectionRatio,
+      //   target,
+      //   tabsContainer,
+      //   entries,
+      //   entries[0]?.boundingClientRect.bottom < entries[0].rootBounds?.bottom,
+      //   entries[0]?.intersectionRect.bottom < entries[0].rootBounds?.bottom,
+      //   entries[0]?.boundingClientRect.height < entries[0].rootBounds?.bottom,
+      //   entries[0]?.boundingClientRect.bottom > entries[0].rootBounds?.bottom,
+      //   boundingClientRect.bottom > rootBounds.bottom - 112 //142
+      // );
       if (!tabsContainer) {
         return;
       }
@@ -473,26 +545,31 @@ const verticalObserver = new IntersectionObserver(entries => {
       verticalTabsAll,
       entry.target,
       currentVerticalTabLink,
-      entry.rootBounds
+      entry.rootBounds,
+      entry.rootBounds ? entry.intersectionRect.height > entry.rootBounds?.height : 'nothing happened'
     );
     if (!verticalTabLink) {
       return;
     }
     // currentVerticalTabLink?.classList.remove('active');
     if (
-      entry.intersectionRatio > 0 &&
+      entry.intersectionRatio > 0 /*&&
       verticalTabLink !== currentVerticalTabLink &&
       entry.intersectionRect.top > 0 &&
-      entry.boundingClientRect.y > 0
+      entry.boundingClientRect.y > 0*/
     ) {
       // verticalTabsAll.forEach(tab => tab.classList.remove('active'));
       // currentVerticalTabLink.classList.remove('active');
-      verticalTabLink.classList.add('active');
+
+      //verticalTabLink.classList.add('active');
+      selectVerticalTab(verticalTabLink);
+
       // currentVerticalTabLink = verticalTabLink;
-    } else {
+    } /*else {
       verticalTabLink.classList.remove('active');
-    }
-    currentVerticalTabLink = verticalTabLink;
+    }*/
+    // currentVerticalTabLink = verticalTabLink;
+    // alignVerticalTabIndicator(currentVerticalTabLink);
   });
 }, verticalConfig);
 
@@ -623,6 +700,13 @@ function selectTab(tab: Element): void {
     //   }
     // });
   }
+
+  headerAnchorsParentsAll.forEach(tab => {
+    console.log('tabbsbbbbb', tab, tab?.parentElement, tab?.parentElement?.parentNode);
+    if (tab) {
+      verticalObserver.observe(tab.parentElement as Element);
+    }
+  });
 }
 
 function alignTabIndicator(tab: Element): void {
@@ -639,21 +723,58 @@ function alignTabIndicator(tab: Element): void {
   // tabsWrapper.scrollTo({ left: -tabsWrapper.scrollLeft });
 }
 
+function selectVerticalTab(verticalTab: Element): void {
+  /*const*/ currentVerticalTabsContainer = currentContent.querySelector('.ds-tabs[vertical]')?.firstChild as Element;
+  console.log(
+    'verticalTab in selectVerticalTab',
+    currentVerticalTabsContainer,
+    currentContent,
+    verticalTab,
+    currentVerticalTabLink,
+    (verticalTab as HTMLAnchorElement).href,
+    location.href
+  );
+  currentVerticalTabLink.className = currentVerticalTabLink?.className.replace(' active', '');
+  verticalTab.classList.add('active');
+  location.href = (verticalTab as HTMLAnchorElement).href;
+  currentVerticalTabLink = verticalTab;
+  // const currentVerticalTabsContainer = currentContent.querySelector('.ds-tabs[vertical]');
+  alignVerticalTabIndicator(currentVerticalTabLink, currentVerticalTabsContainer);
+}
+
 // TODO: alignVerticalTabIndicator
-/*function alignVerticalTabIndicator(tab: Element): void {
+function alignVerticalTabIndicator(tab: Element, currentVerticalTabsContainer: Element): void {
   // TODO: change everything for vertical
-  if (!tabsWrapper) {
+  const currentVerticalSliderElement = currentVerticalTabsContainer.querySelector('.vertical-slider') as HTMLElement;
+  const currentVerticalIndicatorElement = currentVerticalTabsContainer.querySelector(
+    '.vertical-indicator'
+  ) as HTMLElement;
+
+  if (!verticalTabsWrapperAll || !currentVerticalSliderElement || !currentVerticalIndicatorElement) {
     return;
   }
-  console.log('alignTabIndicator????');
 
-  verticalSliderElement.style.left = `${tab.getBoundingClientRect().left - tabsWrapper.getBoundingClientRect().left}px`; //`calc(calc(100% / 4) * ${i})`;
-  verticalIndicatorElement.style.width = `${tab.getBoundingClientRect().width}px`;
+  console.log(
+    'alignverticalTabIndicator????',
+    verticalTabsWrapperAll,
+    verticalSliderElement,
+    currentVerticalTabsContainer,
+    currentVerticalSliderElement,
+    currentVerticalIndicatorElement
+  );
+
+  /*currentVerticalSliderElement.style.top = `${
+    tab.getBoundingClientRect().top - currentVerticalTabsContainer.getBoundingClientRect().top
+  }px`;*/ //`calc(calc(100% / 4) * ${i})`;
+  currentVerticalIndicatorElement.style.top = `${
+    tab.getBoundingClientRect().top - currentVerticalTabsContainer.getBoundingClientRect().top
+  }px`;
+  currentVerticalIndicatorElement.style.height = `${tab.getBoundingClientRect().height}px`;
   //slider.scrollTo({ left: tab.getBoundingClientRect().left - tabsWrapper.getBoundingClientRect().left });
   // slider.scrollTo({ left: tab.scrollLeft });
   console.log('tabsWrapper.scrollLeft', tabsWrapper.scrollLeft, tab.scrollLeft, tab.scrollWidth);
   // tabsWrapper.scrollTo({ left: -tabsWrapper.scrollLeft });
-}*/
+}
 
 // for (let i = 0; i < tabs?.length; i++) {
 //   if (!tabs) {

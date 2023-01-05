@@ -123,6 +123,8 @@ eleventyNavigation:
 
   [//]: # (<div class="ds-tabs__tab-container">)
 
+<section>
+
   ## Overview
 
 <sl-button fill="default" size="sm">Default</sl-button>
@@ -142,42 +144,6 @@ eleventyNavigation:
   </div>
 
   [//]: # (TODO: add button to copy code)
-
-  <ds-alert heading="Do">
-
-    - Curabitur vel bibendum lorem
-    - Morbi convallis convallis diam sit amet lacinia
-    - Aliquam in elementum tellus
-
-  </ds-alert>
-
-  <ds-alert variant="danger" heading="test">
-
-    jnfdiuhfiudh
-
-  </ds-alert>
-
-  <ds-alert heading="Don't" variant="danger">
-  
-    - Curabitur vel bibendum lorem
-    - Morbi convallis convallis diam sit amet lacinia
-    - Aliquam in elementum tellus
-
-  </ds-alert>
-
-
-  <ds-alert heading="Dont" variant="success-small">
-
-    Do small
-
-  </ds-alert>
-
-
-  <ds-alert heading="Don't" variant="danger-small">
-
-    Don't small
-
-  </ds-alert>
 
   <div class="ds-success">
 
@@ -205,6 +171,10 @@ eleventyNavigation:
   <div class="ds-danger--small">
   Don't small
   </div>
+
+</section>
+
+<section>
 
   ## Variants
   
@@ -242,6 +212,10 @@ eleventyNavigation:
   Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia.
   Aliquam in elementum tellus.
 
+</section>
+
+<section>
+
   ## Lorem ipsum dolor sit amet
   Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. 
   Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed 
@@ -250,6 +224,8 @@ eleventyNavigation:
   scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. 
   Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. 
   Aliquam in elementum tellus.
+
+</section>
 
 [//]: # (</div>)
 
@@ -282,54 +258,101 @@ eleventyNavigation:
   </div>
 
   <div class="ds-tabs__tab-content">
-  
+
+<section>
+
   ## Specs
   
   Lorem ipsum dolor sit amet
   Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-  
+
+</section>
+<section>
+
   ## Anatomy
 
   Lorem ipsum dolor sit amet
-  
+
+</section>
+<section>
+
   ## Variants
 
   Lorem ipsum dolor sit amet
-  
+
+</section>
+<section>
+
   ## Types
 
   Lorem ipsum dolor sit amet
-  
+</section>
+
+<section>
+
   ## Behaviour
+
+</section>
   </div>
 
   <div class="ds-tabs__tab-content">
-  
+
+<section>
+
   ## Usage
   
   Lorem ipsum dolor sit amet
   Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+
+</section>
+<section>
   
   ## How to use
 
   Lorem ipsum dolor sit amet
 
+</section>
+<section>
+
   ## Content
 
   Lorem ipsum dolor sit amet
 
+</section>
+
   </div>
 
   <div class="ds-tabs__tab-content">
-  
+
+<section> 
+
   ## Accessibility
   
   WCAG part
+
+</section>
+<section>
+
+  ## Interaction
+
+  - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi.
+  - Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris.
+  - Maecenas vitae mattis tellus. Nullam quis imperdiet augue, vestibulum auctor ornare leo.
+  - Non suscipit magna interdum eu.
+
+</section>
+<section>
+
+  ## Behaviour
+
+</section>
   
   </div>
 
   <div class="ds-tabs__tab-content">
-  
+
+<section>
+
   ## Code
   
   SL DS components:
@@ -339,7 +362,18 @@ eleventyNavigation:
       <sl-button variant="secondary">Secondary</sl-button>
       <sl-button variant="secondary" disabled>Disabled</sl-button>
     </div>
+
+</section>
+<section>
+
+  ## Properties
+
+</section>
+<section>
   
+  ## Tokens
+
+</section>  
   </div>
 
 </div>

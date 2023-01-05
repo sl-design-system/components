@@ -3,7 +3,7 @@
   position: relative;
 
   pre {
-    border: 1px solid var(--code-border); //#EAEAEA;
+    border: 1px solid var(--code-border);
     border-radius: 0 0 0.6rem 0.6rem;
     border-top: 0;
     margin: 0;
@@ -11,12 +11,12 @@
 }
 
 .ds-code__copy-button {
-  background-color: var(--copy-button-background); //#F3F3F3;
+  background-color: var(--copy-button-background);
   background-image: var(--copy-icon);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 1.4rem;
-  border: 1px solid var(--copy-button-border); //#EAEAEA;
+  border: 1px solid var(--copy-button-border);
   border-radius: 6px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   height: 3.2rem;

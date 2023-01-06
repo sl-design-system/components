@@ -9,19 +9,6 @@ import styles from './validation-mixin.scss.js';
 
 export const validationStyles: CSSResultGroup = styles;
 
-export interface ValidationInterface {
-  readonly invalid: boolean;
-  readonly validity: ValidityState;
-
-  validationHost: ValidationHost;
-
-  checkValidity(): boolean;
-  reportValidity(): boolean;
-  setCustomValidity(message: string): void;
-
-  renderValidation(): TemplateResult | undefined;
-}
-
 export interface NativeValidationHost extends HTMLElement {
   readonly form: HTMLFormElement | null;
 
@@ -38,6 +25,19 @@ export interface CustomValidationHost extends HTMLElement {
 }
 
 export type ValidationHost = NativeValidationHost | CustomValidationHost;
+
+export interface ValidationInterface {
+  readonly invalid: boolean;
+  readonly validationHost: ValidationHost;
+  readonly validity: ValidityState;
+
+  checkValidity(): boolean;
+  reportValidity(): boolean;
+  setCustomValidity(message: string): void;
+
+  renderValidation(): TemplateResult | undefined;
+  setValidationHost(host: ValidationHost): void;
+}
 
 const isNativeValidationHost = (host: ValidationHost): host is NativeValidationHost => 'setSelectionRange' in host;
 
@@ -69,15 +69,6 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       } else {
         throw new Error('A validationHost must be set for the ValidationMixin to work');
       }
-    }
-
-    set validationHost(host: ValidationHost) {
-      if (this.#validationHost) {
-        this.#validationHost.removeEventListener('invalid', this.#onInvalid);
-      }
-
-      this.#validationHost = host;
-      this.#validationHost.addEventListener('invalid', this.#onInvalid);
     }
 
     get validationMessage(): string {
@@ -174,6 +165,15 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       }
 
       return html`<slot .name=${state} part="error">${validationMessage}</slot>`;
+    }
+
+    setValidationHost(host: ValidationHost): void {
+      if (this.#validationHost) {
+        this.#validationHost.removeEventListener('invalid', this.#onInvalid);
+      }
+
+      this.#validationHost = host;
+      this.#validationHost.addEventListener('invalid', this.#onInvalid);
     }
 
     #onReset(event: Event): void {

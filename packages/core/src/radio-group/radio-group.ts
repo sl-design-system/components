@@ -1,9 +1,10 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { IElementInternals } from 'element-internals-polyfill';
+import type { FormControlValue } from '../utils/form-control/index.js';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedNodes } from 'lit/decorators.js';
+import { FormControlMixin, validationStyles } from '../utils/form-control/index.js';
 import { EventsController, RovingTabindexController } from '../utils/controllers/index.js';
-import { FormControlMixin } from '../utils/form-control/index.js';
 import { Radio } from './radio.js';
 import styles from './radio-group.scss.js';
 
@@ -18,7 +19,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [validationStyles, styles];
 
   /** Event controller. */
   #events = new EventsController(this);
@@ -26,11 +27,11 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   #rovingTabindexController = new RovingTabindexController<Radio>(this, {
     focusInIndex: (elements: Radio[]) => {
       return elements.findIndex(el => {
-        return this.selected ? !el.disabled && el.value === this.selected : !el.disabled;
+        return this.value ? !el.disabled && el.value === this.value : !el.disabled;
       });
     },
     elementEnterAction: (el: Radio) => {
-      this.selected = el.value;
+      this.value = el.value;
     },
     elements: () => this.buttons,
     isFocusableElement: (el: Radio) => !el.disabled
@@ -48,9 +49,6 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** The orientation of the radio's in the group. */
   @property({ type: String, reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
 
-  /** The value of the selected radio. */
-  @property() selected = '';
-
   get buttons(): Radio[] {
     return this.defaultNodes?.filter((node): node is Radio => node instanceof Radio) || [];
   }
@@ -66,9 +64,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     this.#observer = new MutationObserver(mutationList => {
       mutationList.forEach(mutation => {
         if (mutation.attributeName === 'checked' && mutation.oldValue === null) {
-          this.selected = (mutation.target as Radio).value;
-
-          this.#updateSelected(this.selected);
+          this.#updateSelected((mutation.target as Radio).value);
         }
       });
     });
@@ -85,8 +81,8 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('selected')) {
-      this.#updateSelected(this.selected);
+    if (changes.has('value')) {
+      this.#updateSelected(this.value);
     }
   }
 
@@ -109,7 +105,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     this.focus();
   }
 
-  #updateSelected(value: string): void {
+  #updateSelected(value: FormControlValue | null): void {
     this.#observer?.disconnect();
 
     this.buttons?.forEach(button => {

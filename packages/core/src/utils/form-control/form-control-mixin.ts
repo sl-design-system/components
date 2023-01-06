@@ -11,7 +11,7 @@ export interface NativeFormControlElement extends NativeValidationHost {
   form: HTMLFormElement | null;
   labels: NodeListOf<HTMLLabelElement> | null;
   name: string;
-  value: string | File | FormData;
+  value: FormControlValue;
 }
 
 export interface CustomFormControlElement extends CustomValidationHost {
@@ -19,6 +19,8 @@ export interface CustomFormControlElement extends CustomValidationHost {
 }
 
 export type FormControlElement = NativeFormControlElement | CustomFormControlElement;
+
+export type FormControlValue = string | File | FormData;
 
 export interface FormControlInterface extends HintInterface, ValidationInterface {
   readonly form: HTMLFormElement | null;
@@ -28,7 +30,7 @@ export interface FormControlInterface extends HintInterface, ValidationInterface
   disabled?: boolean;
   name?: string;
   required?: boolean;
-  value: string | File | FormData | null;
+  value: FormControlValue | null;
 
   setFormControlElement(element: FormControlElement): void;
   setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void;
@@ -42,7 +44,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 ): T & Constructor<FormControlInterface> {
   class FormControl extends ValidationMixin(HintMixin(constructor)) {
     /** The cached value for the form control. */
-    #cachedValue: string | File | FormData | null = null;
+    #cachedValue: FormControlValue | null = null;
 
     /**
      * The actual element that integrates with the form; either
@@ -60,7 +62,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     @property({ type: Boolean }) required?: boolean;
 
     /** The value of the form control. */
-    @property() value: string | File | FormData | null = null;
+    @property() value: FormControlValue | null = null;
 
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {
@@ -113,7 +115,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
 
     setFormControlElement(element: FormControlElement): void {
-      this.#formControlElement = this.validationHost = element;
+      this.#formControlElement = element;
+
+      this.setValidationHost(element);
     }
 
     setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void {

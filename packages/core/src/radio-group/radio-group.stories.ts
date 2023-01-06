@@ -16,13 +16,13 @@ export const API: StoryObj = {
       control: 'inline-radio',
       options: ['horizontal', 'vertical']
     },
-    selected: {
+    value: {
       control: 'inline-radio',
       options: ['1', '2', '3']
     }
   },
-  render: ({ disabled, selected, orientation }) => html`
-    <sl-radio-group ?disabled=${disabled} .orientation=${orientation} .selected=${selected}>
+  render: ({ disabled, orientation, value }) => html`
+    <sl-radio-group ?disabled=${disabled} .orientation=${orientation} .value=${value}>
       <sl-radio value="1">One</sl-radio>
       <sl-radio value="2">Two</sl-radio>
       <sl-radio value="3">Three</sl-radio>

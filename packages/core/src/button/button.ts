@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { EventsController } from '../utils/controllers/events.js';
+import { EventsController } from '../utils/controllers/index.js';
 import styles from './button.scss.js';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -23,7 +23,7 @@ export class Button extends LitElement {
   #events = new EventsController(this);
 
   /** Element internals. */
-  internals = this.attachInternals();
+  readonly internals = this.attachInternals();
 
   /** The original tabIndex before disabled. */
   private originalTabIndex = 0;
@@ -42,10 +42,6 @@ export class Button extends LitElement {
 
   /** The button variant. If no variant is specified, it uses the default button style. */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
-
-  get form(): HTMLFormElement | undefined {
-    return this.internals.form;
-  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -77,9 +73,9 @@ export class Button extends LitElement {
       event.preventDefault();
       event.stopPropagation();
     } else if (this.type === 'reset') {
-      this.form?.reset();
+      this.internals.form?.reset();
     } else if (this.type === 'submit') {
-      this.form?.requestSubmit();
+      this.internals.form?.requestSubmit();
     }
   }
 

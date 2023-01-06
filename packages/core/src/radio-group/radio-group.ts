@@ -91,7 +91,12 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>`;
+    return html`
+      <div class="wrapper">
+        <slot @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
+      </div>
+      ${this.renderHint()} ${this.renderValidation()}
+    `;
   }
 
   override focus(): void {

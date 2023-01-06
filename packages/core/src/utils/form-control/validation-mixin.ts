@@ -39,7 +39,7 @@ export interface CustomValidationHost extends HTMLElement {
 
 export type ValidationHost = NativeValidationHost | CustomValidationHost;
 
-const isNativeValidationHost = (host: ValidationHost): host is NativeValidationHost => 'checkValidity' in host;
+const isNativeValidationHost = (host: ValidationHost): host is NativeValidationHost => 'setSelectionRange' in host;
 
 export function ValidationMixin<T extends Constructor<ReactiveElement>>(
   constructor: T

@@ -26,7 +26,7 @@ export class Input extends FormControlMixin(LitElement) {
   input!: HTMLInputElement;
 
   /** Element internals. */
-  internals = this.attachInternals() as ElementInternals & IElementInternals;
+  readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete?: string;
@@ -53,8 +53,7 @@ export class Input extends FormControlMixin(LitElement) {
     super.connectedCallback();
 
     if (!this.input) {
-      this.input = this.formControlElement =
-        this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.autocomplete ||= 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
       this.input.slot = 'input';
@@ -62,6 +61,8 @@ export class Input extends FormControlMixin(LitElement) {
       if (!this.input.parentElement) {
         this.append(this.input);
       }
+
+      this.setFormControlElement(this.input);
     }
 
     this.#events.listen(this, 'click', this.#onClick);
@@ -149,9 +150,11 @@ export class Input extends FormControlMixin(LitElement) {
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (inputs.length) {
-      this.input = this.formControlElement = inputs.at(0) as HTMLInputElement;
+      this.input = inputs.at(0) as HTMLInputElement;
       this.input.autocomplete ||= 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
+
+      this.setFormControlElement(this.input);
     }
   }
 }

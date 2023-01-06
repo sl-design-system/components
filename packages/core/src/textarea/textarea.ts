@@ -16,7 +16,7 @@ export class Textarea extends FormControlMixin(LitElement) {
   #events = new EventsController(this);
 
   /** Element internals. */
-  internals = this.attachInternals() as ElementInternals & IElementInternals;
+  readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
 
   /** The textarea in the light DOM. */
   textarea!: HTMLTextAreaElement;
@@ -34,7 +34,7 @@ export class Textarea extends FormControlMixin(LitElement) {
     super.connectedCallback();
 
     if (!this.textarea) {
-      this.textarea = this.formControlElement =
+      this.textarea =
         this.querySelector<HTMLTextAreaElement>('textarea[slot="input"]') || document.createElement('textarea');
       this.textarea.id ||= `sl-textarea-${nextUniqueId++}`;
       this.textarea.slot = 'textarea';
@@ -42,6 +42,8 @@ export class Textarea extends FormControlMixin(LitElement) {
       if (!this.textarea.parentElement) {
         this.append(this.textarea);
       }
+
+      this.setFormControlElement(this.textarea);
     }
 
     this.#events.listen(this, 'click', this.#onClick);
@@ -102,8 +104,10 @@ export class Textarea extends FormControlMixin(LitElement) {
 
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textareas.length) {
-      this.textarea = this.formControlElement = textareas.at(0) as HTMLTextAreaElement;
+      this.textarea = textareas.at(0) as HTMLTextAreaElement;
       this.textarea.id ||= `sl-input-${nextUniqueId++}`;
+
+      this.setFormControlElement(this.textarea);
     }
   }
 }

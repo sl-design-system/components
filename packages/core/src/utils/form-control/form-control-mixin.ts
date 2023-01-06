@@ -22,20 +22,20 @@ export type FormControlElement = NativeFormControlElement | CustomFormControlEle
 
 export interface FormControlInterface extends HintInterface, ValidationInterface {
   readonly form: HTMLFormElement | null;
+  readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
-
-  formControlElement: FormControlElement;
 
   disabled?: boolean;
   name?: string;
   required?: boolean;
   value: string | File | FormData | null;
 
+  setFormControlElement(element: FormControlElement): void;
   setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void;
 }
 
 const isNativeFormControlElement = (element: FormControlElement): element is NativeFormControlElement =>
-  'setCustomValidity' in element;
+  'setSelectionRange' in element;
 
 export function FormControlMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
@@ -68,10 +68,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       } else {
         throw new Error('A formControlElement must be set for the FormControlMixin to work');
       }
-    }
-
-    set formControlElement(element: FormControlElement) {
-      this.#formControlElement = this.validationHost = element;
     }
 
     get form(): HTMLFormElement | null {
@@ -114,6 +110,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
           this.formControlElement.internals.setFormValue(this.value);
         }
       }
+    }
+
+    setFormControlElement(element: FormControlElement): void {
+      this.#formControlElement = this.validationHost = element;
     }
 
     setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void {

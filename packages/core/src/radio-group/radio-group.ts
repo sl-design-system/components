@@ -1,8 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { FormControlMixin } from '@open-wc/form-control';
+import type { IElementInternals } from 'element-internals-polyfill';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedNodes } from 'lit/decorators.js';
-import { RovingTabindexController } from '../utils/controllers/roving-tabindex.js';
+import { EventsController, RovingTabindexController } from '../utils/controllers/index.js';
+import { FormControlMixin } from '../utils/form-control/index.js';
 import { Radio } from './radio.js';
 import styles from './radio-group.scss.js';
 
@@ -14,7 +15,13 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
 
 export class RadioGroup extends FormControlMixin(LitElement) {
   /** @private */
+  static formAssociated = true;
+
+  /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** Event controller. */
+  #events = new EventsController(this);
 
   #rovingTabindexController = new RovingTabindexController<Radio>(this, {
     focusInIndex: (elements: Radio[]) => {
@@ -32,15 +39,11 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** Observe the state of the radios. */
   #observer?: MutationObserver;
 
-  get buttons(): Radio[] {
-    return this.defaultNodes?.filter((node): node is Radio => node instanceof Radio) || [];
-  }
+  /** Element internals. */
+  readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
 
   /** The assigned nodes. */
   @queryAssignedNodes() defaultNodes?: Node[];
-
-  /** Whether all the radio's in the group are disabled. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** The orientation of the radio's in the group. */
   @property({ type: String, reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
@@ -48,10 +51,17 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** The value of the selected radio. */
   @property() selected = '';
 
+  get buttons(): Radio[] {
+    return this.defaultNodes?.filter((node): node is Radio => node instanceof Radio) || [];
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.setFormControlElement(this);
     this.internals.role = 'radiogroup';
+
+    this.#events.listen(this, 'click', this.#onClick);
 
     this.#observer = new MutationObserver(mutationList => {
       mutationList.forEach(mutation => {
@@ -86,6 +96,12 @@ export class RadioGroup extends FormControlMixin(LitElement) {
 
   override focus(): void {
     this.#rovingTabindexController.focus();
+  }
+
+  #onClick(event: Event): void {
+    event.preventDefault();
+
+    this.focus();
   }
 
   #updateSelected(value: string): void {

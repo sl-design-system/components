@@ -1,4 +1,4 @@
-import type { FormControlInterface, FormValue } from './form-control-mixin.js';
+import type { FormControlInterface, FormValue } from './form-control-mixin-old.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type validationMessageCallback = (instance: any, value: FormValue) => string;

@@ -1,5 +1,5 @@
 import type { IElementInternals } from 'element-internals-polyfill';
-import type { CSSResultGroup, ReactiveElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, ReactiveElement, TemplateResult } from 'lit';
 import type { Constructor } from '../mixin-types.js';
 import { localized, msg, str } from '@lit/localize';
 import { html } from 'lit';
@@ -10,7 +10,6 @@ import styles from './validation-mixin.scss.js';
 export const validationStyles: CSSResultGroup = styles;
 
 export interface ValidationInterface {
-  readonly form: HTMLFormElement | null;
   readonly invalid: boolean;
   readonly validity: ValidityState;
 
@@ -18,20 +17,23 @@ export interface ValidationInterface {
 
   checkValidity(): boolean;
   reportValidity(): boolean;
+  setCustomValidity(message: string): void;
 
   renderValidation(): TemplateResult | undefined;
 }
 
-export interface NativeValidationHost extends EventTarget {
-  form: HTMLFormElement | null;
+export interface NativeValidationHost extends HTMLElement {
+  readonly form: HTMLFormElement | null;
+
   validationMessage: string;
   validity: ValidityState;
 
   checkValidity(): boolean;
   reportValidity(): boolean;
+  setCustomValidity(message: string): void;
 }
 
-export interface CustomValidationHost extends EventTarget {
+export interface CustomValidationHost extends HTMLElement {
   internals: ElementInternals & IElementInternals;
 }
 
@@ -60,14 +62,6 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
 
     /** Whether the element has been invalidated. */
     @state() invalid = false;
-
-    get form(): HTMLFormElement | null {
-      if (isNativeValidationHost(this.validationHost)) {
-        return this.validationHost.form;
-      } else {
-        return this.validationHost.internals.form;
-      }
-    }
 
     get validationHost(): ValidationHost {
       if (this.#validationHost) {
@@ -108,6 +102,26 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       this.#events.listen(document, 'reset', this.#onReset);
     }
 
+    override updated(changes: PropertyValues<this>): void {
+      super.updated(changes);
+
+      if (changes.has('invalid') && 'internals' in this) {
+        const internals = this.internals as ElementInternals & IElementInternals;
+
+        if (this.invalid) {
+          internals.states.add('--invalid');
+        } else {
+          internals.states.delete('--invalid');
+        }
+
+        // If the element has no title attribute, then add one, otherwise
+        // the native `validationMessage` will be shown in a native tooltip.
+        if (isNativeValidationHost(this.validationHost) && !this.validationHost.hasAttribute('title')) {
+          this.validationHost.setAttribute('title', '');
+        }
+      }
+    }
+
     checkValidity(): boolean {
       if (isNativeValidationHost(this.validationHost)) {
         return this.validationHost.checkValidity();
@@ -121,6 +135,14 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
         return this.validationHost.reportValidity();
       } else {
         return this.validationHost.internals.reportValidity();
+      }
+    }
+
+    setCustomValidity(message: string): void {
+      if (isNativeValidationHost(this.validationHost)) {
+        this.validationHost.setCustomValidity(message);
+      } else {
+        this.validationHost.internals.setValidity({ customError: true }, message);
       }
     }
 
@@ -155,7 +177,11 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
     }
 
     #onReset(event: Event): void {
-      if (this.form === event.target) {
+      const { form } = isNativeValidationHost(this.validationHost)
+        ? this.validationHost
+        : this.validationHost.internals;
+
+      if (form === event.target) {
         this.invalid = false;
       }
     }

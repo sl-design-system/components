@@ -3,12 +3,12 @@ import type { IElementInternals } from 'element-internals-polyfill';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
-import { HintMixin, ValidationMixin, validationStyles } from '../utils/form-control/index.js';
+import { FormControlMixin, validationStyles } from '../utils/form-control/index.js';
 import styles from './textarea.scss.js';
 
 let nextUniqueId = 0;
 
-export class Textarea extends ValidationMixin(HintMixin(LitElement)) {
+export class Textarea extends FormControlMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
 
@@ -21,32 +21,20 @@ export class Textarea extends ValidationMixin(HintMixin(LitElement)) {
   /** The textarea in the light DOM. */
   textarea!: HTMLTextAreaElement;
 
-  /** No interaction is possible with this control when disabled. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
-
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
 
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
-  /** The name of the form control. */
-  @property() name?: string;
-
   /** Placeholder text in the input. */
   @property() placeholder?: string;
-
-  /** Whether this form control is a required field. */
-  @property({ type: Boolean, reflect: true }) required?: boolean;
-
-  /** The value of the textarea. */
-  @property() value = '';
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     if (!this.textarea) {
-      this.textarea = this.validationHost =
+      this.textarea = this.formControlElement =
         this.querySelector<HTMLTextAreaElement>('textarea[slot="input"]') || document.createElement('textarea');
       this.textarea.id ||= `sl-textarea-${nextUniqueId++}`;
       this.textarea.slot = 'textarea';
@@ -61,18 +49,6 @@ export class Textarea extends ValidationMixin(HintMixin(LitElement)) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    if (changes.has('disabled')) {
-      this.textarea.toggleAttribute('disabled', this.disabled);
-    }
-
-    if (changes.has('invalid')) {
-      if (this.invalid) {
-        this.internals.states.add('--user-invalid');
-      } else {
-        this.internals.states.delete('--user-invalid');
-      }
-    }
 
     if (changes.has('maxLength')) {
       if (this.maxLength) {
@@ -90,25 +66,12 @@ export class Textarea extends ValidationMixin(HintMixin(LitElement)) {
       }
     }
 
-    if (changes.has('name')) {
-      this.textarea.name = this.name ?? '';
-    }
-
     if (changes.has('placeholder')) {
       if (this.placeholder) {
         this.textarea.setAttribute('placeholder', this.placeholder);
       } else {
         this.textarea.removeAttribute('placeholder');
       }
-    }
-
-    if (changes.has('required')) {
-      this.textarea.toggleAttribute('required', this.required);
-    }
-
-    // Only update the textarea when the value is different
-    if (changes.has('value') && this.value !== this.textarea.value) {
-      this.textarea.value = this.value ?? '';
     }
   }
 
@@ -139,7 +102,7 @@ export class Textarea extends ValidationMixin(HintMixin(LitElement)) {
 
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textareas.length) {
-      this.textarea = this.validationHost = textareas.at(0) as HTMLTextAreaElement;
+      this.textarea = this.formControlElement = textareas.at(0) as HTMLTextAreaElement;
       this.textarea.id ||= `sl-input-${nextUniqueId++}`;
     }
   }

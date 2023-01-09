@@ -23,34 +23,36 @@
   position: absolute;
   right: 16px;
   top: 16px;
+  transition: 300ms linear;
   width: 3.2rem;
 
-  // dark:
-  //border: 1px solid #4E4E4E;
-  //box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: var(--copy-button-background--hover);
+    background-image: var(--copy-icon--hover);
+    border: 1px solid var(--ds-color-blue);
+  }
+
+  &:active {
+    background-color: var(--copy-button-background--active);
+    border: 1px solid var(--ds-color-blue);
+  }
 }
 
 .ds-example {
   align-items: center;
-  background: var(--copy-button-background); //#F3F3F3;
-  border: 1px solid var(--code-border); //#EAEAEA;
+  background: var(--copy-button-background);
+  border: 1px solid var(--code-border);
   border-radius: 0.6rem 0.6rem 0 0;
   display: flex;
   justify-content: center;
   min-height: 16rem;
 }
 
-/**
-   * a11y-dark theme for JavaScript, CSS, and HTML
-   * Based on the okaidia theme: https://github.com/PrismJS/prism/blob/gh-pages/themes/prism-okaidia.css
-   * @author ericwbailey
-   */
-
 code[class*='language-'],
 pre[class*='language-'] {
   background: none;
-  color: var(--text-color); //#f8f8f2;
-  font-family: 'source-code-pro', monospace; //Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; // TODO: change font to exact one
+  color: var(--text-color);
+  font-family: 'source-code-pro', monospace;
   font-size: 1.2rem;
   hyphens: none;
   line-height: 1.5;
@@ -66,15 +68,12 @@ pre[class*='language-'] {
 
 /* Code blocks */
 pre[class*='language-'] {
-  // padding: 1em;
-  // margin: 0.5em 0;
   overflow: auto;
-  // border-radius: 0.3em;
 }
 
 :not(pre) > code[class*='language-'],
 pre[class*='language-'] {
-  background: var(--background-color); //#2b2b2b;
+  background: var(--background-color);
 }
 
 /* Inline code */
@@ -92,7 +91,7 @@ pre[class*='language-'] {
 }
 
 .token.punctuation {
-  color: var(--text-color); //#fefefe;
+  color: var(--text-color);
 }
 
 .token.property,
@@ -100,12 +99,12 @@ pre[class*='language-'] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: var(--highlight-color); //#ffa07a;
+  color: var(--highlight-color);
 }
 
 .token.boolean,
 .token.number {
-  color: #00e0e0;
+  color: #00e0e0; // TODO: change these colours in the future
 }
 
 .token.selector,
@@ -114,7 +113,7 @@ pre[class*='language-'] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: var(--highlight-color); //#abe338;
+  color: var(--highlight-color);
 }
 
 .token.operator,
@@ -129,7 +128,7 @@ pre[class*='language-'] {
 .token.atrule,
 .token.attr-value,
 .token.function {
-  color: var(--text-color); //#ffd700;
+  color: var(--text-color);
 }
 
 .token.keyword {
@@ -143,7 +142,7 @@ pre[class*='language-'] {
 
 .token.important,
 .token.bold {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .token.italic {

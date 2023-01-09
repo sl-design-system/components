@@ -25,7 +25,7 @@ let nextUniqueId = 0;
 let headerAnchors: NodeListOf<Element>;
 const headerAnchorsParentsAll: Array<HTMLElement | undefined> = []; //Element[];
 let verticalSliderElement: HTMLElement;
-//let verticalIndicatorElement: HTMLElement; // TODO: needed to align vertically
+let verticalIndicatorElement: HTMLElement; // TODO: needed to align vertically
 let currentVerticalTabLink: Element;
 const verticalTabsWrapperAll: Element[] = [];
 let currentVerticalTabsContainer: Element;
@@ -337,6 +337,7 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   verticalSlider.appendChild(verticalIndicator);
 
   verticalIndicatorElement = verticalIndicator;
+  console.log('verticalIndicatorElement', verticalIndicatorElement);
 
   headerAnchors = verticalTabContent.querySelectorAll('.header-anchor');
   let prevElement: Element;
@@ -502,9 +503,11 @@ const observer = new IntersectionObserver(
 // TODO: generate vertical tabs
 
 const verticalConfig = {
-  root: null //document.querySelector('.ds-tabs__tab-content-wrapper') //null, //container, //null, //container, //null, //null, // Sets the framing element to the viewport
+  root: null, //document.querySelector('.ds-tabs__tab-content-wrapper') //null, //container, //null, //container, //null, //null, // Sets the framing element to the viewport
   //rootMargin: '104px', //'104px', //'112px', // TODO change for the desktop version on resize as well
   //threshold: 1
+  threshold: 0.5,
+  rootMargin: '-200px 0px 0px 0px'
 };
 const verticalObserver = new IntersectionObserver(entries => {
   console.log('entries vertical', entries, verticalTabsContainers, verticalTabsAll);
@@ -553,7 +556,8 @@ const verticalObserver = new IntersectionObserver(entries => {
     }
     // currentVerticalTabLink?.classList.remove('active');
     if (
-      entry.intersectionRatio > 0 /*&&
+      entry.intersectionRatio > 0 &&
+      entry.isIntersecting /*&&
       verticalTabLink !== currentVerticalTabLink &&
       entry.intersectionRect.top > 0 &&
       entry.boundingClientRect.y > 0*/
@@ -701,8 +705,20 @@ function selectTab(tab: Element): void {
     // });
   }
 
+  // const hasVerticalScrollbar = div.scrollHeight > div.clientHeight;
   headerAnchorsParentsAll.forEach(tab => {
     console.log('tabbsbbbbb', tab, tab?.parentElement, tab?.parentElement?.parentNode);
+    const hasVerticalScrollbar =
+      (tab?.parentElement?.parentNode as Element)?.scrollHeight >
+      (tab?.parentElement?.parentNode as Element)?.clientHeight;
+    console.log(
+      'hasVerticalScrollbar',
+      hasVerticalScrollbar,
+      (tab?.parentElement?.parentNode as Element).getBoundingClientRect().height,
+      (tab?.parentElement?.parentNode as Element)?.scrollHeight,
+      (tab?.parentElement?.parentNode as Element)?.clientHeight,
+      window.scrollY
+    );
     if (tab) {
       verticalObserver.observe(tab.parentElement as Element);
     }

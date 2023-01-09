@@ -10,7 +10,7 @@ Thanks for wanting to contribute to the project!
 
 ## Naming
 
-This is an international project and as such everything uses the English language.
+This is an international project and as such everything uses the American English language.
 
 When writing code in this project, please follow the following naming conventions:
 - For NPM packages, we use the `sanomalearning` organization with the `slds-` prefix for the actual packages; for example: `@sanomalearning/slds-core`
@@ -21,7 +21,14 @@ When writing code in this project, please follow the following naming convention
 
 The main branch of the repository is called `main`. All releases are done from this branch automatically using GitHub Actions and `changesets`. If you want to work on something, please create a new branch from `main`.
 
+When creating a branch, please prefix the branch with the type of thing you intend to work on:
+- `docs/improve-button`
+- `feature/my-cool-component`
+- `fix/dialog-close-button`
+
 When you finish the branch and want to get your changes merged into `main`, please create a Pull Request. After your PR has been reviewed & approved, your commits will be squashed and merged in `main` as a single commit.
+
+When you create a PR, please make sure the PR is associated with the issue. You can do this by either typing "Fixes #123" in the body of the PR, or by manually associating an issue with a PR.
 
 Please run `yarn changeset` locally to create an entry for `CHANGELOG.md`.
 

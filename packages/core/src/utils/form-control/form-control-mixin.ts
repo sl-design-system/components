@@ -1,7 +1,12 @@
 import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from '../mixin-types.js';
 import type { HintInterface } from './hint-mixin.js';
-import type { CustomValidationHost, NativeValidationHost, ValidationInterface } from './validation-mixin.js';
+import type {
+  CustomValidationHost,
+  FormControlValue,
+  NativeValidationHost,
+  ValidationInterface
+} from './validation-mixin.js';
 import type { IElementInternals } from 'element-internals-polyfill';
 import { property } from 'lit/decorators.js';
 import { HintMixin } from './hint-mixin.js';
@@ -19,8 +24,6 @@ export interface CustomFormControlElement extends CustomValidationHost {
 }
 
 export type FormControlElement = NativeFormControlElement | CustomFormControlElement;
-
-export type FormControlValue = string | File | FormData;
 
 export interface FormControlInterface extends HintInterface, ValidationInterface {
   readonly form: HTMLFormElement | null;
@@ -60,9 +63,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
     /** Whether this form control is a required field. */
     @property({ type: Boolean }) required?: boolean;
-
-    /** The value of the form control. */
-    @property() value: FormControlValue | null = null;
 
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {

@@ -1,5 +1,7 @@
+import type { RadioGroup } from './radio-group.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import '../button/register.js';
 import './register.js';
 
 export default {
@@ -43,7 +45,7 @@ export const Disabled: StoryObj = {
 
 export const Selected: StoryObj = {
   render: () => html`
-    <sl-radio-group selected="2">
+    <sl-radio-group value="2">
       <sl-radio value="1">One</sl-radio>
       <sl-radio value="2">Two</sl-radio>
       <sl-radio value="3">Three</sl-radio>
@@ -114,4 +116,39 @@ export const RichLabelHint: StoryObj = {
       </sl-radio-group>
     </div>
   `
+};
+
+export const Required: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as RadioGroup)?.reportValidity();
+    };
+
+    return html`
+      <sl-radio-group required>
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+      </sl-radio-group>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
+};
+
+export const CustomValidation: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as RadioGroup)?.reportValidity();
+    };
+
+    return html`
+      <sl-radio-group required>
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
+      </sl-radio-group>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
 };

@@ -3,7 +3,7 @@ import type { IElementInternals } from 'element-internals-polyfill';
 import type { FormControlValue } from '../utils/form-control/index.js';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedNodes } from 'lit/decorators.js';
-import { FormControlMixin, validationStyles } from '../utils/form-control/index.js';
+import { FormControlMixin, requiredValidator, validationStyles } from '../utils/form-control/index.js';
 import { EventsController, RovingTabindexController } from '../utils/controllers/index.js';
 import { Radio } from './radio.js';
 import styles from './radio-group.scss.js';
@@ -17,6 +17,9 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
 export class RadioGroup extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
+
+  /** @private */
+  static formControlValidators = [requiredValidator];
 
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
@@ -60,6 +63,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     this.internals.role = 'radiogroup';
 
     this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this, 'focusout', this.#onFocusout);
 
     this.#observer = new MutationObserver(mutationList => {
       mutationList.forEach(mutation => {
@@ -103,6 +107,15 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     event.preventDefault();
 
     this.focus();
+  }
+
+  #onFocusout(event: FocusEvent): void {
+    if (event.relatedTarget && !this.buttons.includes(event.relatedTarget as Radio)) {
+      // This component is weird in that it doesn't actually contain the form controls
+      // Those are the `<sl-radio>` custom elements in the light DOM.
+      // So for the validation to work properly, we simulate the blur event here.
+      this.dispatchEvent(new Event('blur'));
+    }
   }
 
   #updateSelected(value: FormControlValue | null): void {

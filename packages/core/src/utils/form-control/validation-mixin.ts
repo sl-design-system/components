@@ -3,7 +3,7 @@ import type { CSSResultGroup, PropertyValues, ReactiveElement, TemplateResult } 
 import type { Constructor } from '../mixin-types.js';
 import { localized, msg, str } from '@lit/localize';
 import { html } from 'lit';
-import { state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { EventsController } from '../controllers/events.js';
 import styles from './validation-mixin.scss.js';
 
@@ -26,10 +26,14 @@ export interface CustomValidationHost extends HTMLElement {
 
 export type ValidationHost = NativeValidationHost | CustomValidationHost;
 
+export type FormControlValue = string | File | FormData;
+
 export interface ValidationInterface {
   readonly invalid: boolean;
   readonly validationHost: ValidationHost;
   readonly validity: ValidityState;
+
+  value: FormControlValue | null;
 
   checkValidity(): boolean;
   reportValidity(): boolean;
@@ -37,6 +41,7 @@ export interface ValidationInterface {
 
   renderValidation(): TemplateResult | undefined;
   setValidationHost(host: ValidationHost): void;
+  shouldFormValueUpdate(): boolean;
 }
 
 const isNativeValidationHost = (host: ValidationHost): host is NativeValidationHost => 'setSelectionRange' in host;
@@ -49,8 +54,19 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
     /** Events manager. */
     #events = new EventsController(this);
 
+    /** Whether the control has had focus. */
+    #focused = false;
+
+    #onBlur = (): void => {
+      this.#focused = true;
+
+      this.#runValidators(this.shouldFormValueUpdate() ? this.value : '');
+    };
+
     /** Event handler for when invalid validity must be reported. */
     #onInvalid = (event: Event): void => {
+      console.log('#onInvalid');
+
       // Prevent the browser from showing the built-in validation UI
       event.preventDefault();
 
@@ -62,6 +78,9 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
 
     /** Whether the element has been invalidated. */
     @state() invalid = false;
+
+    /** The value of the validation host. */
+    @property() value: FormControlValue | null = null;
 
     get validationHost(): ValidationHost {
       if (this.#validationHost) {
@@ -169,11 +188,17 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
 
     setValidationHost(host: ValidationHost): void {
       if (this.#validationHost) {
+        this.#validationHost.removeEventListener('blur', this.#onBlur);
         this.#validationHost.removeEventListener('invalid', this.#onInvalid);
       }
 
       this.#validationHost = host;
+      this.#validationHost.addEventListener('blur', this.#onBlur);
       this.#validationHost.addEventListener('invalid', this.#onInvalid);
+    }
+
+    shouldFormValueUpdate(): boolean {
+      return true;
     }
 
     #onReset(event: Event): void {
@@ -208,6 +233,10 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       } else if (validity.valueMissing) {
         return 'value-missing';
       }
+    }
+
+    #runValidators(value: FormControlValue | null): void {
+      console.log('runValidators', { value });
     }
   }
 

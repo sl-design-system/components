@@ -1,7 +1,7 @@
 {
   "name": "@sanomalearning/slds-core",
   "description": "SLDS Core Web Components",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

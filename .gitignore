@@ -63,3 +63,6 @@ docs/website/build
 
 # Generated files
 *.scss.ts
+
+# MacOs files
+.DS_Store

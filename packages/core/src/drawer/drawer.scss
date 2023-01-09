@@ -85,6 +85,10 @@ div {
   sl-button-bar {
     grid-column-start: -1;
   }
+
+  [sl-dialog-close] {
+    order: 1;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

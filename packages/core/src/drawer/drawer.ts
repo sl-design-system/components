@@ -58,7 +58,6 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
       >
         <div>
           <sl-button-bar>
-            <slot name="actions"></slot>
             <sl-button
               sl-dialog-close
               .size="${this.closeButtonSize}"
@@ -67,6 +66,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
               title="close"
               >x</sl-button
             >
+            <slot name="actions"></slot>
           </sl-button-bar>
           <slot name="title" id="title"></slot>
         </div>

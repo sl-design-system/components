@@ -57,9 +57,9 @@ export const DisableClose: StoryObj = {
 };
 
 export const CompleteHeader: StoryObj = {
-  render: ({ attachment }) => html`
+  render: ({ attachment, buttonSize }) => html`
     <sl-button @click=${onClick}>Show Drawer</sl-button>
-    <sl-drawer .attachment=${attachment} closeButtonSize="md">
+    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>
       <h1 slot="title">Test title</h1>
       <sl-button slot="actions">download</sl-button>
       <p>

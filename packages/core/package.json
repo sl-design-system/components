@@ -20,6 +20,8 @@
     "./checkbox/register.js": "./dist/components/checkbox/register.js",
     "./dialog": "./dist/components/dialog/index.js",
     "./dialog/register.js": "./dist/components/dialog/register.js",
+    "./drawer": "./dist/components/drawer/index.js",
+    "./drawer/register.js": "./dist/components/drawer/register.js",
     "./input": "./dist/components/input/index.js",
     "./input/register.js": "./dist/components/input/register.js",
     "./label": "./dist/components/label/index.js",

@@ -69,7 +69,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   }
 
   #onInput({ target }: Event & { target: Input }): void {
-    this.value = target.value.trim();
+    this.value = target.value?.toString().trim() || '';
     this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
   }
 }

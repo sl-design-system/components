@@ -195,8 +195,6 @@ Place text here
 
   ## Variants
   
-  table 
-  
   [//]: # (TODO: generate table from json)
   
   <div class="ds-table">

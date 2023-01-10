@@ -16,73 +16,41 @@
 //}
 
 .ds-tabs {
-  // box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2); // TODO: only for sticky and for the whole navbar
   font-size: 2rem;
-  //margin: 1.6rem 0;
-  //overflow: hidden;
-  //position: sticky;
-  //top: 88px;
-
-  //&[vertical] {
-  //  /* stylelint-disable-next-line max-nesting-depth */
-  //  .ds-tabs-wrapper {
-  //    flex-direction: column;
-  //  }
-  //}
 }
 
 .ds-tabs__container {
-  //box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   background-color: var(--background-color);
   margin: auto -2.4rem;
   overflow-x: hidden;
   position: sticky;
-  top: 78px; //88px;
-  ////margin: 0 calc(-1 * var(--margin)) calc(-1 * var(--border-width)) calc(-1 * var(--margin));
-  //overflow-x: scroll;
-  ////padding: var(--margin) 0 calc(var(--spacing) + var(--indicator-size));
-  //scrollbar-width: none;
+  top: 78px;
   z-index: 1;
 }
 
 .ds-tabs__container--sticky {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-  //background-color: var(--background-color);
 }
 
 .ds-tab {
   background: none;
   border: 0;
-  // @include tabs;
-  color: var(--tab-color); //rgba(34, 34, 34, 0.6);
+  color: var(--tab-color);
   cursor: pointer;
   font-size: 1.4rem; // TODO: change all to rem
   font-weight: 600;
   line-height: 18px;
   margin: 0.3rem;
-  //padding: 3px;
   padding: 0;
   text-decoration: none;
   transition: color 300ms linear;
 
   &.active:not(:focus-visible) {
-    //@include tabs;
-    //box-shadow: 0 2px var(--ds-color-blue); // inset 0 -0.175em #fff, inset 0 -0.3em #36f;
-    color: var(--tab-color--active); //#222;
-
-    //&:after {
-    //  background: var(--highlight-color);
-    //  content: "";
-    //  height: 4rem;
-    //  left: 0;
-    //  position: absolute;
-    //  top: 0;
-    //  width: 4px;
-    //}
+    color: var(--tab-color--active);
   }
 
   &:hover {
-    color: var(--tab-color--hover); //#000;
+    color: var(--tab-color--hover);
   }
 
   &:focus-visible {
@@ -93,37 +61,21 @@
 .ds-tab--vertical {
   background: none;
   border: 0;
-  // @include tabs;
-  color: var(--tab-color); //rgba(34, 34, 34, 0.6);
+  color: var(--tab-color);
   cursor: pointer;
   font-size: 1.2rem; // TODO: change all to rem
   font-weight: 400;
   line-height: 24px;
-  //margin: 0.3rem;
   padding-left: 8px;
-  //padding: 3px;
-  //padding: 0;
   text-decoration: none;
   transition: color 300ms linear;
 
   &.active:not(:focus-visible) {
-    //@include tabs;
-    //box-shadow: 0 2px var(--ds-color-blue); // inset 0 -0.175em #fff, inset 0 -0.3em #36f;
-    color: var(--highlight-color); //var(--tab-color--active); //#222;
-
-    //&:after {
-    //  background: var(--highlight-color);
-    //  content: "";
-    //  height: 4rem;
-    //  left: 0;
-    //  position: absolute;
-    //  top: 0;
-    //  width: 4px;
-    //}
+    color: var(--highlight-color);
   }
 
   &:hover {
-    color: var(--highlight-color); //#000;
+    color: var(--highlight-color);
   }
 
   &:focus-visible {
@@ -136,37 +88,22 @@
 .ds-tab__submenu--vertical {
   background: none;
   border: 0;
-  // @include tabs;
-  color: var(--tab-color); //rgba(34, 34, 34, 0.6);
+  color: var(--tab-color);
   cursor: pointer;
   font-size: 1.4rem; // TODO: change all to rem
   font-weight: 400;
   line-height: 18px;
   margin: 0.3rem;
   padding-left: 16px;
-  //padding: 3px;
-  //padding: 0;
   text-decoration: none;
   transition: color 300ms linear;
 
   &.active:not(:focus-visible) {
-    //@include tabs;
-    //box-shadow: 0 2px var(--ds-color-blue); // inset 0 -0.175em #fff, inset 0 -0.3em #36f;
-    color: var(--tab-color--active); //#222;
-
-    //&:after {
-    //  background: var(--highlight-color);
-    //  content: "";
-    //  height: 4rem;
-    //  left: 0;
-    //  position: absolute;
-    //  top: 0;
-    //  width: 4px;
-    //}
+    color: var(--tab-color--active);
   }
 
   &:hover {
-    color: var(--tab-color--hover); //#000;
+    color: var(--tab-color--hover);
   }
 
   &:focus-visible {
@@ -175,18 +112,10 @@
 }
 
 .ds-tabs-wrapper {
-  //background-color: var(--background-color); //var(--background-color);
-  display: flex; // inline-flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
-  //margin: 0.3rem 0;
-  //margin: 1.6rem 0;
-  //flex-wrap: wrap;
-  //position: sticky;
-  //top: 0;
-  //margin: 0 calc(-1 * var(--margin)) calc(-1 * var(--border-width)) calc(-1 * var(--margin));
   overflow-x: scroll;
-  //padding: var(--margin) 0 calc(var(--spacing) + var(--indicator-size));
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
@@ -206,14 +135,12 @@
 
 .slider {
   position: relative;
-  //width: #{100%/$tab-count};
   transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
 
   .indicator {
-    background-color: var(--tab-indicator-background); //var(--ds-color-blue); //$accent;
+    background-color: var(--tab-indicator-background);
     border-radius: 1px;
-    //margin: 0 auto;
-    height: 2px; //$indicator-height;
+    height: 2px;
     max-width: 100%;
     position: relative;
     transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
@@ -278,58 +205,17 @@
   }
 }
 
-/*.ds-tabs[vertical] {
-  !* stylelint-disable-next-line max-nesting-depth *!
-  .ds-tabs-wrapper {
-    flex-direction: column;
-  }
-
-  .ds-tabs__container {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    top: 40%;
-  }
-
-  // TODO: bertical tabs with subtabs
-
-  .indicator {
-    background-color: var(--tab-indicator-background); //var(--ds-color-blue); //$accent;
-    border-radius: 1px;
-    //margin: 0 auto;
-    height: 100%; //2px; //$indicator-height;
-    position: relative;
-    transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
-    width: 2px;
-    //width: 50px; //$indicator-width;
-  }
-}*/
-
 @media screen and (min-width: $lg-breakpoint) {
   .ds-tabs__container {
-    //position: sticky;
-    //top: 0;
     margin: auto;
     top: 0;
   }
 }
 
 @media screen and (min-width: $xl-breakpoint) {
-  //.ds-tabs {
-  //  top: 0;
-  //}
-
-  //.ds-tabs__container {
-  //  //position: sticky;
-  //  //top: 0;
-  //  margin: auto;
-  //  top: 0;
-  //}
-
   .ds-tabs__tab-content {
-    //padding: 1.2rem 0;
     display: grid;
-    grid-column-gap: 7.2rem; //1.6rem;
+    grid-column-gap: 7.2rem;
     grid-template-columns: 7fr 1fr;
   }
 
@@ -348,15 +234,7 @@
         font-weight: 600;
         line-height: 15px;
         margin-bottom: 8px;
-        //width: 100%;
-        //height: 32px;
-        //background: var(--danger-color);
-        //border-radius: 4px;
-        //left: 0;
-        //top: 0;
         margin-left: 8px;
-        //position: absolute;
-        //margin-bottom: 0.8rem;
       }
     }
 
@@ -364,20 +242,17 @@
       display: flex;
       flex-direction: row-reverse;
       justify-content: center;
-      top: 15%; //40%;
+      overflow: hidden;
+      top: 15%;
     }
 
-    // TODO: bertical tabs with subtabs
-
     .vertical-indicator {
-      background-color: var(--tab-indicator-background); //var(--ds-color-blue); //$accent;
+      background-color: var(--tab-indicator-background);
       border-radius: 1px;
-      //margin: 0 auto;
-      height: 100%; //2px; //$indicator-height;
+      height: 100%;
       position: relative;
       transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
       width: 2px;
-      //width: 50px; //$indicator-width;
     }
   }
 }

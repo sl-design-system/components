@@ -45,7 +45,7 @@ async function copyCode(block: HTMLElement): Promise<void> {
 
   await navigator.clipboard.writeText(text);
 
-  alert('Copied the text: ' + text);
+  // alert('Copied the text: ' + text);
 }
 
 // navigator.clipboard.writeText(copyText.value);

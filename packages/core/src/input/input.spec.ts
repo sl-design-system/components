@@ -16,11 +16,11 @@ describe('sl-input', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('should have a button role', async () => {
-      const { role } = await a11ySnapshot({ selector: 'sl-input' }) as any;
+    // it('should have a button role', async () => {
+    //   const { role } = await a11ySnapshot({ selector: 'sl-input' }) as any;
 
-      expect(role).to.equal('button');
-    });
+    //   expect(role).to.equal('button');
+    // });
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');

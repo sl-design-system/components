@@ -465,13 +465,14 @@ function generateVerticalTabs(verticalTabContent: Element): void {
 
 const config = {
   root: null, //container, //null, //container, //null, //null, // Sets the framing element to the viewport
-  rootMargin: '104px', //'104px', //'112px', // TODO change for the desktop version on resize as well
+  //rootMargin: '104px', //'104px', //'112px', // TODO change for the desktop version on resize as well
   threshold: 1
 };
 
 const observer = new IntersectionObserver(
   entries =>
-    entries.forEach(({ boundingClientRect, rootBounds, target, intersectionRatio }) => {
+    entries.forEach(({ /*boundingClientRect, rootBounds,*/ target, intersectionRatio }) => {
+      console.log('entry target', target, intersectionRatio);
       const tabsContainer = target.previousSibling as Element; //.querySelector('.ds-tabs__container');
       // console.log(
       //   'intersectionRatio',
@@ -489,12 +490,17 @@ const observer = new IntersectionObserver(
         return;
       }
 
-      console.log('tabsContainer', tabsContainer, tabsContainer.classList);
-      if (rootBounds && intersectionRatio >= 1 && boundingClientRect.bottom > rootBounds.bottom + rootBounds.top) {
-        tabsContainer.classList.add('ds-tabs__container--sticky');
-      } else {
-        tabsContainer.classList.remove('ds-tabs__container--sticky');
-      }
+      target.classList.toggle('ds-tabs__container--sticky', intersectionRatio < 1);
+      //  { threshold: [1] }
+
+      console.log('entry target tabsContainer', tabsContainer, tabsContainer.classList, target.classList);
+      // if (rootBounds && intersectionRatio >= 1 && boundingClientRect.bottom > rootBounds.bottom + rootBounds.top) {
+      //   //tabsContainer.classList.add('ds-tabs__container--sticky');
+      //   target.classList.add('ds-tabs__container--sticky');
+      // } else {
+      //   // tabsContainer.classList.remove('ds-tabs__container--sticky');
+      //   target.classList.remove('ds-tabs__container--sticky');
+      // }
       console.log('tabsContainer2', tabsContainer, tabsContainer.classList);
     }),
   config
@@ -688,7 +694,10 @@ function selectTab(tab: Element): void {
     //});
     observer?.disconnect();
     console.log('tabsContentWrapper w selectTab', tabsContentWrapper);
-    observer.observe(/*tabsHeaderContainer*/ /*tabsContainer as Element*/ tabsContentWrapper);
+    console.log('what observes tabsContentWrapper', tabsContentWrapper, tabsHeaderContainer, tabsContainer);
+    observer.observe(
+      /*tabsHeaderContainer*/ /*tabsContainer as Element*/ /*tabsContentWrapper,*/ tabsContainer as Element
+    );
     console.log(
       'observer.root, observer.rootMargin, observer.thresholds',
       observer.root,
@@ -720,6 +729,7 @@ function selectTab(tab: Element): void {
       window.scrollY
     );
     if (tab) {
+      // console.log('what observes tab.parentElement as Element', tab.parentElement as Element);
       verticalObserver.observe(tab.parentElement as Element);
     }
   });

@@ -40,7 +40,7 @@ export interface FormControlInterface extends HintInterface, ValidationInterface
 }
 
 const isNativeFormControlElement = (element: FormControlElement): element is NativeFormControlElement =>
-  'setSelectionRange' in element;
+  element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement;
 
 export function FormControlMixin<T extends Constructor<ReactiveElement>>(
   constructor: T

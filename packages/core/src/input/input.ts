@@ -1,5 +1,4 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { IElementInternals } from 'element-internals-polyfill';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
@@ -26,7 +25,7 @@ export class Input extends FormControlMixin(LitElement) {
   input!: HTMLInputElement;
 
   /** Element internals. */
-  readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
+  readonly internals = this.attachInternals();
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete?: string;

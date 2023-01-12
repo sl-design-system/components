@@ -1,6 +1,7 @@
 import type { IElementInternals } from 'element-internals-polyfill';
 import type { CSSResultGroup, PropertyValues, ReactiveElement, TemplateResult } from 'lit';
 import type { Constructor } from '../mixin-types.js';
+import type { Validator } from './validators.js';
 import { localized, msg, str } from '@lit/localize';
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -33,6 +34,7 @@ export interface ValidationInterface {
   readonly validationHost: ValidationHost;
   readonly validity: ValidityState;
 
+  validators: Validator[];
   value: FormControlValue | null;
 
   checkValidity(): boolean;
@@ -42,9 +44,11 @@ export interface ValidationInterface {
   renderValidation(): TemplateResult | undefined;
   setValidationHost(host: ValidationHost): void;
   shouldFormValueUpdate(): boolean;
+  validate(): void;
 }
 
-const isNativeValidationHost = (host: ValidationHost): host is NativeValidationHost => 'setSelectionRange' in host;
+const isNativeValidationHost = (host: ValidationHost): host is NativeValidationHost =>
+  host instanceof HTMLInputElement || host instanceof HTMLTextAreaElement;
 
 export function ValidationMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
@@ -60,7 +64,7 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
     #onBlur = (): void => {
       this.#focused = true;
 
-      this.#runValidators(this.shouldFormValueUpdate() ? this.value : '');
+      this.validate();
     };
 
     /** Event handler for when invalid validity must be reported. */
@@ -81,6 +85,9 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
 
     /** The value of the validation host. */
     @property() value: FormControlValue | null = null;
+
+    /** Validators for this instance of the element. */
+    @property({ attribute: false }) validators: Validator[] = [];
 
     get validationHost(): ValidationHost {
       if (this.#validationHost) {
@@ -201,6 +208,14 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       return true;
     }
 
+    validate(): void {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      const validators = [...this.validators, ...((this.constructor as any).formControlValidators || [])],
+        value = this.shouldFormValueUpdate() ? this.value : '';
+
+      console.log('validate', { value }, validators);
+    }
+
     #onReset(event: Event): void {
       const { form } = isNativeValidationHost(this.validationHost)
         ? this.validationHost
@@ -233,10 +248,6 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       } else if (validity.valueMissing) {
         return 'value-missing';
       }
-    }
-
-    #runValidators(value: FormControlValue | null): void {
-      console.log('runValidators', { value });
     }
   }
 

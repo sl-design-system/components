@@ -1,5 +1,4 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { IElementInternals } from 'element-internals-polyfill';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
@@ -16,7 +15,7 @@ export class Textarea extends FormControlMixin(LitElement) {
   #events = new EventsController(this);
 
   /** Element internals. */
-  readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
+  readonly internals = this.attachInternals();
 
   /** The textarea in the light DOM. */
   textarea!: HTMLTextAreaElement;

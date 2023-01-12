@@ -1,5 +1,4 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { IElementInternals } from 'element-internals-polyfill';
 import type { FormControlValue } from '../utils/form-control/index.js';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedNodes } from 'lit/decorators.js';
@@ -24,7 +23,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
 
-  /** Event controller. */
+  /** Events controller. */
   #events = new EventsController(this);
 
   #rovingTabindexController = new RovingTabindexController<Radio>(this, {
@@ -44,7 +43,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   #observer?: MutationObserver;
 
   /** Element internals. */
-  readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
+  readonly internals = this.attachInternals();
 
   /** The assigned nodes. */
   @queryAssignedNodes() defaultNodes?: Node[];
@@ -59,8 +58,9 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setFormControlElement(this);
     this.internals.role = 'radiogroup';
+
+    this.setFormControlElement(this);
 
     this.#events.listen(this, 'click', this.#onClick);
     this.#events.listen(this, 'focusout', this.#onFocusout);
@@ -110,11 +110,11 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   }
 
   #onFocusout(event: FocusEvent): void {
-    if (event.relatedTarget && !this.buttons.includes(event.relatedTarget as Radio)) {
-      // This component is weird in that it doesn't actually contain the form controls
-      // Those are the `<sl-radio>` custom elements in the light DOM.
-      // So for the validation to work properly, we simulate the blur event here.
-      this.dispatchEvent(new Event('blur'));
+    if (!event.relatedTarget || !this.buttons.includes(event.relatedTarget as Radio)) {
+      // This component is weird in that it doesn't actually contain the form controls,
+      // those are the `<sl-radio>` custom elements in the light DOM. So run the validation
+      // manually from here.
+      this.validate();
     }
   }
 

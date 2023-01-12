@@ -1,3 +1,4 @@
+import type { FormControlValue, Validator } from '../utils/form-control/index.js';
 import type { Input } from './index.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -144,8 +145,15 @@ export const CustomValidation: StoryObj = {
       (event.target.previousElementSibling as Input)?.reportValidity();
     };
 
+    const validator: Validator = {
+      message: 'Enter "SLDS"',
+      isValid(_: HTMLElement, value: FormControlValue) {
+        return value === 'SLDS';
+      }
+    };
+
     return html`
-      <sl-input minlength="3" maxlength="5" required="true" .validators=${[]}>
+      <sl-input minlength="3" maxlength="5" required="true" .validators=${[validator]}>
         <div slot="too-short">You need to enter at least 3 characters here; this is a custom message.</div>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
       </sl-input>

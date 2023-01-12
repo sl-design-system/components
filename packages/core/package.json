@@ -30,6 +30,8 @@
     "./popover/register.js": "./dist/components/popover/register.js",
     "./radio-group": "./dist/components/radio-group/index.js",
     "./radio-group/register.js": "./dist/components/radio-group/register.js",
+    "./snack-bar": "./dist/components/snack-bar/index.js",
+    "./snack-bar/register.js": "./dist/components/snack-bar/register.js",
     "./tooltip": "./dist/components/tooltip/index.js",
     "./tooltip/register.js": "./dist/components/tooltip/register.js",
     "./utils": "./dist/components/utils/index.js",

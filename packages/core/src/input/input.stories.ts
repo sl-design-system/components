@@ -147,16 +147,11 @@ export const CustomValidation: StoryObj = {
 
     const validator: Validator = {
       message: 'Enter "SLDS"',
-      isValid(_: HTMLElement, value: FormControlValue) {
-        return value === 'SLDS';
-      }
+      isValid: (_: HTMLElement, value: FormControlValue): boolean => value === 'SLDS'
     };
 
     return html`
-      <sl-input minlength="3" maxlength="5" required="true" .validators=${[validator]}>
-        <div slot="too-short">You need to enter at least 3 characters here; this is a custom message.</div>
-        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
-      </sl-input>
+      <sl-input required="true" .validators=${[validator]}></sl-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
   }

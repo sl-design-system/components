@@ -7,6 +7,7 @@ import { localized, msg, str } from '@lit/localize';
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { EventsController } from '../controllers/events.js';
+import { dasherize } from '../string.js';
 import styles from './validation-mixin.scss.js';
 
 export type CustomValidityState = Partial<Record<keyof ValidityState, boolean>>;
@@ -76,8 +77,6 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
 
     /** Event handler for when invalid validity must be reported. */
     #onInvalid = (event: Event): void => {
-      console.log('#onInvalid');
-
       // Prevent the browser from showing the built-in validation UI
       event.preventDefault();
 
@@ -182,31 +181,15 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
     renderValidation(): TemplateResult | undefined {
       const state = this.#getInvalidState(this.validity);
 
+      console.log('this.validationMessage', this.validationMessage, this.invalid, state);
       if (!this.invalid || !state) {
         return;
       }
 
-      let validationMessage = '';
-      switch (state) {
-        case 'custom-error':
-          validationMessage = this.validationMessage;
-          break;
-        case 'pattern-mismatch':
-          validationMessage = msg('Please match the specified pattern.');
-          break;
-        case 'too-short':
-          if ('minLength' in this) {
-            const count = this.minLength ?? 0;
+      const validationMessage =
+        state === 'customError' ? this.validationMessage : this.#getValidationMessageForState(state);
 
-            validationMessage = msg(str`This field must be at least ${count} character${count > 1 ? 's' : ''} long.`);
-          }
-          break;
-        case 'value-missing':
-          validationMessage = msg('This field must be filled in.');
-          break;
-      }
-
-      return html`<slot .name=${state} part="error">${validationMessage}</slot>`;
+      return html`<slot .name=${dasherize(state)} part="error">${validationMessage}</slot>`;
     }
 
     setValidationHost(host: ValidationHost): void {
@@ -226,7 +209,7 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
 
     validate(): void {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      const validators: Validator[] = [...this.validators, ...((this.constructor as any).formControlValidators || [])],
+      const validators: Validator[] = [...((this.constructor as any).formControlValidators || []), ...this.validators],
         hasAsyncValidators = validators.some(({ isValid }) => isValid instanceof Promise),
         asyncValidators: Array<Promise<boolean | void>> = [],
         validity: CustomValidityState = {},
@@ -327,31 +310,66 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    #getInvalidState(validity: ValidityState): string | undefined {
+    #getInvalidState(validity: ValidityState): keyof ValidityState | undefined {
       if (validity.badInput) {
-        return 'bad-input';
+        return 'badInput';
       } else if (validity.customError) {
-        return 'custom-error';
+        return 'customError';
       } else if (validity.patternMismatch) {
-        return 'pattern-mismatch';
+        return 'patternMismatch';
       } else if (validity.rangeOverflow) {
-        return 'range-overflow';
+        return 'rangeOverflow';
       } else if (validity.rangeUnderflow) {
-        return 'range-underflow';
+        return 'rangeUnderflow';
       } else if (validity.stepMismatch) {
-        return 'step-mismatch';
+        return 'stepMismatch';
       } else if (validity.tooLong) {
-        return 'too-long';
+        return 'tooLong';
       } else if (validity.tooShort) {
-        return 'too-short';
+        return 'tooShort';
       } else if (validity.typeMismatch) {
-        return 'type-mismatch';
+        return 'typeMismatch';
       } else if (validity.valueMissing) {
-        return 'value-missing';
+        return 'valueMissing';
       }
     }
 
-    /** Process the validator message attribute */
+    #getValidationMessageForState(state: keyof ValidityState): string | undefined {
+      switch (state) {
+        case 'badInput':
+          return msg('Bad input');
+        case 'customError':
+          return this.validationMessage;
+        case 'patternMismatch':
+          return msg('Please match the specified pattern.');
+        case 'rangeOverflow':
+          return msg('The value is outside the minimum or maximum allowed range.');
+        case 'stepMismatch':
+          return msg('Step mismatch');
+        case 'tooLong':
+          if ('maxLength' in this) {
+            const length = this.value?.toString().length ?? 0,
+              maxLength = this.maxLength ?? 0;
+
+            return msg(
+              str`Please use no more than ${maxLength} characters (you are currently using ${length} characters).`
+            );
+          }
+          break;
+        case 'tooShort':
+          if ('minLength' in this) {
+            const count = this.minLength ?? 0;
+
+            return msg(str`This field must be at least ${count} character${count > 1 ? 's' : ''} long.`);
+          }
+          break;
+        case 'typeMismatch':
+          return msg('The value does not match the specified type.');
+        case 'valueMissing':
+          return msg('This field must be filled in.');
+      }
+    }
+
     #getValidatorMessageForValue(validator: Validator, value: FormControlValue): string {
       if (validator.message instanceof Function) {
         return validator.message(this, value);
@@ -360,17 +378,19 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /**
-     * If the validationHost is not set, the user can decide how they would
-     * prefer to handle focus when the field is validated.
-     */
     #setValidityWithOptionalTarget(validity: Partial<ValidityState>, validationMessage: string | undefined): void {
-      console.log({ validity, validationMessage });
-
       if (isNativeValidationHost(this.validationHost)) {
         this.validationHost.setCustomValidity(validationMessage ?? '');
       } else {
         this.validationHost.internals.setValidity(validity, validationMessage);
+      }
+
+      const invalid = !this.validity.valid;
+
+      if (invalid !== this.invalid) {
+        this.invalid = invalid;
+      } else {
+        this.requestUpdate();
       }
     }
   }

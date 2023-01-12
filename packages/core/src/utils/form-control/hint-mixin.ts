@@ -19,7 +19,11 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
       super.updated(changes);
 
       if (changes.has('hint')) {
-        this.#updateHint();
+        if (this.hint) {
+          this.#updateHint();
+        } else if (changes.get('hint')) {
+          this.#removeHint();
+        }
       }
     }
 
@@ -47,6 +51,11 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
       } else {
         input?.removeAttribute('aria-describedby');
       }
+    }
+
+    #removeHint(): void {
+      this.querySelector('[slot="hint"]')?.remove();
+      this.querySelector('input')?.removeAttribute('aria-describedby');
     }
   }
 

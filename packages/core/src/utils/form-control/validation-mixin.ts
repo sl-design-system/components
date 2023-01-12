@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import type { IElementInternals } from 'element-internals-polyfill';
 import type { CSSResultGroup, PropertyValues, ReactiveElement, TemplateResult } from 'lit';
 import type { Constructor } from '../mixin-types.js';
@@ -8,7 +9,7 @@ import { property, state } from 'lit/decorators.js';
 import { EventsController } from '../controllers/events.js';
 import styles from './validation-mixin.scss.js';
 
-export const validationStyles: CSSResultGroup = styles;
+export type CustomValidityState = Partial<Record<keyof ValidityState, boolean>>;
 
 export interface NativeValidationHost extends HTMLElement {
   readonly form: HTMLFormElement | null;
@@ -47,6 +48,8 @@ export interface ValidationInterface {
   validate(): void;
 }
 
+export const validationStyles: CSSResultGroup = styles;
+
 const isNativeValidationHost = (host: ValidationHost): host is NativeValidationHost =>
   host instanceof HTMLInputElement || host instanceof HTMLTextAreaElement;
 
@@ -55,6 +58,10 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
 ): T & Constructor<ValidationInterface> {
   @localized()
   class Validation extends constructor {
+    /** An internal abort controller for cancelling pending async validation. */
+    #abortController?: AbortController;
+    #previousAbortController?: AbortController;
+
     /** Events manager. */
     #events = new EventsController(this);
 
@@ -77,8 +84,17 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       this.invalid = !this.validity.valid;
     };
 
+    /** Used when validation is pending. */
+    #validationComplete = Promise.resolve();
+
+    /** Save a reference to the validation complete resolver */
+    #validationCompleteResolver?: (value: void | PromiseLike<void>) => void;
+
     /** The host element which the validation is based on. */
     #validationHost?: ValidationHost;
+
+    /** Whether validation is pending. */
+    #validationPending = false;
 
     /** Whether the element has been invalidated. */
     @state() invalid = false;
@@ -210,10 +226,95 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
 
     validate(): void {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      const validators = [...this.validators, ...((this.constructor as any).formControlValidators || [])],
-        value = this.shouldFormValueUpdate() ? this.value : '';
+      const validators: Validator[] = [...this.validators, ...((this.constructor as any).formControlValidators || [])],
+        hasAsyncValidators = validators.some(({ isValid }) => isValid instanceof Promise),
+        asyncValidators: Array<Promise<boolean | void>> = [],
+        validity: CustomValidityState = {},
+        value = this.shouldFormValueUpdate() ? this.value ?? '' : '';
 
-      console.log('validate', { value }, validators);
+      if (!this.#validationPending) {
+        this.#validationComplete = new Promise(resolve => {
+          this.#validationCompleteResolver = resolve;
+        });
+        this.#validationPending = true;
+      }
+
+      /**
+       * If an abort controller exists from a previous validation step
+       * notify still-running async validators that we are requesting they
+       * discontinue any work.
+       */
+      if (this.#abortController) {
+        this.#abortController.abort();
+        this.#previousAbortController = this.#abortController;
+      }
+
+      /**
+       * Create a new abort controller and replace the instance reference
+       * so we can clean it up for next time
+       */
+      const abortController = (this.#abortController = new AbortController());
+
+      if (!validators.length) {
+        return;
+      }
+
+      let keyChanged = false,
+        validationMessage: string | undefined = undefined;
+
+      validators.forEach(validator => {
+        const key = validator.key || 'customError',
+          isValid = validator.isValid(this, value, abortController.signal),
+          isAsyncValidator = isValid instanceof Promise;
+
+        if (isAsyncValidator) {
+          asyncValidators.push(isValid);
+
+          isValid.then(valid => {
+            if (valid === undefined || valid === null) {
+              return;
+            }
+
+            // Invert the validity state to correspond to the ValidityState API
+            validity[key] = !valid;
+
+            validationMessage = this.#getValidatorMessageForValue(validator, value);
+            this.#setValidityWithOptionalTarget(validity, validationMessage);
+          });
+        } else {
+          // Invert the validity state to correspond to the ValidityState API
+          validity[key] = !isValid;
+
+          if (this.validity[key] !== !isValid) {
+            keyChanged = true;
+          }
+
+          if (!isValid) {
+            validationMessage = this.#getValidatorMessageForValue(validator, value);
+          }
+        }
+      });
+
+      // Once all the async validators have settled, resolve validationComplete
+      Promise.allSettled(asyncValidators).then(() => {
+        // Don't resolve validations if the signal is aborted
+        if (!abortController?.signal.aborted) {
+          this.#validationPending = false;
+          this.#validationCompleteResolver?.();
+        }
+      });
+
+      /**
+       * If async validators are present:
+       * Only run updates when a sync validator has a change. This is to prevent
+       * situations where running sync validators can override async validators
+       * that are still in progress
+       *
+       * If async validators are not present, always update validity
+       */
+      if (keyChanged || !hasAsyncValidators) {
+        this.#setValidityWithOptionalTarget(validity, validationMessage);
+      }
     }
 
     #onReset(event: Event): void {
@@ -247,6 +348,29 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
         return 'type-mismatch';
       } else if (validity.valueMissing) {
         return 'value-missing';
+      }
+    }
+
+    /** Process the validator message attribute */
+    #getValidatorMessageForValue(validator: Validator, value: FormControlValue): string {
+      if (validator.message instanceof Function) {
+        return validator.message(this, value);
+      } else {
+        return validator.message;
+      }
+    }
+
+    /**
+     * If the validationHost is not set, the user can decide how they would
+     * prefer to handle focus when the field is validated.
+     */
+    #setValidityWithOptionalTarget(validity: Partial<ValidityState>, validationMessage: string | undefined): void {
+      console.log({ validity, validationMessage });
+
+      if (isNativeValidationHost(this.validationHost)) {
+        this.validationHost.setCustomValidity(validationMessage ?? '');
+      } else {
+        this.validationHost.internals.setValidity(validity, validationMessage);
       }
     }
   }

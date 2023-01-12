@@ -2,6 +2,7 @@ import { getActiveElement } from '../utils/active-element.js';
 
 /*const*/ let tabsContainer = document.querySelector('.ds-tabs');
 const tabsHeaderContainer = document.querySelector('.ds-tabs__container') as Element;
+const mediaQueryList: MediaQueryList = window.matchMedia('(min-width: 900px)');
 // const tabsWrapper = document.querySelector('.ds-tabs-wrapper');
 // const tabs: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-tab');
 /*const*/ let slider = tabsContainer?.querySelector('.slider') as HTMLElement;
@@ -11,6 +12,10 @@ const tabsHeaderContainer = document.querySelector('.ds-tabs__container') as Ele
 // const tabsContentWrapper = document.querySelector('.ds-tabs__tab-content-wrapper');
 // const container = document.querySelector('.ds-container');
 // const menu = document.querySelector('.ds-sidebar') as HTMLElement;
+
+const navLogo = document.querySelector('.ds-top-navigation__logo') as Element;
+const componentName = document.querySelector('.ds-component__heading-wrapper h1')?.textContent;
+let headingElement: HTMLHeadingElement;
 
 let tabsContainers: NodeListOf<Element>;
 let verticalTabsContainers: NodeListOf<Element>;
@@ -463,6 +468,35 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   });
 }
 
+function handleWidthChange(matches: boolean, target: Element, componentNameHeading: HTMLHeadingElement): void {
+  console.log('matches, matches', matches);
+  if (matches) {
+    target.insertAdjacentElement('afterbegin', componentNameHeading);
+  } else {
+    navLogo?.replaceWith(componentNameHeading);
+  }
+  // if (matches && menu.classList.contains('ds-sidebar--closed')) {
+  //   topNavigation.style.display = 'none';
+  // } else if (matches && menu.classList.contains('ds-sidebar--opened')) {
+  //   topNavigation.style.display = 'none';
+  //   toggleMenu();
+  //   showMenu();
+  // } else {
+  //   toggleMenu();
+  //   setActiveItem();
+  // }
+}
+
+function handleWidthChange2(matches: boolean, target: Element): void {
+  console.log('matches, matches', matches);
+  if (matches) {
+    console.log('target', target);
+    target.removeChild(headingElement); // TODO:  check if child exists
+  } else {
+    headingElement?.replaceWith(navLogo);
+  }
+}
+
 const config = {
   root: null, //container, //null, //container, //null, //null, // Sets the framing element to the viewport
   //rootMargin: '104px', //'104px', //'112px', // TODO change for the desktop version on resize as well
@@ -490,8 +524,92 @@ const observer = new IntersectionObserver(
         return;
       }
 
-      target.classList.toggle('ds-tabs__container--sticky', intersectionRatio < 1);
+      // target.classList.toggle('ds-tabs__container--sticky', intersectionRatio < 1);
       //  { threshold: [1] }
+
+      // const navLogo = document.querySelector('.ds-top-navigation__logo') as Element;
+      // const componentName = document.querySelector('.ds-component__heading-wrapper h1')?.textContent;
+      const componentNameHeading = document.createElement('h1');
+      componentNameHeading.textContent = (componentName as string).toLowerCase();
+      componentNameHeading.classList.add('ds-top-navigation__component-name');
+      // navLogo?.replaceWith(componentNameHeading);
+
+      console.log('navLogo componentName', navLogo, componentName, target.firstChild);
+
+      if (intersectionRatio < 1) {
+        //tabsContainer.classList.add('ds-tabs__container--sticky');
+        target.classList.add('ds-tabs__container--sticky');
+
+        mediaQueryList.onchange = event => {
+          handleWidthChange(event.matches, target, componentNameHeading);
+        };
+
+        const matched = mediaQueryList.matches;
+        console.log('matched', matched);
+
+        handleWidthChange(matched, target, componentNameHeading);
+
+        // handleWidthChange(event.matches);
+
+        // function handleWidthChange(matches: boolean): void {
+        //   console.log('matches, matches', matches);
+        //   if (matches) {
+        //     target.insertAdjacentElement('afterbegin', componentNameHeading);
+        //   } else {
+        //     navLogo?.replaceWith(componentNameHeading);
+        //   }
+        //   // if (matches && menu.classList.contains('ds-sidebar--closed')) {
+        //   //   topNavigation.style.display = 'none';
+        //   // } else if (matches && menu.classList.contains('ds-sidebar--opened')) {
+        //   //   topNavigation.style.display = 'none';
+        //   //   toggleMenu();
+        //   //   showMenu();
+        //   // } else {
+        //   //   toggleMenu();
+        //   //   setActiveItem();
+        //   // }
+        // }
+
+        // navLogo?.replaceWith(componentNameHeading);
+        //target.appendChild(componentNameHeading);
+        // target.insertAdjacentElement('afterbegin', componentNameHeading);
+        // requestAnimationFrame(() => {
+        //   // navLogo.className = 'fade';
+        //   componentNameHeading.classList.add('fade-in');
+        // });
+        headingElement = componentNameHeading;
+      } else {
+        // tabsContainer.classList.remove('ds-tabs__container--sticky');
+        target.classList.remove('ds-tabs__container--sticky');
+
+        mediaQueryList.onchange = event => {
+          handleWidthChange2(event.matches, target);
+        };
+
+        // handleWidthChange2(event.matches);
+
+        const matched = mediaQueryList.matches;
+        console.log('matched', matched);
+
+        handleWidthChange2(matched, target);
+
+        // function handleWidthChange2(matches: booleanm, target: Element): void {
+        //   console.log('matches, matches', matches);
+        //   if (matches) {
+        //     console.log('target', target);
+        //     target.removeChild(headingElement); // TODO:  check if child exists
+        //   } else {
+        //     headingElement?.replaceWith(navLogo);
+        //   }
+        // }
+
+        // target.removeChild(headingElement);
+        // headingElement?.replaceWith(navLogo);
+        // requestAnimationFrame(() => {
+        //   headingElement.classList.add('fade');
+        //   // navLogo.className = 'fade-in';
+        // });
+      }
 
       console.log('entry target tabsContainer', tabsContainer, tabsContainer.classList, target.classList);
       // if (rootBounds && intersectionRatio >= 1 && boundingClientRect.bottom > rootBounds.bottom + rootBounds.top) {
@@ -714,8 +832,14 @@ function selectTab(tab: Element): void {
     // });
   }
 
+  // TODO: get header anchors parents of active tab
+
+  const tabSections = tabContent?.querySelectorAll('section[id]');
+
+  console.log('tabSections,', tabSections, tab, tabContent);
+
   // const hasVerticalScrollbar = div.scrollHeight > div.clientHeight;
-  headerAnchorsParentsAll.forEach(tab => {
+  /*headerAnchorsParentsAll*/ tabSections?.forEach((tab) /*TODO: section instead of tab*/ => {
     console.log('tabbsbbbbb', tab, tab?.parentElement, tab?.parentElement?.parentNode);
     const hasVerticalScrollbar =
       (tab?.parentElement?.parentNode as Element)?.scrollHeight >
@@ -728,9 +852,17 @@ function selectTab(tab: Element): void {
       (tab?.parentElement?.parentNode as Element)?.clientHeight,
       window.scrollY
     );
+    verticalObserver?.disconnect();
     if (tab) {
-      // console.log('what observes tab.parentElement as Element', tab.parentElement as Element);
-      verticalObserver.observe(tab.parentElement as Element);
+      console.log(
+        'what observes tab.parentElement as Element',
+        tab.parentElement as Element,
+        tab,
+        headerAnchorsParentsAll,
+        headerAnchors,
+        tabsHeaderContainer
+      );
+      verticalObserver.observe(tab);
     }
   });
 }

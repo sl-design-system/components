@@ -11,12 +11,28 @@
   flex-direction: column;
 }
 
-.ds-component__heading {
+@media screen and (min-width: $xl-breakpoint) {
+  .ds-component__heading {
+    display: grid;
+    grid-column-gap: 7.2rem;
+    grid-template-columns: 7fr 1fr;
+  }
+}
+
+.ds-component__heading-wrapper {
   background-color: var(--heading-background);
   border-radius: 6px;
   color: var(--heading-color);
   //margin-bottom: 16px;
-  padding: 16px 24px;
+  //padding: 16px 24px;
+  padding: 2.4rem 4rem;
+}
+
+.ds-component__heading-description {
+  //font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  margin-top: 0.2rem;
 }
 
 .ds-success {

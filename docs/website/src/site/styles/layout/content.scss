@@ -5,6 +5,7 @@
   background-color: var(--background-color);
   margin-left: 0;
   padding: 8.8rem 2.4rem 0; //9.6rem 2.4rem 0;
+  scroll-behavior: smooth;
   transform: translateX(0);
   transition: transform 400ms, background 300ms ease-in-out, opacity 300ms;
   width: 100%;

@@ -9,7 +9,9 @@ layout: base.njk
 #} {#{{ content | safe }}#}
 
   <header class="ds-component__heading">
-    <h1 class="ds-heading-2">{{ title }}</h1>
-    <p>{{ description }}</p>
+    <div class="ds-component__heading-wrapper">
+      <h1 class="ds-heading-1">{{ title }}</h1>
+      <p class="ds-component__heading-description">{{ description }}</p>
+    </div>
   </header>
   {{ content | safe }}

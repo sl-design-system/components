@@ -131,7 +131,55 @@ $transition-timing: 300ms;
   }
 }
 
+.ds-top-navigation__component-name {
+  animation: append-animate 300ms linear;
+  font-size: 2rem;
+  line-height: 3.2rem;
+  transition: 300ms;
+}
+
+// padding-left: 7.2rem;
+
+//.fade-in {
+//  opacity: 1;
+//  transition: opacity 200ms;
+//}
+//
+//.fade {
+//  opacity: 0;
+//  transition: opacity 200ms;
+//}
+
+@keyframes append-animate {
+  from {
+    opacity: 0;
+    //transform: scale(0);
+    transform: translateY(-1rem);
+  }
+
+  to {
+    opacity: 1;
+    //transform: scale(1);
+    transform: translateY(0);
+  }
+}
+
+@keyframes append-animate-up {
+  from {
+    opacity: 0;
+    //transform: scale(0);
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    //transform: scale(1);
+    transform: translateY(0);
+  }
+}
+
 .ds-top-navigation__logo {
+  animation: append-animate-up 300ms linear;
   background-image: var(--logo);
   background-position: left;
   background-repeat: no-repeat;
@@ -395,6 +443,14 @@ $transition-timing: 300ms;
 @media screen and (min-width: $lg-breakpoint) {
   .ds-top-navigation {
     display: none;
+  }
+
+  .ds-top-navigation__component-name {
+    //font-size: 2rem;
+    //line-height: 3.2rem;
+    //transition: 300ms;
+    //animation: append-animate 300ms linear;
+    padding-left: 7.2rem;
   }
 
   .ds-sidebar {

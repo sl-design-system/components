@@ -1,10 +1,9 @@
 :host {
-  display: none;
-  outline: none;
-  pointer-events: none;
+  display: inline-block;
+  line-height: 24px;
+  padding: 0 3px;
 }
 
 :host([selected]) {
-  display: block;
-  pointer-events: all;
+  border-bottom: 3px solid var(--sl-color-button-primary-default-idle-background);
 }

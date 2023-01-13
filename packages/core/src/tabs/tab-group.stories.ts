@@ -3,7 +3,7 @@ import { html } from 'lit';
 import './register.js';
 
 export default {
-  title: 'Tabs'
+  title: 'Tab Group'
 };
 
 export const API: StoryObj = {
@@ -15,7 +15,7 @@ export const API: StoryObj = {
       <sl-tab slot="tabs">Tab 2</sl-tab>
       <sl-tab-panel>Contents tab 2</sl-tab-panel>
 
-      <sl-tab slot="tabs">Tab 3</sl-tab>
+      <sl-tab slot="tabs" selected>Tab 3</sl-tab>
       <sl-tab-panel>Contents tab 3</sl-tab-panel>
     </sl-tab-group>
   `

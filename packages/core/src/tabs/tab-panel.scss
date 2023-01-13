@@ -1,10 +1,4 @@
-:host {
+:host([aria-hidden='true']) {
   display: none;
-  outline: none;
   pointer-events: none;
-}
-
-:host([selected]) {
-  display: block;
-  pointer-events: all;
 }

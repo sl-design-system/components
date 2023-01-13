@@ -9,4 +9,9 @@ export class TabPanel extends LitElement {
   override render(): TemplateResult {
     return html`<slot></slot> `;
   }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.setAttribute('role', 'tabpanel');
+  }
 }

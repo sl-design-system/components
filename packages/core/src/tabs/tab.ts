@@ -1,12 +1,33 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import styles from './tab.scss.js';
 
 export class Tab extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /**
+   * Whether the tab item is selected
+   */
+  @property({ reflect: true, type: Boolean }) selected = false;
+
   override render(): TemplateResult {
     return html`<slot></slot>`;
+  }
+
+  // /**
+  //  * Apply accessible attributes and values to the tab button.
+  //  * Observe the selected property if it changes
+  //  */
+  // @observe("selected")
+  // protected handleSelectionChange() {
+  //   this.setAttribute("aria-selected", `${this.selected}`)
+  //   this.setAttribute("tabindex", this.selected ? "0" : "-1")
+  // }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.setAttribute('role', 'tab');
   }
 }

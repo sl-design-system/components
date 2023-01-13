@@ -10,9 +10,11 @@ eleventyNavigation:
 [//]: # (import { Button } from "@sanomalearning/slds-core/button";)
 
 [//]: # (<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.87/dist/components/button/button.js"></script>)
-<script type="text/javascript">
-      {% include "@sanomalearning/slds-core/button" %}
-</script>
+[//]: # (<script type="text/javascript">)
+
+[//]: # (      {% include "@sanomalearning/slds-core/button" %})
+
+[//]: # (</script>)
 
 [//]: # (Left for the future use)
 [//]: # (<div class="ds-tabs-wrapper">)

@@ -15,7 +15,7 @@ const mediaQueryList: MediaQueryList = window.matchMedia('(min-width: 900px)');
 
 const navLogo = document.querySelector('.ds-top-navigation__logo') as Element;
 const componentName = document.querySelector('.ds-component__heading-wrapper h1')?.textContent;
-let headingElement: HTMLHeadingElement;
+let headingElement: HTMLHeadingElement | undefined;
 
 let tabsContainers: NodeListOf<Element>;
 let verticalTabsContainers: NodeListOf<Element>;
@@ -468,12 +468,42 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   });
 }
 
-function handleWidthChange(matches: boolean, target: Element, componentNameHeading: HTMLHeadingElement): void {
-  console.log('matches, matches', matches);
+function handleWidthChange(
+  matches: boolean,
+  target: Element,
+  componentNameHeading: HTMLHeadingElement,
+  onchange = false
+): void {
+  console.log('matches, matches - 1', matches, onchange, headingElement, target, componentNameHeading, headingElement); // TODO: check if it's sticky
   if (matches) {
+    if (onchange) {
+      headingElement?.replaceWith(navLogo);
+      headingElement = undefined;
+    }
     target.insertAdjacentElement('afterbegin', componentNameHeading);
   } else {
-    navLogo?.replaceWith(componentNameHeading);
+    console.log('11 to onchange i nie matches i jest sticky');
+    if (onchange) {
+      // if (headingElement) {
+      // target.removeChild(/*headingElement*/ componentNameHeading);
+      // } // TODO:  check if child exists
+      console.log(
+        'to onchange i nie matches i jest sticky',
+        target,
+        target.children[0],
+        target.children[0] === componentNameHeading
+      );
+      navLogo?.replaceWith(componentNameHeading);
+      const oldComponentName = target.querySelector('.ds-top-navigation__component-name');
+      oldComponentName?.remove();
+      // componentNameHeading.remove();
+      //headingElement?.remove();
+      // headingElement = undefined;
+    } else {
+      navLogo?.replaceWith(componentNameHeading);
+      // headingElement = componentNameHeading;
+    }
+    headingElement = componentNameHeading;
   }
   // if (matches && menu.classList.contains('ds-sidebar--closed')) {
   //   topNavigation.style.display = 'none';
@@ -487,13 +517,30 @@ function handleWidthChange(matches: boolean, target: Element, componentNameHeadi
   // }
 }
 
-function handleWidthChange2(matches: boolean, target: Element): void {
-  console.log('matches, matches', matches);
+function handleWidthChange2(matches: boolean, target: Element, onchange = false): void {
+  console.log('matches, matches - 2', matches, headingElement, navLogo, 'nie jest sticky');
+  if (!headingElement) {
+    return;
+  }
   if (matches) {
-    console.log('target', target);
+    console.log('target', target, headingElement);
     target.removeChild(headingElement); // TODO:  check if child exists
+    headingElement = undefined;
   } else {
-    headingElement?.replaceWith(navLogo);
+    if (onchange) {
+      // (navLogo as HTMLElement).style.animation = 'none';
+      // headingElement.remove();
+      const oldComponentName = target.querySelector('.ds-top-navigation__component-name');
+      oldComponentName?.replaceWith(navLogo);
+    } else {
+      // requestAnimationFrame(() => {
+      const topNavigation = document.querySelector('.ds-top-navigation');
+      const componentNameInsideTopNav = topNavigation?.querySelector('.ds-top-navigation__component-name');
+      console.log('matches - 2 replace', target, headingElement, navLogo);
+      componentNameInsideTopNav?.replaceWith(navLogo);
+      headingElement = undefined;
+    }
+    // });
   }
 }
 
@@ -530,24 +577,39 @@ const observer = new IntersectionObserver(
       // const navLogo = document.querySelector('.ds-top-navigation__logo') as Element;
       // const componentName = document.querySelector('.ds-component__heading-wrapper h1')?.textContent;
       const componentNameHeading = document.createElement('h1');
-      componentNameHeading.textContent = (componentName as string).toLowerCase();
+      componentNameHeading.textContent = componentName as string; //(componentName as string).toLowerCase();
       componentNameHeading.classList.add('ds-top-navigation__component-name');
       // navLogo?.replaceWith(componentNameHeading);
 
       console.log('navLogo componentName', navLogo, componentName, target.firstChild);
+      //ds-top-navigation__component-name
+      // const oldComponentName = target.querySelector('.ds-top-navigation__component-name');
 
       if (intersectionRatio < 1) {
         //tabsContainer.classList.add('ds-tabs__container--sticky');
         target.classList.add('ds-tabs__container--sticky');
 
         mediaQueryList.onchange = event => {
-          handleWidthChange(event.matches, target, componentNameHeading);
+          console.log('onchange', event, componentNameHeading, headingElement);
+          // headingElement = undefined;
+          // if (/*matched && */ !headingElement) {
+          // setTimeout(() => {
+          handleWidthChange(event.matches, target, componentNameHeading, true);
+          headingElement = componentNameHeading;
+          // }, 500);
+          // }
         };
 
-        const matched = mediaQueryList.matches;
-        console.log('matched', matched);
+        console.log('!mediaQueryList.onchange', !mediaQueryList.onchange.length);
 
-        handleWidthChange(matched, target, componentNameHeading);
+        // if (!mediaQueryList.onchange) {
+        const matched = mediaQueryList.matches;
+        console.log('matched', matched, headingElement);
+        if (/*matched && */ !headingElement) {
+          handleWidthChange(matched, target, componentNameHeading);
+        }
+        headingElement = componentNameHeading;
+        // }
 
         // handleWidthChange(event.matches);
 
@@ -577,13 +639,16 @@ const observer = new IntersectionObserver(
         //   // navLogo.className = 'fade';
         //   componentNameHeading.classList.add('fade-in');
         // });
-        headingElement = componentNameHeading;
+        // headingElement = componentNameHeading;
       } else {
         // tabsContainer.classList.remove('ds-tabs__container--sticky');
         target.classList.remove('ds-tabs__container--sticky');
 
         mediaQueryList.onchange = event => {
-          handleWidthChange2(event.matches, target);
+          console.log('meedia query change', event, target);
+          // setTimeout(() => {
+          handleWidthChange2(event.matches, target, true);
+          // });
         };
 
         // handleWidthChange2(event.matches);
@@ -591,7 +656,9 @@ const observer = new IntersectionObserver(
         const matched = mediaQueryList.matches;
         console.log('matched', matched);
 
-        handleWidthChange2(matched, target);
+        if (headingElement) {
+          handleWidthChange2(matched, target);
+        }
 
         // function handleWidthChange2(matches: booleanm, target: Element): void {
         //   console.log('matches, matches', matches);
@@ -630,8 +697,8 @@ const verticalConfig = {
   root: null, //document.querySelector('.ds-tabs__tab-content-wrapper') //null, //container, //null, //container, //null, //null, // Sets the framing element to the viewport
   //rootMargin: '104px', //'104px', //'112px', // TODO change for the desktop version on resize as well
   //threshold: 1
-  threshold: 0.5,
-  rootMargin: '-200px 0px 0px 0px'
+  threshold: 1, //0.5,
+  rootMargin: '100px 0px 0px 0px'
 };
 const verticalObserver = new IntersectionObserver(entries => {
   console.log('entries vertical', entries, verticalTabsContainers, verticalTabsAll);
@@ -661,6 +728,7 @@ const verticalObserver = new IntersectionObserver(entries => {
     // const verticalTabLink = verticalTabsContainers[0].querySelector(`[href="${id}"]`);
     const verticalTabLink = verticalTabsAll.find(element => (element as HTMLAnchorElement).hash === `#${id}`);
     //console.log('elem hash vert', (element as HTMLAnchorElement).hash, `#${id}`);
+    console.log('verticalTabLink 1', verticalTabLink, entry.target.id, entry.target);
     console.log(
       'verticalTabLink',
       entry.boundingClientRect.y,
@@ -680,8 +748,8 @@ const verticalObserver = new IntersectionObserver(entries => {
     }
     // currentVerticalTabLink?.classList.remove('active');
     if (
-      entry.intersectionRatio > 0 &&
-      entry.isIntersecting /*&&
+      entry.intersectionRatio > 0 /*&&
+      entry.isIntersecting*/ /*&&
       verticalTabLink !== currentVerticalTabLink &&
       entry.intersectionRect.top > 0 &&
       entry.boundingClientRect.y > 0*/
@@ -838,6 +906,35 @@ function selectTab(tab: Element): void {
 
   console.log('tabSections,', tabSections, tab, tabContent);
 
+  // let sections = section
+  //   , nav = nav
+  //   , nav_height = nav.getBoundingClientRect().height;
+
+  /*  window.onscroll = event => { // TODO: onscroll instead of intersection observer
+    const sections = tabSections,
+      nav = verticalTabsAll, //.find(element => (element as HTMLAnchorElement).hash === `#${id}`)//nav
+      navHeight = verticalTabsContainers[0].getBoundingClientRect().height;
+
+    const cur_pos = (event.target as Element).scrollTop;
+
+    console.log('event on scroll', event, sections, nav, navHeight);
+
+    // tabSections?.forEach(section => {
+    //   const top = (section as HTMLElement).offsetTop - navHeight,
+    //     bottom = top + (section as HTMLElement).getBoundingClientRect().height;
+    //
+    //   if (cur_pos >= top && cur_pos <= bottom) {
+    //     // nav.find('a').removeClass('active');
+    //     // sections.removeClass('active');
+    //     //
+    //     // (section as HTMLElement).classList.add('active');
+    //     // nav.find('a[href="#'+(section as HTMLElement).hasAttribute('id')+'"]').addClass('active');
+    //   }
+    // });
+  };*/
+
+  verticalObserver?.disconnect();
+
   // const hasVerticalScrollbar = div.scrollHeight > div.clientHeight;
   /*headerAnchorsParentsAll*/ tabSections?.forEach((tab) /*TODO: section instead of tab*/ => {
     console.log('tabbsbbbbb', tab, tab?.parentElement, tab?.parentElement?.parentNode);
@@ -852,7 +949,7 @@ function selectTab(tab: Element): void {
       (tab?.parentElement?.parentNode as Element)?.clientHeight,
       window.scrollY
     );
-    verticalObserver?.disconnect();
+    // verticalObserver?.disconnect();
     if (tab) {
       console.log(
         'what observes tab.parentElement as Element',
@@ -862,6 +959,7 @@ function selectTab(tab: Element): void {
         headerAnchors,
         tabsHeaderContainer
       );
+      // verticalObserver?.disconnect();
       verticalObserver.observe(tab);
     }
   });
@@ -892,7 +990,8 @@ function selectVerticalTab(verticalTab: Element): void {
     (verticalTab as HTMLAnchorElement).href,
     location.href
   );
-  currentVerticalTabLink.className = currentVerticalTabLink?.className.replace(' active', '');
+  // /*currentVerticalTabLink.className =*/ currentVerticalTabLink?.className.replace(' active', '');
+  currentVerticalTabLink?.classList.remove('active');
   verticalTab.classList.add('active');
   location.href = (verticalTab as HTMLAnchorElement).href;
   currentVerticalTabLink = verticalTab;
@@ -914,6 +1013,7 @@ function alignVerticalTabIndicator(tab: Element, currentVerticalTabsContainer: E
 
   console.log(
     'alignverticalTabIndicator????',
+    tab,
     verticalTabsWrapperAll,
     verticalSliderElement,
     currentVerticalTabsContainer,

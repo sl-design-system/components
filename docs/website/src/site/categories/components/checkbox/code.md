@@ -1,15 +1,15 @@
 ---
-title: Checkbox specs
+title: Checkbox code
 layout: "components/specs.njk"
-tags: specs
+tags: code
 eleventyNavigation:
   parent: Checkbox
-  key: CheckboxSpecs
+  key: CheckboxCode
 ---
 <section>
 
-## specs content
-
-This is specs content
+## Checkbox code
+ 
+examples
 
 </section>

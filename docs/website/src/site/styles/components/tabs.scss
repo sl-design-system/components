@@ -35,9 +35,9 @@ $transition-timing: 300ms;
   border: 0;
   color: var(--tab-color);
   cursor: pointer;
-  font-size: 1.4rem; // TODO: change all to rem
+  font-size: 1.6rem; // TODO: change all to rem
   font-weight: 600;
-  line-height: 18px;
+  line-height: 2rem; //18px;
   margin: 0.3rem;
   padding: 0;
   text-decoration: none;
@@ -192,6 +192,8 @@ $transition-timing: 300ms;
   }
 
   section {
+    scroll-margin-top: 1em; // TODO: don't know if still necessary?
+
     &:not(:first-child) {
       margin-top: 2.4rem;
       //background-color: #1f97f9;
@@ -231,6 +233,7 @@ $transition-timing: 300ms;
     // margin: auto;
     //top: 0;
     top: -1px;
+    //padding-bottom: 8px;
   }
 
   //.is-pinned {
@@ -242,6 +245,16 @@ $transition-timing: 300ms;
     //box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
     //padding-top: calc(78px + 1px);
     padding-top: 1px;
+
+    &.ds-tabs__container {
+      padding-bottom: 8px;
+      padding-top: 20px; //24px;
+    }
+
+    .ds-top-navigation__component-name {
+      font-size: 2.4rem;
+      padding-bottom: 4px;
+    }
   }
 }
 

@@ -24,12 +24,17 @@
   outline: none;
 }
 
-$sticky-breakpoint: 88px;
+$sticky-breakpoint: 1px; //192px;
 
 html {
   font-size: 62.5%;
 
   @media (min-height: $sticky-breakpoint) {
-    scroll-padding-top: 28px;
+    scroll-padding-top: 120px;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    @media screen and (min-width: $lg-breakpoint) {
+      scroll-padding-top: 100px;
+    }
   }
 }

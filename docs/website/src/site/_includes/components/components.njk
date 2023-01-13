@@ -14,4 +14,110 @@ layout: base.njk
       <p class="ds-component__heading-description">{{ description }}</p>
     </div>
   </header>
+<section>
+  {%- for post in collections.component -%}
+    {% if page.url === post.url %}
+    <div horizontal class="ds-tabs">
+      <button class="ds-tab">Overview</button>
+      <button class="ds-tab">Specs</button>
+      <button class="ds-tab">Usage</button>
+      <button class="ds-tab">Code</button>
+      <button class="ds-tab">Accessibility</button>
+      <div class="ds-tabs__tab-content-wrapper">
+        <div class="ds-tabs__tab-content">
+{#          <section>#}
+            {%- for overview in collections.overview -%}
+              {% if overview.url.includes(page.url) %}
+                {{ overview.templateContent | safe }}
+              {% endif %}
+            {%- endfor -%}
+{#          </section>#}
+        </div>
+        <div class="ds-tabs__tab-content">
+          {#          <section>#}
+          {%- for specs in collections.specs -%}
+            {% if specs.url.includes(page.url) %}
+              {{ specs.templateContent | safe }}
+            {% endif %}
+          {%- endfor -%}
+          {#          </section>#}
+        </div>
+        <div class="ds-tabs__tab-content">
+          {#          <section>#}
+          {%- for usage in collections.usage -%}
+            {% if usage.url.includes(page.url) %}
+              {{ usage.templateContent | safe }}
+            {% endif %}
+          {%- endfor -%}
+          {#          </section>#}
+        </div>
+        <div class="ds-tabs__tab-content">
+          {#          <section>#}
+          {%- for code in collections.code -%}
+            {% if code.url.includes(page.url) %}
+              {{ code.templateContent | safe }}
+            {% endif %}
+          {%- endfor -%}
+          {#          </section>#}
+        </div>
+        <div class="ds-tabs__tab-content">
+          {#          <section>#}
+          {%- for accessibility in collections.accessibility -%}
+            {% if accessibility.url.includes(page.url) %}
+              {{ accessibility.templateContent | safe }}
+            {% endif %}
+          {%- endfor -%}
+          {#          </section>#}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  {%- endfor -%}
+
+
+
+
+{#  {%- for post1 in collections.checkbox -%}#}
+{#    {{ post1.url }}#}
+{#    <div>{{ post1.data.tags }}</div>#}
+{#    {{ post1.templateContent | safe }}#}
+{#  {%- endfor -%}#}
+
+{#  {%- for post in collections.component -%}#}
+{#    {{ page.url }}#}
+{#    {{ entry.url }}#}
+{#    {{ post.url }}#}
+{#    {% if page.url === post.url %}#}
+{#      {{ post.templateContent | safe }}#}
+{#      <section>#}
+{#        <h2>Overview</h2>#}
+{##}{##}{#        {% set test = collections.overview %}#}{##}{##}
+{##}{##}{#        {%- for test1 in collections.overview -%}#}{##}{##}
+{##}{##}{#          {{ test1.templateContent | safe }}#}{##}{##}
+{##}{##}{#        {%- endfor -%}#}{##}{##}
+
+{#        {%- for overview in collections.overview -%}#}
+{##}{##}{#          {{ page.url }}#}{##}{##}
+{##}{##}{#          {{ overview.url }}#}{##}{##}
+{##}{##}{#          {% if overview.url.includes(page.url) %} <h1>inludessss</h1> {% endif %}#}{##}{##}
+{##}{##}{#          {% if page.url == post.url %}#}{##}{##}
+{#          {% if overview.url.includes(page.url) %}#}
+{#          {{ overview.templateContent | safe }}#}
+{#          {% endif %}#}
+{#        {%- endfor -%}#}
+{#      </section>#}
+{#      <section>#}
+{#        <h2>Specs</h2>#}
+{#        {%- for specs in collections.specs -%}#}
+{#          {{ page.url }}#}
+{#          {{ specs.url }}#}
+{#          {% if specs.url.includes(page.url) %} <h1>inludessss specs</h1> {% endif %}#}
+{#          {% if specs.url.includes(page.url) %}#}
+{#          {{ specs.templateContent | safe }}#}
+{#          {% endif %}#}
+{#        {%- endfor -%}#}
+{#      </section>#}
+{#    {% endif %}#}
+{#  {%- endfor -%}#}
+{#</section>#}
   {{ content | safe }}

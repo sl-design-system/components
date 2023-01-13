@@ -1,10 +1,12 @@
 ---
-title: Checkbox
-description: This is a description of checkbox
+title: Dialog
+description: Dialog description
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Checkbox
+  key: Dialog
   order: 5
 ---
+
+[//]: # (## test content)

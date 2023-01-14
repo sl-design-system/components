@@ -1,40 +1,34 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { FormControlMixin, maxLengthValidator, minLengthValidator, requiredValidator } from '@open-wc/form-control';
+import { FormControlMixin } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
-import { property, query } from 'lit/decorators.js';
-import { live } from 'lit/directives/live.js';
+import { property } from 'lit/decorators.js';
+import { EventsController } from '../utils/controllers/index.js';
 import styles from './input.scss.js';
+
+let nextUniqueId = 0;
 
 /**
  * Single line text input component.
  *
- * @csspart wrapper - The wrapper container
  * @slot prefix - Content shown before the input
+ * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
  */
 export class Input extends FormControlMixin(LitElement) {
   /** @private */
-  static formControlValidators = [maxLengthValidator, minLengthValidator, requiredValidator];
-
-  /** @private */
   static override styles: CSSResultGroup = styles;
 
-  #onClick = (event: Event): void => {
-    event.preventDefault();
+  /** Events controller. */
+  #events = new EventsController(this);
 
-    this.validationTarget?.focus();
-  };
-
-  #onInvalid = (event: Event): void => event.preventDefault();
-
-  #onKeydown = (event: KeyboardEvent): void => {
-    if (event.key === 'Enter') {
-      this.form?.requestSubmit();
-    }
-  };
+  /** The input element in the light DOM. */
+  input!: HTMLInputElement;
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
-  @property() autocomplete = 'off';
+  @property() autocomplete?: string;
+
+  /** Whether the input is disabled. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -42,11 +36,11 @@ export class Input extends FormControlMixin(LitElement) {
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
-  /** Placeholder text in the input. */
-  @property() placeholder = '';
+  /** Validation using pattern. */
+  @property() pattern?: string;
 
-  /** Whether this input must be filled in before form submission. */
-  @property({ type: Boolean, reflect: true }) required = false;
+  /** Placeholder text in the input. */
+  @property() placeholder?: string;
 
   /**
    * The input type. Only text types are valid here. For other types,
@@ -54,35 +48,25 @@ export class Input extends FormControlMixin(LitElement) {
    */
   @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text';
 
-  /** The validation message shown when the control is invalid. */
-  @property() override validationMessage = '';
-
-  /** The element that will be focused when the validity state is reported. */
-  @query('input') override validationTarget?: HTMLInputElement;
-
   /** The value of the input. */
-  @property() value = '';
+  @property() value?: string;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.addEventListener('click', this.#onClick);
-    this.addEventListener('invalid', this.#onInvalid);
-    this.addEventListener('keydown', this.#onKeydown);
-  }
+    if (!this.input) {
+      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input.autocomplete ||= 'off';
+      this.input.id ||= `sl-input-${nextUniqueId++}`;
+      this.input.slot = 'input';
 
-  override disconnectedCallback(): void {
-    this.removeEventListener('click', this.#onClick);
-    this.removeEventListener('invalid', this.#onInvalid);
-    this.removeEventListener('keydown', this.#onKeydown);
-
-    super.disconnectedCallback();
-  }
-
-  override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('value')) {
-      this.setValue(this.value);
+      if (!this.input.parentElement) {
+        this.append(this.input);
+      }
     }
+
+    this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this.input, 'keydown', this.#onKeydown);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -90,66 +74,92 @@ export class Input extends FormControlMixin(LitElement) {
 
     if (changes.has('autocomplete')) {
       if (this.autocomplete) {
-        this.validationTarget?.setAttribute('autocomplete', this.autocomplete);
+        this.input.setAttribute('autocomplete', this.autocomplete);
       } else {
-        this.validationTarget?.removeAttribute('autocomplete');
+        this.input.removeAttribute('autocomplete');
+      }
+    }
+
+    if (changes.has('disabled')) {
+      if (this.disabled) {
+        this.input.setAttribute('disabled', '');
+      } else {
+        this.input.removeAttribute('disabled');
       }
     }
 
     if (changes.has('maxLength')) {
       if (this.maxLength) {
-        this.validationTarget?.setAttribute('maxlength', this.maxLength.toString());
+        this.input.setAttribute('maxlength', this.maxLength.toString());
       } else {
-        this.validationTarget?.removeAttribute('maxlength');
+        this.input.removeAttribute('maxlength');
       }
     }
 
     if (changes.has('minLength')) {
       if (this.minLength) {
-        this.validationTarget?.setAttribute('minlength', this.minLength.toString());
+        this.input.setAttribute('minlength', this.minLength.toString());
       } else {
-        this.validationTarget?.removeAttribute('minlength');
+        this.input.removeAttribute('minlength');
       }
+    }
+
+    if (changes.has('pattern')) {
+      if (this.pattern) {
+        this.input.setAttribute('pattern', this.pattern);
+      } else {
+        this.input.removeAttribute('pattern');
+      }
+    }
+
+    if (changes.has('placeholder')) {
+      if (this.placeholder) {
+        this.input.setAttribute('placeholder', this.placeholder);
+      } else {
+        this.input.removeAttribute('placeholder');
+      }
+    }
+
+    if (changes.has('type')) {
+      this.input.type = this.type;
     }
   }
 
   override render(): TemplateResult {
     return html`
-      <div class="wrapper" part="wrapper">
+      <div @input=${this.#onInput} class="wrapper">
         <slot name="prefix"></slot>
-        <input
-          aria-describedby="validation"
-          @input="${this.#onInput}"
-          ?required=${this.required}
-          .placeholder="${this.placeholder}"
-          .type=${this.type}
-          .value=${live(this.value)}
-        />
+        <slot @slotchange=${this.#onSlotchange} name="input"></slot>
         <slot name="suffix"></slot>
       </div>
-      ${this.validationMessage
-        ? html`
-            <div id="validation" class="validation">
-              <slot name="validation-message">${this.validationMessage}</slot>
-            </div>
-          `
-        : ''}
     `;
   }
 
-  override resetFormControl(): void {
-    this.value = '';
-  }
+  #onClick(event: Event): void {
+    event.preventDefault();
 
-  override validationMessageCallback(message: string): void {
-    if ('ariaDescription' in this.internals) {
-      (this.internals as unknown as { ariaDescription: string }).ariaDescription = message;
-    }
-
-    this.validationMessage = message;
+    this.input.focus();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
+  }
+
+  #onKeydown({ key }: KeyboardEvent): void {
+    if (key === 'Enter') {
+      this.input.form?.requestSubmit();
+    }
+  }
+
+  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = event.target.assignedElements({ flatten: true }),
+      inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
+
+    // Handle the scenario where a custom input is being slotted after `connectedCallback`
+    if (inputs.length) {
+      this.input = inputs.at(0) as HTMLInputElement;
+      this.input.autocomplete ||= 'off';
+      this.input.id ||= `sl-input-${nextUniqueId++}`;
+    }
   }
 }

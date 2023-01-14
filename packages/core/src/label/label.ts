@@ -2,6 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { FormControlInterface } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { Button } from '../button/index.js';
 import { Input } from '../input/index.js';
 import { Textarea } from '../textarea/index.js';
 import styles from './label.scss.js';
@@ -16,8 +17,8 @@ export class Label extends LitElement {
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
 
-  /** Observe the form control for changes. */
-  #observer?: MutationObserver;
+  /** Observe the form control for changes to the required attribute. */
+  #observer = new MutationObserver(() => void this.#update());
 
   /** The DOM id of the form control this is linked to. */
   @property() for?: string;
@@ -32,8 +33,7 @@ export class Label extends LitElement {
   @state() required?: boolean;
 
   override disconnectedCallback(): void {
-    this.#observer?.disconnect();
-    this.#observer = undefined;
+    this.#observer.disconnect();
 
     super.disconnectedCallback();
   }
@@ -71,14 +71,16 @@ export class Label extends LitElement {
 
     if (changes.has('formControl')) {
       if (this.formControl) {
-        this.#observer = new MutationObserver(() => this.#update());
-        this.#observer.observe(this.formControl, { attributes: true, attributeFilter: ['required'] });
+        let target: HTMLElement = this.formControl;
 
-        this.#update();
+        if (target instanceof Input || target instanceof Textarea) {
+          target = this.formControl.querySelector('input, textarea') as HTMLElement;
+        }
+
+        this.#observer.observe(target, { attributes: true, attributeFilter: ['required'] });
+        void this.#update();
       } else {
-        this.#observer?.disconnect();
-        this.#observer = undefined;
-
+        this.#observer.disconnect();
         this.optional = this.required = undefined;
       }
     }
@@ -108,16 +110,28 @@ export class Label extends LitElement {
     }
   }
 
-  #update(): void {
+  async #update(): Promise<void> {
+    // Give the component & siblings time to set the required attribute
+    await this.updateComplete;
+
     const { form } = this.formControl || {},
       required = this.formControl?.hasAttribute('required');
 
     if (form) {
-      const requiredCount = Array.from(form.elements).reduce((acc, cur) => {
-        return cur.hasAttribute('required') ? acc + 1 : acc;
+      const controls = Array.from(form.elements).filter(el => !(el instanceof Button));
+
+      // Count the required form controls
+      const requiredCount = controls.reduce((count, control) => {
+        return count + (control.hasAttribute('required') ? 1 : 0);
       }, 0);
 
-      const optionalCount = form.elements.length - requiredCount,
+      /**
+       * If the required form controls outnumber the optional form controls,
+       * then mark the optional form controls. If the optional form controls
+       * outnumber the required form controls, mark the required form controls.
+       * If there is only a single form element, do nothing.
+       */
+      const optionalCount = controls.length - requiredCount,
         showRequired = requiredCount <= optionalCount;
 
       this.optional = !required && !showRequired;

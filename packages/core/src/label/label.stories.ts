@@ -1,5 +1,7 @@
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import '../button/register.js';
+import '../button-bar/register.js';
 import '../input/register.js';
 import './register.js';
 
@@ -14,34 +16,32 @@ export const API: StoryObj = {
   },
   render: ({ required, text }) => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="input">${text}</sl-label>
       <sl-input ?required=${required} id="input"></sl-input>
-    </div>
+    </form>
   `
 };
 
 export const CustomLabel: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="input">
         <label slot="label"><u>Hello</u> <em>World</em></label>
       </sl-label>
       <sl-input id="input"></sl-input>
-    </div>
+    </form>
   `
 };
 
@@ -51,10 +51,9 @@ export const Required: StoryObj = {
       form {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
 
-      sl-input:not(:last-of-type) {
+      sl-input {
         margin-block-end: 0.5rem;
       }
     </style>
@@ -67,6 +66,10 @@ export const Required: StoryObj = {
 
       <sl-label for="input3">Optional input</sl-label>
       <sl-input id="input3"></sl-input>
+
+      <sl-button-bar align="end">
+        <sl-button type="submit">Submit</sl-button>
+      </sl-button-bar>
     </form>
   `
 };
@@ -77,10 +80,9 @@ export const Optional: StoryObj = {
       form {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
 
-      sl-input:not(:last-of-type) {
+      sl-input {
         margin-block-end: 0.5rem;
       }
     </style>
@@ -93,6 +95,10 @@ export const Optional: StoryObj = {
 
       <sl-label for="input3">Required input</sl-label>
       <sl-input required id="input3"></sl-input>
+
+      <sl-button-bar align="end">
+        <sl-button type="submit">Submit</sl-button>
+      </sl-button-bar>
     </form>
   `
 };

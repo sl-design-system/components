@@ -62,7 +62,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     @property() name?: string;
 
     /** Whether this form control is a required field. */
-    @property({ type: Boolean }) required?: boolean;
+    @property({ type: Boolean, reflect: true }) required?: boolean;
 
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {

@@ -181,7 +181,6 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
     renderValidation(): TemplateResult | undefined {
       const state = this.#getInvalidState(this.validity);
 
-      console.log('this.validationMessage', this.validationMessage, this.invalid, state);
       if (!this.invalid || !state) {
         return;
       }

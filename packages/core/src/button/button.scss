@@ -24,6 +24,7 @@ $variants: default, primary, success, warning, danger;
   padding-inline: var(--_padding-inline);
   transform: var(--_transform);
   transition-property: background, border-color, border-radius, box-shadow, color;
+  vertical-align: top;
 }
 
 :host(:where(:disabled, [internals-disabled])) {

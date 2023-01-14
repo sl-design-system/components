@@ -96,20 +96,20 @@
   "devDependencies": {
     "@open-wc/testing": "^3.1.7",
     "@sanomalearning/example-data": "*",
-    "@storybook/addon-a11y": "^7.0.0-beta.15",
-    "@storybook/addon-docs": "^7.0.0-beta.15",
-    "@storybook/addon-essentials": "^7.0.0-beta.15",
-    "@storybook/addon-links": "^7.0.0-beta.15",
-    "@storybook/addon-storysource": "^7.0.0-beta.15",
-    "@storybook/web-components-webpack5": "^7.0.0-beta.15",
+    "@storybook/addon-a11y": "^7.0.0-beta.21",
+    "@storybook/addon-docs": "^7.0.0-beta.21",
+    "@storybook/addon-essentials": "^7.0.0-beta.21",
+    "@storybook/addon-links": "^7.0.0-beta.21",
+    "@storybook/addon-storysource": "^7.0.0-beta.21",
+    "@storybook/web-components-webpack5": "^7.0.0-beta.21",
     "@types/sinon": "^10.0.13",
     "@web/test-runner": "^0.15.0",
     "@web/test-runner-commands": "^0.6.5",
     "@web/test-runner-playwright": "^0.9.0",
     "sinon": "^14.0.2",
-    "storybook": "^7.0.0-beta.15",
+    "storybook": "^7.0.0-beta.21",
     "typescript": "^4.9.4",
-    "wireit": "^0.9.2"
+    "wireit": "^0.9.3"
   },
   "dependencies": {
     "@lit-labs/virtualizer": "^1.0.1",

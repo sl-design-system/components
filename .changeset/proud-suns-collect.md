@@ -2,4 +2,4 @@
 '@sanomalearning/slds-core': patch
 ---
 
-Make dialog inert when closed
+Simplify button implementation

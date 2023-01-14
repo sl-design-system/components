@@ -28,7 +28,7 @@ export const OutsideGrid: StoryObj = {
   render: (_, { loaded: { people } }) => {
     const onInput = ({ target }: Event & { target: Input }): void => {
       const grid = document.querySelector('sl-grid') as Grid,
-        regex = new RegExp(target.value.trim(), 'i');
+        regex = new RegExp(target.value?.toString().trim() ?? '', 'i');
 
       grid.items = (people as Person[]).filter(({ firstName, lastName, email, profession }) => {
         return regex.test(firstName) || regex.test(lastName) || regex.test(email) || regex.test(profession);

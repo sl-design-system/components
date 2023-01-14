@@ -30,12 +30,15 @@
     "./popover/register.js": "./dist/components/popover/register.js",
     "./radio-group": "./dist/components/radio-group/index.js",
     "./radio-group/register.js": "./dist/components/radio-group/register.js",
+    "./textarea": "./dist/components/textarea/index.js",
+    "./textarea/register.js": "./dist/components/textarea/register.js",
     "./tooltip": "./dist/components/tooltip/index.js",
     "./tooltip/register.js": "./dist/components/tooltip/register.js",
     "./utils": "./dist/components/utils/index.js",
     "./utils/controllers": "./dist/components/utils/controllers/index.js",
     "./utils/data-source": "./dist/components/utils/data-source/index.js",
-    "./utils/decorators": "./dist/components/utils/decorators/index.js"
+    "./utils/decorators": "./dist/components/utils/decorators/index.js",
+    "./utils/form-control": "./dist/components/utils/form-control/index.js"
   },
   "scripts": {
     "build": "wireit",

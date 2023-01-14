@@ -4,7 +4,9 @@ import './button/register.js';
 import './button-bar/register.js';
 import './checkbox/register.js';
 import './input/register.js';
+import './label/register.js';
 import './radio-group/register.js';
+import './textarea/register.js';
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),
@@ -29,21 +31,21 @@ export const Horizontal: StoryObj = {
         gap: 1rem 0.25rem;
         grid-template-columns: auto 1fr;
       }
-      label {
-        grid-column: 1;
-      }
       sl-button-bar {
         grid-column: 1 / 3;
       }
     </style>
     <form @submit=${onSubmit}>
-      <label for="input">Input</label>
+      <sl-label for="input">Input</sl-label>
       <sl-input id="input" name="input" placeholder="Placeholder"></sl-input>
 
-      <label for="checkbox">Checkbox</label>
+      <sl-label for="textarea">Textarea</sl-label>
+      <sl-textarea id="textarea" name="textarea" placeholder="Placeholder"></sl-textarea>
+
+      <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" name="checkbox" value="checkbox">Checkbox</sl-checkbox>
 
-      <label for="radio-group">Radio group</label>
+      <sl-label for="radio-group">Radio group</sl-label>
       <sl-radio-group id="radio-group" name="radioGroup">
         <sl-radio value="1">One</sl-radio>
         <sl-radio value="2">Two</sl-radio>
@@ -65,21 +67,21 @@ export const Vertical: StoryObj = {
         display: flex;
         flex-direction: column;
       }
-      label {
+      sl-label {
         margin-bottom: 0.25rem;
       }
-      label:not(:first-of-type) {
+      sl-label:not(:first-of-type) {
         margin-top: 1rem;
       }
     </style>
     <form @submit=${onSubmit}>
-      <label for="input">Input</label>
+      <sl-label for="input">Input</sl-label>
       <sl-input id="input" name="input" placeholder="Placeholder"></sl-input>
 
-      <label for="checkbox">Checkbox</label>
+      <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" name="checkbox" value="checkbox">Checkbox</sl-checkbox>
 
-      <label for="radio-group">Radio group</label>
+      <sl-label for="radio-group">Radio group</sl-label>
       <sl-radio-group id="radio-group" name="radioGroup">
         <sl-radio value="1">One</sl-radio>
         <sl-radio value="2">Two</sl-radio>
@@ -98,27 +100,29 @@ export const Validation: StoryObj = {
   render: () => html`
     <style>
       form {
+        align-items: start;
         display: flex;
         flex-direction: column;
       }
-      label {
+      sl-label {
         margin-bottom: 0.25rem;
       }
-      label:not(:first-of-type) {
+      sl-label:not(:first-of-type) {
         margin-top: 1rem;
       }
-      label:has(+ [required])::after {
-        content: ' *';
+      sl-input,
+      sl-button-bar {
+        align-self: stretch;
       }
     </style>
     <form @submit=${onSubmit}>
-      <label for="input">Label for the input</label>
-      <sl-input id="input" name="input" placeholder="This is a placeholder" required></sl-input>
+      <sl-label for="input">Label for the input</sl-label>
+      <sl-input id="input" minlength="8" name="input" placeholder="Type at least 8 characters here" required></sl-input>
 
-      <label for="checkbox">Checkbox</label>
+      <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">I am required</sl-checkbox>
 
-      <label for="radio-group">Radio group</label>
+      <sl-label for="radio-group">Radio group</sl-label>
       <sl-radio-group id="radio-group" name="radioGroup">
         <sl-radio value="1">One</sl-radio>
         <sl-radio value="2">Two</sl-radio>

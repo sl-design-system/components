@@ -49,6 +49,9 @@ describe('sl-label', () => {
     });
 
     it('should not mark the label as required', async () => {
+      slInput.required = true;
+      await slInput.updateComplete;
+
       expect(slLabel.required).to.be.false;
       expect(slLabel.renderRoot.querySelector('.required')).to.be.null;
     });
@@ -59,10 +62,69 @@ describe('sl-label', () => {
   });
 
   describe('optional label', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <form>
+          <sl-label for="input">My label</sl-label>
+          <sl-input id="input"></sl-input>
 
+          <sl-label for="input2">Input 2</sl-label>
+          <sl-input id="input2" required></sl-input>
+
+          <sl-label for="input3">Input 3</sl-label>
+          <sl-input id="input3" required></sl-input>
+        </form>
+      `);
+    });
+
+    it('should mark it as optional', async () => {
+      const slLabel = el.querySelector('sl-label'),
+        optional = slLabel?.renderRoot.querySelector('.optional');
+
+      expect(optional).not.to.be.null;
+      expect(optional).to.have.text('(optional)');
+    });
+    
+    it('should not mark the required labels', () => {
+      el.querySelectorAll<Label>('sl-label:not(:first-of-type)').forEach((label: Label) => {
+        const requiredOrOptional = label.renderRoot.querySelector('.required, .optional');
+  
+        expect(requiredOrOptional).to.be.null;
+      });
+    });
   });
 
-  describe('required label', () => {
 
+  describe('required label', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <form>
+          <sl-label for="input">My label</sl-label>
+          <sl-input id="input" required></sl-input>
+
+          <sl-label for="input2">Input 2</sl-label>
+          <sl-input id="input2"></sl-input>
+
+          <sl-label for="input3">Input 3</sl-label>
+          <sl-input id="input3"></sl-input>
+        </form>
+      `);
+    });
+
+    it('should mark it as required', () => {
+      const label = el.querySelector('sl-label'),
+        required = label?.renderRoot.querySelector('.required');
+
+      expect(required).not.to.be.null;
+      expect(required).to.have.text('*');
+    });
+
+    it('should not mark the optional labels', () => {
+      el.querySelectorAll<Label>('sl-label:not(:first-of-type)').forEach((label: Label) => {
+        const requiredOrOptional = label.renderRoot.querySelector('.required, .optional');
+
+        expect(requiredOrOptional).to.be.null;
+      });
+    });
   });
 });

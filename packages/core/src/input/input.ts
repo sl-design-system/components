@@ -42,6 +42,9 @@ export class Input extends FormControlMixin(LitElement) {
   /** Placeholder text in the input. */
   @property() placeholder?: string;
 
+  /** Whether the input is required. */
+  @property({ type: Boolean, reflect: true }) required?: boolean;
+
   /**
    * The input type. Only text types are valid here. For other types,
    * see their respective components.
@@ -117,6 +120,14 @@ export class Input extends FormControlMixin(LitElement) {
         this.input.setAttribute('placeholder', this.placeholder);
       } else {
         this.input.removeAttribute('placeholder');
+      }
+    }
+
+    if (changes.has('required')) {
+      if (this.required) {
+        this.input.setAttribute('required', '');
+      } else {
+        this.input.removeAttribute('required');
       }
     }
 

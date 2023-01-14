@@ -2,4 +2,4 @@
 '@sanomalearning/slds-core': patch
 ---
 
-Add label component
+Simplify button implementation

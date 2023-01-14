@@ -81,7 +81,7 @@ export class Textarea extends FormControlMixin(LitElement) {
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
       </div>
-      ${this.renderHint()} ${this.renderValidation()}
+      <<<<<<< HEAD ${this.renderHint()} ${this.renderValidation()} ======= >>>>>>> main
     `;
   }
 

@@ -3,11 +3,12 @@ import { FormControlMixin } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
+import { HintMixin } from '../utils/form-control/index.js';
 import styles from './textarea.scss.js';
 
 let nextUniqueId = 0;
 
-export class Textarea extends FormControlMixin(LitElement) {
+export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -79,6 +80,7 @@ export class Textarea extends FormControlMixin(LitElement) {
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
       </div>
+      ${this.renderHint()}
     `;
   }
 

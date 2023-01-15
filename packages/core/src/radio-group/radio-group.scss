@@ -1,15 +1,23 @@
 :host {
+  --_direction: column;
   --_gap: 0.5rem;
 }
 
 :host {
   align-items: start;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  gap: var(--_gap);
+  gap: 0.25rem;
+  vertical-align: top;
 }
 
 :host([orientation='horizontal']) {
+  --_direction: row;
   --_gap: 1rem;
-  flex-direction: row;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: var(--_direction);
+  gap: var(--_gap);
 }

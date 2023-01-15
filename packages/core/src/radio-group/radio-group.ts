@@ -2,8 +2,8 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { FormControlValue } from '../utils/form-control/index.js';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedNodes } from 'lit/decorators.js';
-import { FormControlMixin, requiredValidator, validationStyles } from '../utils/form-control/index.js';
 import { EventsController, RovingTabindexController } from '../utils/controllers/index.js';
+import { FormControlMixin, requiredValidator, validationStyles } from '../utils/form-control/index.js';
 import { Radio } from './radio.js';
 import styles from './radio-group.scss.js';
 

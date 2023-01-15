@@ -58,7 +58,31 @@ describe('sl-label', () => {
   });
 
   describe('slotted label', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <form>
+          <sl-label for="input">
+            <label slot="label">Slotted label</label>
+          </sl-label>
+          <sl-input id="input"></sl-input>
+        </form>
+      `);
 
+      slLabel = el.querySelector('sl-label') as Label;
+      slInput = el.querySelector('sl-input') as Input;
+    });
+
+    it('should use the slotted label', () => {
+      const label = slLabel.querySelector('label');
+      
+      expect(label).to.have.trimmed.text('Slotted label');
+    });
+    
+    it('should link the label to the input', () => {
+      const label = slLabel.querySelector('label');
+
+      expect(label?.htmlFor).to.match(/sl-input-\d+/);
+    });
   });
 
   describe('optional label', () => {

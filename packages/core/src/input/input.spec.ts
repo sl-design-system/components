@@ -1,6 +1,5 @@
 import type { Input } from './input.js';
 import { expect, fixture } from '@open-wc/testing';
-import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import './register.js';
 

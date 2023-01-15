@@ -3,6 +3,7 @@ import { FormControlMixin } from '@open-wc/form-control';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
+import { HintMixin } from '../utils/form-control/index.js';
 import styles from './input.scss.js';
 
 let nextUniqueId = 0;
@@ -14,7 +15,7 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
  */
-export class Input extends FormControlMixin(LitElement) {
+export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -143,6 +144,7 @@ export class Input extends FormControlMixin(LitElement) {
         <slot @slotchange=${this.#onSlotchange} name="input"></slot>
         <slot name="suffix"></slot>
       </div>
+      ${this.renderHint()}
     `;
   }
 

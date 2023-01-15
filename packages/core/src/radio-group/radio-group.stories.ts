@@ -1,6 +1,5 @@
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../button/register.js';
 import './register.js';
 
 export default {

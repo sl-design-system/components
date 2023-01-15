@@ -41,6 +41,7 @@
   },
   "scripts": {
     "build": "wireit",
+    "build:locales": "wireit",
     "build:scss": "wireit",
     "build:ts": "wireit",
     "docs": "wireit",
@@ -54,6 +55,16 @@
     "build": {
       "dependencies": [
         "build:ts"
+      ]
+    },
+    "build:locales": {
+      "command": "lit-localize build && eslint --fix \"src/locales/*.ts\"",
+      "files": [
+        "lit-localize.json",
+        "src/locales/*.xlf"
+      ],
+      "output": [
+        "src/locales/*.ts"
       ]
     },
     "build:scss": {
@@ -71,6 +82,7 @@
       "command": "tsc -b ./tsconfig.build.json --pretty",
       "clean": "if-file-deleted",
       "dependencies": [
+        "build:locales",
         "build:scss"
       ],
       "files": [
@@ -121,6 +133,7 @@
     }
   },
   "devDependencies": {
+    "@lit/localize-tools": "^0.6.6",
     "@open-wc/testing": "^3.1.7",
     "@storybook/addon-a11y": "^7.0.0-beta.21",
     "@storybook/addon-docs": "^7.0.0-beta.21",

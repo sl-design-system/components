@@ -1,10 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
-import { state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { Tab } from './tab.js';
 import styles from './tab-group.scss.js';
 
 let tabGroupCount = 0;
+export type TabOrientation = 'horizontal' | 'vertical';
 
 export class TabGroup extends LitElement {
   /** @private */
@@ -24,10 +25,15 @@ export class TabGroup extends LitElement {
     attributeOldValue: true
   };
 
+  /** Whether the selection indicator should animate on the next run. */
+  #shouldAnimate = false;
+
   /**
    * The current tab node selected in the tab group.
    */
   @state() private selectedTab: Tab | null = this.initialSelectedTab;
+
+  @property({ reflect: true }) orientation: TabOrientation = 'horizontal';
 
   /**
    * Get the selected tab button, or the first tab button.
@@ -38,6 +44,7 @@ export class TabGroup extends LitElement {
 
   override render(): TemplateResult {
     return html`<div @click=${this.handleTabChange} role="tablist" @keydown=${this.handleKeydown}>
+        <span class="indicator" role="presentation"></span>
         <slot name="tabs"></slot>
       </div>
       <slot></slot>`;
@@ -141,6 +148,8 @@ export class TabGroup extends LitElement {
     this.querySelectorAll('sl-tab-panel').forEach(panel => {
       panel.setAttribute('aria-hidden', `${panel !== selectedPanel ? 'true' : 'false'}`);
     });
+
+    this.#updateSelectionIndicator();
   }
 
   /**
@@ -195,5 +204,47 @@ export class TabGroup extends LitElement {
       default:
         break;
     }
+  }
+
+  #updateSelectionIndicator(): void {
+    if (!this.selectedTab) {
+      return;
+    }
+
+    const axis = this.orientation === 'vertical' ? 'Y' : 'X',
+      indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
+      wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement;
+
+    console.log(indicator, wrapper);
+    let start = 0;
+    if (axis === 'X') {
+      start = this.selectedTab.offsetLeft - wrapper.offsetLeft;
+    } else {
+      start = this.selectedTab.offsetTop - wrapper.offsetTop;
+    }
+
+    // Somehow on Chromium, the offsetParent is different than on FF and Safari
+    // If on Chromium, take the `wrapper.offsetLeft` into account as well
+    if (this.selectedTab.offsetParent === wrapper) {
+      start += axis === 'X' ? wrapper.offsetLeft : wrapper.offsetTop;
+    }
+
+    indicator.style.transform = `translate${axis}(${start}px) scale${axis}(${
+      axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight
+    })`;
+    indicator.style.transitionDuration = this.#shouldAnimate ? '' : '0s';
+
+    if (axis === 'X') {
+      const scrollLeft = Math.max(
+        this.selectedTab.offsetLeft + this.selectedTab.offsetWidth / 2 - wrapper.clientWidth / 2,
+        0
+      );
+
+      if (scrollLeft !== wrapper.scrollLeft) {
+        wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+      }
+    }
+
+    this.#shouldAnimate = true;
   }
 }

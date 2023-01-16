@@ -5,9 +5,5 @@
 }
 
 :host([selected]) {
-  border-bottom: 3px solid var(--sl-color-button-primary-default-idle-background);
-}
-
-:host([disabled]) {
-  opacity: 0.6;
+  font-weight: bold;
 }

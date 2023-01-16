@@ -3,12 +3,21 @@ import { html } from 'lit';
 import './register.js';
 
 export default {
-  title: 'Tab Group'
+  title: 'Tab Group',
+  args: {
+    orientation: 'horizontal'
+  },
+  argTypes: {
+    orientation: {
+      control: 'radio',
+      options: ['horizontal', 'vertical']
+    }
+  }
 };
 
 export const API: StoryObj = {
-  render: () => html`
-    <sl-tab-group>
+  render: ({ orientation }) => html`
+    <sl-tab-group .orientation="${orientation}">
       <sl-tab slot="tabs" selected>Tab 1</sl-tab>
       <sl-tab-panel
         ><h1>Contents tab 1</h1>
@@ -31,7 +40,7 @@ export const API: StoryObj = {
 };
 
 export const LongTitles: StoryObj = {
-  render: () => html`<sl-tab-group>
+  render: ({ orientation }) => html`<sl-tab-group .orientation="${orientation}">
     <sl-tab slot="tabs" selected>This is the first tab</sl-tab>
     <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(4)}</sl-tab-panel>
 

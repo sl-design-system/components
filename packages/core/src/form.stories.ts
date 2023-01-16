@@ -28,8 +28,11 @@ export const Horizontal: StoryObj = {
     <style>
       form {
         display: grid;
-        gap: 1rem 0.25rem;
+        gap: 1rem 0.5rem;
         grid-template-columns: auto 1fr;
+      }
+      sl-label:has(+ :where(sl-input, sl-textarea)) {
+        --_line-height: 32px;
       }
       sl-button-bar {
         grid-column: 1 / 3;

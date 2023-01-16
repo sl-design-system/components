@@ -295,7 +295,7 @@
     "html-minifier": "^4.0.0",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.6",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.0.7",
     "sass": "^1.57.1",
     "slugify": "^1.6.5",
     "tiny-glob": "^0.2.9",
@@ -305,6 +305,6 @@
   "dependencies": {
     "@11ty/is-land": "^3.0.0",
     "elasticlunr": "^0.9.5",
-    "lit": "^2.6.0"
+    "lit": "^2.6.1"
   }
 }

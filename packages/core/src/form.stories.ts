@@ -45,6 +45,13 @@ export const Horizontal: StoryObj = {
       <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" name="checkbox" value="checkbox">Checkbox</sl-checkbox>
 
+      <sl-label for="checkbox-group">Checkbox group</sl-label>
+      <sl-checkbox-group id="checkbox-group" name="checkboxGroup">
+        <sl-checkbox value="0">Check me</sl-checkbox>
+        <sl-checkbox value="1">No me</sl-checkbox>
+        <sl-checkbox value="2">I was here first</sl-checkbox>
+      </sl-checkbox-group>
+
       <sl-label for="radio-group">Radio group</sl-label>
       <sl-radio-group id="radio-group" name="radioGroup">
         <sl-radio value="1">One</sl-radio>
@@ -89,6 +96,13 @@ export const Vertical: StoryObj = {
 
       <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" name="checkbox" value="checkbox">Checkbox</sl-checkbox>
+
+      <sl-label for="checkbox-group">Checkbox group</sl-label>
+      <sl-checkbox-group id="checkbox-group" name="checkboxGroup">
+        <sl-checkbox value="0">Check me</sl-checkbox>
+        <sl-checkbox value="1">No me</sl-checkbox>
+        <sl-checkbox value="2">I was here first</sl-checkbox>
+      </sl-checkbox-group>
 
       <sl-label for="radio-group">Radio group</sl-label>
       <sl-radio-group id="radio-group" name="radioGroup">
@@ -135,6 +149,13 @@ export const Hints: StoryObj = {
       <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" hint="Hint for the checkbox." name="checkbox" value="checkbox">Check me</sl-checkbox>
 
+      <sl-label for="checkbox-group">Checkbox group</sl-label>
+      <sl-checkbox-group id="checkbox-group" hint="Hint for the checkbox group." name="checkboxGroup">
+        <sl-checkbox value="0">Check me</sl-checkbox>
+        <sl-checkbox value="1">No me</sl-checkbox>
+        <sl-checkbox value="2">I was here first</sl-checkbox>
+      </sl-checkbox-group>
+
       <sl-label for="radio-group">Radio group</sl-label>
       <sl-radio-group id="radio-group" hint="Hint for the radio group." name="radioGroup">
         <sl-radio value="1">One</sl-radio>
@@ -176,6 +197,13 @@ export const Validation: StoryObj = {
 
       <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">I am required</sl-checkbox>
+
+      <sl-label for="checkbox-group">Checkbox group</sl-label>
+      <sl-checkbox-group id="checkbox-group" name="checkboxGroup" required>
+        <sl-checkbox value="0">Check me</sl-checkbox>
+        <sl-checkbox value="1">No me</sl-checkbox>
+        <sl-checkbox value="2">I was here first</sl-checkbox>
+      </sl-checkbox-group>
 
       <sl-label for="textarea">Textarea</sl-label>
       <sl-textarea

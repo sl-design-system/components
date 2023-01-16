@@ -8,15 +8,17 @@ assignees: ''
 ---
 
 ## Title of Feature
-**This feature is part of the ___ epic**
+**This feature is part of [name epic]**
 
 | **What is the problem we are solving and why?**  |
 | ------------- |
 | When ___, I want to ___, so I can ___  | 
-| As a ___, I wan to ___, so I can ___  | 
+| As a ___, I want to ___, so I can ___  | 
 
-**Design mock-ups**
+**Design**
 Place the first sketches or link from the design ideation session here.
 
 ## User stories
-Create a checklist with links to all user stories
+- [ ] Link to user story 1
+- [ ] Link to user story 2
+- [ ] Link to user story 3

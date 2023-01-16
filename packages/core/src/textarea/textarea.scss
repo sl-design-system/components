@@ -8,7 +8,7 @@
 
 :host {
   align-items: start;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   gap: var(--_gap);
   vertical-align: top;
@@ -28,7 +28,7 @@
   --_border-color: #c00;
 }
 
-slot[name='input']::slotted(input) {
+slot[name='textarea']::slotted(textarea) {
   appearance: none;
   background: none;
   border: 0;
@@ -38,7 +38,7 @@ slot[name='input']::slotted(input) {
   line-height: 24px;
   margin: 0;
   outline: none;
-  padding: 0;
+  padding: calc(0.25rem - 1px) 0.5rem;
 
   &:focus {
     outline: none;
@@ -50,7 +50,6 @@ slot[name='input']::slotted(input) {
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
   display: flex;
-  padding: calc(0.25rem - 1px) 0.5rem;
   transition: 0.2s ease-in-out;
   transition-property: background, border, box-shadow, color, filter;
   width: 100%;

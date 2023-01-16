@@ -85,9 +85,11 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   #onClick(event: Event): void {
-    event.preventDefault();
+    if (event.target === this.textarea) {
+      event.preventDefault();
 
-    this.textarea.focus();
+      this.textarea.focus();
+    }
   }
 
   #onInput({ target }: Event & { target: HTMLTextAreaElement }): void {

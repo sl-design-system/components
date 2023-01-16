@@ -15,7 +15,6 @@
 
 :host {
   align-items: start;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: var(--_gap);
@@ -40,8 +39,10 @@
 
 .wrapper {
   align-items: start;
+  cursor: pointer;
   display: flex;
   gap: var(--_gap);
+  outline: none;
 }
 
 .box {

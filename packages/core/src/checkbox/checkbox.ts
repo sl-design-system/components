@@ -68,7 +68,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
-      <div class="wrapper">
+      <div @click=${this.#onToggle} class="wrapper">
         <span class="box">
           <svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
             ${this.indeterminate
@@ -90,9 +90,11 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     return this.checked;
   }
 
-  #onClick(): void {
-    this.checked = !this.checked;
-    this.change.emit(this.checked);
+  #onClick(event: Event): void {
+    // If the user clicked the label, focus the wrapper
+    if (event.target === this) {
+      this.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+    }
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -106,5 +108,13 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
       this.checked = !this.checked;
       this.change.emit(this.checked);
     }
+  }
+
+  #onToggle(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.checked = !this.checked;
+    this.change.emit(this.checked);
   }
 }

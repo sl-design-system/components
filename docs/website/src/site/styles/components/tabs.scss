@@ -163,7 +163,7 @@ $transition-timing: 300ms;
   background-color: var(--vertical-slider-background); //var(--ds-color-light-silver); // --ds-color-tundora
   position: relative;
   //width: #{100%/$tab-count};
-  transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
+  // transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
 
   //.vertical-indicator {
   //  background-color: var(--tab-indicator-background); //var(--ds-color-blue); //$accent;
@@ -178,7 +178,7 @@ $transition-timing: 300ms;
 }
 
 .ds-tabs__tab-content-wrapper {
-  padding: 1.2rem 0;
+  padding: 2.4rem 0; // 1.2rem 0;
 }
 
 .ds-tabs__tab-content--active {
@@ -203,11 +203,21 @@ $transition-timing: 300ms;
   h3 {
     margin-top: 2.4rem;
   }
+
+  li {
+    font-size: 1.6rem;
+  }
 }
 
 .ds-tabs__tab-content--hidden {
   display: none;
 }
+
+//.ds-tabs__tab-container {
+//  * {
+//    font-size: 1.6rem;
+//  }
+//}
 
 .ds-tabs__tab-content:not(.ds-tabs__tab-content--active) {
   display: none;
@@ -229,7 +239,7 @@ $transition-timing: 300ms;
 
   .ds-tabs__container {
     margin: auto -7.2rem;
-    padding-top: 16px; //0;
+    padding-top: 24px; //16px; //0; // TODO: align with 24 and sticky instead of 16
     // margin: auto;
     //top: 0;
     top: -1px;
@@ -248,11 +258,12 @@ $transition-timing: 300ms;
 
     &.ds-tabs__container {
       padding-bottom: 8px;
-      padding-top: 20px; //24px;
+      padding-top: 24px; //20px;
     }
 
     .ds-top-navigation__component-name {
       font-size: 2.4rem;
+      line-height: 2.4rem;
       padding-bottom: 4px;
     }
   }
@@ -299,6 +310,7 @@ $transition-timing: 300ms;
       border-radius: 1px;
       height: 100%;
       position: relative;
+      top: 23px;
       transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
       width: 2px;
     }

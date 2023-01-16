@@ -87,7 +87,7 @@
   --copy-icon--hover: url('../assets/icons/copy-hover.svg');
   --copy-button-background: var(--ds-color-concrete);
   --copy-button-background--active: rgba(var(--ds-color-blue-rgb), 0.08);
-  --copy-button-background--hover: rgba(var(--ds-color-blue-rgb), 0.04);
+  --copy-button-background--hover: var(--ds-color-light-blue); //rgba(var(--ds-color-blue-rgb), 0.04);
   --copy-button-border: var(--ds-color-bright-grey);
   --danger-color: var(--ds-color-danger);
   --error-icon: url('../assets/icons/error-dark.svg');
@@ -114,6 +114,9 @@
   --second-background-color: var(--ds-color-ghost-white);
   --success-icon: url('../assets/icons/check-dark.svg');
   --success-color: var(--ds-color-success);
+  --table-code-background: var(--ds-color-concrete);
+  --table-separator: var(--ds-color-bright-grey);
+  --table-text-color: var(--ds-color-raisin-black);
   --tab-color: rgba(var(--ds-color-black-rgb), 0.6);
   --tab-color--active: var(--ds-color-black);
   --tab-color--hover: var(--ds-color-black);
@@ -135,7 +138,7 @@
     --copy-icon--hover: url('../assets/icons/copy-hover-dark.svg');
     --copy-button-background: var(--ds-color-blck-olive);
     --copy-button-background--active: rgba(var(--ds-color-blue-rgb), 0.32);
-    --copy-button-background--hover: rgba(var(--ds-color-blue-rgb), 0.1);
+    --copy-button-background--hover: var(--ds-color-gunmetal); //rgba(var(--ds-color-blue-rgb), 0.1);
     --copy-button-border: var(--ds-color-tundora);
     --danger-color: var(--ds-color-red);
     --error-icon: url('../assets/icons/error.svg');
@@ -161,6 +164,9 @@
     --second-background-color: var(--ds-color-black);
     --success-icon: url('../assets/icons/check.svg');
     --success-color: var(--ds-color-green);
+    --table-code-background: var(--ds-color-blck-olive);
+    --table-separator: var(--ds-color-tundora);
+    --table-text-color: var(--ds-color-white);
     --tab-color: rgba(var(--ds-color-faux-white-rgb), 0.64);
     --tab-color--active: var(--ds-color-faux-white);
     --tab-color--hover: var(--ds-color-faux-white);

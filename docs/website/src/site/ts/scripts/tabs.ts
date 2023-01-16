@@ -18,7 +18,7 @@ const componentName = document.querySelector('.ds-component__heading-wrapper h1'
 let headingElement: HTMLHeadingElement | undefined;
 
 let tabsContainers: NodeListOf<Element>;
-let verticalTabsContainers: NodeListOf<Element>;
+// let verticalTabsContainers: NodeListOf<Element>;
 let horizontalTabsContainers: NodeListOf<Element>;
 let tabsWrapper: Element;
 let tabsContentWrapper: Element;
@@ -31,7 +31,7 @@ let headerAnchors: NodeListOf<Element>;
 const headerAnchorsParentsAll: Array<HTMLElement | undefined> = []; //Element[];
 let verticalSliderElement: HTMLElement;
 let verticalIndicatorElement: HTMLElement; // TODO: needed to align vertically
-let currentVerticalTabLink: Element;
+// let currentVerticalTabLink: Element; // TODO: needed to align vertically !!!!!!!!!
 const verticalTabsWrapperAll: Element[] = [];
 let currentVerticalTabsContainer: Element;
 
@@ -437,7 +437,7 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   //verticalTabsWrapper.appendChild()
   verticalTabs.forEach(tab => verticalTabsWrapper.appendChild(tab));
 
-  currentVerticalTabLink = verticalTabs[0];
+  // currentVerticalTabLink = verticalTabs[0];
 
   console.log('verticalTabs it is', verticalTabs);
 
@@ -463,7 +463,9 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   verticalTabsAll?.forEach(verticalTab => {
     verticalTab.onclick = (event: MouseEvent) => {
       console.log('verticalTab in sele event', event, /*verticalTabsAll, */ (event.target as HTMLAnchorElement)?.href);
-      selectVerticalTab(event.target as Element);
+      setTimeout(() => {
+        selectVerticalTab(event.target as Element);
+      }, 500);
     };
   });
 }
@@ -693,7 +695,7 @@ const observer = new IntersectionObserver(
 
 // TODO: generate vertical tabs
 
-const verticalConfig = {
+/*const verticalConfig = {
   root: null, //document.querySelector('.ds-tabs__tab-content-wrapper') //null, //container, //null, //container, //null, //null, // Sets the framing element to the viewport
   //rootMargin: '104px', //'104px', //'112px', // TODO change for the desktop version on resize as well
   //threshold: 1
@@ -748,11 +750,11 @@ const verticalObserver = new IntersectionObserver(entries => {
     }
     // currentVerticalTabLink?.classList.remove('active');
     if (
-      entry.intersectionRatio > 0 /*&&
-      entry.isIntersecting*/ /*&&
+      entry.intersectionRatio > 0 /!*&&
+      entry.isIntersecting*!/ /!*&&
       verticalTabLink !== currentVerticalTabLink &&
       entry.intersectionRect.top > 0 &&
-      entry.boundingClientRect.y > 0*/
+      entry.boundingClientRect.y > 0*!/
     ) {
       // verticalTabsAll.forEach(tab => tab.classList.remove('active'));
       // currentVerticalTabLink.classList.remove('active');
@@ -761,13 +763,13 @@ const verticalObserver = new IntersectionObserver(entries => {
       selectVerticalTab(verticalTabLink);
 
       // currentVerticalTabLink = verticalTabLink;
-    } /*else {
+    } /!*else {
       verticalTabLink.classList.remove('active');
-    }*/
+    }*!/
     // currentVerticalTabLink = verticalTabLink;
     // alignVerticalTabIndicator(currentVerticalTabLink);
   });
-}, verticalConfig);
+}, verticalConfig);*/
 
 // observer.observe(/*tabsHeaderContainer*/ tabsContainer as Element);
 
@@ -933,10 +935,58 @@ function selectTab(tab: Element): void {
     // });
   };*/
 
-  verticalObserver?.disconnect();
+  const verticalTabs = tabContent?.querySelectorAll('.ds-tab--vertical');
+
+  verticalTabs?.forEach(
+    verticalTab =>
+      ((verticalTab as HTMLElement).onkeydown = (event: KeyboardEvent) => {
+        onKeydown(event, true, verticalTabs);
+      })
+  );
+
+  if (verticalTabs) {
+    // selectVerticalTab(/*verticalTabLink*/ verticalTabs[0]);
+    //requestAnimationFrame(() => {
+    // (verticalTabs[0] as HTMLElement).click();
+    selectVerticalTab(/*verticalTabLink*/ verticalTabs[0]);
+    //});
+  }
+
+  window.onscroll = () => {
+    console.log('windows is scrolling');
+    // event.preventDefault();
+    // let mainSection = document.querySelectorAll('main section');
+    // const tabSectionsInTab = tabContent?.querySelectorAll('section');
+    if (!tabSections /*!tabSectionsInTab*/ || !verticalTabs || !tabContent) {
+      return;
+    }
+    /*mainSection*/ /*tabSectionsInTab*/ tabSections.forEach((v, i) => {
+      const rect = v.getBoundingClientRect().y;
+      // console.log('rect and innerheight in scrolling', rect, window.innerHeight);
+      if (rect < window.innerHeight /*- 100*/ /*200*/) {
+        // const verticalTabs = tabContent.querySelectorAll('.ds-tab--vertical');
+        console.log('verticalTabs[i] 111', verticalTabs[i], i, tabSections, verticalTabs);
+        /*menuSection*/ // verticalTabs.forEach(v => v.classList.remove('active'));
+        /*menuSection*/ // verticalTabs[i].classList.add('active');
+        console.log('verticalTabs[i]', verticalTabs[i]);
+        // const verticalTabLink = verticalTabsAll.find(element => (element as HTMLAnchorElement).hash === `#${id}`);
+        // verticalTabs.forEach(v => v.classList.remove('active'));
+        //(verticalTabs[i] as HTMLElement).click();
+        selectVerticalTab(/*verticalTabLink*/ verticalTabs[i]);
+        // location.href = (verticalTabs[i] as HTMLAnchorElement).href;
+      }
+    });
+  };
+
+  // if (verticalTabs) {
+  //   // selectVerticalTab(/*verticalTabLink*/ verticalTabs[0]);
+  //   (verticalTabs[0] as HTMLElement).click();
+  // }
+
+  // verticalObserver?.disconnect();
 
   // const hasVerticalScrollbar = div.scrollHeight > div.clientHeight;
-  /*headerAnchorsParentsAll*/ tabSections?.forEach((tab) /*TODO: section instead of tab*/ => {
+  /*  /!*headerAnchorsParentsAll*!/ tabSections?.forEach((tab) /!*TODO: section instead of tab*!/ => {
     console.log('tabbsbbbbb', tab, tab?.parentElement, tab?.parentElement?.parentNode);
     const hasVerticalScrollbar =
       (tab?.parentElement?.parentNode as Element)?.scrollHeight >
@@ -960,10 +1010,33 @@ function selectTab(tab: Element): void {
         tabsHeaderContainer
       );
       // verticalObserver?.disconnect();
-      verticalObserver.observe(tab);
+      // verticalObserver.observe(tab);
     }
-  });
+  });*/
 }
+
+// window.onscroll = event => {
+//   // event.preventDefault();
+//   // let mainSection = document.querySelectorAll('main section');
+//   const tabSectionsInTab = currentContent?.querySelectorAll('section[id]');
+//   if (!tabSectionsInTab /*!tabSectionsInTab*/ || !tabContent) {
+//     return;
+//   }
+//   /*mainSection*/ /*tabSectionsInTab*/ tabSectionsInTab.forEach((v, i) => {
+//     const rect = v.getBoundingClientRect().y;
+//     if (rect < window.innerHeight - 100 /*200*/) {
+//       const verticalTabs = currentContent.querySelectorAll('.ds-tab--vertical');
+//       console.log('verticalTabs[i] 111', verticalTabs[i], i, /*tabSections*/ tabSectionsInTab, verticalTabs);
+//       /*menuSection*/ // verticalTabs.forEach(v => v.classList.remove('active'));
+//       /*menuSection*/ // verticalTabs[i].classList.add('active');
+//       console.log('verticalTabs[i]', verticalTabs[i]);
+//       // const verticalTabLink = verticalTabsAll.find(element => (element as HTMLAnchorElement).hash === `#${id}`);
+//       // verticalTabs.forEach(v => v.classList.remove('active'));
+//       selectVerticalTab(/*verticalTabLink*/ verticalTabs[i]);
+//       // location.href = (verticalTabs[i] as HTMLAnchorElement).href;
+//     }
+//   });
+// };
 
 function alignTabIndicator(tab: Element): void {
   if (!tabsWrapper) {
@@ -981,7 +1054,7 @@ function alignTabIndicator(tab: Element): void {
 
 function selectVerticalTab(verticalTab: Element): void {
   /*const*/ currentVerticalTabsContainer = currentContent.querySelector('.ds-tabs[vertical]')?.firstChild as Element;
-  console.log(
+  /*  console.log(
     'verticalTab in selectVerticalTab',
     currentVerticalTabsContainer,
     currentContent,
@@ -989,14 +1062,29 @@ function selectVerticalTab(verticalTab: Element): void {
     currentVerticalTabLink,
     (verticalTab as HTMLAnchorElement).href,
     location.href
-  );
+  );*/
+  //setTimeout(() => {
   // /*currentVerticalTabLink.className =*/ currentVerticalTabLink?.className.replace(' active', '');
-  currentVerticalTabLink?.classList.remove('active');
+  const verticalTabs = currentContent.querySelectorAll('.ds-tab--vertical');
+  //console.log('verticalTabs[i] 111', verticalTabs[i], i, tabSections, verticalTabs);
+  /*menuSection*/ verticalTabs.forEach(v => v.classList.remove('active'));
+  // currentVerticalTabLink?.classList.remove('active');
+  // (verticalTab as HTMLElement).click();
+  // setTimeout(
+  //   () => {
+  // requestAnimationFrame(() => {
+  alignVerticalTabIndicator(verticalTab, currentVerticalTabsContainer);
+  // });
+  //   },
+  //   onscrolling ? 100 : 400
+  // );
   verticalTab.classList.add('active');
-  location.href = (verticalTab as HTMLAnchorElement).href;
+  // location.href = (verticalTab as HTMLAnchorElement).href;
   currentVerticalTabLink = verticalTab;
   // const currentVerticalTabsContainer = currentContent.querySelector('.ds-tabs[vertical]');
-  alignVerticalTabIndicator(currentVerticalTabLink, currentVerticalTabsContainer);
+  // setTimeout(() => {
+  //   alignVerticalTabIndicator(currentVerticalTabLink, currentVerticalTabsContainer);
+  // }, 400);
 }
 
 // TODO: alignVerticalTabIndicator
@@ -1006,6 +1094,16 @@ function alignVerticalTabIndicator(tab: Element, currentVerticalTabsContainer: E
   const currentVerticalIndicatorElement = currentVerticalTabsContainer.querySelector(
     '.vertical-indicator'
   ) as HTMLElement;
+
+  console.log(
+    '1111______alignverticalTabIndicator????',
+    tab,
+    verticalTabsWrapperAll,
+    verticalSliderElement,
+    currentVerticalTabsContainer,
+    currentVerticalSliderElement,
+    currentVerticalIndicatorElement
+  );
 
   if (!verticalTabsWrapperAll || !currentVerticalSliderElement || !currentVerticalIndicatorElement) {
     return;
@@ -1021,16 +1119,21 @@ function alignVerticalTabIndicator(tab: Element, currentVerticalTabsContainer: E
     currentVerticalIndicatorElement
   );
 
+  //currentVerticalSliderElement.style.transition = 'none';
+  // currentVerticalIndicatorElement.style.transition = 'background 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07)';
+
   /*currentVerticalSliderElement.style.top = `${
     tab.getBoundingClientRect().top - currentVerticalTabsContainer.getBoundingClientRect().top
   }px`;*/ //`calc(calc(100% / 4) * ${i})`;
+  //requestAnimationFrame(() => {
   currentVerticalIndicatorElement.style.top = `${
     tab.getBoundingClientRect().top - currentVerticalTabsContainer.getBoundingClientRect().top
   }px`;
   currentVerticalIndicatorElement.style.height = `${tab.getBoundingClientRect().height}px`;
+  //});
   //slider.scrollTo({ left: tab.getBoundingClientRect().left - tabsWrapper.getBoundingClientRect().left });
   // slider.scrollTo({ left: tab.scrollLeft });
-  console.log('tabsWrapper.scrollLeft', tabsWrapper.scrollLeft, tab.scrollLeft, tab.scrollWidth);
+  // console.log('tabsWrapper.scrollLeft', tabsWrapper.scrollLeft, tab.scrollLeft, tab.scrollWidth);
   // tabsWrapper.scrollTo({ left: -tabsWrapper.scrollLeft });
 }
 
@@ -1066,8 +1169,8 @@ function alignVerticalTabIndicator(tab: Element, currentVerticalTabsContainer: E
 //   });
 // }
 
-function onKeydown(event: KeyboardEvent): void {
-  const keys = ['ArrowLeft', 'ArrowRight'];
+function onKeydown(event: KeyboardEvent, vertical = false, verticalTabs?: NodeListOf<Element>): void {
+  const keys = vertical ? ['ArrowUp', 'ArrowDown'] : ['ArrowLeft', 'ArrowRight'];
 
   if (!keys.includes(event.key)) {
     return;
@@ -1075,11 +1178,12 @@ function onKeydown(event: KeyboardEvent): void {
 
   const focusedTab = getActiveElement(event.target as Node) as HTMLElement;
 
-  let index: number = Array.from(tabs).indexOf(focusedTab);
+  const navTabs = verticalTabs ? (verticalTabs as NodeListOf<HTMLElement>) : tabs;
+  let index: number = Array.from(/*tabs*/ navTabs).indexOf(focusedTab);
   index += event.key === keys[0] ? -1 : 1;
-  index = index % tabs.length;
+  index = index % /*tabs*/ navTabs.length;
 
-  const nextTab = tabs[index];
+  const nextTab = /*tabs*/ navTabs[index];
   if (nextTab) {
     nextTab.focus();
   }

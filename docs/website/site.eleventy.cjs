@@ -2,6 +2,7 @@ const litPlugin = require('@lit-labs/eleventy-plugin-lit');
 const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
 const markdownItAnchor = require('markdown-it-anchor');
 const markdownIt = require('markdown-it');
+const markdownItAttrs = require('markdown-it-attrs')
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
@@ -60,7 +61,8 @@ module.exports = function(eleventyConfig) {
       permalinkClass: 'direct-link',
       permalinkSymbol: '#',
       level: [1, 2, 3, 4],
-    });
+    })
+    .use(markdownItAttrs);
 
   eleventyConfig.setBrowserSyncConfig({
     notify: true,

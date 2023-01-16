@@ -56,12 +56,12 @@ export const Selected: StoryObj = {
 export const Label: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="radio-group">How many pets do you have?</sl-label>
       <sl-radio-group id="radio-group">
         <sl-radio value="0">None</sl-radio>
@@ -69,19 +69,19 @@ export const Label: StoryObj = {
         <sl-radio value="2">Two</sl-radio>
         <sl-radio value="3">Three</sl-radio>
       </sl-radio-group>
-    </div>
+    </form>
   `
 };
 
 export const Hint: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="radio-group">How many pets do you have?</sl-label>
       <sl-radio-group id="radio-group" hint="Fish count as well.">
         <sl-radio value="0">None</sl-radio>
@@ -89,19 +89,19 @@ export const Hint: StoryObj = {
         <sl-radio value="2">Two</sl-radio>
         <sl-radio value="3">Three</sl-radio>
       </sl-radio-group>
-    </div>
+    </form>
   `
 };
 
 export const RichLabelHint: StoryObj = {
   render: () => html`
     <style>
-      div:not([slot]) {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="radio-group">
         <label slot="label">Custom <i>label</i></label>
       </sl-label>
@@ -114,7 +114,7 @@ export const RichLabelHint: StoryObj = {
           Hint is an accessible way to provide <strong>additional information</strong> that might help the user
         </div>
       </sl-radio-group>
-    </div>
+    </form>
   `
 };
 

@@ -96,6 +96,51 @@ export const Vertical: StoryObj = {
   `
 };
 
+export const Hints: StoryObj = {
+  render: () => html`
+    <style>
+      form {
+        align-items: start;
+        display: flex;
+        flex-direction: column;
+      }
+      sl-label {
+        margin-block-start: 0.5rem;
+      }
+      sl-label:first-of-type {
+        margin-block-start: 0;
+      }
+      sl-button-bar,
+      sl-input,
+      sl-textarea {
+        align-self: stretch;
+      }
+    </style>
+    <form @submit=${onSubmit}>
+      <sl-label for="input">Input</sl-label>
+      <sl-input id="input" hint="Hint for the text input." name="input"></sl-input>
+
+      <sl-label for="textarea">Textarea</sl-label>
+      <sl-textarea id="textarea" hint="Hint for the textarea." name="textarea"></sl-textarea>
+
+      <sl-label for="checkbox">Checkbox</sl-label>
+      <sl-checkbox id="checkbox" hint="Hint for the checkbox." name="checkbox" value="checkbox">Check me</sl-checkbox>
+
+      <sl-label for="radio-group">Radio group</sl-label>
+      <sl-radio-group id="radio-group" hint="Hint for the radio group." name="radioGroup">
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+      </sl-radio-group>
+
+      <sl-button-bar align="end">
+        <sl-button type="reset">Reset</sl-button>
+        <sl-button type="submit">Submit</sl-button>
+      </sl-button-bar>
+    </form>
+  `
+};
+
 export const Validation: StoryObj = {
   render: () => html`
     <style>

@@ -33,45 +33,42 @@ export const Disabled: StoryObj = {
 export const Label: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="textarea">What is your name?</sl-label>
       <sl-textarea id="textarea"></sl-textarea>
-    </div>
+    </form>
   `
 };
 
 export const Hint: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="textarea">Nickname</sl-label>
       <sl-textarea id="textarea" hint="What would you like people to call you?"></sl-textarea>
-    </div>
+    </form>
   `
 };
 
 export const RichLabelHint: StoryObj = {
   render: () => html`
     <style>
-      div:not([slot]) {
+      form {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="textarea">
         <label slot="label">Custom <i>label</i></label>
       </sl-label>
@@ -80,7 +77,7 @@ export const RichLabelHint: StoryObj = {
           Hint is an accessible way to provide <strong>additional information</strong> that might help the user
         </div>
       </sl-textarea>
-    </div>
+    </form>
   `
 };
 

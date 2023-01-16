@@ -47,42 +47,42 @@ export const Disabled: StoryObj = {
 export const Label: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="input">What is your name?</sl-label>
       <sl-input id="input"></sl-input>
-    </div>
+    </form>
   `
 };
 
 export const Hint: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="input">Nickname</sl-label>
       <sl-input id="input" hint="What would you like people to call you?"></sl-input>
-    </div>
+    </form>
   `
 };
 
 export const RichLabelHint: StoryObj = {
   render: () => html`
     <style>
-      div:not([slot]) {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="input">
         <label slot="label">Custom <i>label</i></label>
       </sl-label>
@@ -91,7 +91,7 @@ export const RichLabelHint: StoryObj = {
           Hint is an accessible way to provide <strong>additional information</strong> that might help the user
         </div>
       </sl-input>
-    </div>
+    </form>
   `
 };
 

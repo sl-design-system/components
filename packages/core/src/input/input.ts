@@ -149,9 +149,11 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   #onClick(event: Event): void {
-    event.preventDefault();
+    if (event.target === this.input) {
+      event.preventDefault();
 
-    this.input.focus();
+      this.input.focus();
+    }
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {

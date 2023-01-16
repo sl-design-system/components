@@ -51,7 +51,7 @@
     }
   },
   "devDependencies": {
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.0.7",
     "sass": "^1.57.1",
     "style-dictionary": "^3.7.2",
     "token-transformer": "^0.0.29",

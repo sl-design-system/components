@@ -64,25 +64,79 @@ export const Vertical: StoryObj = {
   render: () => html`
     <style>
       form {
+        align-items: start;
         display: flex;
         flex-direction: column;
       }
       sl-label {
-        margin-bottom: 0.25rem;
+        margin-block-start: 0.5rem;
       }
-      sl-label:not(:first-of-type) {
-        margin-top: 1rem;
+      sl-label:first-of-type {
+        margin-block-start: 0;
+      }
+      sl-button-bar,
+      sl-input,
+      sl-textarea {
+        align-self: stretch;
       }
     </style>
     <form @submit=${onSubmit}>
       <sl-label for="input">Input</sl-label>
       <sl-input id="input" name="input" placeholder="Placeholder"></sl-input>
 
+      <sl-label for="textarea">Textarea</sl-label>
+      <sl-textarea id="textarea" name="textarea" placeholder="Placeholder"></sl-textarea>
+
       <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" name="checkbox" value="checkbox">Checkbox</sl-checkbox>
 
       <sl-label for="radio-group">Radio group</sl-label>
       <sl-radio-group id="radio-group" name="radioGroup">
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+      </sl-radio-group>
+
+      <sl-button-bar align="end">
+        <sl-button type="reset">Reset</sl-button>
+        <sl-button type="submit">Submit</sl-button>
+      </sl-button-bar>
+    </form>
+  `
+};
+
+export const Hints: StoryObj = {
+  render: () => html`
+    <style>
+      form {
+        align-items: start;
+        display: flex;
+        flex-direction: column;
+      }
+      sl-label {
+        margin-block-start: 0.5rem;
+      }
+      sl-label:first-of-type {
+        margin-block-start: 0;
+      }
+      sl-button-bar,
+      sl-input,
+      sl-textarea {
+        align-self: stretch;
+      }
+    </style>
+    <form @submit=${onSubmit}>
+      <sl-label for="input">Input</sl-label>
+      <sl-input id="input" hint="Hint for the text input." name="input"></sl-input>
+
+      <sl-label for="textarea">Textarea</sl-label>
+      <sl-textarea id="textarea" hint="Hint for the textarea." name="textarea"></sl-textarea>
+
+      <sl-label for="checkbox">Checkbox</sl-label>
+      <sl-checkbox id="checkbox" hint="Hint for the checkbox." name="checkbox" value="checkbox">Check me</sl-checkbox>
+
+      <sl-label for="radio-group">Radio group</sl-label>
+      <sl-radio-group id="radio-group" hint="Hint for the radio group." name="radioGroup">
         <sl-radio value="1">One</sl-radio>
         <sl-radio value="2">Two</sl-radio>
         <sl-radio value="3">Three</sl-radio>
@@ -105,13 +159,14 @@ export const Validation: StoryObj = {
         flex-direction: column;
       }
       sl-label {
-        margin-bottom: 0.25rem;
+        margin-block-start: 0.5rem;
       }
-      sl-label:not(:first-of-type) {
-        margin-top: 1rem;
+      sl-label:first-of-type {
+        margin-block-start: 0;
       }
+      sl-button-bar,
       sl-input,
-      sl-button-bar {
+      sl-textarea {
         align-self: stretch;
       }
     </style>
@@ -122,8 +177,17 @@ export const Validation: StoryObj = {
       <sl-label for="checkbox">Checkbox</sl-label>
       <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">I am required</sl-checkbox>
 
+      <sl-label for="textarea">Textarea</sl-label>
+      <sl-textarea
+        id="textarea"
+        minlength="8"
+        name="textarea"
+        placeholder="Type at least 8 characters here"
+        required
+      ></sl-textarea>
+
       <sl-label for="radio-group">Radio group</sl-label>
-      <sl-radio-group id="radio-group" name="radioGroup">
+      <sl-radio-group id="radio-group" name="radioGroup" required>
         <sl-radio value="1">One</sl-radio>
         <sl-radio value="2">Two</sl-radio>
         <sl-radio value="3">Three</sl-radio>

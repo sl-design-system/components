@@ -1,5 +1,6 @@
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import '../label/register.js';
 import './register.js';
 
 export default {
@@ -43,5 +44,16 @@ export const WithLabel: StoryObj = {
   render: () => html`
     <label for="checkbox">Label</label>
     <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+  `
+};
+
+export const Group: StoryObj = {
+  render: () => html`
+    <sl-label for="group">Checkbox group</sl-label>
+    <sl-checkbox-group id="group" hint="Pick one of these options.">
+      <sl-checkbox>Check me</sl-checkbox>
+      <sl-checkbox>No me</sl-checkbox>
+      <sl-checkbox>I was here first!</sl-checkbox>
+    </sl-checkbox-group>
   `
 };

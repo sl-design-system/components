@@ -1,6 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { observe } from '../utils/decorators/observe.js';
 import styles from './tab.scss.js';
 
 export class Tab extends LitElement {
@@ -20,11 +21,11 @@ export class Tab extends LitElement {
   //  * Apply accessible attributes and values to the tab button.
   //  * Observe the selected property if it changes
   //  */
-  // @observe("selected")
-  // protected handleSelectionChange() {
-  //   this.setAttribute("aria-selected", `${this.selected}`)
-  //   this.setAttribute("tabindex", this.selected ? "0" : "-1")
-  // }
+  @observe('selected')
+  protected handleSelectionChange(): void {
+    this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+    this.setAttribute('tabindex', this.selected ? '0' : '-1');
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();

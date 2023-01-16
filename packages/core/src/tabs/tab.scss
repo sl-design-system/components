@@ -1,9 +1,13 @@
 :host {
   display: inline-block;
-  line-height: 24px;
+  line-height: 36px;
   padding: 0 3px;
 }
 
 :host([selected]) {
   border-bottom: 3px solid var(--sl-color-button-primary-default-idle-background);
+}
+
+:host([disabled]) {
+  opacity: 0.6;
 }

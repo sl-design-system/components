@@ -15,6 +15,15 @@ export class TabGroup extends LitElement {
    */
   private tabGroupId = `sl-tab-group-${tabGroupCount++}`;
 
+  private observer?: MutationObserver;
+
+  private static observerOptions = {
+    attributes: true,
+    subtree: true,
+    attributeFilter: ['selected'],
+    attributeOldValue: true
+  };
+
   /**
    * The current tab node selected in the tab group.
    */
@@ -28,8 +37,10 @@ export class TabGroup extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<div @click=${this.handleTabChange} role="tablist"><slot name="tabs"></slot></div>
-      <slot></slot> `;
+    return html`<div @click=${this.handleTabChange} role="tablist" @keydown=${this.handleKeydown}>
+        <slot name="tabs"></slot>
+      </div>
+      <slot></slot>`;
   }
 
   override connectedCallback(): void {
@@ -41,6 +52,25 @@ export class TabGroup extends LitElement {
     this.setupTabs();
     this.setupPanels();
   }
+
+  override firstUpdated(): void {
+    this.observer = new MutationObserver(this.handleMutation);
+    this.observer?.observe(this, TabGroup.observerOptions);
+  }
+
+  /**
+   * If the selected tab is selected programmatically update all the tabs.
+   */
+  private handleMutation = (mutations: MutationRecord[]): void => {
+    mutations.forEach(mutation => {
+      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {
+        const selectedTab = <Tab>mutation.target;
+        this.observer?.disconnect();
+        this.updateSelectedTab(selectedTab);
+        this.observer?.observe(this, TabGroup.observerOptions);
+      }
+    });
+  };
 
   /**
    * Apply accessible attributes and values to the tab buttons.
@@ -94,11 +124,11 @@ export class TabGroup extends LitElement {
     /**
      * Reset all the selected state of the tabs, and select the clicked tab
      */
-    this.querySelectorAll('sl-tab').forEach(tab => {
+    this.querySelectorAll('sl-tab').forEach((tab: Tab) => {
       tab.removeAttribute('selected');
       if (tab === selectedTab) {
         tab.setAttribute('selected', '');
-        // tab.focus();
+        tab.focus();
         tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         this.selectedTab = tab;
       }
@@ -111,5 +141,59 @@ export class TabGroup extends LitElement {
     this.querySelectorAll('sl-tab-panel').forEach(panel => {
       panel.setAttribute('aria-hidden', `${panel !== selectedPanel ? 'true' : 'false'}`);
     });
+  }
+
+  /**
+   * Get the previous tab button in the tab group
+   */
+  private previousTab(tab: Tab): Tab {
+    const tabs = Array.from(this.querySelectorAll('sl-tab'));
+    const selectedTabIndex = tabs.indexOf(tab);
+    return tabs[selectedTabIndex - 1];
+  }
+  /**
+   * Handle keyboard accessible controls.
+   */
+  private handleKeydown(event: KeyboardEvent): void {
+    const tab: Tab = <Tab>event.target;
+
+    const firstTab = <Tab>this.querySelector('sl-tab:first-of-type');
+    const lastTab = <Tab>this.querySelector('sl-tab:last-of-type');
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const nextTab = <Tab>this.querySelector(`#${tab.getAttribute('id')} ~ sl-tab`) || firstTab;
+    const previousTab = this.previousTab(tab) || lastTab;
+
+    const updateTab = (selectedTab: Tab, keyEvent: Event): void => {
+      keyEvent.preventDefault();
+
+      // Always reset the scroll when a tab is selected.
+      this.scrollTo({ top: 0 });
+      this.updateSelectedTab(selectedTab);
+    };
+
+    switch (event.key) {
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        // updateTab(this.direction.isLTR ? previousTab : nextTab, event);
+        updateTab(previousTab, event);
+        break;
+
+      case 'ArrowRight':
+      case 'ArrowDown':
+        // updateTab(this.direction.isLTR ? nextTab : previousTab, event);
+        updateTab(nextTab, event);
+        break;
+
+      case 'Home':
+        updateTab(firstTab, event);
+        break;
+
+      case 'End':
+        updateTab(lastTab, event);
+        break;
+
+      default:
+        break;
+    }
   }
 }

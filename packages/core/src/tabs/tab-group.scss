@@ -3,3 +3,61 @@
   flex-direction: column;
   gap: 8px;
 }
+
+[role='tablist'] {
+
+  --_sl-tab-group-list-background: #fff;
+  --_sl-tab-list-background: #fff;
+  --sl-color-border-strong: rgb(188, 197, 204);
+  --sl-space-s: 8px;
+  --sl-space-l: 24px;
+  --sl-space-xl: 36px;
+  --sl-tab-group-padding: 24px;
+
+  background-color: var(--_sl-tab-group-list-background);
+  background-image: radial-gradient(
+    ellipse farthest-side at 0 50%,
+    var(--sl-color-border-strong) 0,
+    var(--_sl-tab-group-list-background)
+  ),
+    radial-gradient(
+    ellipse farthest-side at 100% 50%,
+    var(--sl-color-border-strong) 0,
+    var(--_sl-tab-group-list-background)
+  );
+  background-position: 0 calc(var(--sl-space-s) / 2), 100% calc(var(--sl-space-s) / 2);
+  background-repeat: no-repeat;
+  background-size: var(--sl-space-s) var(--sl-space-xl), var(--sl-space-s) var(--sl-space-xl);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow: auto;
+
+  &::before,
+  &::after {
+    align-self: stretch; /* Match the height of the tabs. */
+    box-sizing: content-box; /* Content box to use padding for spacing. */
+    content: '';
+    margin-block-end: 1px; /* Prevent overlapping the key line. */
+    min-inline-size: var(--sl-space-l);
+  }
+
+  /* Cancel out the masks own width with margin, use padding for tab list padding */
+  &::before {
+    box-shadow: inset var(--sl-space-l) 0 var(--sl-space-s) calc(-1 * var(--sl-space-s)) var(--_sl-tab-list-background);
+    margin-inline-end: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
+    padding-inline-start: var(--sl-tab-group-padding);
+  }
+
+  &::after {
+    box-shadow: inset calc(-1 * var(--sl-space-l)) 0 var(--sl-space-s) calc(-1 * var(--sl-space-s))
+      var(--_sl-tab-list-background);
+    flex: 1; /* Stretch the last mask to make sure the shadow is always masked */
+    margin-inline-start: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
+    padding-inline-end: var(--sl-tab-group-padding);
+  }
+
+  ::slotted(sl-tab) {
+    white-space: nowrap;
+  }
+}

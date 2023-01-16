@@ -91,7 +91,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   #onClick(event: Event): void {
-    // If the user clicked the label, focus the wrapper
+    // If the user clicked the label, toggle the checkbox
     if (event.target === this) {
       this.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
     }

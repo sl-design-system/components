@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { FormControlInterface } from '@open-wc/form-control';
+import type { FormControlInterface } from '../utils/form-control/index.js';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { Button } from '../button/index.js';

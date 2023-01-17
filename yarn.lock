@@ -2404,13 +2404,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@open-wc/form-control@npm:^0.4.2":
-  version: 0.4.2
-  resolution: "@open-wc/form-control@npm:0.4.2"
-  checksum: 21e5961dbddae3cd5a59002b538d37cc8b58681ee37ea2dcae4dc7cc29fcd853806ed80bc88dde28ff274b3260e55e6938e3f175e0fa0543595e944b67c6f315
-  languageName: node
-  linkType: hard
-
 "@open-wc/scoped-elements@npm:^2.1.3, @open-wc/scoped-elements@npm:^2.1.4":
   version: 2.1.4
   resolution: "@open-wc/scoped-elements@npm:2.1.4"
@@ -2533,7 +2526,6 @@ __metadata:
     "@floating-ui/dom": ^1.1.0
     "@lit/localize": ^0.11.4
     "@lit/localize-tools": ^0.6.6
-    "@open-wc/form-control": ^0.4.2
     "@open-wc/scoped-elements": ^2.1.4
     "@open-wc/testing": ^3.1.7
     "@storybook/addon-a11y": ^7.0.0-beta.28

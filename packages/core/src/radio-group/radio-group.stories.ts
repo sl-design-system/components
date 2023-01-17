@@ -11,20 +11,16 @@ export default {
 export const API: StoryObj = {
   args: {
     disabled: false,
-    orientation: 'vertical'
+    horizontal: false
   },
   argTypes: {
-    orientation: {
-      control: 'inline-radio',
-      options: ['horizontal', 'vertical']
-    },
     value: {
       control: 'inline-radio',
       options: ['1', '2', '3']
     }
   },
-  render: ({ disabled, orientation, value }) => html`
-    <sl-radio-group ?disabled=${disabled} .orientation=${orientation} .value=${value}>
+  render: ({ disabled, horizontal, value }) => html`
+    <sl-radio-group ?disabled=${disabled} ?horizontal=${horizontal} .value=${value}>
       <sl-radio value="1">One</sl-radio>
       <sl-radio value="2">Two</sl-radio>
       <sl-radio value="3">Three</sl-radio>
@@ -39,6 +35,16 @@ export const Disabled: StoryObj = {
       <sl-radio disabled value="2">Two (disabled)</sl-radio>
       <sl-radio value="3">Three</sl-radio>
       <sl-radio disabled value="4">Four (disabled)</sl-radio>
+    </sl-radio-group>
+  `
+};
+
+export const Horizontal: StoryObj = {
+  render: () => html`
+    <sl-radio-group horizontal>
+      <sl-radio value="1">One</sl-radio>
+      <sl-radio value="2">Two</sl-radio>
+      <sl-radio value="3">Three</sl-radio>
     </sl-radio-group>
   `
 };

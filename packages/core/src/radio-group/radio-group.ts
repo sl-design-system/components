@@ -48,8 +48,8 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** The assigned nodes. */
   @queryAssignedNodes() defaultNodes?: Node[];
 
-  /** The orientation of the radio's in the group. */
-  @property({ type: String, reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
+  /** If true, displays the radio buttons next to each other instead of below. */
+  @property({ type: Boolean, reflect: true }) horizontal?: boolean;
 
   get buttons(): Radio[] {
     return this.defaultNodes?.filter((node): node is Radio => node instanceof Radio) || [];
@@ -99,14 +99,10 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     `;
   }
 
-  override focus(): void {
-    this.#rovingTabindexController.focus();
-  }
-
   #onClick(event: Event): void {
     event.preventDefault();
 
-    this.focus();
+    this.#rovingTabindexController.focus();
   }
 
   #onFocusout(event: FocusEvent): void {

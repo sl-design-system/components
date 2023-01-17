@@ -81,6 +81,8 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       event.preventDefault();
 
       this.invalid = !this.validity.valid;
+
+      console.log({ invalid: this.invalid }, this);
     };
 
     /** Used when validation is pending. */
@@ -200,6 +202,8 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       this.#validationHost = host;
       this.#validationHost.addEventListener('blur', this.#onBlur);
       this.#validationHost.addEventListener('invalid', this.#onInvalid);
+
+      this.validate();
     }
 
     shouldFormValueUpdate(): boolean {

@@ -11,7 +11,7 @@
   vertical-align: top;
 }
 
-:host([orientation='horizontal']) {
+:host([horizontal]) {
   --_direction: row;
   --_gap: 1rem;
 }

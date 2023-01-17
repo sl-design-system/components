@@ -1,1 +1,11 @@
-[//]: # ( TODO: move content from button.md file)
+---
+title: Drawer
+description: Drawer component description
+layout: "components/components.njk"
+tags: component
+eleventyNavigation:
+  parent: Components
+  key: Drawer
+  order: 5
+---
+

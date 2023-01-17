@@ -6,7 +6,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Dialog
-  order: 5
+  order: 4
 ---
 
 [//]: # (## test content)

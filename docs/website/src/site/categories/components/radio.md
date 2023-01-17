@@ -4,7 +4,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et mass
 eleventyNavigation:
   parent: Components
   key: Radio
-  order: 5
+  order: 7
 ---
 
 <div horizontal class="ds-tabs">

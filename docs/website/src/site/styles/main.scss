@@ -14,6 +14,10 @@
 
 @import 'categories/components';
 
+@import 'slds-sanoma-learning/base.css';
+@import 'slds-sanoma-learning/light.css' screen;
+@import 'slds-sanoma-learning/dark.css' screen and (prefers-color-scheme: dark);
+
 [dsd-pending] {
   visibility: hidden;
 }

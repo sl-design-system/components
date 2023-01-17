@@ -135,20 +135,8 @@ $transition-timing: 300ms;
   animation: append-animate 300ms linear;
   font-size: 2rem; //2rem;
   line-height: 3.2rem; //2.4rem;
-  transition: 300ms;
+  transition: 300ms; // TODO: add colours for dark and light mode, light --ds-color-raisin-black
 }
-
-// padding-left: 7.2rem;
-
-//.fade-in {
-//  opacity: 1;
-//  transition: opacity 200ms;
-//}
-//
-//.fade {
-//  opacity: 0;
-//  transition: opacity 200ms;
-//}
 
 @keyframes append-animate {
   from {

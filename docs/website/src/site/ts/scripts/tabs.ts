@@ -31,7 +31,7 @@ let headerAnchors: NodeListOf<Element>;
 const headerAnchorsParentsAll: Array<HTMLElement | undefined> = []; //Element[];
 let verticalSliderElement: HTMLElement;
 let verticalIndicatorElement: HTMLElement; // TODO: needed to align vertically
-// let currentVerticalTabLink: Element; // TODO: needed to align vertically !!!!!!!!!
+let currentVerticalTabLink: Element; // TODO: needed to align vertically !!!!!!!!!
 const verticalTabsWrapperAll: Element[] = [];
 let currentVerticalTabsContainer: Element;
 
@@ -95,6 +95,7 @@ window.onload = () => {
     tab.setAttribute('id', `ds-tab-${nextUniqueId++}`);
     tab.setAttribute('role', 'tab');
     tab.setAttribute('aria-selected', 'false');
+    tab.setAttribute('tabindex', '-1');
   });
   // tabs.forEach(tab => tab.setAttribute('id', `ds-tab-${nextUniqueId++}`));
   // tabs.forEach(tab => tab.setAttribute('role', 'tab'));
@@ -328,6 +329,9 @@ function generateVerticalTabs(verticalTabContent: Element): void {
 
   const verticalTabsWrapper = document.createElement('div');
   verticalTabsWrapper.classList.add('ds-tabs-wrapper');
+  verticalTabsWrapper.setAttribute('role', 'tablist');
+  verticalTabsWrapper.setAttribute('aria-orientation', 'vertical');
+  // [aria-orientation="vertical"]
   verticalTabsContainer.appendChild(verticalTabsWrapper);
   verticalTabsWrapperAll.push(verticalTabsWrapper);
 
@@ -422,8 +426,14 @@ function generateVerticalTabs(verticalTabContent: Element): void {
       verticalTab.textContent = headerAnchorParent.textContent;
       if (headerAnchorParent.tagName === 'H2') {
         verticalTab.classList.add('ds-tab--vertical');
+        verticalTab.setAttribute('role', 'tab');
+        verticalTab.setAttribute('tabindex', '-1');
+        verticalTab.setAttribute('id', `ds-vertical-tab-${nextUniqueId++}`);
+        verticalTab.setAttribute('aria-selected', 'false');
+        verticalTab.setAttribute('aria-controls', headerAnchorParent.id);
         verticalTabs.push(verticalTab);
         console.log('verticaltab i verticaltabs', verticalTab, verticalTabs);
+        headerAnchorParent?.parentElement?.setAttribute('aria-labelledby', verticalTab.id);
       } //else {
       //   verticalTab.classList.add('ds-tab__submenu--vertical');
       // }
@@ -828,6 +838,8 @@ function selectTab(tab: Element): void {
 
   current?.setAttribute('aria-selected', 'false');
   tab.setAttribute('aria-selected', 'true');
+  current?.setAttribute('tabindex', '-1');
+  tab.setAttribute('tabindex', '0');
   const tabContent = Array.from(tabsContents).find(tabContent => {
     if (tabContent.getAttribute('aria-labelledby') === tab.getAttribute('id')) {
       return tabContent;
@@ -905,6 +917,10 @@ function selectTab(tab: Element): void {
   // TODO: get header anchors parents of active tab
 
   const tabSections = tabContent?.querySelectorAll('section[id]');
+  tabSections?.forEach(section => {
+    section.setAttribute('role', 'tabpanel');
+    // section.setAttribute('aria-labelledby');
+  });
 
   console.log('tabSections,', tabSections, tab, tabContent);
 
@@ -1065,6 +1081,11 @@ function selectVerticalTab(verticalTab: Element): void {
   );*/
   //setTimeout(() => {
   // /*currentVerticalTabLink.className =*/ currentVerticalTabLink?.className.replace(' active', '');
+  currentVerticalTabLink?.setAttribute('aria-selected', 'false');
+  verticalTab.setAttribute('aria-selected', 'true');
+  currentVerticalTabLink?.setAttribute('tabindex', '-1');
+  verticalTab.setAttribute('tabindex', '0');
+
   const verticalTabs = currentContent.querySelectorAll('.ds-tab--vertical');
   //console.log('verticalTabs[i] 111', verticalTabs[i], i, tabSections, verticalTabs);
   /*menuSection*/ verticalTabs.forEach(v => v.classList.remove('active'));
@@ -1170,10 +1191,22 @@ function alignVerticalTabIndicator(tab: Element, currentVerticalTabsContainer: E
 // }
 
 function onKeydown(event: KeyboardEvent, vertical = false, verticalTabs?: NodeListOf<Element>): void {
+  console.log('keydown event', event, event.code);
+  if (event.code === 'Space' && vertical) {
+    // (event.target as HTMLElement).click();
+    //event.preventDefault();
+    selectVerticalTab(event.target as Element);
+    window.scrollTo({ top: (event.target as Element).scrollTop });
+  }
+
   const keys = vertical ? ['ArrowUp', 'ArrowDown'] : ['ArrowLeft', 'ArrowRight'];
 
   if (!keys.includes(event.key)) {
     return;
+  }
+
+  if (keys && vertical) {
+    event.preventDefault();
   }
 
   const focusedTab = getActiveElement(event.target as Node) as HTMLElement;

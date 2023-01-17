@@ -4,7 +4,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et mass
 eleventyNavigation:
   parent: Components
   key: Button
-  order: 3
+  order: 2
 ---
 
 [//]: # (import { Button } from "@sanomalearning/slds-core/button";)
@@ -134,14 +134,14 @@ eleventyNavigation:
 
   <div class="ds-example">
 
-    <sl-button fill="default" size="sm">Default</sl-button>
+    <sl-button fill="default" variant="primary" size="md">Button</sl-button>
 
   </div>
 
   <div class="ds-code">
 
   ```html
-  <sl-button fill="default" size="sm">Default</sl-button>
+  <sl-button fill="default" variant="primary" size="md">Button</sl-button>
   ```
 
   </div>
@@ -159,8 +159,7 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 
   <div class="ds-success">
 
-![Alt text example](/assets/images/rectangle.svg "light")
-![Alt text example](/assets/images/rectangle-dark.svg "dark")
+![Alt text example](/assets/images/example-do.svg "do picture"){.ds-do-dont__picture}
 
   <div class="ds-success__content">
 
@@ -175,8 +174,7 @@ Place text here
 
   <div class="ds-danger">
 
-![Alt text example](/assets/images/rectangle.svg "light")
-![Alt text example](/assets/images/rectangle-dark.svg "dark")
+![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
 
   <div class="ds-danger__content">
 
@@ -375,13 +373,15 @@ Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molesti
   Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 
 
-  SL DS components:
-    <div class="ds-buttons-wrapper">
-      <sl-button>Primary</sl-button>
-      <sl-button disabled>Disabled</sl-button>
-      <sl-button variant="secondary">Secondary</sl-button>
-      <sl-button variant="secondary" disabled>Disabled</sl-button>
-    </div>
+  ### SL DS components
+
+<div class="ds-component__buttons-wrapper ">
+  <sl-button fill="default" size="md">Default</sl-button>
+  <sl-button fill="default" size="md" variant="primary">Primary</sl-button>
+  <sl-button fill="default" size="md" variant="success">Success</sl-button>
+  <sl-button fill="default" size="md" variant="warning">Warning</sl-button>
+  <sl-button fill="default" size="md" variant="danger">Danger</sl-button>
+</div>
 
 </section>
 <section>

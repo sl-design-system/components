@@ -6,17 +6,16 @@ eleventyNavigation:
   parent: Checkbox
   key: CheckboxOverview
 ---
+
 <section>
   <div class="ds-example">
-
-    <sl-checkbox>Checkbox</sl-checkbox>
-
+  <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
   </div>
 
   <div class="ds-code">
 
   ```html
-  <sl-checkbox>Checkbox</sl-checkbox>
+  <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
   ```
 
   </div>
@@ -31,8 +30,7 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 
   <div class="ds-success">
 
-![Alt text example](/assets/images/rectangle.svg "light")
-![Alt text example](/assets/images/rectangle-dark.svg "dark")
+![Alt text example](/assets/images/example-do.svg "do picture"){.ds-do-dont__picture}
 
   <div class="ds-success__content">
 
@@ -47,8 +45,7 @@ Place text here
 
   <div class="ds-danger">
 
-![Alt text example](/assets/images/rectangle.svg "light")
-![Alt text example](/assets/images/rectangle-dark.svg "dark")
+![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
 
   <div class="ds-danger__content">
 

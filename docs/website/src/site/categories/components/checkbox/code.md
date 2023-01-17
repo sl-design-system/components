@@ -12,4 +12,6 @@ eleventyNavigation:
  
 examples
 
+<sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+
 </section>

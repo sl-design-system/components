@@ -9,13 +9,13 @@
     <script type="module" src="/js/ssr-utils/is-land.js"></script>
     {% inlinejs "dsd-polyfill.js" %}
     <script type="module" src="/js/scripts/main.js"></script>
-    <script type="module" src="@sanomalearning/slds-core"></script>
-    <script type="module" src="@sanomalearning/slds-core@workspace:packages/dist/components/button/index.js"></script>
+{#    <script type="module" src="@sanomalearning/slds-core"></script>#}
+{#    <script type="module" src="@sanomalearning/slds-core@workspace:packages/dist/components/button/index.js"></script>#}
 {#    <script type="module" src="packages/core/dist/components/button/button.js"></script>#}
 {#    <script type="text/javascript">#}
 {#      {% include "@sanomalearning/slds-core/button" %}#}
 {#    </script>#}
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@sanomalearning/slds-core@0.0.2/dist/components/button/index.js"></script>
+{#    <script type="module" src="https://cdn.jsdelivr.net/npm/@sanomalearning/slds-core@0.0.2/dist/components/button/index.js"></script>#}
     <!-- if JS is disabled just show the contents without the polyfill -->
     <noscript><style>body[dsd-pending] {visibility: visible !important;}</style></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="https://use.typekit.net/kes1hoh.css">
     <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
     <link rel="stylesheet" href="/styles/main.css" />
+{#    <link rel="stylesheet" href="/styles/slds-sanoma-learnings/base.css" />#}
+{#    <link rel="stylesheet" media="(prefers-color-scheme: light)" href="/styles/slds-sanoma-learnings/light.css" />#}
+{#    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/styles/slds-sanoma-learnings/dark.css" />#}
+{#    <link rel='stylesheet' href='@sanomalearning/slds-sanoma-learning/base.css'>#}
     <link rel="icon" media="(prefers-color-scheme: light)" href="./../../assets/favicon/sl-favicon-16-black.png" sizes="16x16">
     <link rel="icon" media="(prefers-color-scheme: light)" href="./../../assets/favicon/sl-favicon-32-black.png" sizes="32x32">
     <link rel="icon" media="(prefers-color-scheme: dark)" href="./../../assets/favicon/sl-favicon-16-white.png" sizes="16x16">

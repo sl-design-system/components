@@ -176,9 +176,7 @@ export const Hints: StoryObj = {
 
 export const ValidationRequired: StoryObj = {
   render: () => {
-    setTimeout(() => {
-      document.querySelector('form')?.reportValidity();
-    });
+    setTimeout(() => document.querySelector('form')?.reportValidity());
 
     return html`
       <style>
@@ -199,7 +197,7 @@ export const ValidationRequired: StoryObj = {
           align-self: stretch;
         }
       </style>
-      <form @submit=${onSubmit}>
+      <form>
         <sl-label for="input">Input</sl-label>
         <sl-input id="input" name="input" required></sl-input>
 
@@ -207,7 +205,7 @@ export const ValidationRequired: StoryObj = {
         <sl-textarea id="textarea" name="textarea" required></sl-textarea>
 
         <sl-label for="checkbox">Checkbox</sl-label>
-        <sl-checkbox id="checkbox" name="checkbox" required>Checkbox</sl-checkbox>
+        <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">Checkbox</sl-checkbox>
 
         <sl-label for="checkbox-group">Checkbox group</sl-label>
         <sl-checkbox-group id="checkbox-group" name="checkboxGroup" required>

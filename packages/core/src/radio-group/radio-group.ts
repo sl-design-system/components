@@ -114,7 +114,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     }
   }
 
-  #updateSelected(value: FormControlValue | null): void {
+  #updateSelected(value?: FormControlValue): void {
     this.#observer?.disconnect();
 
     this.buttons?.forEach(button => {

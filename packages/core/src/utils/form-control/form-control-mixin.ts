@@ -16,7 +16,7 @@ export interface NativeFormControlElement extends NativeValidationHost {
   form: HTMLFormElement | null;
   labels: NodeListOf<HTMLLabelElement> | null;
   name: string;
-  value: FormControlValue;
+  value?: FormControlValue;
 }
 
 export interface CustomFormControlElement extends CustomValidationHost {
@@ -33,10 +33,11 @@ export interface FormControlInterface extends HintInterface, ValidationInterface
   disabled?: boolean;
   name?: string;
   required?: boolean;
-  value: FormControlValue | null;
+  value?: FormControlValue;
 
   setFormControlElement(element: FormControlElement): void;
   setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void;
+  setValue(value?: FormControlValue): void;
 }
 
 const isNativeFormControlElement = (element: FormControlElement): element is NativeFormControlElement =>
@@ -47,7 +48,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 ): T & Constructor<FormControlInterface> {
   class FormControl extends ValidationMixin(HintMixin(constructor)) {
     /** The cached value for the form control. */
-    #cachedValue: FormControlValue | null = null;
+    #cachedValue?: FormControlValue;
 
     /**
      * The actual element that integrates with the form; either
@@ -109,7 +110,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
         if (isNativeFormControlElement(this.formControlElement)) {
           this.formControlElement.value = this.value?.toString() ?? '';
         } else {
-          this.formControlElement.internals.setFormValue(this.value);
+          this.formControlElement.internals.setFormValue(this.value ?? null);
         }
       }
     }
@@ -122,6 +123,21 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
     setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void {
       console.log('setValidity', { flags, message, anchor });
+    }
+
+    setValue(value?: FormControlValue): void {
+      this.#cachedValue = value;
+
+      const valueShouldUpdate = this.shouldFormValueUpdate(),
+        valueToUpdate = valueShouldUpdate ? value : null;
+
+      if (isNativeFormControlElement(this.formControlElement)) {
+        this.formControlElement.value = valueToUpdate?.toString() ?? '';
+      } else {
+        this.formControlElement.internals.setFormValue(valueToUpdate ?? null);
+      }
+
+      this.validate();
     }
   }
 

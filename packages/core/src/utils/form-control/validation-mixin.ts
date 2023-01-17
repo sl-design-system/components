@@ -37,7 +37,7 @@ export interface ValidationInterface {
   readonly validity: ValidityState;
 
   validators: Validator[];
-  value: FormControlValue | null;
+  value?: FormControlValue;
 
   checkValidity(): boolean;
   reportValidity(): boolean;
@@ -101,7 +101,7 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
     @state() invalid = false;
 
     /** The value of the validation host. */
-    @property() value: FormControlValue | null = null;
+    @property() value?: FormControlValue;
 
     /** Validators for this instance of the element. */
     @property({ attribute: false }) validators: Validator[] = [];

@@ -1,6 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { EventEmitter } from '../utils/decorators/event.js';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { event } from '../utils/decorators/event.js';
 import { Tab } from './tab.js';
 import styles from './tab-group.scss.js';
 
@@ -33,6 +35,8 @@ export class TabGroup extends LitElement {
    */
   @state() private selectedTab: Tab | null = this.initialSelectedTab;
 
+  @event() tabChange!: EventEmitter<number>;
+
   @property({ reflect: true }) orientation: TabOrientation = 'horizontal';
 
   /**
@@ -43,7 +47,7 @@ export class TabGroup extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<div @click=${this.handleTabChange} role="tablist" @keydown=${this.handleKeydown}>
+    return html`<div @click=${this.handleTabChange} role="tablist" @keydown=${this.handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
         <slot name="tabs"></slot>
       </div>
@@ -53,6 +57,15 @@ export class TabGroup extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.updateSlots();
+
+    /**
+     * We use an IntersectionObserver to get notified when the tab-bar becomes visible.
+     * When the tab-bar is initially invisible, the tab indicator size cannot be calculated
+     * because the tab buttons have 0 width & height. So when the tab-bar becomes visible,
+     * recalculate the tab indicator position & size.
+     */
+    // this.#observer = new IntersectionObserver(() => this.#updateSelectionIndicator());
+    // this.#observer.observe(this);
   }
 
   private updateSlots(): void {
@@ -63,6 +76,7 @@ export class TabGroup extends LitElement {
   override firstUpdated(): void {
     this.observer = new MutationObserver(this.handleMutation);
     this.observer?.observe(this, TabGroup.observerOptions);
+    setTimeout(() => this.#updateSelectionIndicator(), 100);
   }
 
   /**
@@ -147,7 +161,12 @@ export class TabGroup extends LitElement {
      */
     this.querySelectorAll('sl-tab-panel').forEach(panel => {
       panel.setAttribute('aria-hidden', `${panel !== selectedPanel ? 'true' : 'false'}`);
+      if (panel === selectedPanel) {
+        panel.focus();
+      }
     });
+
+    this.tabChange.emit(Array.from(this.querySelectorAll('sl-tab')).indexOf(selectedTab));
 
     this.#updateSelectionIndicator();
   }
@@ -172,6 +191,14 @@ export class TabGroup extends LitElement {
     const nextTab = <Tab>this.querySelector(`#${tab.getAttribute('id')} ~ sl-tab`) || firstTab;
     const previousTab = this.previousTab(tab) || lastTab;
 
+    const focusTab = (focusedTab: Tab, keyEvent: Event): void => {
+      keyEvent.preventDefault();
+
+      // Always reset the scroll when a tab is selected.
+      this.scrollTo({ top: 0 });
+      focusedTab.focus();
+    };
+
     const updateTab = (selectedTab: Tab, keyEvent: Event): void => {
       keyEvent.preventDefault();
 
@@ -184,21 +211,25 @@ export class TabGroup extends LitElement {
       case 'ArrowLeft':
       case 'ArrowUp':
         // updateTab(this.direction.isLTR ? previousTab : nextTab, event);
-        updateTab(previousTab, event);
+        focusTab(previousTab, event);
         break;
 
       case 'ArrowRight':
       case 'ArrowDown':
         // updateTab(this.direction.isLTR ? nextTab : previousTab, event);
-        updateTab(nextTab, event);
+        focusTab(nextTab, event);
         break;
 
       case 'Home':
-        updateTab(firstTab, event);
+        focusTab(firstTab, event);
         break;
 
       case 'End':
-        updateTab(lastTab, event);
+        focusTab(lastTab, event);
+        break;
+
+      case 'Enter':
+        updateTab(tab, event);
         break;
 
       default:
@@ -215,13 +246,13 @@ export class TabGroup extends LitElement {
       indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
       wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement;
 
-    console.log(indicator, wrapper);
     let start = 0;
     if (axis === 'X') {
       start = this.selectedTab.offsetLeft - wrapper.offsetLeft;
     } else {
       start = this.selectedTab.offsetTop - wrapper.offsetTop;
     }
+    console.log(this.selectedTab.offsetLeft, wrapper.offsetLeft, this.selectedTab.offsetWidth);
 
     // Somehow on Chromium, the offsetParent is different than on FF and Safari
     // If on Chromium, take the `wrapper.offsetLeft` into account as well

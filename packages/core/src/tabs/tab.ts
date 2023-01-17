@@ -25,6 +25,7 @@ export class Tab extends LitElement {
   protected handleSelectionChange(): void {
     this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
     this.setAttribute('tabindex', this.selected ? '0' : '-1');
+    this.slot ||= 'tabs';
   }
 
   override connectedCallback(): void {

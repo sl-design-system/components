@@ -1,3 +1,4 @@
+import type { Tab } from './tab.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './register.js';
@@ -18,22 +19,19 @@ export default {
 export const API: StoryObj = {
   render: ({ orientation }) => html`
     <sl-tab-group .orientation="${orientation}">
-      <sl-tab slot="tabs" selected>Tab 1</sl-tab>
-      <sl-tab-panel
-        ><h1>Contents tab 1</h1>
-        ${createLipsumParagraphs(4)}</sl-tab-panel
-      >
+      <sl-tab selected>🧁 Tab 1</sl-tab>
+      <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
 
-      <sl-tab slot="tabs">Tab 2</sl-tab>
-      <sl-tab-panel>Contents tab 2</sl-tab-panel>
+      <sl-tab>🍰 Tab 2</sl-tab>
+      <sl-tab-panel><p>Contents tab 2</p></sl-tab-panel>
 
-      <sl-tab slot="tabs">Tab 3</sl-tab>
-      <sl-tab-panel>Contents tab 3</sl-tab-panel>
+      <sl-tab>🍡 Tab 3</sl-tab>
+      <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>
 
-      <sl-tab slot="tabs">Tab 4</sl-tab>
+      <sl-tab>🥞 Tab 4</sl-tab>
       <sl-tab-panel>Contents tab 4</sl-tab-panel>
 
-      <sl-tab slot="tabs">Tab 5</sl-tab>
+      <sl-tab>🍪 Tab 5</sl-tab>
       <sl-tab-panel>Contents tab 5</sl-tab-panel>
     </sl-tab-group>
   `
@@ -41,36 +39,70 @@ export const API: StoryObj = {
 
 export const LongTitles: StoryObj = {
   render: ({ orientation }) => html`<sl-tab-group .orientation="${orientation}">
-    <sl-tab slot="tabs" selected>This is the first tab</sl-tab>
+    <sl-tab selected>This is the first tab</sl-tab>
     <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(4)}</sl-tab-panel>
 
-    <sl-tab slot="tabs">This is the second tab</sl-tab>
+    <sl-tab>This is the second tab</sl-tab>
     <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
 
-    <sl-tab slot="tabs">This is the third tab</sl-tab>
+    <sl-tab>This is the third tab</sl-tab>
     <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
 
-    <sl-tab slot="tabs">This is the fourth tab</sl-tab>
+    <sl-tab>This is the fourth tab</sl-tab>
     <sl-tab-panel>Contents tab 4</sl-tab-panel>
 
-    <sl-tab slot="tabs">This is the fifth tab</sl-tab>
+    <sl-tab>This is the fifth tab</sl-tab>
     <sl-tab-panel>Contents tab 5</sl-tab-panel>
 
-    <sl-tab slot="tabs">This is the sixth tab</sl-tab>
+    <sl-tab>This is the sixth tab</sl-tab>
     <sl-tab-panel>Contents tab 6</sl-tab-panel>
 
-    <sl-tab slot="tabs">This is the seventh tab</sl-tab>
+    <sl-tab>This is the seventh tab</sl-tab>
     <sl-tab-panel>Contents tab 7</sl-tab-panel>
 
-    <sl-tab slot="tabs">This is the eighth tab</sl-tab>
+    <sl-tab>This is the eighth tab</sl-tab>
     <sl-tab-panel>Contents tab 8</sl-tab-panel>
 
-    <sl-tab slot="tabs">This is the nineth tab</sl-tab>
+    <sl-tab>This is the nineth tab</sl-tab>
     <sl-tab-panel>Contents tab 9</sl-tab-panel>
 
-    <sl-tab slot="tabs">This is the tenth tab</sl-tab>
+    <sl-tab>This is the tenth tab</sl-tab>
     <sl-tab-panel>Contents tab 10</sl-tab-panel>
   </sl-tab-group>`
+};
+
+export const ExternalInteraction: StoryObj = {
+  render: ({ orientation }) => html`
+    <sl-tab-group .orientation="${orientation}" id="externalInteraction" @sl-tab-change="${tabChange}">
+      <sl-tab selected>Tab 1</sl-tab>
+      <sl-tab>Tab 2</sl-tab>
+      <sl-tab>Tab 3</sl-tab>
+      <sl-tab>Tab 4</sl-tab>
+      <sl-tab>Tab 5</sl-tab>
+    </sl-tab-group>
+    <hr />
+    <sl-button @click="${() => activateTab(1)}"> Activate tab 2</sl-button>
+    <sl-button @click="${() => activateTab(3)}"> Activate tab 4</sl-button>
+    <h2 id="output">Active tab:</h2>
+  `
+};
+
+const activateTab = (index: number): void => {
+  const tabs: Tab[] = Array.from(document.querySelectorAll('#externalInteraction sl-tab'));
+  if (tabs[index]) {
+    document.querySelector('#externalInteraction sl-tab[selected]')?.removeAttribute('selected');
+    tabs[index].setAttribute('selected', 'true');
+  }
+};
+
+const tabChange = (event: CustomEvent): void => {
+  const output = (document.querySelector('.sb-errordisplay_code') ||
+    document.createElement('pre')) as HTMLOutputElement;
+
+  event.preventDefault();
+  document.querySelector('#output')?.after(output);
+
+  output.textContent = (event.detail as number)?.toString();
 };
 
 const createLipsumParagraphs = (paragraphs: number): string => {

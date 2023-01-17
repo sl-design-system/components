@@ -83,6 +83,7 @@
   }
 
   ::slotted(sl-tab) {
+    flex: 1;
     white-space: nowrap;
   }
 
@@ -97,6 +98,11 @@
 .indicator {
   background: var(--_tab-group-indicator-color);
   position: absolute;
-  transition: transform 0.5s ease-in-out;
   z-index: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .indicator {
+    transition: transform 0.5s ease-in-out;
+  }
 }

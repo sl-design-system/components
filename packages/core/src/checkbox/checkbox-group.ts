@@ -3,15 +3,18 @@ import type { Checkbox } from './checkbox.js';
 import { LitElement, html } from 'lit';
 import { queryAssignedElements } from 'lit/decorators.js';
 import { EventsController, RovingTabindexController } from '../utils/controllers/index.js';
-import { HintMixin } from '../utils/form-control/index.js';
+import { HintMixin, ValidationMixin, requiredValidator, validationStyles } from '../utils/form-control/index.js';
 import styles from './checkbox-group.scss.js';
 
-export class CheckboxGroup extends HintMixin(LitElement) {
+export class CheckboxGroup extends ValidationMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static formControlValidators = [requiredValidator];
+
+  /** @private */
+  static override styles: CSSResultGroup = [validationStyles, styles];
 
   /** Events controller. */
   #events = new EventsController(this);
@@ -22,11 +25,16 @@ export class CheckboxGroup extends HintMixin(LitElement) {
     isFocusableElement: (el: Checkbox) => !el.disabled
   });
 
+  /** Element internals. */
+  readonly internals = this.attachInternals();
+
   /** The slotted checkboxes. */
   @queryAssignedElements() boxes?: Checkbox[];
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    this.setValidationHost(this);
 
     this.#events.listen(this, 'click', this.#onClick);
   }
@@ -36,7 +44,7 @@ export class CheckboxGroup extends HintMixin(LitElement) {
       <div class="wrapper">
         <slot @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
       </div>
-      ${this.renderHint()}
+      ${this.renderHint()} ${this.renderValidation()}
     `;
   }
 

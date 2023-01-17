@@ -7,18 +7,16 @@ assignees: ''
 
 ---
 
-## Title of Feature
-**This feature is part of [name epic]**
+# Title of feature
+**This feature is part of the milestone [link to feature]**
 
-| **What is the problem we are solving and why?**  |
+| <div align="left">**What is the problem we are solving and why?**  |
 | ------------- |
-| When ___, I want to ___, so I can ___  | 
-| As a ___, I want to ___, so I can ___  | 
-
-**Design**
-Place the first sketches or link from the design ideation session here.
+|As a user, I want to ___, so I can ___| 
+|As a developer, I want ___, so I can ___|
+|As a designer, I want to ___, so I can ___| 
 
 ## User stories
-- [ ] Link to user story 1
-- [ ] Link to user story 2
-- [ ] Link to user story 3
+- [ ] link to user story
+- [ ] link to user story
+- [ ] link to user story

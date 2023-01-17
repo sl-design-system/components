@@ -7,27 +7,22 @@ assignees: ''
 
 ---
 
-## Title of User story
-**This user story is part of [link to feature]**
+# Button tokens in Magister theme
+**This user story is part of https://github.com/sanomalearning/design-system/issues/160**
 
-| **What is the problem we are solving and why?**  |
-| ------------- |
-| When ___, I want to ___, so I can ___  | 
-| As a ___, I want to ___, so I can ___  | 
+|<div align="left">**What is the problem we are solving and why?**|
+|-------------|
+|As a user, I want to ___, so I can ___| 
+|As a developer, I want to ___, so I can ___|
+|As a designer, I want to ___, so I can ___| 
 
-**Design**
-Place the first sketches or link from the design ideation session here.
+## Description
+Place description here
 
-**Tasks**
-- [ ] Link to task 1
-- [ ] Link to task 2
-- [ ] Link to task 3
+## Design
+Explain where the design can be found
 
-**Checklist**
-- [ ] All acceptance criteria met
-- [ ] Unit tests written & green
-- [ ] Code reviewed
-- [ ] Accessibility checked
-- [ ] Feature documented
-- [ ] Visual regression tests pass
-- [ ] Pull request merged with main
+## Tasks
+- [ ] Link to task
+- [ ] Link to task
+- [ ] Link to task

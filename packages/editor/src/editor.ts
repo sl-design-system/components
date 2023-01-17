@@ -1,8 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EditorMarks, EditorNodes } from './schema.js';
 import type { Plugin } from 'prosemirror-state';
-import { FormControlMixin } from '@open-wc/form-control';
 import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
+import type { FormControlValue } from '@sanomalearning/slds-core/utils/form-control';
+import { FormControlMixin, requiredValidator, validationStyles } from '@sanomalearning/slds-core/utils/form-control';
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
@@ -19,31 +20,40 @@ import { buildKeymap, buildListKeymap } from './keymap.js';
 
 export class Editor extends FormControlMixin(LitElement) {
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static formAssociated = true;
+
+  /** @private */
+  static formControlValidators = [requiredValidator];
+
+  /** @private */
+  static override styles: CSSResultGroup = [validationStyles, styles];
 
   /** Manage events. */
   #events = new EventsController(this);
 
   /** The value of the content in the editor. */
-  #value?: string;
+  #value: FormControlValue | null = null;
 
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
+
+  /** Element internals. */
+  readonly internals = this.attachInternals();
 
   /** Additional plugins. */
   @property({ attribute: false }) plugins?: Plugin[];
 
   @property()
-  get value(): string | undefined {
+  override get value(): FormControlValue | null {
     return this.#value;
   }
 
-  set value(value: string | undefined) {
+  override set value(value: FormControlValue | null) {
     const oldValue = this.#value;
     this.#value = value;
 
     if (this.#view) {
-      setHTML(value || '')(this.#view.state, this.#view.dispatch, this.#view);
+      setHTML(value?.toString() || '')(this.#view.state, this.#view.dispatch, this.#view);
     }
 
     this.requestUpdate('value', oldValue);
@@ -106,7 +116,7 @@ export class Editor extends FormControlMixin(LitElement) {
 
   createState(): EditorState {
     const schema = this.createSchema(),
-      doc = createContentNode(schema, this.value);
+      doc = createContentNode(schema, this.value?.toString());
 
     return EditorState.create({
       schema,

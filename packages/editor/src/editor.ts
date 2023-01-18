@@ -32,7 +32,7 @@ export class Editor extends FormControlMixin(LitElement) {
   #events = new EventsController(this);
 
   /** The value of the content in the editor. */
-  #value: FormControlValue | null = null;
+  #value?: FormControlValue;
 
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
@@ -44,11 +44,11 @@ export class Editor extends FormControlMixin(LitElement) {
   @property({ attribute: false }) plugins?: Plugin[];
 
   @property()
-  override get value(): FormControlValue | null {
+  override get value(): FormControlValue | undefined {
     return this.#value;
   }
 
-  override set value(value: FormControlValue | null) {
+  override set value(value: FormControlValue | undefined) {
     const oldValue = this.#value;
     this.#value = value;
 

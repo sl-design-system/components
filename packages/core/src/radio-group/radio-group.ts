@@ -26,6 +26,9 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** Events controller. */
   #events = new EventsController(this);
 
+  /** Observe the state of the radios. */
+  #observer?: MutationObserver;
+
   #rovingTabindexController = new RovingTabindexController<Radio>(this, {
     focusInIndex: (elements: Radio[]) => {
       return elements.findIndex(el => {
@@ -38,9 +41,6 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     elements: () => this.buttons,
     isFocusableElement: (el: Radio) => !el.disabled
   });
-
-  /** Observe the state of the radios. */
-  #observer?: MutationObserver;
 
   /** Element internals. */
   readonly internals = this.attachInternals();

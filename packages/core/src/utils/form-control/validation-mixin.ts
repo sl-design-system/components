@@ -46,7 +46,7 @@ export interface ValidationInterface {
   renderValidation(): TemplateResult | undefined;
   setValidationHost(host: ValidationHost): void;
   shouldFormValueUpdate(): boolean;
-  validate(): void;
+  validate(value?: FormControlValue): void;
 }
 
 export const validationStyles: CSSResultGroup = styles;
@@ -210,13 +210,14 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       return true;
     }
 
-    validate(): void {
+    validate(value: FormControlValue = ''): void {
+      console.log('validate', { value });
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       const validators: Validator[] = [...((this.constructor as any).formControlValidators || []), ...this.validators],
         hasAsyncValidators = validators.some(({ isValid }) => isValid instanceof Promise),
         asyncValidators: Array<Promise<boolean | void>> = [],
-        validity: CustomValidityState = {},
-        value = this.shouldFormValueUpdate() ? this.value ?? '' : '';
+        validity: CustomValidityState = {};
 
       if (!this.#validationPending) {
         this.#validationComplete = new Promise(resolve => {

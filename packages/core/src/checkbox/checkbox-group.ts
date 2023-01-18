@@ -19,6 +19,9 @@ export class CheckboxGroup extends ValidationMixin(HintMixin(LitElement)) {
   /** Events controller. */
   #events = new EventsController(this);
 
+  /** Observe checked changes to the checkboxes. */
+  #observer = new MutationObserver(() => this.#onChecked());
+
   #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
     focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),
     elements: () => this.boxes || [],
@@ -34,9 +37,17 @@ export class CheckboxGroup extends ValidationMixin(HintMixin(LitElement)) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.#observer.observe(this, { attributeFilter: ['checked'], attributeOldValue: true, subtree: true });
+
     this.setValidationHost(this);
 
     this.#events.listen(this, 'click', this.#onClick);
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
@@ -52,5 +63,14 @@ export class CheckboxGroup extends ValidationMixin(HintMixin(LitElement)) {
     if (event.target === this) {
       this.#rovingTabindexController.focus();
     }
+  }
+
+  #onChecked(): void {
+    const value = this.boxes
+      ?.map(box => (box.checked ? box.value : null))
+      .filter(Boolean)
+      .join(', ');
+
+    this.validate(value);
   }
 }

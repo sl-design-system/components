@@ -28,17 +28,17 @@
   outline: none;
 }
 
-$sticky-breakpoint: 1px; //192px;
+$sticky-breakpoint: 1px;
 
 html {
   font-size: 62.5%;
 
   @media (min-height: $sticky-breakpoint) {
-    scroll-padding-top: 100px; //120px;
+    scroll-padding-top: 100px;
 
     /* stylelint-disable-next-line max-nesting-depth */
     @media screen and (min-width: $lg-breakpoint) {
-      scroll-padding-top: 90px; //100px;
+      scroll-padding-top: 90px;
     }
   }
 }

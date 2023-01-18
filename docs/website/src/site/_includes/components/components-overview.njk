@@ -2,10 +2,10 @@
 layout: base.njk
 ---
 
-<header class="ds-component__heading">
-{#  <div class="ds-component__heading-wrapper">#}
+<header class="ds-components__heading">
     <h1 class="ds-heading-1">{{ title }}</h1>
-    <p class="ds-component__heading-description">{{ description }}</p>
-{#  </div>#}
+    <p class="ds-components__heading-description">{{ description }}</p>
 </header>
-{{ content | safe }}
+<div class="ds-components__content">
+  {{ content | safe }}
+</div>

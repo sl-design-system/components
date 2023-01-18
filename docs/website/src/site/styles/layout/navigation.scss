@@ -5,7 +5,7 @@ $transition-timing: 300ms;
 .ds-top-navigation {
   background: var(--top-navbar-color);
   display: flex;
-  padding: 3.2rem 2.4rem 1.4rem; // 3.2rem 2.4rem 2.4rem;
+  padding: 3.2rem 2.4rem 1.4rem;
   position: fixed;
   width: 100vw;
   z-index: 1;
@@ -132,22 +132,22 @@ $transition-timing: 300ms;
 }
 
 .ds-top-navigation__component-name {
-  animation: append-animate 300ms linear;
-  font-size: 2rem; //2rem;
-  line-height: 3.2rem; //2.4rem;
-  transition: 300ms; // TODO: add colours for dark and light mode, light --ds-color-raisin-black
+  animation: append-animate $transition-timing linear;
+  //transition: $transition-timing;
+  color: var(--table-text-color);
+  font-size: 2rem;
+  line-height: 3.2rem;
+  //animation-name: empty;
 }
 
 @keyframes append-animate {
   from {
     opacity: 0;
-    //transform: scale(0);
     transform: translateY(-1rem);
   }
 
   to {
     opacity: 1;
-    //transform: scale(1);
     transform: translateY(0);
   }
 }
@@ -155,19 +155,17 @@ $transition-timing: 300ms;
 @keyframes append-animate-up {
   from {
     opacity: 0;
-    //transform: scale(0);
     transform: translateY(1rem);
   }
 
   to {
     opacity: 1;
-    //transform: scale(1);
     transform: translateY(0);
   }
 }
 
 .ds-top-navigation__logo {
-  animation: append-animate-up 300ms linear;
+  animation: append-animate-up $transition-timing linear;
   background-image: var(--logo);
   background-position: left;
   background-repeat: no-repeat;
@@ -175,6 +173,7 @@ $transition-timing: 300ms;
   height: 3.2rem;
   margin: auto;
   width: 100%;
+  //animation-name: empty;
 
   &:focus-visible {
     border-radius: 0.6rem;
@@ -434,10 +433,6 @@ $transition-timing: 300ms;
   }
 
   .ds-top-navigation__component-name {
-    //font-size: 2rem;
-    //line-height: 3.2rem;
-    //transition: 300ms;
-    //animation: append-animate 300ms linear;
     padding-left: 7.2rem;
   }
 

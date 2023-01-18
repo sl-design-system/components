@@ -1,3 +1,5 @@
+$transition-timing: 300ms;
+
 .ds-code {
   margin-bottom: 2.4rem;
   position: relative;
@@ -21,9 +23,9 @@
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   height: 3.2rem;
   position: absolute;
-  right: 16px;
-  top: 16px;
-  transition: 300ms linear;
+  right: 1.6rem;
+  top: 1.6rem;
+  transition: $transition-timing linear;
   width: 3.2rem;
 
   &:hover {
@@ -56,7 +58,7 @@ pre[class*='language-'] {
   font-size: 1.2rem;
   hyphens: none;
   line-height: 1.5;
-  padding: 2.4rem 2rem; //1.6rem;
+  padding: 2.4rem 2rem;
   tab-size: 4;
   text-align: left;
   text-shadow: none;
@@ -66,7 +68,6 @@ pre[class*='language-'] {
   word-wrap: normal;
 }
 
-/* Code blocks */
 pre[class*='language-'] {
   overflow: auto;
 }
@@ -76,7 +77,6 @@ pre[class*='language-'] {
   background: var(--background-color);
 }
 
-/* Inline code */
 :not(pre) > code[class*='language-'] {
   border-radius: 0.3rem;
   padding: 0.1rem;

@@ -1,4 +1,4 @@
 {
   "layout": "components/components.njk",
-  "tags": "checkbox"
+  "tags": "button"
 }

@@ -1,6 +1,5 @@
 ---
 title: Checkbox
-layout: "components/overview.njk"
 tags: overview
 eleventyNavigation:
   parent: Checkbox
@@ -9,7 +8,9 @@ eleventyNavigation:
 
 <section>
   <div class="ds-example">
-  <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+
+    Checkbox example
+
   </div>
 
   <div class="ds-code">
@@ -68,13 +69,14 @@ Place text here
 
   <div class="ds-table">
 
-| name   | purpose | other element |
-  |--------|---------|---------------|
-| first  | row     | element       |
-| second | row     | content       |
-| third  | example | row           |
+| Element | Attribute              | Value                | Description                                                                                    |
+---------|------------------------|----------------------|------------------------------------------------------------------------------------------------|
+| Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
+| Label  | <code>ariaLabel</code>       | <code>string</code> | Define a string that labels the action to be performed when the user interacts with the button |
+| Label   | <code>ariaLabel</code>       | <code>string</code>     | Define a string that labels the action to be performed when the user interacts with the button |
+| Label   | <code>ariaLabel</code>       | <code>string</code>     | Define a string that labels the action to be performed when the user interacts with the button |
 
-
+{.ds-table}
 
   </div>
 

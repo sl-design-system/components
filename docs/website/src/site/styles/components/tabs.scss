@@ -13,20 +13,12 @@ $transition-timing: 300ms;
   padding-top: 16px;
   position: sticky;
   top: -1px;
-  /* padding-top: 78px; */
-  //padding-top: calc(78px + 1px);
   transition: padding-top $transition-timing;
-  //top: 78px;
   z-index: 1;
 }
 
-//.is-pinned {
-//  background-color: red;
-//  padding-top: calc(78px + 1px);
-//}
-
 .ds-tabs__container--sticky {
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05); //0 4px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
   padding-top: calc(78px + 1px);
 }
 
@@ -37,7 +29,7 @@ $transition-timing: 300ms;
   cursor: pointer;
   font-size: 1.6rem; // TODO: change all to rem
   font-weight: 600;
-  line-height: 2rem; //18px;
+  line-height: 2rem;
   margin: 0.3rem;
   padding: 0;
   text-decoration: none;
@@ -61,13 +53,10 @@ $transition-timing: 300ms;
   border: 0;
   color: var(--tab-color);
   cursor: pointer;
-  //line-height: 24px;
   font-size: 1.4rem; // TODO: change all to rem
-  //font-size: 1.2rem; // TODO: change all to rem
   font-weight: 400;
   line-height: 2rem;
-  //padding-left: 8px;
-  padding: 6px 0 6px 8px;
+  padding: 0.6rem 0 0.6rem 0.8rem;
   text-decoration: none;
   transition: color $transition-timing linear;
 
@@ -86,34 +75,7 @@ $transition-timing: 300ms;
   }
 }
 
-.ds-tab__submenu--vertical {
-  background: none;
-  border: 0;
-  color: var(--tab-color);
-  cursor: pointer;
-  font-size: 1.4rem; // TODO: change all to rem
-  font-weight: 400;
-  line-height: 18px;
-  margin: 0.3rem;
-  padding-left: 16px;
-  text-decoration: none;
-  transition: color $transition-timing linear;
-
-  &.active:not(:focus-visible) {
-    color: var(--tab-color--active);
-  }
-
-  &:hover {
-    color: var(--tab-color--hover);
-  }
-
-  &:focus-visible {
-    border-radius: 0.3rem;
-  }
-}
-
 .ds-tabs-wrapper {
-  //justify-content: center;
   column-gap: 0.4rem;
   display: flex;
   flex-direction: row;
@@ -127,21 +89,8 @@ $transition-timing: 300ms;
   }
 }
 
-//.ds-tabs/*[horizontal]:not([vertical])*/ {
-//  .ds-tabs-wrapper {
-//    justify-content: flex-start;
-//    padding-left: 2.4rem; //7.2rem;
-//  }
-//}
-
 .ds-tabs-wrapper--scrollable {
   justify-content: flex-start;
-}
-
-.ds-tabs-wrapper.fixed {
-  // TODO: not necessary???
-  position: fixed;
-  top: 86px;
 }
 
 .slider {
@@ -151,34 +100,21 @@ $transition-timing: 300ms;
   .indicator {
     background-color: var(--tab-indicator-background);
     border-radius: 1px;
-    height: 2px;
+    height: 0.2rem;
     max-width: 100%;
     position: relative;
     transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
-    width: 50px; //$indicator-width;
+    width: 5rem;
   }
 }
 
 .vertical-slider {
-  background-color: var(--vertical-slider-background); //var(--ds-color-light-silver); // --ds-color-tundora
+  background-color: var(--vertical-slider-background);
   position: relative;
-  //width: #{100%/$tab-count};
-  // transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
-
-  //.vertical-indicator {
-  //  background-color: var(--tab-indicator-background); //var(--ds-color-blue); //$accent;
-  //  border-radius: 1px;
-  //  //margin: 0 auto;
-  //  height: 2px; //$indicator-height;
-  //  max-width: 100%;
-  //  position: relative;
-  //  transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
-  //  width: 50px; //$indicator-width;
-  //}
 }
 
 .ds-tabs__tab-content-wrapper {
-  padding: 2.4rem 0; // 1.2rem 0;
+  padding: 2.4rem 0;
 }
 
 .ds-tabs__tab-content--active {
@@ -192,11 +128,10 @@ $transition-timing: 300ms;
   }
 
   section {
-    scroll-margin-top: 1em; // TODO: don't know if still necessary?
+    scroll-margin-top: 1rem;
 
     &:not(:first-child) {
       margin-top: 2.4rem;
-      //background-color: #1f97f9;
     }
   }
 
@@ -212,12 +147,6 @@ $transition-timing: 300ms;
 .ds-tabs__tab-content--hidden {
   display: none;
 }
-
-//.ds-tabs__tab-container {
-//  * {
-//    font-size: 1.6rem;
-//  }
-//}
 
 .ds-tabs__tab-content:not(.ds-tabs__tab-content--active) {
   display: none;
@@ -239,26 +168,16 @@ $transition-timing: 300ms;
 
   .ds-tabs__container {
     margin: auto -7.2rem;
-    padding-top: 24px; //16px; //0; // TODO: align with 24 and sticky instead of 16
-    // margin: auto;
-    //top: 0;
+    padding-top: 24px; // TODO: align with 24 and sticky instead of 16
     top: -1px;
-    //padding-bottom: 8px;
   }
 
-  //.is-pinned {
-  //  background-color: red;
-  //  padding-top: 1px; //calc(16px + 1px);
-  //}
-
   .ds-tabs__container--sticky {
-    //box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-    //padding-top: calc(78px + 1px);
     padding-top: 1px;
 
     &.ds-tabs__container {
       padding-bottom: 8px;
-      padding-top: 24px; //20px;
+      padding-top: 24px;
     }
 
     .ds-top-navigation__component-name {
@@ -288,11 +207,11 @@ $transition-timing: 300ms;
       &::before {
         content: 'CONTENTS';
         display: block;
-        font-size: 12px;
+        font-size: 1.2rem;
         font-weight: 600;
-        line-height: 15px;
-        margin-bottom: 8px;
-        margin-left: 8px;
+        line-height: 1.5rem;
+        margin-bottom: 0.8rem;
+        margin-left: 0.8rem;
       }
     }
 

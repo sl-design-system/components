@@ -1,6 +1,6 @@
 ---
 title: Checkbox
-description: This is a description of checkbox
+description: This is a description of the checkbox component
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:

@@ -7,7 +7,6 @@ import { Tab } from './tab.js';
 import styles from './tab-group.scss.js';
 
 let tabGroupCount = 0;
-export type TabOrientation = 'horizontal' | 'vertical';
 
 export class TabGroup extends LitElement {
   /** @private */
@@ -37,7 +36,7 @@ export class TabGroup extends LitElement {
 
   @event() tabChange!: EventEmitter<number>;
 
-  @property({ reflect: true }) orientation: TabOrientation = 'horizontal';
+  @property({ reflect: true }) vertical = false;
 
   /**
    * Get the selected tab button, or the first tab button.
@@ -113,11 +112,13 @@ export class TabGroup extends LitElement {
     const panels = this.querySelectorAll('sl-tab-panel');
     const selectedPanelId = this.selectedTab?.getAttribute('aria-controls');
 
-    panels.forEach((panel, index) => {
-      panel.setAttribute('id', `${this.tabGroupId}-panel-${index + 1}`);
-      panel.setAttribute('aria-labelledby', `${this.tabGroupId}-tab-${index + 1}`);
-      panel.setAttribute('aria-hidden', `${panel.getAttribute('id') !== selectedPanelId ? 'true' : 'false'}`);
-    });
+    if (panels.length > 1) {
+      panels.forEach((panel, index) => {
+        panel.setAttribute('id', `${this.tabGroupId}-panel-${index + 1}`);
+        panel.setAttribute('aria-labelledby', `${this.tabGroupId}-tab-${index + 1}`);
+        panel.setAttribute('aria-hidden', `${panel.getAttribute('id') !== selectedPanelId ? 'true' : 'false'}`);
+      });
+    }
   }
 
   private handleTabChange(event: Event): void {
@@ -128,7 +129,6 @@ export class TabGroup extends LitElement {
      * Return handler if it's not a tab or if it's already selected
      */
     if (!(event.target instanceof Tab) || event.target === this.selectedTab) return;
-
     this.updateSelectedTab(event.target);
   }
 
@@ -137,10 +137,11 @@ export class TabGroup extends LitElement {
    * Update the tab group state.
    */
   private updateSelectedTab(selectedTab: Tab): void {
+    if (selectedTab === this.selectedTab) return;
+
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const selectedPanel = this.querySelector(`#${selectedTab.getAttribute('aria-controls')}`);
-
-    if (selectedTab === this.selectedTab) return;
+    const tabIndex = Array.from(this.querySelectorAll('sl-tab')).indexOf(selectedTab);
 
     /**
      * Reset all the selected state of the tabs, and select the clicked tab
@@ -159,14 +160,18 @@ export class TabGroup extends LitElement {
      * Reset all the visibility of the panels,
      * and show the panel related to the selected tab
      */
-    this.querySelectorAll('sl-tab-panel').forEach(panel => {
-      panel.setAttribute('aria-hidden', `${panel !== selectedPanel ? 'true' : 'false'}`);
-      if (panel === selectedPanel) {
-        panel.focus();
-      }
-    });
+    const panels = this.querySelectorAll('sl-tab-panel');
 
-    this.tabChange.emit(Array.from(this.querySelectorAll('sl-tab')).indexOf(selectedTab));
+    if (panels.length === 1) {
+      panels[0].setAttribute('id', `${this.tabGroupId}-panel-${tabIndex}`);
+      panels[0].setAttribute('aria-labelledby', `${this.tabGroupId}-tab-${tabIndex}`);
+    } else {
+      panels.forEach(panel => {
+        panel.setAttribute('aria-hidden', `${panel !== selectedPanel ? 'true' : 'false'}`);
+      });
+    }
+
+    this.tabChange.emit(tabIndex);
 
     this.#updateSelectionIndicator();
   }
@@ -229,6 +234,7 @@ export class TabGroup extends LitElement {
         break;
 
       case 'Enter':
+      case 'SpaceBar':
         updateTab(tab, event);
         break;
 
@@ -252,7 +258,6 @@ export class TabGroup extends LitElement {
     } else {
       start = this.selectedTab.offsetTop - wrapper.offsetTop;
     }
-    console.log(this.selectedTab.offsetLeft, wrapper.offsetLeft, this.selectedTab.offsetWidth);
 
     // Somehow on Chromium, the offsetParent is different than on FF and Safari
     // If on Chromium, take the `wrapper.offsetLeft` into account as well

@@ -14,7 +14,7 @@
   position: relative;
 }
 
-:host([orientation='vertical']) {
+:host([vertical='true']) {
   flex-direction: row;
 
   [role='tablist'] {
@@ -30,7 +30,7 @@
   }
 }
 
-:host([orientation='horizontal']) [role='tablist'] {
+:host([vertical='false']) [role='tablist'] {
   --_sl-tab-group-list-background: #fff;
   --_sl-tab-list-background: #fff;
   --sl-color-border-strong: rgb(188, 197, 204);

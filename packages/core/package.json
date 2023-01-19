@@ -1,7 +1,7 @@
 {
   "name": "@sanomalearning/slds-core",
   "description": "SLDS Core Web Components",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
@@ -18,8 +18,12 @@
     "./button-bar/register.js": "./dist/components/button-bar/register.js",
     "./checkbox": "./dist/components/checkbox/index.js",
     "./checkbox/register.js": "./dist/components/checkbox/register.js",
+    "./checkbox-group": "./dist/components/checkbox-group/index.js",
+    "./checkbox-group/register.js": "./dist/components/checkbox-group/register.js",
     "./dialog": "./dist/components/dialog/index.js",
     "./dialog/register.js": "./dist/components/dialog/register.js",
+    "./drawer": "./dist/components/drawer/index.js",
+    "./drawer/register.js": "./dist/components/drawer/register.js",
     "./input": "./dist/components/input/index.js",
     "./input/register.js": "./dist/components/input/register.js",
     "./label": "./dist/components/label/index.js",
@@ -28,15 +32,19 @@
     "./popover/register.js": "./dist/components/popover/register.js",
     "./radio-group": "./dist/components/radio-group/index.js",
     "./radio-group/register.js": "./dist/components/radio-group/register.js",
+    "./textarea": "./dist/components/textarea/index.js",
+    "./textarea/register.js": "./dist/components/textarea/register.js",
     "./tooltip": "./dist/components/tooltip/index.js",
     "./tooltip/register.js": "./dist/components/tooltip/register.js",
     "./utils": "./dist/components/utils/index.js",
     "./utils/controllers": "./dist/components/utils/controllers/index.js",
     "./utils/data-source": "./dist/components/utils/data-source/index.js",
-    "./utils/decorators": "./dist/components/utils/decorators/index.js"
+    "./utils/decorators": "./dist/components/utils/decorators/index.js",
+    "./utils/form-control": "./dist/components/utils/form-control/index.js"
   },
   "scripts": {
     "build": "wireit",
+    "build:locales": "wireit",
     "build:scss": "wireit",
     "build:ts": "wireit",
     "docs": "wireit",
@@ -50,6 +58,16 @@
     "build": {
       "dependencies": [
         "build:ts"
+      ]
+    },
+    "build:locales": {
+      "command": "lit-localize build && eslint --fix \"src/locales/*.ts\"",
+      "files": [
+        "lit-localize.json",
+        "src/locales/*.xlf"
+      ],
+      "output": [
+        "src/locales/*.ts"
       ]
     },
     "build:scss": {
@@ -67,6 +85,7 @@
       "command": "tsc -b ./tsconfig.build.json --pretty",
       "clean": "if-file-deleted",
       "dependencies": [
+        "build:locales",
         "build:scss"
       ],
       "files": [
@@ -117,29 +136,30 @@
     }
   },
   "devDependencies": {
+    "@lit/localize-tools": "^0.6.6",
     "@open-wc/testing": "^3.1.7",
-    "@storybook/addon-a11y": "^7.0.0-beta.15",
-    "@storybook/addon-docs": "^7.0.0-beta.15",
-    "@storybook/addon-essentials": "^7.0.0-beta.15",
-    "@storybook/addon-links": "^7.0.0-beta.15",
-    "@storybook/addon-storysource": "^7.0.0-beta.15",
-    "@storybook/web-components-webpack5": "^7.0.0-beta.15",
+    "@storybook/addon-a11y": "^7.0.0-beta.28",
+    "@storybook/addon-docs": "^7.0.0-beta.28",
+    "@storybook/addon-essentials": "^7.0.0-beta.28",
+    "@storybook/addon-links": "^7.0.0-beta.28",
+    "@storybook/addon-storysource": "^7.0.0-beta.28",
+    "@storybook/web-components-webpack5": "^7.0.0-beta.28",
     "@types/sinon": "^10.0.13",
     "@web/test-runner": "^0.15.0",
     "@web/test-runner-commands": "^0.6.5",
     "@web/test-runner-playwright": "^0.9.0",
-    "element-internals-polyfill": "^1.1.17",
+    "element-internals-polyfill": "^1.1.19",
     "sinon": "^14.0.2",
-    "storybook": "^7.0.0-beta.15",
+    "storybook": "^7.0.0-beta.28",
     "typescript": "^4.9.4",
-    "wireit": "^0.9.2"
+    "wireit": "^0.9.3"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.1.0",
     "@lit/localize": "^0.11.4",
     "@open-wc/form-control": "^0.4.2",
     "@open-wc/scoped-elements": "^2.1.4",
-    "lit": "^2.5.0",
+    "lit": "^2.6.1",
     "tslib": "^2.4.1"
   }
 }

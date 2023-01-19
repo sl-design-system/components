@@ -2,4 +2,4 @@
 '@sanomalearning/slds-core': patch
 ---
 
-Add label component
+Add checkbox-group component

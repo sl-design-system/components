@@ -1,9 +1,11 @@
 :host {
   --_font-weight: 600;
+  --_line-height: 32px;
 }
 
 :host {
   font-weight: var(--_font-weight);
+  line-height: var(--_line-height);
 }
 
 .optional,

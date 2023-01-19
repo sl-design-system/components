@@ -1,21 +1,19 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { IElementInternals } from 'element-internals-polyfill';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { EventsController } from '../utils/controllers/index.js';
 import styles from './radio.scss.js';
 
 export class Radio extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  #onClick = (event: Event): void => {
-    event.preventDefault();
-    event.stopPropagation();
+  /** Events controller. */
+  #events = new EventsController(this);
 
-    this.checked = true;
-  };
-
-  protected internals: ElementInternals & IElementInternals;
+  /** Element internals. */
+  readonly internals = this.attachInternals();
 
   /** Whether the radio is selected. */
   @property({ type: Boolean, reflect: true }) checked = false;
@@ -26,28 +24,17 @@ export class Radio extends LitElement {
   /** The value for this radio button. */
   @property() value = '';
 
-  constructor() {
-    super();
-
-    // Fixes typescript error due to missing aria attributes
-    this.internals = this.attachInternals() as ElementInternals & IElementInternals;
-    this.internals.role = 'radio';
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.addEventListener('click', this.#onClick);
+    this.internals.role = 'radio';
 
+    this.#events.listen(this, 'click', this.#onClick);
+
+    // Move this to a new `FocusableMixin`
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
-  }
-
-  override disconnectedCallback(): void {
-    this.removeEventListener('click', this.#onClick);
-
-    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -57,9 +44,9 @@ export class Radio extends LitElement {
       this.internals.ariaChecked = this.checked ? 'true' : 'false';
 
       if (this.checked) {
-        this.internals.states.add('--checked');
+        (this.internals as IElementInternals).states.add('--checked');
       } else {
-        this.internals.states.delete('--checked');
+        (this.internals as IElementInternals).states.delete('--checked');
       }
     }
   }
@@ -69,5 +56,12 @@ export class Radio extends LitElement {
       <div class="control"></div>
       <slot></slot>
     `;
+  }
+
+  #onClick(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.checked = true;
   }
 }

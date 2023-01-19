@@ -47,7 +47,7 @@ export const LongTitles: StoryObj = {
     <sl-tab>This is the third tab</sl-tab>
     <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
 
-    <sl-tab>This is the fourth tab</sl-tab>
+    <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
     <sl-tab-panel>Contents tab 4</sl-tab-panel>
 
     <sl-tab>This is the fifth tab</sl-tab>

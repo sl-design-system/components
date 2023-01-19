@@ -7,3 +7,8 @@
 :host([selected]) {
   font-weight: bold;
 }
+
+:host([disabled]) {
+  opacity: 0.6;
+  pointer-events: none;
+}

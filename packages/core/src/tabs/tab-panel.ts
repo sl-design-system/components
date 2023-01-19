@@ -7,7 +7,7 @@ export class TabPanel extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   override render(): TemplateResult {
-    return html`<slot></slot> `;
+    return html`<slot></slot>`;
   }
 
   override connectedCallback(): void {

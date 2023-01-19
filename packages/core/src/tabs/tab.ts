@@ -12,6 +12,7 @@ export class Tab extends LitElement {
    * Whether the tab item is selected
    */
   @property({ reflect: true, type: Boolean }) selected = false;
+  @property({ reflect: true, type: Boolean }) disabled = false;
 
   override render(): TemplateResult {
     return html`<slot></slot>`;
@@ -24,7 +25,6 @@ export class Tab extends LitElement {
   @observe('selected')
   protected handleSelectionChange(): void {
     this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
-    this.setAttribute('tabindex', this.selected ? '0' : '-1');
     this.slot ||= 'tabs';
   }
 

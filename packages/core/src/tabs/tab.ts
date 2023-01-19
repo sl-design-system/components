@@ -25,6 +25,7 @@ export class Tab extends LitElement {
   @observe('selected')
   protected handleSelectionChange(): void {
     this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
     this.slot ||= 'tabs';
   }
 

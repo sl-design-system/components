@@ -100,7 +100,7 @@ export const SingleTab: StoryObj = {
       <sl-tab>Tab 4</sl-tab>
       <sl-tab>Tab 5</sl-tab>
       <sl-tab-panel>
-        place your router-outlet in this panel
+        <p>place your router-outlet in this panel</p>
         <h2 id="output">Active tab:</h2>
       </sl-tab-panel>
     </sl-tab-group>

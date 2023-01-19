@@ -126,7 +126,7 @@ export class TabGroup extends LitElement {
     /**
      * Return handler if it's not a tab or if it's already selected
      */
-    if (!(event.target instanceof Tab) || event.target === this.selectedTab) return;
+    if (!(event.target instanceof Tab)) return;
     this.updateSelectedTab(event.target);
   }
 
@@ -135,7 +135,7 @@ export class TabGroup extends LitElement {
    * Update the tab group state.
    */
   private updateSelectedTab(selectedTab: Tab): void {
-    if (selectedTab === this.selectedTab) return;
+    if (selectedTab === this.selectedTab || selectedTab.disabled) return;
 
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const selectedPanel = this.querySelector(`#${selectedTab.getAttribute('aria-controls')}`);
@@ -174,14 +174,6 @@ export class TabGroup extends LitElement {
     this.#updateSelectionIndicator();
   }
 
-  /**
-   * Get the previous tab button in the tab group
-   */
-  private previousTab(tab: Tab): Tab {
-    const tabs = Array.from(this.querySelectorAll('sl-tab'));
-    const selectedTabIndex = tabs.indexOf(tab);
-    return tabs[selectedTabIndex - 1];
-  }
   /**
    * Handle keyboard accessible controls.
    */

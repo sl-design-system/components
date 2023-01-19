@@ -1,6 +1,7 @@
 @import './../breakpoints';
 
 $transition-timing: 300ms;
+$short-transition-timing: 200ms;
 
 .ds-top-navigation {
   background: var(--top-navbar-color);
@@ -132,15 +133,13 @@ $transition-timing: 300ms;
 }
 
 .ds-top-navigation__component-name {
-  animation: append-animate $transition-timing linear;
-  //transition: $transition-timing;
+  animation: appendAnimate $short-transition-timing linear;
   color: var(--table-text-color);
   font-size: 2rem;
   line-height: 3.2rem;
-  //animation-name: empty;
 }
 
-@keyframes append-animate {
+@keyframes appendAnimate {
   from {
     opacity: 0;
     transform: translateY(-1rem);
@@ -152,7 +151,7 @@ $transition-timing: 300ms;
   }
 }
 
-@keyframes append-animate-up {
+@keyframes appendAnimateUp {
   from {
     opacity: 0;
     transform: translateY(1rem);
@@ -165,7 +164,7 @@ $transition-timing: 300ms;
 }
 
 .ds-top-navigation__logo {
-  animation: append-animate-up $transition-timing linear;
+  animation: appendAnimateUp $short-transition-timing linear;
   background-image: var(--logo);
   background-position: left;
   background-repeat: no-repeat;
@@ -173,7 +172,6 @@ $transition-timing: 300ms;
   height: 3.2rem;
   margin: auto;
   width: 100%;
-  //animation-name: empty;
 
   &:focus-visible {
     border-radius: 0.6rem;

@@ -10,16 +10,16 @@ $transition-timing: 300ms;
   background-color: var(--background-color);
   margin: auto -2.4rem;
   overflow-x: hidden;
-  padding-top: 16px;
+  padding-top: 1.6rem;
   position: sticky;
-  top: -1px;
+  top: -0.1rem;
   transition: padding-top $transition-timing;
   z-index: 1;
 }
 
 .ds-tabs__container--sticky {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-  padding-top: calc(78px + 1px);
+  padding-top: calc(7.8rem + 0.1rem);
 }
 
 .ds-tab {
@@ -27,7 +27,7 @@ $transition-timing: 300ms;
   border: 0;
   color: var(--tab-color);
   cursor: pointer;
-  font-size: 1.6rem; // TODO: change all to rem
+  font-size: 1.6rem;
   font-weight: 600;
   line-height: 2rem;
   margin: 0.3rem;
@@ -53,7 +53,7 @@ $transition-timing: 300ms;
   border: 0;
   color: var(--tab-color);
   cursor: pointer;
-  font-size: 1.4rem; // TODO: change all to rem
+  font-size: 1.4rem;
   font-weight: 400;
   line-height: 2rem;
   padding: 0.6rem 0 0.6rem 0.8rem;
@@ -93,13 +93,13 @@ $transition-timing: 300ms;
   justify-content: flex-start;
 }
 
-.slider {
+.ds-tabs__slider {
   position: relative;
   transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
 
-  .indicator {
+  .ds-tabs__indicator {
     background-color: var(--tab-indicator-background);
-    border-radius: 1px;
+    border-radius: 0.1rem;
     height: 0.2rem;
     max-width: 100%;
     position: relative;
@@ -108,7 +108,7 @@ $transition-timing: 300ms;
   }
 }
 
-.vertical-slider {
+.ds-tabs__vertical-slider {
   background-color: var(--vertical-slider-background);
   position: relative;
 }
@@ -168,22 +168,22 @@ $transition-timing: 300ms;
 
   .ds-tabs__container {
     margin: auto -7.2rem;
-    padding-top: 24px; // TODO: align with 24 and sticky instead of 16
-    top: -1px;
+    padding-top: 2.4rem;
+    top: -0.1rem;
   }
 
   .ds-tabs__container--sticky {
-    padding-top: 1px;
+    padding-top: 0.1rem;
 
     &.ds-tabs__container {
-      padding-bottom: 8px;
-      padding-top: 24px;
+      padding-bottom: 0.8rem;
+      padding-top: 2.4rem;
     }
 
     .ds-top-navigation__component-name {
       font-size: 2.4rem;
       line-height: 2.4rem;
-      padding-bottom: 4px;
+      padding-bottom: 0.4rem;
     }
   }
 }
@@ -224,14 +224,14 @@ $transition-timing: 300ms;
       top: 15%;
     }
 
-    .vertical-indicator {
+    .ds-tabs__vertical-indicator {
       background-color: var(--tab-indicator-background);
-      border-radius: 1px;
+      border-radius: 0.1rem;
       height: 100%;
       position: relative;
-      top: 23px;
+      top: 2.3rem;
       transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
-      width: 2px;
+      width: 0.2rem;
     }
   }
 }

@@ -22,8 +22,6 @@ eleventyNavigation:
 
   </div>
 
-[//]: # (TODO: add button to copy code)
-
 </section>
 
 <section>

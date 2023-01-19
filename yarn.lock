@@ -2485,7 +2485,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-core@*, @sanomalearning/slds-core@^0.0.2, @sanomalearning/slds-core@workspace:packages/core":
+"@sanomalearning/slds-core@*, @sanomalearning/slds-core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-core@workspace:packages/core"
   dependencies:
@@ -2530,7 +2530,6 @@ __metadata:
     "@11ty/is-land": ^3.0.0
     "@lit-labs/eleventy-plugin-lit": ^0.2.3
     "@luncheon/esbuild-plugin-gzip": ^0.1.0
-    "@sanomalearning/slds-core": ^0.0.2
     "@web/dev-server": ^0.1.35
     "@webcomponents/template-shadowroot": ^0.1.0
     elasticlunr: ^0.9.5

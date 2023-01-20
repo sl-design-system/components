@@ -7,19 +7,19 @@ eleventyNavigation:
 ---
 
 <section>
-  <div class="ds-example">
+<div class="ds-example">
 
-    Checkbox example
+Checkbox example
 
-  </div>
+</div>
 
-  <div class="ds-code">
+<div class="ds-code">
 
   ```html
   <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
   ```
 
-  </div>
+</div>
 </section>
 
 <section>
@@ -29,34 +29,34 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 
 <div class=ds-do-dont>
 
-  <div class="ds-success">
+<div class="ds-success">
 
 ![Alt text example](/assets/images/example-do.svg "do picture"){.ds-do-dont__picture}
 
-  <div class="ds-success__content">
+<div class="ds-success__content">
 
 ### Do
 
 Place text here
 
-  </div>
+</div>
 
-  </div>
+</div>
 
 
-  <div class="ds-danger">
+<div class="ds-danger">
 
 ![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
 
-  <div class="ds-danger__content">
+<div class="ds-danger__content">
 
 ### Don't
 
 Place text here
 
-  </div>
+</div>
 
-  </div>
+</div>
 
 </div>
 </section>

@@ -8,19 +8,19 @@ eleventyNavigation:
 
 <section>
 
-  <div class="ds-example">
+<div class="ds-example">
 
-    <sl-button fill="default" variant="primary" size="md">Button</sl-button>
+<sl-button fill="default" variant="primary" size="md">Button</sl-button>
 
-  </div>
+</div>
 
-  <div class="ds-code">
+<div class="ds-code">
 
   ```html
   <sl-button fill="default" variant="primary" size="md">Button</sl-button>
   ```
 
-  </div>
+</div>
 
 </section>
 
@@ -31,37 +31,36 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 
 <div class=ds-do-dont>
 
-  <div class="ds-success">
+<div class="ds-success">
 
 ![Alt text example](/assets/images/example-do.svg "do picture"){.ds-do-dont__picture}
 
-  <div class="ds-success__content">
+<div class="ds-success__content">
 
 ### Do
 
 Place text here
 
-  </div>
+</div>
 
-  </div>
+</div>
 
 
-  <div class="ds-danger">
+<div class="ds-danger">
 
 ![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
 
-  <div class="ds-danger__content">
+<div class="ds-danger__content">
 
 ### Don't
 
 Place text here
 
-  </div>
-
-  </div>
+</div>
 
 </div>
 
+</div>
 
 </section>
 
@@ -101,6 +100,5 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 ## Related
 Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
 
 </section>

@@ -135,6 +135,7 @@
     "build:site:dev:eleventy": {
       "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
+        "./../../packages/tokens:build",
         "build:site:dev:styles",
         "build:site:dev:ts"
       ],
@@ -196,6 +197,7 @@
     "build:site:prod:eleventy": {
       "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
       "dependencies": [
+        "./../../packages/tokens:build",
         "build:site:prod:styles",
         "build:site:prod:ts"
       ],

@@ -74,7 +74,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig
     .addPassthroughCopy({ './src/shared/assets': 'assets' })
     .addPassthroughCopy('./src/site/assets')
-    .addPassthroughCopy({ './../dist/themes/sanoma-learning': `styles/slds-sanoma-learning` });
+    .addPassthroughCopy({ './../../packages/tokens/src/themes/sanoma-learning': `styles/slds-sanoma-learning` });
 
   const NOT_FOUND_PATH = `${outputFolder}/site/404.html`;
 

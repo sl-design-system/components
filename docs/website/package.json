@@ -160,7 +160,9 @@
     },
     "build:site:dev:ts": {
       "command": "NODE_ENV=DEV node esbuild.config.mjs",
-      "dependencies": ["../../packages/core:build"],
+      "dependencies": [
+        "../../packages/core:build"
+      ],
       "files": [
         "src/site/ts/**/*",
         "tsconfig.json",
@@ -219,7 +221,9 @@
     },
     "build:site:prod:ts": {
       "command": "NODE_ENV=PROD node esbuild.config.mjs",
-      "dependencies": ["../../packages/core:build"],
+      "dependencies": [
+        "../../packages/core:build"
+      ],
       "files": [
         "src/site/ts/**/*",
         "tsconfig.json",

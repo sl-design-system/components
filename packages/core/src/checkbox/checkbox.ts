@@ -4,7 +4,8 @@ import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/events.js';
 import { event } from '../utils/decorators/event.js';
-import { FormControlMixin, requiredValidator, validationStyles } from '../utils/form-control/index.js';
+import { FormControlMixin, validationStyles } from '../utils/form-control/index.js';
+import { requiredValidator } from '../utils/validators.js';
 import styles from './checkbox.scss.js';
 
 export class Checkbox extends FormControlMixin(LitElement) {
@@ -110,8 +111,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
     if (['Enter', ' '].includes(event.key)) {
       event.preventDefault();
 
-      this.checked = !this.checked;
-      this.change.emit(this.checked);
+      this.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
     }
   }
 
@@ -120,6 +120,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
     event.stopPropagation();
 
     this.checked = !this.checked;
+    this.validate(this.checked ? this.value : undefined);
     this.change.emit(this.checked);
   }
 }

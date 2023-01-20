@@ -40,7 +40,8 @@
     "./utils/controllers": "./dist/components/utils/controllers/index.js",
     "./utils/data-source": "./dist/components/utils/data-source/index.js",
     "./utils/decorators": "./dist/components/utils/decorators/index.js",
-    "./utils/form-control": "./dist/components/utils/form-control/index.js"
+    "./utils/form-control": "./dist/components/utils/form-control/index.js",
+    "./utils/mixins": "./dist/components/utils/mixins/index.js"
   },
   "scripts": {
     "build": "wireit",
@@ -156,6 +157,7 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^1.1.0",
+    "@lit-labs/observers": "^1.1.0",
     "@lit/localize": "^0.11.4",
     "@open-wc/scoped-elements": "^2.1.4",
     "lit": "^2.6.1",

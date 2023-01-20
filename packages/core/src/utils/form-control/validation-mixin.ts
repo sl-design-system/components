@@ -2,7 +2,7 @@
 import type { IElementInternals } from 'element-internals-polyfill';
 import type { CSSResultGroup, PropertyValues, ReactiveElement, TemplateResult } from 'lit';
 import type { Constructor } from '../mixin-types.js';
-import type { Validator } from './validators.js';
+import type { Validator } from '../index.js';
 import { localized, msg, str } from '@lit/localize';
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -202,8 +202,6 @@ export function ValidationMixin<T extends Constructor<ReactiveElement>>(
       this.#validationHost = host;
       this.#validationHost.addEventListener('blur', this.#onBlur);
       this.#validationHost.addEventListener('invalid', this.#onInvalid);
-
-      this.validate();
     }
 
     shouldFormValueUpdate(): boolean {

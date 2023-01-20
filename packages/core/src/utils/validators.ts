@@ -1,13 +1,11 @@
-import type { FormControlInterface } from './form-control-mixin.js';
-import type { FormControlValue } from './validation-mixin.js';
+export type ValidationValue = File | FormData | string | undefined;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ValidationMessageCallback = (instance: any, value: FormControlValue) => string;
+export type ValidationMessageCallback = (instance: any, value: ValidationValue) => string;
 
 /**
- * Generic Validator shape. These objects
- * are used to create Validation behaviors on FormControl
- * instances.
+ * Generic Validator shape. These objects are used to create
+ * Validation behaviors on FormControl instances.
  */
 export interface ValidatorBase {
   /**
@@ -52,10 +50,10 @@ export interface SyncValidator extends ValidatorBase {
    * and the form control value as arguments and returns a
    * boolean to evaluate for that Validator.
    * @param instance {FormControlInterface} - The FormControl instance
-   * @param value {FormControlValue} - The form control value
+   * @param value {ValidationValue} - The form control value
    * @returns {boolean} - The validity of a given Validator
    */
-  isValid(instance: HTMLElement, value: FormControlValue): boolean;
+  isValid(instance: HTMLElement, value: ValidationValue): boolean;
 }
 
 export interface AsyncValidator extends ValidatorBase {
@@ -64,10 +62,10 @@ export interface AsyncValidator extends ValidatorBase {
    * and the form control value as arguments and returns a
    * boolean to evaluate for that Validator as a promise.
    * @param instance {FormControlInterface} - The FormControl instance
-   * @param value {FormControlValue} - The form control value
+   * @param value {ValidationValue} - The form control value
    * @returns {Promise<boolean>} - The validity of a given Validator
    */
-  isValid(instance: HTMLElement, value: FormControlValue, signal: AbortSignal): Promise<boolean | void>;
+  isValid(instance: HTMLElement, value: ValidationValue, signal: AbortSignal): Promise<boolean | void>;
 }
 
 export type Validator = SyncValidator | AsyncValidator;
@@ -76,7 +74,7 @@ export const requiredValidator: Validator = {
   attribute: 'required',
   key: 'valueMissing',
   message: 'Please fill out this field',
-  isValid(instance: HTMLElement & { required: boolean }, value: FormControlValue): boolean {
+  isValid(instance: HTMLElement & { required: boolean }, value: ValidationValue): boolean {
     let valid = true;
 
     if ((instance.hasAttribute('required') || instance.required) && !value) {
@@ -100,7 +98,7 @@ export const programmaticValidator: Validator = {
 export const minLengthValidator: Validator = {
   attribute: 'minlength',
   key: 'rangeUnderflow',
-  message(instance: FormControlInterface & { minLength: number }, value: FormControlValue): string {
+  message(instance: { minLength: number }, value: ValidationValue): string {
     const _value = (value as string) || '';
     return `Please use at least ${instance.minLength} characters (you are currently using ${_value.length} characters).`;
   },
@@ -121,7 +119,7 @@ export const minLengthValidator: Validator = {
 export const maxLengthValidator: Validator = {
   attribute: 'maxlength',
   key: 'rangeOverflow',
-  message(instance: FormControlInterface & { maxLength: number }, value: FormControlValue): string {
+  message(instance: { maxLength: number }, value: ValidationValue): string {
     const _value = (value as string) || '';
     return `Please use no more than ${instance.maxLength} characters (you are currently using ${_value.length} characters).`;
   },

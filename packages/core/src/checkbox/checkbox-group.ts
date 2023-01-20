@@ -1,31 +1,45 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { Validator } from '../utils/validators.js';
 import type { Checkbox } from './checkbox.js';
+import { MutationController } from '@lit-labs/observers/mutation_controller.js';
 import { LitElement, html } from 'lit';
-import { queryAssignedElements } from 'lit/decorators.js';
-import { EventsController, RovingTabindexController } from '../utils/controllers/index.js';
-import { HintMixin, ValidationMixin, requiredValidator, validationStyles } from '../utils/form-control/index.js';
+import { property, queryAssignedElements } from 'lit/decorators.js';
+import {
+  EventsController,
+  RovingTabindexController,
+  ValidationController,
+  validationStyles
+} from '../utils/controllers/index.js';
+import { HintMixin } from '../utils/mixins/index.js';
+import { requiredValidator } from '../utils/validators.js';
 import styles from './checkbox-group.scss.js';
 
-export class CheckboxGroup extends ValidationMixin(HintMixin(LitElement)) {
+export class CheckboxGroup extends HintMixin(LitElement) {
   /** @private */
   static formAssociated = true;
-
-  /** @private */
-  static formControlValidators = [requiredValidator];
 
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
 
   /** Events controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, { click: this.#onClick });
 
-  /** Observe checked changes to the checkboxes. */
-  #observer = new MutationObserver(() => this.#onChecked());
+  /** Observe changes to the checkboxes. */
+  #mutation = new MutationController(this, {
+    callback: () => this.#onChecked(),
+    config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }
+  });
 
+  /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
     focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),
     elements: () => this.boxes || [],
     isFocusableElement: (el: Checkbox) => !el.disabled
+  });
+
+  /** Support validation that at least 1 checkbox is required in the group. */
+  #validation = new ValidationController(this, {
+    validators: [requiredValidator]
   });
 
   /** Element internals. */
@@ -34,28 +48,15 @@ export class CheckboxGroup extends ValidationMixin(HintMixin(LitElement)) {
   /** The slotted checkboxes. */
   @queryAssignedElements() boxes?: Checkbox[];
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.#observer.observe(this, { attributeFilter: ['checked'], attributeOldValue: true, subtree: true });
-
-    this.setValidationHost(this);
-
-    this.#events.listen(this, 'click', this.#onClick);
-  }
-
-  override disconnectedCallback(): void {
-    this.#observer.disconnect();
-
-    super.disconnectedCallback();
-  }
+  /** Custom validators. */
+  @property({ attribute: false }) validators?: Validator[];
 
   override render(): TemplateResult {
     return html`
       <div class="wrapper">
         <slot @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
       </div>
-      ${this.renderHint()} ${this.renderValidation()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 
@@ -71,6 +72,6 @@ export class CheckboxGroup extends ValidationMixin(HintMixin(LitElement)) {
       .filter(Boolean)
       .join(', ');
 
-    this.validate(value);
+    this.#validation.validate(value);
   }
 }

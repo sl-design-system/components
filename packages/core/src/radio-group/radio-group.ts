@@ -3,7 +3,8 @@ import type { FormControlValue } from '../utils/form-control/index.js';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedNodes } from 'lit/decorators.js';
 import { EventsController, RovingTabindexController } from '../utils/controllers/index.js';
-import { FormControlMixin, requiredValidator, validationStyles } from '../utils/form-control/index.js';
+import { FormControlMixin, validationStyles } from '../utils/form-control/index.js';
+import { requiredValidator } from '../utils/validators.js';
 import { Radio } from './radio.js';
 import styles from './radio-group.scss.js';
 
@@ -29,6 +30,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** Observe the state of the radios. */
   #observer?: MutationObserver;
 
+  /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Radio>(this, {
     focusInIndex: (elements: Radio[]) => {
       return elements.findIndex(el => {

@@ -1,10 +1,22 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 export class EventsController implements ReactiveController {
+  #host: ReactiveControllerHost & HTMLElement;
+
   #listeners: Array<() => void> = [];
 
-  constructor(private host: ReactiveControllerHost) {
-    host.addController(this);
+  constructor(
+    host: ReactiveControllerHost & HTMLElement,
+    events?: { [name: string]: EventListenerOrEventListenerObject }
+  ) {
+    this.#host = host;
+    this.#host.addController(this);
+
+    if (events) {
+      Object.entries(events).forEach(([name, listener]) => {
+        this.listen(host, name, listener);
+      });
+    }
   }
 
   hostDisconnected(): void {
@@ -28,7 +40,7 @@ export class EventsController implements ReactiveController {
 
   // FIXME: the types are kind of a mess here
   listen(host: Node, type: string, listener: unknown, options?: boolean | AddEventListenerOptions): void {
-    host.addEventListener(type, (event: Event) => (listener as EventListener).call(this.host, event), options);
+    host.addEventListener(type, (event: Event) => (listener as EventListener).call(this.#host, event), options);
     this.#listeners.push(() => host.removeEventListener(type, listener as EventListenerObject, options));
   }
 }

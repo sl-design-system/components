@@ -1,4 +1,5 @@
-import type { FormControlValue, Validator } from '../utils/form-control/index.js';
+import type { Validator } from '../utils/index.js';
+import type { FormControlValue } from '../utils/form-control/index.js';
 import type { Input } from './index.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';

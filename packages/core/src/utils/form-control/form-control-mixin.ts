@@ -1,6 +1,6 @@
 import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from '../mixin-types.js';
-import type { HintInterface } from './hint-mixin.js';
+import type { HintInterface } from '../mixins/hint-mixin.js';
 import type {
   CustomValidationHost,
   FormControlValue,
@@ -9,7 +9,7 @@ import type {
 } from './validation-mixin.js';
 import type { IElementInternals } from 'element-internals-polyfill';
 import { property } from 'lit/decorators.js';
-import { HintMixin } from './hint-mixin.js';
+import { HintMixin } from '../mixins/hint-mixin.js';
 import { ValidationMixin } from './validation-mixin.js';
 
 export interface NativeFormControlElement extends NativeValidationHost {

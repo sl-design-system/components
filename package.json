@@ -9,6 +9,7 @@
   "workspaces": [
     "docs/storybook",
     "docs/website",
+    "packages/angular/demo",
     "packages/core",
     "packages/editor",
     "packages/grid",
@@ -97,5 +98,8 @@
     "stylelint-prettier": "^2.0.0",
     "typescript": "^4.9.4",
     "wireit": "^0.9.3"
+  },
+  "dependencies": {
+    "@angular/cli": "^15.1.2"
   }
 }

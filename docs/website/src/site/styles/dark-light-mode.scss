@@ -82,13 +82,25 @@
   --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
   --background-color: var(--ds-color-white);
   --close-icon: url('../assets/icons/close.svg');
+  --code-border: var(--ds-color-bright-grey);
+  --copy-icon: url('../assets/icons/copy.svg');
+  --copy-icon--hover: url('../assets/icons/copy-hover.svg');
+  --copy-button-background: var(--ds-color-concrete);
+  --copy-button-background--active: rgba(var(--ds-color-blue-rgb), 0.08);
+  --copy-button-background--hover: var(--ds-color-light-blue);
+  --copy-button-border: var(--ds-color-bright-grey);
+  --danger-color: var(--ds-color-danger);
+  --error-icon: url('../assets/icons/error-dark.svg');
   --filter-color: rgba(34, 34, 34, 0.12);
   --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.32);
   --hamburger-filter: brightness(3.5);
   --hamburger-icon: url('../assets/icons/hamburger.svg');
+  --heading-background: var(--ds-color-blue);
+  --heading-color: var(--ds-color-faux-white);
   --help-color: var(--ds-color-black-rgb);
   --help-icon: url('../assets/icons/messages-question-light-grey.svg');
   --help-icon-hover: url('../assets/icons/messages-question-black.svg');
+  --helper-text: var(--ds-color-black);
   --highlight-color: var(--ds-color-blue);
   --input-menu-background: rgba(var(--ds-color-black-rgb), 0.04);
   --input-menu-background--hover: rgba(var(--ds-color-black-rgb), 0.08);
@@ -97,10 +109,22 @@
   --menu-button-hover: var(--ds-color-blue-rgb);
   --menu-font-color: var(--ds-color-raisin-black);
   --menu-second-color: rgba(138, 174, 255, 0.2);
+  --picture-background: var(--ds-color-concrete);
   --search-color: var(--ds-color-black);
   --search-icon: url('../assets/icons/search.svg');
   --second-background-color: var(--ds-color-ghost-white);
+  --success-icon: url('../assets/icons/check-dark.svg');
+  --success-color: var(--ds-color-success);
+  --table-code-background: var(--ds-color-concrete);
+  --table-separator: var(--ds-color-bright-grey);
+  --table-text-color: var(--ds-color-raisin-black);
+  --tab-color: rgba(var(--ds-color-black-rgb), 0.6);
+  --tab-color--active: var(--ds-color-black);
+  --tab-color--hover: var(--ds-color-black);
+  --tab-indicator-background: var(--ds-color-blue);
+  --text-color: var(--ds-color-black);
   --top-navbar-color: var(--ds-color-white);
+  --vertical-slider-background: var(--ds-color-light-silver);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -108,15 +132,27 @@
     --angle: url('../assets/icons/angle-right.svg');
     --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
       brightness(107%) contrast(101%);
-    --background-color: var(--ds-color-white);
+    --background-color: var(--ds-color-black);
     --close-icon: url('../assets/icons/close-light.svg');
+    --code-border: var(--ds-color-blck-olive);
+    --copy-icon: url('../assets/icons/copy-light.svg');
+    --copy-icon--hover: url('../assets/icons/copy-hover-dark.svg');
+    --copy-button-background: var(--ds-color-blck-olive);
+    --copy-button-background--active: rgba(var(--ds-color-blue-rgb), 0.32);
+    --copy-button-background--hover: var(--ds-color-gunmetal);
+    --copy-button-border: var(--ds-color-tundora);
+    --danger-color: var(--ds-color-red);
+    --error-icon: url('../assets/icons/error.svg');
     --filter-color: rgba(34, 34, 34, 0.64);
     --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
     --hamburger-filter: brightness(0.6);
     --hamburger-icon: url('../assets/icons/hamburger-light.svg');
+    --heading-background: var(--ds-color-blueberry);
+    --heading-color: var(--ds-color-raisin-black);
     --help-color: var(--ds-color-faux-white-rgb);
     --help-icon: url('../assets/icons/messages-question-grey.svg');
     --help-icon-hover: url('../assets/icons/messages-question.svg');
+    --helper-text: var(--ds-color-faux-white);
     --highlight-color: var(--ds-color-blueberry);
     --input-menu-background: rgba(var(--ds-color-faux-white-rgb), 0.16);
     --input-menu-background--hover: rgba(var(--ds-color-faux-white-rgb), 0.2);
@@ -124,9 +160,21 @@
     --menu-button-hover: rgba(var(--ds-color-blue-rgb), 0.32);
     --menu-font-color: var(--ds-color-lotion);
     --menu-second-color: #363739;
+    --picture-background: var(--ds-color-blck-olive);
     --search-color: var(--ds-color-faux-white);
     --search-icon: url('../assets/icons/search-light.svg');
     --second-background-color: var(--ds-color-black);
+    --success-icon: url('../assets/icons/check.svg');
+    --success-color: var(--ds-color-green);
+    --table-code-background: var(--ds-color-blck-olive);
+    --table-separator: var(--ds-color-tundora);
+    --table-text-color: var(--ds-color-white);
+    --tab-color: rgba(var(--ds-color-faux-white-rgb), 0.64);
+    --tab-color--active: var(--ds-color-faux-white);
+    --tab-color--hover: var(--ds-color-faux-white);
+    --tab-indicator-background: var(--ds-color-blueberry);
+    --text-color: var(--ds-color-white);
     --top-navbar-color: var(--ds-color-black);
+    --vertical-slider-background: var(--ds-color-tundora);
   }
 }

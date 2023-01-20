@@ -2581,6 +2581,7 @@ __metadata:
     lit: ^2.6.1
     markdown-it: ^13.0.1
     markdown-it-anchor: ^8.6.6
+    markdown-it-attrs: ^4.1.6
     rimraf: ^4.0.7
     sass: ^1.57.1
     slugify: ^1.6.5
@@ -12080,6 +12081,15 @@ __metadata:
     "@types/markdown-it": "*"
     markdown-it: "*"
   checksum: 461bf12941030629e83a0952479965dfafcb0ffd1ca225bfb77cb256f5ebe092401bb537957e05a7f53e4ec77a6942133b7c5bcf2214e734d71f6450142d72c1
+  languageName: node
+  linkType: hard
+
+"markdown-it-attrs@npm:^4.1.6":
+  version: 4.1.6
+  resolution: "markdown-it-attrs@npm:4.1.6"
+  peerDependencies:
+    markdown-it: ">= 9.0.0"
+  checksum: 8d36fb333953fd65b042fa4c2f2b0469d457f7341469f56be68f0772813fce5867bc475eeed5ab25753603e9c35aeca2ac9dcdfe3ab92cba3a7178342a83367e
   languageName: node
   linkType: hard
 

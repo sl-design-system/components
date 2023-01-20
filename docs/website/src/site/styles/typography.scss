@@ -19,32 +19,39 @@
   src: url('./../../assets/fonts/the-message-bold.woff2') format('woff2');
 }
 
-body {
+body,
+button {
   font-family: 'source-sans-pro', sans-serif;
 }
 
 h1,
-h1,
-h1,
+h2,
+h3,
 h4,
 h5 {
   font-family: 'The Message', sans-serif;
+  font-weight: 600;
 }
 
-h1 {
-  font-size: 3rem;
-}
-
-h2 {
+h1,
+.ds-heading-1 {
   font-size: 2.4rem;
+  line-height: 1;
 }
 
-h3 {
-  font-size: 2rem;
+h2,
+.ds-heading-2 {
+  font-size: 1.8rem;
+}
+
+h3,
+.ds-heading-3 {
+  font-size: 1.6rem;
 }
 
 p {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
 }
 
 a {

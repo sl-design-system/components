@@ -1,7 +1,5 @@
-$sticky-breakpoint: 60px;
-
 :root {
-  --font-color: #212529;
+  --font-color: var(--text-color);
 }
 
 :not(:defined) {
@@ -11,10 +9,6 @@ $sticky-breakpoint: 60px;
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-
-  @media (min-height: $sticky-breakpoint) {
-    scroll-padding-top: 70px;
-  }
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
@@ -24,6 +18,7 @@ html {
 }
 
 body {
+  background-color: var(--background-color);
   color: var(--font-color);
   display: flex;
   font-family: 'Poppins', sans-serif;

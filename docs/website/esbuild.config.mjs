@@ -7,6 +7,7 @@ const DEV = process.env.NODE_ENV === 'DEV';
 const jsFolder = DEV ? 'lib/site' : 'build/site';
 
 const tsEntrypoints = [
+  './src/site/ts/utils/active-element.ts',
   './src/site/ts/components/my-counter.ts',
   './src/site/ts/components/test-component.ts',
   './src/site/ts/scripts/*.ts',

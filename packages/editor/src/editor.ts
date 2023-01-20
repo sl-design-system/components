@@ -1,9 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EditorMarks, EditorNodes } from './schema.js';
 import type { Plugin } from 'prosemirror-state';
-import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
-import type { FormControlValue } from '@sanomalearning/slds-core/utils/form-control';
-import { FormControlMixin, requiredValidator, validationStyles } from '@sanomalearning/slds-core/utils/form-control';
+import { requiredValidator } from '@sanomalearning/slds-core/utils';
+import { EventsController, ValidationController, validationStyles } from '@sanomalearning/slds-core/utils/controllers';
+import { FormControlMixin, HintMixin } from '@sanomalearning/slds-core/utils/mixins';
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
@@ -18,12 +18,9 @@ import { marks, nodes } from './schema.js';
 import { setHTML } from './commands.js';
 import { buildKeymap, buildListKeymap } from './keymap.js';
 
-export class Editor extends FormControlMixin(LitElement) {
+export class Editor extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
-
-  /** @private */
-  static formControlValidators = [requiredValidator];
 
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
@@ -31,8 +28,12 @@ export class Editor extends FormControlMixin(LitElement) {
   /** Manage events. */
   #events = new EventsController(this);
 
+  #validation = new ValidationController(this, {
+    validators: [requiredValidator]
+  });
+
   /** The value of the content in the editor. */
-  #value?: FormControlValue;
+  #value?: string;
 
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
@@ -44,11 +45,11 @@ export class Editor extends FormControlMixin(LitElement) {
   @property({ attribute: false }) plugins?: Plugin[];
 
   @property()
-  override get value(): FormControlValue | undefined {
+  get value(): string | undefined {
     return this.#value;
   }
 
-  override set value(value: FormControlValue | undefined) {
+  set value(value: string | undefined) {
     const oldValue = this.#value;
     this.#value = value;
 

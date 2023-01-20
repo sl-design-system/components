@@ -2268,16 +2268,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit/reactive-element@npm:^1.0.0, @lit/reactive-element@npm:^1.3.0, @lit/reactive-element@npm:^1.4.0, @lit/reactive-element@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "@lit/reactive-element@npm:1.6.0"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": ^1.0.0
-  checksum: 37da0c76642f1a48529de2a282749c02cae23b7a59e4ccb51c1d9f5a959b352f92e55ad544991fe721626dade78765273b32b60fdf70d94a7fcae6bd32ad47c2
-  languageName: node
-  linkType: hard
-
-"@lit/reactive-element@npm:^1.1.0":
+"@lit/reactive-element@npm:^1.0.0, @lit/reactive-element@npm:^1.1.0, @lit/reactive-element@npm:^1.3.0, @lit/reactive-element@npm:^1.4.0, @lit/reactive-element@npm:^1.6.0":
   version: 1.6.1
   resolution: "@lit/reactive-element@npm:1.6.1"
   dependencies:

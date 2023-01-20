@@ -1,18 +1,24 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { Validator } from '../utils/index.js';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { EventsController } from '../utils/controllers/index.js';
-import { FormControlMixin, validationStyles } from '../utils/form-control/index.js';
+import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
+import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
 import styles from './textarea.scss.js';
 
 let nextUniqueId = 0;
 
-export class Textarea extends FormControlMixin(LitElement) {
+export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
 
-  /** Event controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, {
+    click: this.#onClick
+  });
+
+  #validation = new ValidationController(this, {
+    target: () => this.textarea
+  });
 
   /** Element internals. */
   readonly internals = this.attachInternals();
@@ -29,6 +35,12 @@ export class Textarea extends FormControlMixin(LitElement) {
   /** Placeholder text in the input. */
   @property() placeholder?: string;
 
+  /** Custom validators specified by the user. */
+  @property({ attribute: false }) validators?: Validator[];
+
+  /** The value for the textarea. */
+  @property() value?: string;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -43,9 +55,9 @@ export class Textarea extends FormControlMixin(LitElement) {
       }
 
       this.setFormControlElement(this.textarea);
-    }
 
-    this.#events.listen(this, 'click', this.#onClick);
+      this.#validation.validate(this.value);
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -74,6 +86,10 @@ export class Textarea extends FormControlMixin(LitElement) {
         this.textarea.removeAttribute('placeholder');
       }
     }
+
+    if (changes.has('value') && this.value !== this.textarea.value) {
+      this.textarea.value = this.value || '';
+    }
   }
 
   override render(): TemplateResult {
@@ -81,7 +97,7 @@ export class Textarea extends FormControlMixin(LitElement) {
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
       </div>
-      ${this.renderHint()} ${this.renderValidation()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 
@@ -95,6 +111,7 @@ export class Textarea extends FormControlMixin(LitElement) {
 
   #onInput({ target }: Event & { target: HTMLTextAreaElement }): void {
     this.value = target.value;
+    this.#validation.validate(this.value);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

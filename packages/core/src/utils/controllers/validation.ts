@@ -25,11 +25,11 @@ export interface CustomValidationTarget extends HTMLElement {
 export type ValidationTarget = NativeValidationTarget | CustomValidationTarget;
 
 export type ValidationConfig = {
-  target?: ValidationTarget;
-  validators: Validator[];
+  target?: ValidationTarget | (() => ValidationTarget);
+  validators?: Validator[];
 };
 
-const isNativeValidationTarget = (target: ValidationTarget): target is NativeValidationTarget =>
+const isNative = (target: ValidationTarget): target is NativeValidationTarget =>
   target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement;
 
 export const validationStyles: CSSResultGroup = css`
@@ -49,14 +49,17 @@ export class ValidationController implements ReactiveController {
   /** Controller host. */
   #host: ReactiveControllerHost & HTMLElement;
 
-  /** Whether the target is invalid. */
-  #invalid = false;
+  /** Determines when validation messages should be shown. */
+  #showErrors = false;
 
   /**
    * The element which is being validated. Either a Form Associated
    * Custom Element, or an `<input>` or `<textarea>`.
    */
-  #target: ValidationTarget;
+  #target?: ValidationTarget;
+
+  /** The target is set after the host's connectedCallback has run. */
+  #targetFn?: () => ValidationTarget;
 
   /** Used when validation is pending. */
   #validationComplete = Promise.resolve();
@@ -73,47 +76,84 @@ export class ValidationController implements ReactiveController {
    */
   #validators: Validator[] = [];
 
+  /** Event handler for when invalid validity must be reported. */
   #onInvalid = (event: Event): void => {
+    // Prevent the browser from showing the built-in validation UI
     event.preventDefault();
 
-    console.log('invalid', event.target);
+    if (this.#showErrors !== !this.validity.valid) {
+      this.#showErrors = !this.validity.valid;
+      this.#host.requestUpdate();
+    }
   };
 
+  /** Event handler for when the parent form is reset. */
   #onReset = (event: Event): void => {
-    console.log('reset', event.target);
+    const { form } = isNative(this.target) ? this.target : this.target.internals;
+
+    if (form === event.target) {
+      this.#showErrors = false;
+      this.#host.requestUpdate();
+    }
   };
+
+  get target(): ValidationTarget {
+    if (this.#target) {
+      return this.#target;
+    } else {
+      throw new Error('The validation controller cannot function without a target');
+    }
+  }
 
   get validationMessage(): string {
-    if (isNativeValidationTarget(this.#target)) {
-      return this.#target.validationMessage;
+    if (isNative(this.target)) {
+      return this.target.validationMessage;
     } else {
-      return this.#target.internals.validationMessage;
+      return this.target.internals.validationMessage;
     }
   }
 
   get validity(): ValidityState {
-    if (isNativeValidationTarget(this.#target)) {
-      return this.#target.validity;
+    if (isNative(this.target)) {
+      return this.target.validity;
     } else {
-      return this.#target.internals.validity;
+      return this.target.internals.validity;
     }
   }
 
   constructor(host: ReactiveControllerHost & HTMLElement, { target, validators = [] }: ValidationConfig) {
-    host.addController(this);
-
     this.#host = host;
-    this.#target = target || (host as unknown as ValidationTarget);
-    this.#validators = validators;
+    this.#host.addController(this);
+
+    if (typeof target === 'function') {
+      this.#targetFn = target;
+    } else {
+      this.#target = target || (host as unknown as ValidationTarget);
+    }
+
+    this.#validators = validators || [];
   }
 
-  hostConnected(): void {
+  async hostConnected(): Promise<void> {
+    // Wait until the host has called connectedCallback
+    await this.#host.updateComplete;
+
+    if (!this.#target && this.#targetFn) {
+      this.#target = this.#targetFn();
+    }
+
+    // If the element has no title attribute, then add one, otherwise
+    // the native `validationMessage` will be shown in a native tooltip.
+    if (isNative(this.target) && !this.target.hasAttribute('title')) {
+      this.target.setAttribute('title', '');
+    }
+
     document.addEventListener('reset', this.#onReset);
-    this.#host.addEventListener('invalid', this.#onInvalid);
+    this.target.addEventListener('invalid', this.#onInvalid);
   }
 
   hostDisconnected(): void {
-    this.#host.removeEventListener('invalid', this.#onInvalid);
+    this.target.removeEventListener('invalid', this.#onInvalid);
     document.removeEventListener('reset', this.#onReset);
   }
 
@@ -124,13 +164,15 @@ export class ValidationController implements ReactiveController {
   }
 
   render(): TemplateResult | undefined {
-    const state = this.#getInvalidState(this.validity);
-
-    if (!state || !this.#invalid) {
+    if (!this.#target) {
       return;
     }
 
-    return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
+    const state = this.#getInvalidState(this.validity);
+
+    if (this.#showErrors && state) {
+      return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
+    }
   }
 
   addValidator(validator: Validator): void {
@@ -141,33 +183,15 @@ export class ValidationController implements ReactiveController {
     this.#validators = this.#validators.filter(v => v !== validator);
   }
 
-  checkValidity(): boolean {
-    if (isNativeValidationTarget(this.#target)) {
-      return this.#target.checkValidity();
-    } else {
-      return this.#target.internals.checkValidity();
-    }
-  }
-
-  reportValidity(): boolean {
-    if (isNativeValidationTarget(this.#target)) {
-      return this.#target.reportValidity();
-    } else {
-      return this.#target.internals.reportValidity();
-    }
-  }
-
   setCustomValidity(message: string): void {
-    if (isNativeValidationTarget(this.#target)) {
-      this.#target.setCustomValidity(message);
+    if (isNative(this.target)) {
+      this.target.setCustomValidity(message);
     } else {
-      this.#target.internals.setValidity({ customError: true }, message);
+      this.target.internals.setValidity({ customError: true }, message);
     }
   }
 
   validate(value?: ValidationValue): void {
-    console.log('validation controller', { value });
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const validators: Validator[] = [...this.#validators, ...(this.#customValidators || [])],
       hasAsyncValidators = validators.some(({ isValid }) => isValid instanceof Promise),
@@ -206,7 +230,7 @@ export class ValidationController implements ReactiveController {
 
     validators.forEach(validator => {
       const key = validator.key || 'customError',
-        isValid = validator.isValid(this.#target, value, abortController.signal),
+        isValid = validator.isValid(this.target, value, abortController.signal),
         isAsyncValidator = isValid instanceof Promise;
 
       if (isAsyncValidator) {
@@ -328,18 +352,13 @@ export class ValidationController implements ReactiveController {
   }
 
   #setValidityWithOptionalTarget(validity: Partial<ValidityState>, validationMessage: string | undefined): void {
-    if (isNativeValidationTarget(this.#target)) {
-      this.#target.setCustomValidity(validationMessage ?? '');
+    if (isNative(this.target)) {
+      this.target.setCustomValidity(validationMessage ?? '');
     } else {
-      this.#target.internals.setValidity(validity, validationMessage);
+      this.target.internals.setValidity(validity, validationMessage);
     }
 
-    const invalid = !this.validity.valid;
-
-    if (invalid !== this.#invalid) {
-      this.#invalid = invalid;
-    } else {
-      this.#host.requestUpdate();
-    }
+    this.#showErrors = !this.validity.valid;
+    this.#host.requestUpdate();
   }
 }

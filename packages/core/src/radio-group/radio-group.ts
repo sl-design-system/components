@@ -1,34 +1,48 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { FormControlValue } from '../utils/form-control/index.js';
+import type { Validator } from '../utils/index.js';
+import { MutationController } from '@lit-labs/observers/mutation_controller.js';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedNodes } from 'lit/decorators.js';
-import { EventsController, RovingTabindexController } from '../utils/controllers/index.js';
-import { FormControlMixin, validationStyles } from '../utils/form-control/index.js';
-import { requiredValidator } from '../utils/validators.js';
+import { requiredValidator } from '../utils/index.js';
+import {
+  EventsController,
+  RovingTabindexController,
+  ValidationController,
+  validationStyles
+} from '../utils/controllers/index.js';
+import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
 import { Radio } from './radio.js';
 import styles from './radio-group.scss.js';
 
-const OBSERVER_OPTIONS: MutationObserverInit = {
-  attributeFilter: ['checked'],
-  attributeOldValue: true,
-  subtree: true
-};
-
-export class RadioGroup extends FormControlMixin(LitElement) {
+export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
-
-  /** @private */
-  static formControlValidators = [requiredValidator];
 
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
 
   /** Events controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    focusout: this.#onFocusout
+  });
 
   /** Observe the state of the radios. */
-  #observer?: MutationObserver;
+  #mutation = new MutationController(this, {
+    callback: mutations => {
+      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
+
+      if (target instanceof Radio && target.value) {
+        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));
+        this.value = target.value;
+      }
+    },
+    config: {
+      attributeFilter: ['checked'],
+      attributeOldValue: true,
+      subtree: true
+    }
+  });
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Radio>(this, {
@@ -44,6 +58,10 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     isFocusableElement: (el: Radio) => !el.disabled
   });
 
+  #validation = new ValidationController(this, {
+    validators: [requiredValidator]
+  });
+
   /** Element internals. */
   readonly internals = this.attachInternals();
 
@@ -52,6 +70,12 @@ export class RadioGroup extends FormControlMixin(LitElement) {
 
   /** If true, displays the radio buttons next to each other instead of below. */
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
+
+  /** Custom validators specified by the user. */
+  @property({ attribute: false }) validators?: Validator[];
+
+  /** The value for this group. */
+  @property() value?: string;
 
   get buttons(): Radio[] {
     return this.defaultNodes?.filter((node): node is Radio => node instanceof Radio) || [];
@@ -64,31 +88,16 @@ export class RadioGroup extends FormControlMixin(LitElement) {
 
     this.setFormControlElement(this);
 
-    this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this, 'focusout', this.#onFocusout);
-
-    this.#observer = new MutationObserver(mutationList => {
-      mutationList.forEach(mutation => {
-        if (mutation.attributeName === 'checked' && mutation.oldValue === null) {
-          this.#updateSelected((mutation.target as Radio).value);
-        }
-      });
-    });
-    this.#observer.observe(this, OBSERVER_OPTIONS);
+    // Run initial validation
+    this.#validation.validate(this.value);
   }
 
-  override disconnectedCallback(): void {
-    this.#observer?.disconnect();
-    this.#observer = undefined;
-
-    super.disconnectedCallback();
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('value')) {
-      this.#updateSelected(this.value);
+      this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
+      this.#validation.validate(this.value);
     }
   }
 
@@ -97,7 +106,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
       <div class="wrapper">
         <slot @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
       </div>
-      ${this.renderHint()} ${this.renderValidation()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 
@@ -112,17 +121,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
       // This component is weird in that it doesn't actually contain the form controls,
       // those are the `<sl-radio>` custom elements in the light DOM. So run the validation
       // manually from here.
-      this.validate();
+      // this.#validation.validate();
     }
-  }
-
-  #updateSelected(value?: FormControlValue): void {
-    this.#observer?.disconnect();
-
-    this.buttons?.forEach(button => {
-      button.checked = button.value === value;
-    });
-
-    this.#observer?.observe(this, OBSERVER_OPTIONS);
   }
 }

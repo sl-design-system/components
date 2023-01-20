@@ -1,5 +1,5 @@
 import type { PropertyValues, ReactiveElement, TemplateResult } from 'lit';
-import type { Constructor } from '../mixin-types.js';
+import type { Constructor } from './types.js';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 

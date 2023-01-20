@@ -1,31 +1,27 @@
 import type { PropertyValues, ReactiveElement } from 'lit';
-import type { Constructor } from '../mixin-types.js';
-import type { HintInterface } from '../mixins/hint-mixin.js';
-import type {
-  CustomValidationHost,
-  FormControlValue,
-  NativeValidationHost,
-  ValidationInterface
-} from './validation-mixin.js';
-import type { IElementInternals } from 'element-internals-polyfill';
+import type { Constructor } from './types.js';
+import type { ValidationValue } from '../validators.js';
 import { property } from 'lit/decorators.js';
-import { HintMixin } from '../mixins/hint-mixin.js';
-import { ValidationMixin } from './validation-mixin.js';
 
-export interface NativeFormControlElement extends NativeValidationHost {
+export type FormControlValue = ValidationValue;
+
+export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;
   labels: NodeListOf<HTMLLabelElement> | null;
   name: string;
   value?: FormControlValue;
+
+  checkValidity(): boolean;
+  reportValidity(): boolean;
 }
 
-export interface CustomFormControlElement extends CustomValidationHost {
-  internals: ElementInternals & IElementInternals;
+export interface CustomFormControlElement extends HTMLElement {
+  internals: ElementInternals;
 }
 
 export type FormControlElement = NativeFormControlElement | CustomFormControlElement;
 
-export interface FormControlInterface extends HintInterface, ValidationInterface {
+export interface FormControlInterface {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
@@ -33,20 +29,21 @@ export interface FormControlInterface extends HintInterface, ValidationInterface
   disabled?: boolean;
   name?: string;
   required?: boolean;
-  value?: FormControlValue;
 
+  checkValidity(): boolean;
+  reportValidity(): boolean;
   setFormControlElement(element: FormControlElement): void;
+  setFormValue(value?: FormControlValue): void;
   setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void;
-  setValue(value?: FormControlValue): void;
 }
 
-const isNativeFormControlElement = (element: FormControlElement): element is NativeFormControlElement =>
+const isNative = (element: FormControlElement): element is NativeFormControlElement =>
   element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement;
 
 export function FormControlMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<FormControlInterface> {
-  class FormControl extends ValidationMixin(HintMixin(constructor)) {
+  class FormControl extends constructor {
     /** The cached value for the form control. */
     #cachedValue?: FormControlValue;
 
@@ -60,7 +57,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
     /** The name of the form control. */
-    @property() name?: string;
+    @property({ reflect: true }) name?: string;
 
     /** Whether this form control is a required field. */
     @property({ type: Boolean, reflect: true }) required?: boolean;
@@ -74,7 +71,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
 
     get form(): HTMLFormElement | null {
-      if (isNativeFormControlElement(this.formControlElement)) {
+      if (isNative(this.formControlElement)) {
         return this.formControlElement.form;
       } else {
         return this.formControlElement.internals.form;
@@ -82,62 +79,74 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
 
     get labels(): NodeListOf<HTMLLabelElement> | null {
-      if (isNativeFormControlElement(this.formControlElement)) {
+      if (isNative(this.formControlElement)) {
         return this.formControlElement.labels;
       } else {
-        return this.formControlElement.internals.labels;
+        return this.formControlElement.internals.labels as NodeListOf<HTMLLabelElement>;
       }
     }
 
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
-      if (changes.has('disabled') && isNativeFormControlElement(this.formControlElement)) {
+      if (changes.has('disabled') && isNative(this.formControlElement)) {
         this.formControlElement.toggleAttribute('disabled', this.disabled);
       }
 
-      if (changes.has('name') && isNativeFormControlElement(this.formControlElement)) {
+      if (changes.has('name') && isNative(this.formControlElement)) {
         this.formControlElement.name = this.name ?? '';
       }
 
-      if (changes.has('required')) {
+      if (changes.has('required') && isNative(this.formControlElement)) {
         this.formControlElement.toggleAttribute('required', this.required);
       }
 
-      if (changes.has('value') && this.value !== this.#cachedValue) {
-        this.#cachedValue = this.value;
+      // if (changes.has('value') && this.value !== this.#cachedValue) {
+      //   this.#cachedValue = this.value;
 
-        if (isNativeFormControlElement(this.formControlElement)) {
-          this.formControlElement.value = this.value?.toString() ?? '';
-        } else {
-          this.formControlElement.internals.setFormValue(this.value ?? null);
-        }
+      //   if (isNative(this.formControlElement)) {
+      //     this.formControlElement.value = this.value?.toString() ?? '';
+      //   } else {
+      //     this.formControlElement.internals.setFormValue(this.value ?? null);
+      //   }
+      // }
+    }
+
+    checkValidity(): boolean {
+      if (isNative(this.formControlElement)) {
+        return this.formControlElement.checkValidity();
+      } else {
+        return this.formControlElement.internals.checkValidity();
+      }
+    }
+
+    reportValidity(): boolean {
+      if (isNative(this.formControlElement)) {
+        return this.formControlElement.reportValidity();
+      } else {
+        return this.formControlElement.internals.reportValidity();
       }
     }
 
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
-
-      this.setValidationHost(element);
     }
 
     setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void {
       console.log('setValidity', { flags, message, anchor });
     }
 
-    setValue(value?: FormControlValue): void {
+    setFormValue(value?: FormControlValue): void {
       this.#cachedValue = value;
 
-      const valueShouldUpdate = this.shouldFormValueUpdate(),
+      const valueShouldUpdate = true, //this.shouldFormValueUpdate(),
         valueToUpdate = valueShouldUpdate ? value : null;
 
-      if (isNativeFormControlElement(this.formControlElement)) {
+      if (isNative(this.formControlElement)) {
         this.formControlElement.value = valueToUpdate?.toString() ?? '';
       } else {
         this.formControlElement.internals.setFormValue(valueToUpdate ?? null);
       }
-
-      this.validate();
     }
   }
 

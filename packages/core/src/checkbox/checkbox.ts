@@ -1,25 +1,28 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { EventEmitter } from '../utils/decorators/event.js';
+import type { EventEmitter } from '../utils/decorators/index.js';
 import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
-import { EventsController } from '../utils/controllers/events.js';
-import { event } from '../utils/decorators/event.js';
-import { FormControlMixin, validationStyles } from '../utils/form-control/index.js';
-import { requiredValidator } from '../utils/validators.js';
+import { requiredValidator } from '../utils/index.js';
+import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
+import { event } from '../utils/decorators/index.js';
+import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
 import styles from './checkbox.scss.js';
 
-export class Checkbox extends FormControlMixin(LitElement) {
+export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static formControlValidators = [requiredValidator];
-
-  /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
 
-  /** Events controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+  });
+
+  #validation = new ValidationController(this, {
+    validators: [requiredValidator]
+  });
 
   /** Element internals. */
   readonly internals = this.attachInternals();
@@ -33,6 +36,9 @@ export class Checkbox extends FormControlMixin(LitElement) {
   /** Whether the checkbox has the indeterminate state. */
   @property({ type: Boolean }) indeterminate = false;
 
+  /** The value for the checkbox. */
+  @property() value?: string;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -40,8 +46,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
 
     this.setFormControlElement(this);
 
-    this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this, 'keydown', this.#onKeydown);
+    this.#validation.validate(this.checked ? this.value : undefined);
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
@@ -68,7 +73,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('checked') || changes.has('value')) {
-      this.setValue(this.value);
+      this.setFormValue(this.value);
     }
   }
 
@@ -84,7 +89,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
         </span>
         <slot></slot>
       </div>
-      ${this.renderHint()} ${this.renderValidation()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 
@@ -92,9 +97,9 @@ export class Checkbox extends FormControlMixin(LitElement) {
   //   this.checked = this.hasAttribute('checked');
   // }
 
-  override shouldFormValueUpdate(): boolean {
-    return this.checked;
-  }
+  // override shouldFormValueUpdate(): boolean {
+  //   return this.checked;
+  // }
 
   #onClick(event: Event): void {
     // If the user clicked the label, toggle the checkbox
@@ -120,7 +125,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
     event.stopPropagation();
 
     this.checked = !this.checked;
-    this.validate(this.checked ? this.value : undefined);
+    this.#validation.validate(this.checked ? this.value : undefined);
     this.change.emit(this.checked);
   }
 }

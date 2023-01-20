@@ -1,8 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { Validator } from '../utils/index.js';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { EventsController } from '../utils/controllers/index.js';
-import { FormControlMixin, validationStyles } from '../utils/form-control/index.js';
+import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
+import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
 import styles from './input.scss.js';
 
 let nextUniqueId = 0;
@@ -14,12 +15,23 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
  */
-export class Input extends FormControlMixin(LitElement) {
+export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
 
-  /** Events controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, {
+    click: this.#onClick
+  });
+
+  #onKeydown = ({ key }: KeyboardEvent): void => {
+    if (key === 'Enter') {
+      this.input.form?.requestSubmit();
+    }
+  };
+
+  #validation = new ValidationController(this, {
+    target: () => this.input
+  });
 
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
@@ -48,24 +60,30 @@ export class Input extends FormControlMixin(LitElement) {
    */
   @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text';
 
+  /** Custom validators specified by the user. */
+  @property({ attribute: false }) validators?: Validator[];
+
+  /** The value for the input. */
+  @property() value?: string;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
-      this.input.autocomplete ||= 'off';
+      this.input.autocomplete ||= this.autocomplete || 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
       this.input.slot = 'input';
+      this.input.addEventListener('keydown', this.#onKeydown);
 
       if (!this.input.parentElement) {
         this.append(this.input);
       }
 
       this.setFormControlElement(this.input);
-    }
 
-    this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this.input, 'keydown', this.#onKeydown);
+      this.#validation.validate(this.value);
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -114,6 +132,10 @@ export class Input extends FormControlMixin(LitElement) {
     if (changes.has('type')) {
       this.input.type = this.type;
     }
+
+    if (changes.has('value') && this.value !== this.input.value) {
+      this.input.value = this.value || '';
+    }
   }
 
   override render(): TemplateResult {
@@ -123,7 +145,7 @@ export class Input extends FormControlMixin(LitElement) {
         <slot @slotchange=${this.#onSlotchange} name="input"></slot>
         <slot name="suffix"></slot>
       </div>
-      ${this.renderHint()} ${this.renderValidation()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 
@@ -137,12 +159,7 @@ export class Input extends FormControlMixin(LitElement) {
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
-  }
-
-  #onKeydown({ key }: KeyboardEvent): void {
-    if (key === 'Enter') {
-      this.input.form?.requestSubmit();
-    }
+    this.#validation.validate(this.value);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
@@ -151,9 +168,12 @@ export class Input extends FormControlMixin(LitElement) {
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (inputs.length) {
+      this.input.removeEventListener('keydown', this.#onKeydown);
+
       this.input = inputs.at(0) as HTMLInputElement;
-      this.input.autocomplete ||= 'off';
+      this.input.autocomplete ||= this.autocomplete || 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
+      this.input.addEventListener('keydown', this.#onKeydown);
 
       this.setFormControlElement(this.input);
     }

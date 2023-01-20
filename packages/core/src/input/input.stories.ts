@@ -1,5 +1,4 @@
-import type { Validator } from '../utils/index.js';
-import type { FormControlValue } from '../utils/form-control/index.js';
+import type { ValidationValue, Validator } from '../utils/index.js';
 import type { Input } from './index.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -148,7 +147,7 @@ export const CustomValidation: StoryObj = {
 
     const validator: Validator = {
       message: 'Enter "SLDS"',
-      isValid: (_: HTMLElement, value: FormControlValue): boolean => value === 'SLDS'
+      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'
     };
 
     return html`

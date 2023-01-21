@@ -358,7 +358,6 @@ export class ValidationController implements ReactiveController {
       this.target.internals.setValidity(validity, validationMessage);
     }
 
-    this.#showErrors = !this.validity.valid;
     this.#host.requestUpdate();
   }
 }

@@ -176,6 +176,60 @@ export const Hints: StoryObj = {
 
 export const ValidationRequired: StoryObj = {
   render: () => {
+    return html`
+      <style>
+        form {
+          align-items: start;
+          display: flex;
+          flex-direction: column;
+        }
+        sl-label {
+          margin-block-start: 0.5rem;
+        }
+        sl-label:first-of-type {
+          margin-block-start: 0;
+        }
+        sl-button-bar,
+        sl-input,
+        sl-textarea {
+          align-self: stretch;
+        }
+      </style>
+      <form>
+        <sl-label for="input">Input</sl-label>
+        <sl-input id="input" name="input" required></sl-input>
+
+        <sl-label for="textarea">Textarea</sl-label>
+        <sl-textarea id="textarea" name="textarea" required></sl-textarea>
+
+        <sl-label for="checkbox">Checkbox</sl-label>
+        <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">Checkbox</sl-checkbox>
+
+        <sl-label for="checkbox-group">Checkbox group</sl-label>
+        <sl-checkbox-group id="checkbox-group" name="checkboxGroup" required>
+          <sl-checkbox value="0">Check me</sl-checkbox>
+          <sl-checkbox value="1">No me</sl-checkbox>
+          <sl-checkbox value="2">I was here first</sl-checkbox>
+        </sl-checkbox-group>
+
+        <sl-label for="radio-group">Radio group</sl-label>
+        <sl-radio-group id="radio-group" name="radioGroup" required>
+          <sl-radio value="1">One</sl-radio>
+          <sl-radio value="2">Two</sl-radio>
+          <sl-radio value="3">Three</sl-radio>
+        </sl-radio-group>
+
+        <sl-button-bar align="end">
+          <sl-button type="reset">Reset</sl-button>
+          <sl-button type="submit">Submit</sl-button>
+        </sl-button-bar>
+      </form>
+    `;
+  }
+};
+
+export const ValidationRequiredReport: StoryObj = {
+  render: () => {
     setTimeout(() => document.querySelector('form')?.reportValidity());
 
     return html`

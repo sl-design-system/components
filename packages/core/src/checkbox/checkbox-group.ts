@@ -58,6 +58,10 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   /** Custom validators. */
   @property({ attribute: false }) validators?: Validator[];
 
+  get form(): HTMLFormElement | null {
+    return this.internals.form;
+  }
+
   override render(): TemplateResult {
     return html`
       <div class="wrapper">

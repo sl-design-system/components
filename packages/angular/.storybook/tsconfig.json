@@ -8,12 +8,10 @@
   },
   "exclude": [
     "../src/test.ts",
-    "../src/**/*.spec.ts",
-    "../projects/**/*.spec.ts"
+    "../src/**/*.spec.ts"
   ],
   "include": [
-    "../src/**/*",
-    "../projects/**/*"
+    "../src/**/*"
   ],
   "files": [
     "./typings.d.ts"

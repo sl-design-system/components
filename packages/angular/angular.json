@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo",
+            "outputPath": "dist/angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "demo:build:production"
+              "browserTarget": "angular:build:production"
             },
             "development": {
-              "browserTarget": "demo:build:development"
+              "browserTarget": "angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo:build"
+            "browserTarget": "angular:build"
           }
         },
         "test": {
@@ -99,28 +99,26 @@
           }
         },
         "storybook": {
-          "builder": "@storybook/demo:start-storybook",
+          "builder": "@storybook/angular:start-storybook",
           "options": {
-            "configDir": ".storybook",
-            "browserTarget": "demo:build",
-            "quiet": true,
-            "styles": [
-              "src/styles.css",
-              "src/styles.scss"
-            ]
+            "browserTarget": "angular:build",
+            "port": 6007,
+            "quiet": true
           }
         },
         "build-storybook": {
-          "builder": "@storybook/demo:build-storybook",
+          "builder": "@storybook/angular:build-storybook",
           "options": {
-            "configDir": ".storybook",
-            "browserTarget": "demo:build",
-            "outputDir": "dist/storybook/demo",
-            "quiet": true,
-            "styles": [
-              "src/styles.css",
-              "src/styles.scss"
-            ]
+            "browserTarget": "angular:build",
+            "quiet": true
+          }
+        },
+        "docs": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "browserTarget": "angular:build",
+            "outputDir": "../../docs/dist/angular",
+            "quiet": true
           }
         }
       }

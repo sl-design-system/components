@@ -9,7 +9,7 @@
   "workspaces": [
     "docs/storybook",
     "docs/website",
-    "packages/angular/demo",
+    "packages/angular",
     "packages/core",
     "packages/editor",
     "packages/grid",
@@ -36,7 +36,8 @@
         "./packages/core:build",
         "./packages/editor:build",
         "./packages/grid:build",
-        "./packages/tokens:build"
+        "./packages/tokens:build",
+        "./packages/angular:build"
       ]
     },
     "clean": {
@@ -47,7 +48,8 @@
         "./docs/storybook:build",
         "./packages/core:docs",
         "./packages/editor:docs",
-        "./packages/grid:docs"
+        "./packages/grid:docs",
+        "./packages/angular:docs"
       ]
     },
     "lint": {

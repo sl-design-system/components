@@ -11,6 +11,7 @@
   display: inline-flex;
   flex-direction: column;
   gap: var(--_gap);
+  vertical-align: top;
 }
 
 :host(:disabled) {
@@ -23,26 +24,16 @@
   --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }
 
-:host(:invalid:--show-error) {
+:host(:where(:--invalid, [state--invalid])) {
   --_border-color: #c00;
 }
 
-:host([internals-invalid][state--show-error]) {
-  --_border-color: #c00;
-}
-
-.wrapper {
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
-  padding: calc(0.25rem - 1px) 0.5rem;
-  transition: 0.2s ease-in-out;
-  transition-property: background, border, box-shadow, color, filter;
-}
-
-input {
+slot[name='input']::slotted(input) {
   appearance: none;
+  background: none;
   border: 0;
+  color: inherit;
+  flex: 1;
   font: inherit;
   line-height: 24px;
   margin: 0;
@@ -54,6 +45,13 @@ input {
   }
 }
 
-.validation {
-  color: #c00;
+.wrapper {
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  display: flex;
+  padding: calc(0.25rem - 1px) 0.5rem;
+  transition: 0.2s ease-in-out;
+  transition-property: background, border, box-shadow, color, filter;
+  width: 100%;
 }

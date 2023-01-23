@@ -18,8 +18,8 @@
     const noResultsElement = document.getElementById('noResultsFound');
 
     event.target.value.length
-      ? resultsElement.parentElement.classList.add('ds-sidebar--searching')
-      : resultsElement.parentElement.classList.remove('ds-sidebar--searching');
+      ? resultsElement.parentElement.classList.add('ds-sidebar-nav--searching')
+      : resultsElement.parentElement.classList.remove('ds-sidebar-nav--searching');
 
     resultsElement.innerHTML = '';
     resultsElement.style.display = 'block';
@@ -29,6 +29,7 @@
       results.map(result => {
         let { id, title, content } = result.doc;
         const element = document.createElement('li');
+        element.classList.add('ds-sidebar-nav__result-list');
         resultsElement.appendChild(element);
 
         const h3 = document.createElement('h3');
@@ -62,7 +63,7 @@
     }
   };
 
-  fetch('/search-index.json').then(response =>
+  fetch('/search-index.json').then(async response =>
     response.json().then(rawIndex => {
       // eslint-disable-next-line no-undef
       elasticlunr.clearStopWords(); /** Remove default stop words, we can add customized stop words*/

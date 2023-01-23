@@ -3,10 +3,12 @@
   --_border-radius: 3px;
   --_cell-background: #fff;
   --_cell-border: 1px solid #eee;
-  --_cell-font: 300 14px/24px Arial;
   --_cell-padding: 0.25rem 1rem;
   --_header-background: #fff;
+  --_header-font-weight: 600;
   --_header-padding: 0.5rem 1rem;
+  --_selected-background: #338bff0f;
+  --_striped-background: #f9f9f9;
 }
 
 :host {
@@ -21,6 +23,10 @@
 
 :host([no-row-border]) {
   --_cell-border: none;
+}
+
+:host([striped]) tr[part~='odd'] {
+  --_cell-background: var(--_striped-background);
 }
 
 table {
@@ -40,6 +46,10 @@ tr {
   display: flex;
   margin: 0;
   width: 100%;
+
+  &[part~='selected'] {
+    --_cell-background: var(--_selected-background);
+  }
 }
 
 th,
@@ -47,16 +57,13 @@ td {
   align-items: center;
   display: inline-flex;
   flex-shrink: 0;
-  font: var(--_cell-font);
   overflow: hidden;
-  text-align: start;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 th {
   background: var(--_header-background);
   border-bottom: var(--_cell-border);
+  font-weight: var(--_header-font-weight);
   padding: var(--_header-padding);
 }
 

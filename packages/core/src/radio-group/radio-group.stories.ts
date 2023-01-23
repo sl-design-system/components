@@ -16,13 +16,13 @@ export const API: StoryObj = {
       control: 'inline-radio',
       options: ['horizontal', 'vertical']
     },
-    selected: {
+    value: {
       control: 'inline-radio',
       options: ['1', '2', '3']
     }
   },
-  render: ({ disabled, selected, orientation }) => html`
-    <sl-radio-group ?disabled=${disabled} .orientation=${orientation} .selected=${selected}>
+  render: ({ disabled, orientation, value }) => html`
+    <sl-radio-group ?disabled=${disabled} .orientation=${orientation} .value=${value}>
       <sl-radio value="1">One</sl-radio>
       <sl-radio value="2">Two</sl-radio>
       <sl-radio value="3">Three</sl-radio>
@@ -43,10 +43,75 @@ export const Disabled: StoryObj = {
 
 export const Selected: StoryObj = {
   render: () => html`
-    <sl-radio-group selected="2">
+    <sl-radio-group value="2">
       <sl-radio value="1">One</sl-radio>
       <sl-radio value="2">Two</sl-radio>
       <sl-radio value="3">Three</sl-radio>
     </sl-radio-group>
+  `
+};
+
+export const Label: StoryObj = {
+  render: () => html`
+    <style>
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <div>
+      <sl-label for="radio-group">How many pets do you have?</sl-label>
+      <sl-radio-group id="radio-group">
+        <sl-radio value="0">None</sl-radio>
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+      </sl-radio-group>
+    </div>
+  `
+};
+
+export const Hint: StoryObj = {
+  render: () => html`
+    <style>
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <div>
+      <sl-label for="radio-group">How many pets do you have?</sl-label>
+      <sl-radio-group id="radio-group" hint="Fish count as well.">
+        <sl-radio value="0">None</sl-radio>
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+      </sl-radio-group>
+    </div>
+  `
+};
+
+export const RichLabelHint: StoryObj = {
+  render: () => html`
+    <style>
+      div:not([slot]) {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <div>
+      <sl-label for="radio-group">
+        <label slot="label">Custom <i>label</i></label>
+      </sl-label>
+      <sl-radio-group id="radio-group">
+        <sl-radio value="0">None</sl-radio>
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+        <div slot="hint">
+          Hint is an accessible way to provide <strong>additional information</strong> that might help the user
+        </div>
+      </sl-radio-group>
+    </div>
   `
 };

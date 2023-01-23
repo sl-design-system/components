@@ -33,13 +33,13 @@ export const palette = {
   }
 };
 
-export const shadow = {
-  name: 'shadow/css',
+export const boxShadow = {
+  name: 'boxShadow/css',
   type: 'value',
   transitive: true,
   matcher: token => token.type === 'boxShadow',
   transformer: token => {
-    return `${token.value.x}px ${token.value.y}px ${token.value.blur}px ${token.value.spread}px ${token.value.color}`;
+    return `${token.value.x}px ${token.value.y}px ${token.value.blur}px ${token.value.spread}px ${token.value.color.replace(',', '/')}`;
   }
 };
 

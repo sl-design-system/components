@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { observe } from '../utils/decorators/observe.js';
+import { observe } from '../utils/decorators/index.js';
 import styles from './tab.scss.js';
 
 export class Tab extends LitElement {
@@ -26,11 +26,11 @@ export class Tab extends LitElement {
   protected handleSelectionChange(): void {
     this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-    this.slot ||= 'tabs';
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
     this.setAttribute('role', 'tab');
+    this.slot ||= 'tabs';
   }
 }

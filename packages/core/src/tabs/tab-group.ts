@@ -49,7 +49,7 @@ export class TabGroup extends LitElement {
    * Get the selected tab button, or the first tab button.
    */
   private get initialSelectedTab(): Tab | null {
-    return this.querySelector('sl-tab[selected]') || this.querySelector('sl-tab');
+    return this.querySelector('sl-tab[selected]') || this.querySelector('sl-tab:not([disabled])');
   }
 
   override render(): TemplateResult {

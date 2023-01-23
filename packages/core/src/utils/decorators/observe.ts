@@ -1,4 +1,5 @@
 import type { ReactiveController, ReactiveElement } from 'lit';
+import type { ClassElement } from './base.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ObserveFunction = (oldValue: any, newValue: any, name: PropertyKey) => void;
@@ -35,28 +36,24 @@ class PropertyObserverController<T extends ReactiveElement, TKey extends keyof T
 }
 
 export function observe(propertyName: string, lifecycle: ObserveLifecycle = 'update') {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return function decorator(target: any, methodName: string) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return function decorator(target: ReactiveElement | ClassElement, methodName: string) {
     const proto = target.constructor as typeof ReactiveElement;
 
     proto.addInitializer(el => {
       type Key = keyof typeof el;
       const cb = el[methodName as Key] as ObserveFunction;
-
-      // since we can't get strong typing here, we can add a runtime check
-      // this will get stripped out in prod, and should only ever happen in dev anyway
-      if (process.env.NODE_ENV === 'development') {
-        if (!(propertyName in el)) {
-          throw new TypeError(
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            `@observe: property '${propertyName}' does not exist.\nPossible properties: ${Object.keys(target)
-              .map(p => `'${p}'`)
-              .join(', ')}`
-          );
-        }
+      // // since we can't get strong typing here, we can add a runtime check
+      // // this will get stripped out in prod, and should only ever happen in dev anyway
+      // if (process?.env.NODE_ENV === 'development') {
+      if (!(propertyName in el)) {
+        throw new TypeError(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          `@observe: property '${propertyName}' does not exist.\nPossible properties: ${Object.keys(target)
+            .map(p => `'${p}'`)
+            .join(', ')}`
+        );
       }
-
+      // }
       el.addController(new PropertyObserverController(el, propertyName as Key, cb, lifecycle));
     });
   };

@@ -7,13 +7,13 @@
     "start": "wireit",
     "build": "wireit",
     "watch": "wireit",
-    "test": "wiureit",
+    "test": "wireit",
     "build:compodoc": "wireit",
     "storybook-build": "wireit",
     "storybook": "wireit",
     "docs": "wireit",
     "docs:json": "wireit",
-    "lint": "ng lint"
+    "lint": "wireit"
   },
   "wireit": {
     "ng": {
@@ -53,6 +53,9 @@
     },
     "docs:json": {
       "command": "compodoc -p ./tsconfig.json -e json -d ."
+    },
+    "lint": {
+      "command": "ng lint"
     }
   },
   "private": true,

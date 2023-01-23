@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import type { User } from './User';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'storybook-page',
   template: `<article>
     <storybook-header

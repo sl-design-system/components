@@ -12,7 +12,8 @@
     "storybook-build": "wireit",
     "storybook": "wireit",
     "docs": "wireit",
-    "docs:json": "wireit"
+    "docs:json": "wireit",
+    "lint": "ng lint"
   },
   "wireit": {
     "ng": {
@@ -71,6 +72,11 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.1.2",
+    "@angular-eslint/builder": "15.2.0",
+    "@angular-eslint/eslint-plugin": "15.2.0",
+    "@angular-eslint/eslint-plugin-template": "15.2.0",
+    "@angular-eslint/schematics": "15.2.0",
+    "@angular-eslint/template-parser": "15.2.0",
     "@angular/cli": "~15.1.2",
     "@angular/compiler-cli": "^15.1.0",
     "@compodoc/compodoc": "^1.1.19",
@@ -81,6 +87,9 @@
     "@storybook/blocks": "^7.0.0-beta.28",
     "@storybook/testing-library": "^0.0.13",
     "@types/jasmine": "~4.3.0",
+    "@typescript-eslint/eslint-plugin": "5.48.1",
+    "@typescript-eslint/parser": "5.48.1",
+    "eslint": "^8.31.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",

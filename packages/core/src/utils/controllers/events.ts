@@ -26,13 +26,6 @@ export class EventsController implements ReactiveController {
     this.#listeners = [];
   }
 
-  // listen(
-  //   host: Node,
-  //   type: string,
-  //   listener: EventListenerOrEventListenerObject,
-  //   options?: boolean | AddEventListenerOptions
-  // ): void;
-
   listen<K extends keyof GlobalEventHandlersEventMap>(
     host: Node,
     type: K,

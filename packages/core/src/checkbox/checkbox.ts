@@ -93,14 +93,6 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     `;
   }
 
-  // override resetFormControl(): void {
-  //   this.checked = this.hasAttribute('checked');
-  // }
-
-  // override shouldFormValueUpdate(): boolean {
-  //   return this.checked;
-  // }
-
   #onClick(event: Event): void {
     // If the user clicked the label, toggle the checkbox
     if (event.target === this) {

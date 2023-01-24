@@ -109,8 +109,13 @@ export class TabGroup extends LitElement {
   private setupPanels(): void {
     const panels = this.querySelectorAll('sl-tab-panel');
     const selectedPanelId = this.selectedTab?.getAttribute('aria-controls');
+    const tabIndex = this.selectedTab ? Array.from(this.querySelectorAll('sl-tab')).indexOf(this.selectedTab) : 0;
 
-    if (panels.length > 1) {
+    if (panels.length === 1) {
+      panels[0].setAttribute('id', `${this.tabGroupId}-panel-${tabIndex + 1}`);
+      panels[0].setAttribute('aria-labelledby', `${this.tabGroupId}-tab-${tabIndex + 1}`);
+      panels[0].setAttribute('aria-hidden', 'false');
+    } else {
       panels.forEach((panel, index) => {
         panel.setAttribute('id', `${this.tabGroupId}-panel-${index + 1}`);
         panel.setAttribute('aria-labelledby', `${this.tabGroupId}-tab-${index + 1}`);
@@ -161,8 +166,8 @@ export class TabGroup extends LitElement {
     const panels = this.querySelectorAll('sl-tab-panel');
 
     if (panels.length === 1) {
-      panels[0].setAttribute('id', `${this.tabGroupId}-panel-${tabIndex}`);
-      panels[0].setAttribute('aria-labelledby', `${this.tabGroupId}-tab-${tabIndex}`);
+      panels[0].setAttribute('id', `${this.tabGroupId}-panel-${tabIndex + 1}`);
+      panels[0].setAttribute('aria-labelledby', `${this.tabGroupId}-tab-${tabIndex + 1}`);
     } else {
       panels.forEach(panel => {
         panel.setAttribute('aria-hidden', `${panel !== selectedPanel ? 'true' : 'false'}`);

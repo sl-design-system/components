@@ -107,5 +107,10 @@ TODO:
 - how vertical tabs works and wrapping sections
 
 TODO: how to create a PR
+When you'll finish your work on adding documentation for the component, you need to create a Pull Request. 
+Simply go to `branches` and click `New pull request` button which you can find next to your branch name.
 
+After creating a Pull Request you can preview website with your changes:
+
+![image](https://user-images.githubusercontent.com/111562742/214328940-f30f8ae4-da40-4ba2-a0d7-85b1b2a223d4.png)
 

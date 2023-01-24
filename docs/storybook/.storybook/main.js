@@ -1,6 +1,6 @@
 export default {
   stories: [
-    '../stories/**/*.stories.mdx', 
+    '../stories/**/*.stories.mdx',
     '../stories/**/*.stories.@(js|jsx|ts|tsx)'
   ],
   addons: [
@@ -35,6 +35,10 @@ export default {
     grid: {
       title: 'Grid',
       url: '/grid/'
+    },
+    angular: {
+      title: 'Angular',
+      url: '/angular/'
     }
   },
   staticDirs: [{ from: '../../../packages/tokens/src/themes', to: '/themes' }]

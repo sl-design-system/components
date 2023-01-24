@@ -1,19 +1,18 @@
-const path = require('path');
-module.exports = {
-  "stories": [
+export default {
+  stories: [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
-  "addons": [
+  addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions"
   ],
-  "framework": {
+  framework: {
     "name": "@storybook/angular",
     "options": {}
   },
-  "docs": {
+  docs: {
     "autodocs": "tag"
   }
-}
+};

@@ -389,7 +389,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/cli@npm:^15.1.2, @angular/cli@npm:~15.1.2":
+"@angular/cli@npm:~15.1.2":
   version: 15.1.2
   resolution: "@angular/cli@npm:15.1.2"
   dependencies:
@@ -3462,7 +3462,6 @@ __metadata:
   resolution: "@sanomalearning/slds-root@workspace:."
   dependencies:
     "@11ty/eleventy": ^1.0.2
-    "@angular/cli": ^15.1.2
     "@changesets/cli": ^2.26.0
     "@changesets/get-github-info": ^0.5.2
     "@custom-elements-manifest/analyzer": ^0.6.8

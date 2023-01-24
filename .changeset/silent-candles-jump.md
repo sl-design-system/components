@@ -2,4 +2,4 @@
 '@sanomalearning/slds-angular': minor
 ---
 
-Setup initial Angular integration
+Initial Angular integration setup

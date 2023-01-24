@@ -1,4 +1,4 @@
-import type { Constructor } from '../../utils/mixin-types.js';
+import type { Constructor } from '../../utils/mixins/types.js';
 import type { ReactiveElement } from 'lit';
 import type { AnchoredInterface } from './anchored.js';
 import type { PopoverInterface } from './popover.js';

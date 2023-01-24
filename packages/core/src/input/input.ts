@@ -1,9 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { FormControlMixin } from '@open-wc/form-control';
+import type { Validator } from '../utils/index.js';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { EventsController } from '../utils/controllers/index.js';
-import { HintMixin } from '../utils/form-control/index.js';
+import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
+import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
 import styles from './input.scss.js';
 
 let nextUniqueId = 0;
@@ -17,19 +17,30 @@ let nextUniqueId = 0;
  */
 export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [validationStyles, styles];
 
-  /** Events controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, {
+    click: this.#onClick
+  });
+
+  #onKeydown = ({ key }: KeyboardEvent): void => {
+    if (key === 'Enter') {
+      this.input.form?.requestSubmit();
+    }
+  };
+
+  #validation = new ValidationController(this, {
+    target: () => this.input
+  });
 
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
 
+  /** Element internals. */
+  readonly internals = this.attachInternals();
+
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete?: string;
-
-  /** Whether the input is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -43,16 +54,16 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** Placeholder text in the input. */
   @property() placeholder?: string;
 
-  /** Whether the input is required. */
-  @property({ type: Boolean, reflect: true }) required?: boolean;
-
   /**
    * The input type. Only text types are valid here. For other types,
    * see their respective components.
    */
   @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text';
 
-  /** The value of the input. */
+  /** Custom validators specified by the user. */
+  @property({ attribute: false }) validators?: Validator[];
+
+  /** The value for the input. */
   @property() value?: string;
 
   override connectedCallback(): void {
@@ -60,17 +71,19 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
-      this.input.autocomplete ||= 'off';
+      this.input.autocomplete ||= this.autocomplete || 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
       this.input.slot = 'input';
+      this.input.addEventListener('keydown', this.#onKeydown);
 
       if (!this.input.parentElement) {
         this.append(this.input);
       }
-    }
 
-    this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this.input, 'keydown', this.#onKeydown);
+      this.setFormControlElement(this.input);
+
+      this.#validation.validate(this.value);
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -81,14 +94,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
         this.input.setAttribute('autocomplete', this.autocomplete);
       } else {
         this.input.removeAttribute('autocomplete');
-      }
-    }
-
-    if (changes.has('disabled')) {
-      if (this.disabled) {
-        this.input.setAttribute('disabled', '');
-      } else {
-        this.input.removeAttribute('disabled');
       }
     }
 
@@ -124,16 +129,12 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       }
     }
 
-    if (changes.has('required')) {
-      if (this.required) {
-        this.input.setAttribute('required', '');
-      } else {
-        this.input.removeAttribute('required');
-      }
-    }
-
     if (changes.has('type')) {
       this.input.type = this.type;
+    }
+
+    if (changes.has('value') && this.value !== this.input.value) {
+      this.input.value = this.value || '';
     }
   }
 
@@ -144,7 +145,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
         <slot @slotchange=${this.#onSlotchange} name="input"></slot>
         <slot name="suffix"></slot>
       </div>
-      ${this.renderHint()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 
@@ -158,12 +159,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
-  }
-
-  #onKeydown({ key }: KeyboardEvent): void {
-    if (key === 'Enter') {
-      this.input.form?.requestSubmit();
-    }
+    this.#validation.validate(this.value);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
@@ -172,9 +168,14 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (inputs.length) {
+      this.input.removeEventListener('keydown', this.#onKeydown);
+
       this.input = inputs.at(0) as HTMLInputElement;
-      this.input.autocomplete ||= 'off';
+      this.input.autocomplete ||= this.autocomplete || 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
+      this.input.addEventListener('keydown', this.#onKeydown);
+
+      this.setFormControlElement(this.input);
     }
   }
 }

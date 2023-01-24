@@ -102,6 +102,22 @@ and then ...
 
 TODO:
 - how to add images
+
+Images should be stored in the `assets` directory:
+
+![image](https://user-images.githubusercontent.com/111562742/214331361-fa025dbf-7e9d-4242-88d2-d621c1ab4460.png)
+
+First we need to upload files which we need
+
+<img alt="image" src="https://user-images.githubusercontent.com/111562742/214331556-d7701709-4b0d-4af8-ad68-d036c77f6e0a.png">
+
+![image](https://user-images.githubusercontent.com/111562742/214331641-b929f553-829e-441f-b02f-2d8cedd33dd2.png)
+
+and then we can use them in our markdown files as follows (please remember about commiting changes first):
+
+`![Alt text example](/assets/images/example-dont.svg "don't picture")` where `Alt text example` is an alternative text (`alt` attribute), more: https://www.w3.org/TR/WCAG20-TECHS/H37.html
+
+
 - table
 - do and don't sections
 - how vertical tabs works and wrapping sections

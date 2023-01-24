@@ -54,7 +54,7 @@ export class Editor extends FormControlMixin(HintMixin(LitElement)) {
     this.#value = value;
 
     if (this.#view) {
-      setHTML(value?.toString() || '')(this.#view.state, this.#view.dispatch, this.#view);
+      setHTML(value || '')(this.#view.state, this.#view.dispatch, this.#view);
     }
 
     this.requestUpdate('value', oldValue);

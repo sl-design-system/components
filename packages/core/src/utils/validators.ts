@@ -108,7 +108,7 @@ export const minLengthValidator: Validator = {
       return true;
     }
 
-    if (!!value && instance.minLength > value.length) {
+    if (value && instance.minLength > value.length) {
       return false;
     }
 

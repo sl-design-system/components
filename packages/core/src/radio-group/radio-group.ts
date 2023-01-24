@@ -121,7 +121,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
       // This component is weird in that it doesn't actually contain the form controls,
       // those are the `<sl-radio>` custom elements in the light DOM. So run the validation
       // manually from here.
-      // this.#validation.validate();
+      this.#validation.validate(this.value);
     }
   }
 }

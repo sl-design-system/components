@@ -100,16 +100,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (changes.has('required') && isNative(this.formControlElement)) {
         this.formControlElement.toggleAttribute('required', this.required);
       }
-
-      // if (changes.has('value') && this.value !== this.#cachedValue) {
-      //   this.#cachedValue = this.value;
-
-      //   if (isNative(this.formControlElement)) {
-      //     this.formControlElement.value = this.value?.toString() ?? '';
-      //   } else {
-      //     this.formControlElement.internals.setFormValue(this.value ?? null);
-      //   }
-      // }
     }
 
     checkValidity(): boolean {
@@ -139,13 +129,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     setFormValue(value?: FormControlValue): void {
       this.#cachedValue = value;
 
-      const valueShouldUpdate = true, //this.shouldFormValueUpdate(),
-        valueToUpdate = valueShouldUpdate ? value : null;
-
       if (isNative(this.formControlElement)) {
-        this.formControlElement.value = valueToUpdate?.toString() ?? '';
+        this.formControlElement.value = value?.toString() ?? '';
       } else {
-        this.formControlElement.internals.setFormValue(valueToUpdate ?? null);
+        this.formControlElement.internals.setFormValue(value ?? null);
       }
     }
   }

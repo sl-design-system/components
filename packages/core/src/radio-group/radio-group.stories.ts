@@ -1,5 +1,7 @@
+import type { RadioGroup } from './radio-group.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import '../button/register.js';
 import './register.js';
 
 export default {
@@ -9,20 +11,16 @@ export default {
 export const API: StoryObj = {
   args: {
     disabled: false,
-    orientation: 'vertical'
+    horizontal: false
   },
   argTypes: {
-    orientation: {
-      control: 'inline-radio',
-      options: ['horizontal', 'vertical']
-    },
     value: {
       control: 'inline-radio',
       options: ['1', '2', '3']
     }
   },
-  render: ({ disabled, orientation, value }) => html`
-    <sl-radio-group ?disabled=${disabled} .orientation=${orientation} .value=${value}>
+  render: ({ disabled, horizontal, value }) => html`
+    <sl-radio-group ?disabled=${disabled} ?horizontal=${horizontal} .value=${value}>
       <sl-radio value="1">One</sl-radio>
       <sl-radio value="2">Two</sl-radio>
       <sl-radio value="3">Three</sl-radio>
@@ -41,6 +39,16 @@ export const Disabled: StoryObj = {
   `
 };
 
+export const Horizontal: StoryObj = {
+  render: () => html`
+    <sl-radio-group horizontal>
+      <sl-radio value="1">One</sl-radio>
+      <sl-radio value="2">Two</sl-radio>
+      <sl-radio value="3">Three</sl-radio>
+    </sl-radio-group>
+  `
+};
+
 export const Selected: StoryObj = {
   render: () => html`
     <sl-radio-group value="2">
@@ -54,12 +62,12 @@ export const Selected: StoryObj = {
 export const Label: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="radio-group">How many pets do you have?</sl-label>
       <sl-radio-group id="radio-group">
         <sl-radio value="0">None</sl-radio>
@@ -67,19 +75,19 @@ export const Label: StoryObj = {
         <sl-radio value="2">Two</sl-radio>
         <sl-radio value="3">Three</sl-radio>
       </sl-radio-group>
-    </div>
+    </form>
   `
 };
 
 export const Hint: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="radio-group">How many pets do you have?</sl-label>
       <sl-radio-group id="radio-group" hint="Fish count as well.">
         <sl-radio value="0">None</sl-radio>
@@ -87,19 +95,19 @@ export const Hint: StoryObj = {
         <sl-radio value="2">Two</sl-radio>
         <sl-radio value="3">Three</sl-radio>
       </sl-radio-group>
-    </div>
+    </form>
   `
 };
 
 export const RichLabelHint: StoryObj = {
   render: () => html`
     <style>
-      div:not([slot]) {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="radio-group">
         <label slot="label">Custom <i>label</i></label>
       </sl-label>
@@ -112,6 +120,41 @@ export const RichLabelHint: StoryObj = {
           Hint is an accessible way to provide <strong>additional information</strong> that might help the user
         </div>
       </sl-radio-group>
-    </div>
+    </form>
   `
+};
+
+export const Required: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as RadioGroup)?.reportValidity();
+    };
+
+    return html`
+      <sl-radio-group required>
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+      </sl-radio-group>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
+};
+
+export const CustomValidation: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as RadioGroup)?.reportValidity();
+    };
+
+    return html`
+      <sl-radio-group required>
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+        <sl-radio value="3">Three</sl-radio>
+        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
+      </sl-radio-group>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
 };

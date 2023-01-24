@@ -58,7 +58,7 @@ export const Required: StoryObj = {
       }
     </style>
     <form>
-      <sl-label for="input">This label <em>shousdsdfld</em> be marked as required</sl-label>
+      <sl-label for="input">This label should be marked as required</sl-label>
       <sl-input required id="input"></sl-input>
 
       <sl-label for="input2">Optional input</sl-label>

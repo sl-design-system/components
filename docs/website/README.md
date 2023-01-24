@@ -66,9 +66,9 @@ When you want to save/commit your changes you should use option as follows:
 <img alt="image" src="https://user-images.githubusercontent.com/111562742/214265893-3f964887-8e12-4774-a40a-e70c8da0775e.png">
 
 Write proper commit message and use option 
-> "Commit directly to the `docs/your-branch-name` branch" 
+> Commit directly to the `docs/your-branch-name` branch 
 
-and click `commit changes` button.
+and click `Commit changes` button.
 
 ### `specs.md` file
 
@@ -76,21 +76,21 @@ and click `commit changes` button.
 
 
 
-## Add documentation for totally new component
+## Add documentation for a totally new component
 
 If you'll need to add files structure for other component such as `radio` component for example, you should follow these steps:
 ...
 - Please check if you're on the right branch
 - Go to the directory `categories/components`
  
-![image](https://user-images.githubusercontent.com/111562742/214264218-83a2d908-6523-4ed5-90a2-c58a856c569a.png) 
+  ![image](https://user-images.githubusercontent.com/111562742/214264218-83a2d908-6523-4ed5-90a2-c58a856c569a.png) 
 
-and click `Add file` button and then `Create new file` to add a `radio` directory and `radio.json` file.
+- Click `Add file` button and then `Create new file` to add a `radio` directory and `radio.json` file inside.
 
-![image](https://user-images.githubusercontent.com/111562742/214283301-fa79efe4-a8d6-4c85-8a1f-e5f8c6b97263.png)
+  ![image](https://user-images.githubusercontent.com/111562742/214283301-fa79efe4-a8d6-4c85-8a1f-e5f8c6b97263.png)
 
 
-https://user-images.githubusercontent.com/111562742/214285713-44396c59-8fd3-4cac-bd57-0c7989733e36.mov
+  https://user-images.githubusercontent.com/111562742/214285713-44396c59-8fd3-4cac-bd57-0c7989733e36.mov
 
 
 

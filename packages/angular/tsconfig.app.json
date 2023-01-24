@@ -5,10 +5,10 @@
     "types": []
   },
   "files": [
-    "src/main.ts"
+    "projects/angular-app/src/main.ts"
   ],
   "include": [
-    "src/**/*.d.ts"
+    "projects/angular-app/src/**/*.d.ts"
   ],
   "exclude": [
     "**/*.stories.*"

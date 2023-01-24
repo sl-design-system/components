@@ -1,7 +1,7 @@
 export default {
   stories: [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+    "../projects/angular-app/src/**/*.mdx",
+    "../projects/angular-app/src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   addons: [
     "@storybook/addon-links",

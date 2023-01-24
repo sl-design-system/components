@@ -46,13 +46,13 @@
       "command": "ng test"
     },
     "storybook-build": {
-      "command": "ng run angular:build-storybook"
+      "command": "ng run angular-app:build-storybook"
     },
     "storybook": {
-      "command": "ng run angular:storybook"
+      "command": "ng run angular-app:storybook"
     },
     "docs": {
-      "command": "ng run angular:docs",
+      "command": "ng run angular-app:docs",
       "dependencies": [
         "build",
         "build:compodoc",

@@ -3,34 +3,34 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular": {
+    "angular-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/angular-app/",
+      "sourceRoot": "projects/angular-app/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular",
-            "index": "src/index.html",
-            "main": "src/main.ts",
+            "outputPath": "dist/angular-app",
+            "index": "projects/angular-app/src/index.html",
+            "main": "projects/angular-app/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/angular-app/src/favicon.ico",
+              "projects/angular-app/src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "projects/angular-app/src/styles.scss"
             ],
             "scripts": []
           },
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular:build:production"
+              "browserTarget": "angular-app:build:production"
             },
             "development": {
-              "browserTarget": "angular:build:development"
+              "browserTarget": "angular-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular:build"
+            "browserTarget": "angular-app:build"
           }
         },
         "test": {
@@ -89,11 +89,11 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/angular-app/src/favicon.ico",
+              "projects/angular-app/src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "projects/angular-app/src/styles.scss"
             ],
             "scripts": []
           }
@@ -101,7 +101,7 @@
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
-            "browserTarget": "angular:build",
+            "browserTarget": "angular-app:build",
             "port": 6007,
             "quiet": true
           }
@@ -109,14 +109,14 @@
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
-            "browserTarget": "angular:build",
+            "browserTarget": "angular-app:build",
             "quiet": true
           }
         },
         "docs": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
-            "browserTarget": "angular:build",
+            "browserTarget": "angular-app:build",
             "outputDir": "../../docs/dist/angular",
             "quiet": true
           }
@@ -125,8 +125,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
+              "projects/angular-app/src/**/*.ts",
+              "projects/angular-app/src/**/*.html"
             ]
           }
         }

@@ -7,11 +7,11 @@
     "allowSyntheticDefaultImports": true
   },
   "exclude": [
-    "../src/test.ts",
-    "../src/**/*.spec.ts"
+    "../projects/angular-app/src/test.ts",
+    "../projects/angular-app/src/**/*.spec.ts"
   ],
   "include": [
-    "../src/**/*"
+    "../projects/angular-app/src/**/*"
   ],
   "files": [
     "./typings.d.ts"

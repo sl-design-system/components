@@ -33,13 +33,13 @@ Every component directory consists of **7 files**, like for a **button** directo
 ![image](https://user-images.githubusercontent.com/111562742/214264654-af3891e9-8814-45e0-b550-fc57d2f5af16.png)
 
 
-- `accessibility.md` - file keeps content for the **“Accessibility”** tab for a button component
-- `button.json` - keeps information about layout and tags, **layout** should be the same for every component and **tags** should contain component name like "button" in this example
-- `button.md` - file keeps informations such like **title**, which contains component name and **description**, which contains short component description
-- `code.md` - file keeps content for the **“Code”** tab for a button component
-- `overview.md` - file keeps content for the **“Overview”** tab for a button component
-- `specs.md` - file keeps content for the **“Specs”** tab for a button component
-- `usage.md` - file keeps content for the **“Usage”** tab for a button component
+- `accessibility.md` - file contains content for the **“Accessibility”** tab for a button component
+- `button.json` - contains information about layout and tags, **layout** should be the same for every component and **tags** should contain component name like "button" in this example
+- `button.md` - file contains informations such like **title**, which contains component name and **description**, which contains short component description
+- `code.md` - file contains content for the **“Code”** tab for a button component
+- `overview.md` - file contains content for the **“Overview”** tab for a button component
+- `specs.md` - file contains content for the **“Specs”** tab for a button component
+- `usage.md` - file contains content for the **“Usage”** tab for a button component
 
 More information about component's files content you can find below.
 
@@ -49,11 +49,11 @@ More information about component's files content you can find below.
 
 ![image](https://user-images.githubusercontent.com/111562742/214271396-14edcc44-d487-4fb4-822b-cef63e7da0d5.png)
 
-`button.json` file consists of **layout** and **tags** elements. Layout should be the same for every component `"components/components.njk"` and tags should contain component name like `"button"` in this example.
+`button.json` file consists of **layout** and **tags** elements. Layout should be the same for every component `"components/components.njk"` and tags should contain component name like `"button"` in this example. If there will be a component with more complex name like `button bar`, **tags** element will contain `"button-bar"` and name of the file should be the same (`button-bar.json`). Please use kebab case for complex component names.
 
 ## Component markdown files
 
-> Please, keep in mind that identation in markdown files is an important thing.
+> Please, keep in mind that indentation in markdown files is an important thing.
 
 Markdown files contain YAML header with arguments, which are used for different purposes such like navigation, page title, layout etc.
 
@@ -75,12 +75,12 @@ eleventyNavigation:
   - `title` contains a component name, which we can find in the output file:
     <img width="482" alt="image" src="https://user-images.githubusercontent.com/111562742/214508369-2bd45963-1013-4214-ba01-3c4e6a58a461.png">
     
-    - `description` contains short description of the component, which we can find in the output file:
+  - `description` contains short description of the component, which we can find in the output file:
     <img width="482" alt="image" src="https://user-images.githubusercontent.com/111562742/214509804-c19ff048-cd43-4cf7-8044-3451b84ad6d9.png">
 
-    - `layout` for components should always contain `"components/components.njk"`
-    - `tags` should always contain `component` for `component.md` files
-    - `eleventyNavigation` contains options used for navigation on our website, `parent` should be `Components` and `order` represents order of showing components in our navigation (Button order is 2, so we can find it on the second place under `Components` navigation item):   
+  - `layout` for components should always contain `"components/components.njk"`
+  - `tags` should always contain `component` for `component.md` files
+  - `eleventyNavigation` contains options used for navigation on our website, `parent` should be `Components` and `order` represents order of showing components in our navigation (Button order is 2, so we can find it on the second place under `Components` navigation item):   
 
       ![image](https://user-images.githubusercontent.com/111562742/214509125-5fbb9df4-f869-4207-8bb4-a2bc3bd7b191.png)
 

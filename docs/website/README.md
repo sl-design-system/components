@@ -26,6 +26,8 @@ eg.:
 
   - Checkbox should have path like `docs/website/src/site/categories/components/checkbox` etc. 
 
+## Component's files structure
+
 Every component directory consists of **7 files**, like for a **button** directory there will be:
 
 ![image](https://user-images.githubusercontent.com/111562742/214264654-af3891e9-8814-45e0-b550-fc57d2f5af16.png)
@@ -268,7 +270,32 @@ Place text here
 Do and don't elements should be wrapped together with `<div class=ds-do-dont></div>`.
 
 
-To sum up the whole file structure:
+#### Table
+
+Table in the markdown file looks as follows:
+
+```
+| Element | Attribute              | Value                | Description                                                                                    |
+---------|------------------------|----------------------|------------------------------------------------------------------------------------------------|
+| Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
+| Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
+| Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
+| Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
+
+{.ds-table}
+```
+
+Important thing is to add `{.ds-table}` and one line separator between the table and `{.ds-table}`.
+
+`{.ds-table}` represents css class with styles for the table.
+
+And it results in:
+
+![image](https://user-images.githubusercontent.com/111562742/214527489-c9a737db-2745-452d-9701-8de2e9bb2bda.png)
+
+
+
+To sum up the whole **overview.md** file structure:
 
 <img alt="image" src="https://user-images.githubusercontent.com/111562742/214557389-0b87338d-93a8-4d34-8354-cb76eeb92698.png">
 
@@ -356,7 +383,6 @@ eleventyNavigation:
 ## Add documentation for a totally new component
 
 If you'll need to add files structure for other component such as `radio` component for example, you should follow these steps:
-...
 - Please check if you're on the right branch
 - Go to the directory `categories/components`
  
@@ -372,7 +398,8 @@ If you'll need to add files structure for other component such as `radio` compon
 
 
 
-and then ...
+and then you can add other files, which are listed [here](#components-files-structure) andb their content as well.
+
 
 
 

@@ -1,15 +1,26 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { EventEmitter } from '../utils/decorators/event.js';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import { event } from '../utils/decorators/event.js';
 import { RovingTabindexController } from '../utils/controllers/roving-tabindex.js';
 import { Tab } from './tab.js';
 import styles from './tab-group.scss.js';
+import { TabPanel } from './tab-panel.js';
 
 let tabGroupCount = 0;
 
-export class TabGroup extends LitElement {
+export class TabGroup extends ScopedElementsMixin(LitElement) {
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-tab': Tab,
+      'sl-tab-panel': TabPanel
+    };
+  }
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -65,15 +76,15 @@ export class TabGroup extends LitElement {
     this.updateSlots();
   }
 
-  private updateSlots(): void {
-    this.setupTabs();
-    this.setupPanels();
-  }
-
   override firstUpdated(): void {
     this.observer = new MutationObserver(this.handleMutation);
     this.observer?.observe(this, TabGroup.observerOptions);
     setTimeout(() => this.#updateSelectionIndicator(), 100);
+  }
+
+  private updateSlots(): void {
+    this.setupTabs();
+    this.setupPanels();
   }
 
   /**
@@ -140,10 +151,11 @@ export class TabGroup extends LitElement {
    * Update the tab group state.
    */
   private updateSelectedTab(selectedTab: Tab): void {
-    if (selectedTab === this.selectedTab || selectedTab.disabled) return;
+    const controls = selectedTab.getAttribute('aria-controls');
 
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const selectedPanel = this.querySelector(`#${selectedTab.getAttribute('aria-controls')}`);
+    if (selectedTab === this.selectedTab || !controls || selectedTab.disabled) return;
+
+    const selectedPanel = this.querySelector(`#${controls}`);
     const tabIndex = Array.from(this.querySelectorAll('sl-tab')).indexOf(selectedTab);
 
     /**

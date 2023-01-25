@@ -437,14 +437,14 @@
       },
       "black": {
         "base": {
-          "value": "#2D2A38",
+          "value": "#253646",
           "type": "color",
           "description": "color.palette.black.base"
         }
       },
       "white": {
         "base": {
-          "value": "#F9F9F9",
+          "value": "#FEFEFE",
           "type": "color",
           "description": "color.palette.white.base"
         }

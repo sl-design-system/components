@@ -1,4 +1,4 @@
-import type { Constructor } from '../../utils/mixin-types.js';
+import type { Constructor } from '../../utils/mixins/types.js';
 import type { CSSResultGroup, PropertyValues, ReactiveElement } from 'lit';
 import { css } from 'lit';
 import { property } from 'lit/decorators.js';

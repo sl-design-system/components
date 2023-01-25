@@ -3,6 +3,7 @@
   --_foreground: #fff;
   --_border: 1px solid var(--_border-color, #ccc);
   --_gap: 0.25rem;
+  --_line-height: 1.5rem;
   --_padding: 2px;
   --_size: 1rem;
 }
@@ -12,6 +13,7 @@
   cursor: pointer;
   display: inline-flex;
   gap: var(--_gap);
+  line-height: var(--_line-height);
   outline: none;
 }
 
@@ -41,6 +43,7 @@
   display: inline-flex;
   flex-shrink: 0;
   height: var(--_size);
+  margin-block-start: calc((var(--_line-height) - var(--_size)) / 2);
   padding: var(--_padding);
   width: var(--_size);
 

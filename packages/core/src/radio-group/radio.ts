@@ -10,7 +10,10 @@ export class Radio extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+  });
 
   /** Element internals. */
   readonly internals = this.attachInternals();
@@ -28,8 +31,6 @@ export class Radio extends LitElement {
     super.connectedCallback();
 
     this.internals.role = 'radio';
-
-    this.#events.listen(this, 'click', this.#onClick);
 
     // Move this to a new `FocusableMixin`
     if (!this.hasAttribute('tabindex')) {
@@ -63,5 +64,14 @@ export class Radio extends LitElement {
     event.stopPropagation();
 
     this.checked = true;
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.click();
+    }
   }
 }

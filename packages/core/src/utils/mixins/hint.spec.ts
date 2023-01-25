@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { expect, fixture } from '@open-wc/testing';
 import { html, LitElement } from 'lit';
-import { HintMixin } from './hint-mixin.js';
+import { HintMixin } from './hint.js';
 
 class TestHint extends HintMixin(LitElement) {
   override firstUpdated(): void {

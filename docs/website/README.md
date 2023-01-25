@@ -129,7 +129,47 @@ which results in the output file:
 
 #### Component example with code
 
-#### "Do" element
+An element added to show component live example and example component code.
+
+````
+<div class="ds-example">
+
+<sl-button fill="default" variant="primary" size="md">Button</sl-button>
+
+</div>
+
+<div class="ds-code">
+
+  ```html
+  <sl-button fill="default" variant="primary" size="md">Button</sl-button>
+  ```
+
+</div>
+````
+
+Results in:
+
+![image](https://user-images.githubusercontent.com/111562742/214560649-3946b414-0067-4564-ba28-e03d3e3d79cd.png)
+
+
+#### Images - how to add and use
+
+Images should be stored in the `assets` directory:
+
+![image](https://user-images.githubusercontent.com/111562742/214331361-fa025dbf-7e9d-4242-88d2-d621c1ab4460.png)
+
+First we need to upload files which we need
+
+<img alt="image" src="https://user-images.githubusercontent.com/111562742/214331556-d7701709-4b0d-4af8-ad68-d036c77f6e0a.png">
+
+![image](https://user-images.githubusercontent.com/111562742/214331641-b929f553-829e-441f-b02f-2d8cedd33dd2.png)
+
+and then we can use them in our markdown files as follows (please remember about commiting changes first):
+
+`![Alt text example](/assets/images/example-dont.svg "don't picture")` where `Alt text example` is an alternative text (`alt` attribute), more: https://www.w3.org/TR/WCAG20-TECHS/H37.html
+
+
+#### "Do" part
 
 An element added to show how we recommend using our component.
 
@@ -158,7 +198,7 @@ Results in:
 ![image](https://user-images.githubusercontent.com/111562742/214552688-ab9eedbb-b35b-4a0b-852f-d491a0ebc243.png)
 
 
-#### "Don't" element
+#### "Don't" part
 
 An element added to show how we not recommend using our component.
 
@@ -188,7 +228,7 @@ Results in:
 ![image](https://user-images.githubusercontent.com/111562742/214552762-642429e6-c600-4e1d-b69a-572ffc97ab49.png)
 
 
-#### Do and don't section together
+#### Do and don't parts together
 
 ```
 <div class=ds-do-dont>
@@ -237,7 +277,7 @@ To sum up the whole file structure:
 
 <img alt="image" src="https://user-images.githubusercontent.com/111562742/214558525-13d823b9-24f9-4dce-8aa6-a6a0c8e49f30.png">
 
-
+All elements like **do** and **don't** part, **code** example, **table** etc. can be used in other component's markdown files as well.
 
 When you want to save/commit your changes you should use option as follows:
 

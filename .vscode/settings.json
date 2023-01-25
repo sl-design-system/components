@@ -7,8 +7,5 @@
   "eslint.format.enable": true,
   "[typescriptreact]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "files.exclude": {
-    "**/*.scss.ts": true
   }
 }

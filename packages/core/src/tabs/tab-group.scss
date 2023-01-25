@@ -3,7 +3,9 @@
   --indicator-color: var(--dna-primary);
   --indicator-size: 4px;
   --indicator-transition: var(--dna-transition-normal, 0.2s ease-in-out);
+}
 
+:host {
   display: flex;
   flex-direction: column;
   gap: 8px;

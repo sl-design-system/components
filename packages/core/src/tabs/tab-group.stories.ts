@@ -17,7 +17,7 @@ export const API: StoryObj = {
         padding: 8px;
       }
     </style>
-    <sl-tab-group .vertical="${vertical}">
+    <sl-tab-group .vertical=${vertical}>
       <sl-tab disabled>🧁 Tab 1</sl-tab>
       <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
 
@@ -37,7 +37,7 @@ export const API: StoryObj = {
 };
 
 export const LongTitles: StoryObj = {
-  render: ({ vertical }) => html`<sl-tab-group .vertical="${vertical}">
+  render: ({ vertical }) => html`<sl-tab-group .vertical=${vertical}>
     <sl-tab selected>This is the first tab</sl-tab>
     <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(4)}</sl-tab-panel>
 
@@ -72,7 +72,7 @@ export const LongTitles: StoryObj = {
 
 export const ExternalInteraction: StoryObj = {
   render: ({ vertical }) => html`
-    <sl-tab-group .vertical="${vertical}" id="externalInteraction" @sl-tab-change="${tabChange}">
+    <sl-tab-group .vertical=${vertical} id="externalInteraction" @sl-tab-change=${tabChange}>
       <sl-tab selected>Tab 1</sl-tab>
       <sl-tab>Tab 2</sl-tab>
       <sl-tab>Tab 3</sl-tab>
@@ -93,7 +93,7 @@ export const SingleTab: StoryObj = {
         padding: 8px;
       }
     </style>
-    <sl-tab-group .vertical="${vertical}" id="singleTab" @sl-tab-change="${tabChange}">
+    <sl-tab-group .vertical=${vertical} id="singleTab" @sl-tab-change=${tabChange}>
       <sl-tab>Tab 1</sl-tab>
       <sl-tab>Tab 2</sl-tab>
       <sl-tab selected>Tab 3</sl-tab>

@@ -4,7 +4,7 @@
 
 https://github.com/sanomalearning/design-system/branches
 
-Create new branch:
+Create a new branch:
 
 <img alt="new branch image" src="https://user-images.githubusercontent.com/111562742/214255469-ce8a7d79-cf6f-41f2-a4b7-7fca8b829a43.png">
 
@@ -51,6 +51,8 @@ More information about component's files content you can find below.
 
 ## Component markdown files
 
+> Identation in markdown files is an important thing.
+
 Markdown files contain YAML header with arguments, which are used for different purposes such like navigation, page title, layout etc.
 
 ### `button.md` file
@@ -76,9 +78,10 @@ eleventyNavigation:
 
     - `layout` for components should always contain `"components/components.njk"`
     - `tags` should always contain `component` for `component.md` files
-    - `eleventyNavigation` which are options used for navigation on our website, `parent` should be `Components` and `order` represents order of showing components in our navigation (Button order is 2, so we can find it on the second place under `Components` navigation item):   
+    - `eleventyNavigation` contains options used for navigation on our website, `parent` should be `Components` and `order` represents order of showing components in our navigation (Button order is 2, so we can find it on the second place under `Components` navigation item):   
 
       ![image](https://user-images.githubusercontent.com/111562742/214509125-5fbb9df4-f869-4207-8bb4-a2bc3bd7b191.png)
+
 
 
 
@@ -98,16 +101,41 @@ eleventyNavigation:
 ```
 
 
-    - `title` component accessibility title like `Component accessibility` (`Button accessibility` in this case)
+  - `title` component accessibility title like `Component accessibility` (`Button accessibility` in this case)
     
-    - `tags` for `accessibility.md` files should contain `accessibility` value, which is used for Accessibility tab content rendering
+  - `tags` for `accessibility.md` files should contain `accessibility` value, which is used for **Accessibility tab** content rendering
     
-    - `eleventyNavigation` which are options used for navigation on our website, `parent` should be the name of component (`Button` in this case) and `key` like `ComponentAccessibility` (`ButtonAccessibility` in this case)
+  - `eleventyNavigation` which are options used for the navigation on our website, `parent` should be the name of component (`Button` in this case) and `key` like `ComponentAccessibility` (`ButtonAccessibility` in this case)
 
 
 ### `code.md` file
+```
+---
+title: Button code
+tags: code
+eleventyNavigation:
+  parent: Button
+  key: ButtonCode
+---
+```
+
+  - `title` component code title like `Component code` (`Button code` in this case)
+    
+  - `tags` for `code.md` files should contain `code` value, which is used for **Code tab** content rendering
+    
+  - `eleventyNavigation` which are options used for the navigation on our website, `parent` should be the name of component (`Button` in this case) and `key` like `ComponentCode` (`ButtonCode` in this case)
 
 ### `overview.md` file
+
+```
+---
+title: Button
+tags: overview
+eleventyNavigation:
+  parent: Button
+  key: ButtonOverview
+---
+```
 
 When you want to save/commit your changes you should use option as follows:
 
@@ -120,8 +148,27 @@ and click `Commit changes` button.
 
 ### `specs.md` file
 
+```
+---
+title: Button specs
+tags: specs
+eleventyNavigation:
+  parent: Button
+  key: ButtonSpecs
+---
+```
+
 ### `usage.md` file
 
+```
+---
+title: Button usage
+tags: usage
+eleventyNavigation:
+  parent: Button
+  key: ButtonUsage
+---
+```
 
 
 ## Add documentation for a totally new component
@@ -149,6 +196,10 @@ and then ...
 
 
 TODO:
+
+
+
+#### Images
 - how to add images
 
 Images should be stored in the `assets` directory:
@@ -166,10 +217,30 @@ and then we can use them in our markdown files as follows (please remember about
 `![Alt text example](/assets/images/example-dont.svg "don't picture")` where `Alt text example` is an alternative text (`alt` attribute), more: https://www.w3.org/TR/WCAG20-TECHS/H37.html
 
 
-- table
+#### Table
 
-Table in the markdown file looks like this:
-And it results:
+Table in the markdown file looks as follows:
+
+```
+| Element | Attribute              | Value                | Description                                                                                    |
+---------|------------------------|----------------------|------------------------------------------------------------------------------------------------|
+| Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
+| Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
+| Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
+| Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
+
+{.ds-table}
+```
+
+Important thing is to add `{.ds-table}` and one line separator between the table and `{.ds-table}`.
+
+`{.ds-table}` represents css class with styles for the table.
+
+And it results in:
+
+![image](https://user-images.githubusercontent.com/111562742/214527489-c9a737db-2745-452d-9701-8de2e9bb2bda.png)
+
+
 
 - do and don't sections
 - 
@@ -180,6 +251,8 @@ Results in:
 #### Don't section
 In markdown file:
 Results in:
+
+#### Vertical tabs
 - how vertical tabs works and wrapping sections
 Vertical tabs are created from `H2` elements (`## in markdown`). What's important, `H2` (`## element`) and elements below this `H2` should be wrapped with `<section></section>` html tags - important thing for scrolling and other visual elements and styles.
 

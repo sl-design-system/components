@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 # Title of feature
-**This feature is part of the milestone [link to feature]**
+## This feature is part of the milestone [link to feature]
 
 | <div align="left">**What is the problem we are solving and why?**  |
 | ------------- |
@@ -16,7 +16,9 @@ assignees: ''
 |As a developer, I want ___, so I can ___|
 |As a designer, I want to ___, so I can ___| 
 
-## User stories
+```[tasklist]
+### User stories
 - [ ] link to user story
 - [ ] link to user story
 - [ ] link to user story
+```

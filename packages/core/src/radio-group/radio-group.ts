@@ -1,25 +1,50 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { FormControlMixin } from '@open-wc/form-control';
+import type { Validator } from '../utils/index.js';
+import { MutationController } from '@lit-labs/observers/mutation_controller.js';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedNodes } from 'lit/decorators.js';
-import { EventsController, RovingTabindexController } from '../utils/controllers/index.js';
-import { HintMixin } from '../utils/form-control/index.js';
+import { requiredValidator } from '../utils/index.js';
+import {
+  EventsController,
+  RovingTabindexController,
+  ValidationController,
+  validationStyles
+} from '../utils/controllers/index.js';
+import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
 import { Radio } from './radio.js';
 import styles from './radio-group.scss.js';
 
-const OBSERVER_OPTIONS: MutationObserverInit = {
-  attributeFilter: ['checked'],
-  attributeOldValue: true,
-  subtree: true
-};
-
 export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static formAssociated = true;
+
+  /** @private */
+  static override styles: CSSResultGroup = [validationStyles, styles];
 
   /** Events controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    focusout: this.#onFocusout
+  });
 
+  /** Observe the state of the radios. */
+  #mutation = new MutationController(this, {
+    callback: mutations => {
+      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
+
+      if (target instanceof Radio && target.value) {
+        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));
+        this.value = target.value;
+      }
+    },
+    config: {
+      attributeFilter: ['checked'],
+      attributeOldValue: true,
+      subtree: true
+    }
+  });
+
+  /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Radio>(this, {
     focusInIndex: (elements: Radio[]) => {
       return elements.findIndex(el => {
@@ -33,16 +58,23 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     isFocusableElement: (el: Radio) => !el.disabled
   });
 
-  /** Observe the state of the radios. */
-  #observer?: MutationObserver;
+  #validation = new ValidationController(this, {
+    validators: [requiredValidator]
+  });
+
+  /** Element internals. */
+  readonly internals = this.attachInternals();
 
   /** The assigned nodes. */
   @queryAssignedNodes() defaultNodes?: Node[];
 
-  /** The orientation of the radio's in the group. */
-  @property({ type: String, reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
+  /** If true, displays the radio buttons next to each other instead of below. */
+  @property({ type: Boolean, reflect: true }) horizontal?: boolean;
 
-  /** The value of the selected radio. */
+  /** Custom validators specified by the user. */
+  @property({ attribute: false }) validators?: Validator[];
+
+  /** The value for this group. */
   @property() value?: string;
 
   get buttons(): Radio[] {
@@ -54,30 +86,18 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
 
     this.internals.role = 'radiogroup';
 
-    this.#events.listen(this, 'click', this.#onClick);
+    this.setFormControlElement(this);
 
-    this.#observer = new MutationObserver(mutationList => {
-      mutationList.forEach(mutation => {
-        if (mutation.attributeName === 'checked' && mutation.oldValue === null) {
-          this.#updateSelected((mutation.target as Radio).value);
-        }
-      });
-    });
-    this.#observer.observe(this, OBSERVER_OPTIONS);
+    // Run initial validation
+    this.#validation.validate(this.value);
   }
 
-  override disconnectedCallback(): void {
-    this.#observer?.disconnect();
-    this.#observer = undefined;
-
-    super.disconnectedCallback();
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('value')) {
-      this.#updateSelected(this.value);
+      this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
+      this.#validation.validate(this.value);
     }
   }
 
@@ -86,27 +106,22 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
       <div class="wrapper">
         <slot @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
       </div>
-      ${this.renderHint()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
-  }
-
-  override focus(): void {
-    this.#rovingTabindexController.focus();
   }
 
   #onClick(event: Event): void {
     event.preventDefault();
 
-    this.focus();
+    this.#rovingTabindexController.focus();
   }
 
-  #updateSelected(value?: string): void {
-    this.#observer?.disconnect();
-
-    this.buttons?.forEach(button => {
-      button.checked = button.value === value;
-    });
-
-    this.#observer?.observe(this, OBSERVER_OPTIONS);
+  #onFocusout(event: FocusEvent): void {
+    if (!event.relatedTarget || !this.buttons.includes(event.relatedTarget as Radio)) {
+      // This component is weird in that it doesn't actually contain the form controls,
+      // those are the `<sl-radio>` custom elements in the light DOM. So run the validation
+      // manually from here.
+      this.#validation.validate(this.value);
+    }
   }
 }

@@ -135,6 +135,7 @@
     "build:site:dev:eleventy": {
       "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
+        "./../../packages/tokens:build",
         "build:site:dev:styles",
         "build:site:dev:ts"
       ],
@@ -159,6 +160,9 @@
     },
     "build:site:dev:ts": {
       "command": "NODE_ENV=DEV node esbuild.config.mjs",
+      "dependencies": [
+        "../../packages/core:build"
+      ],
       "files": [
         "src/site/ts/**/*",
         "tsconfig.json",
@@ -195,6 +199,7 @@
     "build:site:prod:eleventy": {
       "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
       "dependencies": [
+        "./../../packages/tokens:build",
         "build:site:prod:styles",
         "build:site:prod:ts"
       ],
@@ -216,6 +221,9 @@
     },
     "build:site:prod:ts": {
       "command": "NODE_ENV=PROD node esbuild.config.mjs",
+      "dependencies": [
+        "../../packages/core:build"
+      ],
       "files": [
         "src/site/ts/**/*",
         "tsconfig.json",
@@ -295,6 +303,7 @@
     "html-minifier": "^4.0.0",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.6",
+    "markdown-it-attrs": "^4.1.6",
     "rimraf": "^4.0.7",
     "sass": "^1.57.1",
     "slugify": "^1.6.5",

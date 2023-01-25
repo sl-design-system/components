@@ -1,11 +1,12 @@
 @import './../breakpoints';
 
 $transition-timing: 300ms;
+$short-transition-timing: 200ms;
 
 .ds-top-navigation {
   background: var(--top-navbar-color);
   display: flex;
-  padding: 3.2rem 2.4rem 2.4rem;
+  padding: 3.2rem 2.4rem 1.4rem;
   position: fixed;
   width: 100vw;
   z-index: 1;
@@ -104,7 +105,7 @@ $transition-timing: 300ms;
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 1;
+  z-index: 2;
 }
 
 .ds-top-navigation__hamburger {
@@ -131,7 +132,39 @@ $transition-timing: 300ms;
   }
 }
 
+.ds-top-navigation__component-name {
+  animation: appendAnimate $short-transition-timing linear;
+  color: var(--table-text-color);
+  font-size: 2rem;
+  line-height: 3.2rem;
+}
+
+@keyframes appendAnimate {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes appendAnimateUp {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .ds-top-navigation__logo {
+  animation: appendAnimateUp $short-transition-timing linear;
   background-image: var(--logo);
   background-position: left;
   background-repeat: no-repeat;
@@ -395,6 +428,10 @@ $transition-timing: 300ms;
 @media screen and (min-width: $lg-breakpoint) {
   .ds-top-navigation {
     display: none;
+  }
+
+  .ds-top-navigation__component-name {
+    padding-left: 7.2rem;
   }
 
   .ds-sidebar {

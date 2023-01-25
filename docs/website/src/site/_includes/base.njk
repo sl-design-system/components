@@ -31,17 +31,11 @@
       {% include "./sidebar.njk" %}
     </aside>
     <main class="ds-container">
-      <header>
-        <h1>{{ title }}</h1>
-      </header>
       {{ content | safe }}
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
     <script type="text/javascript">
       {% include "./../scripts/search.js" %}
-    </script>
-    <script type="text/javascript">
-      {% include "./../scripts/tabs.js" %}
     </script>
   </body>
 </html>

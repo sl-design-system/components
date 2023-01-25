@@ -83,7 +83,170 @@ eleventyNavigation:
       ![image](https://user-images.githubusercontent.com/111562742/214509125-5fbb9df4-f869-4207-8bb4-a2bc3bd7b191.png)
 
 
+### `overview.md` file
 
+```
+---
+title: Button overview
+tags: overview
+eleventyNavigation:
+  parent: Button
+  key: ButtonOverview
+---
+```
+
+  - `title` component overview title like `Component overview` (`Button overview` in this case)
+    
+  - `tags` for `overview.md` files should contain `overview` value, which is used for **Overview tab** content rendering
+    
+  - `eleventyNavigation` contains options used for the navigation on our website, `parent` should be the name of component (`Button` in this case) and `key` like `ComponentOverview` (`ButtonOverview` in this case)
+
+This file contains elements, which will be rendered as a **Overview tab** content (in our example button's component tab content).
+
+#### Vertical tabs
+Vertical tabs are created from `H2` elements (`## in markdown`). What's important, `H2` (`## element`) and elements below this `H2` should be wrapped with `<section></section>` html tags - important thing for scrolling and other visual elements and styles.
+
+Example:
+```
+<section>
+
+## Lorem ipsum dolor sit amet
+Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+
+</section>
+
+<section>
+
+## Related
+Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+
+</section>
+```
+
+which results in the output file:
+![image](https://user-images.githubusercontent.com/111562742/214551216-98bf7112-09e1-4f5e-8fc6-156124ca61a4.png)
+
+#### Component example with code
+
+#### "Do" element
+
+An element added to show how we recommend using our component.
+
+In markdown file:
+```
+<div class=ds-do-dont>
+
+<div class="ds-success">
+
+![Alt text example](/assets/images/example-do.svg "do picture"){.ds-do-dont__picture}
+
+<div class="ds-success__content">
+
+### Do
+
+Place text here
+
+</div>
+
+</div>
+
+</div>
+```
+Results in:
+
+![image](https://user-images.githubusercontent.com/111562742/214552688-ab9eedbb-b35b-4a0b-852f-d491a0ebc243.png)
+
+
+#### "Don't" element
+
+An element added to show how we not recommend using our component.
+
+In markdown file:
+```
+<div class=ds-do-dont>
+
+<div class="ds-danger">
+
+![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
+
+<div class="ds-danger__content">
+
+### Don't
+
+Place text here
+
+</div>
+
+</div>
+
+</div>
+```
+
+Results in:
+
+![image](https://user-images.githubusercontent.com/111562742/214552762-642429e6-c600-4e1d-b69a-572ffc97ab49.png)
+
+
+#### Do and don't section together
+
+```
+<div class=ds-do-dont>
+
+<div class="ds-success">
+
+![Alt text example](/assets/images/example-do.svg "do picture"){.ds-do-dont__picture}
+
+<div class="ds-success__content">
+
+### Do
+
+Place text here
+
+</div>
+
+</div>
+
+
+<div class="ds-danger">
+
+![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
+
+<div class="ds-danger__content">
+
+### Don't
+
+Place text here
+
+</div>
+
+</div>
+
+</div>
+```
+
+Do and don't elements should be wrapped together with `<div class=ds-do-dont></div>`.
+
+
+To sum up the whole file structure:
+
+<img alt="image" src="https://user-images.githubusercontent.com/111562742/214557389-0b87338d-93a8-4d34-8354-cb76eeb92698.png">
+
+
+<img alt="image" src="https://user-images.githubusercontent.com/111562742/214557186-ee7b89bf-fda3-4330-ad36-b06cce812cef.png">
+
+<img alt="image" src="https://user-images.githubusercontent.com/111562742/214558525-13d823b9-24f9-4dce-8aa6-a6a0c8e49f30.png">
+
+
+
+When you want to save/commit your changes you should use option as follows:
+
+<img alt="image" src="https://user-images.githubusercontent.com/111562742/214265893-3f964887-8e12-4774-a40a-e70c8da0775e.png">
+
+Write proper commit message and use option 
+> Commit directly to the `docs/your-branch-name` branch 
+
+and click `Commit changes` button.
 
 
 ### `accessibility.md` file
@@ -124,27 +287,6 @@ eleventyNavigation:
   - `tags` for `code.md` files should contain `code` value, which is used for **Code tab** content rendering
     
   - `eleventyNavigation` which are options used for the navigation on our website, `parent` should be the name of component (`Button` in this case) and `key` like `ComponentCode` (`ButtonCode` in this case)
-
-### `overview.md` file
-
-```
----
-title: Button
-tags: overview
-eleventyNavigation:
-  parent: Button
-  key: ButtonOverview
----
-```
-
-When you want to save/commit your changes you should use option as follows:
-
-<img alt="image" src="https://user-images.githubusercontent.com/111562742/214265893-3f964887-8e12-4774-a40a-e70c8da0775e.png">
-
-Write proper commit message and use option 
-> Commit directly to the `docs/your-branch-name` branch 
-
-and click `Commit changes` button.
 
 ### `specs.md` file
 

@@ -871,5 +871,31 @@
         "type": "composition"
       }
     }
+  },
+  "icon": {
+    "font": {
+      "fa-face-smile": {
+        "value": "fa-regular fa-face-smile",
+        "type": "Icon",
+        "description": "icon.font.fa-face-smile"
+      },
+      "fa-menu": {
+        "value": "fa-solid fa-bars",
+        "type": "Icon",
+        "description": "icon.font.fa-menu"
+      }
+    },
+    "custom": {
+      "i-face-smile": {
+        "value": "i-face-smile",
+        "type": "Icon",
+        "description": "icon.custom.i-face-smile"
+      },
+      "i-hello": {
+        "value": "i-face-hello",
+        "type": "Icon",
+        "description": "icon.custom.i-hello"
+      }
+    }
   }
 }

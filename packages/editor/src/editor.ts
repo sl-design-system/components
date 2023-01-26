@@ -1,8 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EditorMarks, EditorNodes } from './schema.js';
 import type { Plugin } from 'prosemirror-state';
-import { FormControlMixin } from '@open-wc/form-control';
-import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
+import { requiredValidator } from '@sanomalearning/slds-core/utils';
+import { EventsController, ValidationController, validationStyles } from '@sanomalearning/slds-core/utils/controllers';
+import { FormControlMixin, HintMixin } from '@sanomalearning/slds-core/utils/mixins';
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
@@ -17,18 +18,28 @@ import { marks, nodes } from './schema.js';
 import { setHTML } from './commands.js';
 import { buildKeymap, buildListKeymap } from './keymap.js';
 
-export class Editor extends FormControlMixin(LitElement) {
+export class Editor extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static formAssociated = true;
+
+  /** @private */
+  static override styles: CSSResultGroup = [validationStyles, styles];
 
   /** Manage events. */
   #events = new EventsController(this);
+
+  #validation = new ValidationController(this, {
+    validators: [requiredValidator]
+  });
 
   /** The value of the content in the editor. */
   #value?: string;
 
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
+
+  /** Element internals. */
+  readonly internals = this.attachInternals();
 
   /** Additional plugins. */
   @property({ attribute: false }) plugins?: Plugin[];
@@ -106,7 +117,7 @@ export class Editor extends FormControlMixin(LitElement) {
 
   createState(): EditorState {
     const schema = this.createSchema(),
-      doc = createContentNode(schema, this.value);
+      doc = createContentNode(schema, this.value?.toString());
 
     return EditorState.create({
       schema,

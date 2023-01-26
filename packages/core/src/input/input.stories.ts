@@ -1,5 +1,8 @@
+import type { ValidationValue, Validator } from '../utils/index.js';
+import type { Input } from './index.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import '../button/register.js';
 import '../label/register.js';
 import './register.js';
 
@@ -44,42 +47,42 @@ export const Disabled: StoryObj = {
 export const Label: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="input">What is your name?</sl-label>
       <sl-input id="input"></sl-input>
-    </div>
+    </form>
   `
 };
 
 export const Hint: StoryObj = {
   render: () => html`
     <style>
-      div {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="input">Nickname</sl-label>
       <sl-input id="input" hint="What would you like people to call you?"></sl-input>
-    </div>
+    </form>
   `
 };
 
 export const RichLabelHint: StoryObj = {
   render: () => html`
     <style>
-      div:not([slot]) {
+      form {
         display: flex;
         flex-direction: column;
       }
     </style>
-    <div>
+    <form>
       <sl-label for="input">
         <label slot="label">Custom <i>label</i></label>
       </sl-label>
@@ -88,7 +91,7 @@ export const RichLabelHint: StoryObj = {
           Hint is an accessible way to provide <strong>additional information</strong> that might help the user
         </div>
       </sl-input>
-    </div>
+    </form>
   `
 };
 
@@ -102,11 +105,29 @@ export const PrefixSuffix: StoryObj = {
 };
 
 export const MinMaxLength: StoryObj = {
-  render: () => html`<sl-input maxlength="5" minlength="3" placeholder="Min 3, max 5 chars"></sl-input>`
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Input)?.reportValidity();
+    };
+
+    return html`
+      <sl-input minlength="3" maxlength="5" placeholder="Min 3 and max 5 chars" required></sl-input>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
 };
 
-export const Required: StoryObj = {
-  render: () => html`<sl-input placeholder="I am required" required></sl-input>`
+export const Pattern: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Input)?.reportValidity();
+    };
+
+    return html`
+      <sl-input pattern=".{3,5}" placeholder="Min 3 and max 5 chars using pattern" required></sl-input>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
 };
 
 export const CustomInput: StoryObj = {
@@ -116,4 +137,22 @@ export const CustomInput: StoryObj = {
       <input id="foo" slot="input" placeholder="I am a custom input" />
     </sl-input>
   `
+};
+
+export const CustomValidation: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Input)?.reportValidity();
+    };
+
+    const validator: Validator = {
+      message: 'Enter "SLDS"',
+      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'
+    };
+
+    return html`
+      <sl-input required="true" .validators=${[validator]}></sl-input>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
 };

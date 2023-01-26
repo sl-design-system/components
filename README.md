@@ -16,6 +16,7 @@ Each child package has its own Storybook instance that you can run while develop
 - `yarn workspace @sanomalearning/slds-core storybook`
 - `yarn workspace @sanomalearning/slds-editor storybook`
 - `yarn workspace @sanomalearning/slds-grid storybook`
+- `yarn workspace @sanomalearning/slds-angular storybook`
 
 ### Website
 

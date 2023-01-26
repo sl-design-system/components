@@ -14,13 +14,7 @@ describe('sl-drawer', () => {
   it('should render correctly', () => {
     expect(el).shadowDom.to.equalSnapshot();
   });
-
-  // it('should have a dialog role', async () => {
-  //   const { role } = await a11ySnapshot({ selector: 'dialog' }) as any;
-
-  //   expect(role).to.equal('dialog');
-  // });
-
+  
   describe('positioning', () => {
     it('should attach the drawer to the right by default', () => {
       expect(el).to.have.attribute('attachment', 'right');

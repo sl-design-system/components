@@ -706,7 +706,7 @@
           "type": "typography"
         }
       },
-      "icon": {
+      "fontIcon": {
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.icon}",
@@ -831,29 +831,33 @@
   },
   "boxShadow": {
     "button": {
-      "focus": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "0",
-          "spread": "3",
-          "color": "rgba({color.palette.info.base},{opacity.600})",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "boxShadow.button.focus"
-      },
-      "none": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "0",
-          "spread": "0",
-          "color": "",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "boxShadow.button.none"
+      "default": {
+        "default": {
+          "focus": {
+            "value": {
+              "x": "0",
+              "y": "0",
+              "blur": "0",
+              "spread": "3",
+              "color": "rgba({color.palette.info.base},{opacity.600})",
+              "type": "dropShadow"
+            },
+            "type": "boxShadow",
+            "description": "boxShadow.button.default"
+          },
+          "none": {
+            "value": {
+              "x": "0",
+              "y": "0",
+              "blur": "0",
+              "spread": "0",
+              "color": "",
+              "type": "dropShadow"
+            },
+            "type": "boxShadow",
+            "description": "boxShadow.button.no_shadow"
+          }
+        }
       }
     }
   },

@@ -61,11 +61,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html` <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
+    return html`
+      <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
         <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
       </div>
-      <slot></slot>`;
+      <slot></slot>
+    `;
   }
 
   override connectedCallback(): void {

@@ -1,11 +1,11 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/app",
+    "outDir": "../../out-tsc/app",
     "types": []
   },
   "files": [
-    "projects/angular-app/src/main.ts"
+    "src/main.ts"
   ],
   "include": [
     "projects/angular-app/src/**/*.d.ts"

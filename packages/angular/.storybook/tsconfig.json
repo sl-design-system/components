@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.app.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "types": [
       "node"
@@ -7,11 +7,14 @@
     "allowSyntheticDefaultImports": true
   },
   "exclude": [
-    "../projects/angular-app/src/test.ts",
-    "../projects/angular-app/src/**/*.spec.ts"
+    "../src/test.ts",
+    "../src/**/*.spec.ts",
+    "../projects/**/*.spec.ts",
+    "../projects/angular-app/src/test.ts"
   ],
   "include": [
-    "../projects/angular-app/src/**/*"
+    "../src/**/*",
+    "../projects/**/*"
   ],
   "files": [
     "./typings.d.ts"

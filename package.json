@@ -10,6 +10,7 @@
     "docs/storybook",
     "docs/website",
     "packages/angular",
+    "packages/angular2",
     "packages/core",
     "packages/editor",
     "packages/grid",
@@ -37,7 +38,8 @@
         "./packages/editor:build",
         "./packages/grid:build",
         "./packages/tokens:build",
-        "./packages/angular:build"
+        "./packages/angular:build",
+        "./packages/angular2:build"
       ]
     },
     "clean": {
@@ -49,7 +51,8 @@
         "./packages/core:docs",
         "./packages/editor:docs",
         "./packages/grid:docs",
-        "./packages/angular:docs"
+        "./packages/angular:docs",
+        "./packages/angular2:docs"
       ]
     },
     "lint": {

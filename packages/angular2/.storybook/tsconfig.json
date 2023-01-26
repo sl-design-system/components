@@ -1,0 +1,19 @@
+{
+  "extends": "../projects/angular-app/tsconfig.app.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "../projects/angular-app/src/test.ts",
+    "../projects/angular-app/src/**/*.spec.ts"
+  ],
+  "include": [
+    "../projects/angular-app/src/**/*"
+  ],
+  "files": [
+    "./typings.d.ts"
+  ]
+}

@@ -473,7 +473,34 @@
 
 </div>
 
+<lib-core></lib-core>
+<div>Count: {{count}}</div>
+
+<div>MyValue: {{myValue}}</div>
+
+<div>Value3: {{value3.value}}</div>
+
+<sla-checkbox [value]="count" (valueChange)="onValueChange($event)"></sla-checkbox>
+
+<sla-checkbox>Checkbox 1</sla-checkbox>
+
 <sla-checkbox indeterminate>Indeterminate</sla-checkbox>
+
+<!--<sla-input [value]="count" (valueChange)="onValueChange($event)">test</sla-input>-->
+
+<sl-input [value]="count" (valueChange)="onValueChange($event.target)"></sl-input>
+
+<sl-input [(ngModel)]="myValue"></sl-input>
+
+<sl-input [formControl]="value3"></sl-input>
+
+<sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+
+<sl-checkbox-group id="checkbox-group" name="checkboxGroup">
+  <sl-checkbox value="0">Check me</sl-checkbox>
+  <sl-checkbox value="1">No me</sl-checkbox>
+  <sl-checkbox value="2">I was here first</sl-checkbox>
+</sl-checkbox-group>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->

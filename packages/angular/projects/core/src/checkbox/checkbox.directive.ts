@@ -8,7 +8,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import '@sanomalearning/slds-core/checkbox/register.js';
 
 @Directive({
-  selector: '[slaCheckbox]',
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'sla-checkbox',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -35,7 +36,8 @@ export class CheckboxDirective implements ControlValueAccessor {
       this._value = val;
       this.onChange(this._value);
       this.onTouched();
-      this.elementRef.nativeElement.value = val;
+      // this.elementRef.nativeElement.value = val;
+      this.elementRef.nativeElement.input.value = val;
     }
   }
 
@@ -55,10 +57,13 @@ export class CheckboxDirective implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef) {
+    console.log('elementRef checkbox', elementRef, this.elementRef.nativeElement.value );
+  }
 
   @HostListener('valueChange', ['$event.detail'])
   listenForValueChange(value: unknown) {
     this.value = value;
+    console.log('value in listenForValueChange', value);
   }
 }

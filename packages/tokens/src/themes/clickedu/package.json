@@ -15,7 +15,7 @@
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build.js clickedu",
+      "command": "yarn node --no-warnings ../../../build-styles.js clickedu",
       "files": [
         "../../figma/*.json",
         "../../figma/clickedu/*.json"

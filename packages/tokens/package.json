@@ -51,6 +51,9 @@
     }
   },
   "devDependencies": {
+    "@figma-export/cli": "^4.5.0",
+    "@figma-export/output-components-as-svg": "^4.5.0",
+    "@figma-export/transform-svg-with-svgo": "^4.5.0",
     "rimraf": "^4.0.7",
     "sass": "^1.57.1",
     "style-dictionary": "^3.7.2",

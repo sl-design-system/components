@@ -164,6 +164,7 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
 
     /** Setup light dismiss handlers if no top-layer and not a manual popover. */
     async #setup(): Promise<void> {
+      console.log('setup', supportsTopLayer, this.getAttribute('popover') !== 'manual');
       if (!supportsTopLayer && this.getAttribute('popover') !== 'manual') {
         await new Promise(resolve => setTimeout(resolve));
 

@@ -1,0 +1,8 @@
+:host {
+  border: 1px solid #f92;
+  padding: 4px 8px;
+}
+
+:host([selected]) {
+  border: 2px solid #d70;
+}

@@ -10,7 +10,7 @@ export const API: StoryObj = {
   render: () => html`
     <sl-select>
       <sl-select-option>😍 Option 1 </sl-select-option>
-      <sl-select-option>🥸 Option 2 </sl-select-option>
+      <sl-select-option selected>🥸 Option 2 </sl-select-option>
       <sl-select-option>🤔 Option 3 </sl-select-option>
     </sl-select>
   `

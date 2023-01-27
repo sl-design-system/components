@@ -1,12 +1,47 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
-import styles from './select.scss.js';
+import { property } from 'lit/decorators.js';
+import { EventsController } from '../utils/controllers/index.js';
+import { observe } from '../utils/decorators/observe.js';
+import styles from './select-option.scss.js';
 
 export class SelectOption extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** Whether the option item is selected*/
+  @property({ reflect: true, type: Boolean }) selected = false;
+
+  /** Whether the option item is disabled*/
+  @property({ reflect: true, type: Boolean }) disabled = false;
+
+  /** Event controller. */
+  #events = new EventsController(this, {
+    // click: this.#onClick
+  });
+
+  /**
+   * Apply accessible attributes and values to the tab button.
+   * Observe the selected property if it changes
+   */
+  @observe('selected')
+  protected handleSelectionChange(): void {
+    this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.slot ||= 'options';
+  }
+
   override render(): TemplateResult {
     return html`<slot></slot>`;
   }
+
+  // #onClick(event: Event): void {
+  //   console.log('option click');
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  // }
 }

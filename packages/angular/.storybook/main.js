@@ -1,11 +1,10 @@
 export default {
   stories: [
-    "../projects/angular-app/**/*.mdx",
-    "../projects/angular-app/**/*.stories.@(js|jsx|ts|tsx)",
-    "../projects/core/**/*.mdx",
-    "../projects/core/**/*.stories.@(js|jsx|ts|tsx)"
+    "../projects/angular-core/**/*.mdx",
+    "../projects/angular-core/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   addons: [
+    '../../../tools/storybook-addon-themes',
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions"
@@ -16,5 +15,6 @@ export default {
   },
   docs: {
     "autodocs": "tag"
-  }
+  },
+  staticDirs: [{ from: '../../tokens/src/themes', to: '/themes' }]
 };

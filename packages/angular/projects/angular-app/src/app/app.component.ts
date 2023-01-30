@@ -1,8 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Form, FormControl, FormGroup} from "@angular/forms";
-// import '@sanomalearning/slds-core/dist/components/checkbox/register.js';
-// import {Checkbox} from '@sanomalearning/slds-core/dist/components/checkbox';
-// import {CheckboxDirective} from 'core';
+import {Component, OnInit} from '@angular/core';
+import { FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -71,6 +68,7 @@ export class AppComponent implements OnInit {
     this.count = (event as HTMLInputElement).value; //event;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onTextareaValueChange(event: any /*Event*/): void {
     //this.valueChange.emit((event as CustomEvent<string>).detail);
     // const shadowRoot: DocumentFragment = event.shadowRoot;
@@ -81,6 +79,7 @@ export class AppComponent implements OnInit {
     this.textarea1 = (event as HTMLTextAreaElement).value; //event;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onCheckboxValueChange(event: any /*Event*/): void {
     //this.valueChange.emit((event as CustomEvent<string>).detail);
     // const shadowRoot: DocumentFragment = event.shadowRoot;
@@ -92,6 +91,7 @@ export class AppComponent implements OnInit {
     this.checkboxValue = event.checked; //event;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onRadioValueChange(event: any /*Event*/): void {
     //this.valueChange.emit((event as CustomEvent<string>).detail);
     // const shadowRoot: DocumentFragment = event.shadowRoot;

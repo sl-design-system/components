@@ -14,14 +14,14 @@
     "ng": "wireit",
     "start": "wireit",
     "build:angular-app": "wireit",
-    "build:core": "wireit",
+    "build:angular-core": "wireit",
     "build": "wireit",
     "watch:angular-app": "wireit",
     "test": "wireit",
     "build:compodoc": "wireit",
     "storybook-build": "wireit",
-    "storybook:core": "wireit",
-    "build-storybook:core": "wireit",
+    "storybook:angular-core": "wireit",
+    "build-storybook:angular-core": "wireit",
     "storybookold": "wireit",
     "storybook": "wireit",
     "build-storybook": "wireit",
@@ -50,16 +50,16 @@
     "build:angular-app": {
       "command": "ng build angular-app"
     },
-    "build:core": {
-      "command": "ng build core",
+    "build:angular-core": {
+      "command": "ng build angular-core",
       "dependencies": [
         "../core:build"
       ],
       "files": [
-        "projects/core/**/*"
+        "projects/angular-core/**/*"
       ],
       "output": [
-        "dist/core"
+        "dist/angular-core"
       ]
     },
     "build:compodoc": {
@@ -74,14 +74,14 @@
     "storybook-build": {
       "command": "ng run angular-app:build-storybook"
     },
-    "storybook:core": {
-      "command": "ng run core:storybook",
+    "storybook:angular-core": {
+      "command": "ng run angular-core:storybook",
       "dependencies": [
         "../core:build"
       ]
     },
-    "build-storybook:core": {
-      "command": "ng run core:build-storybook",
+    "build-storybook:angular-core": {
+      "command": "ng run angular-core:build-storybook",
       "dependencies": [
         "../core:build"
       ]
@@ -120,7 +120,9 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
-      "outputs": ["{options.outputDir}"],
+      "outputs": [
+        "{options.outputDir}"
+      ],
       "options": {
         "outputDir": "dist/storybook/storybook",
         "configDir": "./.storybook",
@@ -131,7 +133,9 @@
           "path-to-any-styles.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["global-style-path-here/"]
+          "includePaths": [
+            "global-style-path-here/"
+          ]
         }
       },
       "configurations": {

@@ -2,7 +2,7 @@ import {
   Directive,
   forwardRef,
   ElementRef,
-  HostListener, Renderer2
+  HostListener,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import '@sanomalearning/slds-core/checkbox/register.js';
@@ -21,53 +21,50 @@ import '@sanomalearning/slds-core/checkbox/register.js';
 export class CheckboxDirective implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
-  //onChange: unknown = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onTouched: () => any = () => {};
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _value: any;
 
-  get value() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  get value(): any {
     return this._value;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
     if (val !== this._value) {
-      console.log('val in set value checkbox', val);
       this._value = val;
       this.onChange(this._value);
       this.onTouched();
       this.elementRef.nativeElement.checked = val;
-      // this.elementRef.nativeElement.input.value = val;
-      // this.elementRef.nativeElement.textarea.value = val;
     }
   }
 
-  writeValue(value: any) {
-    console.log('writeValue checkbox', value);
-    // this.renderer.setAttribute(this.elementRef.nativeElement, 'checked', value);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  writeValue(value: any): void {
     if (value) {
       this.value = value;
     }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnChange(fn: any) {
+  registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-    console.log('elementRef checkbox', elementRef, this.elementRef.nativeElement.checked );
+  constructor(private elementRef: ElementRef) {
   }
 
   @HostListener('sl-change', ['$event.target.checked'])
-  listenForValueChange(value: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  listenForValueChange(value: any): void {
     this.value = value;
-    console.log('checkbox value in listenForValueChange', value);
   }
 }

@@ -11,45 +11,15 @@
     "directory": "packages/grid"
   },
   "scripts": {
-    "ng": "wireit",
-    "start": "wireit",
-    "build:angular-app": "wireit",
     "build:angular-core": "wireit",
-    "build": "wireit",
-    "watch:angular-app": "wireit",
-    "test": "wireit",
     "build:compodoc": "wireit",
-    "storybook-build": "wireit",
     "storybook:angular-core": "wireit",
     "build-storybook:angular-core": "wireit",
-    "storybookold": "wireit",
-    "storybook": "wireit",
-    "build-storybook": "wireit",
     "docs": "wireit",
     "docs:json": "wireit",
     "lint": "wireit"
   },
   "wireit": {
-    "ng": {
-      "command": "ng"
-    },
-    "start": {
-      "command": "ng serve",
-      "dependencies": [
-        "../../packages/core:build"
-      ]
-    },
-    "watch:angular-app": {
-      "command": "ng build angular-app --watch --configuration development"
-    },
-    "build": {
-      "dependencies": [
-        "build:core"
-      ]
-    },
-    "build:angular-app": {
-      "command": "ng build angular-app"
-    },
     "build:angular-core": {
       "command": "ng build angular-core",
       "dependencies": [
@@ -68,12 +38,6 @@
         "documentation.json"
       ]
     },
-    "test": {
-      "command": "ng test"
-    },
-    "storybook-build": {
-      "command": "ng run angular-app:build-storybook"
-    },
     "storybook:angular-core": {
       "command": "ng run angular-core:storybook",
       "dependencies": [
@@ -86,11 +50,8 @@
         "../core:build"
       ]
     },
-    "storybookold": {
-      "command": "ng run angular-app:storybook"
-    },
     "docs": {
-      "command": "ng run angular-app:docs",
+      "command": "ng run angular-core:docs",
       "dependencies": [
         "build",
         "build:compodoc",
@@ -102,47 +63,6 @@
     },
     "lint": {
       "command": "ng lint"
-    },
-    "storybook": {
-      "command": "ng run storybook",
-      "executor": "@storybook/angular:start-storybook",
-      "options": {
-        "port": 4410,
-        "configDir": "./.storybook",
-        "browserTarget": "storybook:build-storybook",
-        "compodoc": false
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@storybook/angular:build-storybook",
-      "outputs": [
-        "{options.outputDir}"
-      ],
-      "options": {
-        "outputDir": "dist/storybook/storybook",
-        "configDir": "./.storybook",
-        "browserTarget": "storybook:build-storybook",
-        "compodoc": false,
-        "tsConfig": "libs/storybook/tsconfig.lib.json",
-        "styles": [
-          "path-to-any-styles.scss"
-        ],
-        "stylePreprocessorOptions": {
-          "includePaths": [
-            "global-style-path-here/"
-          ]
-        }
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
     }
   },
   "private": true,

@@ -11,7 +11,7 @@
     "directory": "packages/grid"
   },
   "scripts": {
-    "build:angular-core": "wireit",
+    "build": "wireit",
     "build:compodoc": "wireit",
     "storybook:angular-core": "wireit",
     "build-storybook:angular-core": "wireit",
@@ -20,7 +20,7 @@
     "lint": "wireit"
   },
   "wireit": {
-    "build:angular-core": {
+    "build": {
       "command": "ng build angular-core",
       "dependencies": [
         "../core:build"

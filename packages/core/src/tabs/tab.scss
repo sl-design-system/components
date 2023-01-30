@@ -1,0 +1,14 @@
+:host {
+  display: inline-block;
+  line-height: 36px;
+  padding: 0 3px;
+}
+
+:host([selected]) {
+  font-weight: bold;
+}
+
+:host([disabled]) {
+  opacity: 0.6;
+  pointer-events: none;
+}

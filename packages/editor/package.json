@@ -11,6 +11,10 @@
     "directory": "packages/editor"
   },
   "type": "module",
+  "exports": {
+    ".": "./dist/components/index.js",
+    "./register.js": "./dist/components/register.js"
+  },
   "scripts": {
     "build": "wireit",
     "build:scss": "wireit",

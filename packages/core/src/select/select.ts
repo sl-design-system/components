@@ -11,6 +11,7 @@ export class Select extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   @query('sl-select-overlay') overlay?: SelectOverlay;
+  @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
 
   /** The slotted options. */
   @queryAssignedElements({ slot: 'options' }) options?: SelectOption[];
@@ -35,9 +36,9 @@ export class Select extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <sl-button @click=${this.openSelect} @keydown="${this.#handleOverallKeydown}"
-        >${this.selectedOption ? html`${this.selectedOption.innerHTML}` : ''} 🔽</sl-button
-      >
+      <sl-button @click=${this.openSelect} @keydown="${this.#handleOverallKeydown}">
+        <span id="selectedOption">Select an option</span>🔽
+      </sl-button>
       <sl-select-overlay @keydown=${this.#handleOverlayKeydown} @click=${this.#handleOptionChange}>
         <slot name="options" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
       </sl-select-overlay>
@@ -80,14 +81,17 @@ export class Select extends LitElement {
     /**
      * Return handler if it's not an option or if it's already selected
      */
-    if (!(event.target instanceof SelectOption)) return;
-    this.#updateSelectedOption(event.target);
+    const selectOption = (event.target as HTMLElement)?.closest('sl-select-option');
+
+    if (!event.target || !(selectOption instanceof SelectOption)) return;
+    this.#updateSelectedOption(selectOption);
   }
 
   /**
    * Update the selected option with attributes and values.
    */
   #updateSelectedOption(selectedOption: SelectOption): void {
+    console.log('updateSelectedOption');
     if (selectedOption === this.selectedOption || selectedOption.disabled) return;
 
     /**
@@ -100,6 +104,10 @@ export class Select extends LitElement {
         option.focus();
         option.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         this.selectedOption = option;
+        console.log(this.selectedOptionPlaceholder, option);
+        const clonedOption = (option.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
+        this.selectedOptionPlaceholder?.childNodes.forEach(cn => cn.remove());
+        this.selectedOptionPlaceholder?.append(clonedOption);
       }
     });
   }

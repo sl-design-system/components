@@ -1,9 +1,11 @@
 :host {
-  display: inline-flex;
-}
-
-sl-button {
   align-items: center;
   display: flex;
   gap: 8px;
+}
+
+img {
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
 }

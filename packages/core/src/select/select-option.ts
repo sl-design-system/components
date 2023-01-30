@@ -35,6 +35,6 @@ export class SelectOption extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot></slot> ${this.#tabIndex}`;
+    return html`<slot></slot>`;
   }
 }

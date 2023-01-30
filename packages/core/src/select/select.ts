@@ -22,6 +22,7 @@ export class Select extends LitElement {
   });
 
   #observer?: MutationObserver;
+
   static #observerOptions = {
     attributes: true,
     subtree: true,
@@ -34,10 +35,10 @@ export class Select extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <sl-button @click=${this.openSelect}
-        >${this.selectedOption ? html`${this.selectedOption.innerHTML}` : ''}</sl-button
+      <sl-button @click=${this.openSelect} @keydown="${this.#handleOverallKeydown}"
+        >${this.selectedOption ? html`${this.selectedOption.innerHTML}` : ''} 🔽</sl-button
       >
-      <sl-select-overlay @keydown=${this.#handleKeydown} @click=${this.#handleOptionChange}>
+      <sl-select-overlay @keydown=${this.#handleOverlayKeydown} @click=${this.#handleOptionChange}>
         <slot name="options" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
       </sl-select-overlay>
     `;
@@ -50,7 +51,14 @@ export class Select extends LitElement {
   }
 
   openSelect({ target }: Event): void {
+    this.scrollTo({ top: 0 });
+    this.options?.find(option => option.selected)?.focus();
     this.overlay?.show(target as HTMLElement);
+  }
+
+  closeSelect(): void {
+    this.overlay?.hide();
+    this.renderRoot.querySelector('sl-button')?.focus();
   }
 
   /** If an option is selected programmatically update all the options. */
@@ -82,8 +90,6 @@ export class Select extends LitElement {
   #updateSelectedOption(selectedOption: SelectOption): void {
     if (selectedOption === this.selectedOption || selectedOption.disabled) return;
 
-    // const optionIndex = Array.from(this.querySelectorAll('sl-select-option')).indexOf(selectedOption);
-
     /**
      * Reset all the selected state of the tabs, and select the clicked tab
      */
@@ -96,34 +102,40 @@ export class Select extends LitElement {
         this.selectedOption = option;
       }
     });
-
-    // console.log(this.selectedOption);
-
-    /**
-     * Reset all the visibility of the panels,
-     * and show the panel related to the selected tab
-     */
-    // const panels = this.querySelectorAll('sl-tab-panel');
-
-    // if (panels.length === 1) {
-    //   panels[0].setAttribute('id', `${this.#tabGroupId}-panel-${tabIndex + 1}`);
-    //   panels[0].setAttribute('aria-labelledby', `${this.#tabGroupId}-tab-${tabIndex + 1}`);
-    // } else {
-    //   panels.forEach(panel => {
-    //     panel.setAttribute('aria-hidden', `${panel !== selectedPanel ? 'true' : 'false'}`);
-    //   });
-    // }
-
-    // this.tabChange.emit(tabIndex);
   }
 
   /** Handle keyboard accessible controls. */
-  #handleKeydown(event: KeyboardEvent): void {
-    if (['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-      this.scrollTo({ top: 0 });
-      console.log('handleKeydown', <SelectOption>event.target);
-      this.#updateSelectedOption(<SelectOption>event.target);
+  #handleOverlayKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        event.stopPropagation();
+        this.scrollTo({ top: 0 });
+        this.#updateSelectedOption(<SelectOption>event.target);
+        this.closeSelect();
+        break;
+      case 'Escape':
+        this.closeSelect();
+        break;
+      default:
+        break;
+    }
+  }
+
+  /** Handle keyboard accessible controls. */
+  #handleOverallKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        this.openSelect(event);
+        break;
+      case 'Escape':
+        this.closeSelect();
+        break;
+      default:
+        break;
     }
   }
 }

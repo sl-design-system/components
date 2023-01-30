@@ -36,6 +36,11 @@ export class SelectOverlay extends AnchoredPopoverMixin(LitElement) {
     this.showPopover();
   }
 
+  hide(): void {
+    this.anchorElement = undefined;
+    this.hidePopover();
+  }
+
   #onHide = (): void => {
     this.anchorElement = undefined;
     this.hidePopover();

@@ -1,8 +1,14 @@
 :host {
   border: 1px solid #f92;
+  cursor: pointer;
   padding: 4px 8px;
 }
 
 :host([selected]) {
   border: 2px solid #d70;
+}
+
+:host([disabled]) {
+  cursor: default;
+  opacity: 0.6;
 }

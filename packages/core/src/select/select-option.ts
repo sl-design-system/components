@@ -1,7 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { EventsController } from '../utils/controllers/index.js';
 import { observe } from '../utils/decorators/observe.js';
 import styles from './select-option.scss.js';
 
@@ -15,10 +14,10 @@ export class SelectOption extends LitElement {
   /** Whether the option item is disabled*/
   @property({ reflect: true, type: Boolean }) disabled = false;
 
-  /** Event controller. */
-  #events = new EventsController(this, {
-    // click: this.#onClick
-  });
+  /** Get the selected tab button, or the first tab button. */
+  get #tabIndex(): string | null {
+    return this.getAttribute('tabIndex');
+  }
 
   /**
    * Apply accessible attributes and values to the tab button.
@@ -36,12 +35,6 @@ export class SelectOption extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot></slot> ${this.#tabIndex}`;
   }
-
-  // #onClick(event: Event): void {
-  //   console.log('option click');
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  // }
 }

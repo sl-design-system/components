@@ -12,6 +12,9 @@ export const API: StoryObj = {
       <sl-select-option>😍 Option 1 </sl-select-option>
       <sl-select-option selected>🥸 Option 2 </sl-select-option>
       <sl-select-option>🤔 Option 3 </sl-select-option>
+      <sl-select-option>😅 Option 4 </sl-select-option>
+      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
+      <sl-select-option>🫣 Option 6 </sl-select-option>
     </sl-select>
   `
 };

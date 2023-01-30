@@ -246,7 +246,7 @@ export const ReactiveForm: StoryFn = () => ({
   template: `<sla-reactive-form></sla-reactive-form>`,
 });
 
-export const TemplateForm: StoryFn = () => ({
+export const TemplateDrivenForm: StoryFn = () => ({
   template: `<sla-template-form></sla-template-form>`,
 });
 

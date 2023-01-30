@@ -1,20 +1,20 @@
 import {Directive, ElementRef, forwardRef, HostListener, Renderer2} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import '@sanomalearning/slds-core/input/register.js';
+import '@sanomalearning/slds-core/textarea/register.js';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'sl-input',
+  selector: 'sl-textarea',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputDirective),
+      useExisting: forwardRef(() => TextareaDirective),
       multi: true
     }
   ]
 })
 
-export class InputDirective implements ControlValueAccessor {
+export class TextareaDirective implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
   //onChange: unknown = () => {};
@@ -30,16 +30,17 @@ export class InputDirective implements ControlValueAccessor {
   set value(val: any) {
     if (val !== this._value) {
       this._value = val;
-      //this.onChange(this._value);
+      this.onChange(this._value);
       this.onTouched();
       console.log('val', val);
       // this.elementRef.nativeElement.value = val;
-      this.elementRef.nativeElement.value = val;
+      //this.elementRef.nativeElement.value = val;
+      this.elementRef.nativeElement.textarea.value = val;
     }
   }
 
   writeValue(value: any): void {
-    console.log('writeValue', value, this.elementRef.nativeElement.value);
+    console.log('writeValue textarea', value, this.elementRef.nativeElement.value);
     if (value) {
       this.value = value;
       //this.renderer.setProperty(this.elementRef.nativeElement, 'value', value);
@@ -49,7 +50,7 @@ export class InputDirective implements ControlValueAccessor {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnChange(fn: any): void {
-    console.log('register onChange', fn);
+    console.log('register onChange textarea', fn);
     this.onChange = fn;
   }
 
@@ -59,15 +60,16 @@ export class InputDirective implements ControlValueAccessor {
   }
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {
-    console.log('elementRef', this._value,  elementRef, this.elementRef.nativeElement.value, this.elementRef.nativeElement, this.elementRef.nativeElement.value);
-    console.log('elementRef value 2', (this.elementRef.nativeElement.input as HTMLInputElement), /*TODO:  it does not see value field*/ this.elementRef.nativeElement.input.validity);
-    console.log('this.elementRef.nativeElement.input', this.elementRef.nativeElement.input, this.elementRef.nativeElement.input.value);
+    console.log('txtarea elementRef', this._value,  elementRef, this.elementRef.nativeElement.value, this.elementRef.nativeElement, this.elementRef.nativeElement.value);
+    // console.log('txtarea elementRef value 2', (this.elementRef.nativeElement.input as HTMLInputElement)?.value, /*TODO:  it does not see value field*/ this.elementRef.nativeElement.input.validity);
+    console.log('txtarea this.elementRef.nativeElement.input', this.elementRef.nativeElement.input, this.elementRef.nativeElement.input?.value);
+    console.log('txtarea element input3', this.elementRef.nativeElement.input);
     // debugger;
   }
 
-  @HostListener('valueChange', ['$event.detail'])
+  @HostListener('input', ['$event.target.value'])
   listenForValueChange(value: any): void {
-    console.log('on change', value);
+    console.log('txtarea on change', value);
     this.value = value;
   }
 

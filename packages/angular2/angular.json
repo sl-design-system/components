@@ -101,7 +101,7 @@
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
-            "browserTarget": "angular-app:build",
+            "browserTarget": "storybook:build-storybook",
             "port": 6007,
             "quiet": true
           }
@@ -109,7 +109,7 @@
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
-            "browserTarget": "angular-app:build",
+            "browserTarget": "storybook:build-storybook",
             "quiet": true
           }
         },

@@ -117,7 +117,7 @@ export class CheckboxComponent {
       <sl-input id="name-input" formControlName="name" placeholder="Your name"></sl-input>
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" formControlName="description" placeholder="Add short description here"></sl-textarea>
-      <sl-label for="approval-id">Description</sl-label>
+      <sl-label for="approval-id">Approval</sl-label>
       <sl-checkbox id="approval-id" formControlName="approval">Check me</sl-checkbox>
       <sl-label for="radio-group-options">Select option</sl-label>
       <sl-radio-group id="radio-group-options">

@@ -3,10 +3,16 @@ import type { SelectOverlay } from './select-overlay.js';
 import { LitElement, html } from 'lit';
 import { query, queryAssignedElements, state } from 'lit/decorators.js';
 import { RovingTabindexController } from '../utils/controllers/roving-tabindex.js';
+import { FormControlMixin } from '../utils/mixins/form-control.js';
 import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
 
-export class Select extends LitElement {
+let nextUniqueId = 0;
+
+export class Select extends FormControlMixin(LitElement) {
+  /** @private */
+  static formAssociated = true;
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -24,6 +30,8 @@ export class Select extends LitElement {
 
   #observer?: MutationObserver;
 
+  #selectId = `sl-select-${nextUniqueId++}`;
+
   static #observerOptions = {
     attributes: true,
     subtree: true,
@@ -31,24 +39,41 @@ export class Select extends LitElement {
     attributeOldValue: true
   };
 
+  /** Element internals. */
+  readonly internals = this.attachInternals();
+
   /** The current tab node selected in the tab group. */
   @state() private selectedOption?: SelectOption | null;
 
   override render(): TemplateResult {
     return html`
-      <sl-button @click=${this.openSelect} @keydown="${this.#handleOverallKeydown}">
+      <sl-button id=${this.#selectId} @click=${this.openSelect} @keydown="${this.#handleOverallKeydown}">
         <span id="selectedOption">Select an option</span>🔽
       </sl-button>
-      <sl-select-overlay @keydown=${this.#handleOverlayKeydown} @click=${this.#handleOptionChange}>
+      <sl-select-overlay
+        @keydown=${this.#handleOverlayKeydown}
+        @click=${this.#handleOptionChange}
+        aria-labelledby=${this.#selectId}
+      >
         <slot name="options" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
       </sl-select-overlay>
     `;
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.internals.role = 'select';
+    this.setFormControlElement(this);
   }
 
   override firstUpdated(): void {
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, Select.#observerOptions);
     this.selectedOption ||= this.options?.find(option => option.selected);
+    console.log(this.selectedOption);
+    if (this.selectedOption) {
+      this.#setSelectedOptionVisible(this.selectedOption);
+    }
   }
 
   openSelect({ target }: Event): void {
@@ -91,7 +116,6 @@ export class Select extends LitElement {
    * Update the selected option with attributes and values.
    */
   #updateSelectedOption(selectedOption: SelectOption): void {
-    console.log('updateSelectedOption');
     if (selectedOption === this.selectedOption || selectedOption.disabled) return;
 
     /**
@@ -103,13 +127,19 @@ export class Select extends LitElement {
         option.setAttribute('selected', '');
         option.focus();
         option.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+
         this.selectedOption = option;
-        console.log(this.selectedOptionPlaceholder, option);
-        const clonedOption = (option.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
-        this.selectedOptionPlaceholder?.childNodes.forEach(cn => cn.remove());
-        this.selectedOptionPlaceholder?.append(clonedOption);
+        this.#setSelectedOptionVisible(option);
       }
     });
+  }
+
+  #setSelectedOptionVisible(option: SelectOption): void {
+    this.setFormValue(option.value || option.innerHTML);
+
+    const clonedOption = (option.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
+    this.selectedOptionPlaceholder?.childNodes.forEach(cn => cn.remove());
+    this.selectedOptionPlaceholder?.append(clonedOption);
   }
 
   /** Handle keyboard accessible controls. */

@@ -1,4 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { FormControlValue } from '../utils/mixins/index.js';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { observe } from '../utils/decorators/observe.js';
@@ -7,6 +8,9 @@ import styles from './select-option.scss.js';
 export class SelectOption extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** Whether the option item is selected*/
+  @property() value?: FormControlValue;
 
   /** Whether the option item is selected*/
   @property({ reflect: true, type: Boolean }) selected = false;
@@ -32,6 +36,7 @@ export class SelectOption extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.slot ||= 'options';
+    this.setAttribute('role', 'option');
   }
 
   override render(): TemplateResult {

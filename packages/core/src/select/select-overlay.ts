@@ -20,7 +20,7 @@ export class SelectOverlay extends AnchoredPopoverMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('popover', 'manual');
-    this.setAttribute('role', 'combobox');
+    this.setAttribute('role', 'listbox');
     this.setAttribute('main-axis', '0');
     this.setAttribute('cross-axis', '0');
 

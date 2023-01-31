@@ -23,10 +23,17 @@ export class Avatar extends LitElement {
   /** Renders the tabs vertically instead of the default horizontal  */
   @property() uniqueProfileId = 'slds';
 
+  get profileName(): string {
+    return `${this.user?.name.first || 'John'} ${this.user?.name.last || 'Doe'}`;
+  }
+
   override render(): TemplateResult {
     return html`
-      <img src=${this.user?.picture.thumbnail || ''} />
-      <span>${this.user?.name.first} ${this.user?.name.last}</span>
+      <img
+        alt="picture of ${this.profileName}"
+        src=${this.user?.picture.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
+      />
+      <span>${this.profileName}</span>
     `;
   }
 
@@ -45,7 +52,7 @@ export class Avatar extends LitElement {
       const json: { results: UserProfile[]; info: any } = await response?.json();
       return json?.results?.[0];
     } catch (error) {
-      console.log(error);
+      console.warn('error loading avatar');
       return;
     }
   }

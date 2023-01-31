@@ -3,105 +3,41 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-app": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/angular-app/",
-      "sourceRoot": "projects/angular-app/src",
-      "prefix": "app",
+    "angular-core": {
+      "projectType": "library",
+      "root": "projects/angular-core",
+      "sourceRoot": "projects/angular-core/src",
+      "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "outputPath": "dist/angular-app",
-            "index": "projects/angular-app/src/index.html",
-            "main": "projects/angular-app/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
-            "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/angular-app/src/favicon.ico",
-              "projects/angular-app/src/assets"
-            ],
-            "styles": [
-              "projects/angular-app/src/styles.scss"
-            ],
-            "scripts": []
+            "project": "projects/angular-core/ng-package.json"
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "outputHashing": "all"
+              "tsConfig": "projects/angular-core/tsconfig.lib.prod.json"
             },
             "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": false,
-              "namedChunks": true
+              "tsConfig": "projects/angular-core/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "angular-app:build:production"
-            },
-            "development": {
-              "browserTarget": "angular-app:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "angular-app:build"
-          }
-        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "tsConfig": "projects/angular-core/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
-            ],
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/angular-app/src/favicon.ico",
-              "projects/angular-app/src/assets"
-            ],
-            "styles": [
-              "projects/angular-app/src/styles.scss"
-            ],
-            "scripts": []
+            ]
           }
         },
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
-            "browserTarget": "angular-app:build",
+            "browserTarget": "angular-core:build-storybook",
             "port": 6007,
             "quiet": true
           }
@@ -109,14 +45,14 @@
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
-            "browserTarget": "angular-app:build",
+            "browserTarget": "angular-core:build-storybook",
             "quiet": true
           }
         },
         "docs": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
-            "browserTarget": "angular-app:build",
+            "browserTarget": "angular-core:build",
             "outputDir": "../../docs/dist/angular",
             "quiet": true
           }
@@ -125,17 +61,12 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/angular-app/src/**/*.ts",
-              "projects/angular-app/src/**/*.html"
+              "projects/angular-core/src/**/*.ts",
+              "projects/angular-core/src/**/*.html"
             ]
           }
         }
       }
     }
-  },
-  "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
   }
 }

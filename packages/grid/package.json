@@ -1,7 +1,7 @@
 {
   "name": "@sanomalearning/slds-grid",
   "description": "SLDS Grid components",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

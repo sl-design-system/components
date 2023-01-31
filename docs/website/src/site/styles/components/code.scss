@@ -31,11 +31,18 @@ $transition-timing: 300ms;
   &:hover {
     background-color: var(--copy-button-background--hover);
     background-image: var(--copy-icon--hover);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.4rem;
     border: 1px solid var(--ds-color-blue);
   }
 
   &:active {
     background-color: var(--copy-button-background--active);
+    background-image: var(--copy-icon--hover);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.4rem;
     border: 1px solid var(--ds-color-blue);
   }
 }

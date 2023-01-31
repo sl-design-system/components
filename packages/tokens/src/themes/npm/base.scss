@@ -4,6 +4,9 @@
  */
 
 @mixin sl-theme-base {
+  --sl-icon-core-fa-fav: fa-star;
+  --sl-icon-core-fa-menu: fa-bars;
+  --sl-icon-core-fa-face-smile: fa-face-smile;
   --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;

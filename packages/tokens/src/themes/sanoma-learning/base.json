@@ -1294,28 +1294,50 @@
     }
   },
   "icon": {
-    "font": {
-      "fa-face-smile": {
-        "value": "fa-regular fa-face-smile",
-        "type": "Icon",
-        "description": "icon.font.fa-face-smile"
+    "sl-base": {
+      "i-face-smile": {
+        "value": "{icon.core.fa-face_smile}",
+        "type": "Icons",
+        "description": "icon.sl-base.i-face-smile"
       },
-      "fa-menu": {
-        "value": "fa-solid fa-bars",
-        "type": "Icon",
-        "description": "icon.font.fa-menu"
+      "i-menu": {
+        "value": "{icon.core.fa-menu}",
+        "type": "Icons",
+        "description": "icon.sl-base.i-menu"
+      },
+      "i-fav": {
+        "value": "{icon.custom.ic-fav}",
+        "type": "Icons",
+        "description": "icon.sl-base.i-fav"
       }
     },
     "custom": {
-      "i-face-smile": {
-        "value": "i-face-smile",
-        "type": "Icon",
-        "description": "icon.custom.i-face-smile"
+      "ic-fav": {
+        "value": "ic-fav",
+        "type": "Icons",
+        "description": "icon.custom.ic-fav"
+      }
+    },
+    "font-weight": {
+      "value": "{text.typeset.fontWeight.icon-regular}",
+      "type": "fontWeights",
+      "description": "icon.font-weight"
+    },
+    "core": {
+      "fa-face_smile": {
+        "value": "fa-face-smile",
+        "type": "Icons",
+        "description": "icon.core.fa-face_smile"
       },
-      "i-hello": {
-        "value": "i-face-hello",
-        "type": "Icon",
-        "description": "icon.custom.i-hello"
+      "fa-menu": {
+        "value": "fa-bars",
+        "type": "Icons",
+        "description": "icon.core.fa-menu"
+      },
+      "fa-fav": {
+        "value": "fa-star",
+        "type": "Icons",
+        "description": "icon.core.fa-fav"
       }
     }
   },

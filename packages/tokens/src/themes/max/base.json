@@ -1002,5 +1002,24 @@
         "description": "animation.easing.ease-in-out"
       }
     }
+  },
+  "icon": {
+    "core": {
+      "fa-face_smile": {
+        "value": "fa-face-smile",
+        "type": "Icons",
+        "description": "icon.core.fa-face_smile"
+      },
+      "fa-menu": {
+        "value": "fa-bars",
+        "type": "Icons",
+        "description": "icon.core.fa-menu"
+      },
+      "fa-fav": {
+        "value": "fa-star",
+        "type": "Icons",
+        "description": "icon.core.fa-fav"
+      }
+    }
   }
 }

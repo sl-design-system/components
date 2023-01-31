@@ -26,4 +26,4 @@ import { RadioDirective } from "./radio-group/radio.directive";
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CoreFormsModule { }
+export class FormsModule { }

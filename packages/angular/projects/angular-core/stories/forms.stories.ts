@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/angular';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Component, CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {moduleMetadata, StoryFn} from '@storybook/angular';
-import { CoreFormsModule } from '../src/forms/core-forms.module';
+import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
 import '@sanomalearning/slds-core/label/register.js';
 import '@sanomalearning/slds-core/button/register.js';
 

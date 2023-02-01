@@ -23,7 +23,7 @@ export class Select extends FormControlMixin(LitElement) {
   @queryAssignedElements({ slot: 'options' }) options?: SelectOption[];
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
-    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected),
+    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.overlay?.popoverOpen),
     elements: () => this.options || [],
     isFocusableElement: (el: SelectOption) => !el.disabled
   });
@@ -70,7 +70,6 @@ export class Select extends FormControlMixin(LitElement) {
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, Select.#observerOptions);
     this.selectedOption ||= this.options?.find(option => option.selected);
-    console.log(this.selectedOption);
     if (this.selectedOption) {
       this.#setSelectedOptionVisible(this.selectedOption);
     }

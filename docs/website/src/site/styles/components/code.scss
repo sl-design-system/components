@@ -88,8 +88,8 @@ $transition-timing: 300ms;
   }
 }
 
-/* stylelint-disable-next-line property-no-vendor-prefix */
-@keyframes FadeIn {
+/* stylelint-disable-next-line at-rule-no-vendor-prefix */
+@-webkit-keyframes FadeIn {
   0% {
     opacity: 0;
   }

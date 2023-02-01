@@ -4,6 +4,8 @@ import { LitElement, html } from 'lit';
 import { query, queryAssignedElements, state } from 'lit/decorators.js';
 import { RovingTabindexController } from '../utils/controllers/roving-tabindex.js';
 import { FormControlMixin } from '../utils/mixins/form-control.js';
+import { ValidationController, validationStyles } from '../utils/controllers/index.js';
+import { requiredValidator } from '../utils/index.js';
 import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
 
@@ -14,7 +16,7 @@ export class Select extends FormControlMixin(LitElement) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [validationStyles, styles];
 
   @query('sl-select-overlay') overlay?: SelectOverlay;
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
@@ -26,6 +28,10 @@ export class Select extends FormControlMixin(LitElement) {
     focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.overlay?.popoverOpen),
     elements: () => this.options || [],
     isFocusableElement: (el: SelectOption) => !el.disabled
+  });
+
+  #validation = new ValidationController(this, {
+    validators: [requiredValidator]
   });
 
   #observer?: MutationObserver;
@@ -57,6 +63,7 @@ export class Select extends FormControlMixin(LitElement) {
       >
         <slot name="options" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
       </sl-select-overlay>
+      ${this.#validation.render()}
     `;
   }
 
@@ -64,6 +71,9 @@ export class Select extends FormControlMixin(LitElement) {
     super.connectedCallback();
     this.internals.role = 'select';
     this.setFormControlElement(this);
+    this.#validation.validate(
+      this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
+    );
   }
 
   override firstUpdated(): void {
@@ -128,6 +138,9 @@ export class Select extends FormControlMixin(LitElement) {
         option.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 
         this.selectedOption = option;
+        this.#validation.validate(
+          this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
+        );
         this.#setSelectedOptionVisible(option);
       }
     });

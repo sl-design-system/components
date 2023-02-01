@@ -2,11 +2,12 @@ import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './register.js';
 import '../avatar/register.js';
+import '../label/register.js';
+import '../button/register.js';
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),
     output = (event.target.nextElementSibling || document.createElement('pre')) as HTMLOutputElement;
-  console.log(data);
 
   event.preventDefault();
   event.target.after(output);
@@ -68,7 +69,7 @@ export const InForm: StoryObj = {
     </style>
     <form @submit=${onSubmit}>
       <sl-label for="smiley">smiley</sl-label>
-      <sl-select id="smiley" name="smiley">
+      <sl-select id="smiley" name="smiley" required>
         <sl-select-option>😍 Option 1 </sl-select-option>
         <sl-select-option>🥸 Option 2 </sl-select-option>
         <sl-select-option>🤔 Option 3 </sl-select-option>

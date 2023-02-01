@@ -11,6 +11,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
+  --sl-icon-core-fa-chevron-down: fa-chevron-down;
   --sl-icon-core-fa-fav: fa-star;
   --sl-icon-core-fa-menu: fa-bars;
   --sl-icon-core-fa-face-smile: fa-face-smile;

@@ -22,47 +22,41 @@ $transition-timing: 300ms;
   border-radius: 6px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   height: 3.2rem;
-  //will-change: transform;
-  //z-index: 2;
-  opacity: 1;
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-perspective: none;
   position: absolute;
   right: 1.6rem;
   top: 1.6rem;
-  //-webkit-perspective: 20px;
-  //-webkit-backface-visibility: none;
-  //transform-style: preserve-3d;
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  //-webkit-transform: translate3d(0, 0, 0);
-  //-webkit-transform: translateZ(0);
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-transition: border $transition-timing linear; //none;//border 200ms ease-in;
-  //transform: none;
-  transition: opacity 243ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 162ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  //transition: border 0.2s 0.1s ease-in-out; //border $transition-timing linear;
-  //-webkit-transition: background-color 300ms ease-in, background-image 1ms;
   width: 3.2rem;
-  //transition-duration: 200ms;
-  //transition-property: background-color;
 
-  &:hover {
+  &::before {
     background-color: var(--copy-button-background--hover);
     background-image: var(--copy-icon--hover);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 1.4rem;
     border: 1px solid var(--ds-color-blue);
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    content: '';
     height: 3.2rem;
-    opacity: 1;
+    left: -1px;
+    opacity: 0;
     position: absolute;
-    right: 1.6rem;
-    top: 1.6rem;
-    //transition: $transition-timing linear;
+    top: -1px;
+    transform: none;
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-transition: opacity 300ms; /* Safari */
+    transition: opacity 300ms;
     width: 3.2rem;
   }
 
-  &:active {
+  &:hover::before {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-animation: 300ms FadeIn;
+    animation: 300ms FadeIn;
+    opacity: 1;
+  }
+
+  &:active::before {
     background-color: var(--copy-button-background--active);
     background-image: var(--copy-icon--hover);
     background-position: center;
@@ -70,13 +64,37 @@ $transition-timing: 300ms;
     background-size: 1.4rem;
     border: 1px solid var(--ds-color-blue);
     box-shadow: none;
+    content: '';
     height: 3.2rem;
+    left: -1px;
     opacity: 1;
     position: absolute;
-    right: 1.6rem;
-    top: 1.6rem;
-    //transition: $transition-timing linear;
+    top: -1px;
     width: 3.2rem;
+  }
+
+  &:active {
+    box-shadow: none;
+  }
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 

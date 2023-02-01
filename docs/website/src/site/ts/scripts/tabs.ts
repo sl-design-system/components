@@ -59,6 +59,11 @@ window.onkeydown = (event: KeyboardEvent) => {
 
 function generateTabsElements(): void {
   horizontalTabsContainers = document.querySelectorAll('.ds-tabs[horizontal]');
+
+  if (!horizontalTabsContainers.length) {
+    return;
+  }
+
   tabsWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs-wrapper') as Element;
   tabsContentWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs__tab-content-wrapper') as Element;
   tabs = horizontalTabsContainers[0].querySelectorAll('.ds-tab');

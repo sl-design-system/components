@@ -567,6 +567,11 @@
         "value": "fa-star",
         "type": "Icons",
         "description": "icon.core.fa-fav"
+      },
+      "fa-chevron-down": {
+        "value": "fa-chevron-down",
+        "type": "Icons",
+        "description": "icon.core.fa-chevron-down"
       }
     }
   }

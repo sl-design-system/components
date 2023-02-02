@@ -41,7 +41,7 @@ export class Select extends FormControlMixin(LitElement) {
   static #observerOptions = {
     attributes: true,
     subtree: true,
-    attributeFilter: ['selected'],
+    attributeFilter: ['selected', 'size'],
     attributeOldValue: true
   };
 
@@ -70,7 +70,7 @@ export class Select extends FormControlMixin(LitElement) {
         @click=${this.#handleOptionChange}
         aria-labelledby=${this.#selectId}
       >
-        <slot name="options" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
+        <slot name="options" @slotchange=${this.#handleOptionsSlotChange}></slot>
       </sl-select-overlay>
       ${this.#validation.render()}
     `;
@@ -89,6 +89,10 @@ export class Select extends FormControlMixin(LitElement) {
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, Select.#observerOptions);
     this.selectedOption ||= this.options?.find(option => option.selected);
+    console.log(
+      this.selectedOption,
+      this.options?.map(o => o.offsetHeight)
+    );
     if (this.selectedOption) {
       this.#setSelectedOptionVisible(this.selectedOption);
     }
@@ -107,15 +111,23 @@ export class Select extends FormControlMixin(LitElement) {
     (this.renderRoot.querySelector('.select-toggle') as HTMLElement).focus();
   }
 
+  #handleOptionsSlotChange(): void {
+    this.#rovingTabindexController.clearElementCache();
+  }
+
   /** If an option is selected programmatically update all the options. */
   #handleMutation(mutations: MutationRecord[]): void {
     mutations.forEach(mutation => {
+      console.log(mutation);
       if (mutation.attributeName === 'selected' && mutation.oldValue === null) {
         const selectedOption = <SelectOption>mutation.target;
         this.#observer?.disconnect();
         this.#updateSelectedOption(selectedOption);
         this.#observer?.observe(this, Select.#observerOptions);
       }
+      console.log(this.options);
+      // if (mutation.attributeName === 'size' && mutation.oldValue === null) {
+      // }
     });
   }
 

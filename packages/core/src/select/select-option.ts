@@ -18,6 +18,11 @@ export class SelectOption extends LitElement {
   /** Whether the option item is disabled*/
   @property({ reflect: true, type: Boolean }) disabled = false;
 
+  /** Whether the content of the option item is a node*/
+  @property({ reflect: true }) contentType?: 'string' | 'element';
+
+  @property() size?: number; //{ width: number; height: number };
+
   /** Get the selected tab button, or the first tab button. */
   get #tabIndex(): string | null {
     return this.getAttribute('tabIndex');
@@ -40,6 +45,37 @@ export class SelectOption extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
+  }
+
+  async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
+    this.contentType = event.target.assignedNodes()[0].nodeType === 1 ? 'element' : 'string';
+    this.size = (await this.#getElementSize(event.target.assignedElements()[0])).width;
+  }
+
+  async #getElementSize(element: Element): Promise<{ width: number; height: number }> {
+    const el = document.createElement('div');
+
+    const clonedSlot = element.cloneNode(true) as HTMLElement;
+    el.append(clonedSlot);
+
+    el.style.position = 'absolute';
+    el.style.top = '0px';
+    el.style.visibility = 'hidden';
+    el.style.whiteSpace = 'nowrap';
+
+    document.body.appendChild(el);
+
+    const { width, height } = await new Promise<{ width: number; height: number }>(resolve => {
+      setTimeout(() => {
+        const rect = el.getBoundingClientRect();
+
+        document.body.removeChild(el);
+
+        resolve({ width: rect.width, height: rect.height });
+      });
+    });
+
+    return { width, height };
   }
 }

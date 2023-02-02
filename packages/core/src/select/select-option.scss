@@ -1,17 +1,21 @@
 :host {
-  --_padding-block: var(--sl-space-button-block-md);
-  --_padding-inline: var(--sl-space-button-inline-md);
-
+  --_font: var(--sl-text-button-text-md);
+  
   border: 1px solid #f92;
   cursor: pointer;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
+  font: var(--_font);
 }
 
-:host(:has(*)) {
-  background-color: #ffe4c4;
-  padding-block: 0;
-  padding-inline: 0;
+:host([contenttype='string']) {
+  --_padding-block: var(--sl-space-button-block-md);
+  --_padding-inline: var(--sl-space-button-inline-md);
+}
+
+:host([contenttype='element']) {
+  --_padding-block: 0;
+  --_padding-inline: 0;
 }
 
 :host([selected]) {

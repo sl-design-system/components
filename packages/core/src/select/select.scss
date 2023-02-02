@@ -25,17 +25,21 @@
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 24px;
   font: var(--_font);
   gap: var(--_gap);
   min-width: 150px;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
   transition: 0.2s ease-in-out;
   transition-property: background, border, box-shadow, color, filter;
   // width: 100%;
+  
+  span {
+    padding-block: var(--_padding-block);
+    padding-inline: var(--_padding-inline);
+  }
 
-  &:has(> span > *) {
+  &:has(> span > *) span {
     padding-block: 0;
     padding-inline: 0;
   }
@@ -59,14 +63,11 @@
 
   span {
     display: block;
-    flex: 1 1 auto;
   }
 }
 
 // to be replaced by <sl-icon>
 .toggle-icon {
-  border: 1px solid #008000;
   display: grid;
-  flex: 0 0 24px;
   place-items: center;
 }

@@ -57,3 +57,43 @@ ul {
 [//]: # (### not SSR:)
 
 [//]: # (<my-counter></my-counter>)
+
+<section class="ds-explore">
+
+## Explore
+
+<div class="ds-explore-wrapper">
+
+<div class="ds-explore__components">
+
+<div class="ds-explore__components-image"></div>
+
+### Components
+
+Sanoma Learning’s UI components are built to best practices to ensure usability, performance and accessibility.
+
+</div>
+
+<div class="ds-explore__design-tokens">
+
+<div class="ds-explore__design-tokens-image"></div>
+
+### Design tokens
+
+Tokens are platform-agnostic variables that represent the look and feel of our brands.
+
+</div>
+
+<div class="ds-explore__guidelines">
+
+<div class="ds-explore__guidelines-image"></div>
+
+### Guidelines
+
+Practical guides to get started with designing and developing experiences with Sanoma Learning’s Design System.
+
+</div>
+
+</div>
+
+</section>

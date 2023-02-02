@@ -1,0 +1,129 @@
+@import './../breakpoints';
+
+.ds-explore {
+  h2 {
+    margin-bottom: 2.4rem;
+  }
+
+  h3 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+.ds-explore-wrapper {
+  display: grid;
+  //display: flex;
+  gap: 24px;
+  grid-template-rows: repeat(3, 1fr);
+  //flex-direction: column;
+
+  /* stylelint-disable-next-line max-nesting-depth */
+  @media screen and (min-width: $md-breakpoint) {
+    //flex-direction: row;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ds-explore__components {
+  cursor: pointer;
+
+  &:hover {
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-explore__components-image::before {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.ds-explore__design-tokens {
+  cursor: pointer;
+
+  &:hover {
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-explore__design-tokens-image::before {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.ds-explore__guidelines {
+  cursor: pointer;
+}
+
+.ds-explore__components-image {
+  background-color: #e0eaff;
+  border-radius: 8px;
+  height: 200px;
+  margin-bottom: 1.6rem;
+  overflow: hidden;
+  //background-color: var(--copy-button-background);
+  //background-image:  url('../assets/images/homepage/puzzle.svg');
+  //background-position: center;
+  //background-repeat: no-repeat;
+  //background-size: 1.4rem;
+  position: relative;
+
+  &::before {
+    //z-index: -1;
+    // background: url('../assets/images/homepage/puzzle.svg') 0 0 no-repeat;
+    background-image: url('../assets/images/homepage/puzzle.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    content: '';
+    height: 200px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: 400ms ease-in-out;
+    width: 100%;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    //@media screen and (prefers-reduced-motion: reduce) {
+    //  /* stylelint-disable-next-line max-nesting-depth */
+    //  transition: none;
+    //}
+  }
+
+  //&:hover::before  {
+  //  transform: scale(1.2);
+  //}
+}
+
+.ds-explore__design-tokens-image {
+  background: #e0eaff;
+  border-radius: 8px;
+  height: 200px;
+  margin-bottom: 1.6rem;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    //z-index: -1;
+    // background: url('../assets/images/homepage/puzzle.svg') 0 0 no-repeat;
+    background-image: url('../assets/images/homepage/slide-design.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    content: '';
+    height: 200px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: 400ms ease-in-out;
+    width: 100%;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    //@media screen and (prefers-reduced-motion: reduce) {
+    //  /* stylelint-disable-next-line max-nesting-depth */
+    //  transition: none;
+    //}
+  }
+}
+
+.ds-explore__guidelines-image {
+  background: #e0eaff;
+  border-radius: 8px;
+  height: 200px;
+  margin-bottom: 1.6rem;
+}
+
+// TODO: create reusable card

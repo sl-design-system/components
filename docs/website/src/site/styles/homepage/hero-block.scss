@@ -11,6 +11,7 @@
   }
 
   h1 {
+    animation: heroAnimation 300ms ease-in;
     font-size: 4.2rem;
     line-height: 5.2rem;
     margin-bottom: 0.8rem;
@@ -28,5 +29,24 @@
 
   @media screen and (min-width: $lg-breakpoint) {
     padding: 7rem 4rem;
+  }
+
+  @media screen and (prefers-reduced-motion: reduce) {
+    /* stylelint-disable-next-line max-nesting-depth */
+    h1 {
+      animation: none;
+    }
+  }
+}
+
+@keyframes heroAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

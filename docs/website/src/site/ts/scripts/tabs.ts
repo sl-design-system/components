@@ -11,7 +11,7 @@ let tabsContainer = document.querySelector('.ds-tabs'),
   slider = tabsContainer?.querySelector('.ds-tabs__slider') as HTMLElement,
   indicator = slider?.querySelector('.ds-tabs__indicator') as HTMLElement,
   headingElement: HTMLHeadingElement | undefined,
-  horizontalTabsContainers: NodeListOf<Element>,
+  horizontalTabsContainer: Element | null,
   tabsWrapper: Element,
   tabsContentWrapper: Element,
   tabs: NodeListOf<HTMLElement>,
@@ -58,20 +58,20 @@ window.onkeydown = (event: KeyboardEvent) => {
 };
 
 function generateTabsElements(): void {
-  horizontalTabsContainers = document.querySelectorAll('.ds-tabs[horizontal]');
+  horizontalTabsContainer = document.querySelector('.ds-tabs[horizontal]');
 
-  if (!horizontalTabsContainers.length) {
+  if (!horizontalTabsContainer) {
     return;
   }
 
-  tabsWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs-wrapper') as Element;
-  tabsContentWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs__tab-content-wrapper') as Element;
-  tabs = horizontalTabsContainers[0].querySelectorAll('.ds-tab');
+  tabsWrapper = horizontalTabsContainer.querySelector('.ds-tabs-wrapper') as Element;
+  tabsContentWrapper = horizontalTabsContainer.querySelector('.ds-tabs__tab-content-wrapper') as Element;
+  tabs = horizontalTabsContainer.querySelectorAll('.ds-tab');
   tabs[0].classList.add('active');
 
   tabsContainer = document.createElement('div');
   tabsContainer.classList.add('ds-tabs__container');
-  horizontalTabsContainers[0].insertBefore(tabsContainer, tabsContentWrapper);
+  horizontalTabsContainer.insertBefore(tabsContainer, tabsContentWrapper);
 
   tabsWrapper = document.createElement('div');
   tabsWrapper.classList.add('ds-tabs-wrapper');
@@ -89,7 +89,7 @@ function generateTabsElements(): void {
 
   current = tabsWrapper.querySelector('.active') as Element;
 
-  tabsContents = horizontalTabsContainers[0]?.querySelectorAll('.ds-tabs__tab-content');
+  tabsContents = horizontalTabsContainer.querySelectorAll('.ds-tabs__tab-content');
   tabsContents[0].classList.add('ds-tabs__tab-content--active');
 
   if (!tabsWrapper || !current) {

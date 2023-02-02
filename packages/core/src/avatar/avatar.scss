@@ -2,10 +2,19 @@
   align-items: center;
   display: flex;
   gap: 8px;
+  padding: 4px;
 }
 
 img {
   border-radius: 50%;
-  height: 32px;
-  width: 32px;
+  flex: 0 0 22px;
+  height: 22px;
+  width: 22px;
+}
+
+span {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

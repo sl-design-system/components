@@ -53,9 +53,18 @@ export class Select extends FormControlMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-button id=${this.#selectId} @click=${this.openSelect} @keydown="${this.#handleOverallKeydown}">
-        <span id="selectedOption">Select an option</span>🔽
-      </sl-button>
+      <div
+        id=${this.#selectId}
+        tabindex="0"
+        class="select-toggle"
+        @click=${this.openSelect}
+        @keydown="${this.#handleOverallKeydown}"
+      >
+        <span id="selectedOption"></span>
+
+        <div class="toggle-icon">🔽</div>
+        <!-- to be replaced by <sl-icon></sl-icon> -->
+      </div>
       <sl-select-overlay
         @keydown=${this.#handleOverlayKeydown}
         @click=${this.#handleOptionChange}
@@ -86,14 +95,16 @@ export class Select extends FormControlMixin(LitElement) {
   }
 
   openSelect({ target }: Event): void {
+    const toggle = (target as HTMLElement).closest('.select-toggle') as HTMLElement;
+    if (!toggle) return;
     this.scrollTo({ top: 0 });
     this.options?.find(option => option.selected)?.focus();
-    this.overlay?.show(target as HTMLElement);
+    this.overlay?.show(toggle);
   }
 
   closeSelect(): void {
     this.overlay?.hide();
-    this.renderRoot.querySelector('sl-button')?.focus();
+    (this.renderRoot.querySelector('.select-toggle') as HTMLElement).focus();
   }
 
   /** If an option is selected programmatically update all the options. */

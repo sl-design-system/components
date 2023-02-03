@@ -1,5 +1,5 @@
 const menu = document.querySelector('.ds-sidebar') as HTMLElement,
-  container = document.querySelector('.ds-container'),
+  container = document.querySelector('.ds-container') as Element,
   mediaQueryList: MediaQueryList = window.matchMedia('(min-width: 900px)'),
   topNavigation = document.querySelector('.ds-top-navigation') as HTMLElement,
   closeButton = document.querySelector('.ds-sidebar-nav__close-button') as HTMLButtonElement,
@@ -26,6 +26,7 @@ linksWithSubmenu?.forEach(link => {
 });
 
 document.onclick = (event: MouseEvent) => {
+  console.log('click event', event, container, document.querySelector('.ds-container') as HTMLElement);
   if (event.target === container && menu?.classList.contains('ds-sidebar--opened')) {
     hideMenu();
   }
@@ -36,6 +37,29 @@ menu.onkeyup = (event: KeyboardEvent) => {
     if (menu.classList.contains('ds-sidebar--opened')) {
       hideMenu();
     }
+  }
+};
+
+document.onscroll = (e: Event) => {
+  console.log(
+    'e',
+    e,
+    (e.target as HTMLElement).scrollTop,
+    container.scrollTop,
+    (container as HTMLElement).offsetTop - document.body.scrollTop,
+    window.scrollY
+  );
+
+  if (!e.target) {
+    return;
+  }
+
+  if (/*(e.target as HTMLElement).scrollTop*/ window.scrollY > 0 /*78*/) {
+    //wrap.addClass("fix-search");
+    topNavigation.classList.add('ds-top-navigation--sticky');
+  } else {
+    //wrap.removeClass("fix-search");
+    topNavigation.classList.remove('ds-top-navigation--sticky');
   }
 };
 
@@ -80,6 +104,7 @@ function toggleMenu(open = false): void {
     menu.classList.remove('ds-sidebar--opened');
     menu.classList.add('ds-sidebar--closed');
     menuButton.focus();
+    //observer.observe(container as Element);
   }
 }
 
@@ -181,3 +206,48 @@ function closeSubmenus(): void {
     }
   });
 }
+
+/*const config = {
+  root: null,
+  threshold: 1
+};
+
+const observer = new IntersectionObserver(
+  entries =>
+    entries.forEach(({ target, intersectionRatio }) => {
+      console.log('target, intersectionRatio', target, intersectionRatio);
+      // const tabsContainer = target.previousSibling as Element;
+      // if (!tabsContainer) {
+      //   return;
+      // }
+
+      //const componentNameHeading = document.createElement('h1');
+      //componentNameHeading.textContent = componentName as string;
+      //componentNameHeading.classList.add('ds-top-navigation__component-name');
+
+      if (intersectionRatio < 1) {
+        topNavigation.classList.add('ds-top-navigation--sticky');
+
+        // mediaQueryList.onchange = event => {
+        //   showComponentName(event.matches, target, componentNameHeading, true);
+        //   headingElement = componentNameHeading;
+        // };
+        //
+        // if (!headingElement) {
+        //   showComponentName(mediaQueryList.matches, target, componentNameHeading);
+        // }
+        // headingElement = componentNameHeading;
+      } else {
+        topNavigation.classList.remove('ds-top-navigation--sticky');
+
+        // mediaQueryList.onchange = event => {
+        //   hideComponentName(event.matches);
+        // };
+        //
+        // if (headingElement) {
+        //   hideComponentName(mediaQueryList.matches);
+        // }
+      }
+    }),
+  config
+);*/

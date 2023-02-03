@@ -1,12 +1,47 @@
 @import './../breakpoints';
 
 .ds-explore {
+  //h2 {
+  //  margin-bottom: 2.4rem;
+  //}
+
   h2 {
+    font-size: 2.4rem;
+    line-height: 1;
     margin-bottom: 2.4rem;
+  }
+
+  .ds-heading-2 {
+    margin-bottom: 0.8rem;
+    transition: color 300ms linear;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    a {
+      color: inherit;
+      font-size: inherit;
+      text-decoration: none;
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      &::before {
+        //background: var(--highlight-color);
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      &:focus-visible {
+        box-shadow: none;
+      }
+    }
   }
 
   h3 {
     margin-bottom: 0.8rem;
+    //transition: color 300ms linear;
   }
 }
 
@@ -21,13 +56,43 @@
   @media screen and (min-width: $md-breakpoint) {
     //flex-direction: row;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: none;
+  }
+}
+
+.ds-explore__card {
+  cursor: pointer;
+  position: relative;
+
+  &:focus-within:not(:active) {
+    //border: 2px solid red;
+    border-radius: 0.8rem;
+    box-shadow: var(--focus-box-shadow);
+  }
+
+  &:hover {
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-heading-2 {
+      color: var(--ds-color-blue);
+    }
+  }
+
+  &:active {
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-heading-2 {
+      color: var(--ds-color-mariner);
+    }
   }
 }
 
 .ds-explore__components {
-  cursor: pointer;
+  //cursor: pointer;
 
   &:hover {
+    //.ds-heading-2 {
+    //  color: var(--ds-color-blue);
+    //}
+
     /* stylelint-disable-next-line max-nesting-depth */
     .ds-explore__components-image::before {
       transform: scale(1.2);
@@ -36,7 +101,7 @@
 }
 
 .ds-explore__design-tokens {
-  cursor: pointer;
+  //cursor: pointer;
 
   &:hover {
     /* stylelint-disable-next-line max-nesting-depth */
@@ -47,7 +112,14 @@
 }
 
 .ds-explore__guidelines {
-  cursor: pointer;
+  //cursor: pointer;
+
+  &:hover {
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-explore__guidelines-image::before {
+      transform: scale(1.2);
+    }
+  }
 }
 
 .ds-explore__components-image {
@@ -124,6 +196,29 @@
   border-radius: 8px;
   height: 200px;
   margin-bottom: 1.6rem;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    //z-index: -1;
+    // background: url('../assets/images/homepage/puzzle.svg') 0 0 no-repeat;
+    background-image: url('../assets/images/homepage/slide-design.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    content: '';
+    height: 200px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: 400ms ease-in-out;
+    width: 100%;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    //@media screen and (prefers-reduced-motion: reduce) {
+    //  /* stylelint-disable-next-line max-nesting-depth */
+    //  transition: none;
+    //}
+  }
 }
 
 // TODO: create reusable card

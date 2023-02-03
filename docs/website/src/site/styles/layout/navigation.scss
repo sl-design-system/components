@@ -8,8 +8,19 @@ $short-transition-timing: 200ms;
   display: flex;
   padding: 3.2rem 2.4rem 1.4rem;
   position: fixed;
+  //position: sticky;
+  //top: -0.1rem;
   width: 100vw;
   z-index: 1;
+}
+
+.ds-top-navigation--sticky {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+  //padding-top: calc(7.8rem + 0.1rem);
+}
+
+.ds-top-navigation--not-sticky {
+  box-shadow: none;
 }
 
 .ds-sidebar {

@@ -81,6 +81,8 @@
   --angle: url('../assets/icons/angle-right-black.svg');
   --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
   --background-color: var(--ds-color-white);
+  --card-background: var(--ds-color-alice-blue-darker);
+  --card-color--active: var(--ds-color-mariner);
   --close-icon: url('../assets/icons/close.svg');
   --code-border: var(--ds-color-bright-grey);
   --copy-icon: url('../assets/icons/copy.svg');
@@ -133,6 +135,8 @@
     --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
       brightness(107%) contrast(101%);
     --background-color: var(--ds-color-black);
+    --card-background: rgba(var(--ds-color-blue-rgb), 0.32);
+    --card-color--active: var(--ds-color-baby-blue);
     --close-icon: url('../assets/icons/close-light.svg');
     --code-border: var(--ds-color-blck-olive);
     --copy-icon: url('../assets/icons/copy-light.svg');

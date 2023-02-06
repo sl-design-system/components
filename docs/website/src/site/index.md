@@ -61,7 +61,7 @@ Create enjoyable, usable and accessible products that meet students and teachers
 
 <div class="ds-explore__components ds-explore__card">
 
-<div class="ds-explore__components-image"></div>
+<div class="ds-explore__components-image ds-explore__card-image"></div>
 
 <div class="ds-heading-2">
 <a href="/categories/components/overview/">
@@ -75,7 +75,7 @@ Sanoma Learning’s UI components are built to best practices to ensure usabilit
 
 <div class="ds-explore__design-tokens ds-explore__card">
 
-<div class="ds-explore__design-tokens-image"></div>
+<div class="ds-explore__design-tokens-image ds-explore__card-image"></div>
 
 <div class="ds-heading-2">
 <a href="/categories/design-tokens/">
@@ -89,7 +89,7 @@ Tokens are platform-agnostic variables that represent the look and feel of our b
 
 <div class="ds-explore__guidelines ds-explore__card">
 
-<div class="ds-explore__guidelines-image"></div>
+<div class="ds-explore__guidelines-image ds-explore__card-image"></div>
 
 <div class="ds-heading-2">
 <a href="/categories/guidelines/">

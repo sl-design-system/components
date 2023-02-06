@@ -243,8 +243,6 @@ const observer = new IntersectionObserver(
   entries =>
     entries.forEach(({ target, intersectionRatio }) => {
       const topNavigation = document.querySelector('.ds-top-navigation');
-      console.log('topNavigation', topNavigation);
-      // topNavigation?.classList.remove('ds-top-navigation--sticky');
       const tabsContainer = target.previousSibling as Element;
       if (!tabsContainer) {
         return;

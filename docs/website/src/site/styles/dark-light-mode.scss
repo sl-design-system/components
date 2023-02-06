@@ -86,7 +86,7 @@
   --copy-icon: url('../assets/icons/copy.svg');
   --copy-icon--hover: url('../assets/icons/copy-hover.svg');
   --copy-button-background: var(--ds-color-concrete);
-  --copy-button-background--active: rgba(var(--ds-color-blue-rgb), 0.08);
+  --copy-button-background--active: var(--ds-color-alice-blue);
   --copy-button-background--hover: var(--ds-color-light-blue);
   --copy-button-border: var(--ds-color-bright-grey);
   --danger-color: var(--ds-color-danger);
@@ -138,7 +138,7 @@
     --copy-icon: url('../assets/icons/copy-light.svg');
     --copy-icon--hover: url('../assets/icons/copy-hover-dark.svg');
     --copy-button-background: var(--ds-color-blck-olive);
-    --copy-button-background--active: rgba(var(--ds-color-blue-rgb), 0.32);
+    --copy-button-background--active: var(--ds-color-deep-koamaru);
     --copy-button-background--hover: var(--ds-color-gunmetal);
     --copy-button-border: var(--ds-color-tundora);
     --danger-color: var(--ds-color-red);

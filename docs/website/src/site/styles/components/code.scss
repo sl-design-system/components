@@ -43,15 +43,11 @@ $transition-timing: 300ms;
     position: absolute;
     top: -1px;
     transform: none;
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-transition: opacity 300ms; /* Safari */
     transition: opacity 300ms;
     width: 3.2rem;
   }
 
   &:hover::before {
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-animation: 300ms FadeIn;
     animation: 300ms FadeIn;
     opacity: 1;
   }
@@ -79,17 +75,6 @@ $transition-timing: 300ms;
 }
 
 @keyframes FadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-/* stylelint-disable-next-line at-rule-no-vendor-prefix */
-@-webkit-keyframes FadeIn {
   0% {
     opacity: 0;
   }

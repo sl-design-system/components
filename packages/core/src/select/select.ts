@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { SelectOverlay } from './select-overlay.js';
 import { LitElement, html } from 'lit';
-import { query, queryAssignedElements, state } from 'lit/decorators.js';
+import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { RovingTabindexController } from '../utils/controllers/roving-tabindex.js';
 import { FormControlMixin } from '../utils/mixins/form-control.js';
 import { ValidationController, validationStyles } from '../utils/controllers/index.js';
@@ -23,6 +24,8 @@ export class Select extends FormControlMixin(LitElement) {
 
   /** The slotted options. */
   @queryAssignedElements({ slot: 'options' }) options?: SelectOption[];
+
+  @property() size?: { width: string; height: string } = { width: '500px', height: '32px' };
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
     focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.overlay?.popoverOpen),
@@ -60,7 +63,7 @@ export class Select extends FormControlMixin(LitElement) {
         @click=${this.openSelect}
         @keydown="${this.#handleOverallKeydown}"
       >
-        <span id="selectedOption"></span>
+        <span id="selectedOption" style=${styleMap(this.size || {})}></span>
 
         <div class="toggle-icon">🔽</div>
         <!-- to be replaced by <sl-icon></sl-icon> -->
@@ -86,13 +89,9 @@ export class Select extends FormControlMixin(LitElement) {
   }
 
   override firstUpdated(): void {
-    this.#observer = new MutationObserver(this.#handleMutation);
+    this.#observer = new MutationObserver(m => this.#handleMutation(m));
     this.#observer?.observe(this, Select.#observerOptions);
     this.selectedOption ||= this.options?.find(option => option.selected);
-    console.log(
-      this.selectedOption,
-      this.options?.map(o => o.offsetHeight)
-    );
     if (this.selectedOption) {
       this.#setSelectedOptionVisible(this.selectedOption);
     }
@@ -118,16 +117,17 @@ export class Select extends FormControlMixin(LitElement) {
   /** If an option is selected programmatically update all the options. */
   #handleMutation(mutations: MutationRecord[]): void {
     mutations.forEach(mutation => {
-      console.log(mutation);
       if (mutation.attributeName === 'selected' && mutation.oldValue === null) {
         const selectedOption = <SelectOption>mutation.target;
         this.#observer?.disconnect();
         this.#updateSelectedOption(selectedOption);
         this.#observer?.observe(this, Select.#observerOptions);
       }
-      console.log(this.options);
-      // if (mutation.attributeName === 'size' && mutation.oldValue === null) {
-      // }
+      if (mutation.attributeName === 'size') {
+        this.#observer?.disconnect();
+        this.#updateSize();
+        this.#observer?.observe(this, Select.#observerOptions);
+      }
     });
   }
 
@@ -167,6 +167,16 @@ export class Select extends FormControlMixin(LitElement) {
         this.#setSelectedOptionVisible(option);
       }
     });
+  }
+
+  #updateSize(): void {
+    const sizes = this.options ? this.options.map(o => o.size || 0) : [];
+    const maxWidth = Math.max(...sizes.map(s => s.width));
+    const maxHeight = Math.max(...sizes.map(s => s.height));
+    this.size = {
+      width: maxWidth > 0 ? `${maxWidth}px` : 'auto',
+      height: maxHeight > 0 ? `${maxHeight}px` : 'auto'
+    };
   }
 
   #setSelectedOptionVisible(option: SelectOption): void {

@@ -24,12 +24,12 @@ export const API: StoryObj = {
   render: () => html`
     <sl-button>To focus</sl-button>
     <sl-select>
-      <sl-select-option>😍 Option 1 </sl-select-option>
-      <sl-select-option selected>🥸 Option 2 </sl-select-option>
-      <sl-select-option>🤔 Option 3 </sl-select-option>
-      <sl-select-option>😅 Option 4 </sl-select-option>
-      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
-      <sl-select-option>🫣 Option 6 </sl-select-option>
+      <sl-select-option>Option 1 </sl-select-option>
+      <sl-select-option selected>Option 2 </sl-select-option>
+      <sl-select-option>Option 3 </sl-select-option>
+      <sl-select-option>Option 4 </sl-select-option>
+      <sl-select-option disabled>Option 5 </sl-select-option>
+      <sl-select-option>Option 6 </sl-select-option>
     </sl-select>
     <sl-button>To focus</sl-button>
   `

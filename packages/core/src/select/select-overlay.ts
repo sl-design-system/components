@@ -12,7 +12,7 @@ export class SelectOverlay extends AnchoredPopoverMixin(LitElement) {
   static override styles: CSSResultGroup = [popoverMixinStyles, styles];
 
   /** Tooltip placement. */
-  @property() placement: Placement = 'bottom';
+  @property() placement: Placement = 'bottom-start';
 
   #events = new EventsController(this);
 

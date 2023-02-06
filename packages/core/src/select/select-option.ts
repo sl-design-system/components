@@ -21,7 +21,9 @@ export class SelectOption extends LitElement {
   /** Whether the content of the option item is a node*/
   @property({ reflect: true }) contentType?: 'string' | 'element';
 
-  @property() size?: number; //{ width: number; height: number };
+  @property({ reflect: true }) size: { width: number; height: number } = { width: 0, height: 0 };
+
+  #observer?: ResizeObserver;
 
   /** Get the selected tab button, or the first tab button. */
   get #tabIndex(): string | null {
@@ -44,38 +46,26 @@ export class SelectOption extends LitElement {
     this.setAttribute('role', 'option');
   }
 
+  override firstUpdated(): void {
+    this.#observer = new ResizeObserver(m => this.#handleResize(m));
+    this.#observer?.observe(this);
+  }
+
   override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
   async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
     this.contentType = event.target.assignedNodes()[0].nodeType === 1 ? 'element' : 'string';
-    this.size = (await this.#getElementSize(event.target.assignedElements()[0])).width;
+    this.size = { width: this.getBoundingClientRect().width, height: this.getBoundingClientRect().height };
   }
 
-  async #getElementSize(element: Element): Promise<{ width: number; height: number }> {
-    const el = document.createElement('div');
-
-    const clonedSlot = element.cloneNode(true) as HTMLElement;
-    el.append(clonedSlot);
-
-    el.style.position = 'absolute';
-    el.style.top = '0px';
-    el.style.visibility = 'hidden';
-    el.style.whiteSpace = 'nowrap';
-
-    document.body.appendChild(el);
-
-    const { width, height } = await new Promise<{ width: number; height: number }>(resolve => {
-      setTimeout(() => {
-        const rect = el.getBoundingClientRect();
-
-        document.body.removeChild(el);
-
-        resolve({ width: rect.width, height: rect.height });
-      });
+  #handleResize(mutations: ResizeObserverEntry[]): void {
+    mutations.forEach(mutation => {
+      this.size = {
+        width: mutation.borderBoxSize[0].inlineSize,
+        height: mutation.borderBoxSize[0].blockSize
+      };
     });
-
-    return { width, height };
   }
 }

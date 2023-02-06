@@ -1,7 +1,6 @@
 :host {
   --_font: var(--sl-text-button-text-md);
   
-  border: 1px solid #f92;
   cursor: pointer;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
@@ -19,7 +18,7 @@
 }
 
 :host([selected]) {
-  border: 2px solid #d70;
+  box-shadow: inset 3px 0px 0px #5f9ea0;
 }
 
 :host([disabled]) {

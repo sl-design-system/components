@@ -5,6 +5,7 @@ codeContainers.forEach(codeContainer => {
     const copyButton = document.createElement('button');
 
     copyButton.classList.add('ds-code__copy-button');
+    copyButton.setAttribute('aria-label', 'Copy the code');
     codeContainer.appendChild(copyButton);
 
     copyButton.onclick = async () => {

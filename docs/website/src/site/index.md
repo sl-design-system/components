@@ -45,6 +45,14 @@ eleventyNavigation:
 
 [//]: # (<my-counter></my-counter>)
 
+<section class="ds-hero-block">
+
+# Learn, develop, deploy
+
+Create enjoyable, usable and accessible products that meet students and teachers needs.
+
+</section>
+
 <section class="ds-explore">
 
 ## Explore

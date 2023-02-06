@@ -25,18 +25,62 @@ $transition-timing: 300ms;
   position: absolute;
   right: 1.6rem;
   top: 1.6rem;
-  transition: $transition-timing linear;
   width: 3.2rem;
 
-  &:hover {
+  &::before {
     background-color: var(--copy-button-background--hover);
     background-image: var(--copy-icon--hover);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.4rem;
     border: 1px solid var(--ds-color-blue);
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    content: '';
+    height: 3.2rem;
+    left: -1px;
+    opacity: 0;
+    position: absolute;
+    top: -1px;
+    transform: none;
+    transition: opacity 300ms;
+    width: 3.2rem;
+  }
+
+  &:hover::before {
+    animation: 300ms FadeIn;
+    opacity: 1;
+  }
+
+  &:active::before {
+    background-color: var(--copy-button-background--active);
+    background-image: var(--copy-icon--hover);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.4rem;
+    border: 1px solid var(--ds-color-blue);
+    box-shadow: none;
+    content: '';
+    height: 3.2rem;
+    left: -1px;
+    opacity: 1;
+    position: absolute;
+    top: -1px;
+    width: 3.2rem;
   }
 
   &:active {
-    background-color: var(--copy-button-background--active);
-    border: 1px solid var(--ds-color-blue);
+    box-shadow: none;
+  }
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 

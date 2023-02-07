@@ -104,7 +104,7 @@ Create enjoyable, usable and accessible products that meet students and teachers
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/components/overview/">
+<a href="/categories/components/overview/" aria-label="Components. Sanoma Learning’s UI components are built to best practices to ensure usability, performance and accessibility.">
 Components
 </a>
 </div>
@@ -127,7 +127,7 @@ Sanoma Learning’s UI components are built to best practices to ensure usabilit
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/design-tokens/">
+<a href="/categories/design-tokens/" aria-label="Design tokens. Tokens are platform-agnostic variables that represent the look and feel of our brands.">
 Design tokens
 </a>
 </div>
@@ -156,7 +156,7 @@ Tokens are platform-agnostic variables that represent the look and feel of our b
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/guidelines/">
+<a href="/categories/guidelines/" aria-label="Guidelines. Practical guides to get started with designing and developing experiences with Sanoma Learning’s Design System.">
 Guidelines
 </a>
 </div>

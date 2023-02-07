@@ -1,0 +1,41 @@
+.ds-call-to-action {
+  background-color: #e0eaff;
+  border-radius: 1.2rem;
+  margin-top: 3.2rem;
+
+  svg {
+    overflow: visible;
+  }
+
+  .ds-call-to-action__gear {
+    //animation: rotation 2s infinite linear;
+    animation: rotation 5s forwards alternate linear;
+    transform-origin: center center;
+    transition: all 1s ease;
+
+    //-webkit-transform-origin: 96% 80%;
+    //-webkit-transform: rotate(90deg) translate(6%, 0%);
+  }
+}
+
+@keyframes rotation {
+  //from {
+  //  transform: rotate(0deg);
+  //}
+  //to {
+  //  transform: rotate(359deg);
+  //}
+
+  //50% {transform: rotate(180deg);}
+
+  //50% { transform: rotate(180deg); }
+  //100% { transform: rotate(360deg); }
+
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -57,7 +57,19 @@ $transition-timing: 300ms;
   grid-template-rows: repeat(3, 1fr);
 
   /* stylelint-disable-next-line max-nesting-depth */
-  @media screen and (min-width: $md-breakpoint) {
+  @media screen and (min-width: $md-lg-breakpoint) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: none;
+  }
+
+  /* stylelint-disable-next-line max-nesting-depth */
+  @media screen and (min-width: $lg-breakpoint) {
+    grid-template-columns: none;
+    grid-template-rows: repeat(3, 1fr);
+  }
+
+  /* stylelint-disable-next-line max-nesting-depth */
+  @media screen and (min-width: $xl-breakpoint) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: none;
   }

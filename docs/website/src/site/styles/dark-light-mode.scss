@@ -95,6 +95,7 @@
   --error-icon: url('../assets/icons/error-dark.svg');
   --filter-color: rgba(34, 34, 34, 0.12);
   --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.32);
+  --navigation-focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.32);
   --hamburger-filter: brightness(3.5);
   --hamburger-icon: url('../assets/icons/hamburger.svg');
   --heading-background: var(--ds-color-blue);
@@ -148,7 +149,8 @@
     --danger-color: var(--ds-color-red);
     --error-icon: url('../assets/icons/error.svg');
     --filter-color: rgba(34, 34, 34, 0.64);
-    --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
+    --focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.32);
+    --navigation-focus-box-shadow: 0 0 0 3px rgba(var(--ds-color-blue-rgb), 0.64);
     --hamburger-filter: brightness(0.6);
     --hamburger-icon: url('../assets/icons/hamburger-light.svg');
     --heading-background: var(--ds-color-blueberry);

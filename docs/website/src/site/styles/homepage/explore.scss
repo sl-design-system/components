@@ -1,10 +1,16 @@
 @import './../breakpoints';
 
+$transition-timing: 300ms;
+
 .ds-explore {
   margin-top: 3.2rem;
 
+  @media screen and (min-width: $md-breakpoint) {
+    margin-top: 4rem;
+  }
+
   @media screen and (min-width: $xl-breakpoint) {
-    margin-top: 6rem;
+    margin-top: 4.8rem;
   }
 
   h2 {
@@ -15,7 +21,7 @@
 
   .ds-heading-2 {
     margin-bottom: 0.8rem;
-    transition: color 300ms linear;
+    transition: color $transition-timing linear;
 
     /* stylelint-disable-next-line max-nesting-depth */
     a {
@@ -47,7 +53,7 @@
 
 .ds-explore-wrapper {
   display: grid;
-  gap: 24px;
+  gap: 2.4rem;
   grid-template-rows: repeat(3, 1fr);
 
   /* stylelint-disable-next-line max-nesting-depth */
@@ -82,139 +88,106 @@
 }
 
 .ds-explore__card-image {
+  align-items: center;
   background-color: var(--card-background);
   border-radius: 8px;
-  height: 200px;
+  display: flex;
+  height: 22rem;
+  justify-content: center;
   margin-bottom: 1.6rem;
   overflow: hidden;
   position: relative;
 
-  &::before {
-    background-position: center;
-    background-repeat: no-repeat;
-    content: '';
-    height: 200px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transition: 400ms ease-in-out;
-    width: 100%;
+  svg {
+    overflow: visible;
+    transition: $transition-timing ease-in-out;
 
     /* stylelint-disable-next-line max-nesting-depth */
     @media screen and (prefers-reduced-motion: reduce) {
-      /* stylelint-disable-next-line max-nesting-depth */
       transition: none;
     }
   }
 }
 
-.ds-explore__components {
-  &:hover {
-    /* stylelint-disable-next-line max-nesting-depth */
-    .ds-explore__components-image::before {
+.ds-explore__card {
+  &:hover,
+  &:focus-within {
+    svg {
       transform: scale(1.2);
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-explore__design-tokens-dot {
+      animation: scaleAnimation 700ms ease-in-out;
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      @media screen and (prefers-reduced-motion: reduce) {
+        /* stylelint-disable-next-line max-nesting-depth */
+        animation: none;
+      }
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      &:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-explore__components-part {
+      animation: scaleAnimation 700ms ease-in-out;
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      @media screen and (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-explore__guidelines-part {
+      animation: rotateAnimation 700ms ease-in-out;
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      @media screen and (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
     }
   }
 }
 
-.ds-explore__design-tokens {
-  &:hover {
-    /* stylelint-disable-next-line max-nesting-depth */
-    .ds-explore__design-tokens-image::before {
-      transform: scale(1.2);
-    }
+@keyframes scaleAnimation {
+  30% {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
 
-.ds-explore__guidelines {
-  &:hover {
-    /* stylelint-disable-next-line max-nesting-depth */
-    .ds-explore__guidelines-image::before {
-      transform: scale(1.2);
-    }
+@keyframes rotateAnimation {
+  30% {
+    transform: rotate(0);
   }
-}
 
-.ds-explore__components-image {
-  //background-color: var(--card-background);
-  //border-radius: 8px;
-  //height: 200px;
-  //margin-bottom: 1.6rem;
-  //overflow: hidden;
-  //position: relative;
-
-  &::before {
-    background-image: url('../assets/images/homepage/puzzle.svg');
-    //background-position: center;
-    //background-repeat: no-repeat;
-    //content: '';
-    //height: 200px;
-    //left: 0;
-    //position: absolute;
-    //top: 0;
-    //transition: 400ms ease-in-out;
-    //width: 100%;
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    //@media screen and (prefers-reduced-motion: reduce) {
-    //  /* stylelint-disable-next-line max-nesting-depth */
-    //  transition: none;
-    //}
+  60% {
+    transform: rotate(-0.02turn);
   }
-}
 
-.ds-explore__design-tokens-image {
-  //background: var(--card-background);
-  //border-radius: 8px;
-  //height: 200px;
-  //margin-bottom: 1.6rem;
-  //overflow: hidden;
-  //position: relative;
-
-  &::before {
-    background-image: url('../assets/images/homepage/slide-design.svg');
-    //background-position: center;
-    //background-repeat: no-repeat;
-    //content: '';
-    //height: 200px;
-    //left: 0;
-    //position: absolute;
-    //top: 0;
-    //transition: 400ms ease-in-out;
-    //width: 100%;
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    //@media screen and (prefers-reduced-motion: reduce) {
-    //  /* stylelint-disable-next-line max-nesting-depth */
-    //  transition: none;
-    //}
-  }
-}
-
-.ds-explore__guidelines-image {
-  //background: var(--card-background);
-  //border-radius: 8px;
-  //height: 200px;
-  //margin-bottom: 1.6rem;
-  //overflow: hidden;
-  //position: relative;
-
-  &::before {
-    background-image: url('../assets/images/homepage/slide-design.svg');
-    //background-position: center;
-    //background-repeat: no-repeat;
-    //content: '';
-    //height: 200px;
-    //left: 0;
-    //position: absolute;
-    //top: 0;
-    //transition: 400ms ease-in-out;
-    //width: 100%;
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    //@media screen and (prefers-reduced-motion: reduce) {
-    //  /* stylelint-disable-next-line max-nesting-depth */
-    //  transition: none;
-    //}
+  100% {
+    transform: rotate(0);
   }
 }

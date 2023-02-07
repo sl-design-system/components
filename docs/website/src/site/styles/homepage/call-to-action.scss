@@ -10,7 +10,13 @@
   .ds-call-to-action__gear {
     //animation: rotation 2s infinite linear;
     animation: rotation 5s forwards alternate linear;
+    transform: rotate(45deg);
+
+    //transform: translate(100%, 100%) rotate(45 60 60);
+
+    transform-box: fill-box;
     transform-origin: center center;
+    transform-origin: center;
     transition: all 1s ease;
 
     //-webkit-transform-origin: 96% 80%;

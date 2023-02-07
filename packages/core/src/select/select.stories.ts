@@ -17,19 +17,51 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
 };
 
 export default {
-  title: 'Select'
+  title: 'Select',
+  argTypes: {
+    maxOverlayHeight: {
+      control: 'text'
+    }
+  }
 };
 
 export const API: StoryObj = {
-  render: () => html`
+  args: {
+    maxOverlayHeight: '200px'
+  },
+  render: ({ maxOverlayHeight }) => html`
     <sl-button>To focus</sl-button>
-    <sl-select>
-      <sl-select-option>Option 1 </sl-select-option>
-      <sl-select-option selected>Option 2 </sl-select-option>
-      <sl-select-option>Option 3 </sl-select-option>
-      <sl-select-option>Option 4 </sl-select-option>
-      <sl-select-option disabled>Option 5 </sl-select-option>
-      <sl-select-option>Option 6 </sl-select-option>
+    <sl-select maxOverlayHeight=${maxOverlayHeight}>
+      <sl-select-option>😍 Option 1 </sl-select-option>
+      <sl-select-option selected>🥸 Option 2 </sl-select-option>
+      <sl-select-option>🤔 Option 3 </sl-select-option>
+      <sl-select-option>😅 Option 4 </sl-select-option>
+      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
+      <sl-select-option>🫣 Option 6 </sl-select-option>
+      <sl-select-option>😍 Option 1 </sl-select-option>
+      <sl-select-option>🥸 Option 2 </sl-select-option>
+      <sl-select-option>🤔 Option 3 </sl-select-option>
+      <sl-select-option>😅 Option 4 </sl-select-option>
+      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
+      <sl-select-option>🫣 Option 6 </sl-select-option>
+      <sl-select-option>😍 Option 1 </sl-select-option>
+      <sl-select-option>🥸 Option 2 </sl-select-option>
+      <sl-select-option>🤔 Option 3 </sl-select-option>
+      <sl-select-option>😅 Option 4 </sl-select-option>
+      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
+      <sl-select-option>🫣 Option 6 </sl-select-option>
+      <sl-select-option>😍 Option 1 </sl-select-option>
+      <sl-select-option>🥸 Option 2 </sl-select-option>
+      <sl-select-option>🤔 Option 3 </sl-select-option>
+      <sl-select-option>😅 Option 4 </sl-select-option>
+      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
+      <sl-select-option>🫣 Option 6 </sl-select-option>
+      <sl-select-option>😍 Option 1 </sl-select-option>
+      <sl-select-option>🥸 Option 2 </sl-select-option>
+      <sl-select-option>🤔 Option 3 </sl-select-option>
+      <sl-select-option>😅 Option 4 </sl-select-option>
+      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
+      <sl-select-option>🫣 Option 6 </sl-select-option>
     </sl-select>
     <sl-button>To focus</sl-button>
   `
@@ -37,6 +69,11 @@ export const API: StoryObj = {
 
 export const CustomComponents: StoryObj = {
   render: () => html`
+    <style>
+      sl-avatar {
+        margin: 0 4px;
+      }
+    </style>
     <sl-button>To focus</sl-button>
     <sl-select>
       <sl-select-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
@@ -54,12 +91,13 @@ export const InForm: StoryObj = {
   render: () => html`
     <style>
       form {
+        margin-top: 50vh;
         display: grid;
         gap: 1rem 0.5rem;
         grid-template-columns: auto 1fr;
       }
 
-      sl-label:has(+ :where(sl-input, sl-textarea)) {
+      sl-label:has(+ :where(sl-select)) {
         --_line-height: 32px;
       }
 

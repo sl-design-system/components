@@ -1,10 +1,10 @@
 :host {
   --_font: var(--sl-text-button-text-md);
-  
+
   cursor: pointer;
+  font: var(--_font);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
-  font: var(--_font);
 }
 
 :host([contenttype='string']) {
@@ -18,7 +18,7 @@
 }
 
 :host([selected]) {
-  box-shadow: inset 3px 0px 0px #5f9ea0;
+  box-shadow: inset 3px 0 0 var(--sl-color-button-default-default-focus-border);
 }
 
 :host([disabled]) {

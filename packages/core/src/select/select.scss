@@ -7,7 +7,9 @@
 }
 
 :host {
+  align-items: center;
   display: inline-flex;
+  gap: 8px;
 }
 
 .select-toggle {
@@ -26,14 +28,12 @@
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
   display: grid;
-  grid-template-columns: auto 24px;
   font: var(--_font);
   gap: var(--_gap);
-  // min-width: 150px;
+  grid-template-columns: auto 24px;
   transition: 0.2s ease-in-out;
   transition-property: background, border, box-shadow, color, filter;
-  // width: 100%;
-  
+
   span {
     padding-block: var(--_padding-block);
     padding-inline: var(--_padding-inline);

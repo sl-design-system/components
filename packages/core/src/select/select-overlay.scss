@@ -1,12 +1,19 @@
 :host {
+  --_max-overlay-height: var(--max-overlay-height, 80vh);
+}
+
+:host {
   background-color: #fff;
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  max-height: var(--_max-overlay-height);
+  overflow: auto;
   pointer-events: none;
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 
 :host([popover-open]) {
+  box-shadow: 0 0 2px #555;
   opacity: 1;
-  box-shadow: 0px 0px 2px #555;
 }

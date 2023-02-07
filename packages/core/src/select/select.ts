@@ -26,6 +26,7 @@ export class Select extends FormControlMixin(LitElement) {
   @queryAssignedElements({ slot: 'options' }) options?: SelectOption[];
 
   @property() size?: { width: string; height: string } = { width: '500px', height: '32px' };
+  @property() maxOverlayHeight?: string;
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
     focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.overlay?.popoverOpen),
@@ -72,6 +73,7 @@ export class Select extends FormControlMixin(LitElement) {
         @keydown=${this.#handleOverlayKeydown}
         @click=${this.#handleOptionChange}
         aria-labelledby=${this.#selectId}
+        style="--max-overlay-height:${this.maxOverlayHeight || 'unset'}"
       >
         <slot name="options" @slotchange=${this.#handleOptionsSlotChange}></slot>
       </sl-select-overlay>

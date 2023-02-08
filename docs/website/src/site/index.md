@@ -55,7 +55,7 @@ Create enjoyable, usable and accessible products that meet students and teachers
 
 <section class="ds-explore">
 
-## Explore
+Explore {.ds-heading-1}
 
 <div class="ds-explore-wrapper">
 
@@ -127,12 +127,12 @@ Sanoma Learning’s UI components are built to best practices to ensure usabilit
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/design-tokens/" aria-label="Design tokens. Tokens are platform-agnostic variables that represent the look and feel of our brands.">
+<a href="/categories/design-tokens/" aria-label="Design tokens. Tokens are platform-agnostic variables that define the look and feel of your brand.">
 Design tokens
 </a>
 </div>
 
-Tokens are platform-agnostic variables that represent the look and feel of our brands.
+Tokens are platform-agnostic variables that define the look and feel of your brand.
 
 </div>
 
@@ -156,12 +156,12 @@ Tokens are platform-agnostic variables that represent the look and feel of our b
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/guidelines/" aria-label="Guidelines. Practical guides to get started with designing and developing experiences with Sanoma Learning’s Design System.">
+<a href="/categories/guidelines/" aria-label="Guidelines. Practical guides to get started with designing and developing your experience with Sanoma Learning's Design System.">
 Guidelines
 </a>
 </div>
 
-Practical guides to get started with designing and developing experiences with Sanoma Learning’s Design System.
+Practical guides to get started with designing and developing your experience with Sanoma Learning's Design System.
 
 </div>
 

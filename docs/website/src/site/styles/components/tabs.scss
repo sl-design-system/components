@@ -35,7 +35,7 @@ $transition-timing: 300ms;
   text-decoration: none;
   transition: color $transition-timing linear;
 
-  &.active:not(:focus-visible) {
+  &.active {
     color: var(--tab-color--active);
   }
 
@@ -69,7 +69,7 @@ $transition-timing: 300ms;
   }
 
   &:focus-visible {
-    border-radius: 0.3rem;
+    border-radius: 0.6rem;
     box-shadow: inset var(--focus-box-shadow);
     outline: none;
   }

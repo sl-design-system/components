@@ -1,5 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { SelectOverlay } from './select-overlay.js';
+import type { SelectOptionGroup } from './select-option-group.js';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -23,14 +24,15 @@ export class Select extends FormControlMixin(LitElement) {
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
 
   /** The slotted options. */
-  @queryAssignedElements({ slot: 'options' }) options?: SelectOption[];
+  @queryAssignedElements({ selector: 'sl-select-option', flatten: false }) options?: SelectOption[];
+  @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
   @property() size?: { width: string; height: string } = { width: '500px', height: '32px' };
   @property() maxOverlayHeight?: string;
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
     focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.overlay?.popoverOpen),
-    elements: () => this.options || [],
+    elements: () => this.allOptions || [],
     isFocusableElement: (el: SelectOption) => !el.disabled
   });
 
@@ -41,6 +43,11 @@ export class Select extends FormControlMixin(LitElement) {
   #observer?: MutationObserver;
 
   #selectId = `sl-select-${nextUniqueId++}`;
+
+  get allOptions(): SelectOption[] {
+    const groups = this.optionGroups?.map(og => Array.from(og.querySelectorAll('sl-select-option'))) || [];
+    return [...(this.options || []), ...groups.flat()];
+  }
 
   static #observerOptions = {
     attributes: true,
@@ -75,7 +82,7 @@ export class Select extends FormControlMixin(LitElement) {
         aria-labelledby=${this.#selectId}
         style="--max-overlay-height:${this.maxOverlayHeight || 'unset'}"
       >
-        <slot name="options" @slotchange=${this.#handleOptionsSlotChange}></slot>
+        <slot @slotchange=${this.#handleOptionsSlotChange}></slot>
       </sl-select-overlay>
       ${this.#validation.render()}
     `;
@@ -93,7 +100,7 @@ export class Select extends FormControlMixin(LitElement) {
   override firstUpdated(): void {
     this.#observer = new MutationObserver(m => this.#handleMutation(m));
     this.#observer?.observe(this, Select.#observerOptions);
-    this.selectedOption ||= this.options?.find(option => option.selected);
+    this.selectedOption ||= this.allOptions.find(option => option.selected);
     if (this.selectedOption) {
       this.#setSelectedOptionVisible(this.selectedOption);
     }
@@ -103,7 +110,7 @@ export class Select extends FormControlMixin(LitElement) {
     const toggle = (target as HTMLElement).closest('.select-toggle') as HTMLElement;
     if (!toggle) return;
     this.scrollTo({ top: 0 });
-    this.options?.find(option => option.selected)?.focus();
+    this.allOptions.find(option => option.selected)?.focus();
     this.overlay?.show(toggle);
   }
 
@@ -155,7 +162,7 @@ export class Select extends FormControlMixin(LitElement) {
     /**
      * Reset all the selected state of the tabs, and select the clicked tab
      */
-    this.options?.forEach((option: SelectOption) => {
+    this.allOptions.forEach((option: SelectOption) => {
       option.removeAttribute('selected');
       if (option === selectedOption) {
         option.setAttribute('selected', '');
@@ -172,7 +179,7 @@ export class Select extends FormControlMixin(LitElement) {
   }
 
   #updateSize(): void {
-    const sizes = this.options ? this.options.map(o => o.size || 0) : [];
+    const sizes = this.allOptions ? this.allOptions.map(o => o.size || 0) : [];
     const maxWidth = Math.max(...sizes.map(s => s.width));
     const maxHeight = Math.max(...sizes.map(s => s.height));
     this.size = {

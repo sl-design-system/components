@@ -53,6 +53,10 @@
     outline: none;
   }
 
+  &:focus-visible {
+    --_box-shadow: var(--sl-box-shadow-button-default-default-focus, var(--sl-box-shadow-button-focus, none));
+  }
+
   &:hover {
     --_background: var(--sl-color-button-default-default-hover-background);
     --_border-color: var(--sl-color-button-default-default-hover-border);

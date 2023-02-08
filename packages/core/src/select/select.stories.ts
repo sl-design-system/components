@@ -32,36 +32,21 @@ export const API: StoryObj = {
   render: ({ maxOverlayHeight }) => html`
     <sl-button>To focus</sl-button>
     <sl-select maxOverlayHeight=${maxOverlayHeight}>
-      <sl-select-option>😍 Option 1 </sl-select-option>
-      <sl-select-option selected>🥸 Option 2 </sl-select-option>
-      <sl-select-option>🤔 Option 3 </sl-select-option>
-      <sl-select-option>😅 Option 4 </sl-select-option>
-      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
-      <sl-select-option>🫣 Option 6 </sl-select-option>
-      <sl-select-option>😍 Option 1 </sl-select-option>
-      <sl-select-option>🥸 Option 2 </sl-select-option>
-      <sl-select-option>🤔 Option 3 </sl-select-option>
-      <sl-select-option>😅 Option 4 </sl-select-option>
-      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
-      <sl-select-option>🫣 Option 6 </sl-select-option>
-      <sl-select-option>😍 Option 1 </sl-select-option>
-      <sl-select-option>🥸 Option 2 </sl-select-option>
-      <sl-select-option>🤔 Option 3 </sl-select-option>
-      <sl-select-option>😅 Option 4 </sl-select-option>
-      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
-      <sl-select-option>🫣 Option 6 </sl-select-option>
-      <sl-select-option>😍 Option 1 </sl-select-option>
-      <sl-select-option>🥸 Option 2 </sl-select-option>
-      <sl-select-option>🤔 Option 3 </sl-select-option>
-      <sl-select-option>😅 Option 4 </sl-select-option>
-      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
-      <sl-select-option>🫣 Option 6 </sl-select-option>
-      <sl-select-option>😍 Option 1 </sl-select-option>
-      <sl-select-option>🥸 Option 2 </sl-select-option>
-      <sl-select-option>🤔 Option 3 </sl-select-option>
-      <sl-select-option>😅 Option 4 </sl-select-option>
-      <sl-select-option disabled>🤪 Option 5 </sl-select-option>
-      <sl-select-option>🫣 Option 6 </sl-select-option>
+      <sl-select-option-group group-title="Happy">
+        <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
+        <sl-select-option selected>😂 Face with Tears of Joy</sl-select-option>
+        <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>
+        <sl-select-option>🤩 Star-Struck</sl-select-option>
+        <sl-select-option disabled>🙂 Slightly Smiling Face</sl-select-option>
+        <sl-select-option>🥳 Partying Face</sl-select-option>
+      </sl-select-option-group>
+      <sl-select-option-group group-title="Sad">
+        <sl-select-option>😒 Unamused Face</sl-select-option>
+        <sl-select-option>🤧 Sneezing Face</sl-select-option>
+        <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>
+        <sl-select-option>😡 Enraged Face</sl-select-option>
+      </sl-select-option-group>
+      <sl-select-option>🤖 Robot</sl-select-option>
     </sl-select>
     <sl-button>To focus</sl-button>
   `
@@ -124,6 +109,25 @@ export const InForm: StoryObj = {
         <sl-select-option value="14"><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
         <sl-select-option value="bla" disabled><sl-avatar uniqueProfileId="bla"></sl-avatar></sl-select-option>
         <sl-select-option value="xxs"><sl-avatar uniqueProfileId="xxs"></sl-avatar></sl-select-option>
+      </sl-select>
+
+      <sl-label for="mood">Your mood</sl-label>
+      <sl-select id="mood" name="mood">
+        <sl-select-option-group group-title="Happy">
+          <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
+          <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
+          <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>
+          <sl-select-option>🤩 Star-Struck</sl-select-option>
+          <sl-select-option disabled>🙂 Slightly Smiling Face</sl-select-option>
+          <sl-select-option>🥳 Partying Face</sl-select-option>
+        </sl-select-option-group>
+        <sl-select-option-group group-title="Sad">
+          <sl-select-option>😒 Unamused Face</sl-select-option>
+          <sl-select-option>🤧 Sneezing Face</sl-select-option>
+          <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>
+          <sl-select-option>😡 Enraged Face</sl-select-option>
+        </sl-select-option-group>
+        <sl-select-option>🤖 Robot</sl-select-option>
       </sl-select>
 
       <sl-button-bar align="end">

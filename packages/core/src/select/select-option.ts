@@ -42,7 +42,6 @@ export class SelectOption extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
-    this.slot ||= 'options';
     this.setAttribute('role', 'option');
   }
 

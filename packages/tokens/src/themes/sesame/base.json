@@ -216,6 +216,12 @@
       "value": 72,
       "type": "sizing",
       "description": "size.4xl"
+    },
+    "input": {
+      "md": {
+        "value": "{size.lg}",
+        "type": "sizing"
+      }
     }
   },
   "space": {

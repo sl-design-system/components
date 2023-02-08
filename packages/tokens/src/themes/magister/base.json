@@ -1201,7 +1201,7 @@
     },
     "input": {
       "md": {
-        "value": "{size.lg}",
+        "value": "{size.sm}",
         "type": "sizing"
       }
     }

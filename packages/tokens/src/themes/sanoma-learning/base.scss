@@ -208,12 +208,8 @@
   --sl-icon-base-fav: var(--sl-icon-custom-fav);
   --sl-icon-base-menu: var(--sl-icon-core-fa-menu);
   --sl-icon-base-face-smile: var(--sl-icon-core-fa-face-smile);
-  --sl-component-button-width-lg: [object Object];
-  --sl-component-button-width-md: [object Object];
-  --sl-component-button-width-sm: [object Object];
-  --sl-component-button-height-lg: [object Object];
-  --sl-component-button-height-md: [object Object];
-  --sl-component-button-height-sm: [object Object];
+  --sl-component-button-md: [object Object];
+  --sl-component-button-lg: [object Object];
   --sl-box-shadow-button-default-default-focus: 0px 0px 0px 3px
     rgba(var(--sl-color-palette-info-base), var(--sl-opacity-600));
   --sl-animation-button: var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
@@ -222,7 +218,6 @@
   --sl-space-button-inline-lg: var(--sl-space-md);
   --sl-space-button-inline-md: var(--sl-space-sm);
   --sl-space-button-inline-sm: var(--sl-space-sm);
-  --sl-space-button-inline-xs: var(--sl-space-xs);
   --sl-space-button-block-lg: var(--sl-space-sm);
   --sl-space-button-block-md: var(--sl-space-sm);
   --sl-space-button-block-sm: var(--sl-space-xs);

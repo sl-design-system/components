@@ -1172,10 +1172,6 @@
         }
       },
       "inline": {
-        "xs": {
-          "value": "{space.xs}",
-          "type": "spacing"
-        },
         "sm": {
           "value": "{space.sm}",
           "type": "spacing",
@@ -1316,45 +1312,19 @@
   },
   "component": {
     "button": {
-      "height": {
-        "sm": {
-          "value": {
-            "height": "{text.typeset.lineHeight.xs}"
-          },
-          "type": "composition"
+      "lg": {
+        "value": {
+          "height": "{size.md}",
+          "width": "{size.md}"
         },
-        "md": {
-          "value": {
-            "height": "{text.typeset.lineHeight.xs}"
-          },
-          "type": "composition"
-        },
-        "lg": {
-          "value": {
-            "height": "{text.typeset.lineHeight.md}"
-          },
-          "type": "composition"
-        }
+        "type": "composition"
       },
-      "width": {
-        "sm": {
-          "value": {
-            "width": "{text.typeset.lineHeight.xs}"
-          },
-          "type": "composition"
+      "md": {
+        "value": {
+          "height": "{size.sm}",
+          "width": "{size.sm}"
         },
-        "md": {
-          "value": {
-            "width": "{text.typeset.lineHeight.xs}"
-          },
-          "type": "composition"
-        },
-        "lg": {
-          "value": {
-            "width": "{text.typeset.lineHeight.md}"
-          },
-          "type": "composition"
-        }
+        "type": "composition"
       }
     }
   },

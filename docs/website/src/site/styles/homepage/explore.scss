@@ -137,17 +137,17 @@ $transition-timing: 300ms;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(1) {
+      &:nth-child(3) {
         animation-delay: 0.1s;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(2) {
+      &:nth-child(4) {
         animation-delay: 0.2s;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(3) {
+      &:nth-child(5) {
         animation-delay: 0.3s;
       }
     }

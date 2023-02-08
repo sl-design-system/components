@@ -242,6 +242,7 @@ const config = {
 const observer = new IntersectionObserver(
   entries =>
     entries.forEach(({ target, intersectionRatio }) => {
+      const topNavigation = document.querySelector('.ds-top-navigation');
       const tabsContainer = target.previousSibling as Element;
       if (!tabsContainer) {
         return;
@@ -253,6 +254,7 @@ const observer = new IntersectionObserver(
 
       if (intersectionRatio < 1) {
         target.classList.add('ds-tabs__container--sticky');
+        topNavigation?.classList.add('ds-top-navigation--not-sticky');
 
         mediaQueryList.onchange = event => {
           showComponentName(event.matches, target, componentNameHeading, true);
@@ -265,6 +267,7 @@ const observer = new IntersectionObserver(
         headingElement = componentNameHeading;
       } else {
         target.classList.remove('ds-tabs__container--sticky');
+        topNavigation?.classList.remove('ds-top-navigation--not-sticky');
 
         mediaQueryList.onchange = event => {
           hideComponentName(event.matches);

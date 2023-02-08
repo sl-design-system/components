@@ -1,5 +1,5 @@
 const menu = document.querySelector('.ds-sidebar') as HTMLElement,
-  container = document.querySelector('.ds-container'),
+  container = document.querySelector('.ds-container') as Element,
   mediaQueryList: MediaQueryList = window.matchMedia('(min-width: 900px)'),
   topNavigation = document.querySelector('.ds-top-navigation') as HTMLElement,
   closeButton = document.querySelector('.ds-sidebar-nav__close-button') as HTMLButtonElement,
@@ -36,6 +36,14 @@ menu.onkeyup = (event: KeyboardEvent) => {
     if (menu.classList.contains('ds-sidebar--opened')) {
       hideMenu();
     }
+  }
+};
+
+document.onscroll = () => {
+  if (window.scrollY > 0) {
+    topNavigation.classList.add('ds-top-navigation--sticky');
+  } else {
+    topNavigation.classList.remove('ds-top-navigation--sticky');
   }
 };
 

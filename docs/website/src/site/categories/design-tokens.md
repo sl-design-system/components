@@ -7,7 +7,7 @@ title: Design Tokens
 ---
 <link href="/css/categories/components.css" rel="stylesheet" type="text/css">
 
-Components list
+Design tokens
 <div class="wrapper">
 {% for component in collections.design-tokens %}
   <div class="component">

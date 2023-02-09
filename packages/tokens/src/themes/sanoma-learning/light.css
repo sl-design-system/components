@@ -10,7 +10,7 @@
   --sl-color-input-valid-checked-disabled-border: rgb(var(--sl-color-palette-success-150));
   --sl-color-input-valid-checked-disabled-background: rgb(var(--sl-color-palette-success-150));
   --sl-color-input-valid-checked-focus-icon: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-valid-checked-focus-border: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-input-valid-checked-focus-border: rgb(var(--sl-color-palette-success-400));
   --sl-color-input-valid-checked-focus-background: rgb(var(--sl-color-palette-success-400));
   --sl-color-input-valid-checked-active-icon: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-valid-checked-active-border: rgb(var(--sl-color-palette-success-600));
@@ -42,7 +42,7 @@
   --sl-color-input-invalid-checked-disabled-border: rgb(var(--sl-color-palette-danger-150));
   --sl-color-input-invalid-checked-disabled-background: rgb(var(--sl-color-palette-danger-150));
   --sl-color-input-invalid-checked-focus-icon: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-invalid-checked-focus-border: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-input-invalid-checked-focus-border: rgb(var(--sl-color-palette-danger-300));
   --sl-color-input-invalid-checked-focus-background: rgb(var(--sl-color-palette-danger-300));
   --sl-color-input-invalid-checked-active-icon: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-invalid-checked-active-border: rgb(var(--sl-color-palette-danger-600));

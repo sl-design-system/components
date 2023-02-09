@@ -83,6 +83,8 @@
   --background-color: var(--ds-color-white);
   --card-background: var(--ds-color-alice-blue-darker);
   --card-color--active: var(--ds-color-mariner);
+  --chevron-icon: url('../assets/icons/chevron-right.svg');
+  --chevron-icon--active: url('../assets/icons/chevron-right-darker.svg');
   --close-icon: url('../assets/icons/close.svg');
   --code-border: var(--ds-color-bright-grey);
   --copy-icon: url('../assets/icons/copy.svg');
@@ -138,6 +140,8 @@
     --background-color: var(--ds-color-black);
     --card-background: rgba(var(--ds-color-blue-rgb), 0.32);
     --card-color--active: var(--ds-color-baby-blue);
+    --chevron-icon: url('../assets/icons/chevron-right-dark.svg');
+    --chevron-icon--active: url('../assets/icons/chevron-right-dark-lighter.svg');
     --close-icon: url('../assets/icons/close-light.svg');
     --code-border: var(--ds-color-blck-olive);
     --copy-icon: url('../assets/icons/copy-light.svg');

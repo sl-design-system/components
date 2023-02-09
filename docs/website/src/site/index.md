@@ -307,11 +307,9 @@ Guidelines
 
 LATEST RELEASE {.ds-call-to-action__main-text}
 
-## Sanoma Learning Design System v0.0.1 {.ds-call-to-action__heading}
+Sanoma Learning Design System v0.0.1 {.ds-call-to-action__heading .ds-heading-1}
 
 This latest release includes form controls.
-
-View the release notes 
 
 [//]: # ([View the release notes]&#40;https://github.com/sanomalearning/design-system/releases&#41;{target="_blank"}{.ds-call-to-action__link})
 

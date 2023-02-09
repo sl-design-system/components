@@ -306,7 +306,7 @@
           "description": "color.palette.success.900"
         },
         "base": {
-          "value": "#007A64",
+          "value": "#5FCC8B",
           "type": "color",
           "description": "color.palette.success.base"
         }

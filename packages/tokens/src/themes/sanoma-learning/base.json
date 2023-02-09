@@ -1172,6 +1172,10 @@
         }
       },
       "inline": {
+        "xs": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
         "sm": {
           "value": "{space.sm}",
           "type": "spacing",
@@ -1312,19 +1316,45 @@
   },
   "component": {
     "button": {
-      "lg": {
-        "value": {
-          "height": "{size.md}",
-          "width": "{size.md}"
+      "height": {
+        "sm": {
+          "value": {
+            "height": "{text.typeset.lineHeight.xs}"
+          },
+          "type": "composition"
         },
-        "type": "composition"
+        "md": {
+          "value": {
+            "height": "{text.typeset.lineHeight.xs}"
+          },
+          "type": "composition"
+        },
+        "lg": {
+          "value": {
+            "height": "{text.typeset.lineHeight.md}"
+          },
+          "type": "composition"
+        }
       },
-      "md": {
-        "value": {
-          "height": "{size.sm}",
-          "width": "{size.sm}"
+      "width": {
+        "sm": {
+          "value": {
+            "width": "{text.typeset.lineHeight.xs}"
+          },
+          "type": "composition"
         },
-        "type": "composition"
+        "md": {
+          "value": {
+            "width": "{text.typeset.lineHeight.xs}"
+          },
+          "type": "composition"
+        },
+        "lg": {
+          "value": {
+            "width": "{text.typeset.lineHeight.md}"
+          },
+          "type": "composition"
+        }
       }
     }
   },
@@ -1513,12 +1543,6 @@
       "value": 72,
       "type": "sizing",
       "description": "size.4xl"
-    },
-    "input": {
-      "md": {
-        "value": "{size.sm}",
-        "type": "sizing"
-      }
     }
   }
 }

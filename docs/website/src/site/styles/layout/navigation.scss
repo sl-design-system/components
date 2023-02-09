@@ -12,6 +12,14 @@ $short-transition-timing: 200ms;
   z-index: 1;
 }
 
+.ds-top-navigation--sticky {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+}
+
+.ds-top-navigation--not-sticky {
+  box-shadow: none;
+}
+
 .ds-sidebar {
   background: var(--second-background-color);
   display: flex;
@@ -175,7 +183,7 @@ $short-transition-timing: 200ms;
 
   &:focus-visible {
     border-radius: 0.6rem;
-    box-shadow: var(--focus-box-shadow);
+    box-shadow: var(--navigation-focus-box-shadow);
     outline: none;
   }
 }
@@ -315,7 +323,7 @@ $short-transition-timing: 200ms;
   text-decoration: none;
 
   &:focus-visible {
-    box-shadow: inset var(--focus-box-shadow);
+    box-shadow: inset var(--navigation-focus-box-shadow);
     outline: none;
   }
 }
@@ -352,7 +360,7 @@ $short-transition-timing: 200ms;
 
   &:focus-visible {
     border-radius: 0.6rem;
-    box-shadow: var(--focus-box-shadow);
+    box-shadow: var(--navigation-focus-box-shadow);
     outline: none;
   }
 }

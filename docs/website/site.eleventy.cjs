@@ -9,6 +9,7 @@ const htmlMinifier = require('html-minifier');
 const fs = require('fs');
 const searchFilter = require("./src/site/scripts/filters/searchFilter.cjs");
 const anchor = require('markdown-it-anchor');
+const { customElementsManifestToMarkdown } = require('@custom-elements-manifest/to-markdown');
 
 const DEV = process.env.NODE_ENV === 'DEV';
 const jsFolder = DEV ? 'lib' : 'build';
@@ -126,6 +127,12 @@ module.exports = function(eleventyConfig) {
 
     return content;
   });
+
+  const manifest = fs.readFileSync(`${outputFolder}/site/custom-elements.json`, 'utf-8');
+  // manifest.toJSON();
+  const markdown = customElementsManifestToMarkdown(JSON.parse(manifest));
+
+  fs.writeFileSync(`${outputFolder}/custom-elements.md`, markdown);
 
   return {
     dir: {

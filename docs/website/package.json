@@ -39,7 +39,8 @@
     "clean": "wireit",
     "lint": "wireit",
     "lint:scss": "wireit",
-    "lint:ts": "wireit"
+    "lint:ts": "wireit",
+    "analyze": "cem analyze --litelement --outdir  'dist'"
   },
   "wireit": {
     "build:dev": {
@@ -294,6 +295,8 @@
     "@11ty/eleventy": "^1.0.2",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
+    "@custom-elements-manifest/analyzer": "^0.6.8",
+    "@custom-elements-manifest/to-markdown": "^0.1.0",
     "@lit-labs/eleventy-plugin-lit": "^0.2.3",
     "@luncheon/esbuild-plugin-gzip": "^0.1.0",
     "@web/dev-server": "^0.1.35",

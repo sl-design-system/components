@@ -10,6 +10,15 @@ export class SelectOptionGroup extends LitElement {
   @property({ attribute: 'group-title' }) groupTitle?: string;
 
   override render(): TemplateResult {
-    return html`${this.groupTitle}<slot></slot>`;
+    return html`
+      <span>${this.groupTitle}</span>
+      <slot></slot>
+    `;
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.setAttribute('role', 'listbox');
+    this.setAttribute('aria-label', this.groupTitle || '');
   }
 }

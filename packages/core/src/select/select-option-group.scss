@@ -3,3 +3,13 @@
   flex-direction: column;
   gap: 4px;
 }
+
+:host(:not(:last-child)) {
+  border-bottom: 1px solid #efefef;
+  padding-bottom: 4px;
+}
+
+span {
+  font-weight: bold;
+  padding: 0 4px;
+}

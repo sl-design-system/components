@@ -76,7 +76,6 @@ export const InForm: StoryObj = {
   render: () => html`
     <style>
       form {
-        margin-top: 50vh;
         display: grid;
         gap: 1rem 0.5rem;
         grid-template-columns: auto 1fr;
@@ -91,7 +90,7 @@ export const InForm: StoryObj = {
       }
     </style>
     <form @submit=${onSubmit}>
-      <sl-label for="smiley">smiley</sl-label>
+      <sl-label for="smiley">Smiley</sl-label>
       <sl-select id="smiley" name="smiley" required>
         <sl-select-option>😍 Option 1 </sl-select-option>
         <sl-select-option>🥸 Option 2 </sl-select-option>
@@ -101,7 +100,7 @@ export const InForm: StoryObj = {
         <sl-select-option>🫣 Option 6 </sl-select-option>
       </sl-select>
 
-      <sl-label for="avatar">avatar</sl-label>
+      <sl-label for="avatar">Avatar</sl-label>
       <sl-select id="avatar" name="avatar">
         <sl-select-option value="1"><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
         <sl-select-option value="2" selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>

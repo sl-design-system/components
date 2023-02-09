@@ -73,7 +73,7 @@ export class Select extends FormControlMixin(LitElement) {
       >
         <span id="selectedOption" style=${styleMap(this.size || {})}></span>
 
-        <div class="toggle-icon">🔽</div>
+        <div class="toggle-icon" aria-label="Choose">🔽</div>
         <!-- to be replaced by <sl-icon></sl-icon> -->
       </div>
       <sl-select-overlay
@@ -101,6 +101,7 @@ export class Select extends FormControlMixin(LitElement) {
     this.#observer = new MutationObserver(m => this.#handleMutation(m));
     this.#observer?.observe(this, Select.#observerOptions);
     this.selectedOption ||= this.allOptions.find(option => option.selected);
+
     if (this.selectedOption) {
       this.#setSelectedOptionVisible(this.selectedOption);
     }

@@ -149,6 +149,7 @@
   --sl-space-button-default-md-block: var(--sl-space-sm);
   --sl-space-button-default-sm-inline: var(--sl-space-md);
   --sl-space-button-default-sm-block: var(--sl-space-xs);
+  --sl-size-input-md: var(--sl-size-sm);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-sm);
   --sl-space-button-default-md-inline: var(--sl-space-button-default-lg-block);

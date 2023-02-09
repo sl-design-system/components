@@ -18,7 +18,7 @@ export class SelectOptionGroup extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
-    this.setAttribute('role', 'listbox');
+    this.setAttribute('role', 'group');
     this.setAttribute('aria-label', this.groupTitle || '');
   }
 }

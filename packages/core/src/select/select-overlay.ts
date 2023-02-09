@@ -6,6 +6,7 @@ import { AnchoredPopoverMixin } from '../popover/mixins/anchored-popover.js';
 import { popoverMixinStyles } from '../popover/mixins/popover.js';
 import { EventsController } from '../utils/controllers/index.js';
 import styles from './select-overlay.scss.js';
+import { Select } from './select.js';
 
 export class SelectOverlay extends AnchoredPopoverMixin(LitElement) {
   /** @private */
@@ -24,7 +25,7 @@ export class SelectOverlay extends AnchoredPopoverMixin(LitElement) {
     this.setAttribute('main-axis', '0');
     this.setAttribute('cross-axis', '0');
 
-    this.#events.listen(document, 'click', this.#onHide, { capture: true });
+    this.#events.listen(document, 'click', e => this.hide(e.target), { capture: true });
   }
 
   override render(): TemplateResult {
@@ -33,16 +34,13 @@ export class SelectOverlay extends AnchoredPopoverMixin(LitElement) {
 
   show(target: HTMLElement): void {
     this.anchorElement = target;
-    this.showPopover();
+    super.showPopover();
   }
 
-  hide(): void {
-    this.anchorElement = undefined;
-    this.hidePopover();
+  hide(target: EventTarget | null): void {
+    if (!(target instanceof Select)) {
+      this.anchorElement = undefined;
+      super.hidePopover();
+    }
   }
-
-  #onHide = (): void => {
-    this.anchorElement = undefined;
-    this.hidePopover();
-  };
 }

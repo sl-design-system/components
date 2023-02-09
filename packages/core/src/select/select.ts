@@ -14,11 +14,16 @@ import styles from './select.scss.js';
 let nextUniqueId = 0;
 
 export class Select extends FormControlMixin(LitElement) {
-  /** @private */
+  static override styles: CSSResultGroup = [validationStyles, styles];
+
   static formAssociated = true;
 
-  /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static #observerOptions = {
+    attributes: true,
+    subtree: true,
+    attributeFilter: ['selected', 'size'],
+    attributeOldValue: true
+  };
 
   @query('sl-select-overlay') overlay?: SelectOverlay;
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
@@ -27,6 +32,7 @@ export class Select extends FormControlMixin(LitElement) {
   @queryAssignedElements({ selector: 'sl-select-option', flatten: false }) options?: SelectOption[];
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
+  /** render helpers */
   @property() size?: { width: string; height: string } = { width: '500px', height: '32px' };
   @property() maxOverlayHeight?: string;
 
@@ -49,13 +55,6 @@ export class Select extends FormControlMixin(LitElement) {
     return [...(this.options || []), ...groups.flat()];
   }
 
-  static #observerOptions = {
-    attributes: true,
-    subtree: true,
-    attributeFilter: ['selected', 'size'],
-    attributeOldValue: true
-  };
-
   /** Element internals. */
   readonly internals = this.attachInternals();
 
@@ -73,7 +72,7 @@ export class Select extends FormControlMixin(LitElement) {
       >
         <span id="selectedOption" style=${styleMap(this.size || {})}></span>
 
-        <div class="toggle-icon" aria-label="Choose">🔽</div>
+        <div class="toggle-icon" aria-label="Choose" role="button">🔽</div>
         <!-- to be replaced by <sl-icon></sl-icon> -->
       </div>
       <sl-select-overlay
@@ -110,13 +109,18 @@ export class Select extends FormControlMixin(LitElement) {
   openSelect({ target }: Event): void {
     const toggle = (target as HTMLElement).closest('.select-toggle') as HTMLElement;
     if (!toggle) return;
-    this.scrollTo({ top: 0 });
-    this.allOptions.find(option => option.selected)?.focus();
-    this.overlay?.show(toggle);
+
+    if (!this.overlay?.popoverOpen) {
+      this.scrollTo({ top: 0 });
+      this.allOptions.find(option => option.selected)?.focus();
+      this.overlay?.show(toggle);
+    } else {
+      this.overlay?.hidePopover();
+    }
   }
 
-  closeSelect(): void {
-    this.overlay?.hide();
+  #closeSelect(): void {
+    this.overlay?.hidePopover();
     (this.renderRoot.querySelector('.select-toggle') as HTMLElement).focus();
   }
 
@@ -124,7 +128,9 @@ export class Select extends FormControlMixin(LitElement) {
     this.#rovingTabindexController.clearElementCache();
   }
 
-  /** If an option is selected programmatically update all the options. */
+  /**
+   * If an option is selected programmatically update all the options or the size of the select itself
+   */
   #handleMutation(mutations: MutationRecord[]): void {
     mutations.forEach(mutation => {
       if (mutation.attributeName === 'selected' && mutation.oldValue === null) {
@@ -141,13 +147,10 @@ export class Select extends FormControlMixin(LitElement) {
     });
   }
 
+  /**
+   * One of the options in the select has been clicked, get the right target and update the selection
+   * */
   #handleOptionChange(event: Event): void {
-    // Always reset the scroll when an option is selected.
-    this.scrollTo({ top: 0 });
-
-    /**
-     * Return handler if it's not an option or if it's already selected
-     */
     const selectOption = (event.target as HTMLElement)?.closest('sl-select-option');
 
     if (!event.target || !(selectOption instanceof SelectOption)) return;
@@ -158,11 +161,15 @@ export class Select extends FormControlMixin(LitElement) {
    * Update the selected option with attributes and values.
    */
   #updateSelectedOption(selectedOption: SelectOption): void {
-    if (selectedOption === this.selectedOption || selectedOption.disabled) return;
+    // Always reset the scroll when an option is selected.
+    this.scrollTo({ top: 0 });
 
     /**
-     * Reset all the selected state of the tabs, and select the clicked tab
+     * Return handler if it's not an option or if it's already selected
      */
+    if (selectedOption === this.selectedOption || selectedOption.disabled) return;
+
+    // Reset all the selected state of the tabs, and select the clicked tab
     this.allOptions.forEach((option: SelectOption) => {
       option.removeAttribute('selected');
       if (option === selectedOption) {
@@ -179,6 +186,9 @@ export class Select extends FormControlMixin(LitElement) {
     });
   }
 
+  /**
+   * Find the largest option and set the select to that width
+   */
   #updateSize(): void {
     const sizes = this.allOptions ? this.allOptions.map(o => o.size || 0) : [];
     const maxWidth = Math.max(...sizes.map(s => s.width));
@@ -189,34 +199,43 @@ export class Select extends FormControlMixin(LitElement) {
     };
   }
 
+  /**
+   * Copy the value/represenation of the selected option to the placeholder
+   */
   #setSelectedOptionVisible(option: SelectOption): void {
     this.setFormValue(option.value || option.innerHTML);
 
     const clonedOption = (option.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
+    const contentType = (option.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
+
     this.selectedOptionPlaceholder?.childNodes.forEach(cn => cn.remove());
     this.selectedOptionPlaceholder?.append(clonedOption);
+    this.selectedOptionPlaceholder?.setAttribute('contentType', contentType);
   }
 
-  /** Handle keyboard accessible controls. */
+  /**
+   * Handle keyboard accessible controls.
+   */
   #handleOverlayKeydown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Enter':
       case ' ':
         event.preventDefault();
         event.stopPropagation();
-        this.scrollTo({ top: 0 });
         this.#updateSelectedOption(<SelectOption>event.target);
-        this.closeSelect();
+        this.#closeSelect();
         break;
       case 'Escape':
-        this.closeSelect();
+        this.#closeSelect();
         break;
       default:
         break;
     }
   }
 
-  /** Handle keyboard accessible controls. */
+  /**
+   * Handle keyboard accessible controls.
+   */
   #handleOverallKeydown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Enter':
@@ -225,7 +244,7 @@ export class Select extends FormControlMixin(LitElement) {
         this.openSelect(event);
         break;
       case 'Escape':
-        this.closeSelect();
+        this.#closeSelect();
         break;
       default:
         break;

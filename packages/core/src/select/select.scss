@@ -9,7 +9,7 @@
 :host {
   align-items: center;
   display: inline-flex;
-  gap: 8px;
+  gap: var(--_gap);
 }
 
 .select-toggle {
@@ -39,7 +39,7 @@
     padding-inline: var(--_padding-inline);
   }
 
-  &:has(> span > *) span {
+  span[contenttype='element'] {
     padding-block: 0;
     padding-inline: 0;
   }

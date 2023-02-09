@@ -5,6 +5,7 @@
   font: var(--_font);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
+  white-space: nowrap;
 }
 
 :host([contenttype='string']) {

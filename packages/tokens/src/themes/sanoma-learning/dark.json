@@ -1094,7 +1094,7 @@
     },
     "input": {
       "default": {
-        "uncheck": {
+        "unchecked": {
           "default": {
             "background": {
               "value": "{color.palette.black.base}",
@@ -1199,7 +1199,7 @@
               "failedToResolve": true
             }
           },
-          "disable": {
+          "disabled": {
             "background": {
               "value": "{color.palette.black.base}",
               "type": "color",
@@ -1331,7 +1331,7 @@
               "failedToResolve": true
             }
           },
-          "disable": {
+          "disabled": {
             "background": {
               "value": "{color.palette.neutral.200}",
               "type": "color",
@@ -1360,7 +1360,7 @@
         }
       },
       "invalid": {
-        "uncheck": {
+        "unchecked": {
           "default": {
             "background": {
               "value": "{color.palette.black.base}",
@@ -1465,7 +1465,7 @@
               "failedToResolve": true
             }
           },
-          "disable": {
+          "disabled": {
             "background": {
               "value": "{color.palette.black.base}",
               "type": "color",
@@ -1597,7 +1597,7 @@
               "failedToResolve": true
             }
           },
-          "disable": {
+          "disabled": {
             "background": {
               "value": "{color.palette.danger.150}",
               "type": "color",
@@ -1626,7 +1626,7 @@
         }
       },
       "valid": {
-        "uncheck": {
+        "unchecked": {
           "default": {
             "background": {
               "value": "{color.palette.black.base}",
@@ -1731,7 +1731,7 @@
               "failedToResolve": true
             }
           },
-          "disable": {
+          "disabled": {
             "background": {
               "value": "{color.palette.black.base}",
               "type": "color",
@@ -1863,7 +1863,7 @@
               "failedToResolve": true
             }
           },
-          "disable": {
+          "disabled": {
             "background": {
               "value": "{color.palette.success.150}",
               "type": "color",

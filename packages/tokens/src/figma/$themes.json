@@ -1088,7 +1088,8 @@
       "text.input.fontIcon.md": "S:49f18ee3d53c911534c03ccdb9bdd0ae92c9aa18,",
       "text.input.fontIcon.lg": "S:6cefb6bd93cbffbe6bc8259f7472b876d6a0c93e,",
       "text.input.label.md": "S:b519a9456a2b32e4c269e2780496192f745896d5,",
-      "text.input.label.lg": "S:14465225f4d7f84d0add8c31d0ff48fadab6d5d8,"
+      "text.input.label.lg": "S:14465225f4d7f84d0add8c31d0ff48fadab6d5d8,",
+      "boxShadow.focus": "S:3fbe7906a68d6d77bea91c2aed793e3dd216e310,"
     }
   }
 ]

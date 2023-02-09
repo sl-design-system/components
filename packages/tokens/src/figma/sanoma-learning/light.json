@@ -1348,7 +1348,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.accent.base}",
+              "value": "{color.palette.danger.300}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1574,7 +1574,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.accent.base}",
+              "value": "{color.palette.success.400}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },

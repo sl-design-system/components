@@ -15,7 +15,7 @@
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build.js sesame",
+      "command": "yarn node --no-warnings ../../../build-styles.js sesame",
       "files": [
         "../../figma/*.json",
         "../../figma/sesame/*.json"

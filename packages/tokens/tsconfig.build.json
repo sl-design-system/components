@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "strictNullChecks": true
+  },
+  "allowSyntheticDefaultImports": false,
+  "files": [
+    "src/themes/sanoma-learning/index.d.ts"
+  ],
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"],
+  "references": [
+  ]
+}

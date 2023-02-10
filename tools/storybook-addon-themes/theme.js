@@ -27,5 +27,7 @@ export const updateTheme = (theme) => {
       fonts[index].rel = 'stylesheet';
     });
   }
+
+  theme.setup?.();
 };
 

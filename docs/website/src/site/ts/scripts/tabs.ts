@@ -11,7 +11,7 @@ let tabsContainer = document.querySelector('.ds-tabs'),
   slider = tabsContainer?.querySelector('.ds-tabs__slider') as HTMLElement,
   indicator = slider?.querySelector('.ds-tabs__indicator') as HTMLElement,
   headingElement: HTMLHeadingElement | undefined,
-  horizontalTabsContainers: NodeListOf<Element>,
+  horizontalTabsContainer: Element | null,
   tabsWrapper: Element,
   tabsContentWrapper: Element,
   tabs: NodeListOf<HTMLElement>,
@@ -58,15 +58,20 @@ window.onkeydown = (event: KeyboardEvent) => {
 };
 
 function generateTabsElements(): void {
-  horizontalTabsContainers = document.querySelectorAll('.ds-tabs[horizontal]');
-  tabsWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs-wrapper') as Element;
-  tabsContentWrapper = horizontalTabsContainers[0].querySelector('.ds-tabs__tab-content-wrapper') as Element;
-  tabs = horizontalTabsContainers[0].querySelectorAll('.ds-tab');
+  horizontalTabsContainer = document.querySelector('.ds-tabs[horizontal]');
+
+  if (!horizontalTabsContainer) {
+    return;
+  }
+
+  tabsWrapper = horizontalTabsContainer.querySelector('.ds-tabs-wrapper') as Element;
+  tabsContentWrapper = horizontalTabsContainer.querySelector('.ds-tabs__tab-content-wrapper') as Element;
+  tabs = horizontalTabsContainer.querySelectorAll('.ds-tab');
   tabs[0].classList.add('active');
 
   tabsContainer = document.createElement('div');
   tabsContainer.classList.add('ds-tabs__container');
-  horizontalTabsContainers[0].insertBefore(tabsContainer, tabsContentWrapper);
+  horizontalTabsContainer.insertBefore(tabsContainer, tabsContentWrapper);
 
   tabsWrapper = document.createElement('div');
   tabsWrapper.classList.add('ds-tabs-wrapper');
@@ -84,7 +89,7 @@ function generateTabsElements(): void {
 
   current = tabsWrapper.querySelector('.active') as Element;
 
-  tabsContents = horizontalTabsContainers[0]?.querySelectorAll('.ds-tabs__tab-content');
+  tabsContents = horizontalTabsContainer.querySelectorAll('.ds-tabs__tab-content');
   tabsContents[0].classList.add('ds-tabs__tab-content--active');
 
   if (!tabsWrapper || !current) {
@@ -237,6 +242,7 @@ const config = {
 const observer = new IntersectionObserver(
   entries =>
     entries.forEach(({ target, intersectionRatio }) => {
+      const topNavigation = document.querySelector('.ds-top-navigation');
       const tabsContainer = target.previousSibling as Element;
       if (!tabsContainer) {
         return;
@@ -248,6 +254,7 @@ const observer = new IntersectionObserver(
 
       if (intersectionRatio < 1) {
         target.classList.add('ds-tabs__container--sticky');
+        topNavigation?.classList.add('ds-top-navigation--not-sticky');
 
         mediaQueryList.onchange = event => {
           showComponentName(event.matches, target, componentNameHeading, true);
@@ -260,6 +267,7 @@ const observer = new IntersectionObserver(
         headingElement = componentNameHeading;
       } else {
         target.classList.remove('ds-tabs__container--sticky');
+        topNavigation?.classList.remove('ds-top-navigation--not-sticky');
 
         mediaQueryList.onchange = event => {
           hideComponentName(event.matches);

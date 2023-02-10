@@ -1,5 +1,23 @@
 # @sanomalearning/slds-core
 
+## 0.1.1
+
+### Patch Changes
+
+- [#135](https://github.com/sanomalearning/design-system/pull/135) [`6fc29f0`](https://github.com/sanomalearning/design-system/commit/6fc29f0c7438be285f8b4fdbfbe50f387223a96c) - Add a validation and form integration to form controls
+
+- [#152](https://github.com/sanomalearning/design-system/pull/152) [`6d0504f`](https://github.com/sanomalearning/design-system/commit/6d0504f7f5de8c24ad1304a6a7ee4ec00d281e6c) - New textarea component
+
+- [#156](https://github.com/sanomalearning/design-system/pull/156) [`6793465`](https://github.com/sanomalearning/design-system/commit/67934651e0debc325cd6900dd97af8f496da1691) - Add hint support to input, radio-group and textarea
+
+- [#157](https://github.com/sanomalearning/design-system/pull/157) [`2eddcd4`](https://github.com/sanomalearning/design-system/commit/2eddcd4b7013e8fa975ddc8931ba3142c9e5929b) - Add checkbox-group component
+
+- [#216](https://github.com/sanomalearning/design-system/pull/216) [`76104a2`](https://github.com/sanomalearning/design-system/commit/76104a2fc461dada974517041ddbe5c75ca9f9a0) - added sl-tabs
+
+- [#151](https://github.com/sanomalearning/design-system/pull/151) [`2032336`](https://github.com/sanomalearning/design-system/commit/20323363aa07e441c9020025195810eee0da2c76) - Simplify button implementation
+
+- [#159](https://github.com/sanomalearning/design-system/pull/159) [`e513ba4`](https://github.com/sanomalearning/design-system/commit/e513ba4e2c3999c2b5d22c3e2498eb210c5a31dd) - Fix focus issues with input, textarea, checkbox and checkbox-group
+
 ## 0.1.0
 
 ### Minor Changes

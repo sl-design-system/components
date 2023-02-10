@@ -4,6 +4,8 @@
  */
 
 @mixin sl-theme-base {
+  --sl-icon-core-fa-check: fa-chevron-down;
+  --sl-icon-core-fa-chevron-down: fa-chevron-down;
   --sl-icon-core-fa-fav: fa-star;
   --sl-icon-core-fa-menu: fa-bars;
   --sl-icon-core-fa-face-smile: fa-face-smile;
@@ -196,4 +198,5 @@
   --sl-color-palette-primary-150: 222 224 227;
   --sl-color-palette-primary-100: 238 239 241;
   --sl-color-palette-primary-50: 254 254 254;
+  --sl-size-input-md: var(--sl-size-sm);
 }

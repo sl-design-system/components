@@ -4,6 +4,8 @@
  */
 
 @mixin sl-theme-base {
+  --sl-icon-core-fa-check: fa-chevron-down;
+  --sl-icon-core-fa-chevron-down: fa-chevron-down;
   --sl-icon-core-fa-fav: fa-star;
   --sl-icon-core-fa-menu: fa-bars;
   --sl-icon-core-fa-face-smile: fa-face-smile;
@@ -110,4 +112,5 @@
   --sl-border-radius-2xs: 4px;
   --sl-border-radius-3xs: 2px;
   --sl-border-radius-none: 0px;
+  --sl-size-input-md: var(--sl-size-sm);
 }

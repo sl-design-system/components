@@ -33,7 +33,6 @@
   --sl-icon-core-fa-menu: fa-bars;
   --sl-icon-core-fa-face-smile: fa-face-smile;
   --sl-icon-custom-fav: fav;
-  --sl-box-shadow-button-default-default-none: 0px 0px 0px 0px;
   --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
@@ -211,8 +210,6 @@
   --sl-icon-base-face-smile: var(--sl-icon-core-fa-face-smile);
   --sl-component-button-md: [object Object];
   --sl-component-button-lg: [object Object];
-  --sl-box-shadow-button-default-default-focus: 0px 0px 0px 3px
-    rgba(var(--sl-color-palette-info-base), var(--sl-opacity-600));
   --sl-animation-button: var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   --sl-space-button-gap-md: var(--sl-space-xs);
   --sl-space-button-gap-sm: var(--sl-space-2xs);

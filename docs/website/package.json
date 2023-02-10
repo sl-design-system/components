@@ -40,7 +40,8 @@
     "lint": "wireit",
     "lint:scss": "wireit",
     "lint:ts": "wireit",
-    "analyze": "cem analyze --litelement --outdir  'dist'"
+    "analyze:prod": "cem analyze --litelement --config 'custom-elements-manifest.config.js' --outdir  'dist/site/test'",
+    "analyze:dev": "cem analyze --litelement --outdir  'public/site'"
   },
   "wireit": {
     "build:dev": {

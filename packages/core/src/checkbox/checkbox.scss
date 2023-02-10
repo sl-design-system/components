@@ -1,16 +1,17 @@
 :host {
-  --_background: #fff;
+  --_background: var(--sl-color-surface-solid-primary-background);
+  --_border-color: var(--sl-color-input-default-unchecked-default-border);
+  --_border-size: 2px;
   --_border: var(--_border-size) solid var(--_border-color);
-  --_border-color: #ccc;
-  --_border-radius: 3px;
-  --_border-size: 1px;
-  --_gap: 0.25rem;
+  --_border-radius: 2px;
+  --_gap: 8px;
   --_line-height: 1.5rem;
   --_path-length: 22.910259;
-  --_size: calc(1rem - var(--_border-size) * 2);
-  --_stroke: #fff;
+  --_size: calc(var(--_line-height) - var(--_border-size) * 2);
+  --_stroke: var(--sl-color-input-default-checked-default-icon);
   --_stroke-dashoffset: var(--_path-length);
   --_transition: 200ms ease-in-out;
+  --_label-color: var(--sl-color-input-default-checked-default-label);
 }
 
 :host {
@@ -23,18 +24,29 @@
 }
 
 :host(:disabled) {
+  --_background-checked: var(--sl-color-input-default-checked-disabled-background);
+  --_border-color: var(--sl-color-input-default-checked-disabled-border);
+  --_label-color: var(--sl-color-input-default-checked-disabled-label);
   cursor: default;
   pointer-events: none;
 }
 
 :host(:focus-visible) {
-  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
+  --_border-color: var(--sl-color-input-default-unchecked-focus-border);
   --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }
 
 :host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
-  --_background: #000;
+  --_background: var(--sl-color-input-default-checked-default-background);
+  --_border-color: var(--sl-color-input-default-checked-default-border);
+  --_label-color: var(--sl-color-input-default-checked-focus-label);
   --_stroke-dashoffset: 0;
+}
+
+:host(:hover) {
+  --_background: var(--sl-color-input-default-unchecked-hover-background);
+  --_border-color: var(--_background-checked);
+  --_stroke: var(--sl-color-input-default-checked-hover-icon);
 }
 
 .wrapper {
@@ -71,6 +83,8 @@ path {
   stroke: var(--_stroke);
   stroke-dasharray: var(--_path-length);
   stroke-dashoffset: var(--_stroke-dashoffset);
+  stroke-linecap: round;
+  stroke-linejoin: round;
   stroke-width: 3px;
   transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
 }

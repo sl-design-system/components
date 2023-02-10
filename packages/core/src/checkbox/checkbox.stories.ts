@@ -22,6 +22,36 @@ export const API: StoryObj = {
   `
 };
 
+export const All: StoryObj = {
+  render: () => html`
+    <style>
+      .grid {
+        display: inline-grid;
+        gap: 1rem;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+      }
+    </style>
+    <div class="grid">
+      <sl-checkbox>Default</sl-checkbox>
+      <sl-checkbox checked>Checked</sl-checkbox>
+      <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox disabled>Default</sl-checkbox>
+      <sl-checkbox disabled checked>Checked</sl-checkbox>
+      <sl-checkbox disabled indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox invalid>Default</sl-checkbox>
+      <sl-checkbox invalid checked>Checked</sl-checkbox>
+      <sl-checkbox invalid indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox invalid disabled>Default</sl-checkbox>
+      <sl-checkbox invalid disabled checked>Checked</sl-checkbox>
+      <sl-checkbox invalid disabled indeterminate>Indeterminate</sl-checkbox>
+    </div>
+  `
+};
+
 export const Indeterminate: StoryObj = {
   render: () => html`<sl-checkbox indeterminate>Indeterminate</sl-checkbox>`
 };

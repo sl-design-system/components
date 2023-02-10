@@ -93,6 +93,9 @@
   --copy-button-background--active: var(--ds-color-alice-blue);
   --copy-button-background--hover: var(--ds-color-light-blue);
   --copy-button-border: var(--ds-color-bright-grey);
+  --cta-background: linear-gradient(79.62deg, var(--ds-color-blue) 0.95%, var(--ds-color0blueberry-light) 100%);
+  --cta-link-color: var(--ds-color-white);
+  --cta-link-color--active: rgba(var(--ds-color-white-rgb), 0.9);
   --danger-color: var(--ds-color-danger);
   --error-icon: url('../assets/icons/error-dark.svg');
   --filter-color: rgba(34, 34, 34, 0.12);
@@ -150,6 +153,9 @@
     --copy-button-background--active: var(--ds-color-deep-koamaru);
     --copy-button-background--hover: var(--ds-color-gunmetal);
     --copy-button-border: var(--ds-color-tundora);
+    --cta-background: linear-gradient(259.74deg, rgba(89, 133, 255, 0.8) 0%, var(--ds-color-blueberry) 100%);
+    --cta-link-color: var(--ds-color-raisin-black);
+    --cta-link-color--active: rgba(var(--ds-color-black-rgb), 0.9);
     --danger-color: var(--ds-color-red);
     --error-icon: url('../assets/icons/error.svg');
     --filter-color: rgba(34, 34, 34, 0.64);

@@ -117,6 +117,10 @@ $transition-timing: 300ms;
       transition: none;
     }
   }
+
+  //filter {
+  //  overflow: visible;
+  //}
 }
 
 .ds-explore__card {
@@ -128,7 +132,9 @@ $transition-timing: 300ms;
 
     /* stylelint-disable-next-line max-nesting-depth */
     .ds-explore__design-tokens-dot {
-      animation: scaleAnimation 700ms ease-in-out;
+      animation: scaleAnimationDot 700ms ease-in-out;
+      //transform-origin: bottom;
+      transform-origin: bottom;
 
       /* stylelint-disable-next-line max-nesting-depth */
       @media screen and (prefers-reduced-motion: reduce) {
@@ -137,17 +143,17 @@ $transition-timing: 300ms;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(3) {
+      &:nth-child(4) {
         animation-delay: 0.1s;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(4) {
+      &:nth-child(5) {
         animation-delay: 0.2s;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(5) {
+      &:nth-child(6) {
         animation-delay: 0.3s;
       }
     }
@@ -165,6 +171,8 @@ $transition-timing: 300ms;
     /* stylelint-disable-next-line max-nesting-depth */
     .ds-explore__guidelines-part {
       animation: rotateAnimation 700ms ease-in-out;
+      transform-box: fill-box;
+      transform-origin: center;
 
       /* stylelint-disable-next-line max-nesting-depth */
       @media screen and (prefers-reduced-motion: reduce) {
@@ -180,11 +188,39 @@ $transition-timing: 300ms;
   }
 
   60% {
-    transform: scale(1.08);
+    transform: scale(1.15);
   }
 
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes scaleAnimationDot {
+  30% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  60% {
+    transform: scale3d(1.18, 1.18, 1.18);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes scaleAnimationRotate {
+  30% {
+    transform: scale3d(1, 1, 1) rotate(0);
+  }
+
+  60% {
+    transform: scale3d(1, 1, 1) rotate(-5deg);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1) rotate(0);
   }
 }
 
@@ -194,7 +230,7 @@ $transition-timing: 300ms;
   }
 
   60% {
-    transform: rotate(-0.02turn);
+    transform: rotate(-0.04turn);
   }
 
   100% {

@@ -1,21 +1,37 @@
 @import './../breakpoints';
 
+$transition-timing: 200ms;
+
 .ds-call-to-action {
-  //background-color: #e0eaff;
-  background: var(--cta-background); //var(--card-background);
+  background: var(--cta-background);
   border-radius: 1.2rem;
   direction: ltr;
   display: grid;
   gap: 4rem;
   grid-template-columns: none;
-  grid-template-rows: 1fr auto; //repeat(2, 1fr);
+  grid-template-rows: 1fr auto;
   justify-items: center;
   margin: 3.2rem 0;
   overflow: hidden;
   padding: 4rem 3.2rem;
 
+  @media screen and (min-width: $md-lg-breakpoint) {
+    direction: rtl;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: none;
+    padding: 4rem;
+  }
+
   @media screen and (min-width: $lg-breakpoint) {
-    //grid-template-rows: repeat(3, 1fr);
+    direction: ltr;
+    grid-template-columns: none;
+    grid-template-rows: 1fr auto;
+    justify-items: center;
+    margin: 3.2rem 0;
+    padding: 4rem 3.2rem;
+  }
+
+  @media screen and (min-width: $xl-breakpoint) {
     direction: rtl;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: none;
@@ -23,175 +39,118 @@
   }
 
   p:not(.ds-call-to-action__main-text):not(.ds-call-to-action__heading) {
-    color: var(--cta-link-color); //var(--table-text-color);
+    color: var(--cta-link-color);
     font-size: 2rem;
     line-height: 2.4rem;
     margin-bottom: 1.6rem;
   }
 
-  .ds-call-to-action__description {
-    /* stylelint-disable-next-line max-nesting-depth */
-    @media screen and (min-width: $lg-breakpoint) {
-      //grid-template-rows: repeat(3, 1fr);
-      direction: ltr;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      justify-self: left;
-    }
-  }
-
   svg {
-    //margin-bottom: 4rem;
-    height: 300px;
+    height: 30rem;
     overflow: visible;
   }
+}
 
-  .ds-call-to-action__gear-reverse {
-    //animation: rotation 2s infinite linear;
-    animation: rotation 5s backwards alternate linear;
-    //transform: rotate(45deg);
+.ds-call-to-action__description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: left;
 
-    //transform: translate(100%, 100%) rotate(45 60 60);
-
-    transform-box: fill-box;
-    //transform-origin: center center;
-    transform-origin: center;
-    transition: all 1s ease;
-    //transform: scale3d(1.5, 1.5, 1.5);
-
-    //-webkit-transform-origin: 96% 80%;
-    //-webkit-transform: rotate(90deg) translate(6%, 0%);
+  @media screen and (min-width: $md-lg-breakpoint) {
+    direction: ltr;
   }
+}
 
-  .ds-call-to-action__gear {
-    //animation: rotation 2s infinite linear;
-    animation: rotation 5s forwards alternate linear;
-    //transform: rotate(45deg);
+.ds-call-to-action__eye-brow {
+  animation: scaleAnimationRotate 4s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
 
-    //transform: translate(100%, 100%) rotate(45 60 60);
-
-    transform-box: fill-box;
-    //transform-origin: center center;
-    transform-origin: center;
-    transition: all 1s ease;
-    //transform: scale3d(1.5, 1.5, 1.5);
-
-    //-webkit-transform-origin: 96% 80%;
-    //-webkit-transform: rotate(90deg) translate(6%, 0%);
+  @media screen and (prefers-reduced-motion: reduce) {
+    /* stylelint-disable-next-line max-nesting-depth */
+    animation: none;
   }
+}
 
-  .ds-call-to-action__arrow {
-    //animation: rotation 2s infinite linear;
-    animation: transformAnimation 1s forwards alternate linear;
-    //transform: rotate(45deg);
+.ds-call-to-action__eye {
+  animation: scaleAnimationEye 5s infinite, blink 5s infinite;
+  backface-visibility: hidden;
+  perspective: 100rem;
+  transform: translate3d(0, 0, 0);
+  transform-box: fill-box;
+  transform-origin: center;
 
-    //transform: translate(100%, 100%) rotate(45 60 60);
-
-    transform-box: fill-box;
-    //transform-origin: center center;
-    transform-origin: center;
-    transition: all 1s ease;
-    //transform: scale3d(1.5, 1.5, 1.5);
-
-    //-webkit-transform-origin: 96% 80%;
-    //-webkit-transform: rotate(90deg) translate(6%, 0%);
+  @media screen and (prefers-reduced-motion: reduce) {
+    /* stylelint-disable-next-line max-nesting-depth */
+    animation: none;
   }
+}
 
-  .ds-call-to-action__arrow-shadow {
-    //animation: rotation 2s infinite linear;
-    animation: opacityAnimation 1s forwards alternate linear;
-    animation-delay: 600ms;
-    opacity: 0;
-    //transform: rotate(45deg);
+.ds-call-to-action__logo {
+  animation: scaleAnimation 7s infinite;
+  animation-delay: $transition-timing;
+  backface-visibility: hidden;
+  perspective: 100rem;
+  transform: translate3d(0, 0, 0);
+  transform-box: fill-box;
+  transform-origin: center;
 
-    //transform: translate(100%, 100%) rotate(45 60 60);
-
-    transform-box: fill-box;
-    //transform-origin: center center;
-    transform-origin: center;
-    //transition: all 1s ease;
-    //transform: scale3d(1.5, 1.5, 1.5);
-
-    //-webkit-transform-origin: 96% 80%;
-    //-webkit-transform: rotate(90deg) translate(6%, 0%);
+  @media screen and (prefers-reduced-motion: reduce) {
+    /* stylelint-disable-next-line max-nesting-depth */
+    animation: none;
   }
+}
 
-  .ds-call-to-action__chair {
-    //opacity: 0;
-    //transition: all 1s ease;
-    //transform: scale3d(1.5, 1.5, 1.5);
+.ds-call-to-action__smile {
+  animation: smileAnimation 3s infinite;
+  animation-delay: $transition-timing;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transform-box: fill-box;
+  transform-origin: center;
 
-    //-webkit-transform-origin: 96% 80%;
-    //-webkit-transform: rotate(90deg) translate(6%, 0%);
-    //transform: translateY(-40px);
-    animation: shake 800ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-    backface-visibility: hidden;
-    perspective: 1000px;
-    transform: translate3d(0, 0, 0);
-    //animation: rotation 2s infinite linear;
-    //animation: shake 1.2s forwards alternate linear;
-    //animation-delay: 100ms;
-    //transform: rotate(45deg);
-
-    //transform: translate(100%, 100%) rotate(45 60 60);
-
-    transform-box: fill-box;
-    //transform-origin: center center;
-    transform-origin: center;
+  @media screen and (prefers-reduced-motion: reduce) {
+    /* stylelint-disable-next-line max-nesting-depth */
+    animation: none;
   }
+}
 
-  .ds-call-to-action__eye-brow {
-    //animation: rotation 2s infinite linear;
-    animation: scaleAnimationRotate 5s infinite;
-    //animation-delay: 600ms;
-    //opacity: 0;
-    //transform: rotate(45deg);
+.ds-call-to-action__smile-left {
+  animation: smileLeftAnimation 3s infinite;
+  animation-delay: $transition-timing;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transform-box: fill-box;
+  transform-origin: center;
 
-    //transform: translate(100%, 100%) rotate(45 60 60);
-
-    transform-box: fill-box;
-    //transform-origin: center center;
-    transform-origin: center;
-    //transition: all 1s ease;
-    //transform: scale3d(1.5, 1.5, 1.5);
-
-    //-webkit-transform-origin: 96% 80%;
-    //-webkit-transform: rotate(90deg) translate(6%, 0%);
+  @media screen and (prefers-reduced-motion: reduce) {
+    /* stylelint-disable-next-line max-nesting-depth */
+    animation: none;
   }
+}
 
-  .ds-call-to-action__eye {
-    //opacity: 0;
-    //transition: all 1s ease;
-    //transform: scale3d(1.5, 1.5, 1.5);
+.ds-call-to-action__smile-bottom {
+  animation: smileBottomAnimation 3s infinite;
+  animation-delay: $transition-timing;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transform-box: fill-box;
+  transform-origin: center;
 
-    //-webkit-transform-origin: 96% 80%;
-    //-webkit-transform: rotate(90deg) translate(6%, 0%);
-    //transform: translateY(-40px);
-    animation: scaleAnimationEye 5s infinite;
-    backface-visibility: hidden;
-    perspective: 1000px;
-    transform: translate3d(0, 0, 0);
-    //animation: rotation 2s infinite linear;
-    //animation: shake 1.2s forwards alternate linear;
-    //animation-delay: 100ms;
-    //transform: rotate(45deg);
-
-    //transform: translate(100%, 100%) rotate(45 60 60);
-
-    transform-box: fill-box;
-    //transform-origin: center center;
-    transform-origin: center;
+  @media screen and (prefers-reduced-motion: reduce) {
+    /* stylelint-disable-next-line max-nesting-depth */
+    animation: none;
   }
-} // TODO: reverse on the right
+}
 
 .ds-call-to-action__main-text {
-  color: var(--cta-link-color); //var(--highlight-color);
+  color: var(--cta-link-color);
   font-family: 'The Message', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: 0.05rem;
-  line-height: 1; //14px;
+  line-height: 1;
   margin-bottom: 1.6rem;
 }
 
@@ -200,32 +159,25 @@
   font-weight: 700;
   line-height: 3.2rem;
   margin-bottom: 1.6rem;
-
-  //.header-anchor {
-  //  color: var(--cta-link-color); //var(--table-text-color);
-  //}
 }
 
 .ds-call-to-action__link {
-  //color: #3366FF;
-  color: var(--cta-link-color); //var(--highlight-color);
-  font-size: 16px;
+  color: var(--cta-link-color);
+  font-size: 1.6rem;
   font-weight: 600;
-  line-height: 24px;
+  line-height: 2.4rem;
   padding-right: 1.8rem;
   position: relative;
-  //text-transform: uppercase;
   text-decoration: none;
-  //margin-top: 4rem;
-  transition: color 200ms ease-in-out;
+  transition: color $transition-timing ease-in-out;
   width: fit-content;
 
   &::before {
     background-color: var(--cta-link-color);
-    bottom: 2px;
+    bottom: 0.2rem;
     content: '';
     display: block;
-    height: 2px;
+    height: 0.2rem;
     left: -5%;
     padding-right: 1.8rem;
     position: absolute;
@@ -244,145 +196,24 @@
   }
 
   &::after {
-    //background-color: var(--copy-button-background--hover);
     background-image: var(--chevron-icon);
     background-position: top;
     background-repeat: no-repeat;
-    //background-size: 1.4rem;
-    //border: 1px solid var(--ds-color-blue);
-    //border-radius: 6px;
-    //box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
     content: '';
-    height: 2.4rem; //3.2rem;
-    //opacity: 0;
+    height: 2.4rem;
     position: absolute;
-    //left: -1px;
     right: 0;
-    top: 3px;
-    transition: all 200ms ease-in-out;
-    //transform: none;
-    //transition: opacity 300ms;
-    width: 1rem; //3.2rem;
+    top: 0.3rem;
+    transition: all $transition-timing ease-in-out;
+    width: 1rem;
   }
-
-  //&:hover {
-  //  text-decoration: underline;
-  //}
 
   &:active {
     color: var(--cta-link-color--active);
-    //text-decoration: underline;
 
     &::after {
       background-image: var(--chevron-icon--active);
     }
-  }
-}
-
-@keyframes rotation {
-  //from {
-  //  transform: rotate(0deg);
-  //}
-  //to {
-  //  transform: rotate(359deg);
-  //}
-
-  //50% {transform: rotate(180deg);}
-
-  //50% { transform: rotate(180deg); }
-  //100% { transform: rotate(360deg); }
-
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes transformAnimation {
-  //0% {
-  //  opacity: 0;
-  //  transform: translateX(100px);
-  //}
-  //
-  //100% {
-  //  opacity: 1;
-  //  transform: translateX(0);
-  //}
-
-  0% {
-    opacity: 0;
-    transform: translate(150px, -60px);
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    //opacity: 1;
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes opacityAnimation {
-  //0% {
-  //  opacity: 0;
-  //  transform: translateX(100px);
-  //}
-  //
-  //100% {
-  //  opacity: 1;
-  //  transform: translateX(0);
-  //}
-
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes shake {
-  0% {
-    opacity: 0;
-    //transform: translate3d(0, -40px, 0);
-    transform: translateY(-10px);
-  }
-
-  10%/*, 90% */ {
-    transform: translate3d(-1px, 0, 0);
-  }
-
-  20%,
-  80% {
-    transform: translate3d(1px, 0, 0);
-  }
-
-  30%/*, 50%, 70%*/ {
-    transform: translate3d(-2px, -5px, 0);
-  }
-
-  50%,
-  70% {
-    transform: translate3d(-2px, 0, 0);
-  }
-
-  40%,
-  60% {
-    transform: translate3d(2px, 0, 0);
-  }
-
-  90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-
-  100% {
-    opacity: 1;
   }
 }
 
@@ -422,19 +253,37 @@
 
 @keyframes scaleAnimationEye {
   30% {
-    transform: scale(1) translateY(0); //scale3d(1, 1, 1);
+    transform: scale(1) translateY(0);
   }
 
   60% {
-    transform: scale(1.05) translateY(-1px); //scale3d(1, 0.71, 1);
+    transform: scale(1.05) translateY(-1px);
   }
 
   80% {
-    transform: scale(0.8) translateY(0); // scale3d(1, 1, 1);
+    transform: scale(0.6) translateY(0);
   }
 
   100% {
-    transform: scale(1) translateY(0); // scale3d(1, 1, 1);
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes scaleAnimation {
+  30% {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(2);
+  }
+
+  80% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
 
@@ -449,5 +298,47 @@
 
   100% {
     transform: scale3d(1, 1, 1) translateY(0);
+  }
+}
+
+@keyframes smileAnimation {
+  30% {
+    transform: rotate3d(1, 1, 1, 0) translateY(0);
+  }
+
+  60% {
+    transform: rotate3d(1, 4, -2, 44deg) translateY(-4px);
+  }
+
+  100% {
+    transform: rotate3d(1, 1, 1, 0) translateY(0);
+  }
+}
+
+@keyframes smileLeftAnimation {
+  30% {
+    transform: rotate3d(1, 1, 1, 0) translateY(0);
+  }
+
+  60% {
+    transform: rotate3d(1, 4, -2, -44deg) translateY(-4px);
+  }
+
+  100% {
+    transform: rotate3d(1, 1, 1, 0) translateY(0);
+  }
+}
+
+@keyframes smileBottomAnimation {
+  30% {
+    transform: translateY(0);
+  }
+
+  60% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }

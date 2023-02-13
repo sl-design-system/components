@@ -886,7 +886,7 @@
       },
       "gap": {
         "md": {
-          "value": "{space.xs}",
+          "value": "{space.button.block.md}",
           "type": "spacing",
           "description": "{space.button.gap.md}"
         },

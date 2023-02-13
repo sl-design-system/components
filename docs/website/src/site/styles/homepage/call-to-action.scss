@@ -87,21 +87,6 @@ $transition-timing: 200ms;
   }
 }
 
-.ds-call-to-action__logo {
-  animation: scaleAnimation 7s infinite;
-  animation-delay: $transition-timing;
-  backface-visibility: hidden;
-  perspective: 100rem;
-  transform: translate3d(0, 0, 0);
-  transform-box: fill-box;
-  transform-origin: center;
-
-  @media screen and (prefers-reduced-motion: reduce) {
-    /* stylelint-disable-next-line max-nesting-depth */
-    animation: none;
-  }
-}
-
 .ds-call-to-action__smile {
   animation: smileAnimation 3s infinite;
   animation-delay: $transition-timing;
@@ -266,24 +251,6 @@ $transition-timing: 200ms;
 
   100% {
     transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes scaleAnimation {
-  30% {
-    transform: scale(1);
-  }
-
-  60% {
-    transform: scale(2);
-  }
-
-  80% {
-    transform: scale(0.8);
-  }
-
-  100% {
-    transform: scale(1);
   }
 }
 

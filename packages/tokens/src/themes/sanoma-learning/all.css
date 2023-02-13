@@ -218,7 +218,6 @@
   --sl-component-button-md: [object Object];
   --sl-component-button-lg: [object Object];
   --sl-animation-button: var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
-  --sl-space-input-gap-md: var(--sl-space-xs);
   --sl-space-button-gap-md: var(--sl-space-xs);
   --sl-space-button-gap-sm: var(--sl-space-2xs);
   --sl-space-button-inline-lg: var(--sl-space-md);
@@ -280,6 +279,7 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-space-input-gap-lg: var(--sl-space-button-block-md);
+  --sl-space-input-gap-md: var(--sl-space-button-block-md);
   --sl-space-input-inline-lg: var(--sl-space-button-block-sm);
   --sl-space-input-inline-md: var(--sl-space-button-block-sm);
   --sl-space-input-block-lg: var(--sl-space-button-block-sm);

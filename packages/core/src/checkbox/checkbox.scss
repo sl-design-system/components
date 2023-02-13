@@ -1,17 +1,22 @@
+$variants: default, valid, invalid;
+$variantselectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$states: unchecked, checked;
+$stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])';
+
 :host {
-  --_background: var(--sl-color-surface-solid-primary-background);
+  --_background: var(--sl-color-input-default-unchecked-default-background);
   --_border-color: var(--sl-color-input-default-unchecked-default-border);
-  --_border-size: 2px;
+  --_border-size: var(--sl-border-width-outline, 2px);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: 2px;
   --_gap: 8px;
   --_line-height: 1.5rem;
   --_path-length: 22.910259;
   --_size: calc(var(--_line-height) - var(--_border-size) * 2);
-  --_stroke: var(--sl-color-input-default-checked-default-icon);
+  --_stroke: var(--sl-color-input-default-unchecked-default-icon);
   --_stroke-dashoffset: var(--_path-length);
   --_transition: 200ms ease-in-out;
-  --_label-color: var(--sl-color-input-default-checked-default-label);
+  --_label-color: var(--sl-color-input-default-unchecked-default-label);
 }
 
 :host {
@@ -24,33 +29,13 @@
 }
 
 :host(:disabled) {
-  --_background-checked: var(--sl-color-input-default-checked-disabled-background);
-  --_border-color: var(--sl-color-input-default-checked-disabled-border);
-  --_label-color: var(--sl-color-input-default-checked-disabled-label);
   cursor: default;
   pointer-events: none;
 }
 
-:host(:focus-visible) {
-  --_border-color: var(--sl-color-input-default-unchecked-focus-border);
-  --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
-}
-
-:host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
-  --_background: var(--sl-color-input-default-checked-default-background);
-  --_border-color: var(--sl-color-input-default-checked-default-border);
-  --_label-color: var(--sl-color-input-default-checked-focus-label);
-  --_stroke-dashoffset: 0;
-}
-
-:host(:hover) {
-  --_background: var(--sl-color-input-default-unchecked-hover-background);
-  --_border-color: var(--_background-checked);
-  --_stroke: var(--sl-color-input-default-checked-hover-icon);
-}
-
 .wrapper {
   align-items: start;
+  color: var(--_label-color);
   cursor: pointer;
   display: flex;
   gap: var(--_gap);
@@ -87,4 +72,58 @@ path {
   stroke-linejoin: round;
   stroke-width: 3px;
   transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
+}
+
+:host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
+  --_stroke-dashoffset: 0;
+}
+
+/**
+ * theming 
+ */
+
+@each $variant in $variants {
+  $i: index($variants, $variant);
+  $variantselector: nth($variantselectors, $i);
+
+  @each $state in $states {
+    $j: index($states, $state);
+    $stateselector: nth($stateselectors, $j);
+
+    :host(#{$variantselector + $stateselector}) {
+      --_background: var(--sl-color-input-#{$variant}-#{$state}-default-background);
+      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-default-border);
+      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-default-label);
+      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-default-icon);
+    }
+
+    :host(#{$variantselector + $stateselector}:hover) {
+      --_background: var(--sl-color-input-#{$variant}-#{$state}-hover-background);
+      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-hover-border);
+      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-hover-label);
+      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-hover-icon);
+    }
+
+    :host(#{$variantselector + $stateselector}:active) {
+      --_background: var(--sl-color-input-#{$variant}-#{$state}-active-background);
+      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-active-border);
+      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
+      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
+    }
+
+    :host(#{$variantselector + $stateselector}:focus-visible) {
+      --_background: var(--sl-color-input-#{$variant}-#{$state}-focus-background);
+      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-focus-border);
+      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
+      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
+      --_box-shadow: var(--sl-box-shadow-focus);
+    }
+
+    :host(#{$variantselector + $stateselector}:disabled) {
+      --_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
+      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
+      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);
+      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-disabled-icon);
+    }
+  }
 }

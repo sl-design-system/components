@@ -48,6 +48,14 @@ export const All: StoryObj = {
       <sl-checkbox invalid disabled>Default</sl-checkbox>
       <sl-checkbox invalid disabled checked>Checked</sl-checkbox>
       <sl-checkbox invalid disabled indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox valid>Default</sl-checkbox>
+      <sl-checkbox valid checked>Checked</sl-checkbox>
+      <sl-checkbox valid indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox valid disabled>Default</sl-checkbox>
+      <sl-checkbox valid disabled checked>Checked</sl-checkbox>
+      <sl-checkbox valid disabled indeterminate>Indeterminate</sl-checkbox>
     </div>
   `
 };

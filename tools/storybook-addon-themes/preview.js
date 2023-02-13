@@ -1,3 +1,4 @@
+import { setup } from '@sanomalearning/slds-sanoma-learning';
 import { withTheme } from './decorator.js';
 import { updateTheme } from './theme.js';
 
@@ -29,7 +30,8 @@ export const globals = {
       fonts: [
         'https://use.typekit.net/kes1hoh.css',
         '/themes/sanoma-learning/fonts.css'
-      ]
+      ],
+      setup
     },
     {
       id: 'sanoma-learning/dark',

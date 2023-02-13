@@ -27,7 +27,12 @@
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
   --sl-opacity-100: 0.04;
-  --sl-box-shadow-button-none: 0px 0px 0px 0px;
+  --sl-icon-core-fa-check: fa-chevron-down;
+  --sl-icon-core-fa-chevron-down: fa-chevron-down;
+  --sl-icon-core-fa-fav: fa-star;
+  --sl-icon-core-fa-menu: fa-bars;
+  --sl-icon-core-fa-face-smile: fa-face-smile;
+  --sl-icon-custom-fav: fav;
   --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
@@ -196,9 +201,15 @@
   --sl-color-palette-primary-150: 213 213 213;
   --sl-color-palette-primary-100: 234 234 234;
   --sl-color-palette-primary-50: 254 254 254;
+  --sl-size-input-md: var(--sl-size-sm);
+  --sl-icon-font-weight: 400;
+  --sl-icon-base-check: var(--sl-icon-core-fa-check);
+  --sl-icon-base-chevron-down: var(--sl-icon-core-fa-chevron-down);
+  --sl-icon-base-fav: var(--sl-icon-custom-fav);
+  --sl-icon-base-menu: var(--sl-icon-core-fa-menu);
+  --sl-icon-base-face-smile: var(--sl-icon-core-fa-face-smile);
   --sl-component-button-md: [object Object];
   --sl-component-button-lg: [object Object];
-  --sl-box-shadow-button-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-600));
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
   --sl-space-button-gap-md: var(--sl-space-xs);
@@ -212,11 +223,19 @@
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-xs);
   --sl-border-radius-button: var(--sl-border-radius-3xs);
-  --sl-text-button-icon-lg: var(--sl-text-typeset-font-weight-regular) 15 / var(--sl-text-typeset-line-height-sm)
+  --sl-text-input-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 / var(--sl-text-typeset-line-height-md)
     var(--sl-text-typeset-font-family-icon);
-  --sl-text-button-icon-md: var(--sl-text-typeset-font-weight-regular) 13 / var(--sl-text-typeset-line-height-sm)
+  --sl-text-input-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 / var(--sl-text-typeset-line-height-sm)
     var(--sl-text-typeset-font-family-icon);
-  --sl-text-button-icon-sm: var(--sl-text-typeset-font-weight-regular) 11 / var(--sl-text-typeset-line-height-sm)
+  --sl-text-button-font-icon-lg: var(--sl-text-typeset-font-weight-regular) 15 / var(--sl-text-typeset-line-height-sm)
+    var(--sl-text-typeset-font-family-icon);
+  --sl-text-button-font-icon-md: var(--sl-text-typeset-font-weight-regular) 13 / var(--sl-text-typeset-line-height-sm)
+    var(--sl-text-typeset-font-family-icon);
+  --sl-text-button-font-icon-sm: var(--sl-text-typeset-font-weight-regular) 11 / var(--sl-text-typeset-line-height-sm)
     var(--sl-text-typeset-font-family-icon);
   --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);

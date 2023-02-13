@@ -11,6 +11,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
+  --sl-icon-core-fa-check: fa-chevron-down;
+  --sl-icon-core-fa-chevron-down: fa-chevron-down;
+  --sl-icon-core-fa-fav: fa-star;
+  --sl-icon-core-fa-menu: fa-bars;
+  --sl-icon-core-fa-face-smile: fa-face-smile;
   --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
@@ -141,6 +146,7 @@
   --sl-color-button-default-default-idle-border: #e5e8eb;
   --sl-color-button-default-default-idle-foreground: #002f62;
   --sl-color-button-default-default-idle-background: #fff;
+  --sl-size-input-md: var(--sl-size-sm);
   --sl-space-button-default-lg-inline: var(--sl-space-xl);
   --sl-space-button-default-lg-block: var(--sl-space-lg);
   --sl-space-button-default-md-block: var(--sl-space-sm);

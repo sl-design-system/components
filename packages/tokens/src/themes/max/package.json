@@ -15,7 +15,7 @@
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build.js max",
+      "command": "yarn node --no-warnings ../../../build-styles.js max",
       "files": [
         "../../figma/*.json",
         "../../figma/max/*.json"

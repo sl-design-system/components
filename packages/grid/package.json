@@ -58,7 +58,6 @@
       "command": "storybook build -o ../../docs/dist/grid --quiet",
       "dependencies": [
         "build",
-        "../tokens:build",
         "../../docs/storybook:build"
       ]
     },

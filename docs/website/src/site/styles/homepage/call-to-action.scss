@@ -76,16 +76,45 @@ $transition-timing: 200ms;
 .ds-call-to-action__eye {
   animation: scaleAnimationEye 5s infinite, blink 5s infinite;
   backface-visibility: hidden;
-  perspective: 100rem;
-  transform: translate3d(0, 0, 0);
+  //perspective: 100rem;
+  //transform: translate3d(0, 0, 0);
   transform-box: fill-box;
-  transform-origin: center;
+  transform-origin: 50% 50%; //center;
+  //transform-origin: 0 0;
+  //transform-style: flat;
+  //scale: 1;
+  //transform: scale(1) translateY(0);
+
+  //path {
+  //  transform: translate(0,0);
+  //  //transform-origin: inherit;
+  //  //transform-box: inherit;
+  //  //transform-origin: 0 0; //50% 50%;
+  //}
+
+  ///** Safari */
+  //@media not all and (min-resolution: 0.001dpcm) {
+  //  @supports (-webkit-appearance:none) and (not (stroke-color:transparent)) {
+  //    // animation: none;
+  //    animation: blink 5s infinite;
+  //  }
+  //}
 
   @media screen and (prefers-reduced-motion: reduce) {
     /* stylelint-disable-next-line max-nesting-depth */
     animation: none;
   }
 }
+
+/** Safari */
+//@media not all and (min-resolution: 0.001dpcm) {
+//  @supports (-webkit-appearance:none) and (not (stroke-color:transparent)) {
+//    // animation: none;
+//    .ds-call-to-action__eye-safari {
+//      animation: blink 5s infinite;
+//    }
+//  }
+//}
 
 .ds-call-to-action__smile {
   animation: smileAnimation 3s infinite;
@@ -126,6 +155,30 @@ $transition-timing: 200ms;
   @media screen and (prefers-reduced-motion: reduce) {
     /* stylelint-disable-next-line max-nesting-depth */
     animation: none;
+  }
+}
+
+/** Safari workaround */
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  .ds-call-to-action__eye-safari {
+    animation: blink 5s infinite;
+  }
+
+  .ds-call-to-action__smile,
+  .ds-call-to-action__smile-left {
+    animation: smileAnimationSafari 3s infinite;
+  }
+
+  //.ds-call-to-action__smile-left {
+  //  animation: smileAnimationSafari 3s infinite;
+  //}
+
+  .ds-call-to-action__smile-bottom {
+    animation: smileBottomAnimationSafari 3s infinite;
+  }
+
+  .ds-call-to-action__eye-brow {
+    animation: scaleAnimationRotateSafari 4s infinite;
   }
 }
 
@@ -238,19 +291,35 @@ $transition-timing: 200ms;
 
 @keyframes scaleAnimationEye {
   30% {
-    transform: scale(1) translateY(0);
+    //transform: scale(1) translateY(0);
+    //scale: 1;
+    transform: scale3d(1, 1, 1);
+    //transform-origin: 50% 50%;
+    //transform-origin: 0 0;
   }
 
   60% {
-    transform: scale(1.05) translateY(-1px);
+    //transform: scale(1.05) translateY(-1px);
+    //scale: 1.05;
+    transform: scale3d(1.05, 1.05, 1.05);
+    //transform-origin: 50% 50%;
+    //transform-origin: 0 0;
   }
 
   80% {
-    transform: scale(0.6) translateY(0);
+    //transform: scale(0.6) translateY(0);
+    //scale: 0.6;
+    transform: scale3d(0.6, 0.6, 0.6);
+    //transform-origin: 50% 50%;
+    //transform-origin: 0 0;
   }
 
   100% {
-    transform: scale(1) translateY(0);
+    //transform: scale(1) translateY(0);
+    // scale: 1;
+    transform: scale3d(1, 1, 1);
+    //transform-origin: 50% 50%;
+    //transform-origin: 0 0;
   }
 }
 
@@ -265,6 +334,20 @@ $transition-timing: 200ms;
 
   100% {
     transform: scale3d(1, 1, 1) translateY(0);
+  }
+}
+
+@keyframes scaleAnimationRotateSafari {
+  30% {
+    transform: translateY(0);
+  }
+
+  60% {
+    transform: translateY(-4px);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 
@@ -293,6 +376,34 @@ $transition-timing: 200ms;
 
   100% {
     transform: rotate3d(1, 1, 1, 0) translateY(0);
+  }
+}
+
+@keyframes smileAnimationSafari {
+  30% {
+    transform: translateY(0);
+  }
+
+  60% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes smileBottomAnimationSafari {
+  30% {
+    transform: translateY(0);
+  }
+
+  60% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 

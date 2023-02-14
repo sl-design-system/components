@@ -55,7 +55,6 @@
       "dependencies": [
         "build",
         "build:compodoc",
-        "../tokens:build",
         "../../docs/storybook:build"
       ]
     },

@@ -24,6 +24,8 @@
     "./dialog/register.js": "./dist/components/dialog/register.js",
     "./drawer": "./dist/components/drawer/index.js",
     "./drawer/register.js": "./dist/components/drawer/register.js",
+    "./icon": "./dist/components/icon/index.js",
+    "./icon/register.js": "./dist/components/icon/register.js",
     "./input": "./dist/components/input/index.js",
     "./input/register.js": "./dist/components/input/register.js",
     "./label": "./dist/components/label/index.js",

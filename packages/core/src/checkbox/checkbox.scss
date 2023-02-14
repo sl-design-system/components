@@ -9,8 +9,8 @@ $stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [st
   --_border-size: var(--sl-border-width-outline, 2px);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: 2px;
-  --_gap: 8px;
-  --_line-height: 1.5rem;
+  --_gap: var(--sl-space-input-gap-md, 8px);
+  --_line-height: var(--sl-text-typeset-line-height-md);
   --_path-length: 22.910259;
   --_size: calc(var(--_line-height) - var(--_border-size) * 2);
   --_stroke: var(--sl-color-input-default-unchecked-default-icon);
@@ -38,6 +38,7 @@ $stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [st
   color: var(--_label-color);
   cursor: pointer;
   display: flex;
+  font: var(--sl-text-input-label-md);
   gap: var(--_gap);
   outline: none;
 }

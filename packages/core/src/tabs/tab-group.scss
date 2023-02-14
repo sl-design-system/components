@@ -1,0 +1,110 @@
+:host {
+  --_tab-group-indicator-color: var(--sl-color-button-primary-default-idle-background);
+  --indicator-color: var(--dna-primary);
+  --indicator-size: 4px;
+  --indicator-transition: var(--dna-transition-normal, 0.2s ease-in-out);
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+[role='tablist'] {
+  display: flex;
+  position: relative;
+}
+
+:host([vertical='true']) {
+  flex-direction: row;
+
+  [role='tablist'] {
+    flex: 0 0 auto;
+    flex-direction: column;
+  }
+
+  .indicator {
+    height: 1px;
+    inset: 0 auto auto 0;
+    transform-origin: center top;
+    width: var(--indicator-size);
+  }
+}
+
+:host([vertical='false']) [role='tablist'] {
+  --_sl-tab-group-list-background: #fff;
+  --_sl-tab-list-background: #fff;
+  --sl-color-border-strong: rgb(188, 197, 204);
+  --sl-space-s: 8px;
+  --sl-space-l: 24px;
+  --sl-space-xl: 36px;
+  --sl-tab-group-padding: 24px;
+
+  background-color: var(--_sl-tab-group-list-background);
+  background-image: radial-gradient(
+    ellipse farthest-side at 0 50%,
+    var(--sl-color-border-strong) 0,
+    var(--_sl-tab-group-list-background)
+  ),
+    radial-gradient(
+    ellipse farthest-side at 100% 50%,
+    var(--sl-color-border-strong) 0,
+    var(--_sl-tab-group-list-background)
+  );
+  background-position: 0 calc(var(--sl-space-s) / 2), 100% calc(var(--sl-space-s) / 2);
+  background-repeat: no-repeat;
+  background-size: var(--sl-space-s) var(--sl-space-xl), var(--sl-space-s) var(--sl-space-xl);
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow: auto;
+
+  &::before,
+  &::after {
+    align-self: stretch; /* Match the height of the tabs. */
+    box-sizing: content-box; /* Content box to use padding for spacing. */
+    content: '';
+    margin-block-end: 1px; /* Prevent overlapping the key line. */
+    min-inline-size: var(--sl-space-l);
+    pointer-events: none;
+  }
+
+  /* Cancel out the masks own width with margin, use padding for tab list padding */
+  &::before {
+    box-shadow: inset var(--sl-space-l) 0 var(--sl-space-s) calc(-1 * var(--sl-space-s)) var(--_sl-tab-list-background);
+    margin-inline-end: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
+    padding-inline-start: var(--sl-tab-group-padding);
+  }
+
+  &::after {
+    box-shadow: inset calc(-1 * var(--sl-space-l)) 0 var(--sl-space-s) calc(-1 * var(--sl-space-s))
+      var(--_sl-tab-list-background);
+    flex: 1; /* Stretch the last mask to make sure the shadow is always masked */
+    margin-inline-start: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
+    padding-inline-end: var(--sl-tab-group-padding);
+  }
+
+  ::slotted(sl-tab) {
+    flex: 1;
+    white-space: nowrap;
+  }
+
+  .indicator {
+    height: var(--indicator-size);
+    inset: auto auto 0 0;
+    transform-origin: center left;
+    width: 1px;
+  }
+}
+
+.indicator {
+  background: var(--_tab-group-indicator-color);
+  position: absolute;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .indicator {
+    transition: transform 0.5s ease-in-out;
+  }
+}

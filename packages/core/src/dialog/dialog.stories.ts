@@ -25,7 +25,7 @@ export const API: StoryObj = {
           anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor
           magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
         </p>
-        <sl-button slot="action" sl-dialog-close>Close</sl-button>
+        <sl-button slot="action" sl-dialog-close autofocus>Close</sl-button>
       </sl-dialog>
     `;
   }
@@ -38,6 +38,20 @@ export const DisableClose: StoryObj = {
       <span slot="title">Disable close</span>
       <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>
       <sl-button slot="action" sl-dialog-close>Close</sl-button>
+    </sl-dialog>
+  `
+};
+
+export const ScrollingBody: StoryObj = {
+  render: () => html`
+    <style>
+      sl-button {
+        margin: 50vh 0 100vh;
+      }
+    </style>
+    <sl-button @click=${onClick}>Show Dialog</sl-button>
+    <sl-dialog>
+      <div>You cannot scroll the body once the dialog is open.</div>
     </sl-dialog>
   `
 };

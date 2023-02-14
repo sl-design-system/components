@@ -1,11 +1,13 @@
 :host {
   --_background: #fff;
-  --_border: 1px solid var(--_border-color);
+  --_border: var(--_border-size) solid var(--_border-color);
   --_border-color: #ccc;
   --_border-radius: 3px;
+  --_border-size: 1px;
   --_gap: 0.25rem;
+  --_line-height: 1.5rem;
   --_path-length: 22.910259;
-  --_size: 1rem;
+  --_size: calc(1rem - var(--_border-size) * 2);
   --_stroke: #fff;
   --_stroke-dashoffset: var(--_path-length);
   --_transition: 200ms ease-in-out;
@@ -13,9 +15,10 @@
 
 :host {
   align-items: start;
-  cursor: pointer;
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   gap: var(--_gap);
+  line-height: var(--_line-height);
   outline: none;
 }
 
@@ -29,14 +32,17 @@
   --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }
 
-:host(:--checked) {
+:host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
   --_background: #000;
   --_stroke-dashoffset: 0;
 }
 
-:host([state--checked]) {
-  --_background: #000;
-  --_stroke-dashoffset: 0;
+.wrapper {
+  align-items: start;
+  cursor: pointer;
+  display: flex;
+  gap: var(--_gap);
+  outline: none;
 }
 
 .box {
@@ -46,6 +52,7 @@
   box-shadow: var(--_box-shadow);
   display: inline-flex;
   flex-shrink: 0;
+  margin-block-start: calc((var(--_line-height) - var(--_size) - var(--_border-size) * 2) / 2);
   transition: 0.2s ease-in-out;
   transition-property: background, border, box-shadow, color, filter;
 }

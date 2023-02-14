@@ -4,39 +4,316 @@
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git",
+    "directory": "docs/website"
+  },
   "type": "module",
   "scripts": {
-    "watch:sass": "sass --watch src/styles:public/css",
-    "build:sass": "sass src/styles:public/css",
-    "watch:eleventy": "eleventy --input=src --serve --config=.eleventy.cjs",
-    "build:eleventy": "NODE_ENV=production eleventy --input=src --output=public --config=.eleventy.cjs",
-    "start": "npm-run-all build:sass --parallel watch:sass watch:eleventy",
-    "build": "npm-run-all build:sass build:eleventy",
-    "debug": "DEBUG=* eleventy --input=src",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prettier:write": "prettier --write 'src/**/*'",
-    "lint": "eslint -c .eslintrc.cjs src"
+    "build:dev": "wireit",
+    "build:prod": "wireit",
+    "start:site": "wireit",
+    "start:teaser": "wireit",
+    "dev:site": "wireit",
+    "dev:teaser": "wireit",
+    "serve:site": "wireit",
+    "serve:teaser": "wireit",
+    "serve:site:dev": "wireit",
+    "serve:teaser:dev": "wireit",
+    "build:site:dev": "wireit",
+    "build:teaser:dev": "wireit",
+    "build:site:dev:eleventy": "wireit",
+    "build:teaser:dev:eleventy": "wireit",
+    "build:site:dev:styles": "wireit",
+    "build:teaser:dev:styles": "wireit",
+    "build:site:dev:ts": "wireit",
+    "build:type-check": "wireit",
+    "build:site:prod": "wireit",
+    "build:teaser:prod": "wireit",
+    "build:site:prod:eleventy": "wireit",
+    "build:teaser:prod:eleventy": "wireit",
+    "build:site:prod:styles": "wireit",
+    "build:teaser:prod:styles": "wireit",
+    "build:site:prod:ts": "wireit",
+    "clean": "wireit",
+    "lint": "wireit",
+    "lint:scss": "wireit",
+    "lint:ts": "wireit"
   },
-  "author": "",
-  "license": "",
+  "wireit": {
+    "build:dev": {
+      "dependencies": [
+        "build:site:dev",
+        "build:teaser:dev"
+      ]
+    },
+    "build:prod": {
+      "dependencies": [
+        "build:site:prod",
+        "build:teaser:prod"
+      ]
+    },
+    "clean": {
+      "command": "rimraf dist"
+    },
+    "lint": {
+      "dependencies": [
+        "lint:scss",
+        "lint:ts"
+      ]
+    },
+    "lint:scss": {
+      "command": "stylelint 'src/**/*.scss' --color",
+      "files": [
+        "../../.stylelintrc.cjs",
+        "./stylelintrc",
+        "src/**/*.scss"
+      ]
+    },
+    "lint:ts": {
+      "command": "eslint --color --ext .ts src",
+      "files": [
+        "../../.eslintignore",
+        "../../.eslintrc.cjs",
+        "../../.prettierrc.cjs",
+        ".eslintignore",
+        ".prettierignore",
+        "src/**/*.ts"
+      ]
+    },
+    "build:site:dev:styles": {
+      "command": "NODE_ENV=DEV sass src/site/styles:public/site/styles",
+      "files": [
+        "src/site/styles"
+      ],
+      "output": [
+        "public/site/styles"
+      ]
+    },
+    "build:teaser:dev:styles": {
+      "command": "NODE_ENV=DEV sass src/teaser/styles:public/teaser/styles",
+      "files": [
+        "src/teaser/styles"
+      ],
+      "output": [
+        "public/teaser/styles"
+      ]
+    },
+    "build:site:prod:styles": {
+      "command": "NODE_ENV=PROD sass src/site/styles:dist/site/styles",
+      "files": [
+        "src/site/styles"
+      ],
+      "output": [
+        "dist/site/styles"
+      ]
+    },
+    "build:teaser:prod:styles": {
+      "command": "NODE_ENV=PROD sass src/teaser/styles:dist/teaser/styles",
+      "files": [
+        "src/teaser/styles"
+      ],
+      "output": [
+        "dist/teaser/styles"
+      ]
+    },
+    "build:site:dev": {
+      "dependencies": [
+        "build:site:dev:styles",
+        "build:site:dev:eleventy",
+        "build:site:dev:ts",
+        "build:type-check"
+      ]
+    },
+    "build:teaser:dev": {
+      "dependencies": [
+        "build:teaser:dev:styles",
+        "build:teaser:dev:eleventy"
+      ]
+    },
+    "build:site:dev:eleventy": {
+      "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
+      "dependencies": [
+        "./../../packages/tokens:build",
+        "build:site:dev:styles",
+        "build:site:dev:ts"
+      ],
+      "files": [
+        "lib/site/**/*",
+        "src/site/**/*",
+        "site.eleventy.cjs"
+      ]
+    },
+    "build:teaser:dev:eleventy": {
+      "command": "NODE_ENV=DEV eleventy --config=teaser.eleventy.cjs",
+      "dependencies": [
+        {
+          "script": "build:teaser:dev:styles",
+          "cascade": false
+        }
+      ],
+      "files": [
+        "src/teaser/**/*",
+        "teaser.eleventy.cjs"
+      ]
+    },
+    "build:site:dev:ts": {
+      "command": "NODE_ENV=DEV node esbuild.config.mjs",
+      "dependencies": [
+        "../../packages/core:build"
+      ],
+      "files": [
+        "src/site/ts/**/*",
+        "tsconfig.json",
+        "esbuild.config.mjs"
+      ],
+      "output": [
+        "lib/site/**/*"
+      ]
+    },
+    "build:type-check": {
+      "command": "tsc -p tsconfig.json --pretty --incremental",
+      "files": [
+        "src/**/*",
+        "tsconfig.json"
+      ],
+      "clean": "if-file-deleted",
+      "output": [
+        "tsconfig.tsbuildinfo"
+      ]
+    },
+    "build:site:prod": {
+      "dependencies": [
+        "build:site:prod:styles",
+        "build:site:prod:eleventy",
+        "build:site:prod:ts"
+      ]
+    },
+    "build:teaser:prod": {
+      "dependencies": [
+        "build:teaser:prod:styles",
+        "build:teaser:prod:eleventy"
+      ]
+    },
+    "build:site:prod:eleventy": {
+      "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
+      "dependencies": [
+        "./../../packages/tokens:build",
+        "build:site:prod:styles",
+        "build:site:prod:ts"
+      ],
+      "files": [
+        "build/site/**/*",
+        "src/site/**/*",
+        "site.eleventy.cjs"
+      ]
+    },
+    "build:teaser:prod:eleventy": {
+      "command": "NODE_ENV=PROD eleventy --config=teaser.eleventy.cjs",
+      "dependencies": [
+        "build:teaser:prod:styles"
+      ],
+      "files": [
+        "src/teaser/**/*",
+        "teaser.eleventy.cjs"
+      ]
+    },
+    "build:site:prod:ts": {
+      "command": "NODE_ENV=PROD node esbuild.config.mjs",
+      "dependencies": [
+        "../../packages/core:build"
+      ],
+      "files": [
+        "src/site/ts/**/*",
+        "tsconfig.json",
+        "esbuild.config.mjs"
+      ],
+      "output": [
+        "build/**/*"
+      ]
+    },
+    "start:site": {
+      "command": "yarn run serve:site --watch",
+      "service": true
+    },
+    "start:teaser": {
+      "command": "yarn run serve:teaser --watch",
+      "service": true
+    },
+    "dev:site": {
+      "command": "yarn run serve:site:dev --watch",
+      "service": true
+    },
+    "dev:teaser": {
+      "command": "yarn run serve:teaser:dev --watch",
+      "service": true
+    },
+    "serve:site:dev": {
+      "command": "wds --watch --root-dir public/site --open",
+      "service": true,
+      "dependencies": [
+        {
+          "script": "build:site:dev",
+          "cascade": false
+        }
+      ]
+    },
+    "serve:teaser:dev": {
+      "command": "wds --watch --root-dir public/teaser --open",
+      "service": true,
+      "dependencies": [
+        {
+          "script": "build:teaser:dev",
+          "cascade": false
+        }
+      ]
+    },
+    "serve:site": {
+      "command": "wds --watch --root-dir dist/site",
+      "service": true,
+      "dependencies": [
+        {
+          "script": "build:site:prod",
+          "cascade": false
+        }
+      ]
+    },
+    "serve:teaser": {
+      "command": "wds --watch --root-dir dist/teaser",
+      "service": true,
+      "dependencies": [
+        {
+          "script": "build:teaser:prod",
+          "cascade": false
+        }
+      ]
+    }
+  },
   "devDependencies": {
     "@11ty/eleventy": "^1.0.2",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
-    "eslint": "^8.26.0",
-    "eslint-plugin-import": "^2.26.0",
-    "prettier": "^2.7.1"
+    "@lit-labs/eleventy-plugin-lit": "^0.2.3",
+    "@luncheon/esbuild-plugin-gzip": "^0.1.0",
+    "@web/dev-server": "^0.1.35",
+    "@webcomponents/template-shadowroot": "^0.1.0",
+    "esbuild": "^0.15.18",
+    "esbuild-plugin-minify-html-literals": "^1.0.1",
+    "html-minifier": "^4.0.0",
+    "markdown-it": "^13.0.1",
+    "markdown-it-anchor": "^8.6.6",
+    "markdown-it-attrs": "^4.1.6",
+    "rimraf": "^4.0.7",
+    "sass": "^1.57.1",
+    "slugify": "^1.6.5",
+    "tiny-glob": "^0.2.9",
+    "typescript": "^4.9.4",
+    "wireit": "^0.9.3"
   },
   "dependencies": {
-    "@lit-labs/eleventy-plugin-lit": "^0.2.3",
-    "@webcomponents/template-shadowroot": "^0.1.0",
+    "@11ty/is-land": "^3.0.0",
     "elasticlunr": "^0.9.5",
-    "html-minifier": "^4.0.0",
-    "lit": "^2.4.0",
-    "markdown-it": "^13.0.1",
-    "markdown-it-anchor": "^8.6.5",
-    "npm-run-all": "^4.1.5",
-    "sass": "^1.55.0",
-    "slugify": "^1.6.5"
+    "lit": "^2.6.1"
   }
 }

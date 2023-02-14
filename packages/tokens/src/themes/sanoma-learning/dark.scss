@@ -20,7 +20,7 @@
   --sl-color-input-default-unchecked-active-background: rgba($color.palette.accent.base, $opacity0.4);
   --sl-color-input-default-unchecked-hover-background: rgba($color.palette.accent.base, $opacity0.2);
   --sl-color-input-default-unchecked-default-background: rgba($body.background, $opacity.transparent);
-  --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base), var(--sl-opacity-800));
+  --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
   --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-body-background: rgb(var(--sl-color-palette-black-base));
   --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-400));
@@ -63,7 +63,7 @@
   --sl-color-input-default-unchecked-hover-border: rgb(var(--sl-color-palette-accent-300));
   --sl-color-input-default-unchecked-default-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-surface-solid-accent-foreground: rgb(var(--sl-color-palette-accent-50));
-  --sl-color-surface-solid-accent-backgorund: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-surface-solid-accent-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-surface-solid-secondary-foreground: rgb(var(--sl-color-palette-accent-50));
   --sl-color-surface-solid-secondary-background: rgb(var(--sl-color-palette-accent-400));
   --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-primary-50));

@@ -1,0 +1,14 @@
+:host {
+  --_font-weight: 600;
+  --_line-height: 24px;
+}
+
+:host {
+  font-weight: var(--_font-weight);
+  line-height: var(--_line-height);
+}
+
+.optional,
+.required {
+  margin-left: 0.25rem;
+}

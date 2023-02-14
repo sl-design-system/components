@@ -15,7 +15,7 @@
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build.js edubase",
+      "command": "yarn node --no-warnings ../../../build-styles.js edubase",
       "files": [
         "../../figma/*.json",
         "../../figma/edubase/*.json"

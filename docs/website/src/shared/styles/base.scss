@@ -1,0 +1,31 @@
+:root {
+  --font-color: var(--text-color);
+}
+
+:not(:defined) {
+  visibility: visible;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--font-color);
+  display: flex;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+}

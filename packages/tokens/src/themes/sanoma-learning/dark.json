@@ -1077,10 +1077,10 @@
           }
         },
         "accent": {
-          "backgorund": {
+          "background": {
             "value": "{color.palette.accent.base}",
             "type": "color",
-            "description": "color.surface.solid.accent.backgorund",
+            "description": "color.surface.solid.accent.background",
             "failedToResolve": true
           },
           "foreground": {

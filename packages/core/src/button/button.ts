@@ -1,7 +1,7 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { FormControlMixin } from '@open-wc/form-control';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { EventsController } from '../utils/controllers/index.js';
 import styles from './button.scss.js';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -12,29 +12,21 @@ export type ButtonType = 'button' | 'reset' | 'submit';
 
 export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
 
-export class Button extends FormControlMixin(LitElement) {
+export class Button extends LitElement {
+  /** @private */
+  static formAssociated = true;
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  #onClick = (event: Event): void => {
-    if (this.hasAttribute('disabled')) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else if (this.type === 'reset' && !event.defaultPrevented) {
-      this.form?.reset();
-    } else if (this.type === 'submit' && !event.defaultPrevented) {
-      this.form?.requestSubmit();
-    }
-  };
+  /** Event controller. */
+  #events = new EventsController(this);
 
-  #onKeydown = (event: KeyboardEvent): void => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      this.click();
+  /** Element internals. */
+  readonly internals = this.attachInternals();
 
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  };
+  /** The original tabIndex before disabled. */
+  private originalTabIndex = 0;
 
   /** The button fill. */
   @property({ reflect: true }) fill: ButtonFill = 'default';
@@ -56,26 +48,43 @@ export class Button extends FormControlMixin(LitElement) {
 
     this.internals.role = 'button';
 
-    this.addEventListener('click', this.#onClick);
-    this.addEventListener('keydown', this.#onKeydown);
-  }
-
-  override disconnectedCallback(): void {
-    this.removeEventListener('click', this.#onClick);
-    this.removeEventListener('keydown', this.#onKeydown);
-
-    super.disconnectedCallback();
-  }
-
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
+    this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this, 'keydown', this.#onKeydown);
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
   }
 
+  formDisabledCallback(disabled: boolean): void {
+    if (disabled) {
+      this.originalTabIndex = this.tabIndex;
+    }
+
+    this.tabIndex = disabled ? -1 : this.originalTabIndex;
+  }
+
   override render(): TemplateResult {
     return html`<slot></slot>`;
+  }
+
+  #onClick(event: Event): void {
+    if (this.hasAttribute('disabled')) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else if (this.type === 'reset') {
+      this.internals.form?.reset();
+    } else if (this.type === 'submit') {
+      this.internals.form?.requestSubmit();
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.click();
+
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 }

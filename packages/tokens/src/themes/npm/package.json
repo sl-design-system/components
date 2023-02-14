@@ -15,7 +15,7 @@
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build.js npm",
+      "command": "yarn node --no-warnings ../../../build-styles.js npm",
       "files": [
         "../../figma/*.json",
         "../../figma/npm/*.json"

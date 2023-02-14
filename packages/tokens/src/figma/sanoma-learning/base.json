@@ -900,9 +900,16 @@
   },
   "animation": {
     "button": {
-      "value": "{animation.duration.normal} {animation.easing.ease-in-out}",
-      "type": "other",
-      "description": "animation.button"
+      "duration": {
+        "value": "{animation.duration.normal}",
+        "type": "other",
+        "description": "animation.button.duration"
+      },
+      "easing": {
+        "value": "{animation.easing.ease-in-out}",
+        "type": "other",
+        "description": "animation.button.easing"
+      }
     }
   },
   "component": {

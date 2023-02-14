@@ -1,0 +1,156 @@
+@import './../breakpoints';
+
+.components-wrapper {
+  column-gap: 2.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2.4rem 0;
+  row-gap: 2.4rem;
+}
+
+.wrapper {
+  display: grid;
+  gap: 0 3.2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.component {
+  border: 1px solid #eaeaea;
+  border-radius: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0.8rem;
+  padding: 1.6rem;
+}
+
+.ds-components__content {
+  section {
+    margin-top: 2.4rem;
+  }
+}
+
+@media screen and (min-width: $xl-breakpoint) {
+  .ds-component__heading {
+    display: grid;
+    grid-column-gap: 7.2rem;
+    grid-template-columns: 7fr 1fr;
+  }
+}
+
+.ds-component__heading-wrapper {
+  background-color: var(--heading-background);
+  border-radius: 0.6rem;
+  color: var(--heading-color);
+  padding: 2.4rem 4rem;
+}
+
+.ds-component__heading-description {
+  font-size: 1.8rem;
+  line-height: 2.4rem;
+  margin-top: 0.8rem;
+}
+
+.ds-component__buttons-wrapper {
+  column-gap: 1.6rem;
+  display: flex;
+  margin: 2.4rem 0;
+}
+
+.ds-success {
+  color: var(--helper-text);
+  font-size: 1.4rem;
+  margin: 2.4rem 0 0;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+}
+
+.ds-success__content {
+  position: relative;
+
+  &::before {
+    background: var(--success-color);
+    border-radius: 0.4rem;
+    content: '';
+    display: block;
+    height: 0.4rem;
+    left: 0;
+    margin-bottom: 0.8rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  :first-child {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+    margin: 0;
+    padding: 0.8rem 0;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    * {
+      color: var(--success-color);
+    }
+  }
+}
+
+.ds-danger {
+  color: var(--helper-text);
+  font-size: 1.4rem;
+  margin: 2.4rem 0 0;
+
+  img {
+    width: 100%;
+  }
+}
+
+.ds-danger__content {
+  position: relative;
+
+  &::before {
+    background: var(--danger-color);
+    border-radius: 0.4rem;
+    content: '';
+    display: block;
+    height: 0.4rem;
+    left: 0;
+    margin-bottom: 0.8rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  :first-child {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+    margin: 0;
+    padding: 0.8rem 0;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    * {
+      color: var(--danger-color);
+    }
+  }
+}
+
+.ds-do-dont__picture {
+  background-color: var(--picture-background);
+  border-radius: 0.4rem;
+  display: inline-block;
+  height: 20rem;
+  margin-bottom: 0.8rem;
+  object-fit: contain;
+}
+
+@media screen and (min-width: $xl-breakpoint) {
+  .ds-do-dont {
+    column-gap: 2.4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

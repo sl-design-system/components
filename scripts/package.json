@@ -4,10 +4,13 @@
   "description": "Build scripts for SLDS monorepo",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "globby": "^13.1.2"
+    "globby": "^13.1.3",
+    "sass": "^1.57.1",
+    "stylelint": "^14.16.1"
   }
 }

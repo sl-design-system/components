@@ -1,0 +1,110 @@
+{
+  "name": "@sanomalearning/slds-angular",
+  "description": "SLDS Angular root module",
+  "version": "0.1.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git",
+    "directory": "packages/grid"
+  },
+  "scripts": {
+    "build": "wireit",
+    "build:compodoc": "wireit",
+    "storybook:angular-core": "wireit",
+    "build-storybook:angular-core": "wireit",
+    "docs": "wireit",
+    "docs:json": "wireit",
+    "lint": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "ng build angular-core",
+      "dependencies": [
+        "../core:build"
+      ],
+      "files": [
+        "projects/angular-core/**/*"
+      ],
+      "output": [
+        "dist/angular-core"
+      ]
+    },
+    "build:compodoc": {
+      "command": "compodoc -t -p ./tsconfig.json -e json -d .",
+      "output": [
+        "documentation.json"
+      ]
+    },
+    "storybook:angular-core": {
+      "command": "ng run angular-core:storybook",
+      "dependencies": [
+        "../core:build"
+      ]
+    },
+    "build-storybook:angular-core": {
+      "command": "ng run angular-core:build-storybook",
+      "dependencies": [
+        "../core:build"
+      ]
+    },
+    "docs": {
+      "command": "ng run angular-core:docs",
+      "dependencies": [
+        "build",
+        "build:compodoc",
+        "../../docs/storybook:build"
+      ]
+    },
+    "docs:json": {
+      "command": "compodoc -p ./tsconfig.json -e json -d ."
+    },
+    "lint": {
+      "command": "ng angular-core:lint"
+    }
+  },
+  "private": true,
+  "dependencies": {
+    "@angular-eslint/eslint-plugin-template": "^15.2.0",
+    "@angular/animations": "^15.1.0",
+    "@angular/common": "^15.1.0",
+    "@angular/compiler": "^15.1.0",
+    "@angular/core": "^15.1.0",
+    "@angular/forms": "^15.1.0",
+    "@angular/platform-browser": "^15.1.0",
+    "@angular/platform-browser-dynamic": "^15.1.0",
+    "@angular/router": "^15.1.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.12.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^15.1.3",
+    "@angular-eslint/eslint-plugin": "^15.2.0",
+    "@angular/cli": "~15.1.2",
+    "@angular/compiler-cli": "^15.1.0",
+    "@compodoc/compodoc": "^1.1.19",
+    "@storybook/addon-essentials": "^7.0.0-beta.28",
+    "@storybook/addon-interactions": "^7.0.0-beta.28",
+    "@storybook/addon-links": "^7.0.0-beta.28",
+    "@storybook/angular": "^7.0.0-beta.28",
+    "@storybook/blocks": "^7.0.0-beta.28",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/jasmine": "~4.3.0",
+    "eslint": "^8.32.0",
+    "jasmine-core": "~4.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0",
+    "ng-packagr": "^15.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.0.0-beta.28",
+    "typescript": "~4.9.4",
+    "wireit": "^0.9.3"
+  }
+}

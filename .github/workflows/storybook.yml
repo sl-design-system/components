@@ -14,6 +14,9 @@ on:
 
   workflow_dispatch:
 
+env:
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+
 permissions:
   contents: read
   pull-requests: write
@@ -40,7 +43,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: upload
-          app_location: packages/core/dist/storybook
+          app_location: docs/dist
           production_branch: main
           skip_api_build: true
           skip_app_build: true

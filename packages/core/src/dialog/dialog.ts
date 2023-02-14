@@ -33,11 +33,23 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
 
   /** The ARIA role of the dialog. */
-  @property() role: 'dialog' | 'alertdialog' = 'dialog';
+  @property() override role: 'dialog' | 'alertdialog' = 'dialog';
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.inert = true;
+  }
 
   override render(): TemplateResult {
     return html`
-      <dialog @cancel=${this.#onCancel} @click=${this.#onClick} .role=${this.role} part="dialog">
+      <dialog
+        @cancel=${this.#onCancel}
+        @click=${this.#onClick}
+        @close=${this.#onClose}
+        .role=${this.role}
+        part="dialog"
+      >
         <slot name="header">
           <slot name="title"></slot>
         </slot>
@@ -52,7 +64,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   showModal(): void {
+    this.inert = false;
     this.dialog?.showModal();
+
+    // Disable scrolling while the dialog is open
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  close(): void {
+    if (this.dialog?.open) {
+      this.dialog?.close();
+    }
   }
 
   #onCancel(event: Event): void {
@@ -78,5 +100,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         this.dialog.close();
       }
     }
+  }
+
+  #onClose(): void {
+    // Reenable scrolling after the dialog has closed
+    document.documentElement.style.overflow = '';
+
+    this.inert = true;
   }
 }

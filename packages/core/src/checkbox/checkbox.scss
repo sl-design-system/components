@@ -6,17 +6,18 @@ $stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [st
 :host {
   --_background: var(--sl-color-input-default-unchecked-default-background);
   --_border-color: var(--sl-color-input-default-unchecked-default-border);
-  --_border-size: var(--sl-border-width-outline, 2px);
-  --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: 2px;
-  --_gap: var(--sl-space-input-gap-md, 8px);
+  --_border-size: var(--sl-border-width-outline);
+  --_border: var(--_border-size) solid var(--_border-color);
+  --_gap: var(--sl-space-input-gap-md);
+  --_label-color: var(--sl-color-input-default-unchecked-default-label);
   --_line-height: var(--sl-text-typeset-line-height-md);
+  --_padding: var(--sl-space-input-block-md) var(--sl-space-input-inline-md);
   --_path-length: 22.910259;
   --_size: calc(var(--_line-height) - var(--_border-size) * 2);
-  --_stroke: var(--sl-color-input-default-unchecked-default-icon);
   --_stroke-dashoffset: var(--_path-length);
+  --_stroke: var(--sl-color-input-default-unchecked-default-icon);
   --_transition: 200ms ease-in-out;
-  --_label-color: var(--sl-color-input-default-unchecked-default-label);
 }
 
 :host {
@@ -26,6 +27,7 @@ $stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [st
   gap: var(--_gap);
   line-height: var(--_line-height);
   outline: none;
+  padding: var(--_padding);
 }
 
 :host(:disabled) {

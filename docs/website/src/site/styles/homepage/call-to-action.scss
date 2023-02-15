@@ -117,7 +117,7 @@ $transition-timing: 200ms;
  * Safari workaround
  */
   @supports (font: -apple-system-body) and (-webkit-appearance: none) {
-    .ds-call-to-action__eye-safari {
+    .ds-call-to-action__eye {
       animation: wink 5s infinite;
     }
 

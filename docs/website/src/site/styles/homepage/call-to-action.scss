@@ -69,65 +69,73 @@ $transition-timing: 200ms;
   justify-self: left;
 }
 
-.ds-call-to-action__eye-brow {
-  animation: scaleAnimationRotate 4s infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.ds-call-to-action__eye {
-  animation: scaleAnimationEye 5s infinite, wink 5s infinite;
-  backface-visibility: hidden;
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-}
-
-.ds-call-to-action__smile {
-  animation: smileAnimation 3s infinite;
-  animation-delay: $transition-timing;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.ds-call-to-action__smile-left {
-  animation: smileLeftAnimation 3s infinite;
-  animation-delay: $transition-timing;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.ds-call-to-action__smile-bottom {
-  animation: smileBottomAnimation 3s infinite;
-  animation-delay: $transition-timing;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-/**
- * Safari workaround
- */
-@supports (font: -apple-system-body) and (-webkit-appearance: none) {
-  .ds-call-to-action__eye-safari {
-    animation: wink 5s infinite;
+@media (prefers-reduced-motion: no-preference) {
+  .ds-call-to-action__eye-brow {
+    animation: scaleAnimationRotate 4s infinite;
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
-  .ds-call-to-action__smile,
+  .ds-call-to-action__eye {
+    animation: scaleAnimationEye 5s infinite, wink 5s infinite;
+    backface-visibility: hidden;
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+
+  .ds-call-to-action__smile {
+    --element-rotate: 44deg;
+    animation: smileAnimation 3s infinite;
+    animation-delay: $transition-timing;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
   .ds-call-to-action__smile-left {
-    animation: smileAnimationSafari 3s infinite;
+    --element-rotate: -44deg;
+    animation: smileAnimation 3s infinite;
+    animation-delay: $transition-timing;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   .ds-call-to-action__smile-bottom {
-    animation: smileBottomAnimationSafari 3s infinite;
+    --element-transform: -5px;
+    animation: translateAnimation 3s infinite;
+    animation-delay: $transition-timing;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
-  .ds-call-to-action__eye-brow {
-    animation: translateAnimationSafari 4s infinite;
+  /**
+ * Safari workaround
+ */
+  @supports (font: -apple-system-body) and (-webkit-appearance: none) {
+    .ds-call-to-action__eye-safari {
+      animation: wink 5s infinite;
+    }
+
+    .ds-call-to-action__smile,
+    .ds-call-to-action__smile-left {
+      --element-transform: -5px;
+      animation: translateAnimation 3s infinite;
+    }
+
+    .ds-call-to-action__smile-bottom {
+      --element-transform: -7px;
+      animation: translateAnimation 3s infinite;
+    }
+
+    .ds-call-to-action__eye-brow {
+      --element-transform: -4px;
+      animation: translateAnimation 4s infinite;
+    }
   }
 }
 
@@ -204,17 +212,6 @@ $transition-timing: 200ms;
   }
 }
 
-@media screen and (prefers-reduced-motion: reduce) {
-  .ds-call-to-action__eye-brow,
-  .ds-call-to-action__eye,
-  .ds-call-to-action__smile,
-  .ds-call-to-action__smile-left,
-  .ds-call-to-action__smile-bottom,
-  .ds-call-to-action__eye-safari {
-    animation: none;
-  }
-}
-
 @keyframes wink {
   0% {
     opacity: 1;
@@ -281,27 +278,13 @@ $transition-timing: 200ms;
   }
 }
 
-@keyframes translateAnimationSafari {
-  30% {
-    transform: translateY(0);
-  }
-
-  60% {
-    transform: translateY(-4px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
 @keyframes smileAnimation {
   30% {
     transform: rotate3d(1, 1, 1, 0) translateY(0);
   }
 
   60% {
-    transform: rotate3d(1, 4, -2, 44deg) translateY(-4px);
+    transform: rotate3d(1, 4, -2, var(--element-rotate)) translateY(-4px);
   }
 
   100% {
@@ -309,55 +292,13 @@ $transition-timing: 200ms;
   }
 }
 
-@keyframes smileLeftAnimation {
-  30% {
-    transform: rotate3d(1, 1, 1, 0) translateY(0);
-  }
-
-  60% {
-    transform: rotate3d(1, 4, -2, -44deg) translateY(-4px);
-  }
-
-  100% {
-    transform: rotate3d(1, 1, 1, 0) translateY(0);
-  }
-}
-
-@keyframes smileAnimationSafari {
+@keyframes translateAnimation {
   30% {
     transform: translateY(0);
   }
 
   60% {
-    transform: translateY(-5px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes smileBottomAnimationSafari {
-  30% {
-    transform: translateY(0);
-  }
-
-  60% {
-    transform: translateY(-6px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes smileBottomAnimation {
-  30% {
-    transform: translateY(0);
-  }
-
-  60% {
-    transform: translateY(-5px);
+    transform: translateY(var(--element-transform));
   }
 
   100% {

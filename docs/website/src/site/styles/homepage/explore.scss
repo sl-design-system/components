@@ -127,51 +127,38 @@ $transition-timing: 300ms;
     }
 
     /* stylelint-disable-next-line max-nesting-depth */
-    .ds-explore__design-tokens-dot {
-      animation: scaleAnimationDot 700ms ease-in-out;
-      transform-origin: bottom;
-
+    @media (prefers-reduced-motion: no-preference) {
       /* stylelint-disable-next-line max-nesting-depth */
-      @media screen and (prefers-reduced-motion: reduce) {
+      .ds-explore__design-tokens-dot {
+        animation: scaleAnimationDot 700ms ease-in-out;
+        transform-origin: bottom;
+
         /* stylelint-disable-next-line max-nesting-depth */
-        animation: none;
+        &:nth-child(4) {
+          animation-delay: 0.1s;
+        }
+
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:nth-child(5) {
+          animation-delay: 0.2s;
+        }
+
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:nth-child(6) {
+          animation-delay: 0.3s;
+        }
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(4) {
-        animation-delay: 0.1s;
+      .ds-explore__components-part {
+        animation: scalePuzzleAnimation 700ms ease-in-out;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(5) {
-        animation-delay: 0.2s;
-      }
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(6) {
-        animation-delay: 0.3s;
-      }
-    }
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    .ds-explore__components-part {
-      animation: scalePuzzleAnimation 700ms ease-in-out;
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      @media screen and (prefers-reduced-motion: reduce) {
-        animation: none;
-      }
-    }
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    .ds-explore__guidelines-part {
-      animation: rotateAnimation 700ms ease-in-out;
-      transform-box: fill-box;
-      transform-origin: center;
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      @media screen and (prefers-reduced-motion: reduce) {
-        animation: none;
+      .ds-explore__guidelines-part {
+        animation: rotateAnimation 700ms ease-in-out;
+        transform-box: fill-box;
+        transform-origin: center;
       }
     }
   }

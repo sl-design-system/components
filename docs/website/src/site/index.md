@@ -266,7 +266,7 @@ Guidelines
 
 <section class="ds-call-to-action">
 
-<svg width="296" height="308" viewBox="0 0 296 308" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ctaTitle ctaDesc" role="img">
+<svg width="296" height="308" viewBox="0 0 296 308" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ctaTitle ctaDesc" role="img">
 <title id="ctaTitle">Illustrated pupil sitting at the desk with a laptop.</title>
 <desc id="ctaDesc">An illustrated pupil sitting at the desk with a laptop, which has a Sanoma Learning's logo on it. An illustration is representing call to action block with information about the latest release.</desc>
 <g filter="url(#filter0_d_746_494)">

@@ -132,7 +132,7 @@ module.exports = function(eleventyConfig) {
   // manifest.toJSON();
   const markdown = customElementsManifestToMarkdown(JSON.parse(manifest));
 
-  fs.writeFileSync(`${outputFolder}/custom-elements.md`, markdown);
+  fs.writeFileSync(`${outputFolder}/site/custom-elements.md`, markdown);
 
   return {
     dir: {

@@ -1,6 +1,6 @@
 export default {
   /** Globs to analyze */
-  globs: ['./../../packages/core/**/*.ts'], // TODO: what about editor and grid coponents?
+  globs: ['./../../packages/core/src/**/*.ts'], // TODO: what about editor and grid coponents?
   /** Globs to exclude */
   // exclude: ['src/foo.js'],
   /** Directory to output CEM to */

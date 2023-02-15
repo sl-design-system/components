@@ -1202,7 +1202,13 @@
     "input": {
       "md": {
         "value": "{size.sm}",
-        "type": "sizing"
+        "type": "sizing",
+        "description": "size.input.md"
+      },
+      "lg": {
+        "value": "{size.md}",
+        "type": "sizing",
+        "description": "size.input.lg"
       }
     }
   },

@@ -129,7 +129,7 @@ $transition-timing: 200ms;
 
     .ds-call-to-action__smile-bottom {
       --element-transform: -7px;
-      animation: translateAnimation 3s infinite;
+      animation-delay: 100ms;
     }
 
     .ds-call-to-action__eye-brow {

@@ -26,4 +26,7 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+      
+      - run: yarn install --immutable
+      
       - run: rimraf \"**/.wireit\"

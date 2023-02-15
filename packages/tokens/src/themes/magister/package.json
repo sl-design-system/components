@@ -15,7 +15,7 @@
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build.js magister",
+      "command": "yarn node --no-warnings ../../../build-styles.js magister",
       "files": [
         "../../figma/*.json",
         "../../figma/magister/*.json"

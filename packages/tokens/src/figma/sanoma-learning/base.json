@@ -706,7 +706,7 @@
           "type": "typography"
         }
       },
-      "icon": {
+      "fontIcon": {
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.icon}",
@@ -731,6 +731,48 @@
             "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "15"
+          },
+          "type": "typography"
+        }
+      }
+    },
+    "input": {
+      "fontIcon": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "15"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "fontSize": "18"
+          },
+          "type": "typography"
+        }
+      },
+      "label": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "fontSize": "{text.typeset.fontSize.md}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.lg}",
+            "fontSize": "{text.typeset.fontSize.lg}"
           },
           "type": "typography"
         }
@@ -829,34 +871,6 @@
       }
     }
   },
-  "boxShadow": {
-    "button": {
-      "focus": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "0",
-          "spread": "3",
-          "color": "rgba({color.palette.info.base},{opacity.600})",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "boxShadow.button.focus"
-      },
-      "none": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "0",
-          "spread": "0",
-          "color": "",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "boxShadow.button.none"
-      }
-    }
-  },
   "component": {
     "button": {
       "lg": {
@@ -873,6 +887,47 @@
         },
         "type": "composition"
       }
+    }
+  },
+  "icon": {
+    "base": {
+      "face-smile": {
+        "value": "{icon.core.fa-face_smile}",
+        "type": "Icons",
+        "description": "icon.base.face-smile"
+      },
+      "menu": {
+        "value": "{icon.core.fa-menu}",
+        "type": "Icons",
+        "description": "icon.base.menu"
+      },
+      "fav": {
+        "value": "{icon.custom.fav}",
+        "type": "Icons",
+        "description": "icon.base.fav"
+      },
+      "chevron-down": {
+        "value": "{icon.core.fa-chevron-down}",
+        "type": "Icons",
+        "description": "icon.base.fav"
+      },
+      "check": {
+        "value": "{icon.core.fa-check}",
+        "type": "Icons",
+        "description": "icon.base.check"
+      }
+    },
+    "custom": {
+      "fav": {
+        "value": "fav",
+        "type": "Icons",
+        "description": "icon.custom.fav"
+      }
+    },
+    "font-weight": {
+      "value": "{text.typeset.fontWeight.icon-regular}",
+      "type": "fontWeights",
+      "description": "icon.font-weight"
     }
   }
 }

@@ -12,6 +12,12 @@
     { "path": "./src/button/entrypoint.tsconfig.json" },
     { "path": "./src/button-bar/entrypoint.tsconfig.json" },
     { "path": "./src/checkbox/entrypoint.tsconfig.json" },
-    { "path": "./src/input/entrypoint.tsconfig.json" }
+    { "path": "./src/dialog/entrypoint.tsconfig.json" },
+    { "path": "./src/input/entrypoint.tsconfig.json" },
+    { "path": "./src/icon/entrypoint.tsconfig.json" },
+    { "path": "./src/popover/entrypoint.tsconfig.json" },
+    { "path": "./src/radio-group/entrypoint.tsconfig.json" },
+    { "path": "./src/tooltip/entrypoint.tsconfig.json" },
+    { "path": "./src/utils/entrypoint.tsconfig.json" }
   ]
 }

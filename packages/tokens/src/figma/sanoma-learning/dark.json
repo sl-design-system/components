@@ -939,7 +939,7 @@
         "unchecked": {
           "default": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "rgba({body.background} / {opacity.transparent})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -961,7 +961,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.accent.base},{opacity.200})",
+              "value": "rgba({color.palette.accent.base} / {opacity.200})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -983,7 +983,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.accent.base},{opacity.400})",
+              "value": "rgba({color.palette.accent.base} / {opacity.400})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1005,7 +1005,7 @@
           },
           "focus": {
             "background": {
-              "value": "rgba({body.background},{opacity.100})",
+              "value": "rgba({body.background} / {opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1027,7 +1027,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "rgba({body.background} / {opacity.transparent})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1165,7 +1165,7 @@
         "unchecked": {
           "default": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "rgba({body.background} / {opacity.transparent})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1187,7 +1187,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.danger.base},{opacity.200})",
+              "value": "rgba({color.palette.danger.base} / {opacity.200})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1209,7 +1209,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.danger.base},{opacity.400})",
+              "value": "rgba({color.palette.danger.base} / {opacity.400})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1253,7 +1253,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "rgba({body.background} / {opacity.transparent})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1391,7 +1391,7 @@
         "unchecked": {
           "default": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "rgba({body.background} / {opacity.transparent})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1413,7 +1413,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.success.base},{opacity.200})",
+              "value": "rgba({color.palette.success.base} / {opacity.200})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1435,7 +1435,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.success.base},{opacity.300})",
+              "value": "rgba({color.palette.success.base} / {opacity.300})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1457,7 +1457,7 @@
           },
           "focus": {
             "background": {
-              "value": "rgba({body.background},{opacity.100})",
+              "value": "rgba({body.background} / {opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1479,7 +1479,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "rgba({body.background} / {opacity.transparent})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },

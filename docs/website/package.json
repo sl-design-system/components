@@ -40,8 +40,8 @@
     "lint": "wireit",
     "lint:scss": "wireit",
     "lint:ts": "wireit",
-    "analyze:prod": "cem analyze --litelement --config 'custom-elements-manifest.config.js' --outdir  'dist/site/test'",
-    "analyze:dev": "cem analyze --litelement --outdir  'public/site/test'"
+    "analyze:prod": "cem analyze --litelement --config 'custom-elements-manifest.config.js' --outdir  'dist/site/_data/custom-elements'",
+    "analyze:dev": "cem analyze --litelement --outdir  'src/site/_data/custom-elements'"
   },
   "wireit": {
     "build:dev": {
@@ -202,6 +202,7 @@
       "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
       "dependencies": [
         "./../../packages/tokens:build",
+        "analyze:prod",
         "build:site:prod:styles",
         "build:site:prod:ts"
       ],

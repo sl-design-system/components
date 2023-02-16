@@ -1,4 +1,5 @@
 {
   "layout": "components/components.njk",
-  "tags": "checkbox"
+  "tags": "checkbox",
+  "file": "checkbox.ts"
 }

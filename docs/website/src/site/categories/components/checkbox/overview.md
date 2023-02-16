@@ -103,3 +103,20 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 
 
 </section>
+
+{% for component in collections.components %}
+
+[//]: # (  <h3>{{component.data.title}}</h3>)
+[//]: # (  <h3>{{component.url}}</h3>)
+
+[//]: # (  {{page.data.file}})
+
+[//]: # (  <h3>{{component.data.file}}</h3>)
+{% if page.url == component.url %}
+<h2>{{component.data.file}}</h2>
+{% endif %}
+{% endfor %}
+
+{% if page.url %}
+{{page.data.file}}
+{% endif %}

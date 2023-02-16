@@ -168,3 +168,28 @@ Practical guides to get started with designing and developing your experience wi
 </div>
 
 </section>
+
+
+## Custom element manifest
+
+<ul>
+    {% for module in custom-elements.custom-elements.modules -%}
+    <li>{{ module.path }}</li>
+    <li>{{ module.declarations }}</li>
+    <li>{{ module.declarations.kind }}</li>
+    <li>{{ module.declarations.name }}</li>
+      {% for declaration in module.declarations -%}
+        <li>{{ declaration.kind }}</li>
+        <li>{{ declaration.name }}</li>
+      {% endfor -%}
+    {% endfor -%}
+</ul>
+
+## test
+
+{% for module in custom-elements.custom-elements.modules -%}
+  {% if module.path contains "ts" %}
+    <h2>{{module.path}}</h2>
+  {% endif %}
+<li>{{ module }}</li>
+{% endfor -%}

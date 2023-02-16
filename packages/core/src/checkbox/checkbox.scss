@@ -6,13 +6,13 @@ $stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [st
 :host {
   --_background: var(--sl-color-input-default-unchecked-default-background);
   --_border-color: var(--sl-color-input-default-unchecked-default-border);
-  --_border-radius: 2px;
+  --_border-radius: var(--sl-border-radius-checkbox);
   --_border-size: var(--sl-border-width-outline);
   --_border: var(--_border-size) solid var(--_border-color);
   --_gap: var(--sl-space-input-gap-md);
   --_label-color: var(--sl-color-input-default-unchecked-default-label);
   --_line-height: var(--sl-text-typeset-line-height-md);
-  --_padding: var(--sl-space-input-block-md) var(--sl-space-input-inline-md);
+  --_padding: var(--sl-space-input-block-md) var(--sl-space-input-inline-md) var(--sl-space-input-block-md) 0;
   --_path-length: 22.910259;
   --_size: calc(var(--_line-height) - var(--_border-size) * 2);
   --_stroke-dashoffset: var(--_path-length);

@@ -27,4 +27,6 @@ jobs:
           node-version: 16
           cache: 'yarn'
       
+      - run: find \"**/.wireit\"
+
       - run: rm -rf \"**/.wireit\"

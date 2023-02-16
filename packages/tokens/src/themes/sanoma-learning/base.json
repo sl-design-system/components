@@ -1043,6 +1043,10 @@
       "value": "{border.radius.full}",
       "type": "borderRadius",
       "description": "borderRadius.button"
+    },
+    "checkbox": {
+      "value": "{border.radius.2xs}",
+      "type": "borderRadius"
     }
   },
   "border": {
@@ -1533,7 +1537,13 @@
     "input": {
       "md": {
         "value": "{size.sm}",
-        "type": "sizing"
+        "type": "sizing",
+        "description": "size.input.md"
+      },
+      "lg": {
+        "value": "{size.md}",
+        "type": "sizing",
+        "description": "size.input.lg"
       }
     }
   }

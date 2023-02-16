@@ -208,6 +208,7 @@
   --sl-color-palette-primary-150: 213 213 213;
   --sl-color-palette-primary-100: 234 234 234;
   --sl-color-palette-primary-50: 254 254 254;
+  --sl-size-input-lg: var(--sl-size-md);
   --sl-size-input-md: var(--sl-size-sm);
   --sl-icon-font-weight: 400;
   --sl-icon-base-check: var(--sl-icon-core-fa-check);
@@ -229,6 +230,7 @@
   --sl-space-button-block-sm: var(--sl-space-xs);
   --sl-border-width-outline: var(--sl-border-width-sm);
   --sl-border-width-default: var(--sl-border-width-xs);
+  --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
   --sl-border-radius-default: var(--sl-border-radius-3xs);
   --sl-text-input-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /

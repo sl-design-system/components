@@ -119,5 +119,6 @@
   --sl-border-radius-2xs: 4px;
   --sl-border-radius-3xs: 2px;
   --sl-border-radius-none: 0px;
+  --sl-size-input-lg: var(--sl-size-md);
   --sl-size-input-md: var(--sl-size-sm);
 }

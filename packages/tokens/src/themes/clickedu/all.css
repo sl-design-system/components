@@ -205,5 +205,6 @@
   --sl-color-palette-primary-150: 231 206 208;
   --sl-color-palette-primary-100: 242 232 233;
   --sl-color-palette-primary-50: 254 254 254;
+  --sl-size-input-lg: var(--sl-size-md);
   --sl-size-input-md: var(--sl-size-sm);
 }

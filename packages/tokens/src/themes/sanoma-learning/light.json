@@ -1149,7 +1149,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba($color.palette.accent.base,$opacity.400)",
+              "value": "rgba({color.palette.accent.base}, {opacity.400})",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true

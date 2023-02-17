@@ -1,11 +1,12 @@
 ---
 title: Button
 tags: overview
-templateEngineOverride: njk,md
 eleventyNavigation:
   parent: Button
   key: ButtonOverview
 ---
+
+[//]: # (templateEngineOverride: njk,md)
 
 <section>
 
@@ -104,80 +105,104 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 
 </section>
 
-{{page.url}}
-{{page.data.file}}
-
-{% for component in collections.components %}
-
-[//]: # (  <h3>{{component.data.title}}</h3>)
-[//]: # (  <h3>{{component.url}}</h3>)
-
-[//]: # (  {{page.data.file}})
-
-[//]: # (  <h3>{{component.data.file}}</h3>)
-  {% if page.url == component.url %}
-  <h2>{{component.data.file}}</h2>
-
-  <ul>
-      {% for module in custom-elements.custom-elements.modules -%}
-        {% if module.path.includes(component.data.file) %}
-          <h2>{{component.data.file}}</h2>
-          <h3>test</h3>
-        {% endif %}
-      <li>{{ module.path }}</li>
-      <li>{{ module.declarations }}</li>
-      <li>{{ module.declarations.kind }}</li>
-      <li>{{ module.declarations.name }}</li>
-        {% for declaration in module.declarations -%}
-          <li>{{ declaration.kind }}</li>
-          <li>{{ declaration.name }}</li>
-        {% endfor -%}
-      {% endfor -%}
-  </ul>
-  {% endif %}
-{% endfor %}
-
-{% if page.url %}
-{{page.data.file}}
-{% endif %}
-
-
-{% for module in custom-elements.custom-elements.modules -%}
-<li>{{ module.path }}</li>
-<li>{{ module.declarations }}</li>
-<li>{{ module.declarations.kind }}</li>
-<li>{{ module.declarations.name }}</li>
-  {% for declaration in module.declarations -%}
-    <li>{{ declaration.kind }}</li>
-    <li>{{ declaration.name }}</li>
-  {% endfor -%}
-{% endfor -%}
-
-
-<ul>
-    {% for module in custom-elements.custom-elements.modules -%}
-    <li>{{ module.path }}</li>
-    <li>{{ module.declarations }}</li>
-    <li>{{ module.declarations.kind }}</li>
-    <li>{{ module.declarations.name }}</li>
-      {% for declaration in module.declarations -%}
-        <li>{{ declaration.kind }}</li>
-        <li>{{ declaration.name }}</li>
-      {% endfor -%}
-    {% endfor -%}
-</ul>
-
-
-<ul>
-{% for item in custom-elements.custom-elements.modules %}
-  <li>{{ item.path }}</li>
-{% else %}
-  <li>This would display if the 'item' collection were empty</li>
-{% endfor %}
-</ul>
-
-{% for animal in custom-elements.custom-elements.modules -%}
-<li>{{ animal }}</li>
-{% endfor -%}
+{% include "../component-table.njk" %}
 
 [//]: # (TODO: liquid instead of nunjucks on the top and in if statement)
+
+{% for component in collections.components -%}
+
+<h1>{{component.data.file}}</h1>
+<h1>{{component.url}}</h1>
+<h1>{{page.url}}</h1>
+{% assign componentUrl = component.url | append: "" %}
+{% assign pageUrl = page.url | append: "" %}
+{% if pageUrl == componentUrl %}
+<h2 style="color:red">{{pageUrl}}</h2>
+<h2 style="color:green">{{componentUrl}}</h2>
+{% endif %}
+{% endfor -%}
+
+
+
+
+{% for component in collections.components -%}
+{% for module in custom-elements.custom-elements.modules -%}
+
+{% assign path = module.path | append: "" %}
+{% assign fileName = component.data.file | append: "" %}
+{% assign componentUrl = component.url | append: "" %}
+{% assign pageUrl = page.url | append: "" %}
+
+{% if path contains fileName and pageUrl == componentUrl %}
+
+
+{% assign declarations = module.declarations %}
+{% for declaration in declarations -%}
+
+<h1>{{fileName}}</h1>
+
+
+
+{% assign members = declaration.members %}
+<h2>Properties</h2>
+<table class="ds-table">
+<thead>
+<tr>
+<th>Element</th>
+<th>Attribute</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+{% for member in members -%}
+{% unless member.privacy %}
+<tr>
+<td>{{member.name}}</td>
+<td><code>{{member.default}}</code></td>
+{% assign types = member.type %}
+{% for type in types -%}
+<td><code>{{type}}</code></td>
+{% endfor -%}
+<td>{{member.description}}</td>
+</tr>
+{% endunless %}
+{% endfor -%}
+</tbody>
+</table>
+
+
+
+{% assign attributes = declaration.attributes %}
+<h2>Attributes</h2>
+<table class="ds-table">
+<thead>
+<tr>
+<th>Element</th>
+<th>Attribute</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+{% for attribute in attributes -%}
+<tr>
+<td>{{attribute.name}}</td>
+<td><code>{{attribute.fieldName}}</code></td>
+<td><code>{{attribute.default}}</code></td>
+<td>{{attribute.description}}</td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+
+
+
+{% endfor -%}
+
+
+
+{% endif %}
+
+{% endfor -%}
+{% endfor -%}

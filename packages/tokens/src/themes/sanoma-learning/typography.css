@@ -56,7 +56,7 @@
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-md);
+  line-height: var(--sl-text-typeset-line-height-sm);
 }
 
 .sl-text-button-text-md {
@@ -70,7 +70,7 @@
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-xs);
+  line-height: var(--sl-text-typeset-line-height-xxs);
 }
 
 .sl-text-body-lg-bold {

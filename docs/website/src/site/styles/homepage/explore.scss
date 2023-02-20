@@ -127,64 +127,82 @@ $transition-timing: 300ms;
     }
 
     /* stylelint-disable-next-line max-nesting-depth */
-    .ds-explore__design-tokens-dot {
-      animation: scaleAnimation 700ms ease-in-out;
-
+    @media (prefers-reduced-motion: no-preference) {
       /* stylelint-disable-next-line max-nesting-depth */
-      @media screen and (prefers-reduced-motion: reduce) {
+      .ds-explore__design-tokens-dot {
+        animation: scaleAnimationDot 700ms ease-in-out;
+        transform-origin: bottom;
+
         /* stylelint-disable-next-line max-nesting-depth */
-        animation: none;
+        &:nth-child(4) {
+          animation-delay: 0.1s;
+        }
+
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:nth-child(5) {
+          animation-delay: 0.2s;
+        }
+
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:nth-child(6) {
+          animation-delay: 0.3s;
+        }
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(1) {
-        animation-delay: 0.1s;
+      .ds-explore__components-part {
+        animation: scalePuzzleAnimation 700ms ease-in-out;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      &:nth-child(3) {
-        animation-delay: 0.3s;
-      }
-    }
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    .ds-explore__components-part {
-      animation: scaleAnimation 700ms ease-in-out;
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      @media screen and (prefers-reduced-motion: reduce) {
-        animation: none;
-      }
-    }
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    .ds-explore__guidelines-part {
-      animation: rotateAnimation 700ms ease-in-out;
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      @media screen and (prefers-reduced-motion: reduce) {
-        animation: none;
+      .ds-explore__guidelines-part {
+        animation: rotateAnimation 700ms ease-in-out;
+        transform-box: fill-box;
+        transform-origin: center;
       }
     }
   }
 }
 
-@keyframes scaleAnimation {
+@keyframes scalePuzzleAnimation {
   30% {
     transform: scale(1);
   }
 
   60% {
-    transform: scale(1.08);
+    transform: scale(1.14);
   }
 
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes scaleAnimationDot {
+  30% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  60% {
+    transform: scale3d(1.18, 1.18, 1.18);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes scaleAnimationRotate {
+  30% {
+    transform: scale3d(1, 1, 1) rotate(0);
+  }
+
+  60% {
+    transform: scale3d(1, 1, 1) rotate(-5deg);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1) rotate(0);
   }
 }
 
@@ -194,7 +212,7 @@ $transition-timing: 300ms;
   }
 
   60% {
-    transform: rotate(-0.02turn);
+    transform: rotate(-0.04turn);
   }
 
   100% {

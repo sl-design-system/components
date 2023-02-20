@@ -4,16 +4,18 @@ import { property, state } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
 
 export interface UserProfile {
-  name: {
-    first: string;
-    last: string;
-    title: string;
-  };
-  picture: {
-    large: string;
-    medium: string;
-    thumbnail: string;
-  };
+  name: UserProfileName;
+  picture: UserProfilePicture;
+}
+export interface UserProfileName {
+  first: string;
+  last: string;
+  title: string;
+}
+export interface UserProfilePicture {
+  large: string;
+  medium: string;
+  thumbnail: string;
 }
 
 export class Avatar extends LitElement {
@@ -48,8 +50,8 @@ export class Avatar extends LitElement {
   async _getUserDetails(id: string): Promise<UserProfile | undefined> {
     try {
       const response = await fetch(`https://randomuser.me/api/?inc=picture,name&seed=slds-${id}`);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-      const json: { results: UserProfile[]; info: any } = await response?.json();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const json: { results: UserProfile[]; info: unknown } = await response?.json();
       return json?.results?.[0];
     } catch (error) {
       console.warn('error loading avatar');

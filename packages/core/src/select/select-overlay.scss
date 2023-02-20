@@ -8,7 +8,6 @@
   flex-direction: column;
   gap: 4px;
   max-height: var(--_max-overlay-height);
-  overflow: auto;
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;
   pointer-events: none;

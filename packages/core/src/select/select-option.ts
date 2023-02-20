@@ -45,6 +45,12 @@ export class SelectOption extends LitElement {
     this.setAttribute('role', 'option');
   }
 
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+
+    this.#observer?.disconnect();
+  }
+
   override firstUpdated(): void {
     this.#observer = new ResizeObserver(m => this.#handleResize(m));
     this.#observer?.observe(this);

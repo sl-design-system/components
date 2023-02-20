@@ -1,4 +1,5 @@
 import { expect, fixture } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { Checkbox } from './checkbox.js';
 import './register.js';
@@ -9,6 +10,9 @@ describe('sl-checkbox', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
+
+      el.disabled = false;
+      await el.updateComplete;
     });
 
     it('should render correctly', () => {
@@ -20,24 +24,52 @@ describe('sl-checkbox', () => {
       expect(el.internals.ariaChecked).to.equal('false');
     });
 
-    it('should not be disabled', () => {
+    it('should not be disabled by default', () => {
       expect(el).not.to.have.attribute('disabled');
     });
 
-    it('should be disabled if set', async () => {
+    it('should change the state to checked when clicked', async () => {
+      el.click();
+
+      expect(el.checked).to.equal(true);
+    });
+
+    it('should change the state to checked on key down', async () => {
+      el.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(el.checked).to.equal(true);
+    });
+
+  });
+  describe('disabled', () => {
+    beforeEach(async ()=>{
+      el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
+
       el.disabled = true;
+      el.setAttribute('disabled', '');
       await el.updateComplete;
+    });
+    it('should be disabled if set', async () => {
 
       expect(el).to.have.attribute('disabled');
     });
 
-    it('should change the state to checked when clicked', async () => {
-      el.disabled = false;
-      await el.updateComplete;
-      
+    it('should not change the state to checked when clicked', async () => {
       el.click();
 
-      expect(el.checked).to.equal(true);
+      expect(el.checked).to.equal(false);
+    });
+
+    it('should not change the state to checked on key down', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.focus();
+      await sendKeys({ press: 'Enter' });
+      console.log(el.disabled)
+
+      expect(el.checked).to.equal(false);
     });
   });
 

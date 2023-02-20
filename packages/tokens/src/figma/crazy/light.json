@@ -1620,6 +1620,7 @@
       "default": {
         "idle": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.default.idle.background}",
             "border": "{color.button.default.default.idle.border}",
@@ -1629,6 +1630,7 @@
         },
         "hover": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.default.hover.background}",
             "border": "{color.button.default.default.hover.border}",
@@ -1638,6 +1640,7 @@
         },
         "active": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.default.active.background}",
             "border": "{color.button.default.default.active.border}",
@@ -1647,6 +1650,7 @@
         },
         "focus": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.default.focus.background}",
             "border": "{color.button.default.default.focus.border}",
@@ -1656,6 +1660,7 @@
         },
         "disabled": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.default.disabled.background}",
             "border": "{color.button.default.default.disabled.border}",
@@ -1667,6 +1672,7 @@
       "primary": {
         "idle": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.default.idle.background}",
             "border": "{color.button.primary.default.idle.border}",
@@ -1676,6 +1682,7 @@
         },
         "hover": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.default.hover.background}",
             "border": "{color.button.primary.default.hover.border}",
@@ -1685,6 +1692,7 @@
         },
         "active": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.default.active.background}",
             "border": "{color.button.primary.default.active.border}",
@@ -1694,6 +1702,7 @@
         },
         "focus": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.default.focus.background}",
             "border": "{color.button.primary.default.focus.border}",
@@ -1703,6 +1712,7 @@
         },
         "disabled": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.default.disabled.background}",
             "border": "{color.button.primary.default.disabled.border}",
@@ -1714,6 +1724,7 @@
       "success": {
         "idle": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.success.default.idle.background}",
             "border": "{color.button.success.default.idle.border}",
@@ -1723,6 +1734,7 @@
         },
         "hover": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.success.default.hover.background}",
             "border": "{color.button.success.default.hover.border}",
@@ -1732,6 +1744,7 @@
         },
         "active": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.success.default.active.background}",
             "border": "{color.button.success.default.active.border}",
@@ -1741,6 +1754,7 @@
         },
         "focus": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.success.default.focus.background}",
             "border": "{color.button.success.default.focus.border}",
@@ -1750,6 +1764,7 @@
         },
         "disabled": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.success.default.disabled.background}",
             "border": "{color.button.success.default.disabled.border}",
@@ -1761,6 +1776,7 @@
       "warning": {
         "idle": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.warning.default.idle.background}",
             "border": "{color.button.warning.default.idle.border}",
@@ -1770,6 +1786,7 @@
         },
         "hover": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.warning.default.hover.background}",
             "border": "{color.button.warning.default.hover.border}",
@@ -1779,6 +1796,7 @@
         },
         "active": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.warning.default.active.background}",
             "border": "{color.button.warning.default.active.border}",
@@ -1788,6 +1806,7 @@
         },
         "focus": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.warning.default.focus.background}",
             "border": "{color.button.warning.default.focus.border}",
@@ -1797,6 +1816,7 @@
         },
         "disabled": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.warning.default.disabled.background}",
             "border": "{color.button.warning.default.disabled.border}",
@@ -1808,6 +1828,7 @@
       "danger": {
         "idle": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.danger.default.idle.background}",
             "border": "{color.button.danger.default.idle.border}",
@@ -1817,6 +1838,7 @@
         },
         "hover": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.danger.default.hover.background}",
             "border": "{color.button.danger.default.hover.border}",
@@ -1826,6 +1848,7 @@
         },
         "active": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.danger.default.active.background}",
             "border": "{color.button.danger.default.active.border}",
@@ -1835,6 +1858,7 @@
         },
         "focus": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.danger.default.focus.background}",
             "border": "{color.button.danger.default.focus.border}",
@@ -1844,6 +1868,7 @@
         },
         "disabled": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.danger.default.disabled.background}",
             "border": "{color.button.danger.default.disabled.border}",
@@ -1857,6 +1882,7 @@
       "default": {
         "idle": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.outline.idle.background}",
             "border": "{color.button.default.outline.idle.border}",
@@ -1866,6 +1892,7 @@
         },
         "hover": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.outline.hover.background}",
             "border": "{color.button.default.outline.hover.border}",
@@ -1875,6 +1902,7 @@
         },
         "active": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.outline.active.background}",
             "border": "{color.button.default.outline.active.border}",
@@ -1884,6 +1912,7 @@
         },
         "focus": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.outline.focus.background}",
             "border": "{color.button.default.outline.focus.border}",
@@ -1893,6 +1922,7 @@
         },
         "disabled": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.default.outline.disabled.background}",
             "border": "{color.button.default.outline.disabled.border}",
@@ -1904,6 +1934,7 @@
       "primary": {
         "idle": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.outline.idle.background}",
             "border": "{color.button.primary.outline.idle.border}",
@@ -1913,6 +1944,7 @@
         },
         "hover": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.outline.hover.background}",
             "border": "{color.button.primary.outline.hover.border}",
@@ -1922,6 +1954,7 @@
         },
         "active": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.outline.active.background}",
             "border": "{color.button.primary.outline.active.border}",
@@ -1931,6 +1964,7 @@
         },
         "focus": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.outline.focus.background}",
             "border": "{color.button.primary.outline.focus.border}",
@@ -1940,6 +1974,7 @@
         },
         "disabled": {
           "value": {
+            "borderRadius": "{borderRadius.button.sm}",
             "borderWidth": "{border.width.button.default}",
             "fill": "{color.button.primary.outline.disabled.background}",
             "border": "{color.button.primary.outline.disabled.border}",

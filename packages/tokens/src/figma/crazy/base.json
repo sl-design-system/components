@@ -459,7 +459,7 @@
           "description": "text.typeset.fontFamily.heading"
         },
         "body": {
-          "value": "source-sans-pro",
+          "value": "Source Sans Pro",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.body"
         },
@@ -729,7 +729,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
             "fontSize": "15"
           },
           "type": "typography"
@@ -953,6 +953,18 @@
       "value": "{text.typeset.fontWeight.icon-regular}",
       "type": "fontWeights",
       "description": "icon.font-weight"
+    }
+  },
+  "size": {
+    "input": {
+      "md": {
+        "value": "{size.sm}",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "{size.md}",
+        "type": "sizing"
+      }
     }
   }
 }

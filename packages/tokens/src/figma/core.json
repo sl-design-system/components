@@ -220,13 +220,7 @@
     "input": {
       "md": {
         "value": "{size.sm}",
-        "type": "sizing",
-        "description": "size.input.md"
-      },
-      "lg": {
-        "value": "{size.md}",
-        "type": "sizing",
-        "description": "size.input.lg"
+        "type": "sizing"
       }
     }
   },
@@ -278,7 +272,7 @@
         "icon": {
           "value": "Font Awesome 6 Pro",
           "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.icon"
+          "description": "text.typeset.fontFamilty.icon"
         }
       },
       "fontWeight": {

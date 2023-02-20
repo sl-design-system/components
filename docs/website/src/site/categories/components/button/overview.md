@@ -109,18 +109,6 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 
 [//]: # (TODO: liquid instead of nunjucks on the top and in if statement)
 
-{% for component in collections.components -%}
-
-<h1>{{component.data.file}}</h1>
-<h1>{{component.url}}</h1>
-<h1>{{page.url}}</h1>
-{% assign componentUrl = component.url | append: "" %}
-{% assign pageUrl = page.url | append: "" %}
-{% if pageUrl == componentUrl %}
-<h2 style="color:red">{{pageUrl}}</h2>
-<h2 style="color:green">{{componentUrl}}</h2>
-{% endif %}
-{% endfor -%}
 
 
 

@@ -1,5 +1,6 @@
 {
   "layout": "components/components.njk",
   "tags": "checkbox",
-  "file": "checkbox.ts"
+  "file": "checkbox.ts",
+  "componentTagName": "sl-checkbox"
 }

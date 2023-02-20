@@ -688,7 +688,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.xs}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
           "type": "typography"
@@ -706,7 +706,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
           "type": "typography"
@@ -1034,15 +1034,15 @@
     "button": {
       "icon": {
         "sm": {
-          "value": "{text.typeset.lineHeight.sm}",
+          "value": "{text.typeset.lineHeight.xxs}",
           "type": "sizing"
         },
         "md": {
-          "value": "{text.typeset.lineHeight.md}",
+          "value": "{text.typeset.lineHeight.xs}",
           "type": "sizing"
         },
         "lg": {
-          "value": "{text.typeset.lineHeight.lg}",
+          "value": "{text.typeset.lineHeight.sm}",
           "type": "sizing"
         }
       }

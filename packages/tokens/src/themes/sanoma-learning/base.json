@@ -1083,15 +1083,17 @@
           "description": "border.width.button.outline"
         }
       },
-      "default": {
-        "value": "{border.width.xs}",
-        "type": "borderWidth",
-        "description": "border.width.button.default"
-      },
-      "outline": {
-        "value": "{border.width.sm}",
-        "type": "borderWidth",
-        "description": "border.width.button.outline"
+      "input": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        }
       },
       "none": {
         "value": 0,

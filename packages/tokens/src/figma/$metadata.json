@@ -1,11 +1,6 @@
 {
   "tokenSetOrder": [
     "core",
-    "White lable/base",
-    "White lable/light",
-    "White lable/dark",
-    "crazy/base",
-    "crazy/light",
     "sanoma-learning/base",
     "sanoma-learning/light",
     "sanoma-learning/dark",

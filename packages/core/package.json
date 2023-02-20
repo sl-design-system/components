@@ -12,6 +12,8 @@
   },
   "type": "module",
   "exports": {
+    "./avatar": "./dist/components/avatar/index.js",
+    "./avatar/register.js": "./dist/components/avatar/register.js",
     "./button": "./dist/components/button/index.js",
     "./button/register.js": "./dist/components/button/register.js",
     "./button-bar": "./dist/components/button-bar/index.js",
@@ -34,6 +36,8 @@
     "./popover/register.js": "./dist/components/popover/register.js",
     "./radio-group": "./dist/components/radio-group/index.js",
     "./radio-group/register.js": "./dist/components/radio-group/register.js",
+    "./select": "./dist/components/select/index.js",
+    "./select/register.js": "./dist/components/select/register.js",
     "./textarea": "./dist/components/textarea/index.js",
     "./textarea/register.js": "./dist/components/textarea/register.js",
     "./tooltip": "./dist/components/tooltip/index.js",

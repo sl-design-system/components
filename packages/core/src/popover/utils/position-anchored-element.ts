@@ -25,11 +25,13 @@ export const flipPlacement = (placement: Placement): Placement => {
   // interested in the first part.
   const [, pos] = /(\w+).*$/.exec(placement) || [];
 
+  let replace;
   if (pos === 'top' || pos === 'bottom') {
-    return pos === 'top' ? 'bottom' : 'top';
+    replace = pos === 'top' ? 'bottom' : 'top';
   } else {
-    return pos === 'left' ? 'right' : 'left';
+    replace = pos === 'left' ? 'right' : 'left';
   }
+  return placement.replace(pos, replace) as Placement;
 };
 
 export const positionAnchoredElement = (
@@ -56,8 +58,7 @@ export const positionAnchoredElement = (
           const appliedHeight = isConstrained ? `${maxHeight}px` : '';
           Object.assign(element.style, {
             maxWidth: `${Math.floor(availableWidth)}px`,
-            maxHeight: appliedHeight,
-            height: appliedHeight
+            maxHeight: appliedHeight
           });
         }
       })

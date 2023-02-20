@@ -1,0 +1,77 @@
+:host {
+  --_background: var(--sl-color-button-default-idle-background);
+  --_border-width: 1px;
+  --_border-radius: var(--sl-border-radius-button);
+  --_box-shadow: none;
+  --_gap: 0.25rem;
+}
+
+:host {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--_gap);
+}
+
+.select-toggle {
+  --_background: var(--sl-color-button-default-default-idle-background);
+  --_border-color: var(--sl-color-button-default-default-idle-border);
+  --_box-shadow: var(--sl-box-shadow-button-default-default-idle);
+  --_color: var(--sl-color-button-default-default-idle-foreground);
+  --_transform: var(--sl-transform-button-default-default-idle);
+  --_padding-block: var(--sl-space-button-block-md);
+  --_padding-inline: var(--sl-space-button-inline-md);
+  --_font: var(--sl-text-button-text-md);
+
+  align-items: stretch;
+  background: var(--_background);
+  border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  display: grid;
+  font: var(--_font);
+  gap: var(--_gap);
+  grid-template-columns: auto 24px;
+  transition: 0.2s ease-in-out;
+  transition-property: background, border, box-shadow, color, filter;
+
+  span {
+    padding-block: var(--_padding-block);
+    padding-inline: var(--_padding-inline);
+  }
+
+  span[contenttype='element'] {
+    padding-block: 0;
+    padding-inline: 0;
+  }
+
+  &:focus,
+  &:focus-visible {
+    --_background: var(--sl-color-button-default-default-focus-background);
+    --_border-color: var(--sl-color-button-default-default-focus-border);
+    --_color: var(--sl-color-button-default-default-focus-foreground);
+    --_transform: var(--sl-transform-button-default-default-focus);
+    outline: none;
+  }
+
+  &:focus-visible {
+    --_box-shadow: var(--sl-box-shadow-button-default-default-focus, var(--sl-box-shadow-button-focus, none));
+  }
+
+  &:hover {
+    --_background: var(--sl-color-button-default-default-hover-background);
+    --_border-color: var(--sl-color-button-default-default-hover-border);
+    --_box-shadow: var(--sl-box-shadow-button-default-default-hover, var(--sl-box-shadow-button-default-default-idle));
+    --_color: var(--sl-color-button-default-default-hover-foreground);
+    --_transform: var(--sl-transform-button-default-default-hover);
+  }
+
+  span {
+    display: block;
+  }
+}
+
+// to be replaced by <sl-icon>
+.toggle-icon {
+  display: grid;
+  place-items: center;
+}

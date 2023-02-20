@@ -1,0 +1,29 @@
+:host {
+  --_font: var(--sl-text-button-text-md);
+
+  cursor: pointer;
+  font: var(--_font);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+  white-space: nowrap;
+}
+
+:host([contenttype='string']) {
+  --_padding-block: var(--sl-space-button-block-md);
+  --_padding-inline: var(--sl-space-button-inline-md);
+}
+
+:host([contenttype='element']) {
+  --_padding-block: 0;
+  --_padding-inline: 0;
+}
+
+:host([selected]) {
+  box-shadow: inset 3px 0 0 var(--sl-color-button-default-default-focus-border);
+}
+
+:host([disabled]) {
+  cursor: default;
+  opacity: 0.6;
+  pointer-events: none;
+}

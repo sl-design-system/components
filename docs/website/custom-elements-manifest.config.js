@@ -1,10 +1,14 @@
 export default {
   /** Globs to analyze */
-  globs: ['./../../packages/core/src/**/*.ts'], // TODO: what about editor and grid coponents?
+  globs: [
+    './../../packages/core/src/**/*.ts',
+    './../../packages/editor/src/**/*.ts',
+    './../../packages/grid/src/**/*.ts'
+  ], // TODO: what about editor and grid components?
   /** Globs to exclude */
   // exclude: ['src/foo.js'],
   /** Directory to output CEM to */
-  outdir: 'dist/site/test', // TODO: different for prod and dev
+  outdir: 'src/site/_data/custom-elements', //'dist/site/test', // TODO: different for prod and dev
   /** Run in dev mode, provides extra logging */
   dev: true,
   /** Run in watch mode, runs on file changes */

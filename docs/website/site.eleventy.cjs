@@ -129,7 +129,6 @@ module.exports = function(eleventyConfig) {
   });
 
   const manifest = fs.readFileSync(`${outputFolder}/site/_data/custom-elements/custom-elements.json`, 'utf-8');
-  // manifest.toJSON();
   const markdown = customElementsManifestToMarkdown(JSON.parse(manifest));
 
   fs.writeFileSync(`${outputFolder}/site/_data/custom-elements/custom-elements.md`, markdown);

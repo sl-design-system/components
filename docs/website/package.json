@@ -41,7 +41,8 @@
     "lint:scss": "wireit",
     "lint:ts": "wireit",
     "analyze:prod": "cem analyze --litelement --config 'custom-elements-manifest.config.js' --outdir  'dist/site/_data/custom-elements'",
-    "analyze:dev": "cem analyze --litelement --outdir  'src/site/_data/custom-elements'"
+    "analyze:dev": "cem analyze --litelement --outdir  'src/site/_data/custom-elements'",
+    "analyzeTest": "wireit"
   },
   "wireit": {
     "build:dev": {
@@ -210,6 +211,12 @@
         "build/site/**/*",
         "src/site/**/*",
         "site.eleventy.cjs"
+      ]
+    },
+    "analyzeTest": {
+      "command": "cem analyze --litelement",
+      "output": [
+        "src/site/_data/custom-elements"
       ]
     },
     "build:teaser:prod:eleventy": {

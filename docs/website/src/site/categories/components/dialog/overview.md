@@ -64,18 +64,7 @@ Place text here
 
 <section>
 
-## Variants
-
-  | Element | Attribute              | Value                | Description                                                                                    |
-  ---------|------------------------|----------------------|------------------------------------------------------------------------------------------------|
-  | Label   | <code>ariaLabel</code> | <code>string</code>  | Define a string that labels the action to be performed when the user interacts with the button |
-  | Label  | <code>ariaLabel</code>       | <code>string</code> | Define a string that labels the action to be performed when the user interacts with the button |
-  | Label   | <code>ariaLabel</code>       | <code>string</code>     | Define a string that labels the action to be performed when the user interacts with the button |
-  | Label   | <code>ariaLabel</code>       | <code>string</code>     | Define a string that labels the action to be performed when the user interacts with the button |
-
-{.ds-table}
-
-### Key Points
+## Key Points
 
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
   

@@ -3,90 +3,106 @@
     {% if page.url == component.url %}
       {% for declaration in module.declarations -%}
         {% if declaration.tagName == component.data.componentTagName %}
-{% if declaration.members.length %}<section>
-<h2 id="properties" tabindex="-1"><a class="header-anchor" href="#properties">Properties</a></h2>
-  <table class="ds-table"><thead>
-    <tr>
-      <th>Element Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr></thead>
-    <tbody>
-    {% for member in declaration.members -%}{% if member.privacy %}{% else %}{% if member.kind == "field" %}<tr>
-          <td><code>{{member.name}}</code></td>
-          <td>{% for type in member.type -%}
-              {% if type %}<code>{{type}}</code>{% endif %}
-          {% endfor -%}</td>
-          <td>{% if member.default %}<code>{{member.default}}</code>{% endif %}</td>
-          <td>{{member.description}}</td>
-        </tr>{% endif %}{% endif %}{% endfor -%}
-    </tbody>
-  </table>
-</section>{% endif %}
-{% if declaration.members.length %}<section>
-<h2 id="methods" tabindex="-1"><a class="header-anchor" href="#methods">Methods</a></h2>
-<table class="ds-table"><thead>
-  <tr>
-    <th>Element Name</th>
-    <th>Parameters</th>
-    <th>Return</th>
-    <th>Description</th>
-  </tr></thead>
-  <tbody>
-  {% for member in declaration.members -%}{% if member.privacy %}{% else %}{% if member.kind == "method" %}<tr>
-    <td><code>{{member.name}}</code></td>
-    <td>{% for parameter in member.parameters -%}
-        {% if parameter %}<code>{{parameter.name}}: {{ parameter.type.text }}</code>{% endif %}
-      {% endfor -%}</td>
-    <td>{% if member.return.type.text %}<code>{{member.return.type.text}}</code>{% endif %}</td>
-    <td>{{member.description}}</td>
-    </tr>{% endif %}{% endif %}{% endfor -%}
-  </tbody>
-</table>
-</section>{% endif %}
-{% if declaration.slots.length %}<section>
-<h2 id="slots" tabindex="-1"><a class="header-anchor" href="#slots">Slots</a></h2>
-<table class="ds-table">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-  </tr>
-  </thead>
-  <tbody>
-  {% for slot in declaration.slots -%}
-    <tr>
-      <td><code>{{slot.name}}</code></td>
-      <td>{{slot.description}}</td>
-    </tr>
-  {% endfor -%}
-  </tbody>
-</table>
-</section>{% endif %}
-{% if declaration.attributes.length %}<section>
-<h2 id="attributes" tabindex="-1"><a class="header-anchor" href="#attributes">Attributes</a></h2>
-  <table class="ds-table">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for attribute in declaration.attributes -%}
+          {% if declaration.members.length %}
+<section>
+  <h2 id="properties" tabindex="-1"><a class="header-anchor" href="#properties">Properties</a></h2>
+  <div class="ds-table-wrapper">
+    <table class="ds-table"><thead>
       <tr>
-        <td><code>{{attribute.name}}</code></td>
-        <td>{% if attribute.type.text %}<code>{{attribute.type.text}}</code>{% endif %}</td>
-        <td>{% if attribute.default %}<code>{{attribute.default}}</code>{% endif %}</td>
-        <td>{{attribute.description}}</td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th class="ds-table__description">Description</th>
+      </tr></thead>
+      <tbody>
+      {% for member in declaration.members -%}{% if member.privacy %}{% else %}{% if member.kind == "field" %}<tr>
+            <td><code>{{member.name}}</code></td>
+            <td>{% for type in member.type -%}
+                {% if type %}<code>{{type}}</code>{% endif %}
+            {% endfor -%}</td>
+            <td>{% if member.default %}<code>{{member.default}}</code>{% endif %}</td>
+            <td class="ds-table__description">{{member.description}}</td>
+          </tr>{% endif %}{% endif %}{% endfor -%}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+{% if declaration.members.length %}
+<section>
+  <h2 id="methods" tabindex="-1"><a class="header-anchor" href="#methods">Methods</a></h2>
+  <div class="ds-table-wrapper">
+    <table class="ds-table"><thead>
+      <tr>
+        <th>Name</th>
+        <th>Parameters</th>
+        <th>Return</th>
+        <th class="ds-table__description">Description</th>
+      </tr></thead>
+      <tbody>
+      {% for member in declaration.members -%}{% if member.privacy %}{% else %}{% if member.kind == "method" %}<tr>
+        <td><code>{{member.name}}</code></td>
+        <td>{% for parameter in member.parameters -%}
+            {% if parameter %}<code>{{parameter.name}}: {{ parameter.type.text }}</code>{% endif %}
+          {% endfor -%}</td>
+        <td>{% if member.return.type.text %}<code>{{member.return.type.text}}</code>{% endif %}</td>
+        <td class="ds-table__description">{{member.description}}</td>
+        </tr>{% endif %}{% endif %}{% endfor -%}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+{% if declaration.slots.length %}
+<section>
+  <h2 id="slots" tabindex="-1"><a class="header-anchor" href="#slots">Slots</a></h2>
+  <div class="ds-table-wrapper">
+    <table class="ds-table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
       </tr>
-    {% endfor -%}
-    </tbody>
-  </table>
-</section>{% endif %}
+      </thead>
+      <tbody>
+      {% for slot in declaration.slots -%}
+        <tr>
+          <td><code>{{slot.name}}</code></td>
+          <td>{{slot.description}}</td>
+        </tr>
+      {% endfor -%}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+{% if declaration.attributes.length %}
+<section>
+  <h2 id="attributes" tabindex="-1"><a class="header-anchor" href="#attributes">Attributes</a></h2>
+  <div class="ds-table-wrapper">
+    <table class="ds-table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th class="ds-table__description">Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for attribute in declaration.attributes -%}
+        <tr>
+          <td><code>{{attribute.name}}</code></td>
+          <td>{% if attribute.type.text %}<code>{{attribute.type.text}}</code>{% endif %}</td>
+          <td>{% if attribute.default %}<code>{{attribute.default}}</code>{% endif %}</td>
+          <td class="ds-table__description">{{attribute.description}}</td>
+        </tr>
+      {% endfor -%}
+      </tbody>
+    </table>
+  </div>
+</section>
+          {% endif %}
         {% endif %}
       {% endfor -%}
     {% endif %}

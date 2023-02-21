@@ -1,6 +1,5 @@
 {
   "layout": "components/components.njk",
   "tags": "button",
-  "file": "button.ts",
   "componentTagName": "sl-button"
 }

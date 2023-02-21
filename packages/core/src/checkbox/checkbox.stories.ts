@@ -4,19 +4,26 @@ import '../label/register.js';
 import './register.js';
 
 export default {
-  title: 'Checkbox'
-};
-
-export const API: StoryObj = {
+  title: 'Checkbox',
   args: {
     checked: false,
     disabled: false,
     indeterminate: false,
     text: 'Toggle me',
-    value: '12345'
+    value: '12345',
+    size: 'md'
   },
-  render: ({ checked, disabled, indeterminate, text, value }) => html`
-    <sl-checkbox ?checked=${checked} ?disabled=${disabled} .indeterminate=${indeterminate} .value=${value}
+  argTypes: {
+    size: {
+      control: 'inline-radio',
+      options: ['md', 'lg']
+    }
+  }
+};
+
+export const API: StoryObj = {
+  render: ({ checked, disabled, indeterminate, text, value, size }) => html`
+    <sl-checkbox ?checked=${checked} ?disabled=${disabled} .indeterminate=${indeterminate} .value=${value} .size=${size}
       >${text}</sl-checkbox
     >
   `
@@ -31,7 +38,11 @@ export const All: StoryObj = {
         grid-template-columns: repeat(3, 1fr);
         justify-items: center;
       }
+      h2 {
+        font-family: var(--sl-text-typeset-font-family-heading);
+      }
     </style>
+    <h2>Medium</h2>
     <div class="grid">
       <sl-checkbox>Default</sl-checkbox>
       <sl-checkbox checked>Checked</sl-checkbox>
@@ -56,6 +67,32 @@ export const All: StoryObj = {
       <sl-checkbox valid disabled>Default</sl-checkbox>
       <sl-checkbox valid disabled checked>Checked</sl-checkbox>
       <sl-checkbox valid disabled indeterminate>Indeterminate</sl-checkbox>
+    </div>
+    <h2>Large</h2>
+    <div class="grid">
+      <sl-checkbox size="lg">Default</sl-checkbox>
+      <sl-checkbox size="lg" checked>Checked</sl-checkbox>
+      <sl-checkbox size="lg" indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox size="lg" disabled>Default</sl-checkbox>
+      <sl-checkbox size="lg" disabled checked>Checked</sl-checkbox>
+      <sl-checkbox size="lg" disabled indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox size="lg" invalid>Default</sl-checkbox>
+      <sl-checkbox size="lg" invalid checked>Checked</sl-checkbox>
+      <sl-checkbox size="lg" invalid indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox size="lg" invalid disabled>Default</sl-checkbox>
+      <sl-checkbox size="lg" invalid disabled checked>Checked</sl-checkbox>
+      <sl-checkbox size="lg" invalid disabled indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox size="lg" valid>Default</sl-checkbox>
+      <sl-checkbox size="lg" valid checked>Checked</sl-checkbox>
+      <sl-checkbox size="lg" valid indeterminate>Indeterminate</sl-checkbox>
+
+      <sl-checkbox size="lg" valid disabled>Default</sl-checkbox>
+      <sl-checkbox size="lg" valid disabled checked>Checked</sl-checkbox>
+      <sl-checkbox size="lg" valid disabled indeterminate>Indeterminate</sl-checkbox>
     </div>
   `
 };

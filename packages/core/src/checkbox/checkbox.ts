@@ -8,6 +8,8 @@ import { event } from '../utils/decorators/index.js';
 import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
 import styles from './checkbox.scss.js';
 
+export type CheckboxSize = 'md' | 'lg';
+
 export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
@@ -38,6 +40,9 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
 
   /** Whether the checkbox has the indeterminate state. */
   @property({ type: Boolean }) indeterminate = false;
+
+  /** Button size. */
+  @property({ reflect: true }) size: CheckboxSize = 'md';
 
   /** The value for the checkbox. */
   @property() value?: string;
@@ -118,6 +123,10 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   #onToggle(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
+
+    if (this.disabled) {
+      return;
+    }
 
     this.checked = !this.checked;
     this.#validation.validate(this.checked ? this.value : undefined);

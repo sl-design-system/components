@@ -34,6 +34,12 @@ describe('sl-checkbox', () => {
       expect(el.checked).to.equal(true);
     });
 
+    it('should change the state to checked when clicked on the wrapper', async () => {
+      (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
+
+      expect(el.checked).to.equal(true);
+    });
+
     it('should change the state to checked on key down', async () => {
       el.focus();
       await sendKeys({ press: 'Enter' });
@@ -42,6 +48,7 @@ describe('sl-checkbox', () => {
     });
 
   });
+  
   describe('disabled', () => {
     beforeEach(async ()=>{
       el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
@@ -61,13 +68,18 @@ describe('sl-checkbox', () => {
       expect(el.checked).to.equal(false);
     });
 
+    it('should change the state to checked when clicked on the wrapper', async () => {
+      (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
+
+      expect(el.checked).to.equal(false);
+    });
+
     it('should not change the state to checked on key down', async () => {
       el.disabled = true;
       await el.updateComplete;
-
+      
       el.focus();
       await sendKeys({ press: 'Enter' });
-      console.log(el.disabled)
 
       expect(el.checked).to.equal(false);
     });

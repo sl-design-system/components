@@ -2,22 +2,19 @@ $variants: default, valid, invalid;
 $variantselectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 $states: unchecked, checked;
 $stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])';
+$sizes: md, lg;
 
 :host {
-  --_background: var(--sl-color-input-default-unchecked-default-background);
-  --_border-color: var(--sl-color-input-default-unchecked-default-border);
   --_border-radius: var(--sl-border-radius-checkbox);
-  --_border-size: var(--sl-border-width-outline);
+  --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
   --_gap: var(--sl-space-input-gap-md);
-  --_label-color: var(--sl-color-input-default-unchecked-default-label);
   --_line-height: var(--sl-text-typeset-line-height-md);
   --_padding: var(--sl-space-input-block-md) var(--sl-space-input-inline-md) var(--sl-space-input-block-md) 0;
   --_path-length: 22.910259;
-  --_size: calc(var(--_line-height) - var(--_border-size) * 2);
   --_stroke-dashoffset: var(--_path-length);
-  --_stroke: var(--sl-color-input-default-unchecked-default-icon);
   --_transition: 200ms ease-in-out;
+  --_icon-size: 16px;
 }
 
 :host {
@@ -53,18 +50,20 @@ $stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [st
   display: inline-flex;
   flex-shrink: 0;
   margin-block-start: calc((var(--_line-height) - var(--_size) - var(--_border-size) * 2) / 2);
-  transition: 0.2s ease-in-out;
+  padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
+  transition: var(--_transition);
   transition-property: background, border, box-shadow, color, filter;
 }
 
+sl-icon,
 svg {
   align-self: center;
   box-sizing: border-box;
   fill: none;
-  height: var(--_size);
+  height: var(--_icon-size);
   transition: var(--_transition);
   transition-property: background, border, box-shadow, fill;
-  width: var(--_size);
+  width: var(--_icon-size);
 }
 
 path {
@@ -84,6 +83,18 @@ path {
 /**
  * theming 
  */
+
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_line-height: var(--sl-text-typeset-line-height-#{$size});
+    --_padding: var(--sl-space-input-block-#{$size})
+      var(--sl-space-input-inline-#{$size})
+      var(--sl-space-input-block-#{$size})
+      0;
+    // --_path-length: 22.910259;
+    --_size: var(--sl-size-input-#{$size});
+  }
+}
 
 @each $variant in $variants {
   $i: index($variants, $variant);

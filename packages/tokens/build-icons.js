@@ -30,6 +30,6 @@ if (Object.keys(icons).length) {
 }
 
 
-Object.entries(icons).forEach(([name, value]) => {
-  console.log({ name, value });
-});
+// Object.entries(icons).forEach(([name, value]) => {
+//   console.log({ name, value });
+// });

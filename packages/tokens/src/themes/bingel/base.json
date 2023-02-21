@@ -217,6 +217,11 @@
         }
       },
       "lineHeight": {
+        "xxs": {
+          "value": 12,
+          "type": "lineHeights",
+          "description": "text.typeset.lineHeight.xs"
+        },
         "xs": {
           "value": 14,
           "type": "lineHeights",

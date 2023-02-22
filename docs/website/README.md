@@ -47,9 +47,9 @@ More information about component's files content you can find below.
 
 ### `button.json` file
 
-![image](https://user-images.githubusercontent.com/111562742/214271396-14edcc44-d487-4fb4-822b-cef63e7da0d5.png)
+![image](https://user-images.githubusercontent.com/111562742/220635927-b3f03b5f-9d4b-4085-94d7-bd49b2ffcd6d.png)
 
-`button.json` file consists of **layout** and **tags** elements. Layout should be the same for every component `"components/components.njk"` and tags should contain component name like `"button"` in this example. If there will be a component with more complex name like `button bar`, **tags** element will contain `"button-bar"` and name of the file should be the same (`button-bar.json`). Please use kebab case for complex component names.
+`button.json` file consists of **layout**, **tags** and **componentTagName** elements. Layout should be the same for every component `"components/components.njk"` and tags should contain component name like `"button"` in this example. If there will be a component with more complex name like `button bar`, **tags** element will contain `"button-bar"` and name of the file should be the same (`button-bar.json`). Please use kebab case for complex component names. The **componentTagName** should contain tag name of the component, in this case `"sl-button"`. The **componentTagName** is used for generating table with component's properties.
 
 ## Component markdown files
 

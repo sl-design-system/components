@@ -706,7 +706,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
           "type": "typography"
@@ -834,6 +834,11 @@
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        },
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
         }
       },
       "input": {
@@ -913,7 +918,7 @@
           "type": "spacing"
         },
         "lg": {
-          "value": "{space.md}",
+          "value": "{space.sm}",
           "type": "spacing"
         }
       }
@@ -1044,6 +1049,50 @@
         "lg": {
           "value": "{text.typeset.lineHeight.sm}",
           "type": "sizing"
+        }
+      },
+      "icon-container": {
+        "icon-only": {
+          "sm": {
+            "value": "{text.typeset.lineHeight.xs}",
+            "type": "sizing"
+          },
+          "md": {
+            "value": "{text.typeset.lineHeight.xs}",
+            "type": "sizing"
+          },
+          "lg": {
+            "value": "{text.typeset.lineHeight.md}",
+            "type": "sizing"
+          }
+        },
+        "height": {
+          "sm": {
+            "value": "{text.typeset.lineHeight.xs}",
+            "type": "sizing"
+          },
+          "md": {
+            "value": "{text.typeset.lineHeight.xs}",
+            "type": "sizing"
+          },
+          "lg": {
+            "value": "{text.typeset.lineHeight.md}",
+            "type": "sizing"
+          }
+        },
+        "width": {
+          "sm": {
+            "value": "{size.button.icon.sm}",
+            "type": "sizing"
+          },
+          "md": {
+            "value": "{size.button.icon.md}",
+            "type": "sizing"
+          },
+          "lg": {
+            "value": "{size.button.icon.lg}",
+            "type": "sizing"
+          }
         }
       }
     }

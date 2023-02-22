@@ -40,9 +40,7 @@
     "lint": "wireit",
     "lint:scss": "wireit",
     "lint:ts": "wireit",
-    "analyze:prod": "cem analyze --litelement --config 'custom-elements-manifest.config.js' --outdir  'dist/site/_data/custom-elements'",
-    "analyze:dev": "cem analyze --litelement --outdir  'src/site/_data/custom-elements'",
-    "analyzeTest": "wireit"
+    "analyze": "wireit"
   },
   "wireit": {
     "build:dev": {
@@ -138,6 +136,7 @@
     "build:site:dev:eleventy": {
       "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
+        "analyze",
         "./../../packages/tokens:build",
         "build:site:dev:styles",
         "build:site:dev:ts"
@@ -202,8 +201,8 @@
     "build:site:prod:eleventy": {
       "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
       "dependencies": [
+        "analyze",
         "./../../packages/tokens:build",
-        "analyze:prod",
         "build:site:prod:styles",
         "build:site:prod:ts"
       ],
@@ -213,11 +212,8 @@
         "site.eleventy.cjs"
       ]
     },
-    "analyzeTest": {
-      "command": "cem analyze --litelement",
-      "output": [
-        "src/site/_data/custom-elements"
-      ]
+    "analyze": {
+      "command": "cem analyze --litelement"
     },
     "build:teaser:prod:eleventy": {
       "command": "NODE_ENV=PROD eleventy --config=teaser.eleventy.cjs",
@@ -244,7 +240,7 @@
       ]
     },
     "start:site": {
-      "command": "yarn run serve:site --watch",
+      "command": "yarn run serve:site",
       "service": true
     },
     "start:teaser": {

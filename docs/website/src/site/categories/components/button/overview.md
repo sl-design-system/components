@@ -6,8 +6,6 @@ eleventyNavigation:
   key: ButtonOverview
 ---
 
-[//]: # (templateEngineOverride: njk,md)
-
 <section>
 
 <div class="ds-example">

@@ -3,6 +3,17 @@ import { html } from 'lit';
 import '../label/register.js';
 import './register.js';
 
+const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
+  const data = new FormData(event.target),
+    output = (event.target.nextElementSibling || document.createElement('pre')) as HTMLOutputElement;
+
+  event.preventDefault();
+  event.target.after(output);
+
+  output.textContent = '';
+  data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
+};
+
 export default {
   title: 'Checkbox',
   args: {
@@ -129,6 +140,53 @@ export const Group: StoryObj = {
       <sl-checkbox>Check me</sl-checkbox>
       <sl-checkbox>No me</sl-checkbox>
       <sl-checkbox>I was here first!</sl-checkbox>
+      <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
     </sl-checkbox-group>
   `
+};
+
+export const ValidateInForm: StoryObj = {
+  render: () => {
+    setTimeout(() => document.querySelector('form')?.reportValidity());
+
+    return html`
+      <style>
+        form {
+          align-items: start;
+          display: flex;
+          flex-direction: column;
+        }
+        sl-label {
+          margin-block-start: 0.5rem;
+        }
+        sl-label:first-of-type {
+          margin-block-start: 0;
+        }
+        sl-button-bar,
+        sl-input,
+        sl-textarea {
+          align-self: stretch;
+        }
+      </style>
+      <form @submit=${onSubmit}>
+        <sl-label for="group">Checkbox group</sl-label>
+        <sl-checkbox-group id="group" required id="options">
+          <sl-checkbox name="options" value="1">Check me</sl-checkbox>
+          <sl-checkbox name="options" value="2" checked>No me</sl-checkbox>
+          <sl-checkbox name="options" value="3">I was here first!</sl-checkbox>
+          <sl-checkbox name="options" value="4" disabled>Can't check me, even if you wanted to</sl-checkbox>
+        </sl-checkbox-group>
+        <sl-label for="conditions">Read everything?</sl-label>
+        <sl-checkbox value="read" name="conditions" required checked
+          >Yes, I have read the terms and conditions</sl-checkbox
+        >
+        <sl-label for="newletter">Newsletter</sl-label>
+        <sl-checkbox value="yes" name="newletter">Yes, subscribe me to the newsletter</sl-checkbox>
+        <sl-button-bar align="end">
+          <sl-button type="reset">Reset</sl-button>
+          <sl-button type="submit">Submit</sl-button>
+        </sl-button-bar>
+      </form>
+    `;
+  }
 };

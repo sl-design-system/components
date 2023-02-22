@@ -81,7 +81,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     }
 
     if (changes.has('checked') || changes.has('value')) {
-      this.setFormValue(this.value);
+      this.setFormValue(this.checked ? this.value : undefined);
     }
   }
 

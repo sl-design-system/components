@@ -54,6 +54,20 @@ describe('sl-checkbox-group', () => {
       expect(el.boxes?.[0].checked).to.equal(true);
       expect(el.boxes?.[1].checked).to.equal(true);
     });
+
+    it('should be valid when no option is chosen but the group is not required', async () =>{
+      el.boxes?.forEach(b=>b.blur());
+      // this doesn't work, can this even be tested here?
+      // expect(el.boxes?.[0].tabIndex).to.equal(-1);
+      // expect(el.boxes?.[1].tabIndex).to.equal(-1);
+      // expect(el.boxes?.[2].tabIndex).to.equal(-1);
+
+      await el.click();
+
+      // expect(el.boxes?.[0].tabIndex).to.equal(0);
+      // expect(el.boxes?.[1].tabIndex).to.equal(-1);
+      // expect(el.boxes?.[2].tabIndex).to.equal(-1);
+    });
   });
 
   describe('validation', () => {

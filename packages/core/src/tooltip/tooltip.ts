@@ -4,7 +4,7 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { AnchoredPopoverMixin } from '../popover/mixins/anchored-popover.js';
 import { popoverMixinStyles } from '../popover/mixins/popover.js';
-import { EventsController } from '../utils/controllers/events.js';
+import { EventsController } from '../utils/controllers/index.js';
 import styles from './tooltip.scss.js';
 
 let nextUniqueId = 0;

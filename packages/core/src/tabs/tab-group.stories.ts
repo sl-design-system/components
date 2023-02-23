@@ -56,7 +56,10 @@ export const API: StoryObj = {
       <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
 
       <sl-tab>🍰 Tab 2</sl-tab>
-      <sl-tab-panel><p>Contents tab 2</p></sl-tab-panel>
+      <sl-tab-panel>
+        <p>Contents tab 2</p>
+        <sl-avatar></sl-avatar>
+      </sl-tab-panel>
 
       <sl-tab>🍡 Tab 3</sl-tab>
       <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>

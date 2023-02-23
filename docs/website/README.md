@@ -272,18 +272,18 @@ Do and don't elements should be wrapped together with `<div class=ds-do-dont></d
 
 #### Table
 
-Table with component's properties is generated automatically and we need to add only one line to the markdown file eg. `overview.md`:
+Table with component's properties is generated automatically and we need to add only one line to the markdown file eg. in the `overview.md`:
 
 `{% include "../component-table.njk" %}`
 
-Important thing is to add componentTagName to json file as mentioned before.
+An important thing is to add `componentTagName` to json file as mentioned [before](#component-json-file).
 
 ![image](https://user-images.githubusercontent.com/111562742/220834896-4eeeae8b-1dc5-40e1-9131-b50da0312e38.png)
 
-the line with including generated tables should not be wrapped with `<section></section>`, because it's already done in the template with generating component's properties tables.
+The line with including generated tables should not be wrapped with `<section></section>`, because it's already done in the template with generating component's properties tables.
 
 
-Table in the markdown file looks as follows:
+If we want we can also add a table in the markdown file with our own content. Table in the markdown file looks as follows:
 
 ```
 | Element | Attribute              | Value                | Description                                                                                    |

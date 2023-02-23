@@ -1,0 +1,19 @@
+@import './../breakpoints';
+
+.ds-contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  justify-content: space-between;
+  margin-bottom: 3.2rem;
+
+  // TODO: add media with different direction
+  @media screen and (min-width: $md-breakpoint) {
+    flex-direction: row;
+  }
+}
+
+.ds-contact-block__get-in-touch {
+  display: flex;
+  flex-direction: column;
+}

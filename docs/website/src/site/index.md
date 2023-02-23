@@ -437,3 +437,37 @@ This latest release includes form controls.
 </div>
 
 </section>
+
+<section class="ds-contact-block">
+
+<div class="ds-contact-block__contribute">
+
+## Contribute
+
+Sanoma Learning Design System is hosted on GitHub. Submit or feature requests through our <a>issue form</a>.
+
+<button>Contribute on GitHub</button>
+
+</div>
+
+<div class="ds-contact-block__get-in-touch">
+
+## Get in touch
+
+<a class="ds-contact-block__link" href="https://sanoma.slack.com/archives/C03SA9HUUA3" target="_blank">
+icon Slack channel
+</a>
+
+<a class="ds-contact-block__link" href="https://github.com/sanomalearning/design-system/releases" target="_blank">
+icon Contact support
+</a>
+
+[//]: # (TODO: where this link should lead us to?)
+
+<a class="ds-contact-block__link" href="https://github.com/sanomalearning/design-system/issues/new/choose" target="_blank">
+icon Submit an issue
+</a>
+
+</div>
+
+</section>

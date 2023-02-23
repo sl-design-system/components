@@ -54,8 +54,16 @@ export class Radio extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div class="control"></div>
-      <slot></slot>
+      <div class="wrapper">
+        <div class="box">
+          ${this.checked
+            ? html`<svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="6"></circle>
+              </svg>`
+            : html`<svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24"></svg>`}
+        </div>
+        <slot></slot>
+      </div>
     `;
   }
 

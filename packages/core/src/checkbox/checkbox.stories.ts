@@ -170,17 +170,17 @@ export const ValidateInForm: StoryObj = {
       </style>
       <form @submit=${onSubmit}>
         <sl-label for="group">Checkbox group</sl-label>
-        <sl-checkbox-group id="group" required id="options">
-          <sl-checkbox name="options" value="1">Check me</sl-checkbox>
-          <sl-checkbox name="options" value="2" checked>No me</sl-checkbox>
-          <sl-checkbox name="options" value="3">I was here first!</sl-checkbox>
-          <sl-checkbox name="options" value="4" disabled>Can't check me, even if you wanted to</sl-checkbox>
+        <sl-checkbox-group id="group" required id="options" name="options">
+          <sl-checkbox value="1">Check me</sl-checkbox>
+          <sl-checkbox value="2" checked>No me</sl-checkbox>
+          <sl-checkbox value="3">I was here first!</sl-checkbox>
+          <sl-checkbox value="4" disabled>Can't check me, even if you wanted to</sl-checkbox>
         </sl-checkbox-group>
         <sl-label for="conditions">Read everything?</sl-label>
         <sl-checkbox value="read" name="conditions" required checked
           >Yes, I have read the terms and conditions</sl-checkbox
         >
-        <sl-label for="newletter">Newsletter</sl-label>
+        <sl-label for="newletter">Can we spam you?</sl-label>
         <sl-checkbox value="yes" name="newletter">Yes, subscribe me to the newsletter</sl-checkbox>
         <sl-button-bar align="end">
           <sl-button type="reset">Reset</sl-button>

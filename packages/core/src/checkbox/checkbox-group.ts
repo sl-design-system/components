@@ -66,6 +66,7 @@ export class CheckboxGroup extends HintMixin(ScopedElementsMixin(LitElement)) {
 
   /** Custom validators. */
   @property({ attribute: false }) validators?: Validator[];
+  @property() name?: string;
 
   get form(): HTMLFormElement | null {
     return this.internals.form;
@@ -74,7 +75,7 @@ export class CheckboxGroup extends HintMixin(ScopedElementsMixin(LitElement)) {
   override render(): TemplateResult {
     return html`
       <div class="wrapper">
-        <slot @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
+        <slot @slotchange=${this.#onSlotchange}></slot>
       </div>
       ${this.renderHint()} ${this.#validation.render()}
     `;
@@ -83,6 +84,16 @@ export class CheckboxGroup extends HintMixin(ScopedElementsMixin(LitElement)) {
   #onClick(event: Event): void {
     if (event.target === this) {
       this.#rovingTabindexController.focus();
+    }
+  }
+
+  async #onSlotchange(): Promise<void> {
+    this.#rovingTabindexController.clearElementCache();
+
+    if (typeof this.name === 'string') {
+      this.boxes?.forEach(box => {
+        box.setAttribute('name', this.name as string);
+      });
     }
   }
 }

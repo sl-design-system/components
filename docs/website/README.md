@@ -313,7 +313,9 @@ To sum up the whole **overview.md** file structure:
 
 <img alt="image" src="https://user-images.githubusercontent.com/111562742/214557186-ee7b89bf-fda3-4330-ad36-b06cce812cef.png">
 
-<img alt="image" src="https://user-images.githubusercontent.com/111562742/214558525-13d823b9-24f9-4dce-8aa6-a6a0c8e49f30.png">
+<img alt="image" src="https://user-images.githubusercontent.com/111562742/220863895-d455aef9-436a-4472-be35-83fb0eb6f5c4.png">
+
+
 
 All elements like **do** and **don't** part, **code** example, **table** etc. can be used in other component's markdown files as well.
 

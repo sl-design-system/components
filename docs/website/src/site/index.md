@@ -444,9 +444,11 @@ This latest release includes form controls.
 
 ## Contribute
 
+<div class="ds-contact-block__description">
 Sanoma Learning Design System is hosted on GitHub. Submit or feature requests through our <a>issue form</a>.
+</div>
 
-<button>Contribute on GitHub</button>
+<button>icon Contribute on GitHub</button>
 
 </div>
 

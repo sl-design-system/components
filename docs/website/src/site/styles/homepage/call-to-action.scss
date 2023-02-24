@@ -1,0 +1,307 @@
+@import './../breakpoints';
+
+$transition-timing: 200ms;
+
+.ds-call-to-action {
+  background: var(--cta-background);
+  border-radius: 1.2rem;
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: none;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  margin: 3.2rem 0;
+  overflow: hidden;
+  padding: 4rem 3.2rem;
+
+  @media screen and (min-width: $md-lg-breakpoint) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: none;
+    padding: 4rem;
+  }
+
+  @media screen and (min-width: $lg-breakpoint) {
+    grid-template-columns: none;
+    grid-template-rows: 1fr auto;
+    justify-items: center;
+    margin: 3.2rem 0;
+    padding: 4rem 3.2rem;
+  }
+
+  @media screen and (min-width: $xl-breakpoint) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: none;
+    padding: 4rem;
+  }
+
+  p:not(.ds-call-to-action__main-text):not(.ds-call-to-action__heading) {
+    color: var(--cta-link-color);
+    font-size: 2rem;
+    line-height: 2.4rem;
+    margin-bottom: 1.6rem;
+  }
+
+  svg {
+    height: 30rem;
+    overflow: visible;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    @media screen and (min-width: $md-lg-breakpoint) {
+      order: 2;
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    @media screen and (min-width: $lg-breakpoint) {
+      order: revert;
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    @media screen and (min-width: $xl-breakpoint) {
+      order: 2;
+    }
+  }
+}
+
+.ds-call-to-action__description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: left;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ds-call-to-action__eye-brow {
+    animation: scaleAnimationRotate 4s infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .ds-call-to-action__eye {
+    animation: scaleAnimationEye 5s infinite, wink 5s infinite;
+    backface-visibility: hidden;
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+
+  .ds-call-to-action__smile {
+    --element-rotate: 44deg;
+    animation: smileAnimation 3s infinite;
+    animation-delay: $transition-timing;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .ds-call-to-action__smile-left {
+    --element-rotate: -44deg;
+    animation: smileAnimation 3s infinite;
+    animation-delay: $transition-timing;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .ds-call-to-action__smile-bottom {
+    --element-transform: -5px;
+    animation: translateAnimation 3s infinite;
+    animation-delay: $transition-timing;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /**
+ * Safari workaround
+ */
+  @supports (font: -apple-system-body) and (-webkit-appearance: none) {
+    .ds-call-to-action__eye {
+      animation: wink 5s infinite;
+    }
+
+    .ds-call-to-action__smile,
+    .ds-call-to-action__smile-left {
+      --element-transform: -5px;
+      animation: translateAnimation 3s infinite;
+    }
+
+    .ds-call-to-action__smile-bottom {
+      --element-transform: -7px;
+      animation-delay: 100ms;
+    }
+
+    .ds-call-to-action__eye-brow {
+      --element-transform: -4px;
+      animation: translateAnimation 4s infinite;
+    }
+  }
+}
+
+.ds-call-to-action__main-text {
+  color: var(--cta-link-color);
+  font-family: 'The Message', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  line-height: 1;
+  margin-bottom: 1.6rem;
+}
+
+.ds-call-to-action__heading {
+  color: var(--cta-link-color);
+  font-weight: 700;
+  line-height: 3.2rem;
+  margin-bottom: 1.6rem;
+}
+
+.ds-call-to-action__link {
+  color: var(--cta-link-color);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  padding-right: 1.8rem;
+  position: relative;
+  text-decoration: none;
+  transition: color $transition-timing ease-in-out;
+  width: fit-content;
+
+  &::before {
+    background-color: var(--cta-link-color);
+    bottom: 0.2rem;
+    content: '';
+    display: block;
+    height: 0.2rem;
+    left: -5%;
+    padding-right: 1.8rem;
+    position: absolute;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    width: 100%;
+  }
+
+  &:hover::before {
+    transform: scaleX(0.9);
+  }
+
+  &:active::before {
+    background-color: var(--cta-link-color--active);
+    transform: scaleX(0.9);
+  }
+
+  &::after {
+    background-image: var(--chevron-icon);
+    background-position: top;
+    background-repeat: no-repeat;
+    content: '';
+    height: 2.4rem;
+    position: absolute;
+    right: 0;
+    top: 0.3rem;
+    transition: all $transition-timing ease-in-out;
+    width: 1rem;
+  }
+
+  &:active {
+    color: var(--cta-link-color--active);
+
+    &::after {
+      background-image: var(--chevron-icon--active);
+    }
+  }
+}
+
+@keyframes wink {
+  0% {
+    opacity: 1;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  38% {
+    opacity: 1;
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleAnimationEye {
+  30% {
+    transform: scale(1) translateY(0);
+  }
+
+  60% {
+    transform: scale(1.05) translateY(-1px);
+  }
+
+  80% {
+    transform: scale(0.6) translateY(0);
+  }
+
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes scaleAnimationRotate {
+  30% {
+    transform: scale3d(1, 1, 1) translateY(0);
+  }
+
+  60% {
+    transform: scale3d(2, 1.11, 1.11) translateY(-2px);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1) translateY(0);
+  }
+}
+
+@keyframes smileAnimation {
+  30% {
+    transform: rotate3d(1, 1, 1, 0) translateY(0);
+  }
+
+  60% {
+    transform: rotate3d(1, 4, -2, var(--element-rotate)) translateY(-4px);
+  }
+
+  100% {
+    transform: rotate3d(1, 1, 1, 0) translateY(0);
+  }
+}
+
+@keyframes translateAnimation {
+  30% {
+    transform: translateY(0);
+  }
+
+  60% {
+    transform: translateY(var(--element-transform));
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}

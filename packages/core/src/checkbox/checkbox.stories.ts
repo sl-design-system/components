@@ -22,7 +22,8 @@ export default {
     indeterminate: false,
     text: 'Toggle me',
     value: '12345',
-    size: 'md'
+    size: 'md',
+    hint: 'Something to help the user out'
   },
   argTypes: {
     size: {
@@ -33,8 +34,14 @@ export default {
 };
 
 export const API: StoryObj = {
-  render: ({ checked, disabled, indeterminate, text, value, size }) => html`
-    <sl-checkbox ?checked=${checked} ?disabled=${disabled} .indeterminate=${indeterminate} .value=${value} .size=${size}
+  render: ({ checked, disabled, indeterminate, text, value, size, hint }) => html`
+    <sl-checkbox
+      ?checked=${checked}
+      ?disabled=${disabled}
+      .indeterminate=${indeterminate}
+      .value=${value}
+      .size=${size}
+      .hint=${hint}
       >${text}</sl-checkbox
     >
   `

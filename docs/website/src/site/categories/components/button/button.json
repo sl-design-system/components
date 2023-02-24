@@ -1,4 +1,5 @@
 {
   "layout": "components/components.njk",
-  "tags": "button"
+  "tags": "button",
+  "componentTagName": "sl-button"
 }

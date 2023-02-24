@@ -25,6 +25,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   #validation = new ValidationController(this, {
     validators: [requiredValidator]
   });
+  #initialState = false;
 
   /** Element internals. */
   readonly internals = this.attachInternals();
@@ -83,6 +84,16 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     if (changes.has('checked') || changes.has('value')) {
       this.setFormValue(this.checked ? this.value : undefined);
     }
+  }
+
+  formAssociatedCallback(): void {
+    this.#initialState = this.getAttribute('checked') === null ? false : true;
+  }
+
+  formResetCallback(): void {
+    this.checked = this.#initialState;
+    this.#validation.validate(this.checked ? this.value : undefined);
+    this.change.emit(this.checked);
   }
 
   override render(): TemplateResult {

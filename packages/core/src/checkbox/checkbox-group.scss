@@ -1,5 +1,5 @@
 :host {
-  --_gap: 4px;
+  --_gap: var(--sl-space-input-gap-group, 4px);
 }
 
 :host {

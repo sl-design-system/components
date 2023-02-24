@@ -3,9 +3,10 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
+import { FormControlMixin } from '../utils/mixins/form-control.js';
 import styles from './radio.scss.js';
 
-export class Radio extends LitElement {
+export class Radio extends FormControlMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -20,9 +21,6 @@ export class Radio extends LitElement {
 
   /** Whether the radio is selected. */
   @property({ type: Boolean, reflect: true }) checked = false;
-
-  /** Wether this radio is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** The value for this radio button. */
   @property() value = '';

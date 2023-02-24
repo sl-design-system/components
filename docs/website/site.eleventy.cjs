@@ -128,10 +128,11 @@ module.exports = function(eleventyConfig) {
     return content;
   });
 
-  const manifest = fs.readFileSync(`${outputFolder}/site/_data/custom-elements/custom-elements.json`, 'utf-8');
+  const customElementsPath = './src/site/_data/custom-elements';
+  const manifest = fs.readFileSync(`${customElementsPath}/custom-elements.json`, 'utf-8');
   const markdown = customElementsManifestToMarkdown(JSON.parse(manifest));
 
-  fs.writeFileSync(`${outputFolder}/site/_data/custom-elements/custom-elements.md`, markdown);
+  fs.writeFileSync(`${customElementsPath}/custom-elements.md`, markdown);
 
   return {
     dir: {

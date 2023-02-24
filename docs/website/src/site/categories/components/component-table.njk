@@ -15,7 +15,7 @@
         <th class="ds-table__description">Description</th>
       </tr></thead>
       <tbody>
-      {% for member in declaration.members -%}{% if member.privacy %}{% else %}{% if member.kind == "field" %}<tr>
+      {% for member in declaration.members -%}{% if member.privacy == null %}{% if member.kind == "field" %}<tr>
             <td><code>{{member.name}}</code></td>
             <td>{% for type in member.type -%}
                 {% if type %}<code>{{type}}</code>{% endif %}
@@ -40,7 +40,7 @@
         <th class="ds-table__description">Description</th>
       </tr></thead>
       <tbody>
-      {% for member in declaration.members -%}{% if member.privacy %}{% else %}{% if member.kind == "method" %}<tr>
+      {% for member in declaration.members -%}{% if member.privacy == null %}{% if member.kind == "method" %}<tr>
         <td><code>{{member.name}}</code></td>
         <td>{% for parameter in member.parameters -%}
             {% if parameter %}<code>{{parameter.name}}: {{ parameter.type.text }}</code>{% endif %}

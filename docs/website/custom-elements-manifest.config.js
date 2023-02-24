@@ -8,7 +8,7 @@ export default {
   /** Directory to output CEM to */
   outdir: 'src/site/_data/custom-elements',
   /** Run in dev mode, provides extra logging */
-  dev: true,
+  dev: false,
   /** Run in watch mode, runs on file changes */
   watch: false,
   /** Include third party custom elements manifests */

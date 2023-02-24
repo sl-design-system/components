@@ -115,6 +115,191 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/button-bar/button-bar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    align: 'start',\n    reverse: false\n  },\n  argTypes: {\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end', 'space-between']\n    }\n  },\n  render: ({ align, reverse }) => html`\n    <sl-button-bar .align=${align} .reverse=${reverse}>\n      <sl-button>Foo</sl-button>\n      <sl-button>Bar</sl-button>\n      <sl-button>Baz</sl-button>\n    </sl-button-bar>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
+          "name": "ButtonBar",
+          "slots": [
+            {
+              "description": "Buttons to be grouped in the bar",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "start | center | end | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconOnly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the bar only contains icon-only buttons.",
+              "attribute": "icon-only",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set, the button order is reversed.",
+              "attribute": "reverse",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "start | center | end | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "fieldName": "align"
+            },
+            {
+              "name": "icon-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the bar only contains icon-only buttons.",
+              "fieldName": "iconOnly"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set, the button order is reversed.",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button-bar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ButtonBar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "../../packages/core/src/button-bar/button-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button-bar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "/packages/core/src/button-bar/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/avatar/avatar.scss.ts",
       "declarations": [],
       "exports": [
@@ -603,191 +788,6 @@
           "declaration": {
             "name": "Button",
             "module": "/packages/core/src/button/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/button-bar/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    align: 'start',\n    reverse: false\n  },\n  argTypes: {\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end', 'space-between']\n    }\n  },\n  render: ({ align, reverse }) => html`\n    <sl-button-bar .align=${align} .reverse=${reverse}>\n      <sl-button>Foo</sl-button>\n      <sl-button>Bar</sl-button>\n      <sl-button>Baz</sl-button>\n    </sl-button-bar>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
-          "name": "ButtonBar",
-          "slots": [
-            {
-              "description": "Buttons to be grouped in the bar",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "start | center | end | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "attribute": "align",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "iconOnly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "attribute": "icon-only",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "If set, the button order is reversed.",
-              "attribute": "reverse",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "align",
-              "type": {
-                "text": "start | center | end | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "fieldName": "align"
-            },
-            {
-              "name": "icon-only",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "fieldName": "iconOnly"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "If set, the button order is reversed.",
-              "fieldName": "reverse"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button-bar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ButtonBar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "../../packages/core/src/button-bar/button-bar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./button-bar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button-bar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "/packages/core/src/button-bar/button-bar.js"
           }
         }
       ]
@@ -2274,6 +2274,197 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/icon/icon.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`<sl-icon name=\"star\"></sl-icon>`\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/icon/icon.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/icon/icon.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Icon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "resolver",
+              "type": {
+                "text": "IconResolver"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "registerIcon",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "icon",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "registerResolver",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolver",
+                  "type": {
+                    "text": "IconResolver"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon to show.",
+              "attribute": "name"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon to show.",
+              "fieldName": "name"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-icon",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Icon",
+          "declaration": {
+            "name": "Icon",
+            "module": "../../packages/core/src/icon/icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./icon.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-icon",
+          "declaration": {
+            "name": "Icon",
+            "module": "/packages/core/src/icon/icon.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/input/index.ts",
       "declarations": [],
       "exports": [
@@ -3085,197 +3276,6 @@
           "declaration": {
             "name": "Input",
             "module": "/packages/core/src/input/input.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/icon.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/icon/icon.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/icon.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`<sl-icon name=\"star\"></sl-icon>`\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/icon/icon.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/icon/icon.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/icon.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Icon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "resolver",
-              "type": {
-                "text": "IconResolver"
-              },
-              "static": true,
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "registerIcon",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "icon",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "registerResolver",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "resolver",
-                  "type": {
-                    "text": "IconResolver"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
-              "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the icon to show.",
-              "attribute": "name"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
-              "fieldName": "label"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the icon to show.",
-              "fieldName": "name"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-icon",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Icon",
-          "declaration": {
-            "name": "Icon",
-            "module": "../../packages/core/src/icon/icon.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./icon.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-icon",
-          "declaration": {
-            "name": "Icon",
-            "module": "/packages/core/src/icon/icon.js"
           }
         }
       ]
@@ -4158,877 +4158,6 @@
       "path": "../../packages/core/src/popover/types.ts",
       "declarations": [],
       "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/radio-group/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./radio.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./radio-group.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/radio-group/radio-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/radio-group/radio-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/radio-group/radio-group.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    disabled: false,\n    horizontal: false\n  },\n  argTypes: {\n    value: {\n      control: 'inline-radio',\n      options: ['1', '2', '3']\n    }\n  },\n  render: ({ disabled, horizontal, value }) => html`\n    <sl-radio-group ?disabled=${disabled} ?horizontal=${horizontal} .value=${value}>\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio value=\"2\">Two</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Disabled",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <sl-radio-group>\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio disabled value=\"2\">Two (disabled)</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n      <sl-radio disabled value=\"4\">Four (disabled)</sl-radio>\n    </sl-radio-group>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Horizontal",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <sl-radio-group horizontal>\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio value=\"2\">Two</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Selected",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <sl-radio-group value=\"2\">\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio value=\"2\">Two</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Label",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"radio-group\">How many pets do you have?</sl-label>\n      <sl-radio-group id=\"radio-group\">\n        <sl-radio value=\"0\">None</sl-radio>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n      </sl-radio-group>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Hint",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"radio-group\">How many pets do you have?</sl-label>\n      <sl-radio-group id=\"radio-group\" hint=\"Fish count as well.\">\n        <sl-radio value=\"0\">None</sl-radio>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n      </sl-radio-group>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "RichLabelHint",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"radio-group\">\n        <label slot=\"label\">Custom <i>label</i></label>\n      </sl-label>\n      <sl-radio-group id=\"radio-group\">\n        <sl-radio value=\"0\">None</sl-radio>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n        <div slot=\"hint\">\n          Hint is an accessible way to provide <strong>additional information</strong> that might help the user\n        </div>\n      </sl-radio-group>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Required",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as RadioGroup)?.reportValidity();\n    };\n\n    return html`\n      <sl-radio-group required>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n      </sl-radio-group>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "CustomValidation",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as RadioGroup)?.reportValidity();\n    };\n\n    return html`\n      <sl-radio-group required>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n        <div slot=\"value-missing\">This is the custom value-missing message (for the required attribute).</div>\n      </sl-radio-group>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Disabled",
-          "declaration": {
-            "name": "Disabled",
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Horizontal",
-          "declaration": {
-            "name": "Horizontal",
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Selected",
-          "declaration": {
-            "name": "Selected",
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Label",
-          "declaration": {
-            "name": "Label",
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Hint",
-          "declaration": {
-            "name": "Hint",
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RichLabelHint",
-          "declaration": {
-            "name": "RichLabelHint",
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Required",
-          "declaration": {
-            "name": "Required",
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CustomValidation",
-          "declaration": {
-            "name": "CustomValidation",
-            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/radio-group/radio-group.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RadioGroup",
-          "members": [
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#events",
-              "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick,\n    focusout: this.#onFocusout\n  })",
-              "description": "Events controller."
-            },
-            {
-              "kind": "field",
-              "name": "#mutation",
-              "privacy": "private",
-              "default": "new MutationController(this, {\n    callback: mutations => {\n      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n      if (target instanceof Radio && target.value) {\n        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));\n        this.value = target.value;\n      }\n    },\n    config: {\n      attributeFilter: ['checked'],\n      attributeOldValue: true,\n      subtree: true\n    }\n  })",
-              "description": "Observe the state of the radios."
-            },
-            {
-              "kind": "field",
-              "name": "#rovingTabindexController",
-              "privacy": "private",
-              "default": "new RovingTabindexController<Radio>(this, {\n    focusInIndex: (elements: Radio[]) => {\n      return elements.findIndex(el => {\n        return this.value ? !el.disabled && el.value === this.value : !el.disabled;\n      });\n    },\n    elementEnterAction: (el: Radio) => {\n      this.value = el.value;\n    },\n    elements: () => this.buttons,\n    isFocusableElement: (el: Radio) => !el.disabled\n  })",
-              "description": "Manage the keyboard navigation."
-            },
-            {
-              "kind": "field",
-              "name": "#validation",
-              "privacy": "private",
-              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
-              "name": "defaultNodes",
-              "type": {
-                "text": "Node[] | undefined"
-              },
-              "description": "The assigned nodes."
-            },
-            {
-              "kind": "field",
-              "name": "horizontal",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "If true, displays the radio buttons next to each other instead of below.",
-              "attribute": "horizontal",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for this group.",
-              "attribute": "value"
-            },
-            {
-              "kind": "field",
-              "name": "buttons",
-              "type": {
-                "text": "Radio[]"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onFocusout",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "FocusEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "#cachedValue",
-              "privacy": "private",
-              "type": {
-                "text": "FormControlValue | undefined"
-              },
-              "description": "The cached value for the form control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#formControlElement",
-              "privacy": "private",
-              "type": {
-                "text": "FormControlElement | undefined"
-              },
-              "description": "The actual element that integrates with the form; either\na Form Associated Custom Element, or an `<input>` or `<textarea>`.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "No interaction is possible with this control when disabled.",
-              "attribute": "disabled",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "attribute": "required",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "formControlElement",
-              "type": {
-                "text": "FormControlElement"
-              },
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "NodeListOf<HTMLLabelElement> | null"
-              },
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "updated",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "changes",
-                  "type": {
-                    "text": "PropertyValues<this>"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../../packages/core/src/utils/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../../packages/core/src/utils/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "renderHint",
-              "return": {
-                "type": {
-                  "text": "TemplateResult"
-                }
-              },
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../../packages/core/src/utils/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#updateHint",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../../packages/core/src/utils/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#removeHint",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../../packages/core/src/utils/mixins/hint.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "horizontal",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "If true, displays the radio buttons next to each other instead of below.",
-              "fieldName": "horizontal"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for this group.",
-              "fieldName": "value"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "No interaction is possible with this control when disabled.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "fieldName": "required",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../../packages/core/src/utils/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../../packages/core/src/utils/mixins/hint.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "FormControlMixin",
-              "module": "/packages/core/src/utils/mixins/index.js"
-            },
-            {
-              "name": "HintMixin",
-              "module": "/packages/core/src/utils/mixins/index.js"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-radio-group",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "../../packages/core/src/radio-group/radio-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/radio-group/radio.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/radio-group/radio.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/radio-group/radio.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Radio",
-          "members": [
-            {
-              "kind": "field",
-              "name": "#events",
-              "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })",
-              "description": "Events controller."
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
-              "name": "checked",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the radio is selected.",
-              "attribute": "checked",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Wether this radio is disabled.",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "The value for this radio button.",
-              "attribute": "value"
-            },
-            {
-              "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onKeydown",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "checked",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the radio is selected.",
-              "fieldName": "checked"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Wether this radio is disabled.",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "The value for this radio button.",
-              "fieldName": "value"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-radio",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Radio",
-          "declaration": {
-            "name": "Radio",
-            "module": "../../packages/core/src/radio-group/radio.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/radio-group/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-radio",
-          "declaration": {
-            "name": "Radio",
-            "module": "/packages/core/src/radio-group/radio.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-radio-group",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "/packages/core/src/radio-group/radio-group.js"
-          }
-        }
-      ]
     },
     {
       "kind": "javascript-module",
@@ -6482,6 +5611,877 @@
           "declaration": {
             "name": "Select",
             "module": "../../packages/core/src/select/select.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/radio-group/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./radio.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./radio-group.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/radio-group/radio-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/radio-group/radio-group.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/radio-group/radio-group.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    disabled: false,\n    horizontal: false\n  },\n  argTypes: {\n    value: {\n      control: 'inline-radio',\n      options: ['1', '2', '3']\n    }\n  },\n  render: ({ disabled, horizontal, value }) => html`\n    <sl-radio-group ?disabled=${disabled} ?horizontal=${horizontal} .value=${value}>\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio value=\"2\">Two</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Disabled",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-radio-group>\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio disabled value=\"2\">Two (disabled)</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n      <sl-radio disabled value=\"4\">Four (disabled)</sl-radio>\n    </sl-radio-group>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Horizontal",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-radio-group horizontal>\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio value=\"2\">Two</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Selected",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-radio-group value=\"2\">\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio value=\"2\">Two</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Label",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"radio-group\">How many pets do you have?</sl-label>\n      <sl-radio-group id=\"radio-group\">\n        <sl-radio value=\"0\">None</sl-radio>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n      </sl-radio-group>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Hint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"radio-group\">How many pets do you have?</sl-label>\n      <sl-radio-group id=\"radio-group\" hint=\"Fish count as well.\">\n        <sl-radio value=\"0\">None</sl-radio>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n      </sl-radio-group>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "RichLabelHint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"radio-group\">\n        <label slot=\"label\">Custom <i>label</i></label>\n      </sl-label>\n      <sl-radio-group id=\"radio-group\">\n        <sl-radio value=\"0\">None</sl-radio>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n        <div slot=\"hint\">\n          Hint is an accessible way to provide <strong>additional information</strong> that might help the user\n        </div>\n      </sl-radio-group>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Required",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as RadioGroup)?.reportValidity();\n    };\n\n    return html`\n      <sl-radio-group required>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n      </sl-radio-group>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomValidation",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as RadioGroup)?.reportValidity();\n    };\n\n    return html`\n      <sl-radio-group required>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n        <div slot=\"value-missing\">This is the custom value-missing message (for the required attribute).</div>\n      </sl-radio-group>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Disabled",
+          "declaration": {
+            "name": "Disabled",
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Horizontal",
+          "declaration": {
+            "name": "Horizontal",
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Selected",
+          "declaration": {
+            "name": "Selected",
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Hint",
+          "declaration": {
+            "name": "Hint",
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RichLabelHint",
+          "declaration": {
+            "name": "RichLabelHint",
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Required",
+          "declaration": {
+            "name": "Required",
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomValidation",
+          "declaration": {
+            "name": "CustomValidation",
+            "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/radio-group/radio-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "RadioGroup",
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    focusout: this.#onFocusout\n  })",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "#mutation",
+              "privacy": "private",
+              "default": "new MutationController(this, {\n    callback: mutations => {\n      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n      if (target instanceof Radio && target.value) {\n        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));\n        this.value = target.value;\n      }\n    },\n    config: {\n      attributeFilter: ['checked'],\n      attributeOldValue: true,\n      subtree: true\n    }\n  })",
+              "description": "Observe the state of the radios."
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<Radio>(this, {\n    focusInIndex: (elements: Radio[]) => {\n      return elements.findIndex(el => {\n        return this.value ? !el.disabled && el.value === this.value : !el.disabled;\n      });\n    },\n    elementEnterAction: (el: Radio) => {\n      this.value = el.value;\n    },\n    elements: () => this.buttons,\n    isFocusableElement: (el: Radio) => !el.disabled\n  })",
+              "description": "Manage the keyboard navigation."
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "description": "Element internals."
+            },
+            {
+              "kind": "field",
+              "name": "defaultNodes",
+              "type": {
+                "text": "Node[] | undefined"
+              },
+              "description": "The assigned nodes."
+            },
+            {
+              "kind": "field",
+              "name": "horizontal",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "If true, displays the radio buttons next to each other instead of below.",
+              "attribute": "horizontal",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for this group.",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "buttons",
+              "type": {
+                "text": "Radio[]"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusout",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "FocusEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#cachedValue",
+              "privacy": "private",
+              "type": {
+                "text": "FormControlValue | undefined"
+              },
+              "description": "The cached value for the form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#formControlElement",
+              "privacy": "private",
+              "type": {
+                "text": "FormControlElement | undefined"
+              },
+              "description": "The actual element that integrates with the form; either\na Form Associated Custom Element, or an `<input>` or `<textarea>`.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "No interaction is possible with this control when disabled.",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "formControlElement",
+              "type": {
+                "text": "FormControlElement"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "NodeListOf<HTMLLabelElement> | null"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changes",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormControlElement",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "FormControlElement"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "attribute": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHint",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#updateHint",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#removeHint",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "horizontal",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "If true, displays the radio buttons next to each other instead of below.",
+              "fieldName": "horizontal"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for this group.",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "No interaction is possible with this control when disabled.",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "fieldName": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "module": "/packages/core/src/utils/mixins/index.js"
+            },
+            {
+              "name": "HintMixin",
+              "module": "/packages/core/src/utils/mixins/index.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-radio-group",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioGroup",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "../../packages/core/src/radio-group/radio-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/radio-group/radio.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/radio-group/radio.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/radio-group/radio.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Radio",
+          "members": [
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "description": "Element internals."
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the radio is selected.",
+              "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Wether this radio is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The value for this radio button.",
+              "attribute": "value"
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the radio is selected.",
+              "fieldName": "checked"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Wether this radio is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The value for this radio button.",
+              "fieldName": "value"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-radio",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Radio",
+          "declaration": {
+            "name": "Radio",
+            "module": "../../packages/core/src/radio-group/radio.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/radio-group/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-radio",
+          "declaration": {
+            "name": "Radio",
+            "module": "/packages/core/src/radio-group/radio.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-radio-group",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "/packages/core/src/radio-group/radio-group.js"
           }
         }
       ]
@@ -9634,6 +9634,200 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/base.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "decorateProperty",
+          "parameters": [
+            {
+              "name": "{\n    finisher,\n    descriptor\n  }",
+              "type": {
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+              }
+            },
+            {
+              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
+              "name": "finisher",
+              "type": {
+                "text": "function"
+              }
+            },
+            {
+              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
+              "name": "descriptor",
+              "type": {
+                "text": "function"
+              }
+            }
+          ],
+          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
+          "return": {
+            "type": {
+              "text": "ClassElement|void"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "decorateProperty",
+          "declaration": {
+            "name": "decorateProperty",
+            "module": "../../packages/core/src/utils/decorators/base.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EventEmitter",
+          "members": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "event",
+          "type": {
+            "text": "Event"
+          }
+        },
+        {
+          "kind": "function",
+          "name": "event",
+          "return": {
+            "type": {
+              "text": "any"
+            }
+          },
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": {
+                "text": "EventOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EventEmitter",
+          "declaration": {
+            "name": "EventEmitter",
+            "module": "../../packages/core/src/utils/decorators/event.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "event",
+          "declaration": {
+            "name": "event",
+            "module": "../../packages/core/src/utils/decorators/event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./base.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./observe.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/observe.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "observe",
+          "parameters": [
+            {
+              "name": "propertyName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "lifecycle",
+              "default": "'update'",
+              "type": {
+                "text": "ObserveLifecycle"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "observe",
+          "declaration": {
+            "name": "observe",
+            "module": "../../packages/core/src/utils/decorators/observe.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/utils/data-source/array-data-source.ts",
       "declarations": [
         {
@@ -9870,200 +10064,6 @@
           "declaration": {
             "name": "*",
             "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/base.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "decorateProperty",
-          "parameters": [
-            {
-              "name": "{\n    finisher,\n    descriptor\n  }",
-              "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
-              }
-            },
-            {
-              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
-              "name": "finisher",
-              "type": {
-                "text": "function"
-              }
-            },
-            {
-              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
-              "name": "descriptor",
-              "type": {
-                "text": "function"
-              }
-            }
-          ],
-          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
-          "return": {
-            "type": {
-              "text": "ClassElement|void"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "decorateProperty",
-          "declaration": {
-            "name": "decorateProperty",
-            "module": "../../packages/core/src/utils/decorators/base.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EventEmitter",
-          "members": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "event",
-          "type": {
-            "text": "Event"
-          }
-        },
-        {
-          "kind": "function",
-          "name": "event",
-          "return": {
-            "type": {
-              "text": "any"
-            }
-          },
-          "parameters": [
-            {
-              "name": "options",
-              "optional": true,
-              "type": {
-                "text": "EventOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EventEmitter",
-          "declaration": {
-            "name": "EventEmitter",
-            "module": "../../packages/core/src/utils/decorators/event.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "event",
-          "declaration": {
-            "name": "event",
-            "module": "../../packages/core/src/utils/decorators/event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./base.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/observe.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "observe",
-          "parameters": [
-            {
-              "name": "propertyName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "lifecycle",
-              "default": "'update'",
-              "type": {
-                "text": "ObserveLifecycle"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "observe",
-          "declaration": {
-            "name": "observe",
-            "module": "../../packages/core/src/utils/decorators/observe.ts"
           }
         }
       ]

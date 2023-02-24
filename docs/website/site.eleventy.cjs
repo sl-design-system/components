@@ -139,5 +139,6 @@ module.exports = function(eleventyConfig) {
       output: `${outputFolder}/site`,
     },
     passthroughFileCopy: true,
+    templateFormats: ["html", "njk", "md", "11ty.js"],
   };
 };

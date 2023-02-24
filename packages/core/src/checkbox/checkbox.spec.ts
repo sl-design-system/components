@@ -96,7 +96,6 @@ describe('sl-checkbox', () => {
     });
 
     it('should change the state to unchecked when clicked', async () => {
-      
       el.click();
 
       expect(el.checked).to.equal(false);
@@ -110,6 +109,29 @@ describe('sl-checkbox', () => {
 
     it('should not be indeterminate by default', () => {
       expect(el.indeterminate).to.equal(true);
+    });
+  });
+
+  describe('form integration', () => {
+    let form: HTMLFormElement;
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+            <sl-checkbox checked>Hello world</sl-checkbox>
+        </form>
+      `);
+
+      el = form.firstElementChild as Checkbox;
+    });
+
+    it('should change the state to unchecked when clicked', () => {
+      el.click();
+
+      expect(el.checked).to.equal(false);
+      
+      el.formResetCallback();
+      
+      expect(el.checked).to.equal(true);
     });
   });
 });

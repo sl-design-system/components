@@ -85,6 +85,7 @@
   --card-color--active: var(--ds-color-mariner);
   --chevron-icon: url('../assets/icons/chevron-right.svg');
   --chevron-icon--active: url('../assets/icons/chevron-right-darker.svg');
+  --contact-block-background: var(--ds-color-selago-blue);
   --close-icon: url('../assets/icons/close.svg');
   --code-border: var(--ds-color-bright-grey);
   --copy-icon: url('../assets/icons/copy.svg');
@@ -145,6 +146,7 @@
     --card-color--active: var(--ds-color-baby-blue);
     --chevron-icon: url('../assets/icons/chevron-right-dark.svg');
     --chevron-icon--active: url('../assets/icons/chevron-right-dark-lighter.svg');
+    --contact-block-background: rgba(var(--ds-color-blue-rgb), 0.2);
     --close-icon: url('../assets/icons/close-light.svg');
     --code-border: var(--ds-color-blck-olive);
     --copy-icon: url('../assets/icons/copy-light.svg');

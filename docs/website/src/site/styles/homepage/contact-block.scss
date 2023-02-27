@@ -1,11 +1,14 @@
 @import './../breakpoints';
 
 .ds-contact-block {
+  // margin-bottom: 3.2rem;
+  background-color: var(--contact-block-background); //var(--ds-color-selago-blue);
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 4rem;
   justify-content: space-between;
-  margin-bottom: 3.2rem;
+  margin: 0 -2.4rem 3.2rem;
+  padding: 4.8rem 2.4rem;
 
   // TODO: add media with different direction
   @media screen and (min-width: $md-breakpoint) {
@@ -18,7 +21,31 @@
   margin: 0.8rem 0;
 }
 
+.ds-contact-block__description-link {
+  color: var(--highlight-color);
+}
+
+.ds-contact-block__button {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--ds-color-blue);
+  border-radius: 0.4rem;
+  color: var(--heading-color);
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  padding: 0.8rem 1.2rem;
+  transition: background-color 200ms linear;
+
+  &:hover {
+    background-color: var(--card-color--active);
+  }
+}
+
 .ds-contact-block__get-in-touch {
   display: flex;
   flex-direction: column;
+}
+
+.ds-contact-block__link {
+  color: var(--ds-color-blue);
+  margin-top: 0.8rem;
 }

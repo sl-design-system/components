@@ -706,7 +706,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
           "type": "typography"
@@ -793,12 +793,12 @@
         "description": "borderRadius.button"
       },
       "md": {
-        "value": "{border.radius.2xs}",
+        "value": "{border.radius.3xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "lg": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.3xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
@@ -918,7 +918,7 @@
           "type": "spacing"
         },
         "lg": {
-          "value": "{space.sm}",
+          "value": "{space.md}",
           "type": "spacing"
         }
       }

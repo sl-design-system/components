@@ -1,0 +1,11 @@
+.ds-supported-brands {
+  margin: 6.4rem 0;
+}
+
+.ds-supported-brands__logos {
+  column-gap: 21px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 1.6rem;
+  row-gap: 24px; // TODO: rem and final values
+}

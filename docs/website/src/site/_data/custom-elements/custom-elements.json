@@ -271,6 +271,529 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/button/button.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/button/button.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button/button.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button/button.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    text: 'Button'\n  },\n  render: ({ fill, size, text, variant }) => html`\n    <sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      .grid {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;\n        justify-items: center;\n      }\n    </style>\n    <div class=\"grid\">\n      <sl-button fill=\"default\" size=\"sm\">Default</sl-button>\n      <sl-button fill=\"default\" size=\"sm\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"default\" size=\"sm\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"default\" size=\"sm\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"default\" size=\"sm\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"default\" size=\"sm\">Default</sl-button>\n      <sl-button disabled fill=\"default\" size=\"sm\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"default\" size=\"sm\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"default\" size=\"sm\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"default\" size=\"sm\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"outline\" size=\"sm\">Default</sl-button>\n      <sl-button fill=\"outline\" size=\"sm\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"outline\" size=\"sm\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"outline\" size=\"sm\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"outline\" size=\"sm\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"outline\" size=\"sm\">Default</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"sm\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"sm\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"sm\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"sm\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"default\" size=\"md\">Default</sl-button>\n      <sl-button fill=\"default\" size=\"md\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"default\" size=\"md\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"default\" size=\"md\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"default\" size=\"md\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"default\" size=\"md\">Default</sl-button>\n      <sl-button disabled fill=\"default\" size=\"md\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"default\" size=\"md\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"default\" size=\"md\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"default\" size=\"md\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"outline\" size=\"md\">Default</sl-button>\n      <sl-button fill=\"outline\" size=\"md\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"outline\" size=\"md\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"outline\" size=\"md\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"outline\" size=\"md\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"outline\" size=\"md\">Default</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"md\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"md\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"md\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"md\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"default\" size=\"lg\">Default</sl-button>\n      <sl-button fill=\"default\" size=\"lg\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"default\" size=\"lg\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"default\" size=\"lg\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"default\" size=\"lg\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"default\" size=\"lg\">Default</sl-button>\n      <sl-button disabled fill=\"default\" size=\"lg\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"default\" size=\"lg\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"default\" size=\"lg\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"default\" size=\"lg\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"outline\" size=\"lg\">Default</sl-button>\n      <sl-button fill=\"outline\" size=\"lg\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"outline\" size=\"lg\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"outline\" size=\"lg\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"outline\" size=\"lg\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"outline\" size=\"lg\">Default</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"lg\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"lg\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"lg\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"lg\" variant=\"danger\">Danger</sl-button>\n    </div>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Fills",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  argTypes: {\n    fill: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: ({ size, variant }) => html`\n    <sl-button-bar>\n      <sl-button fill=\"default\" .size=${size} .variant=${variant}>Default</sl-button>\n      <sl-button fill=\"outline\" .size=${size} .variant=${variant}>Outline</sl-button>\n    </sl-button-bar>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Sizes",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  argTypes: {\n    size: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: ({ fill, variant }) => html`\n    <sl-button-bar>\n      <sl-button .fill=${fill} size=\"sm\" .variant=${variant}>Small</sl-button>\n      <sl-button .fill=${fill} size=\"md\" .variant=${variant}>Medium</sl-button>\n      <sl-button .fill=${fill} size=\"lg\" .variant=${variant}>Large</sl-button>\n    </sl-button-bar>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Variants",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  argTypes: {\n    variant: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: ({ fill, size }) => html`\n    <style>\n      .grid {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: 1fr 1fr;\n        justify-items: center;\n      }\n    </style>\n    <div class=\"grid\">\n      <sl-button .fill=${fill} .size=${size}>Default</sl-button>\n      <sl-button .fill=${fill} .size=${size} disabled>Disabled</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"primary\">Primary</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"primary\" disabled>Disabled</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"success\">Success</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"success\" disabled>Disabled</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"warning\">Warning</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"warning\" disabled>Disabled</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"danger\">Danger</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"danger\" disabled>Disabled</sl-button>\n    </div>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/button/button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/button/button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "../../packages/core/src/button/button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Fills",
+          "declaration": {
+            "name": "Fills",
+            "module": "../../packages/core/src/button/button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Sizes",
+          "declaration": {
+            "name": "Sizes",
+            "module": "../../packages/core/src/button/button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Variants",
+          "declaration": {
+            "name": "Variants",
+            "module": "../../packages/core/src/button/button.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Button",
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)",
+              "description": "Event controller."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "description": "Element internals."
+            },
+            {
+              "kind": "field",
+              "name": "originalTabIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0",
+              "description": "The original tabIndex before disabled."
+            },
+            {
+              "kind": "field",
+              "name": "fill",
+              "type": {
+                "text": "ButtonFill"
+              },
+              "default": "'default'",
+              "description": "The button fill.",
+              "attribute": "fill",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "description": "Button size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "button | reset | submit"
+              },
+              "default": "'button'",
+              "description": "The button type. Defaults to `button`, but can be set to `submit` when used in a form.",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'default'",
+              "description": "The button variant. If no variant is specified, it uses the default button style.",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "fill",
+              "type": {
+                "text": "ButtonFill"
+              },
+              "default": "'default'",
+              "description": "The button fill.",
+              "fieldName": "fill"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "description": "Button size.",
+              "fieldName": "size"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "button | reset | submit"
+              },
+              "default": "'button'",
+              "description": "The button type. Defaults to `button`, but can be set to `submit` when used in a form.",
+              "fieldName": "type"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'default'",
+              "description": "The button variant. If no variant is specified, it uses the default button style.",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Button",
+          "declaration": {
+            "name": "Button",
+            "module": "../../packages/core/src/button/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button",
+          "declaration": {
+            "name": "Button",
+            "module": "/packages/core/src/button/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/button-bar/button-bar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    align: 'start',\n    reverse: false\n  },\n  argTypes: {\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end', 'space-between']\n    }\n  },\n  render: ({ align, reverse }) => html`\n    <sl-button-bar .align=${align} .reverse=${reverse}>\n      <sl-button>Foo</sl-button>\n      <sl-button>Bar</sl-button>\n      <sl-button>Baz</sl-button>\n    </sl-button-bar>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
+          "name": "ButtonBar",
+          "slots": [
+            {
+              "description": "Buttons to be grouped in the bar",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "start | center | end | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconOnly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the bar only contains icon-only buttons.",
+              "attribute": "icon-only",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set, the button order is reversed.",
+              "attribute": "reverse",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "start | center | end | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "fieldName": "align"
+            },
+            {
+              "name": "icon-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the bar only contains icon-only buttons.",
+              "fieldName": "iconOnly"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set, the button order is reversed.",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button-bar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ButtonBar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "../../packages/core/src/button-bar/button-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button-bar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "/packages/core/src/button-bar/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/checkbox/checkbox-group.scss.ts",
       "declarations": [],
       "exports": [
@@ -1165,529 +1688,6 @@
           "declaration": {
             "name": "CheckboxGroup",
             "module": "/packages/core/src/checkbox/checkbox-group.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button/button.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/button/button.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button/button.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button/button.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    text: 'Button'\n  },\n  render: ({ fill, size, text, variant }) => html`\n    <sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "All",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      .grid {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;\n        justify-items: center;\n      }\n    </style>\n    <div class=\"grid\">\n      <sl-button fill=\"default\" size=\"sm\">Default</sl-button>\n      <sl-button fill=\"default\" size=\"sm\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"default\" size=\"sm\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"default\" size=\"sm\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"default\" size=\"sm\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"default\" size=\"sm\">Default</sl-button>\n      <sl-button disabled fill=\"default\" size=\"sm\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"default\" size=\"sm\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"default\" size=\"sm\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"default\" size=\"sm\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"outline\" size=\"sm\">Default</sl-button>\n      <sl-button fill=\"outline\" size=\"sm\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"outline\" size=\"sm\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"outline\" size=\"sm\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"outline\" size=\"sm\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"outline\" size=\"sm\">Default</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"sm\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"sm\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"sm\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"sm\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"default\" size=\"md\">Default</sl-button>\n      <sl-button fill=\"default\" size=\"md\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"default\" size=\"md\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"default\" size=\"md\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"default\" size=\"md\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"default\" size=\"md\">Default</sl-button>\n      <sl-button disabled fill=\"default\" size=\"md\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"default\" size=\"md\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"default\" size=\"md\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"default\" size=\"md\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"outline\" size=\"md\">Default</sl-button>\n      <sl-button fill=\"outline\" size=\"md\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"outline\" size=\"md\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"outline\" size=\"md\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"outline\" size=\"md\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"outline\" size=\"md\">Default</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"md\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"md\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"md\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"md\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"default\" size=\"lg\">Default</sl-button>\n      <sl-button fill=\"default\" size=\"lg\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"default\" size=\"lg\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"default\" size=\"lg\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"default\" size=\"lg\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"default\" size=\"lg\">Default</sl-button>\n      <sl-button disabled fill=\"default\" size=\"lg\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"default\" size=\"lg\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"default\" size=\"lg\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"default\" size=\"lg\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button fill=\"outline\" size=\"lg\">Default</sl-button>\n      <sl-button fill=\"outline\" size=\"lg\" variant=\"primary\">Primary</sl-button>\n      <sl-button fill=\"outline\" size=\"lg\" variant=\"success\">Success</sl-button>\n      <sl-button fill=\"outline\" size=\"lg\" variant=\"warning\">Warning</sl-button>\n      <sl-button fill=\"outline\" size=\"lg\" variant=\"danger\">Danger</sl-button>\n\n      <sl-button disabled fill=\"outline\" size=\"lg\">Default</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"lg\" variant=\"primary\">Primary</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"lg\" variant=\"success\">Success</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"lg\" variant=\"warning\">Warning</sl-button>\n      <sl-button disabled fill=\"outline\" size=\"lg\" variant=\"danger\">Danger</sl-button>\n    </div>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Fills",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  argTypes: {\n    fill: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: ({ size, variant }) => html`\n    <sl-button-bar>\n      <sl-button fill=\"default\" .size=${size} .variant=${variant}>Default</sl-button>\n      <sl-button fill=\"outline\" .size=${size} .variant=${variant}>Outline</sl-button>\n    </sl-button-bar>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Sizes",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  argTypes: {\n    size: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: ({ fill, variant }) => html`\n    <sl-button-bar>\n      <sl-button .fill=${fill} size=\"sm\" .variant=${variant}>Small</sl-button>\n      <sl-button .fill=${fill} size=\"md\" .variant=${variant}>Medium</sl-button>\n      <sl-button .fill=${fill} size=\"lg\" .variant=${variant}>Large</sl-button>\n    </sl-button-bar>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Variants",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  argTypes: {\n    variant: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: ({ fill, size }) => html`\n    <style>\n      .grid {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: 1fr 1fr;\n        justify-items: center;\n      }\n    </style>\n    <div class=\"grid\">\n      <sl-button .fill=${fill} .size=${size}>Default</sl-button>\n      <sl-button .fill=${fill} .size=${size} disabled>Disabled</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"primary\">Primary</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"primary\" disabled>Disabled</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"success\">Success</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"success\" disabled>Disabled</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"warning\">Warning</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"warning\" disabled>Disabled</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"danger\">Danger</sl-button>\n      <sl-button .fill=${fill} .size=${size} variant=\"danger\" disabled>Disabled</sl-button>\n    </div>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/button/button.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/button/button.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "All",
-          "declaration": {
-            "name": "All",
-            "module": "../../packages/core/src/button/button.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Fills",
-          "declaration": {
-            "name": "Fills",
-            "module": "../../packages/core/src/button/button.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Sizes",
-          "declaration": {
-            "name": "Sizes",
-            "module": "../../packages/core/src/button/button.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Variants",
-          "declaration": {
-            "name": "Variants",
-            "module": "../../packages/core/src/button/button.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button/button.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Button",
-          "members": [
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#events",
-              "privacy": "private",
-              "default": "new EventsController(this)",
-              "description": "Event controller."
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
-              "name": "originalTabIndex",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0",
-              "description": "The original tabIndex before disabled."
-            },
-            {
-              "kind": "field",
-              "name": "fill",
-              "type": {
-                "text": "ButtonFill"
-              },
-              "default": "'default'",
-              "description": "The button fill.",
-              "attribute": "fill",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'md'",
-              "description": "Button size.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "type",
-              "type": {
-                "text": "button | reset | submit"
-              },
-              "default": "'button'",
-              "description": "The button type. Defaults to `button`, but can be set to `submit` when used in a form.",
-              "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "ButtonVariant"
-              },
-              "default": "'default'",
-              "description": "The button variant. If no variant is specified, it uses the default button style.",
-              "attribute": "variant",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "disabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onKeydown",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "fill",
-              "type": {
-                "text": "ButtonFill"
-              },
-              "default": "'default'",
-              "description": "The button fill.",
-              "fieldName": "fill"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'md'",
-              "description": "Button size.",
-              "fieldName": "size"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "button | reset | submit"
-              },
-              "default": "'button'",
-              "description": "The button type. Defaults to `button`, but can be set to `submit` when used in a form.",
-              "fieldName": "type"
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "ButtonVariant"
-              },
-              "default": "'default'",
-              "description": "The button variant. If no variant is specified, it uses the default button style.",
-              "fieldName": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Button",
-          "declaration": {
-            "name": "Button",
-            "module": "../../packages/core/src/button/button.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button",
-          "declaration": {
-            "name": "Button",
-            "module": "/packages/core/src/button/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/button-bar/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    align: 'start',\n    reverse: false\n  },\n  argTypes: {\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end', 'space-between']\n    }\n  },\n  render: ({ align, reverse }) => html`\n    <sl-button-bar .align=${align} .reverse=${reverse}>\n      <sl-button>Foo</sl-button>\n      <sl-button>Bar</sl-button>\n      <sl-button>Baz</sl-button>\n    </sl-button-bar>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
-          "name": "ButtonBar",
-          "slots": [
-            {
-              "description": "Buttons to be grouped in the bar",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "start | center | end | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "attribute": "align",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "iconOnly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "attribute": "icon-only",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "If set, the button order is reversed.",
-              "attribute": "reverse",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "align",
-              "type": {
-                "text": "start | center | end | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "fieldName": "align"
-            },
-            {
-              "name": "icon-only",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "fieldName": "iconOnly"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "If set, the button order is reversed.",
-              "fieldName": "reverse"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button-bar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ButtonBar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "../../packages/core/src/button-bar/button-bar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./button-bar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button-bar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "/packages/core/src/button-bar/button-bar.js"
           }
         }
       ]
@@ -8872,84 +8872,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/popover/utils/position-anchored-element.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "flipPlacement",
-          "return": {
-            "type": {
-              "text": "Placement"
-            }
-          },
-          "parameters": [
-            {
-              "name": "placement",
-              "type": {
-                "text": "Placement"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "positionAnchoredElement",
-          "return": {
-            "type": {
-              "text": "(() => void)"
-            }
-          },
-          "parameters": [
-            {
-              "name": "element",
-              "type": {
-                "text": "HTMLElement"
-              }
-            },
-            {
-              "name": "anchor",
-              "type": {
-                "text": "HTMLElement"
-              }
-            },
-            {
-              "name": "options",
-              "type": {
-                "text": "PositionAnchoredElementOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Placement",
-          "declaration": {
-            "name": "Placement",
-            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "flipPlacement",
-          "declaration": {
-            "name": "flipPlacement",
-            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "positionAnchoredElement",
-          "declaration": {
-            "name": "positionAnchoredElement",
-            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../../packages/core/src/popover/mixins/anchored-popover.ts",
       "declarations": [
         {
@@ -9628,6 +9550,84 @@
           "declaration": {
             "name": "PopoverMixin",
             "module": "../../packages/core/src/popover/mixins/popover.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/popover/utils/position-anchored-element.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "flipPlacement",
+          "return": {
+            "type": {
+              "text": "Placement"
+            }
+          },
+          "parameters": [
+            {
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "positionAnchoredElement",
+          "return": {
+            "type": {
+              "text": "(() => void)"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "anchor",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "PositionAnchoredElementOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Placement",
+          "declaration": {
+            "name": "Placement",
+            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "flipPlacement",
+          "declaration": {
+            "name": "flipPlacement",
+            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "positionAnchoredElement",
+          "declaration": {
+            "name": "positionAnchoredElement",
+            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
           }
         }
       ]
@@ -11191,200 +11191,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/base.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "decorateProperty",
-          "parameters": [
-            {
-              "name": "{\n    finisher,\n    descriptor\n  }",
-              "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
-              }
-            },
-            {
-              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
-              "name": "finisher",
-              "type": {
-                "text": "function"
-              }
-            },
-            {
-              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
-              "name": "descriptor",
-              "type": {
-                "text": "function"
-              }
-            }
-          ],
-          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
-          "return": {
-            "type": {
-              "text": "ClassElement|void"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "decorateProperty",
-          "declaration": {
-            "name": "decorateProperty",
-            "module": "../../packages/core/src/utils/decorators/base.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EventEmitter",
-          "members": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "event",
-          "type": {
-            "text": "Event"
-          }
-        },
-        {
-          "kind": "function",
-          "name": "event",
-          "return": {
-            "type": {
-              "text": "any"
-            }
-          },
-          "parameters": [
-            {
-              "name": "options",
-              "optional": true,
-              "type": {
-                "text": "EventOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EventEmitter",
-          "declaration": {
-            "name": "EventEmitter",
-            "module": "../../packages/core/src/utils/decorators/event.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "event",
-          "declaration": {
-            "name": "event",
-            "module": "../../packages/core/src/utils/decorators/event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./base.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/observe.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "observe",
-          "parameters": [
-            {
-              "name": "propertyName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "lifecycle",
-              "default": "'update'",
-              "type": {
-                "text": "ObserveLifecycle"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "observe",
-          "declaration": {
-            "name": "observe",
-            "module": "../../packages/core/src/utils/decorators/observe.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../../packages/core/src/utils/data-source/array-data-source.ts",
       "declarations": [
         {
@@ -11621,6 +11427,200 @@
           "declaration": {
             "name": "*",
             "package": "./data-source.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/base.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "decorateProperty",
+          "parameters": [
+            {
+              "name": "{\n    finisher,\n    descriptor\n  }",
+              "type": {
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+              }
+            },
+            {
+              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
+              "name": "finisher",
+              "type": {
+                "text": "function"
+              }
+            },
+            {
+              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
+              "name": "descriptor",
+              "type": {
+                "text": "function"
+              }
+            }
+          ],
+          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
+          "return": {
+            "type": {
+              "text": "ClassElement|void"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "decorateProperty",
+          "declaration": {
+            "name": "decorateProperty",
+            "module": "../../packages/core/src/utils/decorators/base.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EventEmitter",
+          "members": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "event",
+          "type": {
+            "text": "Event"
+          }
+        },
+        {
+          "kind": "function",
+          "name": "event",
+          "return": {
+            "type": {
+              "text": "any"
+            }
+          },
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": {
+                "text": "EventOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EventEmitter",
+          "declaration": {
+            "name": "EventEmitter",
+            "module": "../../packages/core/src/utils/decorators/event.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "event",
+          "declaration": {
+            "name": "event",
+            "module": "../../packages/core/src/utils/decorators/event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./base.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./observe.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/observe.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "observe",
+          "parameters": [
+            {
+              "name": "propertyName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "lifecycle",
+              "default": "'update'",
+              "type": {
+                "text": "ObserveLifecycle"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "observe",
+          "declaration": {
+            "name": "observe",
+            "module": "../../packages/core/src/utils/decorators/observe.ts"
           }
         }
       ]

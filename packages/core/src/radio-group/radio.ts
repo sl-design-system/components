@@ -6,7 +6,12 @@ import { EventsController } from '../utils/controllers/index.js';
 import { FormControlMixin } from '../utils/mixins/form-control.js';
 import styles from './radio.scss.js';
 
+export type RadioButtonSize = 'md' | 'lg';
+
 export class Radio extends FormControlMixin(LitElement) {
+  /** @private */
+  static formAssociated = true;
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -25,10 +30,14 @@ export class Radio extends FormControlMixin(LitElement) {
   /** The value for this radio button. */
   @property() value = '';
 
+  /** Button size. */
+  @property({ reflect: true }) size: RadioButtonSize = 'md';
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.internals.role = 'radio';
+    this.setFormControlElement(this);
 
     // Move this to a new `FocusableMixin`
     if (!this.hasAttribute('tabindex')) {

@@ -2,7 +2,19 @@ import type { RadioGroup } from './radio-group.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../button/register.js';
+import '../checkbox/register.js';
 import './register.js';
+
+const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
+  const data = new FormData(event.target),
+    output = (event.target.nextElementSibling || document.createElement('pre')) as HTMLOutputElement;
+
+  event.preventDefault();
+  event.target.after(output);
+
+  output.textContent = '';
+  data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
+};
 
 export default {
   title: 'Radio group'
@@ -11,19 +23,25 @@ export default {
 export const API: StoryObj = {
   args: {
     disabled: false,
-    horizontal: false
+    horizontal: false,
+    value: undefined,
+    size: 'md'
   },
   argTypes: {
     value: {
       control: 'inline-radio',
       options: ['1', '2', '3']
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['md', 'lg']
     }
   },
-  render: ({ disabled, horizontal, value }) => html`
+  render: ({ disabled, horizontal, value, size }) => html`
     <sl-radio-group ?disabled=${disabled} ?horizontal=${horizontal} .value=${value}>
-      <sl-radio value="1">One</sl-radio>
-      <sl-radio value="2">Two</sl-radio>
-      <sl-radio value="3">Three</sl-radio>
+      <sl-radio value="1" .size=${size}>One</sl-radio>
+      <sl-radio value="2" .size=${size}>Two</sl-radio>
+      <sl-radio value="3" .size=${size}>Three</sl-radio>
     </sl-radio-group>
   `
 };
@@ -124,19 +142,25 @@ export const RichLabelHint: StoryObj = {
   `
 };
 
-export const Required: StoryObj = {
+export const InForm: StoryObj = {
   render: () => {
-    const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.previousElementSibling as RadioGroup)?.reportValidity();
-    };
-
     return html`
-      <sl-radio-group required>
-        <sl-radio value="1">One</sl-radio>
-        <sl-radio value="2">Two</sl-radio>
-        <sl-radio value="3">Three</sl-radio>
-      </sl-radio-group>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <form @submit=${onSubmit} name="formpje">
+        <sl-label for="hm">How many pets do you have?</sl-label>
+        <sl-radio-group required name="how-many" id="hm">
+          <sl-radio value="1">One</sl-radio>
+          <sl-radio value="2">Two</sl-radio>
+          <sl-radio value="3">Three</sl-radio>
+        </sl-radio-group>
+        <sl-label for="preselected">What's your favourite letter?</sl-label>
+        <sl-radio-group required name="preselected" id="preselected" value="c">
+          <sl-radio value="a">A</sl-radio>
+          <sl-radio value="b">B</sl-radio>
+          <sl-radio value="c">C</sl-radio>
+        </sl-radio-group>
+        <sl-button type="reset">Reset</sl-button>
+        <sl-button type="submit">Validate</sl-button>
+      </form>
     `;
   }
 };

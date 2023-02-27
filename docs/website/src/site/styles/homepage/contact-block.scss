@@ -5,34 +5,56 @@
   background-color: var(--contact-block-background); //var(--ds-color-selago-blue);
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 5rem;
   justify-content: space-between;
-  margin: 0 -2.4rem 3.2rem;
+  margin: 0 -2.4rem;
   padding: 4.8rem 2.4rem;
 
   // TODO: add media with different direction
   @media screen and (min-width: $md-breakpoint) {
     flex-direction: row;
   }
+
+  @media screen and (min-width: $lg-breakpoint) {
+    margin: 0 -7.2rem;
+    padding: 4.8rem 7.2rem;
+    //column-gap: 17.5rem;
+  } // TODO align desktop version to Figma
+
+  @media screen and (min-width: $xl-breakpoint) {
+    column-gap: 17.5rem;
+  }
 }
+
+.ds-contact-block__contribute,
+.ds-contact-block__get-in-touch {
+  flex-basis: 100%;
+}
+
+//.ds-contact-block__get-in-touch {
+//  @media screen and (min-width: $lg-breakpoint) {
+//    column-gap: 175px;
+//  }
+//}
 
 .ds-contact-block__description {
   font-size: 1.6rem;
-  margin: 0.8rem 0;
-}
-
-.ds-contact-block__description-link {
-  color: var(--highlight-color);
+  line-height: 2.4rem;
+  padding: 0.8rem 0;
 }
 
 .ds-contact-block__button {
+  align-items: center;
   background-color: var(--highlight-color);
   border: 1px solid var(--ds-color-blue);
   border-radius: 0.4rem;
   color: var(--heading-color);
+  display: inline-flex;
   font-size: 1.6rem;
+  gap: 0.8rem;
   line-height: 2.2rem;
   padding: 0.8rem 1.2rem;
+  text-decoration: none;
   transition: background-color 200ms linear;
 
   &:hover {
@@ -45,7 +67,50 @@
   flex-direction: column;
 }
 
-.ds-contact-block__link {
+.ds-contact-block__link,
+.ds-contact-block__description-link {
+  align-items: center;
   color: var(--ds-color-blue);
+  display: inline-flex;
+  font-size: 1.6rem;
+  gap: 0.8rem;
+  line-height: 2.4rem;
   margin-top: 0.8rem;
+  text-decoration: none;
+  transition: color 200ms ease-in-out;
+  width: fit-content;
+
+  &:hover {
+    color: var(--ds-color-baby-blue);
+
+    path {
+      fill: var(--ds-color-baby-blue);
+    }
+  }
 }
+
+.ds-contact-block__description-link {
+  margin-top: 0;
+}
+
+//.ds-contact-block__slack {
+//  background-color: green;
+//  --slack-svg: url('data:image/svg+xml,\
+//        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\
+//            <g stroke-linecap="round" stroke-width="4" stroke="rgb(0, 0, 0)" fill="none">\
+//                <circle cx="12" cy="12" r="10"/>\
+//                <path d="M7 11 H17"/>\
+//            </g>\
+//        </svg>');
+//
+//  /* Chrome, still requires prefix in 2022 */
+//  -webkit-mask: var(--slack-svg);
+//  -webkit-mask-repeat: no-repeat;
+//
+//  /* Firefox and Safari */
+//  mask: var(--slack-svg);
+//  mask-repeat: no-repeat;
+//
+//}
+
+// flex-basis: 100%;

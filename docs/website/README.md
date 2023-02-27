@@ -47,9 +47,9 @@ More information about component's files content you can find below.
 
 ### `button.json` file
 
-![image](https://user-images.githubusercontent.com/111562742/214271396-14edcc44-d487-4fb4-822b-cef63e7da0d5.png)
+![image](https://user-images.githubusercontent.com/111562742/220635927-b3f03b5f-9d4b-4085-94d7-bd49b2ffcd6d.png)
 
-`button.json` file consists of **layout** and **tags** elements. Layout should be the same for every component `"components/components.njk"` and tags should contain component name like `"button"` in this example. If there will be a component with more complex name like `button bar`, **tags** element will contain `"button-bar"` and name of the file should be the same (`button-bar.json`). Please use kebab case for complex component names.
+`button.json` file consists of **layout**, **tags** and **componentTagName** elements. Layout should be the same for every component `"components/components.njk"` and tags should contain component name like `"button"` in this example. If there will be a component with more complex name like `button bar`, **tags** element will contain `"button-bar"` and name of the file should be the same (`button-bar.json`). Please use kebab case for complex component names. The **componentTagName** should contain tag name of the component, in this case `"sl-button"`. The **componentTagName** is used for generating table with component's properties.
 
 ## Component markdown files
 
@@ -272,7 +272,18 @@ Do and don't elements should be wrapped together with `<div class=ds-do-dont></d
 
 #### Table
 
-Table in the markdown file looks as follows:
+Table with component's properties is generated automatically and we need to add only one line to the markdown file eg. in the `overview.md`:
+
+`{% include "../component-table.njk" %}`
+
+An important thing is to add `componentTagName` to json file as mentioned [before](#component-json-file).
+
+![image](https://user-images.githubusercontent.com/111562742/220834896-4eeeae8b-1dc5-40e1-9131-b50da0312e38.png)
+
+The line with including generated tables should not be wrapped with `<section></section>`, because it's already done in the template with generating component's properties tables.
+
+
+If we want we can also add a table in the markdown file with our own content. Table in the markdown file looks as follows:
 
 ```
 | Element | Attribute              | Value                | Description                                                                                    |
@@ -302,7 +313,9 @@ To sum up the whole **overview.md** file structure:
 
 <img alt="image" src="https://user-images.githubusercontent.com/111562742/214557186-ee7b89bf-fda3-4330-ad36-b06cce812cef.png">
 
-<img alt="image" src="https://user-images.githubusercontent.com/111562742/214558525-13d823b9-24f9-4dce-8aa6-a6a0c8e49f30.png">
+<img alt="image" src="https://user-images.githubusercontent.com/111562742/220863895-d455aef9-436a-4472-be35-83fb0eb6f5c4.png">
+
+
 
 All elements like **do** and **don't** part, **code** example, **table** etc. can be used in other component's markdown files as well.
 

@@ -125,11 +125,27 @@ export const NoText: StoryObj = {
 
 export const Overflow: StoryObj = {
   render: () => html`
-    <sl-checkbox
-      >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla
-      consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident
-      enim.</sl-checkbox
-    >
+    <style>
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .wrapper {
+        border: 2px solid rgb(var(--sl-color-palette-accent-base));
+      }
+    </style>
+    <em>Borders are added to show the allignment in the container</em>
+    <div class="wrapper">
+      <sl-checkbox
+        >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla
+        consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident
+        enim.
+      </sl-checkbox>
+    </div>
+    <div class="wrapper">
+      <sl-checkbox>Elit consectetur. </sl-checkbox>
+    </div>
   `
 };
 

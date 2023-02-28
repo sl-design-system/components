@@ -106,7 +106,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
               : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
           </svg>
         </span>
-        <slot></slot>
+        <span class="label"><slot></slot></span>
       </div>
       ${this.renderHint()} ${this.#validation.render()}
     `;

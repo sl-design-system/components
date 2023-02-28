@@ -8,9 +8,7 @@ $sizes: md, lg;
   --_border-radius: var(--sl-border-radius-checkbox);
   --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
-  --_gap: var(--sl-space-input-gap-md);
   --_line-height: var(--sl-text-typeset-line-height-md);
-  --_padding: var(--sl-space-input-block-md) var(--sl-space-input-inline-md) var(--sl-space-input-block-md) 0;
   --_path-length: 22.910259;
   --_stroke-dashoffset: var(--_path-length);
   --_transition: 200ms ease-in-out;
@@ -49,10 +47,14 @@ $sizes: md, lg;
   box-shadow: var(--_box-shadow);
   display: inline-flex;
   flex-shrink: 0;
-  margin-block-start: calc((var(--_line-height) - var(--_size) - var(--_border-size) * 2) / 2);
+
   padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
   transition: var(--_transition);
-  transition-property: background, border, box-shadow, color, filter;
+  transition-property: background, border-color, box-shadow, color, filter;
+}
+
+.label {
+  margin-block-start: calc((var(--_size) - var(--_line-height)) / 2);
 }
 
 sl-icon,
@@ -92,6 +94,7 @@ path {
       var(--sl-space-input-block-#{$size})
       0;
     // --_path-length: 22.910259;
+    --_gap: var(--sl-space-input-gap-#{$size});
     --_size: var(--sl-size-input-#{$size});
   }
 }

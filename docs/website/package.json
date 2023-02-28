@@ -307,7 +307,7 @@
     "@web/dev-server": "^0.1.35",
     "@webcomponents/template-shadowroot": "^0.1.0",
     "esbuild": "^0.15.18",
-    "esbuild-plugin-minify-html-literals": "^1.0.1",
+    "esbuild-plugin-minify-html-literals": "^1.0.2",
     "html-minifier": "^4.0.0",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.6",

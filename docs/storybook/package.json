@@ -32,6 +32,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.0.0-beta.28",
-    "wireit": "^0.9.3"
+    "wireit": "^0.9.5"
   }
 }

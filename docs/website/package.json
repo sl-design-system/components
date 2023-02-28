@@ -312,12 +312,12 @@
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.6",
     "markdown-it-attrs": "^4.1.6",
-    "rimraf": "^4.0.7",
-    "sass": "^1.57.1",
+    "rimraf": "^4.1.2",
+    "sass": "^1.58.3",
     "slugify": "^1.6.5",
     "tiny-glob": "^0.2.9",
-    "typescript": "^4.9.4",
-    "wireit": "^0.9.3"
+    "typescript": "^4.9.5",
+    "wireit": "^0.9.5"
   },
   "dependencies": {
     "@11ty/is-land": "^3.0.0",

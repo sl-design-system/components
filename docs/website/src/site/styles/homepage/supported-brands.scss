@@ -4,8 +4,27 @@
 
 .ds-supported-brands__logos {
   column-gap: 21px;
+  //flex: 1 1 auto;
+  counter-reset: grid;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 1.6rem;
   row-gap: 24px; // TODO: rem and final values
+
+  svg {
+    //display: grid;
+    justify-self: center;
+    //grid-column: span 2;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    &::after {
+      content: counter(grid);
+      counter-increment: grid;
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    &:last-child:nth-child(3n - 2) {
+      grid-column-end: 3;
+    }
+  }
 }

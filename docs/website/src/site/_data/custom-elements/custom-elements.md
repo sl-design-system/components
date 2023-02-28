@@ -104,6 +104,108 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
 
+# `../../packages/core/src/button/button.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button/button.scss.ts |         |
+
+# `../../packages/core/src/button/button.stories.ts`:
+
+## Variables
+
+| Name       | Description | Type       |
+| ---------- | ----------- | ---------- |
+| `API`      |             | `StoryObj` |
+| `All`      |             | `StoryObj` |
+| `Fills`    |             | `StoryObj` |
+| `Sizes`    |             | `StoryObj` |
+| `Variants` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                           | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default`  |             | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `API`      | API         | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `All`      | All         | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `Fills`    | Fills       | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `Sizes`    | Sizes       | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `Variants` | Variants    | ../../packages/core/src/button/button.stories.ts |         |
+
+# `../../packages/core/src/button/button.ts`:
+
+## class: `Button`, `sl-button`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Static Fields
+
+| Name             | Privacy | Type      | Default | Description | Inherited From |
+| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `formAssociated` | private | `boolean` | `true`  |             |                |
+
+### Fields
+
+| Name               | Privacy | Type                        | Default                      | Description                                                                            | Inherited From |
+| ------------------ | ------- | --------------------------- | ---------------------------- | -------------------------------------------------------------------------------------- | -------------- |
+| `#events`          | private |                             | `new EventsController(this)` | Event controller.                                                                      |                |
+| `internals`        |         |                             |                              | Element internals.                                                                     |                |
+| `originalTabIndex` | private | `number`                    | `0`                          | The original tabIndex before disabled.                                                 |                |
+| `fill`             |         | `ButtonFill`                | `'default'`                  | The button fill.                                                                       |                |
+| `size`             |         | `ButtonSize`                | `'md'`                       | Button size.                                                                           |                |
+| `type`             |         | `button \| reset \| submit` | `'button'`                   | The button type. Defaults to `button`, but can be set to `submit` when used in a form. |                |
+| `variant`          |         | `ButtonVariant`             | `'default'`                  | The button variant. If no variant is specified, it uses the default button style.      |                |
+
+### Methods
+
+| Name                   | Privacy | Description | Parameters             | Return | Inherited From |
+| ---------------------- | ------- | ----------- | ---------------------- | ------ | -------------- |
+| `formDisabledCallback` |         |             | `disabled: boolean`    | `void` |                |
+| `#onClick`             |         |             | `event: Event`         | `void` |                |
+| `#onKeydown`           |         |             | `event: KeyboardEvent` | `void` |                |
+
+### Attributes
+
+| Name      | Field   | Inherited From |
+| --------- | ------- | -------------- |
+| `fill`    | fill    |                |
+| `size`    | size    |                |
+| `type`    | type    |                |
+| `variant` | variant |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Button` | Button      | ../../packages/core/src/button/button.ts |         |
+
+# `../../packages/core/src/button/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./button.js |
+
+# `../../packages/core/src/button/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-button` | Button      | /packages/core/src/button/button.js |         |
+
 # `../../packages/core/src/checkbox/checkbox-group.scss.ts`:
 
 ## Exports
@@ -327,195 +429,6 @@
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/core/src/checkbox/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/core/src/checkbox/checkbox-group.js |         |
 
-# `../../packages/core/src/button/button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button/button.scss.ts |         |
-
-# `../../packages/core/src/button/button.stories.ts`:
-
-## Variables
-
-| Name       | Description | Type       |
-| ---------- | ----------- | ---------- |
-| `API`      |             | `StoryObj` |
-| `All`      |             | `StoryObj` |
-| `Fills`    |             | `StoryObj` |
-| `Sizes`    |             | `StoryObj` |
-| `Variants` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                           | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default`  |             | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `API`      | API         | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `All`      | All         | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Fills`    | Fills       | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Sizes`    | Sizes       | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Variants` | Variants    | ../../packages/core/src/button/button.stories.ts |         |
-
-# `../../packages/core/src/button/button.ts`:
-
-## class: `Button`, `sl-button`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name             | Privacy | Type      | Default | Description | Inherited From |
-| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
-| `formAssociated` | private | `boolean` | `true`  |             |                |
-
-### Fields
-
-| Name               | Privacy | Type                        | Default                      | Description                                                                            | Inherited From |
-| ------------------ | ------- | --------------------------- | ---------------------------- | -------------------------------------------------------------------------------------- | -------------- |
-| `#events`          | private |                             | `new EventsController(this)` | Event controller.                                                                      |                |
-| `internals`        |         |                             |                              | Element internals.                                                                     |                |
-| `originalTabIndex` | private | `number`                    | `0`                          | The original tabIndex before disabled.                                                 |                |
-| `fill`             |         | `ButtonFill`                | `'default'`                  | The button fill.                                                                       |                |
-| `size`             |         | `ButtonSize`                | `'md'`                       | Button size.                                                                           |                |
-| `type`             |         | `button \| reset \| submit` | `'button'`                   | The button type. Defaults to `button`, but can be set to `submit` when used in a form. |                |
-| `variant`          |         | `ButtonVariant`             | `'default'`                  | The button variant. If no variant is specified, it uses the default button style.      |                |
-
-### Methods
-
-| Name                   | Privacy | Description | Parameters             | Return | Inherited From |
-| ---------------------- | ------- | ----------- | ---------------------- | ------ | -------------- |
-| `formDisabledCallback` |         |             | `disabled: boolean`    | `void` |                |
-| `#onClick`             |         |             | `event: Event`         | `void` |                |
-| `#onKeydown`           |         |             | `event: KeyboardEvent` | `void` |                |
-
-### Attributes
-
-| Name      | Field   | Inherited From |
-| --------- | ------- | -------------- |
-| `fill`    | fill    |                |
-| `size`    | size    |                |
-| `type`    | type    |                |
-| `variant` | variant |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Button` | Button      | ../../packages/core/src/button/button.ts |         |
-
-# `../../packages/core/src/button/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./button.js |
-
-# `../../packages/core/src/button/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-button` | Button      | /packages/core/src/button/button.js |         |
-
-# `../../packages/core/src/button-bar/button-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.scss.ts |         |
-
-# `../../packages/core/src/button-bar/button-bar.stories.ts`:
-
-## Variables
-
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
-
-# `../../packages/core/src/button-bar/button-bar.ts`:
-
-## class: `ButtonBar`, `sl-button-bar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
-| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
-| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
-| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
-| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
-
-### Methods
-
-| Name            | Privacy | Description | Parameters | Return          | Inherited From |
-| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
-| `#onSlotchange` |         |             |            | `Promise<void>` |                |
-
-### Attributes
-
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `align`     | align    |                |
-| `icon-only` | iconOnly |                |
-| `reverse`   | reverse  |                |
-
-### Slots
-
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                           | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../../packages/core/src/button-bar/button-bar.ts |         |
-
-# `../../packages/core/src/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./button-bar.js |
-
-# `../../packages/core/src/button-bar/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                      | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
-
 # `../../packages/core/src/dialog/dialog.scss.ts`:
 
 ## Exports
@@ -625,6 +538,93 @@
 | Kind                        | Name        | Declaration | Module                              | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
+
+# `../../packages/core/src/button-bar/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.scss.ts |         |
+
+# `../../packages/core/src/button-bar/button-bar.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+
+# `../../packages/core/src/button-bar/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
+| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
+| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
+| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
+| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters | Return          | Inherited From |
+| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
+| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+
+### Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `align`     | align    |                |
+| `icon-only` | iconOnly |                |
+| `reverse`   | reverse  |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                           | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../../packages/core/src/button-bar/button-bar.ts |         |
+
+# `../../packages/core/src/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./button-bar.js |
+
+# `../../packages/core/src/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                      | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
 
 # `../../packages/core/src/drawer/drawer.scss.ts`:
 
@@ -2838,89 +2838,6 @@
 | `js` | `validationStyles`     | validationStyles     | ../../packages/core/src/utils/controllers/validation.ts |         |
 | `js` | `ValidationController` | ValidationController | ../../packages/core/src/utils/controllers/validation.ts |         |
 
-# `../../packages/core/src/utils/decorators/base.ts`:
-
-## Functions
-
-| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
-    finisher,
-    descriptor
-  }: {
-    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
-    descriptor?: (property: PropertyKey) => PropertyDescriptor;
-  }, finisher: function, descriptor: function` | `ClassElement\|void` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                           | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
-| `js` | `decorateProperty` | decorateProperty | ../../packages/core/src/utils/decorators/base.ts |         |
-
-# `../../packages/core/src/utils/decorators/event.ts`:
-
-## class: `EventEmitter`
-
-### Methods
-
-| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
-| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
-| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
-
-<hr/>
-
-## Variables
-
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `event` |             | `Event` |
-
-<hr/>
-
-## Functions
-
-| Name    | Description | Parameters              | Return |
-| ------- | ----------- | ----------------------- | ------ |
-| `event` |             | `options: EventOptions` | `any`  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                            | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | ../../packages/core/src/utils/decorators/event.ts |         |
-| `js` | `event`        | event        | ../../packages/core/src/utils/decorators/event.ts |         |
-
-# `../../packages/core/src/utils/decorators/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package      |
-| ---- | ---- | ----------- | ------ | ------------ |
-| `js` | `*`  | *           |        | ./base.js    |
-| `js` | `*`  | *           |        | ./event.js   |
-| `js` | `*`  | *           |        | ./observe.js |
-
-# `../../packages/core/src/utils/decorators/observe.ts`:
-
-## Functions
-
-| Name      | Description | Parameters                                          | Return |
-| --------- | ----------- | --------------------------------------------------- | ------ |
-| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
-
 # `../../packages/core/src/utils/data-source/array-data-source.ts`:
 
 ## class: `ArrayDataSource`
@@ -3145,6 +3062,89 @@
 | `js` | `*`  | *           |        | ./form-control.js |
 | `js` | `*`  | *           |        | ./hint.js         |
 | `js` | `*`  | *           |        | ./types.js        |
+
+# `../../packages/core/src/utils/decorators/base.ts`:
+
+## Functions
+
+| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
+    finisher,
+    descriptor
+  }: {
+    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
+    descriptor?: (property: PropertyKey) => PropertyDescriptor;
+  }, finisher: function, descriptor: function` | `ClassElement\|void` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
+| `js` | `decorateProperty` | decorateProperty | ../../packages/core/src/utils/decorators/base.ts |         |
+
+# `../../packages/core/src/utils/decorators/event.ts`:
+
+## class: `EventEmitter`
+
+### Methods
+
+| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
+| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
+| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
+
+<hr/>
+
+## Variables
+
+| Name    | Description | Type    |
+| ------- | ----------- | ------- |
+| `event` |             | `Event` |
+
+<hr/>
+
+## Functions
+
+| Name    | Description | Parameters              | Return |
+| ------- | ----------- | ----------------------- | ------ |
+| `event` |             | `options: EventOptions` | `any`  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                            | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | ../../packages/core/src/utils/decorators/event.ts |         |
+| `js` | `event`        | event        | ../../packages/core/src/utils/decorators/event.ts |         |
+
+# `../../packages/core/src/utils/decorators/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package      |
+| ---- | ---- | ----------- | ------ | ------------ |
+| `js` | `*`  | *           |        | ./base.js    |
+| `js` | `*`  | *           |        | ./event.js   |
+| `js` | `*`  | *           |        | ./observe.js |
+
+# `../../packages/core/src/utils/decorators/observe.ts`:
+
+## Functions
+
+| Name      | Description | Parameters                                          | Return |
+| --------- | ----------- | --------------------------------------------------- | ------ |
+| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
 
 # `../../packages/editor/src/commands.ts`:
 

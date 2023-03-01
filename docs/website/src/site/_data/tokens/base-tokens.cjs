@@ -1,6 +1,6 @@
-// /*
 // module.exports = async () => {
-//   let tokens = await fetch('./../../../../../packages/tokens/src/themes/sanoma-learning/base.json', {
+//   let tokens = await fetch(//'./../../../../../../../packages/tokens/src/themes/sanoma-learning/base.json'
+//     "./../packages/tokens/src/themes/sanoma-learning/base.json", {
 //     caseSensitiveMatch: false
 //   });
 //
@@ -42,4 +42,3 @@
 //
 //   return tokens;
 // };
-// */

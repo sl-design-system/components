@@ -802,9 +802,22 @@
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
-      "full": {
-        "value": "{border.radius.full}",
-        "type": "borderRadius"
+      "icon-only": {
+        "sm": {
+          "value": "{border.radius.full}",
+          "type": "borderRadius",
+          "description": "borderRadius.button"
+        },
+        "md": {
+          "value": "{border.radius.full}",
+          "type": "borderRadius",
+          "description": "borderRadius.button"
+        },
+        "lg": {
+          "value": "{border.radius.full}",
+          "type": "borderRadius",
+          "description": "borderRadius.button"
+        }
       }
     },
     "default": {

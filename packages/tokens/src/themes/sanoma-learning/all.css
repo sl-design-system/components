@@ -230,6 +230,10 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-group-xl: var(--sl-space-sm);
+  --sl-space-group-lg: var(--sl-space-sm);
+  --sl-space-group-md: var(--sl-space-xs);
+  --sl-space-group-sm: var(--sl-space-2xs);
   --sl-space-button-icon-only-lg: var(--sl-space-md);
   --sl-space-button-icon-only-md: var(--sl-space-sm);
   --sl-space-button-icon-only-sm: var(--sl-space-xs);

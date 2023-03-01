@@ -10,16 +10,17 @@ $sizes: md, lg;
   --_border: var(--_border-size) solid var(--_border-color);
   --_gap: var(--sl-space-input-gap-md);
   --_line-height: var(--sl-text-typeset-line-height-md);
-  --_padding: var(--sl-space-input-block-md) var(--sl-space-input-inline-md) var(--sl-space-input-block-md) 0;
-  --_stroke-dashoffset: var(--_path-length);
   --_transition: 200ms ease-in-out;
-  --_icon-size: 16px;
+  --sl-size-input-icon-size-md: 20px;
+  --sl-size-input-icon-size-lg: 28px;
 }
 
 :host {
   align-items: start;
+  color: var(--_label-color);
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
+  font: var(--sl-text-input-label-md);
   gap: var(--_gap);
   line-height: var(--_line-height);
   outline: none;
@@ -31,16 +32,6 @@ $sizes: md, lg;
   pointer-events: none;
 }
 
-.wrapper {
-  align-items: start;
-  color: var(--_label-color);
-  cursor: pointer;
-  display: flex;
-  font: var(--sl-text-input-label-md);
-  gap: var(--_gap);
-  outline: none;
-}
-
 .box {
   background: var(--_background);
   border: var(--_border);
@@ -48,10 +39,13 @@ $sizes: md, lg;
   box-shadow: var(--_box-shadow);
   display: inline-flex;
   flex-shrink: 0;
-  margin-block-start: calc((var(--_line-height) - var(--_size) - var(--_border-size) * 2) / 2);
   padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
   transition: var(--_transition);
-  transition-property: background, border, box-shadow, color, filter;
+  transition-property: background, border-color, box-shadow, color, filter;
+}
+
+.label {
+  margin-block-start: calc((var(--_size) - var(--_line-height)) / 2);
 }
 
 sl-icon,
@@ -61,7 +55,7 @@ svg {
   fill: none;
   height: var(--_icon-size);
   transition: var(--_transition);
-  transition-property: background, border, box-shadow, fill;
+  transition-property: background, border-color, box-shadow, fill;
   width: var(--_icon-size);
 }
 
@@ -80,7 +74,9 @@ circle {
       var(--sl-space-input-inline-#{$size})
       var(--sl-space-input-block-#{$size})
       0;
+    --_gap: var(--sl-space-input-gap-#{$size});
     --_size: var(--sl-size-input-#{$size});
+    --_icon-size: var(--sl-size-input-icon-size-#{$size});
   }
 }
 

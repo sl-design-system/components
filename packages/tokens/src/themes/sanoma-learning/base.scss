@@ -227,7 +227,7 @@
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
   --sl-space-group-sm: var(--sl-space-2xs);
-  --sl-space-button-icon-only-lg: var(--sl-space-md);
+  --sl-space-button-icon-only-lg: var(--sl-space-sm);
   --sl-space-button-icon-only-md: var(--sl-space-sm);
   --sl-space-button-icon-only-sm: var(--sl-space-xs);
   --sl-space-button-gap-md: var(--sl-space-xs);
@@ -246,7 +246,9 @@
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
   --sl-border-radius-default: var(--sl-border-radius-3xs);
-  --sl-border-radius-button-full: var(--sl-border-radius-full);
+  --sl-border-radius-button-icon-only-lg: var(--sl-border-radius-3xs);
+  --sl-border-radius-button-icon-only-md: var(--sl-border-radius-3xs);
+  --sl-border-radius-button-icon-only-sm: var(--sl-border-radius-3xs);
   --sl-border-radius-button-lg: var(--sl-border-radius-3xs);
   --sl-border-radius-button-md: var(--sl-border-radius-3xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-3xs);
@@ -265,7 +267,7 @@
   --sl-text-button-font-icon-sm: var(--sl-text-typeset-font-weight-regular) 11 / var(--sl-text-typeset-line-height-sm)
     var(--sl-text-typeset-font-family-icon);
   --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /

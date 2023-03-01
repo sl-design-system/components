@@ -958,7 +958,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
           "type": "typography"
@@ -1054,9 +1054,22 @@
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
-      "full": {
-        "value": "{border.radius.full}",
-        "type": "borderRadius"
+      "icon-only": {
+        "sm": {
+          "value": "{border.radius.3xs}",
+          "type": "borderRadius",
+          "description": "borderRadius.button"
+        },
+        "md": {
+          "value": "{border.radius.3xs}",
+          "type": "borderRadius",
+          "description": "borderRadius.button"
+        },
+        "lg": {
+          "value": "{border.radius.3xs}",
+          "type": "borderRadius",
+          "description": "borderRadius.button"
+        }
       }
     },
     "default": {
@@ -1266,7 +1279,7 @@
           "type": "spacing"
         },
         "lg": {
-          "value": "{space.md}",
+          "value": "{space.sm}",
           "type": "spacing"
         }
       }

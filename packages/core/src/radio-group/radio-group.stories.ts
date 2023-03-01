@@ -102,17 +102,6 @@ export const All: StoryObj = {
   `
 };
 
-export const Disabled: StoryObj = {
-  render: () => html`
-    <sl-radio-group>
-      <sl-radio value="1">One</sl-radio>
-      <sl-radio disabled value="2">Two (disabled)</sl-radio>
-      <sl-radio value="3">Three</sl-radio>
-      <sl-radio disabled value="4">Four (disabled)</sl-radio>
-    </sl-radio-group>
-  `
-};
-
 export const Horizontal: StoryObj = {
   render: () => html`
     <sl-radio-group horizontal>
@@ -123,13 +112,29 @@ export const Horizontal: StoryObj = {
   `
 };
 
-export const Selected: StoryObj = {
+export const Overflow: StoryObj = {
   render: () => html`
-    <sl-radio-group value="2">
-      <sl-radio value="1">One</sl-radio>
-      <sl-radio value="2">Two</sl-radio>
-      <sl-radio value="3">Three</sl-radio>
-    </sl-radio-group>
+    <style>
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .wrapper {
+        border: 2px solid rgb(var(--sl-color-palette-accent-base));
+      }
+    </style>
+    <em>Borders are added to show the allignment in the container</em>
+    <div class="wrapper">
+      <sl-radio
+        >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla
+        consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident
+        enim.
+      </sl-radio>
+    </div>
+    <div class="wrapper">
+      <sl-radio>Elit consectetur. </sl-radio>
+    </div>
   `
 };
 

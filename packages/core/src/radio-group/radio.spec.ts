@@ -34,12 +34,6 @@ describe('sl-radio', () => {
       expect(el.checked).to.equal(true);
     });
 
-    it('should change the state to checked when clicked on the wrapper', async () => {
-      (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
-
-      expect(el.checked).to.equal(true);
-    });
-
     it('should change the state to checked on key down', async () => {
       el.focus();
       await sendKeys({ press: 'Enter' });

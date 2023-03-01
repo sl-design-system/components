@@ -1,11 +1,11 @@
 :host {
-  --_gap: var(--sl-space-input-gap-group, 4px);
+  --_gap: var(--sl-space-group-md);
 }
 
 :host {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--_gap);
   vertical-align: top;
 }
 

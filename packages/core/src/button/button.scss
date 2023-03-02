@@ -1,11 +1,10 @@
-$fills: default, outline;
+$fills: default, outline, link;
 $sizes: sm, md, lg;
 $variants: default, primary, success, warning, danger;
 
 :host {
   --_animation: var(--sl-animation-button);
   --_background: var(--sl-color-button-default-idle-background);
-  --_border-radius: var(--sl-border-radius-button);
   --_cursor: pointer;
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
@@ -27,6 +26,18 @@ $variants: default, primary, success, warning, danger;
   vertical-align: top;
 }
 
+::slotted(sl-icon) {
+  fill: var(--_color);
+  height: var(--_icon-size);
+  width: var(--_icon-size);
+}
+
+slot {
+  align-items: center;
+  display: flex;
+  gap: var(--_label-gap);
+}
+
 :host(:where(:disabled, [internals-disabled])) {
   --_cursor: default;
   pointer-events: none;
@@ -45,13 +56,6 @@ $variants: default, primary, success, warning, danger;
 @each $fill in $fills {
   :host([fill='#{$fill}']) {
     --_border-width: var(--sl-border-width-button-#{$fill});
-  }
-
-  @each $size in $sizes {
-    :host([fill='#{$fill}'][size='#{$size}']) {
-      --_padding-block: var(--sl-space-button-#{$fill}-block-#{$size}, var(--sl-space-button-block-#{$size}));
-      --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size}, var(--sl-space-button-inline-#{$size}));
-    }
   }
 
   @each $variant in $variants {
@@ -111,6 +115,16 @@ $variants: default, primary, success, warning, danger;
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
+    --_border-radius: var(--sl-border-radius-button-#{$size});
     --_font: var(--sl-text-button-text-#{$size});
+    --_icon-size: var(--sl-size-button-icon-container-width-#{$size});
+    --_label-gap: var(--sl-space-button-gap-#{$size});
+    --_padding-block: var(--sl-space-button-block-#{$size});
+    --_padding-inline: var(--sl-space-button-inline-#{$size});
+  }
+  :host([size='#{$size}'][icon-only]) {
+    --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
+    --_padding-block: var(--sl-space-button-icon-only-#{$size});
+    --_padding-inline: var(--sl-space-button-icon-only-#{$size});
   }
 }

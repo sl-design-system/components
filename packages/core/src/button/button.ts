@@ -6,7 +6,7 @@ import styles from './button.scss.js';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-export type ButtonFill = 'default' | 'outline' | 'pill';
+export type ButtonFill = 'default' | 'outline' | 'link';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
@@ -65,7 +65,7 @@ export class Button extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
 
   #onClick(event: Event): void {
@@ -86,5 +86,28 @@ export class Button extends LitElement {
       event.preventDefault();
       event.stopPropagation();
     }
+  }
+
+  #onSlotChange(event: Event): void {
+    const slot = event.target as HTMLSlotElement;
+
+    const assignedNodes = slot.assignedNodes({ flatten: true }).filter(node => {
+      return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
+    });
+
+    let hasIcon = false;
+
+    if (assignedNodes.length === 1) {
+      const el = assignedNodes[0] as HTMLElement;
+
+      // This button is icon-only if it only contains an icon.
+      hasIcon =
+        el.nodeName === 'SL-ICON' ||
+        ((el.textContent || '').trim().length === 0 &&
+          el.children.length === 1 &&
+          el.children[0].nodeName === 'SL-ICON');
+    }
+
+    this.toggleAttribute('icon-only', hasIcon);
   }
 }

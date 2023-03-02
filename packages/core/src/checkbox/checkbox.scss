@@ -1,7 +1,7 @@
 $variants: default, valid, invalid;
-$variantselectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 $states: unchecked, checked;
-$stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])';
+$state-selectors: '', ':where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])';
 $sizes: md, lg;
 
 :host {
@@ -9,7 +9,7 @@ $sizes: md, lg;
   --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
   --_line-height: var(--sl-text-typeset-line-height-md);
-  --_path-length: 22.910259;
+  --_path-length: 23;
   --_stroke-dashoffset: var(--_path-length);
   --_transition: 200ms ease-in-out;
   --_icon-size: 16px;
@@ -25,7 +25,7 @@ $sizes: md, lg;
   padding: var(--_padding);
 }
 
-:host(:disabled) {
+:host([disabled]) {
   cursor: default;
   pointer-events: none;
 }
@@ -93,7 +93,6 @@ path {
       var(--sl-space-input-inline-#{$size})
       var(--sl-space-input-block-#{$size})
       0;
-    // --_path-length: 22.910259;
     --_gap: var(--sl-space-input-gap-#{$size});
     --_size: var(--sl-size-input-#{$size});
   }
@@ -101,11 +100,11 @@ path {
 
 @each $variant in $variants {
   $i: index($variants, $variant);
-  $variantselector: nth($variantselectors, $i);
+  $variantselector: nth($variant-selectors, $i);
 
   @each $state in $states {
     $j: index($states, $state);
-    $stateselector: nth($stateselectors, $j);
+    $stateselector: nth($state-selectors, $j);
 
     :host(#{$variantselector + $stateselector}) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-default-background);
@@ -136,7 +135,7 @@ path {
       --_box-shadow: var(--sl-box-shadow-focus);
     }
 
-    :host(#{$variantselector + $stateselector}:disabled) {
+    :host(#{$variantselector + $stateselector}[disabled]) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
       --_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
       --_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);

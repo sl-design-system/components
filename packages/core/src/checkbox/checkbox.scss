@@ -9,7 +9,7 @@ $sizes: md, lg;
   --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
   --_line-height: var(--sl-text-typeset-line-height-md);
-  --_path-length: 22.910259;
+  --_path-length: 23;
   --_stroke-dashoffset: var(--_path-length);
   --_transition: 200ms ease-in-out;
   --_icon-size: 16px;
@@ -25,7 +25,7 @@ $sizes: md, lg;
   padding: var(--_padding);
 }
 
-:host(:disabled) {
+:host([disabled]) {
   cursor: default;
   pointer-events: none;
 }
@@ -135,7 +135,7 @@ path {
       --_box-shadow: var(--sl-box-shadow-focus);
     }
 
-    :host(#{$variantselector + $stateselector}:disabled) {
+    :host(#{$variantselector + $stateselector}[disabled]) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
       --_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
       --_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);

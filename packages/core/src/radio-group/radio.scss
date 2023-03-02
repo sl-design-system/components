@@ -27,7 +27,7 @@ $sizes: md, lg;
   padding: var(--_padding);
 }
 
-:host(:disabled) {
+:host([disabled]) {
   cursor: default;
   pointer-events: none;
 }
@@ -117,7 +117,7 @@ circle {
       --_box-shadow: var(--sl-box-shadow-focus);
     }
 
-    :host(#{$variantselector + $stateselector}:disabled) {
+    :host(#{$variantselector + $stateselector}[disabled]) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
       --_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
       --_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);

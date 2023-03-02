@@ -1,7 +1,7 @@
 $variants: default, valid, invalid;
-$variantselectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 $states: unchecked, checked;
-$stateselectors: '', ':where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])';
+$state-selectors: '', ':where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])';
 $sizes: md, lg;
 
 :host {
@@ -93,7 +93,6 @@ path {
       var(--sl-space-input-inline-#{$size})
       var(--sl-space-input-block-#{$size})
       0;
-    // --_path-length: 22.910259;
     --_gap: var(--sl-space-input-gap-#{$size});
     --_size: var(--sl-size-input-#{$size});
   }
@@ -101,11 +100,11 @@ path {
 
 @each $variant in $variants {
   $i: index($variants, $variant);
-  $variantselector: nth($variantselectors, $i);
+  $variantselector: nth($variant-selectors, $i);
 
   @each $state in $states {
     $j: index($states, $state);
-    $stateselector: nth($stateselectors, $j);
+    $stateselector: nth($state-selectors, $j);
 
     :host(#{$variantselector + $stateselector}) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-default-background);

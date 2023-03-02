@@ -135,7 +135,7 @@ export const Overflow: StoryObj = {
         border: 2px solid rgb(var(--sl-color-palette-accent-base));
       }
     </style>
-    <em>Borders are added to show the allignment in the container</em>
+    <em>Borders are added to show the alignment in the container</em>
     <div class="wrapper">
       <sl-checkbox
         >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla

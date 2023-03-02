@@ -1,8 +1,8 @@
-{% for color in tokens.base.color.palette.primary -%}
+{% for color in tokens.base.color.palette -%}
   <h1>{{ color }}</h1>
   {% for colorPrimary in color -%}
-  <h3>{{ colorPrimary | json }}</h3>
-  <h2>{{ colorPrimary.value }}</h2>
+  <h3 style="color: red">{{ colorPrimary | json }}</h3>
+  <h2 style="color: #1f97f9">{{ colorPrimary.value }}</h2>
   <div class="ds-tokens__color" style="background-color: {{ colorPrimary.value }}"></div>
   <h2>{{ colorPrimary.type }}</h2>
   <h2>{{ colorPrimary.description }}</h2>
@@ -12,5 +12,27 @@
     token
     token example: --sl-color-palette-primary-900
   {% endfor -%}
+
+  <table class="ds-table"><thead>
+    <tr>
+      <th>Example</th>
+      <th>Token title</th>
+      <th>Token</th>
+    </tr></thead>
+    <tbody>
+    {% for palette in color -%}<h1 style="color: #45cc80">{{ palette | json }} {{ forloop.index }}</h1>{% for colorPrimary2 in palette -%}
+      <h2 style="color: #002f62">{{ forloop.index }}</h2>
+      <tr>
+      <td>
+        <div class="ds-tokens__color" style="background-color: {{ colorPrimary2[forloop.index].value }}"></div>
+        {{ colorPrimary2[forloop.index].value }}
+      </td>
+      <td class="ds-tokens__description">{{ colorPrimary2[forloop.index].description | tokenDescription }}</td>
+      <td><code>{{ colorPrimary2[forloop.index].description | myFilter }}</code></td>
+      </tr>{% endfor -%}{% endfor -%}
+    </tbody>
+  </table>
+
+
 {% endfor -%}
 <h2>Test</h2>

@@ -1,5 +1,16 @@
 {% for color in tokens.base.color.palette.primary -%}
   <h1>{{ color }}</h1>
-
+  {% for colorPrimary in color -%}
+  <h3>{{ colorPrimary | json }}</h3>
+  <h2>{{ colorPrimary.value }}</h2>
+  <div class="ds-tokens__color" style="background-color: {{ colorPrimary.value }}"></div>
+  <h2>{{ colorPrimary.type }}</h2>
+  <h2>{{ colorPrimary.description }}</h2>
+    <h2>{{ colorPrimary.description | myFilter }}</h2>
+    <h2 class="ds-tokens__description">{{ colorPrimary.description | tokenDescription }}</h2>
+    description
+    token
+    token example: --sl-color-palette-primary-900
+  {% endfor -%}
 {% endfor -%}
 <h2>Test</h2>

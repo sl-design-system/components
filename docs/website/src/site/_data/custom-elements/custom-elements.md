@@ -214,85 +214,6 @@
 | --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
 
-# `../../packages/core/src/avatar/avatar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
-
-# `../../packages/core/src/avatar/avatar.stories.ts`:
-
-## Variables
-
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
-
-# `../../packages/core/src/avatar/avatar.ts`:
-
-## class: `Avatar`, `sl-avatar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
-| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
-| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
-| `profileName`     |         | `string`                                |          |                                                               |                |
-| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
-
-### Methods
-
-| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
-| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
-| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `uniqueProfileId` | uniqueProfileId |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
-
-# `../../packages/core/src/avatar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./avatar.js |
-
-# `../../packages/core/src/avatar/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
-
 # `../../packages/core/src/checkbox/checkbox-group.scss.ts`:
 
 ## Exports
@@ -626,92 +547,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
 
-# `../../packages/core/src/icon/icon.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/icon/icon.scss.ts |         |
-
-# `../../packages/core/src/icon/icon.stories.ts`:
-
-## Variables
-
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/icon/icon.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/icon/icon.stories.ts |         |
-
-# `../../packages/core/src/icon/icon.ts`:
-
-## class: `Icon`, `sl-icon`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name       | Privacy | Type           | Default | Description | Inherited From |
-| ---------- | ------- | -------------- | ------- | ----------- | -------------- |
-| `resolver` | private | `IconResolver` |         |             |                |
-
-### Static Methods
-
-| Name               | Privacy | Description | Parameters                   | Return | Inherited From |
-| ------------------ | ------- | ----------- | ---------------------------- | ------ | -------------- |
-| `registerIcon`     |         |             | `name: string, icon: string` | `void` |                |
-| `registerResolver` |         |             | `resolver: IconResolver`     | `void` |                |
-
-### Fields
-
-| Name    | Privacy | Type                  | Default | Description                                                                                                       | Inherited From |
-| ------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- | -------------- |
-| `label` |         | `string \| undefined` |         | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
-| `name`  |         | `string \| undefined` |         | The name of the icon to show.                                                                                     |                |
-
-### Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `label` | label |                |
-| `name`  | name  |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name   | Declaration | Module                               | Package |
-| ---- | ------ | ----------- | ------------------------------------ | ------- |
-| `js` | `Icon` | Icon        | ../../packages/core/src/icon/icon.ts |         |
-
-# `../../packages/core/src/icon/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package   |
-| ---- | ---- | ----------- | ------ | --------- |
-| `js` | `*`  | *           |        | ./icon.js |
-
-# `../../packages/core/src/icon/register.ts`:
-
-## Exports
-
-| Kind                        | Name      | Declaration | Module                          | Package |
-| --------------------------- | --------- | ----------- | ------------------------------- | ------- |
-| `custom-element-definition` | `sl-icon` | Icon        | /packages/core/src/icon/icon.js |         |
-
 # `../../packages/core/src/drawer/drawer.scss.ts`:
 
 ## Exports
@@ -821,6 +656,92 @@
 | Kind                        | Name        | Declaration | Module                              | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-drawer` | Drawer      | /packages/core/src/drawer/drawer.js |         |
+
+# `../../packages/core/src/icon/icon.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/icon/icon.scss.ts |         |
+
+# `../../packages/core/src/icon/icon.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/icon/icon.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/icon/icon.stories.ts |         |
+
+# `../../packages/core/src/icon/icon.ts`:
+
+## class: `Icon`, `sl-icon`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Static Fields
+
+| Name       | Privacy | Type           | Default | Description | Inherited From |
+| ---------- | ------- | -------------- | ------- | ----------- | -------------- |
+| `resolver` | private | `IconResolver` |         |             |                |
+
+### Static Methods
+
+| Name               | Privacy | Description | Parameters                   | Return | Inherited From |
+| ------------------ | ------- | ----------- | ---------------------------- | ------ | -------------- |
+| `registerIcon`     |         |             | `name: string, icon: string` | `void` |                |
+| `registerResolver` |         |             | `resolver: IconResolver`     | `void` |                |
+
+### Fields
+
+| Name    | Privacy | Type                  | Default | Description                                                                                                       | Inherited From |
+| ------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- | -------------- |
+| `label` |         | `string \| undefined` |         | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
+| `name`  |         | `string \| undefined` |         | The name of the icon to show.                                                                                     |                |
+
+### Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+| `name`  | name  |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name   | Declaration | Module                               | Package |
+| ---- | ------ | ----------- | ------------------------------------ | ------- |
+| `js` | `Icon` | Icon        | ../../packages/core/src/icon/icon.ts |         |
+
+# `../../packages/core/src/icon/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package   |
+| ---- | ---- | ----------- | ------ | --------- |
+| `js` | `*`  | *           |        | ./icon.js |
+
+# `../../packages/core/src/icon/register.ts`:
+
+## Exports
+
+| Kind                        | Name      | Declaration | Module                          | Package |
+| --------------------------- | --------- | ----------- | ------------------------------- | ------- |
+| `custom-element-definition` | `sl-icon` | Icon        | /packages/core/src/icon/icon.js |         |
 
 # `../../packages/core/src/input/index.ts`:
 
@@ -1228,231 +1149,6 @@
 | Kind                        | Name         | Declaration | Module                                | Package |
 | --------------------------- | ------------ | ----------- | ------------------------------------- | ------- |
 | `custom-element-definition` | `sl-popover` | Popover     | /packages/core/src/popover/popover.js |         |
-
-# `../../packages/core/src/radio-group/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package          |
-| ---- | ---- | ----------- | ------ | ---------------- |
-| `js` | `*`  | *           |        | ./radio.js       |
-| `js` | `*`  | *           |        | ./radio-group.js |
-
-# `../../packages/core/src/radio-group/radio-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/radio-group/radio-group.scss.ts |         |
-
-# `../../packages/core/src/radio-group/radio-group.stories.ts`:
-
-## Variables
-
-| Name               | Description | Type       |
-| ------------------ | ----------- | ---------- |
-| `API`              |             | `StoryObj` |
-| `Disabled`         |             | `StoryObj` |
-| `Horizontal`       |             | `StoryObj` |
-| `Selected`         |             | `StoryObj` |
-| `Label`            |             | `StoryObj` |
-| `Hint`             |             | `StoryObj` |
-| `RichLabelHint`    |             | `StoryObj` |
-| `Required`         |             | `StoryObj` |
-| `CustomValidation` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                                     | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------------- | ------- |
-| `js` | `default`          |                  | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `API`              | API              | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Disabled`         | Disabled         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Horizontal`       | Horizontal       | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Selected`         | Selected         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Label`            | Label            | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Hint`             | Hint             | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Required`         | Required         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-
-# `../../packages/core/src/radio-group/radio-group.ts`:
-
-## class: `RadioGroup`, `sl-radio-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
-
-### Static Fields
-
-| Name             | Privacy | Type      | Default | Description | Inherited From |
-| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
-| `formAssociated` | private | `boolean` | `true`  |             |                |
-
-### Fields
-
-| Name                        | Privacy | Type                                   | Default                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Description                                                                                                                     | Inherited From   |
-| --------------------------- | ------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`                   | private |                                        | `new EventsController(this, {
-    click: this.#onClick,
-    focusout: this.#onFocusout
-  })`                                                                                                                                                                                                                                                                                                                                                                                              | Events controller.                                                                                                              |                  |
-| `#mutation`                 | private |                                        | `new MutationController(this, {
-    callback: mutations => {
-      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) \|\| {};
-
-      if (target instanceof Radio && target.value) {
-        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));
-        this.value = target.value;
-      }
-    },
-    config: {
-      attributeFilter: ['checked'],
-      attributeOldValue: true,
-      subtree: true
-    }
-  })` | Observe the state of the radios.                                                                                                |                  |
-| `#rovingTabindexController` | private |                                        | `new RovingTabindexController<Radio>(this, {
-    focusInIndex: (elements: Radio[]) => {
-      return elements.findIndex(el => {
-        return this.value ? !el.disabled && el.value === this.value : !el.disabled;
-      });
-    },
-    elementEnterAction: (el: Radio) => {
-      this.value = el.value;
-    },
-    elements: () => this.buttons,
-    isFocusableElement: (el: Radio) => !el.disabled
-  })`                                                                             | Manage the keyboard navigation.                                                                                                 |                  |
-| `#validation`               | private |                                        | `new ValidationController(this, {
-    validators: [requiredValidator]
-  })`                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                                                                                 |                  |
-| `internals`                 |         |                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Element internals.                                                                                                              |                  |
-| `defaultNodes`              |         | `Node[] \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The assigned nodes.                                                                                                             |                  |
-| `horizontal`                |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | If true, displays the radio buttons next to each other instead of below.                                                        |                  |
-| `validators`                |         | `Validator[] \| undefined`             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Custom validators specified by the user.                                                                                        |                  |
-| `value`                     |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The value for this group.                                                                                                       |                  |
-| `buttons`                   |         | `Radio[]`                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 |                  |
-| `#cachedValue`              | private | `FormControlValue \| undefined`        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement`       | private | `FormControlElement \| undefined`      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`                  |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                      |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`                  |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`        |         | `FormControlElement`                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
-| `form`                      |         | `HTMLFormElement \| null`              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
-| `labels`                    |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
-| `hint`                      |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
-| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
-| `#onFocusout`           |         |             | `event: FocusEvent`                                               | `void`           |                  |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
-
-### Attributes
-
-| Name         | Field      | Inherited From   |
-| ------------ | ---------- | ---------------- |
-| `horizontal` | horizontal |                  |
-| `value`      | value      |                  |
-| `disabled`   | disabled   | FormControlMixin |
-| `name`       | name       | FormControlMixin |
-| `required`   | required   | FormControlMixin |
-| `hint`       | hint       | HintMixin        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                             | Package |
-| ---- | ------------ | ----------- | -------------------------------------------------- | ------- |
-| `js` | `RadioGroup` | RadioGroup  | ../../packages/core/src/radio-group/radio-group.ts |         |
-
-# `../../packages/core/src/radio-group/radio.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/radio-group/radio.scss.ts |         |
-
-# `../../packages/core/src/radio-group/radio.ts`:
-
-## class: `Radio`, `sl-radio`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name        | Privacy | Type      | Default                                                                                    | Description                      | Inherited From |
-| ----------- | ------- | --------- | ------------------------------------------------------------------------------------------ | -------------------------------- | -------------- |
-| `#events`   | private |           | `new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
-  })` | Events controller.               |                |
-| `internals` |         |           |                                                                                            | Element internals.               |                |
-| `checked`   |         | `boolean` | `false`                                                                                    | Whether the radio is selected.   |                |
-| `disabled`  |         | `boolean` | `false`                                                                                    | Wether this radio is disabled.   |                |
-| `value`     |         | `string`  | `''`                                                                                       | The value for this radio button. |                |
-
-### Methods
-
-| Name         | Privacy | Description | Parameters             | Return | Inherited From |
-| ------------ | ------- | ----------- | ---------------------- | ------ | -------------- |
-| `#onClick`   |         |             | `event: Event`         | `void` |                |
-| `#onKeydown` |         |             | `event: KeyboardEvent` | `void` |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `checked`  | checked  |                |
-| `disabled` | disabled |                |
-| `value`    | value    |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name    | Declaration | Module                                       | Package |
-| ---- | ------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `Radio` | Radio       | ../../packages/core/src/radio-group/radio.ts |         |
-
-# `../../packages/core/src/radio-group/register.ts`:
-
-## Exports
-
-| Kind                        | Name             | Declaration | Module                                        | Package |
-| --------------------------- | ---------------- | ----------- | --------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-radio`       | Radio       | /packages/core/src/radio-group/radio.js       |         |
-| `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/core/src/radio-group/radio-group.js |         |
 
 # `../../packages/core/src/select/index.ts`:
 
@@ -2285,6 +1981,85 @@
 | ---- | --------- | ----------- | ------------------------------------------ | ------- |
 | `js` | `Tooltip` | Tooltip     | ../../packages/core/src/tooltip/tooltip.ts |         |
 
+# `../../packages/core/src/avatar/avatar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
+
+# `../../packages/core/src/avatar/avatar.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
+
+# `../../packages/core/src/avatar/avatar.ts`:
+
+## class: `Avatar`, `sl-avatar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
+| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
+| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
+| `profileName`     |         | `string`                                |          |                                                               |                |
+| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
+
+### Methods
+
+| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
+| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
+| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `uniqueProfileId` | uniqueProfileId |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
+
+# `../../packages/core/src/avatar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./avatar.js |
+
+# `../../packages/core/src/avatar/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
+
 # `../../packages/core/src/utils/css.ts`:
 
 ## Variables
@@ -3001,6 +2776,231 @@
 | Kind | Name      | Declaration | Module                                              | Package |
 | ---- | --------- | ----------- | --------------------------------------------------- | ------- |
 | `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
+
+# `../../packages/core/src/radio-group/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package          |
+| ---- | ---- | ----------- | ------ | ---------------- |
+| `js` | `*`  | *           |        | ./radio.js       |
+| `js` | `*`  | *           |        | ./radio-group.js |
+
+# `../../packages/core/src/radio-group/radio-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/radio-group/radio-group.scss.ts |         |
+
+# `../../packages/core/src/radio-group/radio-group.stories.ts`:
+
+## Variables
+
+| Name               | Description | Type       |
+| ------------------ | ----------- | ---------- |
+| `API`              |             | `StoryObj` |
+| `Disabled`         |             | `StoryObj` |
+| `Horizontal`       |             | `StoryObj` |
+| `Selected`         |             | `StoryObj` |
+| `Label`            |             | `StoryObj` |
+| `Hint`             |             | `StoryObj` |
+| `RichLabelHint`    |             | `StoryObj` |
+| `Required`         |             | `StoryObj` |
+| `CustomValidation` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                                     | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------------- | ------- |
+| `js` | `default`          |                  | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `API`              | API              | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `Disabled`         | Disabled         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `Horizontal`       | Horizontal       | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `Selected`         | Selected         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `Label`            | Label            | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `Hint`             | Hint             | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `Required`         | Required         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+
+# `../../packages/core/src/radio-group/radio-group.ts`:
+
+## class: `RadioGroup`, `sl-radio-group`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module                                   | Package |
+| ------------------ | ---------------------------------------- | ------- |
+| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
+| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+
+### Static Fields
+
+| Name             | Privacy | Type      | Default | Description | Inherited From |
+| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `formAssociated` | private | `boolean` | `true`  |             |                |
+
+### Fields
+
+| Name                        | Privacy | Type                                   | Default                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Description                                                                                                                     | Inherited From   |
+| --------------------------- | ------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`                   | private |                                        | `new EventsController(this, {
+    click: this.#onClick,
+    focusout: this.#onFocusout
+  })`                                                                                                                                                                                                                                                                                                                                                                                              | Events controller.                                                                                                              |                  |
+| `#mutation`                 | private |                                        | `new MutationController(this, {
+    callback: mutations => {
+      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) \|\| {};
+
+      if (target instanceof Radio && target.value) {
+        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));
+        this.value = target.value;
+      }
+    },
+    config: {
+      attributeFilter: ['checked'],
+      attributeOldValue: true,
+      subtree: true
+    }
+  })` | Observe the state of the radios.                                                                                                |                  |
+| `#rovingTabindexController` | private |                                        | `new RovingTabindexController<Radio>(this, {
+    focusInIndex: (elements: Radio[]) => {
+      return elements.findIndex(el => {
+        return this.value ? !el.disabled && el.value === this.value : !el.disabled;
+      });
+    },
+    elementEnterAction: (el: Radio) => {
+      this.value = el.value;
+    },
+    elements: () => this.buttons,
+    isFocusableElement: (el: Radio) => !el.disabled
+  })`                                                                             | Manage the keyboard navigation.                                                                                                 |                  |
+| `#validation`               | private |                                        | `new ValidationController(this, {
+    validators: [requiredValidator]
+  })`                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                                                                                 |                  |
+| `internals`                 |         |                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Element internals.                                                                                                              |                  |
+| `defaultNodes`              |         | `Node[] \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The assigned nodes.                                                                                                             |                  |
+| `horizontal`                |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | If true, displays the radio buttons next to each other instead of below.                                                        |                  |
+| `validators`                |         | `Validator[] \| undefined`             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Custom validators specified by the user.                                                                                        |                  |
+| `value`                     |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The value for this group.                                                                                                       |                  |
+| `buttons`                   |         | `Radio[]`                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 |                  |
+| `#cachedValue`              | private | `FormControlValue \| undefined`        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement`       | private | `FormControlElement \| undefined`      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`                  |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                      |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`                  |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`        |         | `FormControlElement`                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
+| `form`                      |         | `HTMLFormElement \| null`              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
+| `labels`                    |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
+| `hint`                      |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
+| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
+| `#onFocusout`           |         |             | `event: FocusEvent`                                               | `void`           |                  |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
+| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
+| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
+| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
+| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
+
+### Attributes
+
+| Name         | Field      | Inherited From   |
+| ------------ | ---------- | ---------------- |
+| `horizontal` | horizontal |                  |
+| `value`      | value      |                  |
+| `disabled`   | disabled   | FormControlMixin |
+| `name`       | name       | FormControlMixin |
+| `required`   | required   | FormControlMixin |
+| `hint`       | hint       | HintMixin        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                             | Package |
+| ---- | ------------ | ----------- | -------------------------------------------------- | ------- |
+| `js` | `RadioGroup` | RadioGroup  | ../../packages/core/src/radio-group/radio-group.ts |         |
+
+# `../../packages/core/src/radio-group/radio.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/radio-group/radio.scss.ts |         |
+
+# `../../packages/core/src/radio-group/radio.ts`:
+
+## class: `Radio`, `sl-radio`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name        | Privacy | Type      | Default                                                                                    | Description                      | Inherited From |
+| ----------- | ------- | --------- | ------------------------------------------------------------------------------------------ | -------------------------------- | -------------- |
+| `#events`   | private |           | `new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+  })` | Events controller.               |                |
+| `internals` |         |           |                                                                                            | Element internals.               |                |
+| `checked`   |         | `boolean` | `false`                                                                                    | Whether the radio is selected.   |                |
+| `disabled`  |         | `boolean` | `false`                                                                                    | Wether this radio is disabled.   |                |
+| `value`     |         | `string`  | `''`                                                                                       | The value for this radio button. |                |
+
+### Methods
+
+| Name         | Privacy | Description | Parameters             | Return | Inherited From |
+| ------------ | ------- | ----------- | ---------------------- | ------ | -------------- |
+| `#onClick`   |         |             | `event: Event`         | `void` |                |
+| `#onKeydown` |         |             | `event: KeyboardEvent` | `void` |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `checked`  | checked  |                |
+| `disabled` | disabled |                |
+| `value`    | value    |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name    | Declaration | Module                                       | Package |
+| ---- | ------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `Radio` | Radio       | ../../packages/core/src/radio-group/radio.ts |         |
+
+# `../../packages/core/src/radio-group/register.ts`:
+
+## Exports
+
+| Kind                        | Name             | Declaration | Module                                        | Package |
+| --------------------------- | ---------------- | ----------- | --------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-radio`       | Radio       | /packages/core/src/radio-group/radio.js       |         |
+| `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/core/src/radio-group/radio-group.js |         |
 
 # `../../packages/core/src/utils/mixins/form-control.ts`:
 

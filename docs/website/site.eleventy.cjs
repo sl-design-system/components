@@ -32,6 +32,18 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter('search', searchFilter);
 
+  eleventyConfig.addFilter('replaceString', (value) => {
+    return value.toUpperCase();
+  });
+
+  eleventyConfig.addLiquidFilter("myFilter",  function(value) {
+    return `--sl-${value?.replaceAll('.', '-')}`;
+  });
+
+  eleventyConfig.addLiquidFilter("tokenDescription",  function(value) {
+    return value?.replaceAll('.', ' ');
+  });
+
   eleventyConfig.addCollection('content', collection => {
     return [...collection.getFilteredByGlob('./src/site/categories/**/*.md')];
   });

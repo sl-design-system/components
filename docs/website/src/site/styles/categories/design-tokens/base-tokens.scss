@@ -1,0 +1,10 @@
+.ds-tokens__color {
+  border: 1px solid var(--ds-color-light-grey); // TODO: dark mode
+  border-radius: 8px;
+  height: 100px;
+  width: 100px;
+}
+
+.ds-tokens__description {
+  text-transform: capitalize;
+}

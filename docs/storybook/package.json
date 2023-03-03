@@ -15,7 +15,10 @@
   },
   "wireit": {
     "build": {
-      "command": "storybook build -o ../dist --quiet"
+      "command": "storybook build -o ../dist --quiet",
+      "dependencies": [
+        "../../packages/core:build"
+      ]
     },
     "storybook": {
       "command": "storybook dev -p 6006 --quiet"

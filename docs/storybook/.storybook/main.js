@@ -1,12 +1,9 @@
 export default {
   stories: [
-    '../stories/**/*.stories.mdx',
-    '../stories/**/*.stories.@(js|jsx|ts|tsx)'
+    '../stories/*.mdx',
   ],
   addons: [
     '../../../tools/storybook-addon-themes',
-    '@storybook/addon-a11y',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
     {
       name: '@storybook/addon-essentials',

@@ -187,17 +187,17 @@
   --sl-color-palette-accent-100: 234 236 237;
   --sl-color-palette-accent-50: 254 254 254;
   --sl-color-palette-primary-base: 76 154 204;
-  --sl-color-palette-primary-900: 57 23 27;
-  --sl-color-palette-primary-800: 104 32 44;
-  --sl-color-palette-primary-700: 140 32 54;
-  --sl-color-palette-primary-600: 175 34 66;
-  --sl-color-palette-primary-500: 188 71 90;
-  --sl-color-palette-primary-400: 199 105 117;
-  --sl-color-palette-primary-300: 210 139 146;
-  --sl-color-palette-primary-200: 220 173 177;
-  --sl-color-palette-primary-150: 231 206 208;
-  --sl-color-palette-primary-100: 242 232 233;
-  --sl-color-palette-primary-50: 254 254 254;
+  --sl-color-palette-primary-900: 12 24 32;
+  --sl-color-palette-primary-800: 25 50 66;
+  --sl-color-palette-primary-700: 38 76 101;
+  --sl-color-palette-primary-600: 50 102 135;
+  --sl-color-palette-primary-500: 63 128 170;
+  --sl-color-palette-primary-400: 76 154 204;
+  --sl-color-palette-primary-300: 106 171 213;
+  --sl-color-palette-primary-200: 136 188 221;
+  --sl-color-palette-primary-150: 167 205 230;
+  --sl-color-palette-primary-100: 197 222 238;
+  --sl-color-palette-primary-50: 227 239 247;
   --sl-size-input-lg: var(--sl-size-md);
   --sl-size-input-md: var(--sl-size-sm);
 }

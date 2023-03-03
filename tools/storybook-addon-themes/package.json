@@ -9,9 +9,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@storybook/addons": "^7.0.0-beta.55",
-    "@storybook/api": "^7.0.0-beta.55",
-    "@storybook/components": "^7.0.0-beta.55",
-    "@storybook/theming": "^7.0.0-beta.55"
+    "@storybook/addons": "^7.0.0-beta.60",
+    "@storybook/api": "^7.0.0-beta.60",
+    "@storybook/components": "^7.0.0-beta.60",
+    "@storybook/theming": "^7.0.0-beta.60"
   }
 }

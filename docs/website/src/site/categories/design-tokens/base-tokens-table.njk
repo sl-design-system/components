@@ -20,7 +20,7 @@
       <th>Token</th>
     </tr></thead>
     <tbody>
-    {% for palette in color -%}<h1 style="color: #45cc80">{{ palette | json }} {{ forloop.index }}</h1>{% for colorPrimary2 in palette -%}
+    {% for palette in color -%}<h1 style="color: #45cc80">{{ palette | json }}</h1>{% for colorPrimary2 in palette -%}
       <h2 style="color: #002f62">{{ forloop.index }}</h2>
       <tr>
       <td>
@@ -36,3 +36,41 @@
 
 {% endfor -%}
 <h2>Test</h2>
+
+
+{% for text in tokens.base.text -%}
+  <h1>{{ text }}</h1>
+  {% for textType in text -%}
+    <h3 style="color: red">{{ textType | json }}</h3>
+    <h2 style="color: #1f97f9">{{ textType.value }}</h2>
+    <div class="ds-tokens__color" style="background-color: {{ colorPrimary.value }}"></div>
+    <h2>{{ textType.type }}</h2>
+    <h2>{{ textType.description }}</h2>
+    <h2>{{ textType.description | myFilter }}</h2>
+    <h2 class="ds-tokens__description">{{ textType.description | tokenDescription }}</h2>
+    description
+    token
+    token example: --sl-color-palette-primary-900
+  {% endfor -%}
+
+{#  <table class="ds-table"><thead>#}
+{#    <tr>#}
+{#      <th>Example</th>#}
+{#      <th>Token title</th>#}
+{#      <th>Token</th>#}
+{#    </tr></thead>#}
+{#    <tbody>#}
+{#    {% for palette in text -%}<h1 style="color: #45cc80">{{ palette | json }}</h1>{% for colorPrimary2 in palette -%}#}
+{#      <h2 style="color: #002f62">{{ forloop.index }}</h2>#}
+{#      <tr>#}
+{#      <td>#}
+{#        <div class="ds-tokens__color" style="background-color: {{ colorPrimary2[forloop.index].value }}"></div>#}
+{#        {{ colorPrimary2[forloop.index].value }}#}
+{#      </td>#}
+{#      <td class="ds-tokens__description">{{ colorPrimary2[forloop.index].description | tokenDescription }}</td>#}
+{#      <td><code>{{ colorPrimary2[forloop.index].description | myFilter }}</code></td>#}
+{#      </tr>{% endfor -%}{% endfor -%}#}
+{#    </tbody>#}
+{#  </table>#}
+{% endfor -%}
+

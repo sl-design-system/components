@@ -4,7 +4,17 @@
   "description": "Storybook addon for setting SLDS themes",
   "private": true,
   "version": "1.0.0",
-  "main": "preset.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanomalearning/design-system.git",
+    "directory": "tools/storybook-addon-themes"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./manager": "./manager.js",
+    "./preset": "./preset.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -16,17 +16,18 @@
 
   @media screen and (min-width: $lg-breakpoint) {
     margin: 0 -7.2rem;
-    padding: 7.4rem 7.2rem;
+    padding: 7.4rem 9.2rem;
   }
 
   @media screen and (min-width: $xl-breakpoint) {
-    //column-gap: 17.5rem;
+    gap: 20rem;
+    padding: 7.4rem 11.4rem;
   }
 }
 
 .ds-contact-block__contribute,
 .ds-contact-block__get-in-touch {
-  flex-basis: 100%;
+  flex-basis: 50%;
 }
 
 .ds-contact-block__description {

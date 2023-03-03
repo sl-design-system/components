@@ -65,124 +65,124 @@
       },
       "accent": {
         "50": {
-          "value": "#FEFEFE",
+          "value": "#EBEBEB",
           "type": "color",
           "description": "color.palette.accent.50"
         },
         "100": {
-          "value": "#EAECED",
+          "value": "#D9D9D9",
           "type": "color",
           "description": "color.palette.accent.100"
         },
         "150": {
-          "value": "#D1D5DA",
+          "value": "#C8C8C8",
           "type": "color",
           "description": "color.palette.accent.150"
         },
         "200": {
-          "value": "#B6BDC4",
+          "value": "#B6B6B6",
           "type": "color",
           "description": "color.palette.accent.200"
         },
         "300": {
-          "value": "#9CA2A9",
+          "value": "#A4A4A4",
           "type": "color",
           "description": "color.palette.accent.300"
         },
         "400": {
-          "value": "#848A8F",
+          "value": "#939393",
           "type": "color",
           "description": "color.palette.accent.400"
         },
         "500": {
-          "value": "#6F7478",
+          "value": "#818181",
           "type": "color",
           "description": "color.palette.accent.500"
         },
         "600": {
-          "value": "#5D6064",
+          "value": "#6F6F6F",
           "type": "color",
           "description": "color.palette.accent.600"
         },
         "700": {
-          "value": "#4C4E51",
+          "value": "#5E5E5E",
           "type": "color",
           "description": "color.palette.accent.700"
         },
         "800": {
-          "value": "#3C3E40",
+          "value": "#4C4C4C",
           "type": "color",
           "description": "color.palette.accent.800"
         },
         "900": {
-          "value": "#262628",
+          "value": "#3B3B3B",
           "type": "color",
           "description": "color.palette.accent.900"
         },
         "base": {
-          "value": "#000000",
+          "value": "#292929",
           "type": "color",
           "description": "color.palette.accent.base"
         }
       },
       "neutral": {
         "50": {
-          "value": "#FEFEFE",
+          "value": "#EBEBEB",
           "type": "color",
           "description": "color.palette.neutral.50"
         },
         "100": {
-          "value": "#EAECED",
+          "value": "#D9D9D9",
           "type": "color",
           "description": "color.palette.neutral.100"
         },
         "150": {
-          "value": "#D1D5DA",
+          "value": "#C8C8C8",
           "type": "color",
           "description": "color.palette.neutral.150"
         },
         "200": {
-          "value": "#B6BDC4",
+          "value": "#B6B6B6",
           "type": "color",
           "description": "color.palette.neutral.200"
         },
         "300": {
-          "value": "#9CA2A9",
+          "value": "#A4A4A4",
           "type": "color",
           "description": "color.palette.neutral.300"
         },
         "400": {
-          "value": "#848A8F",
+          "value": "#939393",
           "type": "color",
           "description": "color.palette.neutral.400"
         },
         "500": {
-          "value": "#6F7478",
+          "value": "#818181",
           "type": "color",
           "description": "color.palette.neutral.500"
         },
         "600": {
-          "value": "#5D6064",
+          "value": "#6F6F6F",
           "type": "color",
           "description": "color.palette.neutral.600"
         },
         "700": {
-          "value": "#4C4E51",
+          "value": "#5E5E5E",
           "type": "color",
           "description": "color.palette.neutral.700"
         },
         "800": {
-          "value": "#3C3E40",
+          "value": "#4C4C4C",
           "type": "color",
           "description": "color.palette.neutral.800"
         },
         "900": {
-          "value": "#262628",
+          "value": "#3B3B3B",
           "type": "color",
           "description": "color.palette.neutral.900"
         },
         "base": {
-          "value": "#000000",
+          "value": "#292929",
           "type": "color",
           "description": "color.palette.neutral.base"
         }

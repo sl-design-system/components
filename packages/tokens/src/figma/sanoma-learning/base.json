@@ -844,7 +844,8 @@
           },
           "type": "typography"
         }
-      }
+      },
+      "type": "other"
     }
   },
   "borderRadius": {

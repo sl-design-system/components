@@ -1,5 +1,7 @@
 @import './../breakpoints';
 
+$transition-timing: 200ms;
+
 .ds-contact-block {
   background-color: var(--contact-block-background);
   display: flex;
@@ -47,7 +49,7 @@
   line-height: 2.2rem;
   padding: 0.8rem 1.2rem;
   text-decoration: none;
-  transition: background-color 200ms linear;
+  transition: background-color $transition-timing linear;
 
   &:hover {
     background-color: var(--card-color--active);
@@ -73,11 +75,12 @@
   line-height: 2.4rem;
   margin-top: 0.8rem;
   text-decoration: none;
-  transition: color 200ms ease-in-out;
+  transition: color $transition-timing ease-in-out;
   width: fit-content;
 
   path {
     fill: var(--contact-block-link);
+    transition: fill $transition-timing ease-in-out;
   }
 
   &:hover {

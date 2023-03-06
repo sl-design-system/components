@@ -140,30 +140,28 @@
     }
   },
   "devDependencies": {
-    "@lit/localize-tools": "^0.6.6",
+    "@lit/localize-tools": "^0.6.7",
     "@open-wc/testing": "^3.1.7",
-    "@storybook/addon-a11y": "^7.0.0-beta.28",
-    "@storybook/addon-docs": "^7.0.0-beta.28",
-    "@storybook/addon-essentials": "^7.0.0-beta.28",
-    "@storybook/addon-links": "^7.0.0-beta.28",
-    "@storybook/addon-storysource": "^7.0.0-beta.28",
-    "@storybook/web-components-webpack5": "^7.0.0-beta.28",
+    "@storybook/addon-essentials": "^7.0.0-beta.60",
+    "@storybook/addon-links": "^7.0.0-beta.60",
+    "@storybook/addon-storysource": "^7.0.0-beta.60",
+    "@storybook/web-components-webpack5": "^7.0.0-beta.60",
     "@types/sinon": "^10.0.13",
-    "@web/test-runner": "^0.15.0",
+    "@web/test-runner": "^0.15.1",
     "@web/test-runner-commands": "^0.6.5",
     "@web/test-runner-playwright": "^0.9.0",
-    "element-internals-polyfill": "^1.1.19",
+    "element-internals-polyfill": "^1.2.3",
     "sinon": "^14.0.2",
-    "storybook": "^7.0.0-beta.28",
-    "typescript": "^4.9.4",
-    "wireit": "^0.9.3"
+    "storybook": "^7.0.0-beta.60",
+    "typescript": "^4.9.5",
+    "wireit": "^0.9.5"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.1.0",
+    "@floating-ui/dom": "^1.2.1",
     "@lit-labs/observers": "^1.1.0",
     "@lit/localize": "^0.11.4",
     "@open-wc/scoped-elements": "^2.1.4",
     "lit": "^2.6.1",
-    "tslib": "^2.4.1"
+    "tslib": "^2.5.0"
   }
 }

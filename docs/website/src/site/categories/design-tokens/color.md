@@ -15,12 +15,9 @@ eleventyNavigation:
 
 ## Color
 
-colours from base tokens
+{% include "./base-tokens-table.njk" %}
 
-| Example |	Description |	Token |
 
 ## Core tokens:
 
 the rest of base tokens
-
-{% include "./base-tokens-table.njk" %}

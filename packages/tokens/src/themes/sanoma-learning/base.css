@@ -63,6 +63,7 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
+  --sl-text-text-field: [object Object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
   --sl-text-typeset-letter-spacing-md: 0%;
@@ -222,6 +223,10 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-text-field-inline-lg: var(--sl-space-lg);
+  --sl-space-text-field-inline-md: var(--sl-space-md);
+  --sl-space-text-field-block-lg: var(--sl-space-sm);
+  --sl-space-text-field-block-md: var(--sl-space-sm);
   --sl-space-group-xl: var(--sl-space-sm);
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
@@ -302,6 +307,8 @@
   --sl-size-button-icon-container-width-lg: var(--sl-size-button-icon-lg);
   --sl-size-button-icon-container-width-md: var(--sl-size-button-icon-md);
   --sl-size-button-icon-container-width-sm: var(--sl-size-button-icon-sm);
+  --sl-space-text-field-gap-lg: var(--sl-space-button-block-md);
+  --sl-space-text-field-gap-md: var(--sl-space-button-block-md);
   --sl-space-input-gap-lg: var(--sl-space-button-block-md);
   --sl-space-input-gap-md: var(--sl-space-button-block-md);
   --sl-space-input-inline-lg: var(--sl-space-button-block-sm);

@@ -25,6 +25,274 @@
 | `js` | `ValidationRequiredReport` | ValidationRequiredReport | ../../packages/core/src/form.stories.ts |         |
 | `js` | `Validation`               | Validation               | ../../packages/core/src/form.stories.ts |         |
 
+# `../../packages/core/src/avatar/avatar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
+
+# `../../packages/core/src/avatar/avatar.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
+
+# `../../packages/core/src/avatar/avatar.ts`:
+
+## class: `Avatar`, `sl-avatar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
+| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
+| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
+| `profileName`     |         | `string`                                |          |                                                               |                |
+| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
+
+### Methods
+
+| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
+| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
+| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `uniqueProfileId` | uniqueProfileId |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
+
+# `../../packages/core/src/avatar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./avatar.js |
+
+# `../../packages/core/src/avatar/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
+
+# `../../packages/core/src/button/button.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button/button.scss.ts |         |
+
+# `../../packages/core/src/button/button.stories.ts`:
+
+## Variables
+
+| Name       | Description | Type       |
+| ---------- | ----------- | ---------- |
+| `API`      |             | `StoryObj` |
+| `All`      |             | `StoryObj` |
+| `Fills`    |             | `StoryObj` |
+| `Sizes`    |             | `StoryObj` |
+| `Variants` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                           | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default`  |             | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `API`      | API         | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `All`      | All         | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `Fills`    | Fills       | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `Sizes`    | Sizes       | ../../packages/core/src/button/button.stories.ts |         |
+| `js` | `Variants` | Variants    | ../../packages/core/src/button/button.stories.ts |         |
+
+# `../../packages/core/src/button/button.ts`:
+
+## class: `Button`, `sl-button`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Static Fields
+
+| Name             | Privacy | Type      | Default | Description | Inherited From |
+| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `formAssociated` | private | `boolean` | `true`  |             |                |
+
+### Fields
+
+| Name               | Privacy | Type                        | Default                      | Description                                                                            | Inherited From |
+| ------------------ | ------- | --------------------------- | ---------------------------- | -------------------------------------------------------------------------------------- | -------------- |
+| `#events`          | private |                             | `new EventsController(this)` | Event controller.                                                                      |                |
+| `internals`        |         |                             |                              | Element internals.                                                                     |                |
+| `originalTabIndex` | private | `number`                    | `0`                          | The original tabIndex before disabled.                                                 |                |
+| `fill`             |         | `ButtonFill`                | `'default'`                  | The button fill.                                                                       |                |
+| `size`             |         | `ButtonSize`                | `'md'`                       | Button size.                                                                           |                |
+| `type`             |         | `button \| reset \| submit` | `'button'`                   | The button type. Defaults to `button`, but can be set to `submit` when used in a form. |                |
+| `variant`          |         | `ButtonVariant`             | `'default'`                  | The button variant. If no variant is specified, it uses the default button style.      |                |
+
+### Methods
+
+| Name                   | Privacy | Description | Parameters             | Return | Inherited From |
+| ---------------------- | ------- | ----------- | ---------------------- | ------ | -------------- |
+| `formDisabledCallback` |         |             | `disabled: boolean`    | `void` |                |
+| `#onClick`             |         |             | `event: Event`         | `void` |                |
+| `#onKeydown`           |         |             | `event: KeyboardEvent` | `void` |                |
+
+### Attributes
+
+| Name      | Field   | Inherited From |
+| --------- | ------- | -------------- |
+| `fill`    | fill    |                |
+| `size`    | size    |                |
+| `type`    | type    |                |
+| `variant` | variant |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Button` | Button      | ../../packages/core/src/button/button.ts |         |
+
+# `../../packages/core/src/button/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./button.js |
+
+# `../../packages/core/src/button/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-button` | Button      | /packages/core/src/button/button.js |         |
+
+# `../../packages/core/src/button-bar/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.scss.ts |         |
+
+# `../../packages/core/src/button-bar/button-bar.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+
+# `../../packages/core/src/button-bar/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
+| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
+| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
+| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
+| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters | Return          | Inherited From |
+| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
+| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+
+### Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `align`     | align    |                |
+| `icon-only` | iconOnly |                |
+| `reverse`   | reverse  |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                           | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../../packages/core/src/button-bar/button-bar.ts |         |
+
+# `../../packages/core/src/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./button-bar.js |
+
+# `../../packages/core/src/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                      | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
+
 # `../../packages/core/src/checkbox/checkbox-group.scss.ts`:
 
 ## Exports
@@ -248,187 +516,6 @@
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/core/src/checkbox/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/core/src/checkbox/checkbox-group.js |         |
 
-# `../../packages/core/src/button/button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button/button.scss.ts |         |
-
-# `../../packages/core/src/button/button.stories.ts`:
-
-## Variables
-
-| Name       | Description | Type       |
-| ---------- | ----------- | ---------- |
-| `API`      |             | `StoryObj` |
-| `All`      |             | `StoryObj` |
-| `Fills`    |             | `StoryObj` |
-| `Sizes`    |             | `StoryObj` |
-| `Variants` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                           | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default`  |             | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `API`      | API         | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `All`      | All         | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Fills`    | Fills       | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Sizes`    | Sizes       | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Variants` | Variants    | ../../packages/core/src/button/button.stories.ts |         |
-
-# `../../packages/core/src/button/button.ts`:
-
-## class: `Button`, `sl-button`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name             | Privacy | Type      | Default | Description | Inherited From |
-| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
-| `formAssociated` | private | `boolean` | `true`  |             |                |
-
-### Fields
-
-| Name               | Privacy | Type                        | Default                      | Description                                                                            | Inherited From |
-| ------------------ | ------- | --------------------------- | ---------------------------- | -------------------------------------------------------------------------------------- | -------------- |
-| `#events`          | private |                             | `new EventsController(this)` | Event controller.                                                                      |                |
-| `internals`        |         |                             |                              | Element internals.                                                                     |                |
-| `originalTabIndex` | private | `number`                    | `0`                          | The original tabIndex before disabled.                                                 |                |
-| `fill`             |         | `ButtonFill`                | `'default'`                  | The button fill.                                                                       |                |
-| `size`             |         | `ButtonSize`                | `'md'`                       | Button size.                                                                           |                |
-| `type`             |         | `button \| reset \| submit` | `'button'`                   | The button type. Defaults to `button`, but can be set to `submit` when used in a form. |                |
-| `variant`          |         | `ButtonVariant`             | `'default'`                  | The button variant. If no variant is specified, it uses the default button style.      |                |
-
-### Methods
-
-| Name                   | Privacy | Description | Parameters             | Return | Inherited From |
-| ---------------------- | ------- | ----------- | ---------------------- | ------ | -------------- |
-| `formDisabledCallback` |         |             | `disabled: boolean`    | `void` |                |
-| `#onClick`             |         |             | `event: Event`         | `void` |                |
-| `#onKeydown`           |         |             | `event: KeyboardEvent` | `void` |                |
-
-### Attributes
-
-| Name      | Field   | Inherited From |
-| --------- | ------- | -------------- |
-| `fill`    | fill    |                |
-| `size`    | size    |                |
-| `type`    | type    |                |
-| `variant` | variant |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Button` | Button      | ../../packages/core/src/button/button.ts |         |
-
-# `../../packages/core/src/button/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./button.js |
-
-# `../../packages/core/src/button/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-button` | Button      | /packages/core/src/button/button.js |         |
-
-# `../../packages/core/src/avatar/avatar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
-
-# `../../packages/core/src/avatar/avatar.stories.ts`:
-
-## Variables
-
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
-
-# `../../packages/core/src/avatar/avatar.ts`:
-
-## class: `Avatar`, `sl-avatar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
-| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
-| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
-| `profileName`     |         | `string`                                |          |                                                               |                |
-| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
-
-### Methods
-
-| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
-| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
-| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `uniqueProfileId` | uniqueProfileId |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
-
-# `../../packages/core/src/avatar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./avatar.js |
-
-# `../../packages/core/src/avatar/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
-
 # `../../packages/core/src/dialog/dialog.scss.ts`:
 
 ## Exports
@@ -539,34 +626,38 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
 
-# `../../packages/core/src/button-bar/button-bar.scss.ts`:
+# `../../packages/core/src/drawer/drawer.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/drawer/drawer.scss.ts |         |
 
-# `../../packages/core/src/button-bar/button-bar.stories.ts`:
+# `../../packages/core/src/drawer/drawer.stories.ts`:
 
 ## Variables
 
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
+| Name             | Description | Type       |
+| ---------------- | ----------- | ---------- |
+| `API`            |             | `StoryObj` |
+| `DisableClose`   |             | `StoryObj` |
+| `CompleteHeader` |             | `StoryObj` |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+| Kind | Name             | Declaration    | Module                                           | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------ | ------- |
+| `js` | `default`        |                | ../../packages/core/src/drawer/drawer.stories.ts |         |
+| `js` | `API`            | API            | ../../packages/core/src/drawer/drawer.stories.ts |         |
+| `js` | `DisableClose`   | DisableClose   | ../../packages/core/src/drawer/drawer.stories.ts |         |
+| `js` | `CompleteHeader` | CompleteHeader | ../../packages/core/src/drawer/drawer.stories.ts |         |
 
-# `../../packages/core/src/button-bar/button-bar.ts`:
+# `../../packages/core/src/drawer/drawer.ts`:
 
-## class: `ButtonBar`, `sl-button-bar`
+## class: `Drawer`, `sl-drawer`
 
 ### Superclass
 
@@ -574,57 +665,76 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
 ### Fields
 
-| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
-| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
-| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
-| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
-| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
+| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
+| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
+| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
+| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
+| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
 
 ### Methods
 
-| Name            | Privacy | Description | Parameters | Return          | Inherited From |
-| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
-| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
+| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `showModal` |         |             |                                                 | `void` |                |
+| `close`     |         |             |                                                 | `void` |                |
+| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
+| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
+| `#onClose`  |         |             |                                                 | `void` |                |
 
 ### Attributes
 
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `align`     | align    |                |
-| `icon-only` | iconOnly |                |
-| `reverse`   | reverse  |                |
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `disable-close`   | disableClose    |                |
+| `attachment`      | attachment      |                |
+| `closeButtonSize` | closeButtonSize |                |
 
 ### Slots
 
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
+| Name      | Description                   |
+| --------- | ----------------------------- |
+| `default` | Body content for the drawer   |
+| `header`  | Header content for the drawer |
+| `title`   | The title of the drawer       |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                           | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../../packages/core/src/button-bar/button-bar.ts |         |
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | ../../packages/core/src/drawer/drawer.ts |         |
 
-# `../../packages/core/src/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./button-bar.js |
-
-# `../../packages/core/src/button-bar/register.ts`:
+# `../../packages/core/src/drawer/index.ts`:
 
 ## Exports
 
-| Kind                        | Name            | Declaration | Module                                      | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./drawer.js |
+
+# `../../packages/core/src/drawer/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/core/src/drawer/drawer.js |         |
 
 # `../../packages/core/src/icon/icon.scss.ts`:
 
@@ -993,116 +1103,6 @@
 | Kind | Name        | Declaration | Module                                | Package |
 | ---- | ----------- | ----------- | ------------------------------------- | ------- |
 | `js` | `templates` | templates   | ../../packages/core/src/locales/nl.ts |         |
-
-# `../../packages/core/src/drawer/drawer.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/drawer/drawer.scss.ts |         |
-
-# `../../packages/core/src/drawer/drawer.stories.ts`:
-
-## Variables
-
-| Name             | Description | Type       |
-| ---------------- | ----------- | ---------- |
-| `API`            |             | `StoryObj` |
-| `DisableClose`   |             | `StoryObj` |
-| `CompleteHeader` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name             | Declaration    | Module                                           | Package |
-| ---- | ---------------- | -------------- | ------------------------------------------------ | ------- |
-| `js` | `default`        |                | ../../packages/core/src/drawer/drawer.stories.ts |         |
-| `js` | `API`            | API            | ../../packages/core/src/drawer/drawer.stories.ts |         |
-| `js` | `DisableClose`   | DisableClose   | ../../packages/core/src/drawer/drawer.stories.ts |         |
-| `js` | `CompleteHeader` | CompleteHeader | ../../packages/core/src/drawer/drawer.stories.ts |         |
-
-# `../../packages/core/src/drawer/drawer.ts`:
-
-## class: `Drawer`, `sl-drawer`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
-| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
-| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
-| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
-| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
-| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
-| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
-| `showModal` |         |             |                                                 | `void` |                |
-| `close`     |         |             |                                                 | `void` |                |
-| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
-| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
-| `#onClose`  |         |             |                                                 | `void` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `disable-close`   | disableClose    |                |
-| `attachment`      | attachment      |                |
-| `closeButtonSize` | closeButtonSize |                |
-
-### Slots
-
-| Name      | Description                   |
-| --------- | ----------------------------- |
-| `default` | Body content for the drawer   |
-| `header`  | Header content for the drawer |
-| `title`   | The title of the drawer       |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | ../../packages/core/src/drawer/drawer.ts |         |
-
-# `../../packages/core/src/drawer/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./drawer.js |
-
-# `../../packages/core/src/drawer/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/core/src/drawer/drawer.js |         |
 
 # `../../packages/core/src/popover/index.ts`:
 

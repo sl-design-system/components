@@ -940,7 +940,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.xxs}",
+            "lineHeight": "{text.typeset.lineHeight.xs}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
           "type": "typography"

@@ -275,7 +275,7 @@
   --sl-text-button-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /

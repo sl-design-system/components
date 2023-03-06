@@ -1,7 +1,3 @@
-function managerEntries(entry = []) {
-  return [...entry, require.resolve('./register')];
-}
-
 function previewHead(head) {
   return `
     ${head}
@@ -15,4 +11,4 @@ function previewHead(head) {
   `;
 }
 
-module.exports = { managerEntries, previewHead };
+export { previewHead };

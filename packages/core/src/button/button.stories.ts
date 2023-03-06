@@ -36,17 +36,18 @@ export const API: StoryObj = {
   args: {
     text: 'Button'
   },
-  render: ({ fill, size, text, variant }) => html`
-    <sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>
-  `
+  render: ({ fill, size, text, variant, icon }) => {
+    const startIcon = icon === 'start' ? html`<sl-icon name="star"></sl-icon>` : '';
+    const endIcon = icon === 'end' ? html`<sl-icon name="star"></sl-icon>` : '';
+    return html` <sl-button .fill=${fill} .size=${size} .variant=${variant}>${startIcon}${text}${endIcon}</sl-button> `;
+  }
 };
 
 export const All: StoryObj = {
-  args: {
-    fills: ['default', 'outline', 'link'],
-    sizes: ['sm', 'md', 'lg']
-  },
-  render: ({ icon, fills, sizes }) => {
+  render: ({ icon }) => {
+    const fills = ['default', 'outline', 'link'];
+    const sizes = ['sm', 'md', 'lg'];
+    const disabledStates = [false, true];
     const startIcon = icon === 'start' ? html`<sl-icon name="star"></sl-icon>` : '';
     const endIcon = icon === 'end' ? html`<sl-icon name="star"></sl-icon>` : '';
     return html`
@@ -60,28 +61,29 @@ export const All: StoryObj = {
       </style>
       <div class="grid">
         ${(sizes as ButtonSize[]).map((size: ButtonSize) =>
-          (fills as ButtonFill[]).map(
-            (fill: ButtonFill) => html`
-              <sl-button .fill=${fill} .size=${size}><sl-icon name="star"></sl-icon></sl-button>
-              <sl-button .fill=${fill} .size=${size}>${startIcon}Default${endIcon}</sl-button>
-              <sl-button .fill=${fill} .size=${size} variant="primary">${startIcon}Primary${endIcon}</sl-button>
-              <sl-button .fill=${fill} .size=${size} variant="success">${startIcon}Success${endIcon}</sl-button>
-              <sl-button .fill=${fill} .size=${size} variant="warning">${startIcon}Warning${endIcon}</sl-button>
-              <sl-button .fill=${fill} .size=${size} variant="danger">${startIcon}Danger${endIcon}</sl-button>
-
-              <sl-button disabled .fill=${fill} .size=${size}><sl-icon name="star"></sl-icon></sl-button>
-              <sl-button disabled .fill=${fill} .size=${size}>${startIcon}Default${endIcon}</sl-button>
-              <sl-button disabled .fill=${fill} .size=${size} variant="primary"
-                >${startIcon}Primary${endIcon}</sl-button
-              >
-              <sl-button disabled .fill=${fill} .size=${size} variant="success"
-                >${startIcon}Success${endIcon}</sl-button
-              >
-              <sl-button disabled .fill=${fill} .size=${size} variant="warning"
-                >${startIcon}Warning${endIcon}</sl-button
-              >
-              <sl-button disabled .fill=${fill} .size=${size} variant="danger">${startIcon}Danger${endIcon}</sl-button>
-            `
+          (fills as ButtonFill[]).map((fill: ButtonFill) =>
+            disabledStates.map(
+              (disabledState: boolean) => html`
+                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState}>
+                  <sl-icon name="star"></sl-icon>
+                </sl-button>
+                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState}>
+                  ${startIcon}Default${endIcon}
+                </sl-button>
+                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="primary">
+                  ${startIcon}Primary${endIcon}
+                </sl-button>
+                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="success">
+                  ${startIcon}Success${endIcon}
+                </sl-button>
+                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="warning">
+                  ${startIcon}Warning${endIcon}
+                </sl-button>
+                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="danger">
+                  ${startIcon}Danger${endIcon}
+                </sl-button>
+              `
+            )
           )
         )}
       </div>

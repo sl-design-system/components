@@ -5,6 +5,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './icon.scss.js';
 
 export type IconResolver = (name: string) => string;
+export type IconSize = 'sm' | 'md' | 'lg';
 
 export class Icon extends LitElement {
   /** @private */
@@ -30,6 +31,9 @@ export class Icon extends LitElement {
 
   /** The name of the icon to show. */
   @property() name?: string;
+
+  /** Icon size. */
+  @property({ reflect: true }) size: IconSize = 'md';
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);

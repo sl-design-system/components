@@ -1,5 +1,17 @@
+$sizes: sm, md, lg;
+
 :host {
-  display: inline-flex;
-  height: 2rem;
-  width: 2rem;
+
+  //temporary, until the tokens are ready:
+  --sl-size-icon-sm: 12px;
+  --sl-size-icon-md: 14px;
+  --sl-size-icon-lg: 16px;
+  display: inline-grid;
+  place-content: center;
+}
+@each $size in $sizes {
+  :host([size='#{$size}']) svg {
+    height: var(--sl-size-icon-#{$size});
+    width: var(--sl-size-icon-#{$size});
+  }
 }

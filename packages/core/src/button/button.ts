@@ -97,22 +97,28 @@ export class Button extends LitElement {
 
     let hasIcon = false;
 
-    assignedNodes
-      .filter(node => node.nodeName === 'SL-ICON')
-      .forEach(node => {
-        (node as HTMLElement).setAttribute('size', this.size);
-      });
+    assignedNodes.forEach(node => {
+      const el = node as HTMLElement;
+      if (el.nodeName === 'SL-ICON') {
+        el.setAttribute('size', this.size);
+      } else if (this.#hasOnlyIconAsChild(el)) {
+        (el.children[0] as HTMLElement).setAttribute('size', this.size);
+      }
+    });
+
     if (assignedNodes.length === 1) {
       const el = assignedNodes[0] as HTMLElement;
 
       // This button is icon-only if it only contains an icon.
-      hasIcon =
-        el.nodeName === 'SL-ICON' ||
-        ((el.textContent || '').trim().length === 0 &&
-          el.children.length === 1 &&
-          el.children[0].nodeName === 'SL-ICON');
+      hasIcon = el.nodeName === 'SL-ICON' || this.#hasOnlyIconAsChild(el);
     }
 
     this.toggleAttribute('icon-only', hasIcon);
+  }
+
+  #hasOnlyIconAsChild(el: HTMLElement): boolean {
+    return (
+      (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
+    );
   }
 }

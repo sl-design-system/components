@@ -83,7 +83,7 @@
           {% if widthValue.type == 'borderWidth' %}
             <tr>
               <td>
-                <div class="ds-tokens__color" style="border-radius: {{ widthValue.value }}px"></div>
+                <div class="ds-tokens__border" style="border-width: {{ widthValue.value }}px"></div>
                 {{ widthValue.value }}
                 border width
                 {{ widthValue | json }}
@@ -97,7 +97,8 @@
           {% if widthValue.type == 'borderRadius' %}
             <tr>
               <td>
-                <div class="ds-tokens__color" style="border-radius: {{ widthValue.value }}px"></div>
+                <div class="ds-tokens__border" style="border-radius: {{ widthValue.value }}px"></div>
+                TODO: % instead px when needed
                 {{ widthValue.value }}
                 border radius
                 {{ widthValue | json }}

@@ -5,6 +5,14 @@
   width: 8rem;
 }
 
+.ds-tokens__border {
+  background-color: var(--ds-color-light-grey);
+  border: 1px solid var(--ds-color-outer-space); // TODO: dark mode
+  //border-radius: 8px;
+  height: 8rem;
+  width: 8rem;
+}
+
 .ds-tokens__description {
   text-transform: capitalize;
 }

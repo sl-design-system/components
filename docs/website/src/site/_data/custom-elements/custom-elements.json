@@ -271,6 +271,191 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/button-bar/button-bar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    align: 'start',\n    reverse: false\n  },\n  argTypes: {\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end', 'space-between']\n    }\n  },\n  render: ({ align, reverse }) => html`\n    <sl-button-bar .align=${align} .reverse=${reverse}>\n      <sl-button>Foo</sl-button>\n      <sl-button>Bar</sl-button>\n      <sl-button>Baz</sl-button>\n    </sl-button-bar>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/button-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
+          "name": "ButtonBar",
+          "slots": [
+            {
+              "description": "Buttons to be grouped in the bar",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "start | center | end | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconOnly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the bar only contains icon-only buttons.",
+              "attribute": "icon-only",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set, the button order is reversed.",
+              "attribute": "reverse",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "start | center | end | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "fieldName": "align"
+            },
+            {
+              "name": "icon-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the bar only contains icon-only buttons.",
+              "fieldName": "iconOnly"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set, the button order is reversed.",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button-bar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ButtonBar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "../../packages/core/src/button-bar/button-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/button-bar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button-bar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "/packages/core/src/button-bar/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/button/button.scss.ts",
       "declarations": [],
       "exports": [
@@ -603,191 +788,6 @@
           "declaration": {
             "name": "Button",
             "module": "/packages/core/src/button/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/button-bar/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    align: 'start',\n    reverse: false\n  },\n  argTypes: {\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end', 'space-between']\n    }\n  },\n  render: ({ align, reverse }) => html`\n    <sl-button-bar .align=${align} .reverse=${reverse}>\n      <sl-button>Foo</sl-button>\n      <sl-button>Bar</sl-button>\n      <sl-button>Baz</sl-button>\n    </sl-button-bar>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
-          "name": "ButtonBar",
-          "slots": [
-            {
-              "description": "Buttons to be grouped in the bar",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "start | center | end | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "attribute": "align",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "iconOnly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "attribute": "icon-only",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "If set, the button order is reversed.",
-              "attribute": "reverse",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "align",
-              "type": {
-                "text": "start | center | end | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "fieldName": "align"
-            },
-            {
-              "name": "icon-only",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "fieldName": "iconOnly"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "If set, the button order is reversed.",
-              "fieldName": "reverse"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button-bar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ButtonBar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "../../packages/core/src/button-bar/button-bar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./button-bar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button-bar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "/packages/core/src/button-bar/button-bar.js"
           }
         }
       ]
@@ -2465,6 +2465,259 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/label/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./label.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/label/label.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    required: false,\n    text: 'Label text'\n  },\n  render: ({ required, text }) => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">${text}</sl-label>\n      <sl-input ?required=${required} id=\"input\"></sl-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomLabel",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">\n        <label slot=\"label\"><u>Hello</u> <em>World</em></label>\n      </sl-label>\n      <sl-input id=\"input\"></sl-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Required",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as required</sl-label>\n      <sl-input required id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Optional input</sl-label>\n      <sl-input id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Optional input</sl-label>\n      <sl-input id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Optional",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as optional</sl-label>\n      <sl-input id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Required input</sl-label>\n      <sl-input required id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Required input</sl-label>\n      <sl-input required id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomLabel",
+          "declaration": {
+            "name": "CustomLabel",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Required",
+          "declaration": {
+            "name": "Required",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Optional",
+          "declaration": {
+            "name": "Optional",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Label",
+          "members": [
+            {
+              "kind": "field",
+              "name": "#formControlId",
+              "privacy": "private",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The actual form control id this label links to."
+            },
+            {
+              "kind": "field",
+              "name": "#label",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLLabelElement | undefined"
+              },
+              "description": "The label instance in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "default": "new MutationObserver(() => void this.#update())",
+              "description": "Observe the form control for changes to the required attribute."
+            },
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "attribute": "for"
+            },
+            {
+              "kind": "field",
+              "name": "formControl",
+              "type": {
+                "text": "(HTMLElement & FormControlInterface) | null"
+              },
+              "default": "null",
+              "description": "The associated form control."
+            },
+            {
+              "kind": "field",
+              "name": "optional",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as optional."
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as required."
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "{ target }",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#update",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "fieldName": "for"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-label",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "../../packages/core/src/label/label.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-label",
+          "declaration": {
+            "name": "Label",
+            "module": "/packages/core/src/label/label.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/input/index.ts",
       "declarations": [],
       "exports": [
@@ -3276,259 +3529,6 @@
           "declaration": {
             "name": "Input",
             "module": "/packages/core/src/input/input.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./label.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/label/label.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    required: false,\n    text: 'Label text'\n  },\n  render: ({ required, text }) => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">${text}</sl-label>\n      <sl-input ?required=${required} id=\"input\"></sl-input>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "CustomLabel",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">\n        <label slot=\"label\"><u>Hello</u> <em>World</em></label>\n      </sl-label>\n      <sl-input id=\"input\"></sl-input>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Required",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as required</sl-label>\n      <sl-input required id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Optional input</sl-label>\n      <sl-input id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Optional input</sl-label>\n      <sl-input id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Optional",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as optional</sl-label>\n      <sl-input id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Required input</sl-label>\n      <sl-input required id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Required input</sl-label>\n      <sl-input required id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CustomLabel",
-          "declaration": {
-            "name": "CustomLabel",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Required",
-          "declaration": {
-            "name": "Required",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Optional",
-          "declaration": {
-            "name": "Optional",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Label",
-          "members": [
-            {
-              "kind": "field",
-              "name": "#formControlId",
-              "privacy": "private",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The actual form control id this label links to."
-            },
-            {
-              "kind": "field",
-              "name": "#label",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLLabelElement | undefined"
-              },
-              "description": "The label instance in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "#observer",
-              "privacy": "private",
-              "default": "new MutationObserver(() => void this.#update())",
-              "description": "Observe the form control for changes to the required attribute."
-            },
-            {
-              "kind": "field",
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "attribute": "for"
-            },
-            {
-              "kind": "field",
-              "name": "formControl",
-              "type": {
-                "text": "(HTMLElement & FormControlInterface) | null"
-              },
-              "default": "null",
-              "description": "The associated form control."
-            },
-            {
-              "kind": "field",
-              "name": "optional",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as optional."
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as required."
-            },
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "{ target }",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#update",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "fieldName": "for"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-label",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Label",
-          "declaration": {
-            "name": "Label",
-            "module": "../../packages/core/src/label/label.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-label",
-          "declaration": {
-            "name": "Label",
-            "module": "/packages/core/src/label/label.js"
           }
         }
       ]
@@ -9634,248 +9634,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "#items",
-              "privacy": "private",
-              "type": {
-                "text": "T[]"
-              },
-              "default": "[...items]",
-              "description": "Array of filtered & sorted items."
-            },
-            {
-              "kind": "field",
-              "name": "#originalItems",
-              "privacy": "private",
-              "type": {
-                "text": "T[]"
-              },
-              "description": "The original array of items as passed to the constructor.",
-              "default": "[...items]"
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "description": "The array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "description": "Size of the item collection.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#filter",
-              "return": {
-                "type": {
-                  "text": "DataSourceFilterFunction<T>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "values",
-                  "type": {
-                    "text": "DataSourceFilterValue[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/packages/core/src/utils/data-source/data-source.js"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "../../packages/core/src/utils/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation."
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on."
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation."
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "description": "The array of items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "description": "Size of the item collection."
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "../../packages/core/src/utils/data-source/data-source.ts"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "../../packages/core/src/utils/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../../packages/core/src/utils/controllers/events.ts",
       "declarations": [
         {
@@ -11621,6 +11379,248 @@
           "declaration": {
             "name": "observe",
             "module": "../../packages/core/src/utils/decorators/observe.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/data-source/array-data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ArrayDataSource",
+          "members": [
+            {
+              "kind": "field",
+              "name": "#items",
+              "privacy": "private",
+              "type": {
+                "text": "T[]"
+              },
+              "default": "[...items]",
+              "description": "Array of filtered & sorted items."
+            },
+            {
+              "kind": "field",
+              "name": "#originalItems",
+              "privacy": "private",
+              "type": {
+                "text": "T[]"
+              },
+              "description": "The original array of items as passed to the constructor.",
+              "default": "[...items]"
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "description": "The array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "description": "Size of the item collection.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#filter",
+              "return": {
+                "type": {
+                  "text": "DataSourceFilterFunction<T>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "values",
+                  "type": {
+                    "text": "DataSourceFilterValue[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-update",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "DataSource",
+            "module": "/packages/core/src/utils/data-source/data-source.js"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ArrayDataSource",
+          "declaration": {
+            "name": "ArrayDataSource",
+            "module": "../../packages/core/src/utils/data-source/array-data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/data-source/data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSource",
+          "members": [
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation."
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on."
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation."
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "description": "The array of items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "description": "Size of the item collection."
+            }
+          ],
+          "superclass": {
+            "name": "EventTarget",
+            "module": "../../packages/core/src/utils/data-source/data-source.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataSource",
+          "declaration": {
+            "name": "DataSource",
+            "module": "../../packages/core/src/utils/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/data-source/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./array-data-source.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./data-source.js"
           }
         }
       ]

@@ -7,5 +7,5 @@ export default {
 };
 
 export const API: StoryObj = {
-  render: () => html`<sl-icon name="star"></sl-icon>`
+  render: () => html`<sl-icon name="star"></sl-icon><sl-icon name="check"></sl-icon>`
 };

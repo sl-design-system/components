@@ -34,10 +34,10 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   @event() change!: EventEmitter<boolean>;
 
   /** Whether the checkbox is checked. */
-  @property({ type: Boolean, reflect: true }) checked = false;
+  @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** Whether the checkbox is invalid. */
-  @property({ type: Boolean, reflect: true }) invalid = false;
+  @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
   /** Whether the checkbox has the indeterminate state. */
   @property({ type: Boolean }) indeterminate = false;

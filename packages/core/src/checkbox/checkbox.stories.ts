@@ -116,7 +116,12 @@ export const All: StoryObj = {
 };
 
 export const Indeterminate: StoryObj = {
-  render: () => html`<sl-checkbox indeterminate>Indeterminate</sl-checkbox>`
+  render: () => html`
+    <h2>Single</h2>
+    <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+    <h2>In group, with children</h2>
+    <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+  `
 };
 
 export const NoText: StoryObj = {

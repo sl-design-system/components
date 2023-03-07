@@ -44,6 +44,11 @@ module.exports = function(eleventyConfig) {
     return value?.replaceAll('.', ' ');
   });
 
+  eleventyConfig.addLiquidFilter("hasNoUnit",  function(value) {
+    const lastCharacter = (value.toString())?.slice(-1);
+    return /[0-9]/.test(lastCharacter);
+  });
+
   eleventyConfig.addCollection('content', collection => {
     return [...collection.getFilteredByGlob('./src/site/categories/**/*.md')];
   });

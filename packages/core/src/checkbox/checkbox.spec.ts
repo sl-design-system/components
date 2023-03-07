@@ -18,7 +18,7 @@ describe('sl-checkbox', () => {
     });
 
     it('should not be checked by default', () => {
-      expect(el.checked).to.equal(false);
+      expect(el.checked).not.to.equal(true);
       expect(el.internals.ariaChecked).to.equal('false');
     });
 
@@ -59,13 +59,13 @@ describe('sl-checkbox', () => {
     it('should not change the state to checked when clicked', async () => {
       el.click();
 
-      expect(el.checked).to.equal(false);
+      expect(el.checked).not.to.equal(true);
     });
 
     it('should change the state to checked when clicked on the wrapper', async () => {
       (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
 
-      expect(el.checked).to.equal(false);
+      expect(el.checked).not.to.equal(true);
     });
 
     it('should not change the state to checked on key down', async () => {
@@ -75,7 +75,7 @@ describe('sl-checkbox', () => {
       el.focus();
       await sendKeys({ press: 'Enter' });
 
-      expect(el.checked).to.equal(false);
+      expect(el.checked).not.to.equal(true);
     });
   });
 

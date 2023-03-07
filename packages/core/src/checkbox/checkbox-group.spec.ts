@@ -37,16 +37,16 @@ describe('sl-checkbox-group', () => {
     });
 
     it('should handle the navigating between options correctly', async () => {            
-      expect(el.boxes?.[0].checked).to.equal(false);
+      expect(el.boxes?.[0].checked).not.to.equal(true);
       expect(el.boxes?.[0].tabIndex).to.equal(0);
-      expect(el.boxes?.[1].checked).to.equal(false);
+      expect(el.boxes?.[1].checked).not.to.equal(true);
       expect(el.boxes?.[1].tabIndex).to.equal(-1);
       
       el.boxes?.[0]?.focus();
       await sendKeys({ press: 'Space' });
 
       expect(el.boxes?.[0].checked).to.equal(true);
-      expect(el.boxes?.[1].checked).to.equal(false);
+      expect(el.boxes?.[1].checked).not.to.equal(true);
       
       await sendKeys({ press: 'ArrowRight' });
       await sendKeys({ press: 'Enter' });

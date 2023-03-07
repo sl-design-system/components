@@ -136,7 +136,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     }
   }
 
-  async #onSlotchange(): Promise<void> {
+  #onSlotchange(): void {
     this.#rovingTabindexController.clearElementCache();
 
     this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));

@@ -25,7 +25,7 @@ export class Radio extends FormControlMixin(LitElement) {
   readonly internals = this.attachInternals();
 
   /** Whether the radio is selected. */
-  @property({ type: Boolean, reflect: true }) checked = false;
+  @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** The value for this radio button. */
   @property() value = '';

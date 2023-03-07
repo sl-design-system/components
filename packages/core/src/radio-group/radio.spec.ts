@@ -10,9 +10,6 @@ describe('sl-radio', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-radio>Hello world</sl-radio>`);
-
-      el.disabled = false;
-      await el.updateComplete;
     });
 
     it('should render correctly', () => {
@@ -20,8 +17,8 @@ describe('sl-radio', () => {
     });
 
     it('should not be checked by default', () => {
-      expect(el.checked).to.equal(false);
-      expect(el.internals.ariaChecked).to.equal('false');
+      expect(el.checked).not.to.equal(true);
+      expect(el.internals.ariaChecked).not.to.equal('true');
     });
 
     it('should not be disabled by default', () => {
@@ -45,15 +42,11 @@ describe('sl-radio', () => {
   
   describe('disabled', () => {
     beforeEach(async ()=>{
-      const group = await fixture(html`<sl-radio-group><sl-radio value="1">Hello world</sl-radio></sl-radio-group>`);
+      const group = await fixture(html`<sl-radio-group><sl-radio value="1" disabled>Hello world</sl-radio></sl-radio-group>`);
       el = group.firstElementChild as Radio;
-
-      el.disabled = true;
-      el.setAttribute('disabled', '');
-      await el.updateComplete;
     });
-    it('should be disabled if set', async () => {
 
+    it('should be disabled if set', async () => {
       expect(el).to.have.attribute('disabled');
     });
 

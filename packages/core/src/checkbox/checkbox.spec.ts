@@ -10,8 +10,6 @@ describe('sl-checkbox', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
-
-      el.disabled = false;
       await el.updateComplete;
     });
 
@@ -51,14 +49,10 @@ describe('sl-checkbox', () => {
   
   describe('disabled', () => {
     beforeEach(async ()=>{
-      el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
-
-      el.disabled = true;
-      el.setAttribute('disabled', '');
-      await el.updateComplete;
+      el = await fixture(html`<sl-checkbox disabled>Hello world</sl-checkbox>`);
     });
-    it('should be disabled if set', async () => {
 
+    it('should be disabled if set', async () => {
       expect(el).to.have.attribute('disabled');
     });
 

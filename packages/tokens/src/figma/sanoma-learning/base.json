@@ -688,7 +688,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.xxs}",
+            "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
           "type": "typography"
@@ -697,7 +697,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.xs}",
+            "lineHeight": "{button.label.md}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
           "type": "typography"
@@ -706,7 +706,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
+            "lineHeight": "{button.label.lg}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
           "type": "typography"
@@ -783,6 +783,69 @@
           "type": "typography"
         }
       }
+    },
+    "text_field": {
+      "fontIcon": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "15"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "fontSize": "18"
+          },
+          "type": "typography"
+        }
+      },
+      "label": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "fontSize": "{text.typeset.fontSize.md}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.lg}",
+            "fontSize": "{text.typeset.fontSize.lg}"
+          },
+          "type": "typography"
+        }
+      },
+      "value": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.md}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.lg}",
+            "fontSize": "{text.typeset.fontSize.lg}"
+          },
+          "type": "typography"
+        }
+      },
+      "type": "other"
     }
   },
   "borderRadius": {
@@ -872,17 +935,17 @@
     "button": {
       "block": {
         "sm": {
-          "value": "{space.xs}",
+          "value": "{space.xs}-{border.width.button.outline}",
           "type": "spacing",
           "description": "space.button.solid.block.sm"
         },
         "md": {
-          "value": "{space.sm}",
+          "value": "{space.sm}-{border.width.button.outline}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
         },
         "lg": {
-          "value": "{space.sm}",
+          "value": "{space.sm}-{border.width.button.outline}",
           "type": "spacing",
           "description": "space.button.solid.block.lg"
         }
@@ -990,6 +1053,44 @@
       "xl": {
         "value": "{space.sm}",
         "type": "spacing"
+      }
+    },
+    "text_field": {
+      "block": {
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.block.lg"
+        }
+      },
+      "inline": {
+        "md": {
+          "value": "{space.md}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        },
+        "lg": {
+          "value": "{space.lg}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.lg"
+        }
+      },
+      "gap": {
+        "md": {
+          "value": "{space.button.block.md}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.button.block.md}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
       }
     }
   },
@@ -1099,15 +1200,15 @@
         },
         "height": {
           "sm": {
-            "value": "{text.typeset.lineHeight.xs}",
+            "value": "{button.label.sm}",
             "type": "sizing"
           },
           "md": {
-            "value": "{text.typeset.lineHeight.xs}",
+            "value": "button.label.md",
             "type": "sizing"
           },
           "lg": {
-            "value": "{text.typeset.lineHeight.md}",
+            "value": "{button.label.lg}",
             "type": "sizing"
           }
         },
@@ -1125,6 +1226,22 @@
             "type": "sizing"
           }
         }
+      }
+    }
+  },
+  "button": {
+    "label": {
+      "sm": {
+        "value": "{text.typeset.lineHeight.sm}",
+        "type": "lineHeights"
+      },
+      "md": {
+        "value": "{text.typeset.lineHeight.sm}",
+        "type": "lineHeights"
+      },
+      "lg": {
+        "value": "{text.typeset.lineHeight.lg}",
+        "type": "lineHeights"
       }
     }
   }

@@ -1264,9 +1264,10 @@
           "description": "{space.button.gap.md}"
         },
         "lg": {
-          "value": "{space.button.block.md}",
+          "value": "{space.button.with-border.block.md}",
           "type": "spacing",
-          "description": "{space.button.gap.lg}"
+          "description": "{space.button.gap.lg}",
+          "failedToResolve": true
         }
       },
       "icon-only": {
@@ -1287,38 +1288,44 @@
     "input": {
       "block": {
         "md": {
-          "value": "{space.button.block.sm}",
+          "value": "{space.button.with-border.block.sm}",
           "type": "spacing",
-          "description": "space.button.solid.block.md"
+          "description": "space.button.solid.block.md",
+          "failedToResolve": true
         },
         "lg": {
-          "value": "{space.button.block.sm}",
+          "value": "{space.button.with-border.block.sm}",
           "type": "spacing",
-          "description": "space.button.solid.block.lg"
+          "description": "space.button.solid.block.lg",
+          "failedToResolve": true
         }
       },
       "inline": {
         "md": {
-          "value": "{space.button.block.sm}",
+          "value": "{space.button.with-border.block.sm}",
           "type": "spacing",
-          "description": "space.button.solid.inline.md"
+          "description": "space.button.solid.inline.md",
+          "failedToResolve": true
         },
         "lg": {
-          "value": "{space.button.block.sm}",
+          "value": "{space.button.with-border.block.sm}",
           "type": "spacing",
-          "description": "space.button.solid.inline.lg"
+          "description": "space.button.solid.inline.lg",
+          "failedToResolve": true
         }
       },
       "gap": {
         "md": {
-          "value": "{space.button.block.md}",
+          "value": "{space.button.with-border.block.md}",
           "type": "spacing",
-          "description": "{space.button.gap.md}"
+          "description": "{space.button.gap.md}",
+          "failedToResolve": true
         },
         "lg": {
-          "value": "{space.button.block.md}",
+          "value": "{space.button.with-border.block.md}",
           "type": "spacing",
-          "description": "{space.button.gap.lg}"
+          "description": "{space.button.gap.lg}",
+          "failedToResolve": true
         }
       }
     },

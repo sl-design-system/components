@@ -69,7 +69,6 @@ $transition-timing: 200ms;
 .ds-contact-block__description-link {
   align-items: center;
   color: var(--contact-block-link);
-  display: inline-flex;
   font-size: 1.6rem;
   gap: 0.8rem;
   line-height: 2.4rem;
@@ -90,6 +89,16 @@ $transition-timing: 200ms;
       fill: var(--contact-block-link--hover);
     }
   }
+}
+
+.ds-contact-block__link {
+  display: inline-grid;
+  grid-template-columns: 2rem 1fr;
+  justify-items: center;
+}
+
+.ds-contact-block__description-link {
+  display: inline-flex;
 }
 
 .ds-contact-block__description-link {

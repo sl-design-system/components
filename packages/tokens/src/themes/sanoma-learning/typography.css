@@ -33,23 +33,23 @@
 
 .sl-text-button-font-icon-lg {
   font-family: var(--sl-text-typeset-font-family-icon);
-  font-size: 15;
+  font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-sm);
 }
 
 .sl-text-button-font-icon-md {
   font-family: var(--sl-text-typeset-font-family-icon);
-  font-size: 13;
+  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-sm);
+  line-height: var(--sl-text-typeset-line-height-xs);
 }
 
 .sl-text-button-font-icon-sm {
   font-family: var(--sl-text-typeset-font-family-icon);
-  font-size: 11;
+  font-size: 13;
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-sm);
+  line-height: var(--sl-text-typeset-line-height-xxs);
 }
 
 .sl-text-button-text-lg {

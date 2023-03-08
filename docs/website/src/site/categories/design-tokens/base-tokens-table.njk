@@ -28,44 +28,48 @@
  </tbody>
 </table>
 
-<h2>Test</h2>
-
-
-{% for text in tokens.base.text -%}
-  <h1>{{ text }}</h1>
-  {% for textType in text -%}
-    <h3 style="color: red">{{ textType | json }}</h3>
-    <h2 style="color: #1f97f9">{{ textType.value }}</h2>
-    <div class="ds-tokens__color" style="background-color: {{ colorPrimary.value }}"></div>
-    <h2>{{ textType.type }}</h2>
-    <h2>{{ textType.description }}</h2>
-    <h2>{{ textType.description | myFilter }}</h2>
-    <h2 class="ds-tokens__description">{{ textType.description | tokenDescription }}</h2>
-    description
-    token
-    token example: --sl-color-palette-primary-900
+<h2>Text</h2>
+<table class="ds-table"><thead>
+  <tr>
+    <th>Example text value</th>
+    <th>Token title</th>
+    <th>Token</th>
+  </tr></thead>
+  <tbody>
+  {% for text in tokens.base.text -%}
+    {% for textType in text -%}
+      textType == 'typeset' {{ textType == 'typeset' }}
+      {% for textProperties in textType -%}
+        textProperties == 'typeset' {{ textProperties == 'typeset' }}
+        textProperties: {{ textProperties | json }}
+        {% for property in textProperties -%}
+          property == 'typeset' {{ property == 'typeset' }}
+          property: {{ property | json }}
+          {% for propertyValue in property -%}
+            propertyValue == 'typeset' {{ propertyValue == 'typeset' }}
+            propertyValue: {{ propertyValue | json }}
+            TODO: for typeset only
+              {% for textType in propertyValue -%}
+                {% if textType.value %}
+            <tr>
+              <td>
+                <div class="ds-tokens__color" style="background-color: {{ colorVariantValue2.value }}"></div>
+                {{ textType.value }}
+                {{ textType.value | json }}
+                {{ textType.type }}
+              </td>
+              <td class="ds-tokens__description">{{ textType.description | tokenDescription }}</td>
+              <td><code>{{ textType.description | myFilter }}</code></td>
+            </tr>
+                {% endif %}
+        {% endfor -%}
+    {% endfor -%}
   {% endfor -%}
-
-{#  <table class="ds-table"><thead>#}
-{#    <tr>#}
-{#      <th>Example</th>#}
-{#      <th>Token title</th>#}
-{#      <th>Token</th>#}
-{#    </tr></thead>#}
-{#    <tbody>#}
-{#    {% for palette in text -%}<h1 style="color: #45cc80">{{ palette | json }}</h1>{% for colorPrimary2 in palette -%}#}
-{#      <h2 style="color: #002f62">{{ forloop.index }}</h2>#}
-{#      <tr>#}
-{#      <td>#}
-{#        <div class="ds-tokens__color" style="background-color: {{ colorPrimary2[forloop.index].value }}"></div>#}
-{#        {{ colorPrimary2[forloop.index].value }}#}
-{#      </td>#}
-{#      <td class="ds-tokens__description">{{ colorPrimary2[forloop.index].description | tokenDescription }}</td>#}
-{#      <td><code>{{ colorPrimary2[forloop.index].description | myFilter }}</code></td>#}
-{#      </tr>{% endfor -%}{% endfor -%}#}
-{#    </tbody>#}
-{#  </table>#}
-{% endfor -%}
+  {% endfor -%}
+  {% endfor -%}
+  {% endfor -%}
+  </tbody>
+</table>
 
 
 <h2>Border</h2>
@@ -150,38 +154,88 @@
   </tbody>
 </table>
 
+<section class="ds-tokens">
 <h2>Animation</h2>
 <table class="ds-table"><thead>
   <tr>
-    <th>Example</th>
+    <th>Example value????</th>
     <th>Token title</th>
     <th>Token</th>
   </tr></thead>
   <tbody>
-  {% for type in tokens.base.animation -%}
-    {% if type[0] == "duration" or type[0] == "easing" %}
-    {% for animation in type -%}
-      {% for property in animation -%}
-        <h3>animationType: {{ property }} {{ property == "duration" }}</h3>
-        <h3>animationType22: {{ animation }} {{ animation == "duration" }}</h3>
-        <h3>animationType33: {{ type }} {{ type == "duration" }} {{ type.length }} duration: {{ type[0] == "duration" }} easing: {{ type[0] == "easing" }}</h3>
-          This is animation type duration
-        <h2 style="color: #45cc80">{{ property | json }}</h2>
-        <tr>
-          <td>
-            <div class="ds-tokens__border" style="width: {{ property.value }}px; height: {{ property.value }}px"></div>
-            {{ property.value }}px
-            spacing
-            {{ property | json }}
-            {{ property.type }}
-            {{ property.description }}
-          </td>
-          <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
-          <td><code>{{ property.description | myFilter }}</code></td>
-        </tr>
+{% for type in tokens.base.animation -%}
+  {% if type[0] == "duration" or type[0] == "easing" %}
+  {% for animation in type -%}
+    {% for animationType in animation -%}
+      {% for property in animationType -%}
+        {% if property.value %}
+      <tr>
+        <td>
+          <code>{{ property.value }}</code>
+        </td>
+        <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
+        <td><code>{{ property.description | myFilter }}</code></td>
+      </tr>
+        {% endif %}
       {% endfor -%}
     {% endfor -%}
-    {% endif %}
   {% endfor -%}
+  {% endif %}
+{% endfor -%}
   </tbody>
 </table>
+</section>
+
+
+<section class="ds-tokens">
+  <h2>Opacity</h2>
+  <table class="ds-table"><thead>
+    <tr>
+      <th>Value</th>
+      <th>Token title</th>
+      <th>Token</th>
+    </tr></thead>
+    <tbody>
+    {% for type in tokens.base.opacity -%}
+      {{ type | json }}
+            {% for property in type -%}
+              <h2>{{ property | json }}</h2>
+              {% if property.value %}
+                <tr>
+                  <td>
+                    <div class="ds-tokens__opacity" style="opacity: {{ property.value }}"></div>
+                    <code>{{ property.value }}</code></td>
+                  <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
+                  <td><code>{{ property.description | myFilter }}</code></td>
+                </tr>
+              {% endif %}
+            {% endfor -%}
+    {% endfor -%}
+    </tbody>
+  </table>
+</section>
+
+<section class="ds-tokens">
+  <h2>Size</h2><table class="ds-table"><thead>
+    <tr>
+      <th>Value</th>
+      <th>Token title</th>
+      <th>Token</th>
+    </tr></thead>
+    <tbody>
+    {% for type in tokens.base.size -%}
+      {% for property in type -%}
+        {% if property.value %}
+          <tr>
+            <td>
+              <div class="ds-tokens__size" style="width: {{ property.value }}px; height: {{ property.value }}px;"></div>
+              <code>{{ property.value }}px</code></td>
+            <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
+            <td><code>{{ property.description | myFilter }}</code></td>
+          </tr>
+        {% endif %}
+      {% endfor -%}
+    {% endfor -%}
+    </tbody>
+  </table>
+</section>

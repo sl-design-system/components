@@ -115,6 +115,162 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/avatar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/avatar/avatar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/avatar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () =>\n    html`\n      <style>\n        section {\n          display: flex;\n          flex-direction: column;\n          gap: 24px;\n        }\n      </style>\n      <section>\n        <sl-avatar uniqueProfileId=\"1\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"2\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"3\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"4\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"5\"></sl-avatar>\n      </section>\n    `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/avatar/avatar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/avatar/avatar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/avatar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Avatar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "string"
+              },
+              "default": "'slds'",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "attribute": "uniqueProfileId"
+            },
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_getUserDetails",
+              "return": {
+                "type": {
+                  "text": "Promise<UserProfile | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "string"
+              },
+              "default": "'slds'",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "fieldName": "uniqueProfileId"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-avatar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "../../packages/core/src/avatar/avatar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "/packages/core/src/avatar/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/button/button.scss.ts",
       "declarations": [],
       "exports": [
@@ -453,464 +609,27 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/avatar.scss.ts",
+      "path": "../../packages/core/src/button-bar/button-bar.scss.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "../../packages/core/src/avatar/avatar.scss.ts"
+            "module": "../../packages/core/src/button-bar/button-bar.scss.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/avatar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () =>\n    html`\n      <style>\n        section {\n          display: flex;\n          flex-direction: column;\n          gap: 24px;\n        }\n      </style>\n      <section>\n        <sl-avatar uniqueProfileId=\"1\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"2\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"3\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"4\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"5\"></sl-avatar>\n      </section>\n    `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/avatar/avatar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/avatar/avatar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/avatar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Avatar",
-          "members": [
-            {
-              "kind": "field",
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "string"
-              },
-              "default": "'slds'",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "attribute": "uniqueProfileId"
-            },
-            {
-              "kind": "field",
-              "name": "profileName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "user",
-              "type": {
-                "text": "UserProfile | undefined | undefined"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_getUserDetails",
-              "return": {
-                "type": {
-                  "text": "Promise<UserProfile | undefined>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "string"
-              },
-              "default": "'slds'",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "fieldName": "uniqueProfileId"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-avatar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "../../packages/core/src/avatar/avatar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "/packages/core/src/avatar/avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/dialog.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/dialog/dialog.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/dialog.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => {\n    return html`\n      <sl-button @click=${onClick}>Show Dialog</sl-button>\n      <sl-dialog>\n        <span slot=\"title\">Dialog title</span>\n        <p>\n          Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et\n          tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.\n          Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur\n          anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor\n          magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.\n        </p>\n        <sl-button slot=\"action\" sl-dialog-close autofocus>Close</sl-button>\n      </sl-dialog>\n    `;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "DisableClose",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <sl-button @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog disable-close>\n      <span slot=\"title\">Disable close</span>\n      <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>\n      <sl-button slot=\"action\" sl-dialog-close>Close</sl-button>\n    </sl-dialog>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "ScrollingBody",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      sl-button {\n        margin: 50vh 0 100vh;\n      }\n    </style>\n    <sl-button @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog>\n      <div>You cannot scroll the body once the dialog is open.</div>\n    </sl-dialog>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/dialog/dialog.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/dialog/dialog.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "DisableClose",
-          "declaration": {
-            "name": "DisableClose",
-            "module": "../../packages/core/src/dialog/dialog.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ScrollingBody",
-          "declaration": {
-            "name": "ScrollingBody",
-            "module": "../../packages/core/src/dialog/dialog.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/dialog.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A dialog component for displaying modal UI.",
-          "name": "Dialog",
-          "slots": [
-            {
-              "description": "Area where action buttons are placed",
-              "name": "action"
-            },
-            {
-              "description": "Body content for the dialog",
-              "name": "default"
-            },
-            {
-              "description": "Footer content for the dialog",
-              "name": "footer"
-            },
-            {
-              "description": "Header content for the dialog",
-              "name": "header"
-            },
-            {
-              "description": "The title of the dialog",
-              "name": "title"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disableClose",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
-            },
-            {
-              "kind": "field",
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "attribute": "role"
-            },
-            {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onCancel",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClose",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disable-close",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "fieldName": "role"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-dialog",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Dialog",
-          "declaration": {
-            "name": "Dialog",
-            "module": "../../packages/core/src/dialog/dialog.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./dialog.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-dialog",
-          "declaration": {
-            "name": "Dialog",
-            "module": "/packages/core/src/dialog/dialog.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/drawer.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/drawer/drawer.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/drawer.spec.ts",
+      "path": "../../packages/core/src/button-bar/button-bar.spec.ts",
       "declarations": [],
       "exports": []
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/drawer.stories.ts",
+      "path": "../../packages/core/src/button-bar/button-bar.stories.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -918,23 +637,7 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h2 slot=\"title\">In this sidepanel you can find a lot of info</h2>\n      <p>\n        Apple pie chocolate jelly-o carrot cake gummi bears halvah cake cheesecake. Sesame snaps macaroon shortbread\n        cheesecake muffin soufflé. Powder croissant sugar plum candy canes cupcake chupa chups cake marzipan. Chocolate\n        bar pie jujubes chocolate powder jelly. Marshmallow biscuit bear claw cookie topping. Tart sugar plum toffee\n        gingerbread macaroon danish brownie. Candy canes dragée sesame snaps lollipop ice cream.\n      </p>\n    </sl-drawer>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "DisableClose",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer disable-close>\n      <span slot=\"title\" id=\"title\">Drawer title</span>\n      <p>\n        Jelly beans macaroon bonbon chocolate cake jelly beans chocolate lollipop cake. Wafer bonbon powder toffee pie.\n        Shortbread sweet dessert tiramisu danish jelly-o wafer. Brownie lemon drops cake lollipop tart candy cookie\n        gummies chocolate. Cupcake gummies sesame snaps topping gummi bears. Croissant danish marshmallow macaroon\n        fruitcake.\n      </p>\n    </sl-drawer>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "CompleteHeader",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h1 slot=\"title\">Test title</h1>\n      <sl-button slot=\"actions\">download</sl-button>\n      <p>\n        Macaroon caramels tootsie roll cookie liquorice cake gingerbread cookie. Toffee fruitcake macaroon cheesecake\n        muffin gingerbread apple pie. Donut powder lollipop macaroon jelly-o. Powder powder tiramisu brownie jelly\n        macaroon jelly ice cream. Cake macaroon pudding cookie cookie powder macaroon. Sesame snaps cheesecake jujubes\n        tootsie roll macaroon oat cake jujubes cotton candy. Chocolate chocolate cake tart fruitcake sugar plum. Lemon\n        drops dessert pastry jujubes bonbon fruitcake muffin. Candy canes wafer brownie chocolate cake macaroon\n        cheesecake.\n      </p>\n    </sl-drawer>\n  `\n}"
+          "default": "{\n  args: {\n    align: 'start',\n    reverse: false\n  },\n  argTypes: {\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end', 'space-between']\n    }\n  },\n  render: ({ align, reverse }) => html`\n    <sl-button-bar .align=${align} .reverse=${reverse}>\n      <sl-button>Foo</sl-button>\n      <sl-button>Bar</sl-button>\n      <sl-button>Baz</sl-button>\n    </sl-button-bar>\n  `\n}"
         }
       ],
       "exports": [
@@ -942,7 +645,7 @@
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "../../packages/core/src/drawer/drawer.stories.ts"
+            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
           }
         },
         {
@@ -950,216 +653,118 @@
           "name": "API",
           "declaration": {
             "name": "API",
-            "module": "../../packages/core/src/drawer/drawer.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "DisableClose",
-          "declaration": {
-            "name": "DisableClose",
-            "module": "../../packages/core/src/drawer/drawer.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CompleteHeader",
-          "declaration": {
-            "name": "CompleteHeader",
-            "module": "../../packages/core/src/drawer/drawer.stories.ts"
+            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/drawer.ts",
+      "path": "../../packages/core/src/button-bar/button-bar.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "A drawer component for displaying UI at the side of the screen.",
-          "name": "Drawer",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
+          "name": "ButtonBar",
           "slots": [
             {
-              "description": "Body content for the drawer",
+              "description": "Buttons to be grouped in the bar",
               "name": "default"
-            },
-            {
-              "description": "Header content for the drawer",
-              "name": "header"
-            },
-            {
-              "description": "The title of the drawer",
-              "name": "title"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "scopedElements",
+              "name": "align",
               "type": {
-                "text": "ScopedElementsMap"
+                "text": "start | center | end | 'space-between'"
               },
-              "static": true,
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disableClose",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
-            },
-            {
-              "kind": "field",
-              "name": "attachment",
-              "type": {
-                "text": "DrawerAttachment"
-              },
-              "default": "'right'",
-              "description": "The side of the screen where the drawer is attached",
-              "attribute": "attachment",
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "attribute": "align",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "closeButtonSize",
+              "name": "iconOnly",
               "type": {
-                "text": "ButtonSize"
+                "text": "boolean | undefined"
               },
-              "default": "'sm'",
-              "description": "The size of the button",
-              "attribute": "closeButtonSize"
+              "description": "Whether the bar only contains icon-only buttons.",
+              "attribute": "icon-only",
+              "reflects": true
             },
             {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onCancel",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
               },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
+              "default": "false",
+              "description": "If set, the button order is reversed.",
+              "attribute": "reverse",
+              "reflects": true
             },
             {
               "kind": "method",
-              "name": "#onClick",
+              "name": "#onSlotchange",
               "return": {
                 "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClose",
-              "return": {
-                "type": {
-                  "text": "void"
+                  "text": "Promise<void>"
                 }
               }
             }
           ],
           "attributes": [
             {
-              "name": "disable-close",
+              "name": "align",
+              "type": {
+                "text": "start | center | end | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "fieldName": "align"
+            },
+            {
+              "name": "icon-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the bar only contains icon-only buttons.",
+              "fieldName": "iconOnly"
+            },
+            {
+              "name": "reverse",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "attachment",
-              "type": {
-                "text": "DrawerAttachment"
-              },
-              "default": "'right'",
-              "description": "The side of the screen where the drawer is attached",
-              "fieldName": "attachment"
-            },
-            {
-              "name": "closeButtonSize",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'sm'",
-              "description": "The size of the button",
-              "fieldName": "closeButtonSize"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+              "description": "If set, the button order is reversed.",
+              "fieldName": "reverse"
             }
           ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-drawer",
+          "tagName": "sl-button-bar",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "Drawer",
+          "name": "ButtonBar",
           "declaration": {
-            "name": "Drawer",
-            "module": "../../packages/core/src/drawer/drawer.ts"
+            "name": "ButtonBar",
+            "module": "../../packages/core/src/button-bar/button-bar.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/index.ts",
+      "path": "../../packages/core/src/button-bar/index.ts",
       "declarations": [],
       "exports": [
         {
@@ -1167,22 +772,22 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./drawer.js"
+            "package": "./button-bar.js"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/register.ts",
+      "path": "../../packages/core/src/button-bar/register.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "custom-element-definition",
-          "name": "sl-drawer",
+          "name": "sl-button-bar",
           "declaration": {
-            "name": "Drawer",
-            "module": "/packages/core/src/drawer/drawer.js"
+            "name": "ButtonBar",
+            "module": "/packages/core/src/button-bar/button-bar.js"
           }
         }
       ]
@@ -2089,6 +1694,287 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/dialog.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/dialog/dialog.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/dialog.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    return html`\n      <sl-button @click=${onClick}>Show Dialog</sl-button>\n      <sl-dialog>\n        <span slot=\"title\">Dialog title</span>\n        <p>\n          Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et\n          tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.\n          Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur\n          anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor\n          magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.\n        </p>\n        <sl-button slot=\"action\" sl-dialog-close autofocus>Close</sl-button>\n      </sl-dialog>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "DisableClose",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-button @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog disable-close>\n      <span slot=\"title\">Disable close</span>\n      <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>\n      <sl-button slot=\"action\" sl-dialog-close>Close</sl-button>\n    </sl-dialog>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "ScrollingBody",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      sl-button {\n        margin: 50vh 0 100vh;\n      }\n    </style>\n    <sl-button @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog>\n      <div>You cannot scroll the body once the dialog is open.</div>\n    </sl-dialog>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/dialog/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/dialog/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DisableClose",
+          "declaration": {
+            "name": "DisableClose",
+            "module": "../../packages/core/src/dialog/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ScrollingBody",
+          "declaration": {
+            "name": "ScrollingBody",
+            "module": "../../packages/core/src/dialog/dialog.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A dialog component for displaying modal UI.",
+          "name": "Dialog",
+          "slots": [
+            {
+              "description": "Area where action buttons are placed",
+              "name": "action"
+            },
+            {
+              "description": "Body content for the dialog",
+              "name": "default"
+            },
+            {
+              "description": "Footer content for the dialog",
+              "name": "footer"
+            },
+            {
+              "description": "Header content for the dialog",
+              "name": "header"
+            },
+            {
+              "description": "The title of the dialog",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableClose",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "attribute": "disable-close"
+            },
+            {
+              "kind": "field",
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "attribute": "role"
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onCancel",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClose",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disable-close",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "fieldName": "disableClose"
+            },
+            {
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "fieldName": "role"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-dialog",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Dialog",
+          "declaration": {
+            "name": "Dialog",
+            "module": "../../packages/core/src/dialog/dialog.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-dialog",
+          "declaration": {
+            "name": "Dialog",
+            "module": "/packages/core/src/dialog/dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/icon/icon.scss.ts",
       "declarations": [],
       "exports": [
@@ -2280,27 +2166,27 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.scss.ts",
+      "path": "../../packages/core/src/drawer/drawer.scss.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "../../packages/core/src/button-bar/button-bar.scss.ts"
+            "module": "../../packages/core/src/drawer/drawer.scss.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.spec.ts",
+      "path": "../../packages/core/src/drawer/drawer.spec.ts",
       "declarations": [],
       "exports": []
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.stories.ts",
+      "path": "../../packages/core/src/drawer/drawer.stories.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -2308,7 +2194,23 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  args: {\n    align: 'start',\n    reverse: false\n  },\n  argTypes: {\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end', 'space-between']\n    }\n  },\n  render: ({ align, reverse }) => html`\n    <sl-button-bar .align=${align} .reverse=${reverse}>\n      <sl-button>Foo</sl-button>\n      <sl-button>Bar</sl-button>\n      <sl-button>Baz</sl-button>\n    </sl-button-bar>\n  `\n}"
+          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h2 slot=\"title\">In this sidepanel you can find a lot of info</h2>\n      <p>\n        Apple pie chocolate jelly-o carrot cake gummi bears halvah cake cheesecake. Sesame snaps macaroon shortbread\n        cheesecake muffin soufflé. Powder croissant sugar plum candy canes cupcake chupa chups cake marzipan. Chocolate\n        bar pie jujubes chocolate powder jelly. Marshmallow biscuit bear claw cookie topping. Tart sugar plum toffee\n        gingerbread macaroon danish brownie. Candy canes dragée sesame snaps lollipop ice cream.\n      </p>\n    </sl-drawer>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "DisableClose",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer disable-close>\n      <span slot=\"title\" id=\"title\">Drawer title</span>\n      <p>\n        Jelly beans macaroon bonbon chocolate cake jelly beans chocolate lollipop cake. Wafer bonbon powder toffee pie.\n        Shortbread sweet dessert tiramisu danish jelly-o wafer. Brownie lemon drops cake lollipop tart candy cookie\n        gummies chocolate. Cupcake gummies sesame snaps topping gummi bears. Croissant danish marshmallow macaroon\n        fruitcake.\n      </p>\n    </sl-drawer>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CompleteHeader",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h1 slot=\"title\">Test title</h1>\n      <sl-button slot=\"actions\">download</sl-button>\n      <p>\n        Macaroon caramels tootsie roll cookie liquorice cake gingerbread cookie. Toffee fruitcake macaroon cheesecake\n        muffin gingerbread apple pie. Donut powder lollipop macaroon jelly-o. Powder powder tiramisu brownie jelly\n        macaroon jelly ice cream. Cake macaroon pudding cookie cookie powder macaroon. Sesame snaps cheesecake jujubes\n        tootsie roll macaroon oat cake jujubes cotton candy. Chocolate chocolate cake tart fruitcake sugar plum. Lemon\n        drops dessert pastry jujubes bonbon fruitcake muffin. Candy canes wafer brownie chocolate cake macaroon\n        cheesecake.\n      </p>\n    </sl-drawer>\n  `\n}"
         }
       ],
       "exports": [
@@ -2316,7 +2218,7 @@
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
+            "module": "../../packages/core/src/drawer/drawer.stories.ts"
           }
         },
         {
@@ -2324,118 +2226,216 @@
           "name": "API",
           "declaration": {
             "name": "API",
-            "module": "../../packages/core/src/button-bar/button-bar.stories.ts"
+            "module": "../../packages/core/src/drawer/drawer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DisableClose",
+          "declaration": {
+            "name": "DisableClose",
+            "module": "../../packages/core/src/drawer/drawer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CompleteHeader",
+          "declaration": {
+            "name": "CompleteHeader",
+            "module": "../../packages/core/src/drawer/drawer.stories.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/button-bar.ts",
+      "path": "../../packages/core/src/drawer/drawer.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
-          "name": "ButtonBar",
+          "description": "A drawer component for displaying UI at the side of the screen.",
+          "name": "Drawer",
           "slots": [
             {
-              "description": "Buttons to be grouped in the bar",
+              "description": "Body content for the drawer",
               "name": "default"
+            },
+            {
+              "description": "Header content for the drawer",
+              "name": "header"
+            },
+            {
+              "description": "The title of the drawer",
+              "name": "title"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "align",
+              "name": "scopedElements",
               "type": {
-                "text": "start | center | end | 'space-between'"
+                "text": "ScopedElementsMap"
               },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "attribute": "align",
-              "reflects": true
+              "static": true,
+              "privacy": "private"
             },
             {
               "kind": "field",
-              "name": "iconOnly",
+              "name": "dialog",
               "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "attribute": "icon-only",
-              "reflects": true
+                "text": "HTMLDialogElement | undefined"
+              }
             },
             {
               "kind": "field",
-              "name": "reverse",
+              "name": "disableClose",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "If set, the button order is reversed.",
-              "attribute": "reverse",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "attribute": "disable-close"
+            },
+            {
+              "kind": "field",
+              "name": "attachment",
+              "type": {
+                "text": "DrawerAttachment"
+              },
+              "default": "'right'",
+              "description": "The side of the screen where the drawer is attached",
+              "attribute": "attachment",
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'sm'",
+              "description": "The size of the button",
+              "attribute": "closeButtonSize"
+            },
+            {
               "kind": "method",
-              "name": "#onSlotchange",
+              "name": "showModal",
               "return": {
                 "type": {
-                  "text": "Promise<void>"
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onCancel",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClose",
+              "return": {
+                "type": {
+                  "text": "void"
                 }
               }
             }
           ],
           "attributes": [
             {
-              "name": "align",
-              "type": {
-                "text": "start | center | end | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "fieldName": "align"
-            },
-            {
-              "name": "icon-only",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "fieldName": "iconOnly"
-            },
-            {
-              "name": "reverse",
+              "name": "disable-close",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "If set, the button order is reversed.",
-              "fieldName": "reverse"
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "fieldName": "disableClose"
+            },
+            {
+              "name": "attachment",
+              "type": {
+                "text": "DrawerAttachment"
+              },
+              "default": "'right'",
+              "description": "The side of the screen where the drawer is attached",
+              "fieldName": "attachment"
+            },
+            {
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'sm'",
+              "description": "The size of the button",
+              "fieldName": "closeButtonSize"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
             }
           ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-button-bar",
+          "tagName": "sl-drawer",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "ButtonBar",
+          "name": "Drawer",
           "declaration": {
-            "name": "ButtonBar",
-            "module": "../../packages/core/src/button-bar/button-bar.ts"
+            "name": "Drawer",
+            "module": "../../packages/core/src/drawer/drawer.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/index.ts",
+      "path": "../../packages/core/src/drawer/index.ts",
       "declarations": [],
       "exports": [
         {
@@ -2443,22 +2443,22 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./button-bar.js"
+            "package": "./drawer.js"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/button-bar/register.ts",
+      "path": "../../packages/core/src/drawer/register.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "custom-element-definition",
-          "name": "sl-button-bar",
+          "name": "sl-drawer",
           "declaration": {
-            "name": "ButtonBar",
-            "module": "/packages/core/src/button-bar/button-bar.js"
+            "name": "Drawer",
+            "module": "/packages/core/src/drawer/drawer.js"
           }
         }
       ]
@@ -6488,544 +6488,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./tab-group.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./tab-panel.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./tab.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-tab",
-          "declaration": {
-            "name": "Tab",
-            "module": "/packages/core/src/tabs/tab.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-tab-group",
-          "declaration": {
-            "name": "TabGroup",
-            "module": "/packages/core/src/tabs/tab-group.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-tab-panel",
-          "declaration": {
-            "name": "TabPanel",
-            "module": "/packages/core/src/tabs/tab-panel.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/tabs/tab-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab-group.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab-group.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ vertical }) => html`\n    <style>\n      sl-tab-panel {\n        padding: 8px;\n      }\n    </style>\n    <sl-tab-group .vertical=${vertical}>\n      <sl-tab disabled>🧁 Tab 1</sl-tab>\n      <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>\n\n      <sl-tab>🍰 Tab 2</sl-tab>\n      <sl-tab-panel>\n        <p>Contents tab 2</p>\n        <sl-avatar></sl-avatar>\n      </sl-tab-panel>\n\n      <sl-tab>🍡 Tab 3</sl-tab>\n      <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>\n\n      <sl-tab>🥞 Tab 4</sl-tab>\n      <sl-tab-panel>Contents tab 4</sl-tab-panel>\n\n      <sl-tab>🍪 Tab 5</sl-tab>\n      <sl-tab-panel>Contents tab 5</sl-tab-panel>\n    </sl-tab-group>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "LongTitles",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ vertical }) => html`<sl-tab-group .vertical=${vertical}>\n    <sl-tab selected>This is the first tab</sl-tab>\n    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(4)}</sl-tab-panel>\n\n    <sl-tab>This is the second tab</sl-tab>\n    <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>\n\n    <sl-tab>This is the third tab</sl-tab>\n    <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>\n\n    <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>\n    <sl-tab-panel>Contents tab 4</sl-tab-panel>\n\n    <sl-tab>This is the fifth tab</sl-tab>\n    <sl-tab-panel>Contents tab 5</sl-tab-panel>\n\n    <sl-tab>This is the sixth tab</sl-tab>\n    <sl-tab-panel>Contents tab 6</sl-tab-panel>\n\n    <sl-tab>This is the seventh tab</sl-tab>\n    <sl-tab-panel>Contents tab 7</sl-tab-panel>\n\n    <sl-tab>This is the eighth tab</sl-tab>\n    <sl-tab-panel>Contents tab 8</sl-tab-panel>\n\n    <sl-tab>This is the nineth tab</sl-tab>\n    <sl-tab-panel>Contents tab 9</sl-tab-panel>\n\n    <sl-tab>This is the tenth tab</sl-tab>\n    <sl-tab-panel>Contents tab 10</sl-tab-panel>\n  </sl-tab-group>`\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "ExternalInteraction",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ vertical }) => html`\n    <sl-tab-group .vertical=${vertical} id=\"externalInteraction\" @sl-tab-change=${tabChange}>\n      <sl-tab selected>Tab 1</sl-tab>\n      <sl-tab>Tab 2</sl-tab>\n      <sl-tab>Tab 3</sl-tab>\n      <sl-tab>Tab 4</sl-tab>\n      <sl-tab>Tab 5</sl-tab>\n    </sl-tab-group>\n    <hr />\n    <sl-button @click=\"${() => activateTab(1)}\"> Activate tab 2</sl-button>\n    <sl-button @click=\"${() => activateTab(3)}\"> Activate tab 4</sl-button>\n    <h2 id=\"output\">Active tab:</h2>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "SingleTab",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ vertical }) => html`\n    <style>\n      sl-tab-panel {\n        padding: 8px;\n      }\n    </style>\n    <sl-tab-group .vertical=${vertical} id=\"singleTab\" @sl-tab-change=${tabChange}>\n      <sl-tab>Tab 1</sl-tab>\n      <sl-tab>Tab 2</sl-tab>\n      <sl-tab selected>Tab 3</sl-tab>\n      <sl-tab>Tab 4</sl-tab>\n      <sl-tab>Tab 5</sl-tab>\n      <sl-tab-panel>\n        <p>place your router-outlet in this panel</p>\n        <h2 id=\"output\">Active tab:</h2>\n      </sl-tab-panel>\n    </sl-tab-group>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "LongTitles",
-          "declaration": {
-            "name": "LongTitles",
-            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ExternalInteraction",
-          "declaration": {
-            "name": "ExternalInteraction",
-            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "SingleTab",
-          "declaration": {
-            "name": "SingleTab",
-            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab-group.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "TabGroup",
-          "members": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#tabGroupId",
-              "privacy": "private",
-              "default": "`sl-tab-group-${nextUniqueId++}`",
-              "description": "Unique ID for each tab group component present."
-            },
-            {
-              "kind": "field",
-              "name": "#observer",
-              "privacy": "private",
-              "type": {
-                "text": "MutationObserver | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#rovingTabindexController",
-              "privacy": "private",
-              "default": "new RovingTabindexController<Tab>(this, {\n    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),\n    elements: () => this.tabs || [],\n    isFocusableElement: (el: Tab) => !el.disabled\n  })"
-            },
-            {
-              "kind": "field",
-              "name": "#observerOptions",
-              "privacy": "private",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{\n    attributes: true,\n    subtree: true,\n    attributeFilter: ['selected'],\n    attributeOldValue: true\n  }"
-            },
-            {
-              "kind": "field",
-              "name": "tabs",
-              "type": {
-                "text": "Tab[] | undefined"
-              },
-              "description": "The slotted tabs."
-            },
-            {
-              "kind": "field",
-              "name": "selectedTab",
-              "type": {
-                "text": "Tab | null"
-              },
-              "privacy": "private",
-              "description": "The current tab node selected in the tab group."
-            },
-            {
-              "kind": "field",
-              "name": "tabChange",
-              "type": {
-                "text": "EventEmitter<number>"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "vertical",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "attribute": "vertical",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "#initialSelectedTab",
-              "privacy": "private",
-              "type": {
-                "text": "Tab | null"
-              },
-              "description": "Get the selected tab button, or the first tab button."
-            },
-            {
-              "kind": "method",
-              "name": "#updateSlots",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#handleMutation",
-              "privacy": "private",
-              "description": "If the selected tab is selected programmatically update all the tabs."
-            },
-            {
-              "kind": "method",
-              "name": "#setupTabs",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab buttons."
-            },
-            {
-              "kind": "method",
-              "name": "#setupPanels",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab panels."
-            },
-            {
-              "kind": "method",
-              "name": "#handleTabChange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#updateSelectedTab",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selectedTab",
-                  "type": {
-                    "text": "Tab"
-                  }
-                }
-              ],
-              "description": "Update the selected tab button with attributes and values.\nUpdate the tab group state."
-            },
-            {
-              "kind": "method",
-              "name": "#handleKeydown",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ],
-              "description": "Handle keyboard accessible controls."
-            },
-            {
-              "kind": "method",
-              "name": "#updateSelectionIndicator",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "vertical",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "fieldName": "vertical"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-tab-group",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TabGroup",
-          "declaration": {
-            "name": "TabGroup",
-            "module": "../../packages/core/src/tabs/tab-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab-panel.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/tabs/tab-panel.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab-panel.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab-panel.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "TabPanel",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-tab-panel",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TabPanel",
-          "declaration": {
-            "name": "TabPanel",
-            "module": "../../packages/core/src/tabs/tab-panel.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/tabs/tab.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tabs/tab.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Tab",
-          "members": [
-            {
-              "kind": "field",
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is selected",
-              "attribute": "selected",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is disabled",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is selected",
-              "fieldName": "selected"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is disabled",
-              "fieldName": "disabled"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-tab",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Tab",
-          "declaration": {
-            "name": "Tab",
-            "module": "../../packages/core/src/tabs/tab.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../../packages/core/src/textarea/index.ts",
       "declarations": [],
       "exports": [
@@ -7711,6 +7173,544 @@
           "declaration": {
             "name": "Textarea",
             "module": "../../packages/core/src/textarea/textarea.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./tab-group.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./tab-panel.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./tab.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-tab",
+          "declaration": {
+            "name": "Tab",
+            "module": "/packages/core/src/tabs/tab.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-tab-group",
+          "declaration": {
+            "name": "TabGroup",
+            "module": "/packages/core/src/tabs/tab-group.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-tab-panel",
+          "declaration": {
+            "name": "TabPanel",
+            "module": "/packages/core/src/tabs/tab-panel.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/tabs/tab-group.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab-group.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab-group.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ vertical }) => html`\n    <style>\n      sl-tab-panel {\n        padding: 8px;\n      }\n    </style>\n    <sl-tab-group .vertical=${vertical}>\n      <sl-tab disabled>🧁 Tab 1</sl-tab>\n      <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>\n\n      <sl-tab>🍰 Tab 2</sl-tab>\n      <sl-tab-panel>\n        <p>Contents tab 2</p>\n        <sl-avatar></sl-avatar>\n      </sl-tab-panel>\n\n      <sl-tab>🍡 Tab 3</sl-tab>\n      <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>\n\n      <sl-tab>🥞 Tab 4</sl-tab>\n      <sl-tab-panel>Contents tab 4</sl-tab-panel>\n\n      <sl-tab>🍪 Tab 5</sl-tab>\n      <sl-tab-panel>Contents tab 5</sl-tab-panel>\n    </sl-tab-group>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "LongTitles",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ vertical }) => html`<sl-tab-group .vertical=${vertical}>\n    <sl-tab selected>This is the first tab</sl-tab>\n    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(4)}</sl-tab-panel>\n\n    <sl-tab>This is the second tab</sl-tab>\n    <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>\n\n    <sl-tab>This is the third tab</sl-tab>\n    <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>\n\n    <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>\n    <sl-tab-panel>Contents tab 4</sl-tab-panel>\n\n    <sl-tab>This is the fifth tab</sl-tab>\n    <sl-tab-panel>Contents tab 5</sl-tab-panel>\n\n    <sl-tab>This is the sixth tab</sl-tab>\n    <sl-tab-panel>Contents tab 6</sl-tab-panel>\n\n    <sl-tab>This is the seventh tab</sl-tab>\n    <sl-tab-panel>Contents tab 7</sl-tab-panel>\n\n    <sl-tab>This is the eighth tab</sl-tab>\n    <sl-tab-panel>Contents tab 8</sl-tab-panel>\n\n    <sl-tab>This is the nineth tab</sl-tab>\n    <sl-tab-panel>Contents tab 9</sl-tab-panel>\n\n    <sl-tab>This is the tenth tab</sl-tab>\n    <sl-tab-panel>Contents tab 10</sl-tab-panel>\n  </sl-tab-group>`\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "ExternalInteraction",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ vertical }) => html`\n    <sl-tab-group .vertical=${vertical} id=\"externalInteraction\" @sl-tab-change=${tabChange}>\n      <sl-tab selected>Tab 1</sl-tab>\n      <sl-tab>Tab 2</sl-tab>\n      <sl-tab>Tab 3</sl-tab>\n      <sl-tab>Tab 4</sl-tab>\n      <sl-tab>Tab 5</sl-tab>\n    </sl-tab-group>\n    <hr />\n    <sl-button @click=\"${() => activateTab(1)}\"> Activate tab 2</sl-button>\n    <sl-button @click=\"${() => activateTab(3)}\"> Activate tab 4</sl-button>\n    <h2 id=\"output\">Active tab:</h2>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "SingleTab",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ vertical }) => html`\n    <style>\n      sl-tab-panel {\n        padding: 8px;\n      }\n    </style>\n    <sl-tab-group .vertical=${vertical} id=\"singleTab\" @sl-tab-change=${tabChange}>\n      <sl-tab>Tab 1</sl-tab>\n      <sl-tab>Tab 2</sl-tab>\n      <sl-tab selected>Tab 3</sl-tab>\n      <sl-tab>Tab 4</sl-tab>\n      <sl-tab>Tab 5</sl-tab>\n      <sl-tab-panel>\n        <p>place your router-outlet in this panel</p>\n        <h2 id=\"output\">Active tab:</h2>\n      </sl-tab-panel>\n    </sl-tab-group>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LongTitles",
+          "declaration": {
+            "name": "LongTitles",
+            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ExternalInteraction",
+          "declaration": {
+            "name": "ExternalInteraction",
+            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SingleTab",
+          "declaration": {
+            "name": "SingleTab",
+            "module": "../../packages/core/src/tabs/tab-group.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TabGroup",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#tabGroupId",
+              "privacy": "private",
+              "default": "`sl-tab-group-${nextUniqueId++}`",
+              "description": "Unique ID for each tab group component present."
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "type": {
+                "text": "MutationObserver | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<Tab>(this, {\n    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),\n    elements: () => this.tabs || [],\n    isFocusableElement: (el: Tab) => !el.disabled\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#observerOptions",
+              "privacy": "private",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{\n    attributes: true,\n    subtree: true,\n    attributeFilter: ['selected'],\n    attributeOldValue: true\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "tabs",
+              "type": {
+                "text": "Tab[] | undefined"
+              },
+              "description": "The slotted tabs."
+            },
+            {
+              "kind": "field",
+              "name": "selectedTab",
+              "type": {
+                "text": "Tab | null"
+              },
+              "privacy": "private",
+              "description": "The current tab node selected in the tab group."
+            },
+            {
+              "kind": "field",
+              "name": "tabChange",
+              "type": {
+                "text": "EventEmitter<number>"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "vertical",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "attribute": "vertical",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "#initialSelectedTab",
+              "privacy": "private",
+              "type": {
+                "text": "Tab | null"
+              },
+              "description": "Get the selected tab button, or the first tab button."
+            },
+            {
+              "kind": "method",
+              "name": "#updateSlots",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#handleMutation",
+              "privacy": "private",
+              "description": "If the selected tab is selected programmatically update all the tabs."
+            },
+            {
+              "kind": "method",
+              "name": "#setupTabs",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab buttons."
+            },
+            {
+              "kind": "method",
+              "name": "#setupPanels",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab panels."
+            },
+            {
+              "kind": "method",
+              "name": "#handleTabChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateSelectedTab",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selectedTab",
+                  "type": {
+                    "text": "Tab"
+                  }
+                }
+              ],
+              "description": "Update the selected tab button with attributes and values.\nUpdate the tab group state."
+            },
+            {
+              "kind": "method",
+              "name": "#handleKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ],
+              "description": "Handle keyboard accessible controls."
+            },
+            {
+              "kind": "method",
+              "name": "#updateSelectionIndicator",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "vertical",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "fieldName": "vertical"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tab-group",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabGroup",
+          "declaration": {
+            "name": "TabGroup",
+            "module": "../../packages/core/src/tabs/tab-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab-panel.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/tabs/tab-panel.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab-panel.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab-panel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TabPanel",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tab-panel",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabPanel",
+          "declaration": {
+            "name": "TabPanel",
+            "module": "../../packages/core/src/tabs/tab-panel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/tabs/tab.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tabs/tab.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Tab",
+          "members": [
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is selected",
+              "attribute": "selected",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is disabled",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "handleSelectionChange",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is selected",
+              "fieldName": "selected"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is disabled",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tab",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Tab",
+          "declaration": {
+            "name": "Tab",
+            "module": "../../packages/core/src/tabs/tab.ts"
           }
         }
       ]
@@ -8872,6 +8872,84 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/popover/utils/position-anchored-element.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "flipPlacement",
+          "return": {
+            "type": {
+              "text": "Placement"
+            }
+          },
+          "parameters": [
+            {
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "positionAnchoredElement",
+          "return": {
+            "type": {
+              "text": "(() => void)"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "anchor",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "PositionAnchoredElementOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Placement",
+          "declaration": {
+            "name": "Placement",
+            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "flipPlacement",
+          "declaration": {
+            "name": "flipPlacement",
+            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "positionAnchoredElement",
+          "declaration": {
+            "name": "positionAnchoredElement",
+            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/popover/mixins/anchored-popover.ts",
       "declarations": [
         {
@@ -9556,78 +9634,242 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/popover/utils/position-anchored-element.ts",
+      "path": "../../packages/core/src/utils/data-source/array-data-source.ts",
       "declarations": [
         {
-          "kind": "function",
-          "name": "flipPlacement",
-          "return": {
-            "type": {
-              "text": "Placement"
-            }
-          },
-          "parameters": [
+          "kind": "class",
+          "description": "",
+          "name": "ArrayDataSource",
+          "members": [
             {
-              "name": "placement",
+              "kind": "field",
+              "name": "#items",
+              "privacy": "private",
               "type": {
-                "text": "Placement"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "positionAnchoredElement",
-          "return": {
-            "type": {
-              "text": "(() => void)"
-            }
-          },
-          "parameters": [
+                "text": "T[]"
+              },
+              "default": "[...items]",
+              "description": "Array of filtered & sorted items."
+            },
             {
-              "name": "element",
+              "kind": "field",
+              "name": "#originalItems",
+              "privacy": "private",
               "type": {
-                "text": "HTMLElement"
+                "text": "T[]"
+              },
+              "description": "The original array of items as passed to the constructor.",
+              "default": "[...items]"
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "description": "The array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
               }
             },
             {
-              "name": "anchor",
+              "kind": "field",
+              "name": "size",
               "type": {
-                "text": "HTMLElement"
+                "text": "number"
+              },
+              "description": "Size of the item collection.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
               }
             },
             {
-              "name": "options",
+              "kind": "method",
+              "name": "#filter",
+              "return": {
+                "type": {
+                  "text": "DataSourceFilterFunction<T>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "values",
+                  "type": {
+                    "text": "DataSourceFilterValue[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "filter",
               "type": {
-                "text": "PositionAnchoredElementOptions"
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
               }
             }
-          ]
+          ],
+          "events": [
+            {
+              "name": "sl-update",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "DataSource",
+            "module": "/packages/core/src/utils/data-source/data-source.js"
+          }
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "Placement",
+          "name": "ArrayDataSource",
           "declaration": {
-            "name": "Placement",
-            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
+            "name": "ArrayDataSource",
+            "module": "../../packages/core/src/utils/data-source/array-data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/data-source/data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSource",
+          "members": [
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation."
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on."
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation."
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "description": "The array of items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "description": "Size of the item collection."
+            }
+          ],
+          "superclass": {
+            "name": "EventTarget",
+            "module": "../../packages/core/src/utils/data-source/data-source.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataSource",
+          "declaration": {
+            "name": "DataSource",
+            "module": "../../packages/core/src/utils/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/data-source/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./array-data-source.js"
           }
         },
         {
           "kind": "js",
-          "name": "flipPlacement",
+          "name": "*",
           "declaration": {
-            "name": "flipPlacement",
-            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "positionAnchoredElement",
-          "declaration": {
-            "name": "positionAnchoredElement",
-            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
+            "name": "*",
+            "package": "./data-source.js"
           }
         }
       ]
@@ -11185,248 +11427,6 @@
           "declaration": {
             "name": "ValidationController",
             "module": "../../packages/core/src/utils/controllers/validation.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "#items",
-              "privacy": "private",
-              "type": {
-                "text": "T[]"
-              },
-              "default": "[...items]",
-              "description": "Array of filtered & sorted items."
-            },
-            {
-              "kind": "field",
-              "name": "#originalItems",
-              "privacy": "private",
-              "type": {
-                "text": "T[]"
-              },
-              "description": "The original array of items as passed to the constructor.",
-              "default": "[...items]"
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "description": "The array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "description": "Size of the item collection.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#filter",
-              "return": {
-                "type": {
-                  "text": "DataSourceFilterFunction<T>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "values",
-                  "type": {
-                    "text": "DataSourceFilterValue[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/packages/core/src/utils/data-source/data-source.js"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "../../packages/core/src/utils/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation."
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on."
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation."
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "description": "The array of items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "description": "Size of the item collection."
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "../../packages/core/src/utils/data-source/data-source.ts"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "../../packages/core/src/utils/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
           }
         }
       ]

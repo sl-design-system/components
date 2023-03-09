@@ -1,6 +1,6 @@
 {
-  "name": "@sanomalearning/slds-teas",
-  "description": "SLDS Theme for Teas",
+  "name": "@sanomalearning/slds-bingel-dc",
+  "description": "SLDS Theme for Bingel DC",
   "version": "0.0.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -8,17 +8,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sanomalearning/design-system.git",
-    "directory": "packages/tokens/src/themes/teas"
+    "directory": "packages/tokens/src/themes/bingel-dc"
   },
   "scripts": {
     "build": "wireit"
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build-styles.js teas",
+      "command": "yarn node --no-warnings ../../../build-styles.js bingel-dc",
       "files": [
         "../../figma/*.json",
-        "../../figma/teas/*.json"
+        "../../figma/bingel-dc/*.json"
       ],
       "output": [
         "*.js",

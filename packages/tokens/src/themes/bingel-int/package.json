@@ -1,6 +1,6 @@
 {
-  "name": "@sanomalearning/slds-sesame",
-  "description": "SLDS Theme for Sesame",
+  "name": "@sanomalearning/slds-bingel-int",
+  "description": "SLDS Theme for Bingel INT",
   "version": "0.0.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -8,17 +8,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sanomalearning/design-system.git",
-    "directory": "packages/tokens/src/themes/sesame"
+    "directory": "packages/tokens/src/themes/bingel-int"
   },
   "scripts": {
     "build": "wireit"
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build-styles.js sesame",
+      "command": "yarn node --no-warnings ../../../build-styles.js bingel-int",
       "files": [
         "../../figma/*.json",
-        "../../figma/sesame/*.json"
+        "../../figma/bingel-int/*.json"
       ],
       "output": [
         "*.js",

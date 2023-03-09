@@ -1,6 +1,6 @@
 {
-  "name": "@sanomalearning/slds-diddit",
-  "description": "SLDS Theme for Diddit",
+  "name": "@sanomalearning/slds-neon",
+  "description": "SLDS Theme for NEON",
   "version": "0.0.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -8,17 +8,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sanomalearning/design-system.git",
-    "directory": "packages/tokens/src/themes/diddit"
+    "directory": "packages/tokens/src/themes/neon"
   },
   "scripts": {
     "build": "wireit"
   },
   "wireit": {
     "build": {
-      "command": "yarn node --no-warnings ../../../build-styles.js diddit",
+      "command": "yarn node --no-warnings ../../../build-styles.js neon",
       "files": [
         "../../figma/*.json",
-        "../../figma/diddit/*.json"
+        "../../figma/neon/*.json"
       ],
       "output": [
         "*.js",

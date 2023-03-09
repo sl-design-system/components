@@ -4,8 +4,18 @@
     "name": "bingel-dc/light",
     "selectedTokenSets": {
       "core": "enabled",
-      "bingel/base": "enabled",
-      "bingel/light": "enabled"
+      "bingel-dc/base": "enabled",
+      "bingel-dc/light": "enabled"
+    },
+    "$figmaStyleReferences": {}
+  },
+  {
+    "id": "fe66830bc69788a47b68afc3602ed862f56468d9",
+    "name": "bingel-int/light",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "bingel-int/base": "enabled",
+      "bingel-int/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },

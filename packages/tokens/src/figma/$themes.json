@@ -5,15 +5,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-dc/base": "enabled",
-      "bingel-dc/light": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "bingel-dc/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -23,15 +15,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-int/base": "enabled",
-      "bingel-int/light": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "bingel-int/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -41,15 +25,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "clickedu/base": "enabled",
-      "clickedu/light": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "clickedu/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -59,15 +35,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "itslearning/base": "enabled",
-      "itslearning/light": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "itslearning/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -77,15 +45,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "kampus/base": "enabled",
-      "kampus/light": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "kampus/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -95,15 +55,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "magister/base": "enabled",
-      "magister/light": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "magister/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -113,15 +65,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "max/base": "enabled",
-      "max/light": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "max/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -131,15 +75,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "neon/base": "enabled",
-      "neon/light": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "neon/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -149,15 +85,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/light": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "sanoma-learning/light": "enabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:d48001ec2d75d36a13f1588a7e9a5014145f36c9,",
@@ -1024,15 +952,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/dark": "enabled",
-      "neon/dark": "disabled",
-      "max/dark": "disabled",
-      "magister/dark": "disabled",
-      "kampus/dark": "disabled",
-      "itslearning/dark": "disabled",
-      "clickedu/dark": "disabled",
-      "bingel-int/dark": "disabled",
-      "bingel-dc/dark": "disabled"
+      "sanoma-learning/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e436f1f9f05abf7e76d0f3753b0a9e05e7ad0753,",

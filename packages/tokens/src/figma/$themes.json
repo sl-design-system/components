@@ -1,7 +1,7 @@
 [
   {
     "id": "dbf699c87fe5fc210bf698833079d033caf0f12d",
-    "name": "bingel/light",
+    "name": "bingel-dc/light",
     "selectedTokenSets": {
       "core": "enabled",
       "bingel/base": "enabled",
@@ -16,36 +16,6 @@
       "core": "enabled",
       "clickedu/base": "enabled",
       "clickedu/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "fe66830bc69788a47b68afc3602ed862f56468d9",
-    "name": "diddit/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "diddit/base": "enabled",
-      "diddit/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "bdfd5b5c0e7bd01cdcb5c1b00bf414ce83c5e0b0",
-    "name": "editorial/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "editorial/base": "enabled",
-      "editorial/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "0023c89811c74cbef8ef318bc7ddd3257e6c209e",
-    "name": "edubase/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "edubase/base": "enabled",
-      "edubase/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -91,31 +61,11 @@
   },
   {
     "id": "3c0efcad43272eb5bb21bcbff94b5f2dbd876fcf",
-    "name": "npm/light",
+    "name": "neon/light",
     "selectedTokenSets": {
       "core": "enabled",
-      "npm/base": "enabled",
-      "npm/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "732cfd70f2a288a6bfc99374979540e32ab71e05",
-    "name": "sesame/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "sesame/base": "enabled",
-      "sesame/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "3559d6409f24b2854230903f7e8d62fd44cd70bc",
-    "name": "teas/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "teas/base": "enabled",
-      "teas/light": "enabled"
+      "neon/base": "enabled",
+      "neon/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },

@@ -6,10 +6,21 @@ export const decorators = [withTheme];
 export const globalTypes = {
   mode: {
     default: 'light',
-    name: '🌗 Mode:',
     toolbar:{
+      icon: 'mirror',
         // Array of plain string values or MenuItem shape (see below)
-        items: ['light', 'dark'],
+        items: [
+          {
+            title:'Light mode',
+            left: '🌞',
+            value:'light'
+          }, 
+          {
+            title:'Dark mode',
+            left: '🌛',
+            value:'dark'
+          }
+        ],
         // Change title based on selected value
         dynamicTitle: true
     }
@@ -81,4 +92,3 @@ export const globals = {
 };
 
 updateTheme(globals.themes.find(t => t.id === globals.selectedTheme));
-console.log(globals);

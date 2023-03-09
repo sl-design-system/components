@@ -1014,7 +1014,7 @@
       },
       "gap": {
         "sm": {
-          "value": "{space.2xs}",
+          "value": "{space.xs}",
           "type": "spacing",
           "description": "{space.button.gap.sm}"
         },

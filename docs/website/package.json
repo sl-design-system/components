@@ -41,7 +41,7 @@
     "lint:scss": "wireit",
     "lint:ts": "wireit",
     "analyze": "wireit",
-    "copy:tokens": "cpx './../../packages/tokens/src/themes/sanoma-learning/!(package.json)*.json' 'src/site/_data/tokens/'"
+    "copy:tokens": "cpx './../../packages/tokens/src/themes/sanoma-learning/base.json' 'src/site/_data/tokens/'"
   },
   "wireit": {
     "build:dev": {

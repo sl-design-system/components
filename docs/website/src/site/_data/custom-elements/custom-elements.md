@@ -206,93 +206,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/core/src/button/button.js |         |
 
-# `../../packages/core/src/button-bar/button-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.scss.ts |         |
-
-# `../../packages/core/src/button-bar/button-bar.stories.ts`:
-
-## Variables
-
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
-
-# `../../packages/core/src/button-bar/button-bar.ts`:
-
-## class: `ButtonBar`, `sl-button-bar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
-| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
-| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
-| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
-| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
-
-### Methods
-
-| Name            | Privacy | Description | Parameters | Return          | Inherited From |
-| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
-| `#onSlotchange` |         |             |            | `Promise<void>` |                |
-
-### Attributes
-
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `align`     | align    |                |
-| `icon-only` | iconOnly |                |
-| `reverse`   | reverse  |                |
-
-### Slots
-
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                           | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../../packages/core/src/button-bar/button-bar.ts |         |
-
-# `../../packages/core/src/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./button-bar.js |
-
-# `../../packages/core/src/button-bar/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                      | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
-
 # `../../packages/core/src/checkbox/checkbox-group.scss.ts`:
 
 ## Exports
@@ -516,6 +429,93 @@
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/core/src/checkbox/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/core/src/checkbox/checkbox-group.js |         |
 
+# `../../packages/core/src/button-bar/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.scss.ts |         |
+
+# `../../packages/core/src/button-bar/button-bar.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+
+# `../../packages/core/src/button-bar/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
+| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
+| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
+| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
+| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters | Return          | Inherited From |
+| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
+| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+
+### Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `align`     | align    |                |
+| `icon-only` | iconOnly |                |
+| `reverse`   | reverse  |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                           | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../../packages/core/src/button-bar/button-bar.ts |         |
+
+# `../../packages/core/src/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./button-bar.js |
+
+# `../../packages/core/src/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                      | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
+
 # `../../packages/core/src/dialog/dialog.scss.ts`:
 
 ## Exports
@@ -626,92 +626,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
 
-# `../../packages/core/src/icon/icon.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/icon/icon.scss.ts |         |
-
-# `../../packages/core/src/icon/icon.stories.ts`:
-
-## Variables
-
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/icon/icon.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/icon/icon.stories.ts |         |
-
-# `../../packages/core/src/icon/icon.ts`:
-
-## class: `Icon`, `sl-icon`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name       | Privacy | Type           | Default | Description | Inherited From |
-| ---------- | ------- | -------------- | ------- | ----------- | -------------- |
-| `resolver` | private | `IconResolver` |         |             |                |
-
-### Static Methods
-
-| Name               | Privacy | Description | Parameters                   | Return | Inherited From |
-| ------------------ | ------- | ----------- | ---------------------------- | ------ | -------------- |
-| `registerIcon`     |         |             | `name: string, icon: string` | `void` |                |
-| `registerResolver` |         |             | `resolver: IconResolver`     | `void` |                |
-
-### Fields
-
-| Name    | Privacy | Type                  | Default | Description                                                                                                       | Inherited From |
-| ------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- | -------------- |
-| `label` |         | `string \| undefined` |         | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
-| `name`  |         | `string \| undefined` |         | The name of the icon to show.                                                                                     |                |
-
-### Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `label` | label |                |
-| `name`  | name  |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name   | Declaration | Module                               | Package |
-| ---- | ------ | ----------- | ------------------------------------ | ------- |
-| `js` | `Icon` | Icon        | ../../packages/core/src/icon/icon.ts |         |
-
-# `../../packages/core/src/icon/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package   |
-| ---- | ---- | ----------- | ------ | --------- |
-| `js` | `*`  | *           |        | ./icon.js |
-
-# `../../packages/core/src/icon/register.ts`:
-
-## Exports
-
-| Kind                        | Name      | Declaration | Module                          | Package |
-| --------------------------- | --------- | ----------- | ------------------------------- | ------- |
-| `custom-element-definition` | `sl-icon` | Icon        | /packages/core/src/icon/icon.js |         |
-
 # `../../packages/core/src/drawer/drawer.scss.ts`:
 
 ## Exports
@@ -821,6 +735,92 @@
 | Kind                        | Name        | Declaration | Module                              | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-drawer` | Drawer      | /packages/core/src/drawer/drawer.js |         |
+
+# `../../packages/core/src/icon/icon.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/icon/icon.scss.ts |         |
+
+# `../../packages/core/src/icon/icon.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/icon/icon.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/icon/icon.stories.ts |         |
+
+# `../../packages/core/src/icon/icon.ts`:
+
+## class: `Icon`, `sl-icon`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Static Fields
+
+| Name       | Privacy | Type           | Default | Description | Inherited From |
+| ---------- | ------- | -------------- | ------- | ----------- | -------------- |
+| `resolver` | private | `IconResolver` |         |             |                |
+
+### Static Methods
+
+| Name               | Privacy | Description | Parameters                   | Return | Inherited From |
+| ------------------ | ------- | ----------- | ---------------------------- | ------ | -------------- |
+| `registerIcon`     |         |             | `name: string, icon: string` | `void` |                |
+| `registerResolver` |         |             | `resolver: IconResolver`     | `void` |                |
+
+### Fields
+
+| Name    | Privacy | Type                  | Default | Description                                                                                                       | Inherited From |
+| ------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- | -------------- |
+| `label` |         | `string \| undefined` |         | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
+| `name`  |         | `string \| undefined` |         | The name of the icon to show.                                                                                     |                |
+
+### Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+| `name`  | name  |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name   | Declaration | Module                               | Package |
+| ---- | ------ | ----------- | ------------------------------------ | ------- |
+| `js` | `Icon` | Icon        | ../../packages/core/src/icon/icon.ts |         |
+
+# `../../packages/core/src/icon/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package   |
+| ---- | ---- | ----------- | ------ | --------- |
+| `js` | `*`  | *           |        | ./icon.js |
+
+# `../../packages/core/src/icon/register.ts`:
+
+## Exports
+
+| Kind                        | Name      | Declaration | Module                          | Package |
+| --------------------------- | --------- | ----------- | ------------------------------- | ------- |
+| `custom-element-definition` | `sl-icon` | Icon        | /packages/core/src/icon/icon.js |         |
 
 # `../../packages/core/src/input/index.ts`:
 
@@ -1781,141 +1781,6 @@
 | ---- | -------- | ----------- | ---------------------------------------- | ------- |
 | `js` | `Select` | Select      | ../../packages/core/src/select/select.ts |         |
 
-# `../../packages/core/src/textarea/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package       |
-| ---- | ---- | ----------- | ------ | ------------- |
-| `js` | `*`  | *           |        | ./textarea.js |
-
-# `../../packages/core/src/textarea/register.ts`:
-
-## Exports
-
-| Kind                        | Name          | Declaration | Module                                  | Package |
-| --------------------------- | ------------- | ----------- | --------------------------------------- | ------- |
-| `custom-element-definition` | `sl-textarea` | Textarea    | /packages/core/src/textarea/textarea.js |         |
-
-# `../../packages/core/src/textarea/textarea.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/textarea/textarea.scss.ts |         |
-
-# `../../packages/core/src/textarea/textarea.stories.ts`:
-
-## Variables
-
-| Name               | Description | Type       |
-| ------------------ | ----------- | ---------- |
-| `API`              |             | `StoryObj` |
-| `Disabled`         |             | `StoryObj` |
-| `Label`            |             | `StoryObj` |
-| `Hint`             |             | `StoryObj` |
-| `RichLabelHint`    |             | `StoryObj` |
-| `MinMaxLength`     |             | `StoryObj` |
-| `CustomValidation` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `default`          |                  | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `API`              | API              | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `Disabled`         | Disabled         | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `Label`            | Label            | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `Hint`             | Hint             | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `MinMaxLength`     | MinMaxLength     | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/textarea/textarea.stories.ts |         |
-
-# `../../packages/core/src/textarea/textarea.ts`:
-
-## class: `Textarea`, `sl-textarea`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
-
-### Fields
-
-| Name                  | Privacy | Type                                   | Default                                                                 | Description                                                                                                                     | Inherited From   |
-| --------------------- | ------- | -------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`             | private |                                        | `new EventsController(this, {
-    click: this.#onClick
-  })`            |                                                                                                                                 |                  |
-| `#validation`         | private |                                        | `new ValidationController(this, {
-    target: () => this.textarea
-  })` |                                                                                                                                 |                  |
-| `internals`           |         |                                        |                                                                         | Element internals.                                                                                                              |                  |
-| `textarea`            |         | `HTMLTextAreaElement`                  |                                                                         | The textarea in the light DOM.                                                                                                  |                  |
-| `maxLength`           |         | `number \| undefined`                  |                                                                         | Maximum length (number of characters).                                                                                          |                  |
-| `minLength`           |         | `number \| undefined`                  |                                                                         | Minimum length (number of characters).                                                                                          |                  |
-| `placeholder`         |         | `string \| undefined`                  |                                                                         | Placeholder text in the input.                                                                                                  |                  |
-| `validators`          |         | `Validator[] \| undefined`             |                                                                         | Custom validators specified by the user.                                                                                        |                  |
-| `value`               |         | `string \| undefined`                  |                                                                         | The value for the textarea.                                                                                                     |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                         | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                 |                                                                         | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                |         | `string \| undefined`                  |                                                                         | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                 |                                                                         | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                   |                                                                         |                                                                                                                                 | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`              |                                                                         |                                                                                                                                 | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                         |                                                                                                                                 | FormControlMixin |
-| `hint`                |         | `string \| undefined`                  |                                                                         | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
-| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
-| `#onInput`              |         |             | `{ target }: Event & { target: HTMLTextAreaElement }`             | `void`           |                  |
-| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
-
-### Attributes
-
-| Name          | Field       | Inherited From   |
-| ------------- | ----------- | ---------------- |
-| `maxlength`   | maxLength   |                  |
-| `minlength`   | minLength   |                  |
-| `placeholder` | placeholder |                  |
-| `value`       | value       |                  |
-| `disabled`    | disabled    | FormControlMixin |
-| `name`        | name        | FormControlMixin |
-| `required`    | required    | FormControlMixin |
-| `hint`        | hint        | HintMixin        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `Textarea` | Textarea    | ../../packages/core/src/textarea/textarea.ts |         |
-
 # `../../packages/core/src/tabs/index.ts`:
 
 ## Exports
@@ -2110,6 +1975,141 @@
 | Kind | Name  | Declaration | Module                              | Package |
 | ---- | ----- | ----------- | ----------------------------------- | ------- |
 | `js` | `Tab` | Tab         | ../../packages/core/src/tabs/tab.ts |         |
+
+# `../../packages/core/src/textarea/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package       |
+| ---- | ---- | ----------- | ------ | ------------- |
+| `js` | `*`  | *           |        | ./textarea.js |
+
+# `../../packages/core/src/textarea/register.ts`:
+
+## Exports
+
+| Kind                        | Name          | Declaration | Module                                  | Package |
+| --------------------------- | ------------- | ----------- | --------------------------------------- | ------- |
+| `custom-element-definition` | `sl-textarea` | Textarea    | /packages/core/src/textarea/textarea.js |         |
+
+# `../../packages/core/src/textarea/textarea.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/textarea/textarea.scss.ts |         |
+
+# `../../packages/core/src/textarea/textarea.stories.ts`:
+
+## Variables
+
+| Name               | Description | Type       |
+| ------------------ | ----------- | ---------- |
+| `API`              |             | `StoryObj` |
+| `Disabled`         |             | `StoryObj` |
+| `Label`            |             | `StoryObj` |
+| `Hint`             |             | `StoryObj` |
+| `RichLabelHint`    |             | `StoryObj` |
+| `MinMaxLength`     |             | `StoryObj` |
+| `CustomValidation` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                               | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
+| `js` | `default`          |                  | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `API`              | API              | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `Disabled`         | Disabled         | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `Label`            | Label            | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `Hint`             | Hint             | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `MinMaxLength`     | MinMaxLength     | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/textarea/textarea.stories.ts |         |
+
+# `../../packages/core/src/textarea/textarea.ts`:
+
+## class: `Textarea`, `sl-textarea`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module                                   | Package |
+| ------------------ | ---------------------------------------- | ------- |
+| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
+| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+
+### Fields
+
+| Name                  | Privacy | Type                                   | Default                                                                 | Description                                                                                                                     | Inherited From   |
+| --------------------- | ------- | -------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`             | private |                                        | `new EventsController(this, {
+    click: this.#onClick
+  })`            |                                                                                                                                 |                  |
+| `#validation`         | private |                                        | `new ValidationController(this, {
+    target: () => this.textarea
+  })` |                                                                                                                                 |                  |
+| `internals`           |         |                                        |                                                                         | Element internals.                                                                                                              |                  |
+| `textarea`            |         | `HTMLTextAreaElement`                  |                                                                         | The textarea in the light DOM.                                                                                                  |                  |
+| `maxLength`           |         | `number \| undefined`                  |                                                                         | Maximum length (number of characters).                                                                                          |                  |
+| `minLength`           |         | `number \| undefined`                  |                                                                         | Minimum length (number of characters).                                                                                          |                  |
+| `placeholder`         |         | `string \| undefined`                  |                                                                         | Placeholder text in the input.                                                                                                  |                  |
+| `validators`          |         | `Validator[] \| undefined`             |                                                                         | Custom validators specified by the user.                                                                                        |                  |
+| `value`               |         | `string \| undefined`                  |                                                                         | The value for the textarea.                                                                                                     |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                         | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                 |                                                                         | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                |         | `string \| undefined`                  |                                                                         | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                 |                                                                         | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                   |                                                                         |                                                                                                                                 | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`              |                                                                         |                                                                                                                                 | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                         |                                                                                                                                 | FormControlMixin |
+| `hint`                |         | `string \| undefined`                  |                                                                         | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
+| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
+| `#onInput`              |         |             | `{ target }: Event & { target: HTMLTextAreaElement }`             | `void`           |                  |
+| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
+| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
+| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
+| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
+| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
+
+### Attributes
+
+| Name          | Field       | Inherited From   |
+| ------------- | ----------- | ---------------- |
+| `maxlength`   | maxLength   |                  |
+| `minlength`   | minLength   |                  |
+| `placeholder` | placeholder |                  |
+| `value`       | value       |                  |
+| `disabled`    | disabled    | FormControlMixin |
+| `name`        | name        | FormControlMixin |
+| `required`    | required    | FormControlMixin |
+| `hint`        | hint        | HintMixin        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                       | Package |
+| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `Textarea` | Textarea    | ../../packages/core/src/textarea/textarea.ts |         |
 
 # `../../packages/core/src/tooltip/index.ts`:
 
@@ -2390,25 +2390,6 @@
 | `js` | `maxLengthValidator`    | maxLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
 | `js` | `patternValidator`      | patternValidator      | ../../packages/core/src/utils/validators.ts |         |
 
-# `../../packages/core/src/popover/utils/position-anchored-element.ts`:
-
-## Functions
-
-| Name                      | Description | Parameters                                                                           | Return         |
-| ------------------------- | ----------- | ------------------------------------------------------------------------------------ | -------------- |
-| `flipPlacement`           |             | `placement: Placement`                                                               | `Placement`    |
-| `positionAnchoredElement` |             | `element: HTMLElement, anchor: HTMLElement, options: PositionAnchoredElementOptions` | `(() => void)` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                      | Declaration             | Module                                                             | Package |
-| ---- | ------------------------- | ----------------------- | ------------------------------------------------------------------ | ------- |
-| `js` | `Placement`               | Placement               | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-| `js` | `flipPlacement`           | flipPlacement           | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-| `js` | `positionAnchoredElement` | positionAnchoredElement | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-
 # `../../packages/core/src/popover/mixins/anchored-popover.ts`:
 
 ## mixin: `AnchoredPopoverMixin`
@@ -2580,86 +2561,24 @@
 | `js` | `popoverMixinStyles` | popoverMixinStyles | ../../packages/core/src/popover/mixins/popover.ts |         |
 | `js` | `PopoverMixin`       | PopoverMixin       | ../../packages/core/src/popover/mixins/popover.ts |         |
 
-# `../../packages/core/src/utils/data-source/array-data-source.ts`:
+# `../../packages/core/src/popover/utils/position-anchored-element.ts`:
 
-## class: `ArrayDataSource`
+## Functions
 
-### Superclass
-
-| Name         | Module                                              | Package |
-| ------------ | --------------------------------------------------- | ------- |
-| `DataSource` | /packages/core/src/utils/data-source/data-source.js |         |
-
-### Fields
-
-| Name             | Privacy | Type                                   | Default      | Description                                               | Inherited From |
-| ---------------- | ------- | -------------------------------------- | ------------ | --------------------------------------------------------- | -------------- |
-| `#items`         | private | `T[]`                                  | `[...items]` | Array of filtered & sorted items.                         |                |
-| `#originalItems` | private | `T[]`                                  | `[...items]` | The original array of items as passed to the constructor. |                |
-| `items`          |         | `T[]`                                  |              | The array of items.                                       | DataSource     |
-| `size`           |         | `number`                               |              | Size of the item collection.                              | DataSource     |
-| `filter`         |         | `DataSourceFilter<T> \| undefined`     |              | The filter implementation.                                | DataSource     |
-| `filterValues`   |         | `DataSourceFilterValue[] \| undefined` |              | The values to filter on.                                  | DataSource     |
-| `sorter`         |         | `DataSourceSorter<T> \| undefined`     |              | The sorter implementation.                                | DataSource     |
-| `sortValue`      |         | `DataSourceSortValue \| undefined`     |              | The path & direction to sort on.                          | DataSource     |
-
-### Methods
-
-| Name      | Privacy | Description | Parameters                        | Return                        | Inherited From |
-| --------- | ------- | ----------- | --------------------------------- | ----------------------------- | -------------- |
-| `#filter` |         |             | `values: DataSourceFilterValue[]` | `DataSourceFilterFunction<T>` |                |
-
-### Events
-
-| Name        | Type          | Description | Inherited From |
-| ----------- | ------------- | ----------- | -------------- |
-| `sl-update` | `CustomEvent` |             |                |
+| Name                      | Description | Parameters                                                                           | Return         |
+| ------------------------- | ----------- | ------------------------------------------------------------------------------------ | -------------- |
+| `flipPlacement`           |             | `placement: Placement`                                                               | `Placement`    |
+| `positionAnchoredElement` |             | `element: HTMLElement, anchor: HTMLElement, options: PositionAnchoredElementOptions` | `(() => void)` |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                         | Package |
-| ---- | ----------------- | --------------- | -------------------------------------------------------------- | ------- |
-| `js` | `ArrayDataSource` | ArrayDataSource | ../../packages/core/src/utils/data-source/array-data-source.ts |         |
-
-# `../../packages/core/src/utils/data-source/data-source.ts`:
-
-## class: `DataSource`
-
-### Superclass
-
-| Name          | Module                                                   | Package |
-| ------------- | -------------------------------------------------------- | ------- |
-| `EventTarget` | ../../packages/core/src/utils/data-source/data-source.ts |         |
-
-### Fields
-
-| Name           | Privacy | Type                                   | Default | Description                      | Inherited From |
-| -------------- | ------- | -------------------------------------- | ------- | -------------------------------- | -------------- |
-| `filter`       |         | `DataSourceFilter<T> \| undefined`     |         | The filter implementation.       |                |
-| `filterValues` |         | `DataSourceFilterValue[] \| undefined` |         | The values to filter on.         |                |
-| `sorter`       |         | `DataSourceSorter<T> \| undefined`     |         | The sorter implementation.       |                |
-| `sortValue`    |         | `DataSourceSortValue \| undefined`     |         | The path & direction to sort on. |                |
-| `items`        |         | `T[]`                                  |         | The array of items.              |                |
-| `size`         |         | `number`                               |         | Size of the item collection.     |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                                   | Package |
-| ---- | ------------ | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `DataSource` | DataSource  | ../../packages/core/src/utils/data-source/data-source.ts |         |
-
-# `../../packages/core/src/utils/data-source/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                |
-| ---- | ---- | ----------- | ------ | ---------------------- |
-| `js` | `*`  | *           |        | ./array-data-source.js |
-| `js` | `*`  | *           |        | ./data-source.js       |
+| Kind | Name                      | Declaration             | Module                                                             | Package |
+| ---- | ------------------------- | ----------------------- | ------------------------------------------------------------------ | ------- |
+| `js` | `Placement`               | Placement               | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
+| `js` | `flipPlacement`           | flipPlacement           | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
+| `js` | `positionAnchoredElement` | positionAnchoredElement | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
 
 # `../../packages/core/src/utils/controllers/events.ts`:
 
@@ -2918,6 +2837,87 @@
 | ---- | ---------------------- | -------------------- | ------------------------------------------------------- | ------- |
 | `js` | `validationStyles`     | validationStyles     | ../../packages/core/src/utils/controllers/validation.ts |         |
 | `js` | `ValidationController` | ValidationController | ../../packages/core/src/utils/controllers/validation.ts |         |
+
+# `../../packages/core/src/utils/data-source/array-data-source.ts`:
+
+## class: `ArrayDataSource`
+
+### Superclass
+
+| Name         | Module                                              | Package |
+| ------------ | --------------------------------------------------- | ------- |
+| `DataSource` | /packages/core/src/utils/data-source/data-source.js |         |
+
+### Fields
+
+| Name             | Privacy | Type                                   | Default      | Description                                               | Inherited From |
+| ---------------- | ------- | -------------------------------------- | ------------ | --------------------------------------------------------- | -------------- |
+| `#items`         | private | `T[]`                                  | `[...items]` | Array of filtered & sorted items.                         |                |
+| `#originalItems` | private | `T[]`                                  | `[...items]` | The original array of items as passed to the constructor. |                |
+| `items`          |         | `T[]`                                  |              | The array of items.                                       | DataSource     |
+| `size`           |         | `number`                               |              | Size of the item collection.                              | DataSource     |
+| `filter`         |         | `DataSourceFilter<T> \| undefined`     |              | The filter implementation.                                | DataSource     |
+| `filterValues`   |         | `DataSourceFilterValue[] \| undefined` |              | The values to filter on.                                  | DataSource     |
+| `sorter`         |         | `DataSourceSorter<T> \| undefined`     |              | The sorter implementation.                                | DataSource     |
+| `sortValue`      |         | `DataSourceSortValue \| undefined`     |              | The path & direction to sort on.                          | DataSource     |
+
+### Methods
+
+| Name      | Privacy | Description | Parameters                        | Return                        | Inherited From |
+| --------- | ------- | ----------- | --------------------------------- | ----------------------------- | -------------- |
+| `#filter` |         |             | `values: DataSourceFilterValue[]` | `DataSourceFilterFunction<T>` |                |
+
+### Events
+
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                                         | Package |
+| ---- | ----------------- | --------------- | -------------------------------------------------------------- | ------- |
+| `js` | `ArrayDataSource` | ArrayDataSource | ../../packages/core/src/utils/data-source/array-data-source.ts |         |
+
+# `../../packages/core/src/utils/data-source/data-source.ts`:
+
+## class: `DataSource`
+
+### Superclass
+
+| Name          | Module                                                   | Package |
+| ------------- | -------------------------------------------------------- | ------- |
+| `EventTarget` | ../../packages/core/src/utils/data-source/data-source.ts |         |
+
+### Fields
+
+| Name           | Privacy | Type                                   | Default | Description                      | Inherited From |
+| -------------- | ------- | -------------------------------------- | ------- | -------------------------------- | -------------- |
+| `filter`       |         | `DataSourceFilter<T> \| undefined`     |         | The filter implementation.       |                |
+| `filterValues` |         | `DataSourceFilterValue[] \| undefined` |         | The values to filter on.         |                |
+| `sorter`       |         | `DataSourceSorter<T> \| undefined`     |         | The sorter implementation.       |                |
+| `sortValue`    |         | `DataSourceSortValue \| undefined`     |         | The path & direction to sort on. |                |
+| `items`        |         | `T[]`                                  |         | The array of items.              |                |
+| `size`         |         | `number`                               |         | Size of the item collection.     |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                                   | Package |
+| ---- | ------------ | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `DataSource` | DataSource  | ../../packages/core/src/utils/data-source/data-source.ts |         |
+
+# `../../packages/core/src/utils/data-source/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./array-data-source.js |
+| `js` | `*`  | *           |        | ./data-source.js       |
 
 # `../../packages/core/src/utils/decorators/base.ts`:
 

@@ -9,15 +9,11 @@ eleventyNavigation:
 
 [//]: # (templateEngineOverride: njk, md)
 
-{{ title | replaceString }}
-
 # Design Tokens
 
-## Color
+[//]: # (## Color)
 
 {% include "./base-tokens-table.njk" %}
 
 
 ## Core tokens:
-
-the rest of base tokens

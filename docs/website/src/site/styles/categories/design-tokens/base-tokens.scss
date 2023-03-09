@@ -1,22 +1,36 @@
+.ds-tokens {
+  margin-top: 2.4rem;
+}
+
 .ds-tokens__color {
   border: 1px solid var(--ds-color-light-grey); // TODO: dark mode
-  border-radius: 8px;
+  border-radius: 50%; //8px;
+  height: 8rem;
+  margin-bottom: 0.8rem;
+  width: 8rem;
+}
+
+.ds-tokens__text {
+  font-size: 2.4rem;
+}
+
+.ds-tokens__border {
+  background-color: var(--picture-background);
+  border: 1px solid var(--heading-background); // TODO: dark mode
   height: 8rem;
   width: 8rem;
 }
 
-.ds-tokens__border {
+.ds-tokens__space {
   background-color: var(--ds-color-light-grey);
-  border: 1px solid var(--ds-color-outer-space); // TODO: dark mode
-  //border-radius: 8px;
   height: 8rem;
   width: 8rem;
 }
 
 .ds-tokens__opacity {
-  background-color: var(--ds-color-light-grey);
-  height: 8rem;
-  width: 8rem;
+  background-color: var(--heading-background);
+  height: 6rem;
+  width: 6rem;
 }
 
 .ds-tokens__size {

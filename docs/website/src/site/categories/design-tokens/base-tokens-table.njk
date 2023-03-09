@@ -1,5 +1,5 @@
+<section class="ds-tokens">
 <h2>Color</h2>
-
 <table class="ds-table"><thead>
  <tr>
    <th>Example</th>
@@ -15,10 +15,10 @@
    <tr>
    <td>
      <div class="ds-tokens__color" style="background-color: {{ colorVariantValue2.value }}"></div>
-     {{ colorVariantValue2.value }}
+     <code>{{ colorVariantValue2.value }}</code>
    </td>
    <td class="ds-tokens__description">{{ colorVariantValue2.description | tokenDescription }}</td>
-   <td><code>{{ colorVariantValue2.description | myFilter }}</code></td>
+   <td>{% if colorVariantValue2.description %}<code>{{ colorVariantValue2.description | myFilter }}{% endif %}</code></td>
    </tr>
         {% endif %}
        {% endfor -%}
@@ -27,7 +27,9 @@
  {% endfor -%}
  </tbody>
 </table>
+</section>
 
+<section class="ds-tokens">
 <h2>Text</h2>
 <table class="ds-table"><thead>
   <tr>
@@ -37,26 +39,27 @@
   </tr></thead>
   <tbody>
   {% for text in tokens.base.text -%}
+    {{ text[0] | json }}
+    {% if text[0] == 'typeset' %}
     {% for textType in text -%}
-      textType == 'typeset' {{ textType == 'typeset' }}
       {% for textProperties in textType -%}
-        textProperties == 'typeset' {{ textProperties == 'typeset' }}
-        textProperties: {{ textProperties | json }}
         {% for property in textProperties -%}
-          property == 'typeset' {{ property == 'typeset' }}
-          property: {{ property | json }}
           {% for propertyValue in property -%}
-            propertyValue == 'typeset' {{ propertyValue == 'typeset' }}
-            propertyValue: {{ propertyValue | json }}
-            TODO: for typeset only
               {% for textType in propertyValue -%}
                 {% if textType.value %}
             <tr>
               <td>
-                <div class="ds-tokens__color" style="background-color: {{ colorVariantValue2.value }}"></div>
-                {{ textType.value }}
+                <p class="ds-tokens__text"
+                   style="{% if textType.type == 'fontFamilies' %}font-family: {{ textType.value }}, sans-serif;{% endif %}{% if textType.type == 'fontWeights' %}font-weight: {{ textType.value }};{% endif %}{% if textType.type == 'textCase' %}text-transform: {{ textType.value }};{% endif %}
+                   {% if textType.type == 'textDecoration' %}text-decoration: {{ textType.value }};{% endif %}{% if textType.type == 'fontSizes' %}font-size: {{ textType.value }}px;{% endif %}">
+                  Lorem ipsum dolor sit amet
+                </p>
+                <code>{{ textType.value }}{% if textType.type == 'fontSizes' or textType.type == 'lineHeights' or textType.type == 'paragraphSpacing' %}px{% endif %}</code>
                 {{ textType.value | json }}
+                todo: line heights
+                todo: font weight not for icons, plain ones
                 {{ textType.type }}
+                propertyValue: {{ propertyValue | json }}
               </td>
               <td class="ds-tokens__description">{{ textType.description | tokenDescription }}</td>
               <td><code>{{ textType.description | myFilter }}</code></td>
@@ -67,13 +70,14 @@
   {% endfor -%}
   {% endfor -%}
   {% endfor -%}
+    {% endif %}
   {% endfor -%}
   </tbody>
 </table>
+</section>
 
-
+<section class="ds-tokens">
 <h2>Border</h2>
-
 <table class="ds-table"><thead>
   <tr>
     <th>Example</th>
@@ -90,7 +94,7 @@
             <tr>
               <td>
                 <div class="ds-tokens__border" style="border-width: {{ widthValue.value }}px"></div>
-                {{ widthValue.value }}{% if widthValue.value | hasNoUnit %}px{% endif %}
+                <code>{{ widthValue.value }}{% if widthValue.value | hasNoUnit %}px{% endif %}</code>
                 border width
                 {{ widthValue | json }}
                 {{ widthValue.type }}
@@ -105,8 +109,7 @@
               <td>
                 <div class="ds-tokens__border" style="border-radius: {{ widthValue.value }}{% if widthValue.value | hasNoUnit %}px{% endif %}"></div>
                 TODO: % instead px when needed
-                {{ widthValue.value }}{% if widthValue.value | hasNoUnit %}px{% endif %}
-                border radius
+                <code>{{ widthValue.value }}{% if widthValue.value | hasNoUnit %}px{% endif %}</code>
                 {{ widthValue | json }}
                 {{ widthValue.type }}
                 {{ widthValue.description }}
@@ -123,8 +126,9 @@
   {% endfor -%}
   </tbody>
 </table>
+</section>
 
-
+<section class="ds-tokens">
 <h2>Spacing</h2>
 <table class="ds-table"><thead>
   <tr>
@@ -138,9 +142,8 @@
       {% if property.value %}
       <tr>
         <td>
-          <div class="ds-tokens__border" style="width: {{ property.value }}px; height: {{ property.value }}px"></div>
-          {{ property.value }}px
-          spacing
+          <div class="ds-tokens__space" style="width: {{ property.value }}px; height: {{ property.value }}px"></div>
+          <code>{{ property.value }}px</code>
           {{ property | json }}
           {{ property.type }}
           {{ property.description }}
@@ -153,6 +156,8 @@
   {% endfor -%}
   </tbody>
 </table>
+</section>
+
 
 <section class="ds-tokens">
 <h2>Animation</h2>

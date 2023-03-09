@@ -1,5 +1,4 @@
 [
-  
   {
     "id": "dbf699c87fe5fc210bf698833079d033caf0f12d",
     "name": "bingel/light",
@@ -9,7 +8,8 @@
       "bingel/light": "enabled"
     },
     "$figmaStyleReferences": {}
-  },{
+  },
+  {
     "id": "dbf699c87fe5fc210bf698833079d033caf0f12d",
     "name": "bingel-dc/light",
     "selectedTokenSets": {

@@ -29,6 +29,12 @@ export const globalTypes = {
 export const globals = {
   themes: [
     {
+      id: 'bingel',
+      name: 'Bingel',
+      color: '#0074df',
+      fonts: ['https://use.typekit.net/xrr8gdw.css']
+    },
+    {
       id: 'bingel-dc',
       name: 'Bingel DC',
       color: '#0074df',

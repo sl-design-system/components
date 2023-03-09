@@ -3514,6 +3514,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel"
+  languageName: unknown
+  linkType: soft
+
 "@sanomalearning/slds-clickedu@workspace:packages/tokens/src/themes/clickedu":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-clickedu@workspace:packages/tokens/src/themes/clickedu"

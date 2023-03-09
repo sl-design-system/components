@@ -1,3 +1,4 @@
+import type { Checkbox } from './checkbox.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../label/register.js';
@@ -12,6 +13,59 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
 
   output.textContent = '';
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
+};
+
+//  helper function to create nodeArrays (not collections)
+const nodeArray = (selector: string, parent?: Document | ParentNode | null): Element[] => {
+  parent = parent ?? document;
+  return [].slice.call(parent.querySelectorAll(selector));
+};
+
+const onChange = (event: Event): void => {
+  let check: Checkbox = event.target as Checkbox;
+  if (check.indeterminate) {
+    check.checked = true;
+    check.indeterminate = false;
+  }
+
+  if (!check) return;
+
+  //  check/uncheck children (includes check itself)
+  const children = nodeArray('sl-checkbox', check.parentNode);
+  children.forEach(child => {
+    (child as Checkbox).checked = check.checked;
+    (child as Checkbox).indeterminate = false;
+  });
+
+  //  traverse up from target check
+  while (check && check !== null) {
+    const parentContainer = (check as Element).closest('ul')?.parentNode;
+
+    if (!parentContainer || parentContainer?.nodeName !== 'LI') return;
+
+    const parent: Checkbox = parentContainer.querySelector('sl-checkbox') as Checkbox;
+    const siblings = nodeArray('sl-checkbox', parent?.closest('li')?.querySelector('ul'));
+
+    if (!parent) return;
+
+    //  get checked state of siblings
+    //  are every or some siblings checked (using Boolean as test function)
+    const checkStatus = siblings.map(check => (check as Checkbox).checked);
+    const every = checkStatus.every(Boolean);
+    const some = checkStatus.some(Boolean);
+
+    //  check parent if all siblings are checked
+    //  set indeterminate if not all and not none are checked
+    parent.checked = every;
+    parent.indeterminate = !every && every !== some;
+
+    //  prepare for nex loop
+    if (check != parent) {
+      check = parent;
+    } else {
+      return;
+    }
+  }
 };
 
 export default {
@@ -120,7 +174,49 @@ export const Indeterminate: StoryObj = {
     <h2>Single</h2>
     <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
     <h2>In group, with children</h2>
-    <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+    <p>
+      When you use the checkboxes in a nested structure, or have one checkbox to rule them all (to select all in a list
+      of items for example) this is how the indeterminate state should behave:
+    </p>
+    <ul>
+      <li>
+        <sl-checkbox @sl-change=${onChange} name="tall" id="tall">Tall Things</sl-checkbox>
+        <ul>
+          <li>
+            <sl-checkbox @sl-change=${onChange} name="tall-1" id="tall-1">Buildings</sl-checkbox>
+          </li>
+          <li>
+            <sl-checkbox @sl-change=${onChange} name="tall-2" id="tall-2">Giants</sl-checkbox>
+
+            <ul>
+              <li>
+                <sl-checkbox @sl-change=${onChange} name="tall-2-1" id="tall-2-1">Andre</sl-checkbox>
+              </li>
+              <li>
+                <sl-checkbox @sl-change=${onChange} name="tall-2-2" id="tall-2-2">Paul Bunyan</sl-checkbox>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <sl-checkbox @sl-change=${onChange} name="tall-3" id="tall-3">Two sandwiches</sl-checkbox>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <sl-checkbox @sl-change=${onChange} name="short" id="short">Short Things</sl-checkbox>
+        <ul>
+          <li>
+            <sl-checkbox @sl-change=${onChange} name="short-1" id="short-1">Smurfs</sl-checkbox>
+          </li>
+          <li>
+            <sl-checkbox @sl-change=${onChange} name="short-2" id="short-2">Mushrooms</sl-checkbox>
+          </li>
+          <li>
+            <sl-checkbox @sl-change=${onChange} name="short-3" id="short-3">One Sandwich</sl-checkbox>
+          </li>
+        </ul>
+      </li>
+    </ul>
   `
 };
 

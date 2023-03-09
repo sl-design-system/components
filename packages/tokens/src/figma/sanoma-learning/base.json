@@ -717,8 +717,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "11"
+            "lineHeight": "{text.typeset.lineHeight.xxs}",
+            "fontSize": "13"
           },
           "type": "typography"
         },
@@ -726,8 +726,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "13"
+            "lineHeight": "{text.typeset.lineHeight.xs}",
+            "fontSize": "{text.typeset.fontSize.md}"
           },
           "type": "typography"
         },
@@ -736,7 +736,7 @@
             "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "15"
+            "fontSize": "{text.typeset.fontSize.lg}"
           },
           "type": "typography"
         }
@@ -826,24 +826,8 @@
         }
       },
       "value": {
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "{text.typeset.fontSize.md}"
-          },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.lg}",
-            "fontSize": "{text.typeset.fontSize.lg}"
-          },
-          "type": "typography"
-        }
+        "md": "[object Object]",
+        "lg": "[object Object]"
       },
       "type": "other"
     }
@@ -901,12 +885,7 @@
   "border": {
     "width": {
       "button": {
-        "default": {
-          "value": "{border.width.sm}",
-          "type": "borderWidth",
-          "description": "border.width.button.default"
-        },
-        "outline": {
+        "border": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
@@ -933,43 +912,109 @@
   },
   "space": {
     "button": {
-      "block": {
-        "sm": {
-          "value": "{space.xs}-{border.width.button.outline}",
-          "type": "spacing",
-          "description": "space.button.solid.block.sm"
+      "with-border": {
+        "block": {
+          "sm": {
+            "value": "{space.xs} - {border.width.button.border}",
+            "type": "spacing",
+            "description": "space.button.solid.block.sm"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.border}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.sm} - {border.width.button.border}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
         },
-        "md": {
-          "value": "{space.sm}-{border.width.button.outline}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
+        "inline": {
+          "sm": {
+            "value": "{space.sm} - {border.width.button.border}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.sm"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.border}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.md} - {border.width.button.border}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
         },
-        "lg": {
-          "value": "{space.sm}-{border.width.button.outline}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
+        "icon-only": {
+          "sm": {
+            "value": "{space.xs} - {border.width.button.border}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.border}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{space.sm} - {border.width.button.border}",
+            "type": "spacing"
+          }
         }
       },
-      "inline": {
-        "sm": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.sm"
+      "border-none": {
+        "block": {
+          "sm": {
+            "value": "{space.xs} - {border.width.button.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.sm"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.sm} - {border.width.button.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
         },
-        "md": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
+        "inline": {
+          "sm": {
+            "value": "{space.sm} - {border.width.button.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.sm"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.md} - {border.width.button.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
         },
-        "lg": {
-          "value": "{space.md}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
+        "icon-only": {
+          "sm": {
+            "value": "{space.xs} - {border.width.button.none}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.none}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{space.sm} - {border.width.button.none}",
+            "type": "spacing"
+          }
         }
       },
       "gap": {
         "sm": {
-          "value": "{space.2xs}",
+          "value": "{space.xs}",
           "type": "spacing",
           "description": "{space.button.gap.sm}"
         },
@@ -979,59 +1024,45 @@
           "description": "{space.button.gap.md}"
         },
         "lg": {
-          "value": "{space.button.block.md}",
+          "value": "{space.sm}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
-        }
-      },
-      "icon-only": {
-        "sm": {
-          "value": "{space.xs}",
-          "type": "spacing"
-        },
-        "md": {
-          "value": "{space.sm}",
-          "type": "spacing"
-        },
-        "lg": {
-          "value": "{space.sm}",
-          "type": "spacing"
         }
       }
     },
     "input": {
       "block": {
         "md": {
-          "value": "{space.button.block.sm}",
+          "value": "{space.button.with-border.block.sm}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
         },
         "lg": {
-          "value": "{space.button.block.sm}",
+          "value": "{space.button.with-border.block.sm}",
           "type": "spacing",
           "description": "space.button.solid.block.lg"
         }
       },
       "inline": {
         "md": {
-          "value": "{space.button.block.sm}",
+          "value": "{space.button.with-border.block.sm}",
           "type": "spacing",
           "description": "space.button.solid.inline.md"
         },
         "lg": {
-          "value": "{space.button.block.sm}",
+          "value": "{space.button.with-border.block.sm}",
           "type": "spacing",
           "description": "space.button.solid.inline.lg"
         }
       },
       "gap": {
         "md": {
-          "value": "{space.button.block.md}",
+          "value": "{space.button.with-border.block.md}",
           "type": "spacing",
           "description": "{space.button.gap.md}"
         },
         "lg": {
-          "value": "{space.button.block.md}",
+          "value": "{space.button.with-border.block.md}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
         }
@@ -1082,12 +1113,12 @@
       },
       "gap": {
         "md": {
-          "value": "{space.button.block.md}",
+          "value": "{space.button.with-border.block.md}",
           "type": "spacing",
           "description": "{space.button.gap.md}"
         },
         "lg": {
-          "value": "{space.button.block.md}",
+          "value": "{space.button.with-border.block.md}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
         }
@@ -1186,15 +1217,15 @@
       "icon-container": {
         "icon-only": {
           "sm": {
-            "value": "{text.typeset.lineHeight.xs}",
+            "value": "{size.xs}",
             "type": "sizing"
           },
           "md": {
-            "value": "{text.typeset.lineHeight.xs}",
+            "value": "{size.xs}",
             "type": "sizing"
           },
           "lg": {
-            "value": "{text.typeset.lineHeight.md}",
+            "value": "{size.sm}",
             "type": "sizing"
           }
         },
@@ -1204,7 +1235,7 @@
             "type": "sizing"
           },
           "md": {
-            "value": "button.label.md",
+            "value": "{button.label.md}",
             "type": "sizing"
           },
           "lg": {

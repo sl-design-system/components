@@ -1,10 +1,18 @@
 .ds-tokens {
   margin-top: 2.4rem;
+
+  code {
+    text-transform: lowercase;
+  }
+}
+
+.ds-tokens__heading {
+  margin-bottom: 2.4rem;
 }
 
 .ds-tokens__color {
   border: 1px solid var(--ds-color-light-grey); // TODO: dark mode
-  border-radius: 50%; //8px;
+  border-radius: 50%;
   height: 8rem;
   margin-bottom: 0.8rem;
   width: 8rem;
@@ -12,29 +20,66 @@
 
 .ds-tokens__text {
   font-size: 2.4rem;
+  line-height: 1;
+  margin-bottom: 0.8rem;
 }
 
 .ds-tokens__border {
   background-color: var(--picture-background);
   border: 1px solid var(--heading-background); // TODO: dark mode
   height: 8rem;
+  margin-bottom: 0.8rem;
   width: 8rem;
+}
+
+.ds-tokens__border-example {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 .ds-tokens__space {
   background-color: var(--ds-color-light-grey);
   height: 8rem;
+  margin-bottom: 0.8rem;
   width: 8rem;
+}
+
+.ds-tokens__space-example,
+.ds-tokens__opacity-example {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 6rem;
+  width: fit-content;
 }
 
 .ds-tokens__opacity {
   background-color: var(--heading-background);
   height: 6rem;
+  margin-bottom: 0.8rem;
   width: 6rem;
 }
 
+//.ds-tokens__opacity-example {
+//  display: flex;
+//  width: fit-content;
+//  flex-direction: column;
+//  align-items: center;
+//}
+
 .ds-tokens__size {
   background-color: var(--ds-color-light-grey);
+  margin-bottom: 0.8rem;
+}
+
+.ds-tokens__size-example {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 7.2rem;
+  width: fit-content;
 }
 
 .ds-tokens__description {

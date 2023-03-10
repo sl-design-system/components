@@ -37,16 +37,44 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addLiquidFilter("myFilter",  function(value) {
-    return `--sl-${value?.replaceAll('.', '-')}`;
+    const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
+    return `--sl-${newValue?.replaceAll('.', '-')}`;
   });
 
   eleventyConfig.addLiquidFilter("tokenDescription",  function(value) {
-    return value?.replaceAll('.', ' ');
+    const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
+    return newValue?.replaceAll('.', ' ');
   });
 
   eleventyConfig.addLiquidFilter("hasNoUnit",  function(value) {
     const lastCharacter = (value.toString())?.slice(-1);
     return /[0-9]/.test(lastCharacter);
+  });
+
+  eleventyConfig.addLiquidFilter("notContainsIconValue",  function(value) {
+    return value?.indexOf('icon') === -1;
+  });
+
+  eleventyConfig.addLiquidFilter("fontWeight",  function(value) {
+    if (!value) {
+      return;
+    }
+    let weight;
+
+    switch(value) {
+      case "Regular":
+        weight = "400";
+        break;
+      case "DemiBold":
+        weight = "600";
+        break;
+      case "Bold":
+        weight = "700";
+        break;
+      default:
+        weight = value;
+    }
+    return weight;
   });
 
   eleventyConfig.addCollection('content', collection => {

@@ -61,17 +61,17 @@
   );
   --sl-color-input-invalid-unchecked-default-icon: rgb(var(--sl-color-palette-danger-400));
   --sl-color-input-invalid-unchecked-default-border: rgb(var(--sl-color-palette-danger-300));
-  --sl-color-input-default-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-default-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-default-checked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-input-default-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-input-default-checked-disabled-label: rgb(var(--sl-color-palette-neutral-base));
+  --sl-color-input-default-checked-disabled-background: rgb(var(--sl-color-palette-neutral-base));
   --sl-color-input-default-checked-focus-icon: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-default-checked-focus-background: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-input-default-checked-focus-background: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-default-checked-active-icon: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-default-checked-active-background: rgb(var(--sl-color-palette-accent-600));
+  --sl-color-input-default-checked-active-background: rgb(var(--sl-color-palette-primary-600));
   --sl-color-input-default-checked-hover-icon: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-default-checked-hover-background: rgb(var(--sl-color-palette-accent-400));
+  --sl-color-input-default-checked-hover-background: rgb(var(--sl-color-palette-primary-800));
   --sl-color-input-default-checked-default-icon: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-default-checked-default-background: rgb(var(--sl-color-palette-accent-300));
+  --sl-color-input-default-checked-default-background: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-default-unchecked-disabled-icon: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-input-default-unchecked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-default-unchecked-disabled-border: rgb(var(--sl-color-palette-neutral-200));
@@ -86,10 +86,10 @@
     var(--sl-color-palette-accent-base) / var(--sl-opacity-400)
   );
   --sl-color-input-default-unchecked-hover-icon: rgb(var(--sl-color-palette-accent-500));
-  --sl-color-input-default-unchecked-hover-border: rgb(var(--sl-color-palette-accent-400));
+  --sl-color-input-default-unchecked-hover-border: rgb(var(--sl-color-palette-primary-800));
   --sl-color-input-default-unchecked-hover-background: rgb(var(--sl-color-palette-accent-50));
   --sl-color-input-default-unchecked-default-icon: rgb(var(--sl-color-palette-neutral-400));
-  --sl-color-input-default-unchecked-default-border: rgb(var(--sl-color-palette-neutral-400));
+  --sl-color-input-default-unchecked-default-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-surface-solid-accent-foreground: rgb(var(--sl-color-palette-accent-50));
   --sl-color-surface-solid-accent-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-surface-solid-secondary-foreground: rgb(var(--sl-color-palette-white-base));

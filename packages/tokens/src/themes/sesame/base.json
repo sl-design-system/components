@@ -220,7 +220,13 @@
     "input": {
       "md": {
         "value": "{size.sm}",
-        "type": "sizing"
+        "type": "sizing",
+        "description": "size.input.md"
+      },
+      "lg": {
+        "value": "{size.md}",
+        "type": "sizing",
+        "description": "size.input.lg"
       }
     }
   },
@@ -360,6 +366,11 @@
         }
       },
       "lineHeight": {
+        "xxs": {
+          "value": 12,
+          "type": "lineHeights",
+          "description": "text.typeset.lineHeight.xs"
+        },
         "xs": {
           "value": 14,
           "type": "lineHeights",

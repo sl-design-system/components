@@ -1,13 +1,13 @@
 :host {
   --_direction: column;
-  --_gap: 0.25rem;
+  --_gap: var(--sl-space-group-md);
 }
 
 :host {
   align-items: start;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--_gap);
   vertical-align: top;
 }
 

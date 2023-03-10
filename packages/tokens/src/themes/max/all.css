@@ -52,6 +52,7 @@
   --sl-text-typeset-line-height-md: 22px;
   --sl-text-typeset-line-height-sm: 16px;
   --sl-text-typeset-line-height-xs: 14px;
+  --sl-text-typeset-line-height-xxs: 12px;
   --sl-text-typeset-font-size-5xl: 54px;
   --sl-text-typeset-font-size-4xl: 48px;
   --sl-text-typeset-font-size-3xl: 32px;
@@ -68,7 +69,7 @@
   --sl-text-typeset-font-weight-icon-regular: 400;
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
-  --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
+  --sl-text-typeset-font-family-icon: font-awesome-6-pro;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -205,6 +206,7 @@
   --sl-color-palette-primary-150: 222 224 227;
   --sl-color-palette-primary-100: 238 239 241;
   --sl-color-palette-primary-50: 254 254 254;
+  --sl-size-input-lg: var(--sl-size-md);
   --sl-size-input-md: var(--sl-size-sm);
 }
 

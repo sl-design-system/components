@@ -22,7 +22,9 @@ module.exports = {
     '**/*.e2e.tsx',
     '**/*.scss.ts',
     '**/*.spec.ts',
-    '**/*.stories.js'
+    '**/*.stories.js',
+    '**/*.js',
+    '**/*.cjs',
   ],
   rules: {
     '@typescript-eslint/array-type': [

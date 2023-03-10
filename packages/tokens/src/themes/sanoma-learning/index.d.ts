@@ -1,1 +1,1 @@
-export declare const setup: () => void;
+export {};

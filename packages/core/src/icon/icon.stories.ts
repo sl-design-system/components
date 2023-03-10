@@ -7,5 +7,13 @@ export default {
 };
 
 export const API: StoryObj = {
-  render: () => html`<sl-icon name="star"></sl-icon>`
+  render: () => html`
+    <h1>FontAwesome icons</h1>
+    <sl-icon name="star"></sl-icon>
+    <sl-icon name="glasses"></sl-icon>
+    <sl-icon name="face-smile"></sl-icon>
+    <h1>Custom icons</h1>
+    <sl-icon name="hello"></sl-icon>
+    <sl-icon name="open-eye"></sl-icon>
+  `
 };

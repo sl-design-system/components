@@ -46,6 +46,7 @@
     }
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/pro-regular-svg-icons": "^6.3.0",
     "@sanomalearning/slds-core": "*"
   }

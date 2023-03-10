@@ -2768,6 +2768,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-svg-core@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.3.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-svg-core%2F-%2F6.3.0%2Ffontawesome-svg-core-6.3.0.tgz"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.3.0
+  checksum: e800f1a6f100e8802c93195595db8e6e17edb81ebb44a88d94a260c8db948e847e945fff54d46fc75949dc9081d3e86cf6b3370ae60b8be57fb09d2aac4390f4
+  languageName: node
+  linkType: hard
+
 "@fortawesome/pro-regular-svg-icons@npm:^6.3.0":
   version: 6.3.0
   resolution: "@fortawesome/pro-regular-svg-icons@npm:6.3.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-regular-svg-icons%2F-%2F6.3.0%2Fpro-regular-svg-icons-6.3.0.tgz"
@@ -3707,6 +3716,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning"
   dependencies:
+    "@fortawesome/fontawesome-svg-core": ^6.3.0
     "@fortawesome/pro-regular-svg-icons": ^6.3.0
     "@sanomalearning/slds-core": "*"
   languageName: unknown

@@ -19,7 +19,6 @@ export class Icon extends LitElement {
 
   static registerResolver(resolver: IconResolver): void {
     this.resolver = resolver;
-    console.log('registerResolver', resolver);
   }
 
   /**

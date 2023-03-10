@@ -10,36 +10,26 @@ $sizes: md, lg;
   --_border: var(--_border-size) solid var(--_border-color);
   --_gap: var(--sl-space-input-gap-md);
   --_line-height: var(--sl-text-typeset-line-height-md);
-  --_padding: var(--sl-space-input-block-md) var(--sl-space-input-inline-md) var(--sl-space-input-block-md) 0;
-  --_path-length: 22.910259;
-  --_stroke-dashoffset: var(--_path-length);
   --_transition: 200ms ease-in-out;
-  --_icon-size: 16px;
+  --sl-size-input-icon-size-md: 20px;
+  --sl-size-input-icon-size-lg: 28px;
 }
 
 :host {
   align-items: start;
-  display: flex;
-  flex-direction: column;
+  color: var(--_label-color);
+  cursor: pointer;
+  display: inline-flex;
+  font: var(--sl-text-input-label-md);
   gap: var(--_gap);
   line-height: var(--_line-height);
   outline: none;
   padding: var(--_padding);
 }
 
-:host(:disabled) {
+:host(:where(:disabled, [internals-disabled])) {
   cursor: default;
   pointer-events: none;
-}
-
-.wrapper {
-  align-items: start;
-  color: var(--_label-color);
-  cursor: pointer;
-  display: flex;
-  font: var(--sl-text-input-label-md);
-  gap: var(--_gap);
-  outline: none;
 }
 
 .box {
@@ -49,10 +39,13 @@ $sizes: md, lg;
   box-shadow: var(--_box-shadow);
   display: inline-flex;
   flex-shrink: 0;
-  margin-block-start: calc((var(--_line-height) - var(--_size) - var(--_border-size) * 2) / 2);
   padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
   transition: var(--_transition);
-  transition-property: background, border, box-shadow, color, filter;
+  transition-property: background, border-color, box-shadow, color, filter;
+}
+
+.label {
+  margin-block-start: calc((var(--_size) - var(--_line-height)) / 2);
 }
 
 sl-icon,
@@ -62,7 +55,7 @@ svg {
   fill: none;
   height: var(--_icon-size);
   transition: var(--_transition);
-  transition-property: background, border, box-shadow, fill;
+  transition-property: background, border-color, box-shadow, fill;
   width: var(--_icon-size);
 }
 
@@ -81,40 +74,42 @@ circle {
       var(--sl-space-input-inline-#{$size})
       var(--sl-space-input-block-#{$size})
       0;
+    --_gap: var(--sl-space-input-gap-#{$size});
     --_size: var(--sl-size-input-#{$size});
+    --_icon-size: var(--sl-size-input-icon-size-#{$size});
   }
 }
 
 @each $variant in $variants {
   $i: index($variants, $variant);
-  $variantselector: nth($variant-selectors, $i);
+  $variant-selector: nth($variant-selectors, $i);
 
   @each $state in $states {
     $j: index($states, $state);
-    $stateselector: nth($state-selectors, $j);
+    $state-selector: nth($state-selectors, $j);
 
-    :host(#{$variantselector + $stateselector}) {
+    :host(#{$variant-selector + $state-selector}) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-default-background);
       --_border-color: var(--sl-color-input-#{$variant}-#{$state}-default-border);
       --_label-color: var(--sl-color-input-#{$variant}-#{$state}-default-label);
       --_fill: var(--sl-color-input-#{$variant}-#{$state}-default-icon);
     }
 
-    :host(#{$variantselector + $stateselector}:hover) {
+    :host(#{$variant-selector + $state-selector}:hover) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-hover-background);
       --_border-color: var(--sl-color-input-#{$variant}-#{$state}-hover-border);
       --_label-color: var(--sl-color-input-#{$variant}-#{$state}-hover-label);
       --_fill: var(--sl-color-input-#{$variant}-#{$state}-hover-icon);
     }
 
-    :host(#{$variantselector + $stateselector}:active) {
+    :host(#{$variant-selector + $state-selector}:active) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-active-background);
       --_border-color: var(--sl-color-input-#{$variant}-#{$state}-active-border);
       --_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
       --_fill: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
     }
 
-    :host(#{$variantselector + $stateselector}:focus-visible) {
+    :host(#{$variant-selector + $state-selector}:focus-visible) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-focus-background);
       --_border-color: var(--sl-color-input-#{$variant}-#{$state}-focus-border);
       --_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
@@ -122,7 +117,7 @@ circle {
       --_box-shadow: var(--sl-box-shadow-focus);
     }
 
-    :host(#{$variantselector + $stateselector}:disabled) {
+    :host(#{$variant-selector + $state-selector}[disabled]) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
       --_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
       --_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);

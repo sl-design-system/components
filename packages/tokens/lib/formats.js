@@ -33,6 +33,8 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
     );
 
     return `${options.prefix}--${token.name}: ${fontWeight} ${fontSize}/${lineHeight} ${fontFamily};`;
+  } else if (token.type === 'fontFamilies') {
+    return `${options.prefix}--${token.name}: ${value.replace(/\s+/g, '-').toLowerCase()};`;
   } else if (dictionary.usesReference(token.original.value) && typeof value === 'string') {
     value = replaceReferences(dictionary, token.original.value, value);
 

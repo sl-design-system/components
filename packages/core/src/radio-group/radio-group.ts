@@ -61,6 +61,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   #validation = new ValidationController(this, {
     validators: [requiredValidator]
   });
+  #initialState?: string;
 
   /** Element internals. */
   readonly internals = this.attachInternals();
@@ -75,7 +76,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   @property({ attribute: false }) validators?: Validator[];
 
   /** The value for this group. */
-  @property() value?: string;
+  @property({ reflect: true }) value?: string;
 
   get buttons(): Radio[] {
     return this.defaultNodes?.filter((node): node is Radio => node instanceof Radio) || [];
@@ -88,6 +89,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
 
     this.setFormControlElement(this);
 
+    this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
     // Run initial validation
     this.#validation.validate(this.value);
   }
@@ -97,6 +99,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
 
     if (changes.has('value')) {
       this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
+      this.setFormValue(this.value);
       this.#validation.validate(this.value);
     }
   }
@@ -104,10 +107,18 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   override render(): TemplateResult {
     return html`
       <div class="wrapper">
-        <slot @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
+        <slot @slotchange=${this.#onSlotchange}></slot>
       </div>
       ${this.renderHint()} ${this.#validation.render()}
     `;
+  }
+
+  formAssociatedCallback(): void {
+    this.#initialState = this.value;
+  }
+
+  formResetCallback(): void {
+    this.value = this.#initialState;
   }
 
   #onClick(event: Event): void {
@@ -123,5 +134,11 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
       // manually from here.
       this.#validation.validate(this.value);
     }
+  }
+
+  #onSlotchange(): void {
+    this.#rovingTabindexController.clearElementCache();
+
+    this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
   }
 }

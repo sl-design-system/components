@@ -1,3 +1,32 @@
+@import './../../breakpoints';
+
+.ds-tokens__heading-wrapper {
+  background-color: var(--heading-background);
+  border-radius: 0.6rem;
+  color: var(--heading-color);
+  padding: 4rem;
+}
+
+.ds-tokens__heading-description {
+  font-size: 1.8rem;
+  line-height: 2.4rem;
+  margin-top: 1.6rem;
+}
+
+@media screen and (min-width: $xl-breakpoint) {
+  .ds-tokens__main-heading {
+    display: grid;
+    grid-column-gap: 7.2rem;
+    grid-template-columns: 7fr 1fr;
+  }
+}
+
+@media screen and (min-width: $xl-breakpoint) {
+  .ds-tokens__wrapper {
+    width: calc((100% / 8) * 7 - 7.2rem);
+  }
+}
+
 .ds-tokens {
   margin-top: 2.4rem;
 
@@ -11,7 +40,7 @@
 }
 
 .ds-tokens__color {
-  border: 1px solid var(--ds-color-light-grey); // TODO: dark mode
+  border: 1px solid var(--vertical-slider-background);
   border-radius: 50%;
   height: 8rem;
   margin-bottom: 0.8rem;
@@ -26,7 +55,7 @@
 
 .ds-tokens__border {
   background-color: var(--picture-background);
-  border: 1px solid var(--heading-background); // TODO: dark mode
+  border: 1px solid var(--heading-background);
   height: 8rem;
   margin-bottom: 0.8rem;
   width: 8rem;
@@ -62,13 +91,6 @@
   width: 6rem;
 }
 
-//.ds-tokens__opacity-example {
-//  display: flex;
-//  width: fit-content;
-//  flex-direction: column;
-//  align-items: center;
-//}
-
 .ds-tokens__size {
   background-color: var(--ds-color-light-grey);
   margin-bottom: 0.8rem;
@@ -84,4 +106,20 @@
 
 .ds-tokens__description {
   text-transform: capitalize;
+}
+
+.ds-tokens__opacity-triangles {
+  background-color: var(--picture-background);
+  border-radius: 0.3rem;
+  display: inline-flex;
+  margin-bottom: 0.8rem;
+  overflow: hidden;
+}
+
+.ds-tokens__triangle {
+  border-color: var(--heading-background) transparent transparent transparent;
+  border-style: solid;
+  border-width: 6rem 6rem 0 0;
+  height: 0;
+  width: 0;
 }

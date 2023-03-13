@@ -36,7 +36,7 @@ module.exports = function(eleventyConfig) {
     return value.toUpperCase();
   });
 
-  eleventyConfig.addLiquidFilter("myFilter",  function(value) {
+  eleventyConfig.addLiquidFilter("tokenName",  function(value) {
     const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
     return `--sl-${newValue?.replaceAll('.', '-')}`;
   });
@@ -64,6 +64,9 @@ module.exports = function(eleventyConfig) {
     switch(value) {
       case "Regular":
         weight = "400";
+        break;
+      case "SemiBold":
+        weight = "600";
         break;
       case "DemiBold":
         weight = "600";

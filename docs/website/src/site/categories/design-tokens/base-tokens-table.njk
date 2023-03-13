@@ -9,16 +9,16 @@
  <tbody>
  {% for color in tokens.base.color.palette -%}
    {% for palette in color -%}
-     {% for colorPrimary2 in palette -%}
-       {% for colorVariantValue2 in colorPrimary2 -%}
-         {% if colorVariantValue2.value %}
+     {% for colorPrimary in palette -%}
+       {% for colorVariantValue in colorPrimary -%}
+         {% if colorVariantValue.value %}
    <tr>
    <td>
-     <div class="ds-tokens__color" style="background-color: {{ colorVariantValue2.value }}"></div>
-     <code>{{ colorVariantValue2.value }}</code>
+     <div class="ds-tokens__color" style="background-color: {{ colorVariantValue.value }}"></div>
+     <code>{{ colorVariantValue.value }}</code>
    </td>
-   <td class="ds-tokens__description">{{ colorVariantValue2.description | tokenDescription }}</td>
-   <td>{% if colorVariantValue2.description %}<code>{{ colorVariantValue2.description | myFilter }}{% endif %}</code></td>
+   <td class="ds-tokens__description">{{ colorVariantValue.description | tokenDescription }}</td>
+   <td>{% if colorVariantValue.description %}<code>{{ colorVariantValue.description | tokenName }}{% endif %}</code></td>
    </tr>
         {% endif %}
        {% endfor -%}
@@ -52,22 +52,21 @@
     {% if textType.type != 'paragraphSpacing' %}
     <p class="ds-tokens__text"
        style="{% if textType.type == 'fontFamilies' %}font-family: {{ textType.value }}, sans-serif;{% endif %}{% if textType.type == 'fontWeights' %}font-weight: {{ textType.value | fontWeight }};{% endif %}{% if textType.type == 'textCase' %}text-transform: {{ textType.value }};{% endif %}
-       {% if textType.type == 'textDecoration' %}text-decoration: {{ textType.value }};{% endif %}{% if textType.type == 'fontSizes' %}font-size: {{ textType.value }}px;{% endif %}">
-      Lorem ipsum dolor sit amet
-    </p>
+       {% if textType.type == 'textDecoration' %}text-decoration: {{ textType.value }};{% endif %}{% if textType.type == 'fontSizes' %}font-size: {{ textType.value }}px;{% endif %}{% if textType.type == 'lineHeights' %}display: none;{% endif %}">Lorem ipsum</p>
     {% endif %}
-    <code>{{ textType.value | fontWeight }}{% if textType.type == 'fontSizes' or textType.type == 'lineHeights' or textType.type == 'paragraphSpacing' %}px{% endif %}</code>
+    <code>{% if textType.type != 'paragraphSpacing' %}{{ textType.value | fontWeight }}{% if textType.type == 'fontSizes' or textType.type == 'lineHeights' %}px{% endif %}{% endif %}{% if textType.type == 'paragraphSpacing' %}{{ textType.value }}{% if textType.value != 0 %}px{% endif %}{% endif %}
+    </code>
   </td>
   <td class="ds-tokens__description">{{ textType.description | tokenDescription }}</td>
-  <td><code>{{ textType.description | myFilter }}</code></td>
+  <td>{% if textType.description %}<code>{{ textType.description | tokenName }}</code>{% endif %}</td>
   </tr>
-                {% endif %}
+                  {% endif %}
+                {% endfor -%}
+              {% endif %}
+            {% endfor -%}
+          {% endfor -%}
         {% endfor -%}
-            {% endif %}
-    {% endfor -%}
-  {% endfor -%}
-  {% endfor -%}
-  {% endfor -%}
+      {% endfor -%}
     {% endif %}
   {% endfor -%}
 </tbody>
@@ -97,7 +96,7 @@
       </div>
     </td>
     <td class="ds-tokens__description">{{ widthValue.description | tokenDescription }}</td>
-    <td>{% if widthValue.description %}<code>{{ widthValue.description | myFilter }}</code>{% endif %}</td>
+    <td>{% if widthValue.description %}<code>{{ widthValue.description | tokenName }}</code>{% endif %}</td>
   </tr>
           {% endif %}
           {% if widthValue.type == 'borderRadius' %}
@@ -109,7 +108,7 @@
       </div>
     </td>
     <td class="ds-tokens__description">{{ widthValue.description | tokenDescription }}</td>
-    <td>{% if widthValue.description %}<code>{{ widthValue.description | myFilter }}</code>{% endif %}</td>
+    <td>{% if widthValue.description %}<code>{{ widthValue.description | tokenName }}</code>{% endif %}</td>
   </tr>
           {% endif %}
           {% endif %}
@@ -141,7 +140,7 @@
       </div>
     </td>
     <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
-    <td><code>{{ property.description | myFilter }}</code></td>
+    <td><code>{{ property.description | tokenName }}</code></td>
   </tr>
       {% endif %}
     {% endfor -%}
@@ -169,7 +168,7 @@
 <tr>
   <td><code>{{ property.value }}</code></td>
   <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
-  <td><code>{{ property.description | myFilter }}</code></td>
+  <td><code>{{ property.description | tokenName }}</code></td>
 </tr>
         {% endif %}
       {% endfor -%}
@@ -197,11 +196,14 @@
 <tr>
   <td>
     <div class="ds-tokens__opacity-example">
-    <div class="ds-tokens__opacity" style="opacity: {{ property.value }};{% if property.value == 0 %}display: none;{% endif %}"></div><code>{{ property.value }}</code>
+      <div class="ds-tokens__opacity-triangles">
+        <div class="ds-tokens__triangle" style="opacity: {{ property.value }};{% if property.value == 0 %}display: none;{% endif %}"></div>
+      </div>
+    <code>{{ property.value }}</code>
     </div>
   </td>
   <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
-  <td><code>{{ property.description | myFilter }}</code></td>
+  <td><code>{{ property.description | tokenName }}</code></td>
 </tr>
    {% endif %}
  {% endfor -%}
@@ -230,7 +232,7 @@
     </div>
   </td>
   <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
-  <td><code>{{ property.description | myFilter }}</code></td>
+  <td><code>{{ property.description | tokenName }}</code></td>
 </tr>
     {% endif %}
   {% endfor -%}

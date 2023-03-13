@@ -124,6 +124,7 @@
   --search-color: var(--ds-color-black);
   --search-icon: url('../assets/icons/search.svg');
   --second-background-color: var(--ds-color-ghost-white);
+  --sidebar-border: none;
   --success-icon: url('../assets/icons/check-dark.svg');
   --success-color: var(--ds-color-success);
   --table-code-background: var(--ds-color-concrete);
@@ -186,6 +187,7 @@
     --search-color: var(--ds-color-faux-white);
     --search-icon: url('../assets/icons/search-light.svg');
     --second-background-color: var(--ds-color-black);
+    --sidebar-border: inset -1px 0 0 var(--ds-color-blck-olive);
     --success-icon: url('../assets/icons/check.svg');
     --success-color: var(--ds-color-green);
     --table-code-background: var(--ds-color-blck-olive);

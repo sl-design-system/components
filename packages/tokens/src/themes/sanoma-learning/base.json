@@ -1310,16 +1310,6 @@
         "type": "Icons",
         "description": "icon.base.face-smile"
       },
-      "menu": {
-        "value": "{icon.core.fa-menu}",
-        "type": "Icons",
-        "description": "icon.base.menu"
-      },
-      "fav": {
-        "value": "{icon.custom.fav}",
-        "type": "Icons",
-        "description": "icon.base.fav"
-      },
       "chevron-down": {
         "value": "{icon.core.fa-chevron-down}",
         "type": "Icons",
@@ -1336,6 +1326,11 @@
         "value": "fav",
         "type": "Icons",
         "description": "icon.custom.fav"
+      },
+      "open-eye": {
+        "value": "open-eye",
+        "type": "Icons",
+        "description": "icon.custom.open-eye"
       }
     },
     "font-weight": {

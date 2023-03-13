@@ -7,7 +7,7 @@
   },
   "allowSyntheticDefaultImports": false,
   "files": [
-    "src/themes/sanoma-learning/index.d.ts"
+    "src/themes/sanoma-learning/index.ts"
   ],
   "include": ["src/**/*.ts","src/**/*.js", "src/**/*.d.ts"],
   "exclude": ["node_modules"],

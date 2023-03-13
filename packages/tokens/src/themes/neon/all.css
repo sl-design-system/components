@@ -1,0 +1,123 @@
+/**
+ * Copyright 2022 Sanoma Learning
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Copyright 2022 Sanoma Learning
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Copyright 2022 Sanoma Learning
+ * SPDX-License-Identifier: Apache-2.0
+ */
+:root {
+  --sl-icon-core-fa-check: fa-chevron-down;
+  --sl-icon-core-fa-chevron-down: fa-chevron-down;
+  --sl-icon-core-fa-fav: fa-star;
+  --sl-icon-core-fa-menu: fa-bars;
+  --sl-icon-core-fa-face-smile: fa-face-smile;
+  --sl-animation-easing-ease-in-out: ease-in-out;
+  --sl-animation-duration-slow: 500ms;
+  --sl-animation-duration-normal: 200ms;
+  --sl-animation-duration-fast: 90ms;
+  --sl-text-typeset-letter-spacing-xl: 2%;
+  --sl-text-typeset-letter-spacing-lg: 1%;
+  --sl-text-typeset-letter-spacing-md: 0%;
+  --sl-text-typeset-letter-spacing-sm: -1%;
+  --sl-text-typeset-letter-spacing-xs: -2%;
+  --sl-text-typeset-letter-spacing-none: 0%;
+  --sl-text-typeset-text-case-capitalize: capitalize;
+  --sl-text-typeset-text-case-lowercase: lowercase;
+  --sl-text-typeset-text-case-uppercase: uppercase;
+  --sl-text-typeset-text-case-none: none;
+  --sl-text-typeset-text-decoration-strikethrough: strikethrough;
+  --sl-text-typeset-text-decoration-underline: underline;
+  --sl-text-typeset-text-decoration-none: none;
+  --sl-text-typeset-paragraph-spacing-5xl: 64px;
+  --sl-text-typeset-paragraph-spacing-4xl: 58px;
+  --sl-text-typeset-paragraph-spacing-3xl: 42px;
+  --sl-text-typeset-paragraph-spacing-2xl: 34px;
+  --sl-text-typeset-paragraph-spacing-xl: 28px;
+  --sl-text-typeset-paragraph-spacing-lg: 24px;
+  --sl-text-typeset-paragraph-spacing-md: 22px;
+  --sl-text-typeset-paragraph-spacing-sm: 18px;
+  --sl-text-typeset-paragraph-spacing-xs: 14px;
+  --sl-text-typeset-paragraph-spacing-none: 0px;
+  --sl-text-typeset-line-height-5xl: 64px;
+  --sl-text-typeset-line-height-4xl: 58px;
+  --sl-text-typeset-line-height-3xl: 42px;
+  --sl-text-typeset-line-height-2xl: 34px;
+  --sl-text-typeset-line-height-xl: 28px;
+  --sl-text-typeset-line-height-lg: 24px;
+  --sl-text-typeset-line-height-md: 22px;
+  --sl-text-typeset-line-height-sm: 16px;
+  --sl-text-typeset-line-height-xs: 14px;
+  --sl-text-typeset-font-size-5xl: 54px;
+  --sl-text-typeset-font-size-4xl: 48px;
+  --sl-text-typeset-font-size-3xl: 32px;
+  --sl-text-typeset-font-size-2xl: 24px;
+  --sl-text-typeset-font-size-xl: 18px;
+  --sl-text-typeset-font-size-lg: 16px;
+  --sl-text-typeset-font-size-md: 14px;
+  --sl-text-typeset-font-size-sm: 12px;
+  --sl-text-typeset-font-size-xs: 10px;
+  --sl-text-typeset-font-weight-bold: 700;
+  --sl-text-typeset-font-weight-demibold: 600;
+  --sl-text-typeset-font-weight-regular: 400;
+  --sl-text-typeset-font-weight-icon-solid: Solid;
+  --sl-text-typeset-font-weight-icon-regular: 400;
+  --sl-text-typeset-font-weight-icon-light: 300;
+  --sl-text-typeset-font-weight-icon-thin: 100;
+  --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
+  --sl-space-2xl: 30px;
+  --sl-space-xl: 24px;
+  --sl-space-lg: 16px;
+  --sl-space-md: 12px;
+  --sl-space-sm: 8px;
+  --sl-space-xs: 4px;
+  --sl-space-2xs: 2px;
+  --sl-space-none: 0px;
+  --sl-size-4xl: 72px;
+  --sl-size-3xl: 64px;
+  --sl-size-2xl: 56px;
+  --sl-size-xl: 48px;
+  --sl-size-lg: 40px;
+  --sl-size-md: 32px;
+  --sl-size-sm: 24px;
+  --sl-size-xs: 16px;
+  --sl-size-2xs: 8px;
+  --sl-size-3xs: 4px;
+  --sl-size-4xs: 2px;
+  --sl-size-none: 0px;
+  --sl-opacity-transparent: 0;
+  --sl-opacity-1000: 1;
+  --sl-opacity-900: 0.8;
+  --sl-opacity-800: 0.64;
+  --sl-opacity-700: 0.48;
+  --sl-opacity-600: 0.32;
+  --sl-opacity-500: 0.2;
+  --sl-opacity-400: 0.16;
+  --sl-opacity-300: 0.12;
+  --sl-opacity-200: 0.08;
+  --sl-opacity-100: 0.04;
+  --sl-border-width-2xl: 6px;
+  --sl-border-width-xl: 5px;
+  --sl-border-width-lg: 4px;
+  --sl-border-width-md: 3px;
+  --sl-border-width-sm: 2px;
+  --sl-border-width-xs: 1px;
+  --sl-border-width-2xs: 0.5px;
+  --sl-border-width-none: 0px;
+  --sl-border-radius-full: 100%;
+  --sl-border-radius-3xl: 18px;
+  --sl-border-radius-2xl: 16px;
+  --sl-border-radius-xl: 14px;
+  --sl-border-radius-lg: 12px;
+  --sl-border-radius-md: 10px;
+  --sl-border-radius-sm: 8px;
+  --sl-border-radius-xs: 6px;
+  --sl-border-radius-2xs: 4px;
+  --sl-border-radius-3xs: 2px;
+  --sl-border-radius-none: 0px;
+  --sl-size-input-md: var(--sl-size-sm);
+}

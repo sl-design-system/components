@@ -32,10 +32,6 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter('search', searchFilter);
 
-  eleventyConfig.addFilter('replaceString', (value) => {
-    return value.toUpperCase();
-  });
-
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {
     const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
     return `--sl-${newValue?.replaceAll('.', '-')}`;

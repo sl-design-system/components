@@ -3502,6 +3502,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sanomalearning/slds-bingel-dc@workspace:packages/tokens/src/themes/bingel-dc":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-bingel-dc@workspace:packages/tokens/src/themes/bingel-dc"
+  languageName: unknown
+  linkType: soft
+
+"@sanomalearning/slds-bingel-int@workspace:packages/tokens/src/themes/bingel-int":
+  version: 0.0.0-use.local
+  resolution: "@sanomalearning/slds-bingel-int@workspace:packages/tokens/src/themes/bingel-int"
+  languageName: unknown
+  linkType: soft
+
 "@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel"
@@ -3539,12 +3551,6 @@ __metadata:
     tslib: ^2.5.0
     typescript: ^4.9.5
     wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-diddit@workspace:packages/tokens/src/themes/diddit":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-diddit@workspace:packages/tokens/src/themes/diddit"
   languageName: unknown
   linkType: soft
 
@@ -3610,18 +3616,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-editorial@workspace:packages/tokens/src/themes/editorial":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-editorial@workspace:packages/tokens/src/themes/editorial"
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-edubase@workspace:packages/tokens/src/themes/edubase":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-edubase@workspace:packages/tokens/src/themes/edubase"
-  languageName: unknown
-  linkType: soft
-
 "@sanomalearning/slds-grid@workspace:packages/grid":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-grid@workspace:packages/grid"
@@ -3669,9 +3663,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-npm@workspace:packages/tokens/src/themes/npm":
+"@sanomalearning/slds-neon@workspace:packages/tokens/src/themes/neon":
   version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-npm@workspace:packages/tokens/src/themes/npm"
+  resolution: "@sanomalearning/slds-neon@workspace:packages/tokens/src/themes/neon"
   languageName: unknown
   linkType: soft
 
@@ -3723,12 +3717,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-sesame@workspace:packages/tokens/src/themes/sesame":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-sesame@workspace:packages/tokens/src/themes/sesame"
-  languageName: unknown
-  linkType: soft
-
 "@sanomalearning/slds-storybook@workspace:docs/storybook":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-storybook@workspace:docs/storybook"
@@ -3742,12 +3730,6 @@ __metadata:
     react-dom: ^18.2.0
     storybook: ^7.0.0-beta.60
     wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-teas@workspace:packages/tokens/src/themes/teas":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-teas@workspace:packages/tokens/src/themes/teas"
   languageName: unknown
   linkType: soft
 

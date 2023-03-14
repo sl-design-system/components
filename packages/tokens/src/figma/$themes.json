@@ -10,42 +10,32 @@
     "$figmaStyleReferences": {}
   },
   {
+    "id": "dbf699c87fe5fc210bf698833079d033caf0f12d",
+    "name": "bingel-dc/light",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "bingel-dc/base": "enabled",
+      "bingel-dc/light": "enabled"
+    },
+    "$figmaStyleReferences": {}
+  },
+  {
+    "id": "fe66830bc69788a47b68afc3602ed862f56468d9",
+    "name": "bingel-int/light",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "bingel-int/base": "enabled",
+      "bingel-int/light": "enabled"
+    },
+    "$figmaStyleReferences": {}
+  },
+  {
     "id": "f29bcd4917ac377e9acae60e5bea805443e64557",
     "name": "clickedu/light",
     "selectedTokenSets": {
       "core": "enabled",
       "clickedu/base": "enabled",
       "clickedu/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "fe66830bc69788a47b68afc3602ed862f56468d9",
-    "name": "diddit/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "diddit/base": "enabled",
-      "diddit/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "bdfd5b5c0e7bd01cdcb5c1b00bf414ce83c5e0b0",
-    "name": "editorial/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "editorial/base": "enabled",
-      "editorial/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "0023c89811c74cbef8ef318bc7ddd3257e6c209e",
-    "name": "edubase/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "edubase/base": "enabled",
-      "edubase/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -91,31 +81,11 @@
   },
   {
     "id": "3c0efcad43272eb5bb21bcbff94b5f2dbd876fcf",
-    "name": "npm/light",
+    "name": "neon/light",
     "selectedTokenSets": {
       "core": "enabled",
-      "npm/base": "enabled",
-      "npm/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "732cfd70f2a288a6bfc99374979540e32ab71e05",
-    "name": "sesame/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "sesame/base": "enabled",
-      "sesame/light": "enabled"
-    },
-    "$figmaStyleReferences": {}
-  },
-  {
-    "id": "3559d6409f24b2854230903f7e8d62fd44cd70bc",
-    "name": "teas/light",
-    "selectedTokenSets": {
-      "core": "enabled",
-      "teas/base": "enabled",
-      "teas/light": "enabled"
+      "neon/base": "enabled",
+      "neon/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -125,8 +95,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/light": "enabled",
-      "sanoma-learning/desktop": "enabled"
+      "sanoma-learning/light": "enabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:d48001ec2d75d36a13f1588a7e9a5014145f36c9,",
@@ -993,8 +962,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/dark": "enabled",
-      "sanoma-learning/desktop": "enabled"
+      "sanoma-learning/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e436f1f9f05abf7e76d0f3753b0a9e05e7ad0753,",

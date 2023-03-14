@@ -115,6 +115,162 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/avatar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/avatar/avatar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/avatar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () =>\n    html`\n      <style>\n        section {\n          display: flex;\n          flex-direction: column;\n          gap: 24px;\n        }\n      </style>\n      <section>\n        <sl-avatar uniqueProfileId=\"1\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"2\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"3\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"4\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"5\"></sl-avatar>\n      </section>\n    `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/avatar/avatar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/avatar/avatar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/avatar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Avatar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "string"
+              },
+              "default": "'slds'",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "attribute": "uniqueProfileId"
+            },
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_getUserDetails",
+              "return": {
+                "type": {
+                  "text": "Promise<UserProfile | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "string"
+              },
+              "default": "'slds'",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "fieldName": "uniqueProfileId"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-avatar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "../../packages/core/src/avatar/avatar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "/packages/core/src/avatar/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/button/button.scss.ts",
       "declarations": [],
       "exports": [
@@ -638,443 +794,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/avatar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/avatar/avatar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/avatar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () =>\n    html`\n      <style>\n        section {\n          display: flex;\n          flex-direction: column;\n          gap: 24px;\n        }\n      </style>\n      <section>\n        <sl-avatar uniqueProfileId=\"1\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"2\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"3\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"4\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"5\"></sl-avatar>\n      </section>\n    `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/avatar/avatar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/avatar/avatar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/avatar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Avatar",
-          "members": [
-            {
-              "kind": "field",
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "string"
-              },
-              "default": "'slds'",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "attribute": "uniqueProfileId"
-            },
-            {
-              "kind": "field",
-              "name": "profileName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "user",
-              "type": {
-                "text": "UserProfile | undefined | undefined"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_getUserDetails",
-              "return": {
-                "type": {
-                  "text": "Promise<UserProfile | undefined>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "string"
-              },
-              "default": "'slds'",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "fieldName": "uniqueProfileId"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-avatar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "../../packages/core/src/avatar/avatar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "/packages/core/src/avatar/avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/dialog.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/dialog/dialog.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/dialog.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => {\n    return html`\n      <sl-button @click=${onClick}>Show Dialog</sl-button>\n      <sl-dialog>\n        <span slot=\"title\">Dialog title</span>\n        <p>\n          Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et\n          tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.\n          Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur\n          anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor\n          magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.\n        </p>\n        <sl-button slot=\"action\" sl-dialog-close autofocus>Close</sl-button>\n      </sl-dialog>\n    `;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "DisableClose",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <sl-button @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog disable-close>\n      <span slot=\"title\">Disable close</span>\n      <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>\n      <sl-button slot=\"action\" sl-dialog-close>Close</sl-button>\n    </sl-dialog>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "ScrollingBody",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      sl-button {\n        margin: 50vh 0 100vh;\n      }\n    </style>\n    <sl-button @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog>\n      <div>You cannot scroll the body once the dialog is open.</div>\n    </sl-dialog>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/dialog/dialog.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/dialog/dialog.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "DisableClose",
-          "declaration": {
-            "name": "DisableClose",
-            "module": "../../packages/core/src/dialog/dialog.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ScrollingBody",
-          "declaration": {
-            "name": "ScrollingBody",
-            "module": "../../packages/core/src/dialog/dialog.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/dialog.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A dialog component for displaying modal UI.",
-          "name": "Dialog",
-          "slots": [
-            {
-              "description": "Area where action buttons are placed",
-              "name": "action"
-            },
-            {
-              "description": "Body content for the dialog",
-              "name": "default"
-            },
-            {
-              "description": "Footer content for the dialog",
-              "name": "footer"
-            },
-            {
-              "description": "Header content for the dialog",
-              "name": "header"
-            },
-            {
-              "description": "The title of the dialog",
-              "name": "title"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disableClose",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
-            },
-            {
-              "kind": "field",
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "attribute": "role"
-            },
-            {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onCancel",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClose",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disable-close",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "fieldName": "role"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-dialog",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Dialog",
-          "declaration": {
-            "name": "Dialog",
-            "module": "../../packages/core/src/dialog/dialog.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./dialog.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/dialog/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-dialog",
-          "declaration": {
-            "name": "Dialog",
-            "module": "/packages/core/src/dialog/dialog.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../../packages/core/src/checkbox/checkbox-group.scss.ts",
       "declarations": [],
       "exports": [
@@ -1086,6 +805,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/checkbox/checkbox-group.spec.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -1157,6 +882,15 @@
             },
             {
               "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Name of the form element",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -1178,6 +912,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             },
             {
               "kind": "field",
@@ -1253,19 +996,15 @@
               }
             }
           ],
-          "mixins": [
-            {
-              "name": "HintMixin",
-              "module": "/packages/core/src/utils/mixins/index.js"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-checkbox-group",
-          "customElement": true,
           "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Name of the form element",
+              "fieldName": "name"
+            },
             {
               "name": "hint",
               "type": {
@@ -1278,7 +1017,19 @@
                 "module": "../../packages/core/src/utils/mixins/hint.ts"
               }
             }
-          ]
+          ],
+          "mixins": [
+            {
+              "name": "HintMixin",
+              "module": "/packages/core/src/utils/mixins/index.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-checkbox-group",
+          "customElement": true
         }
       ],
       "exports": [
@@ -1308,6 +1059,12 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/checkbox/checkbox.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/checkbox/checkbox.stories.ts",
       "declarations": [
         {
@@ -1316,7 +1073,15 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  args: {\n    checked: false,\n    disabled: false,\n    indeterminate: false,\n    text: 'Toggle me',\n    value: '12345'\n  },\n  render: ({ checked, disabled, indeterminate, text, value }) => html`\n    <sl-checkbox ?checked=${checked} ?disabled=${disabled} .indeterminate=${indeterminate} .value=${value}\n      >${text}</sl-checkbox\n    >\n  `\n}"
+          "default": "{\n  render: ({ checked, disabled, indeterminate, text, value, size, hint }) => html`\n    <sl-checkbox\n      ?checked=${checked}\n      ?disabled=${disabled}\n      .indeterminate=${indeterminate}\n      .value=${value}\n      .size=${size}\n      .hint=${hint}\n      >${text}</sl-checkbox\n    >\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      .grid {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: repeat(3, 1fr);\n        justify-items: center;\n      }\n      h2 {\n        font-family: var(--sl-text-typeset-font-family-heading);\n      }\n    </style>\n    <h2>Medium</h2>\n    <div class=\"grid\">\n      <sl-checkbox>Default</sl-checkbox>\n      <sl-checkbox checked>Checked</sl-checkbox>\n      <sl-checkbox indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox disabled>Default</sl-checkbox>\n      <sl-checkbox disabled checked>Checked</sl-checkbox>\n      <sl-checkbox disabled indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox invalid>Default</sl-checkbox>\n      <sl-checkbox invalid checked>Checked</sl-checkbox>\n      <sl-checkbox invalid indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox invalid disabled>Default</sl-checkbox>\n      <sl-checkbox invalid disabled checked>Checked</sl-checkbox>\n      <sl-checkbox invalid disabled indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox valid>Default</sl-checkbox>\n      <sl-checkbox valid checked>Checked</sl-checkbox>\n      <sl-checkbox valid indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox valid disabled>Default</sl-checkbox>\n      <sl-checkbox valid disabled checked>Checked</sl-checkbox>\n      <sl-checkbox valid disabled indeterminate>Indeterminate</sl-checkbox>\n    </div>\n    <h2>Large</h2>\n    <div class=\"grid\">\n      <sl-checkbox size=\"lg\">Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" disabled>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" disabled checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" disabled indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" invalid>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" invalid checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" invalid indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" invalid disabled>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" invalid disabled checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" invalid disabled indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" valid>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" valid checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" valid indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" valid disabled>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" valid disabled checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" valid disabled indeterminate>Indeterminate</sl-checkbox>\n    </div>\n  `\n}"
         },
         {
           "kind": "variable",
@@ -1324,7 +1089,7 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => html`<sl-checkbox indeterminate>Indeterminate</sl-checkbox>`\n}"
+          "default": "{\n  render: () => html`\n    <h2>Single</h2>\n    <sl-checkbox indeterminate>Indeterminate</sl-checkbox>\n    <h2>In group, with children</h2>\n    <p>\n      When you use the checkboxes in a nested structure, or have one checkbox to rule them all (to select all in a list\n      of items for example) this is how the indeterminate state should behave:\n    </p>\n    <ul>\n      <li>\n        <sl-checkbox @sl-change=${onChange} name=\"tall\" id=\"tall\">Tall Things</sl-checkbox>\n        <ul>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"tall-1\" id=\"tall-1\">Buildings</sl-checkbox>\n          </li>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"tall-2\" id=\"tall-2\">Giants</sl-checkbox>\n\n            <ul>\n              <li>\n                <sl-checkbox @sl-change=${onChange} name=\"tall-2-1\" id=\"tall-2-1\">Andre</sl-checkbox>\n              </li>\n              <li>\n                <sl-checkbox @sl-change=${onChange} name=\"tall-2-2\" id=\"tall-2-2\">Paul Bunyan</sl-checkbox>\n              </li>\n            </ul>\n          </li>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"tall-3\" id=\"tall-3\">Two sandwiches</sl-checkbox>\n          </li>\n        </ul>\n      </li>\n      <li>\n        <sl-checkbox @sl-change=${onChange} name=\"short\" id=\"short\">Short Things</sl-checkbox>\n        <ul>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"short-1\" id=\"short-1\">Smurfs</sl-checkbox>\n          </li>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"short-2\" id=\"short-2\">Mushrooms</sl-checkbox>\n          </li>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"short-3\" id=\"short-3\">One Sandwich</sl-checkbox>\n          </li>\n        </ul>\n      </li>\n    </ul>\n  `\n}"
         },
         {
           "kind": "variable",
@@ -1340,7 +1105,7 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => html`\n    <sl-checkbox\n      >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla\n      consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident\n      enim.</sl-checkbox\n    >\n  `\n}"
+          "default": "{\n  render: () => html`\n    <style>\n      div {\n        display: flex;\n        flex-direction: column;\n        gap: 16px;\n      }\n      .wrapper {\n        border: 2px solid rgb(var(--sl-color-palette-accent-base));\n      }\n    </style>\n    <em>Borders are added to show the alignment in the container</em>\n    <div class=\"wrapper\">\n      <sl-checkbox\n        >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla\n        consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident\n        enim.\n      </sl-checkbox>\n    </div>\n    <div class=\"wrapper\">\n      <sl-checkbox>Elit consectetur. </sl-checkbox>\n    </div>\n  `\n}"
         },
         {
           "kind": "variable",
@@ -1356,7 +1121,15 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => html`\n    <sl-label for=\"group\">Checkbox group</sl-label>\n    <sl-checkbox-group id=\"group\" hint=\"Pick one of these options.\">\n      <sl-checkbox>Check me</sl-checkbox>\n      <sl-checkbox>No me</sl-checkbox>\n      <sl-checkbox>I was here first!</sl-checkbox>\n    </sl-checkbox-group>\n  `\n}"
+          "default": "{\n  render: () => html`\n    <sl-label for=\"group\">Checkbox group</sl-label>\n    <sl-checkbox-group id=\"group\" hint=\"Pick one of these options.\">\n      <sl-checkbox>Check me</sl-checkbox>\n      <sl-checkbox>No me</sl-checkbox>\n      <sl-checkbox>I was here first!</sl-checkbox>\n      <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>\n    </sl-checkbox-group>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "ValidateInForm",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    setTimeout(() => document.querySelector('form')?.reportValidity());\n\n    return html`\n      <style>\n        form {\n          align-items: start;\n          display: flex;\n          flex-direction: column;\n        }\n        sl-label {\n          margin-block-start: 0.5rem;\n        }\n        sl-label:first-of-type {\n          margin-block-start: 0;\n        }\n        sl-button-bar,\n        sl-input,\n        sl-textarea {\n          align-self: stretch;\n        }\n      </style>\n      <form @submit=${onSubmit}>\n        <sl-label for=\"group\">Checkbox group</sl-label>\n        <sl-checkbox-group id=\"group\" required id=\"options\" name=\"options\">\n          <sl-checkbox value=\"1\">Check me</sl-checkbox>\n          <sl-checkbox value=\"2\" checked>No me</sl-checkbox>\n          <sl-checkbox value=\"3\">I was here first!</sl-checkbox>\n          <sl-checkbox value=\"4\" disabled>Can't check me, even if you wanted to</sl-checkbox>\n        </sl-checkbox-group>\n        <sl-label for=\"conditions\">Read everything?</sl-label>\n        <sl-checkbox value=\"read\" name=\"conditions\" required checked\n          >Yes, I have read the terms and conditions</sl-checkbox\n        >\n        <sl-label for=\"newletter\">Can we spam you?</sl-label>\n        <sl-checkbox value=\"yes\" name=\"newletter\">Yes, subscribe me to the newsletter</sl-checkbox>\n        <sl-button-bar align=\"end\">\n          <sl-button type=\"reset\">Reset</sl-button>\n          <sl-button type=\"submit\">Submit</sl-button>\n        </sl-button-bar>\n      </form>\n    `;\n  }\n}"
         }
       ],
       "exports": [
@@ -1372,6 +1145,14 @@
           "name": "API",
           "declaration": {
             "name": "API",
+            "module": "../../packages/core/src/checkbox/checkbox.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
             "module": "../../packages/core/src/checkbox/checkbox.stories.ts"
           }
         },
@@ -1414,6 +1195,14 @@
             "name": "Group",
             "module": "../../packages/core/src/checkbox/checkbox.stories.ts"
           }
+        },
+        {
+          "kind": "js",
+          "name": "ValidateInForm",
+          "declaration": {
+            "name": "ValidateInForm",
+            "module": "../../packages/core/src/checkbox/checkbox.stories.ts"
+          }
         }
       ]
     },
@@ -1450,6 +1239,15 @@
             },
             {
               "kind": "field",
+              "name": "#initialState",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
               "name": "internals",
               "description": "Element internals."
             },
@@ -1465,11 +1263,20 @@
               "kind": "field",
               "name": "checked",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox is checked.",
               "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is invalid.",
+              "attribute": "invalid",
               "reflects": true
             },
             {
@@ -1484,12 +1291,41 @@
             },
             {
               "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "CheckboxSize"
+              },
+              "default": "'md'",
+              "description": "Button size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
                 "text": "string | undefined"
               },
               "description": "The value for the checkbox.",
               "attribute": "value"
+            },
+            {
+              "kind": "method",
+              "name": "formAssociatedCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             },
             {
               "kind": "method",
@@ -1826,11 +1662,18 @@
             {
               "name": "checked",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox is checked.",
               "fieldName": "checked"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is invalid.",
+              "fieldName": "invalid"
             },
             {
               "name": "indeterminate",
@@ -1840,6 +1683,15 @@
               "default": "false",
               "description": "Whether the checkbox has the indeterminate state.",
               "fieldName": "indeterminate"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "CheckboxSize"
+              },
+              "default": "'md'",
+              "description": "Button size.",
+              "fieldName": "size"
             },
             {
               "name": "value",
@@ -1969,749 +1821,6 @@
           "declaration": {
             "name": "CheckboxGroup",
             "module": "/packages/core/src/checkbox/checkbox-group.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/drawer.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/drawer/drawer.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/drawer.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/drawer.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h2 slot=\"title\">In this sidepanel you can find a lot of info</h2>\n      <p>\n        Apple pie chocolate jelly-o carrot cake gummi bears halvah cake cheesecake. Sesame snaps macaroon shortbread\n        cheesecake muffin soufflé. Powder croissant sugar plum candy canes cupcake chupa chups cake marzipan. Chocolate\n        bar pie jujubes chocolate powder jelly. Marshmallow biscuit bear claw cookie topping. Tart sugar plum toffee\n        gingerbread macaroon danish brownie. Candy canes dragée sesame snaps lollipop ice cream.\n      </p>\n    </sl-drawer>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "DisableClose",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer disable-close>\n      <span slot=\"title\" id=\"title\">Drawer title</span>\n      <p>\n        Jelly beans macaroon bonbon chocolate cake jelly beans chocolate lollipop cake. Wafer bonbon powder toffee pie.\n        Shortbread sweet dessert tiramisu danish jelly-o wafer. Brownie lemon drops cake lollipop tart candy cookie\n        gummies chocolate. Cupcake gummies sesame snaps topping gummi bears. Croissant danish marshmallow macaroon\n        fruitcake.\n      </p>\n    </sl-drawer>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "CompleteHeader",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h1 slot=\"title\">Test title</h1>\n      <sl-button slot=\"actions\">download</sl-button>\n      <p>\n        Macaroon caramels tootsie roll cookie liquorice cake gingerbread cookie. Toffee fruitcake macaroon cheesecake\n        muffin gingerbread apple pie. Donut powder lollipop macaroon jelly-o. Powder powder tiramisu brownie jelly\n        macaroon jelly ice cream. Cake macaroon pudding cookie cookie powder macaroon. Sesame snaps cheesecake jujubes\n        tootsie roll macaroon oat cake jujubes cotton candy. Chocolate chocolate cake tart fruitcake sugar plum. Lemon\n        drops dessert pastry jujubes bonbon fruitcake muffin. Candy canes wafer brownie chocolate cake macaroon\n        cheesecake.\n      </p>\n    </sl-drawer>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/drawer/drawer.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/drawer/drawer.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "DisableClose",
-          "declaration": {
-            "name": "DisableClose",
-            "module": "../../packages/core/src/drawer/drawer.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CompleteHeader",
-          "declaration": {
-            "name": "CompleteHeader",
-            "module": "../../packages/core/src/drawer/drawer.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/drawer.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A drawer component for displaying UI at the side of the screen.",
-          "name": "Drawer",
-          "slots": [
-            {
-              "description": "Body content for the drawer",
-              "name": "default"
-            },
-            {
-              "description": "Header content for the drawer",
-              "name": "header"
-            },
-            {
-              "description": "The title of the drawer",
-              "name": "title"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disableClose",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
-            },
-            {
-              "kind": "field",
-              "name": "attachment",
-              "type": {
-                "text": "DrawerAttachment"
-              },
-              "default": "'right'",
-              "description": "The side of the screen where the drawer is attached",
-              "attribute": "attachment",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "closeButtonSize",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'sm'",
-              "description": "The size of the button",
-              "attribute": "closeButtonSize"
-            },
-            {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onCancel",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClose",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disable-close",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "attachment",
-              "type": {
-                "text": "DrawerAttachment"
-              },
-              "default": "'right'",
-              "description": "The side of the screen where the drawer is attached",
-              "fieldName": "attachment"
-            },
-            {
-              "name": "closeButtonSize",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'sm'",
-              "description": "The size of the button",
-              "fieldName": "closeButtonSize"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-drawer",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Drawer",
-          "declaration": {
-            "name": "Drawer",
-            "module": "../../packages/core/src/drawer/drawer.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./drawer.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/drawer/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-drawer",
-          "declaration": {
-            "name": "Drawer",
-            "module": "/packages/core/src/drawer/drawer.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/icon.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/icon/icon.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/icon.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`<sl-icon name=\"star\"></sl-icon>`\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/icon/icon.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/icon/icon.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/icon.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Icon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "resolver",
-              "type": {
-                "text": "IconResolver"
-              },
-              "static": true,
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "registerIcon",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "icon",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "registerResolver",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "resolver",
-                  "type": {
-                    "text": "IconResolver"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
-              "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the icon to show.",
-              "attribute": "name"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
-              "fieldName": "label"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the icon to show.",
-              "fieldName": "name"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-icon",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Icon",
-          "declaration": {
-            "name": "Icon",
-            "module": "../../packages/core/src/icon/icon.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./icon.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-icon",
-          "declaration": {
-            "name": "Icon",
-            "module": "/packages/core/src/icon/icon.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./label.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/label/label.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    required: false,\n    text: 'Label text'\n  },\n  render: ({ required, text }) => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">${text}</sl-label>\n      <sl-input ?required=${required} id=\"input\"></sl-input>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "CustomLabel",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">\n        <label slot=\"label\"><u>Hello</u> <em>World</em></label>\n      </sl-label>\n      <sl-input id=\"input\"></sl-input>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Required",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as required</sl-label>\n      <sl-input required id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Optional input</sl-label>\n      <sl-input id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Optional input</sl-label>\n      <sl-input id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Optional",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as optional</sl-label>\n      <sl-input id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Required input</sl-label>\n      <sl-input required id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Required input</sl-label>\n      <sl-input required id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CustomLabel",
-          "declaration": {
-            "name": "CustomLabel",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Required",
-          "declaration": {
-            "name": "Required",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Optional",
-          "declaration": {
-            "name": "Optional",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Label",
-          "members": [
-            {
-              "kind": "field",
-              "name": "#formControlId",
-              "privacy": "private",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The actual form control id this label links to."
-            },
-            {
-              "kind": "field",
-              "name": "#label",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLLabelElement | undefined"
-              },
-              "description": "The label instance in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "#observer",
-              "privacy": "private",
-              "default": "new MutationObserver(() => void this.#update())",
-              "description": "Observe the form control for changes to the required attribute."
-            },
-            {
-              "kind": "field",
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "attribute": "for"
-            },
-            {
-              "kind": "field",
-              "name": "formControl",
-              "type": {
-                "text": "(HTMLElement & FormControlInterface) | null"
-              },
-              "default": "null",
-              "description": "The associated form control."
-            },
-            {
-              "kind": "field",
-              "name": "optional",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as optional."
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as required."
-            },
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "{ target }",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#update",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "fieldName": "for"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-label",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Label",
-          "declaration": {
-            "name": "Label",
-            "module": "../../packages/core/src/label/label.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-label",
-          "declaration": {
-            "name": "Label",
-            "module": "/packages/core/src/label/label.js"
           }
         }
       ]
@@ -3535,6 +2644,1030 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/label/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./label.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/label/label.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    required: false,\n    text: 'Label text'\n  },\n  render: ({ required, text }) => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">${text}</sl-label>\n      <sl-input ?required=${required} id=\"input\"></sl-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomLabel",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">\n        <label slot=\"label\"><u>Hello</u> <em>World</em></label>\n      </sl-label>\n      <sl-input id=\"input\"></sl-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Required",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as required</sl-label>\n      <sl-input required id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Optional input</sl-label>\n      <sl-input id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Optional input</sl-label>\n      <sl-input id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Optional",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as optional</sl-label>\n      <sl-input id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Required input</sl-label>\n      <sl-input required id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Required input</sl-label>\n      <sl-input required id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomLabel",
+          "declaration": {
+            "name": "CustomLabel",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Required",
+          "declaration": {
+            "name": "Required",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Optional",
+          "declaration": {
+            "name": "Optional",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Label",
+          "members": [
+            {
+              "kind": "field",
+              "name": "#formControlId",
+              "privacy": "private",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The actual form control id this label links to."
+            },
+            {
+              "kind": "field",
+              "name": "#label",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLLabelElement | undefined"
+              },
+              "description": "The label instance in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "default": "new MutationObserver(() => void this.#update())",
+              "description": "Observe the form control for changes to the required attribute."
+            },
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "attribute": "for"
+            },
+            {
+              "kind": "field",
+              "name": "formControl",
+              "type": {
+                "text": "(HTMLElement & FormControlInterface) | null"
+              },
+              "default": "null",
+              "description": "The associated form control."
+            },
+            {
+              "kind": "field",
+              "name": "optional",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as optional."
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as required."
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "{ target }",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#update",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "fieldName": "for"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-label",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "../../packages/core/src/label/label.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-label",
+          "declaration": {
+            "name": "Label",
+            "module": "/packages/core/src/label/label.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/dialog.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/dialog/dialog.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/dialog.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    return html`\n      <sl-button @click=${onClick}>Show Dialog</sl-button>\n      <sl-dialog>\n        <span slot=\"title\">Dialog title</span>\n        <p>\n          Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et\n          tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.\n          Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur\n          anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor\n          magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.\n        </p>\n        <sl-button slot=\"action\" sl-dialog-close autofocus>Close</sl-button>\n      </sl-dialog>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "DisableClose",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-button @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog disable-close>\n      <span slot=\"title\">Disable close</span>\n      <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>\n      <sl-button slot=\"action\" sl-dialog-close>Close</sl-button>\n    </sl-dialog>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "ScrollingBody",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      sl-button {\n        margin: 50vh 0 100vh;\n      }\n    </style>\n    <sl-button @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog>\n      <div>You cannot scroll the body once the dialog is open.</div>\n    </sl-dialog>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/dialog/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/dialog/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DisableClose",
+          "declaration": {
+            "name": "DisableClose",
+            "module": "../../packages/core/src/dialog/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ScrollingBody",
+          "declaration": {
+            "name": "ScrollingBody",
+            "module": "../../packages/core/src/dialog/dialog.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A dialog component for displaying modal UI.",
+          "name": "Dialog",
+          "slots": [
+            {
+              "description": "Area where action buttons are placed",
+              "name": "action"
+            },
+            {
+              "description": "Body content for the dialog",
+              "name": "default"
+            },
+            {
+              "description": "Footer content for the dialog",
+              "name": "footer"
+            },
+            {
+              "description": "Header content for the dialog",
+              "name": "header"
+            },
+            {
+              "description": "The title of the dialog",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableClose",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "attribute": "disable-close"
+            },
+            {
+              "kind": "field",
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "attribute": "role"
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onCancel",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClose",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disable-close",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "fieldName": "disableClose"
+            },
+            {
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "fieldName": "role"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-dialog",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Dialog",
+          "declaration": {
+            "name": "Dialog",
+            "module": "../../packages/core/src/dialog/dialog.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/dialog/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-dialog",
+          "declaration": {
+            "name": "Dialog",
+            "module": "/packages/core/src/dialog/dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/drawer/drawer.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/drawer/drawer.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/drawer/drawer.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/drawer/drawer.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h2 slot=\"title\">In this sidepanel you can find a lot of info</h2>\n      <p>\n        Apple pie chocolate jelly-o carrot cake gummi bears halvah cake cheesecake. Sesame snaps macaroon shortbread\n        cheesecake muffin soufflé. Powder croissant sugar plum candy canes cupcake chupa chups cake marzipan. Chocolate\n        bar pie jujubes chocolate powder jelly. Marshmallow biscuit bear claw cookie topping. Tart sugar plum toffee\n        gingerbread macaroon danish brownie. Candy canes dragée sesame snaps lollipop ice cream.\n      </p>\n    </sl-drawer>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "DisableClose",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer disable-close>\n      <span slot=\"title\" id=\"title\">Drawer title</span>\n      <p>\n        Jelly beans macaroon bonbon chocolate cake jelly beans chocolate lollipop cake. Wafer bonbon powder toffee pie.\n        Shortbread sweet dessert tiramisu danish jelly-o wafer. Brownie lemon drops cake lollipop tart candy cookie\n        gummies chocolate. Cupcake gummies sesame snaps topping gummi bears. Croissant danish marshmallow macaroon\n        fruitcake.\n      </p>\n    </sl-drawer>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CompleteHeader",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h1 slot=\"title\">Test title</h1>\n      <sl-button slot=\"actions\">download</sl-button>\n      <p>\n        Macaroon caramels tootsie roll cookie liquorice cake gingerbread cookie. Toffee fruitcake macaroon cheesecake\n        muffin gingerbread apple pie. Donut powder lollipop macaroon jelly-o. Powder powder tiramisu brownie jelly\n        macaroon jelly ice cream. Cake macaroon pudding cookie cookie powder macaroon. Sesame snaps cheesecake jujubes\n        tootsie roll macaroon oat cake jujubes cotton candy. Chocolate chocolate cake tart fruitcake sugar plum. Lemon\n        drops dessert pastry jujubes bonbon fruitcake muffin. Candy canes wafer brownie chocolate cake macaroon\n        cheesecake.\n      </p>\n    </sl-drawer>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/drawer/drawer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/drawer/drawer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DisableClose",
+          "declaration": {
+            "name": "DisableClose",
+            "module": "../../packages/core/src/drawer/drawer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CompleteHeader",
+          "declaration": {
+            "name": "CompleteHeader",
+            "module": "../../packages/core/src/drawer/drawer.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/drawer/drawer.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A drawer component for displaying UI at the side of the screen.",
+          "name": "Drawer",
+          "slots": [
+            {
+              "description": "Body content for the drawer",
+              "name": "default"
+            },
+            {
+              "description": "Header content for the drawer",
+              "name": "header"
+            },
+            {
+              "description": "The title of the drawer",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableClose",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "attribute": "disable-close"
+            },
+            {
+              "kind": "field",
+              "name": "attachment",
+              "type": {
+                "text": "DrawerAttachment"
+              },
+              "default": "'right'",
+              "description": "The side of the screen where the drawer is attached",
+              "attribute": "attachment",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'sm'",
+              "description": "The size of the button",
+              "attribute": "closeButtonSize"
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onCancel",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClose",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disable-close",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "fieldName": "disableClose"
+            },
+            {
+              "name": "attachment",
+              "type": {
+                "text": "DrawerAttachment"
+              },
+              "default": "'right'",
+              "description": "The side of the screen where the drawer is attached",
+              "fieldName": "attachment"
+            },
+            {
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'sm'",
+              "description": "The size of the button",
+              "fieldName": "closeButtonSize"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-drawer",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Drawer",
+          "declaration": {
+            "name": "Drawer",
+            "module": "../../packages/core/src/drawer/drawer.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/drawer/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./drawer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/drawer/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-drawer",
+          "declaration": {
+            "name": "Drawer",
+            "module": "/packages/core/src/drawer/drawer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/icon/icon.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`<sl-icon name=\"star\"></sl-icon><sl-icon name=\"check\"></sl-icon>`\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/icon/icon.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/icon/icon.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Icon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "resolver",
+              "type": {
+                "text": "IconResolver"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "registerIcon",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "icon",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "registerResolver",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "resolver",
+                  "type": {
+                    "text": "IconResolver"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon to show.",
+              "attribute": "name"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon to show.",
+              "fieldName": "name"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-icon",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Icon",
+          "declaration": {
+            "name": "Icon",
+            "module": "../../packages/core/src/icon/icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./icon.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-icon",
+          "declaration": {
+            "name": "Icon",
+            "module": "/packages/core/src/icon/icon.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/locales/locale-codes.ts",
       "declarations": [
         {
@@ -4198,6 +4331,12 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/radio-group/radio-group.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/radio-group/radio-group.stories.ts",
       "declarations": [
         {
@@ -4206,15 +4345,15 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  args: {\n    disabled: false,\n    horizontal: false\n  },\n  argTypes: {\n    value: {\n      control: 'inline-radio',\n      options: ['1', '2', '3']\n    }\n  },\n  render: ({ disabled, horizontal, value }) => html`\n    <sl-radio-group ?disabled=${disabled} ?horizontal=${horizontal} .value=${value}>\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio value=\"2\">Two</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
+          "default": "{\n  args: {\n    disabled: false,\n    horizontal: false,\n    value: undefined,\n    size: 'md'\n  },\n  argTypes: {\n    value: {\n      control: 'inline-radio',\n      options: ['1', '2', '3']\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['md', 'lg']\n    }\n  },\n  render: ({ disabled, horizontal, value, size }) => html`\n    <sl-radio-group ?disabled=${disabled} ?horizontal=${horizontal} .value=${value}>\n      <sl-radio value=\"1\" .size=${size}>One</sl-radio>\n      <sl-radio value=\"2\" .size=${size}>Two</sl-radio>\n      <sl-radio value=\"3\" .size=${size}>Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
         },
         {
           "kind": "variable",
-          "name": "Disabled",
+          "name": "All",
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => html`\n    <sl-radio-group>\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio disabled value=\"2\">Two (disabled)</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n      <sl-radio disabled value=\"4\">Four (disabled)</sl-radio>\n    </sl-radio-group>\n  `\n}"
+          "default": "{\n  render: () => html`\n    <style>\n      .grid {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: repeat(2, 1fr);\n        justify-items: center;\n      }\n      h2 {\n        font-family: var(--sl-text-typeset-font-family-heading);\n      }\n    </style>\n    <h2>Medium</h2>\n    <div class=\"grid\">\n      <sl-radio>Default</sl-radio>\n      <sl-radio checked>Checked</sl-radio>\n\n      <sl-radio disabled>Default</sl-radio>\n      <sl-radio disabled checked>Checked</sl-radio>\n\n      <sl-radio invalid>Default</sl-radio>\n      <sl-radio invalid checked>Checked</sl-radio>\n\n      <sl-radio invalid disabled>Default</sl-radio>\n      <sl-radio invalid disabled checked>Checked</sl-radio>\n\n      <sl-radio valid>Default</sl-radio>\n      <sl-radio valid checked>Checked</sl-radio>\n\n      <sl-radio valid disabled>Default</sl-radio>\n      <sl-radio valid disabled checked>Checked</sl-radio>\n    </div>\n    <h2>Large</h2>\n    <div class=\"grid\">\n      <sl-radio size=\"lg\">Default</sl-radio>\n      <sl-radio size=\"lg\" checked>Checked</sl-radio>\n\n      <sl-radio size=\"lg\" disabled>Default</sl-radio>\n      <sl-radio size=\"lg\" disabled checked>Checked</sl-radio>\n\n      <sl-radio size=\"lg\" invalid>Default</sl-radio>\n      <sl-radio size=\"lg\" invalid checked>Checked</sl-radio>\n\n      <sl-radio size=\"lg\" invalid disabled>Default</sl-radio>\n      <sl-radio size=\"lg\" invalid disabled checked>Checked</sl-radio>\n\n      <sl-radio size=\"lg\" valid>Default</sl-radio>\n      <sl-radio size=\"lg\" valid checked>Checked</sl-radio>\n\n      <sl-radio size=\"lg\" valid disabled>Default</sl-radio>\n      <sl-radio size=\"lg\" valid disabled checked>Checked</sl-radio>\n    </div>\n  `\n}"
         },
         {
           "kind": "variable",
@@ -4226,11 +4365,11 @@
         },
         {
           "kind": "variable",
-          "name": "Selected",
+          "name": "Overflow",
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => html`\n    <sl-radio-group value=\"2\">\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio value=\"2\">Two</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
+          "default": "{\n  render: () => html`\n    <style>\n      div {\n        display: flex;\n        flex-direction: column;\n        gap: 16px;\n      }\n      .wrapper {\n        border: 2px solid rgb(var(--sl-color-palette-accent-base));\n      }\n    </style>\n    <em>Borders are added to show the allignment in the container</em>\n    <div class=\"wrapper\">\n      <sl-radio\n        >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla\n        consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident\n        enim.\n      </sl-radio>\n    </div>\n    <div class=\"wrapper\">\n      <sl-radio>Elit consectetur. </sl-radio>\n    </div>\n  `\n}"
         },
         {
           "kind": "variable",
@@ -4258,11 +4397,11 @@
         },
         {
           "kind": "variable",
-          "name": "Required",
+          "name": "InForm",
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as RadioGroup)?.reportValidity();\n    };\n\n    return html`\n      <sl-radio-group required>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n      </sl-radio-group>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+          "default": "{\n  render: () => {\n    return html`\n      <form @submit=${onSubmit} name=\"formpje\">\n        <sl-label for=\"hm\">How many pets do you have?</sl-label>\n        <sl-radio-group required name=\"how-many\" id=\"hm\">\n          <sl-radio value=\"1\">One</sl-radio>\n          <sl-radio value=\"2\">Two</sl-radio>\n          <sl-radio value=\"3\">Three</sl-radio>\n        </sl-radio-group>\n        <sl-label for=\"preselected\">What's your favourite letter?</sl-label>\n        <sl-radio-group required name=\"preselected\" id=\"preselected\" value=\"c\">\n          <sl-radio value=\"a\">A</sl-radio>\n          <sl-radio value=\"b\">B</sl-radio>\n          <sl-radio value=\"c\">C</sl-radio>\n        </sl-radio-group>\n        <sl-button type=\"reset\">Reset</sl-button>\n        <sl-button type=\"submit\">Validate</sl-button>\n      </form>\n    `;\n  }\n}"
         },
         {
           "kind": "variable",
@@ -4291,9 +4430,9 @@
         },
         {
           "kind": "js",
-          "name": "Disabled",
+          "name": "All",
           "declaration": {
-            "name": "Disabled",
+            "name": "All",
             "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
           }
         },
@@ -4307,9 +4446,9 @@
         },
         {
           "kind": "js",
-          "name": "Selected",
+          "name": "Overflow",
           "declaration": {
-            "name": "Selected",
+            "name": "Overflow",
             "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
           }
         },
@@ -4339,9 +4478,9 @@
         },
         {
           "kind": "js",
-          "name": "Required",
+          "name": "InForm",
           "declaration": {
-            "name": "Required",
+            "name": "InForm",
             "module": "../../packages/core/src/radio-group/radio-group.stories.ts"
           }
         },
@@ -4403,6 +4542,14 @@
             },
             {
               "kind": "field",
+              "name": "#initialState",
+              "privacy": "private",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "internals",
               "description": "Element internals."
             },
@@ -4439,13 +4586,32 @@
                 "text": "string | undefined"
               },
               "description": "The value for this group.",
-              "attribute": "value"
+              "attribute": "value",
+              "reflects": true
             },
             {
               "kind": "field",
               "name": "buttons",
               "type": {
                 "text": "Radio[]"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formAssociatedCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
               }
             },
             {
@@ -4481,6 +4647,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             },
             {
               "kind": "field",
@@ -4873,6 +5048,12 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/radio-group/radio.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/radio-group/radio.ts",
       "declarations": [
         {
@@ -4880,6 +5061,16 @@
           "description": "",
           "name": "Radio",
           "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
             {
               "kind": "field",
               "name": "#events",
@@ -4896,22 +5087,10 @@
               "kind": "field",
               "name": "checked",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the radio is selected.",
               "attribute": "checked",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Wether this radio is disabled.",
-              "attribute": "disabled",
               "reflects": true
             },
             {
@@ -4923,6 +5102,17 @@
               "default": "''",
               "description": "The value for this radio button.",
               "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "RadioButtonSize"
+              },
+              "default": "'md'",
+              "description": "Button size.",
+              "attribute": "size",
+              "reflects": true
             },
             {
               "kind": "method",
@@ -4957,26 +5147,243 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "field",
+              "name": "#cachedValue",
+              "privacy": "private",
+              "type": {
+                "text": "FormControlValue | undefined"
+              },
+              "description": "The cached value for the form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#formControlElement",
+              "privacy": "private",
+              "type": {
+                "text": "FormControlElement | undefined"
+              },
+              "description": "The actual element that integrates with the form; either\na Form Associated Custom Element, or an `<input>` or `<textarea>`.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "No interaction is possible with this control when disabled.",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "formControlElement",
+              "type": {
+                "text": "FormControlElement"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "NodeListOf<HTMLLabelElement> | null"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changes",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormControlElement",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "FormControlElement"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
             }
           ],
           "attributes": [
             {
               "name": "checked",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the radio is selected.",
               "fieldName": "checked"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Wether this radio is disabled.",
-              "fieldName": "disabled"
             },
             {
               "name": "value",
@@ -4986,6 +5393,57 @@
               "default": "''",
               "description": "The value for this radio button.",
               "fieldName": "value"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "RadioButtonSize"
+              },
+              "default": "'md'",
+              "description": "Button size.",
+              "fieldName": "size"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "No interaction is possible with this control when disabled.",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../../packages/core/src/utils/mixins/form-control.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "module": "/packages/core/src/utils/mixins/form-control.js"
             }
           ],
           "superclass": {
@@ -6488,681 +6946,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/tooltip/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./tooltip.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./tooltip-directive.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tooltip/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-tooltip",
-          "declaration": {
-            "name": "Tooltip",
-            "module": "/packages/core/src/tooltip/tooltip.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tooltip/tooltip-directive.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "TooltipDirective",
-          "members": [
-            {
-              "kind": "field",
-              "name": "content",
-              "type": {
-                "text": "unknown | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "didSetupLazy",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "part",
-              "type": {
-                "text": "ElementPart | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "tooltip",
-              "type": {
-                "text": "Tooltip | undefined"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "renderContent",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setupLazy",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "superclass": {
-            "name": "Directive",
-            "package": "lit/directive.js"
-          }
-        },
-        {
-          "kind": "variable",
-          "name": "tooltip"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TooltipDirective",
-          "declaration": {
-            "name": "TooltipDirective",
-            "module": "../../packages/core/src/tooltip/tooltip-directive.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "tooltip",
-          "declaration": {
-            "name": "tooltip",
-            "module": "../../packages/core/src/tooltip/tooltip-directive.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tooltip/tooltip.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/tooltip/tooltip.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tooltip/tooltip.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    message: 'Tooltip',\n    position: 'bottom'\n  },\n  argTypes: {\n    position: {\n      control: 'inline-radio',\n      options: ['top', 'right', 'bottom', 'left']\n    }\n  },\n  render: ({ message, position }) => html`\n    <sl-button aria-describedby=\"tooltip\">Button</sl-button>\n    <sl-tooltip id=\"tooltip\" .position=${position}>${message}</sl-tooltip>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Directive",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`<sl-button ${tooltip('This tooltip is from a directive')}>I have a tooltip</sl-button>`\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Overflow",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <div style=\"overflow: hidden\">\n      <sl-button aria-describedby=\"tooltip\">Button</sl-button>\n      <sl-tooltip id=\"tooltip\">This appears outside the overflow parent</sl-tooltip>\n    </div>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Shared",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <sl-button-bar>\n      <sl-button aria-describedby=\"tooltip\">We</sl-button>\n      <sl-button aria-describedby=\"tooltip\">all</sl-button>\n      <sl-button aria-describedby=\"tooltip\">share</sl-button>\n      <sl-button aria-describedby=\"tooltip\">the</sl-button>\n      <sl-button aria-describedby=\"tooltip\">same</sl-button>\n      <sl-button aria-describedby=\"tooltip\">tooltip</sl-button>\n    </sl-button-bar>\n    <sl-tooltip id=\"tooltip\">I am shared between different elements</sl-tooltip>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Directive",
-          "declaration": {
-            "name": "Directive",
-            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Overflow",
-          "declaration": {
-            "name": "Overflow",
-            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Shared",
-          "declaration": {
-            "name": "Shared",
-            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/tooltip/tooltip.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Tooltip component.",
-          "name": "Tooltip",
-          "members": [
-            {
-              "kind": "method",
-              "name": "lazy",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "Element"
-                  }
-                },
-                {
-                  "name": "callback",
-                  "type": {
-                    "text": "(target: Tooltip) => void"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "#events",
-              "privacy": "private",
-              "default": "new EventsController(this)"
-            },
-            {
-              "kind": "field",
-              "name": "#matchesAnchor",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#onHide",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#onShow",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "placement",
-              "type": {
-                "text": "Placement"
-              },
-              "default": "'bottom'",
-              "description": "Tooltip placement.",
-              "attribute": "placement",
-              "inheritedFrom": {
-                "name": "AnchoredPopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#onPopoverHide",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "AnchoredPopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "arrow",
-              "type": {
-                "text": "HTMLElement | undefined"
-              },
-              "description": "The arrow pointing to the anchor element.",
-              "inheritedFrom": {
-                "name": "AnchoredPopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "cleanupFloatingUI",
-              "type": {
-                "text": "() => void | undefined"
-              },
-              "description": "Cleanup callback for floating-ui.",
-              "inheritedFrom": {
-                "name": "AnchoredPopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "positionPopover",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "cleanupPopover",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "AnchoredPopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#anchorElement",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLElement | undefined"
-              },
-              "inheritedFrom": {
-                "name": "AnchoredMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "anchorElement",
-              "type": {
-                "text": "HTMLElement | undefined"
-              },
-              "inheritedFrom": {
-                "name": "AnchoredMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "addEventListenersToAnchor",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "AnchoredMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeEventListenersFromAnchor",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "AnchoredMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "firstUpdated",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "changes",
-                  "type": {
-                    "text": "PropertyValues<this>"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "AnchoredMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#resolveAnchor",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "AnchoredMixin",
-                "module": "../../packages/core/src/popover/mixins/anchored.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#popoverOpen",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#onDocumentClick",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#onDocumentKeydown",
-              "privacy": "private",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the popover is open or not.",
-              "attribute": "open",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "receivesFocus",
-              "type": {
-                "text": "'auto' | undefined"
-              },
-              "attribute": "receives-focus",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "popoverOpen",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "willUpdate",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "changes",
-                  "type": {
-                    "text": "PropertyValues<this>"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "updated",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "changes",
-                  "type": {
-                    "text": "PropertyValues<this>"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "showPopover",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "hidePopover",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#setup",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              },
-              "description": "Setup light dismiss handlers if no top-layer and not a manual popover.",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#cleanup",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Cleanup light dismiss handlers.",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "placement",
-              "type": {
-                "text": "Placement"
-              },
-              "default": "'bottom'",
-              "description": "Tooltip placement.",
-              "fieldName": "placement"
-            },
-            {
-              "name": "open",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the popover is open or not.",
-              "fieldName": "open",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "name": "receives-focus",
-              "type": {
-                "text": "'auto' | undefined"
-              },
-              "fieldName": "receivesFocus",
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "AnchoredPopoverMixin",
-              "module": "/packages/core/src/popover/mixins/anchored-popover.js"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-tooltip",
-          "customElement": true,
-          "events": [
-            {
-              "name": "popovershow",
-              "type": {
-                "text": "Event"
-              },
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            },
-            {
-              "name": "popoverhide",
-              "type": {
-                "text": "Event"
-              },
-              "inheritedFrom": {
-                "name": "PopoverMixin",
-                "module": "../../packages/core/src/popover/mixins/popover.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Tooltip",
-          "declaration": {
-            "name": "Tooltip",
-            "module": "../../packages/core/src/tooltip/tooltip.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../../packages/core/src/tabs/index.ts",
       "declarations": [],
       "exports": [
@@ -8392,6 +8175,681 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/tooltip/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./tooltip.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./tooltip-directive.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tooltip/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-tooltip",
+          "declaration": {
+            "name": "Tooltip",
+            "module": "/packages/core/src/tooltip/tooltip.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tooltip/tooltip-directive.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TooltipDirective",
+          "members": [
+            {
+              "kind": "field",
+              "name": "content",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "didSetupLazy",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "part",
+              "type": {
+                "text": "ElementPart | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "Tooltip | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderContent",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setupLazy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "tooltip"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TooltipDirective",
+          "declaration": {
+            "name": "TooltipDirective",
+            "module": "../../packages/core/src/tooltip/tooltip-directive.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "tooltip",
+          "declaration": {
+            "name": "tooltip",
+            "module": "../../packages/core/src/tooltip/tooltip-directive.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tooltip/tooltip.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/tooltip/tooltip.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tooltip/tooltip.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    message: 'Tooltip',\n    position: 'bottom'\n  },\n  argTypes: {\n    position: {\n      control: 'inline-radio',\n      options: ['top', 'right', 'bottom', 'left']\n    }\n  },\n  render: ({ message, position }) => html`\n    <sl-button aria-describedby=\"tooltip\">Button</sl-button>\n    <sl-tooltip id=\"tooltip\" .position=${position}>${message}</sl-tooltip>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Directive",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`<sl-button ${tooltip('This tooltip is from a directive')}>I have a tooltip</sl-button>`\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Overflow",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <div style=\"overflow: hidden\">\n      <sl-button aria-describedby=\"tooltip\">Button</sl-button>\n      <sl-tooltip id=\"tooltip\">This appears outside the overflow parent</sl-tooltip>\n    </div>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Shared",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-button-bar>\n      <sl-button aria-describedby=\"tooltip\">We</sl-button>\n      <sl-button aria-describedby=\"tooltip\">all</sl-button>\n      <sl-button aria-describedby=\"tooltip\">share</sl-button>\n      <sl-button aria-describedby=\"tooltip\">the</sl-button>\n      <sl-button aria-describedby=\"tooltip\">same</sl-button>\n      <sl-button aria-describedby=\"tooltip\">tooltip</sl-button>\n    </sl-button-bar>\n    <sl-tooltip id=\"tooltip\">I am shared between different elements</sl-tooltip>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Directive",
+          "declaration": {
+            "name": "Directive",
+            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Overflow",
+          "declaration": {
+            "name": "Overflow",
+            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Shared",
+          "declaration": {
+            "name": "Shared",
+            "module": "../../packages/core/src/tooltip/tooltip.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/tooltip/tooltip.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Tooltip component.",
+          "name": "Tooltip",
+          "members": [
+            {
+              "kind": "method",
+              "name": "lazy",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "callback",
+                  "type": {
+                    "text": "(target: Tooltip) => void"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)"
+            },
+            {
+              "kind": "field",
+              "name": "#matchesAnchor",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onHide",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onShow",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              },
+              "default": "'bottom'",
+              "description": "Tooltip placement.",
+              "attribute": "placement",
+              "inheritedFrom": {
+                "name": "AnchoredPopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#onPopoverHide",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "AnchoredPopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "arrow",
+              "type": {
+                "text": "HTMLElement | undefined"
+              },
+              "description": "The arrow pointing to the anchor element.",
+              "inheritedFrom": {
+                "name": "AnchoredPopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "cleanupFloatingUI",
+              "type": {
+                "text": "() => void | undefined"
+              },
+              "description": "Cleanup callback for floating-ui.",
+              "inheritedFrom": {
+                "name": "AnchoredPopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "positionPopover",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "cleanupPopover",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "AnchoredPopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored-popover.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#anchorElement",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | undefined"
+              },
+              "inheritedFrom": {
+                "name": "AnchoredMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "anchorElement",
+              "type": {
+                "text": "HTMLElement | undefined"
+              },
+              "inheritedFrom": {
+                "name": "AnchoredMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "addEventListenersToAnchor",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "AnchoredMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeEventListenersFromAnchor",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "AnchoredMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "firstUpdated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changes",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "AnchoredMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#resolveAnchor",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "AnchoredMixin",
+                "module": "../../packages/core/src/popover/mixins/anchored.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#popoverOpen",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#onDocumentClick",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#onDocumentKeydown",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the popover is open or not.",
+              "attribute": "open",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "receivesFocus",
+              "type": {
+                "text": "'auto' | undefined"
+              },
+              "attribute": "receives-focus",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "popoverOpen",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "willUpdate",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changes",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changes",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "showPopover",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hidePopover",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#setup",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "Setup light dismiss handlers if no top-layer and not a manual popover.",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#cleanup",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Cleanup light dismiss handlers.",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              },
+              "default": "'bottom'",
+              "description": "Tooltip placement.",
+              "fieldName": "placement"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the popover is open or not.",
+              "fieldName": "open",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "name": "receives-focus",
+              "type": {
+                "text": "'auto' | undefined"
+              },
+              "fieldName": "receivesFocus",
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "AnchoredPopoverMixin",
+              "module": "/packages/core/src/popover/mixins/anchored-popover.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tooltip",
+          "customElement": true,
+          "events": [
+            {
+              "name": "popovershow",
+              "type": {
+                "text": "Event"
+              },
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            },
+            {
+              "name": "popoverhide",
+              "type": {
+                "text": "Event"
+              },
+              "inheritedFrom": {
+                "name": "PopoverMixin",
+                "module": "../../packages/core/src/popover/mixins/popover.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Tooltip",
+          "declaration": {
+            "name": "Tooltip",
+            "module": "../../packages/core/src/tooltip/tooltip.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/utils/css.ts",
       "declarations": [
         {
@@ -8866,6 +9324,84 @@
           "declaration": {
             "name": "patternValidator",
             "module": "../../packages/core/src/utils/validators.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/popover/utils/position-anchored-element.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "flipPlacement",
+          "return": {
+            "type": {
+              "text": "Placement"
+            }
+          },
+          "parameters": [
+            {
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "positionAnchoredElement",
+          "return": {
+            "type": {
+              "text": "(() => void)"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "anchor",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "PositionAnchoredElementOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Placement",
+          "declaration": {
+            "name": "Placement",
+            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "flipPlacement",
+          "declaration": {
+            "name": "flipPlacement",
+            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "positionAnchoredElement",
+          "declaration": {
+            "name": "positionAnchoredElement",
+            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
           }
         }
       ]
@@ -9550,84 +10086,6 @@
           "declaration": {
             "name": "PopoverMixin",
             "module": "../../packages/core/src/popover/mixins/popover.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/popover/utils/position-anchored-element.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "flipPlacement",
-          "return": {
-            "type": {
-              "text": "Placement"
-            }
-          },
-          "parameters": [
-            {
-              "name": "placement",
-              "type": {
-                "text": "Placement"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "positionAnchoredElement",
-          "return": {
-            "type": {
-              "text": "(() => void)"
-            }
-          },
-          "parameters": [
-            {
-              "name": "element",
-              "type": {
-                "text": "HTMLElement"
-              }
-            },
-            {
-              "name": "anchor",
-              "type": {
-                "text": "HTMLElement"
-              }
-            },
-            {
-              "name": "options",
-              "type": {
-                "text": "PositionAnchoredElementOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Placement",
-          "declaration": {
-            "name": "Placement",
-            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "flipPlacement",
-          "declaration": {
-            "name": "flipPlacement",
-            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "positionAnchoredElement",
-          "declaration": {
-            "name": "positionAnchoredElement",
-            "module": "../../packages/core/src/popover/utils/position-anchored-element.ts"
           }
         }
       ]
@@ -11433,200 +11891,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/base.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "decorateProperty",
-          "parameters": [
-            {
-              "name": "{\n    finisher,\n    descriptor\n  }",
-              "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
-              }
-            },
-            {
-              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
-              "name": "finisher",
-              "type": {
-                "text": "function"
-              }
-            },
-            {
-              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
-              "name": "descriptor",
-              "type": {
-                "text": "function"
-              }
-            }
-          ],
-          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
-          "return": {
-            "type": {
-              "text": "ClassElement|void"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "decorateProperty",
-          "declaration": {
-            "name": "decorateProperty",
-            "module": "../../packages/core/src/utils/decorators/base.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EventEmitter",
-          "members": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "event",
-          "type": {
-            "text": "Event"
-          }
-        },
-        {
-          "kind": "function",
-          "name": "event",
-          "return": {
-            "type": {
-              "text": "any"
-            }
-          },
-          "parameters": [
-            {
-              "name": "options",
-              "optional": true,
-              "type": {
-                "text": "EventOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EventEmitter",
-          "declaration": {
-            "name": "EventEmitter",
-            "module": "../../packages/core/src/utils/decorators/event.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "event",
-          "declaration": {
-            "name": "event",
-            "module": "../../packages/core/src/utils/decorators/event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./base.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/decorators/observe.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "observe",
-          "parameters": [
-            {
-              "name": "propertyName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "lifecycle",
-              "default": "'update'",
-              "type": {
-                "text": "ObserveLifecycle"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "observe",
-          "declaration": {
-            "name": "observe",
-            "module": "../../packages/core/src/utils/decorators/observe.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../../packages/core/src/utils/mixins/form-control.ts",
       "declarations": [
         {
@@ -12105,6 +12369,200 @@
       "path": "../../packages/core/src/utils/mixins/types.ts",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/base.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "decorateProperty",
+          "parameters": [
+            {
+              "name": "{\n    finisher,\n    descriptor\n  }",
+              "type": {
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+              }
+            },
+            {
+              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
+              "name": "finisher",
+              "type": {
+                "text": "function"
+              }
+            },
+            {
+              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
+              "name": "descriptor",
+              "type": {
+                "text": "function"
+              }
+            }
+          ],
+          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
+          "return": {
+            "type": {
+              "text": "ClassElement|void"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "decorateProperty",
+          "declaration": {
+            "name": "decorateProperty",
+            "module": "../../packages/core/src/utils/decorators/base.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EventEmitter",
+          "members": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "event",
+          "type": {
+            "text": "Event"
+          }
+        },
+        {
+          "kind": "function",
+          "name": "event",
+          "return": {
+            "type": {
+              "text": "any"
+            }
+          },
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": {
+                "text": "EventOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EventEmitter",
+          "declaration": {
+            "name": "EventEmitter",
+            "module": "../../packages/core/src/utils/decorators/event.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "event",
+          "declaration": {
+            "name": "event",
+            "module": "../../packages/core/src/utils/decorators/event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./base.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./observe.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/decorators/observe.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "observe",
+          "parameters": [
+            {
+              "name": "propertyName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "lifecycle",
+              "default": "'update'",
+              "type": {
+                "text": "ObserveLifecycle"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "observe",
+          "declaration": {
+            "name": "observe",
+            "module": "../../packages/core/src/utils/decorators/observe.ts"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",

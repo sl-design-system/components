@@ -121,9 +121,9 @@
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
   --sl-text-typeset-font-weight-demibold: 600;
-  --sl-text-typeset-font-family-icon: Font Awesome 6 Pro;
-  --sl-text-typeset-font-family-body: Source Sans Pro;
-  --sl-text-typeset-font-family-heading: The Message;
+  --sl-text-typeset-font-family-icon: font-awesome-6-pro;
+  --sl-text-typeset-font-family-body: source-sans-pro;
+  --sl-text-typeset-font-family-heading: the-message;
   --sl-color-palette-white-base: 254 254 254;
   --sl-color-palette-black-base: 34 34 34;
   --sl-color-palette-danger-base: 255 87 92;

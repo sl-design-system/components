@@ -25,85 +25,6 @@
 | `js` | `ValidationRequiredReport` | ValidationRequiredReport | ../../packages/core/src/form.stories.ts |         |
 | `js` | `Validation`               | Validation               | ../../packages/core/src/form.stories.ts |         |
 
-# `../../packages/core/src/avatar/avatar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
-
-# `../../packages/core/src/avatar/avatar.stories.ts`:
-
-## Variables
-
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
-
-# `../../packages/core/src/avatar/avatar.ts`:
-
-## class: `Avatar`, `sl-avatar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
-| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
-| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
-| `profileName`     |         | `string`                                |          |                                                               |                |
-| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
-
-### Methods
-
-| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
-| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
-| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `uniqueProfileId` | uniqueProfileId |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
-
-# `../../packages/core/src/avatar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./avatar.js |
-
-# `../../packages/core/src/avatar/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
-
 # `../../packages/core/src/button/button.scss.ts`:
 
 ## Exports
@@ -206,15 +127,15 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/core/src/button/button.js |         |
 
-# `../../packages/core/src/button-bar/button-bar.scss.ts`:
+# `../../packages/core/src/avatar/avatar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
 
-# `../../packages/core/src/button-bar/button-bar.stories.ts`:
+# `../../packages/core/src/avatar/avatar.stories.ts`:
 
 ## Variables
 
@@ -226,14 +147,14 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
 
-# `../../packages/core/src/button-bar/button-bar.ts`:
+# `../../packages/core/src/avatar/avatar.ts`:
 
-## class: `ButtonBar`, `sl-button-bar`
+## class: `Avatar`, `sl-avatar`
 
 ### Superclass
 
@@ -243,55 +164,157 @@
 
 ### Fields
 
-| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
-| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
-| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
-| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
-| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
+| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
+| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
+| `profileName`     |         | `string`                                |          |                                                               |                |
+| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
 
 ### Methods
 
-| Name            | Privacy | Description | Parameters | Return          | Inherited From |
-| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
-| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
+| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
+| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
 
 ### Attributes
 
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `align`     | align    |                |
-| `icon-only` | iconOnly |                |
-| `reverse`   | reverse  |                |
-
-### Slots
-
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `uniqueProfileId` | uniqueProfileId |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                           | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../../packages/core/src/button-bar/button-bar.ts |         |
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
 
-# `../../packages/core/src/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./button-bar.js |
-
-# `../../packages/core/src/button-bar/register.ts`:
+# `../../packages/core/src/avatar/index.ts`:
 
 ## Exports
 
-| Kind                        | Name            | Declaration | Module                                      | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./avatar.js |
+
+# `../../packages/core/src/avatar/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
+
+# `../../packages/core/src/dialog/dialog.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/dialog/dialog.scss.ts |         |
+
+# `../../packages/core/src/dialog/dialog.stories.ts`:
+
+## Variables
+
+| Name            | Description | Type       |
+| --------------- | ----------- | ---------- |
+| `API`           |             | `StoryObj` |
+| `DisableClose`  |             | `StoryObj` |
+| `ScrollingBody` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                           | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------ | ------- |
+| `js` | `default`       |               | ../../packages/core/src/dialog/dialog.stories.ts |         |
+| `js` | `API`           | API           | ../../packages/core/src/dialog/dialog.stories.ts |         |
+| `js` | `DisableClose`  | DisableClose  | ../../packages/core/src/dialog/dialog.stories.ts |         |
+| `js` | `ScrollingBody` | ScrollingBody | ../../packages/core/src/dialog/dialog.stories.ts |         |
+
+# `../../packages/core/src/dialog/dialog.ts`:
+
+## class: `Dialog`, `sl-dialog`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
+### Fields
+
+| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
+| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
+| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
+| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
+| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
+| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `showModal` |         |             |                                                 | `void` |                |
+| `close`     |         |             |                                                 | `void` |                |
+| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
+| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
+| `#onClose`  |         |             |                                                 | `void` |                |
+
+### Attributes
+
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `disable-close` | disableClose |                |
+| `role`          | role         |                |
+
+### Slots
+
+| Name      | Description                          |
+| --------- | ------------------------------------ |
+| `action`  | Area where action buttons are placed |
+| `default` | Body content for the dialog          |
+| `footer`  | Footer content for the dialog        |
+| `header`  | Header content for the dialog        |
+| `title`   | The title of the dialog              |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Dialog` | Dialog      | ../../packages/core/src/dialog/dialog.ts |         |
+
+# `../../packages/core/src/dialog/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./dialog.js |
+
+# `../../packages/core/src/dialog/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
 
 # `../../packages/core/src/checkbox/checkbox-group.scss.ts`:
 
@@ -686,6 +709,93 @@
 | --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
 | `custom-element-definition` | `sl-input` | Input       | /packages/core/src/input/input.js |         |
 
+# `../../packages/core/src/button-bar/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.scss.ts |         |
+
+# `../../packages/core/src/button-bar/button-bar.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+
+# `../../packages/core/src/button-bar/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
+| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
+| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
+| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
+| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters | Return          | Inherited From |
+| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
+| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+
+### Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `align`     | align    |                |
+| `icon-only` | iconOnly |                |
+| `reverse`   | reverse  |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                           | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../../packages/core/src/button-bar/button-bar.ts |         |
+
+# `../../packages/core/src/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./button-bar.js |
+
+# `../../packages/core/src/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                      | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
+
 # `../../packages/core/src/label/index.ts`:
 
 ## Exports
@@ -775,116 +885,6 @@
 | Kind                        | Name       | Declaration | Module                            | Package |
 | --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
 | `custom-element-definition` | `sl-label` | Label       | /packages/core/src/label/label.js |         |
-
-# `../../packages/core/src/dialog/dialog.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/dialog/dialog.scss.ts |         |
-
-# `../../packages/core/src/dialog/dialog.stories.ts`:
-
-## Variables
-
-| Name            | Description | Type       |
-| --------------- | ----------- | ---------- |
-| `API`           |             | `StoryObj` |
-| `DisableClose`  |             | `StoryObj` |
-| `ScrollingBody` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                           | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------ | ------- |
-| `js` | `default`       |               | ../../packages/core/src/dialog/dialog.stories.ts |         |
-| `js` | `API`           | API           | ../../packages/core/src/dialog/dialog.stories.ts |         |
-| `js` | `DisableClose`  | DisableClose  | ../../packages/core/src/dialog/dialog.stories.ts |         |
-| `js` | `ScrollingBody` | ScrollingBody | ../../packages/core/src/dialog/dialog.stories.ts |         |
-
-# `../../packages/core/src/dialog/dialog.ts`:
-
-## class: `Dialog`, `sl-dialog`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
-| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
-| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
-| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
-| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
-| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
-| `showModal` |         |             |                                                 | `void` |                |
-| `close`     |         |             |                                                 | `void` |                |
-| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
-| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
-| `#onClose`  |         |             |                                                 | `void` |                |
-
-### Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `disable-close` | disableClose |                |
-| `role`          | role         |                |
-
-### Slots
-
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `action`  | Area where action buttons are placed |
-| `default` | Body content for the dialog          |
-| `footer`  | Footer content for the dialog        |
-| `header`  | Header content for the dialog        |
-| `title`   | The title of the dialog              |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Dialog` | Dialog      | ../../packages/core/src/dialog/dialog.ts |         |
-
-# `../../packages/core/src/dialog/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./dialog.js |
-
-# `../../packages/core/src/dialog/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
 
 # `../../packages/core/src/drawer/drawer.scss.ts`:
 
@@ -996,6 +996,42 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-drawer` | Drawer      | /packages/core/src/drawer/drawer.js |         |
 
+# `../../packages/core/src/locales/locale-codes.ts`:
+
+## Variables
+
+| Name            | Description                                                                                   | Type             |
+| --------------- | --------------------------------------------------------------------------------------------- | ---------------- |
+| `sourceLocale`  | The locale code that templates in this source code are written in.                            |                  |
+| `targetLocales` | The other locale codes that this application is localized into. Sorted&#xA;lexicographically. | ``[`nl`]``       |
+| `allLocales`    | All valid project locale codes. Sorted lexicographically.                                     | ``[`en`, `nl`]`` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                          | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------- | ------- |
+| `js` | `sourceLocale`  | sourceLocale  | ../../packages/core/src/locales/locale-codes.ts |         |
+| `js` | `targetLocales` | targetLocales | ../../packages/core/src/locales/locale-codes.ts |         |
+| `js` | `allLocales`    | allLocales    | ../../packages/core/src/locales/locale-codes.ts |         |
+
+# `../../packages/core/src/locales/nl.ts`:
+
+## Variables
+
+| Name        | Description | Type     |
+| ----------- | ----------- | -------- |
+| `templates` |             | `object` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                | Package |
+| ---- | ----------- | ----------- | ------------------------------------- | ------- |
+| `js` | `templates` | templates   | ../../packages/core/src/locales/nl.ts |         |
+
 # `../../packages/core/src/icon/icon.scss.ts`:
 
 ## Exports
@@ -1081,42 +1117,6 @@
 | Kind                        | Name      | Declaration | Module                          | Package |
 | --------------------------- | --------- | ----------- | ------------------------------- | ------- |
 | `custom-element-definition` | `sl-icon` | Icon        | /packages/core/src/icon/icon.js |         |
-
-# `../../packages/core/src/locales/locale-codes.ts`:
-
-## Variables
-
-| Name            | Description                                                                                   | Type             |
-| --------------- | --------------------------------------------------------------------------------------------- | ---------------- |
-| `sourceLocale`  | The locale code that templates in this source code are written in.                            |                  |
-| `targetLocales` | The other locale codes that this application is localized into. Sorted&#xA;lexicographically. | ``[`nl`]``       |
-| `allLocales`    | All valid project locale codes. Sorted lexicographically.                                     | ``[`en`, `nl`]`` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------- | ------- |
-| `js` | `sourceLocale`  | sourceLocale  | ../../packages/core/src/locales/locale-codes.ts |         |
-| `js` | `targetLocales` | targetLocales | ../../packages/core/src/locales/locale-codes.ts |         |
-| `js` | `allLocales`    | allLocales    | ../../packages/core/src/locales/locale-codes.ts |         |
-
-# `../../packages/core/src/locales/nl.ts`:
-
-## Variables
-
-| Name        | Description | Type     |
-| ----------- | ----------- | -------- |
-| `templates` |             | `object` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                | Package |
-| ---- | ----------- | ----------- | ------------------------------------- | ------- |
-| `js` | `templates` | templates   | ../../packages/core/src/locales/nl.ts |         |
 
 # `../../packages/core/src/popover/index.ts`:
 
@@ -1828,201 +1828,6 @@
 | ---- | -------- | ----------- | ---------------------------------------- | ------- |
 | `js` | `Select` | Select      | ../../packages/core/src/select/select.ts |         |
 
-# `../../packages/core/src/tabs/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package        |
-| ---- | ---- | ----------- | ------ | -------------- |
-| `js` | `*`  | *           |        | ./tab-group.js |
-| `js` | `*`  | *           |        | ./tab-panel.js |
-| `js` | `*`  | *           |        | ./tab.js       |
-
-# `../../packages/core/src/tabs/register.ts`:
-
-## Exports
-
-| Kind                        | Name           | Declaration | Module                               | Package |
-| --------------------------- | -------------- | ----------- | ------------------------------------ | ------- |
-| `custom-element-definition` | `sl-tab`       | Tab         | /packages/core/src/tabs/tab.js       |         |
-| `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/core/src/tabs/tab-group.js |         |
-| `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/core/src/tabs/tab-panel.js |         |
-
-# `../../packages/core/src/tabs/tab-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/tabs/tab-group.scss.ts |         |
-
-# `../../packages/core/src/tabs/tab-group.stories.ts`:
-
-## Variables
-
-| Name                  | Description | Type       |
-| --------------------- | ----------- | ---------- |
-| `API`                 |             | `StoryObj` |
-| `LongTitles`          |             | `StoryObj` |
-| `ExternalInteraction` |             | `StoryObj` |
-| `SingleTab`           |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                  | Declaration         | Module                                            | Package |
-| ---- | --------------------- | ------------------- | ------------------------------------------------- | ------- |
-| `js` | `default`             |                     | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-| `js` | `API`                 | API                 | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-| `js` | `LongTitles`          | LongTitles          | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-| `js` | `ExternalInteraction` | ExternalInteraction | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-| `js` | `SingleTab`           | SingleTab           | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-
-# `../../packages/core/src/tabs/tab-group.ts`:
-
-## class: `TabGroup`, `sl-tab-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name               | Privacy | Type                | Default                                                                                                         | Description | Inherited From |
-| ------------------ | ------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----------- | -------------- |
-| `scopedElements`   | private | `ScopedElementsMap` |                                                                                                                 |             |                |
-| `#observerOptions` | private | `object`            | `{
-    attributes: true,
-    subtree: true,
-    attributeFilter: ['selected'],
-    attributeOldValue: true
-  }` |             |                |
-
-### Fields
-
-| Name                        | Privacy | Type                            | Default                                                                                                                                                                                                                 | Description                                                           | Inherited From |
-| --------------------------- | ------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------- |
-| `#tabGroupId`               | private |                                 | `` `sl-tab-group-${nextUniqueId++}` ``                                                                                                                                                                                  | Unique ID for each tab group component present.                       |                |
-| `#observer`                 | private | `MutationObserver \| undefined` |                                                                                                                                                                                                                         |                                                                       |                |
-| `#rovingTabindexController` | private |                                 | `new RovingTabindexController<Tab>(this, {
-    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
-    elements: () => this.tabs \|\| [],
-    isFocusableElement: (el: Tab) => !el.disabled
-  })` |                                                                       |                |
-| `tabs`                      |         | `Tab[] \| undefined`            |                                                                                                                                                                                                                         | The slotted tabs.                                                     |                |
-| `selectedTab`               | private | `Tab \| null`                   |                                                                                                                                                                                                                         | The current tab node selected in the tab group.                       |                |
-| `tabChange`                 |         | `EventEmitter<number>`          |                                                                                                                                                                                                                         |                                                                       |                |
-| `vertical`                  |         | `boolean`                       | `false`                                                                                                                                                                                                                 | Renders the tabs vertically instead of the default horizontal         |                |
-| `#initialSelectedTab`       | private | `Tab \| null`                   |                                                                                                                                                                                                                         | Get the selected tab button, or the first tab button.                 |                |
-| `#handleMutation`           | private |                                 |                                                                                                                                                                                                                         | If the selected tab is selected programmatically update all the tabs. |                |
-
-### Methods
-
-| Name                        | Privacy | Description                                                                                | Parameters             | Return | Inherited From |
-| --------------------------- | ------- | ------------------------------------------------------------------------------------------ | ---------------------- | ------ | -------------- |
-| `#updateSlots`              |         |                                                                                            |                        | `void` |                |
-| `#setupTabs`                |         | Apply accessible attributes and values to the tab buttons.                                 |                        | `void` |                |
-| `#setupPanels`              |         | Apply accessible attributes and values to the tab panels.                                  |                        | `void` |                |
-| `#handleTabChange`          |         |                                                                                            | `event: Event`         | `void` |                |
-| `#updateSelectedTab`        |         | Update the selected tab button with attributes and values.&#xA;Update the tab group state. | `selectedTab: Tab`     | `void` |                |
-| `#handleKeydown`            |         | Handle keyboard accessible controls.                                                       | `event: KeyboardEvent` | `void` |                |
-| `#updateSelectionIndicator` |         |                                                                                            |                        | `void` |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `vertical` | vertical |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `TabGroup` | TabGroup    | ../../packages/core/src/tabs/tab-group.ts |         |
-
-# `../../packages/core/src/tabs/tab-panel.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/tabs/tab-panel.scss.ts |         |
-
-# `../../packages/core/src/tabs/tab-panel.ts`:
-
-## class: `TabPanel`, `sl-tab-panel`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `TabPanel` | TabPanel    | ../../packages/core/src/tabs/tab-panel.ts |         |
-
-# `../../packages/core/src/tabs/tab.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/tabs/tab.scss.ts |         |
-
-# `../../packages/core/src/tabs/tab.ts`:
-
-## class: `Tab`, `sl-tab`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name       | Privacy | Type      | Default | Description                      | Inherited From |
-| ---------- | ------- | --------- | ------- | -------------------------------- | -------------- |
-| `selected` |         | `boolean` | `false` | Whether the tab item is selected |                |
-| `disabled` |         | `boolean` | `false` | Whether the tab item is disabled |                |
-
-### Methods
-
-| Name                    | Privacy   | Description                                                                                               | Parameters | Return | Inherited From |
-| ----------------------- | --------- | --------------------------------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
-| `handleSelectionChange` | protected | Apply accessible attributes and values to the tab button.&#xA;Observe the selected property if it changes |            | `void` |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `selected` | selected |                |
-| `disabled` | disabled |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name  | Declaration | Module                              | Package |
-| ---- | ----- | ----------- | ----------------------------------- | ------- |
-| `js` | `Tab` | Tab         | ../../packages/core/src/tabs/tab.ts |         |
-
 # `../../packages/core/src/textarea/index.ts`:
 
 ## Exports
@@ -2332,129 +2137,200 @@
 | ---- | --------- | ----------- | ------------------------------------------ | ------- |
 | `js` | `Tooltip` | Tooltip     | ../../packages/core/src/tooltip/tooltip.ts |         |
 
-# `../../packages/core/src/utils/css.ts`:
+# `../../packages/core/src/tabs/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package        |
+| ---- | ---- | ----------- | ------ | -------------- |
+| `js` | `*`  | *           |        | ./tab-group.js |
+| `js` | `*`  | *           |        | ./tab-panel.js |
+| `js` | `*`  | *           |        | ./tab.js       |
+
+# `../../packages/core/src/tabs/register.ts`:
+
+## Exports
+
+| Kind                        | Name           | Declaration | Module                               | Package |
+| --------------------------- | -------------- | ----------- | ------------------------------------ | ------- |
+| `custom-element-definition` | `sl-tab`       | Tab         | /packages/core/src/tabs/tab.js       |         |
+| `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/core/src/tabs/tab-group.js |         |
+| `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/core/src/tabs/tab-panel.js |         |
+
+# `../../packages/core/src/tabs/tab-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/tabs/tab-group.scss.ts |         |
+
+# `../../packages/core/src/tabs/tab-group.stories.ts`:
 
 ## Variables
 
-| Name                     | Description | Type      |
-| ------------------------ | ----------- | --------- |
-| `supportsTopLayer`       |             |           |
-| `supportsHas`            |             |           |
-| `supportsAnchor`         |             | `boolean` |
-| `firstFocusableSelector` |             | `string`  |
+| Name                  | Description | Type       |
+| --------------------- | ----------- | ---------- |
+| `API`                 |             | `StoryObj` |
+| `LongTitles`          |             | `StoryObj` |
+| `ExternalInteraction` |             | `StoryObj` |
+| `SingleTab`           |             | `StoryObj` |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                               | Package |
-| ---- | ------------------------ | ---------------------- | ------------------------------------ | ------- |
-| `js` | `supportsTopLayer`       | supportsTopLayer       | ../../packages/core/src/utils/css.ts |         |
-| `js` | `supportsHas`            | supportsHas            | ../../packages/core/src/utils/css.ts |         |
-| `js` | `supportsAnchor`         | supportsAnchor         | ../../packages/core/src/utils/css.ts |         |
-| `js` | `firstFocusableSelector` | firstFocusableSelector | ../../packages/core/src/utils/css.ts |         |
+| Kind | Name                  | Declaration         | Module                                            | Package |
+| ---- | --------------------- | ------------------- | ------------------------------------------------- | ------- |
+| `js` | `default`             |                     | ../../packages/core/src/tabs/tab-group.stories.ts |         |
+| `js` | `API`                 | API                 | ../../packages/core/src/tabs/tab-group.stories.ts |         |
+| `js` | `LongTitles`          | LongTitles          | ../../packages/core/src/tabs/tab-group.stories.ts |         |
+| `js` | `ExternalInteraction` | ExternalInteraction | ../../packages/core/src/tabs/tab-group.stories.ts |         |
+| `js` | `SingleTab`           | SingleTab           | ../../packages/core/src/tabs/tab-group.stories.ts |         |
 
-# `../../packages/core/src/utils/index.ts`:
+# `../../packages/core/src/tabs/tab-group.ts`:
 
-## Exports
+## class: `TabGroup`, `sl-tab-group`
 
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./css.js        |
-| `js` | `*`  | *           |        | ./path.js       |
-| `js` | `*`  | *           |        | ./string.js     |
-| `js` | `*`  | *           |        | ./validators.js |
+### Superclass
 
-# `../../packages/core/src/utils/path.ts`:
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
 
-## Functions
+### Mixins
 
-| Name              | Description | Parameters              | Return    |
-| ----------------- | ----------- | ----------------------- | --------- |
-| `getNameByPath`   |             | `path: string`          | `string`  |
-| `getStringByPath` |             | `object: unknown, path` | `string`  |
-| `getValueByPath`  |             | `object: unknown, path` | `unknown` |
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
 
-<hr/>
+### Static Fields
 
-## Exports
+| Name               | Privacy | Type                | Default                                                                                                         | Description | Inherited From |
+| ------------------ | ------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----------- | -------------- |
+| `scopedElements`   | private | `ScopedElementsMap` |                                                                                                                 |             |                |
+| `#observerOptions` | private | `object`            | `{
+    attributes: true,
+    subtree: true,
+    attributeFilter: ['selected'],
+    attributeOldValue: true
+  }` |             |                |
 
-| Kind | Name              | Declaration     | Module                                | Package |
-| ---- | ----------------- | --------------- | ------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | ../../packages/core/src/utils/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | ../../packages/core/src/utils/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | ../../packages/core/src/utils/path.ts |         |
+### Fields
 
-# `../../packages/core/src/utils/string.ts`:
+| Name                        | Privacy | Type                            | Default                                                                                                                                                                                                                 | Description                                                           | Inherited From |
+| --------------------------- | ------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------- |
+| `#tabGroupId`               | private |                                 | `` `sl-tab-group-${nextUniqueId++}` ``                                                                                                                                                                                  | Unique ID for each tab group component present.                       |                |
+| `#observer`                 | private | `MutationObserver \| undefined` |                                                                                                                                                                                                                         |                                                                       |                |
+| `#rovingTabindexController` | private |                                 | `new RovingTabindexController<Tab>(this, {
+    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
+    elements: () => this.tabs \|\| [],
+    isFocusableElement: (el: Tab) => !el.disabled
+  })` |                                                                       |                |
+| `tabs`                      |         | `Tab[] \| undefined`            |                                                                                                                                                                                                                         | The slotted tabs.                                                     |                |
+| `selectedTab`               | private | `Tab \| null`                   |                                                                                                                                                                                                                         | The current tab node selected in the tab group.                       |                |
+| `tabChange`                 |         | `EventEmitter<number>`          |                                                                                                                                                                                                                         |                                                                       |                |
+| `vertical`                  |         | `boolean`                       | `false`                                                                                                                                                                                                                 | Renders the tabs vertically instead of the default horizontal         |                |
+| `#initialSelectedTab`       | private | `Tab \| null`                   |                                                                                                                                                                                                                         | Get the selected tab button, or the first tab button.                 |                |
+| `#handleMutation`           | private |                                 |                                                                                                                                                                                                                         | If the selected tab is selected programmatically update all the tabs. |                |
 
-## Functions
+### Methods
 
-| Name         | Description                                                                                                                                                                                                                                                                                                                                                       | Parameters    | Return |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------ |
-| `camelize`   | Returns the lowerCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;camelize('innerHTML')          // 'innerHTML'&#xA;camelize('action_name')        // 'actionName'&#xA;camelize('css-class-name')     // 'cssClassName'&#xA;camelize('my favorite items')  // 'myFavoriteItems'&#xA;camelize('My Favorite Items')  // 'myFavoriteItems'&#xA;\```           | `str: string` |        |
-| `capitalize` | Returns the Capitalized form of a string&#xA;&#xA;\```javascript&#xA;capitalize('innerHTML')         // 'InnerHTML'&#xA;capitalize('action_name')       // 'Action_name'&#xA;capitalize('css-class-name')    // 'Css-class-name'&#xA;capitalize('my favorite items') // 'My favorite items'&#xA;\```                                                              | `str: string` |        |
-| `classify`   | Returns the UpperCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;classify('innerHTML')          // 'InnerHTML'&#xA;classify('action_name')        // 'ActionName'&#xA;classify('css-class-name')     // 'CssClassName'&#xA;classify('my favorite items')  // 'MyFavoriteItems'&#xA;\```                                                                   | `str: string` |        |
-| `dasherize`  | Replaces underscores, spaces, or camelCase with dashes.&#xA;&#xA;\```javascript&#xA;dasherize('innerHTML')         // 'inner-html'&#xA;dasherize('action_name')       // 'action-name'&#xA;dasherize('css-class-name')    // 'css-class-name'&#xA;dasherize('my favorite items') // 'my-favorite-items'&#xA;\```                                                  | `str: string` |        |
-| `decamelize` | Converts a camelized string into all lower case separated by underscores.&#xA;&#xA;\```javascript&#xA;decamelize('innerHTML')         // 'inner_html'&#xA;decamelize('action_name')       // 'action_name'&#xA;decamelize('css-class-name')    // 'css-class-name'&#xA;decamelize('my favorite items') // 'my favorite items'&#xA;\```                            | `str: string` |        |
-| `humanize`   | Returns the Humanized form of a string&#xA;&#xA;\```javascript&#xA;humanize('innerHTML')         // 'Inner HTML'&#xA;humanize('action_name')       // 'Action name'&#xA;humanize('css-class-name')    // 'Css class name'&#xA;humanize('my favorite items') // 'My favorite items'&#xA;\```                                                                       | `str: string` |        |
-| `underscore` | More general than decamelize. Returns the lower\\_case\\_and\\_underscored&#xA;form of a string.&#xA;&#xA;\```javascript&#xA;underscore('innerHTML')          // 'inner_html'&#xA;underscore('action_name')        // 'action_name'&#xA;underscore('css-class-name')     // 'css_class_name'&#xA;underscore('my favorite items')  // 'my_favorite_items'&#xA;\``` | `str: string` |        |
+| Name                        | Privacy | Description                                                                                | Parameters             | Return | Inherited From |
+| --------------------------- | ------- | ------------------------------------------------------------------------------------------ | ---------------------- | ------ | -------------- |
+| `#updateSlots`              |         |                                                                                            |                        | `void` |                |
+| `#setupTabs`                |         | Apply accessible attributes and values to the tab buttons.                                 |                        | `void` |                |
+| `#setupPanels`              |         | Apply accessible attributes and values to the tab panels.                                  |                        | `void` |                |
+| `#handleTabChange`          |         |                                                                                            | `event: Event`         | `void` |                |
+| `#updateSelectedTab`        |         | Update the selected tab button with attributes and values.&#xA;Update the tab group state. | `selectedTab: Tab`     | `void` |                |
+| `#handleKeydown`            |         | Handle keyboard accessible controls.                                                       | `event: KeyboardEvent` | `void` |                |
+| `#updateSelectionIndicator` |         |                                                                                            |                        | `void` |                |
 
-<hr/>
+### Attributes
 
-## Exports
-
-| Kind | Name         | Declaration | Module                                  | Package |
-| ---- | ------------ | ----------- | --------------------------------------- | ------- |
-| `js` | `camelize`   | camelize    | ../../packages/core/src/utils/string.ts |         |
-| `js` | `capitalize` | capitalize  | ../../packages/core/src/utils/string.ts |         |
-| `js` | `classify`   | classify    | ../../packages/core/src/utils/string.ts |         |
-| `js` | `dasherize`  | dasherize   | ../../packages/core/src/utils/string.ts |         |
-| `js` | `decamelize` | decamelize  | ../../packages/core/src/utils/string.ts |         |
-| `js` | `humanize`   | humanize    | ../../packages/core/src/utils/string.ts |         |
-| `js` | `underscore` | underscore  | ../../packages/core/src/utils/string.ts |         |
-
-# `../../packages/core/src/utils/validators.ts`:
-
-## Variables
-
-| Name                    | Description | Type        |
-| ----------------------- | ----------- | ----------- |
-| `requiredValidator`     |             | `Validator` |
-| `programmaticValidator` |             | `Validator` |
-| `minLengthValidator`    |             | `Validator` |
-| `maxLengthValidator`    |             | `Validator` |
-| `patternValidator`      |             | `Validator` |
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `vertical` | vertical |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                      | Package |
-| ---- | ----------------------- | --------------------- | ------------------------------------------- | ------- |
-| `js` | `requiredValidator`     | requiredValidator     | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `programmaticValidator` | programmaticValidator | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `minLengthValidator`    | minLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `maxLengthValidator`    | maxLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `patternValidator`      | patternValidator      | ../../packages/core/src/utils/validators.ts |         |
+| Kind | Name       | Declaration | Module                                    | Package |
+| ---- | ---------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `TabGroup` | TabGroup    | ../../packages/core/src/tabs/tab-group.ts |         |
 
-# `../../packages/core/src/popover/utils/position-anchored-element.ts`:
+# `../../packages/core/src/tabs/tab-panel.scss.ts`:
 
-## Functions
+## Exports
 
-| Name                      | Description | Parameters                                                                           | Return         |
-| ------------------------- | ----------- | ------------------------------------------------------------------------------------ | -------------- |
-| `flipPlacement`           |             | `placement: Placement`                                                               | `Placement`    |
-| `positionAnchoredElement` |             | `element: HTMLElement, anchor: HTMLElement, options: PositionAnchoredElementOptions` | `(() => void)` |
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/tabs/tab-panel.scss.ts |         |
+
+# `../../packages/core/src/tabs/tab-panel.ts`:
+
+## class: `TabPanel`, `sl-tab-panel`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                             | Package |
-| ---- | ------------------------- | ----------------------- | ------------------------------------------------------------------ | ------- |
-| `js` | `Placement`               | Placement               | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-| `js` | `flipPlacement`           | flipPlacement           | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-| `js` | `positionAnchoredElement` | positionAnchoredElement | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
+| Kind | Name       | Declaration | Module                                    | Package |
+| ---- | ---------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `TabPanel` | TabPanel    | ../../packages/core/src/tabs/tab-panel.ts |         |
+
+# `../../packages/core/src/tabs/tab.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/tabs/tab.scss.ts |         |
+
+# `../../packages/core/src/tabs/tab.ts`:
+
+## class: `Tab`, `sl-tab`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type      | Default | Description                      | Inherited From |
+| ---------- | ------- | --------- | ------- | -------------------------------- | -------------- |
+| `selected` |         | `boolean` | `false` | Whether the tab item is selected |                |
+| `disabled` |         | `boolean` | `false` | Whether the tab item is disabled |                |
+
+### Methods
+
+| Name                    | Privacy   | Description                                                                                               | Parameters | Return | Inherited From |
+| ----------------------- | --------- | --------------------------------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `handleSelectionChange` | protected | Apply accessible attributes and values to the tab button.&#xA;Observe the selected property if it changes |            | `void` |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `selected` | selected |                |
+| `disabled` | disabled |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name  | Declaration | Module                              | Package |
+| ---- | ----- | ----------- | ----------------------------------- | ------- |
+| `js` | `Tab` | Tab         | ../../packages/core/src/tabs/tab.ts |         |
 
 # `../../packages/core/src/popover/mixins/anchored-popover.ts`:
 
@@ -2626,6 +2502,357 @@
 | ---- | -------------------- | ------------------ | ------------------------------------------------- | ------- |
 | `js` | `popoverMixinStyles` | popoverMixinStyles | ../../packages/core/src/popover/mixins/popover.ts |         |
 | `js` | `PopoverMixin`       | PopoverMixin       | ../../packages/core/src/popover/mixins/popover.ts |         |
+
+# `../../packages/core/src/utils/css.ts`:
+
+## Variables
+
+| Name                     | Description | Type      |
+| ------------------------ | ----------- | --------- |
+| `supportsTopLayer`       |             |           |
+| `supportsHas`            |             |           |
+| `supportsAnchor`         |             | `boolean` |
+| `firstFocusableSelector` |             | `string`  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                     | Declaration            | Module                               | Package |
+| ---- | ------------------------ | ---------------------- | ------------------------------------ | ------- |
+| `js` | `supportsTopLayer`       | supportsTopLayer       | ../../packages/core/src/utils/css.ts |         |
+| `js` | `supportsHas`            | supportsHas            | ../../packages/core/src/utils/css.ts |         |
+| `js` | `supportsAnchor`         | supportsAnchor         | ../../packages/core/src/utils/css.ts |         |
+| `js` | `firstFocusableSelector` | firstFocusableSelector | ../../packages/core/src/utils/css.ts |         |
+
+# `../../packages/core/src/utils/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./css.js        |
+| `js` | `*`  | *           |        | ./path.js       |
+| `js` | `*`  | *           |        | ./string.js     |
+| `js` | `*`  | *           |        | ./validators.js |
+
+# `../../packages/core/src/utils/path.ts`:
+
+## Functions
+
+| Name              | Description | Parameters              | Return    |
+| ----------------- | ----------- | ----------------------- | --------- |
+| `getNameByPath`   |             | `path: string`          | `string`  |
+| `getStringByPath` |             | `object: unknown, path` | `string`  |
+| `getValueByPath`  |             | `object: unknown, path` | `unknown` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                | Package |
+| ---- | ----------------- | --------------- | ------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | ../../packages/core/src/utils/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | ../../packages/core/src/utils/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | ../../packages/core/src/utils/path.ts |         |
+
+# `../../packages/core/src/utils/string.ts`:
+
+## Functions
+
+| Name         | Description                                                                                                                                                                                                                                                                                                                                                       | Parameters    | Return |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------ |
+| `camelize`   | Returns the lowerCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;camelize('innerHTML')          // 'innerHTML'&#xA;camelize('action_name')        // 'actionName'&#xA;camelize('css-class-name')     // 'cssClassName'&#xA;camelize('my favorite items')  // 'myFavoriteItems'&#xA;camelize('My Favorite Items')  // 'myFavoriteItems'&#xA;\```           | `str: string` |        |
+| `capitalize` | Returns the Capitalized form of a string&#xA;&#xA;\```javascript&#xA;capitalize('innerHTML')         // 'InnerHTML'&#xA;capitalize('action_name')       // 'Action_name'&#xA;capitalize('css-class-name')    // 'Css-class-name'&#xA;capitalize('my favorite items') // 'My favorite items'&#xA;\```                                                              | `str: string` |        |
+| `classify`   | Returns the UpperCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;classify('innerHTML')          // 'InnerHTML'&#xA;classify('action_name')        // 'ActionName'&#xA;classify('css-class-name')     // 'CssClassName'&#xA;classify('my favorite items')  // 'MyFavoriteItems'&#xA;\```                                                                   | `str: string` |        |
+| `dasherize`  | Replaces underscores, spaces, or camelCase with dashes.&#xA;&#xA;\```javascript&#xA;dasherize('innerHTML')         // 'inner-html'&#xA;dasherize('action_name')       // 'action-name'&#xA;dasherize('css-class-name')    // 'css-class-name'&#xA;dasherize('my favorite items') // 'my-favorite-items'&#xA;\```                                                  | `str: string` |        |
+| `decamelize` | Converts a camelized string into all lower case separated by underscores.&#xA;&#xA;\```javascript&#xA;decamelize('innerHTML')         // 'inner_html'&#xA;decamelize('action_name')       // 'action_name'&#xA;decamelize('css-class-name')    // 'css-class-name'&#xA;decamelize('my favorite items') // 'my favorite items'&#xA;\```                            | `str: string` |        |
+| `humanize`   | Returns the Humanized form of a string&#xA;&#xA;\```javascript&#xA;humanize('innerHTML')         // 'Inner HTML'&#xA;humanize('action_name')       // 'Action name'&#xA;humanize('css-class-name')    // 'Css class name'&#xA;humanize('my favorite items') // 'My favorite items'&#xA;\```                                                                       | `str: string` |        |
+| `underscore` | More general than decamelize. Returns the lower\\_case\\_and\\_underscored&#xA;form of a string.&#xA;&#xA;\```javascript&#xA;underscore('innerHTML')          // 'inner_html'&#xA;underscore('action_name')        // 'action_name'&#xA;underscore('css-class-name')     // 'css_class_name'&#xA;underscore('my favorite items')  // 'my_favorite_items'&#xA;\``` | `str: string` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                  | Package |
+| ---- | ------------ | ----------- | --------------------------------------- | ------- |
+| `js` | `camelize`   | camelize    | ../../packages/core/src/utils/string.ts |         |
+| `js` | `capitalize` | capitalize  | ../../packages/core/src/utils/string.ts |         |
+| `js` | `classify`   | classify    | ../../packages/core/src/utils/string.ts |         |
+| `js` | `dasherize`  | dasherize   | ../../packages/core/src/utils/string.ts |         |
+| `js` | `decamelize` | decamelize  | ../../packages/core/src/utils/string.ts |         |
+| `js` | `humanize`   | humanize    | ../../packages/core/src/utils/string.ts |         |
+| `js` | `underscore` | underscore  | ../../packages/core/src/utils/string.ts |         |
+
+# `../../packages/core/src/utils/validators.ts`:
+
+## Variables
+
+| Name                    | Description | Type        |
+| ----------------------- | ----------- | ----------- |
+| `requiredValidator`     |             | `Validator` |
+| `programmaticValidator` |             | `Validator` |
+| `minLengthValidator`    |             | `Validator` |
+| `maxLengthValidator`    |             | `Validator` |
+| `patternValidator`      |             | `Validator` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                    | Declaration           | Module                                      | Package |
+| ---- | ----------------------- | --------------------- | ------------------------------------------- | ------- |
+| `js` | `requiredValidator`     | requiredValidator     | ../../packages/core/src/utils/validators.ts |         |
+| `js` | `programmaticValidator` | programmaticValidator | ../../packages/core/src/utils/validators.ts |         |
+| `js` | `minLengthValidator`    | minLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
+| `js` | `maxLengthValidator`    | maxLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
+| `js` | `patternValidator`      | patternValidator      | ../../packages/core/src/utils/validators.ts |         |
+
+# `../../packages/core/src/popover/utils/position-anchored-element.ts`:
+
+## Functions
+
+| Name                      | Description | Parameters                                                                           | Return         |
+| ------------------------- | ----------- | ------------------------------------------------------------------------------------ | -------------- |
+| `flipPlacement`           |             | `placement: Placement`                                                               | `Placement`    |
+| `positionAnchoredElement` |             | `element: HTMLElement, anchor: HTMLElement, options: PositionAnchoredElementOptions` | `(() => void)` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                      | Declaration             | Module                                                             | Package |
+| ---- | ------------------------- | ----------------------- | ------------------------------------------------------------------ | ------- |
+| `js` | `Placement`               | Placement               | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
+| `js` | `flipPlacement`           | flipPlacement           | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
+| `js` | `positionAnchoredElement` | positionAnchoredElement | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
+
+# `../../packages/core/src/utils/decorators/base.ts`:
+
+## Functions
+
+| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
+    finisher,
+    descriptor
+  }: {
+    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
+    descriptor?: (property: PropertyKey) => PropertyDescriptor;
+  }, finisher: function, descriptor: function` | `ClassElement\|void` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
+| `js` | `decorateProperty` | decorateProperty | ../../packages/core/src/utils/decorators/base.ts |         |
+
+# `../../packages/core/src/utils/decorators/event.ts`:
+
+## class: `EventEmitter`
+
+### Methods
+
+| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
+| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
+| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
+
+<hr/>
+
+## Variables
+
+| Name    | Description | Type    |
+| ------- | ----------- | ------- |
+| `event` |             | `Event` |
+
+<hr/>
+
+## Functions
+
+| Name    | Description | Parameters              | Return |
+| ------- | ----------- | ----------------------- | ------ |
+| `event` |             | `options: EventOptions` | `any`  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                            | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | ../../packages/core/src/utils/decorators/event.ts |         |
+| `js` | `event`        | event        | ../../packages/core/src/utils/decorators/event.ts |         |
+
+# `../../packages/core/src/utils/decorators/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package      |
+| ---- | ---- | ----------- | ------ | ------------ |
+| `js` | `*`  | *           |        | ./base.js    |
+| `js` | `*`  | *           |        | ./event.js   |
+| `js` | `*`  | *           |        | ./observe.js |
+
+# `../../packages/core/src/utils/decorators/observe.ts`:
+
+## Functions
+
+| Name      | Description | Parameters                                          | Return |
+| --------- | ----------- | --------------------------------------------------- | ------ |
+| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
+
+# `../../packages/core/src/utils/mixins/form-control.ts`:
+
+## mixin: `FormControlMixin`
+
+### Parameters
+
+| Name          | Type | Default | Description |
+| ------------- | ---- | ------- | ----------- |
+| `constructor` | `T`  |         |             |
+
+### Fields
+
+| Name                  | Privacy | Type                                   | Default | Description                                                                                                                     | Inherited From |
+| --------------------- | ------- | -------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#cachedValue`        | private | `FormControlValue \| undefined`        |         | The cached value for the form control.                                                                                          |                |
+| `#formControlElement` | private | `FormControlElement \| undefined`      |         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. |                |
+| `disabled`            |         | `boolean \| undefined`                 |         | No interaction is possible with this control when disabled.                                                                     |                |
+| `name`                |         | `string \| undefined`                  |         | The name of the form control.                                                                                                   |                |
+| `required`            |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                                                                                  |                |
+| `formControlElement`  |         | `FormControlElement`                   |         |                                                                                                                                 |                |
+| `form`                |         | `HTMLFormElement \| null`              |         |                                                                                                                                 |                |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |         |                                                                                                                                 |                |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return    | Inherited From |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | --------- | -------------- |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`    |                |
+| `checkValidity`         |         |             |                                                                   | `boolean` |                |
+| `reportValidity`        |         |             |                                                                   | `boolean` |                |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`    |                |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    |                |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`    |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `disabled` | disabled |                |
+| `name`     | name     |                |
+| `required` | required |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                               | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
+| `js` | `FormControlMixin` | FormControlMixin | ../../packages/core/src/utils/mixins/form-control.ts |         |
+
+# `../../packages/core/src/utils/mixins/hint.spec.ts`:
+
+## class: `TestHint`, `test-hint`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name        | Module                                  | Package |
+| ----------- | --------------------------------------- | ------- |
+| `HintMixin` | /packages/core/src/utils/mixins/hint.js |         |
+
+### Fields
+
+| Name   | Privacy | Type                  | Default | Description                                                         | Inherited From |
+| ------ | ------- | --------------------- | ------- | ------------------------------------------------------------------- | -------------- |
+| `hint` |         | `string \| undefined` |         | The hint. If you need to display HTML, use the `hint` slot instead. | HintMixin      |
+
+### Methods
+
+| Name          | Privacy | Description | Parameters                      | Return           | Inherited From |
+| ------------- | ------- | ----------- | ------------------------------- | ---------------- | -------------- |
+| `updated`     |         |             | `changes: PropertyValues<this>` | `void`           | HintMixin      |
+| `renderHint`  |         |             |                                 | `TemplateResult` | HintMixin      |
+| `#updateHint` |         |             |                                 | `void`           | HintMixin      |
+| `#removeHint` |         |             |                                 | `void`           | HintMixin      |
+
+### Attributes
+
+| Name   | Field | Inherited From |
+| ------ | ----- | -------------- |
+| `hint` | hint  | HintMixin      |
+
+<hr/>
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                            | Package |
+| --------------------------- | ----------- | ----------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `test-hint` | TestHint    | ../../packages/core/src/utils/mixins/hint.spec.ts |         |
+
+# `../../packages/core/src/utils/mixins/hint.ts`:
+
+## mixin: `HintMixin`
+
+### Parameters
+
+| Name          | Type | Default | Description |
+| ------------- | ---- | ------- | ----------- |
+| `constructor` | `T`  |         |             |
+
+### Fields
+
+| Name   | Privacy | Type                  | Default | Description                                                         | Inherited From |
+| ------ | ------- | --------------------- | ------- | ------------------------------------------------------------------- | -------------- |
+| `hint` |         | `string \| undefined` |         | The hint. If you need to display HTML, use the `hint` slot instead. |                |
+
+### Methods
+
+| Name          | Privacy | Description | Parameters                      | Return           | Inherited From |
+| ------------- | ------- | ----------- | ------------------------------- | ---------------- | -------------- |
+| `updated`     |         |             | `changes: PropertyValues<this>` | `void`           |                |
+| `renderHint`  |         |             |                                 | `TemplateResult` |                |
+| `#updateHint` |         |             |                                 | `void`           |                |
+| `#removeHint` |         |             |                                 | `void`           |                |
+
+### Attributes
+
+| Name   | Field | Inherited From |
+| ------ | ----- | -------------- |
+| `hint` | hint  |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                       | Package |
+| ---- | ----------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `HintMixin` | HintMixin   | ../../packages/core/src/utils/mixins/hint.ts |         |
+
+# `../../packages/core/src/utils/mixins/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package           |
+| ---- | ---- | ----------- | ------ | ----------------- |
+| `js` | `*`  | *           |        | ./form-control.js |
+| `js` | `*`  | *           |        | ./hint.js         |
+| `js` | `*`  | *           |        | ./types.js        |
 
 # `../../packages/core/src/utils/controllers/events.ts`:
 
@@ -2965,233 +3192,6 @@
 | ---- | ---- | ----------- | ------ | ---------------------- |
 | `js` | `*`  | *           |        | ./array-data-source.js |
 | `js` | `*`  | *           |        | ./data-source.js       |
-
-# `../../packages/core/src/utils/mixins/form-control.ts`:
-
-## mixin: `FormControlMixin`
-
-### Parameters
-
-| Name          | Type | Default | Description |
-| ------------- | ---- | ------- | ----------- |
-| `constructor` | `T`  |         |             |
-
-### Fields
-
-| Name                  | Privacy | Type                                   | Default | Description                                                                                                                     | Inherited From |
-| --------------------- | ------- | -------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#cachedValue`        | private | `FormControlValue \| undefined`        |         | The cached value for the form control.                                                                                          |                |
-| `#formControlElement` | private | `FormControlElement \| undefined`      |         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. |                |
-| `disabled`            |         | `boolean \| undefined`                 |         | No interaction is possible with this control when disabled.                                                                     |                |
-| `name`                |         | `string \| undefined`                  |         | The name of the form control.                                                                                                   |                |
-| `required`            |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                                                                                  |                |
-| `formControlElement`  |         | `FormControlElement`                   |         |                                                                                                                                 |                |
-| `form`                |         | `HTMLFormElement \| null`              |         |                                                                                                                                 |                |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |         |                                                                                                                                 |                |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return    | Inherited From |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | --------- | -------------- |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`    |                |
-| `checkValidity`         |         |             |                                                                   | `boolean` |                |
-| `reportValidity`        |         |             |                                                                   | `boolean` |                |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`    |                |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    |                |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`    |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `disabled` | disabled |                |
-| `name`     | name     |                |
-| `required` | required |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `FormControlMixin` | FormControlMixin | ../../packages/core/src/utils/mixins/form-control.ts |         |
-
-# `../../packages/core/src/utils/mixins/hint.spec.ts`:
-
-## class: `TestHint`, `test-hint`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name        | Module                                  | Package |
-| ----------- | --------------------------------------- | ------- |
-| `HintMixin` | /packages/core/src/utils/mixins/hint.js |         |
-
-### Fields
-
-| Name   | Privacy | Type                  | Default | Description                                                         | Inherited From |
-| ------ | ------- | --------------------- | ------- | ------------------------------------------------------------------- | -------------- |
-| `hint` |         | `string \| undefined` |         | The hint. If you need to display HTML, use the `hint` slot instead. | HintMixin      |
-
-### Methods
-
-| Name          | Privacy | Description | Parameters                      | Return           | Inherited From |
-| ------------- | ------- | ----------- | ------------------------------- | ---------------- | -------------- |
-| `updated`     |         |             | `changes: PropertyValues<this>` | `void`           | HintMixin      |
-| `renderHint`  |         |             |                                 | `TemplateResult` | HintMixin      |
-| `#updateHint` |         |             |                                 | `void`           | HintMixin      |
-| `#removeHint` |         |             |                                 | `void`           | HintMixin      |
-
-### Attributes
-
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `hint` | hint  | HintMixin      |
-
-<hr/>
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                                            | Package |
-| --------------------------- | ----------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `test-hint` | TestHint    | ../../packages/core/src/utils/mixins/hint.spec.ts |         |
-
-# `../../packages/core/src/utils/mixins/hint.ts`:
-
-## mixin: `HintMixin`
-
-### Parameters
-
-| Name          | Type | Default | Description |
-| ------------- | ---- | ------- | ----------- |
-| `constructor` | `T`  |         |             |
-
-### Fields
-
-| Name   | Privacy | Type                  | Default | Description                                                         | Inherited From |
-| ------ | ------- | --------------------- | ------- | ------------------------------------------------------------------- | -------------- |
-| `hint` |         | `string \| undefined` |         | The hint. If you need to display HTML, use the `hint` slot instead. |                |
-
-### Methods
-
-| Name          | Privacy | Description | Parameters                      | Return           | Inherited From |
-| ------------- | ------- | ----------- | ------------------------------- | ---------------- | -------------- |
-| `updated`     |         |             | `changes: PropertyValues<this>` | `void`           |                |
-| `renderHint`  |         |             |                                 | `TemplateResult` |                |
-| `#updateHint` |         |             |                                 | `void`           |                |
-| `#removeHint` |         |             |                                 | `void`           |                |
-
-### Attributes
-
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `hint` | hint  |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                       | Package |
-| ---- | ----------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `HintMixin` | HintMixin   | ../../packages/core/src/utils/mixins/hint.ts |         |
-
-# `../../packages/core/src/utils/mixins/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package           |
-| ---- | ---- | ----------- | ------ | ----------------- |
-| `js` | `*`  | *           |        | ./form-control.js |
-| `js` | `*`  | *           |        | ./hint.js         |
-| `js` | `*`  | *           |        | ./types.js        |
-
-# `../../packages/core/src/utils/decorators/base.ts`:
-
-## Functions
-
-| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
-    finisher,
-    descriptor
-  }: {
-    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
-    descriptor?: (property: PropertyKey) => PropertyDescriptor;
-  }, finisher: function, descriptor: function` | `ClassElement\|void` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                           | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
-| `js` | `decorateProperty` | decorateProperty | ../../packages/core/src/utils/decorators/base.ts |         |
-
-# `../../packages/core/src/utils/decorators/event.ts`:
-
-## class: `EventEmitter`
-
-### Methods
-
-| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
-| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
-| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
-
-<hr/>
-
-## Variables
-
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `event` |             | `Event` |
-
-<hr/>
-
-## Functions
-
-| Name    | Description | Parameters              | Return |
-| ------- | ----------- | ----------------------- | ------ |
-| `event` |             | `options: EventOptions` | `any`  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                            | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | ../../packages/core/src/utils/decorators/event.ts |         |
-| `js` | `event`        | event        | ../../packages/core/src/utils/decorators/event.ts |         |
-
-# `../../packages/core/src/utils/decorators/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package      |
-| ---- | ---- | ----------- | ------ | ------------ |
-| `js` | `*`  | *           |        | ./base.js    |
-| `js` | `*`  | *           |        | ./event.js   |
-| `js` | `*`  | *           |        | ./observe.js |
-
-# `../../packages/core/src/utils/decorators/observe.ts`:
-
-## Functions
-
-| Name      | Description | Parameters                                          | Return |
-| --------- | ----------- | --------------------------------------------------- | ------ |
-| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
 
 # `../../packages/editor/src/commands.ts`:
 

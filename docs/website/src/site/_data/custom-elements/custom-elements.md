@@ -25,6 +25,85 @@
 | `js` | `ValidationRequiredReport` | ValidationRequiredReport | ../../packages/core/src/form.stories.ts |         |
 | `js` | `Validation`               | Validation               | ../../packages/core/src/form.stories.ts |         |
 
+# `../../packages/core/src/avatar/avatar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
+
+# `../../packages/core/src/avatar/avatar.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
+
+# `../../packages/core/src/avatar/avatar.ts`:
+
+## class: `Avatar`, `sl-avatar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
+| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
+| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
+| `profileName`     |         | `string`                                |          |                                                               |                |
+| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
+
+### Methods
+
+| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
+| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
+| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `uniqueProfileId` | uniqueProfileId |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
+
+# `../../packages/core/src/avatar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./avatar.js |
+
+# `../../packages/core/src/avatar/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
+
 # `../../packages/core/src/button/button.scss.ts`:
 
 ## Exports
@@ -214,34 +293,441 @@
 | --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
 
-# `../../packages/core/src/avatar/avatar.scss.ts`:
+# `../../packages/core/src/checkbox/checkbox-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/checkbox/checkbox-group.scss.ts |         |
 
-# `../../packages/core/src/avatar/avatar.stories.ts`:
+# `../../packages/core/src/checkbox/checkbox-group.ts`:
 
-## Variables
+## class: `CheckboxGroup`, `sl-checkbox-group`
 
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name        | Module                                   | Package |
+| ----------- | ---------------------------------------- | ------- |
+| `HintMixin` | /packages/core/src/utils/mixins/index.js |         |
+
+### Static Fields
+
+| Name             | Privacy | Type      | Default | Description | Inherited From |
+| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `formAssociated` | private | `boolean` | `true`  |             |                |
+
+### Fields
+
+| Name                        | Privacy | Type                       | Default                                                                                                                                                                                                                                                                                                                              | Description                                                           | Inherited From |
+| --------------------------- | ------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- | -------------- |
+| `#events`                   | private |                            | `new EventsController(this, { click: this.#onClick })`                                                                                                                                                                                                                                                                               | Events controller.                                                    |                |
+| `#mutation`                 | private |                            | `new MutationController(this, {
+    callback: () => {
+      const value = this.boxes
+        ?.map(box => (box.checked ? box.value : null))
+        .filter(Boolean)
+        .join(', ');
+
+      this.#validation.validate(value);
+    },
+    config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }
+  })` | Observe changes to the checkboxes.                                    |                |
+| `#rovingTabindexController` | private |                            | `new RovingTabindexController<Checkbox>(this, {
+    focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),
+    elements: () => this.boxes \|\| [],
+    isFocusableElement: (el: Checkbox) => !el.disabled
+  })`                                                                                             | Manage the keyboard navigation.                                       |                |
+| `#validation`               | private |                            | `new ValidationController(this, {
+    validators: [requiredValidator]
+  })`                                                                                                                                                                                                                                                          | Support validation that at least 1 checkbox is required in the group. |                |
+| `internals`                 |         |                            |                                                                                                                                                                                                                                                                                                                                      | Element internals.                                                    |                |
+| `boxes`                     |         | `Checkbox[] \| undefined`  |                                                                                                                                                                                                                                                                                                                                      | The slotted checkboxes.                                               |                |
+| `validators`                |         | `Validator[] \| undefined` |                                                                                                                                                                                                                                                                                                                                      | Custom validators.                                                    |                |
+| `name`                      |         | `string \| undefined`      |                                                                                                                                                                                                                                                                                                                                      | Name of the form element                                              |                |
+| `form`                      |         | `HTMLFormElement \| null`  |                                                                                                                                                                                                                                                                                                                                      |                                                                       |                |
+| `hint`                      |         | `string \| undefined`      |                                                                                                                                                                                                                                                                                                                                      | The hint. If you need to display HTML, use the `hint` slot instead.   | HintMixin      |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters                      | Return           | Inherited From |
+| --------------- | ------- | ----------- | ------------------------------- | ---------------- | -------------- |
+| `#onClick`      |         |             | `event: Event`                  | `void`           |                |
+| `#onSlotchange` |         |             |                                 | `void`           |                |
+| `updated`       |         |             | `changes: PropertyValues<this>` | `void`           | HintMixin      |
+| `renderHint`    |         |             |                                 | `TemplateResult` | HintMixin      |
+| `#updateHint`   |         |             |                                 | `void`           | HintMixin      |
+| `#removeHint`   |         |             |                                 | `void`           | HintMixin      |
+
+### Attributes
+
+| Name   | Field | Inherited From |
+| ------ | ----- | -------------- |
+| `name` | name  |                |
+| `hint` | hint  | HintMixin      |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
+| Kind | Name            | Declaration   | Module                                             | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------- | ------- |
+| `js` | `CheckboxGroup` | CheckboxGroup | ../../packages/core/src/checkbox/checkbox-group.ts |         |
 
-# `../../packages/core/src/avatar/avatar.ts`:
+# `../../packages/core/src/checkbox/checkbox.scss.ts`:
 
-## class: `Avatar`, `sl-avatar`
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/checkbox/checkbox.scss.ts |         |
+
+# `../../packages/core/src/checkbox/checkbox.stories.ts`:
+
+## Variables
+
+| Name             | Description | Type       |
+| ---------------- | ----------- | ---------- |
+| `API`            |             | `StoryObj` |
+| `All`            |             | `StoryObj` |
+| `Indeterminate`  |             | `StoryObj` |
+| `NoText`         |             | `StoryObj` |
+| `Overflow`       |             | `StoryObj` |
+| `WithLabel`      |             | `StoryObj` |
+| `Group`          |             | `StoryObj` |
+| `ValidateInForm` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name             | Declaration    | Module                                               | Package |
+| ---- | ---------------- | -------------- | ---------------------------------------------------- | ------- |
+| `js` | `default`        |                | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+| `js` | `API`            | API            | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+| `js` | `All`            | All            | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+| `js` | `Indeterminate`  | Indeterminate  | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+| `js` | `NoText`         | NoText         | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+| `js` | `Overflow`       | Overflow       | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+| `js` | `WithLabel`      | WithLabel      | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+| `js` | `Group`          | Group          | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+| `js` | `ValidateInForm` | ValidateInForm | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+
+# `../../packages/core/src/checkbox/checkbox.ts`:
+
+## class: `Checkbox`, `sl-checkbox`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module                                   | Package |
+| ------------------ | ---------------------------------------- | ------- |
+| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
+| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+
+### Static Fields
+
+| Name             | Privacy | Type      | Default | Description | Inherited From |
+| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `formAssociated` | private | `boolean` | `true`  |             |                |
+
+### Fields
+
+| Name                  | Privacy | Type                                   | Default                                                                                    | Description                                                                                                                     | Inherited From   |
+| --------------------- | ------- | -------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`             | private |                                        | `new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+  })` |                                                                                                                                 |                  |
+| `#validation`         | private |                                        | `new ValidationController(this, {
+    validators: [requiredValidator]
+  })`                |                                                                                                                                 |                  |
+| `#initialState`       | private | `boolean`                              | `false`                                                                                    |                                                                                                                                 |                  |
+| `internals`           |         |                                        |                                                                                            | Element internals.                                                                                                              |                  |
+| `change`              |         | `EventEmitter<boolean>`                |                                                                                            | Emits when the checked state changes.                                                                                           |                  |
+| `checked`             |         | `boolean \| undefined`                 |                                                                                            | Whether the checkbox is checked.                                                                                                |                  |
+| `invalid`             |         | `boolean \| undefined`                 |                                                                                            | Whether the checkbox is invalid.                                                                                                |                  |
+| `indeterminate`       |         | `boolean`                              | `false`                                                                                    | Whether the checkbox has the indeterminate state.                                                                               |                  |
+| `size`                |         | `CheckboxSize`                         | `'md'`                                                                                     | Button size.                                                                                                                    |                  |
+| `value`               |         | `string \| undefined`                  |                                                                                            | The value for the checkbox.                                                                                                     |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                                            | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                                            | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                 |                                                                                            | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                |         | `string \| undefined`                  |                                                                                            | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                 |                                                                                            | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                   |                                                                                            |                                                                                                                                 | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`              |                                                                                            |                                                                                                                                 | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                                            |                                                                                                                                 | FormControlMixin |
+| `hint`                |         | `string \| undefined`                  |                                                                                            | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+
+### Methods
+
+| Name                     | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
+| ------------------------ | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
+| `formAssociatedCallback` |         |             |                                                                   | `void`           |                  |
+| `formResetCallback`      |         |             |                                                                   | `void`           |                  |
+| `#onClick`               |         |             | `event: Event`                                                    | `void`           |                  |
+| `#onKeydown`             |         |             | `event: KeyboardEvent`                                            | `void`           |                  |
+| `#onToggle`              |         |             | `event: Event`                                                    | `void`           |                  |
+| `updated`                |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
+| `checkValidity`          |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `reportValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `setFormControlElement`  |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
+| `setValidity`            |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
+| `setFormValue`           |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
+| `renderHint`             |         |             |                                                                   | `TemplateResult` | HintMixin        |
+| `#updateHint`            |         |             |                                                                   | `void`           | HintMixin        |
+| `#removeHint`            |         |             |                                                                   | `void`           | HintMixin        |
+
+### Attributes
+
+| Name            | Field         | Inherited From   |
+| --------------- | ------------- | ---------------- |
+| `checked`       | checked       |                  |
+| `invalid`       | invalid       |                  |
+| `indeterminate` | indeterminate |                  |
+| `size`          | size          |                  |
+| `value`         | value         |                  |
+| `disabled`      | disabled      | FormControlMixin |
+| `name`          | name          | FormControlMixin |
+| `required`      | required      | FormControlMixin |
+| `hint`          | hint          | HintMixin        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                       | Package |
+| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `Checkbox` | Checkbox    | ../../packages/core/src/checkbox/checkbox.ts |         |
+
+# `../../packages/core/src/checkbox/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package             |
+| ---- | ---- | ----------- | ------ | ------------------- |
+| `js` | `*`  | *           |        | ./checkbox.js       |
+| `js` | `*`  | *           |        | ./checkbox-group.js |
+
+# `../../packages/core/src/checkbox/register.ts`:
+
+## Exports
+
+| Kind                        | Name                | Declaration   | Module                                        | Package |
+| --------------------------- | ------------------- | ------------- | --------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/core/src/checkbox/checkbox.js       |         |
+| `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/core/src/checkbox/checkbox-group.js |         |
+
+# `../../packages/core/src/input/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package    |
+| ---- | ---- | ----------- | ------ | ---------- |
+| `js` | `*`  | *           |        | ./input.js |
+
+# `../../packages/core/src/input/input.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/input/input.scss.ts |         |
+
+# `../../packages/core/src/input/input.stories.ts`:
+
+## Variables
+
+| Name               | Description | Type       |
+| ------------------ | ----------- | ---------- |
+| `API`              |             | `StoryObj` |
+| `Disabled`         |             | `StoryObj` |
+| `Label`            |             | `StoryObj` |
+| `Hint`             |             | `StoryObj` |
+| `RichLabelHint`    |             | `StoryObj` |
+| `PrefixSuffix`     |             | `StoryObj` |
+| `MinMaxLength`     |             | `StoryObj` |
+| `Pattern`          |             | `StoryObj` |
+| `CustomInput`      |             | `StoryObj` |
+| `CustomValidation` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                         | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------- | ------- |
+| `js` | `default`          |                  | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `API`              | API              | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `Disabled`         | Disabled         | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `Label`            | Label            | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `Hint`             | Hint             | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `PrefixSuffix`     | PrefixSuffix     | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `MinMaxLength`     | MinMaxLength     | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `Pattern`          | Pattern          | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `CustomInput`      | CustomInput      | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/input/input.stories.ts |         |
+
+# `../../packages/core/src/input/input.ts`:
+
+## class: `Input`, `sl-input`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module                                   | Package |
+| ------------------ | ---------------------------------------- | ------- |
+| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
+| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+
+### Fields
+
+| Name                  | Privacy | Type                                                            | Default                                                              | Description                                                                                                                     | Inherited From   |
+| --------------------- | ------- | --------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`             | private |                                                                 | `new EventsController(this, {
+    click: this.#onClick
+  })`         |                                                                                                                                 |                  |
+| `#onKeydown`          | private |                                                                 |                                                                      |                                                                                                                                 |                  |
+| `#validation`         | private |                                                                 | `new ValidationController(this, {
+    target: () => this.input
+  })` |                                                                                                                                 |                  |
+| `input`               |         | `HTMLInputElement`                                              |                                                                      | The input element in the light DOM.                                                                                             |                  |
+| `internals`           |         |                                                                 |                                                                      | Element internals.                                                                                                              |                  |
+| `autocomplete`        |         | `string \| undefined`                                           |                                                                      | Specifies which type of data the browser can use to pre-fill the input.                                                         |                  |
+| `maxLength`           |         | `number \| undefined`                                           |                                                                      | Maximum length (number of characters).                                                                                          |                  |
+| `minLength`           |         | `number \| undefined`                                           |                                                                      | Minimum length (number of characters).                                                                                          |                  |
+| `pattern`             |         | `string \| undefined`                                           |                                                                      | Validation using pattern.                                                                                                       |                  |
+| `placeholder`         |         | `string \| undefined`                                           |                                                                      | Placeholder text in the input.                                                                                                  |                  |
+| `type`                |         | `'email' \| 'number' \| 'password' \| 'tel' \| 'text' \| 'url'` | `'text'`                                                             | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                           |                  |
+| `validators`          |         | `Validator[] \| undefined`                                      |                                                                      | Custom validators specified by the user.                                                                                        |                  |
+| `value`               |         | `string \| undefined`                                           |                                                                      | The value for the input.                                                                                                        |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`                                 |                                                                      | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`                               |                                                                      | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                                          |                                                                      | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                |         | `string \| undefined`                                           |                                                                      | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                                          |                                                                      | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                                            |                                                                      |                                                                                                                                 | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`                                       |                                                                      |                                                                                                                                 | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null`                          |                                                                      |                                                                                                                                 | FormControlMixin |
+| `hint`                |         | `string \| undefined`                                           |                                                                      | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
+| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
+| `#onInput`              |         |             | `{ target }: Event & { target: HTMLInputElement }`                | `void`           |                  |
+| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
+| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
+| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
+| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
+| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
+
+### Attributes
+
+| Name           | Field        | Inherited From   |
+| -------------- | ------------ | ---------------- |
+| `autocomplete` | autocomplete |                  |
+| `maxlength`    | maxLength    |                  |
+| `minlength`    | minLength    |                  |
+| `pattern`      | pattern      |                  |
+| `placeholder`  | placeholder  |                  |
+| `type`         | type         |                  |
+| `value`        | value        |                  |
+| `disabled`     | disabled     | FormControlMixin |
+| `name`         | name         | FormControlMixin |
+| `required`     | required     | FormControlMixin |
+| `hint`         | hint         | HintMixin        |
+
+### Slots
+
+| Name     | Description                    |
+| -------- | ------------------------------ |
+| `prefix` | Content shown before the input |
+| `input`  | The slot for the input element |
+| `suffix` | Content shown after the input  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name    | Declaration | Module                                 | Package |
+| ---- | ------- | ----------- | -------------------------------------- | ------- |
+| `js` | `Input` | Input       | ../../packages/core/src/input/input.ts |         |
+
+# `../../packages/core/src/input/register.ts`:
+
+## Exports
+
+| Kind                        | Name       | Declaration | Module                            | Package |
+| --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
+| `custom-element-definition` | `sl-input` | Input       | /packages/core/src/input/input.js |         |
+
+# `../../packages/core/src/label/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package    |
+| ---- | ---- | ----------- | ------ | ---------- |
+| `js` | `*`  | *           |        | ./label.js |
+
+# `../../packages/core/src/label/label.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/label/label.scss.ts |         |
+
+# `../../packages/core/src/label/label.stories.ts`:
+
+## Variables
+
+| Name          | Description | Type       |
+| ------------- | ----------- | ---------- |
+| `API`         |             | `StoryObj` |
+| `CustomLabel` |             | `StoryObj` |
+| `Required`    |             | `StoryObj` |
+| `Optional`    |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name          | Declaration | Module                                         | Package |
+| ---- | ------------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default`     |             | ../../packages/core/src/label/label.stories.ts |         |
+| `js` | `API`         | API         | ../../packages/core/src/label/label.stories.ts |         |
+| `js` | `CustomLabel` | CustomLabel | ../../packages/core/src/label/label.stories.ts |         |
+| `js` | `Required`    | Required    | ../../packages/core/src/label/label.stories.ts |         |
+| `js` | `Optional`    | Optional    | ../../packages/core/src/label/label.stories.ts |         |
+
+# `../../packages/core/src/label/label.ts`:
+
+## class: `Label`, `sl-label`
 
 ### Superclass
 
@@ -251,47 +737,44 @@
 
 ### Fields
 
-| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
-| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
-| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
-| `profileName`     |         | `string`                                |          |                                                               |                |
-| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
+| Name             | Privacy | Type                                           | Default                                           | Description                                                     | Inherited From |
+| ---------------- | ------- | ---------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------- | -------------- |
+| `#formControlId` | private | `string \| undefined`                          |                                                   | The actual form control id this label links to.                 |                |
+| `#label`         | private | `HTMLLabelElement \| undefined`                |                                                   | The label instance in the light DOM.                            |                |
+| `#observer`      | private |                                                | `new MutationObserver(() => void this.#update())` | Observe the form control for changes to the required attribute. |                |
+| `for`            |         | `string \| undefined`                          |                                                   | The DOM id of the form control this is linked to.               |                |
+| `formControl`    |         | `(HTMLElement & FormControlInterface) \| null` | `null`                                            | The associated form control.                                    |                |
+| `optional`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as optional.                |                |
+| `required`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as required.                |                |
 
 ### Methods
 
-| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
-| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
-| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
+| Name            | Privacy | Description | Parameters                                        | Return          | Inherited From |
+| --------------- | ------- | ----------- | ------------------------------------------------- | --------------- | -------------- |
+| `#onSlotchange` |         |             | `{ target }: Event & { target: HTMLSlotElement }` | `void`          |                |
+| `#update`       |         |             |                                                   | `Promise<void>` |                |
 
 ### Attributes
 
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `uniqueProfileId` | uniqueProfileId |                |
+| Name  | Field | Inherited From |
+| ----- | ----- | -------------- |
+| `for` | for   |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
+| Kind | Name    | Declaration | Module                                 | Package |
+| ---- | ------- | ----------- | -------------------------------------- | ------- |
+| `js` | `Label` | Label       | ../../packages/core/src/label/label.ts |         |
 
-# `../../packages/core/src/avatar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./avatar.js |
-
-# `../../packages/core/src/avatar/register.ts`:
+# `../../packages/core/src/label/register.ts`:
 
 ## Exports
 
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
+| Kind                        | Name       | Declaration | Module                            | Package |
+| --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
+| `custom-element-definition` | `sl-label` | Label       | /packages/core/src/label/label.js |         |
 
 # `../../packages/core/src/dialog/dialog.scss.ts`:
 
@@ -402,229 +885,6 @@
 | Kind                        | Name        | Declaration | Module                              | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
-
-# `../../packages/core/src/checkbox/checkbox-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/checkbox/checkbox-group.scss.ts |         |
-
-# `../../packages/core/src/checkbox/checkbox-group.ts`:
-
-## class: `CheckboxGroup`, `sl-checkbox-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name        | Module                                   | Package |
-| ----------- | ---------------------------------------- | ------- |
-| `HintMixin` | /packages/core/src/utils/mixins/index.js |         |
-
-### Static Fields
-
-| Name             | Privacy | Type      | Default | Description | Inherited From |
-| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
-| `formAssociated` | private | `boolean` | `true`  |             |                |
-
-### Fields
-
-| Name                        | Privacy | Type                       | Default                                                                                                                                                                                                                                                                                                                              | Description                                                           | Inherited From |
-| --------------------------- | ------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- | -------------- |
-| `#events`                   | private |                            | `new EventsController(this, { click: this.#onClick })`                                                                                                                                                                                                                                                                               | Events controller.                                                    |                |
-| `#mutation`                 | private |                            | `new MutationController(this, {
-    callback: () => {
-      const value = this.boxes
-        ?.map(box => (box.checked ? box.value : null))
-        .filter(Boolean)
-        .join(', ');
-
-      this.#validation.validate(value);
-    },
-    config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }
-  })` | Observe changes to the checkboxes.                                    |                |
-| `#rovingTabindexController` | private |                            | `new RovingTabindexController<Checkbox>(this, {
-    focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),
-    elements: () => this.boxes \|\| [],
-    isFocusableElement: (el: Checkbox) => !el.disabled
-  })`                                                                                             | Manage the keyboard navigation.                                       |                |
-| `#validation`               | private |                            | `new ValidationController(this, {
-    validators: [requiredValidator]
-  })`                                                                                                                                                                                                                                                          | Support validation that at least 1 checkbox is required in the group. |                |
-| `internals`                 |         |                            |                                                                                                                                                                                                                                                                                                                                      | Element internals.                                                    |                |
-| `boxes`                     |         | `Checkbox[] \| undefined`  |                                                                                                                                                                                                                                                                                                                                      | The slotted checkboxes.                                               |                |
-| `validators`                |         | `Validator[] \| undefined` |                                                                                                                                                                                                                                                                                                                                      | Custom validators.                                                    |                |
-| `form`                      |         | `HTMLFormElement \| null`  |                                                                                                                                                                                                                                                                                                                                      |                                                                       |                |
-| `hint`                      |         | `string \| undefined`      |                                                                                                                                                                                                                                                                                                                                      | The hint. If you need to display HTML, use the `hint` slot instead.   | HintMixin      |
-
-### Methods
-
-| Name          | Privacy | Description | Parameters                      | Return           | Inherited From |
-| ------------- | ------- | ----------- | ------------------------------- | ---------------- | -------------- |
-| `#onClick`    |         |             | `event: Event`                  | `void`           |                |
-| `updated`     |         |             | `changes: PropertyValues<this>` | `void`           | HintMixin      |
-| `renderHint`  |         |             |                                 | `TemplateResult` | HintMixin      |
-| `#updateHint` |         |             |                                 | `void`           | HintMixin      |
-| `#removeHint` |         |             |                                 | `void`           | HintMixin      |
-
-### Attributes
-
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `hint` | hint  | HintMixin      |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                             | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------- | ------- |
-| `js` | `CheckboxGroup` | CheckboxGroup | ../../packages/core/src/checkbox/checkbox-group.ts |         |
-
-# `../../packages/core/src/checkbox/checkbox.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/checkbox/checkbox.scss.ts |         |
-
-# `../../packages/core/src/checkbox/checkbox.stories.ts`:
-
-## Variables
-
-| Name            | Description | Type       |
-| --------------- | ----------- | ---------- |
-| `API`           |             | `StoryObj` |
-| `Indeterminate` |             | `StoryObj` |
-| `NoText`        |             | `StoryObj` |
-| `Overflow`      |             | `StoryObj` |
-| `WithLabel`     |             | `StoryObj` |
-| `Group`         |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                               | Package |
-| ---- | --------------- | ------------- | ---------------------------------------------------- | ------- |
-| `js` | `default`       |               | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `API`           | API           | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `Indeterminate` | Indeterminate | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `NoText`        | NoText        | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `Overflow`      | Overflow      | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `WithLabel`     | WithLabel     | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `Group`         | Group         | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-
-# `../../packages/core/src/checkbox/checkbox.ts`:
-
-## class: `Checkbox`, `sl-checkbox`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
-
-### Static Fields
-
-| Name             | Privacy | Type      | Default | Description | Inherited From |
-| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
-| `formAssociated` | private | `boolean` | `true`  |             |                |
-
-### Fields
-
-| Name                  | Privacy | Type                                   | Default                                                                                    | Description                                                                                                                     | Inherited From   |
-| --------------------- | ------- | -------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`             | private |                                        | `new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
-  })` |                                                                                                                                 |                  |
-| `#validation`         | private |                                        | `new ValidationController(this, {
-    validators: [requiredValidator]
-  })`                |                                                                                                                                 |                  |
-| `internals`           |         |                                        |                                                                                            | Element internals.                                                                                                              |                  |
-| `change`              |         | `EventEmitter<boolean>`                |                                                                                            | Emits when the checked state changes.                                                                                           |                  |
-| `checked`             |         | `boolean`                              | `false`                                                                                    | Whether the checkbox is checked.                                                                                                |                  |
-| `indeterminate`       |         | `boolean`                              | `false`                                                                                    | Whether the checkbox has the indeterminate state.                                                                               |                  |
-| `value`               |         | `string \| undefined`                  |                                                                                            | The value for the checkbox.                                                                                                     |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                                            | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                                            | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                 |                                                                                            | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                |         | `string \| undefined`                  |                                                                                            | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                 |                                                                                            | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                   |                                                                                            |                                                                                                                                 | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`              |                                                                                            |                                                                                                                                 | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                                            |                                                                                                                                 | FormControlMixin |
-| `hint`                |         | `string \| undefined`                  |                                                                                            | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
-| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
-| `#onKeydown`            |         |             | `event: KeyboardEvent`                                            | `void`           |                  |
-| `#onToggle`             |         |             | `event: Event`                                                    | `void`           |                  |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
-
-### Attributes
-
-| Name            | Field         | Inherited From   |
-| --------------- | ------------- | ---------------- |
-| `checked`       | checked       |                  |
-| `indeterminate` | indeterminate |                  |
-| `value`         | value         |                  |
-| `disabled`      | disabled      | FormControlMixin |
-| `name`          | name          | FormControlMixin |
-| `required`      | required      | FormControlMixin |
-| `hint`          | hint          | HintMixin        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `Checkbox` | Checkbox    | ../../packages/core/src/checkbox/checkbox.ts |         |
-
-# `../../packages/core/src/checkbox/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./checkbox.js       |
-| `js` | `*`  | *           |        | ./checkbox-group.js |
-
-# `../../packages/core/src/checkbox/register.ts`:
-
-## Exports
-
-| Kind                        | Name                | Declaration   | Module                                        | Package |
-| --------------------------- | ------------------- | ------------- | --------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/core/src/checkbox/checkbox.js       |         |
-| `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/core/src/checkbox/checkbox-group.js |         |
 
 # `../../packages/core/src/drawer/drawer.scss.ts`:
 
@@ -822,252 +1082,6 @@
 | --------------------------- | --------- | ----------- | ------------------------------- | ------- |
 | `custom-element-definition` | `sl-icon` | Icon        | /packages/core/src/icon/icon.js |         |
 
-# `../../packages/core/src/label/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package    |
-| ---- | ---- | ----------- | ------ | ---------- |
-| `js` | `*`  | *           |        | ./label.js |
-
-# `../../packages/core/src/label/label.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/label/label.scss.ts |         |
-
-# `../../packages/core/src/label/label.stories.ts`:
-
-## Variables
-
-| Name          | Description | Type       |
-| ------------- | ----------- | ---------- |
-| `API`         |             | `StoryObj` |
-| `CustomLabel` |             | `StoryObj` |
-| `Required`    |             | `StoryObj` |
-| `Optional`    |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name          | Declaration | Module                                         | Package |
-| ---- | ------------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default`     |             | ../../packages/core/src/label/label.stories.ts |         |
-| `js` | `API`         | API         | ../../packages/core/src/label/label.stories.ts |         |
-| `js` | `CustomLabel` | CustomLabel | ../../packages/core/src/label/label.stories.ts |         |
-| `js` | `Required`    | Required    | ../../packages/core/src/label/label.stories.ts |         |
-| `js` | `Optional`    | Optional    | ../../packages/core/src/label/label.stories.ts |         |
-
-# `../../packages/core/src/label/label.ts`:
-
-## class: `Label`, `sl-label`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name             | Privacy | Type                                           | Default                                           | Description                                                     | Inherited From |
-| ---------------- | ------- | ---------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------- | -------------- |
-| `#formControlId` | private | `string \| undefined`                          |                                                   | The actual form control id this label links to.                 |                |
-| `#label`         | private | `HTMLLabelElement \| undefined`                |                                                   | The label instance in the light DOM.                            |                |
-| `#observer`      | private |                                                | `new MutationObserver(() => void this.#update())` | Observe the form control for changes to the required attribute. |                |
-| `for`            |         | `string \| undefined`                          |                                                   | The DOM id of the form control this is linked to.               |                |
-| `formControl`    |         | `(HTMLElement & FormControlInterface) \| null` | `null`                                            | The associated form control.                                    |                |
-| `optional`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as optional.                |                |
-| `required`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as required.                |                |
-
-### Methods
-
-| Name            | Privacy | Description | Parameters                                        | Return          | Inherited From |
-| --------------- | ------- | ----------- | ------------------------------------------------- | --------------- | -------------- |
-| `#onSlotchange` |         |             | `{ target }: Event & { target: HTMLSlotElement }` | `void`          |                |
-| `#update`       |         |             |                                                   | `Promise<void>` |                |
-
-### Attributes
-
-| Name  | Field | Inherited From |
-| ----- | ----- | -------------- |
-| `for` | for   |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name    | Declaration | Module                                 | Package |
-| ---- | ------- | ----------- | -------------------------------------- | ------- |
-| `js` | `Label` | Label       | ../../packages/core/src/label/label.ts |         |
-
-# `../../packages/core/src/label/register.ts`:
-
-## Exports
-
-| Kind                        | Name       | Declaration | Module                            | Package |
-| --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
-| `custom-element-definition` | `sl-label` | Label       | /packages/core/src/label/label.js |         |
-
-# `../../packages/core/src/input/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package    |
-| ---- | ---- | ----------- | ------ | ---------- |
-| `js` | `*`  | *           |        | ./input.js |
-
-# `../../packages/core/src/input/input.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/input/input.scss.ts |         |
-
-# `../../packages/core/src/input/input.stories.ts`:
-
-## Variables
-
-| Name               | Description | Type       |
-| ------------------ | ----------- | ---------- |
-| `API`              |             | `StoryObj` |
-| `Disabled`         |             | `StoryObj` |
-| `Label`            |             | `StoryObj` |
-| `Hint`             |             | `StoryObj` |
-| `RichLabelHint`    |             | `StoryObj` |
-| `PrefixSuffix`     |             | `StoryObj` |
-| `MinMaxLength`     |             | `StoryObj` |
-| `Pattern`          |             | `StoryObj` |
-| `CustomInput`      |             | `StoryObj` |
-| `CustomValidation` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                         | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------- | ------- |
-| `js` | `default`          |                  | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `API`              | API              | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Disabled`         | Disabled         | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Label`            | Label            | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Hint`             | Hint             | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `PrefixSuffix`     | PrefixSuffix     | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `MinMaxLength`     | MinMaxLength     | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Pattern`          | Pattern          | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `CustomInput`      | CustomInput      | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/input/input.stories.ts |         |
-
-# `../../packages/core/src/input/input.ts`:
-
-## class: `Input`, `sl-input`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
-
-### Fields
-
-| Name                  | Privacy | Type                                                            | Default                                                              | Description                                                                                                                     | Inherited From   |
-| --------------------- | ------- | --------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`             | private |                                                                 | `new EventsController(this, {
-    click: this.#onClick
-  })`         |                                                                                                                                 |                  |
-| `#onKeydown`          | private |                                                                 |                                                                      |                                                                                                                                 |                  |
-| `#validation`         | private |                                                                 | `new ValidationController(this, {
-    target: () => this.input
-  })` |                                                                                                                                 |                  |
-| `input`               |         | `HTMLInputElement`                                              |                                                                      | The input element in the light DOM.                                                                                             |                  |
-| `internals`           |         |                                                                 |                                                                      | Element internals.                                                                                                              |                  |
-| `autocomplete`        |         | `string \| undefined`                                           |                                                                      | Specifies which type of data the browser can use to pre-fill the input.                                                         |                  |
-| `maxLength`           |         | `number \| undefined`                                           |                                                                      | Maximum length (number of characters).                                                                                          |                  |
-| `minLength`           |         | `number \| undefined`                                           |                                                                      | Minimum length (number of characters).                                                                                          |                  |
-| `pattern`             |         | `string \| undefined`                                           |                                                                      | Validation using pattern.                                                                                                       |                  |
-| `placeholder`         |         | `string \| undefined`                                           |                                                                      | Placeholder text in the input.                                                                                                  |                  |
-| `type`                |         | `'email' \| 'number' \| 'password' \| 'tel' \| 'text' \| 'url'` | `'text'`                                                             | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                           |                  |
-| `validators`          |         | `Validator[] \| undefined`                                      |                                                                      | Custom validators specified by the user.                                                                                        |                  |
-| `value`               |         | `string \| undefined`                                           |                                                                      | The value for the input.                                                                                                        |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`                                 |                                                                      | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`                               |                                                                      | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                                          |                                                                      | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                |         | `string \| undefined`                                           |                                                                      | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                                          |                                                                      | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                                            |                                                                      |                                                                                                                                 | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`                                       |                                                                      |                                                                                                                                 | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null`                          |                                                                      |                                                                                                                                 | FormControlMixin |
-| `hint`                |         | `string \| undefined`                                           |                                                                      | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
-| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
-| `#onInput`              |         |             | `{ target }: Event & { target: HTMLInputElement }`                | `void`           |                  |
-| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
-
-### Attributes
-
-| Name           | Field        | Inherited From   |
-| -------------- | ------------ | ---------------- |
-| `autocomplete` | autocomplete |                  |
-| `maxlength`    | maxLength    |                  |
-| `minlength`    | minLength    |                  |
-| `pattern`      | pattern      |                  |
-| `placeholder`  | placeholder  |                  |
-| `type`         | type         |                  |
-| `value`        | value        |                  |
-| `disabled`     | disabled     | FormControlMixin |
-| `name`         | name         | FormControlMixin |
-| `required`     | required     | FormControlMixin |
-| `hint`         | hint         | HintMixin        |
-
-### Slots
-
-| Name     | Description                    |
-| -------- | ------------------------------ |
-| `prefix` | Content shown before the input |
-| `input`  | The slot for the input element |
-| `suffix` | Content shown after the input  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name    | Declaration | Module                                 | Package |
-| ---- | ------- | ----------- | -------------------------------------- | ------- |
-| `js` | `Input` | Input       | ../../packages/core/src/input/input.ts |         |
-
-# `../../packages/core/src/input/register.ts`:
-
-## Exports
-
-| Kind                        | Name       | Declaration | Module                            | Package |
-| --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
-| `custom-element-definition` | `sl-input` | Input       | /packages/core/src/input/input.js |         |
-
 # `../../packages/core/src/locales/locale-codes.ts`:
 
 ## Variables
@@ -1253,13 +1267,13 @@
 | Name               | Description | Type       |
 | ------------------ | ----------- | ---------- |
 | `API`              |             | `StoryObj` |
-| `Disabled`         |             | `StoryObj` |
+| `All`              |             | `StoryObj` |
 | `Horizontal`       |             | `StoryObj` |
-| `Selected`         |             | `StoryObj` |
+| `Overflow`         |             | `StoryObj` |
 | `Label`            |             | `StoryObj` |
 | `Hint`             |             | `StoryObj` |
 | `RichLabelHint`    |             | `StoryObj` |
-| `Required`         |             | `StoryObj` |
+| `InForm`           |             | `StoryObj` |
 | `CustomValidation` |             | `StoryObj` |
 
 <hr/>
@@ -1270,13 +1284,13 @@
 | ---- | ------------------ | ---------------- | ---------------------------------------------------------- | ------- |
 | `js` | `default`          |                  | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
 | `js` | `API`              | API              | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Disabled`         | Disabled         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `All`              | All              | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
 | `js` | `Horizontal`       | Horizontal       | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Selected`         | Selected         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `Overflow`         | Overflow         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
 | `js` | `Label`            | Label            | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
 | `js` | `Hint`             | Hint             | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
 | `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Required`         | Required         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
+| `js` | `InForm`           | InForm           | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
 | `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
 
 # `../../packages/core/src/radio-group/radio-group.ts`:
@@ -1340,6 +1354,7 @@
 | `#validation`               | private |                                        | `new ValidationController(this, {
     validators: [requiredValidator]
   })`                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                                                                                 |                  |
+| `#initialState`             | private | `string \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 |                  |
 | `internals`                 |         |                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Element internals.                                                                                                              |                  |
 | `defaultNodes`              |         | `Node[] \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The assigned nodes.                                                                                                             |                  |
 | `horizontal`                |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | If true, displays the radio buttons next to each other instead of below.                                                        |                  |
@@ -1358,19 +1373,22 @@
 
 ### Methods
 
-| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
-| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
-| `#onFocusout`           |         |             | `event: FocusEvent`                                               | `void`           |                  |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
+| Name                     | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
+| ------------------------ | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
+| `formAssociatedCallback` |         |             |                                                                   | `void`           |                  |
+| `formResetCallback`      |         |             |                                                                   | `void`           |                  |
+| `#onClick`               |         |             | `event: Event`                                                    | `void`           |                  |
+| `#onFocusout`            |         |             | `event: FocusEvent`                                               | `void`           |                  |
+| `#onSlotchange`          |         |             |                                                                   | `void`           |                  |
+| `updated`                |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
+| `checkValidity`          |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `reportValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `setFormControlElement`  |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
+| `setValidity`            |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
+| `setFormValue`           |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
+| `renderHint`             |         |             |                                                                   | `TemplateResult` | HintMixin        |
+| `#updateHint`            |         |             |                                                                   | `void`           | HintMixin        |
+| `#removeHint`            |         |             |                                                                   | `void`           | HintMixin        |
 
 ### Attributes
 
@@ -1409,33 +1427,62 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
+### Mixins
+
+| Name               | Module                                          | Package |
+| ------------------ | ----------------------------------------------- | ------- |
+| `FormControlMixin` | /packages/core/src/utils/mixins/form-control.js |         |
+
+### Static Fields
+
+| Name             | Privacy | Type      | Default | Description | Inherited From |
+| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `formAssociated` | private | `boolean` | `true`  |             |                |
+
 ### Fields
 
-| Name        | Privacy | Type      | Default                                                                                    | Description                      | Inherited From |
-| ----------- | ------- | --------- | ------------------------------------------------------------------------------------------ | -------------------------------- | -------------- |
-| `#events`   | private |           | `new EventsController(this, {
+| Name                  | Privacy | Type                                   | Default                                                                                    | Description                                                                                                                     | Inherited From   |
+| --------------------- | ------- | -------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`             | private |                                        | `new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown
-  })` | Events controller.               |                |
-| `internals` |         |           |                                                                                            | Element internals.               |                |
-| `checked`   |         | `boolean` | `false`                                                                                    | Whether the radio is selected.   |                |
-| `disabled`  |         | `boolean` | `false`                                                                                    | Wether this radio is disabled.   |                |
-| `value`     |         | `string`  | `''`                                                                                       | The value for this radio button. |                |
+  })` | Events controller.                                                                                                              |                  |
+| `internals`           |         |                                        |                                                                                            | Element internals.                                                                                                              |                  |
+| `checked`             |         | `boolean \| undefined`                 |                                                                                            | Whether the radio is selected.                                                                                                  |                  |
+| `value`               |         | `string`                               | `''`                                                                                       | The value for this radio button.                                                                                                |                  |
+| `size`                |         | `RadioButtonSize`                      | `'md'`                                                                                     | Button size.                                                                                                                    |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                                            | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                                            | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                 |                                                                                            | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                |         | `string \| undefined`                  |                                                                                            | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                 |                                                                                            | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                   |                                                                                            |                                                                                                                                 | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`              |                                                                                            |                                                                                                                                 | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                                            |                                                                                                                                 | FormControlMixin |
 
 ### Methods
 
-| Name         | Privacy | Description | Parameters             | Return | Inherited From |
-| ------------ | ------- | ----------- | ---------------------- | ------ | -------------- |
-| `#onClick`   |         |             | `event: Event`         | `void` |                |
-| `#onKeydown` |         |             | `event: KeyboardEvent` | `void` |                |
+| Name                    | Privacy | Description | Parameters                                                        | Return    | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | --------- | ---------------- |
+| `#onClick`              |         |             | `event: Event`                                                    | `void`    |                  |
+| `#onKeydown`            |         |             | `event: KeyboardEvent`                                            | `void`    |                  |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`    | FormControlMixin |
+| `checkValidity`         |         |             |                                                                   | `boolean` | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean` | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`    | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`    | FormControlMixin |
 
 ### Attributes
 
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `checked`  | checked  |                |
-| `disabled` | disabled |                |
-| `value`    | value    |                |
+| Name       | Field    | Inherited From   |
+| ---------- | -------- | ---------------- |
+| `checked`  | checked  |                  |
+| `value`    | value    |                  |
+| `size`     | size     |                  |
+| `disabled` | disabled | FormControlMixin |
+| `name`     | name     | FormControlMixin |
+| `required` | required | FormControlMixin |
 
 <hr/>
 
@@ -1781,180 +1828,6 @@
 | ---- | -------- | ----------- | ---------------------------------------- | ------- |
 | `js` | `Select` | Select      | ../../packages/core/src/select/select.ts |         |
 
-# `../../packages/core/src/tooltip/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                |
-| ---- | ---- | ----------- | ------ | ---------------------- |
-| `js` | `*`  | *           |        | ./tooltip.js           |
-| `js` | `*`  | *           |        | ./tooltip-directive.js |
-
-# `../../packages/core/src/tooltip/register.ts`:
-
-## Exports
-
-| Kind                        | Name         | Declaration | Module                                | Package |
-| --------------------------- | ------------ | ----------- | ------------------------------------- | ------- |
-| `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/core/src/tooltip/tooltip.js |         |
-
-# `../../packages/core/src/tooltip/tooltip-directive.ts`:
-
-## class: `TooltipDirective`
-
-### Superclass
-
-| Name        | Module | Package          |
-| ----------- | ------ | ---------------- |
-| `Directive` |        | lit/directive.js |
-
-### Fields
-
-| Name           | Privacy | Type                       | Default | Description | Inherited From |
-| -------------- | ------- | -------------------------- | ------- | ----------- | -------------- |
-| `content`      |         | `unknown \| undefined`     |         |             |                |
-| `didSetupLazy` |         | `boolean`                  | `false` |             |                |
-| `part`         |         | `ElementPart \| undefined` |         |             |                |
-| `tooltip`      |         | `Tooltip \| undefined`     |         |             |                |
-
-### Methods
-
-| Name            | Privacy | Description | Parameters | Return | Inherited From |
-| --------------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `renderContent` |         |             |            | `void` |                |
-| `setupLazy`     |         |             |            | `void` |                |
-
-<hr/>
-
-## Variables
-
-| Name      | Description | Type |
-| --------- | ----------- | ---- |
-| `tooltip` |             |      |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `TooltipDirective` | TooltipDirective | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
-| `js` | `tooltip`          | tooltip          | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
-
-# `../../packages/core/src/tooltip/tooltip.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/tooltip/tooltip.scss.ts |         |
-
-# `../../packages/core/src/tooltip/tooltip.stories.ts`:
-
-## Variables
-
-| Name        | Description | Type       |
-| ----------- | ----------- | ---------- |
-| `API`       |             | `StoryObj` |
-| `Directive` |             | `StoryObj` |
-| `Overflow`  |             | `StoryObj` |
-| `Shared`    |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                             | Package |
-| ---- | ----------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default`   |             | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `API`       | API         | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `Directive` | Directive   | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `Overflow`  | Overflow    | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `Shared`    | Shared      | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-
-# `../../packages/core/src/tooltip/tooltip.ts`:
-
-## class: `Tooltip`, `sl-tooltip`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                   | Module                                                | Package |
-| ---------------------- | ----------------------------------------------------- | ------- |
-| `AnchoredPopoverMixin` | /packages/core/src/popover/mixins/anchored-popover.js |         |
-
-### Static Methods
-
-| Name   | Privacy | Description | Parameters                                             | Return | Inherited From |
-| ------ | ------- | ----------- | ------------------------------------------------------ | ------ | -------------- |
-| `lazy` |         |             | `target: Element, callback: (target: Tooltip) => void` | `void` |                |
-
-### Fields
-
-| Name                 | Privacy | Type                       | Default                      | Description                               | Inherited From       |
-| -------------------- | ------- | -------------------------- | ---------------------------- | ----------------------------------------- | -------------------- |
-| `#events`            | private |                            | `new EventsController(this)` |                                           |                      |
-| `#matchesAnchor`     | private |                            |                              |                                           |                      |
-| `#onHide`            | private |                            |                              |                                           |                      |
-| `#onShow`            | private |                            |                              |                                           |                      |
-| `placement`          |         | `Placement`                | `'bottom'`                   | Tooltip placement.                        | AnchoredPopoverMixin |
-| `#onPopoverHide`     | private |                            |                              |                                           | AnchoredPopoverMixin |
-| `arrow`              |         | `HTMLElement \| undefined` |                              | The arrow pointing to the anchor element. | AnchoredPopoverMixin |
-| `cleanupFloatingUI`  |         | `() => void \| undefined`  |                              | Cleanup callback for floating-ui.         | AnchoredPopoverMixin |
-| `#anchorElement`     | private | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
-| `anchorElement`      |         | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
-| `#popoverOpen`       | private | `boolean`                  | `false`                      |                                           | PopoverMixin         |
-| `#onDocumentClick`   | private |                            |                              |                                           | PopoverMixin         |
-| `#onDocumentKeydown` | private |                            |                              |                                           | PopoverMixin         |
-| `open`               |         | `boolean`                  | `false`                      | Whether the popover is open or not.       | PopoverMixin         |
-| `receivesFocus`      |         | `'auto' \| undefined`      |                              |                                           | PopoverMixin         |
-| `popoverOpen`        | public  | `boolean`                  |                              |                                           | PopoverMixin         |
-
-### Methods
-
-| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
-| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
-| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
-| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
-| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
-| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
-
-### Events
-
-| Name          | Type    | Description | Inherited From |
-| ------------- | ------- | ----------- | -------------- |
-| `popovershow` | `Event` |             | PopoverMixin   |
-| `popoverhide` | `Event` |             | PopoverMixin   |
-
-### Attributes
-
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `placement`      | placement     |                |
-| `open`           | open          | PopoverMixin   |
-| `receives-focus` | receivesFocus | PopoverMixin   |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------ | ------- |
-| `js` | `Tooltip` | Tooltip     | ../../packages/core/src/tooltip/tooltip.ts |         |
-
 # `../../packages/core/src/tabs/index.ts`:
 
 ## Exports
@@ -2285,6 +2158,180 @@
 | ---- | ---------- | ----------- | -------------------------------------------- | ------- |
 | `js` | `Textarea` | Textarea    | ../../packages/core/src/textarea/textarea.ts |         |
 
+# `../../packages/core/src/tooltip/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./tooltip.js           |
+| `js` | `*`  | *           |        | ./tooltip-directive.js |
+
+# `../../packages/core/src/tooltip/register.ts`:
+
+## Exports
+
+| Kind                        | Name         | Declaration | Module                                | Package |
+| --------------------------- | ------------ | ----------- | ------------------------------------- | ------- |
+| `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/core/src/tooltip/tooltip.js |         |
+
+# `../../packages/core/src/tooltip/tooltip-directive.ts`:
+
+## class: `TooltipDirective`
+
+### Superclass
+
+| Name        | Module | Package          |
+| ----------- | ------ | ---------------- |
+| `Directive` |        | lit/directive.js |
+
+### Fields
+
+| Name           | Privacy | Type                       | Default | Description | Inherited From |
+| -------------- | ------- | -------------------------- | ------- | ----------- | -------------- |
+| `content`      |         | `unknown \| undefined`     |         |             |                |
+| `didSetupLazy` |         | `boolean`                  | `false` |             |                |
+| `part`         |         | `ElementPart \| undefined` |         |             |                |
+| `tooltip`      |         | `Tooltip \| undefined`     |         |             |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters | Return | Inherited From |
+| --------------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `renderContent` |         |             |            | `void` |                |
+| `setupLazy`     |         |             |            | `void` |                |
+
+<hr/>
+
+## Variables
+
+| Name      | Description | Type |
+| --------- | ----------- | ---- |
+| `tooltip` |             |      |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                               | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
+| `js` | `TooltipDirective` | TooltipDirective | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
+| `js` | `tooltip`          | tooltip          | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
+
+# `../../packages/core/src/tooltip/tooltip.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/tooltip/tooltip.scss.ts |         |
+
+# `../../packages/core/src/tooltip/tooltip.stories.ts`:
+
+## Variables
+
+| Name        | Description | Type       |
+| ----------- | ----------- | ---------- |
+| `API`       |             | `StoryObj` |
+| `Directive` |             | `StoryObj` |
+| `Overflow`  |             | `StoryObj` |
+| `Shared`    |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                             | Package |
+| ---- | ----------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default`   |             | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+| `js` | `API`       | API         | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+| `js` | `Directive` | Directive   | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+| `js` | `Overflow`  | Overflow    | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+| `js` | `Shared`    | Shared      | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+
+# `../../packages/core/src/tooltip/tooltip.ts`:
+
+## class: `Tooltip`, `sl-tooltip`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                   | Module                                                | Package |
+| ---------------------- | ----------------------------------------------------- | ------- |
+| `AnchoredPopoverMixin` | /packages/core/src/popover/mixins/anchored-popover.js |         |
+
+### Static Methods
+
+| Name   | Privacy | Description | Parameters                                             | Return | Inherited From |
+| ------ | ------- | ----------- | ------------------------------------------------------ | ------ | -------------- |
+| `lazy` |         |             | `target: Element, callback: (target: Tooltip) => void` | `void` |                |
+
+### Fields
+
+| Name                 | Privacy | Type                       | Default                      | Description                               | Inherited From       |
+| -------------------- | ------- | -------------------------- | ---------------------------- | ----------------------------------------- | -------------------- |
+| `#events`            | private |                            | `new EventsController(this)` |                                           |                      |
+| `#matchesAnchor`     | private |                            |                              |                                           |                      |
+| `#onHide`            | private |                            |                              |                                           |                      |
+| `#onShow`            | private |                            |                              |                                           |                      |
+| `placement`          |         | `Placement`                | `'bottom'`                   | Tooltip placement.                        | AnchoredPopoverMixin |
+| `#onPopoverHide`     | private |                            |                              |                                           | AnchoredPopoverMixin |
+| `arrow`              |         | `HTMLElement \| undefined` |                              | The arrow pointing to the anchor element. | AnchoredPopoverMixin |
+| `cleanupFloatingUI`  |         | `() => void \| undefined`  |                              | Cleanup callback for floating-ui.         | AnchoredPopoverMixin |
+| `#anchorElement`     | private | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
+| `anchorElement`      |         | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
+| `#popoverOpen`       | private | `boolean`                  | `false`                      |                                           | PopoverMixin         |
+| `#onDocumentClick`   | private |                            |                              |                                           | PopoverMixin         |
+| `#onDocumentKeydown` | private |                            |                              |                                           | PopoverMixin         |
+| `open`               |         | `boolean`                  | `false`                      | Whether the popover is open or not.       | PopoverMixin         |
+| `receivesFocus`      |         | `'auto' \| undefined`      |                              |                                           | PopoverMixin         |
+| `popoverOpen`        | public  | `boolean`                  |                              |                                           | PopoverMixin         |
+
+### Methods
+
+| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
+| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
+| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
+| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
+| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
+| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
+
+### Events
+
+| Name          | Type    | Description | Inherited From |
+| ------------- | ------- | ----------- | -------------- |
+| `popovershow` | `Event` |             | PopoverMixin   |
+| `popoverhide` | `Event` |             | PopoverMixin   |
+
+### Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `placement`      | placement     |                |
+| `open`           | open          | PopoverMixin   |
+| `receives-focus` | receivesFocus | PopoverMixin   |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------ | ------- |
+| `js` | `Tooltip` | Tooltip     | ../../packages/core/src/tooltip/tooltip.ts |         |
+
 # `../../packages/core/src/utils/css.ts`:
 
 ## Variables
@@ -2389,6 +2436,25 @@
 | `js` | `minLengthValidator`    | minLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
 | `js` | `maxLengthValidator`    | maxLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
 | `js` | `patternValidator`      | patternValidator      | ../../packages/core/src/utils/validators.ts |         |
+
+# `../../packages/core/src/popover/utils/position-anchored-element.ts`:
+
+## Functions
+
+| Name                      | Description | Parameters                                                                           | Return         |
+| ------------------------- | ----------- | ------------------------------------------------------------------------------------ | -------------- |
+| `flipPlacement`           |             | `placement: Placement`                                                               | `Placement`    |
+| `positionAnchoredElement` |             | `element: HTMLElement, anchor: HTMLElement, options: PositionAnchoredElementOptions` | `(() => void)` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                      | Declaration             | Module                                                             | Package |
+| ---- | ------------------------- | ----------------------- | ------------------------------------------------------------------ | ------- |
+| `js` | `Placement`               | Placement               | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
+| `js` | `flipPlacement`           | flipPlacement           | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
+| `js` | `positionAnchoredElement` | positionAnchoredElement | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
 
 # `../../packages/core/src/popover/mixins/anchored-popover.ts`:
 
@@ -2560,25 +2626,6 @@
 | ---- | -------------------- | ------------------ | ------------------------------------------------- | ------- |
 | `js` | `popoverMixinStyles` | popoverMixinStyles | ../../packages/core/src/popover/mixins/popover.ts |         |
 | `js` | `PopoverMixin`       | PopoverMixin       | ../../packages/core/src/popover/mixins/popover.ts |         |
-
-# `../../packages/core/src/popover/utils/position-anchored-element.ts`:
-
-## Functions
-
-| Name                      | Description | Parameters                                                                           | Return         |
-| ------------------------- | ----------- | ------------------------------------------------------------------------------------ | -------------- |
-| `flipPlacement`           |             | `placement: Placement`                                                               | `Placement`    |
-| `positionAnchoredElement` |             | `element: HTMLElement, anchor: HTMLElement, options: PositionAnchoredElementOptions` | `(() => void)` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                      | Declaration             | Module                                                             | Package |
-| ---- | ------------------------- | ----------------------- | ------------------------------------------------------------------ | ------- |
-| `js` | `Placement`               | Placement               | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-| `js` | `flipPlacement`           | flipPlacement           | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-| `js` | `positionAnchoredElement` | positionAnchoredElement | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
 
 # `../../packages/core/src/utils/controllers/events.ts`:
 
@@ -2919,89 +2966,6 @@
 | `js` | `*`  | *           |        | ./array-data-source.js |
 | `js` | `*`  | *           |        | ./data-source.js       |
 
-# `../../packages/core/src/utils/decorators/base.ts`:
-
-## Functions
-
-| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
-    finisher,
-    descriptor
-  }: {
-    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
-    descriptor?: (property: PropertyKey) => PropertyDescriptor;
-  }, finisher: function, descriptor: function` | `ClassElement\|void` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                           | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
-| `js` | `decorateProperty` | decorateProperty | ../../packages/core/src/utils/decorators/base.ts |         |
-
-# `../../packages/core/src/utils/decorators/event.ts`:
-
-## class: `EventEmitter`
-
-### Methods
-
-| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
-| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
-| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
-
-<hr/>
-
-## Variables
-
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `event` |             | `Event` |
-
-<hr/>
-
-## Functions
-
-| Name    | Description | Parameters              | Return |
-| ------- | ----------- | ----------------------- | ------ |
-| `event` |             | `options: EventOptions` | `any`  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                            | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | ../../packages/core/src/utils/decorators/event.ts |         |
-| `js` | `event`        | event        | ../../packages/core/src/utils/decorators/event.ts |         |
-
-# `../../packages/core/src/utils/decorators/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package      |
-| ---- | ---- | ----------- | ------ | ------------ |
-| `js` | `*`  | *           |        | ./base.js    |
-| `js` | `*`  | *           |        | ./event.js   |
-| `js` | `*`  | *           |        | ./observe.js |
-
-# `../../packages/core/src/utils/decorators/observe.ts`:
-
-## Functions
-
-| Name      | Description | Parameters                                          | Return |
-| --------- | ----------- | --------------------------------------------------- | ------ |
-| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
-
 # `../../packages/core/src/utils/mixins/form-control.ts`:
 
 ## mixin: `FormControlMixin`
@@ -3145,6 +3109,89 @@
 | `js` | `*`  | *           |        | ./form-control.js |
 | `js` | `*`  | *           |        | ./hint.js         |
 | `js` | `*`  | *           |        | ./types.js        |
+
+# `../../packages/core/src/utils/decorators/base.ts`:
+
+## Functions
+
+| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
+    finisher,
+    descriptor
+  }: {
+    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
+    descriptor?: (property: PropertyKey) => PropertyDescriptor;
+  }, finisher: function, descriptor: function` | `ClassElement\|void` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
+| `js` | `decorateProperty` | decorateProperty | ../../packages/core/src/utils/decorators/base.ts |         |
+
+# `../../packages/core/src/utils/decorators/event.ts`:
+
+## class: `EventEmitter`
+
+### Methods
+
+| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
+| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
+| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
+
+<hr/>
+
+## Variables
+
+| Name    | Description | Type    |
+| ------- | ----------- | ------- |
+| `event` |             | `Event` |
+
+<hr/>
+
+## Functions
+
+| Name    | Description | Parameters              | Return |
+| ------- | ----------- | ----------------------- | ------ |
+| `event` |             | `options: EventOptions` | `any`  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                            | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | ../../packages/core/src/utils/decorators/event.ts |         |
+| `js` | `event`        | event        | ../../packages/core/src/utils/decorators/event.ts |         |
+
+# `../../packages/core/src/utils/decorators/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package      |
+| ---- | ---- | ----------- | ------ | ------------ |
+| `js` | `*`  | *           |        | ./base.js    |
+| `js` | `*`  | *           |        | ./event.js   |
+| `js` | `*`  | *           |        | ./observe.js |
+
+# `../../packages/core/src/utils/decorators/observe.ts`:
+
+## Functions
+
+| Name      | Description | Parameters                                          | Return |
+| --------- | ----------- | --------------------------------------------------- | ------ |
+| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
 
 # `../../packages/editor/src/commands.ts`:
 

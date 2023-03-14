@@ -40,7 +40,8 @@
     "lint": "wireit",
     "lint:scss": "wireit",
     "lint:ts": "wireit",
-    "analyze": "wireit"
+    "analyze": "wireit",
+    "copy:tokens": "cpx './../../packages/tokens/src/themes/sanoma-learning/base.json' 'src/site/_data/tokens/'"
   },
   "wireit": {
     "build:dev": {
@@ -137,6 +138,7 @@
       "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
         "analyze",
+        "copy:tokens",
         "./../../packages/tokens:build",
         "build:site:dev:styles",
         "build:site:dev:ts"
@@ -202,6 +204,7 @@
       "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
       "dependencies": [
         "analyze",
+        "copy:tokens",
         "./../../packages/tokens:build",
         "build:site:prod:styles",
         "build:site:prod:ts"
@@ -306,6 +309,7 @@
     "@luncheon/esbuild-plugin-gzip": "^0.1.0",
     "@web/dev-server": "^0.1.35",
     "@webcomponents/template-shadowroot": "^0.1.0",
+    "cpx": "^1.5.0",
     "esbuild": "^0.15.18",
     "esbuild-plugin-minify-html-literals": "^1.0.2",
     "html-minifier": "^4.0.0",

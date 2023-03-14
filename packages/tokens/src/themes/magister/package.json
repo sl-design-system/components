@@ -10,11 +10,25 @@
     "url": "https://github.com/sanomalearning/design-system.git",
     "directory": "packages/tokens/src/themes/magister"
   },
+  "type": "module",
   "scripts": {
-    "build": "wireit"
+    "build": "wireit",
+    "build:icons": "wireit",
+    "build:styles": "wireit"
   },
   "wireit": {
     "build": {
+      "dependencies": [
+        "build:icons"
+      ]
+    },
+    "build:icons": {
+      "command": "yarn node --trace-warnings ../../../build-icons.js magister YZeBneflpJkX3KXSyvMrqP",
+      "dependencies": [
+        "build:styles"
+      ]
+    },
+    "build:styles": {
       "command": "yarn node --no-warnings ../../../build-styles.js magister",
       "files": [
         "../../figma/*.json",

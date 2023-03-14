@@ -54,6 +54,7 @@
     "@figma-export/cli": "^4.5.0",
     "@figma-export/output-components-as-svg": "^4.5.0",
     "@figma-export/transform-svg-with-svgo": "^4.5.0",
+    "prettier-eslint-cli": "^7.1.0",
     "rimraf": "^4.2.0",
     "sass": "^1.58.3",
     "style-dictionary": "^3.7.2",

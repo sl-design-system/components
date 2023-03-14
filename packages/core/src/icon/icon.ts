@@ -13,9 +13,9 @@ export class Icon extends LitElement {
   /** @private */
   static resolver: IconResolver = _ => 'No icon found';
 
-  static registerIcon(name: string, icon: string): void {
-    console.log('registerIcon', { name, icon });
-  }
+  // static registerIcon(name: string, icon: string): void {
+  //   console.log('registerIcon', { name, icon });
+  // }
 
   static registerResolver(resolver: IconResolver): void {
     this.resolver = resolver;

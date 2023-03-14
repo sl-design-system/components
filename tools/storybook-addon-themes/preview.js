@@ -43,7 +43,7 @@ export const globals = {
       ]
     }
   ],
-  selectedTheme: 'sanoma-learning/light'
+  selectedTheme: 'magister/light'
 };
 
 updateTheme(globals.themes.find(t => t.id === globals.selectedTheme));

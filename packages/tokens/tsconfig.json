@@ -7,7 +7,7 @@
     "declaration": true,
     "outDir": "src",
     "rootDir": "src",
-    "emitDecoratorMetadata": false
+    "emitDecoratorMetadata": false,
   },
   "files": [],
   "include": [],

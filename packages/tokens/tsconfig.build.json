@@ -2,14 +2,17 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "incremental": true,
+    "incremental": false,
     "strictNullChecks": true
   },
   "allowSyntheticDefaultImports": false,
   "files": [
-    "src/themes/sanoma-learning/index.ts"
+    "src/themes/sanoma-learning/icons.ts",
+    "src/themes/sanoma-learning/index.ts",
+    "src/themes/magister/icons.ts",
+    "src/themes/magister/index.ts"
   ],
-  "include": ["src/**/*.ts","src/**/*.js", "src/**/*.d.ts"],
+  "include": ["src/**/*.ts","src/**/*.js", "src/**/*.d.ts", "src/icon-resolver.ts"],
   "exclude": ["node_modules"],
   "references": [
   ]

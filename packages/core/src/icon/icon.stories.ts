@@ -18,5 +18,6 @@ export const API: StoryObj = {
     <h1>Icons that are not in base.json but are in FontAwesome</h1>
     <sl-icon name="glasses"></sl-icon>
     <sl-icon name="book"></sl-icon>
+    heeee
   `
 };

@@ -678,5 +678,36 @@
       "type": "other",
       "description": "animation.button"
     }
+  },
+  "icon": {
+    "base": {
+      "face-smile": {
+        "value": "{icon.core.fa-face_smile}",
+        "type": "Icons",
+        "description": "icon.base.face-smile"
+      },
+      "chevron-down": {
+        "value": "{icon.core.fa-chevron-down}",
+        "type": "Icons",
+        "description": "icon.base.fav"
+      },
+      "check": {
+        "value": "{icon.core.fa-check}",
+        "type": "Icons",
+        "description": "icon.base.check"
+      }
+    },
+    "custom": {
+      "fav": {
+        "value": "fav",
+        "type": "Icons",
+        "description": "icon.custom.fav"
+      },
+      "open-eye": {
+        "value": "open-eye",
+        "type": "Icons",
+        "description": "icon.custom.open-eye"
+      }
+    }
   }
 }

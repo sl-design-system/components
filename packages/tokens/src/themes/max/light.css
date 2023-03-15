@@ -23,14 +23,7 @@
   --sl-color-button-default-default-idle-border: #e5e8eb;
   --sl-color-button-default-default-idle-foreground: #253646;
   --sl-color-button-default-default-idle-background: #f7f7f7;
-  --sl-border-radius-button: var(--sl-border-radius-2xs);
   --sl-animation-button: var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
-  --sl-text-button-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-space-button-default-lg-inline: var(--sl-space-xl);
   --sl-space-button-default-lg-block: var(--sl-space-lg);
   --sl-space-button-default-md-block: var(--sl-space-sm);
@@ -38,5 +31,12 @@
   --sl-space-button-default-sm-block: var(--sl-space-xs);
   --sl-border-width-button-outline: var(--sl-border-width-none);
   --sl-border-width-button-default: var(--sl-border-width-none);
+  --sl-border-radius-button: var(--sl-border-radius-2xs);
+  --sl-text-button-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-space-button-default-md-inline: var(--sl-space-button-default-lg-block);
 }

@@ -1,0 +1,37 @@
+<section class="ds-tokens">
+<h2 class="ds-tokens__heading">Size</h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+    {% for type in tokens.base.size -%}
+      {% for property in type -%}
+        {% if property.value %}
+<tr>
+  <td>
+    <div class="ds-tokens__size-example">
+      <div class="ds-tokens__size" style="width: {{ property.value }}px; height: {{ property.value }}px;"></div>
+      <code>{{ property.value }}{% if property.value != 0 %}px{% endif %}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
+  <td><code>{{ property.description | tokenName }}</code></td>
+</tr>
+        {% endif %}
+      {% endfor -%}
+    {% endfor -%}
+</tbody>
+</table>
+</section>
+
+
+{% for type in tokens.base.size -%}
+  {{ type[1].value }}
+{% endfor -%}
+
+{% for type in tokens.base.size -%}
+  {{ type[1] | json }}
+{% endfor -%}

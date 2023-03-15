@@ -1,0 +1,30 @@
+<section class="ds-tokens">
+<h2 class="ds-tokens__heading">Color</h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Example</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+    {% for color in tokens.base.color.palette -%}
+      {% for palette in color -%}
+        {% for colorPrimary in palette -%}
+          {% for colorVariantValue in colorPrimary -%}
+            {% if colorVariantValue.value %}
+<tr>
+  <td>
+    <div class="ds-tokens__color" style="background-color: {{ colorVariantValue.value }}"></div>
+    <code>{{ colorVariantValue.value }}</code>
+  </td>
+  <td class="ds-tokens__description">{{ colorVariantValue.description | tokenDescription }}</td>
+  <td>{% if colorVariantValue.description %}<code>{{ colorVariantValue.description | tokenName }}{% endif %}</code></td>
+</tr>
+            {% endif %}
+          {% endfor -%}
+        {% endfor -%}
+      {% endfor -%}
+    {% endfor -%}
+</tbody>
+</table>
+</section>

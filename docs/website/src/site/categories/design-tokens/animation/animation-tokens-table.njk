@@ -7,23 +7,24 @@
   <th>Token</th>
 </tr></thead>
 <tbody>
-    {% for type in tokens.base.animation -%}
-      {% if type[0] == "duration" or type[0] == "easing" %}
-        {% for animation in type -%}
-          {% for animationType in animation -%}
-            {% for property in animationType -%}
-              {% if property.value %}
-<tr>
-  <td><code>{{ property.value }}</code></td>
-  <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
-  <td><code>{{ property.description | tokenName }}</code></td>
-</tr>
-              {% endif %}
-            {% endfor -%}
-          {% endfor -%}
-        {% endfor -%}
-      {% endif %}
-    {% endfor -%}
+{% for type in tokens.base.animation.duration -%}
+  {% if type[1].value %}
+  <tr>
+    <td><code>{{ type[1].value }}</code></td>
+    <td class="ds-tokens__description">{{ type[1].description | tokenDescription }}</td>
+    <td><code>{{ type[1].description | tokenName }}</code></td>
+  </tr>
+  {% endif %}
+{% endfor -%}
+{% for type in tokens.base.animation.easing -%}
+  {% if type[1].value %}
+  <tr>
+    <td><code>{{ type[1].value }}</code></td>
+    <td class="ds-tokens__description">{{ type[1].description | tokenDescription }}</td>
+    <td><code>{{ type[1].description | tokenName }}</code></td>
+  </tr>
+  {% endif %}
+{% endfor -%}
 </tbody>
 </table>
 </section>

@@ -460,7 +460,7 @@
           "description": "text.typeset.fontFamily.heading"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Montserrat",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.body"
         },
@@ -474,6 +474,11 @@
         "demibold": {
           "value": "SemiBold",
           "type": "fontWeights"
+        },
+        "bold": {
+          "value": "Bold",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.bold"
         },
         "icon-thin": {
           "value": "Thin",
@@ -499,11 +504,6 @@
           "value": "Regular",
           "type": "fontWeights",
           "description": "text.typeset.fontWeight.regular"
-        },
-        "bold": {
-          "value": "Bold",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.bold"
         }
       },
       "fontSize": {
@@ -940,7 +940,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
@@ -949,7 +949,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.md}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -958,7 +958,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.lg}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },

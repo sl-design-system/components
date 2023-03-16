@@ -1,9 +1,9 @@
 ---
-title: Spacing
+title: Space
 eleventyNavigation:
   parent: Design Tokens
-  key: Spacing
-  order: 6
+  key: Space
+  order: 4
 ---
 
 <header class="ds-tokens__main-heading">
@@ -16,5 +16,5 @@ eleventyNavigation:
 </header>
 
 <section class="ds-tokens__wrapper">
-{% include "./spacing-tokens-table.njk" %}
+{% include "./space-tokens-table.njk" %}
 </section>

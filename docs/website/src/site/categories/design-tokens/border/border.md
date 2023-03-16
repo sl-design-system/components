@@ -3,7 +3,7 @@ title: Border
 eleventyNavigation:
   parent: Design Tokens
   key: Border
-  order: 2
+  order: 3
 ---
 
 <header class="ds-tokens__main-heading">

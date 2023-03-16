@@ -3,7 +3,7 @@ title: Opacity
 eleventyNavigation:
   parent: Design Tokens
   key: Opacity
-  order: 4
+  order: 7
 ---
 
 <header class="ds-tokens__main-heading">

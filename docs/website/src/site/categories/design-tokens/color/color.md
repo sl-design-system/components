@@ -3,7 +3,7 @@ title: Color
 eleventyNavigation:
   parent: Design Tokens
   key: Color
-  order: 3
+  order: 1
 ---
 
 <header class="ds-tokens__main-heading">

@@ -3,7 +3,7 @@ title: Text
 eleventyNavigation:
   parent: Design Tokens
   key: Text
-  order: 7
+  order: 2
 ---
 
 <header class="ds-tokens__main-heading">

@@ -3,7 +3,7 @@ title: Size
 eleventyNavigation:
   parent: Design Tokens
   key: Size
-  order: 5
+  order: 6
 ---
 
 <header class="ds-tokens__main-heading">

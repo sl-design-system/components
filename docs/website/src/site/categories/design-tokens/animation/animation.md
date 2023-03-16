@@ -3,7 +3,7 @@ title: Animation
 eleventyNavigation:
   parent: Design Tokens
   key: Animation
-  order: 1
+  order: 5
 ---
 
 <header class="ds-tokens__main-heading">

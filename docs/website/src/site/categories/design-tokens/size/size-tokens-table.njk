@@ -7,9 +7,9 @@
   <th>Token</th>
 </tr></thead>
 <tbody>
-    {% for type in tokens.base.size -%}
-      {% for property in type -%}
-        {% if property.value %}
+{% for type in tokens.base.size -%}
+  {% for property in type -%}
+    {% if property.value %}
 <tr>
   <td>
     <div class="ds-tokens__size-example">
@@ -20,9 +20,9 @@
   <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
   <td><code>{{ property.description | tokenName }}</code></td>
 </tr>
-        {% endif %}
-      {% endfor -%}
-    {% endfor -%}
+    {% endif %}
+  {% endfor -%}
+{% endfor -%}
 </tbody>
 </table>
 </section>

@@ -1355,5 +1355,15 @@
       "text.input.label.lg": "S:14465225f4d7f84d0add8c31d0ff48fadab6d5d8,",
       "boxShadow.focus": "S:3fbe7906a68d6d77bea91c2aed793e3dd216e310,"
     }
+  },
+  {
+    "id": "2d51db472edaab0b930fa9a3e11d19b2b836bda9",
+    "name": "magister/dark",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "magister/base": "enabled",
+      "magister/dark": "enabled"
+    },
+    "$figmaStyleReferences": {}
   }
 ]

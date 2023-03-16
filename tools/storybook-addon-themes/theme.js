@@ -1,6 +1,7 @@
 let baseStyles, variantStyles, fonts;
 
 export const updateTheme = (theme) => {
+  console.log('updateTheme');
   const [id, variant] = theme.id.split('/');
   
   baseStyles ??= document.head.appendChild(document.createElement('link'));
@@ -28,6 +29,8 @@ export const updateTheme = (theme) => {
     });
   }
 
-  theme.setup?.();
+  console.log('setup theme after change?', theme.name, theme.setup);
+  theme.setup();
+  console.log('theme has been setup');
 };
 

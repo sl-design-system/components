@@ -52,11 +52,7 @@ await Promise.all(filesToRead);
 // TODO filter out everything that is not the right format
 // export type SLIconName = '${Object.keys({...icons,...iconsCustom}).join(`' | '`)}';
 
-console.log(`yarn prettier-eslint ${cwd}src/themes/${name}/icons.ts --write`);
 await fs.writeFile(join(`${cwd}src/themes/${name}`, `icons.ts`), `export const icons = ${JSON.stringify({...icons,...iconsCustom})};`);
-
-await exec(`yarn prettier-eslint ${cwd}src/themes/${name}/icons.ts --write`, { cwd });
-
 // 5. Expose the icons via the theme `IconResolver` in `index.ts`
 // Either use the downloaded icons, or use FontAwesome NPM packages
 

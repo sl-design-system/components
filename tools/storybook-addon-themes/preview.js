@@ -1,7 +1,9 @@
-import { setup } from '@sanomalearning/slds-sanoma-learning';
+import { setup as setupSL } from '@sanomalearning/slds-sanoma-learning';
+import { setup as setupMagister } from '@sanomalearning/slds-magister';
 import { withTheme } from './decorator.js';
 import { updateTheme } from './theme.js';
 
+console.log({setupMagister});
 export const decorators = [withTheme];
 export const globals = {
   themes: [
@@ -15,7 +17,8 @@ export const globals = {
       id: 'magister/light',
       name: 'Magister (light)',
       color: '#1f97f9',
-      fonts: ['https://use.typekit.net/zkq0zzv.css']
+      fonts: ['https://use.typekit.net/zkq0zzv.css'],
+      setup: ()=>console.log(setupMagister)
     },
     {
       id: 'max-online/light',
@@ -31,7 +34,7 @@ export const globals = {
         'https://use.typekit.net/kes1hoh.css',
         '/themes/sanoma-learning/fonts.css'
       ],
-      setup
+      setup: ()=>setupSL()
     },
     {
       id: 'sanoma-learning/dark',

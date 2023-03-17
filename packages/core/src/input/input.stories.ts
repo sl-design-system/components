@@ -44,6 +44,21 @@ export const Disabled: StoryObj = {
   render: () => html`<sl-input disabled value="I am disabled"></sl-input>`
 };
 
+// TODO: all instead of sizes
+export const Sizes: StoryObj = {
+  argTypes: {
+    size: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: () => html`
+    <sl-input size="md" value="I am medium"></sl-input>
+    <sl-input size="lg" value="I am large"></sl-input>
+  `
+};
+
 export const Label: StoryObj = {
   render: () => html`
     <style>

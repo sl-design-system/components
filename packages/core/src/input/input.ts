@@ -6,6 +6,8 @@ import { EventsController, ValidationController, validationStyles } from '../uti
 import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
 import styles from './input.scss.js';
 
+export type InputSize = 'md' | 'lg';
+
 let nextUniqueId = 0;
 
 /**
@@ -53,6 +55,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
   /** Placeholder text in the input. */
   @property() placeholder?: string;
+
+  /** Input size. */
+  @property({ reflect: true }) size: InputSize = 'md';
 
   /**
    * The input type. Only text types are valid here. For other types,

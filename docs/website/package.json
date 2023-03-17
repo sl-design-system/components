@@ -138,8 +138,8 @@
       "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
         "analyze",
-        "copy:tokens",
         "./../../packages/tokens:build",
+        "copy:tokens",
         "build:site:dev:styles",
         "build:site:dev:ts"
       ],
@@ -204,8 +204,8 @@
       "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
       "dependencies": [
         "analyze",
-        "copy:tokens",
         "./../../packages/tokens:build",
+        "copy:tokens",
         "build:site:prod:styles",
         "build:site:prod:ts"
       ],

@@ -7,31 +7,18 @@
   <th>Token</th>
 </tr></thead>
 <tbody>
-{% for type in tokens.base.size -%}
-  {% for property in type -%}
-    {% if property.value %}
+{% for property in tokens.base.size -%}{% if property[1].value %}
 <tr>
   <td>
     <div class="ds-tokens__size-example">
-      <div class="ds-tokens__size" style="width: {{ property.value }}px; height: {{ property.value }}px;"></div>
-      <code>{{ property.value }}{% if property.value != 0 %}px{% endif %}</code>
+      <div class="ds-tokens__size" style="width: {{ property[1].value }}px; height: {{ property[1].value }}px;"></div>
+      <code>{{ property[1].value }}{% if property[1].value != 0 %}px{% endif %}</code>
     </div>
   </td>
-  <td class="ds-tokens__description">{{ property.description | tokenDescription }}</td>
-  <td><code>{{ property.description | tokenName }}</code></td>
+  <td class="ds-tokens__description">{{ property[1].description | tokenDescription }}</td>
+  <td><code>{{ property[1].description | tokenName }}</code></td>
 </tr>
-    {% endif %}
-  {% endfor -%}
-{% endfor -%}
+{% endif %}{% endfor -%}
 </tbody>
 </table>
 </section>
-
-
-{% for type in tokens.base.size -%}
-  {{ type[1].value }}
-{% endfor -%}
-
-{% for type in tokens.base.size -%}
-  {{ type[1] | json }}
-{% endfor -%}

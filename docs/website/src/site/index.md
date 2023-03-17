@@ -177,7 +177,7 @@ Components
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/design-tokens/" aria-labelledby="tokensParagraph">
+<a href="/categories/design-tokens/color" aria-labelledby="tokensParagraph">
 Design tokens
 </a>
 </div>

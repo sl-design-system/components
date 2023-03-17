@@ -1,12 +1,12 @@
 <section class="ds-tokens">
-  <h2 class="ds-tokens__heading">Text</h2>
-  <table class="ds-table">
-    <thead><tr>
-      <th>Example text value</th>
-      <th>Token title</th>
-      <th>Token</th>
-    </tr></thead>
-    <tbody>
+<h2 class="ds-tokens__heading">Text</h2>
+<table class="ds-table">
+<thead><tr>
+ <th>Example text value</th>
+ <th>Token title</th>
+ <th>Token</th>
+</tr></thead>
+<tbody>
     {% for text in tokens.base.text -%}
       {% if text[0] == 'typeset' %}
         {% for textType in text -%}
@@ -16,19 +16,17 @@
                 {% if propertyValue[0] | notContainsIconValue %}
                   {% for textType in propertyValue -%}
                     {% if textType.value %}
-                      <tr>
-                        <td>
-                          {% if textType.type != 'paragraphSpacing' %}
-                            <p class="ds-tokens__text"
-                               style="{% if textType.type == 'fontFamilies' %}font-family: {{ textType.value }}, sans-serif;{% endif %}{% if textType.type == 'fontWeights' %}font-weight: {{ textType.value | fontWeight }};{% endif %}{% if textType.type == 'textCase' %}text-transform: {{ textType.value }};{% endif %}
-       {% if textType.type == 'textDecoration' %}text-decoration: {{ textType.value }};{% endif %}{% if textType.type == 'fontSizes' %}font-size: {{ textType.value }}px;{% endif %}{% if textType.type == 'lineHeights' %}display: none;{% endif %}">Lorem ipsum</p>
-                          {% endif %}
-                          <code>{% if textType.type != 'paragraphSpacing' %}{{ textType.value | fontWeight }}{% if textType.type == 'fontSizes' or textType.type == 'lineHeights' %}px{% endif %}{% endif %}{% if textType.type == 'paragraphSpacing' %}{{ textType.value }}{% if textType.value != 0 %}px{% endif %}{% endif %}
-                          </code>
-                        </td>
-                        <td class="ds-tokens__description">{{ textType.description | tokenDescription }}</td>
-                        <td>{% if textType.description %}<code>{{ textType.description | tokenName }}</code>{% endif %}</td>
-                      </tr>
+<tr>
+<td>
+{% if textType.type != 'paragraphSpacing' %}
+<p class="ds-tokens__text" style="{% if textType.type == 'fontFamilies' %}font-family: {{ textType.value }}, sans-serif;{% endif %}{% if textType.type == 'fontWeights' %}font-weight: {{ textType.value | fontWeight }};{% endif %}{% if textType.type == 'textCase' %}text-transform: {{ textType.value }};{% endif %}
+       {% if textType.type == 'textDecoration' %}text-decoration: {{ textType.value }};{% endif %}{% if textType.type == 'fontSizes' %}font-size: {{ textType.value }}px;{% endif %}{% if textType.type == 'lineHeights' %}display: none;{% endif %}">Lorem ipsum</p>{% endif %}
+<code>{% if textType.type != 'paragraphSpacing' %}{{ textType.value | fontWeight }}{% if textType.type == 'fontSizes' or textType.type == 'lineHeights' %}px{% endif %}{% endif %}{% if textType.type == 'paragraphSpacing' %}{{ textType.value }}{% if textType.value != 0 %}px{% endif %}{% endif %}
+</code>
+</td>
+<td class="ds-tokens__description">{{ textType.description | tokenDescription }}</td>
+<td>{% if textType.description %}<code>{{ textType.description | tokenName }}</code>{% endif %}</td>
+</tr>
                     {% endif %}
                   {% endfor -%}
                 {% endif %}
@@ -38,8 +36,8 @@
         {% endfor -%}
       {% endif %}
     {% endfor -%}
-    </tbody>
-  </table>
+</tbody>
+</table>
 </section>
 
 {% for text in tokens.base.text -%}
@@ -55,6 +53,7 @@
       {% if text[0] == 'typeset' %}
         {% for textType in text -%}
           {% for textProperties in textType -%}
+            <div style="color: #6B1313;">{{ textProperties[1] | json }}</div>
             {% for property in textProperties -%}
               {% for propertyValue in property -%}
                 {% if propertyValue[0] | notContainsIconValue %}

@@ -747,7 +747,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.success.150},{opacity.300})",
+              "value": "rgba({color.palette.success.200},{opacity.300})",
               "type": "color",
               "failedToResolve": true
             },
@@ -759,25 +759,33 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.primary.150}",
+              "value": "rgba({color.palette.success.200},{opacity.500})",
               "type": "color",
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.success.200}",
               "type": "color",
               "failedToResolve": true
             }
           },
           "focus": {
             "foreground": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.success.200}",
               "type": "color",
               "failedToResolve": true
             },
             "border": {
               "value": "{color.palette.info.base}",
               "type": "color",
+              "failedToResolve": true
+            }
+          },
+          "disabled": {
+            "foreground": {
+              "value": "{color.palette.neutral.200}",
+              "type": "color",
+              "description": "color.button.success.link.disabled.foreground",
               "failedToResolve": true
             }
           }

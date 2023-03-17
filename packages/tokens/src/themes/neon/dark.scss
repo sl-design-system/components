@@ -255,21 +255,24 @@
   --sl-color-button-default-link-hover-foreground: rgb(var(--sl-color-palette-info-base));
   --sl-color-button-default-link-hover-background: rgb(var(--sl-color-palette-info-800));
   --sl-color-button-default-link-idle-foreground: rgb(var(--sl-color-palette-info-base));
-  --sl-color-button-default-outline-disabled-border: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-button-default-outline-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-button-default-outline-disabled-background: rgb(var(--sl-color-palette-neutral-700));
+  --sl-color-button-default-outline-disabled-border: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-button-default-outline-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-button-default-outline-disabled-background: rgba(
+    var(--sl-color-palette-white-base),
+    var(--sl-opacity-100)
+  );
   --sl-color-button-default-outline-focus-border: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-default-outline-focus-foreground: rgb(var(--sl-color-palette-white-base));
-  --sl-color-button-default-outline-focus-background: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-button-default-outline-focus-background: rgba(var(--sl-color-palette-white-base), var(--sl-opacity-100));
   --sl-color-button-default-outline-active-border: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-default-outline-active-foreground: rgb(var(--sl-color-palette-white-base));
-  --sl-color-button-default-outline-active-background: rgb(var(--sl-color-palette-primary-700));
+  --sl-color-button-default-outline-active-background: rgba(var(--sl-color-palette-white-base), var(--sl-opacity-500));
   --sl-color-button-default-outline-hover-border: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-default-outline-hover-foreground: rgb(var(--sl-color-palette-white-base));
-  --sl-color-button-default-outline-hover-background: rgb(var(--sl-color-palette-primary-800));
+  --sl-color-button-default-outline-hover-background: rgba(var(--sl-color-palette-white-base), var(--sl-opacity-300));
   --sl-color-button-default-outline-idle-border: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-default-outline-idle-foreground: rgb(var(--sl-color-palette-white-base));
-  --sl-color-button-default-outline-idle-background: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-button-default-outline-idle-background: rgba(var(--sl-color-palette-white-base), var(--sl-opacity-100));
   --sl-color-button-default-default-disabled-border: rgb(var(--sl-color-palette-neutral-700));
   --sl-color-button-default-default-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-button-default-default-disabled-background: rgb(var(--sl-color-palette-neutral-700));

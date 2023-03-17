@@ -19,7 +19,7 @@
         "default": {
           "idle": {
             "background": {
-              "value": "{color.palette.primary.base}",
+              "value": "rgba({color.palette.primary.50},{opacity.200})",
               "type": "color",
               "description": "color.button.default.idle.background",
               "failedToResolve": true
@@ -31,7 +31,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "rgba({color.palette.primary.50},{opacity.transparent})",
               "type": "color",
               "description": "color.button.default.idle.border",
               "failedToResolve": true
@@ -39,7 +39,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.primary.800}",
+              "value": "rgba({color.palette.primary.50},{opacity.400})",
               "type": "color",
               "description": "color.button.default.hover.background",
               "failedToResolve": true
@@ -51,7 +51,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.800}",
+              "value": "rgba({color.palette.primary.50},{opacity.transparent})",
               "type": "color",
               "description": "color.button.default.hover.border",
               "failedToResolve": true
@@ -59,7 +59,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.primary.700}",
+              "value": "rgba({color.palette.primary.50},{opacity.600})",
               "type": "color",
               "description": "color.button.default.active.background",
               "failedToResolve": true
@@ -71,7 +71,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.700}",
+              "value": "rgba({color.palette.primary.50},{opacity.transparent})",
               "type": "color",
               "description": "color.button.default.active.border",
               "failedToResolve": true
@@ -79,7 +79,7 @@
           },
           "focus": {
             "background": {
-              "value": "{color.palette.primary.base}",
+              "value": "rgba({color.palette.primary.50},{opacity.200})",
               "type": "color",
               "description": "color.button.default.focus.background",
               "failedToResolve": true
@@ -91,7 +91,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.info.base}",
               "type": "color",
               "description": "color.button.default.focus.border",
               "failedToResolve": true
@@ -99,19 +99,19 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.neutral.700}",
+              "value": "{color.palette.neutral.800}",
               "type": "color",
               "description": "color.button.default.disabled.background",
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.neutral.300}",
               "type": "color",
               "description": "color.button.default.disabled.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.neutral.700}",
+              "value": "rgba({color.palette.primary.50},{opacity.transparent})",
               "type": "color",
               "description": "color.button.default.disabled.border",
               "failedToResolve": true
@@ -2148,7 +2148,7 @@
         "y": 0,
         "blur": 0,
         "spread": 3,
-        "color": "rgba({color.palette.info.300},{opacity.800})",
+        "color": "rgba({color.palette.info.base},{opacity.700})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

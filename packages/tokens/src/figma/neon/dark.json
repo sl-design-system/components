@@ -104,7 +104,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.primary.base}",
+              "value": "rgba({color.palette.white.base},{opacity.100})",
               "type": "color",
               "description": "color.button.default.outline.idle.background"
             },
@@ -121,7 +121,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.primary.800}",
+              "value": "rgba({color.palette.white.base},{opacity.300})",
               "type": "color",
               "description": "color.button.default.outline.hover.background"
             },
@@ -138,7 +138,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.primary.700}",
+              "value": "rgba({color.palette.white.base},{opacity.500})",
               "type": "color",
               "description": "color.button.default.outline.active.background"
             },
@@ -155,7 +155,7 @@
           },
           "focus": {
             "background": {
-              "value": "{color.palette.primary.base}",
+              "value": "rgba({color.palette.white.base},{opacity.100})",
               "type": "color",
               "description": "color.button.default.focus.background"
             },
@@ -172,17 +172,17 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.neutral.700}",
+              "value": "rgba({color.palette.white.base},{opacity.100})",
               "type": "color",
               "description": "color.button.info.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.neutral.300}",
               "type": "color",
               "description": "color.button.info.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.neutral.300}",
               "type": "color",
               "description": "color.button.info.outline.disabled.border"
             }

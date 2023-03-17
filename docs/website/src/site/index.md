@@ -177,7 +177,7 @@ Components
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/design-tokens/" aria-labelledby="tokensParagraph">
+<a href="/categories/design-tokens/color" aria-labelledby="tokensParagraph">
 Design tokens
 </a>
 </div>
@@ -454,7 +454,7 @@ Get in touch {.ds-heading-1}
 Slack channel
 </a>
 
-<a class="ds-contact-block__link ds-contact-block__question" href="mailto:support@sanomalearning.design">
+<a class="ds-contact-block__link ds-contact-block__question" href="mailto:sldesignsystem@sanoma.com">
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="none">
 <path fill="#36F" d="M5.875 7c0-.344.25-.625.625-.625.344 0 .625.281.625.625a.627.627 0 0 1-.625.625A.608.608 0 0 1 5.875 7Zm.094-4.75h.937c.813 0 1.5.688 1.5 1.5 0 .563-.312 1.063-.844 1.313l-.593.312V5.5c0 .281-.219.5-.5.5-.25 0-.5-.219-.5-.5v-.438a.49.49 0 0 1 .281-.437l.875-.438c.156-.093.281-.25.281-.437 0-.281-.218-.5-.5-.5H5.97a.414.414 0 0 0-.407.406c0 .281-.218.5-.5.5a.494.494 0 0 1-.5-.5A1.4 1.4 0 0 1 5.97 2.25ZM11 10H7l-3.406 1.938C3.5 12 3.438 12 3.375 12 3.156 12 3 11.875 3 11.625V10H2c-1.125 0-2-.875-2-2V2C0 .906.875 0 2 0h9c1.094 0 2 .906 2 2v6c0 1.125-.906 2-2 2Zm0-1.5c.25 0 .5-.219.5-.5V2c0-.25-.25-.5-.5-.5H2c-.281 0-.5.25-.5.5v6c0 .281.219.5.5.5h2.5v1.219L6.594 8.5H11ZM9.5 11v1c0 .281.219.5.5.5h3.375l2.125 1.219V12.5H18c.25 0 .5-.219.5-.5V6c0-.25-.25-.5-.5-.5h-4V4h4c1.094 0 2 .906 2 2v6c0 1.125-.906 2-2 2h-1v1.625c0 .25-.188.375-.375.375-.094 0-.156 0-.25-.063L13 14h-3c-1.125 0-2-.875-2-2v-1h1.5Z"/>
 </svg>

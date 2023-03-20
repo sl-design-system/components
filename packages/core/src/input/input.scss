@@ -1,9 +1,13 @@
 $sizes: md, lg;
 $variants: default, valid, invalid; // TODO: what about readonly?
-$states: idle, hover, active, focus, disabled; // TODO: what about readonly?
+$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+//$states: default, hover, active, focus, disabled; // TODO: what about readonly?
+
+// TODO: default instead of enable?
+// TODO: with value and with placeholder filled/unfilled?
 
 :host {
-  --_border-color: var(--sl-color-text-field-default-enable-border); //#d3d3d3;
+  //--_border-color: var(--sl-color-text-field-default-enable-border); //#d3d3d3;
   //--_border-radius: 3px;
   --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
@@ -41,6 +45,7 @@ slot[name='input']::slotted(input) {
   color: inherit;
   flex: 1;
   font: inherit;
+  font-size: var(--_font-size);
   //line-height: 24px;
   line-height: var(--_line-height);
   margin: 0;
@@ -54,6 +59,7 @@ slot[name='input']::slotted(input) {
 }
 
 .wrapper {
+  background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
@@ -81,6 +87,7 @@ slot[name='input']::slotted(input) {
       //var(--sl-space-text-field-inline-#{$size})
       //var(--sl-space-text-field-block-#{$size})
       //var(--sl-space-text-field-inline-#{$size});
+      --_font-size: var(--sl-text-typeset-font-size-#{$size});
     }
 
     .wrapper {
@@ -96,8 +103,77 @@ slot[name='input']::slotted(input) {
 
 // TODO: styles for different states
 @each $variant in $variants {
-  :host(:where(:#{$variant}, [state--invalid])) {
+  //@each $state in $states {
+  $i: index($variants, $variant);
+  $variant-selector: nth($variant-selectors, $i);
+
+  //@debug $variant;
+  //@debug $variant-selector;
+
+  //:host(:where(:#{$variant}, [#{$variant}], [state--invalid])) {
+  //  :host(:where(:#{$variant-selector}, [#{$variant-selector}])) {
+  :host(#{$variant-selector}) {
     // :host(:where(:--invalid, [state--invalid]))
-    --_border-color: var(--sl-color-text-field-#{$variant}-default-border); //#c00;
+    --_border-color: var(
+      --sl-color-text-field-#{$variant}-default-border
+    ); //var(--sl-color-text-field-default-enable-border); //var(--sl-color-text-field-#{$variant}-#{$state}-border); //#c00;
+    //--sl-color-text-field-default-enable-border
+
+    .wrapper {
+      --_background: var(--sl-color-text-field-#{$variant}-default-background);
+    }
+  }
+  //}
+
+  //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):hover) {
+  :host(#{$variant-selector}:hover) {
+    //--_background: var(--sl-color-input-#{$variant}-#{$state}-hover-background);
+    --_border-color: var(--sl-color-text-field-#{$variant}-hover-border);
+    //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-hover-label);
+    //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-hover-icon);
+
+    .wrapper {
+      --_background: var(--sl-color-text-field-#{$variant}-hover-background);
+    }
+  }
+
+  //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):active) {
+  :host(#{$variant-selector}:active) {
+    //--_background: var(--sl-color-input-#{$variant}-#{$state}-active-background);
+    //--_border-color: var(--sl-color-input-#{$variant}-#{$state}-active-border);
+    --_border-color: var(--sl-color-text-field-#{$variant}-active-border);
+    //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
+    //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
+
+    .wrapper {
+      --_background: var(--sl-color-text-field-#{$variant}-active-background);
+    }
+  }
+
+  //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):focus-visible) { // :focus-within
+  :host(#{$variant-selector}:focus-within) {
+    //--_background: var(--sl-color-input-#{$variant}-#{$state}-focus-background);
+    //--_border-color: var(--sl-color-input-#{$variant}-#{$state}-focus-border);
+    --_border-color: var(--sl-color-text-field-#{$variant}-focus-border);
+    //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
+    //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
+    //--_box-shadow: var(--sl-box-shadow-focus);
+
+    .wrapper {
+      --_background: var(--sl-color-text-field-#{$variant}-focus-background);
+    }
+  }
+
+  //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid])[disabled]) {
+  :host(#{$variant-selector}[disabled]) {
+    //--_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
+    //--_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
+    --_border-color: var(--sl-color-text-field-#{$variant}-disabled-border);
+    //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);
+    //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-disabled-icon);
+
+    .wrapper {
+      --_background: var(--sl-color-text-field-#{$variant}-disabled-background);
+    }
   }
 }

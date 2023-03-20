@@ -63,13 +63,15 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
    * The input type. Only text types are valid here. For other types,
    * see their respective components.
    */
-  @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text';
+  @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text'; // TODO: password type in the future as separated component?
 
   /** Custom validators specified by the user. */
   @property({ attribute: false }) validators?: Validator[];
 
   /** The value for the input. */
   @property() value?: string;
+
+  // TODO: invalid state?
 
   override connectedCallback(): void {
     super.connectedCallback();

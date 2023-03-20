@@ -190,6 +190,7 @@ $short-transition-timing: 200ms;
 
 .ds-sidebar-nav {
   background: var(--second-background-color);
+  box-shadow: var(--sidebar-border);
   display: flex;
   flex-direction: column;
   margin-bottom: 6.4rem;
@@ -443,6 +444,7 @@ $short-transition-timing: 200ms;
   }
 
   .ds-sidebar {
+    box-shadow: var(--sidebar-border);
     left: 0;
     transform: translateX(0);
     transition: transform 400ms;

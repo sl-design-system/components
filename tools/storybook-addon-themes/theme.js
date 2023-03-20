@@ -1,21 +1,13 @@
 let baseStyles, variantStyles, fonts;
 
-export const updateTheme = (theme) => {
-  console.log('updateTheme');
-  const [id, variant] = theme.id.split('/');
-  
+export const updateTheme = (theme,mode='light') => {
   baseStyles ??= document.head.appendChild(document.createElement('link'));
-  baseStyles.href = `/themes/${id}/base.css`;
+  baseStyles.href = `/themes/${theme.id}/base.css`;
   baseStyles.rel = 'stylesheet';
 
-  if (variant) {
-    variantStyles ??= document.head.appendChild(document.createElement('link'));
-    variantStyles.href = `/themes/${id}/${variant}.css`;
-    variantStyles.rel = 'stylesheet';
-  } else {
-    variantStyles?.remove();
-    variantStyles = undefined;
-  }
+  variantStyles ??= document.head.appendChild(document.createElement('link'));
+  variantStyles.href = `/themes/${theme.id}/${mode}.css`;
+  variantStyles.rel = 'stylesheet';
 
   if (theme?.fonts) {
     if (fonts?.length !== theme.fonts.length) {

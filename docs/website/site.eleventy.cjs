@@ -32,6 +32,50 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter('search', searchFilter);
 
+  eleventyConfig.addLiquidFilter("tokenName",  function(value) {
+    const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
+    return `--sl-${newValue?.replaceAll('.', '-')}`;
+  });
+
+  eleventyConfig.addLiquidFilter("tokenDescription",  function(value) {
+    const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
+    return newValue?.replaceAll('.', ' ');
+  });
+
+  eleventyConfig.addLiquidFilter("hasNoUnit",  function(value) {
+    const lastCharacter = (value.toString())?.slice(-1);
+    return /[0-9]/.test(lastCharacter);
+  });
+
+  eleventyConfig.addLiquidFilter("notContainsIconValue",  function(value) {
+    return value?.indexOf('icon') === -1;
+  });
+
+  eleventyConfig.addLiquidFilter("fontWeight",  function(value) {
+    if (!value) {
+      return;
+    }
+    let weight;
+
+    switch(value) {
+      case "Regular":
+        weight = "400";
+        break;
+      case "SemiBold":
+        weight = "600";
+        break;
+      case "DemiBold":
+        weight = "600";
+        break;
+      case "Bold":
+        weight = "700";
+        break;
+      default:
+        weight = value;
+    }
+    return weight;
+  });
+
   eleventyConfig.addCollection('content', collection => {
     return [...collection.getFilteredByGlob('./src/site/categories/**/*.md')];
   });
@@ -75,7 +119,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig
     .addPassthroughCopy({ './src/shared/assets': 'assets' })
     .addPassthroughCopy('./src/site/assets')
-    .addPassthroughCopy({ './../../packages/tokens/src/themes/sanoma-learning': `styles/slds-sanoma-learning` });
+    .addPassthroughCopy({ './../../packages/tokens/src/themes/sanoma-learning': `styles/slds-sanoma-learning` })
+    .addPassthroughCopy({ './../../packages/tokens/src/themes/sanoma-learning/*.json': `_data` });
 
   const NOT_FOUND_PATH = `${outputFolder}/site/404.html`;
 
@@ -138,6 +183,7 @@ module.exports = function(eleventyConfig) {
     dir: {
       input: 'src/site',
       output: `${outputFolder}/site`,
+      data: '_data',
     },
     passthroughFileCopy: true,
     templateFormats: ["html", "njk", "md", "11ty.js"],

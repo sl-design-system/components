@@ -3,9 +3,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
+import { FormControlMixin } from '../utils/mixins/form-control.js';
 import styles from './radio.scss.js';
 
-export class Radio extends LitElement {
+export type RadioButtonSize = 'md' | 'lg';
+
+export class Radio extends FormControlMixin(LitElement) {
+  /** @private */
+  static formAssociated = true;
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -19,18 +25,19 @@ export class Radio extends LitElement {
   readonly internals = this.attachInternals();
 
   /** Whether the radio is selected. */
-  @property({ type: Boolean, reflect: true }) checked = false;
-
-  /** Wether this radio is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** The value for this radio button. */
   @property() value = '';
+
+  /** Button size. */
+  @property({ reflect: true }) size: RadioButtonSize = 'md';
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.internals.role = 'radio';
+    this.setFormControlElement(this);
 
     // Move this to a new `FocusableMixin`
     if (!this.hasAttribute('tabindex')) {
@@ -54,8 +61,16 @@ export class Radio extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div class="control"></div>
-      <slot></slot>
+      <div class="box">
+        ${this.checked
+          ? html`<svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="6"></circle>
+            </svg>`
+          : html`<svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24"></svg>`}
+      </div>
+      <span class="label">
+        <slot></slot>
+      </span>
     `;
   }
 

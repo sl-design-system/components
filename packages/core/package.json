@@ -1,7 +1,7 @@
 {
   "name": "@sanomalearning/slds-core",
   "description": "SLDS Core Web Components",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
@@ -20,8 +20,6 @@
     "./button-bar/register.js": "./dist/components/button-bar/register.js",
     "./checkbox": "./dist/components/checkbox/index.js",
     "./checkbox/register.js": "./dist/components/checkbox/register.js",
-    "./checkbox-group": "./dist/components/checkbox-group/index.js",
-    "./checkbox-group/register.js": "./dist/components/checkbox-group/register.js",
     "./dialog": "./dist/components/dialog/index.js",
     "./dialog/register.js": "./dist/components/dialog/register.js",
     "./drawer": "./dist/components/drawer/index.js",

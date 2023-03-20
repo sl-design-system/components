@@ -42,7 +42,7 @@
       ]
     },
     "clean": {
-      "command": "rimraf dist docs/*/dist packages/*/dist"
+      "command": "rimraf --glob dist docs/*/dist packages/*/dist"
     },
     "docs": {
       "dependencies": [
@@ -65,7 +65,7 @@
       ]
     },
     "reset": {
-      "command": "rimraf \"**/.wireit\""
+      "command": "rimraf --glob \"**/.wireit\""
     },
     "test": {
       "dependencies": [

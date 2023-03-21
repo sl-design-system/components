@@ -21,8 +21,8 @@ export const updateTheme = (theme,mode='light') => {
     });
   }
 
-  console.log('setup theme after change?', theme.name, theme.setup);
-  theme.setup();
-  console.log('theme has been setup');
+  theme?.setup();
+  // console.log('theme.setup() in theme.js');
+  // theme.setup(icons);
 };
 

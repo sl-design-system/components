@@ -19,22 +19,22 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "build:ts"
-      ]
-    },
-    "build:lint": {
-      "command": "eslint --fix \"./icons.ts\"",
-      "dependencies": [
         "build:icons"
-      ],
-      "files": [
-        "icons.ts"
       ]
     },
     "build:ts": {
       "command": "tsc -b ../../../tsconfig.build.json --force",
       "dependencies": [
         "build:lint"
+      ],
+      "files": [
+        "icons.ts"
+      ]
+    },
+    "build:lint": {
+      "command": "eslint --fix \"./icons.ts\"",
+      "dependencies": [
+        "build:icons"
       ],
       "files": [
         "icons.ts"

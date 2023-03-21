@@ -1,9 +1,8 @@
-import { setup as setupSL } from '@sanomalearning/slds-sanoma-learning';
-import { setup as setupMagister } from '@sanomalearning/slds-magister';
+import { setup } from '@sanomalearning/slds-sanoma-learning';
 import { withTheme } from './decorator.js';
 import { updateTheme } from './theme.js';
 
-console.log({setupMagister});
+
 export const decorators = [withTheme];
 export const globalTypes = {
   mode: {
@@ -70,9 +69,11 @@ export const globals = {
       id: 'magister',
       name: 'Magister',
       color: '#1f97f9',
-      fonts: ['https://use.typekit.net/zkq0zzv.css',
-      '/themes/sanoma-learning/fonts.css'],
-      setup: ()=>console.log(setupMagister)
+      fonts: [
+        'https://use.typekit.net/zkq0zzv.css',
+        '/themes/sanoma-learning/fonts.css'
+      ],
+      setup
     },
     {
       id: 'max',
@@ -94,10 +95,12 @@ export const globals = {
         'https://use.typekit.net/kes1hoh.css',
         '/themes/sanoma-learning/fonts.css'
       ],
-      setup: ()=>setupSL()
+      setup
     },
   ],
   selectedTheme: 'sanoma-learning'
 };
 
 updateTheme(globals.themes.find(t => t.id === globals.selectedTheme));
+
+

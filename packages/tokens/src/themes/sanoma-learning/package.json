@@ -19,7 +19,7 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "build:ts"
+        "build:icons"
       ]
     },
     "build:ts": {
@@ -63,7 +63,6 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
-    "@fortawesome/pro-regular-svg-icons": "^6.3.0",
-    "@sanomalearning/slds-core": "*"
+    "@fortawesome/pro-regular-svg-icons": "^6.3.0"
   }
 }

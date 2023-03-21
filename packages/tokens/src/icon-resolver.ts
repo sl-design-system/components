@@ -17,7 +17,6 @@ export const resolveIcon = (
   icons: { [key: string]: SLIconDefinition | CustomIconDefinition }
 ): string => {
   // 2. Get the supported icons from `icons.[json|ts]`?
-  console.log(name, icons);
 
   // 3. Return the matching `<path>`
   const iconInRegistry: SLIconDefinition | CustomIconDefinition = Object.entries(icons).find(

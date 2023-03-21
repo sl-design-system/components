@@ -2601,24 +2601,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint-community/eslint-utils@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "@eslint-community/eslint-utils@npm:4.2.0"
-  dependencies:
-    eslint-visitor-keys: ^3.3.0
-  peerDependencies:
-    eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
-  checksum: 7877b963583586b7885a57e3b59fa58363fbb06a9b752e22721f98fbed906fbb412521bd54a1f6597b4123663a23e907fba8ba74807008f5148c16d8db13a945
-  languageName: node
-  linkType: hard
-
-"@eslint-community/regexpp@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "@eslint-community/regexpp@npm:4.4.0"
-  checksum: 30405709bb9db00877469d9b42f09d4824381e7d3c6715d6738f8914a4958855ea0e339e037816f9f5e14c0d9fabc566356bd31e1355f560e775b30ddecad047
-  languageName: node
-  linkType: hard
-
 "@eslint/eslintrc@npm:^2.0.0":
   version: 2.0.0
   resolution: "@eslint/eslintrc@npm:2.0.0"
@@ -2636,34 +2618,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@eslint/eslintrc@npm:2.0.1"
-  dependencies:
-    ajv: ^6.12.4
-    debug: ^4.3.2
-    espree: ^9.5.0
-    globals: ^13.19.0
-    ignore: ^5.2.0
-    import-fresh: ^3.2.1
-    js-yaml: ^4.1.0
-    minimatch: ^3.1.2
-    strip-json-comments: ^3.1.1
-  checksum: 6e0b7345b72a8992c71de17356891145e406ae0e76ebdc8af00d9311c532ca3291b27bda60e4aa2b7d2a4927f149b894b22f56c35b6979456d51470e7cd5db91
-  languageName: node
-  linkType: hard
-
 "@eslint/js@npm:8.35.0":
   version: 8.35.0
   resolution: "@eslint/js@npm:8.35.0"
   checksum: e815be9a5871f95b3875e6568e0f2c7467b2cc89905c05b6120323d760d649791cf4d223e61504c09c368547fe0b17ba8f6dd4a1b1a649ac66881d77f26ae269
-  languageName: node
-  linkType: hard
-
-"@eslint/js@npm:8.36.0":
-  version: 8.36.0
-  resolution: "@eslint/js@npm:8.36.0"
-  checksum: b3af74e002069ee6e07bcbd7331e891234e7fb55fe2147d99125a63dfdc0e79282d333cefad1264bdf734b8ae9fde4e1ae6fb88bae79b235aa352ac28524e83f
   languageName: node
   linkType: hard
 
@@ -3205,52 +3163,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@messageformat/core@npm:^3.0.1":
-  version: 3.1.0
-  resolution: "@messageformat/core@npm:3.1.0"
-  dependencies:
-    "@messageformat/date-skeleton": ^1.0.0
-    "@messageformat/number-skeleton": ^1.0.0
-    "@messageformat/parser": ^5.0.0
-    "@messageformat/runtime": ^3.0.1
-    make-plural: ^7.0.0
-    safe-identifier: ^0.4.1
-  checksum: b69f5b08d8686b63aabc21d9f8f4545c574b1a21a5154c18c4a78d0e9c714b0beda126b113cf2ef142e5a67c383f7d8022ac87259057ccbdc02d119416cede88
-  languageName: node
-  linkType: hard
-
-"@messageformat/date-skeleton@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "@messageformat/date-skeleton@npm:1.0.1"
-  checksum: 13012febbe357047b562895688262134f4e68aee0467fc64cc40fbf46da88c805e49f92e8d23f4c20a8c4c6dd1195ae8f4f6b12deb989ec8301534824cfa0f50
-  languageName: node
-  linkType: hard
-
-"@messageformat/number-skeleton@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "@messageformat/number-skeleton@npm:1.1.0"
-  checksum: 7442c1755c1103c89fceee2a0e73cb8010f87304f8dfe7020debc599336fa0d35ac1132a83aba3e8755b643491cf81a1266231395e580a9b19799640932ab8de
-  languageName: node
-  linkType: hard
-
-"@messageformat/parser@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "@messageformat/parser@npm:5.0.0"
-  dependencies:
-    moo: ^0.5.1
-  checksum: 701dd3594fb28b0d5bee267ece58940b85ce2e34d38e615fb39bf7fa99036986abd113666fbf6ff94163ff513fc183902a99e383b250e9ed80c2b90feacfcefb
-  languageName: node
-  linkType: hard
-
-"@messageformat/runtime@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@messageformat/runtime@npm:3.0.1"
-  dependencies:
-    make-plural: ^7.0.0
-  checksum: a236279da66a138f7860d4a190070b00d752cc5b5aed877ec3b0f6dce708e7e3bd5b290e4f4ec30b97a4213f069fb70dbda9af49f849a106da227d41a9e19581
-  languageName: node
-  linkType: hard
-
 "@ndelangen/get-tarball@npm:^3.0.7":
   version: 3.0.7
   resolution: "@ndelangen/get-tarball@npm:3.0.7"
@@ -3469,28 +3381,6 @@ __metadata:
     tiny-glob: ^0.2.9
     tslib: ^2.4.0
   checksum: 50c2480c3580c0f75b9325271deeb4f4cb24f6a29f1ebc5a7de0c6991380e23625fd554ecdbc7d7e93ad6dab92532a254f7490433cf2b8f1b18d75c9e01636ea
-  languageName: node
-  linkType: hard
-
-"@prettier/eslint@npm:prettier-eslint@^15.0.1":
-  version: 15.0.1
-  resolution: "prettier-eslint@npm:15.0.1"
-  dependencies:
-    "@types/eslint": ^8.4.2
-    "@types/prettier": ^2.6.0
-    "@typescript-eslint/parser": ^5.10.0
-    common-tags: ^1.4.0
-    dlv: ^1.1.0
-    eslint: ^8.7.0
-    indent-string: ^4.0.0
-    lodash.merge: ^4.6.0
-    loglevel-colored-level-prefix: ^1.0.0
-    prettier: ^2.5.1
-    pretty-format: ^23.0.1
-    require-relative: ^0.8.7
-    typescript: ^4.5.4
-    vue-eslint-parser: ^8.0.1
-  checksum: 7354645e5689eb68c4e03ba6b654c78ecfaba762977bcdaec4552d358a4c270c01b0ff0183897f967734d3cfab063e07415e18e9e64c301ab92200b042baf0a9
   languageName: node
   linkType: hard
 
@@ -3823,7 +3713,6 @@ __metadata:
   dependencies:
     "@fortawesome/fontawesome-svg-core": ^6.3.0
     "@fortawesome/pro-regular-svg-icons": ^6.3.0
-    "@sanomalearning/slds-core": "*"
   languageName: unknown
   linkType: soft
 
@@ -3860,7 +3749,6 @@ __metadata:
     "@figma-export/cli": ^4.5.0
     "@figma-export/output-components-as-svg": ^4.5.0
     "@figma-export/transform-svg-with-svgo": ^4.5.0
-    prettier-eslint-cli: ^7.1.0
     rimraf: ^4.2.0
     sass: ^1.58.3
     style-dictionary: ^3.7.2
@@ -5362,16 +5250,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^8.4.2":
-  version: 8.21.2
-  resolution: "@types/eslint@npm:8.21.2"
-  dependencies:
-    "@types/estree": "*"
-    "@types/json-schema": "*"
-  checksum: 1a67d137898ceb0fa388bbc66a6736c56b771e0978f8b3859a53b948a8daaa959d1275b449ec38d62ecbcfd68c35008a2c8a603bce720872433258244c97fb1f
-  languageName: node
-  linkType: hard
-
 "@types/estree-jsx@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/estree-jsx@npm:1.0.0"
@@ -5719,13 +5597,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^2.6.0":
-  version: 2.7.2
-  resolution: "@types/prettier@npm:2.7.2"
-  checksum: 16ffbd1135c10027f118517d3b12aaaf3936be1f3c6e4c6c9c03d26d82077c2d86bf0dcad545417896f29e7d90faf058aae5c9db2e868be64298c644492ea29e
-  languageName: node
-  linkType: hard
-
 "@types/pretty-hrtime@npm:^1.0.0":
   version: 1.0.1
   resolution: "@types/pretty-hrtime@npm:1.0.1"
@@ -6005,23 +5876,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.10.0":
-  version: 5.55.0
-  resolution: "@typescript-eslint/parser@npm:5.55.0"
-  dependencies:
-    "@typescript-eslint/scope-manager": 5.55.0
-    "@typescript-eslint/types": 5.55.0
-    "@typescript-eslint/typescript-estree": 5.55.0
-    debug: ^4.3.4
-  peerDependencies:
-    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 60b105fdbcac7a9cb319293fef3963b8875891f6b4b88995a797a62792fd1616c3a1393e9d1c018220b48877e9e20a08eefcce5cb0ce2f1dfc2194426fb8086e
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/parser@npm:^5.54.0":
   version: 5.54.0
   resolution: "@typescript-eslint/parser@npm:5.54.0"
@@ -6056,16 +5910,6 @@ __metadata:
     "@typescript-eslint/types": 5.54.0
     "@typescript-eslint/visitor-keys": 5.54.0
   checksum: b3e48219c68a02d91c672c66c66d82f6fde7c65dae6b795f4dc4e43ee8a1de545f8cd515885fd671b173c6e4d4aa1446b899dd3f536f5778c76bf37f1e2fd5bb
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/scope-manager@npm:5.55.0":
-  version: 5.55.0
-  resolution: "@typescript-eslint/scope-manager@npm:5.55.0"
-  dependencies:
-    "@typescript-eslint/types": 5.55.0
-    "@typescript-eslint/visitor-keys": 5.55.0
-  checksum: 1efd4594f29a32f4a35479af45a9404b91b370ec3cdaeb5b07d31d95964d276d1d9615283978921e26e926c9105bfabe8ef053d22fd2a1570306276d3647336c
   languageName: node
   linkType: hard
 
@@ -6117,13 +5961,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:5.55.0":
-  version: 5.55.0
-  resolution: "@typescript-eslint/types@npm:5.55.0"
-  checksum: d5eb71df4bdba4e9b3faf5bd4c7f64bceef0001ca83b2596a796d5c12f61070713788e5861ed424d012a5c3cdc175fd7b130acb33b1ca9b5fae77932088c87bf
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/typescript-estree@npm:5.48.1":
   version: 5.48.1
   resolution: "@typescript-eslint/typescript-estree@npm:5.48.1"
@@ -6157,24 +5994,6 @@ __metadata:
     typescript:
       optional: true
   checksum: e3f7d0c387d62c0e9c111f6de34d6a30e2207a23469335460776380b94dcb7eb10e64d5619473459bc7d4009847b95f7471bc7f292250b2c47b92465e22fd181
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/typescript-estree@npm:5.55.0":
-  version: 5.55.0
-  resolution: "@typescript-eslint/typescript-estree@npm:5.55.0"
-  dependencies:
-    "@typescript-eslint/types": 5.55.0
-    "@typescript-eslint/visitor-keys": 5.55.0
-    debug: ^4.3.4
-    globby: ^11.1.0
-    is-glob: ^4.0.3
-    semver: ^7.3.7
-    tsutils: ^3.21.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 6b7a41a5425f1a6a018139a76b5c583516d64e4c055f2c37436ad97ae8abcd22671962a8bd30b5c60be2e64b9501c36acf5b5ad43d4a8416acccedac43247d20
   languageName: node
   linkType: hard
 
@@ -6231,16 +6050,6 @@ __metadata:
     "@typescript-eslint/types": 5.54.0
     eslint-visitor-keys: ^3.3.0
   checksum: cfcff6b2b42a5b3b4865d84ce45263d4c6ee3551dff6250c67ba27d14ab5f040466d9f4aec77b1682cf9e2c554ee43ac70a94cc2a209b65b46a16e908780147f
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:5.55.0":
-  version: 5.55.0
-  resolution: "@typescript-eslint/visitor-keys@npm:5.55.0"
-  dependencies:
-    "@typescript-eslint/types": 5.55.0
-    eslint-visitor-keys: ^3.3.0
-  checksum: c2ec2cbab7fddff4a55c381e32b1e1b6893ecd77440fa830ba13de920472e1fd48128ddbf4ab6022d13d7721c695685498915f20cd1146a7dd72287777233ba1
   languageName: node
   linkType: hard
 
@@ -6916,20 +6725,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-regex@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "ansi-regex@npm:3.0.1"
-  checksum: d108a7498b8568caf4a46eea4f1784ab4e0dfb2e3f3938c697dee21443d622d765c958f2b7e2b9f6b9e55e2e2af0584eaa9915d51782b89a841c28e744e7a167
-  languageName: node
-  linkType: hard
-
-"ansi-regex@npm:^4.1.0":
-  version: 4.1.1
-  resolution: "ansi-regex@npm:4.1.1"
-  checksum: d36d34234d077e8770169d980fed7b2f3724bfa2a01da150ccd75ef9707c80e883d27cdf7a0eac2f145ac1d10a785a8a855cffd05b85f778629a0db62e7033da
-  languageName: node
-  linkType: hard
-
 "ansi-regex@npm:^5.0.1":
   version: 5.0.1
   resolution: "ansi-regex@npm:5.0.1"
@@ -6951,7 +6746,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-styles@npm:^3.2.0, ansi-styles@npm:^3.2.1":
+"ansi-styles@npm:^3.2.1":
   version: 3.2.1
   resolution: "ansi-styles@npm:3.2.1"
   dependencies:
@@ -7758,13 +7553,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"boolify@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "boolify@npm:1.0.1"
-  checksum: 255b28d587854f5c47073c68d98c1c5b009a6bdcdc163f2793deb8da927ce43e7b8a89b955414c22d0192979f97ece80e953336606cd4de214ffaec19a4e39ed
-  languageName: node
-  linkType: hard
-
 "boxen@npm:^5.1.2":
   version: 5.1.2
   resolution: "boxen@npm:5.1.2"
@@ -8209,18 +7997,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase-keys@npm:^7.0.2":
-  version: 7.0.2
-  resolution: "camelcase-keys@npm:7.0.2"
-  dependencies:
-    camelcase: ^6.3.0
-    map-obj: ^4.1.0
-    quick-lru: ^5.1.1
-    type-fest: ^1.2.1
-  checksum: ae86a51168643e9e8a2f2c7bfa17850729979ec3dafc5253056a7d97931cbb0e3ef5b4185e59d54b7a56c54405dee2874b0c82033498d8626e512ff9034cb05c
-  languageName: node
-  linkType: hard
-
 "camelcase@npm:^5.0.0, camelcase@npm:^5.3.1":
   version: 5.3.1
   resolution: "camelcase@npm:5.3.1"
@@ -8228,7 +8004,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase@npm:^6.2.0, camelcase@npm:^6.3.0":
+"camelcase@npm:^6.2.0":
   version: 6.3.0
   resolution: "camelcase@npm:6.3.0"
   checksum: 0d701658219bd3116d12da3eab31acddb3f9440790c0792e0d398f0a520a6a4058018e546862b6fba89d7ae990efaeb97da71e1913e9ebf5a8b5621a3d55c710
@@ -8631,17 +8407,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cliui@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "cliui@npm:5.0.0"
-  dependencies:
-    string-width: ^3.1.0
-    strip-ansi: ^5.2.0
-    wrap-ansi: ^5.1.0
-  checksum: 76142bf306965850a71efd10c9755bd7f447c7c20dd652e1c1ce27d987f862a3facb3cceb2909cef6f0cb363646ee7a1735e3dfdd49f29ed16d733d33e15e2f8
-  languageName: node
-  linkType: hard
-
 "cliui@npm:^6.0.0":
   version: 6.0.0
   resolution: "cliui@npm:6.0.0"
@@ -8906,13 +8671,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"common-tags@npm:^1.4.0, common-tags@npm:^1.8.2":
-  version: 1.8.2
-  resolution: "common-tags@npm:1.8.2"
-  checksum: 23efe47ff0a1a7c91489271b3a1e1d2a171c12ec7f9b35b29b2fce51270124aff0ec890087e2bc2182c1cb746e232ab7561aaafe05f1e7452aea733d2bfe3f63
-  languageName: node
-  linkType: hard
-
 "commondir@npm:^1.0.1":
   version: 1.0.1
   resolution: "commondir@npm:1.0.1"
@@ -9163,13 +8921,6 @@ __metadata:
   version: 2.6.12
   resolution: "core-js@npm:2.6.12"
   checksum: 00128efe427789120a06b819adc94cc72b96955acb331cb71d09287baf9bd37bebd191d91f1ee4939c893a050307ead4faea08876f09115112612b6a05684b63
-  languageName: node
-  linkType: hard
-
-"core-js@npm:^3.24.1":
-  version: 3.29.1
-  resolution: "core-js@npm:3.29.1"
-  checksum: e5fb4a18148e76a136b5c90d994715e15ed0e42cf0f073429174204bd119f1ba81dc582fff450e3792b73825cd1fe234ad76f85567ba7943039f5842be02591c
   languageName: node
   linkType: hard
 
@@ -9889,7 +9640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dlv@npm:^1.1.0, dlv@npm:^1.1.3":
+"dlv@npm:^1.1.3":
   version: 1.1.3
   resolution: "dlv@npm:1.1.3"
   checksum: 03eb4e769f19a027fd5b43b59e8a05e3fd2100ac239ebb0bf9a745de35d449e2f25cfaf3aa3934664551d72856f4ae8b7822016ce5c42c2d27c18ae79429ec42
@@ -10170,13 +9921,6 @@ __metadata:
   version: 1.2.3
   resolution: "element-internals-polyfill@npm:1.2.3"
   checksum: c13fe000a02cb4f1fad75f7d36744f72ba80f46b7bf97eb67dae719de591dfe05e14f5ba5952d668b9d259112d970da32c4390d821eb1242171c0f022b4d2d2f
-  languageName: node
-  linkType: hard
-
-"emoji-regex@npm:^7.0.1":
-  version: 7.0.3
-  resolution: "emoji-regex@npm:7.0.3"
-  checksum: a8917d695c3a3384e4b7230a6a06fd2de6b3db3709116792e8b7b36ddbb3db4deb28ad3e983e70d4f2a1f9063b5dab9025e4e26e9ca08278da4fbb73e213743f
   languageName: node
   linkType: hard
 
@@ -11071,7 +10815,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-scope@npm:^7.0.0, eslint-scope@npm:^7.1.1":
+"eslint-scope@npm:^7.1.1":
   version: 7.1.1
   resolution: "eslint-scope@npm:7.1.1"
   dependencies:
@@ -11099,60 +10843,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-visitor-keys@npm:^3.1.0, eslint-visitor-keys@npm:^3.3.0":
+"eslint-visitor-keys@npm:^3.3.0":
   version: 3.3.0
   resolution: "eslint-visitor-keys@npm:3.3.0"
   checksum: fc6a9b5bdee8d90e35e7564fd9db10fdf507a2c089a4f0d4d3dd091f7f4ac6790547c8b1b7a760642ef819f875ef86dd5bcb8cdf01b0775f57a699f4e6a20a18
-  languageName: node
-  linkType: hard
-
-"eslint@npm:^8.21.0, eslint@npm:^8.7.0":
-  version: 8.36.0
-  resolution: "eslint@npm:8.36.0"
-  dependencies:
-    "@eslint-community/eslint-utils": ^4.2.0
-    "@eslint-community/regexpp": ^4.4.0
-    "@eslint/eslintrc": ^2.0.1
-    "@eslint/js": 8.36.0
-    "@humanwhocodes/config-array": ^0.11.8
-    "@humanwhocodes/module-importer": ^1.0.1
-    "@nodelib/fs.walk": ^1.2.8
-    ajv: ^6.10.0
-    chalk: ^4.0.0
-    cross-spawn: ^7.0.2
-    debug: ^4.3.2
-    doctrine: ^3.0.0
-    escape-string-regexp: ^4.0.0
-    eslint-scope: ^7.1.1
-    eslint-visitor-keys: ^3.3.0
-    espree: ^9.5.0
-    esquery: ^1.4.2
-    esutils: ^2.0.2
-    fast-deep-equal: ^3.1.3
-    file-entry-cache: ^6.0.1
-    find-up: ^5.0.0
-    glob-parent: ^6.0.2
-    globals: ^13.19.0
-    grapheme-splitter: ^1.0.4
-    ignore: ^5.2.0
-    import-fresh: ^3.0.0
-    imurmurhash: ^0.1.4
-    is-glob: ^4.0.0
-    is-path-inside: ^3.0.3
-    js-sdsl: ^4.1.4
-    js-yaml: ^4.1.0
-    json-stable-stringify-without-jsonify: ^1.0.1
-    levn: ^0.4.1
-    lodash.merge: ^4.6.2
-    minimatch: ^3.1.2
-    natural-compare: ^1.4.0
-    optionator: ^0.9.1
-    strip-ansi: ^6.0.1
-    strip-json-comments: ^3.1.0
-    text-table: ^0.2.0
-  bin:
-    eslint: bin/eslint.js
-  checksum: 23f88d069079f20d87edd685a419305f69f95f6aacacaa08683589c290c61dfe66b65603e1dff39b0c87f4afc214d9bf4632aa7baed1a604d37aeaefed9c02ba
   languageName: node
   linkType: hard
 
@@ -11206,17 +10900,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"espree@npm:^9.0.0, espree@npm:^9.5.0":
-  version: 9.5.0
-  resolution: "espree@npm:9.5.0"
-  dependencies:
-    acorn: ^8.8.0
-    acorn-jsx: ^5.3.2
-    eslint-visitor-keys: ^3.3.0
-  checksum: f347d2982b909446e4cf0ee7ad29a2907fff2d383a9d6918c259df895ad547a3c75e318b92d73e804593bd9206e5925624d47e7b88b4bc0bae1aef84012fa572
-  languageName: node
-  linkType: hard
-
 "espree@npm:^9.4.0":
   version: 9.4.0
   resolution: "espree@npm:9.4.0"
@@ -11245,15 +10928,6 @@ __metadata:
     esparse: ./bin/esparse.js
     esvalidate: ./bin/esvalidate.js
   checksum: c07e43a78f4711aee4c9514d2672b66cf22a35b93eb7844bc99e511b506cac44d753d75a319c88b556d331adacad9065fcb958dad02faefd27833a7718f75bcd
-  languageName: node
-  linkType: hard
-
-"esquery@npm:^1.4.0":
-  version: 1.5.0
-  resolution: "esquery@npm:1.5.0"
-  dependencies:
-    estraverse: ^5.1.0
-  checksum: a084bd049d954cc88ac69df30534043fb2aee5555b56246493f42f27d1e168f00d9e5d4192e46f10290d312dc30dc7d58994d61a609c579c1219d636996f9213
   languageName: node
   linkType: hard
 
@@ -12468,13 +12142,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-stdin@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "get-stdin@npm:8.0.0"
-  checksum: b71b72b83928221052f713b3b6247ebf1ceaeb4ef76937778557537fd51ad3f586c9e6a7476865022d9394b39b74eed1dc7514052fa74d80625276253571b76f
-  languageName: node
-  linkType: hard
-
 "get-stream@npm:^5.0.0, get-stream@npm:^5.1.0":
   version: 5.2.0
   resolution: "get-stream@npm:5.2.0"
@@ -12616,7 +12283,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^7.0.0, glob@npm:^7.0.5, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.7, glob@npm:^7.2.0, glob@npm:^7.2.3":
+"glob@npm:^7.0.0, glob@npm:^7.0.5, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.7, glob@npm:^7.2.0":
   version: 7.2.3
   resolution: "glob@npm:7.2.3"
   dependencies:
@@ -13958,13 +13625,6 @@ __metadata:
   version: 2.1.1
   resolution: "is-extglob@npm:2.1.1"
   checksum: 5487da35691fbc339700bbb2730430b07777a3c21b9ebaecb3072512dfd7b4ba78ac2381a87e8d78d20ea08affb3f1971b4af629173a6bf435ff8a4c47747912
-  languageName: node
-  linkType: hard
-
-"is-fullwidth-code-point@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "is-fullwidth-code-point@npm:2.0.0"
-  checksum: e58f3e4a601fc0500d8b2677e26e9fe0cd450980e66adb29d85b6addf7969731e38f8e43ed2ec868a09c101a55ac3d8b78902209269f38c5286bc98f5bc1b4d9
   languageName: node
   linkType: hard
 
@@ -15428,14 +15088,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.memoize@npm:^4.1.2":
-  version: 4.1.2
-  resolution: "lodash.memoize@npm:4.1.2"
-  checksum: c8713e51eccc650422716a14cece1809cfe34bc5ab5e242b7f8b4e2241c2483697b971a604252807689b9dd69bfe3a98852e19a5b89d506b000b4187a1285df8
-  languageName: node
-  linkType: hard
-
-"lodash.merge@npm:^4.6.0, lodash.merge@npm:^4.6.2":
+"lodash.merge@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: 402fa16a1edd7538de5b5903a90228aa48eb5533986ba7fa26606a49db2572bf414ff73a2c9f5d5fd36b31c46a5d5c7e1527749c07cbcf965ccff5fbdf32c506
@@ -15498,16 +15151,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loglevel-colored-level-prefix@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "loglevel-colored-level-prefix@npm:1.0.0"
-  dependencies:
-    chalk: ^1.1.3
-    loglevel: ^1.4.1
-  checksum: 00fd732866de326001fa2d9b87166a4fbe41c7e0050bef0d612a8852e0ad09ad3f104aa30311e761d9d75f64d5afb6568e839826900baee0a24b7197012774d3
-  languageName: node
-  linkType: hard
-
 "loglevel-plugin-prefix@npm:^0.8.4":
   version: 0.8.4
   resolution: "loglevel-plugin-prefix@npm:0.8.4"
@@ -15515,7 +15158,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loglevel@npm:^1.4.1, loglevel@npm:^1.8.0":
+"loglevel@npm:^1.8.0":
   version: 1.8.1
   resolution: "loglevel@npm:1.8.1"
   checksum: 21069436c97448a1801b154a77d19ada212225c513d94f0471bfe299c981ffd4dc0d21e6211f9250bd6209ba9837bfe0d40d9295c673d73e3c543ec6b1c5d9ef
@@ -15739,13 +15382,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"make-plural@npm:^7.0.0":
-  version: 7.2.0
-  resolution: "make-plural@npm:7.2.0"
-  checksum: 34708b5df065338aed917f4789c423a69954e96eced14538aea52affb8833ea14a7acf45790f6c9fcd102caaaaa5719ba2a2faa4d1f4e014c5e122189b504045
-  languageName: node
-  linkType: hard
-
 "makeerror@npm:1.0.12":
   version: 1.0.12
   resolution: "makeerror@npm:1.0.12"
@@ -15769,7 +15405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"map-obj@npm:^4.0.0, map-obj@npm:^4.1.0":
+"map-obj@npm:^4.0.0":
   version: 4.3.0
   resolution: "map-obj@npm:4.3.0"
   checksum: 1c19e1c88513c8abdab25c316367154c6a0a6a0f77e3e8c391bb7c0e093aefed293f539d026dc013d86219e5e4c25f23b0003ea588be2101ccd757bacc12d43b
@@ -18857,39 +18493,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-eslint-cli@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "prettier-eslint-cli@npm:7.1.0"
-  dependencies:
-    "@messageformat/core": ^3.0.1
-    "@prettier/eslint": "npm:prettier-eslint@^15.0.1"
-    arrify: ^2.0.1
-    boolify: ^1.0.1
-    camelcase-keys: ^7.0.2
-    chalk: ^4.1.2
-    common-tags: ^1.8.2
-    core-js: ^3.24.1
-    eslint: ^8.21.0
-    find-up: ^5.0.0
-    get-stdin: ^8.0.0
-    glob: ^7.2.3
-    ignore: ^5.2.0
-    indent-string: ^4.0.0
-    lodash.memoize: ^4.1.2
-    loglevel-colored-level-prefix: ^1.0.0
-    rxjs: ^7.5.6
-    yargs: ^13.1.1
-  peerDependencies:
-    prettier-eslint: "*"
-  peerDependenciesMeta:
-    prettier-eslint:
-      optional: true
-  bin:
-    prettier-eslint: dist/index.js
-  checksum: 658c8582153d8f569a6ef7be7a22557f032cd6ebf1d07abc0ceba10388d21372646441ce12b5e4fc6c3383b55ec8883aa9af5b59f378316f9e6ab1795c2bad69
-  languageName: node
-  linkType: hard
-
 "prettier-linter-helpers@npm:^1.0.0":
   version: 1.0.0
   resolution: "prettier-linter-helpers@npm:1.0.0"
@@ -18899,7 +18502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.5.1, prettier@npm:^2.7.1, prettier@npm:^2.8.0, prettier@npm:^2.8.4":
+"prettier@npm:^2.7.1, prettier@npm:^2.8.0, prettier@npm:^2.8.4":
   version: 2.8.4
   resolution: "prettier@npm:2.8.4"
   bin:
@@ -18922,16 +18525,6 @@ __metadata:
     lodash: ^4.17.20
     renderkid: ^3.0.0
   checksum: dc292c087e2857b2e7592784ab31e37a40f3fa918caa11eba51f9fb2853e1d4d6e820b219917e35f5721d833cfd20fdf4f26ae931a90fd1ad0cae2125c345138
-  languageName: node
-  linkType: hard
-
-"pretty-format@npm:^23.0.1":
-  version: 23.6.0
-  resolution: "pretty-format@npm:23.6.0"
-  dependencies:
-    ansi-regex: ^3.0.0
-    ansi-styles: ^3.2.0
-  checksum: fd622184db36747dbf640ab29fec33a95718a92754e16f74b1e290f4a26fc7582e9906017d6c09e3d250b102b29db70c2d9ae874d116904e31e2cf50236401ba
   languageName: node
   linkType: hard
 
@@ -19444,13 +19037,6 @@ __metadata:
   version: 4.0.1
   resolution: "quick-lru@npm:4.0.1"
   checksum: f9b1596fa7595a35c2f9d913ac312fede13d37dc8a747a51557ab36e11ce113bbe88ef4c0154968845559a7709cb6a7e7cbe75f7972182451cd45e7f057a334d
-  languageName: node
-  linkType: hard
-
-"quick-lru@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "quick-lru@npm:5.1.1"
-  checksum: a24cba5da8cec30d70d2484be37622580f64765fb6390a928b17f60cd69e8dbd32a954b3ff9176fa1b86d86ff2ba05252fae55dc4d40d0291c60412b0ad096da
   languageName: node
   linkType: hard
 
@@ -20017,13 +19603,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"require-relative@npm:^0.8.7":
-  version: 0.8.7
-  resolution: "require-relative@npm:0.8.7"
-  checksum: b2d36d20cb849c26fb8134064048162e029ebbf373c915e6d31b2d5caa9e9b599c7b3e70700c019c28c9347369e85ecbcf139956788ece2774d8cb355d24c36f
-  languageName: node
-  linkType: hard
-
 "requires-port@npm:^1.0.0":
   version: 1.0.0
   resolution: "requires-port@npm:1.0.0"
@@ -20326,13 +19905,6 @@ __metadata:
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: 6501914237c0a86e9675d4e51d89ca3c21ffd6a31642efeba25ad65720bce6921c9e7e974e5be91a786b25aa058b5303285d3c15dbabf983a919f5f630d349f3
-  languageName: node
-  linkType: hard
-
-"safe-identifier@npm:^0.4.1":
-  version: 0.4.2
-  resolution: "safe-identifier@npm:0.4.2"
-  checksum: a6b0cdb5347e48c5ea4ddf4cdca5359b12529a11a7368225c39f882fcc0e679c81e82e3b13e36bd27ba7bdec9286f4cc062e3e527464d93ba61290b6e0bc6747
   languageName: node
   linkType: hard
 
@@ -21413,17 +20985,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:^3.0.0, string-width@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "string-width@npm:3.1.0"
-  dependencies:
-    emoji-regex: ^7.0.1
-    is-fullwidth-code-point: ^2.0.0
-    strip-ansi: ^5.1.0
-  checksum: 85fa0d4f106e7999bb68c1c640c76fa69fb8c069dab75b009e29c123914e2d3b532e6cfa4b9d1bd913176fc83dedd7a2d7bf40d21a81a8a1978432cedfb65b91
-  languageName: node
-  linkType: hard
-
 "string-width@npm:^5.0.0":
   version: 5.1.2
   resolution: "string-width@npm:5.1.2"
@@ -21491,15 +21052,6 @@ __metadata:
   dependencies:
     ansi-regex: ^2.0.0
   checksum: f6e7fbe8e700105dccf7102eae20e4f03477537c74b286fd22cfc970f139002ed6f0d9c10d0e21aa9ed9245e0fa3c9275930e8795c5b947da136e4ecb644a70f
-  languageName: node
-  linkType: hard
-
-"strip-ansi@npm:^5.0.0, strip-ansi@npm:^5.1.0, strip-ansi@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "strip-ansi@npm:5.2.0"
-  dependencies:
-    ansi-regex: ^4.1.0
-  checksum: de4658c8a097ce3b15955bc6008f67c0790f85748bdc025b7bc8c52c7aee94bc4f9e50624516150ed173c3db72d851826cd57e7a85fe4e4bb6dbbebd5d297fdf
   languageName: node
   linkType: hard
 
@@ -22391,13 +21943,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^1.2.1":
-  version: 1.4.0
-  resolution: "type-fest@npm:1.4.0"
-  checksum: a3c0f4ee28ff6ddf800d769eafafcdeab32efa38763c1a1b8daeae681920f6e345d7920bf277245235561d8117dab765cb5f829c76b713b4c9de0998a5397141
-  languageName: node
-  linkType: hard
-
 "type-fest@npm:^2.19.0":
   version: 2.19.0
   resolution: "type-fest@npm:2.19.0"
@@ -22454,7 +21999,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^2.9.2 || ^3.0.0 || ^4.0.0, typescript@npm:^4.0.3, typescript@npm:^4.5.4, typescript@npm:^4.6.2, typescript@npm:^4.9.5, typescript@npm:~4.9.5":
+"typescript@npm:^2.9.2 || ^3.0.0 || ^4.0.0, typescript@npm:^4.0.3, typescript@npm:^4.6.2, typescript@npm:^4.9.5, typescript@npm:~4.9.5":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
   bin:
@@ -22484,7 +22029,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^2.9.2 || ^3.0.0 || ^4.0.0#~builtin<compat/typescript>, typescript@patch:typescript@^4.0.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.5.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>, typescript@patch:typescript@~4.9.5#~builtin<compat/typescript>":
+"typescript@patch:typescript@^2.9.2 || ^3.0.0 || ^4.0.0#~builtin<compat/typescript>, typescript@patch:typescript@^4.0.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>, typescript@patch:typescript@~4.9.5#~builtin<compat/typescript>":
   version: 4.9.5
   resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=ad5954"
   bin:
@@ -23156,23 +22701,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-eslint-parser@npm:^8.0.1":
-  version: 8.3.0
-  resolution: "vue-eslint-parser@npm:8.3.0"
-  dependencies:
-    debug: ^4.3.2
-    eslint-scope: ^7.0.0
-    eslint-visitor-keys: ^3.1.0
-    espree: ^9.0.0
-    esquery: ^1.4.0
-    lodash: ^4.17.21
-    semver: ^7.3.5
-  peerDependencies:
-    eslint: ">=6.0.0"
-  checksum: ca6720c9519f3c3c1c054a31ba8b166039499ca80c6b1bcb529a68fbe0fbca8e08efaaa361b2bdd776c4508c49aaf43a7e6a37593240f462f7e1fb08acc11995
-  languageName: node
-  linkType: hard
-
 "w3c-keyname@npm:^2.2.0":
   version: 2.2.6
   resolution: "w3c-keyname@npm:2.2.6"
@@ -23611,17 +23139,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrap-ansi@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "wrap-ansi@npm:5.1.0"
-  dependencies:
-    ansi-styles: ^3.2.0
-    string-width: ^3.0.0
-    strip-ansi: ^5.0.0
-  checksum: fcd0b39b7453df512f2fe8c714a1c1b147fe3e6a4b5a2e4de6cadc3af47212f335eceaffe588e98322d6345e72672137e2c0b834d8a662e73a32296c1c8216bb
-  languageName: node
-  linkType: hard
-
 "wrap-ansi@npm:^6.2.0":
   version: 6.2.0
   resolution: "wrap-ansi@npm:6.2.0"
@@ -23832,16 +23349,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:^13.1.2":
-  version: 13.1.2
-  resolution: "yargs-parser@npm:13.1.2"
-  dependencies:
-    camelcase: ^5.0.0
-    decamelize: ^1.2.0
-  checksum: aeded49d2285c5e284e48b7c69eab4a6cf1c94decfdba073125cc4054ff49da7128a3c7c840edb6b497a075e455be304e89ba4b9228be35f1ed22f4a7bba62cc
-  languageName: node
-  linkType: hard
-
 "yargs-parser@npm:^18.1.2, yargs-parser@npm:^18.1.3":
   version: 18.1.3
   resolution: "yargs-parser@npm:18.1.3"
@@ -23893,24 +23400,6 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: dd5c89aa8186d2a18625b26b68beb635df648617089135e9661107a92561056427bbd41dbfa228db5a7d968ea1043d96c036c2eb978acf7b61a0ae48bf3be206
-  languageName: node
-  linkType: hard
-
-"yargs@npm:^13.1.1":
-  version: 13.3.2
-  resolution: "yargs@npm:13.3.2"
-  dependencies:
-    cliui: ^5.0.0
-    find-up: ^3.0.0
-    get-caller-file: ^2.0.1
-    require-directory: ^2.1.1
-    require-main-filename: ^2.0.0
-    set-blocking: ^2.0.0
-    string-width: ^3.0.0
-    which-module: ^2.0.0
-    y18n: ^4.0.0
-    yargs-parser: ^13.1.2
-  checksum: 6612f9f0ffeee07fff4c85f153d10eba4072bf5c11e1acba96153169f9d771409dfb63253dbb0841ace719264b663cd7b18c75c0eba91af7740e76094239d386
   languageName: node
   linkType: hard
 

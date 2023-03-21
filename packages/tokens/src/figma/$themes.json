@@ -534,10 +534,10 @@
       "color.input.valid.checked.border": "S:72bd10f75f52d687a95257ec724297c47d55498a,",
       "color.input.valid.checked.label": "S:404ab011b6c30d4254cf5044f77ac4ae7ea2d5af,",
       "color.input.valid.checked.icon": "S:6ad0255b51fdaefca6ca9a10eaf78823260b5fe7,",
-      "text.input.fontIcon.md": "S:eae93a5559003a34b6eda8ffe6f283708b170c6c,",
-      "text.input.fontIcon.lg": "S:2075f4f1b582f7f9dfaef5d042b34687f99b3714,",
-      "text.input.label.md": "S:3257a82e368f013413a40a568552f0fde2a4a74a,",
-      "text.input.label.lg": "S:cc9baa3c79dc6e9c536ed4d9f633fc78a7d8808b,",
+      "text.input.fontIcon.md": "S:b4c33fa56059e186d7b3b9fabb6ae7220adc3a2b,",
+      "text.input.fontIcon.lg": "S:2705d643bf7526532d862c7e7c52e48ae66956bf,",
+      "text.input.label.md": "S:4c39255f731a546012aae741db883bccfdc8719c,",
+      "text.input.label.lg": "S:272e1895900104ae1b30da307523a16dc570540e,",
       "color.input.default.uncheck.default.background": "S:69b57382ffb3ccff08242137fedff32ebadecdbd,",
       "color.input.default.uncheck.default.border": "S:a72cae2f84fbce3c0341ef9bfe9408f18aa595e5,",
       "color.input.default.uncheck.default.label": "S:5e2331e0b8a2aa06abd60d8057d4a3a47112d02a,",
@@ -1038,7 +1038,10 @@
       "color.textField.invalid.hover.placeholder": "S:9fe63b6af0f270320fef48945f156d764f8f2848,",
       "color.textField.invalid.active.placeholder": "S:f7abeda8d77a6c84573de16b928fe39bd66302c1,",
       "color.textField.invalid.focus.placeholder": "S:827dcb67146ff19631686d95bfa5c5dcf93a3114,",
-      "color.textField.invalid.disabled.placeholder": "S:c0d0380b30fb00509b47ce887030e6f48a1219ce,"
+      "color.textField.invalid.disabled.placeholder": "S:c0d0380b30fb00509b47ce887030e6f48a1219ce,",
+      "color.textField.invalid.default.placeholder": "S:34360e2fcea66e6a221875e333adddc0132d9f68,",
+      "text.input.text.md": "S:68a623f02ec9abe067fefe03bbf72a52043cc0c9,",
+      "text.input.text.lg": "S:235b16863bdc6bd0fda71c79e8a71289d10cd8a5,"
     }
   },
   {

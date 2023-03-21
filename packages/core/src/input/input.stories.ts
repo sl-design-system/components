@@ -186,7 +186,7 @@ export const CustomValidation: StoryObj = {
     };
 
     return html`
-      <sl-input required="true" .validators=${[validator]}></sl-input>
+      <sl-input showValid required="true" .validators=${[validator]}></sl-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
   }

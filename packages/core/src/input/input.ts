@@ -56,6 +56,15 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** Placeholder text in the input. */
   @property() placeholder?: string;
 
+  /** Whether the input is invalid. */
+  @property({ type: Boolean, reflect: true }) invalid = false;
+
+  /** Whether the input is valid. */
+  @property({ type: Boolean, reflect: true }) valid = false;
+
+  /** Whether the input should get valid styles when is valid. */
+  @property({ type: Boolean, reflect: true }) showValid = false;
+
   /** Input size. */
   @property({ reflect: true }) size: InputSize = 'md';
 
@@ -72,6 +81,8 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   @property() value?: string;
 
   // TODO: invalid state?
+
+  // TODO: valid styles on demand?
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -90,6 +101,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       this.setFormControlElement(this.input);
 
       this.#validation.validate(this.value);
+      this.invalid = !this.#validation.validity.valid;
     }
   }
 
@@ -167,6 +179,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
     this.#validation.validate(this.value);
+    console.log('this.internals?.validity.valid', this.#validation.validity.valid);
+    this.invalid = !this.#validation.validity.valid; // TODO not working on required and empty input
+    console.log('this.invalid', this.invalid);
+    this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

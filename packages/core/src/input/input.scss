@@ -20,7 +20,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   align-items: start;
   display: inline-flex;
   flex-direction: column;
-  gap: var(--_gap);
+  gap: var(--_gap); // TODO: token for gap?
   vertical-align: top;
 }
 
@@ -34,7 +34,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }
 
-:host(:where(:--invalid, [state--invalid])) {
+:host(:where(:--invalid, [state--invalid], :invalid)) {
   --_border-color: #c00;
 }
 
@@ -55,6 +55,11 @@ slot[name='input']::slotted(input) {
 
   &:focus {
     outline: none;
+  }
+
+  &:invalid {
+    //border: 3px solid red;
+    background-color: #6b1313;
   }
 }
 
@@ -176,4 +181,8 @@ slot[name='input']::slotted(input) {
       --_background: var(--sl-color-text-field-#{$variant}-disabled-background);
     }
   }
+}
+
+:host(:where(:invalid)) {
+  border: 3px solid #6b1313;
 }

@@ -1,6 +1,5 @@
-import type { IconDefinition, IconName } from '@fortawesome/pro-regular-svg-icons';
-import { findIconDefinition, library } from '@fortawesome/fontawesome-svg-core';
-import { far } from '@fortawesome/pro-regular-svg-icons';
+import type { IconDefinition, IconName, IconStyle, IconPrefix } from '@fortawesome/fontawesome-common-types';
+import { findIconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 interface SLIconDefinition {
   value: string;
@@ -10,10 +9,10 @@ interface SLIconDefinition {
 interface CustomIconDefinition extends SLIconDefinition {
   svg: string;
 }
-library.add(far);
 
 export const resolveIcon = (
   name: string,
+  style: IconStyle,
   icons: { [key: string]: SLIconDefinition | CustomIconDefinition }
 ): string => {
   // 2. Get the supported icons from `icons.[json|ts]`?
@@ -23,12 +22,13 @@ export const resolveIcon = (
     icon => name === icon[0]
   )?.[1] as SLIconDefinition | CustomIconDefinition;
 
-  if ((iconInRegistry as CustomIconDefinition)?.svg) {
+  if (icons && (iconInRegistry as CustomIconDefinition)?.svg) {
     return (iconInRegistry as CustomIconDefinition).svg;
-  } else if (name) {
+  } else if (name && convertToIconDefinition(name as IconName, style)) {
+
     const {
         icon: [width, height, , , path]
-      } = convertToIconDefinition(name as IconName),
+      } = convertToIconDefinition(name as IconName, style),
       paths = Array.isArray(path) ? path : [path];
 
     return `
@@ -36,9 +36,20 @@ export const resolveIcon = (
           ${paths.map(p => `<path d="${p}"></path>`).join('')}
         </svg>`;
   }
-  return 'no icon found';
+  return '<small>not found</small>';
 };
 
-const convertToIconDefinition = (iconName: IconName): IconDefinition => {
-  return findIconDefinition({ prefix: 'far', iconName });
+const convertToIconDefinition = (iconName: IconName, style: IconStyle): IconDefinition => {
+  return findIconDefinition({ prefix: getIconPrefixFromStyle(style), iconName });
 };
+
+const getIconPrefixFromStyle = (style: IconStyle): IconPrefix => {
+  switch (style) {
+    case 'solid':
+        return 'fas';  
+    case 'light':
+        return 'fal';  
+    default:
+      return 'far';
+  }
+}

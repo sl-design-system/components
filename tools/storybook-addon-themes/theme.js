@@ -21,7 +21,9 @@ export const updateTheme = (theme,mode='light') => {
     });
   }
 
-  theme?.setup();
+  if(theme?.setup){
+    theme?.setup();
+  }
   // console.log('theme.setup() in theme.js');
   // theme.setup(icons);
 };

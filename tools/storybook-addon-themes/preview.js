@@ -85,7 +85,8 @@ export const globals = {
       id: 'neon',
       name: 'NEON',
       color: '#1E2922',
-      fonts: ['https://use.typekit.net/kes1hoh.css']
+      fonts: ['https://use.typekit.net/kes1hoh.css'],
+      setup
     },
     {
       id: 'sanoma-learning',

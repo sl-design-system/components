@@ -1,3 +1,4 @@
+import type { IconStyle } from '@fortawesome/fontawesome-svg-core';
 import { Icon } from '@sanomalearning/slds-core/icon';
 import { resolveIcon } from '../../icon-resolver.js';
 
@@ -8,7 +9,11 @@ import { resolveIcon } from '../../icon-resolver.js';
 // 4. Start using the SLDS in your application
 // };
 // Icon.registerResolver(name => resolveIcon(name, icons));
-Icon.registerResolver(name => resolveIcon(name, {}));
+Icon.registerResolver((name: string, style: IconStyle) => resolveIcon(name, style, {}));
+Icon.registerLibraries(['regular', 'solid']).catch(() => {
+  console.warn('could not load icons');
+});
+
 export const setup = (): void => {
   // Icon.registerResolver(name => resolveIcon(name, icons));
   console.log('SETUP Sanoma Learning in index.ts!');

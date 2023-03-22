@@ -2777,6 +2777,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/pro-duotone-svg-icons@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@fortawesome/pro-duotone-svg-icons@npm:6.3.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-duotone-svg-icons%2F-%2F6.3.0%2Fpro-duotone-svg-icons-6.3.0.tgz"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.3.0
+  checksum: 0a272db62eda136b041002e837b31b35ce4339c9516083cfb8f87e9e9e7b9d27db12db8c5e4d7f7b1f4c594a8fd8ba85282619bcfd43312e070592797f9955d4
+  languageName: node
+  linkType: hard
+
 "@fortawesome/pro-light-svg-icons@npm:^6.3.0":
   version: 6.3.0
   resolution: "@fortawesome/pro-light-svg-icons@npm:6.3.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-light-svg-icons%2F-%2F6.3.0%2Fpro-light-svg-icons-6.3.0.tgz"
@@ -2801,6 +2810,15 @@ __metadata:
   dependencies:
     "@fortawesome/fontawesome-common-types": 6.3.0
   checksum: 15f31233aeda85d26a0df6e11caedb6e2bed636557de2680f2781ab7ed3ab7dc94aef7f3e050b0d69e66ffc23cc30fc17a8c3e811a6fc4a991ca46e3bdafa508
+  languageName: node
+  linkType: hard
+
+"@fortawesome/pro-thin-svg-icons@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@fortawesome/pro-thin-svg-icons@npm:6.3.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-thin-svg-icons%2F-%2F6.3.0%2Fpro-thin-svg-icons-6.3.0.tgz"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.3.0
+  checksum: a6d91699f51a254911d9fa9621ea0bb01e133f020ff15585532a8cf676b78b65526da56b99248386d75021504c400a3a84a8948011afa93ae316cce1ee7d820d
   languageName: node
   linkType: hard
 
@@ -3730,9 +3748,11 @@ __metadata:
   resolution: "@sanomalearning/slds-sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning"
   dependencies:
     "@fortawesome/fontawesome-svg-core": ^6.3.0
+    "@fortawesome/pro-duotone-svg-icons": ^6.3.0
     "@fortawesome/pro-light-svg-icons": ^6.3.0
     "@fortawesome/pro-regular-svg-icons": ^6.3.0
     "@fortawesome/pro-solid-svg-icons": ^6.3.0
+    "@fortawesome/pro-thin-svg-icons": ^6.3.0
   languageName: unknown
   linkType: soft
 

@@ -8,7 +8,7 @@ import { resolveIcon } from '../../icon-resolver.js';
 // };
 // Icon.registerResolver(name => resolveIcon(name, icons));
 Icon.registerResolver((name, style) => resolveIcon(name, style, {}));
-Icon.registerLibraries(['regular', 'solid']).catch(() => {
+Icon.registerLibraries(['regular', 'solid', 'thin', 'duotone', 'light']).catch(() => {
     console.warn('could not load icons');
 });
 export const setup = () => {

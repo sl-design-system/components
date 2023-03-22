@@ -44,6 +44,10 @@ export class Icon extends LitElement {
         return 'fas';
       case 'light':
         return 'fal';
+      case 'thin':
+        return 'fat';
+      case 'duotone':
+        return 'fad';
       default:
         return 'far';
     }
@@ -70,6 +74,7 @@ export class Icon extends LitElement {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+    console.log(this.name);
 
     if (changes.has('label')) {
       if (this.label) {

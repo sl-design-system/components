@@ -63,8 +63,10 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/pro-duotone-svg-icons": "^6.3.0",
     "@fortawesome/pro-light-svg-icons": "^6.3.0",
     "@fortawesome/pro-regular-svg-icons": "^6.3.0",
-    "@fortawesome/pro-solid-svg-icons": "^6.3.0"
+    "@fortawesome/pro-solid-svg-icons": "^6.3.0",
+    "@fortawesome/pro-thin-svg-icons": "^6.3.0"
   }
 }

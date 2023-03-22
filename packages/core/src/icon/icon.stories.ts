@@ -10,22 +10,34 @@ export default {
   argTypes: {
     iconStyle: {
       control: 'inline-radio',
-      options: ['regular', 'light', 'solid']
+      options: ['regular', 'light', 'solid', 'thin', 'duotone']
     }
   }
 };
 
 export const API: StoryObj = {
-  render: ({ iconStyle }) => html`
-    <h1>FontAwesome icons</h1>
-    <sl-icon name="chevron-down" .iconStyle=${iconStyle}></sl-icon>
-    <sl-icon name="check" .iconStyle=${iconStyle}></sl-icon>
-    <sl-icon name="face-smile" .iconStyle=${iconStyle}></sl-icon>
-    <h1>Custom icons</h1>
-    <sl-icon name="fav" .iconStyle=${iconStyle}></sl-icon>
-    <sl-icon name="open-eye" .iconStyle=${iconStyle}></sl-icon>
-    <h1>Icons that are not in base.json but are in FontAwesome</h1>
-    <sl-icon name="glasses" .iconStyle=${iconStyle}></sl-icon>
-    <sl-icon name="book" .iconStyle=${iconStyle}></sl-icon>
-  `
+  render: ({ iconStyle }) => {
+    const faIcons = ['raygun', 'glasses', 'book', 'user', 'camera-retro', 'hippo', 'rabbit-running', 'turtle', 'whale'];
+    return html`
+      <style>
+        section {
+          display: flex;
+          gap: 8px;
+        }
+      </style>
+      <h1>FontAwesome icons</h1>
+      <section>
+        <sl-icon name="chevron-down" .iconStyle=${iconStyle}></sl-icon>
+        <sl-icon name="check" .iconStyle=${iconStyle}></sl-icon>
+        <sl-icon name="face-smile" .iconStyle=${iconStyle}></sl-icon>
+      </section>
+      <h1>Custom icons</h1>
+      <section>
+        <sl-icon name="fav" .iconStyle=${iconStyle}></sl-icon>
+        <sl-icon name="open-eye" .iconStyle=${iconStyle}></sl-icon>
+      </section>
+      <h1>Icons that are not in base.json but are in FontAwesome</h1>
+      <section>${faIcons.map(i => html`<sl-icon .name=${i} .iconStyle=${iconStyle}></sl-icon>`)}</section>
+    `;
+  }
 };

@@ -1,4 +1,4 @@
-import type { IconDefinition, IconName, IconStyle, IconPrefix } from '@fortawesome/fontawesome-common-types';
+import type { IconDefinition, IconName, IconPrefix, IconStyle } from '@fortawesome/fontawesome-common-types';
 import { findIconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 interface SLIconDefinition {
@@ -25,15 +25,13 @@ export const resolveIcon = (
   if (icons && (iconInRegistry as CustomIconDefinition)?.svg) {
     return (iconInRegistry as CustomIconDefinition).svg;
   } else if (name && convertToIconDefinition(name as IconName, style)) {
-
     const {
         icon: [width, height, , , path]
       } = convertToIconDefinition(name as IconName, style),
       paths = Array.isArray(path) ? path : [path];
-
     return `
         <svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">
-          ${paths.map(p => `<path d="${p}"></path>`).join('')}
+          ${paths.map((p, i) => `<path d="${p}" fill="var(--fill-${getColorToken(i, style)})"></path>`).join('')}
         </svg>`;
   }
   return '<small>not found</small>';
@@ -43,13 +41,21 @@ const convertToIconDefinition = (iconName: IconName, style: IconStyle): IconDefi
   return findIconDefinition({ prefix: getIconPrefixFromStyle(style), iconName });
 };
 
+const getColorToken = (pathCounter: number, style: IconStyle): string => {
+  return pathCounter === 0 && style === 'duotone' ? 'accent' : 'default';
+};
+
 const getIconPrefixFromStyle = (style: IconStyle): IconPrefix => {
   switch (style) {
     case 'solid':
-        return 'fas';  
+      return 'fas';
     case 'light':
-        return 'fal';  
+      return 'fal';
+    case 'thin':
+      return 'fat';
+    case 'duotone':
+      return 'fad';
     default:
       return 'far';
   }
-}
+};

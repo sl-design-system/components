@@ -460,7 +460,7 @@
           "description": "text.typeset.fontFamily.heading"
         },
         "body": {
-          "value": "Montserrat",
+          "value": "Source Sans Pro",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.body"
         },
@@ -474,11 +474,6 @@
         "demibold": {
           "value": "SemiBold",
           "type": "fontWeights"
-        },
-        "bold": {
-          "value": "Bold",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.bold"
         },
         "icon-thin": {
           "value": "Thin",
@@ -504,6 +499,11 @@
           "value": "Regular",
           "type": "fontWeights",
           "description": "text.typeset.fontWeight.regular"
+        },
+        "bold": {
+          "value": "Bold",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.bold"
         }
       },
       "fontSize": {
@@ -940,7 +940,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
@@ -949,7 +949,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{button.label.md}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -958,7 +958,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{button.label.lg}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -1085,33 +1085,33 @@
   "borderRadius": {
     "button": {
       "sm": {
-        "value": "{border.radius.full}",
+        "value": "{border.radius.3xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "md": {
-        "value": "{border.radius.full}",
+        "value": "{border.radius.3xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "lg": {
-        "value": "{border.radius.full}",
+        "value": "{border.radius.3xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "icon-only": {
         "sm": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.3xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "md": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.3xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "lg": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.3xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         }

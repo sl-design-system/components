@@ -1357,12 +1357,12 @@
     }
   },
   {
-    "id": "60a68a937863627cbe44b73f4c022517333e0de6",
-    "name": "neon/dark",
+    "id": "2d51db472edaab0b930fa9a3e11d19b2b836bda9",
+    "name": "magister/dark",
     "selectedTokenSets": {
       "core": "enabled",
-      "neon/base": "enabled",
-      "neon/dark": "enabled"
+      "magister/base": "enabled",
+      "magister/dark": "enabled"
     },
     "$figmaStyleReferences": {}
   }

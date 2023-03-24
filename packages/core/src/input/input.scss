@@ -1,10 +1,13 @@
+//@import './../breakpoints';
+
 $sizes: md, lg;
 $variants: default, valid, invalid; // TODO: what about readonly?
 $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
-//$states: default, hover, active, focus, disabled; // TODO: what about readonly?
+//$states: default, hover, active, focus, disabled; // TODO: what about readonly? readonly the same as default, but different behaviour
 
 // TODO: default instead of enable?
 // TODO: with value and with placeholder filled/unfilled?
+// TODO: placeholder
 
 :host {
   //--_border-color: var(--sl-color-text-field-default-enable-border); //#d3d3d3;
@@ -13,14 +16,14 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
   --_box-shadow: var(--sl-box-shadow-none); //none;
-  --_gap: 0.25rem;
+  //--_gap: 0.25rem; // TODO: what about the default values?
 }
 
 :host {
   align-items: start;
   display: inline-flex;
   flex-direction: column;
-  gap: var(--_gap); // TODO: token for gap?
+  gap: var(--_gap); // TODO: token for gap? // --sl-space-text-field-gap-lg / md
   vertical-align: top;
 }
 
@@ -42,7 +45,7 @@ slot[name='input']::slotted(input) {
   appearance: none;
   background: none;
   border: 0;
-  color: inherit;
+  color: var(--_color); //inherit;
   flex: 1;
   font: inherit;
   font-size: var(--_font-size);
@@ -83,7 +86,7 @@ slot[name='input']::slotted(input) {
 @each $size in $sizes {
   :host([size='#{$size}']) {
     //--_line-height: var(--sl-text-typeset-line-height-#{$size});
-    //--_gap: var(--sl-space-input-gap-#{$size});
+    --_gap: var(s--sl-space-text-field-gap-#{$size}); //var(--sl-space-input-gap-#{$size});
     //--_size: var(--sl-size-input-#{$size});
 
     slot[name='input']::slotted(input) {
@@ -93,6 +96,11 @@ slot[name='input']::slotted(input) {
       //var(--sl-space-text-field-block-#{$size})
       //var(--sl-space-text-field-inline-#{$size});
       --_font-size: var(--sl-text-typeset-font-size-#{$size});
+
+      //@include sl-text-input-text-lg;
+      font-family: var(--sl-text-typeset-font-family-body);
+      font-weight: var(--sl-text-typeset-font-weight-regular);
+      line-height: var(--sl-text-typeset-line-height-#{$size});
     }
 
     .wrapper {
@@ -119,10 +127,13 @@ slot[name='input']::slotted(input) {
   //  :host(:where(:#{$variant-selector}, [#{$variant-selector}])) {
   :host(#{$variant-selector}) {
     // :host(:where(:--invalid, [state--invalid]))
-    --_border-color: var(
-      --sl-color-text-field-#{$variant}-default-border
-    ); //var(--sl-color-text-field-default-enable-border); //var(--sl-color-text-field-#{$variant}-#{$state}-border); //#c00;
+    --_border-color: var(--sl-color-text-field-#{$variant}-default-border);
+    //var(--sl-color-text-field-default-enable-border); //var(--sl-color-text-field-#{$variant}-#{$state}-border); //#c00;
     //--sl-color-text-field-default-enable-border
+
+    slot[name='input']::slotted(input) {
+      --_color: var(--sl-color-text-field-#{$variant}-default-input-text);
+    }
 
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-default-background);
@@ -132,10 +143,14 @@ slot[name='input']::slotted(input) {
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):hover) {
   :host(#{$variant-selector}:hover) {
-    //--_background: var(--sl-color-input-#{$variant}-#{$state}-hover-background);
     --_border-color: var(--sl-color-text-field-#{$variant}-hover-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-hover-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-hover-icon);
+    --_background: var(--sl-color-text-field-#{$variant}-hover-background);
+
+    slot[name='input']::slotted(input) {
+      --_color: var(--sl-color-text-field-#{$variant}-hover-input-text);
+    }
 
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-hover-background);
@@ -144,11 +159,13 @@ slot[name='input']::slotted(input) {
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):active) {
   :host(#{$variant-selector}:active) {
-    //--_background: var(--sl-color-input-#{$variant}-#{$state}-active-background);
-    //--_border-color: var(--sl-color-input-#{$variant}-#{$state}-active-border);
     --_border-color: var(--sl-color-text-field-#{$variant}-active-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
+
+    slot[name='input']::slotted(input) {
+      --_color: var(--sl-color-text-field-#{$variant}-active-input-text);
+    }
 
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-active-background);
@@ -157,12 +174,14 @@ slot[name='input']::slotted(input) {
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):focus-visible) { // :focus-within
   :host(#{$variant-selector}:focus-within) {
-    //--_background: var(--sl-color-input-#{$variant}-#{$state}-focus-background);
-    //--_border-color: var(--sl-color-input-#{$variant}-#{$state}-focus-border);
     --_border-color: var(--sl-color-text-field-#{$variant}-focus-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
-    //--_box-shadow: var(--sl-box-shadow-focus);
+    --_box-shadow: var(--sl-box-shadow-focus);
+
+    slot[name='input']::slotted(input) {
+      --_color: var(--sl-color-text-field-#{$variant}-focus-input-text);
+    }
 
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-focus-background);
@@ -171,11 +190,13 @@ slot[name='input']::slotted(input) {
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid])[disabled]) {
   :host(#{$variant-selector}[disabled]) {
-    //--_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
-    //--_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
     --_border-color: var(--sl-color-text-field-#{$variant}-disabled-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-disabled-icon);
+
+    slot[name='input']::slotted(input) {
+      --_color: var(--sl-color-text-field-#{$variant}-disabled-input-text);
+    }
 
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-disabled-background);
@@ -183,6 +204,6 @@ slot[name='input']::slotted(input) {
   }
 }
 
-:host(:where(:invalid)) {
-  border: 3px solid #6b1313;
-}
+//:host(:where(:invalid)) {
+//  border: 3px solid #6b1313;
+//}

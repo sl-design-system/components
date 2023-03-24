@@ -74,7 +74,6 @@ export class Icon extends LitElement {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-    console.log(this.name);
 
     if (changes.has('label')) {
       if (this.label) {

@@ -1,30 +1,28 @@
-import type { StorybookConfig } from '@storybook/web-components-webpack5';
+import type { StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
-  stories: ['../dist/components/**/*.stories.js'],
+  stories: ['../src/**/*.stories.ts'],
   addons: [
-    '../../../tools/storybook-addon-themes',
-    '@storybook/addon-links', 
+    '@sanomalearning/storybook-addon-themes',
+    '@storybook/addon-a11y', 
+    '@storybook/addon-actions', 
+    '@storybook/addon-storysource',
     {
       name: '@storybook/addon-essentials',
       options: {
+        actions: false,
         docs: false
       }
-    },
-    '@storybook/addon-storysource'
+    }
   ],
-  framework: {
-    name: '@storybook/web-components-webpack5',
-    options: {}
-  },
   core: {
     disableTelemetry: true
   },
+  framework: '@storybook/web-components-vite',
   docs: {
     autodocs: false
   },
   staticDirs: [
-    { from: '../src', to: '/src' },
     { from: '../../tokens/src/themes', to: '/themes' }
   ]
 };

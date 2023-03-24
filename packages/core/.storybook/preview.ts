@@ -1,45 +1,46 @@
+import type { Preview } from '@storybook/web-components';
+import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import 'element-internals-polyfill';
 import { configureLocalization } from '@lit/localize';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 const { setLocale } = configureLocalization({
   sourceLocale: 'en',
   targetLocales: ['nl'],
-  loadLocale: locale => import(`../dist/components/locales/${locale}.js`)
+  loadLocale: locale => import(`../src/locales/${locale}.ts`)
 });
 
-export const decorators = [
-  (story, { globals: { locale = 'en' } }) => {
-    setLocale(locale);
+const preview: Preview = {
+  decorators: [
+    (story, { globals: { locale = 'en' } }) => {
+      document.documentElement.lang = locale;
+      setLocale(locale);
 
-    return story();
-  }
-];
-
-export const globalTypes = {
-  locale: {
-    name: 'Locale',
-    description: 'Internationalization locale',
-    defaultValue: 'en',
-    toolbar: {
-      icon: 'globe',
-      items: [
-        { value: 'en', right: '🇺🇸', title: 'English' },
-        { value: 'nl', right: '🇳🇱', title: 'Nederlands' }
-      ]
+      return story();
     }
-  }
-};
-
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/
+  ],
+  globalTypes: {
+    locale: {
+      name: 'Locale',
+      description: 'Internationalization locale',
+      defaultValue: 'en',
+      toolbar: {
+        icon: 'globe',
+        items: [
+          { value: 'en', right: '🇺🇸', title: 'English' },
+          { value: 'nl', right: '🇳🇱', title: 'Nederlands' }
+        ]
+      }
     }
   },
-  options: {
-    storySort: (a, b) => a.title === b.title ? 0 : a.id.localeCompare(b.id, undefined, { numeric: true })
+  parameters: {
+    options: {
+      storySort: (a, b) => a.title === b.title ? 0 : a.id.localeCompare(b.id, undefined, { numeric: true })
+    },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS
+    }
   }
 };
 
+export default preview;

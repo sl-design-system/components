@@ -1,13 +1,17 @@
-import type { StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../avatar/register.js';
 import './register.js';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Props {}
+
+type Story = StoryObj<Props>;
 
 export default {
   title: 'Avatar'
-};
+} satisfies Meta<Props>;
 
-export const API: StoryObj = {
+export const Basic: Story = {
   render: () =>
     html`
       <style>

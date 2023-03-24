@@ -127,7 +127,7 @@
       ]
     },
     "start": {
-      "command": "storybook dev -p 6006 --quiet",
+      "command": "storybook dev -p 6007 --quiet",
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"

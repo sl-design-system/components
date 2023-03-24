@@ -10,7 +10,7 @@
   },
   "type": "module",
   "scripts": {
-    "storybook": "wireit",
+    "start": "wireit",
     "build": "wireit"
   },
   "wireit": {
@@ -20,8 +20,25 @@
         "../../packages/core:build"
       ]
     },
-    "storybook": {
-      "command": "storybook dev -p 6006 --quiet"
+    "start": {
+      "command": "storybook dev -p 6006 --quiet",
+      "files": [
+        "./storybook/main.ts"
+      ],
+      "dependencies": [
+        {
+          "script": "../../packages/core:start",
+          "cascade": false
+        },
+        {
+          "script": "../../packages/editor:start",
+          "cascade": false
+        },
+        {
+          "script": "../../packages/grid:start",
+          "cascade": false
+        }
+      ]
     }
   },
   "devDependencies": {

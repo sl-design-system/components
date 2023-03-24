@@ -38,7 +38,7 @@
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "browserTarget": "angular-core:build-storybook",
-            "port": 6007,
+            "port": 6010,
             "quiet": true
           }
         },

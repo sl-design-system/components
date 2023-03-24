@@ -22,6 +22,7 @@ export const resolveIcon = (
     icon => name === icon[0]
   )?.[1] as SLIconDefinition | CustomIconDefinition;
 
+  console.log(icons);
   if (icons && (iconInRegistry as CustomIconDefinition)?.svg) {
     return (iconInRegistry as CustomIconDefinition).svg;
   } else if (name && convertToIconDefinition(name as IconName, style)) {

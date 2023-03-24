@@ -19,45 +19,34 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "build:icons"
+        "build:ts"
       ]
     },
     "build:ts": {
-      "command": "tsc -b ../../../tsconfig.build.json --force",
-      "dependencies": [
-        "build:lint"
-      ],
-      "files": [
-        "icons.ts",
-        "index.ts"
-      ]
-    },
-    "build:lint": {
-      "command": "eslint --fix \"./icons.ts\"",
+      "command": "tsc -b ../../../tsconfig.build.json --pretty",
+      "clean": "if-file-deleted",
       "dependencies": [
         "build:icons"
+      ],
+      "files": [
+        "../../../tsconfig.build.json"
       ]
     },
     "build:icons": {
       "command": "yarn node --no-warnings ../../../build-icons.js sanoma-learning 1oIVcD9VMbOtLXYp48ehsA",
       "dependencies": [
         "build:styles"
+      ],
+      "files": [
+        "../../../build-icons.js"
       ]
     },
     "build:styles": {
       "command": "yarn node --no-warnings ../../../build-styles.js sanoma-learning",
       "files": [
+        "../../../build-styles.js",
         "../../figma/*.json",
         "../../figma/sanoma-learning/*.json"
-      ],
-      "output": [
-        "*.js",
-        "*.json",
-        "*.css",
-        "*.scss",
-        "!fonts.css",
-        "!index.js",
-        "!package.json"
       ]
     }
   },
@@ -68,5 +57,9 @@
     "@fortawesome/pro-regular-svg-icons": "^6.3.0",
     "@fortawesome/pro-solid-svg-icons": "^6.3.0",
     "@fortawesome/pro-thin-svg-icons": "^6.3.0"
+  },
+  "devDependencies": {
+    "typescript": "4.9.5",
+    "wireit": "^0.9.5"
   }
 }

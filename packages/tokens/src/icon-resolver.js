@@ -4,6 +4,7 @@ export const resolveIcon = (name, style, icons) => {
     var _a;
     // 3. Return the matching `<path>`
     const iconInRegistry = (_a = Object.entries(icons).find(icon => name === icon[0])) === null || _a === void 0 ? void 0 : _a[1];
+    console.log(icons);
     if (icons && (iconInRegistry === null || iconInRegistry === void 0 ? void 0 : iconInRegistry.svg)) {
         return iconInRegistry.svg;
     }

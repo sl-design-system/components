@@ -23,43 +23,43 @@
       ]
     },
     "build:ts": {
-      "command": "tsc -b ../../../tsconfig.build.json --force",
-      "dependencies": [
-        "build:lint"
-      ],
-      "files": [
-        "icons.ts"
-      ]
-    },
-    "build:lint": {
-      "command": "eslint --fix \"./icons.ts\"",
+      "command": "tsc -b ../../../tsconfig.build.json --pretty",
+      "clean": "if-file-deleted",
       "dependencies": [
         "build:icons"
       ],
       "files": [
-        "icons.ts"
+        "../../../tsconfig.build.json"
       ]
     },
     "build:icons": {
       "command": "yarn node --no-warnings ../../../build-icons.js magister YZeBneflpJkX3KXSyvMrqP",
       "dependencies": [
         "build:styles"
+      ],
+      "files": [
+        "../../../build-icons.js"
       ]
     },
     "build:styles": {
       "command": "yarn node --no-warnings ../../../build-styles.js magister",
-      "files": [
+       "files": [
+        "../../../build-styles.js",
         "../../figma/*.json",
-        "../../figma/magister/*.json"
-      ],
-      "output": [
-        "*.js",
-        "*.json",
-        "*.css",
-        "*.scss",
-        "!fonts.css",
-        "!package.json"
+        "../../figma/magister*.json"
       ]
     }
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/pro-duotone-svg-icons": "^6.3.0",
+    "@fortawesome/pro-light-svg-icons": "^6.3.0",
+    "@fortawesome/pro-regular-svg-icons": "^6.3.0",
+    "@fortawesome/pro-solid-svg-icons": "^6.3.0",
+    "@fortawesome/pro-thin-svg-icons": "^6.3.0"
+  },
+  "devDependencies": {
+    "typescript": "4.9.5",
+    "wireit": "^0.9.5"
   }
 }

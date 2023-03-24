@@ -1,8 +1,12 @@
-import type { Preview } from '@storybook/web-components';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import 'element-internals-polyfill';
 import { configureLocalization } from '@lit/localize';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { setCompodocJson } from '@storybook/addon-docs/angular';
+import { Preview } from '@storybook/angular';;
+import docJson from '../documentation.json';
+
+setCompodocJson(docJson);
 
 const { setLocale } = configureLocalization({
   sourceLocale: 'en',

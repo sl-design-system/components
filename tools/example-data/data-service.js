@@ -3,8 +3,8 @@ let peopleImages;
 const datasetCache = {};
 
 async function getDataset(fileName, count) {
-  if (!datasetCache[fileName]) {
-    datasetCache[fileName] = (await import('./data/' + fileName)).default;
+  if (!datasetCache[fileName]) {    
+    datasetCache[fileName] = (await import(/* @vite-ignore */ './data/' + fileName)).default;
   }
   return datasetCache[fileName].slice(0, count).map(item => {
     // Create deep clones to avoid sharing the same item instances between examples

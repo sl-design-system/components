@@ -10,7 +10,7 @@
   },
   "type": "module",
   "scripts": {
-    "storybook": "wireit",
+    "start": "wireit",
     "build": "wireit"
   },
   "wireit": {
@@ -20,19 +20,36 @@
         "../../packages/core:build"
       ]
     },
-    "storybook": {
-      "command": "storybook dev -p 6006 --quiet"
+    "start": {
+      "command": "storybook dev -p 6006 --quiet",
+      "files": [
+        "./storybook/main.ts"
+      ],
+      "dependencies": [
+        {
+          "script": "../../packages/core:start",
+          "cascade": false
+        },
+        {
+          "script": "../../packages/editor:start",
+          "cascade": false
+        },
+        {
+          "script": "../../packages/grid:start",
+          "cascade": false
+        }
+      ]
     }
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.0.0-beta.60",
-    "@storybook/addon-links": "^7.0.0-beta.60",
-    "@storybook/addon-storysource": "^7.0.0-beta.60",
-    "@storybook/web-components-webpack5": "^7.0.0-beta.60",
-    "lit-html": "^2.6.1",
+    "@storybook/addon-essentials": "^7.0.0-rc.6",
+    "@storybook/addon-links": "^7.0.0-rc.6",
+    "@storybook/addon-storysource": "^7.0.0-rc.6",
+    "@storybook/web-components-webpack5": "^7.0.0-rc.6",
+    "lit-html": "^2.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.0-beta.60",
+    "storybook": "^7.0.0-rc.6",
     "wireit": "^0.9.5"
   }
 }

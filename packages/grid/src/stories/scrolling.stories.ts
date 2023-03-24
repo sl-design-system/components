@@ -5,11 +5,13 @@ import { getPeople } from '@sanomalearning/example-data';
 import { html } from 'lit';
 import '../register.js';
 
+type Story = StoryObj;
+
 export default {
   title: 'Scrolling'
 };
 
-export const VerticalOverflow: StoryObj = {
+export const VerticalOverflow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} style="height: 300px; overflow: auto">
@@ -22,7 +24,7 @@ export const VerticalOverflow: StoryObj = {
   `
 };
 
-export const VerticalPage: StoryObj = {
+export const VerticalPage: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people}>
@@ -35,7 +37,7 @@ export const VerticalPage: StoryObj = {
   `
 };
 
-export const HorizontalSticky: StoryObj = {
+export const HorizontalSticky: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const nameRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {

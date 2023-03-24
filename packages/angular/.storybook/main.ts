@@ -1,27 +1,25 @@
-import type { StorybookConfig } from '@storybook/web-components-vite';
+import type { StorybookConfig } from '@storybook/angular';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.ts'],
+  stories: [
+    '../projects/angular-core/**/*.mdx',
+    '../projects/angular-core/**/*.stories.@(js|jsx|ts|tsx)'
+  ],
   addons: [
     '@sanomalearning/storybook-addon-themes',
     '@storybook/addon-a11y', 
     '@storybook/addon-actions', 
-    '@storybook/addon-storysource',
     {
       name: '@storybook/addon-essentials',
       options: {
-        actions: false,
-        docs: false
+        actions: false
       }
     }
   ],
   core: {
     disableTelemetry: true
   },
-  framework: '@storybook/web-components-vite',
-  docs: {
-    autodocs: false
-  },
+  framework: '@storybook/angular',
   staticDirs: [
     { from: '../../tokens/src/themes', to: '/themes' }
   ]

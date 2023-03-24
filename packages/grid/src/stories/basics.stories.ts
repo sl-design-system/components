@@ -3,11 +3,13 @@ import { getPeople } from '@sanomalearning/example-data';
 import { html } from 'lit';
 import '../register.js';
 
+type Story = StoryObj;
+
 export default {
   title: 'Basics'
 };
 
-export const Simple: StoryObj = {
+export const Simple: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people}>
@@ -20,7 +22,7 @@ export const Simple: StoryObj = {
   `
 };
 
-export const ColumnGroups: StoryObj = {
+export const ColumnGroups: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} striped>

@@ -1,19 +1,19 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node16",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "useDefineForClassFields": false,
     "importHelpers": true,
-    "target": "es2018",
+    "target": "es2020",
     "module": "esnext",
-    "lib": ["es2021", "dom"],
+    "lib": ["es2021", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
     "noImplicitOverride": true
   },
   "exclude": ["node_modules", "tmp"]

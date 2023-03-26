@@ -5,6 +5,8 @@ import { getPeople } from '@sanomalearning/example-data';
 import { html } from 'lit';
 import '../register.js';
 
+type Story = StoryObj;
+
 export interface PersonWithRating extends Person {
   customerRating: number;
 }
@@ -13,7 +15,7 @@ export default {
   title: 'Styling'
 };
 
-export const NoBorders: StoryObj = {
+export const NoBorders: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} no-border no-row-border>
@@ -26,7 +28,7 @@ export const NoBorders: StoryObj = {
   `
 };
 
-export const Striped: StoryObj = {
+export const Striped: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} striped>
@@ -39,7 +41,7 @@ export const Striped: StoryObj = {
   `
 };
 
-export const Parts: StoryObj = {
+export const Parts: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const items: PersonWithRating[] = (people as Person[]).map(person => ({

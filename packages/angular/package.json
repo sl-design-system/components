@@ -2,22 +2,17 @@
   "name": "@sanomalearning/slds-angular",
   "description": "SLDS Angular root module",
   "version": "0.1.0",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/sanomalearning/design-system.git",
-    "directory": "packages/grid"
+    "directory": "packages/angular"
   },
   "scripts": {
     "build": "wireit",
-    "build:compodoc": "wireit",
-    "storybook:angular-core": "wireit",
-    "build-storybook:angular-core": "wireit",
     "docs": "wireit",
-    "docs:json": "wireit",
-    "lint": "wireit"
+    "lint": "wireit",
+    "start": "wireit"
   },
   "wireit": {
     "build": {
@@ -32,18 +27,6 @@
         "dist/angular-core"
       ]
     },
-    "build:compodoc": {
-      "command": "compodoc -t -p ./tsconfig.json -e json -d .",
-      "output": [
-        "documentation.json"
-      ]
-    },
-    "storybook:angular-core": {
-      "command": "ng run angular-core:storybook",
-      "dependencies": [
-        "../core:build"
-      ]
-    },
     "build-storybook:angular-core": {
       "command": "ng run angular-core:build-storybook",
       "dependencies": [
@@ -54,18 +37,22 @@
       "command": "ng run angular-core:docs",
       "dependencies": [
         "build",
-        "build:compodoc",
         "../../docs/storybook:build"
       ]
     },
-    "docs:json": {
-      "command": "compodoc -p ./tsconfig.json -e json -d ."
-    },
     "lint": {
       "command": "ng angular-core:lint"
+    },
+    "start": {
+      "command": "ng run angular-core:storybook",
+      "files": [
+        "./storybook/main.ts"
+      ],
+      "dependencies": [
+        "../core:build"
+      ]
     }
   },
-  "private": true,
   "dependencies": {
     "@angular-eslint/eslint-plugin-template": "^15.2.0",
     "@angular/animations": "^15.1.0",
@@ -85,9 +72,7 @@
     "@angular-eslint/eslint-plugin": "^15.2.0",
     "@angular/cli": "~15.1.2",
     "@angular/compiler-cli": "^15.1.0",
-    "@compodoc/compodoc": "^1.1.19",
     "@storybook/addon-essentials": "^7.0.0-rc.6",
-    "@storybook/addon-interactions": "^7.0.0-rc.6",
     "@storybook/addon-links": "^7.0.0-rc.6",
     "@storybook/angular": "^7.0.0-rc.6",
     "@storybook/blocks": "^7.0.0-rc.6",

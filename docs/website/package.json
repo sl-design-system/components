@@ -314,7 +314,7 @@
     "esbuild-plugin-minify-html-literals": "^1.0.2",
     "html-minifier": "^4.0.0",
     "markdown-it": "^13.0.1",
-    "markdown-it-anchor": "^8.6.6",
+    "markdown-it-anchor": "^8.6.7",
     "markdown-it-attrs": "^4.1.6",
     "rimraf": "^4.4.1",
     "sass": "^1.60.0",

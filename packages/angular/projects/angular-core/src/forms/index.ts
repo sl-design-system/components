@@ -1,7 +1,3 @@
-/*
- * Public API Surface of core
- */
-
 export * from './forms.module';
 export * from './checkbox/checkbox.directive';
 export * from './input/input.directive';

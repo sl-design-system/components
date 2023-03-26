@@ -45,7 +45,13 @@
     },
     "start": {
       "command": "ng run angular-core:storybook",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Storybook \\S+ for .*angular.* started"
+        }
+      },
       "files": [
+        "angular.json",
         "./storybook/main.ts"
       ],
       "dependencies": [

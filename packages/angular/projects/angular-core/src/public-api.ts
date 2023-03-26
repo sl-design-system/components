@@ -10,4 +10,4 @@
 // export * from './forms/radio-group/radio-group.directive';
 // export * from './forms/radio-group/radio.directive';
 
-export {}
+export {};

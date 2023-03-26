@@ -2,8 +2,7 @@ import type { StorybookConfig } from '@storybook/angular';
 
 const config: StorybookConfig = {
   stories: [
-    '../projects/angular-core/**/*.mdx',
-    '../projects/angular-core/**/*.stories.@(js|jsx|ts|tsx)'
+    '../projects/angular-core/**/*.stories.ts'
   ],
   addons: [
     '@sanomalearning/storybook-addon-themes',

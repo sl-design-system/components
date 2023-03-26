@@ -27,14 +27,8 @@
         "dist/angular-core"
       ]
     },
-    "build-storybook:angular-core": {
-      "command": "ng run angular-core:build-storybook",
-      "dependencies": [
-        "../core:build"
-      ]
-    },
     "docs": {
-      "command": "ng run angular-core:docs",
+      "command": "ng run angular-core:build-storybook",
       "dependencies": [
         "build",
         "../../docs/storybook:build"

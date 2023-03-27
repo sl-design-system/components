@@ -1,4 +1,5 @@
 import { setup } from '@sanomalearning/slds-sanoma-learning';
+import { setup as setupMg } from '@sanomalearning/slds-magister';
 import { withTheme } from './decorator.js';
 import { updateTheme } from './theme.js';
 
@@ -73,7 +74,7 @@ export const globals = {
         'https://use.typekit.net/zkq0zzv.css',
         '/themes/sanoma-learning/fonts.css'
       ],
-      setup
+      setup: setupMg
     },
     {
       id: 'max',

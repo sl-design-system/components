@@ -43,7 +43,7 @@
     },
     "build:styles": {
       "command": "yarn node --no-warnings ../../../build-styles.js magister",
-       "files": [
+      "files": [
         "../../../build-styles.js",
         "../../figma/*.json",
         "../../figma/magister*.json"

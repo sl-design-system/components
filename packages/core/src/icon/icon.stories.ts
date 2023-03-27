@@ -1,6 +1,13 @@
 import type { StoryObj } from '@storybook/web-components';
+import type { IconStyle } from '@fortawesome/fontawesome-common-types';
 import { html } from 'lit';
 import './register.js';
+
+interface Props {
+  label: string;
+  iconStyle: IconStyle;
+  name?: string;
+}
 
 export default {
   title: 'Icon',
@@ -15,7 +22,9 @@ export default {
   }
 };
 
-export const API: StoryObj = {
+type Story = StoryObj<Props>;
+
+export const API: Story = {
   render: ({ iconStyle }) => {
     const faIcons = ['raygun', 'glasses', 'book', 'user', 'camera-retro', 'hippo', 'rabbit-running', 'turtle', 'whale'];
     return html`

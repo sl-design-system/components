@@ -10,12 +10,14 @@ import { icons } from './icons.js';
 // 4. Start using the SLDS in your application
 // };
 // Icon.registerResolver(name => resolveIcon(name, icons));
-Icon.registerResolver((name: string, style: IconStyle) => resolveIcon(name, style, icons));
-Icon.registerLibraries(['regular', 'solid', 'thin', 'duotone', 'light']).catch(() => {
-  console.warn('could not load icons');
-});
+// Icon.registerResolver((name: string, style: IconStyle) => resolveIcon(name, style, icons));
 
 export const setup = (): void => {
   // Icon.registerResolver(name => resolveIcon(name, icons));
+  Icon.registerLibraries(['regular', 'solid', 'thin', 'duotone', 'light']).catch(() => {
+    console.warn('could not load icons');
+  });
+  Icon.registerResolver((name: string, style: IconStyle) => resolveIcon(name, style, icons));
+
   console.log('SETUP Sanoma Learning in index.ts!');
 };

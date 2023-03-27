@@ -354,7 +354,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     --sl-box-shadow-none: 0px 0px 0px 0px;
-    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
+    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base), var(--sl-opacity-500));
     --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-text-field-valid-disabled-input-text: rgb(var(--sl-color-palette-neutral-300));
@@ -816,7 +816,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --sl-box-shadow-none: 0px 0px 0px 0px;
-    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
+    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base), var(--sl-opacity-800));
     --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-body-background: rgb(var(--sl-color-palette-black-base));
     --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-400));

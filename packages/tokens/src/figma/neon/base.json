@@ -456,7 +456,6 @@
       "fontFamily": {
         "heading": {
           "value": "The Message",
-          "value": "The Message",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },

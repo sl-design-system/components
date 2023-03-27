@@ -32,7 +32,7 @@ export class Icon extends LitElement {
       styles.map(async style => {
         console.log('load icons, style:', style);
         // FIX ME: what type can i make "module" so this works??
-        return import(`@fortawesome/pro-${style}-svg-icons` /* @vite-ignore */).then(module => {
+        return import(`@fortawesome/pro-${style}-svg-icons/index.js`).then(module => {
           console.log(`module is loaded`, module);
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
           library.add(module[this.getIconPrefixFromStyle(style)]);

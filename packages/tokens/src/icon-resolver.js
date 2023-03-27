@@ -1,11 +1,10 @@
 import { findIconDefinition } from '@fortawesome/fontawesome-svg-core';
 export const resolveIcon = (name, style, icons) => {
     // 2. Get the supported icons from `icons.[json|ts]`?
-    var _a;
     // 3. Return the matching `<path>`
-    const iconInRegistry = (_a = Object.entries(icons).find(icon => name === icon[0])) === null || _a === void 0 ? void 0 : _a[1];
+    const iconInRegistry = Object.entries(icons).find(icon => name === icon[0])?.[1];
     console.log(icons);
-    if (icons && (iconInRegistry === null || iconInRegistry === void 0 ? void 0 : iconInRegistry.svg)) {
+    if (icons && iconInRegistry?.svg) {
         return iconInRegistry.svg;
     }
     else if (name && convertToIconDefinition(name, style)) {

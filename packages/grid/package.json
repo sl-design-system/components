@@ -17,19 +17,25 @@
   },
   "scripts": {
     "build": "wireit",
-    "build:scss": "wireit",
-    "build:ts": "wireit",
     "docs": "wireit",
     "lint": "wireit",
-    "lint:scss": "wireit",
-    "lint:ts": "wireit",
-    "storybook": "wireit",
+    "start": "wireit",
     "test": "wireit"
   },
   "wireit": {
     "build": {
       "dependencies": [
         "build:ts"
+      ]
+    },
+    "build:locales": {
+      "command": "lit-localize build && eslint --fix \"src/locales/*.ts\"",
+      "files": [
+        "lit-localize.json",
+        "src/locales/*.xlf"
+      ],
+      "output": [
+        "src/locales/*.ts"
       ]
     },
     "build:scss": {
@@ -50,6 +56,12 @@
         "../core:build",
         "build:scss"
       ],
+      "files": [
+        "src/**/*.ts"
+      ]
+    },
+    "build:types": {
+      "command": "tsc --noEmit --pretty",
       "files": [
         "src/**/*.ts"
       ]
@@ -83,33 +95,56 @@
         "src/**/*.ts"
       ]
     },
-    "storybook": {
-      "command": "storybook dev -p 6006 --quiet"
+    "start": {
+      "command": "storybook dev -p 6009 --no-open --quiet",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
+        }
+      },
+      "files": [
+        ".storybook/main.ts"
+      ],
+      "dependencies": [
+        {
+          "script": "build:locales",
+          "cascade": false
+        },
+        {
+          "script": "build:scss",
+          "cascade": false
+        },
+        {
+          "script": "build:types",
+          "cascade": false
+        }
+      ]
     },
     "test": {
       "command": "wtr --static-logging",
       "dependencies": [
-        "build:ts"
+        "build:locales",
+        "build:scss"
       ],
       "files": [
-        "web-test-runner.config.mjs",
-        "dist/**/*.spec.js"
+        "web-test-runner.config.js",
+        "src/**/*.spec.ts"
       ]
     }
   },
   "devDependencies": {
     "@open-wc/testing": "^3.1.7",
     "@sanomalearning/example-data": "*",
-    "@storybook/addon-essentials": "^7.0.0-beta.60",
-    "@storybook/addon-links": "^7.0.0-beta.60",
-    "@storybook/addon-storysource": "^7.0.0-beta.60",
-    "@storybook/web-components-webpack5": "^7.0.0-beta.60",
+    "@storybook/addon-essentials": "^7.0.0-rc.6",
+    "@storybook/addon-links": "^7.0.0-rc.6",
+    "@storybook/addon-storysource": "^7.0.0-rc.6",
+    "@storybook/web-components-webpack5": "^7.0.0-rc.6",
     "@types/sinon": "^10.0.13",
     "@web/test-runner": "^0.15.1",
     "@web/test-runner-commands": "^0.6.5",
     "@web/test-runner-playwright": "^0.9.0",
-    "sinon": "^14.0.2",
-    "storybook": "^7.0.0-beta.60",
+    "sinon": "^15.0.2",
+    "storybook": "^7.0.0-rc.6",
     "typescript": "^4.9.5",
     "wireit": "^0.9.5"
   },

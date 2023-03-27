@@ -6,8 +6,8 @@
     "strictNullChecks": true
   },
   "allowSyntheticDefaultImports": false,
-  "include": ["src"],
-  "exclude": ["dist", "node_modules", "./storybook", "**/*.tsx"],
+  "include": ["./storybook", "src"],
+  "exclude": ["dist", "node_modules", "**/*.tsx"],
   "references": [
     { "path": "./src/button/entrypoint.tsconfig.json" },
     { "path": "./src/button-bar/entrypoint.tsconfig.json" },

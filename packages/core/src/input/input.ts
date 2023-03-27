@@ -21,15 +21,39 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
 
-  #events = new EventsController(this, {
-    click: this.#onClick
-  });
+  #onKeydown = (event: Event): void => {
+    //{ key }: KeyboardEvent
+    console.log('key', event);
+    // if (key !== 'Tab') {
+    //    this.input.focus();
+    // }
+    // TODO: shift tab doesn't work
 
-  #onKeydown = ({ key }: KeyboardEvent): void => {
-    if (key === 'Enter') {
+    if (!this.disabled) {
+      // event.stopPropagation();
+      // this.input.focus();
+      if ((event as KeyboardEvent).key === 'Enter') {
+        console.log('input blur');
+        this.input.blur();
+      } else {
+        this.input.focus();
+      }
+    } // TODO what about blur and tab key?
+
+    // if ((event as KeyboardEvent).key === 'Enter') {
+    //   console.log('input blur');
+    //   this.input.blur();
+    // }
+
+    if ((event as KeyboardEvent).key === 'Enter') {
       this.input.form?.requestSubmit();
     }
   };
+
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+  });
 
   #validation = new ValidationController(this, {
     target: () => this.input
@@ -72,7 +96,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
    * The input type. Only text types are valid here. For other types,
    * see their respective components.
    */
-  @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text'; // TODO: password type in the future as separated component?
+  @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text'; // TODO: password type will be added in the future
 
   /** Custom validators specified by the user. */
   @property({ attribute: false }) validators?: Validator[];
@@ -86,6 +110,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
@@ -166,7 +194,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       </div>
       ${this.renderHint()} ${this.#validation.render()}
     `;
-  }
+  } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
 
   #onClick(event: Event): void {
     if (event.target === this.input) {

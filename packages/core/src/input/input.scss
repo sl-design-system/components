@@ -27,15 +27,20 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   vertical-align: top;
 }
 
+:host(:focus-visible) {
+  outline: none;
+  //box-shadow: var(--sl-box-shadow-focus);
+}
+
 :host(:disabled) {
   cursor: default;
   pointer-events: none;
 }
 
-:host(:focus-within) {
-  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
-  --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
-}
+//:host(:focus-within) {
+//  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
+//  --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
+//}
 
 :host(:where(:--invalid, [state--invalid], :invalid)) {
   --_border-color: #c00;
@@ -161,7 +166,7 @@ slot[name='input']::slotted(input) {
   }
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):active) {
-  :host(#{$variant-selector}:active) {
+  :host(#{$variant-selector}:focus-within:not(:focus-visible)) {
     --_border-color: var(--sl-color-text-field-#{$variant}-active-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
@@ -176,7 +181,7 @@ slot[name='input']::slotted(input) {
   }
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):focus-visible) { // :focus-within
-  :host(#{$variant-selector}:focus-within) {
+  :host(#{$variant-selector}:where(:focus-visible):not([disabled])) {
     --_border-color: var(--sl-color-text-field-#{$variant}-focus-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
@@ -188,6 +193,13 @@ slot[name='input']::slotted(input) {
 
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-focus-background);
+    }
+  }
+
+  slot[name='input']::slotted(input) {
+    &:focus-visible {
+      --_color: var(--sl-color-text-field-#{$variant}-focus-input-text);
+      --_box-shadow: var(--sl-box-shadow-focus);
     }
   }
 

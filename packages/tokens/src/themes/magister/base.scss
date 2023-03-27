@@ -4,17 +4,6 @@
  */
 
 @mixin sl-theme-base {
-  --sl-opacity-transparent: 0;
-  --sl-opacity-1000: 1;
-  --sl-opacity-900: 0.8;
-  --sl-opacity-800: 0.64;
-  --sl-opacity-700: 0.48;
-  --sl-opacity-600: 0.32;
-  --sl-opacity-500: 0.2;
-  --sl-opacity-400: 0.16;
-  --sl-opacity-300: 0.12;
-  --sl-opacity-200: 0.08;
-  --sl-opacity-100: 0.04;
   --sl-size-4xl: 72px;
   --sl-size-3xl: 64px;
   --sl-size-2xl: 56px;
@@ -27,6 +16,17 @@
   --sl-size-3xs: 4px;
   --sl-size-4xs: 2px;
   --sl-size-none: 0px;
+  --sl-opacity-transparent: 0;
+  --sl-opacity-1000: 1;
+  --sl-opacity-900: 0.8;
+  --sl-opacity-800: 0.64;
+  --sl-opacity-700: 0.48;
+  --sl-opacity-600: 0.32;
+  --sl-opacity-500: 0.2;
+  --sl-opacity-400: 0.16;
+  --sl-opacity-300: 0.12;
+  --sl-opacity-200: 0.08;
+  --sl-opacity-100: 0.04;
   --sl-icon-core-fa-check: fa-chevron-down;
   --sl-icon-core-fa-chevron-down: fa-chevron-down;
   --sl-icon-core-fa-fav: fa-star;
@@ -201,14 +201,14 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
-  --sl-size-input-lg: var(--sl-size-md);
-  --sl-size-input-md: var(--sl-size-sm);
   --sl-size-button-icon-container-icon-only-lg: var(--sl-size-sm);
   --sl-size-button-icon-container-icon-only-md: var(--sl-size-xs);
   --sl-size-button-icon-container-icon-only-sm: var(--sl-size-xs);
   --sl-size-button-icon-lg: var(--sl-text-typeset-line-height-sm);
   --sl-size-button-icon-md: var(--sl-text-typeset-line-height-xs);
   --sl-size-button-icon-sm: var(--sl-text-typeset-line-height-xxs);
+  --sl-size-input-lg: var(--sl-size-md);
+  --sl-size-input-md: var(--sl-size-sm);
   --sl-icon-font-weight: 400;
   --sl-icon-base-check: var(--sl-icon-core-fa-check);
   --sl-icon-base-chevron-down: var(--sl-icon-core-fa-chevron-down);

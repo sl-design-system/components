@@ -14,7 +14,7 @@ const config = {
   ],
 
   browsers: [playwrightLauncher({ product: 'chromium' })],
-  plugins: [a11ySnapshotPlugin(), esbuildPlugin({ ts: true, target: 'auto' })],
+  plugins: [a11ySnapshotPlugin(), esbuildPlugin({ ts: true, target: 'es2021' })],
 
   testRunnerHtml: testFramework => `
     <html>

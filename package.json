@@ -93,7 +93,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
-    "prettier": "^2.8.6",
+    "prettier": "^2.8.7",
     "rimraf": "^4.4.1",
     "sass": "^1.60.0",
     "stylelint": "^15.3.0",

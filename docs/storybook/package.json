@@ -37,6 +37,10 @@
         {
           "script": "../../packages/grid:start",
           "cascade": false
+        },
+        {
+          "script": "../../packages/angular:start",
+          "cascade": false
         }
       ]
     }

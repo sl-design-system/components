@@ -96,7 +96,7 @@
       ]
     },
     "start": {
-      "command": "storybook dev -p 6008 --quiet",
+      "command": "storybook dev -p 6008 --no-open --quiet",
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"

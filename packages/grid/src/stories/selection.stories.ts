@@ -5,11 +5,13 @@ import { getPeople } from '@sanomalearning/example-data';
 import { html } from 'lit';
 import '../register.js';
 
+type Story = StoryObj;
+
 export default {
   title: 'Selection'
 };
 
-export const Single: StoryObj = {
+export const Single: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const onActiveItemChange = ({
@@ -31,7 +33,7 @@ export const Single: StoryObj = {
   }
 };
 
-export const Multiple: StoryObj = {
+export const Multiple: Story = {
   args: {
     selectAll: false
   },
@@ -48,7 +50,7 @@ export const Multiple: StoryObj = {
   }
 };
 
-export const MultipleAutoSelect: StoryObj = {
+export const MultipleAutoSelect: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     return html`

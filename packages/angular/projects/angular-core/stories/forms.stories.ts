@@ -1,14 +1,14 @@
 import type { Meta } from '@storybook/angular';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {Component, CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {moduleMetadata, StoryFn} from '@storybook/angular';
-import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
 import '@sanomalearning/slds-core/label/register.js';
 import '@sanomalearning/slds-core/button/register.js';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { moduleMetadata, StoryFn, StoryObj } from '@storybook/angular';
+import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
 
 @Component({
   selector: 'sla-input',
-    styles: [`
+  styles: [`
     .example-input {
       display: flex;
       flex-direction: column;
@@ -21,14 +21,13 @@ import '@sanomalearning/slds-core/button/register.js';
   `],
   template: `
     <div class="example-input">
-        <sl-label for="input-id">My label</sl-label>
-        <sl-input id="input-id" [value]="value" (input)="onValueChange($event.target)"></sl-input>
-        <div>value: <i>{{value}}</i></div>
+      <sl-label for="input-id">My label</sl-label>
+      <sl-input id="input-id" [value]="value" (input)="onValueChange($event.target)"></sl-input>
+      <div>value: <i>{{value}}</i></div>
     </div>
   `
 })
 export class InputComponent {
-
   value = '';
 
   onValueChange(event: any): void {
@@ -51,14 +50,13 @@ export class InputComponent {
   `],
   template: `
     <div class="example-textarea">
-        <sl-label for="textarea-onchange">My label</sl-label>
-        <sl-textarea id="textarea-onchange" name="textarea" placeholder="Placeholder" [value]="textarea1" (input)="onTextareaValueChange($event.target)"></sl-textarea>
-        <div>value: <i>{{textarea1}}</i></div>
+      <sl-label for="textarea-onchange">My label</sl-label>
+      <sl-textarea id="textarea-onchange" name="textarea" placeholder="Placeholder" [value]="textarea1" (input)="onTextareaValueChange($event.target)"></sl-textarea>
+      <div>value: <i>{{textarea1}}</i></div>
     </div>
   `
 })
 export class TextareaComponent {
-
   textarea1 = 'textarea content';
 
   onTextareaValueChange(event: any): void {
@@ -77,14 +75,13 @@ export class TextareaComponent {
   `],
   template: `
     <div class="example-checkbox">
-        <sl-label for="textarea-onchange">My label</sl-label>
-        <sl-checkbox id="checkbox-onchange-id" [value]="checkboxValue" (sl-change)="onCheckboxValueChange($event.target)">Checkbox</sl-checkbox>
-        <div>value: <i>{{checkboxValue}}</i></div>
+      <sl-label for="textarea-onchange">My label</sl-label>
+      <sl-checkbox id="checkbox-onchange-id" [value]="checkboxValue" (sl-change)="onCheckboxValueChange($event.target)">Checkbox</sl-checkbox>
+      <div>value: <i>{{checkboxValue}}</i></div>
     </div>
   `
 })
 export class CheckboxComponent {
-
   checkboxValue = false;
 
   onCheckboxValueChange(event: any): void {
@@ -145,7 +142,7 @@ export class ReactiveFormComponent {
     alert(`form submit: Name: ${form.value.name},
           Description: ${form.value.description},
           Approval: ${form.value.approval},
-          Option: ${form.value.option}` );
+          Option: ${form.value.option}`);
   }
 }
 
@@ -169,30 +166,29 @@ export class ReactiveFormComponent {
     }
   `],
   template: `
-      <form (ngSubmit)="onSubmit(model)">
-        <sl-label for="my-value">Name</sl-label>
-        <sl-input id="my-value" [(ngModel)]="model.name" name="name"></sl-input>
-        <sl-label for="textarea-ngmodel-id">Description</sl-label>
-        <sl-textarea id="textarea-ngmodel-id" [(ngModel)]="model.description" name="description"></sl-textarea>
-        <sl-label for="checkbox-with-ngmodel">Checkbox</sl-label>
-        <sl-checkbox id="checkbox-with-ngmodel" [(ngModel)]="model.approval" name="approval">my checkbox</sl-checkbox>
-        <sl-label for="radio-group">Select option</sl-label>
-        <sl-radio-group id="radio-group" [(ngModel)]="model.option" name="option">
-          <sl-radio value="1" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">One</sl-radio>
-          <sl-radio value="2" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Two</sl-radio>
-          <sl-radio value="3" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Three</sl-radio>
-        </sl-radio-group>
-        <sl-button type="submit" variant="primary">Submit</sl-button>
-        <div>Name: <i>{{model.name}}</i></div>
-        <div>Description: <i>{{model.description}}</i></div>
-        <div>Approval: <i>{{model.approval}}</i></div>
-        <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>
-      </form>
+    <form (ngSubmit)="onSubmit(model)">
+      <sl-label for="my-value">Name</sl-label>
+      <sl-input id="my-value" [(ngModel)]="model.name" name="name"></sl-input>
+      <sl-label for="textarea-ngmodel-id">Description</sl-label>
+      <sl-textarea id="textarea-ngmodel-id" [(ngModel)]="model.description" name="description"></sl-textarea>
+      <sl-label for="checkbox-with-ngmodel">Checkbox</sl-label>
+      <sl-checkbox id="checkbox-with-ngmodel" [(ngModel)]="model.approval" name="approval">my checkbox</sl-checkbox>
+      <sl-label for="radio-group">Select option</sl-label>
+      <sl-radio-group id="radio-group" [(ngModel)]="model.option" name="option">
+        <sl-radio value="1" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">One</sl-radio>
+        <sl-radio value="2" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Two</sl-radio>
+        <sl-radio value="3" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Three</sl-radio>
+      </sl-radio-group>
+      <sl-button type="submit" variant="primary">Submit</sl-button>
+      <div>Name: <i>{{model.name}}</i></div>
+      <div>Description: <i>{{model.description}}</i></div>
+      <div>Approval: <i>{{model.approval}}</i></div>
+      <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>
+    </form>
   `
 })
 export class TemplateFormComponent {
-
-  model = new Person(1, 'John', 'Short description of John', false, {value: null, text: ''});
+  model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
 
   onRadioValueChange(event: any): void {
     this.model.option.value = event.value;
@@ -203,7 +199,7 @@ export class TemplateFormComponent {
     alert(`form submit: Name: ${this.model.name},
           Description: ${this.model.description},
           Approval: ${this.model.approval},
-          Option: ${this.model.option.value} ${this.model.option.text}` );
+          Option: ${this.model.option.value} ${this.model.option.text}`);
   }
 }
 
@@ -213,8 +209,8 @@ export class Person {
     public name: string,
     public description: string,
     public approval: boolean,
-    public option: {value: null, text: ''}
-  ) {  }
+    public option: { value: null, text: '' }
+  ) { }
 }
 
 export default {
@@ -249,4 +245,3 @@ export const ReactiveForm: StoryFn = () => ({
 export const TemplateDrivenForm: StoryFn = () => ({
   template: `<sla-template-form></sla-template-form>`,
 });
-

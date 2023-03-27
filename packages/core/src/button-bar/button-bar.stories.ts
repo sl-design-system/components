@@ -1,13 +1,18 @@
-import type { StoryObj } from '@storybook/web-components';
+import type { ButtonBarAlign } from './button-bar.js';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../button/register.js';
 import './register.js';
 
-export default {
-  title: 'Button bar'
-};
+interface Props {
+  align: ButtonBarAlign;
+  reverse: boolean;
+}
 
-export const API: StoryObj = {
+type Story = StoryObj<Props>;
+
+export default {
+  title: 'Button bar',
   args: {
     align: 'start',
     reverse: false
@@ -25,4 +30,6 @@ export const API: StoryObj = {
       <sl-button>Baz</sl-button>
     </sl-button-bar>
   `
-};
+} satisfies Meta<Props>;
+
+export const Basic: Story = {};

@@ -1,13 +1,24 @@
-import type { StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import type { ButtonFill, ButtonSize, ButtonVariant } from './button.js';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import '../button-bar/register.js';
 import './register.js';
+import { html } from 'lit';
+
+interface Props {
+  fill: ButtonFill;
+  size: ButtonSize;
+  text: string;
+  variant: ButtonVariant;
+}
+
+type Story = StoryObj<Props>;
 
 export default {
   title: 'Button',
   args: {
     fill: 'default',
     size: 'md',
+    text: 'Button',
     variant: 'default'
   },
   argTypes: {
@@ -23,19 +34,14 @@ export default {
       control: 'radio',
       options: ['default', 'primary', 'success', 'warning', 'danger']
     }
-  }
-};
-
-export const API: StoryObj = {
-  args: {
-    text: 'Button'
   },
-  render: ({ fill, size, text, variant }) => html`
-    <sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>
-  `
-};
+  render: ({ fill, size, text, variant }) =>
+    html`<sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>`
+} satisfies Meta<Props>;
 
-export const All: StoryObj = {
+export const Basic: Story = {};
+
+export const All: Story = {
   render: () => html`
     <style>
       .grid {
@@ -121,7 +127,7 @@ export const All: StoryObj = {
   `
 };
 
-export const Fills: StoryObj = {
+export const Fills: Story = {
   argTypes: {
     fill: {
       table: {
@@ -137,7 +143,7 @@ export const Fills: StoryObj = {
   `
 };
 
-export const Sizes: StoryObj = {
+export const Sizes: Story = {
   argTypes: {
     size: {
       table: {
@@ -154,7 +160,7 @@ export const Sizes: StoryObj = {
   `
 };
 
-export const Variants: StoryObj = {
+export const Variants: Story = {
   argTypes: {
     variant: {
       table: {

@@ -7,11 +7,13 @@ import { getPeople } from '@sanomalearning/example-data';
 import { html } from 'lit';
 import '../register.js';
 
+type Story = StoryObj;
+
 export default {
   title: 'Filtering'
 };
 
-export const PerColumn: StoryObj = {
+export const PerColumn: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people}>
@@ -23,7 +25,7 @@ export const PerColumn: StoryObj = {
   `
 };
 
-export const OutsideGrid: StoryObj = {
+export const OutsideGrid: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const onInput = ({ target }: Event & { target: Input }): void => {

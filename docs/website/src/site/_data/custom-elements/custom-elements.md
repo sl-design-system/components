@@ -25,85 +25,6 @@
 | `js` | `ValidationRequiredReport` | ValidationRequiredReport | ../../packages/core/src/form.stories.ts |         |
 | `js` | `Validation`               | Validation               | ../../packages/core/src/form.stories.ts |         |
 
-# `../../packages/core/src/avatar/avatar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
-
-# `../../packages/core/src/avatar/avatar.stories.ts`:
-
-## Variables
-
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
-
-# `../../packages/core/src/avatar/avatar.ts`:
-
-## class: `Avatar`, `sl-avatar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
-| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
-| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
-| `profileName`     |         | `string`                                |          |                                                               |                |
-| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
-
-### Methods
-
-| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
-| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
-| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `uniqueProfileId` | uniqueProfileId |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
-
-# `../../packages/core/src/avatar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./avatar.js |
-
-# `../../packages/core/src/avatar/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
-
 # `../../packages/core/src/button/button.scss.ts`:
 
 ## Exports
@@ -206,6 +127,195 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/core/src/button/button.js |         |
 
+# `../../packages/core/src/avatar/avatar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
+
+# `../../packages/core/src/avatar/avatar.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/avatar/avatar.stories.ts |         |
+
+# `../../packages/core/src/avatar/avatar.ts`:
+
+## class: `Avatar`, `sl-avatar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
+| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
+| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
+| `profileName`     |         | `string`                                |          |                                                               |                |
+| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
+
+### Methods
+
+| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
+| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
+| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `uniqueProfileId` | uniqueProfileId |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
+
+# `../../packages/core/src/avatar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./avatar.js |
+
+# `../../packages/core/src/avatar/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
+
+# `../../packages/core/src/dialog/dialog.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/dialog/dialog.scss.ts |         |
+
+# `../../packages/core/src/dialog/dialog.stories.ts`:
+
+## Variables
+
+| Name            | Description | Type       |
+| --------------- | ----------- | ---------- |
+| `API`           |             | `StoryObj` |
+| `DisableClose`  |             | `StoryObj` |
+| `ScrollingBody` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                           | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------ | ------- |
+| `js` | `default`       |               | ../../packages/core/src/dialog/dialog.stories.ts |         |
+| `js` | `API`           | API           | ../../packages/core/src/dialog/dialog.stories.ts |         |
+| `js` | `DisableClose`  | DisableClose  | ../../packages/core/src/dialog/dialog.stories.ts |         |
+| `js` | `ScrollingBody` | ScrollingBody | ../../packages/core/src/dialog/dialog.stories.ts |         |
+
+# `../../packages/core/src/dialog/dialog.ts`:
+
+## class: `Dialog`, `sl-dialog`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
+### Fields
+
+| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
+| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
+| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
+| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
+| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
+| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `showModal` |         |             |                                                 | `void` |                |
+| `close`     |         |             |                                                 | `void` |                |
+| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
+| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
+| `#onClose`  |         |             |                                                 | `void` |                |
+
+### Attributes
+
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `disable-close` | disableClose |                |
+| `role`          | role         |                |
+
+### Slots
+
+| Name      | Description                          |
+| --------- | ------------------------------------ |
+| `action`  | Area where action buttons are placed |
+| `default` | Body content for the dialog          |
+| `footer`  | Footer content for the dialog        |
+| `header`  | Header content for the dialog        |
+| `title`   | The title of the dialog              |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Dialog` | Dialog      | ../../packages/core/src/dialog/dialog.ts |         |
+
+# `../../packages/core/src/dialog/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./dialog.js |
+
+# `../../packages/core/src/dialog/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
+
 # `../../packages/core/src/button-bar/button-bar.scss.ts`:
 
 ## Exports
@@ -292,6 +402,116 @@
 | Kind                        | Name            | Declaration | Module                                      | Package |
 | --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
+
+# `../../packages/core/src/drawer/drawer.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/drawer/drawer.scss.ts |         |
+
+# `../../packages/core/src/drawer/drawer.stories.ts`:
+
+## Variables
+
+| Name             | Description | Type       |
+| ---------------- | ----------- | ---------- |
+| `API`            |             | `StoryObj` |
+| `DisableClose`   |             | `StoryObj` |
+| `CompleteHeader` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name             | Declaration    | Module                                           | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------ | ------- |
+| `js` | `default`        |                | ../../packages/core/src/drawer/drawer.stories.ts |         |
+| `js` | `API`            | API            | ../../packages/core/src/drawer/drawer.stories.ts |         |
+| `js` | `DisableClose`   | DisableClose   | ../../packages/core/src/drawer/drawer.stories.ts |         |
+| `js` | `CompleteHeader` | CompleteHeader | ../../packages/core/src/drawer/drawer.stories.ts |         |
+
+# `../../packages/core/src/drawer/drawer.ts`:
+
+## class: `Drawer`, `sl-drawer`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
+### Fields
+
+| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
+| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
+| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
+| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
+| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
+| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
+| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `showModal` |         |             |                                                 | `void` |                |
+| `close`     |         |             |                                                 | `void` |                |
+| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
+| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
+| `#onClose`  |         |             |                                                 | `void` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `disable-close`   | disableClose    |                |
+| `attachment`      | attachment      |                |
+| `closeButtonSize` | closeButtonSize |                |
+
+### Slots
+
+| Name      | Description                   |
+| --------- | ----------------------------- |
+| `default` | Body content for the drawer   |
+| `header`  | Header content for the drawer |
+| `title`   | The title of the drawer       |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | ../../packages/core/src/drawer/drawer.ts |         |
+
+# `../../packages/core/src/drawer/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./drawer.js |
+
+# `../../packages/core/src/drawer/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/core/src/drawer/drawer.js |         |
 
 # `../../packages/core/src/checkbox/checkbox-group.scss.ts`:
 
@@ -529,6 +749,92 @@
 | --------------------------- | ------------------- | ------------- | --------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/core/src/checkbox/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/core/src/checkbox/checkbox-group.js |         |
+
+# `../../packages/core/src/icon/icon.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/icon/icon.scss.ts |         |
+
+# `../../packages/core/src/icon/icon.stories.ts`:
+
+## Variables
+
+| Name  | Description | Type       |
+| ----- | ----------- | ---------- |
+| `API` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/icon/icon.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/icon/icon.stories.ts |         |
+
+# `../../packages/core/src/icon/icon.ts`:
+
+## class: `Icon`, `sl-icon`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Static Fields
+
+| Name       | Privacy | Type           | Default | Description | Inherited From |
+| ---------- | ------- | -------------- | ------- | ----------- | -------------- |
+| `resolver` | private | `IconResolver` |         |             |                |
+
+### Static Methods
+
+| Name               | Privacy | Description | Parameters                   | Return | Inherited From |
+| ------------------ | ------- | ----------- | ---------------------------- | ------ | -------------- |
+| `registerIcon`     |         |             | `name: string, icon: string` | `void` |                |
+| `registerResolver` |         |             | `resolver: IconResolver`     | `void` |                |
+
+### Fields
+
+| Name    | Privacy | Type                  | Default | Description                                                                                                       | Inherited From |
+| ------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- | -------------- |
+| `label` |         | `string \| undefined` |         | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
+| `name`  |         | `string \| undefined` |         | The name of the icon to show.                                                                                     |                |
+
+### Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+| `name`  | name  |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name   | Declaration | Module                               | Package |
+| ---- | ------ | ----------- | ------------------------------------ | ------- |
+| `js` | `Icon` | Icon        | ../../packages/core/src/icon/icon.ts |         |
+
+# `../../packages/core/src/icon/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package   |
+| ---- | ---- | ----------- | ------ | --------- |
+| `js` | `*`  | *           |        | ./icon.js |
+
+# `../../packages/core/src/icon/register.ts`:
+
+## Exports
+
+| Kind                        | Name      | Declaration | Module                          | Package |
+| --------------------------- | --------- | ----------- | ------------------------------- | ------- |
+| `custom-element-definition` | `sl-icon` | Icon        | /packages/core/src/icon/icon.js |         |
 
 # `../../packages/core/src/input/index.ts`:
 
@@ -776,312 +1082,6 @@
 | --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
 | `custom-element-definition` | `sl-label` | Label       | /packages/core/src/label/label.js |         |
 
-# `../../packages/core/src/dialog/dialog.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/dialog/dialog.scss.ts |         |
-
-# `../../packages/core/src/dialog/dialog.stories.ts`:
-
-## Variables
-
-| Name            | Description | Type       |
-| --------------- | ----------- | ---------- |
-| `API`           |             | `StoryObj` |
-| `DisableClose`  |             | `StoryObj` |
-| `ScrollingBody` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                           | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------ | ------- |
-| `js` | `default`       |               | ../../packages/core/src/dialog/dialog.stories.ts |         |
-| `js` | `API`           | API           | ../../packages/core/src/dialog/dialog.stories.ts |         |
-| `js` | `DisableClose`  | DisableClose  | ../../packages/core/src/dialog/dialog.stories.ts |         |
-| `js` | `ScrollingBody` | ScrollingBody | ../../packages/core/src/dialog/dialog.stories.ts |         |
-
-# `../../packages/core/src/dialog/dialog.ts`:
-
-## class: `Dialog`, `sl-dialog`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
-| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
-| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
-| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
-| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
-| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
-| `showModal` |         |             |                                                 | `void` |                |
-| `close`     |         |             |                                                 | `void` |                |
-| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
-| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
-| `#onClose`  |         |             |                                                 | `void` |                |
-
-### Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `disable-close` | disableClose |                |
-| `role`          | role         |                |
-
-### Slots
-
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `action`  | Area where action buttons are placed |
-| `default` | Body content for the dialog          |
-| `footer`  | Footer content for the dialog        |
-| `header`  | Header content for the dialog        |
-| `title`   | The title of the dialog              |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Dialog` | Dialog      | ../../packages/core/src/dialog/dialog.ts |         |
-
-# `../../packages/core/src/dialog/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./dialog.js |
-
-# `../../packages/core/src/dialog/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
-
-# `../../packages/core/src/drawer/drawer.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/drawer/drawer.scss.ts |         |
-
-# `../../packages/core/src/drawer/drawer.stories.ts`:
-
-## Variables
-
-| Name             | Description | Type       |
-| ---------------- | ----------- | ---------- |
-| `API`            |             | `StoryObj` |
-| `DisableClose`   |             | `StoryObj` |
-| `CompleteHeader` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name             | Declaration    | Module                                           | Package |
-| ---- | ---------------- | -------------- | ------------------------------------------------ | ------- |
-| `js` | `default`        |                | ../../packages/core/src/drawer/drawer.stories.ts |         |
-| `js` | `API`            | API            | ../../packages/core/src/drawer/drawer.stories.ts |         |
-| `js` | `DisableClose`   | DisableClose   | ../../packages/core/src/drawer/drawer.stories.ts |         |
-| `js` | `CompleteHeader` | CompleteHeader | ../../packages/core/src/drawer/drawer.stories.ts |         |
-
-# `../../packages/core/src/drawer/drawer.ts`:
-
-## class: `Drawer`, `sl-drawer`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
-| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
-| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
-| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
-| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
-| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
-| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
-| `showModal` |         |             |                                                 | `void` |                |
-| `close`     |         |             |                                                 | `void` |                |
-| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
-| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
-| `#onClose`  |         |             |                                                 | `void` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `disable-close`   | disableClose    |                |
-| `attachment`      | attachment      |                |
-| `closeButtonSize` | closeButtonSize |                |
-
-### Slots
-
-| Name      | Description                   |
-| --------- | ----------------------------- |
-| `default` | Body content for the drawer   |
-| `header`  | Header content for the drawer |
-| `title`   | The title of the drawer       |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | ../../packages/core/src/drawer/drawer.ts |         |
-
-# `../../packages/core/src/drawer/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./drawer.js |
-
-# `../../packages/core/src/drawer/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/core/src/drawer/drawer.js |         |
-
-# `../../packages/core/src/icon/icon.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/icon/icon.scss.ts |         |
-
-# `../../packages/core/src/icon/icon.stories.ts`:
-
-## Variables
-
-| Name  | Description | Type       |
-| ----- | ----------- | ---------- |
-| `API` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/icon/icon.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/icon/icon.stories.ts |         |
-
-# `../../packages/core/src/icon/icon.ts`:
-
-## class: `Icon`, `sl-icon`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name       | Privacy | Type           | Default | Description | Inherited From |
-| ---------- | ------- | -------------- | ------- | ----------- | -------------- |
-| `resolver` | private | `IconResolver` |         |             |                |
-
-### Static Methods
-
-| Name               | Privacy | Description | Parameters                   | Return | Inherited From |
-| ------------------ | ------- | ----------- | ---------------------------- | ------ | -------------- |
-| `registerIcon`     |         |             | `name: string, icon: string` | `void` |                |
-| `registerResolver` |         |             | `resolver: IconResolver`     | `void` |                |
-
-### Fields
-
-| Name    | Privacy | Type                  | Default | Description                                                                                                       | Inherited From |
-| ------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- | -------------- |
-| `label` |         | `string \| undefined` |         | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
-| `name`  |         | `string \| undefined` |         | The name of the icon to show.                                                                                     |                |
-
-### Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `label` | label |                |
-| `name`  | name  |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name   | Declaration | Module                               | Package |
-| ---- | ------ | ----------- | ------------------------------------ | ------- |
-| `js` | `Icon` | Icon        | ../../packages/core/src/icon/icon.ts |         |
-
-# `../../packages/core/src/icon/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package   |
-| ---- | ---- | ----------- | ------ | --------- |
-| `js` | `*`  | *           |        | ./icon.js |
-
-# `../../packages/core/src/icon/register.ts`:
-
-## Exports
-
-| Kind                        | Name      | Declaration | Module                          | Package |
-| --------------------------- | --------- | ----------- | ------------------------------- | ------- |
-| `custom-element-definition` | `sl-icon` | Icon        | /packages/core/src/icon/icon.js |         |
-
 # `../../packages/core/src/locales/locale-codes.ts`:
 
 ## Variables
@@ -1117,131 +1117,6 @@
 | Kind | Name        | Declaration | Module                                | Package |
 | ---- | ----------- | ----------- | ------------------------------------- | ------- |
 | `js` | `templates` | templates   | ../../packages/core/src/locales/nl.ts |         |
-
-# `../../packages/core/src/popover/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package      |
-| ---- | ---- | ----------- | ------ | ------------ |
-| `js` | `*`  | *           |        | ./popover.js |
-| `js` | `*`  | *           |        | ./types.js   |
-
-# `../../packages/core/src/popover/popover.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/popover/popover.scss.ts |         |
-
-# `../../packages/core/src/popover/popover.stories.ts`:
-
-## Variables
-
-| Name    | Description | Type       |
-| ------- | ----------- | ---------- |
-| `API`   |             | `StoryObj` |
-| `Focus` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/popover/popover.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/popover/popover.stories.ts |         |
-| `js` | `Focus`   | Focus       | ../../packages/core/src/popover/popover.stories.ts |         |
-
-# `../../packages/core/src/popover/popover.ts`:
-
-## class: `Popover`, `sl-popover`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                   | Module                                                | Package |
-| ---------------------- | ----------------------------------------------------- | ------- |
-| `AnchoredPopoverMixin` | /packages/core/src/popover/mixins/anchored-popover.js |         |
-
-### Fields
-
-| Name                 | Privacy | Type                       | Default | Description                                          | Inherited From       |
-| -------------------- | ------- | -------------------------- | ------- | ---------------------------------------------------- | -------------------- |
-| `#onAnchorClick`     | private |                            |         |                                                      |                      |
-| `arrow`              |         | `HTMLElement \| undefined` |         | The arrow linking the popover to the anchor element. | AnchoredPopoverMixin |
-| `placement`          |         | `Placement`                | `'top'` | Popover placement relative to the anchor.            | AnchoredPopoverMixin |
-| `#onPopoverHide`     | private |                            |         |                                                      | AnchoredPopoverMixin |
-| `cleanupFloatingUI`  |         | `() => void \| undefined`  |         | Cleanup callback for floating-ui.                    | AnchoredPopoverMixin |
-| `#anchorElement`     | private | `HTMLElement \| undefined` |         |                                                      | AnchoredMixin        |
-| `anchorElement`      |         | `HTMLElement \| undefined` |         |                                                      | AnchoredMixin        |
-| `#popoverOpen`       | private | `boolean`                  | `false` |                                                      | PopoverMixin         |
-| `#onDocumentClick`   | private |                            |         |                                                      | PopoverMixin         |
-| `#onDocumentKeydown` | private |                            |         |                                                      | PopoverMixin         |
-| `open`               |         | `boolean`                  | `false` | Whether the popover is open or not.                  | PopoverMixin         |
-| `receivesFocus`      |         | `'auto' \| undefined`      |         |                                                      | PopoverMixin         |
-| `popoverOpen`        | public  | `boolean`                  |         |                                                      | PopoverMixin         |
-
-### Methods
-
-| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
-| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
-| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `#onClick`                       |         |                                                                        | `event: Event`                  | `void`          |                      |
-| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
-| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
-| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
-| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
-
-### Events
-
-| Name          | Type    | Description | Inherited From |
-| ------------- | ------- | ----------- | -------------- |
-| `popovershow` | `Event` |             | PopoverMixin   |
-| `popoverhide` | `Event` |             | PopoverMixin   |
-
-### Attributes
-
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `placement`      | placement     |                |
-| `open`           | open          | PopoverMixin   |
-| `receives-focus` | receivesFocus | PopoverMixin   |
-
-### CSS Parts
-
-| Name        | Description                   |
-| ----------- | ----------------------------- |
-| `container` | The container for the popover |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------ | ------- |
-| `js` | `Popover` | Popover     | ../../packages/core/src/popover/popover.ts |         |
-
-# `../../packages/core/src/popover/register.ts`:
-
-## Exports
-
-| Kind                        | Name         | Declaration | Module                                | Package |
-| --------------------------- | ------------ | ----------- | ------------------------------------- | ------- |
-| `custom-element-definition` | `sl-popover` | Popover     | /packages/core/src/popover/popover.js |         |
 
 # `../../packages/core/src/radio-group/index.ts`:
 
@@ -1500,6 +1375,131 @@
 | --------------------------- | ---------------- | ----------- | --------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-radio`       | Radio       | /packages/core/src/radio-group/radio.js       |         |
 | `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/core/src/radio-group/radio-group.js |         |
+
+# `../../packages/core/src/popover/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package      |
+| ---- | ---- | ----------- | ------ | ------------ |
+| `js` | `*`  | *           |        | ./popover.js |
+| `js` | `*`  | *           |        | ./types.js   |
+
+# `../../packages/core/src/popover/popover.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/popover/popover.scss.ts |         |
+
+# `../../packages/core/src/popover/popover.stories.ts`:
+
+## Variables
+
+| Name    | Description | Type       |
+| ------- | ----------- | ---------- |
+| `API`   |             | `StoryObj` |
+| `Focus` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/popover/popover.stories.ts |         |
+| `js` | `API`     | API         | ../../packages/core/src/popover/popover.stories.ts |         |
+| `js` | `Focus`   | Focus       | ../../packages/core/src/popover/popover.stories.ts |         |
+
+# `../../packages/core/src/popover/popover.ts`:
+
+## class: `Popover`, `sl-popover`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                   | Module                                                | Package |
+| ---------------------- | ----------------------------------------------------- | ------- |
+| `AnchoredPopoverMixin` | /packages/core/src/popover/mixins/anchored-popover.js |         |
+
+### Fields
+
+| Name                 | Privacy | Type                       | Default | Description                                          | Inherited From       |
+| -------------------- | ------- | -------------------------- | ------- | ---------------------------------------------------- | -------------------- |
+| `#onAnchorClick`     | private |                            |         |                                                      |                      |
+| `arrow`              |         | `HTMLElement \| undefined` |         | The arrow linking the popover to the anchor element. | AnchoredPopoverMixin |
+| `placement`          |         | `Placement`                | `'top'` | Popover placement relative to the anchor.            | AnchoredPopoverMixin |
+| `#onPopoverHide`     | private |                            |         |                                                      | AnchoredPopoverMixin |
+| `cleanupFloatingUI`  |         | `() => void \| undefined`  |         | Cleanup callback for floating-ui.                    | AnchoredPopoverMixin |
+| `#anchorElement`     | private | `HTMLElement \| undefined` |         |                                                      | AnchoredMixin        |
+| `anchorElement`      |         | `HTMLElement \| undefined` |         |                                                      | AnchoredMixin        |
+| `#popoverOpen`       | private | `boolean`                  | `false` |                                                      | PopoverMixin         |
+| `#onDocumentClick`   | private |                            |         |                                                      | PopoverMixin         |
+| `#onDocumentKeydown` | private |                            |         |                                                      | PopoverMixin         |
+| `open`               |         | `boolean`                  | `false` | Whether the popover is open or not.                  | PopoverMixin         |
+| `receivesFocus`      |         | `'auto' \| undefined`      |         |                                                      | PopoverMixin         |
+| `popoverOpen`        | public  | `boolean`                  |         |                                                      | PopoverMixin         |
+
+### Methods
+
+| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
+| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
+| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `#onClick`                       |         |                                                                        | `event: Event`                  | `void`          |                      |
+| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
+| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
+| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
+| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
+
+### Events
+
+| Name          | Type    | Description | Inherited From |
+| ------------- | ------- | ----------- | -------------- |
+| `popovershow` | `Event` |             | PopoverMixin   |
+| `popoverhide` | `Event` |             | PopoverMixin   |
+
+### Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `placement`      | placement     |                |
+| `open`           | open          | PopoverMixin   |
+| `receives-focus` | receivesFocus | PopoverMixin   |
+
+### CSS Parts
+
+| Name        | Description                   |
+| ----------- | ----------------------------- |
+| `container` | The container for the popover |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------ | ------- |
+| `js` | `Popover` | Popover     | ../../packages/core/src/popover/popover.ts |         |
+
+# `../../packages/core/src/popover/register.ts`:
+
+## Exports
+
+| Kind                        | Name         | Declaration | Module                                | Package |
+| --------------------------- | ------------ | ----------- | ------------------------------------- | ------- |
+| `custom-element-definition` | `sl-popover` | Popover     | /packages/core/src/popover/popover.js |         |
 
 # `../../packages/core/src/select/index.ts`:
 
@@ -1828,6 +1828,591 @@
 | ---- | -------- | ----------- | ---------------------------------------- | ------- |
 | `js` | `Select` | Select      | ../../packages/core/src/select/select.ts |         |
 
+# `../../packages/core/src/tooltip/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./tooltip.js           |
+| `js` | `*`  | *           |        | ./tooltip-directive.js |
+
+# `../../packages/core/src/tooltip/register.ts`:
+
+## Exports
+
+| Kind                        | Name         | Declaration | Module                                | Package |
+| --------------------------- | ------------ | ----------- | ------------------------------------- | ------- |
+| `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/core/src/tooltip/tooltip.js |         |
+
+# `../../packages/core/src/tooltip/tooltip-directive.ts`:
+
+## class: `TooltipDirective`
+
+### Superclass
+
+| Name        | Module | Package          |
+| ----------- | ------ | ---------------- |
+| `Directive` |        | lit/directive.js |
+
+### Fields
+
+| Name           | Privacy | Type                       | Default | Description | Inherited From |
+| -------------- | ------- | -------------------------- | ------- | ----------- | -------------- |
+| `content`      |         | `unknown \| undefined`     |         |             |                |
+| `didSetupLazy` |         | `boolean`                  | `false` |             |                |
+| `part`         |         | `ElementPart \| undefined` |         |             |                |
+| `tooltip`      |         | `Tooltip \| undefined`     |         |             |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters | Return | Inherited From |
+| --------------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `renderContent` |         |             |            | `void` |                |
+| `setupLazy`     |         |             |            | `void` |                |
+
+<hr/>
+
+## Variables
+
+| Name      | Description | Type |
+| --------- | ----------- | ---- |
+| `tooltip` |             |      |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                               | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
+| `js` | `TooltipDirective` | TooltipDirective | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
+| `js` | `tooltip`          | tooltip          | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
+
+# `../../packages/core/src/tooltip/tooltip.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/tooltip/tooltip.scss.ts |         |
+
+# `../../packages/core/src/tooltip/tooltip.stories.ts`:
+
+## Variables
+
+| Name        | Description | Type       |
+| ----------- | ----------- | ---------- |
+| `API`       |             | `StoryObj` |
+| `Directive` |             | `StoryObj` |
+| `Overflow`  |             | `StoryObj` |
+| `Shared`    |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                             | Package |
+| ---- | ----------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default`   |             | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+| `js` | `API`       | API         | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+| `js` | `Directive` | Directive   | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+| `js` | `Overflow`  | Overflow    | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+| `js` | `Shared`    | Shared      | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+
+# `../../packages/core/src/tooltip/tooltip.ts`:
+
+## class: `Tooltip`, `sl-tooltip`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                   | Module                                                | Package |
+| ---------------------- | ----------------------------------------------------- | ------- |
+| `AnchoredPopoverMixin` | /packages/core/src/popover/mixins/anchored-popover.js |         |
+
+### Static Methods
+
+| Name   | Privacy | Description | Parameters                                             | Return | Inherited From |
+| ------ | ------- | ----------- | ------------------------------------------------------ | ------ | -------------- |
+| `lazy` |         |             | `target: Element, callback: (target: Tooltip) => void` | `void` |                |
+
+### Fields
+
+| Name                 | Privacy | Type                       | Default                      | Description                               | Inherited From       |
+| -------------------- | ------- | -------------------------- | ---------------------------- | ----------------------------------------- | -------------------- |
+| `#events`            | private |                            | `new EventsController(this)` |                                           |                      |
+| `#matchesAnchor`     | private |                            |                              |                                           |                      |
+| `#onHide`            | private |                            |                              |                                           |                      |
+| `#onShow`            | private |                            |                              |                                           |                      |
+| `placement`          |         | `Placement`                | `'bottom'`                   | Tooltip placement.                        | AnchoredPopoverMixin |
+| `#onPopoverHide`     | private |                            |                              |                                           | AnchoredPopoverMixin |
+| `arrow`              |         | `HTMLElement \| undefined` |                              | The arrow pointing to the anchor element. | AnchoredPopoverMixin |
+| `cleanupFloatingUI`  |         | `() => void \| undefined`  |                              | Cleanup callback for floating-ui.         | AnchoredPopoverMixin |
+| `#anchorElement`     | private | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
+| `anchorElement`      |         | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
+| `#popoverOpen`       | private | `boolean`                  | `false`                      |                                           | PopoverMixin         |
+| `#onDocumentClick`   | private |                            |                              |                                           | PopoverMixin         |
+| `#onDocumentKeydown` | private |                            |                              |                                           | PopoverMixin         |
+| `open`               |         | `boolean`                  | `false`                      | Whether the popover is open or not.       | PopoverMixin         |
+| `receivesFocus`      |         | `'auto' \| undefined`      |                              |                                           | PopoverMixin         |
+| `popoverOpen`        | public  | `boolean`                  |                              |                                           | PopoverMixin         |
+
+### Methods
+
+| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
+| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
+| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
+| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
+| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
+| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
+
+### Events
+
+| Name          | Type    | Description | Inherited From |
+| ------------- | ------- | ----------- | -------------- |
+| `popovershow` | `Event` |             | PopoverMixin   |
+| `popoverhide` | `Event` |             | PopoverMixin   |
+
+### Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `placement`      | placement     |                |
+| `open`           | open          | PopoverMixin   |
+| `receives-focus` | receivesFocus | PopoverMixin   |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------ | ------- |
+| `js` | `Tooltip` | Tooltip     | ../../packages/core/src/tooltip/tooltip.ts |         |
+
+# `../../packages/core/src/textarea/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package       |
+| ---- | ---- | ----------- | ------ | ------------- |
+| `js` | `*`  | *           |        | ./textarea.js |
+
+# `../../packages/core/src/textarea/register.ts`:
+
+## Exports
+
+| Kind                        | Name          | Declaration | Module                                  | Package |
+| --------------------------- | ------------- | ----------- | --------------------------------------- | ------- |
+| `custom-element-definition` | `sl-textarea` | Textarea    | /packages/core/src/textarea/textarea.js |         |
+
+# `../../packages/core/src/textarea/textarea.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/textarea/textarea.scss.ts |         |
+
+# `../../packages/core/src/textarea/textarea.stories.ts`:
+
+## Variables
+
+| Name               | Description | Type       |
+| ------------------ | ----------- | ---------- |
+| `API`              |             | `StoryObj` |
+| `Disabled`         |             | `StoryObj` |
+| `Label`            |             | `StoryObj` |
+| `Hint`             |             | `StoryObj` |
+| `RichLabelHint`    |             | `StoryObj` |
+| `MinMaxLength`     |             | `StoryObj` |
+| `CustomValidation` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                               | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
+| `js` | `default`          |                  | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `API`              | API              | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `Disabled`         | Disabled         | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `Label`            | Label            | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `Hint`             | Hint             | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `MinMaxLength`     | MinMaxLength     | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/textarea/textarea.stories.ts |         |
+
+# `../../packages/core/src/textarea/textarea.ts`:
+
+## class: `Textarea`, `sl-textarea`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module                                   | Package |
+| ------------------ | ---------------------------------------- | ------- |
+| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
+| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+
+### Fields
+
+| Name                  | Privacy | Type                                   | Default                                                                 | Description                                                                                                                     | Inherited From   |
+| --------------------- | ------- | -------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`             | private |                                        | `new EventsController(this, {
+    click: this.#onClick
+  })`            |                                                                                                                                 |                  |
+| `#validation`         | private |                                        | `new ValidationController(this, {
+    target: () => this.textarea
+  })` |                                                                                                                                 |                  |
+| `internals`           |         |                                        |                                                                         | Element internals.                                                                                                              |                  |
+| `textarea`            |         | `HTMLTextAreaElement`                  |                                                                         | The textarea in the light DOM.                                                                                                  |                  |
+| `maxLength`           |         | `number \| undefined`                  |                                                                         | Maximum length (number of characters).                                                                                          |                  |
+| `minLength`           |         | `number \| undefined`                  |                                                                         | Minimum length (number of characters).                                                                                          |                  |
+| `placeholder`         |         | `string \| undefined`                  |                                                                         | Placeholder text in the input.                                                                                                  |                  |
+| `validators`          |         | `Validator[] \| undefined`             |                                                                         | Custom validators specified by the user.                                                                                        |                  |
+| `value`               |         | `string \| undefined`                  |                                                                         | The value for the textarea.                                                                                                     |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                         | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                 |                                                                         | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                |         | `string \| undefined`                  |                                                                         | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                 |                                                                         | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                   |                                                                         |                                                                                                                                 | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`              |                                                                         |                                                                                                                                 | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                         |                                                                                                                                 | FormControlMixin |
+| `hint`                |         | `string \| undefined`                  |                                                                         | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
+| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
+| `#onInput`              |         |             | `{ target }: Event & { target: HTMLTextAreaElement }`             | `void`           |                  |
+| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
+| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
+| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
+| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
+| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
+
+### Attributes
+
+| Name          | Field       | Inherited From   |
+| ------------- | ----------- | ---------------- |
+| `maxlength`   | maxLength   |                  |
+| `minlength`   | minLength   |                  |
+| `placeholder` | placeholder |                  |
+| `value`       | value       |                  |
+| `disabled`    | disabled    | FormControlMixin |
+| `name`        | name        | FormControlMixin |
+| `required`    | required    | FormControlMixin |
+| `hint`        | hint        | HintMixin        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                       | Package |
+| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `Textarea` | Textarea    | ../../packages/core/src/textarea/textarea.ts |         |
+
+# `../../packages/core/src/utils/css.ts`:
+
+## Variables
+
+| Name                     | Description | Type      |
+| ------------------------ | ----------- | --------- |
+| `supportsTopLayer`       |             |           |
+| `supportsHas`            |             |           |
+| `supportsAnchor`         |             | `boolean` |
+| `firstFocusableSelector` |             | `string`  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                     | Declaration            | Module                               | Package |
+| ---- | ------------------------ | ---------------------- | ------------------------------------ | ------- |
+| `js` | `supportsTopLayer`       | supportsTopLayer       | ../../packages/core/src/utils/css.ts |         |
+| `js` | `supportsHas`            | supportsHas            | ../../packages/core/src/utils/css.ts |         |
+| `js` | `supportsAnchor`         | supportsAnchor         | ../../packages/core/src/utils/css.ts |         |
+| `js` | `firstFocusableSelector` | firstFocusableSelector | ../../packages/core/src/utils/css.ts |         |
+
+# `../../packages/core/src/utils/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./css.js        |
+| `js` | `*`  | *           |        | ./path.js       |
+| `js` | `*`  | *           |        | ./string.js     |
+| `js` | `*`  | *           |        | ./validators.js |
+
+# `../../packages/core/src/utils/path.ts`:
+
+## Functions
+
+| Name              | Description | Parameters              | Return    |
+| ----------------- | ----------- | ----------------------- | --------- |
+| `getNameByPath`   |             | `path: string`          | `string`  |
+| `getStringByPath` |             | `object: unknown, path` | `string`  |
+| `getValueByPath`  |             | `object: unknown, path` | `unknown` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                | Package |
+| ---- | ----------------- | --------------- | ------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | ../../packages/core/src/utils/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | ../../packages/core/src/utils/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | ../../packages/core/src/utils/path.ts |         |
+
+# `../../packages/core/src/utils/string.ts`:
+
+## Functions
+
+| Name         | Description                                                                                                                                                                                                                                                                                                                                                       | Parameters    | Return |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------ |
+| `camelize`   | Returns the lowerCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;camelize('innerHTML')          // 'innerHTML'&#xA;camelize('action_name')        // 'actionName'&#xA;camelize('css-class-name')     // 'cssClassName'&#xA;camelize('my favorite items')  // 'myFavoriteItems'&#xA;camelize('My Favorite Items')  // 'myFavoriteItems'&#xA;\```           | `str: string` |        |
+| `capitalize` | Returns the Capitalized form of a string&#xA;&#xA;\```javascript&#xA;capitalize('innerHTML')         // 'InnerHTML'&#xA;capitalize('action_name')       // 'Action_name'&#xA;capitalize('css-class-name')    // 'Css-class-name'&#xA;capitalize('my favorite items') // 'My favorite items'&#xA;\```                                                              | `str: string` |        |
+| `classify`   | Returns the UpperCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;classify('innerHTML')          // 'InnerHTML'&#xA;classify('action_name')        // 'ActionName'&#xA;classify('css-class-name')     // 'CssClassName'&#xA;classify('my favorite items')  // 'MyFavoriteItems'&#xA;\```                                                                   | `str: string` |        |
+| `dasherize`  | Replaces underscores, spaces, or camelCase with dashes.&#xA;&#xA;\```javascript&#xA;dasherize('innerHTML')         // 'inner-html'&#xA;dasherize('action_name')       // 'action-name'&#xA;dasherize('css-class-name')    // 'css-class-name'&#xA;dasherize('my favorite items') // 'my-favorite-items'&#xA;\```                                                  | `str: string` |        |
+| `decamelize` | Converts a camelized string into all lower case separated by underscores.&#xA;&#xA;\```javascript&#xA;decamelize('innerHTML')         // 'inner_html'&#xA;decamelize('action_name')       // 'action_name'&#xA;decamelize('css-class-name')    // 'css-class-name'&#xA;decamelize('my favorite items') // 'my favorite items'&#xA;\```                            | `str: string` |        |
+| `humanize`   | Returns the Humanized form of a string&#xA;&#xA;\```javascript&#xA;humanize('innerHTML')         // 'Inner HTML'&#xA;humanize('action_name')       // 'Action name'&#xA;humanize('css-class-name')    // 'Css class name'&#xA;humanize('my favorite items') // 'My favorite items'&#xA;\```                                                                       | `str: string` |        |
+| `underscore` | More general than decamelize. Returns the lower\\_case\\_and\\_underscored&#xA;form of a string.&#xA;&#xA;\```javascript&#xA;underscore('innerHTML')          // 'inner_html'&#xA;underscore('action_name')        // 'action_name'&#xA;underscore('css-class-name')     // 'css_class_name'&#xA;underscore('my favorite items')  // 'my_favorite_items'&#xA;\``` | `str: string` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                  | Package |
+| ---- | ------------ | ----------- | --------------------------------------- | ------- |
+| `js` | `camelize`   | camelize    | ../../packages/core/src/utils/string.ts |         |
+| `js` | `capitalize` | capitalize  | ../../packages/core/src/utils/string.ts |         |
+| `js` | `classify`   | classify    | ../../packages/core/src/utils/string.ts |         |
+| `js` | `dasherize`  | dasherize   | ../../packages/core/src/utils/string.ts |         |
+| `js` | `decamelize` | decamelize  | ../../packages/core/src/utils/string.ts |         |
+| `js` | `humanize`   | humanize    | ../../packages/core/src/utils/string.ts |         |
+| `js` | `underscore` | underscore  | ../../packages/core/src/utils/string.ts |         |
+
+# `../../packages/core/src/utils/validators.ts`:
+
+## Variables
+
+| Name                    | Description | Type        |
+| ----------------------- | ----------- | ----------- |
+| `requiredValidator`     |             | `Validator` |
+| `programmaticValidator` |             | `Validator` |
+| `minLengthValidator`    |             | `Validator` |
+| `maxLengthValidator`    |             | `Validator` |
+| `patternValidator`      |             | `Validator` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                    | Declaration           | Module                                      | Package |
+| ---- | ----------------------- | --------------------- | ------------------------------------------- | ------- |
+| `js` | `requiredValidator`     | requiredValidator     | ../../packages/core/src/utils/validators.ts |         |
+| `js` | `programmaticValidator` | programmaticValidator | ../../packages/core/src/utils/validators.ts |         |
+| `js` | `minLengthValidator`    | minLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
+| `js` | `maxLengthValidator`    | maxLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
+| `js` | `patternValidator`      | patternValidator      | ../../packages/core/src/utils/validators.ts |         |
+
+# `../../packages/core/src/popover/mixins/anchored-popover.ts`:
+
+## mixin: `AnchoredPopoverMixin`
+
+### Mixins
+
+| Name            | Module                                        | Package |
+| --------------- | --------------------------------------------- | ------- |
+| `AnchoredMixin` | /packages/core/src/popover/mixins/anchored.js |         |
+| `PopoverMixin`  | /packages/core/src/popover/mixins/popover.js  |         |
+
+### Parameters
+
+| Name          | Type | Default | Description |
+| ------------- | ---- | ------- | ----------- |
+| `constructor` | `T`  |         |             |
+
+### Fields
+
+| Name                 | Privacy | Type                       | Default    | Description                                                  | Inherited From |
+| -------------------- | ------- | -------------------------- | ---------- | ------------------------------------------------------------ | -------------- |
+| `#onPopoverHide`     | private |                            |            |                                                              |                |
+| `arrow`              |         | `HTMLElement \| undefined` |            | The arrow pointing to the anchor element.                    |                |
+| `placement`          |         | `Placement`                | `'bottom'` | The placement of the popover relative to the anchor element. |                |
+| `cleanupFloatingUI`  |         | `() => void \| undefined`  |            | Cleanup callback for floating-ui.                            |                |
+| `#anchorElement`     | private | `HTMLElement \| undefined` |            |                                                              | AnchoredMixin  |
+| `anchorElement`      |         | `HTMLElement \| undefined` |            |                                                              | AnchoredMixin  |
+| `#popoverOpen`       | private | `boolean`                  | `false`    |                                                              | PopoverMixin   |
+| `#onDocumentClick`   | private |                            |            |                                                              | PopoverMixin   |
+| `#onDocumentKeydown` | private |                            |            |                                                              | PopoverMixin   |
+| `open`               |         | `boolean`                  | `false`    | Whether the popover is open or not.                          | PopoverMixin   |
+| `receivesFocus`      |         | `'auto' \| undefined`      |            |                                                              | PopoverMixin   |
+| `popoverOpen`        | public  | `boolean`                  |            |                                                              | PopoverMixin   |
+
+### Methods
+
+| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From |
+| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------- |
+| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin   |
+| `cleanupPopover`                 |         |                                                                        |                                 | `void`          |                |
+| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin  |
+| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin  |
+| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin  |
+| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin  |
+| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin   |
+| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin   |
+| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin   |
+| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin   |
+| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin   |
+| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin   |
+
+### Events
+
+| Name          | Type    | Description | Inherited From |
+| ------------- | ------- | ----------- | -------------- |
+| `popovershow` | `Event` |             | PopoverMixin   |
+| `popoverhide` | `Event` |             | PopoverMixin   |
+
+### Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `open`           | open          | PopoverMixin   |
+| `receives-focus` | receivesFocus | PopoverMixin   |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                   | Declaration          | Module                                                     | Package |
+| ---- | ---------------------- | -------------------- | ---------------------------------------------------------- | ------- |
+| `js` | `AnchoredPopoverMixin` | AnchoredPopoverMixin | ../../packages/core/src/popover/mixins/anchored-popover.ts |         |
+
+# `../../packages/core/src/popover/mixins/anchored.ts`:
+
+## mixin: `AnchoredMixin`
+
+### Parameters
+
+| Name          | Type | Default | Description |
+| ------------- | ---- | ------- | ----------- |
+| `constructor` | `T`  |         |             |
+
+### Fields
+
+| Name             | Privacy | Type                       | Default | Description | Inherited From |
+| ---------------- | ------- | -------------------------- | ------- | ----------- | -------------- |
+| `#anchorElement` | private | `HTMLElement \| undefined` |         |             |                |
+| `anchorElement`  |         | `HTMLElement \| undefined` |         |             |                |
+
+### Methods
+
+| Name                             | Privacy | Description | Parameters                      | Return | Inherited From |
+| -------------------------------- | ------- | ----------- | ------------------------------- | ------ | -------------- |
+| `addEventListenersToAnchor`      |         |             |                                 | `void` |                |
+| `removeEventListenersFromAnchor` |         |             |                                 | `void` |                |
+| `firstUpdated`                   |         |             | `changes: PropertyValues<this>` | `void` |                |
+| `#resolveAnchor`                 |         |             |                                 | `void` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                             | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------- | ------- |
+| `js` | `AnchoredMixin` | AnchoredMixin | ../../packages/core/src/popover/mixins/anchored.ts |         |
+
+# `../../packages/core/src/popover/mixins/popover.ts`:
+
+## mixin: `PopoverMixin`
+
+### Parameters
+
+| Name          | Type | Default | Description |
+| ------------- | ---- | ------- | ----------- |
+| `constructor` | `T`  |         |             |
+
+### Fields
+
+| Name                 | Privacy | Type                  | Default | Description                         | Inherited From |
+| -------------------- | ------- | --------------------- | ------- | ----------------------------------- | -------------- |
+| `#popoverOpen`       | private | `boolean`             | `false` |                                     |                |
+| `#onDocumentClick`   | private |                       |         |                                     |                |
+| `#onDocumentKeydown` | private |                       |         |                                     |                |
+| `open`               |         | `boolean`             | `false` | Whether the popover is open or not. |                |
+| `receivesFocus`      |         | `'auto' \| undefined` |         |                                     |                |
+| `popoverOpen`        | public  | `boolean`             |         |                                     |                |
+
+### Methods
+
+| Name              | Privacy | Description                                                            | Parameters                      | Return          | Inherited From |
+| ----------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------- |
+| `willUpdate`      |         |                                                                        | `changes: PropertyValues<this>` | `void`          |                |
+| `updated`         |         |                                                                        | `changes: PropertyValues<this>` | `void`          |                |
+| `showPopover`     |         |                                                                        |                                 | `void`          |                |
+| `hidePopover`     |         |                                                                        |                                 | `void`          |                |
+| `positionPopover` |         |                                                                        |                                 | `void`          |                |
+| `#setup`          |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` |                |
+| `#cleanup`        |         | Cleanup light dismiss handlers.                                        |                                 | `void`          |                |
+
+### Events
+
+| Name          | Type    | Description | Inherited From |
+| ------------- | ------- | ----------- | -------------- |
+| `popovershow` | `Event` |             |                |
+| `popoverhide` | `Event` |             |                |
+
+### Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `open`           | open          |                |
+| `receives-focus` | receivesFocus |                |
+
+<hr/>
+
+## Variables
+
+| Name                 | Description | Type             |
+| -------------------- | ----------- | ---------------- |
+| `popoverMixinStyles` |             | `CSSResultGroup` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                 | Declaration        | Module                                            | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------------- | ------- |
+| `js` | `popoverMixinStyles` | popoverMixinStyles | ../../packages/core/src/popover/mixins/popover.ts |         |
+| `js` | `PopoverMixin`       | PopoverMixin       | ../../packages/core/src/popover/mixins/popover.ts |         |
+
 # `../../packages/core/src/tabs/index.ts`:
 
 ## Exports
@@ -2023,420 +2608,6 @@
 | ---- | ----- | ----------- | ----------------------------------- | ------- |
 | `js` | `Tab` | Tab         | ../../packages/core/src/tabs/tab.ts |         |
 
-# `../../packages/core/src/textarea/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package       |
-| ---- | ---- | ----------- | ------ | ------------- |
-| `js` | `*`  | *           |        | ./textarea.js |
-
-# `../../packages/core/src/textarea/register.ts`:
-
-## Exports
-
-| Kind                        | Name          | Declaration | Module                                  | Package |
-| --------------------------- | ------------- | ----------- | --------------------------------------- | ------- |
-| `custom-element-definition` | `sl-textarea` | Textarea    | /packages/core/src/textarea/textarea.js |         |
-
-# `../../packages/core/src/textarea/textarea.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/textarea/textarea.scss.ts |         |
-
-# `../../packages/core/src/textarea/textarea.stories.ts`:
-
-## Variables
-
-| Name               | Description | Type       |
-| ------------------ | ----------- | ---------- |
-| `API`              |             | `StoryObj` |
-| `Disabled`         |             | `StoryObj` |
-| `Label`            |             | `StoryObj` |
-| `Hint`             |             | `StoryObj` |
-| `RichLabelHint`    |             | `StoryObj` |
-| `MinMaxLength`     |             | `StoryObj` |
-| `CustomValidation` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `default`          |                  | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `API`              | API              | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `Disabled`         | Disabled         | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `Label`            | Label            | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `Hint`             | Hint             | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `MinMaxLength`     | MinMaxLength     | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/textarea/textarea.stories.ts |         |
-
-# `../../packages/core/src/textarea/textarea.ts`:
-
-## class: `Textarea`, `sl-textarea`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
-
-### Fields
-
-| Name                  | Privacy | Type                                   | Default                                                                 | Description                                                                                                                     | Inherited From   |
-| --------------------- | ------- | -------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`             | private |                                        | `new EventsController(this, {
-    click: this.#onClick
-  })`            |                                                                                                                                 |                  |
-| `#validation`         | private |                                        | `new ValidationController(this, {
-    target: () => this.textarea
-  })` |                                                                                                                                 |                  |
-| `internals`           |         |                                        |                                                                         | Element internals.                                                                                                              |                  |
-| `textarea`            |         | `HTMLTextAreaElement`                  |                                                                         | The textarea in the light DOM.                                                                                                  |                  |
-| `maxLength`           |         | `number \| undefined`                  |                                                                         | Maximum length (number of characters).                                                                                          |                  |
-| `minLength`           |         | `number \| undefined`                  |                                                                         | Minimum length (number of characters).                                                                                          |                  |
-| `placeholder`         |         | `string \| undefined`                  |                                                                         | Placeholder text in the input.                                                                                                  |                  |
-| `validators`          |         | `Validator[] \| undefined`             |                                                                         | Custom validators specified by the user.                                                                                        |                  |
-| `value`               |         | `string \| undefined`                  |                                                                         | The value for the textarea.                                                                                                     |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                         | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                 |                                                                         | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                |         | `string \| undefined`                  |                                                                         | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                 |                                                                         | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                   |                                                                         |                                                                                                                                 | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`              |                                                                         |                                                                                                                                 | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                         |                                                                                                                                 | FormControlMixin |
-| `hint`                |         | `string \| undefined`                  |                                                                         | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
-| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
-| `#onInput`              |         |             | `{ target }: Event & { target: HTMLTextAreaElement }`             | `void`           |                  |
-| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
-
-### Attributes
-
-| Name          | Field       | Inherited From   |
-| ------------- | ----------- | ---------------- |
-| `maxlength`   | maxLength   |                  |
-| `minlength`   | minLength   |                  |
-| `placeholder` | placeholder |                  |
-| `value`       | value       |                  |
-| `disabled`    | disabled    | FormControlMixin |
-| `name`        | name        | FormControlMixin |
-| `required`    | required    | FormControlMixin |
-| `hint`        | hint        | HintMixin        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `Textarea` | Textarea    | ../../packages/core/src/textarea/textarea.ts |         |
-
-# `../../packages/core/src/tooltip/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                |
-| ---- | ---- | ----------- | ------ | ---------------------- |
-| `js` | `*`  | *           |        | ./tooltip.js           |
-| `js` | `*`  | *           |        | ./tooltip-directive.js |
-
-# `../../packages/core/src/tooltip/register.ts`:
-
-## Exports
-
-| Kind                        | Name         | Declaration | Module                                | Package |
-| --------------------------- | ------------ | ----------- | ------------------------------------- | ------- |
-| `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/core/src/tooltip/tooltip.js |         |
-
-# `../../packages/core/src/tooltip/tooltip-directive.ts`:
-
-## class: `TooltipDirective`
-
-### Superclass
-
-| Name        | Module | Package          |
-| ----------- | ------ | ---------------- |
-| `Directive` |        | lit/directive.js |
-
-### Fields
-
-| Name           | Privacy | Type                       | Default | Description | Inherited From |
-| -------------- | ------- | -------------------------- | ------- | ----------- | -------------- |
-| `content`      |         | `unknown \| undefined`     |         |             |                |
-| `didSetupLazy` |         | `boolean`                  | `false` |             |                |
-| `part`         |         | `ElementPart \| undefined` |         |             |                |
-| `tooltip`      |         | `Tooltip \| undefined`     |         |             |                |
-
-### Methods
-
-| Name            | Privacy | Description | Parameters | Return | Inherited From |
-| --------------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `renderContent` |         |             |            | `void` |                |
-| `setupLazy`     |         |             |            | `void` |                |
-
-<hr/>
-
-## Variables
-
-| Name      | Description | Type |
-| --------- | ----------- | ---- |
-| `tooltip` |             |      |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `TooltipDirective` | TooltipDirective | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
-| `js` | `tooltip`          | tooltip          | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
-
-# `../../packages/core/src/tooltip/tooltip.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/tooltip/tooltip.scss.ts |         |
-
-# `../../packages/core/src/tooltip/tooltip.stories.ts`:
-
-## Variables
-
-| Name        | Description | Type       |
-| ----------- | ----------- | ---------- |
-| `API`       |             | `StoryObj` |
-| `Directive` |             | `StoryObj` |
-| `Overflow`  |             | `StoryObj` |
-| `Shared`    |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                             | Package |
-| ---- | ----------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default`   |             | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `API`       | API         | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `Directive` | Directive   | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `Overflow`  | Overflow    | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `Shared`    | Shared      | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-
-# `../../packages/core/src/tooltip/tooltip.ts`:
-
-## class: `Tooltip`, `sl-tooltip`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                   | Module                                                | Package |
-| ---------------------- | ----------------------------------------------------- | ------- |
-| `AnchoredPopoverMixin` | /packages/core/src/popover/mixins/anchored-popover.js |         |
-
-### Static Methods
-
-| Name   | Privacy | Description | Parameters                                             | Return | Inherited From |
-| ------ | ------- | ----------- | ------------------------------------------------------ | ------ | -------------- |
-| `lazy` |         |             | `target: Element, callback: (target: Tooltip) => void` | `void` |                |
-
-### Fields
-
-| Name                 | Privacy | Type                       | Default                      | Description                               | Inherited From       |
-| -------------------- | ------- | -------------------------- | ---------------------------- | ----------------------------------------- | -------------------- |
-| `#events`            | private |                            | `new EventsController(this)` |                                           |                      |
-| `#matchesAnchor`     | private |                            |                              |                                           |                      |
-| `#onHide`            | private |                            |                              |                                           |                      |
-| `#onShow`            | private |                            |                              |                                           |                      |
-| `placement`          |         | `Placement`                | `'bottom'`                   | Tooltip placement.                        | AnchoredPopoverMixin |
-| `#onPopoverHide`     | private |                            |                              |                                           | AnchoredPopoverMixin |
-| `arrow`              |         | `HTMLElement \| undefined` |                              | The arrow pointing to the anchor element. | AnchoredPopoverMixin |
-| `cleanupFloatingUI`  |         | `() => void \| undefined`  |                              | Cleanup callback for floating-ui.         | AnchoredPopoverMixin |
-| `#anchorElement`     | private | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
-| `anchorElement`      |         | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
-| `#popoverOpen`       | private | `boolean`                  | `false`                      |                                           | PopoverMixin         |
-| `#onDocumentClick`   | private |                            |                              |                                           | PopoverMixin         |
-| `#onDocumentKeydown` | private |                            |                              |                                           | PopoverMixin         |
-| `open`               |         | `boolean`                  | `false`                      | Whether the popover is open or not.       | PopoverMixin         |
-| `receivesFocus`      |         | `'auto' \| undefined`      |                              |                                           | PopoverMixin         |
-| `popoverOpen`        | public  | `boolean`                  |                              |                                           | PopoverMixin         |
-
-### Methods
-
-| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
-| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
-| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
-| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
-| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
-| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
-
-### Events
-
-| Name          | Type    | Description | Inherited From |
-| ------------- | ------- | ----------- | -------------- |
-| `popovershow` | `Event` |             | PopoverMixin   |
-| `popoverhide` | `Event` |             | PopoverMixin   |
-
-### Attributes
-
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `placement`      | placement     |                |
-| `open`           | open          | PopoverMixin   |
-| `receives-focus` | receivesFocus | PopoverMixin   |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------ | ------- |
-| `js` | `Tooltip` | Tooltip     | ../../packages/core/src/tooltip/tooltip.ts |         |
-
-# `../../packages/core/src/utils/css.ts`:
-
-## Variables
-
-| Name                     | Description | Type      |
-| ------------------------ | ----------- | --------- |
-| `supportsTopLayer`       |             |           |
-| `supportsHas`            |             |           |
-| `supportsAnchor`         |             | `boolean` |
-| `firstFocusableSelector` |             | `string`  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                     | Declaration            | Module                               | Package |
-| ---- | ------------------------ | ---------------------- | ------------------------------------ | ------- |
-| `js` | `supportsTopLayer`       | supportsTopLayer       | ../../packages/core/src/utils/css.ts |         |
-| `js` | `supportsHas`            | supportsHas            | ../../packages/core/src/utils/css.ts |         |
-| `js` | `supportsAnchor`         | supportsAnchor         | ../../packages/core/src/utils/css.ts |         |
-| `js` | `firstFocusableSelector` | firstFocusableSelector | ../../packages/core/src/utils/css.ts |         |
-
-# `../../packages/core/src/utils/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./css.js        |
-| `js` | `*`  | *           |        | ./path.js       |
-| `js` | `*`  | *           |        | ./string.js     |
-| `js` | `*`  | *           |        | ./validators.js |
-
-# `../../packages/core/src/utils/path.ts`:
-
-## Functions
-
-| Name              | Description | Parameters              | Return    |
-| ----------------- | ----------- | ----------------------- | --------- |
-| `getNameByPath`   |             | `path: string`          | `string`  |
-| `getStringByPath` |             | `object: unknown, path` | `string`  |
-| `getValueByPath`  |             | `object: unknown, path` | `unknown` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                | Package |
-| ---- | ----------------- | --------------- | ------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | ../../packages/core/src/utils/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | ../../packages/core/src/utils/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | ../../packages/core/src/utils/path.ts |         |
-
-# `../../packages/core/src/utils/string.ts`:
-
-## Functions
-
-| Name         | Description                                                                                                                                                                                                                                                                                                                                                       | Parameters    | Return |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------ |
-| `camelize`   | Returns the lowerCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;camelize('innerHTML')          // 'innerHTML'&#xA;camelize('action_name')        // 'actionName'&#xA;camelize('css-class-name')     // 'cssClassName'&#xA;camelize('my favorite items')  // 'myFavoriteItems'&#xA;camelize('My Favorite Items')  // 'myFavoriteItems'&#xA;\```           | `str: string` |        |
-| `capitalize` | Returns the Capitalized form of a string&#xA;&#xA;\```javascript&#xA;capitalize('innerHTML')         // 'InnerHTML'&#xA;capitalize('action_name')       // 'Action_name'&#xA;capitalize('css-class-name')    // 'Css-class-name'&#xA;capitalize('my favorite items') // 'My favorite items'&#xA;\```                                                              | `str: string` |        |
-| `classify`   | Returns the UpperCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;classify('innerHTML')          // 'InnerHTML'&#xA;classify('action_name')        // 'ActionName'&#xA;classify('css-class-name')     // 'CssClassName'&#xA;classify('my favorite items')  // 'MyFavoriteItems'&#xA;\```                                                                   | `str: string` |        |
-| `dasherize`  | Replaces underscores, spaces, or camelCase with dashes.&#xA;&#xA;\```javascript&#xA;dasherize('innerHTML')         // 'inner-html'&#xA;dasherize('action_name')       // 'action-name'&#xA;dasherize('css-class-name')    // 'css-class-name'&#xA;dasherize('my favorite items') // 'my-favorite-items'&#xA;\```                                                  | `str: string` |        |
-| `decamelize` | Converts a camelized string into all lower case separated by underscores.&#xA;&#xA;\```javascript&#xA;decamelize('innerHTML')         // 'inner_html'&#xA;decamelize('action_name')       // 'action_name'&#xA;decamelize('css-class-name')    // 'css-class-name'&#xA;decamelize('my favorite items') // 'my favorite items'&#xA;\```                            | `str: string` |        |
-| `humanize`   | Returns the Humanized form of a string&#xA;&#xA;\```javascript&#xA;humanize('innerHTML')         // 'Inner HTML'&#xA;humanize('action_name')       // 'Action name'&#xA;humanize('css-class-name')    // 'Css class name'&#xA;humanize('my favorite items') // 'My favorite items'&#xA;\```                                                                       | `str: string` |        |
-| `underscore` | More general than decamelize. Returns the lower\\_case\\_and\\_underscored&#xA;form of a string.&#xA;&#xA;\```javascript&#xA;underscore('innerHTML')          // 'inner_html'&#xA;underscore('action_name')        // 'action_name'&#xA;underscore('css-class-name')     // 'css_class_name'&#xA;underscore('my favorite items')  // 'my_favorite_items'&#xA;\``` | `str: string` |        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                  | Package |
-| ---- | ------------ | ----------- | --------------------------------------- | ------- |
-| `js` | `camelize`   | camelize    | ../../packages/core/src/utils/string.ts |         |
-| `js` | `capitalize` | capitalize  | ../../packages/core/src/utils/string.ts |         |
-| `js` | `classify`   | classify    | ../../packages/core/src/utils/string.ts |         |
-| `js` | `dasherize`  | dasherize   | ../../packages/core/src/utils/string.ts |         |
-| `js` | `decamelize` | decamelize  | ../../packages/core/src/utils/string.ts |         |
-| `js` | `humanize`   | humanize    | ../../packages/core/src/utils/string.ts |         |
-| `js` | `underscore` | underscore  | ../../packages/core/src/utils/string.ts |         |
-
-# `../../packages/core/src/utils/validators.ts`:
-
-## Variables
-
-| Name                    | Description | Type        |
-| ----------------------- | ----------- | ----------- |
-| `requiredValidator`     |             | `Validator` |
-| `programmaticValidator` |             | `Validator` |
-| `minLengthValidator`    |             | `Validator` |
-| `maxLengthValidator`    |             | `Validator` |
-| `patternValidator`      |             | `Validator` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                    | Declaration           | Module                                      | Package |
-| ---- | ----------------------- | --------------------- | ------------------------------------------- | ------- |
-| `js` | `requiredValidator`     | requiredValidator     | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `programmaticValidator` | programmaticValidator | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `minLengthValidator`    | minLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `maxLengthValidator`    | maxLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `patternValidator`      | patternValidator      | ../../packages/core/src/utils/validators.ts |         |
-
 # `../../packages/core/src/popover/utils/position-anchored-element.ts`:
 
 ## Functions
@@ -2455,177 +2626,6 @@
 | `js` | `Placement`               | Placement               | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
 | `js` | `flipPlacement`           | flipPlacement           | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
 | `js` | `positionAnchoredElement` | positionAnchoredElement | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-
-# `../../packages/core/src/popover/mixins/anchored-popover.ts`:
-
-## mixin: `AnchoredPopoverMixin`
-
-### Mixins
-
-| Name            | Module                                        | Package |
-| --------------- | --------------------------------------------- | ------- |
-| `AnchoredMixin` | /packages/core/src/popover/mixins/anchored.js |         |
-| `PopoverMixin`  | /packages/core/src/popover/mixins/popover.js  |         |
-
-### Parameters
-
-| Name          | Type | Default | Description |
-| ------------- | ---- | ------- | ----------- |
-| `constructor` | `T`  |         |             |
-
-### Fields
-
-| Name                 | Privacy | Type                       | Default    | Description                                                  | Inherited From |
-| -------------------- | ------- | -------------------------- | ---------- | ------------------------------------------------------------ | -------------- |
-| `#onPopoverHide`     | private |                            |            |                                                              |                |
-| `arrow`              |         | `HTMLElement \| undefined` |            | The arrow pointing to the anchor element.                    |                |
-| `placement`          |         | `Placement`                | `'bottom'` | The placement of the popover relative to the anchor element. |                |
-| `cleanupFloatingUI`  |         | `() => void \| undefined`  |            | Cleanup callback for floating-ui.                            |                |
-| `#anchorElement`     | private | `HTMLElement \| undefined` |            |                                                              | AnchoredMixin  |
-| `anchorElement`      |         | `HTMLElement \| undefined` |            |                                                              | AnchoredMixin  |
-| `#popoverOpen`       | private | `boolean`                  | `false`    |                                                              | PopoverMixin   |
-| `#onDocumentClick`   | private |                            |            |                                                              | PopoverMixin   |
-| `#onDocumentKeydown` | private |                            |            |                                                              | PopoverMixin   |
-| `open`               |         | `boolean`                  | `false`    | Whether the popover is open or not.                          | PopoverMixin   |
-| `receivesFocus`      |         | `'auto' \| undefined`      |            |                                                              | PopoverMixin   |
-| `popoverOpen`        | public  | `boolean`                  |            |                                                              | PopoverMixin   |
-
-### Methods
-
-| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From |
-| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------- |
-| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin   |
-| `cleanupPopover`                 |         |                                                                        |                                 | `void`          |                |
-| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin  |
-| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin  |
-| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin  |
-| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin  |
-| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin   |
-| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin   |
-| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin   |
-| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin   |
-| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin   |
-| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin   |
-
-### Events
-
-| Name          | Type    | Description | Inherited From |
-| ------------- | ------- | ----------- | -------------- |
-| `popovershow` | `Event` |             | PopoverMixin   |
-| `popoverhide` | `Event` |             | PopoverMixin   |
-
-### Attributes
-
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `open`           | open          | PopoverMixin   |
-| `receives-focus` | receivesFocus | PopoverMixin   |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                   | Declaration          | Module                                                     | Package |
-| ---- | ---------------------- | -------------------- | ---------------------------------------------------------- | ------- |
-| `js` | `AnchoredPopoverMixin` | AnchoredPopoverMixin | ../../packages/core/src/popover/mixins/anchored-popover.ts |         |
-
-# `../../packages/core/src/popover/mixins/anchored.ts`:
-
-## mixin: `AnchoredMixin`
-
-### Parameters
-
-| Name          | Type | Default | Description |
-| ------------- | ---- | ------- | ----------- |
-| `constructor` | `T`  |         |             |
-
-### Fields
-
-| Name             | Privacy | Type                       | Default | Description | Inherited From |
-| ---------------- | ------- | -------------------------- | ------- | ----------- | -------------- |
-| `#anchorElement` | private | `HTMLElement \| undefined` |         |             |                |
-| `anchorElement`  |         | `HTMLElement \| undefined` |         |             |                |
-
-### Methods
-
-| Name                             | Privacy | Description | Parameters                      | Return | Inherited From |
-| -------------------------------- | ------- | ----------- | ------------------------------- | ------ | -------------- |
-| `addEventListenersToAnchor`      |         |             |                                 | `void` |                |
-| `removeEventListenersFromAnchor` |         |             |                                 | `void` |                |
-| `firstUpdated`                   |         |             | `changes: PropertyValues<this>` | `void` |                |
-| `#resolveAnchor`                 |         |             |                                 | `void` |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                             | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------- | ------- |
-| `js` | `AnchoredMixin` | AnchoredMixin | ../../packages/core/src/popover/mixins/anchored.ts |         |
-
-# `../../packages/core/src/popover/mixins/popover.ts`:
-
-## mixin: `PopoverMixin`
-
-### Parameters
-
-| Name          | Type | Default | Description |
-| ------------- | ---- | ------- | ----------- |
-| `constructor` | `T`  |         |             |
-
-### Fields
-
-| Name                 | Privacy | Type                  | Default | Description                         | Inherited From |
-| -------------------- | ------- | --------------------- | ------- | ----------------------------------- | -------------- |
-| `#popoverOpen`       | private | `boolean`             | `false` |                                     |                |
-| `#onDocumentClick`   | private |                       |         |                                     |                |
-| `#onDocumentKeydown` | private |                       |         |                                     |                |
-| `open`               |         | `boolean`             | `false` | Whether the popover is open or not. |                |
-| `receivesFocus`      |         | `'auto' \| undefined` |         |                                     |                |
-| `popoverOpen`        | public  | `boolean`             |         |                                     |                |
-
-### Methods
-
-| Name              | Privacy | Description                                                            | Parameters                      | Return          | Inherited From |
-| ----------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------- |
-| `willUpdate`      |         |                                                                        | `changes: PropertyValues<this>` | `void`          |                |
-| `updated`         |         |                                                                        | `changes: PropertyValues<this>` | `void`          |                |
-| `showPopover`     |         |                                                                        |                                 | `void`          |                |
-| `hidePopover`     |         |                                                                        |                                 | `void`          |                |
-| `positionPopover` |         |                                                                        |                                 | `void`          |                |
-| `#setup`          |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` |                |
-| `#cleanup`        |         | Cleanup light dismiss handlers.                                        |                                 | `void`          |                |
-
-### Events
-
-| Name          | Type    | Description | Inherited From |
-| ------------- | ------- | ----------- | -------------- |
-| `popovershow` | `Event` |             |                |
-| `popoverhide` | `Event` |             |                |
-
-### Attributes
-
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `open`           | open          |                |
-| `receives-focus` | receivesFocus |                |
-
-<hr/>
-
-## Variables
-
-| Name                 | Description | Type             |
-| -------------------- | ----------- | ---------------- |
-| `popoverMixinStyles` |             | `CSSResultGroup` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                 | Declaration        | Module                                            | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------------- | ------- |
-| `js` | `popoverMixinStyles` | popoverMixinStyles | ../../packages/core/src/popover/mixins/popover.ts |         |
-| `js` | `PopoverMixin`       | PopoverMixin       | ../../packages/core/src/popover/mixins/popover.ts |         |
 
 # `../../packages/core/src/utils/controllers/events.ts`:
 
@@ -2885,86 +2885,88 @@
 | `js` | `validationStyles`     | validationStyles     | ../../packages/core/src/utils/controllers/validation.ts |         |
 | `js` | `ValidationController` | ValidationController | ../../packages/core/src/utils/controllers/validation.ts |         |
 
-# `../../packages/core/src/utils/data-source/array-data-source.ts`:
+# `../../packages/core/src/utils/decorators/base.ts`:
 
-## class: `ArrayDataSource`
+## Functions
 
-### Superclass
+| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
+    finisher,
+    descriptor
+  }: {
+    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
+    descriptor?: (property: PropertyKey) => PropertyDescriptor;
+  }, finisher: function, descriptor: function` | `ClassElement\|void` |
 
-| Name         | Module                                              | Package |
-| ------------ | --------------------------------------------------- | ------- |
-| `DataSource` | /packages/core/src/utils/data-source/data-source.js |         |
+<hr/>
 
-### Fields
+## Exports
 
-| Name             | Privacy | Type                                   | Default      | Description                                               | Inherited From |
-| ---------------- | ------- | -------------------------------------- | ------------ | --------------------------------------------------------- | -------------- |
-| `#items`         | private | `T[]`                                  | `[...items]` | Array of filtered & sorted items.                         |                |
-| `#originalItems` | private | `T[]`                                  | `[...items]` | The original array of items as passed to the constructor. |                |
-| `items`          |         | `T[]`                                  |              | The array of items.                                       | DataSource     |
-| `size`           |         | `number`                               |              | Size of the item collection.                              | DataSource     |
-| `filter`         |         | `DataSourceFilter<T> \| undefined`     |              | The filter implementation.                                | DataSource     |
-| `filterValues`   |         | `DataSourceFilterValue[] \| undefined` |              | The values to filter on.                                  | DataSource     |
-| `sorter`         |         | `DataSourceSorter<T> \| undefined`     |              | The sorter implementation.                                | DataSource     |
-| `sortValue`      |         | `DataSourceSortValue \| undefined`     |              | The path & direction to sort on.                          | DataSource     |
+| Kind | Name               | Declaration      | Module                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
+| `js` | `decorateProperty` | decorateProperty | ../../packages/core/src/utils/decorators/base.ts |         |
+
+# `../../packages/core/src/utils/decorators/event.ts`:
+
+## class: `EventEmitter`
 
 ### Methods
 
-| Name      | Privacy | Description | Parameters                        | Return                        | Inherited From |
-| --------- | ------- | ----------- | --------------------------------- | ----------------------------- | -------------- |
-| `#filter` |         |             | `values: DataSourceFilterValue[]` | `DataSourceFilterFunction<T>` |                |
+| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
+| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
+| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
 
-### Events
+<hr/>
 
-| Name        | Type          | Description | Inherited From |
-| ----------- | ------------- | ----------- | -------------- |
-| `sl-update` | `CustomEvent` |             |                |
+## Variables
+
+| Name    | Description | Type    |
+| ------- | ----------- | ------- |
+| `event` |             | `Event` |
+
+<hr/>
+
+## Functions
+
+| Name    | Description | Parameters              | Return |
+| ------- | ----------- | ----------------------- | ------ |
+| `event` |             | `options: EventOptions` | `any`  |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                         | Package |
-| ---- | ----------------- | --------------- | -------------------------------------------------------------- | ------- |
-| `js` | `ArrayDataSource` | ArrayDataSource | ../../packages/core/src/utils/data-source/array-data-source.ts |         |
+| Kind | Name           | Declaration  | Module                                            | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | ../../packages/core/src/utils/decorators/event.ts |         |
+| `js` | `event`        | event        | ../../packages/core/src/utils/decorators/event.ts |         |
 
-# `../../packages/core/src/utils/data-source/data-source.ts`:
+# `../../packages/core/src/utils/decorators/index.ts`:
 
-## class: `DataSource`
+## Exports
 
-### Superclass
+| Kind | Name | Declaration | Module | Package      |
+| ---- | ---- | ----------- | ------ | ------------ |
+| `js` | `*`  | *           |        | ./base.js    |
+| `js` | `*`  | *           |        | ./event.js   |
+| `js` | `*`  | *           |        | ./observe.js |
 
-| Name          | Module                                                   | Package |
-| ------------- | -------------------------------------------------------- | ------- |
-| `EventTarget` | ../../packages/core/src/utils/data-source/data-source.ts |         |
+# `../../packages/core/src/utils/decorators/observe.ts`:
 
-### Fields
+## Functions
 
-| Name           | Privacy | Type                                   | Default | Description                      | Inherited From |
-| -------------- | ------- | -------------------------------------- | ------- | -------------------------------- | -------------- |
-| `filter`       |         | `DataSourceFilter<T> \| undefined`     |         | The filter implementation.       |                |
-| `filterValues` |         | `DataSourceFilterValue[] \| undefined` |         | The values to filter on.         |                |
-| `sorter`       |         | `DataSourceSorter<T> \| undefined`     |         | The sorter implementation.       |                |
-| `sortValue`    |         | `DataSourceSortValue \| undefined`     |         | The path & direction to sort on. |                |
-| `items`        |         | `T[]`                                  |         | The array of items.              |                |
-| `size`         |         | `number`                               |         | Size of the item collection.     |                |
+| Name      | Description | Parameters                                          | Return |
+| --------- | ----------- | --------------------------------------------------- | ------ |
+| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                   | Package |
-| ---- | ------------ | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `DataSource` | DataSource  | ../../packages/core/src/utils/data-source/data-source.ts |         |
-
-# `../../packages/core/src/utils/data-source/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                |
-| ---- | ---- | ----------- | ------ | ---------------------- |
-| `js` | `*`  | *           |        | ./array-data-source.js |
-| `js` | `*`  | *           |        | ./data-source.js       |
+| Kind | Name      | Declaration | Module                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
 
 # `../../packages/core/src/utils/mixins/form-control.ts`:
 
@@ -3110,88 +3112,86 @@
 | `js` | `*`  | *           |        | ./hint.js         |
 | `js` | `*`  | *           |        | ./types.js        |
 
-# `../../packages/core/src/utils/decorators/base.ts`:
+# `../../packages/core/src/utils/data-source/array-data-source.ts`:
 
-## Functions
+## class: `ArrayDataSource`
 
-| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
-    finisher,
-    descriptor
-  }: {
-    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
-    descriptor?: (property: PropertyKey) => PropertyDescriptor;
-  }, finisher: function, descriptor: function` | `ClassElement\|void` |
+### Superclass
 
-<hr/>
+| Name         | Module                                              | Package |
+| ------------ | --------------------------------------------------- | ------- |
+| `DataSource` | /packages/core/src/utils/data-source/data-source.js |         |
 
-## Exports
+### Fields
 
-| Kind | Name               | Declaration      | Module                                           | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
-| `js` | `decorateProperty` | decorateProperty | ../../packages/core/src/utils/decorators/base.ts |         |
-
-# `../../packages/core/src/utils/decorators/event.ts`:
-
-## class: `EventEmitter`
+| Name             | Privacy | Type                                   | Default      | Description                                               | Inherited From |
+| ---------------- | ------- | -------------------------------------- | ------------ | --------------------------------------------------------- | -------------- |
+| `#items`         | private | `T[]`                                  | `[...items]` | Array of filtered & sorted items.                         |                |
+| `#originalItems` | private | `T[]`                                  | `[...items]` | The original array of items as passed to the constructor. |                |
+| `items`          |         | `T[]`                                  |              | The array of items.                                       | DataSource     |
+| `size`           |         | `number`                               |              | Size of the item collection.                              | DataSource     |
+| `filter`         |         | `DataSourceFilter<T> \| undefined`     |              | The filter implementation.                                | DataSource     |
+| `filterValues`   |         | `DataSourceFilterValue[] \| undefined` |              | The values to filter on.                                  | DataSource     |
+| `sorter`         |         | `DataSourceSorter<T> \| undefined`     |              | The sorter implementation.                                | DataSource     |
+| `sortValue`      |         | `DataSourceSortValue \| undefined`     |              | The path & direction to sort on.                          | DataSource     |
 
 ### Methods
 
-| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
-| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
-| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
+| Name      | Privacy | Description | Parameters                        | Return                        | Inherited From |
+| --------- | ------- | ----------- | --------------------------------- | ----------------------------- | -------------- |
+| `#filter` |         |             | `values: DataSourceFilterValue[]` | `DataSourceFilterFunction<T>` |                |
 
-<hr/>
+### Events
 
-## Variables
-
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `event` |             | `Event` |
-
-<hr/>
-
-## Functions
-
-| Name    | Description | Parameters              | Return |
-| ------- | ----------- | ----------------------- | ------ |
-| `event` |             | `options: EventOptions` | `any`  |
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                            | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | ../../packages/core/src/utils/decorators/event.ts |         |
-| `js` | `event`        | event        | ../../packages/core/src/utils/decorators/event.ts |         |
+| Kind | Name              | Declaration     | Module                                                         | Package |
+| ---- | ----------------- | --------------- | -------------------------------------------------------------- | ------- |
+| `js` | `ArrayDataSource` | ArrayDataSource | ../../packages/core/src/utils/data-source/array-data-source.ts |         |
 
-# `../../packages/core/src/utils/decorators/index.ts`:
+# `../../packages/core/src/utils/data-source/data-source.ts`:
 
-## Exports
+## class: `DataSource`
 
-| Kind | Name | Declaration | Module | Package      |
-| ---- | ---- | ----------- | ------ | ------------ |
-| `js` | `*`  | *           |        | ./base.js    |
-| `js` | `*`  | *           |        | ./event.js   |
-| `js` | `*`  | *           |        | ./observe.js |
+### Superclass
 
-# `../../packages/core/src/utils/decorators/observe.ts`:
+| Name          | Module                                                   | Package |
+| ------------- | -------------------------------------------------------- | ------- |
+| `EventTarget` | ../../packages/core/src/utils/data-source/data-source.ts |         |
 
-## Functions
+### Fields
 
-| Name      | Description | Parameters                                          | Return |
-| --------- | ----------- | --------------------------------------------------- | ------ |
-| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
+| Name           | Privacy | Type                                   | Default | Description                      | Inherited From |
+| -------------- | ------- | -------------------------------------- | ------- | -------------------------------- | -------------- |
+| `filter`       |         | `DataSourceFilter<T> \| undefined`     |         | The filter implementation.       |                |
+| `filterValues` |         | `DataSourceFilterValue[] \| undefined` |         | The values to filter on.         |                |
+| `sorter`       |         | `DataSourceSorter<T> \| undefined`     |         | The sorter implementation.       |                |
+| `sortValue`    |         | `DataSourceSortValue \| undefined`     |         | The path & direction to sort on. |                |
+| `items`        |         | `T[]`                                  |         | The array of items.              |                |
+| `size`         |         | `number`                               |         | Size of the item collection.     |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
+| Kind | Name         | Declaration | Module                                                   | Package |
+| ---- | ------------ | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `DataSource` | DataSource  | ../../packages/core/src/utils/data-source/data-source.ts |         |
+
+# `../../packages/core/src/utils/data-source/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./array-data-source.js |
+| `js` | `*`  | *           |        | ./data-source.js       |
 
 # `../../packages/editor/src/commands.ts`:
 

@@ -456,6 +456,7 @@
       "fontFamily": {
         "heading": {
           "value": "The Message",
+          "value": "The Message",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },
@@ -841,33 +842,33 @@
   "borderRadius": {
     "button": {
       "sm": {
-        "value": "{border.radius.full}",
+        "value": "{border.radius.3xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "md": {
-        "value": "{border.radius.full}",
+        "value": "{border.radius.3xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "lg": {
-        "value": "{border.radius.full}",
+        "value": "{border.radius.3xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "icon-only": {
         "sm": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.3xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "md": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.3xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "lg": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.3xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         }

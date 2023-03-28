@@ -46,6 +46,20 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   --_border-color: #c00;
 }
 
+:host([size='md']) {
+  slot[name='input']::slotted(input) {
+    //line-height: 4rem;
+    --_line-height: var(--sl-text-typeset-line-height-sm);
+  }
+}
+
+:host([size='lg']) {
+  slot[name='input']::slotted(input) {
+    //line-height: 4rem;
+    --_line-height: var(--sl-text-typeset-line-height-lg);
+  }
+}
+
 slot[name='input']::slotted(input) {
   appearance: none;
   background: none;
@@ -68,6 +82,11 @@ slot[name='input']::slotted(input) {
   &:invalid {
     //border: 3px solid red;
     background-color: #6b1313;
+  }
+
+  &::placeholder {
+    //color: #1f97f9;
+    color: var(--_color);
   }
 }
 
@@ -97,7 +116,8 @@ slot[name='input']::slotted(input) {
     //--_size: var(--sl-size-input-#{$size});
 
     slot[name='input']::slotted(input) {
-      --_line-height: var(--sl-text-typeset-line-height-#{$size});
+      //--_line-height: var(--sl-text-typeset-line-height-#{$size});
+
       //--_padding: var(--sl-space-text-field-block-#{$size})
       //var(--sl-space-text-field-inline-#{$size})
       //var(--sl-space-text-field-block-#{$size})
@@ -107,7 +127,7 @@ slot[name='input']::slotted(input) {
       //@include sl-text-input-text-lg;
       font-family: var(--sl-text-typeset-font-family-body);
       font-weight: var(--sl-text-typeset-font-weight-regular);
-      line-height: var(--sl-text-typeset-line-height-#{$size});
+      //line-height: var(--sl-text-typeset-line-height-#{$size});
     }
 
     .wrapper {
@@ -141,6 +161,11 @@ slot[name='input']::slotted(input) {
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-text-field-#{$variant}-default-input-text);
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      &::placeholder {
+        --_color: var(--sl-color-text-field-#{$variant}-default-placeholder);
+      }
     }
 
     .wrapper {
@@ -158,6 +183,11 @@ slot[name='input']::slotted(input) {
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-text-field-#{$variant}-hover-input-text);
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      &::placeholder {
+        --_color: var(--sl-color-text-field-#{$variant}-hover-placeholder);
+      }
     }
 
     .wrapper {
@@ -166,13 +196,18 @@ slot[name='input']::slotted(input) {
   }
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):active) {
-  :host(#{$variant-selector}:focus-within:not(:focus-visible)) {
+  :host(#{$variant-selector}:focus-within:not([focusvisible])) {
     --_border-color: var(--sl-color-text-field-#{$variant}-active-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-text-field-#{$variant}-active-input-text);
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      &::placeholder {
+        --_color: var(--sl-color-text-field-#{$variant}-active-placeholder);
+      }
     }
 
     .wrapper {
@@ -181,7 +216,7 @@ slot[name='input']::slotted(input) {
   }
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):focus-visible) { // :focus-within
-  :host(#{$variant-selector}:where(:focus-visible):not([disabled])) {
+  :host(#{$variant-selector}:where([focusvisible]):not([disabled])) {
     --_border-color: var(--sl-color-text-field-#{$variant}-focus-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
@@ -189,6 +224,11 @@ slot[name='input']::slotted(input) {
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-text-field-#{$variant}-focus-input-text);
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      &::placeholder {
+        --_color: var(--sl-color-text-field-#{$variant}-focus-placeholder);
+      }
     }
 
     .wrapper {
@@ -211,6 +251,11 @@ slot[name='input']::slotted(input) {
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-text-field-#{$variant}-disabled-input-text);
+
+      /* stylelint-disable-next-line max-nesting-depth */ /* stylelint-disable-next-line max-nesting-depth */
+      &::placeholder {
+        --_color: var(--sl-color-text-field-#{$variant}-disabled-placeholder);
+      }
     }
 
     .wrapper {

@@ -199,3 +199,21 @@ export const CustomValidation: StoryObj = {
     `;
   }
 };
+
+export const CustomValidationWithHint: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Input)?.reportValidity();
+    };
+
+    const validator: Validator = {
+      message: 'Enter "SLDS"',
+      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'
+    };
+
+    return html`
+      <sl-input showValid required="true" .validators=${[validator]} hint="You need to enter 'SLDS'"></sl-input>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
+};

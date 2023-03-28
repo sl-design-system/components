@@ -23,22 +23,75 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
   #onKeydown = (event: Event): void => {
     //{ key }: KeyboardEvent
-    console.log('key', event);
+    console.log('key and active element', event, document.activeElement, event.target, event.target === this.input);
     // if (key !== 'Tab') {
     //    this.input.focus();
     // }
     // TODO: shift tab doesn't work
 
-    if (!this.disabled) {
+    this.#clicked = false;
+
+    this.focusVisible = false;
+
+    // if ((event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Tab') {
+    //   console.log('shift + tab');
+    //   this.input.blur();
+    // }
+    /*    this.focusVisible = true;
+
+
+    if (event.target === this.input) {
+      this.focusVisible = true;
+      // this.input.focus();
+      // requestAnimationFrame(() => {
+      // this.focusVisible = false;
+      // });
+      if (
+        ((event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Tab') ||
+        ((event as KeyboardEvent).key === 'Tab')
+      ) {
+        // this.#onBlur(event);
+        this.focusVisible = false;
+      }
+    } /!*else {
+      this.focusVisible = true;
+    }*!/*/
+
+    /*    if (!this.disabled) {
+      if (
+        //((event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Tab') ||
+        !((event as KeyboardEvent).key === 'Tab')
+      ) {
+        // event.preventDefault();
+        //
+        // this.input.focus();
+
+        // console.log('shift + tab or tab', document.activeElement, this.input);
+        // event.stopPropagation();
+        // this.input.blur();
+        // this.blur();
+        // this.input.focus();
+        // requestAnimationFrame(() => {
+        //   this.focusVisible = true;
+        // });
+        // this.focusVisible = true;
+        // alert((document.activeElement as HTMLInputElement).value);
+        console.log('shift + tab or tab', document.activeElement, this.input);
+      } else {
+        console.log('focus goes', document.activeElement, this.input);
+        // this.input.focus();
+        this.focusVisible = false;
+      }
+
       // event.stopPropagation();
       // this.input.focus();
-      if ((event as KeyboardEvent).key === 'Enter') {
-        console.log('input blur');
-        this.input.blur();
-      } else {
-        this.input.focus();
-      }
-    } // TODO what about blur and tab key?
+      // if ((event as KeyboardEvent).key === 'Enter') {
+      //   console.log('input blur');
+      //   this.input.blur();
+      // } else {
+      //   this.input.focus();
+      // }
+    } // TODO what about blur and tab key?*/
 
     // if ((event as KeyboardEvent).key === 'Enter') {
     //   console.log('input blur');
@@ -50,9 +103,36 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     }
   };
 
+  #onFocusin = (event: Event): void => {
+    console.log('onfocusin', event.target, document.activeElement, event.type, event);
+    if (!this.#clicked) {
+      this.focusVisible = true;
+    }
+  };
+
+  #onFocusout = (event: Event): void => {
+    console.log('onfocusin', event.target, document.activeElement);
+    this.#clicked = false;
+    this.focusVisible = false;
+  };
+
+  #onMousedown = (event: Event): void => {
+    console.log('onmousedown', event.target, document.activeElement);
+    this.#clicked = true;
+    // event.stopPropagation();
+    this.focusVisible = false;
+  };
+
+  #onBlur = (event: Event): void => {
+    console.log('on blur', event);
+    this.input.blur();
+    this.focusVisible = false;
+  };
+
   #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
+    click: this.#onClick //,
+    // keydown: this.#onKeydown //,
+    // blur: this.#onBlur
   });
 
   #validation = new ValidationController(this, {
@@ -89,6 +169,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the input should get valid styles when is valid. */
   @property({ type: Boolean, reflect: true }) showValid = false;
 
+  /** Whether the input has focus visible. */
+  @property({ type: Boolean, reflect: true }) focusVisible = false;
+
   /** Input size. */
   @property({ reflect: true }) size: InputSize = 'md';
 
@@ -104,6 +187,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** The value for the input. */
   @property() value?: string;
 
+  /** @private */
+  #clicked = false;
+
   // TODO: invalid state?
 
   // TODO: valid styles on demand?
@@ -111,9 +197,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = 0;
-    }
+    // if (!this.hasAttribute('tabindex')) {
+    //   this.tabIndex = 0;
+    // }
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
@@ -189,7 +275,14 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     return html`
       <div @input=${this.#onInput} class="wrapper">
         <slot name="prefix"></slot>
-        <slot @slotchange=${this.#onSlotchange} name="input"></slot>
+        <slot
+          @slotchange=${this.#onSlotchange}
+          name="input"
+          @keydown=${this.#onKeydown}
+          @focusin=${this.#onFocusin}
+          @focusout=${this.#onFocusout}
+          @mousedown=${this.#onMousedown}
+        ></slot>
         <slot name="suffix"></slot>
       </div>
       ${this.renderHint()} ${this.#validation.render()}
@@ -197,10 +290,15 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
 
   #onClick(event: Event): void {
+    console.log('onclick', event.target, document.activeElement);
+    this.focusVisible = false;
+
     if (event.target === this.input) {
+      // this.focusVisible = false;
       event.preventDefault();
 
       this.input.focus();
+      // this.focusVisible = false;
     }
   }
 
@@ -214,6 +312,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    console.log('event on slothcnage', event);
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
 

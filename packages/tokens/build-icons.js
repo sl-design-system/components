@@ -1,6 +1,9 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import { exec } from 'child_process';
+import { findIconDefinition , library } from '@fortawesome/fontawesome-svg-core';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
 
 const formattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -12,6 +15,31 @@ const formattedIcons = (icons, collection) => {
     return acc;
   }, {})
 };
+
+const convertToIconDefinition = (iconName, style) => {
+  return findIconDefinition({ prefix: getIconPrefixFromStyle(style), iconName });
+};
+
+const getColorToken = (pathCounter, style) => {
+  return pathCounter === 0 && style === 'fad' ? 'accent' : 'default';
+};
+
+const getIconPrefixFromStyle = (style) => {
+  switch (style) {
+    case 'solid':
+      return 'fas';
+    case 'light':
+      return 'fal';
+    case 'thin':
+      return 'fat';
+    case 'duotone':
+      return 'fad';
+    default:
+      return 'far';
+  }
+};
+
+library.add(far, fat);
 
 const cwd = new URL('.', import.meta.url).pathname,
   name = process.argv.at(2),
@@ -38,6 +66,17 @@ if (Object.keys(iconsCustom).length) {
   });
 }
 
+Object.entries(icons).map(([iconName, value]) =>{
+  const faIcon = convertToIconDefinition(iconName.replace('fa-',''), 'regular');
+  if(!faIcon) return;
+  const {
+    icon: [width, height, , , path]
+  } = faIcon,
+  paths = Array.isArray(path) ? path : [path];
+  const svg =  `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
+  icons[iconName] = {...value, svg };
+});
+
 // 3. Convert downloaded icons to appropriate format?
 // We only need the `<path>` data for `<sl-icon>`
 const filesToRead = Object.entries(iconsCustom).map(([iconName, value]) => {
@@ -55,5 +94,4 @@ await Promise.all(filesToRead);
 await fs.writeFile(join(`${cwd}src/themes/${name}`, `icons.ts`), `export const icons = ${JSON.stringify({...icons,...iconsCustom})};`);
 // 5. Expose the icons via the theme `IconResolver` in `index.ts`
 // Either use the downloaded icons, or use FontAwesome NPM packages
-
 

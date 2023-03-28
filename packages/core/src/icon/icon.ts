@@ -1,6 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { IconPrefix, IconStyle } from '@fortawesome/fontawesome-common-types';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
@@ -15,30 +14,33 @@ export class Icon extends LitElement {
   static availableStyles: IconStyle[] = [];
 
   /** @private */
-  static resolver: IconResolver = _ => 'No icon found';
+  static resolver: IconResolver = _ => 'No resolver';
 
   // static registerIcon(name: string, icon: string): void {
   //   console.log('registerIcon', { name, icon });
   // }
 
   static registerResolver(resolver: IconResolver): void {
+    console.log('registerResolver', resolver);
+    Icon.resolver = resolver;
     this.resolver = resolver;
   }
 
-  static async registerLibraries(styles: IconStyle[]): Promise<void> {
+  static registerLibraries(styles: IconStyle[]): void {
+    Icon.availableStyles = styles;
     this.availableStyles = styles;
-    console.log(styles);
-    await Promise.all(
-      styles.map(async style => {
-        console.log('load icons, style:', style);
-        // FIX ME: what type can i make "module" so this works??
-        return import(`@fortawesome/pro-${style}-svg-icons/index.js`).then(module => {
-          console.log(`module is loaded`, module);
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
-          library.add(module[this.getIconPrefixFromStyle(style)]);
-        });
-      })
-    );
+    console.log('registerLibraries', styles);
+    // await Promise.all(
+    //   styles.map(async style => {
+    //     console.log('load icons, style:', style);
+    //     // FIX ME: what type can i make "module" so this works??
+    //     return import(`@fortawesome/pro-${style}-svg-icons/index.js`).then(module => {
+    //       console.log(`module is loaded`, module);
+    //       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+    //       library.add(module[this.getIconPrefixFromStyle(style)]);
+    //     });
+    //   })
+    // );
   }
 
   static getIconPrefixFromStyle(style: IconStyle): IconPrefix {
@@ -68,11 +70,22 @@ export class Icon extends LitElement {
 
   /* make sure the requested style is supported */
   get validatedIconStyle(): IconStyle {
+    console.log('validatedIconStyle', Icon.availableStyles);
     const isAvailable = Icon.availableStyles.some(available => this.iconStyle === available);
     if (!isAvailable) {
-      console.warn('The requested FontAwesome style is not available');
+      console.warn('The requested FontAwesome style is not available, falling back to regular');
     }
     return isAvailable ? this.iconStyle : 'regular';
+  }
+
+  constructor() {
+    super();
+    console.log('Icon constructor', Icon.availableStyles);
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    console.log('Icon connectedCallback');
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -93,6 +106,7 @@ export class Icon extends LitElement {
 
   override render(): TemplateResult {
     if (this.name) {
+      console.log('render', this.name);
       return html`${unsafeHTML(Icon.resolver(this.name, this.validatedIconStyle))}`;
     } else {
       return html`No icon name set`;

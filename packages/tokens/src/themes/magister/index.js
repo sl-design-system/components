@@ -1,10 +1,8 @@
-import { Icon } from '@sanomalearning/slds-core/icon';
-import { resolveIcon } from '../../icon-resolver.js';
 // Icon.registerResolver(name => resolveIcon(name, iconsMG));
-Icon.registerResolver((name, style) => resolveIcon(name, style, {}));
-Icon.registerLibraries(['regular', 'solid']).catch(() => {
-    console.warn('could not load icons');
-});
+// Icon.registerResolver((name: string, style: IconStyle) => resolveIcon(name, style, {}));
+// Icon.registerLibraries(['regular', 'solid']).catch(() => {
+//   console.warn('could not load icons');
+// });
 export const setup = async () => {
     // await Icon.registerLibraries(['regular', 'solid']);
     // Icon.registerResolver((name: string, style: IconStyle) => resolveIcon(name, style, {}));

@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import type { IconStyle } from '@fortawesome/fontawesome-common-types';
 import { html } from 'lit';
 import './register.js';
@@ -19,14 +19,10 @@ export default {
       control: 'inline-radio',
       options: ['regular', 'light', 'solid', 'thin', 'duotone']
     }
-  }
-};
-
-type Story = StoryObj<Props>;
-
-export const API: Story = {
+  },
   render: ({ iconStyle }) => {
-    const faIcons = ['raygun', 'glasses', 'book', 'user', 'camera-retro', 'hippo', 'rabbit-running', 'turtle', 'whale'];
+    // const faIcons = ['raygun', 'glasses', 'book', 'user', 'camera-retro', 'hippo', 'rabbit-running', 'turtle', 'whale'];
+    const faIcons = ['whale'];
     return html`
       <style>
         section {
@@ -34,7 +30,7 @@ export const API: Story = {
           gap: 8px;
         }
       </style>
-      <h1>FontAwesome icons</h1>
+      <!--<h1>FontAwesome icons</h1>
       <section>
         <sl-icon name="chevron-down" .iconStyle=${iconStyle}></sl-icon>
         <sl-icon name="check" .iconStyle=${iconStyle}></sl-icon>
@@ -44,9 +40,13 @@ export const API: Story = {
       <section>
         <sl-icon name="fav" .iconStyle=${iconStyle}></sl-icon>
         <sl-icon name="open-eye" .iconStyle=${iconStyle}></sl-icon>
-      </section>
+      </section>-->
       <h1>Icons that are not in base.json but are in FontAwesome</h1>
       <section>${faIcons.map(i => html`<sl-icon .name=${i} .iconStyle=${iconStyle}></sl-icon>`)}</section>
     `;
   }
-};
+} satisfies Meta<Props>;
+
+type Story = StoryObj<Props>;
+
+export const Basic: Story = {};

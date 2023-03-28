@@ -5,11 +5,13 @@ import { getPeople } from '@sanomalearning/example-data';
 import { html } from 'lit';
 import '../register.js';
 
+type Story = StoryObj;
+
 export default {
   title: 'Rendering'
 };
 
-export const ColumnRenderer: StoryObj = {
+export const ColumnRenderer: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const nameRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {

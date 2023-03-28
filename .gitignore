@@ -71,3 +71,6 @@ docs/website/build
 storybook-static
 .angular
 documentation.json
+
+# Test files
+__snapshots__

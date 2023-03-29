@@ -1860,7 +1860,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "placeholder": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.textField.default.default.placeholder}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }
@@ -1892,7 +1892,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "placeholder": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.placeholder}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }
@@ -1924,7 +1924,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "placeholder": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.placeholder}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }
@@ -1990,7 +1990,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "placeholder": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.textField.default.default.placeholder}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           }
@@ -2054,7 +2054,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "placeholder": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.placeholder}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           }
@@ -2086,7 +2086,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "placeholder": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.placeholder}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           }

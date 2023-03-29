@@ -94,7 +94,7 @@
   --sl-text-typeset-line-height-2xl: 34px;
   --sl-text-typeset-line-height-xl: 28px;
   --sl-text-typeset-line-height-lg: 24px;
-  --sl-text-typeset-line-height-md: 22px;
+  --sl-text-typeset-line-height-md: 20px;
   --sl-text-typeset-line-height-sm: 16px;
   --sl-text-typeset-line-height-xs: 14px;
   --sl-text-typeset-line-height-xxs: 12px;
@@ -278,10 +278,10 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-3xs);
   --sl-border-radius-button-md: var(--sl-border-radius-3xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-3xs);
-  --sl-text-input-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) / 20
-    var(--sl-text-typeset-font-family-body);
-  --sl-text-input-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) / 20
-    var(--sl-text-typeset-font-family-body);
+  --sl-text-input-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-input-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /

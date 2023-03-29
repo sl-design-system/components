@@ -1568,7 +1568,7 @@
     "textField": {
       "block": {
         "md": {
-          "value": "{space.sm}",
+          "value": "{space.xs}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
         },

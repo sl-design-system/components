@@ -1,11 +1,39 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { IconPrefix, IconStyle } from '@fortawesome/fontawesome-common-types';
+import type { IconDefinition, IconName } from '@fortawesome/fontawesome-svg-core';
+import { findIconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './icon.scss.js';
 
-export type IconResolver = (name: string, style: IconStyle) => string;
+export type IconResolver = (name: string) => string;
+
+export interface IconLibrary {
+  [key: string]: SLIconDefinition | CustomIconDefinition;
+}
+
+interface SLIconDefinition {
+  value: string;
+  type: string;
+  description: string;
+}
+interface CustomIconDefinition extends SLIconDefinition {
+  svg: string;
+}
+
+declare global {
+  interface Window {
+    SLDS: {
+      icons: IconLibrary;
+    };
+  }
+}
+if (!window?.SLDS) {
+  window['SLDS'] = {
+    icons: {}
+  };
+}
 
 export class Icon extends LitElement {
   /** @private */
@@ -13,34 +41,12 @@ export class Icon extends LitElement {
 
   static availableStyles: IconStyle[] = [];
 
-  /** @private */
-  static resolver: IconResolver = _ => 'No resolver';
-
   // static registerIcon(name: string, icon: string): void {
   //   console.log('registerIcon', { name, icon });
   // }
 
-  static registerResolver(resolver: IconResolver): void {
-    console.log('registerResolver', resolver);
-    Icon.resolver = resolver;
-    this.resolver = resolver;
-  }
-
-  static registerLibraries(styles: IconStyle[]): void {
-    Icon.availableStyles = styles;
-    this.availableStyles = styles;
-    console.log('registerLibraries', styles);
-    // await Promise.all(
-    //   styles.map(async style => {
-    //     console.log('load icons, style:', style);
-    //     // FIX ME: what type can i make "module" so this works??
-    //     return import(`@fortawesome/pro-${style}-svg-icons/index.js`).then(module => {
-    //       console.log(`module is loaded`, module);
-    //       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
-    //       library.add(module[this.getIconPrefixFromStyle(style)]);
-    //     });
-    //   })
-    // );
+  static registerIcons(icons: IconLibrary): void {
+    window.SLDS.icons = icons;
   }
 
   static getIconPrefixFromStyle(style: IconStyle): IconPrefix {
@@ -78,14 +84,8 @@ export class Icon extends LitElement {
     return isAvailable ? this.iconStyle : 'regular';
   }
 
-  constructor() {
-    super();
-    console.log('Icon constructor', Icon.availableStyles);
-  }
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-    console.log('Icon connectedCallback');
+  get icons(): IconLibrary {
+    return window.SLDS.icons;
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -106,10 +106,36 @@ export class Icon extends LitElement {
 
   override render(): TemplateResult {
     if (this.name) {
-      console.log('render', this.name);
-      return html`${unsafeHTML(Icon.resolver(this.name, this.validatedIconStyle))}`;
+      return html`${unsafeHTML(this.#resolve(this.name))}`;
     } else {
       return html`No icon name set`;
     }
+  }
+
+  #resolve(name: string): string {
+    // 2. Get the supported icons from `icons.[json|ts]`?
+    // 3. Return the matching `<path>`
+    const iconInRegistry: SLIconDefinition | CustomIconDefinition | undefined = Object.entries(this.icons).find(
+      icon => name === icon[0]
+    )?.[1];
+
+    if (this.icons && (iconInRegistry as CustomIconDefinition)?.svg) {
+      return (iconInRegistry as CustomIconDefinition).svg;
+    } else if (name && this.#convertToIconDefinition(name as IconName)) {
+      const {
+          icon: [width, height, , , path]
+        } = this.#convertToIconDefinition(name as IconName),
+        paths = Array.isArray(path) ? path : [path];
+      // ${paths.map((p, i) => `<path d="${p}" fill="var(--fill-${getColorToken(i, style)})"></path>`).join('')}
+      return `
+          <svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">
+            ${paths.map(p => `<path d="${p}"></path>`).join('')}
+          </svg>`;
+    }
+    return '<small>not found</small>';
+  }
+
+  #convertToIconDefinition(iconName: IconName): IconDefinition {
+    return findIconDefinition({ prefix: 'far', iconName });
   }
 }

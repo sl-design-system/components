@@ -11,18 +11,8 @@ interface Props {
 
 export default {
   title: 'Icon',
-  args: {
-    iconStyle: 'regular'
-  },
-  argTypes: {
-    iconStyle: {
-      control: 'inline-radio',
-      options: ['regular', 'light', 'solid', 'thin', 'duotone']
-    }
-  },
-  render: ({ iconStyle }) => {
-    // const faIcons = ['raygun', 'glasses', 'book', 'user', 'camera-retro', 'hippo', 'rabbit-running', 'turtle', 'whale'];
-    const faIcons = ['whale'];
+  render: () => {
+    const faIcons = Object.keys(window.SLDS.icons);
     return html`
       <style>
         section {
@@ -30,19 +20,7 @@ export default {
           gap: 8px;
         }
       </style>
-      <!--<h1>FontAwesome icons</h1>
-      <section>
-        <sl-icon name="chevron-down" .iconStyle=${iconStyle}></sl-icon>
-        <sl-icon name="check" .iconStyle=${iconStyle}></sl-icon>
-        <sl-icon name="face-smile" .iconStyle=${iconStyle}></sl-icon>
-      </section>
-      <h1>Custom icons</h1>
-      <section>
-        <sl-icon name="fav" .iconStyle=${iconStyle}></sl-icon>
-        <sl-icon name="open-eye" .iconStyle=${iconStyle}></sl-icon>
-      </section>-->
-      <h1>Icons that are not in base.json but are in FontAwesome</h1>
-      <section>${faIcons.map(i => html`<sl-icon .name=${i} .iconStyle=${iconStyle}></sl-icon>`)}</section>
+      <section>${faIcons.map(i => html`<sl-icon .name=${i}></sl-icon>`)}</section>
     `;
   }
 } satisfies Meta<Props>;

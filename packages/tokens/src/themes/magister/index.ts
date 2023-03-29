@@ -1,13 +1,13 @@
-// Icon.registerResolver(name => resolveIcon(name, iconsMG));
-// Icon.registerResolver((name: string, style: IconStyle) => resolveIcon(name, style, {}));
+import { Icon } from '@sanomalearning/slds-core/icon';
+import type { IconLibrary } from '@sanomalearning/slds-core/icon';
+import { icons } from './icons.js';
 
 // Icon.registerLibraries(['regular', 'solid']).catch(() => {
 //   console.warn('could not load icons');
 // });
 
-export const setup = async (): Promise<void> => {
-  // await Icon.registerLibraries(['regular', 'solid']);
-  // Icon.registerResolver((name: string, style: IconStyle) => resolveIcon(name, style, {}));
-  // Icon.registerResolver(name => resolveIcon(name, iconsMG));
+export const setup = (): void => {
+  Icon.registerIcons(icons as IconLibrary);
+
   console.log('SETUP Magister in index.ts!');
 };

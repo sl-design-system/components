@@ -23,7 +23,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
   #onKeydown = (event: Event): void => {
     //{ key }: KeyboardEvent
-    console.log('key and active element', event, document.activeElement, event.target, event.target === this.input);
+    // console.log('key and active element', event, document.activeElement, event.target, event.target === this.input);
     // if (key !== 'Tab') {
     //    this.input.focus();
     // }
@@ -123,11 +123,11 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     this.focusVisible = false;
   };
 
-  #onBlur = (event: Event): void => {
-    console.log('on blur', event);
-    this.input.blur();
-    this.focusVisible = false;
-  };
+  // #onBlur = (event: Event): void => {
+  //   console.log('on blur', event);
+  //   this.input.blur();
+  //   this.focusVisible = false;
+  // };
 
   #events = new EventsController(this, {
     click: this.#onClick //,
@@ -221,6 +221,8 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    console.log('changes in updated', changes);
 
     if (changes.has('autocomplete')) {
       if (this.autocomplete) {

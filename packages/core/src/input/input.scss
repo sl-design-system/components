@@ -48,14 +48,12 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
 :host([size='md']) {
   slot[name='input']::slotted(input) {
-    //line-height: 4rem;
     --_line-height: var(--sl-text-typeset-line-height-sm);
   }
 }
 
 :host([size='lg']) {
   slot[name='input']::slotted(input) {
-    //line-height: 4rem;
     --_line-height: var(--sl-text-typeset-line-height-lg);
   }
 }
@@ -68,7 +66,6 @@ slot[name='input']::slotted(input) {
   flex: 1;
   font: inherit;
   font-size: var(--_font-size);
-  //line-height: 24px;
   line-height: var(--_line-height);
   margin: 0;
   outline: none;

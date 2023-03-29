@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Validator } from '../utils/index.js';
-import { LitElement, html } from 'lit';
+import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
 import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
@@ -172,6 +172,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the input has focus visible. */
   @property({ type: Boolean, reflect: true, attribute: 'focus-visible-within' }) focusVisible = false;
 
+  /** Whether you can interact with the input or if it is just a static, readonly display. */
+  @property({ type: Boolean, reflect: true }) readonly?: boolean;
+
   /** Input size. */
   @property({ reflect: true }) size: InputSize = 'md';
 
@@ -206,6 +209,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       this.input.autocomplete ||= this.autocomplete || 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
       this.input.slot = 'input';
+      if (this.readonly) {
+        this.input.readOnly = this.readonly;
+      }
       this.input.addEventListener('keydown', this.#onKeydown);
 
       if (!this.input.parentElement) {
@@ -216,6 +222,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
       this.#validation.validate(this.value);
       this.invalid = !this.#validation.validity.valid;
+      this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
     }
   }
 
@@ -264,6 +271,14 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       }
     }
 
+    if (changes.has('readonly')) {
+      if (this.readonly) {
+        this.input.readOnly = this.readonly;
+      } else {
+        this.input.removeAttribute('readonly');
+      }
+    }
+
     if (changes.has('type')) {
       this.input.type = this.type;
     }
@@ -285,22 +300,28 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
           @focusout=${this.#onFocusout}
           @mousedown=${this.#onMousedown}
         ></slot>
-        <slot name="suffix"></slot>
+        <slot name="suffix">
+          ${this.invalid
+            ? svg`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"><path fill="#E5454A" d="M8 .875C3.83984.875.5 4.24414.5 8.375c0 4.1602 3.33984 7.5 7.5 7.5 4.1309 0 7.5-3.3398 7.5-7.5 0-4.13086-3.3691-7.5-7.5-7.5Zm-.70312 4.45312c0-.38085.29296-.70312.70312-.70312.38086 0 .70312.32227.70312.70312v3.75c0 .41016-.32226.70313-.70312.70313-.41016 0-.70312-.29297-.70312-.70313v-3.75ZM8 12.5938c-.52734 0-.9375-.4102-.9375-.9083 0-.498.41016-.9082.9375-.9082.49805 0 .9082.4102.9082.9082 0 .4981-.41015.9083-.9082.9083Z"/></svg>`
+            : null}
+          ${this.valid
+            ? svg`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"><path fill="#28854E" d="M14.2695 3.98047c.3809.35156.3809.9668 0 1.31836L6.76953 12.7988c-.35156.3809-.9668.3809-1.31836 0l-3.75-3.74997c-.38086-.35156-.38086-.9668 0-1.31836.35156-.38086.9668-.38086 1.31836 0L6.0957 10.8066l6.8555-6.82613c.3515-.38086.9668-.38086 1.3183 0Z"/></svg>`
+            : null}
+        </slot>
       </div>
       ${this.renderHint()} ${this.#validation.render()}
     `;
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
+  // TODO: use sl-icon instead of plain SVGs
 
   #onClick(event: Event): void {
     console.log('onclick', event.target, document.activeElement);
     this.focusVisible = false;
 
     if (event.target === this.input) {
-      // this.focusVisible = false;
       event.preventDefault();
 
       this.input.focus();
-      // this.focusVisible = false;
     }
   }
 
@@ -325,6 +346,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       this.input = inputs.at(0) as HTMLInputElement;
       this.input.autocomplete ||= this.autocomplete || 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
+      if (this.readonly) {
+        this.input.readOnly = this.readonly;
+      }
       this.input.addEventListener('keydown', this.#onKeydown);
 
       this.setFormControlElement(this.input);

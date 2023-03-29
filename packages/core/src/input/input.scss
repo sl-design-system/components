@@ -7,7 +7,8 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
 // TODO: default instead of enable?
 // TODO: with value and with placeholder filled/unfilled?
-// TODO: placeholder
+
+// TODO: add tokens for icons
 
 :host {
   //--_border-color: var(--sl-color-text-field-default-enable-border); //#d3d3d3;
@@ -25,6 +26,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   flex-direction: column;
   // gap: var(--_gap); // TODO: token for gap? // --sl-space-text-field-gap-lg / md
   vertical-align: top;
+  width: 100%;
 }
 
 :host(:focus-visible) {
@@ -43,19 +45,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 //}
 
 :host(:where(:--invalid, [state--invalid], :invalid)) {
-  --_border-color: #c00;
-}
-
-:host([size='md']) {
-  slot[name='input']::slotted(input) {
-    --_line-height: var(--sl-text-typeset-line-height-sm);
-  }
-}
-
-:host([size='lg']) {
-  slot[name='input']::slotted(input) {
-    --_line-height: var(--sl-text-typeset-line-height-lg);
-  }
+  //--_border-color: #c00;
 }
 
 slot[name='input']::slotted(input) {
@@ -64,9 +54,9 @@ slot[name='input']::slotted(input) {
   border: 0;
   color: var(--_color); //inherit;
   flex: 1;
-  font: inherit;
-  font-size: var(--_font-size);
-  line-height: var(--_line-height);
+  font: var(--_font); //inherit;
+  //font-size: var(--_font-size);
+  //line-height: var(--_line-height);
   margin: 0;
   outline: none;
   //padding: var(--_padding); //0;
@@ -82,8 +72,7 @@ slot[name='input']::slotted(input) {
   }
 
   &::placeholder {
-    //color: #1f97f9;
-    color: var(--_color);
+    color: var(--_placeholder-color);
   }
 }
 
@@ -93,7 +82,6 @@ slot[name='input']::slotted(input) {
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
   display: flex;
-  //gap: 12px;
   gap: var(--_gap);
   //padding: calc(0.25rem - 1px) 0.5rem;
   padding: var(--_padding);
@@ -109,21 +97,22 @@ slot[name='input']::slotted(input) {
 @each $size in $sizes {
   :host([size='#{$size}']) {
     //--_line-height: var(--sl-text-typeset-line-height-#{$size});
-    --_gap: var(s--sl-space-text-field-gap-#{$size}); //var(--sl-space-input-gap-#{$size});
+    //--_gap: var(s--sl-space-text-field-gap-#{$size}); //var(--sl-space-input-gap-#{$size});
     //--_size: var(--sl-size-input-#{$size});
 
     slot[name='input']::slotted(input) {
+      --_font: var(--sl-text-input-text-#{$size});
       //--_line-height: var(--sl-text-typeset-line-height-#{$size});
 
       //--_padding: var(--sl-space-text-field-block-#{$size})
       //var(--sl-space-text-field-inline-#{$size})
       //var(--sl-space-text-field-block-#{$size})
       //var(--sl-space-text-field-inline-#{$size});
-      --_font-size: var(--sl-text-typeset-font-size-#{$size});
+      //--_font-size: var(--sl-text-typeset-font-size-#{$size});
 
       //@include sl-text-input-text-lg;
-      font-family: var(--sl-text-typeset-font-family-body);
-      font-weight: var(--sl-text-typeset-font-weight-regular);
+      //font-family: var(--sl-text-typeset-font-family-body);
+      //font-weight: var(--sl-text-typeset-font-weight-regular);
       //line-height: var(--sl-text-typeset-line-height-#{$size});
     }
 
@@ -161,7 +150,7 @@ slot[name='input']::slotted(input) {
 
       /* stylelint-disable-next-line max-nesting-depth */
       &::placeholder {
-        --_color: var(--sl-color-text-field-#{$variant}-default-placeholder);
+        --_placeholder-color: var(--sl-color-text-field-#{$variant}-default-placeholder);
       }
     }
 
@@ -183,7 +172,7 @@ slot[name='input']::slotted(input) {
 
       /* stylelint-disable-next-line max-nesting-depth */
       &::placeholder {
-        --_color: var(--sl-color-text-field-#{$variant}-hover-placeholder);
+        --_placeholder-color: var(--sl-color-text-field-#{$variant}-hover-placeholder);
       }
     }
 
@@ -203,7 +192,7 @@ slot[name='input']::slotted(input) {
 
       /* stylelint-disable-next-line max-nesting-depth */
       &::placeholder {
-        --_color: var(--sl-color-text-field-#{$variant}-active-placeholder);
+        --_placeholder-color: var(--sl-color-text-field-#{$variant}-active-placeholder);
       }
     }
 
@@ -224,7 +213,7 @@ slot[name='input']::slotted(input) {
 
       /* stylelint-disable-next-line max-nesting-depth */
       &::placeholder {
-        --_color: var(--sl-color-text-field-#{$variant}-focus-placeholder);
+        --_placeholder-color: var(--sl-color-text-field-#{$variant}-focus-placeholder);
       }
     }
 
@@ -251,7 +240,7 @@ slot[name='input']::slotted(input) {
 
       /* stylelint-disable-next-line max-nesting-depth */ /* stylelint-disable-next-line max-nesting-depth */
       &::placeholder {
-        --_color: var(--sl-color-text-field-#{$variant}-disabled-placeholder);
+        --_placeholder-color: var(--sl-color-text-field-#{$variant}-disabled-placeholder);
       }
     }
 

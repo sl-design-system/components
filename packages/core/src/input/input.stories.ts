@@ -67,6 +67,8 @@ export const All: StoryObj = {
       <sl-input size="lg" placeholder="Placeholder large"></sl-input>
       <sl-input size="md" value="I am medium"></sl-input>
       <sl-input size="lg" value="I am large"></sl-input>
+      <sl-input readonly size="md" value="I am md readonly"></sl-input>
+      <sl-input readonly size="lg" value="I am lg readonly"></sl-input>
       <sl-input valid size="md" value="I am medium valid"></sl-input>
       <sl-input valid size="lg" value="I am large valid"></sl-input>
       <sl-input invalid size="md" value="I am medium invalid"></sl-input>
@@ -212,6 +214,11 @@ export const CustomValidationWithHint: StoryObj = {
     };
 
     return html`
+      <style>
+        sl-input {
+          width: 300px;
+        }
+      </style>
       <sl-input showValid required="true" .validators=${[validator]} hint="You need to enter 'SLDS'"></sl-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;

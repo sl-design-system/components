@@ -788,16 +788,17 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "lineHeight": "20",
             "fontSize": "{text.typeset.fontSize.md}"
           },
-          "type": "typography"
+          "type": "typography",
+          "description": "Need to update the line height md from 22px to 20px"
         },
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.lg}",
+            "lineHeight": "20",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
           "type": "typography"

@@ -31,7 +31,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
     this.#clicked = false;
 
-    this.focusVisible = false;
+    // this.focusVisible = false;
 
     // if ((event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Tab') {
     //   console.log('shift + tab');
@@ -170,7 +170,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   @property({ type: Boolean, reflect: true }) showValid = false;
 
   /** Whether the input has focus visible. */
-  @property({ type: Boolean, reflect: true }) focusVisible = false;
+  @property({ type: Boolean, reflect: true, attribute: 'focus-visible-within' }) focusVisible = false;
 
   /** Input size. */
   @property({ reflect: true }) size: InputSize = 'md';

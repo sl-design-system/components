@@ -196,7 +196,7 @@ slot[name='input']::slotted(input) {
   }
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):active) {
-  :host(#{$variant-selector}:focus-within:not([focusvisible])) {
+  :host(#{$variant-selector}:focus-within:not([focus-visible-within])) {
     --_border-color: var(--sl-color-text-field-#{$variant}-active-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
@@ -216,7 +216,7 @@ slot[name='input']::slotted(input) {
   }
 
   //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):focus-visible) { // :focus-within
-  :host(#{$variant-selector}:where([focusvisible]):not([disabled])) {
+  :host(#{$variant-selector}[focus-visible-within]:not([disabled])) {
     --_border-color: var(--sl-color-text-field-#{$variant}-focus-border);
     //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
     //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);

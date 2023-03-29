@@ -50,13 +50,6 @@
       ]
     }
   },
-  "dependencies": {
-    "@fortawesome/pro-duotone-svg-icons": "^6.3.0",
-    "@fortawesome/pro-light-svg-icons": "^6.3.0",
-    "@fortawesome/pro-regular-svg-icons": "^6.3.0",
-    "@fortawesome/pro-solid-svg-icons": "^6.3.0",
-    "@fortawesome/pro-thin-svg-icons": "^6.3.0"
-  },
   "devDependencies": {
     "typescript": "4.9.5",
     "wireit": "^0.9.5"

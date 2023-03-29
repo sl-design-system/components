@@ -14,9 +14,10 @@ export interface IconLibrary {
 }
 
 interface SLIconDefinition {
-  value: string;
-  type: string;
-  description: string;
+  value?: string;
+  type?: string;
+  style?: string;
+  description?: string;
 }
 interface CustomIconDefinition extends SLIconDefinition {
   svg: string;

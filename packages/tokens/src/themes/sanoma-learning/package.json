@@ -33,7 +33,7 @@
       ]
     },
     "build:icons": {
-      "command": "yarn node --no-warnings ../../../build-icons.js sanoma-learning 1oIVcD9VMbOtLXYp48ehsA",
+      "command": "yarn node --trace-warnings ../../../build-icons.js sanoma-learning 1oIVcD9VMbOtLXYp48ehsA",
       "dependencies": [
         "build:styles"
       ],

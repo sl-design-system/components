@@ -63,26 +63,26 @@ export const All: StoryObj = {
       }
     </style>
     <div class="wrapper">
-      <sl-input size="md" placeholder="Placeholder medium"></sl-input>
-      <sl-input size="lg" placeholder="Placeholder large"></sl-input>
+      <sl-input size="md" placeholder="Placeholder md"></sl-input>
+      <sl-input size="lg" placeholder="Placeholder lg"></sl-input>
       <sl-input size="md" value="I am medium"></sl-input>
       <sl-input size="lg" value="I am large"></sl-input>
       <sl-input readonly size="md" value="I am md readonly"></sl-input>
       <sl-input readonly size="lg" value="I am lg readonly"></sl-input>
-      <sl-input valid size="md" value="I am medium valid"></sl-input>
-      <sl-input valid size="lg" value="I am large valid"></sl-input>
-      <sl-input invalid size="md" value="I am medium invalid"></sl-input>
-      <sl-input invalid size="lg" value="I am large invalid"></sl-input>
-      <sl-input invalid size="md" placeholder="Placeholder medium invalid"></sl-input>
-      <sl-input invalid size="lg" placeholder="Placeholder large invalid"></sl-input>
-      <sl-input disabled size="md" value="I am medium disabled"></sl-input>
-      <sl-input disabled size="lg" value="I am large disabled"></sl-input>
+      <sl-input valid size="md" value="I am md valid"></sl-input>
+      <sl-input valid size="lg" value="I am lg valid"></sl-input>
+      <sl-input invalid size="md" value="I am md invalid"></sl-input>
+      <sl-input invalid size="lg" value="I am lg invalid"></sl-input>
+      <sl-input invalid size="md" placeholder="Placeholder md invalid"></sl-input>
+      <sl-input invalid size="lg" placeholder="Placeholder lg invalid"></sl-input>
+      <sl-input disabled size="md" value="I am md disabled"></sl-input>
+      <sl-input disabled size="lg" value="I am lg disabled"></sl-input>
       <sl-input disabled size="md" placeholder="Placeholder md disabled"></sl-input>
       <sl-input disabled size="lg" placeholder="Placeholder lg disabled"></sl-input>
-      <sl-input disabled valid size="md" value="I am medium valid disabled"></sl-input>
-      <sl-input disabled valid size="lg" value="I am large valid disabled"></sl-input>
-      <sl-input disabled invalid size="md" value="I am medium invalid disabled"></sl-input>
-      <sl-input disabled invalid size="lg" value="I am large invalid disabled"></sl-input>
+      <sl-input disabled valid size="md" value="I am md valid disabled"></sl-input>
+      <sl-input disabled valid size="lg" value="I am lg valid disabled"></sl-input>
+      <sl-input disabled invalid size="md" value="I am md invalid disabled"></sl-input>
+      <sl-input disabled invalid size="lg" value="I am lg invalid disabled"></sl-input>
       <sl-input disabled invalid size="md" placeholder="Placeholder md disabled invalid"></sl-input>
       <sl-input disabled invalid size="lg" placeholder="Placeholder lg disabled invalid"></sl-input>
     </div>
@@ -184,6 +184,33 @@ export const CustomInput: StoryObj = {
   `
 };
 
+export const ValidInput: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.previousElementSibling as Input)?.reportValidity();
+    };
+
+    const inputToConfirm = document.querySelector('#input1') as HTMLInputElement;
+
+    const validator: Validator = {
+      message: 'Enter the same email address',
+      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === inputToConfirm?.value
+    };
+
+    return html`
+      <sl-input id="input1" placeholder="email"></sl-input>
+      <sl-input
+        id="input2"
+        showValid
+        .validators=${[validator]}
+        placeholder="confirm email"
+        @blur="${onClick}"
+      ></sl-input>
+      <sl-button @click=${onClick}>Validate</sl-button>
+    `;
+  }
+};
+
 export const CustomValidation: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
@@ -196,7 +223,7 @@ export const CustomValidation: StoryObj = {
     };
 
     return html`
-      <sl-input showValid required="true" .validators=${[validator]}></sl-input>
+      <sl-input required="true" .validators=${[validator]}></sl-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
   }

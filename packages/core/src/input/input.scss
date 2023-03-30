@@ -18,12 +18,14 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   --_border-radius: var(--sl-border-radius-default);
   --_box-shadow: var(--sl-box-shadow-none); //none;
   //--_gap: 0.25rem; // TODO: what about the default values?
+  --_transition: 200ms ease-in-out;
 }
 
 :host {
   align-items: start;
   display: inline-flex;
   flex-direction: column;
+  transition: var(--_transition);
   // gap: var(--_gap); // TODO: token for gap? // --sl-space-text-field-gap-lg / md
   vertical-align: top;
   width: 100%;
@@ -44,9 +46,9 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 //  --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 //}
 
-:host(:where(:--invalid, [state--invalid], :invalid)) {
-  //--_border-color: #c00;
-}
+//:host(:where(:--invalid, [state--invalid], :invalid)) {
+//  //--_border-color: #c00;
+//}
 
 slot[name='input']::slotted(input) {
   appearance: none;
@@ -66,10 +68,10 @@ slot[name='input']::slotted(input) {
     outline: none;
   }
 
-  &:invalid {
-    //border: 3px solid red;
-    background-color: #6b1313;
-  }
+  //&:invalid {
+  //  //border: 3px solid red;
+  //  background-color: #6b1313;
+  //}
 
   &::placeholder {
     color: var(--_placeholder-color);
@@ -85,7 +87,7 @@ slot[name='input']::slotted(input) {
   gap: var(--_gap);
   //padding: calc(0.25rem - 1px) 0.5rem;
   padding: var(--_padding);
-  transition: 0.2s ease-in-out;
+  transition: var(--_transition);
   transition-property: background, border, box-shadow, color, filter;
   width: 100%;
 }

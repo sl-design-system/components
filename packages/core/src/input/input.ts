@@ -190,6 +190,14 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** The value for the input. */
   @property() value?: string;
 
+  // get invalid(): boolean {
+  //   return this.hasAttribute('invalid');
+  // }
+  //
+  // set invalid(isInvalid: boolean) {
+  //   isInvalid ? this.setAttribute('invalid', '') : this.removeAttribute('invalid');
+  // }
+
   /** @private */
   #clicked = false;
 
@@ -221,7 +229,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       this.setFormControlElement(this.input);
 
       this.#validation.validate(this.value);
-      this.invalid = !this.#validation.validity.valid;
+      // this.invalid = !this.#validation.validity.valid;
       this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
     }
   }
@@ -230,6 +238,16 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     super.updated(changes);
 
     console.log('changes in updated', changes);
+
+    if (changes.has('invalid')) {
+      this.invalid = this.input.hasAttribute('invalid');
+      // this.invalid = changes;
+      // if (this.autocomplete) {
+      //   this.input.setAttribute('autocomplete', this.autocomplete);
+      // } else {
+      //   this.input.removeAttribute('autocomplete');
+      // }
+    }
 
     if (changes.has('autocomplete')) {
       if (this.autocomplete) {
@@ -290,7 +308,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
-      <div @input=${this.#onInput} class="wrapper">
+      <div @input=${this.#onInput} class="wrapper" @blur="${this.#onBlur}">
         <slot name="prefix"></slot>
         <slot
           @slotchange=${this.#onSlotchange}
@@ -309,7 +327,8 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
             : null}
         </slot>
       </div>
-      ${this.renderHint()} ${this.#validation.render()}
+      ${this.invalid} ${this.hasAttribute('invalid')} ${this.input.hasAttribute('invalid')} ${this.renderHint()}
+      ${this.#validation.render()}
     `;
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
   // TODO: use sl-icon instead of plain SVGs
@@ -329,9 +348,13 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     this.value = target.value;
     this.#validation.validate(this.value);
     console.log('this.internals?.validity.valid', this.#validation.validity.valid);
-    this.invalid = !this.#validation.validity.valid; // TODO not working on required and empty input
+    // this.invalid = !this.#validation.validity.valid; // TODO not working on required and empty input
     console.log('this.invalid', this.invalid);
     this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
+  }
+
+  #onBlur({ target }: Event & { target: HTMLInputElement }): void {
+    console.log('invalid and target', this.hasAttribute('invalid'), target);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

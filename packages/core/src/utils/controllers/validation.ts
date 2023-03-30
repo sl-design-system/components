@@ -82,6 +82,8 @@ export class ValidationController implements ReactiveController {
     event.preventDefault();
 
     if (this.#showErrors !== !this.validity.valid) {
+      console.log('host', this.#host);
+      // this.#host.setAttribute('invalid', '');
       this.#showErrors = !this.validity.valid;
       this.#host.requestUpdate();
     }
@@ -93,6 +95,7 @@ export class ValidationController implements ReactiveController {
 
     if (form === event.target) {
       this.#showErrors = false;
+      // this.#host.removeAttribute('invalid');
       this.#host.requestUpdate();
     }
   };
@@ -148,6 +151,8 @@ export class ValidationController implements ReactiveController {
       this.target.setAttribute('title', '');
     }
 
+    console.log('target', this.target);
+
     document.addEventListener('reset', this.#onReset);
     this.target.addEventListener('invalid', this.#onInvalid);
   }
@@ -169,9 +174,17 @@ export class ValidationController implements ReactiveController {
     }
 
     const state = this.#getInvalidState(this.validity);
+    console.log('state', state, !!state, this.#host, this.#target);
 
     if (this.#showErrors && state) {
+      this.#target.setAttribute('invalid', '');
+      this.#host.setAttribute('invalid', '');
+      this.#host.requestUpdate();
       return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
+    } else {
+      this.#target.removeAttribute('invalid');
+      this.#host.removeAttribute('invalid');
+      this.#host.requestUpdate();
     }
   }
 

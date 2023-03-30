@@ -2076,7 +2076,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "icon": {
-            "value": "{color.palette.danger.300}",
+            "value": "{color.palette.danger.400}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2132,7 +2132,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.default.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2159,7 +2159,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.hover.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2186,7 +2186,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.active.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2240,7 +2240,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.150}",
+            "value": "{color.textField.default.disabled.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },

@@ -1840,7 +1840,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.neutral.400}",
+            "value": "{color.textField.default.default.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -1855,7 +1855,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -1887,7 +1887,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -1899,12 +1899,12 @@
         },
         "focus": {
           "background": {
-            "value": "rgba({color.palette.accent.base} , {opacity.100})",
+            "value": "{color.textField.default.active.background}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.textField.default.active.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -1919,7 +1919,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -1985,7 +1985,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2002,7 +2002,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.danger.300}",
+            "value": "{color.textField.invalid.default.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2012,17 +2012,17 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "icon": {
-            "value": "{color.palette.danger.400}",
+            "value": "{color.textField.invalid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "placeholder": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.textField.default.default.placeholder}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           }
@@ -2034,7 +2034,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.danger.300}",
+            "value": "{color.textField.invalid.default.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2044,12 +2044,12 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "icon": {
-            "value": "{color.palette.danger.400}",
+            "value": "{color.textField.invalid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2061,12 +2061,12 @@
         },
         "focus": {
           "background": {
-            "value": "rgba({body.background} , {opacity.100})",
+            "value": "{color.textField.invalid.active.background}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.danger.300}",
+            "value": "{color.textField.invalid.default.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2076,12 +2076,12 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "icon": {
-            "value": "{color.palette.danger.400}",
+            "value": "{color.textField.invalid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2113,7 +2113,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.textField.default.disabled.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2147,7 +2147,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           }
@@ -2169,12 +2169,12 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "icon": {
-            "value": "{color.palette.success.500}",
+            "value": "{color.textField.valid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           }
@@ -2196,24 +2196,24 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "icon": {
-            "value": "{color.palette.success.500}",
+            "value": "{color.textField.valid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           }
         },
         "focus": {
           "background": {
-            "value": "rgba({body.background} , {opacity.100})",
+            "value": "{color.textField.valid.active.background}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.active.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2223,12 +2223,12 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "icon": {
-            "value": "{color.palette.success.500}",
+            "value": "{color.textField.valid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{body.foreground}",
+            "value": "{color.textField.default.default.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           }
@@ -2255,7 +2255,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "inputText": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.textField.default.disabled.inputText}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           }

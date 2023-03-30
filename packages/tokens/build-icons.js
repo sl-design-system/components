@@ -94,6 +94,7 @@ await new Promise((resolve, reject) => {
 // 3. Convert downloaded icons to appropriate format?
 // We only need the `<path>` data for `<sl-icon>`
 const customIconFiles = await fs.readdir(`${cwd}src/themes/${name}/icons/`)
+console.log('customIconFiles, files we need to read:', customIconFiles);
 
 const filesToRead = customIconFiles.map(fileName => {
   const iconName = fileName.replace('icon=','').replace('.svg','');

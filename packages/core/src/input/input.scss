@@ -13,7 +13,8 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 :host {
   //--_border-color: var(--sl-color-text-field-default-enable-border); //#d3d3d3;
   //--_border-radius: 3px;
-  --_border-size: var(--sl-border-width-input-border);
+  //--_border-size: var(--sl-border-width-input-border); // TODO: or border-width-button-default?
+  --_border-size: var(--sl-border-width-button-default);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
   --_box-shadow: var(--sl-box-shadow-none); //none;

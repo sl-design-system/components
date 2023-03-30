@@ -81,11 +81,14 @@ export class ValidationController implements ReactiveController {
     // Prevent the browser from showing the built-in validation UI
     event.preventDefault();
 
+    console.log('onInvalid', this.validity.valid, event);
+    // this.#host.setAttribute('invalid', '');
+
     if (this.#showErrors !== !this.validity.valid) {
       console.log('host', this.#host);
-      // this.#host.setAttribute('invalid', '');
+      this.#host.setAttribute('invalid', '');
       this.#showErrors = !this.validity.valid;
-      this.#host.requestUpdate();
+      // this.#host.requestUpdate();
     }
   };
 
@@ -177,14 +180,14 @@ export class ValidationController implements ReactiveController {
     console.log('state', state, !!state, this.#host, this.#target);
 
     if (this.#showErrors && state) {
-      this.#target.setAttribute('invalid', '');
-      this.#host.setAttribute('invalid', '');
-      this.#host.requestUpdate();
+      // this.#target.setAttribute('invalid', '');
+      // this.#host.setAttribute('invalid', '');
+      // this.#host.requestUpdate();
       return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
     } else {
-      this.#target.removeAttribute('invalid');
-      this.#host.removeAttribute('invalid');
-      this.#host.requestUpdate();
+      // this.#target.removeAttribute('invalid');
+      // this.#host.removeAttribute('invalid');
+      //this.#host.requestUpdate();
     }
   }
 

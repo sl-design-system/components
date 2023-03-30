@@ -240,7 +240,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     console.log('changes in updated', changes);
 
     if (changes.has('invalid')) {
-      this.invalid = this.input.hasAttribute('invalid');
+      // this.invalid = this.input.hasAttribute('invalid');
       // this.invalid = changes;
       // if (this.autocomplete) {
       //   this.input.setAttribute('autocomplete', this.autocomplete);

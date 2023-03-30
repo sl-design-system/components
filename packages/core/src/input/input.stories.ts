@@ -69,8 +69,8 @@ export const All: StoryObj = {
       <sl-input size="lg" value="I am large"></sl-input>
       <sl-input readonly size="md" value="I am md readonly"></sl-input>
       <sl-input readonly size="lg" value="I am lg readonly"></sl-input>
-      <sl-input valid size="md" value="I am md valid"></sl-input>
-      <sl-input valid size="lg" value="I am lg valid"></sl-input>
+      <sl-input showValid valid size="md" value="I am md valid"></sl-input>
+      <sl-input showValid valid size="lg" value="I am lg valid"></sl-input>
       <sl-input invalid size="md" value="I am md invalid"></sl-input>
       <sl-input invalid size="lg" value="I am lg invalid"></sl-input>
       <sl-input invalid size="md" placeholder="Placeholder md invalid"></sl-input>
@@ -79,8 +79,8 @@ export const All: StoryObj = {
       <sl-input disabled size="lg" value="I am lg disabled"></sl-input>
       <sl-input disabled size="md" placeholder="Placeholder md disabled"></sl-input>
       <sl-input disabled size="lg" placeholder="Placeholder lg disabled"></sl-input>
-      <sl-input disabled valid size="md" value="I am md valid disabled"></sl-input>
-      <sl-input disabled valid size="lg" value="I am lg valid disabled"></sl-input>
+      <sl-input disabled showValid valid size="md" value="I am md valid disabled"></sl-input>
+      <sl-input disabled showValid valid size="lg" value="I am lg valid disabled"></sl-input>
       <sl-input disabled invalid size="md" value="I am md invalid disabled"></sl-input>
       <sl-input disabled invalid size="lg" value="I am lg invalid disabled"></sl-input>
       <sl-input disabled invalid size="md" placeholder="Placeholder md disabled invalid"></sl-input>
@@ -198,6 +198,11 @@ export const ValidInput: StoryObj = {
     };
 
     return html`
+      <style>
+        sl-input {
+          width: 300px;
+        }
+      </style>
       <sl-input id="input1" placeholder="email"></sl-input>
       <sl-input
         id="input2"

@@ -82,8 +82,8 @@ Object.entries(icons).map(([iconName, value]) =>{
 // load all custom icons from figma and store svgs
 await new Promise((resolve, reject) => {
   exec(`yarn run figma-export use-config .figmaexportrc.cjs ${page} ${name}`, { cwd }, error => {
+    console.log('after fun of figma export', error);
     if (error) {
-      console.log(error);
       reject(error);
     }
     resolve();

@@ -42,9 +42,16 @@ export class Icon extends LitElement {
 
   static availableStyles: IconStyle[] = [];
 
-  // static registerIcon(name: string, icon: string): void {
-  //   console.log('registerIcon', { name, icon });
-  // }
+  static registerIcon(icon: IconDefinition): void {
+    const {
+        icon: [width, height, , , path]
+      } = icon,
+      paths = Array.isArray(path) ? path : [path];
+    const svg = `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">${paths
+      .map(p => `<path d="${p}"></path>`)
+      .join('')}</svg>`;
+    window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] = { svg };
+  }
 
   static registerIcons(icons: IconLibrary): void {
     window.SLDS.icons = icons;
@@ -114,11 +121,7 @@ export class Icon extends LitElement {
   }
 
   #resolve(name: string): string {
-    // 2. Get the supported icons from `icons.[json|ts]`?
-    // 3. Return the matching `<path>`
-    const iconInRegistry: SLIconDefinition | CustomIconDefinition | undefined = Object.entries(this.icons).find(
-      icon => name === icon[0]
-    )?.[1];
+    const iconInRegistry: SLIconDefinition | CustomIconDefinition | undefined = this.icons[name];
 
     if (this.icons && (iconInRegistry as CustomIconDefinition)?.svg) {
       return (iconInRegistry as CustomIconDefinition).svg;

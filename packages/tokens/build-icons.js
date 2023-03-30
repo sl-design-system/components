@@ -23,7 +23,6 @@ const formattedIcons = (icons, collection) => {
 };
 
 const convertToIconDefinition = (iconName, style) => {
-  console.log(style);
   return findIconDefinition({ prefix: getIconPrefixFromStyle(style), iconName });
 };
 
@@ -68,7 +67,6 @@ const iconsCustom = formattedIcons(icon,'custom');
 
 // fetch all FA tokens and store these
 Object.entries(icons).map(([iconName, value]) =>{
-  console.log(value);
   const faIcon = convertToIconDefinition(value.value.replace('fa-',''), value.style??'regular');
   if(!faIcon) return;
   const {
@@ -82,7 +80,6 @@ Object.entries(icons).map(([iconName, value]) =>{
 // load all custom icons from figma and store svgs
 await new Promise((resolve, reject) => {
   exec(`yarn run figma-export use-config .figmaexportrc.cjs ${page} ${name}`, { cwd }, error => {
-    console.log('after fun of figma export', error);
     if (error) {
       reject(error);
     }
@@ -94,13 +91,11 @@ await new Promise((resolve, reject) => {
 // 3. Convert downloaded icons to appropriate format?
 // We only need the `<path>` data for `<sl-icon>`
 const customIconFiles = await fs.readdir(`${cwd}src/themes/${name}/icons/`)
-console.log('customIconFiles, files we need to read:', customIconFiles);
 
 const filesToRead = customIconFiles.map(fileName => {
   const iconName = fileName.replace('icon=','').replace('.svg','');
-  console.log('read', `${cwd}src/themes/${name}/icons/${fileName}`);
   return fs.readFile(`${cwd}src/themes/${name}/icons/${fileName}`, "utf8")
-  .then(svg => { console.log(svg); return iconsCustom[iconName] = { svg };});
+  .then(svg => iconsCustom[iconName] = { svg });
 });
 await Promise.all(filesToRead);
 
@@ -110,7 +105,6 @@ await Promise.all(filesToRead);
 // TODO filter out everything that is not the right format
 // export type SLIconName = '${Object.keys({...icons,...iconsCustom}).join(`' | '`)}';
 
-console.log('all the icons we are going to save:',{...icons,...iconsCustom});
 
 await fs.writeFile(join(`${cwd}src/themes/${name}`, `icons.ts`), `export const icons = ${JSON.stringify({...icons,...iconsCustom})};`);
 // 5. Expose the icons via the theme `IconResolver` in `index.ts`

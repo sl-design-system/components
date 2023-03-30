@@ -207,10 +207,10 @@
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
   --sl-space-text-field-gap-lg: var(--sl-space-sm);
   --sl-space-text-field-gap-md: var(--sl-space-sm);
-  --sl-space-text-field-inline-lg: var(--sl-space-lg);
-  --sl-space-text-field-inline-md: var(--sl-space-md);
-  --sl-space-text-field-block-lg: var(--sl-space-sm);
-  --sl-space-text-field-block-md: var(--sl-space-xs);
+  --sl-space-text-field-inline-lg: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));
+  --sl-space-text-field-inline-md: calc(var(--sl-space-md) - var(--sl-border-width-button-default));
+  --sl-space-text-field-block-lg: calc(var(--sl-space-sm) + var(--sl-border-width-button-default));
+  --sl-space-text-field-block-md: calc(var(--sl-space-xs) + var(--sl-border-width-button-default));
   --sl-space-group-xl: var(--sl-space-sm);
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);

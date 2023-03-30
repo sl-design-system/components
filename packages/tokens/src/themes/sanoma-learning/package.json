@@ -35,6 +35,7 @@
     "build:icons": {
       "command": "yarn node --trace-warnings ../../../build-icons.js sanoma-learning 1oIVcD9VMbOtLXYp48ehsA",
       "dependencies": [
+        "../../../../core:build",
         "build:styles"
       ],
       "files": [
@@ -47,9 +48,6 @@
         "../../../build-styles.js",
         "../../figma/*.json",
         "../../figma/sanoma-learning/*.json"
-      ],
-      "dependencies": [
-        "../../../build:core"
       ]
     }
   },

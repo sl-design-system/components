@@ -1121,7 +1121,7 @@
           "description": "space.button.solid.block.md"
         },
         "lg": {
-          "value": "{space.sm} + {border.width.button.default}",
+          "value": "{space.sm} - {border.width.button.default}",
           "type": "spacing",
           "description": "space.button.solid.block.lg"
         }

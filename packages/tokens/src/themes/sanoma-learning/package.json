@@ -47,6 +47,9 @@
         "../../../build-styles.js",
         "../../figma/*.json",
         "../../figma/sanoma-learning/*.json"
+      ],
+      "dependencies": [
+        "../../../build:core"
       ]
     }
   },

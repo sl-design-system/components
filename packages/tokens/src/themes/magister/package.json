@@ -35,6 +35,7 @@
     "build:icons": {
       "command": "yarn node --no-warnings ../../../build-icons.js magister YZeBneflpJkX3KXSyvMrqP",
       "dependencies": [
+        "../../../../core:build",
         "build:styles"
       ],
       "files": [

@@ -2132,7 +2132,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.500}",
+            "value": "{color.textField.default.default.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2159,7 +2159,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.hover.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2186,7 +2186,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.active.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2213,7 +2213,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.focus.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2240,7 +2240,7 @@
             "description": "color.surface.solid.primary.background"
           },
           "border": {
-            "value": "{color.palette.success.600}",
+            "value": "{color.textField.default.disabled.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },

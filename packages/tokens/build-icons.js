@@ -98,8 +98,9 @@ console.log('customIconFiles, files we need to read:', customIconFiles);
 
 const filesToRead = customIconFiles.map(fileName => {
   const iconName = fileName.replace('icon=','').replace('.svg','');
+  console.log('read', `${cwd}src/themes/${name}/icons/${fileName}`);
   return fs.readFile(`${cwd}src/themes/${name}/icons/${fileName}`, "utf8")
-  .then(svg => iconsCustom[iconName] = { svg });
+  .then(svg => { console.log(svg); return iconsCustom[iconName] = { svg };});
 });
 await Promise.all(filesToRead);
 
@@ -108,6 +109,8 @@ await Promise.all(filesToRead);
 // TODO .ts doesn't work (anymore?? who do we compile this?)
 // TODO filter out everything that is not the right format
 // export type SLIconName = '${Object.keys({...icons,...iconsCustom}).join(`' | '`)}';
+
+console.log('all the icons we are going to save:',{...icons,...iconsCustom});
 
 await fs.writeFile(join(`${cwd}src/themes/${name}`, `icons.ts`), `export const icons = ${JSON.stringify({...icons,...iconsCustom})};`);
 // 5. Expose the icons via the theme `IconResolver` in `index.ts`

@@ -19,7 +19,7 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "build:icons"
+        "build:styles"
       ]
     },
     "build:ts": {

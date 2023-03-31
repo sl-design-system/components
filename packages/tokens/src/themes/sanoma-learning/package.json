@@ -23,13 +23,13 @@
       ]
     },
     "build:ts": {
-      "command": "tsc -b ../../../tsconfig.build.json --pretty",
+      "command": "tsc -b ../../../tsconfig.build.json --force",
       "clean": "if-file-deleted",
       "dependencies": [
         "build:icons"
       ],
       "files": [
-        "src/**/*.ts"
+        "../../../tsconfig.build.json"
       ]
     },
     "build:icons": {

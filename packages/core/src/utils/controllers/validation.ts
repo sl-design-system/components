@@ -83,12 +83,16 @@ export class ValidationController implements ReactiveController {
 
     console.log('onInvalid', this.validity.valid, event);
     // this.#host.setAttribute('invalid', '');
+    this.#host.setAttribute('invalid', '');
+    this.#target?.setAttribute('invalid', '');
+    this.#host.requestUpdate();
 
     if (this.#showErrors !== !this.validity.valid) {
       console.log('host', this.#host);
       this.#host.setAttribute('invalid', '');
+      this.#target?.setAttribute('invalid', '');
       this.#showErrors = !this.validity.valid;
-      // this.#host.requestUpdate();
+      this.#host.requestUpdate();
     }
   };
 
@@ -177,16 +181,22 @@ export class ValidationController implements ReactiveController {
     }
 
     const state = this.#getInvalidState(this.validity);
-    console.log('state', state, !!state, this.#host, this.#target);
+    console.log('state', state, !!state, this.#host, this.#target, this.validity.valid);
+    // if (!this.validity.valid) {
+    //   this.#target.setAttribute('invalid', '');
+    //   this.#host.setAttribute('invalid', '');
+    // } else {
+    //   this.#target.removeAttribute('invalid');
+    //   this.#host.removeAttribute('invalid');
+    // } // TODO: not working properly with checkbox
 
     if (this.#showErrors && state) {
-      // this.#target.setAttribute('invalid', '');
-      // this.#host.setAttribute('invalid', '');
-      // this.#host.requestUpdate();
+      this.#target.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
+      this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
       return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
     } else {
-      // this.#target.removeAttribute('invalid');
-      // this.#host.removeAttribute('invalid');
+      this.#target.removeAttribute('invalid');
+      this.#host.removeAttribute('invalid');
       //this.#host.requestUpdate();
     }
   }
@@ -213,6 +223,10 @@ export class ValidationController implements ReactiveController {
       hasAsyncValidators = validators.some(({ isValid }) => isValid instanceof Promise),
       asyncValidators: Array<Promise<boolean | void>> = [],
       validity: CustomValidityState = {};
+
+    // TODO: maybe add here invalid/valid attribute validity.valid?
+
+    console.log('this.validity.valid in validate', this.validity.valid);
 
     if (!this.#validationPending) {
       this.#validationComplete = new Promise(resolve => {

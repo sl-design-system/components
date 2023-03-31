@@ -2858,13 +2858,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-common-types@npm:6.3.0":
-  version: 6.3.0
-  resolution: "@fortawesome/fontawesome-common-types@npm:6.3.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-common-types%2F-%2F6.3.0%2Ffontawesome-common-types-6.3.0.tgz"
-  checksum: 29c25a0702ceb197ad1e58d586c1e2ba193a1aa5fb9bc928fe15cda0aa6012b36142a31b65b19e56302c9520b6dbdf53c9024a7b47a016f25468a2089cee2426
-  languageName: node
-  linkType: hard
-
 "@fortawesome/fontawesome-common-types@npm:6.4.0":
   version: 6.4.0
   resolution: "@fortawesome/fontawesome-common-types@npm:6.4.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-common-types%2F-%2F6.4.0%2Ffontawesome-common-types-6.4.0.tgz"
@@ -2872,12 +2865,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-svg-core@npm:^6.3.0":
-  version: 6.3.0
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.3.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-svg-core%2F-%2F6.3.0%2Ffontawesome-svg-core-6.3.0.tgz"
+"@fortawesome/fontawesome-svg-core@npm:^6.4.0":
+  version: 6.4.0
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.4.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-svg-core%2F-%2F6.4.0%2Ffontawesome-svg-core-6.4.0.tgz"
   dependencies:
-    "@fortawesome/fontawesome-common-types": 6.3.0
-  checksum: e800f1a6f100e8802c93195595db8e6e17edb81ebb44a88d94a260c8db948e847e945fff54d46fc75949dc9081d3e86cf6b3370ae60b8be57fb09d2aac4390f4
+    "@fortawesome/fontawesome-common-types": 6.4.0
+  checksum: fae9957c4ac453c89b6b5654106db35733d110932d291d78b039e3e00419015245e40bd627cfa48156be995e5daa0782597be504fac40c53c76ab131f1424658
   languageName: node
   linkType: hard
 
@@ -3698,7 +3691,7 @@ __metadata:
   resolution: "@sanomalearning/slds-core@workspace:packages/core"
   dependencies:
     "@floating-ui/dom": ^1.2.5
-    "@fortawesome/fontawesome-svg-core": ^6.3.0
+    "@fortawesome/fontawesome-svg-core": ^6.4.0
     "@lit-labs/observers": ^1.1.0
     "@lit/localize": ^0.11.4
     "@lit/localize-tools": ^0.6.8

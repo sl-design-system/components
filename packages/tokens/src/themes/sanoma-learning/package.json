@@ -29,7 +29,7 @@
         "build:icons"
       ],
       "files": [
-        "../../../tsconfig.build.json"
+        "src/**/*.ts"
       ]
     },
     "build:icons": {

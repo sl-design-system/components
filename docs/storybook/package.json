@@ -17,6 +17,7 @@
     "build": {
       "command": "storybook build -o ../dist --quiet",
       "dependencies": [
+        "../../packages/tokens:build",
         "../../packages/core:build"
       ]
     },

@@ -1109,6 +1109,16 @@
       "value": "{text.typeset.fontWeight.icon-regular}",
       "type": "fontWeights",
       "description": "icon.font-weight"
+    },
+    "style": {
+      "outline": {
+        "value": "{text.typeset.fontWeight.icon-regular}",
+        "type": "fontWeights"
+      },
+      "solid": {
+        "value": "{text.typeset.fontWeight.icon-solid}",
+        "type": "fontWeights"
+      }
     }
   }
 }

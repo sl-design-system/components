@@ -2374,7 +2374,7 @@
         },
         "active": {
           "background": {
-            "value": "rgba({color.palette.danger.base} , {opacity.200})",
+            "value": "rgba({color.palette.danger.base} , {opacity.100})",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2392,7 +2392,7 @@
             "failedToResolve": true
           },
           "icon": {
-            "value": "{color.textField.invalid.hover.icon}",
+            "value": "{color.textField.invalid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2430,7 +2430,7 @@
             "failedToResolve": true
           },
           "icon": {
-            "value": "{color.textField.invalid.hover.icon}",
+            "value": "{color.textField.invalid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2496,7 +2496,7 @@
             "failedToResolve": true
           },
           "border": {
-            "value": "{color.palette.success.500}",
+            "value": "{color.textField.default.default.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2508,7 +2508,7 @@
             "failedToResolve": true
           },
           "icon": {
-            "value": "{color.textField.valid.default.border}",
+            "value": "{color.palette.success.400}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2528,7 +2528,7 @@
             "failedToResolve": true
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.hover.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2540,7 +2540,7 @@
             "failedToResolve": true
           },
           "icon": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.palette.success.300}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2554,13 +2554,13 @@
         },
         "active": {
           "background": {
-            "value": "rgba({color.palette.success.base} , {opacity.200})",
+            "value": "rgba({color.palette.success.base} , {opacity.100})",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.active.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2572,7 +2572,7 @@
             "failedToResolve": true
           },
           "icon": {
-            "value": "{color.textField.valid.hover.icon}",
+            "value": "{color.textField.valid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2592,7 +2592,7 @@
             "failedToResolve": true
           },
           "border": {
-            "value": "{color.palette.success.400}",
+            "value": "{color.textField.default.focus.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2604,7 +2604,7 @@
             "failedToResolve": true
           },
           "icon": {
-            "value": "{color.textField.valid.hover.icon}",
+            "value": "{color.textField.valid.default.icon}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true
@@ -2624,7 +2624,7 @@
             "failedToResolve": true
           },
           "border": {
-            "value": "{color.palette.success.600}",
+            "value": "{color.textField.default.disabled.border}",
             "type": "color",
             "description": "color.surface.solid.primary.background",
             "failedToResolve": true

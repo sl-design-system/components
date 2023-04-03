@@ -81,6 +81,10 @@ slot[name='input']::slotted(input) {
   &::placeholder {
     color: var(--_placeholder-color);
   }
+
+  &[aria-invalid='true'] {
+    background-color: #6b1313;
+  }
 }
 
 .wrapper {
@@ -131,7 +135,6 @@ slot[name='input']::slotted(input) {
 
 // TODO: what about default values for css variables?
 
-// TODO: styles for different states
 @each $variant in $variants {
   //@each $state in $states {
   $i: index($variants, $variant);

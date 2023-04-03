@@ -140,6 +140,31 @@ export const RichLabelHint: StoryObj = {
   `
 };
 
+export const InputTypes: StoryObj = {
+  render: () => html`
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <form>
+      <sl-label for="inputNumber">Number</sl-label>
+      <sl-input id="inputNumber" type="number" min="0"> </sl-input>
+      <!--      <sl-label for="custom2">Age</sl-label>-->
+      <!--      <sl-input id="custom2" type="number">-->
+      <!--        <input id="foo" slot="input" placeholder="I am a custom input" type="number" min="0" />-->
+      <!--      </sl-input>-->
+      <sl-label for="inputEmail">Email</sl-label>
+      <sl-input id="inputEmail" type="email"> </sl-input>
+      <sl-label for="inputTel">Tel</sl-label>
+      <sl-input id="inputTel" type="tel"> </sl-input>
+      <sl-label for="inputUrl">Url</sl-label>
+      <sl-input id="inputUrl" type="url"> </sl-input>
+    </form>
+  `
+};
+
 export const PrefixSuffix: StoryObj = {
   render: () => html`
     <sl-input>

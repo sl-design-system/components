@@ -182,6 +182,7 @@ export class ValidationController implements ReactiveController {
 
     const state = this.#getInvalidState(this.validity);
     console.log('state', state, !!state, this.#host, this.#target, this.validity.valid);
+    console.log('state showErrors', this.#showErrors);
     // if (!this.validity.valid) {
     //   this.#target.setAttribute('invalid', '');
     //   this.#host.setAttribute('invalid', '');
@@ -196,7 +197,7 @@ export class ValidationController implements ReactiveController {
       return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
     } else {
       this.#target.removeAttribute('invalid');
-      this.#host.removeAttribute('invalid');
+      // this.#host.removeAttribute('invalid');
       //this.#host.requestUpdate();
     }
   }

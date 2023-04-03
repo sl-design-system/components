@@ -154,6 +154,12 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
+  /** Minimum value. Only applies to number input type.	*/
+  @property({ type: Number, attribute: 'min' }) min?: number;
+
+  /** Maximum value. Only applies to number input type. */
+  @property({ type: Number, attribute: 'max' }) max?: number;
+
   /** Validation using pattern. */
   @property() pattern?: string;
 
@@ -224,7 +230,18 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       //   // !this.input.
       //   // this.setValidity({ badInput: true }, 'null');
       //   this.input.setAttribute('invalid', '');
+      //   console.log('this.invalid', this.invalid);
       // }
+      // if (this.min) {
+      //   console.log('min 1', this.min);
+      //   this.input.min = this.min.toString();
+      //   this.input.setAttribute('min', this.min.toString());
+      // }
+      //
+      // if (this.max) {
+      //   this.input.max = this.max.toString();
+      // }
+
       this.input.addEventListener('keydown', this.#onKeydown);
 
       if (!this.input.parentElement) {
@@ -251,7 +268,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     console.log('changes in updated', changes);
 
     if (changes.has('invalid')) {
-      this.invalid = !this.input.validity.valid;
+      console.log('invalid in changes', this.invalid, this.input);
+      // this.internals.setValidity();
+      // this.input.
+      // this.invalid = !this.input.validity.valid;
       // this.invalid = this.input.hasAttribute('invalid');
       // this.invalid = changes;
       // if (this.autocomplete) {
@@ -278,10 +298,30 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     }
 
     if (changes.has('minLength')) {
+      console.log('minlength', this.minLength);
       if (this.minLength) {
         this.input.setAttribute('minlength', this.minLength.toString());
       } else {
         this.input.removeAttribute('minlength');
+      }
+    }
+
+    if (changes.has('min')) {
+      console.log('min in changes', this.min, this.type, this.type === 'number', this.min && this.type === 'number');
+      if (this.min /*&& this.type === 'number'*/) {
+        console.log('min in if', this.min);
+        this.input.setAttribute('min', this.min.toString());
+      } else {
+        console.log('min in else', this.min);
+        this.input.removeAttribute('min');
+      } // TODO: sth is not working?
+    }
+
+    if (changes.has('max')) {
+      if (this.max) {
+        this.input.setAttribute('max', this.max.toString());
+      } else {
+        this.input.removeAttribute('max');
       }
     }
 

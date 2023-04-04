@@ -123,6 +123,15 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     this.focusVisible = false;
   };
 
+  // #onInvalid = (event: Event): void => {
+  //   console.log('oninvalid in input', event.target, event, this.invalid);
+  //   // this.invalid = (event.target as HTMLInputElement).validity.valid;
+  //   // this.invalid
+  //   // this.#clicked = true;
+  //   // // event.stopPropagation();
+  //   // this.focusVisible = false;
+  // };
+
   // #onBlur = (event: Event): void => {
   //   console.log('on blur', event);
   //   this.input.blur();
@@ -160,6 +169,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** Maximum value. Only applies to number input type. */
   @property({ type: Number, attribute: 'max' }) max?: number;
 
+  /** Specifies the interval between legal numbers for an input field. Only applies to number input type */
+  @property({ type: Number, attribute: 'step' }) step?: number;
+
   /** Validation using pattern. */
   @property() pattern?: string;
 
@@ -182,13 +194,17 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
   /** Input size. */
-  @property({ reflect: true }) size: InputSize = 'md';
+  @property({ reflect: true }) size: InputSize = 'md'; // TODO: use input size attribute a change this one to eg. variant
 
   /**
    * The input type. Only text types are valid here. For other types,
    * see their respective components.
    */
-  @property() type: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url' = 'text'; // TODO: password type will be added in the future
+  @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' = 'text'; // TODO: password type will be added in the future
+
+  // TODO: add multiple attribute for email type?
+
+  // TODO: add spellcheck attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url#spellcheck
 
   /** Custom validators specified by the user. */
   @property({ attribute: false }) validators?: Validator[];
@@ -291,6 +307,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
     if (changes.has('maxLength')) {
       if (this.maxLength) {
+        console.log('maxlength if', this.maxLength);
         this.input.setAttribute('maxlength', this.maxLength.toString());
       } else {
         this.input.removeAttribute('maxlength');
@@ -308,20 +325,46 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
     if (changes.has('min')) {
       console.log('min in changes', this.min, this.type, this.type === 'number', this.min && this.type === 'number');
-      if (this.min /*&& this.type === 'number'*/) {
-        console.log('min in if', this.min);
-        this.input.setAttribute('min', this.min.toString());
+      // if (this.min?.toString()) {
+      //   console.log('min in if 111', this.min);
+      // }
+      // if (this.min /*&& this.type === 'number'*/) {
+      //   console.log('min in if', this.min);
+      //   this.input.setAttribute('min', this.min.toString());
+      // } else {
+      //   console.log('min in else', this.min);
+      //   this.input.removeAttribute('min');
+      // } // TODO: sth is not working?
+
+      const min = this.min?.toString();
+      if (min) {
+        this.input.setAttribute('min', min);
       } else {
         console.log('min in else', this.min);
         this.input.removeAttribute('min');
-      } // TODO: sth is not working?
+      }
     }
 
     if (changes.has('max')) {
-      if (this.max) {
-        this.input.setAttribute('max', this.max.toString());
+      const max = this.max?.toString();
+      if (max) {
+        this.input.setAttribute('max', max);
       } else {
         this.input.removeAttribute('max');
+      }
+      // if (this.max) {
+      //   this.input.setAttribute('max', this.max.toString());
+      // } else {
+      //   this.input.removeAttribute('max');
+      // }
+    }
+
+    if (changes.has('step')) {
+      const step = this.step?.toString();
+      if (step) {
+        this.input.setAttribute('step', step);
+      } else {
+        this.input.removeAttribute('step');
       }
     }
 
@@ -358,6 +401,8 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     }
   }
 
+  // @invalid=${this.#onInvalid}
+
   override render(): TemplateResult {
     return html`
       <div @input=${this.#onInput} class="wrapper" @blur="${this.#onBlur}">
@@ -369,9 +414,11 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
           @focusin=${this.#onFocusin}
           @focusout=${this.#onFocusout}
           @mousedown=${this.#onMousedown}
+          .min=${this.min}
         ></slot>
+        ${!this.input.validity.valid}
         <slot name="suffix">
-          ${!this.input.validity.valid
+          ${this.invalid
             ? svg`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"><path fill="#E5454A" d="M8 .875C3.83984.875.5 4.24414.5 8.375c0 4.1602 3.33984 7.5 7.5 7.5 4.1309 0 7.5-3.3398 7.5-7.5 0-4.13086-3.3691-7.5-7.5-7.5Zm-.70312 4.45312c0-.38085.29296-.70312.70312-.70312.38086 0 .70312.32227.70312.70312v3.75c0 .41016-.32226.70313-.70312.70313-.41016 0-.70312-.29297-.70312-.70313v-3.75ZM8 12.5938c-.52734 0-.9375-.4102-.9375-.9083 0-.498.41016-.9082.9375-.9082.49805 0 .9082.4102.9082.9082 0 .4981-.41015.9083-.9082.9083Z"/></svg>`
             : null}
           ${this.valid
@@ -424,6 +471,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       if (this.readonly) {
         this.input.readOnly = this.readonly;
       }
+      // if (this.min) {
+      //   this.input.min = this.min.toString();
+      // }
       this.input.addEventListener('keydown', this.#onKeydown);
 
       this.setFormControlElement(this.input);

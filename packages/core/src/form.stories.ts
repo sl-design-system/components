@@ -202,6 +202,9 @@ export const ValidationRequired: StoryObj = {
         <sl-label for="textarea">Textarea</sl-label>
         <sl-textarea id="textarea" name="textarea" required></sl-textarea>
 
+        <sl-label for="inputEmail">Email</sl-label>
+        <sl-input id="inputEmail" type="email" required></sl-input>
+
         <sl-label for="checkbox">Checkbox</sl-label>
         <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">Checkbox</sl-checkbox>
 

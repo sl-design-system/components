@@ -89,10 +89,13 @@ export class ValidationController implements ReactiveController {
 
     if (this.#showErrors !== !this.validity.valid) {
       console.log('host', this.#host);
-      this.#host.setAttribute('invalid', '');
       this.#target?.setAttribute('invalid', '');
       this.#showErrors = !this.validity.valid;
-      this.#host.requestUpdate();
+      if (isNative(this.target)) {
+        this.#host.setAttribute('invalid', '');
+        this.#host.requestUpdate();
+      }
+      // this.#host.requestUpdate();
     }
   };
 
@@ -180,6 +183,8 @@ export class ValidationController implements ReactiveController {
       return;
     }
 
+    console.log('isNative(this.target), this.target', isNative(this.target), this.target);
+
     const state = this.#getInvalidState(this.validity);
     console.log('state', state, !!state, this.#host, this.#target, this.validity.valid);
     console.log('state showErrors', this.#showErrors);
@@ -193,11 +198,16 @@ export class ValidationController implements ReactiveController {
 
     if (this.#showErrors && state) {
       this.#target.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
-      this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
+      if (isNative(this.target)) {
+        this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
+      }
       return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
     } else {
       this.#target.removeAttribute('invalid');
-      // this.#host.removeAttribute('invalid');
+      if (isNative(this.target)) {
+        this.#host.removeAttribute('invalid');
+        this.#host.requestUpdate();
+      }
       //this.#host.requestUpdate();
     }
   }

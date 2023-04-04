@@ -150,11 +150,11 @@ export const InputTypes: StoryObj = {
     </style>
     <form>
       <sl-label for="inputNumber">Number</sl-label>
-      <sl-input id="inputNumber" type="number" min="0"> </sl-input>
-      <!--      <sl-label for="custom2">Age</sl-label>-->
-      <!--      <sl-input id="custom2" type="number">-->
-      <!--        <input id="foo" slot="input" placeholder="I am a custom input" type="number" min="0" />-->
-      <!--      </sl-input>-->
+      <sl-input id="inputNumber" type="number" min="0" max="3" step="2"></sl-input>
+      <sl-label for="custom2">Age</sl-label>
+      <sl-input id="custom2" type="number">
+        <input id="foo" slot="input" placeholder="I am a custom input" type="number" min="0" />
+      </sl-input>
       <sl-label for="inputEmail">Email</sl-label>
       <sl-input id="inputEmail" type="email"> </sl-input>
       <sl-label for="inputTel">Tel</sl-label>

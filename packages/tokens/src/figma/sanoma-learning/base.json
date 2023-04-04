@@ -1072,7 +1072,7 @@
   },
   "icon": {
     "base": {
-      "face-smile": {
+      "face-smiley": {
         "value": "{icon.core.fa-face_smile}",
         "type": "Icons",
         "description": "icon.base.face-smile"

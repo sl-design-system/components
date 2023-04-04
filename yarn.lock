@@ -3665,24 +3665,36 @@ __metadata:
 "@sanomalearning/slds-bingel-dc@workspace:packages/tokens/src/themes/bingel-dc":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-bingel-dc@workspace:packages/tokens/src/themes/bingel-dc"
+  dependencies:
+    typescript: 4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 
 "@sanomalearning/slds-bingel-int@workspace:packages/tokens/src/themes/bingel-int":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-bingel-int@workspace:packages/tokens/src/themes/bingel-int"
+  dependencies:
+    typescript: 4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 
 "@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel"
+  dependencies:
+    typescript: 4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 
 "@sanomalearning/slds-clickedu@workspace:packages/tokens/src/themes/clickedu":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-clickedu@workspace:packages/tokens/src/themes/clickedu"
+  dependencies:
+    typescript: 4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 
@@ -3806,12 +3818,18 @@ __metadata:
 "@sanomalearning/slds-itslearning@workspace:packages/tokens/src/themes/itslearning":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-itslearning@workspace:packages/tokens/src/themes/itslearning"
+  dependencies:
+    typescript: 4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 
 "@sanomalearning/slds-kampus@workspace:packages/tokens/src/themes/kampus":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-kampus@workspace:packages/tokens/src/themes/kampus"
+  dependencies:
+    typescript: 4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 
@@ -3827,12 +3845,18 @@ __metadata:
 "@sanomalearning/slds-max@workspace:packages/tokens/src/themes/max":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-max@workspace:packages/tokens/src/themes/max"
+  dependencies:
+    typescript: 4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 
 "@sanomalearning/slds-neon@workspace:packages/tokens/src/themes/neon":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-neon@workspace:packages/tokens/src/themes/neon"
+  dependencies:
+    typescript: 4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 

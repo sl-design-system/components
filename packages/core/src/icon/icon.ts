@@ -42,17 +42,32 @@ export class Icon extends LitElement {
 
   static availableStyles: IconStyle[] = [];
 
-  static registerIcon(icon: IconDefinition): void {
-    const {
-        icon: [width, height, , , path]
-      } = icon,
-      paths = Array.isArray(path) ? path : [path];
-    const svg = `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">${paths
-      .map(p => `<path d="${p}"></path>`)
-      .join('')}</svg>`;
-    window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] = { svg };
+  /**
+   * Add icon(s) to the icon registry
+   *
+   * @param {IconDefinition | IconDefinition[] } faIcons One or more IconDefinition that have been imported from FontAwesome
+   */
+  static registerIcon(...faIcons: IconDefinition[]): void {
+    faIcons.forEach(icon => {
+      if (window.SLDS.icons[`${icon.prefix}-${icon.iconName}`]) {
+        console.warn(`Icon ${icon.prefix}-${icon.iconName} is already in the registry`);
+        return;
+      }
+
+      const {
+          icon: [width, height, , , path]
+        } = icon,
+        paths = Array.isArray(path) ? path : [path];
+      const svg = `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">${paths
+        .map(p => `<path d="${p}"></path>`)
+        .join('')}</svg>`;
+      window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] = { svg };
+    });
   }
 
+  /**
+   * store all icons from the IconLibrary of the theme in the icon registry for easy access
+   */
   static registerIcons(icons: IconLibrary): void {
     window.SLDS.icons = icons;
   }

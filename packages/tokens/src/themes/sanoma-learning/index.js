@@ -6,6 +6,10 @@ import { icons } from './icons.js';
 // 3. Load the base stylesheet/css variables
 // 4. Start using the SLDS in your application
 // };
+/**
+ * initializes all necessary things to load your theme,
+ * like icons, ...
+ */
 export const setup = () => {
     Icon.registerIcons(icons);
     console.log('SETUP Sanoma Learning in index.ts!');

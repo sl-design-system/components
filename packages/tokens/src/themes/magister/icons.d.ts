@@ -35,10 +35,10 @@ export declare const icons: {
     "open-eye": {
         svg: string;
     };
-    hello: {
+    "face-smile": {
         svg: string;
     };
-    "face-smile": {
+    hello: {
         svg: string;
     };
 };

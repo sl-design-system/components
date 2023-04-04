@@ -2,7 +2,9 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import type { IconStyle } from '@fortawesome/fontawesome-common-types';
 import { html } from 'lit';
 import './register.js';
-import { faPinata } from '@fortawesome/pro-light-svg-icons';
+import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
 import { Icon } from './icon.js';
 
@@ -33,11 +35,22 @@ type Story = StoryObj<Props>;
 export const Basic: Story = {};
 export const RegisterAdditionalIcons: Story = {
   render: () => {
-    Icon.registerIcon(faPinata);
+    // load the entire FA library of a certain variant:
+    Icon.registerIcon(...Object.values(far));
+
+    // load a single icon:
     Icon.registerIcon(fatPinata);
+    Icon.registerIcon(fatPinata);
+
+    // load multiple icons at once:
+    Icon.registerIcon(falPinata, fasPinata);
+
     return html`
+      <sl-icon name="fas-pinata"></sl-icon>
+      <sl-icon name="far-pinata"></sl-icon>
       <sl-icon name="fal-pinata"></sl-icon>
       <sl-icon name="fat-pinata"></sl-icon>
+      <sl-icon name="far-narwhal"></sl-icon>
     `;
   }
 };

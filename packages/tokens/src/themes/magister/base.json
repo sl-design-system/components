@@ -1651,6 +1651,16 @@
         "description": "icon.custom.open-eye"
       }
     },
+    "fontFamily": {
+      "classic": {
+        "value": "Font Awesome 6 Pro",
+        "type": "fontFamilies"
+      },
+      "sharp": {
+        "value": "Font Awesome 6 Sharp",
+        "type": "fontFamilies"
+      }
+    },
     "core": {
       "fa-face_smile": {
         "value": "fa-face-smile",

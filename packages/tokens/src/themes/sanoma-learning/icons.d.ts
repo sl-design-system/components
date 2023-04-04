@@ -32,13 +32,13 @@ export declare const icons: {
     fav: {
         svg: string;
     };
-    hello: {
-        svg: string;
-    };
     "open-eye": {
         svg: string;
     };
     "face-smile": {
+        svg: string;
+    };
+    hello: {
         svg: string;
     };
     whale: {

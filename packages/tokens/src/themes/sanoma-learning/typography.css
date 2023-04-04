@@ -3,6 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+.sl-text-icon-font-icon-lg {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+.sl-text-icon-font-icon-md {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xs);
+}
+
+.sl-text-icon-font-icon-sm {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: 13;
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+}
+
 .sl-text-input-label-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
@@ -32,23 +53,17 @@
 }
 
 .sl-text-button-font-icon-lg {
-  font-family: var(--sl-text-typeset-font-family-icon);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-sm);
 }
 
 .sl-text-button-font-icon-md {
-  font-family: var(--sl-text-typeset-font-family-icon);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-xs);
 }
 
 .sl-text-button-font-icon-sm {
-  font-family: var(--sl-text-typeset-font-family-icon);
   font-size: 13;
-  font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-xxs);
 }
 

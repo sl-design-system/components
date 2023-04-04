@@ -967,8 +967,6 @@
       "fontIcon": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xxs}",
             "fontSize": 13
           },
@@ -976,8 +974,6 @@
         },
         "md": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xs}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -985,8 +981,6 @@
         },
         "lg": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -1079,6 +1073,39 @@
       },
       "value": "[object Object]",
       "type": "other"
+    },
+    "icon": {
+      "font": {
+        "icon": {
+          "sm": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xxs}",
+              "fontSize": 13
+            },
+            "type": "typography"
+          },
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xs}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography"
+          }
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1628,6 +1655,16 @@
         "type": "Icons",
         "description": "icon.base.face-smile"
       },
+      "menu": {
+        "value": "{icon.core.fa-menu}",
+        "type": "Icons",
+        "description": "icon.base.menu"
+      },
+      "fav": {
+        "value": "{icon.custom.fav}",
+        "type": "Icons",
+        "description": "icon.base.fav"
+      },
       "chevron-down": {
         "value": "{icon.core.fa-chevron-down}",
         "type": "Icons",
@@ -1644,17 +1681,32 @@
         "value": "fav",
         "type": "Icons",
         "description": "icon.custom.fav"
-      },
-      "open-eye": {
-        "value": "open-eye",
-        "type": "Icons",
-        "description": "icon.custom.open-eye"
       }
     },
     "font-weight": {
       "value": "{text.typeset.fontWeight.icon-regular}",
       "type": "fontWeights",
       "description": "icon.font-weight"
+    },
+    "style": {
+      "outline": {
+        "value": "{text.typeset.fontWeight.icon-regular}",
+        "type": "fontWeights"
+      },
+      "solid": {
+        "value": "{text.typeset.fontWeight.icon-solid}",
+        "type": "fontWeights"
+      }
+    },
+    "fontFamily": {
+      "classic": {
+        "value": "Font Awesome 6 Pro",
+        "type": "fontFamilies"
+      },
+      "sharp": {
+        "value": "Font Awesome 6 Sharp",
+        "type": "fontFamilies"
+      }
     },
     "core": {
       "fa-face_smile": {

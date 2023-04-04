@@ -1,39 +1,32 @@
 export declare const icons: {
-    "fa-face_smile": {
-        value: string;
-        type: string;
-        description: string;
+    "face-smile": {
+        svg: string;
     };
-    "fa-menu": {
-        value: string;
-        type: string;
-        description: string;
-    };
-    "fa-fav": {
-        value: string;
-        type: string;
-        description: string;
-    };
-    "fa-chevron-down": {
-        value: string;
-        type: string;
-        description: string;
-    };
-    "fa-check": {
+    menu: {
         value: string;
         type: string;
         description: string;
     };
     fav: {
+        svg: string;
+    };
+    "chevron-down": {
         value: string;
         type: string;
         description: string;
+    };
+    check: {
+        value: string;
+        type: string;
+        description: string;
+    };
+    hello: {
         svg: string;
     };
     "open-eye": {
-        value: string;
-        type: string;
-        description: string;
+        svg: string;
+    };
+    whale: {
         svg: string;
     };
 };

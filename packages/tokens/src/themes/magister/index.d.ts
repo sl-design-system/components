@@ -1,1 +1,1 @@
-export declare const setup: () => Promise<void>;
+export declare const setup: () => void;

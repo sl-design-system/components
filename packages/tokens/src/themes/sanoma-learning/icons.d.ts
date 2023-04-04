@@ -38,10 +38,10 @@ export declare const icons: {
     hello: {
         svg: string;
     };
-    "open-eye": {
+    whale: {
         svg: string;
     };
-    whale: {
+    "open-eye": {
         svg: string;
     };
 };

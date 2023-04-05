@@ -771,17 +771,33 @@
       }
     }
   },
-  "icon": {
-    "fontFamily": {
-      "classic": {
-        "value": "Font Awesome 6 Pro",
-        "type": "fontFamilies"
+  "animation": {
+    "duration": {
+      "fast": {
+        "value": "90ms",
+        "type": "other",
+        "description": "animation.duration.fast"
       },
-      "sharp": {
-        "value": "Font Awesome 6 Sharp",
-        "type": "fontFamilies"
+      "normal": {
+        "value": "200ms",
+        "type": "other",
+        "description": "animation.duration.normal"
+      },
+      "slow": {
+        "value": "500ms",
+        "type": "other",
+        "description": "animation.duration.slow"
       }
     },
+    "easing": {
+      "ease-in-out": {
+        "value": "ease-in-out",
+        "type": "other",
+        "description": "animation.easing.ease-in-out"
+      }
+    }
+  },
+  "icon": {
     "core": {
       "fa-face_smile": {
         "value": "fa-face-smile",
@@ -807,32 +823,6 @@
         "value": "fa-chevron-down",
         "type": "Icons",
         "description": "icon.core.fa-check"
-      }
-    }
-  },
-  "animation": {
-    "duration": {
-      "fast": {
-        "value": "90ms",
-        "type": "other",
-        "description": "animation.duration.fast"
-      },
-      "normal": {
-        "value": "200ms",
-        "type": "other",
-        "description": "animation.duration.normal"
-      },
-      "slow": {
-        "value": "500ms",
-        "type": "other",
-        "description": "animation.duration.slow"
-      }
-    },
-    "easing": {
-      "ease-in-out": {
-        "value": "ease-in-out",
-        "type": "other",
-        "description": "animation.easing.ease-in-out"
       }
     }
   },

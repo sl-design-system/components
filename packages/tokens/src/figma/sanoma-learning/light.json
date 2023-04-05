@@ -1074,7 +1074,7 @@
               "description": "color.button.danger.warning.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.black.base}",
               "type": "color",
               "description": "color.button.danger.solid.idle.foreground"
             },

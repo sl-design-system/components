@@ -464,7 +464,7 @@
           "description": "text.typeset.fontFamily.body"
         },
         "icon": {
-          "value": "{icon.fontFamily.classic}",
+          "value": "Font Awesome 6 Pro",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.fontIcon"
         }
@@ -715,6 +715,8 @@
       "fontIcon": {
         "sm": {
           "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xxs}",
             "fontSize": "13"
           },
@@ -722,6 +724,8 @@
         },
         "md": {
           "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xs}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -729,6 +733,8 @@
         },
         "lg": {
           "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -824,39 +830,6 @@
         "lg": "[object Object]"
       },
       "type": "other"
-    },
-    "icon": {
-      "font": {
-        "icon": {
-          "sm": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.xxs}",
-              "fontSize": "13"
-            },
-            "type": "typography"
-          },
-          "md": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.xs}",
-              "fontSize": "{text.typeset.fontSize.md}"
-            },
-            "type": "typography"
-          },
-          "lg": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.sm}",
-              "fontSize": "{text.typeset.fontSize.lg}"
-            },
-            "type": "typography"
-          }
-        }
-      }
     }
   },
   "borderRadius": {
@@ -1109,16 +1082,6 @@
       "value": "{text.typeset.fontWeight.icon-regular}",
       "type": "fontWeights",
       "description": "icon.font-weight"
-    },
-    "style": {
-      "outline": {
-        "value": "{text.typeset.fontWeight.icon-regular}",
-        "type": "fontWeights"
-      },
-      "solid": {
-        "value": "{text.typeset.fontWeight.icon-solid}",
-        "type": "fontWeights"
-      }
     }
   }
 }

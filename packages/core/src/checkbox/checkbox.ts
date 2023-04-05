@@ -8,6 +8,8 @@ import { event } from '../utils/decorators/index.js';
 import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
 import styles from './checkbox.scss.js';
 
+export type CheckboxSize = 'md' | 'lg';
+
 export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
@@ -23,6 +25,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   #validation = new ValidationController(this, {
     validators: [requiredValidator]
   });
+  #initialState = false;
 
   /** Element internals. */
   readonly internals = this.attachInternals();
@@ -31,10 +34,16 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   @event() change!: EventEmitter<boolean>;
 
   /** Whether the checkbox is checked. */
-  @property({ type: Boolean, reflect: true }) checked = false;
+  @property({ type: Boolean, reflect: true }) checked?: boolean;
+
+  /** Whether the checkbox is invalid. */
+  @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
   /** Whether the checkbox has the indeterminate state. */
   @property({ type: Boolean }) indeterminate = false;
+
+  /** Button size. */
+  @property({ reflect: true }) size: CheckboxSize = 'md';
 
   /** The value for the checkbox. */
   @property() value?: string;
@@ -73,8 +82,18 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     }
 
     if (changes.has('checked') || changes.has('value')) {
-      this.setFormValue(this.value);
+      this.setFormValue(this.checked ? this.value : undefined);
     }
+  }
+
+  formAssociatedCallback(): void {
+    this.#initialState = this.getAttribute('checked') === null ? false : true;
+  }
+
+  formResetCallback(): void {
+    this.checked = this.#initialState;
+    this.#validation.validate(this.checked ? this.value : undefined);
+    this.change.emit(this.checked);
   }
 
   override render(): TemplateResult {
@@ -87,7 +106,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
               : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
           </svg>
         </span>
-        <slot></slot>
+        <span class="label"><slot></slot></span>
       </div>
       ${this.renderHint()} ${this.#validation.render()}
     `;
@@ -115,6 +134,10 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   #onToggle(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
+
+    if (this.disabled) {
+      return;
+    }
 
     this.checked = !this.checked;
     this.#validation.validate(this.checked ? this.value : undefined);

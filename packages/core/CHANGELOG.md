@@ -1,5 +1,19 @@
 # @sanomalearning/slds-core
 
+## 0.2.0
+
+### Minor Changes
+
+- [#292](https://github.com/sanomalearning/design-system/pull/292) [`66ceaff`](https://github.com/sanomalearning/design-system/commit/66ceaff0f741faab96af458380d9957941a89a05) - Styled checkbox component
+
+- [#242](https://github.com/sanomalearning/design-system/pull/242) [`4ecfe6f`](https://github.com/sanomalearning/design-system/commit/4ecfe6ffefc1a4021ff3e396dd19a6f0f6936102) - Added select component
+
+- [#292](https://github.com/sanomalearning/design-system/pull/292) [`66ceaff`](https://github.com/sanomalearning/design-system/commit/66ceaff0f741faab96af458380d9957941a89a05) - styled radio component
+
+### Patch Changes
+
+- [#253](https://github.com/sanomalearning/design-system/pull/253) [`a3f1a52`](https://github.com/sanomalearning/design-system/commit/a3f1a528926964889bb6ff2e5112d6895bb44b67) - Add icon component
+
 ## 0.1.1
 
 ### Patch Changes

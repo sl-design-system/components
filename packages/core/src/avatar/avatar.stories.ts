@@ -1,13 +1,14 @@
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import '../avatar/register.js';
 import './register.js';
+
+type Story = StoryObj;
 
 export default {
   title: 'Avatar'
 };
 
-export const API: StoryObj = {
+export const Basic: Story = {
   render: () =>
     html`
       <style>

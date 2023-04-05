@@ -1,0 +1,26 @@
+<section class="ds-tokens">
+<h2 class="ds-tokens__heading">Animation</h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for type in tokens.base.animation.duration -%}{% if type[1].value %}
+<tr>
+  <td><code>{{ type[1].value }}</code></td>
+  <td class="ds-tokens__description">{{ type[1].description | tokenDescription }}</td>
+  <td><code>{{ type[1].description | tokenName }}</code></td>
+</tr>
+{% endif %}{% endfor -%}
+{% for type in tokens.base.animation.easing -%}{% if type[1].value %}
+<tr>
+  <td><code>{{ type[1].value }}</code></td>
+  <td class="ds-tokens__description">{{ type[1].description | tokenDescription }}</td>
+  <td><code>{{ type[1].description | tokenName }}</code></td>
+</tr>
+{% endif %}{% endfor -%}
+</tbody>
+</table>
+</section>

@@ -1,12 +1,21 @@
-import type { StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './register.js';
 
-export default {
-  title: 'Editor'
-};
+interface Props {
+  value: string;
+}
 
-export const API: StoryObj = {
+type Story = StoryObj<Props>;
+
+export default {
+  title: 'Editor',
+  render: ({ value }) => {
+    return html`<sl-editor .value=${value}></sl-editor>`;
+  }
+} satisfies Meta<Props>;
+
+export const Basic: Story = {
   args: {
     value: `
       <h1>Rich Text Editor</h1>
@@ -21,8 +30,5 @@ export const API: StoryObj = {
         <li><p>Insert links</p></li>
       </ul>
     `
-  },
-  render: ({ value }) => {
-    return html`<sl-editor .value=${value}></sl-editor>`;
   }
 };

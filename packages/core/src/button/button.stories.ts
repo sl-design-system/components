@@ -1,15 +1,26 @@
-import type { ButtonFill, ButtonSize } from './button.js';
-import type { StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import type { ButtonFill, ButtonSize, ButtonVariant } from './button.js';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import '../button-bar/register.js';
 import '../icon/register.js';
 import './register.js';
+import { html } from 'lit';
+
+interface Props {
+  fill: ButtonFill;
+  size: ButtonSize;
+  text: string;
+  icon: string;
+  variant: ButtonVariant;
+}
+
+type Story = StoryObj<Props>;
 
 export default {
   title: 'Button',
   args: {
     fill: 'default',
     size: 'md',
+    text: 'Button',
     variant: 'default'
   },
   argTypes: {
@@ -29,29 +40,21 @@ export default {
       control: 'inline-radio',
       options: ['start', 'end', 'none']
     }
-  }
-};
-
-export const API: StoryObj = {
-  args: {
-    text: 'Button'
   },
-  render: ({ fill, size, text, variant, icon }) => {
-    const startIcon = icon === 'start' ? html`<sl-icon name="star"></sl-icon>` : '';
-    const endIcon = icon === 'end' ? html`<sl-icon name="star"></sl-icon>` : '';
-    return html` <sl-button .fill=${fill} .size=${size} .variant=${variant}>${startIcon}${text}${endIcon}</sl-button> `;
-  }
-};
+  render: ({ fill, size, text, variant }) =>
+    html`<sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>`
+} satisfies Meta<Props>;
 
-export const All: StoryObj = {
+export const Basic: Story = {};
+
+export const All: Story = {
   render: ({ icon }) => {
     const fills = ['default', 'outline', 'link'];
     const sizes = ['sm', 'md', 'lg'];
     const disabledStates = [false, true];
     const startIcon = icon === 'start' ? html`<sl-icon name="star"></sl-icon>` : '';
     const endIcon = icon === 'end' ? html`<sl-icon name="star"></sl-icon>` : '';
-    return html`
-      <style>
+    return html` <style>
         .grid {
           display: inline-grid;
           gap: 1rem;
@@ -86,12 +89,11 @@ export const All: StoryObj = {
             )
           )
         )}
-      </div>
-    `;
+      </div>`;
   }
 };
 
-export const Fills: StoryObj = {
+export const Fills: Story = {
   argTypes: {
     fill: {
       table: {
@@ -107,7 +109,7 @@ export const Fills: StoryObj = {
   `
 };
 
-export const Sizes: StoryObj = {
+export const Sizes: Story = {
   argTypes: {
     size: {
       table: {
@@ -143,7 +145,7 @@ export const Sizes: StoryObj = {
   `
 };
 
-export const Variants: StoryObj = {
+export const Variants: Story = {
   argTypes: {
     variant: {
       table: {

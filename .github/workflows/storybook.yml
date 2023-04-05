@@ -34,6 +34,9 @@ jobs:
           node-version: 16
           cache: 'yarn'
 
+      # Set up GitHub Actions caching for Wireit.
+      - uses: google/wireit@setup-github-actions-caching/v1
+
       - run: yarn install --immutable
 
       - run: yarn docs

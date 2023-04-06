@@ -17,6 +17,12 @@ export declare const icons: {
         description: string;
         svg: string;
     };
+    pinata: {
+        value: string;
+        type: string;
+        description: string;
+        svg: string;
+    };
     "fa-chevron-down": {
         value: string;
         type: string;
@@ -29,13 +35,13 @@ export declare const icons: {
         description: string;
         svg: string;
     };
-    fav: {
+    "face-smile": {
         svg: string;
     };
     "open-eye": {
         svg: string;
     };
-    "face-smile": {
+    fav: {
         svg: string;
     };
     hello: {

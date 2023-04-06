@@ -465,7 +465,7 @@
           "description": "text.typeset.fontFamily.body"
         },
         "icon": {
-          "value": "Font Awesome 6 Pro",
+          "value": "Font Awesome 6 Sharp",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.fontIcon"
         }
@@ -1687,6 +1687,11 @@
         "value": "fa-star",
         "type": "Icons",
         "description": "icon.core.fa-fav"
+      },
+      "pinata": {
+        "value": "pinata",
+        "type": "Icons",
+        "description": "icon.core.pinata"
       },
       "fa-chevron-down": {
         "value": "fa-chevron-down",

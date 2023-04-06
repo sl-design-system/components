@@ -1287,7 +1287,7 @@
         "description": "border.radius.3xl"
       },
       "full": {
-        "value": "100%",
+        "value": "50rem",
         "type": "borderRadius",
         "description": "border.radius.full"
       }

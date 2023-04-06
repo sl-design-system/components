@@ -48,10 +48,6 @@ slot {
   outline: none;
 }
 
-:host(:focus-visible) {
-  --_box-shadow: var(--sl-box-shadow-focus);
-}
-
 :host([fill]) {
   transition-duration: var(--_transition-duration);
   transition-timing-function: var(--_transition-easing);
@@ -68,13 +64,6 @@ slot {
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
-    }
-
-    :host([fill='#{$fill}'][variant='#{$variant}']:focus) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-focus-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-focus-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:hover) {
@@ -97,6 +86,11 @@ slot {
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
     }
+
+    :host([fill='#{$fill}'][variant='#{$variant}']:focus) {
+      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
+      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
+    }
   }
 }
 
@@ -118,4 +112,8 @@ slot {
     --_icon-container-size-width: var(--sl-size-button-icon-container-icon-only-#{$size});
     line-height: var(--_icon-size);
   }
+}
+
+:host(:focus-visible) {
+  --_box-shadow: var(--sl-box-shadow-focus);
 }

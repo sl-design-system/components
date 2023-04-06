@@ -30,6 +30,13 @@ const getColorToken = (pathCounter, style) => {
   return pathCounter === 0 && style === 'fad' ? 'accent' : 'default';
 };
 
+const getIconStyle = (iconName, text) => {
+  const familyPrefix = text.typeset.fontFamily.icon.value === 'Font Awesome 6 Sharp' ? 'sharp-':'';
+  // todo: get the actual weight if it is something else than solid
+  const weight =  iconName?.indexOf('-solid')>0 ? 'solid' : 'regular';
+  return familyPrefix+weight;
+}
+
 const getIconPrefixFromStyle = (style) => {
   switch (style) {
     case 'solid':
@@ -44,7 +51,7 @@ const getIconPrefixFromStyle = (style) => {
       return 'fasl';
     case 'sharp-solid':
       return 'fass';
-    case 'sharp':
+    case 'sharp-regular':
       return 'fasr';
     default:
       return 'far';
@@ -60,6 +67,10 @@ const cwd = new URL('.', import.meta.url).pathname,
 // 1. Get icon tokens from `base.json`
 const {
   default: { icon }
+} = await import(`${cwd}src/figma/core.json`, { assert: { type: 'json' } });
+
+const {
+  default: { text }
 } = await import(`${cwd}src/themes/${name}/base.json`, { assert: { type: 'json' } });
 
 const icons = formattedIcons(icon,'core');
@@ -67,13 +78,13 @@ const iconsCustom = formattedIcons(icon,'custom');
 
 // fetch all FA tokens and store these
 Object.entries(icons).map(([iconName, value]) =>{
-  const faIcon = convertToIconDefinition(value.value.replace('fa-',''), value.style??'regular');
+  const faIcon = convertToIconDefinition(value.value.replace('fa-',''), getIconStyle(iconName, text));
   if(!faIcon) return;
   const {
     icon: [width, height, , , path]
   } = faIcon,
   paths = Array.isArray(path) ? path : [path];
-  const svg =  `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
+  const svg =  `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
   icons[iconName] = {...value, svg };
 });
 

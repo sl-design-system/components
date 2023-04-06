@@ -1,5 +1,6 @@
 import { setup } from '@sanomalearning/slds-sanoma-learning';
 import { setup as setupMg } from '@sanomalearning/slds-magister';
+import { setup as setupMax } from '@sanomalearning/slds-max';
 import { withTheme } from './decorator.js';
 import { updateTheme } from './theme.js';
 
@@ -80,7 +81,8 @@ export const globals = {
       id: 'max',
       name: 'MAX Online',
       color: '#253646',
-      fonts: ['https://use.typekit.net/doq6twb.css']
+      fonts: ['https://use.typekit.net/doq6twb.css'],
+      setup: setupMax
     },
     {
       id: 'neon',

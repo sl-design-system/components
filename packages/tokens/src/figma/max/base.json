@@ -465,7 +465,7 @@
           "description": "text.typeset.fontFamily.body"
         },
         "icon": {
-          "value": "Font Awesome 6 Pro",
+          "value": "Font Awesome 6 Sharp",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.fontIcon"
         }

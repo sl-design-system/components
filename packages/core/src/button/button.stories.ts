@@ -52,13 +52,13 @@ export const All: Story = {
     const fills = ['default', 'outline', 'link'];
     const sizes = ['sm', 'md', 'lg'];
     const disabledStates = [false, true];
-    const startIcon = icon === 'start' ? html`<sl-icon name="star"></sl-icon>` : '';
+    const startIcon = icon === 'start' ? html`<sl-icon name="check"></sl-icon>` : '';
     const endIcon = icon === 'end' ? html`<sl-icon name="star"></sl-icon>` : '';
     return html` <style>
         .grid {
           display: inline-grid;
           gap: 1rem;
-          grid-template-columns: repeat(6, 1fr);
+          grid-template-columns: repeat(7, 1fr);
           justify-items: center;
         }
       </style>
@@ -68,7 +68,10 @@ export const All: Story = {
             disabledStates.map(
               (disabledState: boolean) => html`
                 <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState}>
-                  <sl-icon name="star"></sl-icon>
+                  <sl-icon name="check"></sl-icon>
+                </sl-button>
+                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="primary">
+                  <sl-icon name="check"></sl-icon>
                 </sl-button>
                 <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState}>
                   ${startIcon}Default${endIcon}

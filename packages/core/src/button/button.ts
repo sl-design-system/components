@@ -108,7 +108,6 @@ export class Button extends LitElement {
 
     if (assignedNodes.length === 1) {
       const el = assignedNodes[0] as HTMLElement;
-
       // This button is icon-only if it only contains an icon.
       hasIcon = el.nodeName === 'SL-ICON' || this.#hasOnlyIconAsChild(el);
     }

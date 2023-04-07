@@ -30,10 +30,10 @@ const getColorToken = (pathCounter, style) => {
   return pathCounter === 0 && style === 'fad' ? 'accent' : 'default';
 };
 
-const getIconStyle = (iconName, text) => {
+const getIconStyle = (iconName, text, style) => {
   const familyPrefix = text.typeset.fontFamily.icon.value === 'Font Awesome 6 Sharp' ? 'sharp-':'';
   // todo: get the actual weight if it is something else than solid
-  const weight =  iconName?.indexOf('-solid')>0 ? 'solid' : 'regular';
+  const weight =  iconName?.indexOf('-solid')>0 ? 'solid' : style.outline.value.split('.').pop().replace('}','').split('-').pop();
   return familyPrefix+weight;
 }
 
@@ -70,7 +70,7 @@ const {
 } = await import(`${cwd}src/figma/core.json`, { assert: { type: 'json' } });
 
 const {
-  default: { text }
+  default: { icon: {style}, text }
 } = await import(`${cwd}src/themes/${name}/base.json`, { assert: { type: 'json' } });
 
 const icons = formattedIcons(icon,'core');
@@ -78,7 +78,7 @@ const iconsCustom = formattedIcons(icon,'custom');
 
 // fetch all FA tokens and store these
 Object.entries(icons).map(([iconName, value]) =>{
-  const faIcon = convertToIconDefinition(value.value.replace('fa-',''), getIconStyle(iconName, text));
+  const faIcon = convertToIconDefinition(value.value.replace('fa-',''), getIconStyle(iconName, text, style));
   if(!faIcon) return;
   const {
     icon: [width, height, , , path]

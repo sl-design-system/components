@@ -34,7 +34,6 @@ const getIconStyle = (iconName, text, style) => {
   const familyPrefix = text.typeset.fontFamily.icon.value === 'Font Awesome 6 Sharp' ? 'sharp-':'';
   const weight = style?.outline?.value ? style.outline.value.split('.').pop().replace('}','').replace('icon-','') : 'regular';
   const outlineStyle =  iconName?.indexOf('-solid')>0 ? 'solid' : weight;
-  console.log(familyPrefix + outlineStyle);
   return familyPrefix + outlineStyle;
 }
 
@@ -117,13 +116,6 @@ const filesToRead = customIconFiles.map(fileName => {
 await Promise.all(filesToRead);
 
 // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports 
-// all the icons?????
-// TODO .ts doesn't work (anymore?? who do we compile this?)
-// TODO filter out everything that is not the right format
-// export type SLIconName = '${Object.keys({...icons,...iconsCustom}).join(`' | '`)}';
 
 
 await fs.writeFile(join(`${cwd}src/themes/${name}`, `icons.ts`), `export const icons = ${JSON.stringify({...icons,...iconsCustom})};`);
-// 5. Expose the icons via the theme `IconResolver` in `index.ts`
-// Either use the downloaded icons, or use FontAwesome NPM packages
-

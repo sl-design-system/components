@@ -1662,6 +1662,16 @@
       "type": "fontWeights",
       "description": "icon.font-weight"
     },
+    "style": {
+      "outline": {
+        "value": "{text.typeset.fontWeight.icon-light}",
+        "type": "fontWeights"
+      },
+      "solid": {
+        "value": "{text.typeset.fontWeight.icon-solid}",
+        "type": "fontWeights"
+      }
+    },
     "fontFamily": {
       "classic": {
         "value": "Font Awesome 6 Pro",
@@ -1689,6 +1699,11 @@
         "description": "icon.core.fa-fav"
       },
       "pinata": {
+        "value": "pinata",
+        "type": "Icons",
+        "description": "icon.core.pinata"
+      },
+      "pinata-solid": {
         "value": "pinata",
         "type": "Icons",
         "description": "icon.core.pinata"

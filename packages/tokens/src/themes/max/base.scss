@@ -29,6 +29,7 @@
   --sl-opacity-100: 0.04;
   --sl-icon-core-fa-check: fa-chevron-down;
   --sl-icon-core-fa-chevron-down: fa-chevron-down;
+  --sl-icon-core-pinata-solid: pinata;
   --sl-icon-core-pinata: pinata;
   --sl-icon-core-fa-fav: fa-star;
   --sl-icon-core-fa-menu: fa-bars;
@@ -217,6 +218,8 @@
   --sl-size-button-icon-sm: var(--sl-text-typeset-line-height-xxs);
   --sl-size-input-lg: var(--sl-size-md);
   --sl-size-input-md: var(--sl-size-sm);
+  --sl-icon-style-solid: var(--sl-text-typeset-font-weight-icon-solid);
+  --sl-icon-style-outline: 300;
   --sl-icon-font-weight: 400;
   --sl-icon-base-check: var(--sl-icon-core-fa-check);
   --sl-icon-base-chevron-down: var(--sl-icon-core-fa-chevron-down);

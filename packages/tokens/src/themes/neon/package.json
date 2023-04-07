@@ -33,7 +33,7 @@
       ]
     },
     "build:icons": {
-      "command": "yarn node --no-warnings ../../../build-icons.js neon 1oIVcD9VMbOtLXYp48ehsA",
+      "command": "yarn node --no-warnings ../../../build-icons.js neon DuqdnHuOzBWNDOMo8yNQAa",
       "dependencies": [
         "../../../../core:build",
         "build:styles"

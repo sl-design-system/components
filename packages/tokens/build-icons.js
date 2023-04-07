@@ -88,6 +88,11 @@ Object.entries(icons).map(([iconName, value]) =>{
   icons[iconName] = {...value, svg };
 });
 
+const iconsFolderPath = `${cwd}src/themes/${name}/icons/`;
+if (!existsSync(iconsFolderPath)) {
+    await fs.mkdir(iconsFolderPath);
+}
+
 // load all custom icons from figma and store svgs
 await new Promise((resolve, reject) => {
   exec(`yarn run figma-export use-config .figmaexportrc.cjs ${page} ${name}`, { cwd }, error => {
@@ -101,10 +106,7 @@ await new Promise((resolve, reject) => {
 
 // 3. Convert downloaded icons to appropriate format?
 // We only need the `<path>` data for `<sl-icon>`
-const iconsFolderPath = `${cwd}src/themes/${name}/icons/`;
-if (!existsSync(iconsFolderPath)) {
-    await fs.mkdir(iconsFolderPath);
-}
+
 
 const customIconFiles = await fs.readdir(iconsFolderPath)
 

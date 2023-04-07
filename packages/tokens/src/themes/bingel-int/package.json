@@ -33,7 +33,7 @@
       ]
     },
     "build:icons": {
-      "command": "yarn node --no-warnings ../../../build-icons.js bingel-int 1oIVcD9VMbOtLXYp48ehsA",
+      "command": "yarn node --no-warnings ../../../build-icons.js bingel-int 5SpwIfpWD47wO8xHnP53d0",
       "dependencies": [
         "../../../../core:build",
         "build:styles"

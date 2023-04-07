@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs';
+import { promises as fs, existsSync } from 'fs';
 import { join } from 'path';
 import { exec } from 'child_process';
 import { findIconDefinition , library } from '@fortawesome/fontawesome-svg-core';
@@ -101,7 +101,12 @@ await new Promise((resolve, reject) => {
 
 // 3. Convert downloaded icons to appropriate format?
 // We only need the `<path>` data for `<sl-icon>`
-const customIconFiles = await fs.readdir(`${cwd}src/themes/${name}/icons/`)
+const iconsFolderPath = `${cwd}src/themes/${name}/icons/`;
+if (!existsSync(iconsFolderPath)) {
+    await fs.mkdir(iconsFolderPath);
+}
+
+const customIconFiles = await fs.readdir(iconsFolderPath)
 
 const filesToRead = customIconFiles.map(fileName => {
   const iconName = fileName.replace('icon=','').replace('.svg','');

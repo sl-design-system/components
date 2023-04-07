@@ -32,9 +32,9 @@ const getColorToken = (pathCounter, style) => {
 
 const getIconStyle = (iconName, text, style) => {
   const familyPrefix = text.typeset.fontFamily.icon.value === 'Font Awesome 6 Sharp' ? 'sharp-':'';
-  // todo: get the actual weight if it is something else than solid
-  const weight =  iconName?.indexOf('-solid')>0 ? 'solid' : style.outline.value.split('.').pop().replace('}','').split('-').pop();
-  return familyPrefix+weight;
+  const weight = style?.outline?.value ? style.outline.value.split('.').pop().replace('}','').replace('icon-') : 'regular';
+  const outlineStyle =  iconName?.indexOf('-solid')>0 ? 'solid' : weight;
+  return familyPrefix + outlineStyle;
 }
 
 const getIconPrefixFromStyle = (style) => {

@@ -1236,6 +1236,11 @@
         "type": "Icons",
         "description": "icon.core.fa-fav"
       },
+      "pinata": {
+        "value": "pinata",
+        "type": "Icons",
+        "description": "icon.core.pinata"
+      },
       "fa-chevron-down": {
         "value": "fa-chevron-down",
         "type": "Icons",

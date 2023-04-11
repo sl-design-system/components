@@ -1,4 +1,3 @@
-import type { IconStyle } from './models.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
@@ -8,16 +7,16 @@ import { html } from 'lit';
 import { Icon } from './icon.js';
 import './register.js';
 
-interface Props {
-  label: string;
-  iconStyle: IconStyle;
-  name?: string;
+interface Props extends Pick<Icon, 'label' | 'name'> {
+  icons: string[];
 }
 
 export default {
   title: 'Icon',
-  render: () => {
-    const faIcons = Object.keys(window.SLDS.icons);
+  args: {
+    icons: Object.keys(window.SLDS.icons)
+  },
+  render: ({ icons }) => {
     return html`
       <style>
         section {
@@ -26,7 +25,7 @@ export default {
         }
       </style>
       <h2>System and custom icons:</h2>
-      <section>${faIcons.map(i => html`<sl-icon .name=${i}></sl-icon>`)}</section>
+      <section>${icons.map(i => html`<sl-icon .name=${i}></sl-icon>`)}</section>
       <h2>Referring to a non-existing icon:</h2>
       <section><sl-icon name="sl-non-existent"></sl-icon></section>
     `;

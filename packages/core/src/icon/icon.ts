@@ -29,6 +29,7 @@ export class Icon extends LitElement {
    * @param {IconDefinition | IconDefinition[] } faIcons One or more IconDefinition that have been imported from FontAwesome
    */
   static registerIcon(...faIcons: IconDefinition[]): void {
+    // TODO: find a better (and more universal) way to only log these kind of warnings in dev mode
     let isDevMode = location.hostname === 'localhost';
 
     faIcons.forEach(icon => {

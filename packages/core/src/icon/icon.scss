@@ -1,7 +1,8 @@
 :host {
+  --fill-default: currentColor;
+  --fill-accent: rgb(var(--sl-color-palette-accent-300));
+  
   display: inline-flex;
   height: 2rem;
   width: 2rem;
-  --fill-default: currentColor;
-  --fill-accent: rgb(var(--sl-color-palette-accent-300));
 }

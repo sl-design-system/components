@@ -1,12 +1,12 @@
+import type { IconStyle } from './models.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import type { IconStyle } from '@fortawesome/fontawesome-common-types';
-import { html } from 'lit';
-import './register.js';
 import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
-import { far } from '@fortawesome/pro-regular-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { html } from 'lit';
 import { Icon } from './icon.js';
+import './register.js';
 
 interface Props {
   label: string;

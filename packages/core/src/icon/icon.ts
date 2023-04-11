@@ -1,26 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { IconStyle } from '@fortawesome/fontawesome-common-types';
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import type { CustomIconDefinition, IconDefinition, IconLibrary, IconStyle } from './models.js';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './icon.scss.js';
-
-export type IconResolver = (name: string) => string;
-
-export interface IconLibrary {
-  [key: string]: SLIconDefinition | CustomIconDefinition;
-}
-
-interface SLIconDefinition {
-  value?: string;
-  type?: string;
-  style?: string;
-  description?: string;
-}
-interface CustomIconDefinition extends SLIconDefinition {
-  svg: string;
-}
 
 declare global {
   interface Window {
@@ -29,11 +12,8 @@ declare global {
     };
   }
 }
-if (!window?.SLDS) {
-  window['SLDS'] = {
-    icons: {}
-  };
-}
+
+window.SLDS ||= { icons: {} };
 
 export class Icon extends LitElement {
   /** @private */
@@ -49,8 +29,9 @@ export class Icon extends LitElement {
    * @param {IconDefinition | IconDefinition[] } faIcons One or more IconDefinition that have been imported from FontAwesome
    */
   static registerIcon(...faIcons: IconDefinition[]): void {
+    let isDevMode = process.argv[1].endsWith('webpack-dev-server') || process.argv[1].endsWith('webpack-dev-server.js');
     faIcons.forEach(icon => {
-      if (window.SLDS.icons[`${icon.prefix}-${icon.iconName}`]) {
+      if (window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] && isDevMode) {
         console.warn(`Icon ${icon.prefix}-${icon.iconName} is already in the registry`);
         return;
       }

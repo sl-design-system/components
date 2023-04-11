@@ -47,10 +47,10 @@ export declare const icons: {
     fav: {
         svg: string;
     };
-    neon: {
+    hello: {
         svg: string;
     };
-    hello: {
+    neon: {
         svg: string;
     };
     "open-eye": {

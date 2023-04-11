@@ -41,9 +41,6 @@ export declare const icons: {
         description: string;
         svg: string;
     };
-    "open-eye": {
-        svg: string;
-    };
     fav: {
         svg: string;
     };
@@ -51,6 +48,9 @@ export declare const icons: {
         svg: string;
     };
     hello: {
+        svg: string;
+    };
+    "open-eye": {
         svg: string;
     };
     whale: {

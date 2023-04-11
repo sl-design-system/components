@@ -44,13 +44,13 @@ export declare const icons: {
     "face-smile": {
         svg: string;
     };
-    fav: {
-        svg: string;
-    };
     hello: {
         svg: string;
     };
     "open-eye": {
+        svg: string;
+    };
+    fav: {
         svg: string;
     };
 };

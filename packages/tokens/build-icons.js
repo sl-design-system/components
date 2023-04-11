@@ -93,6 +93,10 @@ if (!existsSync(iconsFolderPath)) {
     await fs.mkdir(iconsFolderPath);
 }
 
+for (const file of await fs.readdir(iconsFolderPath)) {
+  await fs.unlink(iconsFolderPath+file);
+}
+
 // load all custom icons from figma and store svgs
 await new Promise((resolve, reject) => {
   exec(`yarn run figma-export use-config .figmaexportrc.cjs ${page} ${name}`, { cwd }, error => {

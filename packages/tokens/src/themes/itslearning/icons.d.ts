@@ -1,17 +1,17 @@
 export declare const icons: {
-    'fa-face_smile': {
+    "fa-face_smile": {
         value: string;
         type: string;
         description: string;
         svg: string;
     };
-    'fa-menu': {
+    "fa-menu": {
         value: string;
         type: string;
         description: string;
         svg: string;
     };
-    'fa-fav': {
+    "fa-fav": {
         value: string;
         type: string;
         description: string;
@@ -23,34 +23,34 @@ export declare const icons: {
         description: string;
         svg: string;
     };
-    'pinata-solid': {
+    "pinata-solid": {
         value: string;
         type: string;
         description: string;
         svg: string;
     };
-    'fa-chevron-down': {
+    "fa-chevron-down": {
         value: string;
         type: string;
         description: string;
         svg: string;
     };
-    'fa-check': {
+    "fa-check": {
         value: string;
         type: string;
         description: string;
+        svg: string;
+    };
+    "face-smile": {
         svg: string;
     };
     hello: {
         svg: string;
     };
+    "open-eye": {
+        svg: string;
+    };
     fav: {
-        svg: string;
-    };
-    'face-smile': {
-        svg: string;
-    };
-    'open-eye': {
         svg: string;
     };
     whale: {

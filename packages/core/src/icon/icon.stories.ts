@@ -25,7 +25,10 @@ export default {
           gap: 8px;
         }
       </style>
+      <h2>System and custom icons:</h2>
       <section>${faIcons.map(i => html`<sl-icon .name=${i}></sl-icon>`)}</section>
+      <h2>Referring to a non-existing icon:</h2>
+      <section><sl-icon name="sl-non-existent"></sl-icon></section>
     `;
   }
 } satisfies Meta<Props>;
@@ -46,11 +49,20 @@ export const RegisterAdditionalIcons: Story = {
     Icon.registerIcon(falPinata, fasPinata);
 
     return html`
-      <sl-icon name="fas-pinata"></sl-icon>
-      <sl-icon name="far-pinata"></sl-icon>
-      <sl-icon name="fal-pinata"></sl-icon>
-      <sl-icon name="fat-pinata"></sl-icon>
-      <sl-icon name="far-narwhal"></sl-icon>
+    <style>
+        section {
+          display: flex;
+          gap: 8px;
+        }
+      </style>
+      <h2>Icons added directly from FontAwesome:</h2>
+      <section>
+        <sl-icon name="fas-pinata"></sl-icon>
+        <sl-icon name="far-pinata"></sl-icon>
+        <sl-icon name="fal-pinata"></sl-icon>
+        <sl-icon name="fat-pinata"></sl-icon>
+        <sl-icon name="far-narwhal"></sl-icon>
+      </section
     `;
   }
 };

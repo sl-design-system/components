@@ -41,16 +41,16 @@ export declare const icons: {
         description: string;
         svg: string;
     };
-    "face-smile": {
+    hello: {
         svg: string;
     };
-    hello: {
+    fav: {
         svg: string;
     };
     "open-eye": {
         svg: string;
     };
-    fav: {
+    "face-smile": {
         svg: string;
     };
 };

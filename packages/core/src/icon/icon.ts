@@ -1,7 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { IconPrefix, IconStyle } from '@fortawesome/fontawesome-common-types';
-import type { IconDefinition, IconName } from '@fortawesome/fontawesome-svg-core';
-import { findIconDefinition } from '@fortawesome/fontawesome-svg-core';
+import type { IconStyle } from '@fortawesome/fontawesome-common-types';
+import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
@@ -42,6 +41,8 @@ export class Icon extends LitElement {
 
   static availableStyles: IconStyle[] = [];
 
+  private iconNotDef = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>`;
+
   /**
    * Add icon(s) to the icon registry
    *
@@ -72,40 +73,14 @@ export class Icon extends LitElement {
     window.SLDS.icons = icons;
   }
 
-  static getIconPrefixFromStyle(style: IconStyle): IconPrefix {
-    switch (style) {
-      case 'solid':
-        return 'fas';
-      case 'light':
-        return 'fal';
-      case 'thin':
-        return 'fat';
-      case 'duotone':
-        return 'fad';
-      default:
-        return 'far';
-    }
-  }
-
   /**
    * Describes the icon for assistive devices. If not present, the icon is considered
    * to be purely presentational.
    */
   @property() label?: string;
-  @property() iconStyle: IconStyle = 'regular';
 
   /** The name of the icon to show. */
   @property() name?: string;
-
-  /* make sure the requested style is supported */
-  get validatedIconStyle(): IconStyle {
-    console.log('validatedIconStyle', Icon.availableStyles);
-    const isAvailable = Icon.availableStyles.some(available => this.iconStyle === available);
-    if (!isAvailable) {
-      console.warn('The requested FontAwesome style is not available, falling back to regular');
-    }
-    return isAvailable ? this.iconStyle : 'regular';
-  }
 
   get icons(): IconLibrary {
     return window.SLDS.icons;
@@ -114,47 +89,28 @@ export class Icon extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('label')) {
-      if (this.label) {
-        this.setAttribute('role', 'img');
-        this.setAttribute('aria-label', this.label);
-        this.removeAttribute('aria-hidden');
-      } else {
-        this.removeAttribute('role');
-        this.removeAttribute('aria-label');
-        this.setAttribute('aria-hidden', 'true');
-      }
+    // if (changes.has('label')) {
+    if (this.label) {
+      this.setAttribute('role', 'img');
+      this.setAttribute('aria-label', this.label);
+      this.removeAttribute('aria-hidden');
+    } else {
+      this.removeAttribute('role');
+      this.removeAttribute('aria-label');
+      this.setAttribute('aria-hidden', 'true');
     }
+    // }
   }
 
   override render(): TemplateResult {
     if (this.name) {
       return html`${unsafeHTML(this.#resolve(this.name))}`;
     } else {
-      return html`No icon name set`;
+      return html`${unsafeHTML(this.iconNotDef)}`;
     }
   }
 
   #resolve(name: string): string {
-    const iconInRegistry: SLIconDefinition | CustomIconDefinition | undefined = this.icons[name];
-
-    if (this.icons && (iconInRegistry as CustomIconDefinition)?.svg) {
-      return (iconInRegistry as CustomIconDefinition).svg;
-    } else if (name && this.#convertToIconDefinition(name as IconName)) {
-      const {
-          icon: [width, height, , , path]
-        } = this.#convertToIconDefinition(name as IconName),
-        paths = Array.isArray(path) ? path : [path];
-      // ${paths.map((p, i) => `<path d="${p}" fill="var(--fill-${getColorToken(i, style)})"></path>`).join('')}
-      return `
-          <svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">
-            ${paths.map(p => `<path d="${p}"></path>`).join('')}
-          </svg>`;
-    }
-    return '<small>not found</small>';
-  }
-
-  #convertToIconDefinition(iconName: IconName): IconDefinition {
-    return findIconDefinition({ prefix: 'far', iconName });
+    return this.icons[name] ? (this.icons[name] as CustomIconDefinition).svg : this.iconNotDef;
   }
 }

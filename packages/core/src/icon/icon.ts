@@ -29,7 +29,8 @@ export class Icon extends LitElement {
    * @param {IconDefinition | IconDefinition[] } faIcons One or more IconDefinition that have been imported from FontAwesome
    */
   static registerIcon(...faIcons: IconDefinition[]): void {
-    let isDevMode = process.argv[1].endsWith('webpack-dev-server') || process.argv[1].endsWith('webpack-dev-server.js');
+    let isDevMode = location.hostname === 'localhost';
+
     faIcons.forEach(icon => {
       if (window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] && isDevMode) {
         console.warn(`Icon ${icon.prefix}-${icon.iconName} is already in the registry`);

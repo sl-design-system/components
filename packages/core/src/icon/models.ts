@@ -1,18 +1,15 @@
 export type IconResolver = (name: string) => string;
 
 export interface IconLibrary {
-  [key: string]: SLIconDefinition | CustomIconDefinition;
+  [key: string]: CustomIconDefinition;
 }
 
-export interface SLIconDefinition {
+export interface CustomIconDefinition {
+  svg: string;
   value?: string;
   type?: string;
   style?: string;
   description?: string;
-}
-
-export interface CustomIconDefinition extends SLIconDefinition {
-  svg: string;
 }
 
 // Copied from FontAwesome so we don't rely on it as a depencency

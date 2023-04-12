@@ -1192,20 +1192,20 @@
       }
     },
     "core": {
-      "fa-face_smile": {
-        "value": "fa-face-smile",
+      "face_smile": {
+        "value": "face-smile",
         "type": "Icons",
-        "description": "icon.core.fa-face_smile"
+        "description": "icon.core.face_smile"
       },
-      "fa-menu": {
-        "value": "fa-bars",
+      "menu": {
+        "value": "bars",
         "type": "Icons",
-        "description": "icon.core.fa-menu"
+        "description": "icon.core.menu"
       },
-      "fa-fav": {
-        "value": "fa-star",
+      "fav": {
+        "value": "star",
         "type": "Icons",
-        "description": "icon.core.fa-fav"
+        "description": "icon.core.fav"
       },
       "pinata": {
         "value": "pinata",
@@ -1217,15 +1217,15 @@
         "type": "Icons",
         "description": "icon.core.pinata"
       },
-      "fa-chevron-down": {
-        "value": "fa-chevron-down",
+      "chevron-down": {
+        "value": "chevron-down",
         "type": "Icons",
-        "description": "icon.core.fa-chevron-down"
+        "description": "icon.core.chevron-down"
       },
       "check": {
-        "value": "fa-chevron-down",
+        "value": "chevron-down",
         "type": "Icons",
-        "description": "icon.core.fa-check"
+        "description": "icon.core.check"
       }
     }
   },

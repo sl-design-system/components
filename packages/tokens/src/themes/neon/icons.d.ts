@@ -1,17 +1,17 @@
 export declare const icons: {
-    "fa-face_smile": {
+    face_smile: {
         value: string;
         type: string;
         description: string;
         svg: string;
     };
-    "fa-menu": {
+    menu: {
         value: string;
         type: string;
         description: string;
         svg: string;
     };
-    "fa-fav": {
+    fav: {
         value: string;
         type: string;
         description: string;
@@ -29,7 +29,7 @@ export declare const icons: {
         description: string;
         svg: string;
     };
-    "fa-chevron-down": {
+    "chevron-down": {
         value: string;
         type: string;
         description: string;

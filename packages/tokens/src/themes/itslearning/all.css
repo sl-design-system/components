@@ -34,13 +34,13 @@
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
   --sl-opacity-100: 0.04;
-  --sl-icon-core-check: fa-chevron-down;
-  --sl-icon-core-fa-chevron-down: fa-chevron-down;
+  --sl-icon-core-check: chevron-down;
+  --sl-icon-core-chevron-down: chevron-down;
   --sl-icon-core-pinata-solid: pinata;
   --sl-icon-core-pinata: pinata;
-  --sl-icon-core-fa-fav: fa-star;
-  --sl-icon-core-fa-menu: fa-bars;
-  --sl-icon-core-fa-face-smile: fa-face-smile;
+  --sl-icon-core-fav: star;
+  --sl-icon-core-menu: bars;
+  --sl-icon-core-face-smile: face-smile;
   --sl-icon-font-family-sharp: font-awesome-6-sharp;
   --sl-icon-font-family-classic: font-awesome-6-pro;
   --sl-animation-easing-ease-in-out: ease-in-out;

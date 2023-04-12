@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController } from '../utils/controllers/index.js';
@@ -56,16 +56,24 @@ export class Button extends LitElement {
     }
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('size')) {
+      this.#setIconProperties(Array.from(this.childNodes));
+    }
+  }
+
+  override render(): TemplateResult {
+    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
+  }
+
   formDisabledCallback(disabled: boolean): void {
     if (disabled) {
       this.originalTabIndex = this.tabIndex;
     }
 
     this.tabIndex = disabled ? -1 : this.originalTabIndex;
-  }
-
-  override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
 
   #onClick(event: Event): void {
@@ -90,14 +98,24 @@ export class Button extends LitElement {
 
   #onSlotChange(event: Event): void {
     const slot = event.target as HTMLSlotElement;
+    const assignedNodes = slot.assignedNodes({ flatten: true });
+    this.#setIconProperties(assignedNodes);
+  }
 
-    const assignedNodes = slot.assignedNodes({ flatten: true }).filter(node => {
+  #hasOnlyIconAsChild(el: HTMLElement): boolean {
+    return (
+      (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
+    );
+  }
+
+  #setIconProperties(assignedNodes: Node[]): void {
+    const filteredNodes = assignedNodes.filter(node => {
       return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
     });
 
     let hasIcon = false;
 
-    assignedNodes.forEach(node => {
+    filteredNodes.forEach(node => {
       const el = node as HTMLElement;
       if (el.nodeName === 'SL-ICON') {
         el.setAttribute('size', this.size);
@@ -106,18 +124,12 @@ export class Button extends LitElement {
       }
     });
 
-    if (assignedNodes.length === 1) {
-      const el = assignedNodes[0] as HTMLElement;
+    if (filteredNodes.length === 1) {
+      const el = filteredNodes[0] as HTMLElement;
       // This button is icon-only if it only contains an icon.
       hasIcon = el.nodeName === 'SL-ICON' || this.#hasOnlyIconAsChild(el);
     }
 
     this.toggleAttribute('icon-only', hasIcon);
-  }
-
-  #hasOnlyIconAsChild(el: HTMLElement): boolean {
-    return (
-      (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
-    );
   }
 }

@@ -14,6 +14,10 @@ interface Props {
 }
 
 type Story = StoryObj<Props>;
+const fills = ['default', 'outline', 'link'];
+const variants = ['default', 'primary', 'success', 'warning', 'danger'];
+const disabledStates = [false, true];
+const sizes = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Button',
@@ -26,15 +30,15 @@ export default {
   argTypes: {
     fill: {
       control: 'inline-radio',
-      options: ['default', 'outline', 'link']
+      options: fills
     },
     size: {
       control: 'inline-radio',
-      options: ['sm', 'md', 'lg']
+      options: sizes
     },
     variant: {
       control: 'radio',
-      options: ['default', 'primary', 'success', 'warning', 'danger']
+      options: variants
     },
     icon: {
       control: 'inline-radio',
@@ -42,8 +46,8 @@ export default {
     }
   },
   render: ({ fill, size, text, variant, icon }) => {
-    const startIcon = icon === 'start' ? html`<sl-icon name="check"></sl-icon>` : '';
-    const endIcon = icon === 'end' ? html`<sl-icon name="star"></sl-icon>` : '';
+    const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
+    const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
 
     return html`<sl-button .fill=${fill} .size=${size} .variant=${variant}>${startIcon}${text}${endIcon}</sl-button>`;
   }
@@ -52,68 +56,74 @@ export default {
 export const Basic: Story = {};
 
 export const All: Story = {
-  render: ({ icon }) => {
-    const fills = ['default', 'outline', 'link'];
-    const sizes = ['sm', 'md', 'lg'];
-    const disabledStates = [false, true];
+  render: ({ icon, size, text }) => {
     const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
     const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
     return html` <style>
-        .grid {
-          display: inline-grid;
-          gap: 1rem;
-          grid-template-columns: repeat(7, 1fr);
-          justify-items: center;
+        table {
+          border-collapse: collapse;
+        }
+
+        th {
+          text-transform: capitalize;
+        }
+        th,
+        td {
+          padding: 4px 8px;
+        }
+        thead td {
+          text-align: center;
+        }
+
+        tbody td:nth-of-type(4n) {
+          border-right: 2px solid #dedede;
+          padding-right: 24px;
+        }
+        tbody td:nth-of-type(4n + 1):not(:first-of-type) {
+          padding-left: 24px;
+        }
+        tbody td:last-of-type {
+          border: none;
         }
       </style>
-      <div class="grid">
-        ${(sizes as ButtonSize[]).map((size: ButtonSize) =>
-          (fills as ButtonFill[]).map((fill: ButtonFill) =>
-            disabledStates.map(
-              (disabledState: boolean) => html`
-                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState}>
-                  <sl-icon name="face-smile"></sl-icon>
-                </sl-button>
-                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="primary">
-                  <sl-icon name="face-smile"></sl-icon>
-                </sl-button>
-                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState}>
-                  ${startIcon}Default${endIcon}
-                </sl-button>
-                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="primary">
-                  ${startIcon}Primary${endIcon}
-                </sl-button>
-                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="success">
-                  ${startIcon}Success${endIcon}
-                </sl-button>
-                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="warning">
-                  ${startIcon}Warning${endIcon}
-                </sl-button>
-                <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} variant="danger">
-                  ${startIcon}Danger${endIcon}
-                </sl-button>
-              `
-            )
-          )
-        )}
-      </div>`;
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            ${fills.map(fill => html`<th colspan="4">${fill}</th>`)}
+          </tr>
+          <tr>
+            <td></td>
+            ${fills.map(_ =>
+              disabledStates.map(disabledState => html` <td colspan="2">${disabledState ? 'Disabled' : 'Enabled'}</td>`)
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          ${(variants as ButtonVariant[]).map(
+            variant => html`
+              <tr>
+                <th>${variant}</th>
+                ${fills.map(fill =>
+                  disabledStates.map(
+                    disabledState => html` <td>
+                        <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} .variant=${variant}>
+                          ${startIcon}${text}${endIcon}
+                        </sl-button>
+                      </td>
+                      <td>
+                        <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} .variant=${variant}>
+                          <sl-icon name="face-smile"></sl-icon>
+                        </sl-button>
+                      </td>`
+                  )
+                )}
+              </tr>
+            `
+          )}
+        </tbody>
+      </table>`;
   }
-};
-
-export const Fills: Story = {
-  argTypes: {
-    fill: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: ({ size, variant }) => html`
-    <sl-button-bar>
-      <sl-button fill="default" .size=${size} .variant=${variant}>Default</sl-button>
-      <sl-button fill="outline" .size=${size} .variant=${variant}>Outline</sl-button>
-    </sl-button-bar>
-  `
 };
 
 export const Sizes: Story = {
@@ -134,52 +144,18 @@ export const Sizes: Story = {
       }
     </style>
     <div class="grid">
-      <sl-button .fill=${fill} size="sm" .variant=${variant}><sl-icon name="star"></sl-icon></sl-button>
-      <sl-button .fill=${fill} size="sm" .variant=${variant}><sl-icon name="star"></sl-icon> Icon small</sl-button>
-      <sl-button .fill=${fill} size="sm" .variant=${variant}>Icon small<sl-icon name="star"></sl-icon></sl-button>
-      <sl-button .fill=${fill} size="sm" .variant=${variant}>Small</sl-button>
-
-      <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="star"></sl-icon></sl-button>
-      <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="star"></sl-icon> Icon Medium</sl-button>
-      <sl-button .fill=${fill} size="md" .variant=${variant}>Icon Medium<sl-icon name="star"></sl-icon></sl-button>
-      <sl-button .fill=${fill} size="md" .variant=${variant}>Medium</sl-button>
-
-      <sl-button .fill=${fill} size="lg" .variant=${variant}><sl-icon name="star"></sl-icon></sl-button>
-      <sl-button .fill=${fill} size="lg" .variant=${variant}><sl-icon name="star"></sl-icon> Icon Large</sl-button>
-      <sl-button .fill=${fill} size="lg" .variant=${variant}>Icon Large<sl-icon name="star"></sl-icon></sl-button>
-      <sl-button .fill=${fill} size="lg" .variant=${variant}>Large</sl-button>
-    </div>
-  `
-};
-
-export const Variants: Story = {
-  argTypes: {
-    variant: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: ({ fill, size }) => html`
-    <style>
-      .grid {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: 1fr 1fr;
-        justify-items: center;
-      }
-    </style>
-    <div class="grid">
-      <sl-button .fill=${fill} .size=${size}>Default</sl-button>
-      <sl-button .fill=${fill} .size=${size} disabled>Disabled</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="primary">Primary</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="primary" disabled>Disabled</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="success">Success</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="success" disabled>Disabled</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="warning">Warning</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="warning" disabled>Disabled</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="danger">Danger</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="danger" disabled>Disabled</sl-button>
+      ${sizes.map(
+        size => html`
+          <sl-button .fill=${fill} .size=${size} .variant=${variant}><sl-icon name="face-smile"></sl-icon></sl-button>
+          <sl-button .fill=${fill} .size=${size} .variant=${variant}
+            ><sl-icon name="face-smile"></sl-icon> Icon ${size}</sl-button
+          >
+          <sl-button .fill=${fill} .size=${size} .variant=${variant}
+            >Icon ${size}<sl-icon name="face-smile"></sl-icon
+          ></sl-button>
+          <sl-button .fill=${fill} .size=${size} .variant=${variant}>${size}</sl-button>
+        `
+      )}
     </div>
   `
 };

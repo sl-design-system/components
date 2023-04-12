@@ -9,6 +9,18 @@
       "value": "{color.palette.white.base}",
       "type": "color",
       "description": "color.body.default.foreground"
+    },
+    "surface": {
+      "100": {
+        "value": "{color.palette.neutral.900}",
+        "type": "color",
+        "description": "color.body.default.foreground"
+      },
+      "100-copy": {
+        "value": "{color.palette.neutral.800}",
+        "type": "color",
+        "description": "color.body.default.foreground"
+      }
     }
   },
   "color": {

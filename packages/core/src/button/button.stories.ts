@@ -41,8 +41,12 @@ export default {
       options: ['start', 'end', 'none']
     }
   },
-  render: ({ fill, size, text, variant }) =>
-    html`<sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>`
+  render: ({ fill, size, text, variant, icon }) => {
+    const startIcon = icon === 'start' ? html`<sl-icon name="check"></sl-icon>` : '';
+    const endIcon = icon === 'end' ? html`<sl-icon name="star"></sl-icon>` : '';
+
+    return html`<sl-button .fill=${fill} .size=${size} .variant=${variant}>${startIcon}${text}${endIcon}</sl-button>`;
+  }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};

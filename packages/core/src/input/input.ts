@@ -290,11 +290,11 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       // this.invalid = !this.input.validity.valid;
       // this.invalid = this.input.hasAttribute('invalid');
       // this.invalid = changes;
-      // if (this.autocomplete) {
-      //   this.input.setAttribute('autocomplete', this.autocomplete);
-      // } else {
-      //   this.input.removeAttribute('autocomplete');
-      // }
+      if (this.invalid) {
+        this.input.setAttribute('invalid', this.invalid.toString());
+      } else {
+        this.input.removeAttribute('invalid');
+      }
     }
 
     if (changes.has('autocomplete')) {
@@ -419,15 +419,16 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
         ${!this.input.validity.valid}
         <slot name="suffix">
           ${this.invalid
-            ? svg`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"><path fill="#E5454A" d="M8 .875C3.83984.875.5 4.24414.5 8.375c0 4.1602 3.33984 7.5 7.5 7.5 4.1309 0 7.5-3.3398 7.5-7.5 0-4.13086-3.3691-7.5-7.5-7.5Zm-.70312 4.45312c0-.38085.29296-.70312.70312-.70312.38086 0 .70312.32227.70312.70312v3.75c0 .41016-.32226.70313-.70312.70313-.41016 0-.70312-.29297-.70312-.70313v-3.75ZM8 12.5938c-.52734 0-.9375-.4102-.9375-.9083 0-.498.41016-.9082.9375-.9082.49805 0 .9082.4102.9082.9082 0 .4981-.41015.9083-.9082.9083Z"/></svg>`
+            ? svg`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path fill="#E5454A" d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"/></svg>`
             : null}
           ${this.valid
-            ? svg`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"><path fill="#28854E" d="M14.2695 3.98047c.3809.35156.3809.9668 0 1.31836L6.76953 12.7988c-.35156.3809-.9668.3809-1.31836 0l-3.75-3.74997c-.38086-.35156-.38086-.9668 0-1.31836.35156-.38086.9668-.38086 1.31836 0L6.0957 10.8066l6.8555-6.82613c.3515-.38086.9668-.38086 1.3183 0Z"/></svg>`
+            ? svg`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path fill="#28854E" d="M2.5 10.375c0-4.13086 3.33984-7.5 7.5-7.5 4.1309 0 7.5 3.36914 7.5 7.5 0 4.1602-3.3691 7.5-7.5 7.5-4.16016 0-7.5-3.3398-7.5-7.5Zm10.8691-1.28906c.3223-.32227.3223-.82032 0-1.14258-.3222-.32227-.8203-.32227-1.1425 0L9.0625 11.1074 7.74414 9.81836c-.32226-.32227-.82031-.32227-1.14258 0-.32226.32224-.32226.82034 0 1.14254l1.875 1.875c.32227.3223.82032.3223 1.14258 0l3.74996-3.74996Z"/></svg>`
             : null}
         </slot>
       </div>
-      ${this.invalid} ${this.hasAttribute('invalid')} ${this.input.hasAttribute('invalid')} ${this.renderHint()} input
-      valid: ${this.input.validity.valid} ${this.#validation.render()}
+      ${this.hasAttribute('invalid')} internals.validity.valid: ${this.internals.validity.valid} ${this.invalid}
+      ${this.hasAttribute('invalid')} ${this.input.hasAttribute('invalid')} ${this.renderHint()} input valid:
+      ${this.input.validity.valid} ${this.#validation.render()}
     `;
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
   // TODO: use sl-icon instead of plain SVGs
@@ -448,12 +449,12 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     this.#validation.validate(this.value);
     console.log('this.internals?.validity.valid', this.#validation.validity.valid);
     // this.invalid = !this.#validation.validity.valid; // TODO not working on required and empty input
-    console.log('this.invalid', this.invalid);
+    console.log('this.invalid oninput', this.invalid);
     this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
   }
 
   #onBlur({ target }: Event & { target: HTMLInputElement }): void {
-    console.log('invalid and target', this.hasAttribute('invalid'), target);
+    console.log('invalid and target on blur', this.hasAttribute('invalid'), target);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

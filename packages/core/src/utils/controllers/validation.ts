@@ -200,6 +200,7 @@ export class ValidationController implements ReactiveController {
       this.#target.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
       if (isNative(this.target)) {
         this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
+        //this.#host.requestUpdate();
       }
       return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
     } else {

@@ -461,7 +461,7 @@
           "description": "text.typeset.fontFamily.body"
         },
         "icon": {
-          "value": "Font Awesome 6 Pro",
+          "value": "{icon.fontFamily.classic}",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.fontIcon"
         }
@@ -1619,50 +1619,6 @@
     }
   },
   "icon": {
-    "base": {
-      "face-smile": {
-        "value": "{icon.core.fa-face_smile}",
-        "type": "Icons",
-        "description": "icon.base.face-smile"
-      },
-      "menu": {
-        "value": "{icon.core.fa-menu}",
-        "type": "Icons",
-        "description": "icon.base.menu"
-      },
-      "fav": {
-        "value": "{icon.custom.fav}",
-        "type": "Icons",
-        "description": "icon.base.fav"
-      },
-      "chevron-down": {
-        "value": "{icon.core.fa-chevron-down}",
-        "type": "Icons",
-        "description": "icon.base.fav"
-      },
-      "check": {
-        "value": "{icon.core.fa-check}",
-        "type": "Icons",
-        "description": "icon.base.check"
-      }
-    },
-    "custom": {
-      "fav": {
-        "value": "fav",
-        "type": "Icons",
-        "description": "icon.custom.fav"
-      },
-      "open-eye": {
-        "value": "open-eye",
-        "type": "Icons",
-        "description": "icon.custom.open-eye"
-      }
-    },
-    "font-weight": {
-      "value": "{text.typeset.fontWeight.icon-regular}",
-      "type": "fontWeights",
-      "description": "icon.font-weight"
-    },
     "style": {
       "outline": {
         "value": "{text.typeset.fontWeight.icon-regular}",
@@ -1684,30 +1640,40 @@
       }
     },
     "core": {
-      "fa-face_smile": {
-        "value": "fa-face-smile",
+      "face_smile": {
+        "value": "face-smile",
         "type": "Icons",
-        "description": "icon.core.fa-face_smile"
+        "description": "icon.core.face_smile"
       },
-      "fa-menu": {
-        "value": "fa-bars",
+      "menu": {
+        "value": "bars",
         "type": "Icons",
-        "description": "icon.core.fa-menu"
+        "description": "icon.core.menu"
       },
-      "fa-fav": {
-        "value": "fa-star",
+      "fav": {
+        "value": "star",
         "type": "Icons",
-        "description": "icon.core.fa-fav"
+        "description": "icon.core.fav"
       },
-      "fa-chevron-down": {
-        "value": "fa-chevron-down",
+      "pinata": {
+        "value": "pinata",
         "type": "Icons",
-        "description": "icon.core.fa-chevron-down"
+        "description": "icon.core.pinata"
       },
-      "fa-check": {
-        "value": "fa-chevron-down",
+      "pinata-solid": {
+        "value": "pinata",
         "type": "Icons",
-        "description": "icon.core.fa-check"
+        "description": "icon.core.pinata"
+      },
+      "chevron-down": {
+        "value": "chevron-down",
+        "type": "Icons",
+        "description": "icon.core.chevron-down"
+      },
+      "check": {
+        "value": "chevron-down",
+        "type": "Icons",
+        "description": "icon.core.check"
       }
     }
   },

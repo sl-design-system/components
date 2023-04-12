@@ -29,11 +29,8 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
     return `${options.prefix}--${token.name}: ${r} ${g} ${b};`;
   } else if (typeof value === 'object' && token.type === 'typography') {
     const [fontFamily, fontSize, fontWeight, lineHeight] = ['fontFamily', 'fontSize', 'fontWeight', 'lineHeight'].map(
-      attr => {
-        if(!value[attr]){console.log('tokenToCss',{dictionary, value, attr, original: token.original.value});}
-        return replaceReferences(dictionary, token.original.value[attr], value[attr].toString());
-      }
-    );
+      //FIXME remove Elvis operator, this should fail when there's no value.
+      attr => replaceReferences(dictionary, token.original.value[attr], value[attr]?.toString()));
 
     return `${options.prefix}--${token.name}: ${fontWeight} ${fontSize}/${lineHeight} ${fontFamily};`;
   } else if (token.type === 'fontFamilies') {

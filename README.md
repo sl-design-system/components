@@ -10,13 +10,13 @@ A design system with web components for the various products of Sanoma Learning.
 
 ### Local development
 
-Run `yarn build --watch` from the project root to build all the packages. 
+To launch a local version of the Storybook deploy (runs all storybooks at the same time):
+- `yarn workspace @sanomalearning/slds-storybook start --watch`
 
-Each child package has its own Storybook instance that you can run while developing:
-- `yarn workspace @sanomalearning/slds-core storybook`
-- `yarn workspace @sanomalearning/slds-editor storybook`
-- `yarn workspace @sanomalearning/slds-grid storybook`
-- `yarn workspace @sanomalearning/slds-angular storybook`
+To launch a storybook instance for a specific package:
+ - `yarn workspace @sanomalearning/slds-[core|editor|grid] start --watch`
+
+You don't need to run a separarate `yarn build --watch` to build the components separately
 
 ### Website
 

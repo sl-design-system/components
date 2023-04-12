@@ -10,24 +10,49 @@
     "url": "https://github.com/sanomalearning/design-system.git",
     "directory": "packages/tokens/src/themes/bingel"
   },
+  "type": "module",
   "scripts": {
-    "build": "wireit"
+    "build": "wireit",
+    "build:icons": "wireit",
+    "build:styles": "wireit"
   },
   "wireit": {
     "build": {
+      "dependencies": [
+        "build:ts"
+      ]
+    },
+    "build:ts": {
+      "command": "tsc -b ../../../tsconfig.build.json --pretty",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:icons"
+      ],
+      "files": [
+        "../../../tsconfig.build.json"
+      ]
+    },
+    "build:icons": {
+      "command": "yarn node --no-warnings ../../../build-icons.js bingel 1oIVcD9VMbOtLXYp48ehsA",
+      "dependencies": [
+        "../../../../core:build",
+        "build:styles"
+      ],
+      "files": [
+        "../../../build-icons.js"
+      ]
+    },
+    "build:styles": {
       "command": "yarn node --no-warnings ../../../build-styles.js bingel",
       "files": [
+        "../../../build-styles.js",
         "../../figma/*.json",
         "../../figma/bingel/*.json"
-      ],
-      "output": [
-        "*.js",
-        "*.json",
-        "*.css",
-        "*.scss",
-        "!fonts.css",
-        "!package.json"
       ]
     }
+  },
+  "devDependencies": {
+    "typescript": "4.9.5",
+    "wireit": "^0.9.5"
   }
 }

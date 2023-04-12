@@ -26,14 +26,15 @@
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
   --sl-opacity-100: 0.04;
-  --sl-icon-core-fa-check: fa-chevron-down;
-  --sl-icon-core-fa-chevron-down: fa-chevron-down;
-  --sl-icon-core-fa-fav: fa-star;
-  --sl-icon-core-fa-menu: fa-bars;
-  --sl-icon-core-fa-face-smile: fa-face-smile;
+  --sl-icon-core-check: chevron-down;
+  --sl-icon-core-chevron-down: chevron-down;
+  --sl-icon-core-pinata-solid: pinata;
+  --sl-icon-core-pinata: pinata;
+  --sl-icon-core-fav: star;
+  --sl-icon-core-menu: bars;
+  --sl-icon-core-face-smile: face-smile;
   --sl-icon-font-family-sharp: font-awesome-6-sharp;
   --sl-icon-font-family-classic: font-awesome-6-pro;
-  --sl-icon-custom-fav: fav;
   --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
@@ -216,12 +217,6 @@
   --sl-size-input-md: var(--sl-size-sm);
   --sl-icon-style-solid: var(--sl-text-typeset-font-weight-icon-solid);
   --sl-icon-style-outline: 400;
-  --sl-icon-font-weight: 400;
-  --sl-icon-base-check: var(--sl-icon-core-fa-check);
-  --sl-icon-base-chevron-down: var(--sl-icon-core-fa-chevron-down);
-  --sl-icon-base-fav: var(--sl-icon-custom-fav);
-  --sl-icon-base-menu: var(--sl-icon-core-fa-menu);
-  --sl-icon-base-face-smile: var(--sl-icon-core-fa-face-smile);
   --sl-component-button-md: [object Object];
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
@@ -282,6 +277,11 @@
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
+    undefined;
+  --sl-text-button-font-icon-md: undefined var(--sl-text-typeset-font-size-md) / var(--sl-text-typeset-line-height-xs)
+    undefined;
+  --sl-text-button-font-icon-sm: undefined 13 / var(--sl-text-typeset-line-height-xxs) undefined;
   --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
@@ -340,11 +340,5 @@
   --sl-text-input-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 / var(--sl-text-typeset-line-height-md)
     var(--sl-text-typeset-font-family-icon);
   --sl-text-input-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 / var(--sl-text-typeset-line-height-sm)
-    var(--sl-text-typeset-font-family-icon);
-  --sl-text-button-font-icon-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
-  --sl-text-button-font-icon-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-icon);
-  --sl-text-button-font-icon-sm: var(--sl-text-typeset-font-weight-regular) 13 / var(--sl-text-typeset-line-height-xxs)
     var(--sl-text-typeset-font-family-icon);
 }

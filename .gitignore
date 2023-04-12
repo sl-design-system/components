@@ -66,6 +66,7 @@ docs/website/build
 
 # MacOs files
 .DS_Store
+**/.DS_Store
 
 # Storybook files
 storybook-static

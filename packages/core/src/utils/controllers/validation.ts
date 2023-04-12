@@ -83,9 +83,18 @@ export class ValidationController implements ReactiveController {
 
     console.log('onInvalid', this.validity.valid, event);
     // this.#host.setAttribute('invalid', '');
-    this.#host.setAttribute('invalid', '');
     this.#target?.setAttribute('invalid', '');
-    this.#host.requestUpdate();
+    if (isNative(this.target)) {
+      this.#host.setAttribute('invalid', '');
+      this.#host.requestUpdate();
+    } // TODO: not necessary?
+
+    console.log(
+      'on invalid this.#showErrors !== !this.validity.valid',
+      this.#showErrors !== !this.validity.valid,
+      this.#showErrors,
+      !this.validity.valid
+    );
 
     if (this.#showErrors !== !this.validity.valid) {
       console.log('host', this.#host);
@@ -173,6 +182,7 @@ export class ValidationController implements ReactiveController {
   }
 
   hostUpdated(): void {
+    console.log('host updated in validation', this.#host);
     if ('validators' in this.#host) {
       this.#customValidators = this.#host.validators as Validator[];
     }
@@ -200,7 +210,7 @@ export class ValidationController implements ReactiveController {
       this.#target.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
       if (isNative(this.target)) {
         this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
-        //this.#host.requestUpdate();
+        this.#host.requestUpdate();
       }
       return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
     } else {

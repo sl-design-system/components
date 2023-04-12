@@ -284,7 +284,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     console.log('changes in updated', changes);
 
     if (changes.has('invalid')) {
-      console.log('invalid in changes', this.invalid, this.input);
+      console.log('invalid in changes', this.invalid, this.input, this);
       // this.internals.setValidity();
       // this.input.
       // this.invalid = !this.input.validity.valid;
@@ -407,6 +407,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     return html`
       <div @input=${this.#onInput} class="wrapper" @blur="${this.#onBlur}">
         <slot name="prefix"></slot>
+        ${this.invalid}
         <slot
           @slotchange=${this.#onSlotchange}
           name="input"
@@ -432,6 +433,8 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     `;
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
   // TODO: use sl-icon instead of plain SVGs
+
+  // shouldUpdate ??
 
   #onClick(event: Event): void {
     console.log('onclick', event.target, document.activeElement);

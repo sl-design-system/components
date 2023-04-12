@@ -242,19 +242,31 @@ export const ValidInput: StoryObj = {
 
     return html`
       <style>
+        .wrapper {
+          display: flex;
+          flex-direction: column;
+        }
         sl-input {
           width: 300px;
         }
+        sl-button {
+          width: fit-content;
+        }
       </style>
-      <sl-input id="input1" placeholder="email"></sl-input>
-      <sl-input
-        id="input2"
-        showValid
-        .validators=${[validator]}
-        placeholder="confirm email"
-        @blur="${onClick}"
-      ></sl-input>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <div class="wrapper">
+        <sl-label for="input1">Email</sl-label>
+        <sl-input showValid id="input1" placeholder="email" type="email"></sl-input>
+        <sl-label for="input2">Confirm email</sl-label>
+        <sl-input
+          id="input2"
+          showValid
+          .validators=${[validator]}
+          placeholder="confirm email"
+          @blur="${onClick}"
+          type="email"
+        ></sl-input>
+        <sl-button @click=${onClick}>Validate</sl-button>
+      </div>
     `;
   }
 };

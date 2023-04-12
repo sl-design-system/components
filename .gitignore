@@ -64,9 +64,9 @@ docs/website/build
 # Generated files
 *.scss.ts
 
-# MacOs files
+# System Files
 .DS_Store
-**/.DS_Store
+Thumbs.db
 
 # Storybook files
 storybook-static

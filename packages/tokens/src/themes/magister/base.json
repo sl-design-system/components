@@ -1640,10 +1640,10 @@
       }
     },
     "core": {
-      "face_smile": {
+      "face-smile": {
         "value": "face-smile",
         "type": "Icons",
-        "description": "icon.core.face_smile"
+        "description": "icon.core.face-smile"
       },
       "menu": {
         "value": "bars",

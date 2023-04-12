@@ -771,6 +771,55 @@
       }
     }
   },
+  "icon": {
+    "fontFamily": {
+      "classic": {
+        "value": "Font Awesome 6 Pro",
+        "type": "fontFamilies"
+      },
+      "sharp": {
+        "value": "Font Awesome 6 Sharp",
+        "type": "fontFamilies"
+      }
+    },
+    "core": {
+      "face_smile": {
+        "value": "face-smile",
+        "type": "Icons",
+        "description": "icon.core.face_smile"
+      },
+      "menu": {
+        "value": "bars",
+        "type": "Icons",
+        "description": "icon.core.menu"
+      },
+      "fav": {
+        "value": "star",
+        "type": "Icons",
+        "description": "icon.core.fav"
+      },
+      "pinata": {
+        "value": "pinata",
+        "type": "Icons",
+        "description": "icon.core.pinata"
+      },
+      "pinata-solid": {
+        "value": "pinata",
+        "type": "Icons",
+        "description": "icon.core.pinata"
+      },
+      "chevron-down": {
+        "value": "chevron-down",
+        "type": "Icons",
+        "description": "icon.core.chevron-down"
+      },
+      "check": {
+        "value": "chevron-down",
+        "type": "Icons",
+        "description": "icon.core.check"
+      }
+    }
+  },
   "animation": {
     "duration": {
       "fast": {
@@ -794,35 +843,6 @@
         "value": "ease-in-out",
         "type": "other",
         "description": "animation.easing.ease-in-out"
-      }
-    }
-  },
-  "icon": {
-    "core": {
-      "fa-face_smile": {
-        "value": "fa-face-smile",
-        "type": "Icons",
-        "description": "icon.core.fa-face_smile"
-      },
-      "fa-menu": {
-        "value": "fa-bars",
-        "type": "Icons",
-        "description": "icon.core.fa-menu"
-      },
-      "fa-fav": {
-        "value": "fa-star",
-        "type": "Icons",
-        "description": "icon.core.fa-fav"
-      },
-      "fa-chevron-down": {
-        "value": "fa-chevron-down",
-        "type": "Icons",
-        "description": "icon.core.fa-chevron-down"
-      },
-      "fa-check": {
-        "value": "fa-chevron-down",
-        "type": "Icons",
-        "description": "icon.core.fa-check"
       }
     }
   },

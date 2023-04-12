@@ -1,17 +1,17 @@
 import { Icon } from '@sanomalearning/slds-core/icon';
-import { faStar } from '@fortawesome/pro-regular-svg-icons';
-Icon.registerResolver(name => {
-    console.log('resolver', { name });
-    if (name === 'star') {
-        const { icon: [width, height, , , path] } = faStar, paths = Array.isArray(path) ? path : [path];
-        return `
-      <svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">
-        ${paths.map(p => `<path d="${p}"></path>`).join('')}
-      </svg>`;
-    }
-    return 'Hello world';
-});
+import { icons } from './icons.js';
+// export const setup = (): void => {
+// 1. Add typekit url to `<head>`
+// 2. Add theme icons
+// 3. Load the base stylesheet/css variables
+// 4. Start using the SLDS in your application
+// };
+/**
+ * initializes all necessary things to load your theme,
+ * like icons, ...
+ */
 export const setup = () => {
-    console.log('SETUP!');
+    Icon.registerIcons(icons);
+    console.log('SETUP Sanoma Learning in index.ts!');
 };
 //# sourceMappingURL=index.js.map

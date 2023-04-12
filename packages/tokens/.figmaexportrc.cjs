@@ -1,5 +1,6 @@
 const path = require('path'),
-  fileId = process.argv.at(-1);
+  fileId = process.argv.at(4);
+  theme = process.argv.at(5);
 
 module.exports = {
   commands: [
@@ -34,7 +35,7 @@ module.exports = {
         ],
         outputters: [
           require('@figma-export/output-components-as-svg')({
-            output: './icons',
+            output: `./src/themes/${theme}/icons`,
             getDirname: (options) => `.${path.sep}${options.dirname}`
           })
         ]

@@ -813,7 +813,7 @@
         "type": "Icons",
         "description": "icon.core.fa-chevron-down"
       },
-      "fa-check": {
+      "check": {
         "value": "fa-chevron-down",
         "type": "Icons",
         "description": "icon.core.fa-check"

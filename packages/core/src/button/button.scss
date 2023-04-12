@@ -98,8 +98,8 @@ slot {
   :host([size='#{$size}']) {
     --_border-radius: var(--sl-border-radius-button-#{$size});
     --_font: var(--sl-text-button-text-#{$size});
-    --_icon-container-size-height: var(--sl-size-button-icon-container-height-#{$size});
-    --_icon-container-size-width: var(--sl-size-button-icon-container-width-#{$size});
+    --_icon-container-size-height: var(--sl-size-button-icon-#{$size});
+    --_icon-container-size-width: var(--sl-size-button-icon-#{$size});
     --_label-gap: var(--sl-space-button-gap-#{$size});
     --_padding-block: var(--sl-space-button-default-block-#{$size});
     --_padding-inline: var(--sl-space-button-default-inline-#{$size});
@@ -108,9 +108,7 @@ slot {
     --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
     --_padding-block: var(--sl-space-button-default-icon-only-#{$size});
     --_padding-inline: var(--sl-space-button-default-icon-only-#{$size});
-    --_icon-container-size-height: var(--sl-size-button-icon-container-icon-only-#{$size});
-    --_icon-container-size-width: var(--sl-size-button-icon-container-icon-only-#{$size});
-    line-height: var(--_icon-size);
+    line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
   }
 }
 

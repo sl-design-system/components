@@ -464,7 +464,7 @@
           "description": "text.typeset.fontFamily.body"
         },
         "icon": {
-          "value": "Font Awesome 6 Pro",
+          "value": "{icon.fontFamily.classic}",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.fontIcon"
         }
@@ -1622,33 +1622,14 @@
     }
   },
   "icon": {
-    "base": {
-      "face-smile": {
-        "value": "{icon.core.fa-face_smile}",
-        "type": "Icons",
-        "description": "icon.base.face-smile"
+    "style": {
+      "outline": {
+        "value": "{text.typeset.fontWeight.icon-regular}",
+        "type": "fontWeights"
       },
-      "chevron-down": {
-        "value": "{icon.core.fa-chevron-down}",
-        "type": "Icons",
-        "description": "icon.base.fav"
-      },
-      "check": {
-        "value": "{icon.core.fa-check}",
-        "type": "Icons",
-        "description": "icon.base.check"
-      }
-    },
-    "custom": {
-      "fav": {
-        "value": "fav",
-        "type": "Icons",
-        "description": "icon.custom.fav"
-      },
-      "open-eye": {
-        "value": "open-eye",
-        "type": "Icons",
-        "description": "icon.custom.open-eye"
+      "solid": {
+        "value": "{text.typeset.fontWeight.icon-solid}",
+        "type": "fontWeights"
       }
     },
     "fontFamily": {
@@ -1692,7 +1673,7 @@
         "type": "Icons",
         "description": "icon.core.fa-chevron-down"
       },
-      "fa-check": {
+      "check": {
         "value": "fa-chevron-down",
         "type": "Icons",
         "description": "icon.core.fa-check"

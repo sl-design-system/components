@@ -35,25 +35,10 @@ export declare const icons: {
         description: string;
         svg: string;
     };
-    "fa-check": {
+    check: {
         value: string;
         type: string;
         description: string;
-        svg: string;
-    };
-    "face-smile": {
-        svg: string;
-    };
-    "open-eye": {
-        svg: string;
-    };
-    hello: {
-        svg: string;
-    };
-    fav: {
-        svg: string;
-    };
-    whale: {
         svg: string;
     };
 };

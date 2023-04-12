@@ -25,7 +25,7 @@ module.exports = {
     '**/*.stories.js',
     '**/*.js',
     '**/*.cjs',
-    'src/**/*.d.ts',
+    '**/*.d.ts',
   ],
   rules: {
     '@typescript-eslint/array-type': [

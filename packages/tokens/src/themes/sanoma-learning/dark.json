@@ -11,6 +11,20 @@
       "type": "color",
       "description": "color.body.default.foreground",
       "failedToResolve": true
+    },
+    "surface": {
+      "100": {
+        "value": "{color.palette.neutral.900}",
+        "type": "color",
+        "description": "color.body.default.foreground",
+        "failedToResolve": true
+      },
+      "100-copy": {
+        "value": "{color.palette.neutral.800}",
+        "type": "color",
+        "description": "color.body.default.foreground",
+        "failedToResolve": true
+      }
     }
   },
   "color": {

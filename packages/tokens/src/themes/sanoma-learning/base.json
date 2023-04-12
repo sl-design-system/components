@@ -177,7 +177,7 @@
           "description": "color.palette.neutral.800"
         },
         "900": {
-          "value": "#262626",
+          "value": "#2E2E2E",
           "type": "color",
           "description": "color.palette.neutral.900"
         },

@@ -16,5 +16,5 @@
     "skipDefaultLibCheck": true,
     "noImplicitOverride": true
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp","packages/tokens/**/*.ts"]
 }

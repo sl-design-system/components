@@ -108,6 +108,8 @@ slot {
     --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
     --_padding-block: var(--sl-space-button-default-icon-only-#{$size});
     --_padding-inline: var(--sl-space-button-default-icon-only-#{$size});
+    --_icon-container-size-height: var(--sl-size-button-icon-container-icon-only-#{$size});
+    --_icon-container-size-width: var(--sl-size-button-icon-container-icon-only-#{$size});
     line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
   }
 }

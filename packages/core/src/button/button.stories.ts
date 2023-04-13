@@ -22,27 +22,28 @@ const sizes = ['sm', 'md', 'lg'];
 export default {
   title: 'Button',
   args: {
-    fill: 'default',
-    size: 'md',
     text: 'Button',
+    size: 'md',
+    icon: 'none',
+    fill: 'default',
     variant: 'default'
   },
   argTypes: {
-    fill: {
-      control: 'inline-radio',
-      options: fills
-    },
     size: {
       control: 'inline-radio',
       options: sizes
     },
-    variant: {
-      control: 'radio',
-      options: variants
-    },
     icon: {
       control: 'inline-radio',
       options: ['start', 'end', 'none']
+    },
+    fill: {
+      control: 'inline-radio',
+      options: fills
+    },
+    variant: {
+      control: 'radio',
+      options: variants
     }
   },
   render: ({ fill, size, text, variant, icon }) => {

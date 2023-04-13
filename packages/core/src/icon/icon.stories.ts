@@ -16,6 +16,13 @@ export default {
   args: {
     icons: Object.keys(window.SLDS.icons)
   },
+  argTypes: {
+    icons: {
+      control: {
+        type: null
+      }
+    }
+  },
   render: ({ icons }) => {
     return html`
       <style>
@@ -25,7 +32,12 @@ export default {
         }
       </style>
       <h2>System and custom icons:</h2>
-      <section>${icons.map(i => html`<sl-icon .name=${i}></sl-icon>`)}</section>
+      <h3>Small</h3>
+      <section>${icons.map(i => html`<sl-icon .name=${i} size="sm"></sl-icon>`)}</section>
+      <h3>Medium</h3>
+      <section>${icons.map(i => html`<sl-icon .name=${i} size="md"></sl-icon>`)}</section>
+      <h3>Large</h3>
+      <section>${icons.map(i => html`<sl-icon .name=${i} size="lg"></sl-icon>`)}</section>
       <h2>Referring to a non-existing icon:</h2>
       <section><sl-icon name="sl-non-existent"></sl-icon></section>
     `;

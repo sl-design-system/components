@@ -417,7 +417,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
           @mousedown=${this.#onMousedown}
           .min=${this.min}
         ></slot>
-        ${!this.input.validity.valid}
         <slot name="suffix">
           ${this.invalid}
           <svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
@@ -431,9 +430,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
             : null}
         </slot>
       </div>
-      ${this.hasAttribute('invalid')} internals.validity.valid: ${this.internals.validity.valid} ${this.invalid}
-      ${this.hasAttribute('invalid')} ${this.input.hasAttribute('invalid')} ${this.renderHint()} input valid:
-      ${this.input.validity.valid} ${this.#validation.render()}
+      ${!this.input.validity.valid} ${this.hasAttribute('invalid')} internals.validity.valid:
+      ${this.internals.validity.valid} ${this.invalid} ${this.hasAttribute('invalid')}
+      ${this.input.hasAttribute('invalid')} ${this.renderHint()} input valid: ${this.input.validity.valid}
+      ${this.#validation.render()}
     `;
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
   // TODO: use sl-icon instead of plain SVGs

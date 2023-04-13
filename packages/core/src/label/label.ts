@@ -7,6 +7,8 @@ import { Input } from '../input/index.js';
 import { Textarea } from '../textarea/index.js';
 import styles from './label.scss.js';
 
+export type LabelSize = 'sm' | 'md' | 'lg';
+
 export class Label extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
@@ -31,6 +33,9 @@ export class Label extends LitElement {
 
   /** Whether this label should be marked as required. */
   @state() required?: boolean;
+
+  /** Label size. */
+  @property({ reflect: true }) size: LabelSize = 'md';
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();

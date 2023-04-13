@@ -28,6 +28,25 @@ export const API: StoryObj = {
   `
 };
 
+export const LabelSize: StoryObj = {
+  render: () => html`
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <form>
+      <sl-label for="input1" size="sm">I am small</sl-label>
+      <sl-input id="input1"></sl-input>
+      <sl-label for="input2" size="md">I am medium</sl-label>
+      <sl-input id="input2"></sl-input>
+      <sl-label for="input3" size="lg">I am large</sl-label>
+      <sl-input id="input3" size="lg"></sl-input>
+    </form>
+  `
+};
+
 export const CustomLabel: StoryObj = {
   render: () => html`
     <style>

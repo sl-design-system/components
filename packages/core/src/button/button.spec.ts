@@ -138,16 +138,18 @@ describe('sl-button', () => {
       expect(el).to.have.attribute('tabindex', '-1');
     });
 
-    it('should not close the drawer when the cancel event is fired but close is disabled', async () => {
+    it('should not emit a click event when the button is disabled', async () => {
       const clickEvent = new Event('click');
-      const clickEventSpy = spy(clickEvent,'preventDefault');
+      const preventDefaultSpy = spy(clickEvent,'preventDefault');
+      const stopPropagationSpy = spy(clickEvent,'stopPropagation');
       
       el.setAttribute('disabled', '');
       await el.updateComplete;
       
       el.dispatchEvent(clickEvent);
       
-      expect(clickEventSpy).to.have.been.called;
+      expect(preventDefaultSpy).to.have.been.called;
+      expect(stopPropagationSpy).to.have.been.called;
     });
   });
 

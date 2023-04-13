@@ -9,6 +9,18 @@
       "value": "{color.palette.primary.base}",
       "type": "color",
       "description": "color.body.foreground"
+    },
+    "surface": {
+      "100": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "description": "body.surface.100"
+      },
+      "200": {
+        "value": "{color.palette.neutral.150}",
+        "type": "color",
+        "description": "body.surface.100"
+      }
     }
   },
   "color": {

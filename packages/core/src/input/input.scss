@@ -101,6 +101,18 @@ slot[name='input']::slotted(input) {
   width: 100%;
 }
 
+.invalid-icon {
+  display: none;
+}
+
+:host(:where([invalid])) {
+  .invalid-icon {
+    display: block;
+  }
+}
+
+// TODO: for valid nad showvalid?
+
 /**
  * theming
  */

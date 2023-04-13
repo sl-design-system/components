@@ -199,6 +199,12 @@ export const MinMaxLength: StoryObj = {
     };
 
     return html`
+      <style>
+        sl-input {
+          width: 300px;
+          margin-right: 8px;
+        }
+      </style>
       <sl-input minlength="3" maxlength="5" placeholder="Min 3 and max 5 chars" required></sl-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
@@ -212,6 +218,12 @@ export const Pattern: StoryObj = {
     };
 
     return html`
+      <style>
+        sl-input {
+          width: 300px;
+          margin-right: 8px;
+        }
+      </style>
       <sl-input pattern=".{3,5}" placeholder="Min 3 and max 5 chars using pattern" required></sl-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
@@ -247,7 +259,8 @@ export const ValidInput: StoryObj = {
           flex-direction: column;
         }
         sl-input {
-          width: 300px;
+          width: 400px;
+          margin-bottom: 8px;
         }
         sl-button {
           width: fit-content;
@@ -283,6 +296,11 @@ export const CustomValidation: StoryObj = {
     };
 
     return html`
+      <style>
+        sl-input {
+          width: 300px;
+        }
+      </style>
       <sl-input required="true" .validators=${[validator]}></sl-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;

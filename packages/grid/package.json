@@ -149,7 +149,7 @@
     "wireit": "^0.9.5"
   },
   "dependencies": {
-    "@lit-labs/virtualizer": "^1.0.1",
+    "@lit-labs/virtualizer": "^2.0.0",
     "@sanomalearning/slds-core": "*"
   }
 }

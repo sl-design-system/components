@@ -1,6 +1,8 @@
 import type { TemplateResult } from 'lit';
 import type { Grid } from './grid.js';
+import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import { dasherize, getNameByPath, getValueByPath } from '@sanomalearning/slds-core/utils';
+import { event } from '@sanomalearning/slds-core/utils/decorators';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -33,6 +35,15 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
    * The column width may still grow larger when `grow` is not 0.
    */
   @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
+
+  /** Emits when the column definition has changed. */
+  @event() columnUpdate!: EventEmitter<void>;
+
+  /**
+   * The custom elements used for rendering this column. Since the rendering the column cells is done
+   * in the parent grid component, the custom elements need to be registered in the parent grid.
+   */
+  @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
 
   /** The parent grid instance. */
   @property({ attribute: false }) grid?: Grid<T>;

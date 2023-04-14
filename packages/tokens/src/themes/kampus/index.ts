@@ -8,6 +8,4 @@ import { icons } from './icons.js';
  */
 export const setup = (): void => {
   Icon.registerIcons(icons as IconLibrary);
-
-  console.log('SETUP Kampus in index.ts!');
 };

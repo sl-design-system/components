@@ -39,12 +39,6 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
   /** Emits when the column definition has changed. */
   @event() columnUpdate!: EventEmitter<void>;
 
-  /**
-   * The custom elements used for rendering this column. Since the rendering the column cells is done
-   * in the parent grid component, the custom elements need to be registered in the parent grid.
-   */
-  @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
-
   /** The parent grid instance. */
   @property({ attribute: false }) grid?: Grid<T>;
 
@@ -67,6 +61,12 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
 
   /** Renderer function for the column value of each cell. */
   @property({ attribute: false }) renderer?: GridColumnDataRenderer<T>;
+
+  /**
+   * The custom elements used for rendering this column. Since the rendering the column cells is done
+   * in the parent grid component, the custom elements need to be registered in the parent grid.
+   */
+  @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
 
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean, reflect: true }) sticky?: boolean;

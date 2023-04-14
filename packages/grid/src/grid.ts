@@ -277,13 +277,11 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   #addScopedElements(col: GridColumn<T>): void {
-    console.log('addScopedElements', col);
-
     if (col.scopedElements) {
       for (const [tagName, klass] of Object.entries(col.scopedElements)) {
-        console.log(tagName);
-
-        this.defineScopedElement(tagName, klass);
+        if (!this.registry.get(tagName)) {
+          this.defineScopedElement(tagName, klass);
+        }
       }
     }
   }

@@ -116,8 +116,12 @@ export const Label: StoryObj = {
       }
     </style>
     <form>
-      <sl-label for="input">What is your name?</sl-label>
+      <sl-label for="input" size="sm">What is your name?</sl-label>
       <sl-input id="input"></sl-input>
+      <sl-label for="input2" size="md">What is your name?</sl-label>
+      <sl-input id="input2"></sl-input>
+      <sl-label for="input3" size="lg">What is your name?</sl-label>
+      <sl-input id="input3" size="lg"></sl-input>
     </form>
   `
 };
@@ -133,6 +137,10 @@ export const Hint: StoryObj = {
     <form>
       <sl-label for="input">Nickname</sl-label>
       <sl-input id="input" hint="What would you like people to call you?"></sl-input>
+      <sl-label for="input2">Nickname</sl-label>
+      <sl-input id="input2" hint="What would you like people to call you?"></sl-input>
+      <sl-label for="input3">Nickname</sl-label>
+      <sl-input id="input3" hint="What would you like people to call you?"></sl-input>
     </form>
   `
 };

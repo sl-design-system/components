@@ -5,8 +5,11 @@ import { property } from 'lit/decorators.js';
 
 export interface HintInterface {
   hint?: string;
+  hintSize?: LabelSize;
   renderHint(): TemplateResult;
 }
+
+export type LabelSize = 'sm' | 'md' | 'lg';
 
 let nextUniqueId = 0;
 
@@ -14,6 +17,11 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
   class Hint extends constructor {
     /** The hint. If you need to display HTML, use the `hint` slot instead. */
     @property() hint?: string;
+
+    /** The hint size. */
+    @property() hintSize: LabelSize = 'md';
+
+    // TODO: add sm / md / lg sizes of hint
 
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
@@ -28,12 +36,14 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     }
 
     renderHint(): TemplateResult {
-      return html`<slot @slotchange=${() => this.#updateHint()} name="hint"></slot>`;
+      return html`<slot @slotchange=${() => this.#updateHint()} name="hint" hintSize="${this.hintSize}"></slot>`;
     }
 
     #updateHint(): void {
       const input = this.querySelector('input, textarea'),
         hint = this.querySelector('[slot="hint"]');
+
+      // TODO: hintSize here?
 
       if (hint) {
         hint.id ||= `sl-hint-${nextUniqueId++}`;

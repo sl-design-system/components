@@ -111,6 +111,12 @@ slot[name='input']::slotted(input) {
   }
 }
 
+sl-icon {
+  //fill: var(--sl-color-text-field-invalid-focus-icon); // --fill-default:color.textField.invalid.focus.icon
+  height: 20px;
+  width: 20px;
+}
+
 // TODO: for valid nad showvalid?
 
 /**
@@ -170,6 +176,12 @@ slot[name='input']::slotted(input) {
       &::placeholder {
         --_placeholder-color: var(--sl-color-text-field-#{$variant}-default-placeholder);
       }
+    }
+
+    sl-icon {
+      fill: var(--sl-color-text-field-#{$variant}-focus-icon); // --fill-default:color.textField.invalid.focus.icon
+      //height: 20px;
+      //width: 20px;
     }
 
     .wrapper {

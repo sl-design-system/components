@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import type { CSSResultGroup, ReactiveController, ReactiveControllerHost, TemplateResult } from 'lit';
-import type { ValidationValue, Validator } from '../validators.js';
+import type { MessageSize, ValidationValue, Validator } from '../validators.js';
 import { msg, str } from '@lit/localize';
+import { faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import { css, html } from 'lit';
 import { dasherize } from '../string.js';
+import { Icon } from '../../icon';
 
 export type CustomValidityState = Partial<Record<keyof ValidityState, boolean>>;
 
@@ -27,6 +29,7 @@ export type ValidationTarget = NativeValidationTarget | CustomValidationTarget;
 export type ValidationConfig = {
   target?: ValidationTarget | (() => ValidationTarget);
   validators?: Validator[];
+  size?: MessageSize; // TODO: use messagesize of md by default
 };
 
 const isNative = (target: ValidationTarget): target is NativeValidationTarget =>
@@ -35,6 +38,12 @@ const isNative = (target: ValidationTarget): target is NativeValidationTarget =>
 export const validationStyles: CSSResultGroup = css`
   slot[part='error'] {
     color: #c00;
+    display: inline-flex;
+    align-items: center;
+  }
+  sl-icon {
+    width: 20px;
+    height: 20px;
   }
 `;
 
@@ -51,6 +60,9 @@ export class ValidationController implements ReactiveController {
 
   /** Determines when validation messages should be shown. */
   #showErrors = false;
+
+  /** Error message size. */
+  #messageSize: MessageSize = 'md';
 
   /**
    * The element which is being validated. Either a Form Associated
@@ -75,6 +87,8 @@ export class ValidationController implements ReactiveController {
    * the target has built-in validators.
    */
   #validators: Validator[] = [];
+
+  // TODO: small, medium, large
 
   /** Event handler for when invalid validity must be reported. */
   #onInvalid = (event: Event): void => {
@@ -143,9 +157,13 @@ export class ValidationController implements ReactiveController {
     }
   }
 
-  constructor(host: ReactiveControllerHost & HTMLElement, { target, validators = [] }: ValidationConfig) {
+  constructor(host: ReactiveControllerHost & HTMLElement, { target, validators = [], size }: ValidationConfig) {
     this.#host = host;
     this.#host.addController(this);
+
+    if (size) {
+      this.#messageSize = size;
+    }
 
     if (typeof target === 'function') {
       this.#targetFn = target;
@@ -193,6 +211,9 @@ export class ValidationController implements ReactiveController {
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+    Icon.registerIcon(faTriangleExclamation);
+
     console.log('isNative(this.target), this.target', isNative(this.target), this.target);
 
     const state = this.#getInvalidState(this.validity);
@@ -212,7 +233,23 @@ export class ValidationController implements ReactiveController {
         this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
         this.#host.requestUpdate();
       }
-      return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
+      // TODO: add sl-icon
+      return html`<slot
+        .name=${dasherize(state)}
+        part="error"
+        @slotchange=${this.#handleSlotchange}
+        size="${this.#messageSize}"
+      >
+        ${this.#messageSize}
+        <svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+          <path
+            fill="#E5454A"
+            d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"
+          />
+        </svg>
+        ${!isNative(this.target) ? html`<sl-icon name="fas-triangle-exclamation"></sl-icon>` : null}
+        ${this.validationMessage}
+      </slot>`;
     } else {
       this.#target.removeAttribute('invalid');
       if (isNative(this.target)) {
@@ -221,6 +258,19 @@ export class ValidationController implements ReactiveController {
       }
       //this.#host.requestUpdate();
     }
+
+    //.size=${this.#messageSize} not working
+  }
+
+  #handleSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    // const childNodes = e.target.assignedNodes({flatten: true});
+    // // ... do something with childNodes ...
+    // this.allText = childNodes.map((node) => {
+    //   return node.textContent ? node.textContent : ''
+    // }).join('');
+
+    const elements = event.target.assignedElements({ flatten: true });
+    console.log('elements in validation', elements);
   }
 
   addValidator(validator: Validator): void {

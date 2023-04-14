@@ -1,9 +1,11 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Validator } from '../utils/index.js';
-import { LitElement, html, svg } from 'lit';
+import { faCircleCheck, faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
+import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
 import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
+import { Icon } from '../icon';
 import styles from './input.scss.js';
 
 export type InputSize = 'md' | 'lg';
@@ -404,6 +406,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   // @invalid=${this.#onInvalid}
 
   override render(): TemplateResult {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+    Icon.registerIcon(faTriangleExclamation, faCircleCheck);
+
     return html`
       <div @input=${this.#onInput} class="wrapper" @blur="${this.#onBlur}">
         <slot name="prefix"></slot>
@@ -419,6 +424,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
         ></slot>
         <slot name="suffix">
           ${this.invalid}
+          <sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>
           <svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path
               fill="#E5454A"
@@ -426,7 +432,13 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
             />
           </svg>
           ${this.valid
-            ? svg`<svg class="valid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path fill="#28854E" d="M2.5 10.375c0-4.13086 3.33984-7.5 7.5-7.5 4.1309 0 7.5 3.36914 7.5 7.5 0 4.1602-3.3691 7.5-7.5 7.5-4.16016 0-7.5-3.3398-7.5-7.5Zm10.8691-1.28906c.3223-.32227.3223-.82032 0-1.14258-.3222-.32227-.8203-.32227-1.1425 0L9.0625 11.1074 7.74414 9.81836c-.32226-.32227-.82031-.32227-1.14258 0-.32226.32224-.32226.82034 0 1.14254l1.875 1.875c.32227.3223.82032.3223 1.14258 0l3.74996-3.74996Z"/></svg>`
+            ? html`<sl-icon name="fas-circle-check"></sl-icon>
+                <svg class="valid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+                  <path
+                    fill="#28854E"
+                    d="M2.5 10.375c0-4.13086 3.33984-7.5 7.5-7.5 4.1309 0 7.5 3.36914 7.5 7.5 0 4.1602-3.3691 7.5-7.5 7.5-4.16016 0-7.5-3.3398-7.5-7.5Zm10.8691-1.28906c.3223-.32227.3223-.82032 0-1.14258-.3222-.32227-.8203-.32227-1.1425 0L9.0625 11.1074 7.74414 9.81836c-.32226-.32227-.82031-.32227-1.14258 0-.32226.32224-.32226.82034 0 1.14254l1.875 1.875c.32227.3223.82032.3223 1.14258 0l3.74996-3.74996Z"
+                  />
+                </svg>`
             : null}
         </slot>
       </div>

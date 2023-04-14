@@ -52,10 +52,14 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
           hint.innerHTML = this.hint;
         }
 
+        //hint.hintSize = this.hintSize;
+        hint.setAttribute('hintSize', this.hintSize);
+
         input?.setAttribute('aria-describedby', hint.id);
       } else if (this.hint) {
         const div = document.createElement('div');
         div.innerText = this.hint;
+        div.setAttribute('hintSize', this.hintSize);
         div.slot = 'hint';
         this.append(div);
       } else {

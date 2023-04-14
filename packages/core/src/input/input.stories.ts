@@ -140,7 +140,7 @@ export const Hint: StoryObj = {
       <sl-label for="input2">Nickname</sl-label>
       <sl-input id="input2" hint="What would you like people to call you?"></sl-input>
       <sl-label for="input3">Nickname</sl-label>
-      <sl-input id="input3" hint="What would you like people to call you?"></sl-input>
+      <sl-input id="input3" hint="What would you like people to call you?" hintSize="lg"></sl-input>
     </form>
   `
 };

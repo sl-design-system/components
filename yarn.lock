@@ -3094,12 +3094,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/observers@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@lit-labs/observers@npm:1.1.0"
+"@lit-labs/observers@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@lit-labs/observers@npm:2.0.0"
   dependencies:
     "@lit/reactive-element": ^1.1.0
-  checksum: 27e05b823fb9f53164384f16deb185aefe33e22d2fe6ebb167c04c1f43bf6260e11427e31519df3aea5a79d96ce1b1bce265a12f77ad7e00a9cb4e3977f848aa
+  checksum: 0591dab9ae10d8aa24414a76e7e6064e970739446686389caa3a17874cf4542a7b3ebaa27af5ec7b497efb62fc33bc561cc9ea43781be0f7f0e1cfabebe00620
   languageName: node
   linkType: hard
 
@@ -3138,14 +3138,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/virtualizer@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@lit-labs/virtualizer@npm:1.0.1"
+"@lit-labs/virtualizer@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@lit-labs/virtualizer@npm:2.0.0"
   dependencies:
-    event-target-shim: ^6.0.2
-    lit: ^2.5.0
+    lit: ^2.7.0
     tslib: ^2.0.3
-  checksum: b721ac64edc8a1b8486c7b9834608f0a0ff50acb1d046232cc7841792d11d118051fb3900135f32a9474a1f7882739610626c73f40c966df94cccf28029a02f3
+  checksum: f0b9186fcaf46d4b2930439fcfec4c5bbcb22e7a5466aa64c68d209564f78b98a1a30d075bea3366e80456a1f2bfee21df9b89d907577897e8cf13623b85acf0
   languageName: node
   linkType: hard
 
@@ -3652,7 +3651,7 @@ __metadata:
   dependencies:
     "@floating-ui/dom": ^1.2.6
     "@fortawesome/fontawesome-svg-core": ^6.4.0
-    "@lit-labs/observers": ^1.1.0
+    "@lit-labs/observers": ^2.0.0
     "@lit/localize": ^0.11.4
     "@lit/localize-tools": ^0.6.8
     "@open-wc/scoped-elements": ^2.1.4
@@ -3744,7 +3743,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-grid@workspace:packages/grid"
   dependencies:
-    "@lit-labs/virtualizer": ^1.0.1
+    "@lit-labs/virtualizer": ^2.0.0
     "@open-wc/testing": ^3.1.8
     "@sanomalearning/example-data": "*"
     "@sanomalearning/slds-core": "*"
@@ -10788,13 +10787,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"event-target-shim@npm:^6.0.2":
-  version: 6.0.2
-  resolution: "event-target-shim@npm:6.0.2"
-  checksum: e40b89effb1bd0fdd44dd198e3b61669c2bff89b680a8156c50480b5df8d4364208d1db09fbe823211005651558415691cb3ff72c22618eb154e55282b8b0481
-  languageName: node
-  linkType: hard
-
 "eventemitter-asyncresource@npm:^1.0.0":
   version: 1.0.0
   resolution: "eventemitter-asyncresource@npm:1.0.0"
@@ -14397,7 +14389,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:^2.0.0, lit@npm:^2.3.0, lit@npm:^2.5.0, lit@npm:^2.7.0, lit@npm:^2.7.2":
+"lit@npm:^2.0.0, lit@npm:^2.3.0, lit@npm:^2.7.0, lit@npm:^2.7.2":
   version: 2.7.2
   resolution: "lit@npm:2.7.2"
   dependencies:

@@ -3,11 +3,14 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import './register.js';
 
-type Props = Pick<Switch, 'state'>;
+type Props = Pick<Switch, 'checked'>;
 
 export default {
   title: 'Switch',
-  render: () => html` <sl-switch></sl-switch> `
+  args: {
+    checked: false
+  },
+  render: ({ checked }) => html` <sl-switch ?checked=${checked}></sl-switch>`
 } satisfies Meta<Props>;
 
 type Story = StoryObj<Props>;

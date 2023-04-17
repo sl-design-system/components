@@ -1,13 +1,28 @@
 :host {
- background-color: green; //yellow;
+  --toggle-width: 40px;
+  --toggle-padding: 2px;
+  --thumb-position: 0%;
+  --thumb-size: 20px;
+
+ background-color: rgb(var(--sl-color-palette-neutral-400));
+ border-radius: calc((var(--thumb-size) + var(--toggle-padding) * 2) / 2);
+ cursor: pointer;
  display: inline-flex;
- height: 24px;
- width: 40px;
- padding: 2px;
+ padding: var(--toggle-padding);
+ width: var(--toggle-width);
 }
 
 div {
+  will-change: transform;
+  transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
+  translate: var(--thumb-position);
   background-color: white;
-  height: 20px;
-  width: 20px;
+  height: var(--thumb-size);
+  width: var(--thumb-size);
+  border-radius: calc(var(--thumb-size) / 2);
+}
+
+:host([checked]) {
+  background-color: rgb(var(--sl-color-palette-success-base));
+  --thumb-position: calc(var(--toggle-width) - var(--thumb-size) - (2 * var(--toggle-padding)));
 }

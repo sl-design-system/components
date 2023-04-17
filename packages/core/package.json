@@ -36,6 +36,8 @@
     "./radio-group/register.js": "./dist/components/radio-group/register.js",
     "./select": "./dist/components/select/index.js",
     "./select/register.js": "./dist/components/select/register.js",
+    "./switch": "./dist/components/switch/index.js",
+    "./switch/register.js": "./dist/components/switch/register.js",
     "./textarea": "./dist/components/textarea/index.js",
     "./textarea/register.js": "./dist/components/textarea/register.js",
     "./tooltip": "./dist/components/tooltip/index.js",
@@ -142,7 +144,7 @@
           "cascade": false
         },
         {
-          "script": "build:scss",
+          "script": "build",
           "cascade": false
         },
         {

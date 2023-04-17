@@ -1,155 +1,44 @@
 {
-  "name": "@sanomalearning/slds-editor",
-  "description": "SLDS Editor components",
-  "version": "0.0.2",
+  "name": "@sl-design-system/slds-editor",
+  "version": "0.0.0",
+  "description": "Editor components for the SL Design System",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sanomalearning/design-system.git",
+    "url": "https://github.com/sl-design-system/components.git",
     "directory": "packages/editor"
   },
+  "homepage": "https://sanomalearning.design/components/button",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
   "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "customElements": "custom-elements.json",
   "exports": {
-    ".": "./dist/components/index.js",
-    "./register.js": "./dist/components/register.js"
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./register.js": "./register.js"
   },
+  "files": [
+    "**/*.d.ts",
+    "**/*.d.ts.map",
+    "**/*.js",
+    "**/*.js.map",
+    "custom-elements.json"
+  ],
+  "sideEffects": [
+    "register.js"
+  ],
   "scripts": {
-    "build": "wireit",
-    "docs": "wireit",
-    "lint": "wireit",
-    "start": "wireit",
-    "test": "wireit"
-  },
-  "wireit": {
-    "build": {
-      "dependencies": [
-        "build:ts"
-      ]
-    },
-    "build:locales": {
-      "command": "lit-localize build && eslint --fix \"src/locales/*.ts\"",
-      "files": [
-        "lit-localize.json",
-        "src/locales/*.xlf"
-      ],
-      "output": [
-        "src/locales/*.ts"
-      ]
-    },
-    "build:scss": {
-      "command": "yarn node ../../scripts/package-css.mjs ../core/src/styles/shared.scss",
-      "files": [
-        "../../.stylelintrc.cjs",
-        "../../scripts/package-css.mjs",
-        "src/**/*.scss"
-      ],
-      "output": [
-        "src/**/*.scss.ts"
-      ]
-    },
-    "build:ts": {
-      "command": "tsc -b ./tsconfig.build.json --pretty",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "../core:build",
-        "build:scss"
-      ],
-      "files": [
-        "src/**/*.ts"
-      ]
-    },
-    "build:types": {
-      "command": "tsc --noEmit --pretty",
-      "files": [
-        "src/**/*.ts"
-      ]
-    },
-    "docs": {
-      "command": "storybook build -o ../../docs/dist/editor --quiet",
-      "dependencies": [
-        "build",
-        "../../docs/storybook:build"
-      ]
-    },
-    "lint": {
-      "dependencies": [
-        "lint:scss",
-        "lint:ts"
-      ]
-    },
-    "lint:scss": {
-      "command": "stylelint 'src/**/*.scss' --color",
-      "files": [
-        "../../.stylelintrc.cjs",
-        "src/**/*.scss"
-      ]
-    },
-    "lint:ts": {
-      "command": "eslint --color --ext .ts src",
-      "files": [
-        "../../.eslintignore",
-        "../../.eslintrc.cjs",
-        "../../.prettierrc.cjs",
-        "src/**/*.ts"
-      ]
-    },
-    "start": {
-      "command": "storybook dev -p 6008 --no-open --quiet",
-      "service": {
-        "readyWhen": {
-          "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
-        }
-      },
-      "files": [
-        ".storybook/main.ts"
-      ],
-      "dependencies": [
-        {
-          "script": "build:locales",
-          "cascade": false
-        },
-        {
-          "script": "build:scss",
-          "cascade": false
-        },
-        {
-          "script": "build:types",
-          "cascade": false
-        }
-      ]
-    },
-    "test": {
-      "command": "wtr --static-logging",
-      "dependencies": [
-        "build:locales",
-        "build:scss"
-      ],
-      "files": [
-        "web-test-runner.config.js",
-        "src/**/*.spec.ts"
-      ]
-    }
-  },
-  "devDependencies": {
-    "@open-wc/testing": "^3.1.8",
-    "@storybook/addon-essentials": "^7.0.5",
-    "@storybook/addon-links": "^7.0.5",
-    "@storybook/addon-storysource": "^7.0.5",
-    "@storybook/web-components-webpack5": "^7.0.5",
-    "@types/sinon": "^10.0.14",
-    "@web/test-runner": "^0.15.3",
-    "@web/test-runner-commands": "^0.6.6",
-    "@web/test-runner-playwright": "^0.9.0",
-    "lit-html": "^2.7.2",
-    "sinon": "^15.0.3",
-    "storybook": "^7.0.5",
-    "typescript": "^4.9.5",
-    "wireit": "^0.9.5"
+    "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sanomalearning/slds-core": "*",
+    "@sl-design-system/shared": "0.0.0",
     "prosemirror-commands": "^1.5.1",
     "prosemirror-history": "^1.3.0",
     "prosemirror-inputrules": "^1.2.0",

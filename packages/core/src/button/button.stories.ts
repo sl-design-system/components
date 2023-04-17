@@ -1,19 +1,18 @@
-import type { ButtonFill, ButtonSize, ButtonVariant } from './button.js';
+import type { Button, ButtonFill, ButtonSize, ButtonVariant } from './button.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '../button-bar/register.js';
 import '../icon/register.js';
 import './register.js';
 import { html } from 'lit';
 
-interface Props {
-  fill: ButtonFill;
-  size: ButtonSize;
-  text: string;
+interface Props extends Pick<Button, 'fill' | 'size' | 'variant'> {
   icon: string;
-  variant: ButtonVariant;
+  text: string;
+  disabled: boolean;
 }
 
 type Story = StoryObj<Props>;
+
 const fills: ButtonFill[] = ['default', 'outline', 'link'];
 const variants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
 const disabledStates = [false, true];
@@ -23,8 +22,8 @@ export default {
   title: 'Button',
   args: {
     text: 'Button',
-    size: 'md',
     icon: 'none',
+    size: 'md',
     fill: 'default',
     variant: 'default'
   },

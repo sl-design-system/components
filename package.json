@@ -6,6 +6,7 @@
     "type": "git",
     "url": "https://github.com/sanomalearning/design-system.git"
   },
+  "type": "module",
   "workspaces": [
     "docs/storybook",
     "docs/website",

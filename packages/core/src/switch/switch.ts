@@ -8,6 +8,8 @@ import { event } from '../utils/decorators/index.js';
 import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
 import styles from './switch.scss.js';
 
+export type SwitchSize = 'md' | 'lg';
+
 export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
@@ -31,6 +33,12 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the switch is on or off. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
+  /** Whether the checkbox is invalid. */
+  @property({ type: Boolean, reflect: true }) invalid?: boolean;
+
+  /** Button size. */
+  @property({ reflect: true }) size: SwitchSize = 'md';
+
   /** The value for the switch. */
   @property() value?: string;
 
@@ -39,8 +47,8 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
 
     this.internals.role = 'switch';
 
-    this.#events.listen(this, 'click', this.#onToggle);
-    this.#events.listen(this, 'keydown', this.#onToggle);
+    this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this, 'keydown', this.#onKeydown);
 
     this.setFormControlElement(this);
 
@@ -80,7 +88,29 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
-    return html` <div></div>`;
+    return html`
+      <div @click=${this.#onToggle} class="wrapper"><div></div></div>
+      ${this.renderHint()} ${this.#validation.render()}
+    `;
+  }
+
+  #onClick(event: Event): void {
+    // If the user clicked the label, toggle the checkbox
+    if (event.target === this) {
+      this.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (this.disabled) {
+      return;
+    }
+
+    if (['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+
+      this.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+    }
   }
 
   #onToggle(event: Event): void {

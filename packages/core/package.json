@@ -144,7 +144,7 @@
           "cascade": false
         },
         {
-          "script": "build",
+          "script": "build:scss",
           "cascade": false
         },
         {

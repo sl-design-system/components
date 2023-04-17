@@ -1,28 +1,54 @@
+$sizes: md, lg;
+
 :host {
-  --toggle-width: 40px;
-  --toggle-padding: 2px;
-  --thumb-position: 0%;
-  --thumb-size: 20px;
-
- background-color: rgb(var(--sl-color-palette-neutral-400));
- border-radius: calc((var(--thumb-size) + var(--toggle-padding) * 2) / 2);
- cursor: pointer;
- display: inline-flex;
- padding: var(--toggle-padding);
- width: var(--toggle-width);
-}
-
-div {
-  will-change: transform;
-  transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
-  translate: var(--thumb-position);
-  background-color: white;
-  height: var(--thumb-size);
-  width: var(--thumb-size);
-  border-radius: calc(var(--thumb-size) / 2);
+  --_main-background-color: rgb(var(--sl-color-palette-neutral-400));
+  --_thumb-position: 0%;
+  outline: none;
 }
 
 :host([checked]) {
-  background-color: rgb(var(--sl-color-palette-success-base));
-  --thumb-position: calc(var(--toggle-width) - var(--thumb-size) - (2 * var(--toggle-padding)));
+  --_main-background-color: rgb(var(--sl-color-palette-success-base));
+  --_thumb-position: calc(var(--_toggle-width) - var(--_thumb-size) - (2 * var(--_toggle-padding)));
 }
+
+:host(:focus-visible) .wrapper {
+  --_box-shadow: var(--sl-box-shadow-focus);
+}
+:host(:where(:disabled, [internals-disabled])) {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+
+.wrapper {
+  background-color: var(--_main-background-color);
+  border-radius: calc((var(--_thumb-size) + var(--_toggle-padding) * 2) / 2);
+  cursor: pointer;
+  display: inline-flex;
+  padding: var(--_toggle-padding);
+  width: var(--_toggle-width);
+  box-shadow: var(--_box-shadow);
+  transition: background-color var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
+    
+
+  div {
+    will-change: transform;
+    transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
+    translate: var(--_thumb-position);
+    background-color: white;
+    height: var(--_thumb-size);
+    width: var(--_thumb-size);
+    border-radius: calc(var(--_thumb-size) / 2);
+  }
+}
+
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_toggle-padding: var(--sl-space-input-block-#{$size});
+    --_thumb-size: var(--sl-size-input-#{$size});
+    --_toggle-width: calc(var(--_thumb-size) * 2) ;
+  }
+}
+
+

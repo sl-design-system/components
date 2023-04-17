@@ -9,11 +9,7 @@
   "workspaces": [
     "docs/storybook",
     "docs/website",
-    "packages/angular",
-    "packages/core",
-    "packages/editor",
-    "packages/grid",
-    "packages/tokens",
+    "packages/*",
     "packages/tokens/src/themes/*",
     "scripts",
     "tools/changesets-changelog",
@@ -24,6 +20,7 @@
     "build": "wireit",
     "clean": "wireit",
     "docs": "wireit",
+    "extract-i18n": "wireit",
     "lint": "wireit",
     "postinstall": "husky install",
     "release": "wireit",
@@ -32,13 +29,62 @@
     "website": "wireit"
   },
   "wireit": {
-    "build": {
+    "buildX": {
       "dependencies": [
         "./packages/core:build",
         "./packages/editor:build",
         "./packages/grid:build",
         "./packages/tokens:build",
         "./packages/angular:build"
+      ]
+    },
+    "build": {
+      "dependencies": [
+        "build:ts",
+        "build:types"
+      ]
+    },
+    "build:locales": {
+      "command": "node ./scripts/build-locales.js"
+    },
+    "build:scss": {
+      "command": "node ./scripts/build-scss.js",
+      "clean": "if-file-deleted",
+      "files": [
+        "packages/**/*.scss"
+      ],
+      "output": [
+        "packages/**/*.scss.ts"
+      ]
+    },
+    "build:ts": {
+      "command": "node ./scripts/build-packages.js",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:locales",
+        "build:scss"
+      ],
+      "files": [
+        "packages/**/*.ts",
+        "!packages/**/*.d.ts"
+      ],
+      "output": [
+        "packages/**/*.js",
+        "packages/**/*.js.map"
+      ]
+    },
+    "build:types": {
+      "command": "tsc --build tsconfig.all.json",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:locales",
+        "build:scss"
+      ],
+      "files": [
+        "packages/**/*.ts"
+      ],
+      "output": [
+        "packages/**/*.d.ts"
       ]
     },
     "clean": {
@@ -52,6 +98,9 @@
         "./packages/grid:docs",
         "./packages/angular:docs"
       ]
+    },
+    "extract-i18n": {
+      "command": "node ./scripts/extract-i18n.js"
     },
     "lint": {
       "dependencies": [

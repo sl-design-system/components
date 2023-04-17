@@ -2363,6 +2363,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/android-arm64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/android-arm64@npm:0.17.17"
+  conditions: os=android & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@esbuild/android-arm64@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/android-arm64@npm:0.17.8"
@@ -2384,6 +2391,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/android-arm@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/android-arm@npm:0.17.17"
+  conditions: os=android & cpu=arm
+  languageName: node
+  linkType: hard
+
 "@esbuild/android-arm@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/android-arm@npm:0.17.8"
@@ -2394,6 +2408,13 @@ __metadata:
 "@esbuild/android-x64@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/android-x64@npm:0.17.14"
+  conditions: os=android & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@esbuild/android-x64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/android-x64@npm:0.17.17"
   conditions: os=android & cpu=x64
   languageName: node
   linkType: hard
@@ -2412,6 +2433,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/darwin-arm64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/darwin-arm64@npm:0.17.17"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@esbuild/darwin-arm64@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/darwin-arm64@npm:0.17.8"
@@ -2422,6 +2450,13 @@ __metadata:
 "@esbuild/darwin-x64@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/darwin-x64@npm:0.17.14"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@esbuild/darwin-x64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/darwin-x64@npm:0.17.17"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -2440,6 +2475,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/freebsd-arm64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/freebsd-arm64@npm:0.17.17"
+  conditions: os=freebsd & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@esbuild/freebsd-arm64@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/freebsd-arm64@npm:0.17.8"
@@ -2450,6 +2492,13 @@ __metadata:
 "@esbuild/freebsd-x64@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/freebsd-x64@npm:0.17.14"
+  conditions: os=freebsd & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@esbuild/freebsd-x64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/freebsd-x64@npm:0.17.17"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
@@ -2468,6 +2517,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/linux-arm64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/linux-arm64@npm:0.17.17"
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@esbuild/linux-arm64@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/linux-arm64@npm:0.17.8"
@@ -2482,6 +2538,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/linux-arm@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/linux-arm@npm:0.17.17"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
 "@esbuild/linux-arm@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/linux-arm@npm:0.17.8"
@@ -2492,6 +2555,13 @@ __metadata:
 "@esbuild/linux-ia32@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/linux-ia32@npm:0.17.14"
+  conditions: os=linux & cpu=ia32
+  languageName: node
+  linkType: hard
+
+"@esbuild/linux-ia32@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/linux-ia32@npm:0.17.17"
   conditions: os=linux & cpu=ia32
   languageName: node
   linkType: hard
@@ -2517,6 +2587,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/linux-loong64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/linux-loong64@npm:0.17.17"
+  conditions: os=linux & cpu=loong64
+  languageName: node
+  linkType: hard
+
 "@esbuild/linux-loong64@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/linux-loong64@npm:0.17.8"
@@ -2527,6 +2604,13 @@ __metadata:
 "@esbuild/linux-mips64el@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/linux-mips64el@npm:0.17.14"
+  conditions: os=linux & cpu=mips64el
+  languageName: node
+  linkType: hard
+
+"@esbuild/linux-mips64el@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/linux-mips64el@npm:0.17.17"
   conditions: os=linux & cpu=mips64el
   languageName: node
   linkType: hard
@@ -2545,6 +2629,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/linux-ppc64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/linux-ppc64@npm:0.17.17"
+  conditions: os=linux & cpu=ppc64
+  languageName: node
+  linkType: hard
+
 "@esbuild/linux-ppc64@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/linux-ppc64@npm:0.17.8"
@@ -2555,6 +2646,13 @@ __metadata:
 "@esbuild/linux-riscv64@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/linux-riscv64@npm:0.17.14"
+  conditions: os=linux & cpu=riscv64
+  languageName: node
+  linkType: hard
+
+"@esbuild/linux-riscv64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/linux-riscv64@npm:0.17.17"
   conditions: os=linux & cpu=riscv64
   languageName: node
   linkType: hard
@@ -2573,6 +2671,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/linux-s390x@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/linux-s390x@npm:0.17.17"
+  conditions: os=linux & cpu=s390x
+  languageName: node
+  linkType: hard
+
 "@esbuild/linux-s390x@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/linux-s390x@npm:0.17.8"
@@ -2583,6 +2688,13 @@ __metadata:
 "@esbuild/linux-x64@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/linux-x64@npm:0.17.14"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@esbuild/linux-x64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/linux-x64@npm:0.17.17"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
@@ -2601,6 +2713,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/netbsd-x64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/netbsd-x64@npm:0.17.17"
+  conditions: os=netbsd & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@esbuild/netbsd-x64@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/netbsd-x64@npm:0.17.8"
@@ -2611,6 +2730,13 @@ __metadata:
 "@esbuild/openbsd-x64@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/openbsd-x64@npm:0.17.14"
+  conditions: os=openbsd & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@esbuild/openbsd-x64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/openbsd-x64@npm:0.17.17"
   conditions: os=openbsd & cpu=x64
   languageName: node
   linkType: hard
@@ -2629,6 +2755,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/sunos-x64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/sunos-x64@npm:0.17.17"
+  conditions: os=sunos & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@esbuild/sunos-x64@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/sunos-x64@npm:0.17.8"
@@ -2639,6 +2772,13 @@ __metadata:
 "@esbuild/win32-arm64@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/win32-arm64@npm:0.17.14"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@esbuild/win32-arm64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/win32-arm64@npm:0.17.17"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
@@ -2657,6 +2797,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild/win32-ia32@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/win32-ia32@npm:0.17.17"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
 "@esbuild/win32-ia32@npm:0.17.8":
   version: 0.17.8
   resolution: "@esbuild/win32-ia32@npm:0.17.8"
@@ -2667,6 +2814,13 @@ __metadata:
 "@esbuild/win32-x64@npm:0.17.14":
   version: 0.17.14
   resolution: "@esbuild/win32-x64@npm:0.17.14"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@esbuild/win32-x64@npm:0.17.17":
+  version: 0.17.17
+  resolution: "@esbuild/win32-x64@npm:0.17.17"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -3850,7 +4004,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-scripts@workspace:scripts"
   dependencies:
-    globby: ^13.1.4
+    esbuild: ^0.17.17
+    fast-glob: ^3.2.12
     sass: ^1.62.0
     stylelint: ^15.5.0
   languageName: unknown
@@ -3996,6 +4151,129 @@ __metadata:
   checksum: 583a45bf3643169e313ff9d4395aff28b0c4f330d3697e252c3effc13d4303ee30f83df542732c1a68617720e4ea6fc08d48a3d9151c9b354a7fc356a8e9b162
   languageName: node
   linkType: hard
+
+"@sl-design-system/avatar@workspace:packages/avatar":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/avatar@workspace:packages/avatar"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/button-bar@0.0.0, @sl-design-system/button-bar@workspace:packages/button-bar":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/button-bar@workspace:packages/button-bar"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/button@0.0.0, @sl-design-system/button@workspace:packages/button":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/button@workspace:packages/button"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/checkbox@workspace:packages/checkbox":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/checkbox@workspace:packages/checkbox"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/dialog@workspace:packages/dialog":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/dialog@workspace:packages/dialog"
+  dependencies:
+    "@sl-design-system/button-bar": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/drawer@workspace:packages/drawer":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/drawer@workspace:packages/drawer"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/icon@workspace:packages/icon":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/icon@workspace:packages/icon"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/input@0.0.0, @sl-design-system/input@workspace:packages/input":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/input@workspace:packages/input"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/label@workspace:packages/label":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/label@workspace:packages/label"
+  dependencies:
+    "@sl-design-system/button": 0.0.0
+    "@sl-design-system/input": 0.0.0
+    "@sl-design-system/textarea": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/popover@0.0.0, @sl-design-system/popover@workspace:packages/popover":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/popover@workspace:packages/popover"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/radio-group@workspace:packages/radio-group":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/radio-group@workspace:packages/radio-group"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/select@workspace:packages/select":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/select@workspace:packages/select"
+  dependencies:
+    "@sl-design-system/popover": 0.0.0
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/shared@0.0.0, @sl-design-system/shared@workspace:packages/shared":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/shared@workspace:packages/shared"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/tabs@workspace:packages/tabs":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/tabs@workspace:packages/tabs"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/textarea@0.0.0, @sl-design-system/textarea@workspace:packages/textarea":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/textarea@workspace:packages/textarea"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/tooltip@workspace:packages/tooltip":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/tooltip@workspace:packages/tooltip"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
 
 "@socket.io/component-emitter@npm:~3.1.0":
   version: 3.1.0
@@ -10464,6 +10742,83 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esbuild@npm:^0.17.17":
+  version: 0.17.17
+  resolution: "esbuild@npm:0.17.17"
+  dependencies:
+    "@esbuild/android-arm": 0.17.17
+    "@esbuild/android-arm64": 0.17.17
+    "@esbuild/android-x64": 0.17.17
+    "@esbuild/darwin-arm64": 0.17.17
+    "@esbuild/darwin-x64": 0.17.17
+    "@esbuild/freebsd-arm64": 0.17.17
+    "@esbuild/freebsd-x64": 0.17.17
+    "@esbuild/linux-arm": 0.17.17
+    "@esbuild/linux-arm64": 0.17.17
+    "@esbuild/linux-ia32": 0.17.17
+    "@esbuild/linux-loong64": 0.17.17
+    "@esbuild/linux-mips64el": 0.17.17
+    "@esbuild/linux-ppc64": 0.17.17
+    "@esbuild/linux-riscv64": 0.17.17
+    "@esbuild/linux-s390x": 0.17.17
+    "@esbuild/linux-x64": 0.17.17
+    "@esbuild/netbsd-x64": 0.17.17
+    "@esbuild/openbsd-x64": 0.17.17
+    "@esbuild/sunos-x64": 0.17.17
+    "@esbuild/win32-arm64": 0.17.17
+    "@esbuild/win32-ia32": 0.17.17
+    "@esbuild/win32-x64": 0.17.17
+  dependenciesMeta:
+    "@esbuild/android-arm":
+      optional: true
+    "@esbuild/android-arm64":
+      optional: true
+    "@esbuild/android-x64":
+      optional: true
+    "@esbuild/darwin-arm64":
+      optional: true
+    "@esbuild/darwin-x64":
+      optional: true
+    "@esbuild/freebsd-arm64":
+      optional: true
+    "@esbuild/freebsd-x64":
+      optional: true
+    "@esbuild/linux-arm":
+      optional: true
+    "@esbuild/linux-arm64":
+      optional: true
+    "@esbuild/linux-ia32":
+      optional: true
+    "@esbuild/linux-loong64":
+      optional: true
+    "@esbuild/linux-mips64el":
+      optional: true
+    "@esbuild/linux-ppc64":
+      optional: true
+    "@esbuild/linux-riscv64":
+      optional: true
+    "@esbuild/linux-s390x":
+      optional: true
+    "@esbuild/linux-x64":
+      optional: true
+    "@esbuild/netbsd-x64":
+      optional: true
+    "@esbuild/openbsd-x64":
+      optional: true
+    "@esbuild/sunos-x64":
+      optional: true
+    "@esbuild/win32-arm64":
+      optional: true
+    "@esbuild/win32-ia32":
+      optional: true
+    "@esbuild/win32-x64":
+      optional: true
+  bin:
+    esbuild: bin/esbuild
+  checksum: 1d8fc3b8727dee02343b5ee6b05fed9ca80267a10b822fb65f374f25446f8b4e7d1c445bee18e772904c727106ac2c104aa65b1de2e675b4a3886839d26c5d9a
+  languageName: node
+  linkType: hard
+
 "escalade@npm:^3.1.1":
   version: 3.1.1
   resolution: "escalade@npm:3.1.1"
@@ -11990,7 +12345,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^13.1.1, globby@npm:^13.1.3, globby@npm:^13.1.4":
+"globby@npm:^13.1.1, globby@npm:^13.1.3":
   version: 13.1.4
   resolution: "globby@npm:13.1.4"
   dependencies:

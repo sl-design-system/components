@@ -56,6 +56,14 @@ node_modules/
 .cache
 
 # Dist files & folders
+packages/*/*.d.ts
+packages/*/*.d.ts.map
+packages/*/*.js
+packages/*/*.js.map
+packages/*/src/**/*.d.ts
+packages/*/src/**/*.d.ts.map
+packages/*/src/**/*.js
+packages/*/src/**/*.js.map
 **/development
 **/dist
 docs/website/lib

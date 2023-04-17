@@ -6,6 +6,5 @@ import { icons } from './icons.js';
  */
 export const setup = () => {
     Icon.registerIcons(icons);
-    console.log('SETUP NEON in index.ts!');
 };
 //# sourceMappingURL=index.js.map

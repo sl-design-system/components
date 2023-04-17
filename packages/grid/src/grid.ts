@@ -1,12 +1,14 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
 import type { GridFilter, GridFilterChange } from './filter.js';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import type {
   DataSource,
   DataSourceFilterValue,
   DataSourceSortDirection
 } from '@sanomalearning/slds-core/utils/data-source';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
 import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
@@ -26,7 +28,12 @@ export class GridActiveItemChangeEvent<T> extends Event {
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 
-export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
+export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends ScopedElementsMixin(LitElement) {
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {};
+  }
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -91,7 +98,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>
+      <slot @sl-column-update=${this.#onColumnUpdate} @slotchange=${this.#onSlotchange} style="display:none"></slot>
       <style>
         ${this.renderStyles()}
       </style>
@@ -219,6 +226,10 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.activeItemChange.emit(new GridActiveItemChangeEvent(this.activeItem, event));
   }
 
+  #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
+    this.#addScopedElements(event.target);
+  }
+
   #onDirectionChange({ target }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {
     this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
 
@@ -241,7 +252,10 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
-    columns.forEach(col => (col.grid = this));
+    columns.forEach(col => {
+      col.grid = this;
+      this.#addScopedElements(col);
+    });
 
     this.columns = columns;
   }
@@ -259,6 +273,16 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       this.#initialColumnWidthsCalculated = true;
 
       void this.recalculateColumnWidths();
+    }
+  }
+
+  #addScopedElements(col: GridColumn<T>): void {
+    if (col.scopedElements) {
+      for (const [tagName, klass] of Object.entries(col.scopedElements)) {
+        if (!this.registry.get(tagName)) {
+          this.defineScopedElement(tagName, klass);
+        }
+      }
     }
   }
 

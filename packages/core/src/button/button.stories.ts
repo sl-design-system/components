@@ -14,10 +14,10 @@ interface Props {
 }
 
 type Story = StoryObj<Props>;
-const fills = ['default', 'outline', 'link'];
-const variants = ['default', 'primary', 'success', 'warning', 'danger'];
+const fills: ButtonFill[] = ['default', 'outline', 'link'];
+const variants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
 const disabledStates = [false, true];
-const sizes = ['sm', 'md', 'lg'];
+const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Button',
@@ -101,7 +101,7 @@ export const All: Story = {
           </tr>
         </thead>
         <tbody>
-          ${(variants as ButtonVariant[]).map(
+          ${variants.map(
             variant => html`
               <tr>
                 <th>${variant}</th>

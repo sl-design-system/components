@@ -4,7 +4,7 @@ $sizes: sm, md, lg;
   --fill-default: currentColor;
   --fill-accent: rgb(var(--sl-color-palette-accent-300));
    
-  display: grid;
+  display: inline-grid;
   place-content: center;
 }
 

@@ -96,9 +96,8 @@ export class Button extends LitElement {
     }
   }
 
-  #onSlotChange(event: Event): void {
-    const slot = event.target as HTMLSlotElement;
-    const assignedNodes = slot.assignedNodes({ flatten: true });
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const assignedNodes = event.target.assignedNodes({ flatten: true });
     this.#setIconProperties(assignedNodes);
   }
 

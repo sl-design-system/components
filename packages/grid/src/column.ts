@@ -1,8 +1,7 @@
 import type { TemplateResult } from 'lit';
 import type { Grid } from './grid.js';
-import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
-import { dasherize, getNameByPath, getValueByPath } from '@sanomalearning/slds-core/utils';
-import { event } from '@sanomalearning/slds-core/utils/decorators';
+import type { EventEmitter } from '@sl-design-system/shared';
+import { dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';

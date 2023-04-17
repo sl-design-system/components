@@ -2,6 +2,7 @@
   "name": "@sl-design-system/slds-editor",
   "version": "0.0.0",
   "description": "Editor components for the SL Design System",
+  "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

@@ -1,5 +1,5 @@
 import type { TemplateResult } from 'lit';
-import { getNameByPath } from '@sanomalearning/slds-core/utils';
+import { getNameByPath } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { GridColumn } from './column.js';
 import { GridSorter } from './sorter.js';

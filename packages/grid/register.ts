@@ -1,11 +1,11 @@
-import type { GridFilterValueChangeEvent } from './filter.js';
-import type { GridActiveItemChangeEvent } from './grid.js';
-import { Grid } from './grid.js';
-import { GridColumn } from './column.js';
-import { GridColumnGroup } from './column-group.js';
-import { GridSelectionColumn } from './selection-column.js';
-import { GridSortColumn } from './sort-column.js';
-import { GridFilterColumn } from './filter-column.js';
+import type { GridFilterValueChangeEvent } from './src/filter.js';
+import type { GridActiveItemChangeEvent } from './src/grid.js';
+import { Grid } from './src/grid.js';
+import { GridColumn } from './src/column.js';
+import { GridColumnGroup } from './src/column-group.js';
+import { GridSelectionColumn } from './src/selection-column.js';
+import { GridSortColumn } from './src/sort-column.js';
+import { GridFilterColumn } from './src/filter-column.js';
 
 customElements.define('sl-grid', Grid);
 customElements.define('sl-grid-column', GridColumn);

@@ -3717,7 +3717,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanomalearning/example-data@*, @sanomalearning/example-data@workspace:tools/example-data":
+"@sanomalearning/example-data@workspace:tools/example-data":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/example-data@workspace:tools/example-data"
   languageName: unknown
@@ -3799,7 +3799,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-core@*, @sanomalearning/slds-core@workspace:packages/core":
+"@sanomalearning/slds-core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-core@workspace:packages/core"
   dependencies:
@@ -3863,29 +3863,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-grid@workspace:packages/grid":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-grid@workspace:packages/grid"
-  dependencies:
-    "@lit-labs/virtualizer": ^2.0.0
-    "@open-wc/testing": ^3.1.8
-    "@sanomalearning/example-data": "*"
-    "@sanomalearning/slds-core": "*"
-    "@storybook/addon-essentials": ^7.0.5
-    "@storybook/addon-links": ^7.0.5
-    "@storybook/addon-storysource": ^7.0.5
-    "@storybook/web-components-webpack5": ^7.0.5
-    "@types/sinon": ^10.0.14
-    "@web/test-runner": ^0.15.3
-    "@web/test-runner-commands": ^0.6.6
-    "@web/test-runner-playwright": ^0.9.0
-    sinon: ^15.0.3
-    storybook: ^7.0.5
-    typescript: ^4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
 "@sanomalearning/slds-itslearning@workspace:packages/tokens/src/themes/itslearning":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-itslearning@workspace:packages/tokens/src/themes/itslearning"
@@ -3927,36 +3904,6 @@ __metadata:
   resolution: "@sanomalearning/slds-neon@workspace:packages/tokens/src/themes/neon"
   dependencies:
     typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-root@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-root@workspace:."
-  dependencies:
-    "@11ty/eleventy": ^1.0.2
-    "@changesets/cli": ^2.26.1
-    "@changesets/get-github-info": ^0.5.2
-    "@custom-elements-manifest/analyzer": ^0.8.0
-    "@typescript-eslint/eslint-plugin": ^5.58.0
-    "@typescript-eslint/parser": ^5.58.0
-    eslint: ^8.38.0
-    eslint-config-prettier: ^8.8.0
-    eslint-import-resolver-typescript: ^3.5.5
-    eslint-plugin-import: ^2.27.5
-    eslint-plugin-prettier: ^4.2.1
-    eslint-plugin-unused-imports: ^2.0.0
-    husky: ^8.0.3
-    lint-staged: ^13.2.1
-    prettier: ^2.8.7
-    rimraf: ^5.0.0
-    rollup: ^3.20.4
-    sass: ^1.62.0
-    stylelint: ^15.5.0
-    stylelint-config-sass-guidelines: ^9.0.1
-    stylelint-prettier: ^3.0.0
-    typescript: ^4.9.5
     wireit: ^0.9.5
   languageName: unknown
   linkType: soft
@@ -4142,7 +4089,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/checkbox@workspace:packages/checkbox":
+"@sl-design-system/checkbox@0.0.0, @sl-design-system/checkbox@workspace:packages/checkbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/checkbox"
   dependencies:
@@ -4162,6 +4109,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/drawer@workspace:packages/drawer"
   dependencies:
+    "@sl-design-system/shared": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/grid@workspace:packages/grid":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/grid@workspace:packages/grid"
+  dependencies:
+    "@lit-labs/virtualizer": ^2.0.0
+    "@sl-design-system/checkbox": 0.0.0
     "@sl-design-system/shared": 0.0.0
   languageName: unknown
   linkType: soft
@@ -4187,6 +4144,44 @@ __metadata:
     "@sl-design-system/button": 0.0.0
     "@sl-design-system/input": 0.0.0
     "@sl-design-system/textarea": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/monorepo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/monorepo@workspace:."
+  dependencies:
+    "@11ty/eleventy": ^1.0.2
+    "@changesets/cli": ^2.26.1
+    "@changesets/get-github-info": ^0.5.2
+    "@custom-elements-manifest/analyzer": ^0.8.0
+    "@lit/localize-tools": ^0.6.8
+    "@storybook/addon-a11y": ^7.0.5
+    "@storybook/addon-essentials": ^7.0.5
+    "@storybook/addon-storysource": ^7.0.5
+    "@storybook/web-components-vite": ^7.0.5
+    "@typescript-eslint/eslint-plugin": ^5.58.0
+    "@typescript-eslint/parser": ^5.58.0
+    "@webcomponents/scoped-custom-element-registry": ^0.0.9
+    eslint: ^8.38.0
+    eslint-config-prettier: ^8.8.0
+    eslint-import-resolver-typescript: ^3.5.5
+    eslint-plugin-import: ^2.27.5
+    eslint-plugin-prettier: ^4.2.1
+    eslint-plugin-unused-imports: ^2.0.0
+    husky: ^8.0.3
+    lint-staged: ^13.2.1
+    prettier: ^2.8.7
+    rimraf: ^5.0.0
+    rollup: ^3.20.4
+    sass: ^1.62.0
+    storybook: ^7.0.5
+    stylelint: ^15.5.0
+    stylelint-config-sass-guidelines: ^9.0.1
+    stylelint-prettier: ^3.0.0
+    typescript: ^4.9.5
+    vite: ^4.2.1
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 

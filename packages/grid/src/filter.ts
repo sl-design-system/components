@@ -1,10 +1,10 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
+import type { EventEmitter } from '@sl-design-system/shared';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import { Input } from '@sanomalearning/slds-core/input';
-import { event } from '@sanomalearning/slds-core/utils/decorators';
+import { Input } from '@sl-design-system/input';
+import { event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './filter.scss.js';

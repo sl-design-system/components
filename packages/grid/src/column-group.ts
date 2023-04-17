@@ -1,5 +1,5 @@
 import type { PropertyValues, TemplateResult } from 'lit';
-import { getNameByPath } from '@sanomalearning/slds-core/utils';
+import { getNameByPath } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';

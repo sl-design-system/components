@@ -1,11 +1,10 @@
-import type { Grid } from '../index.js';
 import type { Person } from '@sanomalearning/example-data';
-import type { Input } from '@sanomalearning/slds-core/input';
+import type { Input } from '@sl-design-system/input';
 import type { StoryObj } from '@storybook/web-components';
-import '@sanomalearning/slds-core/input/register.js';
 import { getPeople } from '@sanomalearning/example-data';
+import '@sl-design-system/input/register.js';
 import { html } from 'lit';
-import '../register.js';
+import '../../register.js';
 
 type Story = StoryObj;
 
@@ -29,7 +28,7 @@ export const OutsideGrid: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const onInput = ({ target }: Event & { target: Input }): void => {
-      const grid = document.querySelector('sl-grid') as Grid,
+      const grid = document.querySelector('sl-grid'),
         regex = new RegExp(target.value?.toString().trim() ?? '', 'i');
 
       grid.items = (people as Person[]).filter(({ firstName, lastName, email, profession }) => {

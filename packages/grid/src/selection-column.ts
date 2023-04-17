@@ -1,8 +1,8 @@
 import type { PropertyValues, TemplateResult } from 'lit';
 import type { GridActiveItemChangeEvent } from './grid.js';
 import { localized, msg } from '@lit/localize';
-import { Checkbox } from '@sanomalearning/slds-core/checkbox';
-import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
+import { Checkbox } from '@sl-design-system/checkbox';
+import { EventsController } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';

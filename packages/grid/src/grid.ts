@@ -2,17 +2,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
 import type { GridFilter, GridFilterChange } from './filter.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
 import type {
   DataSource,
   DataSourceFilterValue,
-  DataSourceSortDirection
-} from '@sanomalearning/slds-core/utils/data-source';
+  DataSourceSortDirection,
+  EventEmitter
+} from '@sl-design-system/shared';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
-import { SelectionController } from '@sanomalearning/slds-core/utils/controllers';
-import { ArrayDataSource } from '@sanomalearning/slds-core/utils/data-source';
-import { event } from '@sanomalearning/slds-core/utils/decorators';
+import { ArrayDataSource, SelectionController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

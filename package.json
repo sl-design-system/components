@@ -1,5 +1,5 @@
 {
-  "name": "@sanomalearning/slds-root",
+  "name": "@sl-design-system/monorepo",
   "packageManager": "yarn@3.3.1",
   "private": true,
   "repository": {
@@ -133,8 +133,14 @@
     "@changesets/cli": "^2.26.1",
     "@changesets/get-github-info": "^0.5.2",
     "@custom-elements-manifest/analyzer": "^0.8.0",
+    "@lit/localize-tools": "^0.6.8",
+    "@storybook/addon-a11y": "^7.0.5",
+    "@storybook/addon-essentials": "^7.0.5",
+    "@storybook/addon-storysource": "^7.0.5",
+    "@storybook/web-components-vite": "^7.0.5",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
+    "@webcomponents/scoped-custom-element-registry": "^0.0.9",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
@@ -147,10 +153,12 @@
     "rimraf": "^5.0.0",
     "rollup": "^3.20.4",
     "sass": "^1.62.0",
+    "storybook": "^7.0.5",
     "stylelint": "^15.5.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
     "typescript": "^4.9.5",
+    "vite": "^4.2.1",
     "wireit": "^0.9.5"
   }
 }

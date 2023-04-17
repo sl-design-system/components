@@ -1,9 +1,14 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EditorMarks, EditorNodes } from './schema.js';
 import type { Plugin } from 'prosemirror-state';
-import { requiredValidator } from '@sanomalearning/slds-core/utils';
-import { EventsController, ValidationController, validationStyles } from '@sanomalearning/slds-core/utils/controllers';
-import { FormControlMixin, HintMixin } from '@sanomalearning/slds-core/utils/mixins';
+import {
+  EventsController,
+  FormControlMixin,
+  HintMixin,
+  ValidationController,
+  requiredValidator,
+  validationStyles
+} from '@sl-design-system/shared';
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
@@ -94,7 +99,7 @@ export class Editor extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   createEditor(): EditorView {
-    const mount = this.renderRoot.querySelector('.mount') as HTMLElement,
+    const mount = this.renderRoot.querySelector('.mount'),
       state = this.createState();
 
     const editor = new EditorView(

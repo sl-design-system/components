@@ -1,9 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
-import type { DataSourceSortDirection } from '@sanomalearning/slds-core/utils/data-source';
-import type { EventEmitter } from '@sanomalearning/slds-core/utils/decorators';
-import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
-import { event } from '@sanomalearning/slds-core/utils/decorators';
+import type { DataSourceSortDirection, EventEmitter } from '@sl-design-system/shared';
+import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';

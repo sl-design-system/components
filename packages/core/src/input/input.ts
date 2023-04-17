@@ -444,11 +444,13 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       </div>
       ${!this.input.validity.valid} ${this.hasAttribute('invalid')} internals.validity.valid:
       ${this.internals.validity.valid} ${this.invalid} ${this.hasAttribute('invalid')}
-      ${this.input.hasAttribute('invalid')} ${this.renderHint()} input valid: ${this.input.validity.valid}
-      ${this.#validation.render()}
+      ${this.input.hasAttribute('invalid')} input valid: ${this.input.validity.valid} ${this.#validation.render()}
+      ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
   // TODO: use sl-icon instead of plain SVGs
+
+  // exact hint: ${this.renderHint()}
 
   // ${this.invalid
   // ? svg`<svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path fill="#E5454A" d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"/></svg>`

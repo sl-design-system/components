@@ -37,13 +37,15 @@ const isNative = (target: ValidationTarget): target is NativeValidationTarget =>
 
 export const validationStyles: CSSResultGroup = css`
   slot[part='error'] {
-    color: #c00;
+    color: #c73434;
     display: inline-flex;
     align-items: center;
   }
-  sl-icon {
+  .invalid-icon {
     width: 20px;
     height: 20px;
+    fill: var(--sl-color-text-field-invalid-focus-icon);
+    --_icon-size: 20px;
   }
 `;
 
@@ -107,18 +109,19 @@ export class ValidationController implements ReactiveController {
       'on invalid this.#showErrors !== !this.validity.valid',
       this.#showErrors !== !this.validity.valid,
       this.#showErrors,
-      !this.validity.valid
+      !this.validity.valid,
+      this.validity.valid
     );
 
     if (this.#showErrors !== !this.validity.valid) {
       console.log('host', this.#host);
       this.#target?.setAttribute('invalid', '');
       this.#showErrors = !this.validity.valid;
-      if (isNative(this.target)) {
-        this.#host.setAttribute('invalid', '');
-        this.#host.requestUpdate();
-      }
-      // this.#host.requestUpdate();
+      // if (isNative(this.target)) {
+      //   this.#host.setAttribute('invalid', '');
+      //   this.#host.requestUpdate();
+      // }
+      this.#host.requestUpdate();
     }
   };
 
@@ -178,6 +181,12 @@ export class ValidationController implements ReactiveController {
     // Wait until the host has called connectedCallback
     await this.#host.updateComplete;
 
+    console.log('this.host in hostConnected', this.#host);
+
+    // if (this.#host.hasAttribute('invalid')) {
+    //   return;
+    // }
+
     if (!this.#target && this.#targetFn) {
       this.#target = this.#targetFn();
     }
@@ -234,44 +243,44 @@ export class ValidationController implements ReactiveController {
         this.#host.requestUpdate();
       }
       // TODO: add sl-icon
-      return html`<slot
-        .name=${dasherize(state)}
-        part="error"
-        @slotchange=${this.#handleSlotchange}
-        size="${this.#messageSize}"
-      >
-        ${this.#messageSize}
-        <svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-          <path
-            fill="#E5454A"
-            d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"
-          />
-        </svg>
-        ${!isNative(this.target) ? html`<sl-icon name="fas-triangle-exclamation"></sl-icon>` : null}
+      return html`<slot .name=${dasherize(state)} part="error" size="${this.#messageSize}">
+        ${this.#messageSize}${this.validity.valid}
+        ${!isNative(this.target)
+          ? html`<sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>`
+          : null}
         ${this.validationMessage}
       </slot>`;
-    } else {
-      this.#target.removeAttribute('invalid');
-      if (isNative(this.target)) {
-        this.#host.removeAttribute('invalid');
-        this.#host.requestUpdate();
-      }
+    } else if (this.validity.valid) {
+      // this.#target.removeAttribute('invalid');
+      //  if (isNative(this.target)) {
+      this.#host.removeAttribute('invalid'); // TODO: causes problems with invalid checkbox
+      this.#host.requestUpdate();
+      // }
       //this.#host.requestUpdate();
-    }
+    } // ${this.validity.valid}
+
+    return html`${this.validity.valid}`;
+
+    // <svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
+    // <path
+    //   fill="#E5454A"
+    // d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"
+    //   />
+    //   </svg>
 
     //.size=${this.#messageSize} not working
   }
 
-  #handleSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    // const childNodes = e.target.assignedNodes({flatten: true});
-    // // ... do something with childNodes ...
-    // this.allText = childNodes.map((node) => {
-    //   return node.textContent ? node.textContent : ''
-    // }).join('');
-
-    const elements = event.target.assignedElements({ flatten: true });
-    console.log('elements in validation', elements);
-  }
+  // #handleSlotchange(event: Event & { target: HTMLSlotElement }): void {
+  //   // const childNodes = e.target.assignedNodes({flatten: true});
+  //   // // ... do something with childNodes ...
+  //   // this.allText = childNodes.map((node) => {
+  //   //   return node.textContent ? node.textContent : ''
+  //   // }).join('');
+  //
+  //   const elements = event.target.assignedElements({ flatten: true });
+  //   console.log('elements in validation', elements);
+  // }
 
   addValidator(validator: Validator): void {
     this.#validators = [...this.#validators, validator];
@@ -298,7 +307,7 @@ export class ValidationController implements ReactiveController {
 
     // TODO: maybe add here invalid/valid attribute validity.valid?
 
-    console.log('this.validity.valid in validate', this.validity.valid);
+    console.log('this.validity.valid in validate', this.validity.valid, this.#host);
 
     if (!this.#validationPending) {
       this.#validationComplete = new Promise(resolve => {

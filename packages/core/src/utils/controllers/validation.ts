@@ -163,7 +163,7 @@ export class ValidationController implements ReactiveController {
     }
   }
 
-  render(): TemplateResult | undefined {
+  render(): TemplateResult | void {
     if (!this.#target) {
       return;
     }
@@ -283,7 +283,7 @@ export class ValidationController implements ReactiveController {
     }
   }
 
-  #getInvalidState(validity: ValidityState): keyof ValidityState | undefined {
+  #getInvalidState(validity: ValidityState): keyof ValidityState | void {
     if (validity.badInput) {
       return 'badInput';
     } else if (validity.customError) {
@@ -307,7 +307,7 @@ export class ValidationController implements ReactiveController {
     }
   }
 
-  #getValidationMessageForState(state: keyof ValidityState): string | undefined {
+  #getValidationMessageForState(state: keyof ValidityState): string | void {
     switch (state) {
       case 'badInput':
         return msg('Bad input');
@@ -331,7 +331,7 @@ export class ValidationController implements ReactiveController {
         break;
       case 'tooShort':
         if ('minLength' in this) {
-          const count = this.minLength ?? 0;
+          const count = Number(this.minLength) ?? 0;
 
           return msg(str`This field must be at least ${count} character${count > 1 ? 's' : ''} long.`);
         }

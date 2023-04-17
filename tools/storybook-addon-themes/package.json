@@ -20,9 +20,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@storybook/addons": "^7.0.4",
-    "@storybook/api": "^7.0.4",
-    "@storybook/components": "^7.0.4",
-    "@storybook/theming": "^7.0.4"
+    "@storybook/addons": "^7.0.5",
+    "@storybook/api": "^7.0.5",
+    "@storybook/components": "^7.0.5",
+    "@storybook/theming": "^7.0.5"
   }
 }

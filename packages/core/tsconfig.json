@@ -1,17 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "composite": true,
     "strict": true,
     "esModuleInterop": false,
-    "declaration": true,
-    "outDir": "dist/components",
+    "outDir": "development",
     "rootDir": "src"
   },
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.build.json"
-    }
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.stories.ts"]
 }

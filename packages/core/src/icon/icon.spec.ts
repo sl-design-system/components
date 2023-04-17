@@ -3,7 +3,7 @@ import { html } from 'lit';
 import './register.js';
 import { Icon } from './icon.js';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { SinonSpy, SinonStub, stub } from 'sinon';
+import { SinonStub, stub } from 'sinon';
 
 describe('sl-icon', () => {
   let el: Icon;

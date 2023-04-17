@@ -11,6 +11,6 @@
   "devDependencies": {
     "globby": "^13.1.4",
     "sass": "^1.62.0",
-    "stylelint": "^15.4.0"
+    "stylelint": "^15.5.0"
   }
 }

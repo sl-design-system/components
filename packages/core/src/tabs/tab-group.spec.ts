@@ -1,5 +1,5 @@
 import { expect, fixture } from '@open-wc/testing';
-import { sendKeys, sendMouse } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import './register.js';
 import { TabGroup } from './tab-group.js';

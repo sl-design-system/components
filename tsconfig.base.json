@@ -3,18 +3,24 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
+    "declaration": true,
+    "declarationMap": true,
     "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node16",
+    "inlineSources": true,
+    "moduleResolution": "nodenext",
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "importHelpers": true,
-    "target": "es2020",
+    "target": "es2022",
     "module": "esnext",
-    "lib": ["es2021", "DOM", "DOM.Iterable"],
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "noImplicitOverride": true
-  },
-  "exclude": ["node_modules", "tmp","packages/tokens/**/*.ts"]
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true
+  }
 }

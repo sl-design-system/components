@@ -47,14 +47,14 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.0.4",
-    "@storybook/addon-links": "^7.0.4",
-    "@storybook/addon-storysource": "^7.0.4",
-    "@storybook/web-components-webpack5": "^7.0.4",
+    "@storybook/addon-essentials": "^7.0.5",
+    "@storybook/addon-links": "^7.0.5",
+    "@storybook/addon-storysource": "^7.0.5",
+    "@storybook/web-components-webpack5": "^7.0.5",
     "lit-html": "^2.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.4",
+    "storybook": "^7.0.5",
     "wireit": "^0.9.5"
   }
 }

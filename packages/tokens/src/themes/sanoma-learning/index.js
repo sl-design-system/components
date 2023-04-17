@@ -12,6 +12,5 @@ import { icons } from './icons.js';
  */
 export const setup = () => {
     Icon.registerIcons(icons);
-    console.log('SETUP Sanoma Learning in index.ts!');
 };
 //# sourceMappingURL=index.js.map

@@ -1,8 +1,6 @@
 import type { PropertyValues, TemplateResult } from 'lit';
 import type { GridActiveItemChangeEvent } from './grid.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { localized, msg } from '@lit/localize';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Checkbox } from '@sanomalearning/slds-core/checkbox';
 import { EventsController } from '@sanomalearning/slds-core/utils/controllers';
 import { html } from 'lit';
@@ -10,16 +8,7 @@ import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
 @localized()
-export class GridSelectionColumn<
-  T extends Record<string, unknown> = Record<string, unknown>
-> extends ScopedElementsMixin(GridColumn) {
-  /** @private */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-checkbox': Checkbox
-    };
-  }
-
+export class GridSelectionColumn<T extends Record<string, unknown> = Record<string, unknown>> extends GridColumn {
   #events = new EventsController(this);
 
   /** When true, the active rows get selected automatically. */
@@ -32,6 +21,7 @@ export class GridSelectionColumn<
     super.connectedCallback();
 
     this.grow = 0;
+    this.scopedElements = { 'sl-checkbox': Checkbox };
   }
 
   override updated(changes: PropertyValues<this>): void {

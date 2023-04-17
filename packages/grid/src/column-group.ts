@@ -40,5 +40,11 @@ export class GridColumnGroup<T extends Record<string, unknown> = Record<string, 
     columns.forEach(col => (col.grid = this.grid));
 
     this.columns = columns;
+    this.scopedElements = columns.reduce((acc, cur) => {
+      return { ...acc, ...cur.scopedElements };
+    }, {});
+
+    // Notify the grid that the column definition has changed
+    this.columnUpdate.emit();
   }
 }

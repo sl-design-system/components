@@ -41,6 +41,7 @@
   "dependencies": {
     "@sl-design-system/button": "0.0.0",
     "@sl-design-system/input": "0.0.0",
-    "@sl-design-system/textarea": "0.0.0"
+    "@sl-design-system/textarea": "0.0.0",
+    "lit": "^2.7.2"
   }
 }

@@ -41,6 +41,8 @@
   "dependencies": {
     "@lit-labs/virtualizer": "^2.0.0",
     "@sl-design-system/checkbox": "0.0.0",
-    "@sl-design-system/shared": "0.0.0"
+    "@sl-design-system/input": "0.0.0",
+    "@sl-design-system/shared": "0.0.0",
+    "lit": "^2.7.2"
   }
 }

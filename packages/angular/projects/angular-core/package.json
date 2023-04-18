@@ -1,6 +1,7 @@
 {
   "name": "core",
   "version": "0.0.1",
+  "type": "module",
   "peerDependencies": {
     "@angular/common": "^15.2.0",
     "@angular/core": "^15.2.0"

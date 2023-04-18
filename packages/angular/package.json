@@ -8,6 +8,7 @@
     "url": "https://github.com/sanomalearning/design-system.git",
     "directory": "packages/angular"
   },
+  "type": "module",
   "scripts": {
     "build": "wireit",
     "docs": "wireit",

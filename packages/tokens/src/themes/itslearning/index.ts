@@ -1,5 +1,5 @@
-import { Icon } from '@sanomalearning/slds-core/icon';
-import type { IconLibrary } from '@sanomalearning/slds-core/icon';
+import type { IconLibrary } from '@sl-design-system/icon';
+import { Icon } from '@sl-design-system/icon';
 import { icons } from './icons.js';
 
 /**

@@ -1,0 +1,20 @@
+import type { Node, NodeType, ResolvedPos, Schema } from 'prosemirror-model';
+import type { Command, EditorState, Transaction } from 'prosemirror-state';
+import type { EditorView } from 'prosemirror-view';
+import type { DispatchFn } from './commands.js';
+export declare const rootListDepth: (pos: ResolvedPos, nodes: {
+    [key: string]: NodeType;
+}) => number | undefined;
+export declare const getListLiftTarget: (schema: Schema, resPos: ResolvedPos) => number;
+export declare function liftSelectionList(state: EditorState, tr: Transaction): Transaction;
+export declare const toggleList: (state: EditorState, dispatch: DispatchFn, view: EditorView, listType: string) => boolean;
+export declare function toggleListCommand(listType: string): Command;
+export declare function liftFollowingList(state: EditorState, from: number, to: number, rootListDepthNum: number, tr: Transaction): Transaction;
+export declare function isRangeOfType(doc: Node, $from: ResolvedPos, $to: ResolvedPos, nodeType: NodeType): boolean;
+export declare function getAncestorNodesBetween(doc: Node, $from: ResolvedPos, $to: ResolvedPos): Node[];
+export declare function findAncestorPosition(doc: Node, pos: ResolvedPos): ResolvedPos;
+export declare function liftListItems(): Command;
+export declare function wrapInList(nodeType: NodeType): Command;
+export declare function toggleUnorderedList(state: EditorState, dispatch: DispatchFn, view: EditorView): boolean;
+export declare function toggleOrderedList(state: EditorState, dispatch: DispatchFn, view: EditorView): boolean;
+export declare const splitListItemKeepMarks: (itemType: NodeType) => (state: EditorState, dispatch?: DispatchFn) => boolean;

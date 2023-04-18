@@ -3684,42 +3684,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-bingel-dc@workspace:packages/tokens/src/themes/bingel-dc":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-bingel-dc@workspace:packages/tokens/src/themes/bingel-dc"
-  dependencies:
-    typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-bingel-int@workspace:packages/tokens/src/themes/bingel-int":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-bingel-int@workspace:packages/tokens/src/themes/bingel-int"
-  dependencies:
-    typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-bingel@workspace:packages/tokens/src/themes/bingel"
-  dependencies:
-    typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-clickedu@workspace:packages/tokens/src/themes/clickedu":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-clickedu@workspace:packages/tokens/src/themes/clickedu"
-  dependencies:
-    typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
 "@sanomalearning/slds-docs@workspace:docs/website":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-docs@workspace:docs/website"
@@ -3748,60 +3712,6 @@ __metadata:
     slugify: ^1.6.6
     tiny-glob: ^0.2.9
     typescript: ^4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-itslearning@workspace:packages/tokens/src/themes/itslearning":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-itslearning@workspace:packages/tokens/src/themes/itslearning"
-  dependencies:
-    typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-kampus@workspace:packages/tokens/src/themes/kampus":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-kampus@workspace:packages/tokens/src/themes/kampus"
-  dependencies:
-    typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-magister@workspace:packages/tokens/src/themes/magister":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-magister@workspace:packages/tokens/src/themes/magister"
-  dependencies:
-    typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-max@workspace:packages/tokens/src/themes/max":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-max@workspace:packages/tokens/src/themes/max"
-  dependencies:
-    typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-neon@workspace:packages/tokens/src/themes/neon":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-neon@workspace:packages/tokens/src/themes/neon"
-  dependencies:
-    typescript: 4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
-"@sanomalearning/slds-sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-sanoma-learning@workspace:packages/tokens/src/themes/sanoma-learning"
-  dependencies:
-    typescript: 4.9.5
     wireit: ^0.9.5
   languageName: unknown
   linkType: soft
@@ -4006,6 +3916,30 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/bingel-dc@workspace:packages/themes/bingel-dc":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/bingel-dc@workspace:packages/themes/bingel-dc"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/bingel-int@workspace:packages/themes/bingel-int":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/bingel-int@workspace:packages/themes/bingel-int"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/bingel@workspace:packages/themes/bingel":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/bingel@workspace:packages/themes/bingel"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/button-bar@0.0.0, @sl-design-system/button-bar@workspace:packages/components/button-bar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button-bar@workspace:packages/components/button-bar"
@@ -4030,6 +3964,14 @@ __metadata:
     "@lit-labs/observers": ^2.0.0
     "@sl-design-system/shared": 0.0.0
     lit: ^2.7.2
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/clickedu@workspace:packages/themes/clickedu":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/clickedu@workspace:packages/themes/clickedu"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
   languageName: unknown
   linkType: soft
 
@@ -4066,7 +4008,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/icon@workspace:packages/components/icon":
+"@sl-design-system/icon@0.0.0, @sl-design-system/icon@workspace:packages/components/icon":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/icon@workspace:packages/components/icon"
   dependencies:
@@ -4083,6 +4025,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/itslearning@workspace:packages/themes/itslearning":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/itslearning@workspace:packages/themes/itslearning"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/kampus@workspace:packages/themes/kampus":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/kampus@workspace:packages/themes/kampus"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/label@workspace:packages/components/label":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/label@workspace:packages/components/label"
@@ -4091,6 +4049,22 @@ __metadata:
     "@sl-design-system/input": 0.0.0
     "@sl-design-system/textarea": 0.0.0
     lit: ^2.7.2
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/magister@workspace:packages/themes/magister":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/magister@workspace:packages/themes/magister"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/max@workspace:packages/themes/max":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/max@workspace:packages/themes/max"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
   languageName: unknown
   linkType: soft
 
@@ -4135,6 +4109,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/neon@workspace:packages/themes/neon":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/neon@workspace:packages/themes/neon"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/popover@0.0.0, @sl-design-system/popover@workspace:packages/components/popover":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/popover@workspace:packages/components/popover"
@@ -4152,6 +4134,14 @@ __metadata:
     "@lit-labs/observers": ^2.0.0
     "@sl-design-system/shared": 0.0.0
     lit: ^2.7.2
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning"
+  dependencies:
+    "@sl-design-system/icon": 0.0.0
   languageName: unknown
   linkType: soft
 
@@ -20927,7 +20917,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.5, typescript@npm:^2.9.2 || ^3.0.0 || ^4.0.0, typescript@npm:^4.6.2, typescript@npm:^4.9.5, typescript@npm:~4.9.5":
+"typescript@npm:^2.9.2 || ^3.0.0 || ^4.0.0, typescript@npm:^4.6.2, typescript@npm:^4.9.5, typescript@npm:~4.9.5":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
   bin:
@@ -20957,13 +20947,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.9.5#~builtin<compat/typescript>, typescript@patch:typescript@^2.9.2 || ^3.0.0 || ^4.0.0#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>, typescript@patch:typescript@~4.9.5#~builtin<compat/typescript>":
+"typescript@patch:typescript@^2.9.2 || ^3.0.0 || ^4.0.0#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>, typescript@patch:typescript@~4.9.5#~builtin<compat/typescript>":
   version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=ad5954"
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 5db0510cc74ad3f2d0300b695dc9de58e3652f286cac595ae34788c6fc0f85af85b637c93b803d4af8003c5ceb695a4be13cd5c5240768ec932be167e7161a76
+  checksum: 10d31da0caa997927eab0167b7ddacb9ac8d3fd87e6584185b14da32b7f033e727309682fc0395021f4ac110860a3be6054e9b039a996a24d282a20bafc599f4
   languageName: node
   linkType: hard
 

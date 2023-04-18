@@ -1,7 +1,7 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.ts'],
+  stories: ['../packages/**/*.stories.ts'],
   addons: [
     '@sanomalearning/storybook-addon-themes',
     '@storybook/addon-a11y', 
@@ -23,7 +23,7 @@ const config: StorybookConfig = {
     autodocs: false
   },
   staticDirs: [
-    { from: '../../tokens/src/themes', to: '/themes' }
+    // { from: '../../tokens/src/themes', to: '/themes' }
   ]
 };
 

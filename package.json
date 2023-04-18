@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/monorepo",
-  "packageManager": "yarn@3.3.1",
+  "packageManager": "yarn@3.5.0",
   "private": true,
   "repository": {
     "type": "git",
@@ -12,8 +12,8 @@
     "docs/website",
     "packages/angular",
     "packages/components/*",
+    "packages/themes/*",
     "packages/tokens",
-    "packages/tokens/src/themes/*",
     "scripts",
     "tools/changesets-changelog",
     "tools/example-data",
@@ -28,6 +28,7 @@
     "postinstall": "husky install",
     "release": "wireit",
     "reset": "wireit",
+    "start": "wireit",
     "test": "wireit",
     "website": "wireit"
   },
@@ -119,6 +120,31 @@
     },
     "reset": {
       "command": "rimraf --glob \"**/.wireit\""
+    },
+    "start": {
+      "command": "storybook dev -p 6006 --no-open --quiet",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
+        }
+      },
+      "files": [
+        ".storybook/main.ts"
+      ],
+      "dependencies": [
+        {
+          "script": "build:locales",
+          "cascade": false
+        },
+        {
+          "script": "build:scss",
+          "cascade": false
+        },
+        {
+          "script": "build:types",
+          "cascade": false
+        }
+      ]
     },
     "test": {
       "dependencies": [

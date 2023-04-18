@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 import { TabGroup } from './tab-group.js';
 
 describe('sl-tab-group', () => {

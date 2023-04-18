@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 import { TabPanel } from './tab-panel.js';
 
 describe('sl-tab-panel', () => {

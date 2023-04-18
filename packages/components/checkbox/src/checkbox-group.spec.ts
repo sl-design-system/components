@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { CheckboxGroup } from './checkbox-group.js';
-import './register.js';
+import '../register.js';
 
 describe('sl-checkbox-group', () => {
   let el: CheckboxGroup;

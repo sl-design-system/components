@@ -3,7 +3,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { restore, stub } from 'sinon';
-import './register.js';
+import '../register.js';
 
 describe('sl-button', () => {
   let el: Button;

@@ -6,11 +6,10 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 const config = {
   nodeResolve: true,
-
-  rootDir: '../../',
-
+  rootDir: '.',
+  
   files: [
-    'src/**/*.spec.ts'
+    'packages/components/**/*.spec.ts'
   ],
 
   browsers: [playwrightLauncher({ product: 'chromium' })],

@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { Radio } from './radio.js';
-import './register.js';
+import '../register.js';
 
 describe('sl-radio', () => {
   let el: Radio;

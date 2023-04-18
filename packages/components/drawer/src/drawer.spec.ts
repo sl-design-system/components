@@ -2,7 +2,7 @@ import type { Drawer, DrawerAttachment } from './drawer.js';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import { SinonSpy, spy, stub } from 'sinon';
-import './register.js';
+import '../register.js';
 
 describe('sl-drawer', () => {
   let el: Drawer;

@@ -8,7 +8,6 @@
   },
   "type": "module",
   "workspaces": [
-    "docs/storybook",
     "docs/website",
     "packages/angular",
     "packages/components/*",
@@ -148,7 +147,17 @@
     },
     "test": {
       "dependencies": [
-        "./packages/core:test"
+        "test:components"
+      ]
+    },
+    "test:components": {
+      "command": "wtr --static-logging",
+      "dependencies": [
+        "build:scss"
+      ],
+      "files": [
+        "web-test-runner.config.js",
+        "packages/components/**/*.spec.ts"
       ]
     },
     "website": {
@@ -170,6 +179,10 @@
     "@storybook/web-components-vite": "^7.0.5",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
+    "@web/dev-server-esbuild": "^0.3.6",
+    "@web/test-runner": "^0.15.3",
+    "@web/test-runner-commands": "^0.6.6",
+    "@web/test-runner-playwright": "^0.9.0",
     "@webcomponents/scoped-custom-element-registry": "^0.0.9",
     "element-internals-polyfill": "1.2.6",
     "eslint": "^8.38.0",

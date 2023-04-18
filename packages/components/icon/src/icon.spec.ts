@@ -3,7 +3,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import { SinonStub, stub } from 'sinon';
 import { Icon } from './icon.js';
-import './register.js';
+import '../register.js';
 
 describe('sl-icon', () => {
   let el: Icon;

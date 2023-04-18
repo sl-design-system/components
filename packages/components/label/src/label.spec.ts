@@ -1,9 +1,9 @@
 import type { Input } from '@sl-design-system/input';
 import type { Label } from './label.js';
 import { expect, fixture } from '@open-wc/testing';
+import '@sl-design-system/input/register.js';
 import { html } from 'lit';
-import '../input/register.js';
-import './register.js';
+import '../register.js';
 
 describe('sl-label', () => {
   let el: HTMLElement, slLabel: Label, slInput: Input;

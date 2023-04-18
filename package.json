@@ -20,27 +20,17 @@
   ],
   "scripts": {
     "build": "wireit",
-    "clean": "wireit",
-    "docs": "wireit",
     "extract-i18n": "wireit",
     "lint": "wireit",
     "postinstall": "husky install",
     "release": "wireit",
     "reset": "wireit",
     "start": "wireit",
+    "storybook": "wireit",
     "test": "wireit",
     "website": "wireit"
   },
   "wireit": {
-    "buildX": {
-      "dependencies": [
-        "./packages/core:build",
-        "./packages/editor:build",
-        "./packages/grid:build",
-        "./packages/tokens:build",
-        "./packages/angular:build"
-      ]
-    },
     "build": {
       "dependencies": [
         "build:ts",
@@ -91,18 +81,6 @@
         "packages/**/*.d.ts"
       ]
     },
-    "clean": {
-      "command": "rimraf --glob dist docs/*/dist packages/*/dist"
-    },
-    "docs": {
-      "dependencies": [
-        "./docs/storybook:build",
-        "./packages/core:docs",
-        "./packages/editor:docs",
-        "./packages/grid:docs",
-        "./packages/angular:docs"
-      ]
-    },
     "extract-i18n": {
       "command": "node ./scripts/extract-i18n.js"
     },
@@ -143,6 +121,19 @@
           "script": "build:types",
           "cascade": false
         }
+      ]
+    },
+    "storybook": {
+      "dependencies": [
+        "storybook:build",
+        "./packages/angular:storybook"
+      ]
+    },
+    "storybook:build": {
+      "command": "storybook build -o dist --quiet",
+      "dependencies": [
+        "build:locales",
+        "build:scss"
       ]
     },
     "test": {

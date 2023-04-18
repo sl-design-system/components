@@ -1,7 +1,7 @@
 import type { Textarea } from './textarea.js';
 import type { StoryObj } from '@storybook/web-components';
+import '@sl-design-system/label/register.js';
 import { html } from 'lit';
-import '../label/register.js';
 import '../register.js';
 
 export default {

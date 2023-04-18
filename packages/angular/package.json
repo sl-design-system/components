@@ -11,28 +11,21 @@
   "type": "module",
   "scripts": {
     "build": "wireit",
-    "docs": "wireit",
     "lint": "wireit",
-    "start": "wireit"
+    "start": "wireit",
+    "storybook": "wireit"
   },
   "wireit": {
     "build": {
       "command": "ng build angular-core",
       "dependencies": [
-        "../core:build"
+        "../../build"
       ],
       "files": [
         "projects/angular-core/**/*"
       ],
       "output": [
         "dist/angular-core"
-      ]
-    },
-    "docs": {
-      "command": "ng run angular-core:build-storybook",
-      "dependencies": [
-        "build",
-        "../../docs/storybook:build"
       ]
     },
     "lint": {
@@ -50,8 +43,11 @@
         "./storybook/main.ts"
       ],
       "dependencies": [
-        "../core:build"
+        "../../build"
       ]
+    },
+    "storybook": {
+      "command": "ng run angular-core:build-storybook"
     }
   },
   "dependencies": {

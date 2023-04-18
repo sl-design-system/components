@@ -3,8 +3,8 @@ import '@sl-design-system/label/register.js';
 import '@sl-design-system/button/register.js';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { moduleMetadata, StoryFn, StoryObj } from '@storybook/angular';
-import { FormsModule as CoreFormsModule } from '../src/forms/forms.module.js';
+import { moduleMetadata, StoryFn } from '@storybook/angular';
+import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
 
 @Component({
   selector: 'sla-input',

@@ -4,6 +4,11 @@ $sizes: md, lg;
   --_main-background-color: rgb(var(--sl-color-palette-neutral-400));
   --_thumb-position: 0%;
   outline: none;
+  align-items: start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--_gap);
+  line-height: var(--_line-height);
 }
 
 :host([checked]) {
@@ -16,30 +21,29 @@ $sizes: md, lg;
 }
 :host(:where(:disabled, [internals-disabled])) {
   cursor: default;
-  pointer-events: none;
   opacity: 0.6;
+  pointer-events: none;
 }
 
 
 .wrapper {
   background-color: var(--_main-background-color);
   border-radius: calc((var(--_thumb-size) + var(--_toggle-padding) * 2) / 2);
+  box-shadow: var(--_box-shadow);
   cursor: pointer;
   display: inline-flex;
   padding: var(--_toggle-padding);
-  width: var(--_toggle-width);
-  box-shadow: var(--_box-shadow);
   transition: background-color var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
-    
+  width: var(--_toggle-width);
 
   div {
-    will-change: transform;
+    background-color: white;
+    border-radius: calc(var(--_thumb-size) / 2);
+    height: var(--_thumb-size);
     transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
     translate: var(--_thumb-position);
-    background-color: white;
-    height: var(--_thumb-size);
     width: var(--_thumb-size);
-    border-radius: calc(var(--_thumb-size) / 2);
+    will-change: transform;
   }
 }
 

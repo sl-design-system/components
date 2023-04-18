@@ -46,6 +46,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     super.connectedCallback();
 
     this.internals.role = 'switch';
+    this.internals.ariaChecked = this.checked ? 'true' : 'false';
 
     this.#events.listen(this, 'click', this.#onClick);
     this.#events.listen(this, 'keydown', this.#onKeydown);

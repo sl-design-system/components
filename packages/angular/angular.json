@@ -49,7 +49,7 @@
           "options": {
             "browserTarget": "angular-core:build-storybook",
             "compodoc": false,
-            "outputDir": "../dist/angular",
+            "outputDir": "../../dist/angular",
             "quiet": true
           }
         },

@@ -91,7 +91,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.200}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.focus.border",
               "failedToResolve": true
@@ -193,7 +193,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.200}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.focus.border",
               "failedToResolve": true
@@ -235,7 +235,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.neutral.100}",
               "type": "color",
               "description": "color.button.default.outline.idle.border",
               "failedToResolve": true
@@ -255,7 +255,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.neutral.100}",
               "type": "color",
               "description": "color.button.default.outline.hover.border",
               "failedToResolve": true
@@ -275,7 +275,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.neutral.150}",
               "type": "color",
               "description": "color.button.default.outline.active.border",
               "failedToResolve": true
@@ -283,7 +283,7 @@
           },
           "focus": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{body.background}",
               "type": "color",
               "description": "color.button.default.focus.background",
               "failedToResolve": true
@@ -295,7 +295,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.200}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.focus.border",
               "failedToResolve": true
@@ -367,7 +367,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.600}",
               "type": "color",
               "description": "color.button.primary.solid.active.background",
               "failedToResolve": true
@@ -379,7 +379,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.600}",
               "type": "color",
               "description": "color.button.primary.default.active.border",
               "failedToResolve": true
@@ -399,7 +399,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.primary.default.focus.border",
               "failedToResolve": true
@@ -407,19 +407,19 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.primary.200}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.primary.solid.disabled.background",
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.primary.100}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.solid.disabled.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.200}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.primary.default.disabled.border",
               "failedToResolve": true
@@ -449,19 +449,19 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.primary.50}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.background",
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.border",
               "failedToResolve": true
@@ -469,19 +469,19 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.primary.150}",
+              "value": "{color.palette.primary.500}",
               "type": "color",
               "description": "color.button.primary.outline.active.background",
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.primary.500}",
               "type": "color",
               "description": "color.button.primary.outline.active.border",
               "failedToResolve": true
@@ -501,7 +501,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.focus.border",
               "failedToResolve": true
@@ -509,19 +509,19 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.primary.base}, {opacity.transparent})",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.background",
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.primary.200}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.200}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.border",
               "failedToResolve": true
@@ -537,13 +537,13 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.neutral.500}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.outline.idle.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.outline.idle.border",
               "failedToResolve": true
@@ -551,19 +551,19 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.accent.50}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.outline.hover.background",
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.accent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.default.outline.hover.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.accent.base}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.outline.hover.border",
               "failedToResolve": true
@@ -571,19 +571,19 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.accent.150}",
+              "value": "{color.palette.accent.500}",
               "type": "color",
               "description": "color.button.default.outline.active.background",
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.accent.900}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.accent.600}",
+              "value": "{color.palette.accent.500}",
               "type": "color",
               "description": "color.button.default.outline.active.border",
               "failedToResolve": true
@@ -591,19 +591,19 @@
           },
           "focus": {
             "background": {
-              "value": "rgba({body.background},{opacity.100})",
+              "value": "{body.background}",
               "type": "color",
               "description": "color.button.default.focus.background",
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.neutral.500}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.focus.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.focus.border",
               "failedToResolve": true

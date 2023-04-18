@@ -84,9 +84,9 @@ export class CheckboxGroup extends HintMixin(LitElement) {
     this.#rovingTabindexController.clearElementCache();
 
     if (typeof this.name === 'string') {
-      this.boxes?.forEach(box => {
-        box.setAttribute('name', this.name);
-      });
+      const name = this.name;
+
+      this.boxes?.forEach(box => box.setAttribute('name', name));
     }
   }
 }

@@ -127,7 +127,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textareas.length) {
-      this.textarea = textareas.at(0);
+      this.textarea = textareas[0];
       this.textarea.id ||= `sl-input-${nextUniqueId++}`;
 
       this.setFormControlElement(this.textarea);

@@ -3723,46 +3723,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sanomalearning/slds-angular@workspace:packages/angular":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-angular@workspace:packages/angular"
-  dependencies:
-    "@angular-devkit/build-angular": ^15.2.6
-    "@angular-eslint/eslint-plugin": ^15.2.1
-    "@angular-eslint/eslint-plugin-template": ^15.2.1
-    "@angular/animations": ^15.2.7
-    "@angular/cli": ~15.2.6
-    "@angular/common": ^15.2.7
-    "@angular/compiler": ^15.2.7
-    "@angular/compiler-cli": ^15.2.7
-    "@angular/core": ^15.2.7
-    "@angular/forms": ^15.2.7
-    "@angular/platform-browser": ^15.2.7
-    "@angular/platform-browser-dynamic": ^15.2.7
-    "@storybook/addon-essentials": ^7.0.5
-    "@storybook/addon-links": ^7.0.5
-    "@storybook/angular": ^7.0.5
-    "@storybook/blocks": ^7.0.5
-    "@types/jasmine": ~4.3.1
-    eslint: ^8.38.0
-    jasmine-core: ~4.6.0
-    karma: ~6.4.1
-    karma-chrome-launcher: ~3.1.1
-    karma-coverage: ~2.2.0
-    karma-jasmine: ~5.1.0
-    karma-jasmine-html-reporter: ~2.0.0
-    ng-packagr: ^15.2.2
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    rxjs: ~7.8.0
-    storybook: ^7.0.5
-    tslib: ^2.5.0
-    typescript: ~4.9.5
-    wireit: ^0.9.5
-    zone.js: ~0.12.0
-  languageName: unknown
-  linkType: soft
-
 "@sanomalearning/slds-bingel-dc@workspace:packages/tokens/src/themes/bingel-dc":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-bingel-dc@workspace:packages/tokens/src/themes/bingel-dc"
@@ -4068,6 +4028,46 @@ __metadata:
   checksum: 583a45bf3643169e313ff9d4395aff28b0c4f330d3697e252c3effc13d4303ee30f83df542732c1a68617720e4ea6fc08d48a3d9151c9b354a7fc356a8e9b162
   languageName: node
   linkType: hard
+
+"@sl-design-system/angular-root@workspace:packages/angular":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/angular-root@workspace:packages/angular"
+  dependencies:
+    "@angular-devkit/build-angular": ^15.2.6
+    "@angular-eslint/eslint-plugin": ^15.2.1
+    "@angular-eslint/eslint-plugin-template": ^15.2.1
+    "@angular/animations": ^15.2.7
+    "@angular/cli": ~15.2.6
+    "@angular/common": ^15.2.7
+    "@angular/compiler": ^15.2.7
+    "@angular/compiler-cli": ^15.2.7
+    "@angular/core": ^15.2.7
+    "@angular/forms": ^15.2.7
+    "@angular/platform-browser": ^15.2.7
+    "@angular/platform-browser-dynamic": ^15.2.7
+    "@storybook/addon-essentials": ^7.0.5
+    "@storybook/addon-links": ^7.0.5
+    "@storybook/angular": ^7.0.5
+    "@storybook/blocks": ^7.0.5
+    "@types/jasmine": ~4.3.1
+    eslint: ^8.38.0
+    jasmine-core: ~4.6.0
+    karma: ~6.4.1
+    karma-chrome-launcher: ~3.1.1
+    karma-coverage: ~2.2.0
+    karma-jasmine: ~5.1.0
+    karma-jasmine-html-reporter: ~2.0.0
+    ng-packagr: ^15.2.2
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    rxjs: ~7.8.0
+    storybook: ^7.0.5
+    tslib: ^2.5.0
+    typescript: ~4.9.5
+    wireit: ^0.9.5
+    zone.js: ~0.12.0
+  languageName: unknown
+  linkType: soft
 
 "@sl-design-system/avatar@workspace:packages/avatar":
   version: 0.0.0-use.local

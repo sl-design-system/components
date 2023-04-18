@@ -206,8 +206,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
 
     const axis = this.vertical ? 'Y' : 'X',
-      indicator = this.shadowRoot?.querySelector<HTMLElement>('.indicator'),
-      wrapper = this.shadowRoot?.querySelector<HTMLElement>('[role="tablist"]');
+      indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
+      wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement;
 
     let start = 0;
     if (axis === 'X') {

@@ -75,7 +75,7 @@
       ]
     },
     "build:types": {
-      "command": "tsc --build tsconfig.all.json",
+      "command": "tsc --build tsconfig.all.json --pretty",
       "clean": "if-file-deleted",
       "dependencies": [
         "build:locales",
@@ -85,6 +85,7 @@
         "packages/**/*.ts"
       ],
       "output": [
+        "packages/tsconfig.tsbuildinfo",
         "packages/**/*.d.ts"
       ]
     },

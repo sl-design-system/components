@@ -99,7 +99,7 @@ export class Editor extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   createEditor(): EditorView {
-    const mount = this.renderRoot.querySelector('.mount'),
+    const mount = this.renderRoot.querySelector('.mount') as HTMLElement,
       state = this.createState();
 
     const editor = new EditorView(

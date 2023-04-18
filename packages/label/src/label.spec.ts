@@ -1,4 +1,4 @@
-import type { Input } from '../input/index.js';
+import type { Input } from '@sl-design-system/input';
 import type { Label } from './label.js';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';

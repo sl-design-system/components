@@ -74,7 +74,7 @@ export class Label extends LitElement {
         let target: HTMLElement = this.formControl;
 
         if (target instanceof Input || target instanceof Textarea) {
-          target = this.formControl.querySelector('input, textarea');
+          target = this.formControl.querySelector('input, textarea') as HTMLElement;
         }
 
         this.#observer.observe(target, { attributes: true, attributeFilter: ['required'] });

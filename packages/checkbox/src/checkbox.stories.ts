@@ -1,7 +1,7 @@
 import type { Checkbox } from './checkbox.js';
 import type { StoryObj } from '@storybook/web-components';
+import '@sl-design-system/label/register.js';
 import { html } from 'lit';
-import '../label/register.js';
 import './register.js';
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
@@ -43,7 +43,7 @@ const onChange = (event: Event): void => {
 
     if (!parentContainer || parentContainer?.nodeName !== 'LI') return;
 
-    const parent: Checkbox = parentContainer.querySelector('sl-checkbox');
+    const parent = parentContainer.querySelector('sl-checkbox');
     const siblings = nodeArray('sl-checkbox', parent?.closest('li')?.querySelector('ul'));
 
     if (!parent) return;

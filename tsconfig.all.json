@@ -1,7 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "./",
     "noEmit": true,
     "emitDeclarationOnly": false
   },
@@ -12,6 +11,23 @@
     "packages/*/node_modules/**/*.ts"
   ],
   "references": [
-    { "path": "./packages/button" }
+    { "path": "./packages/avatar" },
+    { "path": "./packages/button" },
+    { "path": "./packages/button-bar" },
+    { "path": "./packages/checkbox" },
+    { "path": "./packages/dialog" },
+    { "path": "./packages/drawer" },
+    { "path": "./packages/editor" },
+    { "path": "./packages/grid" },
+    { "path": "./packages/icon" },
+    { "path": "./packages/input" },
+    { "path": "./packages/label" },
+    { "path": "./packages/popover" },
+    { "path": "./packages/radio-group" },
+    { "path": "./packages/select" },
+    { "path": "./packages/shared" },
+    { "path": "./packages/tabs" },
+    { "path": "./packages/textarea" },
+    { "path": "./packages/tooltip" }
   ]
 }

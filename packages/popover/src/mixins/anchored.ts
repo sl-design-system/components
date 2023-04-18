@@ -74,7 +74,7 @@ export function AnchoredMixin<T extends Constructor<ReactiveElement>>(
       }
 
       const root = this.getRootNode() as HTMLElement,
-        target = root.querySelector(`#${id}`);
+        target = root.querySelector<HTMLElement>(`#${id}`);
 
       if (!target) {
         return;

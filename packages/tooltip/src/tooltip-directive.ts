@@ -14,7 +14,7 @@ export class TooltipDirective extends Directive {
   render(_content: unknown): void {}
 
   renderContent(): void {
-    render(this.content, this.tooltip, this.part.options);
+    render(this.content, this.tooltip!, this.part!.options);
   }
 
   override update(part: ElementPart, [content]: DirectiveParameters<this>): void {
@@ -33,7 +33,7 @@ export class TooltipDirective extends Directive {
   setupLazy(): void {
     this.didSetupLazy = true;
 
-    Tooltip.lazy(this.part.element, (tooltip: Tooltip) => {
+    Tooltip.lazy(this.part!.element, (tooltip: Tooltip) => {
       this.tooltip = tooltip;
       this.renderContent();
     });

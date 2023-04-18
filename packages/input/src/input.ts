@@ -175,7 +175,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     if (inputs.length) {
       this.input.removeEventListener('keydown', this.#onKeydown);
 
-      this.input = inputs.at(0);
+      this.input = inputs[0];
       this.input.autocomplete ||= this.autocomplete || 'off';
       this.input.id ||= `sl-input-${nextUniqueId++}`;
       this.input.addEventListener('keydown', this.#onKeydown);

@@ -1,26 +1,24 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": ".",
     "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "inlineSources": true,
-    "moduleResolution": "nodenext",
+    "emitDeclarationOnly": true,
     "experimentalDecorators": true,
-    "useDefineForClassFields": false,
     "importHelpers": true,
-    "target": "es2022",
-    "module": "esnext",
+    "inlineSources": true,
     "lib": ["es2022", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "nodenext",
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2022",
+    "useDefineForClassFields": false
   }
 }

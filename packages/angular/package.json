@@ -1,6 +1,6 @@
 {
-  "name": "@sanomalearning/slds-angular",
-  "description": "SLDS Angular root module",
+  "name": "@sl-design-system/angular-root",
+  "description": "Angular module for the SL Design System",
   "version": "0.1.0",
   "private": true,
   "repository": {

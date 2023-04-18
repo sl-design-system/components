@@ -25,6 +25,8 @@ export class Avatar extends LitElement {
   /** Renders the tabs vertically instead of the default horizontal  */
   @property() uniqueProfileId = 'slds';
 
+  @state() user?: UserProfile;
+
   get profileName(): string {
     return `${this.user?.name.first || 'John'} ${this.user?.name.last || 'Doe'}`;
   }
@@ -39,15 +41,17 @@ export class Avatar extends LitElement {
     `;
   }
 
-  @state() user?: UserProfile | undefined;
-
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    this.user = await this._getUserDetails(this.uniqueProfileId);
+    try {
+      this.user = await this._getUserDetails(this.uniqueProfileId);
+    } catch (error) {
+      console.warn('error loading avatar');
+    }
   }
 
-  async _getUserDetails(id: string): Promise<UserProfile | undefined> {
+  async _getUserDetails(id: string): Promise<UserProfile> {
     try {
       const response = await fetch(`https://randomuser.me/api/?inc=picture,name&seed=slds-${id}`);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -55,7 +59,7 @@ export class Avatar extends LitElement {
       return json?.results?.[0];
     } catch (error) {
       console.warn('error loading avatar');
-      return;
+      throw error;
     }
   }
 }

@@ -4,7 +4,11 @@ import fg from 'fast-glob';
 const buildPackages = async () => {
   const paths = [];
 
-  for (const entryPoint of await fg(['./packages/button-bar/**/!(*.{d,spec,stories}).ts'])) {
+  for (const entryPoint of await fg([
+    './packages/**/!(*.{d,spec,stories}).ts',
+    '!./packages/angular/**/*.ts',
+    '!./packages/core/**/*.ts'
+  ])) {
     paths.push(entryPoint);
   }
 

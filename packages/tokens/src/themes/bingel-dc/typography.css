@@ -53,16 +53,16 @@
 }
 
 .sl-text-button-text-lg {
-  font-family: var(--sl-text-typeset-font-family-body);
+  font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-heavy);
   line-height: var(--sl-button-label-lg);
 }
 
 .sl-text-button-text-md {
-  font-family: var(--sl-text-typeset-font-family-body);
+  font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-heavy);
   line-height: var(--sl-button-label-md);
 }
 

@@ -5,29 +5,29 @@
     "emitDeclarationOnly": false
   },
   "include": [
-    "packages/**/*.ts"
+    "packages/components/**/*.ts"
   ],
   "exclude": [
-    "packages/*/node_modules/**/*.ts"
+    "packages/components/*/node_modules/**/*.ts"
   ],
   "references": [
-    { "path": "./packages/avatar" },
-    { "path": "./packages/button" },
-    { "path": "./packages/button-bar" },
-    { "path": "./packages/checkbox" },
-    { "path": "./packages/dialog" },
-    { "path": "./packages/drawer" },
-    { "path": "./packages/editor" },
-    { "path": "./packages/grid" },
-    { "path": "./packages/icon" },
-    { "path": "./packages/input" },
-    { "path": "./packages/label" },
-    { "path": "./packages/popover" },
-    { "path": "./packages/radio-group" },
-    { "path": "./packages/select" },
-    { "path": "./packages/shared" },
-    { "path": "./packages/tabs" },
-    { "path": "./packages/textarea" },
-    { "path": "./packages/tooltip" }
+    { "path": "./packages/components/avatar" },
+    { "path": "./packages/components/button" },
+    { "path": "./packages/components/button-bar" },
+    { "path": "./packages/components/checkbox" },
+    { "path": "./packages/components/dialog" },
+    { "path": "./packages/components/drawer" },
+    { "path": "./packages/components/editor" },
+    { "path": "./packages/components/grid" },
+    { "path": "./packages/components/icon" },
+    { "path": "./packages/components/input" },
+    { "path": "./packages/components/label" },
+    { "path": "./packages/components/popover" },
+    { "path": "./packages/components/radio-group" },
+    { "path": "./packages/components/select" },
+    { "path": "./packages/components/shared" },
+    { "path": "./packages/components/tabs" },
+    { "path": "./packages/components/textarea" },
+    { "path": "./packages/components/tooltip" }
   ]
 }

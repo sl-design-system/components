@@ -1,9 +1,9 @@
+import type { IconDefinition } from './models.js';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
-import './register.js';
-import { Icon } from './icon.js';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { SinonStub, stub } from 'sinon';
+import { Icon } from './icon.js';
+import './register.js';
 
 describe('sl-icon', () => {
   let el: Icon;

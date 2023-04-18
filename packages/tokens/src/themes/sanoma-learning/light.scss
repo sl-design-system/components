@@ -10,6 +10,8 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-helper-text-disabled: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-text-field-valid-disabled-icon: rgb(var(--sl-color-palette-success-150));
   --sl-color-text-field-valid-disabled-label: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-text-field-valid-active-background: rgba(var(--sl-color-palette-success-base), var(--sl-opacity-100));
@@ -332,6 +334,10 @@
   --sl-button-default-default-active: [object Object];
   --sl-button-default-default-hover: [object Object];
   --sl-button-default-default-idle: [object Object];
+  --sl-color-helper-icon-invalid: var(--sl-color-text-field-invalid-default-icon);
+  --sl-color-helper-icon-default: var(--sl-body-foreground);
+  --sl-color-helper-text-invalid: var(--sl-color-text-field-invalid-default-icon);
+  --sl-color-helper-text-default: var(--sl-body-foreground);
   --sl-color-text-field-valid-disabled-input-text: var(--sl-color-text-field-default-disabled-input-text);
   --sl-color-text-field-valid-disabled-border: var(--sl-color-text-field-default-disabled-border);
   --sl-color-text-field-valid-disabled-background: rgba(var(--sl-body-background), 0);

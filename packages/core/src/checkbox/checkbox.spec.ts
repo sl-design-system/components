@@ -72,8 +72,7 @@ describe('sl-checkbox', () => {
       el.disabled = true;
       await el.updateComplete;
       
-      el.focus();
-      await sendKeys({ press: 'Enter' });
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       expect(el.checked).not.to.equal(true);
     });
@@ -107,25 +106,50 @@ describe('sl-checkbox', () => {
   });
 
   describe('form integration', () => {
-    let form: HTMLFormElement;
-    beforeEach(async () => {
-      form = await fixture(html`
-        <form>
-            <sl-checkbox checked>Hello world</sl-checkbox>
-        </form>
-      `);
+    describe('unchecked', () => {
+      let form: HTMLFormElement;
+      beforeEach(async () => {
+        form = await fixture(html`
+          <form>
+              <sl-checkbox>Hello world</sl-checkbox>
+          </form>
+        `);
 
-      el = form.firstElementChild as Checkbox;
+        el = form.firstElementChild as Checkbox;
+      });
+
+      it('should revert back to the correct initial state when the form is reset', () => {
+        el.click();
+
+        expect(el.checked).to.equal(true);
+        
+        el.formResetCallback();
+        
+        expect(el.checked).to.equal(false);
+      });
     });
+    
+    describe('checked', () => {
+      let form: HTMLFormElement;
+      beforeEach(async () => {
+        form = await fixture(html`
+          <form>
+              <sl-checkbox checked>Hello world</sl-checkbox>
+          </form>
+        `);
 
-    it('should change the state to unchecked when clicked', () => {
-      el.click();
+        el = form.firstElementChild as Checkbox;
+      });
 
-      expect(el.checked).to.equal(false);
-      
-      el.formResetCallback();
-      
-      expect(el.checked).to.equal(true);
+      it('should change the state to unchecked when clicked', () => {
+        el.click();
+
+        expect(el.checked).to.equal(false);
+        
+        el.formResetCallback();
+        
+        expect(el.checked).to.equal(true);
+      });
     });
   });
 });

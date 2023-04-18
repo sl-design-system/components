@@ -9,7 +9,7 @@ describe('sl-switch', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-switch>Hello world</sl-switch>`);
+      el = await fixture(html`<sl-switch></sl-switch>`);
       await el.updateComplete;
     });
 
@@ -17,7 +17,7 @@ describe('sl-switch', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('should not be checked by default', () => {
+    it('should not be on by default', () => {
       expect(el.checked).not.to.equal(true);
       expect(el.internals.ariaChecked).to.equal('false');
     });
@@ -32,13 +32,13 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(true);
     });
 
-    it('should change the state to checked when clicked on the wrapper', async () => {
+    it('should change the state to on when clicked on the wrapper', async () => {
       (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
 
       expect(el.checked).to.equal(true);
     });
 
-    it('should change the state to checked on key down', async () => {
+    it('should change the state to on on key down', async () => {
       el.focus();
       await sendKeys({ press: 'Enter' });
 
@@ -49,31 +49,30 @@ describe('sl-switch', () => {
   
   describe('disabled', () => {
     beforeEach(async ()=>{
-      el = await fixture(html`<sl-switch disabled>Hello world</sl-switch>`);
+      el = await fixture(html`<sl-switch disabled></sl-switch>`);
     });
 
     it('should be disabled if set', async () => {
       expect(el).to.have.attribute('disabled');
     });
 
-    it('should not change the state to checked when clicked', async () => {
+    it('should not change the state to on when clicked', async () => {
       el.click();
 
       expect(el.checked).not.to.equal(true);
     });
 
-    it('should change the state to checked when clicked on the wrapper', async () => {
+    it('should not change the state to on when clicked on the wrapper', async () => {
       (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
 
       expect(el.checked).not.to.equal(true);
     });
 
-    it('should not change the state to checked on key down', async () => {
+    it('should not change the state to on on key down', async () => {
       el.disabled = true;
       await el.updateComplete;
-      
-      el.focus();
-      await sendKeys({ press: 'Enter' });
+
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 
       expect(el.checked).not.to.equal(true);
     });
@@ -81,15 +80,15 @@ describe('sl-switch', () => {
 
   describe('checked', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-switch checked>Hello world</sl-switch>`);
+      el = await fixture(html`<sl-switch checked></sl-switch>`);
     });
 
-    it('should be checked when the property is set', () => {
+    it('should be on when the property is set', () => {
       expect(el.checked).to.equal(true);
       expect(el.internals.ariaChecked).to.equal('true');
     });
 
-    it('should change the state to unchecked when clicked', async () => {
+    it('should change the state to off when clicked', async () => {
       el.click();
 
       expect(el.checked).to.equal(false);
@@ -97,25 +96,50 @@ describe('sl-switch', () => {
   });
 
   describe('form integration', () => {
-    let form: HTMLFormElement;
-    beforeEach(async () => {
-      form = await fixture(html`
-        <form>
-            <sl-switch checked>Hello world</sl-switch>
-        </form>
-      `);
+    describe('unchecked', () => {
+      let form: HTMLFormElement;
+      beforeEach(async () => {
+        form = await fixture(html`
+          <form>
+              <sl-switch></sl-switch>
+          </form>
+        `);
 
-      el = form.firstElementChild as Switch;
+        el = form.firstElementChild as Switch;
+      });
+
+      it('should revert back to the correct initial state (off) when the form is reset', () => {
+        el.click();
+
+        expect(el.checked).to.equal(true);
+        
+        el.formResetCallback();
+        
+        expect(el.checked).to.equal(false);
+      });
     });
 
-    it('should change the state to unchecked when clicked', () => {
-      el.click();
+    describe('checked', () => {
+      let form: HTMLFormElement;
+      beforeEach(async () => {
+        form = await fixture(html`
+          <form>
+              <sl-switch checked></sl-switch>
+          </form>
+        `);
 
-      expect(el.checked).to.equal(false);
-      
-      el.formResetCallback();
-      
-      expect(el.checked).to.equal(true);
+        el = form.firstElementChild as Switch;
+      });
+
+      it('should revert back to the correct initial state (on) when the form is reset', () => {
+        el.click();
+
+        expect(el.checked).to.equal(false);
+        
+        el.formResetCallback();
+        
+        expect(el.checked).to.equal(true);
+      });
     });
   });
 });

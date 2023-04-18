@@ -131,8 +131,7 @@
     "storybook:build": {
       "command": "storybook build -o dist --quiet",
       "dependencies": [
-        "build:locales",
-        "build:scss"
+        "build:ts"
       ]
     },
     "test": {

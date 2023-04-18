@@ -127,12 +127,12 @@
       },
       "neutral": {
         "50": {
-          "value": "#FEFEFE",
+          "value": "#F9F9F9",
           "type": "color",
           "description": "color.palette.neutral.50"
         },
         "100": {
-          "value": "#F9F9F9",
+          "value": "#F4F4F4",
           "type": "color",
           "description": "color.palette.neutral.100"
         },
@@ -437,7 +437,7 @@
       },
       "black": {
         "base": {
-          "value": "#2D2A38",
+          "value": "#333333",
           "type": "color",
           "description": "color.palette.black.base"
         }

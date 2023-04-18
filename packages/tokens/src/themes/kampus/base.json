@@ -28,12 +28,12 @@
           "description": "color.palette.primary.300"
         },
         "400": {
-          "value": "#A47CCF",
+          "value": "#9F5F9D",
           "type": "color",
           "description": "color.palette.primary.400"
         },
         "500": {
-          "value": "#9261C6",
+          "value": "#8E6CB1",
           "type": "color",
           "description": "color.palette.primary.500"
         },
@@ -53,7 +53,7 @@
           "description": "color.palette.primary.800"
         },
         "900": {
-          "value": "#391F54",
+          "value": "#40235F",
           "type": "color",
           "description": "color.palette.primary.900"
         },
@@ -95,7 +95,7 @@
           "description": "color.palette.accent.400"
         },
         "500": {
-          "value": "#C36106",
+          "value": "#DB7109",
           "type": "color",
           "description": "color.palette.accent.500"
         },

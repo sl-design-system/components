@@ -4,11 +4,7 @@ import { basename, dirname } from 'path';
 import sass from 'sass';
 import stylelint from 'stylelint';
 
-const files = await fg([
-  './packages/*/src/**/*.scss',
-  '!./packages/core/**/*.scss',
-  '!./packages/tokens/**/*.scss',
-]);
+const files = await fg('./packages/components/*/src/**/*.scss');
 
 const shared = process.argv.at(3) || '',
   sharedFile = basename(shared),

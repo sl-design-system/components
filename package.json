@@ -52,10 +52,10 @@
       "command": "node ./scripts/build-scss.js",
       "clean": "if-file-deleted",
       "files": [
-        "packages/**/*.scss"
+        "packages/components/**/*.scss"
       ],
       "output": [
-        "packages/**/*.scss.ts"
+        "packages/components/**/*.scss.ts"
       ]
     },
     "build:ts": {
@@ -66,12 +66,12 @@
         "build:scss"
       ],
       "files": [
-        "packages/**/*.ts",
-        "!packages/**/*.d.ts"
+        "packages/{components,themes}/**/*.ts",
+        "!packages/{components,themes}/**/*.d.ts"
       ],
       "output": [
-        "packages/**/*.js",
-        "packages/**/*.js.map"
+        "packages/{components,themes}/**/*.js",
+        "packages/{components,themes}/**/*.js.map"
       ]
     },
     "build:types": {
@@ -85,7 +85,7 @@
         "packages/**/*.ts"
       ],
       "output": [
-        "packages/tsconfig.tsbuildinfo",
+        "packages/**/tsconfig.tsbuildinfo",
         "packages/**/*.d.ts"
       ]
     },

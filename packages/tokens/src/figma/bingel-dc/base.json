@@ -455,7 +455,7 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Open Sans",
+          "value": "Avenir",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },
@@ -474,6 +474,11 @@
         "demibold": {
           "value": "SemiBold",
           "type": "fontWeights"
+        },
+        "heavy": {
+          "value": "Heavy",
+          "type": "fontWeights",
+          "description": "text.typeset.fontWeight.Heavy"
         }
       }
     },
@@ -687,8 +692,8 @@
       "text": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
+            "fontWeight": "{text.typeset.fontWeight.heavy}",
             "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
@@ -836,17 +841,17 @@
   "borderRadius": {
     "button": {
       "sm": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.full}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "md": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.full}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "lg": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.full}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
@@ -887,12 +892,12 @@
     "width": {
       "button": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.default"
         },
         "outline": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },

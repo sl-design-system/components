@@ -6,7 +6,7 @@
       "description": "color.body.background"
     },
     "foreground": {
-      "value": "{color.surface.solid.primary.foreground}",
+      "value": "{color.palette.primary.base}",
       "type": "color",
       "description": "color.body.foreground"
     }
@@ -22,12 +22,12 @@
               "description": "color.button.default.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.primary.700}",
               "type": "color",
               "description": "color.button.default.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.default.idle.border"
             }

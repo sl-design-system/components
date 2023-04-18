@@ -1,8 +1,8 @@
 import type { ButtonBarAlign } from './button-bar.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/button/register.js';
 import { html } from 'lit';
-import '../button/register.js';
-import './register.js';
+import '../register.js';
 
 interface Props {
   align: ButtonBarAlign;

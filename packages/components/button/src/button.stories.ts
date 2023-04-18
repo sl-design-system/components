@@ -1,8 +1,8 @@
 import type { ButtonFill, ButtonSize, ButtonVariant } from './button.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import '../button-bar/register.js';
-import './register.js';
+import '@sl-design-system/button-bar/register.js';
 import { html } from 'lit';
+import '../register.js';
 
 interface Props {
   fill: ButtonFill;

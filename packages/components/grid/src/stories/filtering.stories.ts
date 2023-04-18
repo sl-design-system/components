@@ -1,8 +1,8 @@
 import type { Grid } from '../grid.js';
-import type { Person } from '@sanomalearning/example-data';
+import type { Person } from '@sl-design-system/example-data';
 import type { Input } from '@sl-design-system/input';
 import type { StoryObj } from '@storybook/web-components';
-import { getPeople } from '@sanomalearning/example-data';
+import { getPeople } from '@sl-design-system/example-data';
 import '@sl-design-system/input/register.js';
 import { html } from 'lit';
 import '../../register.js';

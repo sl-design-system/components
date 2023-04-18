@@ -1,9 +1,9 @@
 import type { StoryObj } from '@storybook/web-components';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/input/register.js';
 import { html } from 'lit';
-import '../button/register.js';
-import '../button-bar/register.js';
-import '../input/register.js';
-import './register.js';
+import '../register.js';
 
 export default {
   title: 'Label'

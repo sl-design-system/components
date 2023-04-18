@@ -1,7 +1,7 @@
 import type { Tab } from './tab.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 
 export default {
   title: 'Tab Group',

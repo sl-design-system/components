@@ -5,7 +5,7 @@ import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { html } from 'lit';
 import { Icon } from './icon.js';
-import './register.js';
+import '../register.js';
 
 interface Props extends Pick<Icon, 'label' | 'name'> {
   icons: string[];

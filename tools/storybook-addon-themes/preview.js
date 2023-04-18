@@ -33,7 +33,7 @@ export const globals = {
       color: '#0074df',
       fonts: ['https://use.typekit.net/xrr8gdw.css'],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-bingel');
+        const { setup } = await import('@sl-design-system/bingel');
 
         setup();
       }
@@ -44,7 +44,7 @@ export const globals = {
       color: '#0074df',
       fonts: ['https://use.typekit.net/xrr8gdw.css'],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-bingel-dc');
+        const { setup } = await import('@sl-design-system/bingel-dc');
 
         setup();
       }
@@ -55,7 +55,7 @@ export const globals = {
       color: '#0074df',
       fonts: ['https://use.typekit.net/xrr8gdw.css'],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-bingel-int');
+        const { setup } = await import('@sl-design-system/bingel-int');
 
         setup();
       }
@@ -66,7 +66,7 @@ export const globals = {
       color: '#0074df',
       fonts: ['https://use.typekit.net/xrr8gdw.css'],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-clickedu');
+        const { setup } = await import('@sl-design-system/clickedu');
 
         setup();
       }
@@ -77,7 +77,7 @@ export const globals = {
       color: '#0074df',
       fonts: ['https://use.typekit.net/xrr8gdw.css'],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-itslearning');
+        const { setup } = await import('@sl-design-system/itslearning');
 
         setup();
       }
@@ -88,7 +88,7 @@ export const globals = {
       color: '#0074df',
       fonts: ['https://use.typekit.net/xrr8gdw.css'],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-kampus');
+        const { setup } = await import('@sl-design-system/kampus');
 
         setup();
       }
@@ -102,7 +102,7 @@ export const globals = {
         '/themes/sanoma-learning/fonts.css'
       ],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-magister');
+        const { setup } = await import('@sl-design-system/magister');
 
         setup();
       }
@@ -113,7 +113,7 @@ export const globals = {
       color: '#253646',
       fonts: ['https://use.typekit.net/doq6twb.css'],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-max');
+        const { setup } = await import('@sl-design-system/max');
 
         setup();
       }
@@ -124,7 +124,7 @@ export const globals = {
       color: '#1E2922',
       fonts: ['https://use.typekit.net/kes1hoh.css'],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-neon');
+        const { setup } = await import('@sl-design-system/neon');
 
         setup();
       }
@@ -138,7 +138,7 @@ export const globals = {
         '/themes/sanoma-learning/fonts.css'
       ],
       setup: async () => {
-        const { setup } = await import('@sanomalearning/slds-sanoma-learning');
+        const { setup } = await import('@sl-design-system/sanoma-learning');
 
         setup();
       }

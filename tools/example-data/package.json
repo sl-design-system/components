@@ -1,9 +1,9 @@
 {
-  "name": "@sanomalearning/example-data",
-  "license": "ISC",
-  "description": "Example data for SL Design System",
-  "private": true,
+  "name": "@sl-design-system/example-data",
   "version": "1.0.0",
+  "description": "Example data for SL Design System",
+  "license": "Apache 2.0",
+  "private": true,
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {

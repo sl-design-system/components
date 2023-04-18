@@ -1,7 +1,7 @@
 import type { GridColumnDataRenderer } from '../../index.js';
-import type { Person } from '@sanomalearning/example-data';
+import type { Person } from '@sl-design-system/example-data';
 import type { StoryObj } from '@storybook/web-components';
-import { getPeople } from '@sanomalearning/example-data';
+import { getPeople } from '@sl-design-system/example-data';
 import { html } from 'lit';
 import '../../register.js';
 

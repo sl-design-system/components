@@ -2,7 +2,7 @@ import type { Checkbox } from './checkbox.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/label/register.js';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),

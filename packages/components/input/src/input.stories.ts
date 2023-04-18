@@ -1,10 +1,10 @@
 import type { Input } from './input.js';
 import type { ValidationValue, Validator } from '@sl-design-system/shared';
 import type { StoryObj } from '@storybook/web-components';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/label/register.js';
 import { html } from 'lit';
-import '../button/register.js';
-import '../label/register.js';
-import './register.js';
+import '../register.js';
 
 export default {
   title: 'Input'

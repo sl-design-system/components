@@ -1,8 +1,8 @@
 import type { Dialog } from './dialog.js';
 import type { StoryObj } from '@storybook/web-components';
+import '@sl-design-system/button/register.js';
 import { html } from 'lit';
-import '../button/register.js';
-import './register.js';
+import '../register.js';
 
 export default {
   title: 'Dialog'

@@ -1,9 +1,9 @@
 import type { RadioGroup } from './radio-group.js';
 import type { StoryObj } from '@storybook/web-components';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/checkbox/register.js';
 import { html } from 'lit';
-import '../button/register.js';
-import '../checkbox/register.js';
-import './register.js';
+import '../register.js';
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),

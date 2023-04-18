@@ -3,7 +3,7 @@ import type { StorybookConfig } from '@storybook/web-components-vite';
 const config: StorybookConfig = {
   stories: ['../packages/**/*.stories.ts'],
   addons: [
-    '@sanomalearning/storybook-addon-themes',
+    '@sl-design-system/storybook-addon-themes',
     '@storybook/addon-a11y', 
     '@storybook/addon-actions', 
     '@storybook/addon-storysource',

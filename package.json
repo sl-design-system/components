@@ -14,7 +14,6 @@
     "packages/themes/*",
     "packages/tokens",
     "scripts",
-    "tools/changesets-changelog",
     "tools/example-data",
     "tools/storybook-addon-themes"
   ],
@@ -185,6 +184,8 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
     "prettier": "^2.8.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rimraf": "^5.0.0",
     "rollup": "^3.20.4",
     "sass": "^1.62.0",

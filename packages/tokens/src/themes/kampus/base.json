@@ -132,7 +132,7 @@
           "description": "color.palette.neutral.50"
         },
         "100": {
-          "value": "#EFEFF0",
+          "value": "#F5F5F6",
           "type": "color",
           "description": "color.palette.neutral.100"
         },
@@ -142,42 +142,42 @@
           "description": "color.palette.neutral.150"
         },
         "200": {
-          "value": "#C8C8CC",
+          "value": "#E2E2E4",
           "type": "color",
           "description": "color.palette.neutral.200"
         },
         "300": {
-          "value": "#B1B1B6",
+          "value": "#CECFD2",
           "type": "color",
           "description": "color.palette.neutral.300"
         },
         "400": {
-          "value": "#9A9AA1",
+          "value": "#B1B2B7",
           "type": "color",
           "description": "color.palette.neutral.400"
         },
         "500": {
-          "value": "#85858D",
+          "value": "#95969D",
           "type": "color",
           "description": "color.palette.neutral.500"
         },
         "600": {
-          "value": "#72727A",
+          "value": "#6D6E73",
           "type": "color",
           "description": "color.palette.neutral.600"
         },
         "700": {
-          "value": "#606067",
+          "value": "#444548",
           "type": "color",
           "description": "color.palette.neutral.700"
         },
         "800": {
-          "value": "#515157",
+          "value": "#29292B",
           "type": "color",
           "description": "color.palette.neutral.800"
         },
         "900": {
-          "value": "#3C3C40",
+          "value": "#0E0E0F",
           "type": "color",
           "description": "color.palette.neutral.900"
         },
@@ -194,7 +194,7 @@
           "description": "color.palette.info.50"
         },
         "100": {
-          "value": "#E6EDF9",
+          "value": "#F0F4F6",
           "type": "color",
           "description": "color.palette.info.100"
         },
@@ -204,7 +204,7 @@
           "description": "color.palette.info.150"
         },
         "200": {
-          "value": "#A7C1EA",
+          "value": "#91BFF4",
           "type": "color",
           "description": "color.palette.info.200"
         },
@@ -239,7 +239,7 @@
           "description": "color.palette.info.800"
         },
         "900": {
-          "value": "#142B52",
+          "value": "#0C1C65",
           "type": "color",
           "description": "color.palette.info.900"
         },

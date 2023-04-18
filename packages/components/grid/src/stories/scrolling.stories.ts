@@ -8,7 +8,7 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Scrolling'
+  title: 'Grid/Scrolling'
 };
 
 export const VerticalOverflow: Story = {

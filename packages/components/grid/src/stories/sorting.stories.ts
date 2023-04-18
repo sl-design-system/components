@@ -6,7 +6,7 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Sorting'
+  title: 'Grid/Sorting'
 };
 
 export const Single: Story = {

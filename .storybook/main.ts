@@ -1,7 +1,7 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
-  stories: ['../packages/**/*.stories.ts'],
+  stories: ['../packages/components/**/*.stories.ts'],
   addons: [
     '@sl-design-system/storybook-addon-themes',
     '@storybook/addon-a11y', 
@@ -23,7 +23,7 @@ const config: StorybookConfig = {
     autodocs: false
   },
   staticDirs: [
-    // { from: '../../tokens/src/themes', to: '/themes' }
+    { from: '../packages/themes', to: '/themes' }
   ]
 };
 

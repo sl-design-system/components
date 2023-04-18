@@ -8,7 +8,7 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Selection'
+  title: 'Grid/Selection'
 };
 
 export const Single: Story = {

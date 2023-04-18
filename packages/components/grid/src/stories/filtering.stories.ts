@@ -10,7 +10,7 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Filtering'
+  title: 'Grid/Filtering'
 };
 
 export const PerColumn: Story = {

@@ -127,7 +127,7 @@
   --sl-text-typeset-font-family-body: open-sans;
   --sl-text-typeset-font-family-heading: open-sans;
   --sl-color-palette-white-base: 249 249 249;
-  --sl-color-palette-black-base: 45 42 56;
+  --sl-color-palette-black-base: 51 51 51;
   --sl-color-palette-danger-base: 207 68 68;
   --sl-color-palette-danger-900: 96 45 43;
   --sl-color-palette-danger-800: 136 56 54;
@@ -186,8 +186,8 @@
   --sl-color-palette-neutral-300: 225 225 225;
   --sl-color-palette-neutral-200: 236 236 236;
   --sl-color-palette-neutral-150: 242 242 242;
-  --sl-color-palette-neutral-100: 249 249 249;
-  --sl-color-palette-neutral-50: 254 254 254;
+  --sl-color-palette-neutral-100: 244 244 244;
+  --sl-color-palette-neutral-50: 249 249 249;
   --sl-color-palette-accent-base: 0 136 89;
   --sl-color-palette-accent-900: 0 67 44;
   --sl-color-palette-accent-800: 0 90 59;

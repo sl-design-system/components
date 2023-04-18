@@ -36,14 +36,13 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     }
 
     renderHint(): TemplateResult {
+      console.log('render hint');
       return html`<slot @slotchange=${() => this.#updateHint()} name="hint" hintSize="${this.hintSize}"></slot>`;
     }
 
     #updateHint(): void {
       const input = this.querySelector('input, textarea'),
         hint = this.querySelector('[slot="hint"]');
-
-      // TODO: hintSize here?
 
       if (hint) {
         hint.id ||= `sl-hint-${nextUniqueId++}`;

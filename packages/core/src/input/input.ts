@@ -272,7 +272,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
       this.#validation.validate(this.value);
 
-      console.log('this.input.checkValidity() 2', this.input.checkValidity(), this.checkValidity());
+      // console.log('this.input.checkValidity() 2', this.input.checkValidity(), this.checkValidity());
       // this.invalid = !this.#validation.validity.valid;
       this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
     }
@@ -327,17 +327,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
     if (changes.has('min')) {
       console.log('min in changes', this.min, this.type, this.type === 'number', this.min && this.type === 'number');
-      // if (this.min?.toString()) {
-      //   console.log('min in if 111', this.min);
-      // }
-      // if (this.min /*&& this.type === 'number'*/) {
-      //   console.log('min in if', this.min);
-      //   this.input.setAttribute('min', this.min.toString());
-      // } else {
-      //   console.log('min in else', this.min);
-      //   this.input.removeAttribute('min');
-      // } // TODO: sth is not working?
-
       const min = this.min?.toString();
       if (min) {
         this.input.setAttribute('min', min);
@@ -442,13 +431,16 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
             : null}
         </slot>
       </div>
-      ${!this.input.validity.valid} ${this.hasAttribute('invalid')} internals.validity.valid:
-      ${this.internals.validity.valid} ${this.invalid} ${this.hasAttribute('invalid')}
-      ${this.input.hasAttribute('invalid')} input valid: ${this.input.validity.valid} ${this.#validation.render()}
       ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
   // TODO: use sl-icon instead of plain SVGs
+
+  // ${!this.input.validity.valid} ${this.hasAttribute('invalid')} internals.validity.valid:
+  //   ${this.internals.validity.valid} ${this.invalid} ${this.hasAttribute('invalid')}
+  // ${this.input.hasAttribute('invalid')} input valid: ${this.input.validity.valid}
+  // ${this.renderHint()} ${this.input.validity.valid ? this.renderHint() : null}
+  // ${this.#validation.render()}
 
   // exact hint: ${this.renderHint()}
 
@@ -472,7 +464,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
     this.#validation.validate(this.value);
-    console.log('this.internals?.validity.valid', this.#validation.validity.valid);
+    // console.log('this.internals?.validity.valid', this.#validation.validity.valid);
     // this.invalid = !this.#validation.validity.valid; // TODO not working on required and empty input
     console.log('this.invalid oninput', this.invalid);
     this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example

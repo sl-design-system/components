@@ -3,62 +3,62 @@
     "palette": {
       "primary": {
         "50": {
-          "value": "#FEFEFE",
+          "value": "#F4F2F6",
           "type": "color",
           "description": "color.palette.primary.50"
         },
         "100": {
-          "value": "#ECECEE",
+          "value": "#EFEBF1",
           "type": "color",
           "description": "color.palette.primary.100"
         },
         "150": {
-          "value": "#D9D8DC",
+          "value": "#E9E4EC",
           "type": "color",
           "description": "color.palette.primary.150"
         },
         "200": {
-          "value": "#BFBFC5",
+          "value": "#DAD2DF",
           "type": "color",
           "description": "color.palette.primary.200"
         },
         "300": {
-          "value": "#A6A5AF",
+          "value": "#C2B5CA",
           "type": "color",
           "description": "color.palette.primary.300"
         },
         "400": {
-          "value": "#8E8C99",
+          "value": "#A997B5",
           "type": "color",
           "description": "color.palette.primary.400"
         },
         "500": {
-          "value": "#787687",
+          "value": "#9179A0",
           "type": "color",
           "description": "color.palette.primary.500"
         },
         "600": {
-          "value": "#656276",
+          "value": "#785F86",
           "type": "color",
           "description": "color.palette.primary.600"
         },
         "700": {
-          "value": "#545067",
+          "value": "#5D4A68",
           "type": "color",
           "description": "color.palette.primary.700"
         },
         "800": {
-          "value": "#433F58",
+          "value": "#42354A",
           "type": "color",
           "description": "color.palette.primary.800"
         },
         "900": {
-          "value": "#2D2A38",
+          "value": "#28202D",
           "type": "color",
           "description": "color.palette.primary.900"
         },
         "base": {
-          "value": "#444059",
+          "value": "#785F86",
           "type": "color",
           "description": "color.palette.primary.base"
         }

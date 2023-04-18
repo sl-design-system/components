@@ -118,7 +118,7 @@ describe('sl-checkbox', () => {
         el = form.firstElementChild as Checkbox;
       });
 
-      it('should revert back to the correct initial state when the form is reset', () => {
+      it('should revert back to the correct initial state (unchecked) when the form is reset', () => {
         el.click();
 
         expect(el.checked).to.equal(true);
@@ -141,7 +141,7 @@ describe('sl-checkbox', () => {
         el = form.firstElementChild as Checkbox;
       });
 
-      it('should change the state to unchecked when clicked', () => {
+      it('should revert back to the correct initial state (checked) when the form is reset', () => {
         el.click();
 
         expect(el.checked).to.equal(false);

@@ -1,12 +1,12 @@
 import type { StoryObj } from '@storybook/web-components';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/checkbox/register.js';
+import '@sl-design-system/input/register.js';
+import '@sl-design-system/label/register.js';
+import '@sl-design-system/radio-group/register.js';
+import '@sl-design-system/textarea/register.js';
 import { html } from 'lit';
-import './button/register.js';
-import './button-bar/register.js';
-import './checkbox/register.js';
-import './input/register.js';
-import './label/register.js';
-import './radio-group/register.js';
-import './textarea/register.js';
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),

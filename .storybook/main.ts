@@ -1,7 +1,10 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
-  stories: ['../packages/components/**/*.stories.ts'],
+  stories: [
+    './stories/**/*.stories.ts',
+    '../packages/components/**/*.stories.ts'
+  ],
   addons: [
     '@sl-design-system/storybook-addon-themes',
     '@storybook/addon-a11y', 

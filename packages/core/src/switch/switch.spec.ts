@@ -32,8 +32,8 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(true);
     });
 
-    it('should change the state to on when clicked on the wrapper', async () => {
-      (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
+    it('should change the state to on when clicked on the track', async () => {
+      (el.renderRoot.querySelector('.track') as HTMLElement)?.click();
 
       expect(el.checked).to.equal(true);
     });
@@ -62,8 +62,8 @@ describe('sl-switch', () => {
       expect(el.checked).not.to.equal(true);
     });
 
-    it('should not change the state to on when clicked on the wrapper', async () => {
-      (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
+    it('should not change the state to on when clicked on the track', async () => {
+      (el.renderRoot.querySelector('.track') as HTMLElement)?.click();
 
       expect(el.checked).not.to.equal(true);
     });

@@ -3,20 +3,24 @@ $sizes: md, lg;
 :host {
   --_main-background-color: rgb(var(--sl-color-palette-neutral-400));
   --_thumb-position: 0%;
-  outline: none;
-  align-items: start;
+  --isLTR: 1;
+  align-items: stretch;
   display: inline-flex;
   flex-direction: column;
   gap: var(--_gap);
   line-height: var(--_line-height);
+  outline: none;
+}
+:host-context([dir="rtl"]){
+  --isLTR: -1;
 }
 
 :host([checked]) {
   --_main-background-color: rgb(var(--sl-color-palette-success-base));
-  --_thumb-position: calc(var(--_toggle-width) - var(--_thumb-size) - (2 * var(--_toggle-padding)));
+  --_thumb-position: calc((var(--_toggle-width) - (2 * var(--_toggle-padding)) - 100%) * var(--isLTR));//calc(var(--_toggle-width) - var(--_thumb-size) - (2 * var(--_toggle-padding)));
 }
 
-:host(:focus-visible) .wrapper {
+:host(:focus-visible) .track {
   --_box-shadow: var(--sl-box-shadow-focus);
 }
 :host(:where(:disabled, [internals-disabled])) {
@@ -25,25 +29,35 @@ $sizes: md, lg;
   pointer-events: none;
 }
 
+label {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: var(--_gap);
+  justify-content: space-between;
+}
 
-.wrapper {
+.track {
   background-color: var(--_main-background-color);
   border-radius: calc((var(--_thumb-size) + var(--_toggle-padding) * 2) / 2);
   box-shadow: var(--_box-shadow);
-  cursor: pointer;
-  display: inline-flex;
-  padding: var(--_toggle-padding);
+  display: inline-grid;
   transition: background-color var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
+  padding: var(--_toggle-padding);
   width: var(--_toggle-width);
-
+  
+  
   div {
     background-color: white;
     border-radius: calc(var(--_thumb-size) / 2);
     height: var(--_thumb-size);
-    transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
     translate: var(--_thumb-position);
     width: var(--_thumb-size);
     will-change: transform;
+    
+    @media (prefers-reduced-motion: no-preference) {
+      transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
+    }
   }
 }
 
@@ -52,6 +66,7 @@ $sizes: md, lg;
     --_toggle-padding: var(--sl-space-input-block-#{$size});
     --_thumb-size: var(--sl-size-input-#{$size});
     --_toggle-width: calc(var(--_thumb-size) * 2) ;
+    --_gap: var(--sl-space-input-gap-#{$size});
   }
 }
 

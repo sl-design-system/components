@@ -14,7 +14,9 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 
-type Props = Pick<Switch, 'checked' | 'disabled' | 'value' | 'size' | 'hint'>;
+interface Props extends Pick<Switch, 'checked' | 'disabled' | 'value' | 'size' | 'hint'> {
+  label: string;
+}
 
 export default {
   title: 'Switch',
@@ -23,7 +25,8 @@ export default {
     disabled: false,
     value: '12345',
     size: 'md',
-    hint: 'Something to help the user out'
+    hint: 'Something to help the user out',
+    label: 'Label for the switch'
   },
   argTypes: {
     size: {
@@ -31,8 +34,10 @@ export default {
       options: ['md', 'lg']
     }
   },
-  render: ({ checked, disabled, value, size, hint }) => html`
-    <sl-switch ?checked=${checked} ?disabled=${disabled} .value=${value} .size=${size} .hint=${hint}></sl-switch>
+  render: ({ checked, disabled, value, size, hint, label }) => html`
+    <sl-switch ?checked=${checked} ?disabled=${disabled} .value=${value} .size=${size} .hint=${hint}
+      >${label}</sl-switch
+    >
   `
 } satisfies Meta<Props>;
 
@@ -40,7 +45,25 @@ type Story = StoryObj<Props>;
 
 export const Basic: Story = {};
 
-export const ValidateInForm: StoryObj = {
+export const All: Story = {
+  render: () => {
+    return html`
+      <style>
+        #root-inner {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+        }
+      </style>
+      <sl-switch>Unchecked</sl-switch>
+      <sl-switch checked>Checked</sl-switch>
+      <sl-switch disabled>Disabled unchecked</sl-switch>
+      <sl-switch disabled checked>Disabled checked</sl-switch>
+    `;
+  }
+};
+
+export const ValidateInForm: Story = {
   render: () => {
     setTimeout(() => document.querySelector('form')?.reportValidity());
 
@@ -65,7 +88,7 @@ export const ValidateInForm: StoryObj = {
       </style>
       <form @submit=${onSubmit}>
         <sl-label for="group">Switch</sl-label>
-        <sl-switch required name="newletter" value="subscribe"></sl-switch>
+        <sl-switch required name="newletter" value="subscribe">Subscribed to the newsletter</sl-switch>
         <sl-button-bar align="end">
           <sl-button type="reset">Reset</sl-button>
           <sl-button type="submit">Submit</sl-button>

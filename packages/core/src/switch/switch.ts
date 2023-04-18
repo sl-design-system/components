@@ -90,7 +90,10 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
-      <div @click=${this.#onToggle} class="wrapper"><div></div></div>
+      <label>
+        <slot></slot>
+        <div @click=${this.#onToggle} class="track"><div></div></div>
+      </label>
       ${this.renderHint()} ${this.#validation.render()}
     `;
   }
@@ -98,7 +101,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   #onClick(event: Event): void {
     // If the user clicked the label, toggle the checkbox
     if (event.target === this) {
-      this.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+      this.renderRoot.querySelector<HTMLElement>('.track')?.click();
     }
   }
 
@@ -110,7 +113,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     if (['Enter', ' '].includes(event.key)) {
       event.preventDefault();
 
-      this.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+      this.renderRoot.querySelector<HTMLElement>('.track')?.click();
     }
   }
 

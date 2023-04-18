@@ -112,10 +112,11 @@
   --sl-text-typeset-font-weight-icon-regular: 400;
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
+  --sl-text-typeset-font-weight-heavy: Heavy;
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
   --sl-text-typeset-font-family-body: open-sans;
-  --sl-text-typeset-font-family-heading: open-sans;
+  --sl-text-typeset-font-family-heading: avenir;
   --sl-color-palette-white-base: 248 248 248;
   --sl-color-palette-black-base: 41 41 41;
   --sl-color-palette-danger-base: 227 10 39;
@@ -264,17 +265,17 @@
   --sl-border-width-input-border: var(--sl-border-width-sm);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-button-link: var(--sl-border-width-none);
-  --sl-border-width-button-outline: var(--sl-border-width-xs);
-  --sl-border-width-button-default: var(--sl-border-width-xs);
+  --sl-border-width-button-outline: var(--sl-border-width-sm);
+  --sl-border-width-button-default: var(--sl-border-width-sm);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
   --sl-border-radius-default: var(--sl-border-radius-3xs);
   --sl-border-radius-button-icon-only-lg: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-md: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-sm: var(--sl-border-radius-full);
-  --sl-border-radius-button-lg: var(--sl-border-radius-sm);
-  --sl-border-radius-button-md: var(--sl-border-radius-sm);
-  --sl-border-radius-button-sm: var(--sl-border-radius-sm);
+  --sl-border-radius-button-lg: var(--sl-border-radius-full);
+  --sl-border-radius-button-md: var(--sl-border-radius-full);
+  --sl-border-radius-button-sm: var(--sl-border-radius-full);
   --sl-text-input-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
@@ -293,8 +294,8 @@
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-heavy) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-heading);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /

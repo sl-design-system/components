@@ -7,7 +7,7 @@
       "failedToResolve": true
     },
     "foreground": {
-      "value": "{color.surface.solid.primary.foreground}",
+      "value": "{color.palette.primary.base}",
       "type": "color",
       "description": "color.body.foreground",
       "failedToResolve": true
@@ -25,13 +25,13 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.primary.700}",
               "type": "color",
               "description": "color.button.default.idle.foreground",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.default.idle.border",
               "failedToResolve": true

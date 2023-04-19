@@ -474,11 +474,6 @@
         "demibold": {
           "value": "SemiBold",
           "type": "fontWeights"
-        },
-        "heavy": {
-          "value": "Heavy",
-          "type": "fontWeights",
-          "description": "text.typeset.fontWeight.Heavy"
         }
       }
     },

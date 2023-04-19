@@ -44,12 +44,22 @@
       "command": "rimraf --glob \"src/themes/**/.wireit\""
     }
   },
+  "dependencies": {
+    "@fortawesome/pro-duotone-svg-icons": "^6.4.0",
+    "@fortawesome/pro-light-svg-icons": "^6.4.0",
+    "@fortawesome/pro-regular-svg-icons": "^6.4.0",
+    "@fortawesome/pro-solid-svg-icons": "^6.4.0",
+    "@fortawesome/pro-thin-svg-icons": "^6.4.0",
+    "@fortawesome/sharp-light-svg-icons": "^6.4.0",
+    "@fortawesome/sharp-regular-svg-icons": "^6.4.0",
+    "@fortawesome/sharp-solid-svg-icons": "^6.4.0"
+  },
   "devDependencies": {
     "@figma-export/cli": "^4.5.0",
     "@figma-export/output-components-as-svg": "^4.5.0",
     "@figma-export/transform-svg-with-svgo": "^4.5.0",
-    "rimraf": "^4.4.1",
-    "sass": "^1.60.0",
+    "rimraf": "^5.0.0",
+    "sass": "^1.62.0",
     "style-dictionary": "^3.7.2",
     "token-transformer": "^0.0.32",
     "typescript": "^4.9.5",

@@ -2705,6 +2705,48 @@
           "failedToResolve": true
         }
       }
+    },
+    "label": {
+      "text": {
+        "default": {
+          "value": "{body.foreground}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground",
+          "failedToResolve": true
+        },
+        "disabled": {
+          "value": "{color.palette.neutral.300}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground",
+          "failedToResolve": true
+        },
+        "invalid": {
+          "value": "{color.textField.invalid.default.icon}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground",
+          "failedToResolve": true
+        }
+      },
+      "icon": {
+        "default": {
+          "value": "{body.foreground}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground",
+          "failedToResolve": true
+        },
+        "disabled": {
+          "value": "{color.palette.neutral.300}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground",
+          "failedToResolve": true
+        },
+        "invalid": {
+          "value": "{color.textField.invalid.default.icon}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground",
+          "failedToResolve": true
+        }
+      }
     }
   },
   "button": {

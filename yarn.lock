@@ -4142,6 +4142,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/scripts@workspace:scripts":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/scripts@workspace:scripts"
+  dependencies:
+    esbuild: ^0.17.17
+    fast-glob: ^3.2.12
+    sass: ^1.62.0
+    stylelint: ^15.5.0
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/select@workspace:packages/components/select":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/select@workspace:packages/components/select"
@@ -4174,17 +4185,6 @@ __metadata:
     prosemirror-schema-list: ^1.2.2
     prosemirror-state: ^1.4.2
     prosemirror-view: ^1.30.2
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/slds-scripts@workspace:scripts":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/slds-scripts@workspace:scripts"
-  dependencies:
-    esbuild: ^0.17.17
-    fast-glob: ^3.2.12
-    sass: ^1.62.0
-    stylelint: ^15.5.0
   languageName: unknown
   linkType: soft
 

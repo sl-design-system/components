@@ -1,5 +1,5 @@
 {
-  "name": "@sl-design-system/slds-scripts",
+  "name": "@sl-design-system/scripts",
   "license": "ISC",
   "description": "Build scripts for SLDS monorepo",
   "version": "1.0.0",

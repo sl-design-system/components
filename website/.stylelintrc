@@ -1,5 +1,5 @@
 {
-  "extends": "../../.stylelintrc.cjs",
+  "extends": "../.stylelintrc.cjs",
   "plugins": [
     "stylelint-prettier"
   ],

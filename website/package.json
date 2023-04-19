@@ -1,15 +1,15 @@
 {
-  "name": "@sanomalearning/slds-docs",
-  "description": "SLDS Documentation",
+  "name": "@sl-design-system/website",
+  "description": "Website for the SL Design System",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/sanomalearning/design-system.git",
     "directory": "docs/website"
   },
   "type": "module",
+  "main": "index.js",
   "scripts": {
     "build:dev": "wireit",
     "build:prod": "wireit",
@@ -41,7 +41,7 @@
     "lint:scss": "wireit",
     "lint:ts": "wireit",
     "analyze": "wireit",
-    "copy:tokens": "cpx './../../packages/tokens/src/themes/sanoma-learning/base.json' 'src/site/_data/tokens/'"
+    "copy:tokens": "cpx '../packages/themes/sanoma-learning/base.json' 'src/site/_data/tokens/'"
   },
   "wireit": {
     "build:dev": {

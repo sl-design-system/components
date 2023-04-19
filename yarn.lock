@@ -3707,38 +3707,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanomalearning/slds-docs@workspace:docs/website":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-docs@workspace:docs/website"
-  dependencies:
-    "@11ty/eleventy": ^1.0.2
-    "@11ty/eleventy-navigation": ^0.3.5
-    "@11ty/eleventy-plugin-syntaxhighlight": ^4.2.0
-    "@11ty/is-land": ^3.0.0
-    "@custom-elements-manifest/analyzer": ^0.8.0
-    "@custom-elements-manifest/to-markdown": ^0.1.0
-    "@lit-labs/eleventy-plugin-lit": ^0.2.3
-    "@luncheon/esbuild-plugin-gzip": ^0.1.0
-    "@web/dev-server": ^0.1.38
-    "@webcomponents/template-shadowroot": ^0.1.0
-    cpx: ^1.5.0
-    elasticlunr: ^0.9.5
-    esbuild: ^0.15.18
-    esbuild-plugin-minify-html-literals: ^1.0.4
-    html-minifier: ^4.0.0
-    lit: ^2.7.2
-    markdown-it: ^13.0.1
-    markdown-it-anchor: ^8.6.7
-    markdown-it-attrs: ^4.1.6
-    rimraf: ^5.0.0
-    sass: ^1.62.0
-    slugify: ^1.6.6
-    tiny-glob: ^0.2.9
-    typescript: ^4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
 "@sanomalearning/slds-tokens@workspace:packages/tokens":
   version: 0.0.0-use.local
   resolution: "@sanomalearning/slds-tokens@workspace:packages/tokens"
@@ -4214,6 +4182,38 @@ __metadata:
     "@sl-design-system/popover": 0.0.0
     "@sl-design-system/shared": 0.0.0
     lit: ^2.7.2
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/website@workspace:website":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/website@workspace:website"
+  dependencies:
+    "@11ty/eleventy": ^1.0.2
+    "@11ty/eleventy-navigation": ^0.3.5
+    "@11ty/eleventy-plugin-syntaxhighlight": ^4.2.0
+    "@11ty/is-land": ^3.0.0
+    "@custom-elements-manifest/analyzer": ^0.8.0
+    "@custom-elements-manifest/to-markdown": ^0.1.0
+    "@lit-labs/eleventy-plugin-lit": ^0.2.3
+    "@luncheon/esbuild-plugin-gzip": ^0.1.0
+    "@web/dev-server": ^0.1.38
+    "@webcomponents/template-shadowroot": ^0.1.0
+    cpx: ^1.5.0
+    elasticlunr: ^0.9.5
+    esbuild: ^0.15.18
+    esbuild-plugin-minify-html-literals: ^1.0.4
+    html-minifier: ^4.0.0
+    lit: ^2.7.2
+    markdown-it: ^13.0.1
+    markdown-it-anchor: ^8.6.7
+    markdown-it-attrs: ^4.1.6
+    rimraf: ^5.0.0
+    sass: ^1.62.0
+    slugify: ^1.6.6
+    tiny-glob: ^0.2.9
+    typescript: ^4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 

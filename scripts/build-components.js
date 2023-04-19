@@ -5,7 +5,7 @@ const buildPackages = async () => {
   const paths = [];
 
   for (const entryPoint of await fg([
-    './packages/{components,themes}/**/!(*.{d,spec,stories}).ts'
+    './packages/components/**/!(*.{d,spec,stories}).ts'
   ])) {
     paths.push(entryPoint);
   }

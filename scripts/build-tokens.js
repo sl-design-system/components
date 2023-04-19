@@ -69,9 +69,10 @@ const buildTokens = async name => {
   buildStyles(name);
 
   for (const { input, output } of TEMPLATES) {
-    const { css } = sass.compileString(input, { loadPaths: [join(cwd, `../packages/themes/${name}`)] });
+    const folder = join(cwd, `../packages/themes/${name}`),
+      { css } = sass.compileString(input, { loadPaths: [folder] });
     
-    await fs.writeFile(join(cwd, `../packages/themes/${name}/${output}`), css);
+    await fs.writeFile(`${folder}/${output}`, css);
   }
   
   await stylelint.lint({ 

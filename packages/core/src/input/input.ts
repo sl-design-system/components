@@ -4,7 +4,7 @@ import { faCircleCheck, faTriangleExclamation } from '@fortawesome/pro-solid-svg
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
-import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
+import { FormControlMixin, HintMixin, hintStyles } from '../utils/mixins/index.js';
 import { Icon } from '../icon';
 import styles from './input.scss.js';
 
@@ -21,129 +21,34 @@ let nextUniqueId = 0;
  */
 export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   #onKeydown = (event: Event): void => {
-    //{ key }: KeyboardEvent
-    // console.log('key and active element', event, document.activeElement, event.target, event.target === this.input);
-    // if (key !== 'Tab') {
-    //    this.input.focus();
-    // }
-    // TODO: shift tab doesn't work
-
     this.#clicked = false;
-
-    // this.focusVisible = false;
-
-    // if ((event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Tab') {
-    //   console.log('shift + tab');
-    //   this.input.blur();
-    // }
-    /*    this.focusVisible = true;
-
-
-    if (event.target === this.input) {
-      this.focusVisible = true;
-      // this.input.focus();
-      // requestAnimationFrame(() => {
-      // this.focusVisible = false;
-      // });
-      if (
-        ((event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Tab') ||
-        ((event as KeyboardEvent).key === 'Tab')
-      ) {
-        // this.#onBlur(event);
-        this.focusVisible = false;
-      }
-    } /!*else {
-      this.focusVisible = true;
-    }*!/*/
-
-    /*    if (!this.disabled) {
-      if (
-        //((event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Tab') ||
-        !((event as KeyboardEvent).key === 'Tab')
-      ) {
-        // event.preventDefault();
-        //
-        // this.input.focus();
-
-        // console.log('shift + tab or tab', document.activeElement, this.input);
-        // event.stopPropagation();
-        // this.input.blur();
-        // this.blur();
-        // this.input.focus();
-        // requestAnimationFrame(() => {
-        //   this.focusVisible = true;
-        // });
-        // this.focusVisible = true;
-        // alert((document.activeElement as HTMLInputElement).value);
-        console.log('shift + tab or tab', document.activeElement, this.input);
-      } else {
-        console.log('focus goes', document.activeElement, this.input);
-        // this.input.focus();
-        this.focusVisible = false;
-      }
-
-      // event.stopPropagation();
-      // this.input.focus();
-      // if ((event as KeyboardEvent).key === 'Enter') {
-      //   console.log('input blur');
-      //   this.input.blur();
-      // } else {
-      //   this.input.focus();
-      // }
-    } // TODO what about blur and tab key?*/
-
-    // if ((event as KeyboardEvent).key === 'Enter') {
-    //   console.log('input blur');
-    //   this.input.blur();
-    // }
 
     if ((event as KeyboardEvent).key === 'Enter') {
       this.input.form?.requestSubmit();
     }
   };
 
-  #onFocusin = (event: Event): void => {
-    console.log('onfocusin', event.target, document.activeElement, event.type, event);
+  #onFocusin = (): void => {
     if (!this.#clicked) {
       this.focusVisible = true;
     }
   };
 
-  #onFocusout = (event: Event): void => {
-    console.log('onfocusin', event.target, document.activeElement);
+  #onFocusout = (): void => {
     this.#clicked = false;
     this.focusVisible = false;
   };
 
-  #onMousedown = (event: Event): void => {
-    console.log('onmousedown', event.target, document.activeElement);
+  #onMousedown = (): void => {
     this.#clicked = true;
-    // event.stopPropagation();
     this.focusVisible = false;
   };
 
-  // #onInvalid = (event: Event): void => {
-  //   console.log('oninvalid in input', event.target, event, this.invalid);
-  //   // this.invalid = (event.target as HTMLInputElement).validity.valid;
-  //   // this.invalid
-  //   // this.#clicked = true;
-  //   // // event.stopPropagation();
-  //   // this.focusVisible = false;
-  // };
-
-  // #onBlur = (event: Event): void => {
-  //   console.log('on blur', event);
-  //   this.input.blur();
-  //   this.focusVisible = false;
-  // };
-
   #events = new EventsController(this, {
-    click: this.#onClick //,
-    // keydown: this.#onKeydown //,
-    // blur: this.#onBlur
+    click: this.#onClick
   });
 
   #validation = new ValidationController(this, {
@@ -214,14 +119,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** The value for the input. */
   @property() value?: string;
 
-  // get invalid(): boolean {
-  //   return this.hasAttribute('invalid');
-  // }
-  //
-  // set invalid(isInvalid: boolean) {
-  //   isInvalid ? this.setAttribute('invalid', '') : this.removeAttribute('invalid');
-  // }
-
   /** @private */
   #clicked = false;
 
@@ -232,10 +129,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // if (!this.hasAttribute('tabindex')) {
-    //   this.tabIndex = 0;
-    // }
-
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.autocomplete ||= this.autocomplete || 'off';
@@ -244,21 +137,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       if (this.readonly) {
         this.input.readOnly = this.readonly;
       }
-      // if (this.invalid) {
-      //   // !this.input.
-      //   // this.setValidity({ badInput: true }, 'null');
-      //   this.input.setAttribute('invalid', '');
-      //   console.log('this.invalid', this.invalid);
-      // }
-      // if (this.min) {
-      //   console.log('min 1', this.min);
-      //   this.input.min = this.min.toString();
-      //   this.input.setAttribute('min', this.min.toString());
-      // }
-      //
-      // if (this.max) {
-      //   this.input.max = this.max.toString();
-      // }
 
       this.input.addEventListener('keydown', this.#onKeydown);
 
@@ -268,12 +146,8 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
       this.setFormControlElement(this.input);
 
-      // console.log('this.input.checkValidity()', this.input.checkValidity(), this.checkValidity());
-
       this.#validation.validate(this.value);
 
-      // console.log('this.input.checkValidity() 2', this.input.checkValidity(), this.checkValidity());
-      // this.invalid = !this.#validation.validity.valid;
       this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
     }
 
@@ -392,16 +266,13 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     }
   }
 
-  // @invalid=${this.#onInvalid}
-
   override render(): TemplateResult {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     Icon.registerIcon(faTriangleExclamation, faCircleCheck);
 
     return html`
-      <div @input=${this.#onInput} class="wrapper" @blur="${this.#onBlur}">
+      <div @input=${this.#onInput} class="wrapper">
         <slot name="prefix"></slot>
-        ${this.invalid}
         <slot
           @slotchange=${this.#onSlotchange}
           name="input"
@@ -412,7 +283,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
           .min=${this.min}
         ></slot>
         <slot name="suffix">
-          ${this.invalid}
           <sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>
           <svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
             <path
@@ -448,10 +318,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   // ? svg`<svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path fill="#E5454A" d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"/></svg>`
   // : null}
 
-  // shouldUpdate ??
-
   #onClick(event: Event): void {
-    console.log('onclick', event.target, document.activeElement);
     this.focusVisible = false;
 
     if (event.target === this.input) {
@@ -464,14 +331,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
     this.#validation.validate(this.value);
-    // console.log('this.internals?.validity.valid', this.#validation.validity.valid);
-    // this.invalid = !this.#validation.validity.valid; // TODO not working on required and empty input
-    console.log('this.invalid oninput', this.invalid);
     this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
-  }
-
-  #onBlur({ target }: Event & { target: HTMLInputElement }): void {
-    console.log('invalid and target on blur', this.hasAttribute('invalid'), target);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
@@ -489,9 +349,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       if (this.readonly) {
         this.input.readOnly = this.readonly;
       }
-      // if (this.min) {
-      //   this.input.min = this.min.toString();
-      // }
       this.input.addEventListener('keydown', this.#onKeydown);
 
       this.setFormControlElement(this.input);

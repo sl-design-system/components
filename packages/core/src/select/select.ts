@@ -8,13 +8,14 @@ import { RovingTabindexController } from '../utils/controllers/roving-tabindex.j
 import { FormControlMixin } from '../utils/mixins/form-control.js';
 import { ValidationController, validationStyles } from '../utils/controllers/index.js';
 import { requiredValidator } from '../utils/index.js';
+import { hintStyles } from '../utils/mixins';
 import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
 
 let nextUniqueId = 0;
 
 export class Select extends FormControlMixin(LitElement) {
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   static formAssociated = true;
 

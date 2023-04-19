@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
 import { requiredValidator } from '../utils/index.js';
 import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
 import { event } from '../utils/decorators/index.js';
-import { FormControlMixin, HintMixin } from '../utils/mixins/index.js';
+import { FormControlMixin, HintMixin, hintStyles } from '../utils/mixins/index.js';
 import styles from './checkbox.scss.js';
 
 export type CheckboxSize = 'md' | 'lg';
@@ -15,7 +15,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   #events = new EventsController(this, {
     click: this.#onClick,

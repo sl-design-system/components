@@ -93,21 +93,17 @@ export class ValidationController implements ReactiveController {
    */
   #validators: Validator[] = [];
 
+  /** Unique ID for error message. */
   #errorMessageId = `sl-error-${nextUniqueId++}`;
 
+  /** Name of slotted validation message. */
   #slotName: string;
-
-  // /** The slotted error message. */
-  // @queryAssignedElements() error!: HTMLElement[];
-
-  // TODO: small, medium, large
 
   /** Event handler for when invalid validity must be reported. */
   #onInvalid = (event: Event): void => {
     // Prevent the browser from showing the built-in validation UI
     event.preventDefault();
 
-    // console.log('onInvalid', this.validity.valid, event);
     // this.#host.setAttribute('invalid', '');
     this.#target?.setAttribute('invalid', '');
     if (isNative(this.target)) {
@@ -227,25 +223,14 @@ export class ValidationController implements ReactiveController {
   }
 
   render(): TemplateResult | undefined {
-    if (!this.#target) {
+    if (!this.#target || !this.target || !this.#host) {
       return;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     Icon.registerIcon(faTriangleExclamation);
 
-    console.log('isNative(this.target), this.target', isNative(this.target), this.target);
-
     const state = this.#getInvalidState(this.validity);
-    console.log('state', state, !!state, this.#host, this.#target, this.validity.valid);
-    console.log('state showErrors', this.#showErrors);
-    // if (!this.validity.valid) {
-    //   this.#target.setAttribute('invalid', '');
-    //   this.#host.setAttribute('invalid', '');
-    // } else {
-    //   this.#target.removeAttribute('invalid');
-    //   this.#host.removeAttribute('invalid');
-    // } // TODO: not working properly with checkbox
 
     if (this.#showErrors && state) {
       this.#slotName = dasherize(state);
@@ -254,22 +239,15 @@ export class ValidationController implements ReactiveController {
         this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
         this.#host.requestUpdate();
       }
-      // TODO: add sl-icon
 
       this.#updateValidationMessage();
 
-      // .name=${dasherize(state)}
       return html`<slot
-        @slotchange="${this.#onSlotchange}"
+        @slotchange="${this.#updateValidationMessage}"
         .name=${this.#slotName}
         part="error"
         size="${this.#messageSize}"
-      >
-        ${!isNative(this.target)
-          ? html`<sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>`
-          : null}
-        ${this.validationMessage}
-      </slot>`;
+      ></slot>`;
     } else if (this.validity.valid) {
       this.#removeValidationMessage();
       // this.#target.removeAttribute('invalid');
@@ -279,7 +257,12 @@ export class ValidationController implements ReactiveController {
       this.#host.requestUpdate();
       // }
       //this.#host.requestUpdate();
-    } // ${this.validity.valid}
+    }
+
+    /*    ${!isNative(this.target)
+  ? html`<sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>`
+  : null}
+    ${this.validationMessage}*/
 
     // ${this.#messageSize}${this.validity.valid}
 
@@ -291,20 +274,22 @@ export class ValidationController implements ReactiveController {
     // d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"
     //   />
     //   </svg>
-
-    //.size=${this.#messageSize} not working
-  }
-
-  #onSlotchange(): void {
-    console.log('onslotchange');
   }
 
   #updateValidationMessage(): void {
     //const input = this.querySelector('input, textarea'),
-    const hint = this.#host.querySelector('div [part="error"]');
+    //const hint = this.#host.querySelector('[part="error"]');
+    const hint = this.#host.querySelector('[slot]');
+    const errorPart = this.#host.querySelector('[part="error"]');
 
     console.log(
+      'hint',
+      hint,
+      errorPart,
+      this.target.querySelector('[slot]'),
       this.#host.shadowRoot?.querySelector('[part="error"]'),
+      //(hint ? hint.slot : null),
+      this.#slotName,
       this.#host.querySelector('[slot]'),
       this.target.querySelector('[slot]'),
       'hint error 1',
@@ -317,70 +302,110 @@ export class ValidationController implements ReactiveController {
     const testValue = this.#host.shadowRoot?.querySelector('[slot]');
     console.log('testValue', testValue /*, this.error*/);
 
+    const customErrorMessage = hint && hint.slot === this.#slotName;
+    console.log('customErrorMessage', customErrorMessage, hint, hint?.hasAttribute('part'));
+
     // this.target.setAttribute('aria-describedby', this.#errorMessageId);
 
-    /*if (hint) {
-      hint.id ||= `sl-hint-${nextUniqueId++}`;
-
-      if (this.validationMessage) {
-        hint.innerHTML = this.validationMessage;
+    if (this.target.querySelector('[slot]')) {
+      if (hint) {
+        hint.id = `sl-error-${nextUniqueId++}`;
+        if (!hint.hasAttribute('size')) {
+          hint.setAttribute('size', this.#messageSize);
+        }
+        this.target.setAttribute('aria-describedby', hint.id);
+        //this.#host.requestUpdate();
       }
-
-      //hint.hintSize = this.hintSize;
-      //hint.setAttribute('hintSize', this.hintSize);
-
-      this.target.setAttribute('aria-describedby', hint.id);
-    } else*/ if (this.validationMessage && hint?.slot !== this.#slotName /*!hint*/) {
+    } else if (this.validationMessage && errorPart?.slot !== this.#slotName && !this.target.querySelector('[slot]')) {
+      console.log(
+        '111hint error   this.target',
+        this.target,
+        this.target.hasAttribute('aria-describedby'),
+        this.#errorMessageId,
+        'hint?',
+        errorPart,
+        this.target.getAttribute('aria-describedby')
+      );
+      if (this.target.hasAttribute('aria-describedby')) {
+        this.target.removeAttribute('aria-describedby');
+      }
       this.target.setAttribute('aria-describedby', this.#errorMessageId);
-      console.log('hint error   this.target', this.target, this.#errorMessageId, 'hint?', hint);
+      //this.#host.requestUpdate();
+      console.log(
+        'hint error   this.target',
+        this.target,
+        this.#host,
+        this.#errorMessageId,
+        'hint?',
+        errorPart,
+        this.target.getAttribute('aria-describedby')
+      );
       // this.target.setAttribute('aria-describedby', this.#errorMessageId);
-      hint?.remove();
-      const div = document.createElement('div');
+      errorPart?.remove();
+      const div = document.createElement('sl-error');
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
       Icon.registerIcon(faTriangleExclamation);
       const icon: Icon | null = !isNative(this.target)
-        ? '<sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>'
+        ? '<sl-icon class="invalid-icon" name="fas-triangle-exclamation" style="width: 20px; height: 20px; margin-right: `${var(--sl-space-group-md)}`;}"></sl-icon>'
         : null;
       // const icon = (new Icon().name = 'fas-triangle-exclamation') as Icon;
-      div.innerText = this.validationMessage;
+      //div.innerText = this.validationMessage;
+      //icon = this.#icon();
       if (icon) {
         div.append(icon as HTMLElement);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/restrict-template-expressions
+        div.innerHTML = `${icon} ${this.validationMessage}`;
+      } else {
+        div.innerHTML = this.validationMessage;
       }
+
       div.id = this.#errorMessageId;
       // div.setAttribute('hintSize', this.hintSize);
       div.part = 'error';
       // div.slot = this.#slotName;
+
+      div.style.display = 'inline-flex';
+      //div.style.gap = '20px'; // var(--sl-space-group-md);
+      div.style.setProperty('gap', 'var(--sl-space-group-md)'); // TODO: space-helper-gap token
+
+      div.setAttribute('size', this.#messageSize);
+
       div.slot = this.#slotName;
+      //div.appendChild(this.#icon());
+      console.log('inside div adding', this.#host, this.#target, this.target);
+      // if (isNative(this.target)) {
       this.#host.append(div);
+      //this.#host.requestUpdate();
+      // this.#host.requestUpdate();
+      // } else {
+      //   this.#host.parentNode?.insertBefore(div, this.#host);
+      // }
+      //this.#icon();
     } /*else {
       this.target.removeAttribute('aria-describedby');
     }*/
   }
 
   #removeValidationMessage(): void {
-    console.log(
-      'hint error remove?',
-      this.#host.querySelector('[slot] [part="error"]'),
-      this.#host.querySelector('[part="error"]'),
-      this.#host
-    );
-
-    // this.querySelector('[slot="hint"]')?.remove();
     this.#host.querySelector('[part="error"]')?.remove();
-    this.target.removeAttribute('aria-describedby');
-    // this.querySelector('input')?.removeAttribute('aria-describedby');
+    if (this.#target?.hasAttribute('aria-describedby')) {
+      console.log(
+        "this.#target?.getAttribute('aria-describedby')",
+        this.#target?.getAttribute('aria-describedby'),
+        this.#errorMessageId
+      );
+      const describedBy = this.#target?.getAttribute('aria-describedby');
+      describedBy?.replace(this.#errorMessageId, '').replace('  ', ' ').trim();
+      // this.#host.requestUpdate();
+      console.log(
+        "this.#target?.getAttribute('aria-describedby')",
+        this.#target?.getAttribute('aria-describedby'),
+        this.#errorMessageId
+      );
+    }
+    // this.target.removeAttribute('aria-describedby');
+    // this.#host.requestUpdate();
   }
-
-  // #handleSlotchange(event: Event & { target: HTMLSlotElement }): void {
-  //   // const childNodes = e.target.assignedNodes({flatten: true});
-  //   // // ... do something with childNodes ...
-  //   // this.allText = childNodes.map((node) => {
-  //   //   return node.textContent ? node.textContent : ''
-  //   // }).join('');
-  //
-  //   const elements = event.target.assignedElements({ flatten: true });
-  //   console.log('elements in validation', elements);
-  // }
 
   addValidator(validator: Validator): void {
     this.#validators = [...this.#validators, validator];

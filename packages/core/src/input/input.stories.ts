@@ -141,6 +141,14 @@ export const Hint: StoryObj = {
       <sl-input id="input2" hint="What would you like people to call you?"></sl-input>
       <sl-label for="input3">Nickname</sl-label>
       <sl-input id="input3" hint="What would you like people to call you?" hintSize="lg"></sl-input>
+      <sl-label for="input4">Nickname</sl-label>
+      <sl-input
+        id="input4"
+        disabled
+        hint="What would you like people to call you?"
+        hintSize="lg"
+        value="Disabled input"
+      ></sl-input>
     </form>
   `
 };

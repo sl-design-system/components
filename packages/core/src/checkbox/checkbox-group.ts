@@ -10,7 +10,7 @@ import {
   ValidationController,
   validationStyles
 } from '../utils/controllers/index.js';
-import { HintMixin } from '../utils/mixins/index.js';
+import { HintMixin, hintStyles } from '../utils/mixins/index.js';
 import { requiredValidator } from '../utils/index.js';
 import styles from './checkbox-group.scss.js';
 
@@ -19,7 +19,7 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   /** Events controller. */
   #events = new EventsController(this, { click: this.#onClick });

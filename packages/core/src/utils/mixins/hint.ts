@@ -1,6 +1,6 @@
-import type { PropertyValues, ReactiveElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, ReactiveElement, TemplateResult } from 'lit';
 import type { Constructor } from './types.js';
-import { html } from 'lit';
+import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 
 export interface HintInterface {
@@ -12,6 +12,12 @@ export interface HintInterface {
 export type LabelSize = 'sm' | 'md' | 'lg';
 
 let nextUniqueId = 0;
+
+export const hintStyles: CSSResultGroup = css`
+  slot[name='hint'] {
+    color: blue;
+  }
+`;
 
 export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<HintInterface> {
   class Hint extends constructor {
@@ -44,8 +50,19 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
       const input = this.querySelector('input, textarea'),
         hint = this.querySelector('[slot="hint"]');
 
+      console.log(
+        'input in hint',
+        input,
+        input?.hasAttribute('disabled'),
+        hint,
+        this.hint,
+        this,
+        input?.hasAttribute('aria-describedby')
+      );
+
       if (hint) {
         hint.id ||= `sl-hint-${nextUniqueId++}`;
+        hint.classList.add('test');
 
         if (this.hint) {
           hint.innerHTML = this.hint;
@@ -54,16 +71,29 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
         //hint.hintSize = this.hintSize;
         hint.setAttribute('hintSize', this.hintSize);
 
-        input?.setAttribute('aria-describedby', hint.id);
+        if (input?.hasAttribute('aria-describedby')) {
+          const currentId = input.getAttribute('aria-describedby') as string;
+          input?.setAttribute('aria-describedby', currentId + ' ' + hint.id);
+        } else {
+          input?.setAttribute('aria-describedby', hint.id);
+        }
+
+        //input?.setAttribute('aria-describedby', hint.id);
+        if (input?.hasAttribute('disabled')) {
+          hint.setAttribute('disabled', '');
+        }
       } else if (this.hint) {
         const div = document.createElement('div');
         div.innerText = this.hint;
         div.setAttribute('hintSize', this.hintSize);
         div.slot = 'hint';
+        if (this.hasAttribute('disabled')) {
+          div.setAttribute('disabled', '');
+        }
         this.append(div);
-      } else {
+      } /*else {
         input?.removeAttribute('aria-describedby');
-      }
+      }*/
     }
 
     #removeHint(): void {

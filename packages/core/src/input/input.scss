@@ -117,7 +117,12 @@ sl-icon {
   width: 20px;
 }
 
-// TODO: for valid nad showvalid?
+sl-error {
+  color: #1f97f9;
+  display: inline-flex;
+}
+
+// TODO: for valid adn showvalid?
 
 /**
  * theming

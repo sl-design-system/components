@@ -286,7 +286,7 @@
           "description": "color.palette.success.500"
         },
         "600": {
-          "value": "#3A8F00",
+          "value": "#2E7200",
           "type": "color",
           "description": "color.palette.success.600"
         },

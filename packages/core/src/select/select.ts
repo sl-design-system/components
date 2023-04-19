@@ -8,7 +8,7 @@ import { RovingTabindexController } from '../utils/controllers/roving-tabindex.j
 import { FormControlMixin } from '../utils/mixins/form-control.js';
 import { ValidationController, validationStyles } from '../utils/controllers/index.js';
 import { requiredValidator } from '../utils/index.js';
-import { hintStyles } from '../utils/mixins';
+import { hintStyles } from '../utils/mixins/index.js';
 import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
 

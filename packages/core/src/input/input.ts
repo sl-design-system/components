@@ -1,11 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Validator } from '../utils/index.js';
 import { faCircleCheck, faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
+import { Icon } from '@sanomalearning/slds-core/icon';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
 import { FormControlMixin, HintMixin, hintStyles } from '../utils/mixins/index.js';
-import { Icon } from '../icon';
+// import { Icon } from '../icon';
 import styles from './input.scss.js';
 
 export type InputSize = 'md' | 'lg';

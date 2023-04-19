@@ -3,9 +3,10 @@ import type { CSSResultGroup, ReactiveController, ReactiveControllerHost, Templa
 import type { MessageSize, ValidationValue, Validator } from '../validators.js';
 import { msg, str } from '@lit/localize';
 import { faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
+import { Icon } from '@sanomalearning/slds-core/icon';
 import { css, html } from 'lit';
 import { dasherize } from '../string.js';
-import { Icon } from '../../icon';
+// import { Icon } from '../../icon';
 
 export type CustomValidityState = Partial<Record<keyof ValidityState, boolean>>;
 
@@ -334,14 +335,16 @@ export class ValidationController implements ReactiveController {
       const div = document.createElement('sl-error');
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
       Icon.registerIcon(faTriangleExclamation);
-      const icon: Icon | null = !isNative(this.target)
+      /*const icon: Icon | null = !isNative(this.target)
         ? '<sl-icon class="invalid-icon" name="fas-triangle-exclamation" style="width: 20px; height: 20px; margin-right: `${var(--sl-space-group-md)}`;}"></sl-icon>'
-        : null;
+        : null;*/
+      const icon =
+        '<sl-icon class="invalid-icon" name="fas-triangle-exclamation" style="width: 20px; height: 20px; margin-right: `${var(--sl-space-group-md)}`;}"></sl-icon>';
       // const icon = (new Icon().name = 'fas-triangle-exclamation') as Icon;
       //div.innerText = this.validationMessage;
       //icon = this.#icon();
-      if (icon) {
-        div.append(icon as HTMLElement);
+      if (icon && !isNative(this.target)) {
+        div.append(icon as unknown as HTMLElement);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/restrict-template-expressions
         div.innerHTML = `${icon} ${this.validationMessage}`;
       } else {

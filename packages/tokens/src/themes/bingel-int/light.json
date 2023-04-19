@@ -7,7 +7,7 @@
       "failedToResolve": true
     },
     "foreground": {
-      "value": "{color.palette.primary.base}",
+      "value": "{color.palette.black.base}",
       "type": "color",
       "description": "color.body.foreground",
       "failedToResolve": true

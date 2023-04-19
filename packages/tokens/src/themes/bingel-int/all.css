@@ -156,7 +156,7 @@
   --sl-color-palette-success-900: 11 27 0;
   --sl-color-palette-success-800: 23 56 0;
   --sl-color-palette-success-700: 35 85 0;
-  --sl-color-palette-success-600: 58 143 0;
+  --sl-color-palette-success-600: 46 114 0;
   --sl-color-palette-success-500: 58 143 0;
   --sl-color-palette-success-400: 70 172 0;
   --sl-color-palette-success-300: 101 186 43;
@@ -350,7 +350,7 @@
   :root {
     --sl-box-shadow-none: 0px 0px 0px 0px;
     --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-500));
-    --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
+    --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-valid-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));

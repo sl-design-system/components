@@ -213,6 +213,11 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-space-label-icon-lg: var(--sl-space-xs);
+  --sl-space-label-icon-md: var(--sl-space-2xs);
+  --sl-space-label-gap-lg: var(--sl-space-sm);
+  --sl-space-label-gap-md: var(--sl-space-xs);
+  --sl-space-label-gap-sm: var(--sl-space-xs);
   --sl-space-helper-gap-lg: var(--sl-space-sm);
   --sl-space-helper-gap-md: var(--sl-space-xs);
   --sl-space-helper-gap-sm: var(--sl-space-xs);

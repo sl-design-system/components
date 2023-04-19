@@ -42,7 +42,7 @@ export const globals = {
       id: 'bingel-dc',
       name: 'Bingel DC',
       color: '#0074df',
-      fonts: ['https://use.typekit.net/xrr8gdw.css'],
+      fonts: ['https://use.typekit.net/ghy4rhf.css'],
       setup: async () => {
         const { setup } = await import('@sanomalearning/slds-bingel-dc');
 
@@ -75,7 +75,7 @@ export const globals = {
       id: 'itslearning',
       name: 'itslearning',
       color: '#0074df',
-      fonts: ['https://use.typekit.net/xrr8gdw.css'],
+      fonts: ['https://use.typekit.net/ucw7xel.css'],
       setup: async () => {
         const { setup } = await import('@sanomalearning/slds-itslearning');
 

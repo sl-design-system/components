@@ -120,7 +120,6 @@ export class ValidationController implements ReactiveController {
       this.#slotName = dasherize(state);
       this.#target?.setAttribute('aria-describedby', this.#errorMessageId);
       this.#updateValidationMessage();
-      console.log('host', this.#host);
       this.#target?.setAttribute('invalid', '');
       this.#showErrors = !this.validity.valid;
       // if (isNative(this.target)) {
@@ -129,9 +128,6 @@ export class ValidationController implements ReactiveController {
       // }
       this.#host.requestUpdate();
     }
-
-    // this.#updateValidationMessage();
-    // this.target.setAttribute('aria-describedby', this.#errorMessageId);
   };
 
   /** Event handler for when the parent form is reset. */
@@ -204,8 +200,6 @@ export class ValidationController implements ReactiveController {
       this.target.setAttribute('title', '');
     }
 
-    // console.log('target', this.target);
-
     document.addEventListener('reset', this.#onReset);
     this.target.addEventListener('invalid', this.#onInvalid);
   }
@@ -216,7 +210,6 @@ export class ValidationController implements ReactiveController {
   }
 
   hostUpdated(): void {
-    console.log('host updated in validation', this.#host);
     if ('validators' in this.#host) {
       this.#customValidators = this.#host.validators as Validator[];
     }
@@ -264,10 +257,6 @@ export class ValidationController implements ReactiveController {
   : null}
     ${this.validationMessage}*/
 
-    // ${this.#messageSize}${this.validity.valid}
-
-    // return html`${this.validity.valid}`;
-
     // <svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
     // <path
     //   fill="#E5454A"
@@ -279,12 +268,12 @@ export class ValidationController implements ReactiveController {
   #updateValidationMessage(): void {
     //const input = this.querySelector('input, textarea'),
     //const hint = this.#host.querySelector('[part="error"]');
-    const hint = this.#host.querySelector('[slot]');
+    const error = this.#host.querySelector('[slot]');
     const errorPart = this.#host.querySelector('[part="error"]');
 
     console.log(
       'hint',
-      hint,
+      error,
       errorPart,
       this.target.querySelector('[slot]'),
       this.#host.shadowRoot?.querySelector('[part="error"]'),
@@ -293,27 +282,27 @@ export class ValidationController implements ReactiveController {
       this.#host.querySelector('[slot]'),
       this.target.querySelector('[slot]'),
       'hint error 1',
-      hint,
+      error,
       this.#host.querySelector('[part="error"]'),
       this.target.querySelector('[part="error"]'),
       this.#slotName
     );
 
-    const testValue = this.#host.shadowRoot?.querySelector('[slot]');
-    console.log('testValue', testValue /*, this.error*/);
+    // const testValue = this.#host.shadowRoot?.querySelector('[slot]');
+    // console.log('testValue', testValue /*, this.error*/);
 
-    const customErrorMessage = hint && hint.slot === this.#slotName;
-    console.log('customErrorMessage', customErrorMessage, hint, hint?.hasAttribute('part'));
+    const customErrorMessage = error && error.slot === this.#slotName;
+    console.log('customErrorMessage', customErrorMessage, error, error?.hasAttribute('part'));
 
     // this.target.setAttribute('aria-describedby', this.#errorMessageId);
 
     if (this.target.querySelector('[slot]')) {
-      if (hint) {
-        hint.id = `sl-error-${nextUniqueId++}`;
-        if (!hint.hasAttribute('size')) {
-          hint.setAttribute('size', this.#messageSize);
+      if (error) {
+        error.id = `sl-error-${nextUniqueId++}`;
+        if (!error.hasAttribute('size')) {
+          error.setAttribute('size', this.#messageSize);
         }
-        this.target.setAttribute('aria-describedby', hint.id);
+        this.target.setAttribute('aria-describedby', error.id);
         //this.#host.requestUpdate();
       }
     } else if (this.validationMessage && errorPart?.slot !== this.#slotName && !this.target.querySelector('[slot]')) {
@@ -361,7 +350,8 @@ export class ValidationController implements ReactiveController {
 
       div.id = this.#errorMessageId;
       // div.setAttribute('hintSize', this.hintSize);
-      div.part = 'error';
+      // div.part = 'error';
+      div.setAttribute('part', 'error');
       // div.slot = this.#slotName;
 
       div.style.display = 'inline-flex';

@@ -333,6 +333,9 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     this.value = target.value;
     this.#validation.validate(this.value);
     this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
+    if (this.valid) {
+      this.input.setAttribute('aria-live', 'polite'); // TODO: for valid state?
+    }
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

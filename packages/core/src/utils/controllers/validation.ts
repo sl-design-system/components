@@ -304,6 +304,7 @@ export class ValidationController implements ReactiveController {
           error.setAttribute('size', this.#messageSize);
         }
         this.target.setAttribute('aria-describedby', error.id);
+        error.setAttribute('aria-live', 'assertive');
         //this.#host.requestUpdate();
       }
     } else if (this.validationMessage && errorPart?.slot !== this.#slotName && !this.target.querySelector('[slot]')) {
@@ -365,6 +366,7 @@ export class ValidationController implements ReactiveController {
 
       div.slot = this.#slotName;
       //div.appendChild(this.#icon());
+      div.setAttribute('aria-live', 'assertive');
       console.log('inside div adding', this.#host, this.#target, this.target);
       // if (isNative(this.target)) {
       this.#host.append(div);

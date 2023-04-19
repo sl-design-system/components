@@ -5,7 +5,6 @@ const config: StorybookConfig = {
     '../projects/angular-core/**/*.stories.ts'
   ],
   addons: [
-    '@sl-design-system/storybook-addon-themes',
     '@storybook/addon-a11y', 
     '@storybook/addon-actions', 
     {

@@ -14,8 +14,7 @@
     "packages/themes/*",
     "packages/tokens",
     "scripts",
-    "tools/example-data",
-    "tools/storybook-addon-themes"
+    "tools/example-data"
   ],
   "scripts": {
     "build": "wireit",
@@ -117,6 +116,10 @@
           "cascade": false
         },
         {
+          "script": "build:ts",
+          "cascade": false
+        },
+        {
           "script": "build:types",
           "cascade": false
         }
@@ -162,12 +165,12 @@
     "@custom-elements-manifest/analyzer": "^0.8.0",
     "@lit/localize-tools": "^0.6.8",
     "@open-wc/testing": "^3.1.8",
-    "@storybook/addon-a11y": "^7.0.5",
-    "@storybook/addon-essentials": "^7.0.5",
-    "@storybook/addon-storysource": "^7.0.5",
-    "@storybook/web-components-vite": "^7.0.5",
-    "@typescript-eslint/eslint-plugin": "^5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
+    "@storybook/addon-a11y": "^7.0.6",
+    "@storybook/addon-essentials": "^7.0.6",
+    "@storybook/addon-storysource": "^7.0.6",
+    "@storybook/web-components-vite": "^7.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
     "@web/dev-server-esbuild": "^0.3.6",
     "@web/test-runner": "^0.15.3",
     "@web/test-runner-commands": "^0.6.6",
@@ -186,15 +189,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.0",
-    "rollup": "^3.20.4",
+    "rollup": "^3.20.6",
     "sass": "^1.62.0",
     "sinon": "^15.0.3",
-    "storybook": "^7.0.5",
+    "storybook": "^7.0.6",
     "stylelint": "^15.5.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
     "typescript": "^4.9.5",
-    "vite": "^4.2.1",
+    "vite": "^4.2.2",
     "wireit": "^0.9.5"
   }
 }

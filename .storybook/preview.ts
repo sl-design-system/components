@@ -3,6 +3,7 @@ import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-regi
 import 'element-internals-polyfill';
 import { configureLocalization } from '@lit/localize';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { updateTheme, themes } from './themes.js';
 
 const { setLocale } = configureLocalization({
   sourceLocale: 'en',
@@ -17,14 +18,42 @@ const preview: Preview = {
       setLocale(locale);
 
       return story();
+    },
+    (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
+      updateTheme(theme, mode);
+      
+      return story();
     }
   ],
   globalTypes: {
+    theme: {
+      name: 'Theme',
+      defaultValue: 'sanoma-learning',
+      toolbar: {
+        dynamicTitle: true,
+        icon: 'paintbrush',
+        items: themes.map(({ id, name }) => ({ value: id, title: name }))
+      }
+    },
+    mode: {
+      name: 'Mode',
+      description: 'Color mode',
+      defaultValue: 'light',
+      toolbar: {
+        dynamicTitle: true,
+        icon: 'mirror',
+        items: [
+          { value: 'light', left: '🌞', title: 'Light mode' }, 
+          { value: 'dark', left: '🌛', title: 'Dark mode' },
+        ],
+      }
+    },
     locale: {
       name: 'Locale',
       description: 'Internationalization locale',
       defaultValue: 'en',
       toolbar: {
+        dynamicTitle: true,
         icon: 'globe',
         items: [
           { value: 'en', right: '🇺🇸', title: 'English' },

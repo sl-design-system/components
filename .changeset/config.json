@@ -12,7 +12,6 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "@sl-design-system/example-data",
-    "@sl-design-system/scripts",
-    "@sl-design-system/storybook-addon-themes"
+    "@sl-design-system/scripts"
   ]
 }

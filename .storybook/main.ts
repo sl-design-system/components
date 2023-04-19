@@ -9,7 +9,6 @@ const config: StorybookConfig = {
     '../packages/components/**/*.stories.ts'
   ],
   addons: [
-    '@sl-design-system/storybook-addon-themes',
     '@storybook/addon-a11y', 
     '@storybook/addon-actions', 
     '@storybook/addon-storysource',

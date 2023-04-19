@@ -9,6 +9,10 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
   --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-body-background: rgb(var(--sl-color-palette-black-base));
+  --sl-color-label-icon-disabled: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-label-text-disabled: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-helper-text-disabled: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-text-field-valid-disabled-icon: rgb(var(--sl-color-palette-success-600));
   --sl-color-text-field-valid-active-background: rgba(var(--sl-color-palette-success-base), var(--sl-opacity-100));
   --sl-color-text-field-valid-hover-icon: rgb(var(--sl-color-palette-success-300));
@@ -298,6 +302,10 @@
   --sl-button-default-default-active: [object Object];
   --sl-button-default-default-hover: [object Object];
   --sl-button-default-default-idle: [object Object];
+  --sl-color-label-icon-default: var(--sl-body-foreground);
+  --sl-color-label-text-default: var(--sl-body-foreground);
+  --sl-color-helper-icon-default: var(--sl-body-foreground);
+  --sl-color-helper-text-default: var(--sl-body-foreground);
   --sl-color-text-field-valid-disabled-input-text: var(--sl-color-text-field-default-disabled-input-text);
   --sl-color-text-field-valid-disabled-label: var(--sl-color-text-field-default-disabled-label);
   --sl-color-text-field-valid-disabled-border: var(--sl-color-text-field-default-disabled-border);
@@ -426,6 +434,10 @@
   --sl-color-button-default-outline-idle-background: var(--sl-body-background);
   --sl-color-button-default-default-focus-background: var(--sl-body-background);
   --sl-color-button-default-default-idle-background: var(--sl-body-background);
+  --sl-color-label-icon-invalid: var(--sl-color-text-field-invalid-default-icon);
+  --sl-color-label-text-invalid: var(--sl-color-text-field-invalid-default-icon);
+  --sl-color-helper-icon-invalid: var(--sl-color-text-field-invalid-default-icon);
+  --sl-color-helper-text-invalid: var(--sl-color-text-field-invalid-default-icon);
   --sl-color-text-field-valid-focus-input-text: var(--sl-color-text-field-default-default-input-text);
   --sl-color-text-field-valid-focus-label: var(--sl-color-text-field-default-default-label);
   --sl-color-text-field-valid-focus-border: var(--sl-color-text-field-default-focus-border);

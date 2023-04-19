@@ -18,6 +18,7 @@
   ],
   "scripts": {
     "build": "wireit",
+    "build:tokens": "wireit",
     "extract-i18n": "wireit",
     "lint": "wireit",
     "postinstall": "husky install",
@@ -75,6 +76,16 @@
       "output": [
         "packages/themes/**/*.js",
         "packages/themes/**/*.js.map"
+      ]
+    },
+    "build:tokens": {
+      "command": "node ./scripts/build-tokens.js",
+      "clean": "if-file-deleted",
+      "files": [
+        "packages/tokens/src/**/*.json"
+      ],
+      "output": [
+        "packages/themes/**/*.{css,json,scss}"
       ]
     },
     "build:types": {
@@ -167,7 +178,7 @@
     },
     "website": {
       "dependencies": [
-        "./docs/website:build:prod"
+        "./website:build:prod"
       ]
     }
   },

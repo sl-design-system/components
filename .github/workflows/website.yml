@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'packages/tokens/src/figma/**'
+      - 'packages/tokens/src/**'
     types: [opened, synchronize, reopened, closed]
 
   push:
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: 'docs/website/dist/teaser'
+          path: 'website/dist/teaser'
       - id: deployment
         uses: actions/deploy-pages@v1
 
@@ -64,7 +64,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.WEBSITE_AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: upload
-          app_location: docs/website/dist/site
+          app_location: website/dist/site
           production_branch: main
           skip_api_build: true
           skip_app_build: true

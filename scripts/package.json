@@ -12,6 +12,8 @@
     "esbuild": "^0.17.17",
     "fast-glob": "^3.2.12",
     "sass": "^1.62.0",
-    "stylelint": "^15.5.0"
+    "style-dictionary": "^3.7.2",
+    "stylelint": "^15.5.0",
+    "token-transformer": "^0.0.32"
   }
 }

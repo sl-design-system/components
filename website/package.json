@@ -68,7 +68,7 @@
     "lint:scss": {
       "command": "stylelint 'src/**/*.scss' --color",
       "files": [
-        "../../.stylelintrc.cjs",
+        "../.stylelintrc.cjs",
         "./stylelintrc",
         "src/**/*.scss"
       ]
@@ -76,9 +76,9 @@
     "lint:ts": {
       "command": "eslint --color --ext .ts src",
       "files": [
-        "../../.eslintignore",
-        "../../.eslintrc.cjs",
-        "../../.prettierrc.cjs",
+        "../.eslintignore",
+        "../.eslintrc.cjs",
+        "../.prettierrc.cjs",
         ".eslintignore",
         ".prettierignore",
         "src/**/*.ts"
@@ -137,8 +137,8 @@
     "build:site:dev:eleventy": {
       "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
+        "../packages/tokens:build",
         "analyze",
-        "./../../packages/tokens:build",
         "copy:tokens",
         "build:site:dev:styles",
         "build:site:dev:ts"
@@ -165,7 +165,7 @@
     "build:site:dev:ts": {
       "command": "NODE_ENV=DEV node esbuild.config.mjs",
       "dependencies": [
-        "../../packages/core:build"
+        "..:build"
       ],
       "files": [
         "src/site/ts/**/*",
@@ -203,8 +203,8 @@
     "build:site:prod:eleventy": {
       "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
       "dependencies": [
+        "../packages/tokens:build",
         "analyze",
-        "./../../packages/tokens:build",
         "copy:tokens",
         "build:site:prod:styles",
         "build:site:prod:ts"
@@ -231,7 +231,7 @@
     "build:site:prod:ts": {
       "command": "NODE_ENV=PROD node esbuild.config.mjs",
       "dependencies": [
-        "../../packages/core:build"
+        "..:build"
       ],
       "files": [
         "src/site/ts/**/*",

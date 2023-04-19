@@ -3707,30 +3707,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanomalearning/slds-tokens@workspace:packages/tokens":
-  version: 0.0.0-use.local
-  resolution: "@sanomalearning/slds-tokens@workspace:packages/tokens"
-  dependencies:
-    "@figma-export/cli": ^4.5.0
-    "@figma-export/output-components-as-svg": ^4.5.0
-    "@figma-export/transform-svg-with-svgo": ^4.5.0
-    "@fortawesome/pro-duotone-svg-icons": ^6.4.0
-    "@fortawesome/pro-light-svg-icons": ^6.4.0
-    "@fortawesome/pro-regular-svg-icons": ^6.4.0
-    "@fortawesome/pro-solid-svg-icons": ^6.4.0
-    "@fortawesome/pro-thin-svg-icons": ^6.4.0
-    "@fortawesome/sharp-light-svg-icons": ^6.4.0
-    "@fortawesome/sharp-regular-svg-icons": ^6.4.0
-    "@fortawesome/sharp-solid-svg-icons": ^6.4.0
-    rimraf: ^5.0.0
-    sass: ^1.62.0
-    style-dictionary: ^3.7.2
-    token-transformer: ^0.0.32
-    typescript: ^4.9.5
-    wireit: ^0.9.5
-  languageName: unknown
-  linkType: soft
-
 "@schematics/angular@npm:15.2.6":
   version: 15.2.6
   resolution: "@schematics/angular@npm:15.2.6"
@@ -4117,7 +4093,9 @@ __metadata:
     esbuild: ^0.17.17
     fast-glob: ^3.2.12
     sass: ^1.62.0
+    style-dictionary: ^3.7.2
     stylelint: ^15.5.0
+    token-transformer: ^0.0.32
   languageName: unknown
   linkType: soft
 
@@ -4172,6 +4150,30 @@ __metadata:
   dependencies:
     "@sl-design-system/shared": 0.0.0
     lit: ^2.7.2
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/tokens@workspace:packages/tokens":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/tokens@workspace:packages/tokens"
+  dependencies:
+    "@figma-export/cli": ^4.5.0
+    "@figma-export/output-components-as-svg": ^4.5.0
+    "@figma-export/transform-svg-with-svgo": ^4.5.0
+    "@fortawesome/pro-duotone-svg-icons": ^6.4.0
+    "@fortawesome/pro-light-svg-icons": ^6.4.0
+    "@fortawesome/pro-regular-svg-icons": ^6.4.0
+    "@fortawesome/pro-solid-svg-icons": ^6.4.0
+    "@fortawesome/pro-thin-svg-icons": ^6.4.0
+    "@fortawesome/sharp-light-svg-icons": ^6.4.0
+    "@fortawesome/sharp-regular-svg-icons": ^6.4.0
+    "@fortawesome/sharp-solid-svg-icons": ^6.4.0
+    rimraf: ^5.0.0
+    sass: ^1.62.0
+    style-dictionary: ^3.7.2
+    token-transformer: ^0.0.32
+    typescript: ^4.9.5
+    wireit: ^0.9.5
   languageName: unknown
   linkType: soft
 

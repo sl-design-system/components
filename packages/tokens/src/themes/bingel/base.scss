@@ -4,14 +4,14 @@
  */
 
 @mixin sl-theme-base {
-  --sl-size-4xl: 72px;
-  --sl-size-3xl: 64px;
-  --sl-size-2xl: 56px;
-  --sl-size-xl: 48px;
-  --sl-size-lg: 40px;
-  --sl-size-md: 32px;
-  --sl-size-sm: 24px;
-  --sl-size-xs: 16px;
+  --sl-size-4xl: 64px;
+  --sl-size-3xl: 48px;
+  --sl-size-2xl: 32px;
+  --sl-size-xl: 24px;
+  --sl-size-lg: 18px;
+  --sl-size-md: 16px;
+  --sl-size-sm: 14px;
+  --sl-size-xs: 12px;
   --sl-size-2xs: 8px;
   --sl-size-3xs: 4px;
   --sl-size-4xs: 2px;
@@ -122,14 +122,30 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
-  --sl-size-button-icon-container-icon-only-lg: var(--sl-size-sm);
-  --sl-size-button-icon-container-icon-only-md: var(--sl-size-xs);
-  --sl-size-button-icon-container-icon-only-sm: var(--sl-size-xs);
-  --sl-size-button-icon-lg: var(--sl-text-typeset-line-height-sm);
-  --sl-size-button-icon-md: var(--sl-text-typeset-line-height-xs);
-  --sl-size-button-icon-sm: var(--sl-text-typeset-line-height-xxs);
-  --sl-size-input-lg: var(--sl-size-md);
-  --sl-size-input-md: var(--sl-size-sm);
+  --sl-size-button-icon-container-inline-lg: var(--sl-size-md);
+  --sl-size-button-icon-container-inline-md: var(--sl-size-sm);
+  --sl-size-button-icon-container-inline-sm: var(--sl-size-xs);
+  --sl-size-button-icon-container-icon-only-lg: var(--sl-size-xl);
+  --sl-size-button-icon-container-icon-only-md: var(--sl-size-md);
+  --sl-size-button-icon-container-icon-only-sm: var(--sl-size-md);
+  --sl-size-icon-4xl: var(--sl-size-4xl);
+  --sl-size-icon-3xl: var(--sl-size-3xl);
+  --sl-size-icon-2xl: var(--sl-size-2xl);
+  --sl-size-icon-xl: var(--sl-size-xl);
+  --sl-size-icon-lg: var(--sl-size-lg);
+  --sl-size-icon-md: var(--sl-size-md);
+  --sl-size-icon-sm: var(--sl-size-sm);
+  --sl-size-icon-xs: var(--sl-size-xs);
+  --sl-size-input-lg: var(--sl-size-2xl);
+  --sl-size-input-md: var(--sl-size-xl);
+  --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
+  --sl-icon-typeset-font-size-3xl: var(--sl-size-3xl);
+  --sl-icon-typeset-font-size-2xl: var(--sl-size-2xl);
+  --sl-icon-typeset-font-size-xl: var(--sl-size-xl);
+  --sl-icon-typeset-font-size-lg: var(--sl-size-lg);
+  --sl-icon-typeset-font-size-md: var(--sl-size-md);
+  --sl-icon-typeset-font-size-sm: var(--sl-size-sm);
+  --sl-icon-typeset-font-size-xs: var(--sl-size-xs);
   --sl-icon-style-solid: var(--sl-text-typeset-font-weight-icon-solid);
   --sl-icon-style-outline: 400;
   --sl-component-button-md: [object Object];
@@ -232,12 +248,6 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
-  --sl-size-button-icon-container-width-lg: var(--sl-size-button-icon-lg);
-  --sl-size-button-icon-container-width-md: var(--sl-size-button-icon-md);
-  --sl-size-button-icon-container-width-sm: var(--sl-size-button-icon-sm);
-  --sl-size-button-icon-container-height-lg: var(--sl-button-label-lg);
-  --sl-size-button-icon-container-height-md: var(--sl-button-label-md);
-  --sl-size-button-icon-container-height-sm: var(--sl-button-label-sm);
   --sl-space-text-field-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-text-field-gap-md: var(--sl-space-button-outline-block-md);
   --sl-space-input-gap-lg: var(--sl-space-button-outline-block-md);

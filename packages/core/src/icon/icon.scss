@@ -1,21 +1,22 @@
-$sizes: sm, md, lg;
+$sizes: xs, sm, md, lg, xl, 2xl, 3xl, 4xl;
 
 :host {
   --fill-default: currentColor;
   --fill-accent: rgb(var(--sl-color-palette-accent-300));
+  --icon-container-size: unset;
    
   display: inline-grid;
   place-content: center;
+  height: var(--_icon-container-size);
+  width: var(--_icon-container-size);
 }
 
 @each $size in $sizes {
   :host([size='#{$size}']){
-    height: var(--sl-size-button-icon-container-icon-only-#{$size});
-    width: var(--sl-size-button-icon-container-icon-only-#{$size});
-
+    --_icon-container-size: var(--icon-container-size, var(--sl-size-icon-#{$size}));
     svg {
-      height: var(--sl-size-button-icon-#{$size});
-      width: var(--sl-size-button-icon-#{$size});
+      height: var(--sl-size-icon-#{$size});
+      width: var(--sl-size-icon-#{$size});
     }
   }
 }

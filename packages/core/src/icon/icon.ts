@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export type IconSize = 'sm' | 'md' | 'lg';
+export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 window.SLDS ||= { icons: {} };
 

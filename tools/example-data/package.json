@@ -1,11 +1,13 @@
 {
   "name": "@sl-design-system/example-data",
   "version": "1.0.0",
-  "description": "Example data for SL Design System",
+  "description": "Example data for the SL Design System",
   "license": "Apache 2.0",
   "private": true,
-  "main": "index.js",
-  "types": "index.d.ts",
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   }

@@ -222,6 +222,14 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-label-icon-lg: var(--sl-space-xs);
+  --sl-space-label-icon-md: var(--sl-space-2xs);
+  --sl-space-label-gap-lg: var(--sl-space-sm);
+  --sl-space-label-gap-md: var(--sl-space-xs);
+  --sl-space-label-gap-sm: var(--sl-space-xs);
+  --sl-space-helper-gap-lg: var(--sl-space-sm);
+  --sl-space-helper-gap-md: var(--sl-space-xs);
+  --sl-space-helper-gap-sm: var(--sl-space-xs);
   --sl-space-text-field-gap-lg: var(--sl-space-sm);
   --sl-space-text-field-gap-md: var(--sl-space-sm);
   --sl-space-text-field-inline-lg: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));

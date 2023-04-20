@@ -2273,6 +2273,78 @@
           }
         }
       }
+    },
+    "helper": {
+      "text": {
+        "default": {
+          "value": "{body.foreground}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        },
+        "disabled": {
+          "value": "{color.palette.neutral.300}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        },
+        "invalid": {
+          "value": "{color.textField.invalid.default.icon}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        }
+      },
+      "icon": {
+        "default": {
+          "value": "{body.foreground}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        },
+        "disabled": {
+          "value": "{color.palette.neutral.300}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        },
+        "invalid": {
+          "value": "{color.textField.invalid.default.icon}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        }
+      }
+    },
+    "label": {
+      "text": {
+        "default": {
+          "value": "{body.foreground}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        },
+        "disabled": {
+          "value": "{color.palette.neutral.300}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        },
+        "invalid": {
+          "value": "{color.textField.invalid.default.icon}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        }
+      },
+      "icon": {
+        "default": {
+          "value": "{body.foreground}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        },
+        "disabled": {
+          "value": "{color.palette.neutral.300}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        },
+        "invalid": {
+          "value": "{color.textField.invalid.default.icon}",
+          "type": "color",
+          "description": "color.surface.solid.primary.foreground"
+        }
+      }
     }
   },
   "button": {

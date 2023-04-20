@@ -207,6 +207,14 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-space-label-icon-lg: var(--sl-space-xs);
+  --sl-space-label-icon-md: var(--sl-space-2xs);
+  --sl-space-label-gap-lg: var(--sl-space-sm);
+  --sl-space-label-gap-md: var(--sl-space-xs);
+  --sl-space-label-gap-sm: var(--sl-space-xs);
+  --sl-space-helper-gap-lg: var(--sl-space-sm);
+  --sl-space-helper-gap-md: var(--sl-space-xs);
+  --sl-space-helper-gap-sm: var(--sl-space-xs);
   --sl-space-text-field-gap-lg: var(--sl-space-sm);
   --sl-space-text-field-gap-md: var(--sl-space-sm);
   --sl-space-text-field-inline-lg: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));
@@ -275,6 +283,12 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-3xs);
   --sl-border-radius-button-md: var(--sl-border-radius-3xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-3xs);
+  --sl-text-input-helper-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-helper-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-helper-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-input-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /

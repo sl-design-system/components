@@ -593,6 +593,56 @@
           "description": "{space.button.gap.lg}"
         }
       }
+    },
+    "helper": {
+      "gap": {
+        "sm": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      }
+    },
+    "label": {
+      "gap": {
+        "sm": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      },
+      "icon": {
+        "md": {
+          "value": "{space.2xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        }
+      }
     }
   },
   "text": {

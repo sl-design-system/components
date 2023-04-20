@@ -215,6 +215,14 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-space-label-icon-lg: var(--sl-space-xs);
+  --sl-space-label-icon-md: var(--sl-space-2xs);
+  --sl-space-label-gap-lg: var(--sl-space-sm);
+  --sl-space-label-gap-md: var(--sl-space-xs);
+  --sl-space-label-gap-sm: var(--sl-space-xs);
+  --sl-space-helper-gap-lg: var(--sl-space-sm);
+  --sl-space-helper-gap-md: var(--sl-space-xs);
+  --sl-space-helper-gap-sm: var(--sl-space-xs);
   --sl-space-text-field-gap-lg: var(--sl-space-sm);
   --sl-space-text-field-gap-md: var(--sl-space-sm);
   --sl-space-text-field-inline-lg: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));
@@ -283,6 +291,12 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-3xs);
   --sl-border-radius-button-md: var(--sl-border-radius-3xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-3xs);
+  --sl-text-input-helper-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-helper-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-helper-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-input-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
@@ -363,6 +377,10 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-label-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-label-text-disabled: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-helper-text-disabled: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-text-field-valid-disabled-icon: rgb(var(--sl-color-palette-success-150));
     --sl-color-text-field-valid-disabled-label: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-text-field-valid-active-background: rgba(var(--sl-color-palette-success-base), var(--sl-opacity-100));
@@ -697,6 +715,14 @@
     --sl-button-default-default-active: [object Object];
     --sl-button-default-default-hover: [object Object];
     --sl-button-default-default-idle: [object Object];
+    --sl-color-label-icon-invalid: var(--sl-color-text-field-invalid-default-icon);
+    --sl-color-label-icon-default: var(--sl-body-foreground);
+    --sl-color-label-text-invalid: var(--sl-color-text-field-invalid-default-icon);
+    --sl-color-label-text-default: var(--sl-body-foreground);
+    --sl-color-helper-icon-invalid: var(--sl-color-text-field-invalid-default-icon);
+    --sl-color-helper-icon-default: var(--sl-body-foreground);
+    --sl-color-helper-text-invalid: var(--sl-color-text-field-invalid-default-icon);
+    --sl-color-helper-text-default: var(--sl-body-foreground);
     --sl-color-text-field-valid-disabled-input-text: var(--sl-color-text-field-default-disabled-input-text);
     --sl-color-text-field-valid-disabled-border: var(--sl-color-text-field-default-disabled-border);
     --sl-color-text-field-valid-disabled-background: rgba(var(--sl-body-background), 0);
@@ -827,6 +853,10 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
     --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-body-background: rgb(var(--sl-color-palette-black-base));
+    --sl-color-label-icon-disabled: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-label-text-disabled: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-helper-text-disabled: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-text-field-valid-disabled-icon: rgb(var(--sl-color-palette-success-600));
     --sl-color-text-field-valid-active-background: rgba(var(--sl-color-palette-success-base), var(--sl-opacity-100));
     --sl-color-text-field-valid-hover-icon: rgb(var(--sl-color-palette-success-300));
@@ -1128,6 +1158,10 @@
     --sl-button-default-default-active: [object Object];
     --sl-button-default-default-hover: [object Object];
     --sl-button-default-default-idle: [object Object];
+    --sl-color-label-icon-default: var(--sl-body-foreground);
+    --sl-color-label-text-default: var(--sl-body-foreground);
+    --sl-color-helper-icon-default: var(--sl-body-foreground);
+    --sl-color-helper-text-default: var(--sl-body-foreground);
     --sl-color-text-field-valid-disabled-input-text: var(--sl-color-text-field-default-disabled-input-text);
     --sl-color-text-field-valid-disabled-label: var(--sl-color-text-field-default-disabled-label);
     --sl-color-text-field-valid-disabled-border: var(--sl-color-text-field-default-disabled-border);
@@ -1256,6 +1290,10 @@
     --sl-color-button-default-outline-idle-background: var(--sl-body-background);
     --sl-color-button-default-default-focus-background: var(--sl-body-background);
     --sl-color-button-default-default-idle-background: var(--sl-body-background);
+    --sl-color-label-icon-invalid: var(--sl-color-text-field-invalid-default-icon);
+    --sl-color-label-text-invalid: var(--sl-color-text-field-invalid-default-icon);
+    --sl-color-helper-icon-invalid: var(--sl-color-text-field-invalid-default-icon);
+    --sl-color-helper-text-invalid: var(--sl-color-text-field-invalid-default-icon);
     --sl-color-text-field-valid-focus-input-text: var(--sl-color-text-field-default-default-input-text);
     --sl-color-text-field-valid-focus-label: var(--sl-color-text-field-default-default-label);
     --sl-color-text-field-valid-focus-border: var(--sl-color-text-field-default-focus-border);

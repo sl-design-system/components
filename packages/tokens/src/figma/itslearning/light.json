@@ -1069,12 +1069,12 @@
         "default": {
           "idle": {
             "background": {
-              "value": "{body.background}",
+              "value": "{color.palette.danger.base}",
               "type": "color",
               "description": "color.button.danger.warning.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.danger.solid.idle.foreground"
             },

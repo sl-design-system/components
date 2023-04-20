@@ -172,7 +172,8 @@
     "storybook:build": {
       "command": "storybook build -o dist --quiet",
       "dependencies": [
-        "build:ts"
+        "build:components",
+        "build:themes"
       ]
     },
     "test": {

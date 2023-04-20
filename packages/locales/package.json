@@ -17,13 +17,16 @@
   "types": "./index.d.ts",
   "exports": {
     ".": "./index.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./nl.js": "./src/nl.js",
+    "./nl.xlf": "./src/nl.xlf"
   },
   "files": [
     "**/*.d.ts",
     "**/*.d.ts.map",
     "**/*.js",
-    "**/*.js.map"
+    "**/*.js.map",
+    "**/*.xlf"
   ],
   "dependencies": {
     "@lit/localize": "^0.11.4"

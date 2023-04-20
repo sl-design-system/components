@@ -83,9 +83,9 @@ slot[name='input']::slotted(input) {
     opacity: 1;
   }
 
-  &[aria-invalid='true'] {
-    background-color: #6b1313;
-  }
+  //&[aria-invalid='true'] {
+  //  background-color: #6b1313;
+  //}
 }
 
 .wrapper {

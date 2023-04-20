@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { Validator } from '../utils/index.js';
+import type { MessageSize, Validator } from '../utils/index.js';
 import { faCircleCheck, faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import { Icon } from '@sanomalearning/slds-core/icon';
 import { LitElement, html } from 'lit';
@@ -51,8 +51,11 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     click: this.#onClick
   });
 
+  #errorSize: MessageSize = 'lg';
+
   #validation = new ValidationController(this, {
-    target: () => this.input
+    target: () => this.input //,
+    //size: this.#errorSize
   });
 
   /** The input element in the light DOM. */
@@ -128,6 +131,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    // if (this.errorSize) {
+    //   this.#errorSize = this.errorSize;
+    // }
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
@@ -280,7 +287,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
           @focusin=${this.#onFocusin}
           @focusout=${this.#onFocusout}
           @mousedown=${this.#onMousedown}
-          .min=${this.min}
         ></slot>
         <slot name="suffix">
           <sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>
@@ -341,6 +347,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     console.log('event on slothcnage', event);
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
+
+    // if (this.errorSize) {
+    //   this.#errorSize = this.errorSize;
+    // }
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (inputs.length) {

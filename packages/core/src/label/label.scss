@@ -1,3 +1,5 @@
+$sizes: sm, md, lg;
+
 :host {
   --_font-weight: 600;
   --_line-height: 24px;
@@ -11,4 +13,10 @@
 .optional,
 .required {
   margin-left: 0.25rem;
+}
+
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_font: var(--sl-text-input-text-#{$size}); // TODO: use exact token
+  }
 }

@@ -43,6 +43,19 @@ export const validationStyles: CSSResultGroup = css`
     display: inline-flex;
     align-items: center;
     fill: var(--sl-color-text-field-invalid-focus-icon);
+    --_size: 20px;
+  }
+  :host([error-size='sm']),
+  slot[error-size='sm'] {
+    font: var(--sl-text-input-helper-sm);
+  }
+  :host([error-size='md']),
+  slot[error-size='md'] {
+    font: var(--sl-text-input-helper-md);
+  }
+  :host([error-size='lg']),
+  slot[error-size='lg'] {
+    font: var(--sl-text-input-helper-lg);
   }
   slot[part='error']::slotted(sl-icon) {
     width: 20px;
@@ -168,13 +181,25 @@ export class ValidationController implements ReactiveController {
     }
   }
 
-  constructor(host: ReactiveControllerHost & HTMLElement, { target, validators = [], size }: ValidationConfig) {
+  constructor(host: ReactiveControllerHost & HTMLElement, { target, validators = [] /*, size*/ }: ValidationConfig) {
     this.#host = host;
     this.#host.addController(this);
 
-    if (size) {
-      this.#messageSize = size;
+    // console.log('size in validation constructor', size, this, host);
+
+    // if (size) {
+    //   this.#messageSize = size;
+    // } else {
+    //   this.#messageSize = 'md';
+    // }
+
+    if (this.#host.hasAttribute('error-size')) {
+      this.#messageSize = this.#host.getAttribute('error-size') as MessageSize;
+    } else {
+      this.#messageSize = 'md';
     }
+
+    // console.log('size in validation constructor - 2', size, this, host);
 
     if (typeof target === 'function') {
       this.#targetFn = target;
@@ -235,12 +260,10 @@ export class ValidationController implements ReactiveController {
 
       this.#updateValidationMessage();
 
-      return html`<slot
-        @slotchange="${this.#updateValidationMessage}"
-        .name=${this.#slotName}
-        part="error"
-        size="${this.#messageSize}"
-      ></slot>`;
+      // @slotchange="${this.#updateValidationMessage}"
+
+      return html`<slot .name=${this.#slotName} part="error" error-size="${this.#messageSize}"></slot>`;
+      // size="${this.#messageSize}"
     } else if (this.validity.valid) {
       this.#removeValidationMessage();
       // this.#target.removeAttribute('invalid');
@@ -271,22 +294,22 @@ export class ValidationController implements ReactiveController {
     const error = this.#host.querySelector('[slot]');
     const errorPart = this.#host.querySelector('[part="error"]');
 
-    // console.log(
-    //   'hint',
-    //   error,
-    //   errorPart,
-    //   this.target.querySelector('[slot]'),
-    //   this.#host.shadowRoot?.querySelector('[part="error"]'),
-    //   //(hint ? hint.slot : null),
-    //   this.#slotName,
-    //   this.#host.querySelector('[slot]'),
-    //   this.target.querySelector('[slot]'),
-    //   'hint error 1',
-    //   error,
-    //   this.#host.querySelector('[part="error"]'),
-    //   this.target.querySelector('[part="error"]'),
-    //   this.#slotName
-    // );
+    console.log(
+      'hint',
+      error,
+      errorPart,
+      this.target.querySelector('[slot]'),
+      this.#host.shadowRoot?.querySelector('[part="error"]'),
+      //(hint ? hint.slot : null),
+      this.#slotName,
+      this.#host.querySelector('[slot]'),
+      this.target.querySelector('[slot]'),
+      'hint error 1',
+      error,
+      this.#host.querySelector('[part="error"]'),
+      this.target.querySelector('[part="error"]'),
+      this.#slotName
+    );
 
     // const customErrorMessage = error && error.slot === this.#slotName;
     // console.log('customErrorMessage', customErrorMessage, error, error?.hasAttribute('part'));
@@ -294,16 +317,22 @@ export class ValidationController implements ReactiveController {
     // this.target.setAttribute('aria-describedby', this.#errorMessageId);
 
     if (this.target.querySelector('[slot]')) {
+      console.log('idzie if');
+      console.log('error error', error);
       if (error) {
         error.id = `sl-error-${nextUniqueId++}`;
-        if (!error.hasAttribute('size')) {
-          error.setAttribute('size', this.#messageSize);
+        // if (!error.hasAttribute('size')) {
+        //   error.setAttribute('size', this.#messageSize);
+        // }
+        if (error.hasAttribute('error-size')) {
+          this.#messageSize = error.getAttribute('error-size') as MessageSize;
         }
         this.target.setAttribute('aria-describedby', error.id); // TODO: check if it is the right place
         error.setAttribute('aria-live', 'assertive');
         //this.#host.requestUpdate();
       }
     } else if (this.validationMessage && errorPart?.slot !== this.#slotName && !this.target.querySelector('[slot]')) {
+      console.log('idzie else if', this.#messageSize);
       // console.log(
       //   '111hint error   this.target',
       //   this.target,
@@ -353,8 +382,9 @@ export class ValidationController implements ReactiveController {
       // div.part = 'error';
       div.setAttribute('part', 'error');
       div.style.display = 'inline-flex';
-      div.style.setProperty('gap', 'var(--sl-space-group-md)'); // TODO: space-helper-gap token + add sizes
-      div.setAttribute('size', this.#messageSize);
+      div.style.alignItems = 'center';
+      div.style.setProperty('gap', `var(--sl-space-helper-gap-${this.#messageSize})`); // TODO: space-helper-gap token + add sizes
+      div.setAttribute('error-size', this.#messageSize);
       div.slot = this.#slotName;
       //div.appendChild(this.#icon());
       div.setAttribute('aria-live', 'assertive');

@@ -17,6 +17,15 @@ export const hintStyles: CSSResultGroup = css`
   slot[name='hint'] {
     color: blue;
   }
+  slot[hintsize='sm'] {
+    font: var(--sl-text-input-helper-sm);
+  }
+  slot[hintsize='md'] {
+    font: var(--sl-text-input-helper-md);
+  }
+  slot[hintsize='lg'] {
+    font: var(--sl-text-input-helper-lg);
+  }
 `;
 
 export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<HintInterface> {
@@ -51,10 +60,13 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
         hint = this.querySelector('[slot="hint"]');
 
       console.log(
-        'input in hint',
+        hint?.hasAttribute('hintsize'),
+        hint?.getAttribute('hintsize'),
+        'input in hint mixin',
         input,
         input?.hasAttribute('disabled'),
         hint,
+        'this hint: ',
         this.hint,
         this,
         input?.hasAttribute('aria-describedby')
@@ -68,8 +80,12 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
           hint.innerHTML = this.hint;
         }
 
+        if (hint.hasAttribute('hintsize')) {
+          this.hintSize = hint.getAttribute('hintsize') as LabelSize;
+        }
+
         //hint.hintSize = this.hintSize;
-        hint.setAttribute('hintSize', this.hintSize);
+        //hint.setAttribute('hintSize', this.hintSize);
 
         if (input?.hasAttribute('aria-describedby')) {
           const currentId = input.getAttribute('aria-describedby') as string;

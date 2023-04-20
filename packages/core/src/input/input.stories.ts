@@ -117,7 +117,7 @@ export const Label: StoryObj = {
     </style>
     <form>
       <sl-label for="input" size="sm">What is your name?</sl-label>
-      <sl-input id="input"></sl-input>
+      <sl-input id="input"><span id="123a" slot="hint" hintSize="lg">test</span></sl-input>
       <sl-label for="input2" size="md">What is your name?</sl-label>
       <sl-input id="input2"></sl-input>
       <sl-label for="input3" size="lg">What is your name?</sl-label>
@@ -317,7 +317,7 @@ export const CustomValidation: StoryObj = {
           width: 300px;
         }
       </style>
-      <sl-input required="true" .validators=${[validator]}></sl-input>
+      <sl-input required="true" .validators=${[validator]} error-size="sm"></sl-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
   }

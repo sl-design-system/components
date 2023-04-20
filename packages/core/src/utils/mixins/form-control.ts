@@ -1,6 +1,6 @@
 import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from './types.js';
-import type { ValidationValue } from '../validators.js';
+import type { MessageSize, ValidationValue } from '../validators.js';
 import { property } from 'lit/decorators.js';
 
 export type FormControlValue = ValidationValue;
@@ -61,6 +61,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
     /** Whether this form control is a required field. */
     @property({ type: Boolean, reflect: true }) required?: boolean;
+
+    /** Error message size. */
+    @property({ reflect: true, attribute: 'error-size' }) errorSize: MessageSize = 'md'; // TODO: not sure if this is the right place?
 
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {

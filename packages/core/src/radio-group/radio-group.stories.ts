@@ -237,7 +237,9 @@ export const CustomValidation: StoryObj = {
         <sl-radio value="1">One</sl-radio>
         <sl-radio value="2">Two</sl-radio>
         <sl-radio value="3">Three</sl-radio>
-        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
+        <div slot="value-missing" error-size="sm">
+          This is the custom value-missing message (for the required attribute).
+        </div>
       </sl-radio-group>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;

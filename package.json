@@ -44,7 +44,6 @@
         "build:scss"
       ],
       "files": [
-        "custom-elements-manifest.config.js",
         "packages/components/**/*.ts",
         "!packages/components/**/*.{d,spec,stories}.ts"      ],
       "output": [

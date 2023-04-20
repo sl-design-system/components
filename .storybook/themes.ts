@@ -21,7 +21,10 @@ export const themes: Theme[] = [
   {
     id: 'bingel-dc',
     name: 'Bingel DC',
-    fonts: ['https://use.typekit.net/xrr8gdw.css'],
+    fonts: [
+      'https://use.typekit.net/ghy4rhf.css',
+      'https://use.typekit.net/xrr8gdw.css'
+    ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/bingel-dc');
 

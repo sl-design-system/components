@@ -1,0 +1,31 @@
+{
+  "name": "@sl-design-system/locales",
+  "version": "0.0.0",
+  "description": "Locales for the SL Design System",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/locales"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "**/*.d.ts",
+    "**/*.d.ts.map",
+    "**/*.js",
+    "**/*.js.map"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  }
+}

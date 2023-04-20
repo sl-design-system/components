@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<file target-language="nl" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="sd7cc2f6441ad9a1c">
+  <source>Bad input</source>
+</trans-unit>
+<trans-unit id="s1e4177e8de76dfc9">
+  <source>Please match the specified pattern.</source>
+</trans-unit>
+<trans-unit id="sf078a76e5c674713">
+  <source>The value is outside the minimum or maximum allowed range.</source>
+</trans-unit>
+<trans-unit id="s5def830dd16bcde9">
+  <source>Step mismatch</source>
+</trans-unit>
+<trans-unit id="sd6f67602bb05032b">
+  <source>Please use no more than <x id="0" equiv-text="${maxLength}"/> characters (you are currently using <x id="1" equiv-text="${length}"/> characters).</source>
+</trans-unit>
+<trans-unit id="s45d6e41483a83f82">
+  <source>This field must be at least <x id="0" equiv-text="${count}"/> character<x id="1" equiv-text="${count &gt; 1 ? 's' : ''}"/> long.</source>
+</trans-unit>
+<trans-unit id="s321a73dff0c18f15">
+  <source>The value does not match the specified type.</source>
+</trans-unit>
+<trans-unit id="s3ee922cc6e82d53a">
+  <source>This field must be filled in.</source>
+</trans-unit>
+<trans-unit id="sd0b6082239185272">
+  <source>Select all</source>
+</trans-unit>
+</body>
+</file>
+</xliff>

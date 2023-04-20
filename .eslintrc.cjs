@@ -6,6 +6,7 @@ module.exports = {
     project: [
       './packages/angular/tsconfig.json',
       './packages/components/*/tsconfig.json',
+      './packages/locales/tsconfig.json',
       './packages/themes/*/tsconfig.json',
       './website/tsconfig.build.json'
     ]

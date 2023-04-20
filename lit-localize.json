@@ -2,14 +2,14 @@
   "$schema": "https://raw.githubusercontent.com/lit/lit/main/packages/localize-tools/config.schema.json",
   "sourceLocale": "en",
   "targetLocales": ["nl"],
-  "tsConfig": "tsconfig.json",
+  "tsConfig": "tsconfig.all.json",
   "output": {
     "mode": "runtime",
-    "outputDir": "src/locales",
-    "localeCodesModule": "src/locales/locale-codes.ts"
+    "outputDir": "packages/locales/src",
+    "localeCodesModule": "packages/locales/src/locale-codes.ts"
   },
   "interchange": {
     "format": "xliff",
-    "xliffDir": "src/locales/"
+    "xliffDir": "packages/locales/src"
   }
 }

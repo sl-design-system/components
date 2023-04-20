@@ -1,11 +1,10 @@
-$fills: default, outline;
+$fills: default, outline, link;
 $sizes: sm, md, lg;
 $variants: default, primary, success, warning, danger;
 
 :host {
   --_animation: var(--sl-animation-button);
   --_background: var(--sl-color-button-default-idle-background);
-  --_border-radius: var(--sl-border-radius-button);
   --_cursor: pointer;
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
@@ -25,6 +24,16 @@ $variants: default, primary, success, warning, danger;
   transform: var(--_transform);
   transition-property: background, border-color, border-radius, box-shadow, color;
   vertical-align: top;
+}
+
+::slotted(sl-icon) {
+  fill: var(--_color);
+}
+
+slot {
+  align-items: center;
+  display: flex;
+  gap: var(--_label-gap);
 }
 
 :host(:where(:disabled, [internals-disabled])) {
@@ -47,36 +56,17 @@ $variants: default, primary, success, warning, danger;
     --_border-width: var(--sl-border-width-button-#{$fill});
   }
 
-  @each $size in $sizes {
-    :host([fill='#{$fill}'][size='#{$size}']) {
-      --_padding-block: var(--sl-space-button-#{$fill}-block-#{$size}, var(--sl-space-button-block-#{$size}));
-      --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size}, var(--sl-space-button-inline-#{$size}));
-    }
-  }
-
   @each $variant in $variants {
     :host([fill='#{$fill}'][variant='#{$variant}']) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
-      --_box-shadow: var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
-    }
-
-    :host([fill='#{$fill}'][variant='#{$variant}']:focus) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-focus-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-focus-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:hover) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
-      --_box-shadow: var(
-        --sl-box-shadow-button-#{$variant}-#{$fill}-hover,
-        var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle)
-      );
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-hover);
     }
@@ -84,33 +74,42 @@ $variants: default, primary, success, warning, danger;
     :host([fill='#{$fill}'][variant='#{$variant}']:active) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
-      --_box-shadow: var(
-        --sl-box-shadow-button-#{$variant}-#{$fill}-active,
-        var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle)
-      );
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-active);
-    }
-
-    :host([fill='#{$fill}'][variant='#{$variant}']:focus-visible) {
-      --_box-shadow: var(--sl-box-shadow-button-#{$variant}-#{$fill}-focus, var(--sl-box-shadow-button-focus, none));
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:where(:disabled, [internals-disabled])) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
-      --_box-shadow: var(
-        --sl-box-shadow-button-#{$variant}-#{$fill}-disabled,
-        var(--sl-box-shadow-button-#{$variant}-#{$fill}-idle)
-      );
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
+    }
+
+    :host([fill='#{$fill}'][variant='#{$variant}']:focus) {
+      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
+      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
     }
   }
 }
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
+    --icon-container-size: var(--sl-size-button-icon-#{$size});
+    --_border-radius: var(--sl-border-radius-button-#{$size});
     --_font: var(--sl-text-button-text-#{$size});
+    --_label-gap: var(--sl-space-button-gap-#{$size});
+    --_padding-block: var(--sl-space-button-default-block-#{$size});
+    --_padding-inline: var(--sl-space-button-default-inline-#{$size});
   }
+  :host([size='#{$size}'][icon-only]) {
+    --icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
+    --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
+    --_padding-block: var(--sl-space-button-default-icon-only-#{$size});
+    --_padding-inline: var(--sl-space-button-default-icon-only-#{$size});
+    line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
+  }
+}
+
+:host(:focus-visible) {
+  --_box-shadow: var(--sl-box-shadow-focus);
 }

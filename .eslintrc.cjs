@@ -7,7 +7,6 @@ module.exports = {
       './packages/angular/tsconfig.json',
       './packages/components/*/tsconfig.json',
       './packages/themes/*/tsconfig.json',
-      './packages/tokens/tsconfig.json',
       './website/tsconfig.build.json'
     ]
   },

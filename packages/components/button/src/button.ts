@@ -22,7 +22,7 @@ export class Button extends LitElement {
   /** Event controller. */
   #events = new EventsController(this);
 
-  /** Element internals. */
+  /** @private. */
   readonly internals = this.attachInternals();
 
   /** The original tabIndex before disabled. */

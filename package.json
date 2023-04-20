@@ -18,6 +18,7 @@
   ],
   "scripts": {
     "build": "wireit",
+    "build:cem": "wireit",
     "build:tokens": "wireit",
     "extract-i18n": "wireit",
     "lint": "wireit",
@@ -35,6 +36,18 @@
         "build:components",
         "build:themes",
         "build:types"
+      ]
+    },
+    "build:cem": {
+      "command": "cem analyze",
+      "dependencies": [
+        "build:scss"
+      ],
+      "files": [
+        "custom-elements-manifest.config.js"
+      ],
+      "output": [
+        "custom-elements.json"
       ]
     },
     "build:components": {
@@ -85,7 +98,8 @@
         "packages/tokens/src/**/*.json"
       ],
       "output": [
-        "packages/themes/**/*.{css,json,scss}"
+        "packages/themes/**/*.{css,json,scss}",
+        "!packages/themes/*/{package,tsconfig}.json"
       ]
     },
     "build:types": {

@@ -51,14 +51,9 @@ function sortMembersPlugin() {
 }
 
 export default {
-  globs: ['src/**/*.ts'],
-  exclude: [
-    'src/**/*.{d,e2e,spec}.ts',
-    'src/**/*.stories.*',
-    'src/locales/**/*'
-  ],
+  globs: ['packages/components/**/*.ts'],
+  exclude: ['packages/components/**/*.{d,e2e,spec,stories}.ts'],
   litelement: true,
-  outdir: 'dist',
   plugins: [
     noPrivateFieldsPlugin(),
     sortMembersPlugin()

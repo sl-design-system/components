@@ -1,143 +1,328 @@
-# `../../packages/core/src/form.stories.ts`:
-
-## Variables
-
-| Name                       | Description | Type       |
-| -------------------------- | ----------- | ---------- |
-| `Horizontal`               |             | `StoryObj` |
-| `Vertical`                 |             | `StoryObj` |
-| `Hints`                    |             | `StoryObj` |
-| `ValidationRequired`       |             | `StoryObj` |
-| `ValidationRequiredReport` |             | `StoryObj` |
-| `Validation`               |             | `StoryObj` |
-
-<hr/>
+# `../packages/components/avatar/index.ts`:
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                  | Package |
-| ---- | -------------------------- | ------------------------ | --------------------------------------- | ------- |
-| `js` | `default`                  |                          | ../../packages/core/src/form.stories.ts |         |
-| `js` | `Horizontal`               | Horizontal               | ../../packages/core/src/form.stories.ts |         |
-| `js` | `Vertical`                 | Vertical                 | ../../packages/core/src/form.stories.ts |         |
-| `js` | `Hints`                    | Hints                    | ../../packages/core/src/form.stories.ts |         |
-| `js` | `ValidationRequired`       | ValidationRequired       | ../../packages/core/src/form.stories.ts |         |
-| `js` | `ValidationRequiredReport` | ValidationRequiredReport | ../../packages/core/src/form.stories.ts |         |
-| `js` | `Validation`               | Validation               | ../../packages/core/src/form.stories.ts |         |
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/avatar.js |
 
-# `../../packages/core/src/avatar/avatar.scss.ts`:
+# `../packages/components/avatar/register.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/components/avatar/src/avatar.js |         |
 
-# `../../packages/core/src/avatar/avatar.stories.ts`:
+# `../packages/components/button/index.ts`:
 
-## Variables
+## Exports
 
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `Basic` |             | `Story` |
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/button.js |
 
-<hr/>
+# `../packages/components/button/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
+
+# `../packages/components/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package             |
+| ---- | ---- | ----------- | ------ | ------------------- |
+| `js` | `*`  | *           |        | ./src/button-bar.js |
+
+# `../packages/components/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                            | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
+
+# `../packages/components/checkbox/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                 |
+| ---- | ---- | ----------- | ------ | ----------------------- |
+| `js` | `*`  | *           |        | ./src/checkbox.js       |
+| `js` | `*`  | *           |        | ./src/checkbox-group.js |
+
+# `../packages/components/checkbox/register.ts`:
+
+## Exports
+
+| Kind                        | Name                | Declaration   | Module                                              | Package |
+| --------------------------- | ------------------- | ------------- | --------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/components/checkbox/src/checkbox.js       |         |
+| `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/components/checkbox/src/checkbox-group.js |         |
+
+# `../packages/components/drawer/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/drawer.js |
+
+# `../packages/components/drawer/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
+
+# `../packages/components/dialog/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/dialog.js |
+
+# `../packages/components/dialog/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
+
+# `../packages/components/grid/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                   |
+| ---- | ---- | ----------- | ------ | ------------------------- |
+| `js` | `*`  | *           |        | ./src/column.js           |
+| `js` | `*`  | *           |        | ./src/column-group.js     |
+| `js` | `*`  | *           |        | ./src/filter-column.js    |
+| `js` | `*`  | *           |        | ./src/grid.js             |
+| `js` | `*`  | *           |        | ./src/selection-column.js |
+| `js` | `*`  | *           |        | ./src/sort-column.js      |
+
+# `../packages/components/grid/register.ts`:
+
+## Exports
+
+| Kind                        | Name                       | Declaration         | Module                                            | Package |
+| --------------------------- | -------------------------- | ------------------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-grid`                  | Grid                | /packages/components/grid/src/grid.js             |         |
+| `custom-element-definition` | `sl-grid-column`           | GridColumn          | /packages/components/grid/src/column.js           |         |
+| `custom-element-definition` | `sl-grid-column-group`     | GridColumnGroup     | /packages/components/grid/src/column-group.js     |         |
+| `custom-element-definition` | `sl-grid-filter-column`    | GridFilterColumn    | /packages/components/grid/src/filter-column.js    |         |
+| `custom-element-definition` | `sl-grid-selection-column` | GridSelectionColumn | /packages/components/grid/src/selection-column.js |         |
+| `custom-element-definition` | `sl-grid-sort-column`      | GridSortColumn      | /packages/components/grid/src/sort-column.js      |         |
+
+# `../packages/components/editor/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/editor.js |
+
+# `../packages/components/editor/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
+
+# `../packages/components/icon/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/icon.js   |
+| `js` | `*`  | *           |        | ./src/models.js |
+
+# `../packages/components/icon/register.ts`:
+
+## Exports
+
+| Kind                        | Name      | Declaration | Module                                | Package |
+| --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
+| `custom-element-definition` | `sl-icon` | Icon        | /packages/components/icon/src/icon.js |         |
+
+# `../packages/components/input/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package        |
+| ---- | ---- | ----------- | ------ | -------------- |
+| `js` | `*`  | *           |        | ./src/input.js |
+
+# `../packages/components/input/register.ts`:
+
+## Exports
+
+| Kind                        | Name       | Declaration | Module                                  | Package |
+| --------------------------- | ---------- | ----------- | --------------------------------------- | ------- |
+| `custom-element-definition` | `sl-input` | Input       | /packages/components/input/src/input.js |         |
+
+# `../packages/components/label/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package        |
+| ---- | ---- | ----------- | ------ | -------------- |
+| `js` | `*`  | *           |        | ./src/label.js |
+
+# `../packages/components/label/register.ts`:
+
+## Exports
+
+| Kind                        | Name       | Declaration | Module                                  | Package |
+| --------------------------- | ---------- | ----------- | --------------------------------------- | ------- |
+| `custom-element-definition` | `sl-label` | Label       | /packages/components/label/src/label.js |         |
+
+# `../packages/components/popover/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package               |
+| ---- | ---- | ----------- | ------ | --------------------- |
+| `js` | `*`  | *           |        | ./src/mixins/index.js |
+| `js` | `*`  | *           |        | ./src/utils/index.js  |
+| `js` | `*`  | *           |        | ./src/popover.js      |
+| `js` | `*`  | *           |        | ./src/types.js        |
+
+# `../packages/components/popover/register.ts`:
+
+## Exports
+
+| Kind                        | Name         | Declaration | Module                                      | Package |
+| --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-popover` | Popover     | /packages/components/popover/src/popover.js |         |
+
+# `../packages/components/radio-group/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package              |
+| ---- | ---- | ----------- | ------ | -------------------- |
+| `js` | `*`  | *           |        | ./src/radio.js       |
+| `js` | `*`  | *           |        | ./src/radio-group.js |
+
+# `../packages/components/radio-group/register.ts`:
+
+## Exports
+
+| Kind                        | Name             | Declaration | Module                                              | Package |
+| --------------------------- | ---------------- | ----------- | --------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
+| `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
+
+# `../packages/components/select/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                      |
+| ---- | ---- | ----------- | ------ | ---------------------------- |
+| `js` | `*`  | *           |        | ./src/select.js              |
+| `js` | `*`  | *           |        | ./src/select-option.js       |
+| `js` | `*`  | *           |        | ./src/select-option-group.js |
+
+# `../packages/components/select/register.ts`:
+
+## Exports
+
+| Kind                        | Name                     | Declaration       | Module                                                 | Package |
+| --------------------------- | ------------------------ | ----------------- | ------------------------------------------------------ | ------- |
+| `custom-element-definition` | `sl-select`              | Select            | /packages/components/select/src/select.js              |         |
+| `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
+| `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
+| `custom-element-definition` | `sl-select-overlay`      | SelectOverlay     | /packages/components/select/src/select-overlay.js      |         |
+
+# `../packages/components/tabs/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package            |
+| ---- | ---- | ----------- | ------ | ------------------ |
+| `js` | `*`  | *           |        | ./src/tab-group.js |
+| `js` | `*`  | *           |        | ./src/tab-panel.js |
+| `js` | `*`  | *           |        | ./src/tab.js       |
+
+# `../packages/components/tabs/register.ts`:
+
+## Exports
+
+| Kind                        | Name           | Declaration | Module                                     | Package |
+| --------------------------- | -------------- | ----------- | ------------------------------------------ | ------- |
+| `custom-element-definition` | `sl-tab`       | Tab         | /packages/components/tabs/src/tab.js       |         |
+| `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/components/tabs/src/tab-group.js |         |
+| `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/components/tabs/src/tab-panel.js |         |
+
+# `../packages/components/shared/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                    |
+| ---- | ---- | ----------- | ------ | -------------------------- |
+| `js` | `*`  | *           |        | ./src/controllers/index.js |
+| `js` | `*`  | *           |        | ./src/data-source/index.js |
+| `js` | `*`  | *           |        | ./src/decorators/index.js  |
+| `js` | `*`  | *           |        | ./src/mixins/index.js      |
+| `js` | `*`  | *           |        | ./src/css.js               |
+| `js` | `*`  | *           |        | ./src/path.js              |
+| `js` | `*`  | *           |        | ./src/string.js            |
+| `js` | `*`  | *           |        | ./src/types.js             |
+| `js` | `*`  | *           |        | ./src/validators.js        |
+
+# `../packages/components/textarea/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package           |
+| ---- | ---- | ----------- | ------ | ----------------- |
+| `js` | `*`  | *           |        | ./src/textarea.js |
+
+# `../packages/components/textarea/register.ts`:
+
+## Exports
+
+| Kind                        | Name          | Declaration | Module                                        | Package |
+| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-textarea` | Textarea    | /packages/components/textarea/src/textarea.js |         |
+
+# `../packages/components/tooltip/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                    |
+| ---- | ---- | ----------- | ------ | -------------------------- |
+| `js` | `*`  | *           |        | ./src/tooltip.js           |
+| `js` | `*`  | *           |        | ./src/tooltip-directive.js |
+
+# `../packages/components/tooltip/register.ts`:
+
+## Exports
+
+| Kind                        | Name         | Declaration | Module                                      | Package |
+| --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/components/tooltip/src/tooltip.js |         |
+
+# `../packages/components/button/src/button.scss.ts`:
 
 ## Exports
 
 | Kind | Name      | Declaration | Module                                           | Package |
 | ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
-| `js` | `Basic`   | Basic       | ../../packages/core/src/avatar/avatar.stories.ts |         |
+| `js` | `default` |             | ../packages/components/button/src/button.scss.ts |         |
 
-# `../../packages/core/src/avatar/avatar.ts`:
-
-## class: `Avatar`, `sl-avatar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
-| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
-| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
-| `profileName`     |         | `string`                                |          |                                                               |                |
-| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
-
-### Methods
-
-| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
-| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
-| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `uniqueProfileId` | uniqueProfileId |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
-
-# `../../packages/core/src/avatar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./avatar.js |
-
-# `../../packages/core/src/avatar/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
-
-# `../../packages/core/src/button/button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button/button.scss.ts |         |
-
-# `../../packages/core/src/button/button.stories.ts`:
-
-## Variables
-
-| Name       | Description | Type    |
-| ---------- | ----------- | ------- |
-| `Basic`    |             | `Story` |
-| `All`      |             | `Story` |
-| `Fills`    |             | `Story` |
-| `Sizes`    |             | `Story` |
-| `Variants` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                           | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default`  |             | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Basic`    | Basic       | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `All`      | All         | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Fills`    | Fills       | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Sizes`    | Sizes       | ../../packages/core/src/button/button.stories.ts |         |
-| `js` | `Variants` | Variants    | ../../packages/core/src/button/button.stories.ts |         |
-
-# `../../packages/core/src/button/button.ts`:
+# `../packages/components/button/src/button.ts`:
 
 ## class: `Button`, `sl-button`
 
@@ -186,52 +371,65 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Button` | Button      | ../../packages/core/src/button/button.ts |         |
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Button` | Button      | ../packages/components/button/src/button.ts |         |
 
-# `../../packages/core/src/button/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./button.js |
-
-# `../../packages/core/src/button/register.ts`:
+# `../packages/components/avatar/src/avatar.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-button` | Button      | /packages/core/src/button/button.js |         |
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/avatar/src/avatar.scss.ts |         |
 
-# `../../packages/core/src/button-bar/button-bar.scss.ts`:
+# `../packages/components/avatar/src/avatar.ts`:
 
-## Exports
+## class: `Avatar`, `sl-avatar`
 
-| Kind | Name      | Declaration | Module                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.scss.ts |         |
+### Superclass
 
-# `../../packages/core/src/button-bar/button-bar.stories.ts`:
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
 
-## Variables
+### Fields
 
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `Basic` |             | `Story` |
+| Name              | Privacy | Type                       | Default  | Description                                                   | Inherited From |
+| ----------------- | ------- | -------------------------- | -------- | ------------------------------------------------------------- | -------------- |
+| `uniqueProfileId` |         | `string`                   | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
+| `user`            |         | `UserProfile \| undefined` |          |                                                               |                |
+| `profileName`     |         | `string`                   |          |                                                               |                |
+
+### Methods
+
+| Name              | Privacy | Description | Parameters   | Return                 | Inherited From |
+| ----------------- | ------- | ----------- | ------------ | ---------------------- | -------------- |
+| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile>` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `uniqueProfileId` | uniqueProfileId |                |
 
 <hr/>
 
 ## Exports
 
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | ../packages/components/avatar/src/avatar.ts |         |
+
+# `../packages/components/button-bar/src/button-bar.scss.ts`:
+
+## Exports
+
 | Kind | Name      | Declaration | Module                                                   | Package |
 | ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
-| `js` | `Basic`   | Basic       | ../../packages/core/src/button-bar/button-bar.stories.ts |         |
+| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
 
-# `../../packages/core/src/button-bar/button-bar.ts`:
+# `../packages/components/button-bar/src/button-bar.ts`:
 
 ## class: `ButtonBar`, `sl-button-bar`
 
@@ -273,35 +471,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                           | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../../packages/core/src/button-bar/button-bar.ts |         |
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
 
-# `../../packages/core/src/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./button-bar.js |
-
-# `../../packages/core/src/button-bar/register.ts`:
+# `../packages/components/checkbox/src/checkbox-group.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name            | Declaration | Module                                      | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/core/src/button-bar/button-bar.js |         |
+| Kind | Name      | Declaration | Module                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/checkbox/src/checkbox-group.scss.ts |         |
 
-# `../../packages/core/src/checkbox/checkbox-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/checkbox/checkbox-group.scss.ts |         |
-
-# `../../packages/core/src/checkbox/checkbox-group.ts`:
+# `../packages/components/checkbox/src/checkbox-group.ts`:
 
 ## class: `CheckboxGroup`, `sl-checkbox-group`
 
@@ -313,9 +495,9 @@
 
 ### Mixins
 
-| Name        | Module                                   | Package |
-| ----------- | ---------------------------------------- | ------- |
-| `HintMixin` | /packages/core/src/utils/mixins/index.js |         |
+| Name        | Module | Package                  |
+| ----------- | ------ | ------------------------ |
+| `HintMixin` |        | @sl-design-system/shared |
 
 ### Static Fields
 
@@ -376,50 +558,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                             | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------- | ------- |
-| `js` | `CheckboxGroup` | CheckboxGroup | ../../packages/core/src/checkbox/checkbox-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------- | ------- |
+| `js` | `CheckboxGroup` | CheckboxGroup | ../packages/components/checkbox/src/checkbox-group.ts |         |
 
-# `../../packages/core/src/checkbox/checkbox.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/checkbox/checkbox.scss.ts |         |
-
-# `../../packages/core/src/checkbox/checkbox.stories.ts`:
-
-## Variables
-
-| Name             | Description | Type       |
-| ---------------- | ----------- | ---------- |
-| `API`            |             | `StoryObj` |
-| `All`            |             | `StoryObj` |
-| `Indeterminate`  |             | `StoryObj` |
-| `NoText`         |             | `StoryObj` |
-| `Overflow`       |             | `StoryObj` |
-| `WithLabel`      |             | `StoryObj` |
-| `Group`          |             | `StoryObj` |
-| `ValidateInForm` |             | `StoryObj` |
-
-<hr/>
+# `../packages/components/checkbox/src/checkbox.scss.ts`:
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                               | Package |
-| ---- | ---------------- | -------------- | ---------------------------------------------------- | ------- |
-| `js` | `default`        |                | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `API`            | API            | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `All`            | All            | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `Indeterminate`  | Indeterminate  | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `NoText`         | NoText         | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `Overflow`       | Overflow       | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `WithLabel`      | WithLabel      | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `Group`          | Group          | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
-| `js` | `ValidateInForm` | ValidateInForm | ../../packages/core/src/checkbox/checkbox.stories.ts |         |
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/checkbox/src/checkbox.scss.ts |         |
 
-# `../../packages/core/src/checkbox/checkbox.ts`:
+# `../packages/components/checkbox/src/checkbox.ts`:
 
 ## class: `Checkbox`, `sl-checkbox`
 
@@ -431,10 +582,10 @@
 
 ### Mixins
 
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
 
 ### Static Fields
 
@@ -454,7 +605,7 @@
     validators: [requiredValidator]
   })`                |                                                                                                                                 |                  |
 | `#initialState`       | private | `boolean`                              | `false`                                                                                    |                                                                                                                                 |                  |
-| `internals`           |         |                                        |                                                                                            | Element internals.                                                                                                              |                  |
+| `internals`           |         |                                        | `this.attachInternals()`                                                                   | Element internals.                                                                                                              |                  |
 | `change`              |         | `EventEmitter<boolean>`                |                                                                                            | Emits when the checked state changes.                                                                                           |                  |
 | `checked`             |         | `boolean \| undefined`                 |                                                                                            | Whether the checkbox is checked.                                                                                                |                  |
 | `invalid`             |         | `boolean \| undefined`                 |                                                                                            | Whether the checkbox is invalid.                                                                                                |                  |
@@ -508,168 +659,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `Checkbox` | Checkbox    | ../../packages/core/src/checkbox/checkbox.ts |         |
+| Kind | Name       | Declaration | Module                                          | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `Checkbox` | Checkbox    | ../packages/components/checkbox/src/checkbox.ts |         |
 
-# `../../packages/core/src/checkbox/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./checkbox.js       |
-| `js` | `*`  | *           |        | ./checkbox-group.js |
-
-# `../../packages/core/src/checkbox/register.ts`:
+# `../packages/components/drawer/src/drawer.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name                | Declaration   | Module                                        | Package |
-| --------------------------- | ------------------- | ------------- | --------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/core/src/checkbox/checkbox.js       |         |
-| `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/core/src/checkbox/checkbox-group.js |         |
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
 
-# `../../packages/core/src/dialog/dialog.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/dialog/dialog.scss.ts |         |
-
-# `../../packages/core/src/dialog/dialog.stories.ts`:
-
-## Variables
-
-| Name            | Description | Type       |
-| --------------- | ----------- | ---------- |
-| `API`           |             | `StoryObj` |
-| `DisableClose`  |             | `StoryObj` |
-| `ScrollingBody` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                           | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------ | ------- |
-| `js` | `default`       |               | ../../packages/core/src/dialog/dialog.stories.ts |         |
-| `js` | `API`           | API           | ../../packages/core/src/dialog/dialog.stories.ts |         |
-| `js` | `DisableClose`  | DisableClose  | ../../packages/core/src/dialog/dialog.stories.ts |         |
-| `js` | `ScrollingBody` | ScrollingBody | ../../packages/core/src/dialog/dialog.stories.ts |         |
-
-# `../../packages/core/src/dialog/dialog.ts`:
-
-## class: `Dialog`, `sl-dialog`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
-| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
-| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
-| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
-| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
-| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
-| `showModal` |         |             |                                                 | `void` |                |
-| `close`     |         |             |                                                 | `void` |                |
-| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
-| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
-| `#onClose`  |         |             |                                                 | `void` |                |
-
-### Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `disable-close` | disableClose |                |
-| `role`          | role         |                |
-
-### Slots
-
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `action`  | Area where action buttons are placed |
-| `default` | Body content for the dialog          |
-| `footer`  | Footer content for the dialog        |
-| `header`  | Header content for the dialog        |
-| `title`   | The title of the dialog              |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Dialog` | Dialog      | ../../packages/core/src/dialog/dialog.ts |         |
-
-# `../../packages/core/src/dialog/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./dialog.js |
-
-# `../../packages/core/src/dialog/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/core/src/dialog/dialog.js |         |
-
-# `../../packages/core/src/drawer/drawer.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/drawer/drawer.scss.ts |         |
-
-# `../../packages/core/src/drawer/drawer.stories.ts`:
-
-## Variables
-
-| Name             | Description | Type       |
-| ---------------- | ----------- | ---------- |
-| `API`            |             | `StoryObj` |
-| `DisableClose`   |             | `StoryObj` |
-| `CompleteHeader` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name             | Declaration    | Module                                           | Package |
-| ---- | ---------------- | -------------- | ------------------------------------------------ | ------- |
-| `js` | `default`        |                | ../../packages/core/src/drawer/drawer.stories.ts |         |
-| `js` | `API`            | API            | ../../packages/core/src/drawer/drawer.stories.ts |         |
-| `js` | `DisableClose`   | DisableClose   | ../../packages/core/src/drawer/drawer.stories.ts |         |
-| `js` | `CompleteHeader` | CompleteHeader | ../../packages/core/src/drawer/drawer.stories.ts |         |
-
-# `../../packages/core/src/drawer/drawer.ts`:
+# `../packages/components/drawer/src/drawer.ts`:
 
 ## class: `Drawer`, `sl-drawer`
 
@@ -730,78 +732,880 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | ../../packages/core/src/drawer/drawer.ts |         |
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
 
-# `../../packages/core/src/drawer/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./drawer.js |
-
-# `../../packages/core/src/drawer/register.ts`:
+# `../packages/components/dialog/src/dialog.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/core/src/drawer/drawer.js |         |
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
 
-# `../../packages/core/src/input/index.ts`:
+# `../packages/components/dialog/src/dialog.ts`:
 
-## Exports
+## class: `Dialog`, `sl-dialog`
 
-| Kind | Name | Declaration | Module | Package    |
-| ---- | ---- | ----------- | ------ | ---------- |
-| `js` | `*`  | *           |        | ./input.js |
+### Superclass
 
-# `../../packages/core/src/input/input.scss.ts`:
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
 
-## Exports
+### Mixins
 
-| Kind | Name      | Declaration | Module                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/input/input.scss.ts |         |
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
 
-# `../../packages/core/src/input/input.stories.ts`:
+### Static Fields
 
-## Variables
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
 
-| Name               | Description | Type       |
-| ------------------ | ----------- | ---------- |
-| `API`              |             | `StoryObj` |
-| `Disabled`         |             | `StoryObj` |
-| `Label`            |             | `StoryObj` |
-| `Hint`             |             | `StoryObj` |
-| `RichLabelHint`    |             | `StoryObj` |
-| `PrefixSuffix`     |             | `StoryObj` |
-| `MinMaxLength`     |             | `StoryObj` |
-| `Pattern`          |             | `StoryObj` |
-| `CustomInput`      |             | `StoryObj` |
-| `CustomValidation` |             | `StoryObj` |
+### Fields
+
+| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
+| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
+| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
+| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
+| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
+| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `showModal` |         |             |                                                 | `void` |                |
+| `close`     |         |             |                                                 | `void` |                |
+| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
+| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
+| `#onClose`  |         |             |                                                 | `void` |                |
+
+### Attributes
+
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `disable-close` | disableClose |                |
+| `role`          | role         |                |
+
+### Slots
+
+| Name      | Description                          |
+| --------- | ------------------------------------ |
+| `action`  | Area where action buttons are placed |
+| `default` | Body content for the dialog          |
+| `footer`  | Footer content for the dialog        |
+| `header`  | Header content for the dialog        |
+| `title`   | The title of the dialog              |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                         | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------- | ------- |
-| `js` | `default`          |                  | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `API`              | API              | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Disabled`         | Disabled         | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Label`            | Label            | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Hint`             | Hint             | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `PrefixSuffix`     | PrefixSuffix     | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `MinMaxLength`     | MinMaxLength     | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Pattern`          | Pattern          | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `CustomInput`      | CustomInput      | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/input/input.stories.ts |         |
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
 
-# `../../packages/core/src/input/input.ts`:
+# `../packages/components/grid/src/column-group.ts`:
+
+## class: `GridColumnGroup`, `sl-grid-column-group`
+
+### Superclass
+
+| Name         | Module                                  | Package |
+| ------------ | --------------------------------------- | ------- |
+| `GridColumn` | /packages/components/grid/src/column.js |         |
+
+### Fields
+
+| Name             | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#width`         | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `columns`        |         | `Array<GridColumn<T>>`                            | `[]`      | The nested columns in the group.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
+| `width`          |         | `number \| undefined`                             |           | The width of the group column is either manually specified, or the sum of the nested columns.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `autoWidth`      |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |           | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `grid`           |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
+| `grow`           |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `path`           |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |           | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `sticky`         |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters                                   | Return           | Inherited From |
+| --------------- | ------- | ----------- | -------------------------------------------- | ---------------- | -------------- |
+| `renderHeader`  |         |             |                                              | `TemplateResult` | GridColumn     |
+| `#onSlotchange` |         |             | `event: Event & { target: HTMLSlotElement }` | `void`           |                |
+| `renderData`    |         |             | `item: T`                                    | `TemplateResult` | GridColumn     |
+
+### Attributes
+
+| Name         | Field     | Inherited From |
+| ------------ | --------- | -------------- |
+| `align`      | align     | GridColumn     |
+| `auto-width` | autoWidth | GridColumn     |
+| `grow`       | grow      | GridColumn     |
+| `header`     | header    | GridColumn     |
+| `path`       | path      | GridColumn     |
+| `parts`      | parts     | GridColumn     |
+| `sticky`     | sticky    | GridColumn     |
+| `width`      | width     | GridColumn     |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                          | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------- | ------- |
+| `js` | `GridColumnGroup` | GridColumnGroup | ../packages/components/grid/src/column-group.ts |         |
+
+# `../packages/components/grid/src/column.ts`:
+
+## class: `GridColumn`, `sl-grid-column`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name             | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#width`         | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
+| `autoWidth`      |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. |                |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |           | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
+| `grid`           |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
+| `grow`           |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
+| `path`           |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |           | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
+| `sticky`         |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |                |
+| `width`          |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
+
+### Methods
+
+| Name           | Privacy | Description | Parameters | Return           | Inherited From |
+| -------------- | ------- | ----------- | ---------- | ---------------- | -------------- |
+| `renderHeader` |         |             |            | `TemplateResult` |                |
+| `renderData`   |         |             | `item: T`  | `TemplateResult` |                |
+
+### Attributes
+
+| Name         | Field     | Inherited From |
+| ------------ | --------- | -------------- |
+| `align`      | align     |                |
+| `auto-width` | autoWidth |                |
+| `grow`       | grow      |                |
+| `header`     | header    |                |
+| `path`       | path      |                |
+| `parts`      | parts     |                |
+| `sticky`     | sticky    |                |
+| `width`      | width     |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                    | Package |
+| ---- | ------------ | ----------- | ----------------------------------------- | ------- |
+| `js` | `GridColumn` | GridColumn  | ../packages/components/grid/src/column.ts |         |
+
+# `../packages/components/grid/src/filter-column.ts`:
+
+## class: `GridFilterColumn`, `sl-grid-filter-column`
+
+### Superclass
+
+| Name         | Module                                  | Package |
+| ------------ | --------------------------------------- | ------- |
+| `GridColumn` | /packages/components/grid/src/column.js |         |
+
+### Fields
+
+| Name             | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#width`         | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `autoWidth`      |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |           | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `grid`           |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
+| `grow`           |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `path`           |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |           | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `sticky`         |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `width`          |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+
+### Methods
+
+| Name           | Privacy | Description | Parameters | Return           | Inherited From |
+| -------------- | ------- | ----------- | ---------- | ---------------- | -------------- |
+| `renderHeader` |         |             |            | `TemplateResult` | GridColumn     |
+| `renderData`   |         |             | `item: T`  | `TemplateResult` | GridColumn     |
+
+### Attributes
+
+| Name         | Field     | Inherited From |
+| ------------ | --------- | -------------- |
+| `align`      | align     | GridColumn     |
+| `auto-width` | autoWidth | GridColumn     |
+| `grow`       | grow      | GridColumn     |
+| `header`     | header    | GridColumn     |
+| `path`       | path      | GridColumn     |
+| `parts`      | parts     | GridColumn     |
+| `sticky`     | sticky    | GridColumn     |
+| `width`      | width     | GridColumn     |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
+| `js` | `GridFilterColumn` | GridFilterColumn | ../packages/components/grid/src/filter-column.ts |         |
+
+# `../packages/components/grid/src/filter.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/filter.scss.ts |         |
+
+# `../packages/components/grid/src/filter.ts`:
+
+## class: `GridFilterValueChangeEvent`
+
+### Superclass
+
+| Name    | Module                                    | Package |
+| ------- | ----------------------------------------- | ------- |
+| `Event` | ../packages/components/grid/src/filter.ts |         |
+
+<hr/>
+
+## class: `GridFilter`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
+### Fields
+
+| Name                | Privacy | Type                                       | Default | Description       | Inherited From |
+| ------------------- | ------- | ------------------------------------------ | ------- | ----------------- | -------------- |
+| `#value`            | private | `string`                                   | `''`    | The filter value. |                |
+| `column`            |         | `GridColumn`                               |         | The grid column.  |                |
+| `filterChange`      |         | `EventEmitter<GridFilterChange>`           |         |                   |                |
+| `filterValueChange` |         | `EventEmitter<GridFilterValueChangeEvent>` |         |                   |                |
+| `value`             |         | `string`                                   |         |                   |                |
+
+### Methods
+
+| Name       | Privacy | Description | Parameters                              | Return | Inherited From |
+| ---------- | ------- | ----------- | --------------------------------------- | ------ | -------------- |
+| `#onInput` |         |             | `{ target }: Event & { target: Input }` | `void` |                |
+
+### Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `value` | value |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                         | Declaration                | Module                                    | Package |
+| ---- | ---------------------------- | -------------------------- | ----------------------------------------- | ------- |
+| `js` | `GridFilterValueChangeEvent` | GridFilterValueChangeEvent | ../packages/components/grid/src/filter.ts |         |
+| `js` | `GridFilter`                 | GridFilter                 | ../packages/components/grid/src/filter.ts |         |
+
+# `../packages/components/grid/src/grid.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/grid.scss.ts |         |
+
+# `../packages/components/grid/src/grid.ts`:
+
+## class: `GridActiveItemChangeEvent`
+
+### Superclass
+
+| Name    | Module                                  | Package |
+| ------- | --------------------------------------- | ------- |
+| `Event` | ../packages/components/grid/src/grid.ts |         |
+
+<hr/>
+
+## class: `Grid`, `sl-grid`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
+### Fields
+
+| Name                             | Privacy | Type                                         | Default                            | Description                                                          | Inherited From |
+| -------------------------------- | ------- | -------------------------------------------- | ---------------------------------- | -------------------------------------------------------------------- | -------------- |
+| `#filters`                       | private | `GridFilter[]`                               | `[]`                               | The filters for this grid.                                           |                |
+| `#initialColumnWidthsCalculated` | private | `boolean`                                    | `false`                            | Flag for calculating the column widths only once.                    |                |
+| `#sorters`                       | private | `GridSorter[]`                               | `[]`                               | The sorters for this grid.                                           |                |
+| `selection`                      |         |                                              | `new SelectionController<T>(this)` | Selection manager.                                                   |                |
+| `activeItem`                     |         | `T \| undefined`                             |                                    | The active item in the grid.                                         |                |
+| `activeItemChange`               |         | `EventEmitter<GridActiveItemChangeEvent<T>>` |                                    | Emits when the active item changes                                   |                |
+| `columns`                        |         | `Array<GridColumn<T>>`                       | `[]`                               | The columns in the grid.                                             |                |
+| `dataSource`                     |         | `DataSource<T> \| undefined`                 |                                    | Provide your own implementation for getting the data.                |                |
+| `items`                          |         | `T[] \| undefined`                           |                                    | An array of items to be displayed in the grid.                       |                |
+| `itemParts`                      |         | `GridItemParts<T> \| undefined`              |                                    | Custom parts to be set on the `<tr>` so it can be styled externally. |                |
+| `noBorder`                       |         | `boolean \| undefined`                       |                                    | Hide the border around the grid when true.                           |                |
+| `noRowBorder`                    |         | `boolean \| undefined`                       |                                    | Hides the border between rows when true.                             |                |
+| `striped`                        |         | `boolean \| undefined`                       |                                    | Uses alternating background colors for the rows when set.            |                |
+
+### Methods
+
+| Name                      | Privacy | Description                                                              | Parameters                                                                               | Return                        | Inherited From |
+| ------------------------- | ------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------- | -------------- |
+| `renderStyles`            |         |                                                                          |                                                                                          | `TemplateResult`              |                |
+| `renderHeader`            |         |                                                                          |                                                                                          | `TemplateResult`              |                |
+| `renderItem`              |         |                                                                          | `item: T, index: number`                                                                 | `TemplateResult`              |                |
+| `recalculateColumnWidths` |         | Updates the `width` of all columns which have `autoWidth` set to `true`. |                                                                                          | `Promise<void>`               |                |
+| `#onClickRow`             |         |                                                                          | `event: Event, item: T`                                                                  | `void`                        |                |
+| `#onColumnUpdate`         |         |                                                                          | `event: Event & { target: GridColumn<T> }`                                               | `void`                        |                |
+| `#onDirectionChange`      |         |                                                                          | `{ target }: CustomEvent<DataSourceSortDirection \| undefined> & { target: GridSorter }` | `void`                        |                |
+| `#onFilterChange`         |         |                                                                          | `{ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter }`             | `void`                        |                |
+| `#onFilterValueChange`    |         |                                                                          |                                                                                          | `void`                        |                |
+| `#onSlotchange`           |         |                                                                          | `event: Event & { target: HTMLSlotElement }`                                             | `void`                        |                |
+| `#onSorterChange`         |         |                                                                          | `{ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter }`             | `void`                        |                |
+| `#onVisibilityChanged`    |         |                                                                          |                                                                                          | `void`                        |                |
+| `#addScopedElements`      |         |                                                                          | `col: GridColumn<T>`                                                                     | `void`                        |                |
+| `#applyFilters`           |         |                                                                          |                                                                                          | `void`                        |                |
+| `#applySorters`           |         |                                                                          |                                                                                          | `void`                        |                |
+| `#getHeaderRows`          |         |                                                                          | `columns: Array<GridColumn<T>>`                                                          | `Array<Array<GridColumn<T>>>` |                |
+| `#getStickyColumnOffset`  |         |                                                                          | `index: number`                                                                          | `number`                      |                |
+
+### Attributes
+
+| Name            | Field       | Inherited From |
+| --------------- | ----------- | -------------- |
+| `items`         | items       |                |
+| `no-border`     | noBorder    |                |
+| `no-row-border` | noRowBorder |                |
+| `striped`       | striped     |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                        | Declaration               | Module                                  | Package |
+| ---- | --------------------------- | ------------------------- | --------------------------------------- | ------- |
+| `js` | `GridActiveItemChangeEvent` | GridActiveItemChangeEvent | ../packages/components/grid/src/grid.ts |         |
+| `js` | `Grid`                      | Grid                      | ../packages/components/grid/src/grid.ts |         |
+
+# `../packages/components/grid/src/selection-column.ts`:
+
+## class: `GridSelectionColumn`, `sl-grid-selection-column`
+
+### Superclass
+
+| Name         | Module                                  | Package |
+| ------------ | --------------------------------------- | ------- |
+| `GridColumn` | /packages/components/grid/src/column.js |         |
+
+### Fields
+
+| Name             | Privacy | Type                                              | Default                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#events`        | private |                                                   | `new EventsController(this)` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
+| `autoSelect`     |         | `boolean \| undefined`                            |                              | When true, the active rows get selected automatically.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
+| `selectAll`      |         | `boolean \| undefined`                            |                              | When true, all items are selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                |
+| `#width`         | private | `number \| undefined`                             |                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'`                    | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `autoWidth`      |         | `boolean \| undefined`                            |                              | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |                              | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `grid`           |         | `Grid<T> \| undefined`                            |                              | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
+| `grow`           |         | `number`                                          | `1`                          | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |                              | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `path`           |         | `string \| undefined`                             |                              | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |                              | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |                              | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |                              | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `sticky`         |         | `boolean \| undefined`                            |                              | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `width`          |         | `number \| undefined`                             |                              | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+
+### Methods
+
+| Name                  | Privacy | Description | Parameters                                             | Return           | Inherited From |
+| --------------------- | ------- | ----------- | ------------------------------------------------------ | ---------------- | -------------- |
+| `renderHeader`        |         |             |                                                        | `TemplateResult` | GridColumn     |
+| `renderData`          |         |             | `item: T`                                              | `TemplateResult` | GridColumn     |
+| `#onActiveItemChange` |         |             | `{ item, relatedEvent }: GridActiveItemChangeEvent<T>` | `void`           |                |
+| `#onToggleSelect`     |         |             | `item: T, checked: boolean`                            | `void`           |                |
+| `#onToggleSelectAll`  |         |             | `checked: boolean`                                     | `void`           |                |
+
+### Attributes
+
+| Name          | Field      | Inherited From |
+| ------------- | ---------- | -------------- |
+| `auto-select` | autoSelect |                |
+| `select-all`  | selectAll  |                |
+| `align`       | align      | GridColumn     |
+| `auto-width`  | autoWidth  | GridColumn     |
+| `grow`        | grow       | GridColumn     |
+| `header`      | header     | GridColumn     |
+| `path`        | path       | GridColumn     |
+| `parts`       | parts      | GridColumn     |
+| `sticky`      | sticky     | GridColumn     |
+| `width`       | width      | GridColumn     |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                  | Declaration         | Module                                              | Package |
+| ---- | --------------------- | ------------------- | --------------------------------------------------- | ------- |
+| `js` | `GridSelectionColumn` | GridSelectionColumn | ../packages/components/grid/src/selection-column.ts |         |
+
+# `../packages/components/grid/src/sort-column.ts`:
+
+## class: `GridSortColumn`, `sl-grid-sort-column`
+
+### Superclass
+
+| Name         | Module                                  | Package |
+| ------------ | --------------------------------------- | ------- |
+| `GridColumn` | /packages/components/grid/src/column.js |         |
+
+### Fields
+
+| Name             | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#width`         | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `autoWidth`      |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |           | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `grid`           |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
+| `grow`           |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `path`           |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |           | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `sticky`         |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `width`          |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+
+### Methods
+
+| Name           | Privacy | Description | Parameters | Return           | Inherited From |
+| -------------- | ------- | ----------- | ---------- | ---------------- | -------------- |
+| `renderHeader` |         |             |            | `TemplateResult` | GridColumn     |
+| `renderData`   |         |             | `item: T`  | `TemplateResult` | GridColumn     |
+
+### Attributes
+
+| Name         | Field     | Inherited From |
+| ------------ | --------- | -------------- |
+| `align`      | align     | GridColumn     |
+| `auto-width` | autoWidth | GridColumn     |
+| `grow`       | grow      | GridColumn     |
+| `header`     | header    | GridColumn     |
+| `path`       | path      | GridColumn     |
+| `parts`      | parts     | GridColumn     |
+| `sticky`     | sticky    | GridColumn     |
+| `width`      | width     | GridColumn     |
+
+<hr/>
+
+## Exports
+
+| Kind | Name             | Declaration    | Module                                         | Package |
+| ---- | ---------------- | -------------- | ---------------------------------------------- | ------- |
+| `js` | `GridSortColumn` | GridSortColumn | ../packages/components/grid/src/sort-column.ts |         |
+
+# `../packages/components/grid/src/sorter.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/sorter.scss.ts |         |
+
+# `../packages/components/grid/src/sorter.ts`:
+
+## class: `GridSorter`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name              | Privacy | Type                                                 | Default                      | Description                               | Inherited From |
+| ----------------- | ------- | ---------------------------------------------------- | ---------------------------- | ----------------------------------------- | -------------- |
+| `#events`         | private |                                                      | `new EventsController(this)` |                                           |                |
+| `column`          |         | `GridColumn`                                         |                              | The grid column.                          |                |
+| `direction`       |         | `DataSourceSortDirection \| undefined`               |                              | The direction in which to sort the items. |                |
+| `directionChange` |         | `EventEmitter<DataSourceSortDirection \| undefined>` |                              |                                           |                |
+| `sorterChange`    |         | `EventEmitter<GridSorterChange>`                     |                              |                                           |                |
+
+### Methods
+
+| Name               | Privacy | Description | Parameters             | Return | Inherited From |
+| ------------------ | ------- | ----------- | ---------------------- | ------ | -------------- |
+| `reset`            |         |             |                        | `void` |                |
+| `#onClick`         |         |             |                        | `void` |                |
+| `#onKeydown`       |         |             | `event: KeyboardEvent` | `void` |                |
+| `#toggleDirection` |         |             |                        | `void` |                |
+
+### Attributes
+
+| Name        | Field     | Inherited From |
+| ----------- | --------- | -------------- |
+| `direction` | direction |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                    | Package |
+| ---- | ------------ | ----------- | ----------------------------------------- | ------- |
+| `js` | `GridSorter` | GridSorter  | ../packages/components/grid/src/sorter.ts |         |
+
+# `../packages/components/editor/src/commands.ts`:
+
+## Functions
+
+| Name      | Description | Parameters        | Return    |
+| --------- | ----------- | ----------------- | --------- |
+| `setHTML` |             | `content: string` | `Command` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `setHTML` | setHTML     | ../packages/components/editor/src/commands.ts |         |
+
+# `../packages/components/editor/src/editor.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/editor/src/editor.scss.ts |         |
+
+# `../packages/components/editor/src/editor.ts`:
+
+## class: `Editor`, `sl-editor`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
+
+### Static Fields
+
+| Name             | Privacy | Type      | Default | Description | Inherited From |
+| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `formAssociated` | private | `boolean` | `true`  |             |                |
+
+### Fields
+
+| Name                  | Privacy | Type                                   | Default                                                                     | Description                                                                                                                     | Inherited From   |
+| --------------------- | ------- | -------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`             | private |                                        | `new EventsController(this)`                                                | Manage events.                                                                                                                  |                  |
+| `#validation`         | private |                                        | `new ValidationController(this, {
+    validators: [requiredValidator]
+  })` |                                                                                                                                 |                  |
+| `#value`              | private | `string \| undefined`                  |                                                                             | The value of the content in the editor.                                                                                         |                  |
+| `#view`               | private | `EditorView \| undefined`              |                                                                             | The ProseMirror editor view instance.                                                                                           |                  |
+| `internals`           |         |                                        |                                                                             | Element internals.                                                                                                              |                  |
+| `plugins`             |         | `Plugin[] \| undefined`                |                                                                             | Additional plugins.                                                                                                             |                  |
+| `value`               |         | `string \| undefined`                  |                                                                             |                                                                                                                                 |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                             | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                             | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                 |                                                                             | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                |         | `string \| undefined`                  |                                                                             | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                 |                                                                             | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                   |                                                                             |                                                                                                                                 | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`              |                                                                             |                                                                                                                                 | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                             |                                                                                                                                 | FormControlMixin |
+| `hint`                |         | `string \| undefined`                  |                                                                             | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return                             | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------------------------- | ---------------- |
+| `createEditor`          |         |             |                                                                   | `EditorView`                       |                  |
+| `createSchema`          |         |             |                                                                   | `Schema<EditorNodes, EditorMarks>` |                  |
+| `createState`           |         |             |                                                                   | `EditorState`                      |                  |
+| `#onFocusout`           |         |             |                                                                   | `void`                             |                  |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`                             | HintMixin        |
+| `checkValidity`         |         |             |                                                                   | `boolean`                          | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean`                          | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`                             | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`                             | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`                             | FormControlMixin |
+| `renderHint`            |         |             |                                                                   | `TemplateResult`                   | HintMixin        |
+| `#updateHint`           |         |             |                                                                   | `void`                             | HintMixin        |
+| `#removeHint`           |         |             |                                                                   | `void`                             | HintMixin        |
+
+### Attributes
+
+| Name       | Field    | Inherited From   |
+| ---------- | -------- | ---------------- |
+| `value`    | value    |                  |
+| `disabled` | disabled | FormControlMixin |
+| `name`     | name     | FormControlMixin |
+| `required` | required | FormControlMixin |
+| `hint`     | hint     | HintMixin        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Editor` | Editor      | ../packages/components/editor/src/editor.ts |         |
+
+# `../packages/components/editor/src/keymap.ts`:
+
+## Functions
+
+| Name              | Description | Parameters                                 | Return                       |
+| ----------------- | ----------- | ------------------------------------------ | ---------------------------- |
+| `buildKeymap`     |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
+| `buildListKeymap` |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                      | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------- | ------- |
+| `js` | `buildKeymap`     | buildKeymap     | ../packages/components/editor/src/keymap.ts |         |
+| `js` | `buildListKeymap` | buildListKeymap | ../packages/components/editor/src/keymap.ts |         |
+
+# `../packages/components/editor/src/list-utils.ts`:
+
+## Functions
+
+| Name                      | Description | Parameters                                                                                | Return                |
+| ------------------------- | ----------- | ----------------------------------------------------------------------------------------- | --------------------- |
+| `rootListDepth`           |             | `pos: ResolvedPos, nodes: { [key: string]: NodeType }`                                    | `number \| undefined` |
+| `getListLiftTarget`       |             | `schema: Schema, resPos: ResolvedPos`                                                     | `number`              |
+| `liftSelectionList`       |             | `state: EditorState, tr: Transaction`                                                     | `Transaction`         |
+| `toggleList`              |             | `state: EditorState, dispatch: DispatchFn, view: EditorView, listType: string`            | `boolean`             |
+| `toggleListCommand`       |             | `listType: string`                                                                        | `Command`             |
+| `liftFollowingList`       |             | `state: EditorState, from: number, to: number, rootListDepthNum: number, tr: Transaction` | `Transaction`         |
+| `isRangeOfType`           |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos, nodeType: NodeType`                     | `boolean`             |
+| `getAncestorNodesBetween` |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos`                                         | `Node[]`              |
+| `findAncestorPosition`    |             | `doc: Node, pos: ResolvedPos`                                                             | `ResolvedPos`         |
+| `liftListItems`           |             |                                                                                           | `Command`             |
+| `wrapInList`              |             | `nodeType: NodeType`                                                                      | `Command`             |
+| `toggleUnorderedList`     |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
+| `toggleOrderedList`       |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
+| `splitListItemKeepMarks`  |             | `itemType: NodeType`                                                                      |                       |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                      | Declaration             | Module                                          | Package |
+| ---- | ------------------------- | ----------------------- | ----------------------------------------------- | ------- |
+| `js` | `rootListDepth`           | rootListDepth           | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `getListLiftTarget`       | getListLiftTarget       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftSelectionList`       | liftSelectionList       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleList`              | toggleList              | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleListCommand`       | toggleListCommand       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftFollowingList`       | liftFollowingList       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `isRangeOfType`           | isRangeOfType           | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `findAncestorPosition`    | findAncestorPosition    | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftListItems`           | liftListItems           | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `wrapInList`              | wrapInList              | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleUnorderedList`     | toggleUnorderedList     | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleOrderedList`       | toggleOrderedList       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | ../packages/components/editor/src/list-utils.ts |         |
+
+# `../packages/components/editor/src/schema.ts`:
+
+## Variables
+
+| Name    | Description | Type                            |
+| ------- | ----------- | ------------------------------- |
+| `marks` |             | `Record<EditorMarks, MarkSpec>` |
+| `nodes` |             | `Record<EditorNodes, NodeSpec>` |
+
+<hr/>
+
+## Functions
+
+| Name                 | Description | Parameters                                                          | Return                   |
+| -------------------- | ----------- | ------------------------------------------------------------------- | ------------------------ |
+| `isEmpty`            |             | `obj: Record<string, unknown>`                                      | `boolean`                |
+| `removeEntries`      |             | `obj: Record<string, unknown>, predicate: (key: string) => boolean` | `Record<string, string>` |
+| `removeEmptyEntries` |             | `obj: Record<string, unknown>`                                      | `Record<string, string>` |
+| `commonAttributes`   |             |                                                                     | `Attrs`                  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                 | Declaration        | Module                                      | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------- | ------- |
+| `js` | `isEmpty`            | isEmpty            | ../packages/components/editor/src/schema.ts |         |
+| `js` | `removeEntries`      | removeEntries      | ../packages/components/editor/src/schema.ts |         |
+| `js` | `removeEmptyEntries` | removeEmptyEntries | ../packages/components/editor/src/schema.ts |         |
+| `js` | `commonAttributes`   | commonAttributes   | ../packages/components/editor/src/schema.ts |         |
+| `js` | `marks`              | marks              | ../packages/components/editor/src/schema.ts |         |
+| `js` | `nodes`              | nodes              | ../packages/components/editor/src/schema.ts |         |
+
+# `../packages/components/editor/src/utils.ts`:
+
+## Functions
+
+| Name                | Description | Parameters              | Return   |
+| ------------------- | ----------- | ----------------------- | -------- |
+| `createContentNode` |             | `schema: Schema, value` | `Node`   |
+| `getHTML`           |             | `state: EditorState`    | `string` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                | Declaration       | Module                                     | Package |
+| ---- | ------------------- | ----------------- | ------------------------------------------ | ------- |
+| `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
+| `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
+
+# `../packages/components/icon/src/icon.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
+
+# `../packages/components/icon/src/icon.ts`:
+
+## class: `Icon`, `sl-icon`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Static Fields
+
+| Name              | Privacy | Type          | Default | Description | Inherited From |
+| ----------------- | ------- | ------------- | ------- | ----------- | -------------- |
+| `availableStyles` |         | `IconStyle[]` | `[]`    |             |                |
+
+### Static Methods
+
+| Name            | Privacy | Description                                                                            | Parameters                                    | Return | Inherited From |
+| --------------- | ------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | ------ | -------------- |
+| `registerIcon`  |         | Add icon(s) to the icon registry                                                       | `faIcons: IconDefinition \| IconDefinition[]` | `void` |                |
+| `registerIcons` |         | store all icons from the IconLibrary of the theme in the icon registry for easy access | `icons: IconLibrary`                          | `void` |                |
+
+### Fields
+
+| Name         | Privacy | Type                  | Default                                                                                                                                                                                                                                                                                                                                                            | Description                                                                                                       | Inherited From |
+| ------------ | ------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | -------------- |
+| `iconNotDef` | private |                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>` `` |                                                                                                                   |                |
+| `label`      |         | `string \| undefined` |                                                                                                                                                                                                                                                                                                                                                                    | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
+| `name`       |         | `string \| undefined` |                                                                                                                                                                                                                                                                                                                                                                    | The name of the icon to show.                                                                                     |                |
+| `icons`      |         | `IconLibrary`         |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
+
+### Methods
+
+| Name       | Privacy | Description | Parameters     | Return   | Inherited From |
+| ---------- | ------- | ----------- | -------------- | -------- | -------------- |
+| `#resolve` |         |             | `name: string` | `string` |                |
+
+### Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+| `name`  | name  |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name   | Declaration | Module                                  | Package |
+| ---- | ------ | ----------- | --------------------------------------- | ------- |
+| `js` | `Icon` | Icon        | ../packages/components/icon/src/icon.ts |         |
+
+# `../packages/components/input/src/input.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/input/src/input.scss.ts |         |
+
+# `../packages/components/input/src/input.ts`:
 
 ## class: `Input`, `sl-input`
 
@@ -813,10 +1617,10 @@
 
 ### Mixins
 
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
 
 ### Fields
 
@@ -894,158 +1698,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                 | Package |
-| ---- | ------- | ----------- | -------------------------------------- | ------- |
-| `js` | `Input` | Input       | ../../packages/core/src/input/input.ts |         |
+| Kind | Name    | Declaration | Module                                    | Package |
+| ---- | ------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `Input` | Input       | ../packages/components/input/src/input.ts |         |
 
-# `../../packages/core/src/input/register.ts`:
-
-## Exports
-
-| Kind                        | Name       | Declaration | Module                            | Package |
-| --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
-| `custom-element-definition` | `sl-input` | Input       | /packages/core/src/input/input.js |         |
-
-# `../../packages/core/src/icon/icon.scss.ts`:
+# `../packages/components/label/src/label.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/icon/icon.scss.ts |         |
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/label/src/label.scss.ts |         |
 
-# `../../packages/core/src/icon/icon.stories.ts`:
-
-## Variables
-
-| Name                      | Description | Type    |
-| ------------------------- | ----------- | ------- |
-| `Basic`                   |             | `Story` |
-| `RegisterAdditionalIcons` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                      | Declaration             | Module                                       | Package |
-| ---- | ------------------------- | ----------------------- | -------------------------------------------- | ------- |
-| `js` | `default`                 |                         | ../../packages/core/src/icon/icon.stories.ts |         |
-| `js` | `Basic`                   | Basic                   | ../../packages/core/src/icon/icon.stories.ts |         |
-| `js` | `RegisterAdditionalIcons` | RegisterAdditionalIcons | ../../packages/core/src/icon/icon.stories.ts |         |
-
-# `../../packages/core/src/icon/icon.ts`:
-
-## class: `Icon`, `sl-icon`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name              | Privacy | Type          | Default | Description | Inherited From |
-| ----------------- | ------- | ------------- | ------- | ----------- | -------------- |
-| `availableStyles` |         | `IconStyle[]` | `[]`    |             |                |
-
-### Static Methods
-
-| Name                     | Privacy | Description                                                                            | Parameters                                    | Return       | Inherited From |
-| ------------------------ | ------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | ------------ | -------------- |
-| `registerIcon`           |         | Add icon(s) to the icon registry                                                       | `faIcons: IconDefinition \| IconDefinition[]` | `void`       |                |
-| `registerIcons`          |         | store all icons from the IconLibrary of the theme in the icon registry for easy access | `icons: IconLibrary`                          | `void`       |                |
-| `getIconPrefixFromStyle` |         |                                                                                        | `style: IconStyle`                            | `IconPrefix` |                |
-
-### Fields
-
-| Name                 | Privacy | Type                  | Default     | Description                                                                                                       | Inherited From |
-| -------------------- | ------- | --------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- | -------------- |
-| `label`              |         | `string \| undefined` |             | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
-| `iconStyle`          |         | `IconStyle`           | `'regular'` |                                                                                                                   |                |
-| `name`               |         | `string \| undefined` |             | The name of the icon to show.                                                                                     |                |
-| `validatedIconStyle` |         | `IconStyle`           |             |                                                                                                                   |                |
-| `icons`              |         | `IconLibrary`         |             |                                                                                                                   |                |
-
-### Methods
-
-| Name                       | Privacy | Description | Parameters           | Return           | Inherited From |
-| -------------------------- | ------- | ----------- | -------------------- | ---------------- | -------------- |
-| `#resolve`                 |         |             | `name: string`       | `string`         |                |
-| `#convertToIconDefinition` |         |             | `iconName: IconName` | `IconDefinition` |                |
-
-### Attributes
-
-| Name        | Field     | Inherited From |
-| ----------- | --------- | -------------- |
-| `label`     | label     |                |
-| `iconStyle` | iconStyle |                |
-| `name`      | name      |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name   | Declaration | Module                               | Package |
-| ---- | ------ | ----------- | ------------------------------------ | ------- |
-| `js` | `Icon` | Icon        | ../../packages/core/src/icon/icon.ts |         |
-
-# `../../packages/core/src/icon/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package   |
-| ---- | ---- | ----------- | ------ | --------- |
-| `js` | `*`  | *           |        | ./icon.js |
-
-# `../../packages/core/src/icon/register.ts`:
-
-## Exports
-
-| Kind                        | Name      | Declaration | Module                          | Package |
-| --------------------------- | --------- | ----------- | ------------------------------- | ------- |
-| `custom-element-definition` | `sl-icon` | Icon        | /packages/core/src/icon/icon.js |         |
-
-# `../../packages/core/src/label/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package    |
-| ---- | ---- | ----------- | ------ | ---------- |
-| `js` | `*`  | *           |        | ./label.js |
-
-# `../../packages/core/src/label/label.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/label/label.scss.ts |         |
-
-# `../../packages/core/src/label/label.stories.ts`:
-
-## Variables
-
-| Name          | Description | Type       |
-| ------------- | ----------- | ---------- |
-| `API`         |             | `StoryObj` |
-| `CustomLabel` |             | `StoryObj` |
-| `Required`    |             | `StoryObj` |
-| `Optional`    |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name          | Declaration | Module                                         | Package |
-| ---- | ------------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default`     |             | ../../packages/core/src/label/label.stories.ts |         |
-| `js` | `API`         | API         | ../../packages/core/src/label/label.stories.ts |         |
-| `js` | `CustomLabel` | CustomLabel | ../../packages/core/src/label/label.stories.ts |         |
-| `js` | `Required`    | Required    | ../../packages/core/src/label/label.stories.ts |         |
-| `js` | `Optional`    | Optional    | ../../packages/core/src/label/label.stories.ts |         |
-
-# `../../packages/core/src/label/label.ts`:
+# `../packages/components/label/src/label.ts`:
 
 ## class: `Label`, `sl-label`
 
@@ -1084,91 +1749,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                 | Package |
-| ---- | ------- | ----------- | -------------------------------------- | ------- |
-| `js` | `Label` | Label       | ../../packages/core/src/label/label.ts |         |
+| Kind | Name    | Declaration | Module                                    | Package |
+| ---- | ------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `Label` | Label       | ../packages/components/label/src/label.ts |         |
 
-# `../../packages/core/src/label/register.ts`:
-
-## Exports
-
-| Kind                        | Name       | Declaration | Module                            | Package |
-| --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
-| `custom-element-definition` | `sl-label` | Label       | /packages/core/src/label/label.js |         |
-
-# `../../packages/core/src/locales/locale-codes.ts`:
-
-## Variables
-
-| Name            | Description                                                                                   | Type             |
-| --------------- | --------------------------------------------------------------------------------------------- | ---------------- |
-| `sourceLocale`  | The locale code that templates in this source code are written in.                            |                  |
-| `targetLocales` | The other locale codes that this application is localized into. Sorted&#xA;lexicographically. | ``[`nl`]``       |
-| `allLocales`    | All valid project locale codes. Sorted lexicographically.                                     | ``[`en`, `nl`]`` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------- | ------- |
-| `js` | `sourceLocale`  | sourceLocale  | ../../packages/core/src/locales/locale-codes.ts |         |
-| `js` | `targetLocales` | targetLocales | ../../packages/core/src/locales/locale-codes.ts |         |
-| `js` | `allLocales`    | allLocales    | ../../packages/core/src/locales/locale-codes.ts |         |
-
-# `../../packages/core/src/locales/nl.ts`:
-
-## Variables
-
-| Name        | Description | Type     |
-| ----------- | ----------- | -------- |
-| `templates` |             | `object` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                | Package |
-| ---- | ----------- | ----------- | ------------------------------------- | ------- |
-| `js` | `templates` | templates   | ../../packages/core/src/locales/nl.ts |         |
-
-# `../../packages/core/src/popover/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package      |
-| ---- | ---- | ----------- | ------ | ------------ |
-| `js` | `*`  | *           |        | ./popover.js |
-| `js` | `*`  | *           |        | ./types.js   |
-
-# `../../packages/core/src/popover/popover.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/popover/popover.scss.ts |         |
-
-# `../../packages/core/src/popover/popover.stories.ts`:
-
-## Variables
-
-| Name    | Description | Type       |
-| ------- | ----------- | ---------- |
-| `API`   |             | `StoryObj` |
-| `Focus` |             | `StoryObj` |
-
-<hr/>
+# `../packages/components/popover/src/popover.scss.ts`:
 
 ## Exports
 
 | Kind | Name      | Declaration | Module                                             | Package |
 | ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/popover/popover.stories.ts |         |
-| `js` | `API`     | API         | ../../packages/core/src/popover/popover.stories.ts |         |
-| `js` | `Focus`   | Focus       | ../../packages/core/src/popover/popover.stories.ts |         |
+| `js` | `default` |             | ../packages/components/popover/src/popover.scss.ts |         |
 
-# `../../packages/core/src/popover/popover.ts`:
+# `../packages/components/popover/src/popover.ts`:
 
 ## class: `Popover`, `sl-popover`
 
@@ -1180,9 +1773,9 @@
 
 ### Mixins
 
-| Name                   | Module                                                | Package |
-| ---------------------- | ----------------------------------------------------- | ------- |
-| `AnchoredPopoverMixin` | /packages/core/src/popover/mixins/anchored-popover.js |         |
+| Name                   | Module                                                      | Package |
+| ---------------------- | ----------------------------------------------------------- | ------- |
+| `AnchoredPopoverMixin` | /packages/components/popover/src/mixins/anchored-popover.js |         |
 
 ### Fields
 
@@ -1245,69 +1838,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------ | ------- |
-| `js` | `Popover` | Popover     | ../../packages/core/src/popover/popover.ts |         |
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `Popover` | Popover     | ../packages/components/popover/src/popover.ts |         |
 
-# `../../packages/core/src/popover/register.ts`:
-
-## Exports
-
-| Kind                        | Name         | Declaration | Module                                | Package |
-| --------------------------- | ------------ | ----------- | ------------------------------------- | ------- |
-| `custom-element-definition` | `sl-popover` | Popover     | /packages/core/src/popover/popover.js |         |
-
-# `../../packages/core/src/radio-group/index.ts`:
+# `../packages/components/radio-group/src/radio-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package          |
-| ---- | ---- | ----------- | ------ | ---------------- |
-| `js` | `*`  | *           |        | ./radio.js       |
-| `js` | `*`  | *           |        | ./radio-group.js |
+| Kind | Name      | Declaration | Module                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/radio-group/src/radio-group.scss.ts |         |
 
-# `../../packages/core/src/radio-group/radio-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/radio-group/radio-group.scss.ts |         |
-
-# `../../packages/core/src/radio-group/radio-group.stories.ts`:
-
-## Variables
-
-| Name               | Description | Type       |
-| ------------------ | ----------- | ---------- |
-| `API`              |             | `StoryObj` |
-| `All`              |             | `StoryObj` |
-| `Horizontal`       |             | `StoryObj` |
-| `Overflow`         |             | `StoryObj` |
-| `Label`            |             | `StoryObj` |
-| `Hint`             |             | `StoryObj` |
-| `RichLabelHint`    |             | `StoryObj` |
-| `InForm`           |             | `StoryObj` |
-| `CustomValidation` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                                     | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------------- | ------- |
-| `js` | `default`          |                  | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `API`              | API              | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `All`              | All              | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Horizontal`       | Horizontal       | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Overflow`         | Overflow         | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Label`            | Label            | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `Hint`             | Hint             | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `InForm`           | InForm           | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/radio-group/radio-group.stories.ts |         |
-
-# `../../packages/core/src/radio-group/radio-group.ts`:
+# `../packages/components/radio-group/src/radio-group.ts`:
 
 ## class: `RadioGroup`, `sl-radio-group`
 
@@ -1319,10 +1862,10 @@
 
 ### Mixins
 
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
 
 ### Static Fields
 
@@ -1419,19 +1962,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                             | Package |
-| ---- | ------------ | ----------- | -------------------------------------------------- | ------- |
-| `js` | `RadioGroup` | RadioGroup  | ../../packages/core/src/radio-group/radio-group.ts |         |
+| Kind | Name         | Declaration | Module                                                | Package |
+| ---- | ------------ | ----------- | ----------------------------------------------------- | ------- |
+| `js` | `RadioGroup` | RadioGroup  | ../packages/components/radio-group/src/radio-group.ts |         |
 
-# `../../packages/core/src/radio-group/radio.scss.ts`:
+# `../packages/components/radio-group/src/radio.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/radio-group/radio.scss.ts |         |
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/radio-group/src/radio.scss.ts |         |
 
-# `../../packages/core/src/radio-group/radio.ts`:
+# `../packages/components/radio-group/src/radio.ts`:
 
 ## class: `Radio`, `sl-radio`
 
@@ -1443,9 +1986,9 @@
 
 ### Mixins
 
-| Name               | Module                                          | Package |
-| ------------------ | ----------------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/form-control.js |         |
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
 
 ### Static Fields
 
@@ -1502,49 +2045,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                       | Package |
-| ---- | ------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `Radio` | Radio       | ../../packages/core/src/radio-group/radio.ts |         |
+| Kind | Name    | Declaration | Module                                          | Package |
+| ---- | ------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `Radio` | Radio       | ../packages/components/radio-group/src/radio.ts |         |
 
-# `../../packages/core/src/radio-group/register.ts`:
-
-## Exports
-
-| Kind                        | Name             | Declaration | Module                                        | Package |
-| --------------------------- | ---------------- | ----------- | --------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-radio`       | Radio       | /packages/core/src/radio-group/radio.js       |         |
-| `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/core/src/radio-group/radio-group.js |         |
-
-# `../../packages/core/src/select/index.ts`:
+# `../packages/components/select/src/select-option-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package                  |
-| ---- | ---- | ----------- | ------ | ------------------------ |
-| `js` | `*`  | *           |        | ./select.js              |
-| `js` | `*`  | *           |        | ./select-option.js       |
-| `js` | `*`  | *           |        | ./select-option-group.js |
+| Kind | Name      | Declaration | Module                                                        | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-option-group.scss.ts |         |
 
-# `../../packages/core/src/select/register.ts`:
-
-## Exports
-
-| Kind                        | Name                     | Declaration       | Module                                           | Package |
-| --------------------------- | ------------------------ | ----------------- | ------------------------------------------------ | ------- |
-| `custom-element-definition` | `sl-select`              | Select            | /packages/core/src/select/select.js              |         |
-| `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/core/src/select/select-option.js       |         |
-| `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/core/src/select/select-option-group.js |         |
-| `custom-element-definition` | `sl-select-overlay`      | SelectOverlay     | /packages/core/src/select/select-overlay.js      |         |
-
-# `../../packages/core/src/select/select-option-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/select/select-option-group.scss.ts |         |
-
-# `../../packages/core/src/select/select-option-group.ts`:
+# `../packages/components/select/src/select-option-group.ts`:
 
 ## class: `SelectOptionGroup`, `sl-select-option-group`
 
@@ -1570,19 +2083,19 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                | Package |
-| ---- | ------------------- | ----------------- | ----------------------------------------------------- | ------- |
-| `js` | `SelectOptionGroup` | SelectOptionGroup | ../../packages/core/src/select/select-option-group.ts |         |
+| Kind | Name                | Declaration       | Module                                                   | Package |
+| ---- | ------------------- | ----------------- | -------------------------------------------------------- | ------- |
+| `js` | `SelectOptionGroup` | SelectOptionGroup | ../packages/components/select/src/select-option-group.ts |         |
 
-# `../../packages/core/src/select/select-option.scss.ts`:
+# `../packages/components/select/src/select-option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/select/select-option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-option.scss.ts |         |
 
-# `../../packages/core/src/select/select-option.ts`:
+# `../packages/components/select/src/select-option.ts`:
 
 ## class: `SelectOption`, `sl-select-option`
 
@@ -1626,19 +2139,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                          | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------- | ------- |
-| `js` | `SelectOption` | SelectOption | ../../packages/core/src/select/select-option.ts |         |
+| Kind | Name           | Declaration  | Module                                             | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------- | ------- |
+| `js` | `SelectOption` | SelectOption | ../packages/components/select/src/select-option.ts |         |
 
-# `../../packages/core/src/select/select-overlay.scss.ts`:
+# `../packages/components/select/src/select-overlay.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/select/select-overlay.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-overlay.scss.ts |         |
 
-# `../../packages/core/src/select/select-overlay.ts`:
+# `../packages/components/select/src/select-overlay.ts`:
 
 ## class: `SelectOverlay`, `sl-select-overlay`
 
@@ -1650,9 +2163,9 @@
 
 ### Mixins
 
-| Name                   | Module                                                | Package |
-| ---------------------- | ----------------------------------------------------- | ------- |
-| `AnchoredPopoverMixin` | /packages/core/src/popover/mixins/anchored-popover.js |         |
+| Name                   | Module | Package                   |
+| ---------------------- | ------ | ------------------------- |
+| `AnchoredPopoverMixin` |        | @sl-design-system/popover |
 
 ### Fields
 
@@ -1710,40 +2223,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                           | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------ | ------- |
-| `js` | `SelectOverlay` | SelectOverlay | ../../packages/core/src/select/select-overlay.ts |         |
+| Kind | Name            | Declaration   | Module                                              | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------- | ------- |
+| `js` | `SelectOverlay` | SelectOverlay | ../packages/components/select/src/select-overlay.ts |         |
 
-# `../../packages/core/src/select/select.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/select/select.scss.ts |         |
-
-# `../../packages/core/src/select/select.stories.ts`:
-
-## Variables
-
-| Name               | Description | Type       |
-| ------------------ | ----------- | ---------- |
-| `API`              |             | `StoryObj` |
-| `CustomComponents` |             | `StoryObj` |
-| `InForm`           |             | `StoryObj` |
-
-<hr/>
+# `../packages/components/select/src/select.scss.ts`:
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                           | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
-| `js` | `default`          |                  | ../../packages/core/src/select/select.stories.ts |         |
-| `js` | `API`              | API              | ../../packages/core/src/select/select.stories.ts |         |
-| `js` | `CustomComponents` | CustomComponents | ../../packages/core/src/select/select.stories.ts |         |
-| `js` | `InForm`           | InForm           | ../../packages/core/src/select/select.stories.ts |         |
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select.scss.ts |         |
 
-# `../../packages/core/src/select/select.ts`:
+# `../packages/components/select/src/select.ts`:
 
 ## class: `Select`, `sl-select`
 
@@ -1755,9 +2247,9 @@
 
 ### Mixins
 
-| Name               | Module                                          | Package |
-| ------------------ | ----------------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/form-control.js |         |
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
 
 ### Static Fields
 
@@ -1807,7 +2299,7 @@
 
 | Name                        | Privacy | Description                                                                                       | Parameters                                                        | Return    | Inherited From   |
 | --------------------------- | ------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
-| `openSelect`                |         |                                                                                                   | `{ target }: Event`                                               | `void`    |                  |
+| `openSelect`                |         |                                                                                                   | `event: Event & { target: HTMLElement }`                          | `void`    |                  |
 | `#closeSelect`              |         |                                                                                                   |                                                                   | `void`    |                  |
 | `#handleOptionsSlotChange`  |         |                                                                                                   |                                                                   | `void`    |                  |
 | `#handleMutation`           |         | If an option is selected programmatically update all the options or the size of the select itself | `mutations: MutationRecord[]`                                     | `void`    |                  |
@@ -1816,7 +2308,7 @@
 | `#updateSize`               |         | Find the largest option and set the select to that width                                          |                                                                   | `void`    |                  |
 | `#setSelectedOptionVisible` |         | Copy the value/represenation of the selected option to the placeholder                            | `option: SelectOption`                                            | `void`    |                  |
 | `#handleOverlayKeydown`     |         | Handle keyboard accessible controls.                                                              | `event: KeyboardEvent`                                            | `void`    |                  |
-| `#handleOverallKeydown`     |         | Handle keyboard accessible controls.                                                              | `event: KeyboardEvent`                                            | `void`    |                  |
+| `#handleOverallKeydown`     |         | Handle keyboard accessible controls.                                                              | `event: KeyboardEvent & { target: HTMLElement }`                  | `void`    |                  |
 | `updated`                   |         |                                                                                                   | `changes: PropertyValues<this>`                                   | `void`    | FormControlMixin |
 | `checkValidity`             |         |                                                                                                   |                                                                   | `boolean` | FormControlMixin |
 | `reportValidity`            |         |                                                                                                   |                                                                   | `boolean` | FormControlMixin |
@@ -1838,62 +2330,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Select` | Select      | ../../packages/core/src/select/select.ts |         |
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Select` | Select      | ../packages/components/select/src/select.ts |         |
 
-# `../../packages/core/src/tabs/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package        |
-| ---- | ---- | ----------- | ------ | -------------- |
-| `js` | `*`  | *           |        | ./tab-group.js |
-| `js` | `*`  | *           |        | ./tab-panel.js |
-| `js` | `*`  | *           |        | ./tab.js       |
-
-# `../../packages/core/src/tabs/register.ts`:
+# `../packages/components/tabs/src/tab-group.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name           | Declaration | Module                               | Package |
-| --------------------------- | -------------- | ----------- | ------------------------------------ | ------- |
-| `custom-element-definition` | `sl-tab`       | Tab         | /packages/core/src/tabs/tab.js       |         |
-| `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/core/src/tabs/tab-group.js |         |
-| `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/core/src/tabs/tab-panel.js |         |
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tabs/src/tab-group.scss.ts |         |
 
-# `../../packages/core/src/tabs/tab-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/tabs/tab-group.scss.ts |         |
-
-# `../../packages/core/src/tabs/tab-group.stories.ts`:
-
-## Variables
-
-| Name                  | Description | Type       |
-| --------------------- | ----------- | ---------- |
-| `API`                 |             | `StoryObj` |
-| `LongTitles`          |             | `StoryObj` |
-| `ExternalInteraction` |             | `StoryObj` |
-| `SingleTab`           |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                  | Declaration         | Module                                            | Package |
-| ---- | --------------------- | ------------------- | ------------------------------------------------- | ------- |
-| `js` | `default`             |                     | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-| `js` | `API`                 | API                 | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-| `js` | `LongTitles`          | LongTitles          | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-| `js` | `ExternalInteraction` | ExternalInteraction | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-| `js` | `SingleTab`           | SingleTab           | ../../packages/core/src/tabs/tab-group.stories.ts |         |
-
-# `../../packages/core/src/tabs/tab-group.ts`:
+# `../packages/components/tabs/src/tab-group.ts`:
 
 ## class: `TabGroup`, `sl-tab-group`
 
@@ -1961,19 +2410,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `TabGroup` | TabGroup    | ../../packages/core/src/tabs/tab-group.ts |         |
+| Kind | Name       | Declaration | Module                                       | Package |
+| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `TabGroup` | TabGroup    | ../packages/components/tabs/src/tab-group.ts |         |
 
-# `../../packages/core/src/tabs/tab-panel.scss.ts`:
+# `../packages/components/tabs/src/tab-panel.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/tabs/tab-panel.scss.ts |         |
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tabs/src/tab-panel.scss.ts |         |
 
-# `../../packages/core/src/tabs/tab-panel.ts`:
+# `../packages/components/tabs/src/tab-panel.ts`:
 
 ## class: `TabPanel`, `sl-tab-panel`
 
@@ -1987,19 +2436,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `TabPanel` | TabPanel    | ../../packages/core/src/tabs/tab-panel.ts |         |
+| Kind | Name       | Declaration | Module                                       | Package |
+| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `TabPanel` | TabPanel    | ../packages/components/tabs/src/tab-panel.ts |         |
 
-# `../../packages/core/src/tabs/tab.scss.ts`:
+# `../packages/components/tabs/src/tab.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/tabs/tab.scss.ts |         |
+| Kind | Name      | Declaration | Module                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tabs/src/tab.scss.ts |         |
 
-# `../../packages/core/src/tabs/tab.ts`:
+# `../packages/components/tabs/src/tab.ts`:
 
 ## class: `Tab`, `sl-tab`
 
@@ -2033,64 +2482,113 @@
 
 ## Exports
 
-| Kind | Name  | Declaration | Module                              | Package |
-| ---- | ----- | ----------- | ----------------------------------- | ------- |
-| `js` | `Tab` | Tab         | ../../packages/core/src/tabs/tab.ts |         |
+| Kind | Name  | Declaration | Module                                 | Package |
+| ---- | ----- | ----------- | -------------------------------------- | ------- |
+| `js` | `Tab` | Tab         | ../packages/components/tabs/src/tab.ts |         |
 
-# `../../packages/core/src/textarea/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package       |
-| ---- | ---- | ----------- | ------ | ------------- |
-| `js` | `*`  | *           |        | ./textarea.js |
-
-# `../../packages/core/src/textarea/register.ts`:
-
-## Exports
-
-| Kind                        | Name          | Declaration | Module                                  | Package |
-| --------------------------- | ------------- | ----------- | --------------------------------------- | ------- |
-| `custom-element-definition` | `sl-textarea` | Textarea    | /packages/core/src/textarea/textarea.js |         |
-
-# `../../packages/core/src/textarea/textarea.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/textarea/textarea.scss.ts |         |
-
-# `../../packages/core/src/textarea/textarea.stories.ts`:
+# `../packages/components/shared/src/css.ts`:
 
 ## Variables
 
-| Name               | Description | Type       |
-| ------------------ | ----------- | ---------- |
-| `API`              |             | `StoryObj` |
-| `Disabled`         |             | `StoryObj` |
-| `Label`            |             | `StoryObj` |
-| `Hint`             |             | `StoryObj` |
-| `RichLabelHint`    |             | `StoryObj` |
-| `MinMaxLength`     |             | `StoryObj` |
-| `CustomValidation` |             | `StoryObj` |
+| Name                     | Description | Type      |
+| ------------------------ | ----------- | --------- |
+| `supportsTopLayer`       |             |           |
+| `supportsHas`            |             |           |
+| `supportsAnchor`         |             | `boolean` |
+| `firstFocusableSelector` |             | `string`  |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `default`          |                  | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `API`              | API              | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `Disabled`         | Disabled         | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `Label`            | Label            | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `Hint`             | Hint             | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `MinMaxLength`     | MinMaxLength     | ../../packages/core/src/textarea/textarea.stories.ts |         |
-| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/textarea/textarea.stories.ts |         |
+| Kind | Name                     | Declaration            | Module                                   | Package |
+| ---- | ------------------------ | ---------------------- | ---------------------------------------- | ------- |
+| `js` | `supportsTopLayer`       | supportsTopLayer       | ../packages/components/shared/src/css.ts |         |
+| `js` | `supportsHas`            | supportsHas            | ../packages/components/shared/src/css.ts |         |
+| `js` | `supportsAnchor`         | supportsAnchor         | ../packages/components/shared/src/css.ts |         |
+| `js` | `firstFocusableSelector` | firstFocusableSelector | ../packages/components/shared/src/css.ts |         |
 
-# `../../packages/core/src/textarea/textarea.ts`:
+# `../packages/components/shared/src/path.ts`:
+
+## Functions
+
+| Name              | Description | Parameters              | Return    |
+| ----------------- | ----------- | ----------------------- | --------- |
+| `getNameByPath`   |             | `path: string`          | `string`  |
+| `getStringByPath` |             | `object: unknown, path` | `string`  |
+| `getValueByPath`  |             | `object: unknown, path` | `unknown` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                    | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | ../packages/components/shared/src/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | ../packages/components/shared/src/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | ../packages/components/shared/src/path.ts |         |
+
+# `../packages/components/shared/src/string.ts`:
+
+## Functions
+
+| Name         | Description                                                                                                                                                                                                                                                                                                                                                       | Parameters    | Return |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------ |
+| `camelize`   | Returns the lowerCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;camelize('innerHTML')          // 'innerHTML'&#xA;camelize('action_name')        // 'actionName'&#xA;camelize('css-class-name')     // 'cssClassName'&#xA;camelize('my favorite items')  // 'myFavoriteItems'&#xA;camelize('My Favorite Items')  // 'myFavoriteItems'&#xA;\```           | `str: string` |        |
+| `capitalize` | Returns the Capitalized form of a string&#xA;&#xA;\```javascript&#xA;capitalize('innerHTML')         // 'InnerHTML'&#xA;capitalize('action_name')       // 'Action_name'&#xA;capitalize('css-class-name')    // 'Css-class-name'&#xA;capitalize('my favorite items') // 'My favorite items'&#xA;\```                                                              | `str: string` |        |
+| `classify`   | Returns the UpperCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;classify('innerHTML')          // 'InnerHTML'&#xA;classify('action_name')        // 'ActionName'&#xA;classify('css-class-name')     // 'CssClassName'&#xA;classify('my favorite items')  // 'MyFavoriteItems'&#xA;\```                                                                   | `str: string` |        |
+| `dasherize`  | Replaces underscores, spaces, or camelCase with dashes.&#xA;&#xA;\```javascript&#xA;dasherize('innerHTML')         // 'inner-html'&#xA;dasherize('action_name')       // 'action-name'&#xA;dasherize('css-class-name')    // 'css-class-name'&#xA;dasherize('my favorite items') // 'my-favorite-items'&#xA;\```                                                  | `str: string` |        |
+| `decamelize` | Converts a camelized string into all lower case separated by underscores.&#xA;&#xA;\```javascript&#xA;decamelize('innerHTML')         // 'inner_html'&#xA;decamelize('action_name')       // 'action_name'&#xA;decamelize('css-class-name')    // 'css-class-name'&#xA;decamelize('my favorite items') // 'my favorite items'&#xA;\```                            | `str: string` |        |
+| `humanize`   | Returns the Humanized form of a string&#xA;&#xA;\```javascript&#xA;humanize('innerHTML')         // 'Inner HTML'&#xA;humanize('action_name')       // 'Action name'&#xA;humanize('css-class-name')    // 'Css class name'&#xA;humanize('my favorite items') // 'My favorite items'&#xA;\```                                                                       | `str: string` |        |
+| `underscore` | More general than decamelize. Returns the lower\\_case\\_and\\_underscored&#xA;form of a string.&#xA;&#xA;\```javascript&#xA;underscore('innerHTML')          // 'inner_html'&#xA;underscore('action_name')        // 'action_name'&#xA;underscore('css-class-name')     // 'css_class_name'&#xA;underscore('my favorite items')  // 'my_favorite_items'&#xA;\``` | `str: string` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                      | Package |
+| ---- | ------------ | ----------- | ------------------------------------------- | ------- |
+| `js` | `camelize`   | camelize    | ../packages/components/shared/src/string.ts |         |
+| `js` | `capitalize` | capitalize  | ../packages/components/shared/src/string.ts |         |
+| `js` | `classify`   | classify    | ../packages/components/shared/src/string.ts |         |
+| `js` | `dasherize`  | dasherize   | ../packages/components/shared/src/string.ts |         |
+| `js` | `decamelize` | decamelize  | ../packages/components/shared/src/string.ts |         |
+| `js` | `humanize`   | humanize    | ../packages/components/shared/src/string.ts |         |
+| `js` | `underscore` | underscore  | ../packages/components/shared/src/string.ts |         |
+
+# `../packages/components/shared/src/validators.ts`:
+
+## Variables
+
+| Name                    | Description | Type        |
+| ----------------------- | ----------- | ----------- |
+| `requiredValidator`     |             | `Validator` |
+| `programmaticValidator` |             | `Validator` |
+| `minLengthValidator`    |             | `Validator` |
+| `maxLengthValidator`    |             | `Validator` |
+| `patternValidator`      |             | `Validator` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                    | Declaration           | Module                                          | Package |
+| ---- | ----------------------- | --------------------- | ----------------------------------------------- | ------- |
+| `js` | `requiredValidator`     | requiredValidator     | ../packages/components/shared/src/validators.ts |         |
+| `js` | `programmaticValidator` | programmaticValidator | ../packages/components/shared/src/validators.ts |         |
+| `js` | `minLengthValidator`    | minLengthValidator    | ../packages/components/shared/src/validators.ts |         |
+| `js` | `maxLengthValidator`    | maxLengthValidator    | ../packages/components/shared/src/validators.ts |         |
+| `js` | `patternValidator`      | patternValidator      | ../packages/components/shared/src/validators.ts |         |
+
+# `../packages/components/textarea/src/textarea.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/textarea/src/textarea.scss.ts |         |
+
+# `../packages/components/textarea/src/textarea.ts`:
 
 ## class: `Textarea`, `sl-textarea`
 
@@ -2102,10 +2600,10 @@
 
 ### Mixins
 
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
 
 ### Fields
 
@@ -2168,28 +2666,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `Textarea` | Textarea    | ../../packages/core/src/textarea/textarea.ts |         |
+| Kind | Name       | Declaration | Module                                          | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `Textarea` | Textarea    | ../packages/components/textarea/src/textarea.ts |         |
 
-# `../../packages/core/src/tooltip/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                |
-| ---- | ---- | ----------- | ------ | ---------------------- |
-| `js` | `*`  | *           |        | ./tooltip.js           |
-| `js` | `*`  | *           |        | ./tooltip-directive.js |
-
-# `../../packages/core/src/tooltip/register.ts`:
-
-## Exports
-
-| Kind                        | Name         | Declaration | Module                                | Package |
-| --------------------------- | ------------ | ----------- | ------------------------------------- | ------- |
-| `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/core/src/tooltip/tooltip.js |         |
-
-# `../../packages/core/src/tooltip/tooltip-directive.ts`:
+# `../packages/components/tooltip/src/tooltip-directive.ts`:
 
 ## class: `TooltipDirective`
 
@@ -2227,43 +2708,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `TooltipDirective` | TooltipDirective | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
-| `js` | `tooltip`          | tooltip          | ../../packages/core/src/tooltip/tooltip-directive.ts |         |
+| Kind | Name               | Declaration      | Module                                                  | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------- | ------- |
+| `js` | `TooltipDirective` | TooltipDirective | ../packages/components/tooltip/src/tooltip-directive.ts |         |
+| `js` | `tooltip`          | tooltip          | ../packages/components/tooltip/src/tooltip-directive.ts |         |
 
-# `../../packages/core/src/tooltip/tooltip.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/tooltip/tooltip.scss.ts |         |
-
-# `../../packages/core/src/tooltip/tooltip.stories.ts`:
-
-## Variables
-
-| Name        | Description | Type       |
-| ----------- | ----------- | ---------- |
-| `API`       |             | `StoryObj` |
-| `Directive` |             | `StoryObj` |
-| `Overflow`  |             | `StoryObj` |
-| `Shared`    |             | `StoryObj` |
-
-<hr/>
+# `../packages/components/tooltip/src/tooltip.scss.ts`:
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                             | Package |
-| ---- | ----------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default`   |             | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `API`       | API         | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `Directive` | Directive   | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `Overflow`  | Overflow    | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
-| `js` | `Shared`    | Shared      | ../../packages/core/src/tooltip/tooltip.stories.ts |         |
+| Kind | Name      | Declaration | Module                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tooltip/src/tooltip.scss.ts |         |
 
-# `../../packages/core/src/tooltip/tooltip.ts`:
+# `../packages/components/tooltip/src/tooltip.ts`:
 
 ## class: `Tooltip`, `sl-tooltip`
 
@@ -2275,9 +2733,9 @@
 
 ### Mixins
 
-| Name                   | Module                                                | Package |
-| ---------------------- | ----------------------------------------------------- | ------- |
-| `AnchoredPopoverMixin` | /packages/core/src/popover/mixins/anchored-popover.js |         |
+| Name                   | Module | Package                   |
+| ---------------------- | ------ | ------------------------- |
+| `AnchoredPopoverMixin` |        | @sl-design-system/popover |
 
 ### Static Methods
 
@@ -2342,125 +2800,20 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------ | ------- |
-| `js` | `Tooltip` | Tooltip     | ../../packages/core/src/tooltip/tooltip.ts |         |
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `Tooltip` | Tooltip     | ../packages/components/tooltip/src/tooltip.ts |         |
 
-# `../../packages/core/src/utils/css.ts`:
-
-## Variables
-
-| Name                     | Description | Type      |
-| ------------------------ | ----------- | --------- |
-| `supportsTopLayer`       |             |           |
-| `supportsHas`            |             |           |
-| `supportsAnchor`         |             | `boolean` |
-| `firstFocusableSelector` |             | `string`  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                     | Declaration            | Module                               | Package |
-| ---- | ------------------------ | ---------------------- | ------------------------------------ | ------- |
-| `js` | `supportsTopLayer`       | supportsTopLayer       | ../../packages/core/src/utils/css.ts |         |
-| `js` | `supportsHas`            | supportsHas            | ../../packages/core/src/utils/css.ts |         |
-| `js` | `supportsAnchor`         | supportsAnchor         | ../../packages/core/src/utils/css.ts |         |
-| `js` | `firstFocusableSelector` | firstFocusableSelector | ../../packages/core/src/utils/css.ts |         |
-
-# `../../packages/core/src/utils/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./css.js        |
-| `js` | `*`  | *           |        | ./path.js       |
-| `js` | `*`  | *           |        | ./string.js     |
-| `js` | `*`  | *           |        | ./validators.js |
-
-# `../../packages/core/src/utils/path.ts`:
-
-## Functions
-
-| Name              | Description | Parameters              | Return    |
-| ----------------- | ----------- | ----------------------- | --------- |
-| `getNameByPath`   |             | `path: string`          | `string`  |
-| `getStringByPath` |             | `object: unknown, path` | `string`  |
-| `getValueByPath`  |             | `object: unknown, path` | `unknown` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                | Package |
-| ---- | ----------------- | --------------- | ------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | ../../packages/core/src/utils/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | ../../packages/core/src/utils/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | ../../packages/core/src/utils/path.ts |         |
-
-# `../../packages/core/src/utils/string.ts`:
-
-## Functions
-
-| Name         | Description                                                                                                                                                                                                                                                                                                                                                       | Parameters    | Return |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------ |
-| `camelize`   | Returns the lowerCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;camelize('innerHTML')          // 'innerHTML'&#xA;camelize('action_name')        // 'actionName'&#xA;camelize('css-class-name')     // 'cssClassName'&#xA;camelize('my favorite items')  // 'myFavoriteItems'&#xA;camelize('My Favorite Items')  // 'myFavoriteItems'&#xA;\```           | `str: string` |        |
-| `capitalize` | Returns the Capitalized form of a string&#xA;&#xA;\```javascript&#xA;capitalize('innerHTML')         // 'InnerHTML'&#xA;capitalize('action_name')       // 'Action_name'&#xA;capitalize('css-class-name')    // 'Css-class-name'&#xA;capitalize('my favorite items') // 'My favorite items'&#xA;\```                                                              | `str: string` |        |
-| `classify`   | Returns the UpperCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;classify('innerHTML')          // 'InnerHTML'&#xA;classify('action_name')        // 'ActionName'&#xA;classify('css-class-name')     // 'CssClassName'&#xA;classify('my favorite items')  // 'MyFavoriteItems'&#xA;\```                                                                   | `str: string` |        |
-| `dasherize`  | Replaces underscores, spaces, or camelCase with dashes.&#xA;&#xA;\```javascript&#xA;dasherize('innerHTML')         // 'inner-html'&#xA;dasherize('action_name')       // 'action-name'&#xA;dasherize('css-class-name')    // 'css-class-name'&#xA;dasherize('my favorite items') // 'my-favorite-items'&#xA;\```                                                  | `str: string` |        |
-| `decamelize` | Converts a camelized string into all lower case separated by underscores.&#xA;&#xA;\```javascript&#xA;decamelize('innerHTML')         // 'inner_html'&#xA;decamelize('action_name')       // 'action_name'&#xA;decamelize('css-class-name')    // 'css-class-name'&#xA;decamelize('my favorite items') // 'my favorite items'&#xA;\```                            | `str: string` |        |
-| `humanize`   | Returns the Humanized form of a string&#xA;&#xA;\```javascript&#xA;humanize('innerHTML')         // 'Inner HTML'&#xA;humanize('action_name')       // 'Action name'&#xA;humanize('css-class-name')    // 'Css class name'&#xA;humanize('my favorite items') // 'My favorite items'&#xA;\```                                                                       | `str: string` |        |
-| `underscore` | More general than decamelize. Returns the lower\\_case\\_and\\_underscored&#xA;form of a string.&#xA;&#xA;\```javascript&#xA;underscore('innerHTML')          // 'inner_html'&#xA;underscore('action_name')        // 'action_name'&#xA;underscore('css-class-name')     // 'css_class_name'&#xA;underscore('my favorite items')  // 'my_favorite_items'&#xA;\``` | `str: string` |        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                  | Package |
-| ---- | ------------ | ----------- | --------------------------------------- | ------- |
-| `js` | `camelize`   | camelize    | ../../packages/core/src/utils/string.ts |         |
-| `js` | `capitalize` | capitalize  | ../../packages/core/src/utils/string.ts |         |
-| `js` | `classify`   | classify    | ../../packages/core/src/utils/string.ts |         |
-| `js` | `dasherize`  | dasherize   | ../../packages/core/src/utils/string.ts |         |
-| `js` | `decamelize` | decamelize  | ../../packages/core/src/utils/string.ts |         |
-| `js` | `humanize`   | humanize    | ../../packages/core/src/utils/string.ts |         |
-| `js` | `underscore` | underscore  | ../../packages/core/src/utils/string.ts |         |
-
-# `../../packages/core/src/utils/validators.ts`:
-
-## Variables
-
-| Name                    | Description | Type        |
-| ----------------------- | ----------- | ----------- |
-| `requiredValidator`     |             | `Validator` |
-| `programmaticValidator` |             | `Validator` |
-| `minLengthValidator`    |             | `Validator` |
-| `maxLengthValidator`    |             | `Validator` |
-| `patternValidator`      |             | `Validator` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                    | Declaration           | Module                                      | Package |
-| ---- | ----------------------- | --------------------- | ------------------------------------------- | ------- |
-| `js` | `requiredValidator`     | requiredValidator     | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `programmaticValidator` | programmaticValidator | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `minLengthValidator`    | minLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `maxLengthValidator`    | maxLengthValidator    | ../../packages/core/src/utils/validators.ts |         |
-| `js` | `patternValidator`      | patternValidator      | ../../packages/core/src/utils/validators.ts |         |
-
-# `../../packages/core/src/popover/mixins/anchored-popover.ts`:
+# `../packages/components/popover/src/mixins/anchored-popover.ts`:
 
 ## mixin: `AnchoredPopoverMixin`
 
 ### Mixins
 
-| Name            | Module                                        | Package |
-| --------------- | --------------------------------------------- | ------- |
-| `AnchoredMixin` | /packages/core/src/popover/mixins/anchored.js |         |
-| `PopoverMixin`  | /packages/core/src/popover/mixins/popover.js  |         |
+| Name            | Module                                              | Package |
+| --------------- | --------------------------------------------------- | ------- |
+| `AnchoredMixin` | /packages/components/popover/src/mixins/anchored.js |         |
+| `PopoverMixin`  | /packages/components/popover/src/mixins/popover.js  |         |
 
 ### Parameters
 
@@ -2520,11 +2873,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                     | Package |
-| ---- | ---------------------- | -------------------- | ---------------------------------------------------------- | ------- |
-| `js` | `AnchoredPopoverMixin` | AnchoredPopoverMixin | ../../packages/core/src/popover/mixins/anchored-popover.ts |         |
+| Kind | Name                   | Declaration          | Module                                                        | Package |
+| ---- | ---------------------- | -------------------- | ------------------------------------------------------------- | ------- |
+| `js` | `AnchoredPopoverMixin` | AnchoredPopoverMixin | ../packages/components/popover/src/mixins/anchored-popover.ts |         |
 
-# `../../packages/core/src/popover/mixins/anchored.ts`:
+# `../packages/components/popover/src/mixins/anchored.ts`:
 
 ## mixin: `AnchoredMixin`
 
@@ -2554,11 +2907,21 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                             | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------- | ------- |
-| `js` | `AnchoredMixin` | AnchoredMixin | ../../packages/core/src/popover/mixins/anchored.ts |         |
+| Kind | Name            | Declaration   | Module                                                | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------- | ------- |
+| `js` | `AnchoredMixin` | AnchoredMixin | ../packages/components/popover/src/mixins/anchored.ts |         |
 
-# `../../packages/core/src/popover/mixins/popover.ts`:
+# `../packages/components/popover/src/mixins/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package               |
+| ---- | ---- | ----------- | ------ | --------------------- |
+| `js` | `*`  | *           |        | ./anchored.js         |
+| `js` | `*`  | *           |        | ./anchored-popover.js |
+| `js` | `*`  | *           |        | ./popover.js          |
+
+# `../packages/components/popover/src/mixins/popover.ts`:
 
 ## mixin: `PopoverMixin`
 
@@ -2617,12 +2980,20 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                            | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------------- | ------- |
-| `js` | `popoverMixinStyles` | popoverMixinStyles | ../../packages/core/src/popover/mixins/popover.ts |         |
-| `js` | `PopoverMixin`       | PopoverMixin       | ../../packages/core/src/popover/mixins/popover.ts |         |
+| Kind | Name                 | Declaration        | Module                                               | Package |
+| ---- | -------------------- | ------------------ | ---------------------------------------------------- | ------- |
+| `js` | `popoverMixinStyles` | popoverMixinStyles | ../packages/components/popover/src/mixins/popover.ts |         |
+| `js` | `PopoverMixin`       | PopoverMixin       | ../packages/components/popover/src/mixins/popover.ts |         |
 
-# `../../packages/core/src/popover/utils/position-anchored-element.ts`:
+# `../packages/components/popover/src/utils/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                        |
+| ---- | ---- | ----------- | ------ | ------------------------------ |
+| `js` | `*`  | *           |        | ./position-anchored-element.js |
+
+# `../packages/components/popover/src/utils/position-anchored-element.ts`:
 
 ## Functions
 
@@ -2635,13 +3006,13 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                             | Package |
-| ---- | ------------------------- | ----------------------- | ------------------------------------------------------------------ | ------- |
-| `js` | `Placement`               | Placement               | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-| `js` | `flipPlacement`           | flipPlacement           | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
-| `js` | `positionAnchoredElement` | positionAnchoredElement | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                | Package |
+| ---- | ------------------------- | ----------------------- | --------------------------------------------------------------------- | ------- |
+| `js` | `Placement`               | Placement               | ../packages/components/popover/src/utils/position-anchored-element.ts |         |
+| `js` | `flipPlacement`           | flipPlacement           | ../packages/components/popover/src/utils/position-anchored-element.ts |         |
+| `js` | `positionAnchoredElement` | positionAnchoredElement | ../packages/components/popover/src/utils/position-anchored-element.ts |         |
 
-# `../../packages/core/src/utils/controllers/events.ts`:
+# `../packages/components/shared/src/controllers/events.ts`:
 
 ## class: `EventsController`
 
@@ -2664,11 +3035,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                              | Package |
-| ---- | ------------------ | ---------------- | --------------------------------------------------- | ------- |
-| `js` | `EventsController` | EventsController | ../../packages/core/src/utils/controllers/events.ts |         |
+| Kind | Name               | Declaration      | Module                                                  | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------- | ------- |
+| `js` | `EventsController` | EventsController | ../packages/components/shared/src/controllers/events.ts |         |
 
-# `../../packages/core/src/utils/controllers/focus-group.ts`:
+# `../packages/components/shared/src/controllers/focus-group.ts`:
 
 ## class: `FocusGroupController`
 
@@ -2721,11 +3092,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                   | Package |
-| ---- | ---------------------- | -------------------- | -------------------------------------------------------- | ------- |
-| `js` | `FocusGroupController` | FocusGroupController | ../../packages/core/src/utils/controllers/focus-group.ts |         |
+| Kind | Name                   | Declaration          | Module                                                       | Package |
+| ---- | ---------------------- | -------------------- | ------------------------------------------------------------ | ------- |
+| `js` | `FocusGroupController` | FocusGroupController | ../packages/components/shared/src/controllers/focus-group.ts |         |
 
-# `../../packages/core/src/utils/controllers/index.ts`:
+# `../packages/components/shared/src/controllers/index.ts`:
 
 ## Exports
 
@@ -2737,15 +3108,15 @@
 | `js` | `*`  | *           |        | ./selection.js       |
 | `js` | `*`  | *           |        | ./validation.js      |
 
-# `../../packages/core/src/utils/controllers/roving-tabindex.ts`:
+# `../packages/components/shared/src/controllers/roving-tabindex.ts`:
 
 ## class: `RovingTabindexController`
 
 ### Superclass
 
-| Name                   | Module                                              | Package |
-| ---------------------- | --------------------------------------------------- | ------- |
-| `FocusGroupController` | /packages/core/src/utils/controllers/focus-group.js |         |
+| Name                   | Module                                                     | Package |
+| ---------------------- | ---------------------------------------------------------- | ------- |
+| `FocusGroupController` | /packages/components/shared/src/controllers/focus-group.js |         |
 
 ### Fields
 
@@ -2801,11 +3172,11 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                       | Package |
-| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------ | ------- |
-| `js` | `RovingTabindexController` | RovingTabindexController | ../../packages/core/src/utils/controllers/roving-tabindex.ts |         |
+| Kind | Name                       | Declaration              | Module                                                           | Package |
+| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------- | ------- |
+| `js` | `RovingTabindexController` | RovingTabindexController | ../packages/components/shared/src/controllers/roving-tabindex.ts |         |
 
-# `../../packages/core/src/utils/controllers/selection.ts`:
+# `../packages/components/shared/src/controllers/selection.ts`:
 
 ## class: `SelectionController`
 
@@ -2837,11 +3208,11 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                 | Package |
-| ---- | --------------------- | ------------------- | ------------------------------------------------------ | ------- |
-| `js` | `SelectionController` | SelectionController | ../../packages/core/src/utils/controllers/selection.ts |         |
+| Kind | Name                  | Declaration         | Module                                                     | Package |
+| ---- | --------------------- | ------------------- | ---------------------------------------------------------- | ------- |
+| `js` | `SelectionController` | SelectionController | ../packages/components/shared/src/controllers/selection.ts |         |
 
-# `../../packages/core/src/utils/controllers/validation.ts`:
+# `../packages/components/shared/src/controllers/validation.ts`:
 
 ## class: `ValidationController`
 
@@ -2868,19 +3239,19 @@
 
 ### Methods
 
-| Name                             | Privacy | Description | Parameters                                                                 | Return                             | Inherited From |
-| -------------------------------- | ------- | ----------- | -------------------------------------------------------------------------- | ---------------------------------- | -------------- |
-| `hostConnected`                  |         |             |                                                                            | `Promise<void>`                    |                |
-| `hostDisconnected`               |         |             |                                                                            | `void`                             |                |
-| `hostUpdated`                    |         |             |                                                                            | `void`                             |                |
-| `addValidator`                   |         |             | `validator: Validator`                                                     | `void`                             |                |
-| `removeValidator`                |         |             | `validator: Validator`                                                     | `void`                             |                |
-| `setCustomValidity`              |         |             | `message: string`                                                          | `void`                             |                |
-| `validate`                       |         |             | `value: ValidationValue`                                                   | `void`                             |                |
-| `#getInvalidState`               |         |             | `validity: ValidityState`                                                  | `keyof ValidityState \| undefined` |                |
-| `#getValidationMessageForState`  |         |             | `state: keyof ValidityState`                                               | `string \| undefined`              |                |
-| `#getValidatorMessageForValue`   |         |             | `validator: Validator, value: ValidationValue`                             | `string`                           |                |
-| `#setValidityWithOptionalTarget` |         |             | `validity: Partial<ValidityState>, validationMessage: string \| undefined` | `void`                             |                |
+| Name                             | Privacy | Description | Parameters                                                                 | Return                        | Inherited From |
+| -------------------------------- | ------- | ----------- | -------------------------------------------------------------------------- | ----------------------------- | -------------- |
+| `hostConnected`                  |         |             |                                                                            | `Promise<void>`               |                |
+| `hostDisconnected`               |         |             |                                                                            | `void`                        |                |
+| `hostUpdated`                    |         |             |                                                                            | `void`                        |                |
+| `addValidator`                   |         |             | `validator: Validator`                                                     | `void`                        |                |
+| `removeValidator`                |         |             | `validator: Validator`                                                     | `void`                        |                |
+| `setCustomValidity`              |         |             | `message: string`                                                          | `void`                        |                |
+| `validate`                       |         |             | `value: ValidationValue`                                                   | `void`                        |                |
+| `#getInvalidState`               |         |             | `validity: ValidityState`                                                  | `keyof ValidityState \| void` |                |
+| `#getValidationMessageForState`  |         |             | `state: keyof ValidityState`                                               | `string \| void`              |                |
+| `#getValidatorMessageForValue`   |         |             | `validator: Validator, value: ValidationValue`                             | `string`                      |                |
+| `#setValidityWithOptionalTarget` |         |             | `validity: Partial<ValidityState>, validationMessage: string \| undefined` | `void`                        |                |
 
 <hr/>
 
@@ -2894,20 +3265,20 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                  | Package |
-| ---- | ---------------------- | -------------------- | ------------------------------------------------------- | ------- |
-| `js` | `validationStyles`     | validationStyles     | ../../packages/core/src/utils/controllers/validation.ts |         |
-| `js` | `ValidationController` | ValidationController | ../../packages/core/src/utils/controllers/validation.ts |         |
+| Kind | Name                   | Declaration          | Module                                                      | Package |
+| ---- | ---------------------- | -------------------- | ----------------------------------------------------------- | ------- |
+| `js` | `validationStyles`     | validationStyles     | ../packages/components/shared/src/controllers/validation.ts |         |
+| `js` | `ValidationController` | ValidationController | ../packages/components/shared/src/controllers/validation.ts |         |
 
-# `../../packages/core/src/utils/data-source/array-data-source.ts`:
+# `../packages/components/shared/src/data-source/array-data-source.ts`:
 
 ## class: `ArrayDataSource`
 
 ### Superclass
 
-| Name         | Module                                              | Package |
-| ------------ | --------------------------------------------------- | ------- |
-| `DataSource` | /packages/core/src/utils/data-source/data-source.js |         |
+| Name         | Module                                                     | Package |
+| ------------ | ---------------------------------------------------------- | ------- |
+| `DataSource` | /packages/components/shared/src/data-source/data-source.js |         |
 
 ### Fields
 
@@ -2938,19 +3309,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                         | Package |
-| ---- | ----------------- | --------------- | -------------------------------------------------------------- | ------- |
-| `js` | `ArrayDataSource` | ArrayDataSource | ../../packages/core/src/utils/data-source/array-data-source.ts |         |
+| Kind | Name              | Declaration     | Module                                                             | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------ | ------- |
+| `js` | `ArrayDataSource` | ArrayDataSource | ../packages/components/shared/src/data-source/array-data-source.ts |         |
 
-# `../../packages/core/src/utils/data-source/data-source.ts`:
+# `../packages/components/shared/src/data-source/data-source.ts`:
 
 ## class: `DataSource`
 
 ### Superclass
 
-| Name          | Module                                                   | Package |
-| ------------- | -------------------------------------------------------- | ------- |
-| `EventTarget` | ../../packages/core/src/utils/data-source/data-source.ts |         |
+| Name          | Module                                                       | Package |
+| ------------- | ------------------------------------------------------------ | ------- |
+| `EventTarget` | ../packages/components/shared/src/data-source/data-source.ts |         |
 
 ### Fields
 
@@ -2967,11 +3338,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                   | Package |
-| ---- | ------------ | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `DataSource` | DataSource  | ../../packages/core/src/utils/data-source/data-source.ts |         |
+| Kind | Name         | Declaration | Module                                                       | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------ | ------- |
+| `js` | `DataSource` | DataSource  | ../packages/components/shared/src/data-source/data-source.ts |         |
 
-# `../../packages/core/src/utils/data-source/index.ts`:
+# `../packages/components/shared/src/data-source/index.ts`:
 
 ## Exports
 
@@ -2980,7 +3351,7 @@
 | `js` | `*`  | *           |        | ./array-data-source.js |
 | `js` | `*`  | *           |        | ./data-source.js       |
 
-# `../../packages/core/src/utils/decorators/base.ts`:
+# `../packages/components/shared/src/decorators/base.ts`:
 
 ## Functions
 
@@ -2998,11 +3369,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                           | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
-| `js` | `decorateProperty` | decorateProperty | ../../packages/core/src/utils/decorators/base.ts |         |
+| Kind | Name               | Declaration      | Module                                               | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
+| `js` | `decorateProperty` | decorateProperty | ../packages/components/shared/src/decorators/base.ts |         |
 
-# `../../packages/core/src/utils/decorators/event.ts`:
+# `../packages/components/shared/src/decorators/event.ts`:
 
 ## class: `EventEmitter`
 
@@ -3032,12 +3403,12 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                            | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | ../../packages/core/src/utils/decorators/event.ts |         |
-| `js` | `event`        | event        | ../../packages/core/src/utils/decorators/event.ts |         |
+| Kind | Name           | Declaration  | Module                                                | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | ../packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | ../packages/components/shared/src/decorators/event.ts |         |
 
-# `../../packages/core/src/utils/decorators/index.ts`:
+# `../packages/components/shared/src/decorators/index.ts`:
 
 ## Exports
 
@@ -3047,7 +3418,7 @@
 | `js` | `*`  | *           |        | ./event.js   |
 | `js` | `*`  | *           |        | ./observe.js |
 
-# `../../packages/core/src/utils/decorators/observe.ts`:
+# `../packages/components/shared/src/decorators/observe.ts`:
 
 ## Functions
 
@@ -3059,11 +3430,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | ../../packages/core/src/utils/decorators/observe.ts |         |
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | ../packages/components/shared/src/decorators/observe.ts |         |
 
-# `../../packages/core/src/utils/mixins/form-control.ts`:
+# `../packages/components/shared/src/mixins/form-control.ts`:
 
 ## mixin: `FormControlMixin`
 
@@ -3109,56 +3480,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `FormControlMixin` | FormControlMixin | ../../packages/core/src/utils/mixins/form-control.ts |         |
+| Kind | Name               | Declaration      | Module                                                   | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------- | ------- |
+| `js` | `FormControlMixin` | FormControlMixin | ../packages/components/shared/src/mixins/form-control.ts |         |
 
-# `../../packages/core/src/utils/mixins/hint.spec.ts`:
-
-## class: `TestHint`, `test-hint`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name        | Module                                  | Package |
-| ----------- | --------------------------------------- | ------- |
-| `HintMixin` | /packages/core/src/utils/mixins/hint.js |         |
-
-### Fields
-
-| Name   | Privacy | Type                  | Default | Description                                                         | Inherited From |
-| ------ | ------- | --------------------- | ------- | ------------------------------------------------------------------- | -------------- |
-| `hint` |         | `string \| undefined` |         | The hint. If you need to display HTML, use the `hint` slot instead. | HintMixin      |
-
-### Methods
-
-| Name          | Privacy | Description | Parameters                      | Return           | Inherited From |
-| ------------- | ------- | ----------- | ------------------------------- | ---------------- | -------------- |
-| `updated`     |         |             | `changes: PropertyValues<this>` | `void`           | HintMixin      |
-| `renderHint`  |         |             |                                 | `TemplateResult` | HintMixin      |
-| `#updateHint` |         |             |                                 | `void`           | HintMixin      |
-| `#removeHint` |         |             |                                 | `void`           | HintMixin      |
-
-### Attributes
-
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `hint` | hint  | HintMixin      |
-
-<hr/>
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                                            | Package |
-| --------------------------- | ----------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `test-hint` | TestHint    | ../../packages/core/src/utils/mixins/hint.spec.ts |         |
-
-# `../../packages/core/src/utils/mixins/hint.ts`:
+# `../packages/components/shared/src/mixins/hint.ts`:
 
 ## mixin: `HintMixin`
 
@@ -3193,11 +3519,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                       | Package |
-| ---- | ----------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `HintMixin` | HintMixin   | ../../packages/core/src/utils/mixins/hint.ts |         |
+| Kind | Name        | Declaration | Module                                           | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `HintMixin` | HintMixin   | ../packages/components/shared/src/mixins/hint.ts |         |
 
-# `../../packages/core/src/utils/mixins/index.ts`:
+# `../packages/components/shared/src/mixins/index.ts`:
 
 ## Exports
 
@@ -3205,1011 +3531,3 @@
 | ---- | ---- | ----------- | ------ | ----------------- |
 | `js` | `*`  | *           |        | ./form-control.js |
 | `js` | `*`  | *           |        | ./hint.js         |
-| `js` | `*`  | *           |        | ./types.js        |
-
-# `../../packages/editor/src/commands.ts`:
-
-## Functions
-
-| Name      | Description | Parameters        | Return    |
-| --------- | ----------- | ----------------- | --------- |
-| `setHTML` |             | `content: string` | `Command` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                | Package |
-| ---- | --------- | ----------- | ------------------------------------- | ------- |
-| `js` | `setHTML` | setHTML     | ../../packages/editor/src/commands.ts |         |
-
-# `../../packages/editor/src/editor.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/editor/src/editor.scss.ts |         |
-
-# `../../packages/editor/src/editor.stories.ts`:
-
-## Variables
-
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `Basic` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/editor/src/editor.stories.ts |         |
-| `js` | `Basic`   | Basic       | ../../packages/editor/src/editor.stories.ts |         |
-
-# `../../packages/editor/src/editor.ts`:
-
-## class: `Editor`, `sl-editor`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                                |
-| ------------------ | ------ | -------------------------------------- |
-| `FormControlMixin` |        | @sanomalearning/slds-core/utils/mixins |
-| `HintMixin`        |        | @sanomalearning/slds-core/utils/mixins |
-
-### Static Fields
-
-| Name             | Privacy | Type      | Default | Description | Inherited From |
-| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
-| `formAssociated` | private | `boolean` | `true`  |             |                |
-
-### Fields
-
-| Name                  | Privacy | Type                                   | Default                                                                     | Description                                                                                                                     | Inherited From   |
-| --------------------- | ------- | -------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`             | private |                                        | `new EventsController(this)`                                                | Manage events.                                                                                                                  |                  |
-| `#validation`         | private |                                        | `new ValidationController(this, {
-    validators: [requiredValidator]
-  })` |                                                                                                                                 |                  |
-| `#value`              | private | `string \| undefined`                  |                                                                             | The value of the content in the editor.                                                                                         |                  |
-| `#view`               | private | `EditorView \| undefined`              |                                                                             | The ProseMirror editor view instance.                                                                                           |                  |
-| `internals`           |         |                                        |                                                                             | Element internals.                                                                                                              |                  |
-| `plugins`             |         | `Plugin[] \| undefined`                |                                                                             | Additional plugins.                                                                                                             |                  |
-| `value`               |         | `string \| undefined`                  |                                                                             |                                                                                                                                 |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                             | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                             | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                 |                                                                             | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                |         | `string \| undefined`                  |                                                                             | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                 |                                                                             | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                   |                                                                             |                                                                                                                                 | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`              |                                                                             |                                                                                                                                 | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                             |                                                                                                                                 | FormControlMixin |
-| `hint`                |         | `string \| undefined`                  |                                                                             | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return                             | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------------------------- | ---------------- |
-| `createEditor`          |         |             |                                                                   | `EditorView`                       |                  |
-| `createSchema`          |         |             |                                                                   | `Schema<EditorNodes, EditorMarks>` |                  |
-| `createState`           |         |             |                                                                   | `EditorState`                      |                  |
-| `#onFocusout`           |         |             |                                                                   | `void`                             |                  |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`                             | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`                          | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`                          | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`                             | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`                             | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`                             | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult`                   | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`                             | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`                             | HintMixin        |
-
-### Attributes
-
-| Name       | Field    | Inherited From   |
-| ---------- | -------- | ---------------- |
-| `value`    | value    |                  |
-| `disabled` | disabled | FormControlMixin |
-| `name`     | name     | FormControlMixin |
-| `required` | required | FormControlMixin |
-| `hint`     | hint     | HintMixin        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                              | Package |
-| ---- | -------- | ----------- | ----------------------------------- | ------- |
-| `js` | `Editor` | Editor      | ../../packages/editor/src/editor.ts |         |
-
-# `../../packages/editor/src/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./editor.js |
-
-# `../../packages/editor/src/keymap.ts`:
-
-## Functions
-
-| Name              | Description | Parameters                                 | Return                       |
-| ----------------- | ----------- | ------------------------------------------ | ---------------------------- |
-| `buildKeymap`     |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
-| `buildListKeymap` |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                              | Package |
-| ---- | ----------------- | --------------- | ----------------------------------- | ------- |
-| `js` | `buildKeymap`     | buildKeymap     | ../../packages/editor/src/keymap.ts |         |
-| `js` | `buildListKeymap` | buildListKeymap | ../../packages/editor/src/keymap.ts |         |
-
-# `../../packages/editor/src/list-utils.ts`:
-
-## Functions
-
-| Name                      | Description | Parameters                                                                                | Return                |
-| ------------------------- | ----------- | ----------------------------------------------------------------------------------------- | --------------------- |
-| `rootListDepth`           |             | `pos: ResolvedPos, nodes: { [key: string]: NodeType }`                                    | `number \| undefined` |
-| `getListLiftTarget`       |             | `schema: Schema, resPos: ResolvedPos`                                                     | `number`              |
-| `liftSelectionList`       |             | `state: EditorState, tr: Transaction`                                                     | `Transaction`         |
-| `toggleList`              |             | `state: EditorState, dispatch: DispatchFn, view: EditorView, listType: string`            | `boolean`             |
-| `toggleListCommand`       |             | `listType: string`                                                                        | `Command`             |
-| `liftFollowingList`       |             | `state: EditorState, from: number, to: number, rootListDepthNum: number, tr: Transaction` | `Transaction`         |
-| `isRangeOfType`           |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos, nodeType: NodeType`                     | `boolean`             |
-| `getAncestorNodesBetween` |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos`                                         | `Node[]`              |
-| `findAncestorPosition`    |             | `doc: Node, pos: ResolvedPos`                                                             | `ResolvedPos`         |
-| `liftListItems`           |             |                                                                                           | `Command`             |
-| `wrapInList`              |             | `nodeType: NodeType`                                                                      | `Command`             |
-| `toggleUnorderedList`     |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
-| `toggleOrderedList`       |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
-| `splitListItemKeepMarks`  |             | `itemType: NodeType`                                                                      |                       |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                      | Declaration             | Module                                  | Package |
-| ---- | ------------------------- | ----------------------- | --------------------------------------- | ------- |
-| `js` | `rootListDepth`           | rootListDepth           | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `getListLiftTarget`       | getListLiftTarget       | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `liftSelectionList`       | liftSelectionList       | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `toggleList`              | toggleList              | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `toggleListCommand`       | toggleListCommand       | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `liftFollowingList`       | liftFollowingList       | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `isRangeOfType`           | isRangeOfType           | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `findAncestorPosition`    | findAncestorPosition    | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `liftListItems`           | liftListItems           | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `wrapInList`              | wrapInList              | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `toggleUnorderedList`     | toggleUnorderedList     | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `toggleOrderedList`       | toggleOrderedList       | ../../packages/editor/src/list-utils.ts |         |
-| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | ../../packages/editor/src/list-utils.ts |         |
-
-# `../../packages/editor/src/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                         | Package |
-| --------------------------- | ----------- | ----------- | ------------------------------ | ------- |
-| `custom-element-definition` | `sl-editor` | Editor      | /packages/editor/src/editor.js |         |
-
-# `../../packages/editor/src/schema.ts`:
-
-## Variables
-
-| Name    | Description | Type                            |
-| ------- | ----------- | ------------------------------- |
-| `marks` |             | `Record<EditorMarks, MarkSpec>` |
-| `nodes` |             | `Record<EditorNodes, NodeSpec>` |
-
-<hr/>
-
-## Functions
-
-| Name                 | Description | Parameters                                                          | Return                   |
-| -------------------- | ----------- | ------------------------------------------------------------------- | ------------------------ |
-| `isEmpty`            |             | `obj: Record<string, unknown>`                                      | `boolean`                |
-| `removeEntries`      |             | `obj: Record<string, unknown>, predicate: (key: string) => boolean` | `Record<string, string>` |
-| `removeEmptyEntries` |             | `obj: Record<string, unknown>`                                      | `Record<string, string>` |
-| `commonAttributes`   |             |                                                                     | `Attrs`                  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                 | Declaration        | Module                              | Package |
-| ---- | -------------------- | ------------------ | ----------------------------------- | ------- |
-| `js` | `isEmpty`            | isEmpty            | ../../packages/editor/src/schema.ts |         |
-| `js` | `removeEntries`      | removeEntries      | ../../packages/editor/src/schema.ts |         |
-| `js` | `removeEmptyEntries` | removeEmptyEntries | ../../packages/editor/src/schema.ts |         |
-| `js` | `commonAttributes`   | commonAttributes   | ../../packages/editor/src/schema.ts |         |
-| `js` | `marks`              | marks              | ../../packages/editor/src/schema.ts |         |
-| `js` | `nodes`              | nodes              | ../../packages/editor/src/schema.ts |         |
-
-# `../../packages/editor/src/utils.ts`:
-
-## Functions
-
-| Name                | Description | Parameters              | Return   |
-| ------------------- | ----------- | ----------------------- | -------- |
-| `createContentNode` |             | `schema: Schema, value` | `Node`   |
-| `getHTML`           |             | `state: EditorState`    | `string` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                | Declaration       | Module                             | Package |
-| ---- | ------------------- | ----------------- | ---------------------------------- | ------- |
-| `js` | `createContentNode` | createContentNode | ../../packages/editor/src/utils.ts |         |
-| `js` | `getHTML`           | getHTML           | ../../packages/editor/src/utils.ts |         |
-
-# `../../packages/editor/src/locales/locale-codes.ts`:
-
-## Variables
-
-| Name            | Description                                                                                   | Type             |
-| --------------- | --------------------------------------------------------------------------------------------- | ---------------- |
-| `sourceLocale`  | The locale code that templates in this source code are written in.                            |                  |
-| `targetLocales` | The other locale codes that this application is localized into. Sorted&#xA;lexicographically. | ``[`nl`]``       |
-| `allLocales`    | All valid project locale codes. Sorted lexicographically.                                     | ``[`en`, `nl`]`` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                            | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------- | ------- |
-| `js` | `sourceLocale`  | sourceLocale  | ../../packages/editor/src/locales/locale-codes.ts |         |
-| `js` | `targetLocales` | targetLocales | ../../packages/editor/src/locales/locale-codes.ts |         |
-| `js` | `allLocales`    | allLocales    | ../../packages/editor/src/locales/locale-codes.ts |         |
-
-# `../../packages/editor/src/locales/nl.ts`:
-
-## Variables
-
-| Name        | Description | Type     |
-| ----------- | ----------- | -------- |
-| `templates` |             | `object` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                  | Package |
-| ---- | ----------- | ----------- | --------------------------------------- | ------- |
-| `js` | `templates` | templates   | ../../packages/editor/src/locales/nl.ts |         |
-
-# `../../packages/grid/src/column-group.ts`:
-
-## class: `GridColumnGroup`, `sl-grid-column-group`
-
-### Superclass
-
-| Name         | Module                       | Package |
-| ------------ | ---------------------------- | ------- |
-| `GridColumn` | /packages/grid/src/column.js |         |
-
-### Fields
-
-| Name        | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ----------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#width`    | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `columns`   |         | `Array<GridColumn<T>>`                            | `[]`      | The nested columns in the group.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
-| `width`     |         | `number \| undefined`                             |           | The width of the group column is either manually specified, or the sum of the nested columns.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
-| `align`     |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `autoWidth` |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
-| `grid`      |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
-| `grow`      |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
-| `header`    |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
-| `path`      |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
-| `parts`     |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `renderer`  |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `sticky`    |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
-
-### Methods
-
-| Name            | Privacy | Description | Parameters                                   | Return           | Inherited From |
-| --------------- | ------- | ----------- | -------------------------------------------- | ---------------- | -------------- |
-| `renderHeader`  |         |             |                                              | `TemplateResult` | GridColumn     |
-| `#onSlotchange` |         |             | `event: Event & { target: HTMLSlotElement }` | `void`           |                |
-| `renderData`    |         |             | `item: T`                                    | `TemplateResult` | GridColumn     |
-
-### Attributes
-
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align`      | align     | GridColumn     |
-| `auto-width` | autoWidth | GridColumn     |
-| `grow`       | grow      | GridColumn     |
-| `header`     | header    | GridColumn     |
-| `path`       | path      | GridColumn     |
-| `parts`      | parts     | GridColumn     |
-| `sticky`     | sticky    | GridColumn     |
-| `width`      | width     | GridColumn     |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                  | Package |
-| ---- | ----------------- | --------------- | --------------------------------------- | ------- |
-| `js` | `GridColumnGroup` | GridColumnGroup | ../../packages/grid/src/column-group.ts |         |
-
-# `../../packages/grid/src/column.ts`:
-
-## class: `GridColumn`, `sl-grid-column`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name        | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ----------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#width`    | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
-| `align`     |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
-| `autoWidth` |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. |                |
-| `grid`      |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
-| `grow`      |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                |
-| `header`    |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
-| `path`      |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
-| `parts`     |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
-| `renderer`  |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
-| `sticky`    |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |                |
-| `width`     |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
-
-### Methods
-
-| Name           | Privacy | Description | Parameters | Return           | Inherited From |
-| -------------- | ------- | ----------- | ---------- | ---------------- | -------------- |
-| `renderHeader` |         |             |            | `TemplateResult` |                |
-| `renderData`   |         |             | `item: T`  | `TemplateResult` |                |
-
-### Attributes
-
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align`      | align     |                |
-| `auto-width` | autoWidth |                |
-| `grow`       | grow      |                |
-| `header`     | header    |                |
-| `path`       | path      |                |
-| `parts`      | parts     |                |
-| `sticky`     | sticky    |                |
-| `width`      | width     |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                            | Package |
-| ---- | ------------ | ----------- | --------------------------------- | ------- |
-| `js` | `GridColumn` | GridColumn  | ../../packages/grid/src/column.ts |         |
-
-# `../../packages/grid/src/filter-column.ts`:
-
-## class: `GridFilterColumn`, `sl-grid-filter-column`
-
-### Superclass
-
-| Name         | Module                       | Package |
-| ------------ | ---------------------------- | ------- |
-| `GridColumn` | /packages/grid/src/column.js |         |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name        | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ----------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#width`    | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `align`     |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `autoWidth` |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
-| `grid`      |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
-| `grow`      |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
-| `header`    |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
-| `path`      |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
-| `parts`     |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `renderer`  |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `sticky`    |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
-| `width`     |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
-
-### Methods
-
-| Name           | Privacy | Description | Parameters | Return           | Inherited From |
-| -------------- | ------- | ----------- | ---------- | ---------------- | -------------- |
-| `renderHeader` |         |             |            | `TemplateResult` | GridColumn     |
-| `renderData`   |         |             | `item: T`  | `TemplateResult` | GridColumn     |
-
-### Attributes
-
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align`      | align     | GridColumn     |
-| `auto-width` | autoWidth | GridColumn     |
-| `grow`       | grow      | GridColumn     |
-| `header`     | header    | GridColumn     |
-| `path`       | path      | GridColumn     |
-| `parts`      | parts     | GridColumn     |
-| `sticky`     | sticky    | GridColumn     |
-| `width`      | width     | GridColumn     |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                   | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------- | ------- |
-| `js` | `GridFilterColumn` | GridFilterColumn | ../../packages/grid/src/filter-column.ts |         |
-
-# `../../packages/grid/src/filter.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/grid/src/filter.scss.ts |         |
-
-# `../../packages/grid/src/filter.ts`:
-
-## class: `GridFilterValueChangeEvent`
-
-### Superclass
-
-| Name    | Module                            | Package |
-| ------- | --------------------------------- | ------- |
-| `Event` | ../../packages/grid/src/filter.ts |         |
-
-<hr/>
-
-## class: `GridFilter`, `sl-grid-filter`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name                | Privacy | Type                                       | Default | Description       | Inherited From |
-| ------------------- | ------- | ------------------------------------------ | ------- | ----------------- | -------------- |
-| `#value`            | private | `string`                                   | `''`    | The filter value. |                |
-| `column`            |         | `GridColumn`                               |         | The grid column.  |                |
-| `filterChange`      |         | `EventEmitter<GridFilterChange>`           |         |                   |                |
-| `filterValueChange` |         | `EventEmitter<GridFilterValueChangeEvent>` |         |                   |                |
-| `value`             |         | `string`                                   |         |                   |                |
-
-### Methods
-
-| Name       | Privacy | Description | Parameters                              | Return | Inherited From |
-| ---------- | ------- | ----------- | --------------------------------------- | ------ | -------------- |
-| `#onInput` |         |             | `{ target }: Event & { target: Input }` | `void` |                |
-
-### Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `value` | value |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                         | Declaration                | Module                            | Package |
-| ---- | ---------------------------- | -------------------------- | --------------------------------- | ------- |
-| `js` | `GridFilterValueChangeEvent` | GridFilterValueChangeEvent | ../../packages/grid/src/filter.ts |         |
-| `js` | `GridFilter`                 | GridFilter                 | ../../packages/grid/src/filter.ts |         |
-
-# `../../packages/grid/src/grid.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                               | Package |
-| ---- | --------- | ----------- | ------------------------------------ | ------- |
-| `js` | `default` |             | ../../packages/grid/src/grid.scss.ts |         |
-
-# `../../packages/grid/src/grid.ts`:
-
-## class: `GridActiveItemChangeEvent`
-
-### Superclass
-
-| Name    | Module                          | Package |
-| ------- | ------------------------------- | ------- |
-| `Event` | ../../packages/grid/src/grid.ts |         |
-
-<hr/>
-
-## class: `Grid`, `sl-grid`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name                             | Privacy | Type                                         | Default                            | Description                                                          | Inherited From |
-| -------------------------------- | ------- | -------------------------------------------- | ---------------------------------- | -------------------------------------------------------------------- | -------------- |
-| `#filters`                       | private | `GridFilter[]`                               | `[]`                               | The filters for this grid.                                           |                |
-| `#initialColumnWidthsCalculated` | private | `boolean`                                    | `false`                            | Flag for calculating the column widths only once.                    |                |
-| `#sorters`                       | private | `GridSorter[]`                               | `[]`                               | The sorters for this grid.                                           |                |
-| `selection`                      |         |                                              | `new SelectionController<T>(this)` | Selection manager.                                                   |                |
-| `activeItem`                     |         | `T \| undefined`                             |                                    | The active item in the grid.                                         |                |
-| `activeItemChange`               |         | `EventEmitter<GridActiveItemChangeEvent<T>>` |                                    | Emits when the active item changes                                   |                |
-| `columns`                        |         | `Array<GridColumn<T>>`                       | `[]`                               | The columns in the grid.                                             |                |
-| `dataSource`                     |         | `DataSource<T> \| undefined`                 |                                    | Provide your own implementation for getting the data.                |                |
-| `items`                          |         | `T[] \| undefined`                           |                                    | An array of items to be displayed in the grid.                       |                |
-| `itemParts`                      |         | `GridItemParts<T> \| undefined`              |                                    | Custom parts to be set on the `<tr>` so it can be styled externally. |                |
-| `noBorder`                       |         | `boolean \| undefined`                       |                                    | Hide the border around the grid when true.                           |                |
-| `noRowBorder`                    |         | `boolean \| undefined`                       |                                    | Hides the border between rows when true.                             |                |
-| `striped`                        |         | `boolean \| undefined`                       |                                    | Uses alternating background colors for the rows when set.            |                |
-
-### Methods
-
-| Name                      | Privacy | Description                                                              | Parameters                                                                               | Return                        | Inherited From |
-| ------------------------- | ------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------- | -------------- |
-| `renderStyles`            |         |                                                                          |                                                                                          | `TemplateResult`              |                |
-| `renderHeader`            |         |                                                                          |                                                                                          | `TemplateResult`              |                |
-| `renderItem`              |         |                                                                          | `item: T, index: number`                                                                 | `TemplateResult`              |                |
-| `recalculateColumnWidths` |         | Updates the `width` of all columns which have `autoWidth` set to `true`. |                                                                                          | `Promise<void>`               |                |
-| `#onClickRow`             |         |                                                                          | `event: Event, item: T`                                                                  | `void`                        |                |
-| `#onDirectionChange`      |         |                                                                          | `{ target }: CustomEvent<DataSourceSortDirection \| undefined> & { target: GridSorter }` | `void`                        |                |
-| `#onFilterChange`         |         |                                                                          | `{ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter }`             | `void`                        |                |
-| `#onFilterValueChange`    |         |                                                                          |                                                                                          | `void`                        |                |
-| `#onSlotchange`           |         |                                                                          | `event: Event & { target: HTMLSlotElement }`                                             | `void`                        |                |
-| `#onSorterChange`         |         |                                                                          | `{ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter }`             | `void`                        |                |
-| `#onVisibilityChanged`    |         |                                                                          |                                                                                          | `void`                        |                |
-| `#applyFilters`           |         |                                                                          |                                                                                          | `void`                        |                |
-| `#applySorters`           |         |                                                                          |                                                                                          | `void`                        |                |
-| `#getHeaderRows`          |         |                                                                          | `columns: Array<GridColumn<T>>`                                                          | `Array<Array<GridColumn<T>>>` |                |
-| `#getStickyColumnOffset`  |         |                                                                          | `index: number`                                                                          | `number`                      |                |
-
-### Attributes
-
-| Name            | Field       | Inherited From |
-| --------------- | ----------- | -------------- |
-| `items`         | items       |                |
-| `no-border`     | noBorder    |                |
-| `no-row-border` | noRowBorder |                |
-| `striped`       | striped     |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                        | Declaration               | Module                          | Package |
-| ---- | --------------------------- | ------------------------- | ------------------------------- | ------- |
-| `js` | `GridActiveItemChangeEvent` | GridActiveItemChangeEvent | ../../packages/grid/src/grid.ts |         |
-| `js` | `Grid`                      | Grid                      | ../../packages/grid/src/grid.ts |         |
-
-# `../../packages/grid/src/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package               |
-| ---- | ---- | ----------- | ------ | --------------------- |
-| `js` | `*`  | *           |        | ./column.js           |
-| `js` | `*`  | *           |        | ./column-group.js     |
-| `js` | `*`  | *           |        | ./filter-column.js    |
-| `js` | `*`  | *           |        | ./grid.js             |
-| `js` | `*`  | *           |        | ./selection-column.js |
-| `js` | `*`  | *           |        | ./sort-column.js      |
-
-# `../../packages/grid/src/register.ts`:
-
-## Exports
-
-| Kind                        | Name                       | Declaration         | Module                                 | Package |
-| --------------------------- | -------------------------- | ------------------- | -------------------------------------- | ------- |
-| `custom-element-definition` | `sl-grid`                  | Grid                | /packages/grid/src/grid.js             |         |
-| `custom-element-definition` | `sl-grid-column`           | GridColumn          | /packages/grid/src/column.js           |         |
-| `custom-element-definition` | `sl-grid-column-group`     | GridColumnGroup     | /packages/grid/src/column-group.js     |         |
-| `custom-element-definition` | `sl-grid-filter`           | GridFilter          | /packages/grid/src/filter.js           |         |
-| `custom-element-definition` | `sl-grid-filter-column`    | GridFilterColumn    | /packages/grid/src/filter-column.js    |         |
-| `custom-element-definition` | `sl-grid-selection-column` | GridSelectionColumn | /packages/grid/src/selection-column.js |         |
-| `custom-element-definition` | `sl-grid-sort-column`      | GridSortColumn      | /packages/grid/src/sort-column.js      |         |
-| `custom-element-definition` | `sl-grid-sorter`           | GridSorter          | /packages/grid/src/sorter.js           |         |
-
-# `../../packages/grid/src/selection-column.ts`:
-
-## class: `GridSelectionColumn`, `sl-grid-selection-column`
-
-### Superclass
-
-| Name         | Module                       | Package |
-| ------------ | ---------------------------- | ------- |
-| `GridColumn` | /packages/grid/src/column.js |         |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name         | Privacy | Type                                              | Default                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ------------ | ------- | ------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#events`    | private |                                                   | `new EventsController(this)` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
-| `autoSelect` |         | `boolean \| undefined`                            |                              | When true, the active rows get selected automatically.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
-| `selectAll`  |         | `boolean \| undefined`                            |                              | When true, all items are selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                |
-| `#width`     | private | `number \| undefined`                             |                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `align`      |         | `'start' \| 'center' \| 'end'`                    | `'start'`                    | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `autoWidth`  |         | `boolean \| undefined`                            |                              | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
-| `grid`       |         | `Grid<T> \| undefined`                            |                              | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
-| `grow`       |         | `number`                                          | `1`                          | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
-| `header`     |         | `string \| GridColumnHeaderRenderer \| undefined` |                              | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
-| `path`       |         | `string \| undefined`                             |                              | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
-| `parts`      |         | `string \| GridColumnParts<T> \| undefined`       |                              | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `renderer`   |         | `GridColumnDataRenderer<T> \| undefined`          |                              | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `sticky`     |         | `boolean \| undefined`                            |                              | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
-| `width`      |         | `number \| undefined`                             |                              | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
-
-### Methods
-
-| Name                  | Privacy | Description | Parameters                                             | Return           | Inherited From |
-| --------------------- | ------- | ----------- | ------------------------------------------------------ | ---------------- | -------------- |
-| `renderHeader`        |         |             |                                                        | `TemplateResult` | GridColumn     |
-| `renderData`          |         |             | `item: T`                                              | `TemplateResult` | GridColumn     |
-| `#onActiveItemChange` |         |             | `{ item, relatedEvent }: GridActiveItemChangeEvent<T>` | `void`           |                |
-| `#onToggleSelect`     |         |             | `item: T, checked: boolean`                            | `void`           |                |
-| `#onToggleSelectAll`  |         |             | `checked: boolean`                                     | `void`           |                |
-
-### Attributes
-
-| Name          | Field      | Inherited From |
-| ------------- | ---------- | -------------- |
-| `auto-select` | autoSelect |                |
-| `select-all`  | selectAll  |                |
-| `align`       | align      | GridColumn     |
-| `auto-width`  | autoWidth  | GridColumn     |
-| `grow`        | grow       | GridColumn     |
-| `header`      | header     | GridColumn     |
-| `path`        | path       | GridColumn     |
-| `parts`       | parts      | GridColumn     |
-| `sticky`      | sticky     | GridColumn     |
-| `width`       | width      | GridColumn     |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                  | Declaration         | Module                                      | Package |
-| ---- | --------------------- | ------------------- | ------------------------------------------- | ------- |
-| `js` | `GridSelectionColumn` | GridSelectionColumn | ../../packages/grid/src/selection-column.ts |         |
-
-# `../../packages/grid/src/sort-column.ts`:
-
-## class: `GridSortColumn`, `sl-grid-sort-column`
-
-### Superclass
-
-| Name         | Module                       | Package |
-| ------------ | ---------------------------- | ------- |
-| `GridColumn` | /packages/grid/src/column.js |         |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name        | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ----------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#width`    | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `align`     |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `autoWidth` |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
-| `grid`      |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
-| `grow`      |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
-| `header`    |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
-| `path`      |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
-| `parts`     |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `renderer`  |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `sticky`    |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
-| `width`     |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
-
-### Methods
-
-| Name           | Privacy | Description | Parameters | Return           | Inherited From |
-| -------------- | ------- | ----------- | ---------- | ---------------- | -------------- |
-| `renderHeader` |         |             |            | `TemplateResult` | GridColumn     |
-| `renderData`   |         |             | `item: T`  | `TemplateResult` | GridColumn     |
-
-### Attributes
-
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align`      | align     | GridColumn     |
-| `auto-width` | autoWidth | GridColumn     |
-| `grow`       | grow      | GridColumn     |
-| `header`     | header    | GridColumn     |
-| `path`       | path      | GridColumn     |
-| `parts`      | parts     | GridColumn     |
-| `sticky`     | sticky    | GridColumn     |
-| `width`      | width     | GridColumn     |
-
-<hr/>
-
-## Exports
-
-| Kind | Name             | Declaration    | Module                                 | Package |
-| ---- | ---------------- | -------------- | -------------------------------------- | ------- |
-| `js` | `GridSortColumn` | GridSortColumn | ../../packages/grid/src/sort-column.ts |         |
-
-# `../../packages/grid/src/sorter.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/grid/src/sorter.scss.ts |         |
-
-# `../../packages/grid/src/sorter.ts`:
-
-## class: `GridSorter`, `sl-grid-sorter`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name              | Privacy | Type                                                 | Default                      | Description                               | Inherited From |
-| ----------------- | ------- | ---------------------------------------------------- | ---------------------------- | ----------------------------------------- | -------------- |
-| `#events`         | private |                                                      | `new EventsController(this)` |                                           |                |
-| `column`          |         | `GridColumn`                                         |                              | The grid column.                          |                |
-| `direction`       |         | `DataSourceSortDirection \| undefined`               |                              | The direction in which to sort the items. |                |
-| `directionChange` |         | `EventEmitter<DataSourceSortDirection \| undefined>` |                              |                                           |                |
-| `sorterChange`    |         | `EventEmitter<GridSorterChange>`                     |                              |                                           |                |
-
-### Methods
-
-| Name               | Privacy | Description | Parameters             | Return | Inherited From |
-| ------------------ | ------- | ----------- | ---------------------- | ------ | -------------- |
-| `reset`            |         |             |                        | `void` |                |
-| `#onClick`         |         |             |                        | `void` |                |
-| `#onKeydown`       |         |             | `event: KeyboardEvent` | `void` |                |
-| `#toggleDirection` |         |             |                        | `void` |                |
-
-### Attributes
-
-| Name        | Field     | Inherited From |
-| ----------- | --------- | -------------- |
-| `direction` | direction |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                            | Package |
-| ---- | ------------ | ----------- | --------------------------------- | ------- |
-| `js` | `GridSorter` | GridSorter  | ../../packages/grid/src/sorter.ts |         |
-
-# `../../packages/grid/src/locales/locale-codes.ts`:
-
-## Variables
-
-| Name            | Description                                                                                   | Type             |
-| --------------- | --------------------------------------------------------------------------------------------- | ---------------- |
-| `sourceLocale`  | The locale code that templates in this source code are written in.                            |                  |
-| `targetLocales` | The other locale codes that this application is localized into. Sorted&#xA;lexicographically. | ``[`nl`]``       |
-| `allLocales`    | All valid project locale codes. Sorted lexicographically.                                     | ``[`en`, `nl`]`` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------- | ------- |
-| `js` | `sourceLocale`  | sourceLocale  | ../../packages/grid/src/locales/locale-codes.ts |         |
-| `js` | `targetLocales` | targetLocales | ../../packages/grid/src/locales/locale-codes.ts |         |
-| `js` | `allLocales`    | allLocales    | ../../packages/grid/src/locales/locale-codes.ts |         |
-
-# `../../packages/grid/src/locales/nl.ts`:
-
-## Variables
-
-| Name        | Description | Type     |
-| ----------- | ----------- | -------- |
-| `templates` |             | `object` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                | Package |
-| ---- | ----------- | ----------- | ------------------------------------- | ------- |
-| `js` | `templates` | templates   | ../../packages/grid/src/locales/nl.ts |         |
-
-# `../../packages/grid/src/stories/basics.stories.ts`:
-
-## Variables
-
-| Name           | Description | Type    |
-| -------------- | ----------- | ------- |
-| `Simple`       |             | `Story` |
-| `ColumnGroups` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                            | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------- | ------- |
-| `js` | `default`      |              | ../../packages/grid/src/stories/basics.stories.ts |         |
-| `js` | `Simple`       | Simple       | ../../packages/grid/src/stories/basics.stories.ts |         |
-| `js` | `ColumnGroups` | ColumnGroups | ../../packages/grid/src/stories/basics.stories.ts |         |
-
-# `../../packages/grid/src/stories/filtering.stories.ts`:
-
-## Variables
-
-| Name          | Description | Type    |
-| ------------- | ----------- | ------- |
-| `PerColumn`   |             | `Story` |
-| `OutsideGrid` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name          | Declaration | Module                                               | Package |
-| ---- | ------------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default`     |             | ../../packages/grid/src/stories/filtering.stories.ts |         |
-| `js` | `PerColumn`   | PerColumn   | ../../packages/grid/src/stories/filtering.stories.ts |         |
-| `js` | `OutsideGrid` | OutsideGrid | ../../packages/grid/src/stories/filtering.stories.ts |         |
-
-# `../../packages/grid/src/stories/rendering.stories.ts`:
-
-## Variables
-
-| Name             | Description | Type    |
-| ---------------- | ----------- | ------- |
-| `ColumnRenderer` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name             | Declaration    | Module                                               | Package |
-| ---- | ---------------- | -------------- | ---------------------------------------------------- | ------- |
-| `js` | `default`        |                | ../../packages/grid/src/stories/rendering.stories.ts |         |
-| `js` | `ColumnRenderer` | ColumnRenderer | ../../packages/grid/src/stories/rendering.stories.ts |         |
-
-# `../../packages/grid/src/stories/scrolling.stories.ts`:
-
-## Variables
-
-| Name               | Description | Type    |
-| ------------------ | ----------- | ------- |
-| `VerticalOverflow` |             | `Story` |
-| `VerticalPage`     |             | `Story` |
-| `HorizontalSticky` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `default`          |                  | ../../packages/grid/src/stories/scrolling.stories.ts |         |
-| `js` | `VerticalOverflow` | VerticalOverflow | ../../packages/grid/src/stories/scrolling.stories.ts |         |
-| `js` | `VerticalPage`     | VerticalPage     | ../../packages/grid/src/stories/scrolling.stories.ts |         |
-| `js` | `HorizontalSticky` | HorizontalSticky | ../../packages/grid/src/stories/scrolling.stories.ts |         |
-
-# `../../packages/grid/src/stories/selection.stories.ts`:
-
-## Variables
-
-| Name                 | Description | Type    |
-| -------------------- | ----------- | ------- |
-| `Single`             |             | `Story` |
-| `Multiple`           |             | `Story` |
-| `MultipleAutoSelect` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                 | Declaration        | Module                                               | Package |
-| ---- | -------------------- | ------------------ | ---------------------------------------------------- | ------- |
-| `js` | `default`            |                    | ../../packages/grid/src/stories/selection.stories.ts |         |
-| `js` | `Single`             | Single             | ../../packages/grid/src/stories/selection.stories.ts |         |
-| `js` | `Multiple`           | Multiple           | ../../packages/grid/src/stories/selection.stories.ts |         |
-| `js` | `MultipleAutoSelect` | MultipleAutoSelect | ../../packages/grid/src/stories/selection.stories.ts |         |
-
-# `../../packages/grid/src/stories/sorting.stories.ts`:
-
-## Variables
-
-| Name     | Description | Type    |
-| -------- | ----------- | ------- |
-| `Single` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/grid/src/stories/sorting.stories.ts |         |
-| `js` | `Single`  | Single      | ../../packages/grid/src/stories/sorting.stories.ts |         |
-
-# `../../packages/grid/src/stories/styling.stories.ts`:
-
-## Variables
-
-| Name        | Description | Type    |
-| ----------- | ----------- | ------- |
-| `NoBorders` |             | `Story` |
-| `Striped`   |             | `Story` |
-| `Parts`     |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                             | Package |
-| ---- | ----------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default`   |             | ../../packages/grid/src/stories/styling.stories.ts |         |
-| `js` | `NoBorders` | NoBorders   | ../../packages/grid/src/stories/styling.stories.ts |         |
-| `js` | `Striped`   | Striped     | ../../packages/grid/src/stories/styling.stories.ts |         |
-| `js` | `Parts`     | Parts       | ../../packages/grid/src/stories/styling.stories.ts |         |

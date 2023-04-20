@@ -203,7 +203,7 @@
     "build:site:prod:eleventy": {
       "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
       "dependencies": [
-        "../packages/tokens:build",
+        "..:build:tokens",
         "analyze",
         "copy:tokens",
         "build:site:prod:styles",

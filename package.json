@@ -45,7 +45,8 @@
       ],
       "files": [
         "packages/components/**/*.ts",
-        "!packages/components/**/*.{d,spec,stories}.ts"      ],
+        "!packages/components/**/*.{d,spec,stories}.ts"
+      ],
       "output": [
         "packages/components/*/custom-elements.json"
       ]
@@ -230,13 +231,13 @@
     "rimraf": "^5.0.0",
     "rollup": "^3.20.6",
     "sass": "^1.62.0",
-    "sinon": "^15.0.3",
+    "sinon": "^15.0.4",
     "storybook": "^7.0.6",
     "stylelint": "^15.5.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
     "typescript": "^4.9.5",
-    "vite": "^4.2.2",
+    "vite": "^4.3.0",
     "wireit": "^0.9.5"
   }
 }

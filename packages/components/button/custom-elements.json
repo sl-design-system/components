@@ -85,12 +85,6 @@
             },
             {
               "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
               "name": "size",
               "type": {
                 "text": "ButtonSize"

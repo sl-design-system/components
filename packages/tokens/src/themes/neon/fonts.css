@@ -1,0 +1,17 @@
+@font-face {
+  font-family: the-message;
+  font-weight: 400;
+  src: url('./fonts/the_message-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: the-message;
+  font-weight: 600;
+  src: url('./fonts/the_message-demibold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: the-message;
+  font-weight: 700;
+  src: url('./fonts/the_message-bold.woff2') format('woff2');
+}

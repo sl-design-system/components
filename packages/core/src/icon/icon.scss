@@ -1,8 +1,22 @@
+$sizes: xs, sm, md, lg, xl, 2xl, 3xl, 4xl;
+
 :host {
   --fill-default: currentColor;
   --fill-accent: rgb(var(--sl-color-palette-accent-300));
-  
-  display: inline-flex;
-  height: 2rem;
-  width: 2rem;
+  --icon-container-size: unset;
+   
+  display: inline-grid;
+  place-content: center;
+  height: var(--_icon-container-size);
+  width: var(--_icon-container-size);
+}
+
+@each $size in $sizes {
+  :host([size='#{$size}']){
+    --_icon-container-size: var(--icon-container-size, var(--sl-size-icon-#{$size}));
+    svg {
+      height: var(--sl-size-icon-#{$size});
+      width: var(--sl-size-icon-#{$size});
+    }
+  }
 }

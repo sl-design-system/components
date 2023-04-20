@@ -6,7 +6,6 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { EventsController, ValidationController, validationStyles } from '../utils/controllers/index.js';
 import { FormControlMixin, HintMixin, hintStyles } from '../utils/mixins/index.js';
-// import { Icon } from '../icon';
 import styles from './input.scss.js';
 
 export type InputSize = 'md' | 'lg';

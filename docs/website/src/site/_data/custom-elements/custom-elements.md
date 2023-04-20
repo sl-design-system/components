@@ -25,85 +25,6 @@
 | `js` | `ValidationRequiredReport` | ValidationRequiredReport | ../../packages/core/src/form.stories.ts |         |
 | `js` | `Validation`               | Validation               | ../../packages/core/src/form.stories.ts |         |
 
-# `../../packages/core/src/avatar/avatar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
-
-# `../../packages/core/src/avatar/avatar.stories.ts`:
-
-## Variables
-
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `Basic` |             | `Story` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
-| `js` | `Basic`   | Basic       | ../../packages/core/src/avatar/avatar.stories.ts |         |
-
-# `../../packages/core/src/avatar/avatar.ts`:
-
-## class: `Avatar`, `sl-avatar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
-| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
-| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
-| `profileName`     |         | `string`                                |          |                                                               |                |
-| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
-
-### Methods
-
-| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
-| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
-| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `uniqueProfileId` | uniqueProfileId |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                   | Package |
-| ---- | -------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
-
-# `../../packages/core/src/avatar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./avatar.js |
-
-# `../../packages/core/src/avatar/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                              | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
-| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
-
 # `../../packages/core/src/button/button.scss.ts`:
 
 ## Exports
@@ -205,6 +126,85 @@
 | Kind                        | Name        | Declaration | Module                              | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/core/src/button/button.js |         |
+
+# `../../packages/core/src/avatar/avatar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.scss.ts |         |
+
+# `../../packages/core/src/avatar/avatar.stories.ts`:
+
+## Variables
+
+| Name    | Description | Type    |
+| ------- | ----------- | ------- |
+| `Basic` |             | `Story` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../../packages/core/src/avatar/avatar.stories.ts |         |
+| `js` | `Basic`   | Basic       | ../../packages/core/src/avatar/avatar.stories.ts |         |
+
+# `../../packages/core/src/avatar/avatar.ts`:
+
+## class: `Avatar`, `sl-avatar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name              | Privacy | Type                                    | Default  | Description                                                   | Inherited From |
+| ----------------- | ------- | --------------------------------------- | -------- | ------------------------------------------------------------- | -------------- |
+| `uniqueProfileId` |         | `string`                                | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
+| `profileName`     |         | `string`                                |          |                                                               |                |
+| `user`            |         | `UserProfile \| undefined \| undefined` |          |                                                               |                |
+
+### Methods
+
+| Name              | Privacy | Description | Parameters   | Return                              | Inherited From |
+| ----------------- | ------- | ----------- | ------------ | ----------------------------------- | -------------- |
+| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile \| undefined>` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `uniqueProfileId` | uniqueProfileId |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | ../../packages/core/src/avatar/avatar.ts |         |
+
+# `../../packages/core/src/avatar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./avatar.js |
+
+# `../../packages/core/src/avatar/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                              | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
+| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/core/src/avatar/avatar.js |         |
 
 # `../../packages/core/src/button-bar/button-bar.scss.ts`:
 
@@ -353,6 +353,7 @@
 | `name`                      |         | `string \| undefined`      |                                                                                                                                                                                                                                                                                                                                      | Name of the form element                                              |                |
 | `form`                      |         | `HTMLFormElement \| null`  |                                                                                                                                                                                                                                                                                                                                      |                                                                       |                |
 | `hint`                      |         | `string \| undefined`      |                                                                                                                                                                                                                                                                                                                                      | The hint. If you need to display HTML, use the `hint` slot instead.   | HintMixin      |
+| `hintSize`                  |         | `LabelSize`                | `'md'`                                                                                                                                                                                                                                                                                                                               | The hint size.                                                        | HintMixin      |
 
 ### Methods
 
@@ -367,10 +368,11 @@
 
 ### Attributes
 
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `name` | name  |                |
-| `hint` | hint  | HintMixin      |
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `name`     | name     |                |
+| `hint`     | hint     | HintMixin      |
+| `hintSize` | hintSize | HintMixin      |
 
 <hr/>
 
@@ -470,6 +472,7 @@
 | `form`                |         | `HTMLFormElement \| null`              |                                                                                            |                                                                                                                                 | FormControlMixin |
 | `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                                            |                                                                                                                                 | FormControlMixin |
 | `hint`                |         | `string \| undefined`                  |                                                                                            | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+| `hintSize`            |         | `LabelSize`                            | `'md'`                                                                                     | The hint size.                                                                                                                  | HintMixin        |
 
 ### Methods
 
@@ -503,6 +506,7 @@
 | `name`          | name          | FormControlMixin |
 | `required`      | required      | FormControlMixin |
 | `hint`          | hint          | HintMixin        |
+| `hintSize`      | hintSize      | HintMixin        |
 
 <hr/>
 
@@ -750,162 +754,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------- | ------- |
 | `custom-element-definition` | `sl-drawer` | Drawer      | /packages/core/src/drawer/drawer.js |         |
 
-# `../../packages/core/src/input/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package    |
-| ---- | ---- | ----------- | ------ | ---------- |
-| `js` | `*`  | *           |        | ./input.js |
-
-# `../../packages/core/src/input/input.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `default` |             | ../../packages/core/src/input/input.scss.ts |         |
-
-# `../../packages/core/src/input/input.stories.ts`:
-
-## Variables
-
-| Name               | Description | Type       |
-| ------------------ | ----------- | ---------- |
-| `API`              |             | `StoryObj` |
-| `Disabled`         |             | `StoryObj` |
-| `Label`            |             | `StoryObj` |
-| `Hint`             |             | `StoryObj` |
-| `RichLabelHint`    |             | `StoryObj` |
-| `PrefixSuffix`     |             | `StoryObj` |
-| `MinMaxLength`     |             | `StoryObj` |
-| `Pattern`          |             | `StoryObj` |
-| `CustomInput`      |             | `StoryObj` |
-| `CustomValidation` |             | `StoryObj` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                         | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------- | ------- |
-| `js` | `default`          |                  | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `API`              | API              | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Disabled`         | Disabled         | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Label`            | Label            | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Hint`             | Hint             | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `RichLabelHint`    | RichLabelHint    | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `PrefixSuffix`     | PrefixSuffix     | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `MinMaxLength`     | MinMaxLength     | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `Pattern`          | Pattern          | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `CustomInput`      | CustomInput      | ../../packages/core/src/input/input.stories.ts |         |
-| `js` | `CustomValidation` | CustomValidation | ../../packages/core/src/input/input.stories.ts |         |
-
-# `../../packages/core/src/input/input.ts`:
-
-## class: `Input`, `sl-input`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module                                   | Package |
-| ------------------ | ---------------------------------------- | ------- |
-| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
-| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
-
-### Fields
-
-| Name                  | Privacy | Type                                                            | Default                                                              | Description                                                                                                                     | Inherited From   |
-| --------------------- | ------- | --------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`             | private |                                                                 | `new EventsController(this, {
-    click: this.#onClick
-  })`         |                                                                                                                                 |                  |
-| `#onKeydown`          | private |                                                                 |                                                                      |                                                                                                                                 |                  |
-| `#validation`         | private |                                                                 | `new ValidationController(this, {
-    target: () => this.input
-  })` |                                                                                                                                 |                  |
-| `input`               |         | `HTMLInputElement`                                              |                                                                      | The input element in the light DOM.                                                                                             |                  |
-| `internals`           |         |                                                                 |                                                                      | Element internals.                                                                                                              |                  |
-| `autocomplete`        |         | `string \| undefined`                                           |                                                                      | Specifies which type of data the browser can use to pre-fill the input.                                                         |                  |
-| `maxLength`           |         | `number \| undefined`                                           |                                                                      | Maximum length (number of characters).                                                                                          |                  |
-| `minLength`           |         | `number \| undefined`                                           |                                                                      | Minimum length (number of characters).                                                                                          |                  |
-| `pattern`             |         | `string \| undefined`                                           |                                                                      | Validation using pattern.                                                                                                       |                  |
-| `placeholder`         |         | `string \| undefined`                                           |                                                                      | Placeholder text in the input.                                                                                                  |                  |
-| `type`                |         | `'email' \| 'number' \| 'password' \| 'tel' \| 'text' \| 'url'` | `'text'`                                                             | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                           |                  |
-| `validators`          |         | `Validator[] \| undefined`                                      |                                                                      | Custom validators specified by the user.                                                                                        |                  |
-| `value`               |         | `string \| undefined`                                           |                                                                      | The value for the input.                                                                                                        |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`                                 |                                                                      | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`                               |                                                                      | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                                          |                                                                      | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                |         | `string \| undefined`                                           |                                                                      | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                                          |                                                                      | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                                            |                                                                      |                                                                                                                                 | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`                                       |                                                                      |                                                                                                                                 | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null`                          |                                                                      |                                                                                                                                 | FormControlMixin |
-| `hint`                |         | `string \| undefined`                                           |                                                                      | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
-| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
-| `#onInput`              |         |             | `{ target }: Event & { target: HTMLInputElement }`                | `void`           |                  |
-| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
-
-### Attributes
-
-| Name           | Field        | Inherited From   |
-| -------------- | ------------ | ---------------- |
-| `autocomplete` | autocomplete |                  |
-| `maxlength`    | maxLength    |                  |
-| `minlength`    | minLength    |                  |
-| `pattern`      | pattern      |                  |
-| `placeholder`  | placeholder  |                  |
-| `type`         | type         |                  |
-| `value`        | value        |                  |
-| `disabled`     | disabled     | FormControlMixin |
-| `name`         | name         | FormControlMixin |
-| `required`     | required     | FormControlMixin |
-| `hint`         | hint         | HintMixin        |
-
-### Slots
-
-| Name     | Description                    |
-| -------- | ------------------------------ |
-| `prefix` | Content shown before the input |
-| `input`  | The slot for the input element |
-| `suffix` | Content shown after the input  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name    | Declaration | Module                                 | Package |
-| ---- | ------- | ----------- | -------------------------------------- | ------- |
-| `js` | `Input` | Input       | ../../packages/core/src/input/input.ts |         |
-
-# `../../packages/core/src/input/register.ts`:
-
-## Exports
-
-| Kind                        | Name       | Declaration | Module                            | Package |
-| --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
-| `custom-element-definition` | `sl-input` | Input       | /packages/core/src/input/input.js |         |
-
 # `../../packages/core/src/icon/icon.scss.ts`:
 
 ## Exports
@@ -951,36 +799,32 @@
 
 ### Static Methods
 
-| Name                     | Privacy | Description                                                                            | Parameters                                    | Return       | Inherited From |
-| ------------------------ | ------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | ------------ | -------------- |
-| `registerIcon`           |         | Add icon(s) to the icon registry                                                       | `faIcons: IconDefinition \| IconDefinition[]` | `void`       |                |
-| `registerIcons`          |         | store all icons from the IconLibrary of the theme in the icon registry for easy access | `icons: IconLibrary`                          | `void`       |                |
-| `getIconPrefixFromStyle` |         |                                                                                        | `style: IconStyle`                            | `IconPrefix` |                |
+| Name            | Privacy | Description                                                                            | Parameters                                    | Return | Inherited From |
+| --------------- | ------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | ------ | -------------- |
+| `registerIcon`  |         | Add icon(s) to the icon registry                                                       | `faIcons: IconDefinition \| IconDefinition[]` | `void` |                |
+| `registerIcons` |         | store all icons from the IconLibrary of the theme in the icon registry for easy access | `icons: IconLibrary`                          | `void` |                |
 
 ### Fields
 
-| Name                 | Privacy | Type                  | Default     | Description                                                                                                       | Inherited From |
-| -------------------- | ------- | --------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- | -------------- |
-| `label`              |         | `string \| undefined` |             | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
-| `iconStyle`          |         | `IconStyle`           | `'regular'` |                                                                                                                   |                |
-| `name`               |         | `string \| undefined` |             | The name of the icon to show.                                                                                     |                |
-| `validatedIconStyle` |         | `IconStyle`           |             |                                                                                                                   |                |
-| `icons`              |         | `IconLibrary`         |             |                                                                                                                   |                |
+| Name         | Privacy | Type                  | Default                                                                                                                                                                                                                                                                                                                                                            | Description                                                                                                       | Inherited From |
+| ------------ | ------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | -------------- |
+| `iconNotDef` | private |                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>` `` |                                                                                                                   |                |
+| `label`      |         | `string \| undefined` |                                                                                                                                                                                                                                                                                                                                                                    | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
+| `name`       |         | `string \| undefined` |                                                                                                                                                                                                                                                                                                                                                                    | The name of the icon to show.                                                                                     |                |
+| `icons`      |         | `IconLibrary`         |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
 
 ### Methods
 
-| Name                       | Privacy | Description | Parameters           | Return           | Inherited From |
-| -------------------------- | ------- | ----------- | -------------------- | ---------------- | -------------- |
-| `#resolve`                 |         |             | `name: string`       | `string`         |                |
-| `#convertToIconDefinition` |         |             | `iconName: IconName` | `IconDefinition` |                |
+| Name       | Privacy | Description | Parameters     | Return   | Inherited From |
+| ---------- | ------- | ----------- | -------------- | -------- | -------------- |
+| `#resolve` |         |             | `name: string` | `string` |                |
 
 ### Attributes
 
-| Name        | Field     | Inherited From |
-| ----------- | --------- | -------------- |
-| `label`     | label     |                |
-| `iconStyle` | iconStyle |                |
-| `name`      | name      |                |
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+| `name`  | name  |                |
 
 <hr/>
 
@@ -994,9 +838,10 @@
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package   |
-| ---- | ---- | ----------- | ------ | --------- |
-| `js` | `*`  | *           |        | ./icon.js |
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./icon.js   |
+| `js` | `*`  | *           |        | ./models.js |
 
 # `../../packages/core/src/icon/register.ts`:
 
@@ -1029,6 +874,7 @@
 | Name          | Description | Type       |
 | ------------- | ----------- | ---------- |
 | `API`         |             | `StoryObj` |
+| `LabelSize`   |             | `StoryObj` |
 | `CustomLabel` |             | `StoryObj` |
 | `Required`    |             | `StoryObj` |
 | `Optional`    |             | `StoryObj` |
@@ -1041,6 +887,7 @@
 | ---- | ------------- | ----------- | ---------------------------------------------- | ------- |
 | `js` | `default`     |             | ../../packages/core/src/label/label.stories.ts |         |
 | `js` | `API`         | API         | ../../packages/core/src/label/label.stories.ts |         |
+| `js` | `LabelSize`   | LabelSize   | ../../packages/core/src/label/label.stories.ts |         |
 | `js` | `CustomLabel` | CustomLabel | ../../packages/core/src/label/label.stories.ts |         |
 | `js` | `Required`    | Required    | ../../packages/core/src/label/label.stories.ts |         |
 | `js` | `Optional`    | Optional    | ../../packages/core/src/label/label.stories.ts |         |
@@ -1066,6 +913,7 @@
 | `formControl`    |         | `(HTMLElement & FormControlInterface) \| null` | `null`                                            | The associated form control.                                    |                |
 | `optional`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as optional.                |                |
 | `required`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as required.                |                |
+| `size`           |         | `LabelSize`                                    | `'md'`                                            | Label size.                                                     |                |
 
 ### Methods
 
@@ -1076,9 +924,10 @@
 
 ### Attributes
 
-| Name  | Field | Inherited From |
-| ----- | ----- | -------------- |
-| `for` | for   |                |
+| Name   | Field | Inherited From |
+| ------ | ----- | -------------- |
+| `for`  | for   |                |
+| `size` | size  |                |
 
 <hr/>
 
@@ -1095,6 +944,194 @@
 | Kind                        | Name       | Declaration | Module                            | Package |
 | --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
 | `custom-element-definition` | `sl-label` | Label       | /packages/core/src/label/label.js |         |
+
+# `../../packages/core/src/input/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package    |
+| ---- | ---- | ----------- | ------ | ---------- |
+| `js` | `*`  | *           |        | ./input.js |
+
+# `../../packages/core/src/input/input.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `default` |             | ../../packages/core/src/input/input.scss.ts |         |
+
+# `../../packages/core/src/input/input.stories.ts`:
+
+## Variables
+
+| Name                       | Description | Type       |
+| -------------------------- | ----------- | ---------- |
+| `API`                      |             | `StoryObj` |
+| `Disabled`                 |             | `StoryObj` |
+| `All`                      |             | `StoryObj` |
+| `Label`                    |             | `StoryObj` |
+| `Hint`                     |             | `StoryObj` |
+| `RichLabelHint`            |             | `StoryObj` |
+| `InputTypes`               |             | `StoryObj` |
+| `PrefixSuffix`             |             | `StoryObj` |
+| `MinMaxLength`             |             | `StoryObj` |
+| `Pattern`                  |             | `StoryObj` |
+| `CustomInput`              |             | `StoryObj` |
+| `ValidInput`               |             | `StoryObj` |
+| `CustomValidation`         |             | `StoryObj` |
+| `CustomValidationWithHint` |             | `StoryObj` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                       | Declaration              | Module                                         | Package |
+| ---- | -------------------------- | ------------------------ | ---------------------------------------------- | ------- |
+| `js` | `default`                  |                          | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `API`                      | API                      | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `Disabled`                 | Disabled                 | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `All`                      | All                      | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `Label`                    | Label                    | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `Hint`                     | Hint                     | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `RichLabelHint`            | RichLabelHint            | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `InputTypes`               | InputTypes               | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `PrefixSuffix`             | PrefixSuffix             | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `MinMaxLength`             | MinMaxLength             | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `Pattern`                  | Pattern                  | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `CustomInput`              | CustomInput              | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `ValidInput`               | ValidInput               | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `CustomValidation`         | CustomValidation         | ../../packages/core/src/input/input.stories.ts |         |
+| `js` | `CustomValidationWithHint` | CustomValidationWithHint | ../../packages/core/src/input/input.stories.ts |         |
+
+# `../../packages/core/src/input/input.ts`:
+
+## class: `Input`, `sl-input`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module                                   | Package |
+| ------------------ | ---------------------------------------- | ------- |
+| `FormControlMixin` | /packages/core/src/utils/mixins/index.js |         |
+| `HintMixin`        | /packages/core/src/utils/mixins/index.js |         |
+
+### Fields
+
+| Name                  | Privacy | Type                                              | Default                                                              | Description                                                                                                                     | Inherited From   |
+| --------------------- | ------- | ------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#onKeydown`          | private |                                                   |                                                                      |                                                                                                                                 |                  |
+| `#onFocusin`          | private |                                                   |                                                                      |                                                                                                                                 |                  |
+| `#onFocusout`         | private |                                                   |                                                                      |                                                                                                                                 |                  |
+| `#onMousedown`        | private |                                                   |                                                                      |                                                                                                                                 |                  |
+| `#events`             | private |                                                   | `new EventsController(this, {
+    click: this.#onClick
+  })`         |                                                                                                                                 |                  |
+| `#validation`         | private |                                                   | `new ValidationController(this, {
+    target: () => this.input
+  })` |                                                                                                                                 |                  |
+| `input`               |         | `HTMLInputElement`                                |                                                                      | The input element in the light DOM.                                                                                             |                  |
+| `internals`           |         |                                                   |                                                                      | Element internals.                                                                                                              |                  |
+| `autocomplete`        |         | `string \| undefined`                             |                                                                      | Specifies which type of data the browser can use to pre-fill the input.                                                         |                  |
+| `maxLength`           |         | `number \| undefined`                             |                                                                      | Maximum length (number of characters).                                                                                          |                  |
+| `minLength`           |         | `number \| undefined`                             |                                                                      | Minimum length (number of characters).                                                                                          |                  |
+| `min`                 |         | `number \| undefined`                             |                                                                      | Minimum value. Only applies to number input type.                                                                               |                  |
+| `max`                 |         | `number \| undefined`                             |                                                                      | Maximum value. Only applies to number input type.                                                                               |                  |
+| `step`                |         | `number \| undefined`                             |                                                                      | Specifies the interval between legal numbers for an input field. Only applies to number input type                              |                  |
+| `pattern`             |         | `string \| undefined`                             |                                                                      | Validation using pattern.                                                                                                       |                  |
+| `placeholder`         |         | `string \| undefined`                             |                                                                      | Placeholder text in the input.                                                                                                  |                  |
+| `invalid`             |         | `boolean \| undefined`                            |                                                                      | Whether the input is invalid.                                                                                                   |                  |
+| `valid`               |         | `boolean \| undefined`                            |                                                                      | Whether the input is valid.                                                                                                     |                  |
+| `showValid`           |         | `boolean`                                         | `false`                                                              | Whether the input should get valid styles when is valid.                                                                        |                  |
+| `focusVisible`        |         | `boolean`                                         | `false`                                                              | Whether the input has focus visible.                                                                                            |                  |
+| `readonly`            |         | `boolean \| undefined`                            |                                                                      | Whether you can interact with the input or if it is just a static, readonly display.                                            |                  |
+| `size`                |         | `InputSize`                                       | `'md'`                                                               | Input size.                                                                                                                     |                  |
+| `type`                |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url'` | `'text'`                                                             | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                           |                  |
+| `validators`          |         | `Validator[] \| undefined`                        |                                                                      | Custom validators specified by the user.                                                                                        |                  |
+| `value`               |         | `string \| undefined`                             |                                                                      | The value for the input.                                                                                                        |                  |
+| `#clicked`            | private | `boolean`                                         | `false`                                                              |                                                                                                                                 |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`                   |                                                                      | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`                 |                                                                      | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                            |                                                                      | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                |         | `string \| undefined`                             |                                                                      | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                            |                                                                      | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                              |                                                                      |                                                                                                                                 | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`                         |                                                                      |                                                                                                                                 | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null`            |                                                                      |                                                                                                                                 | FormControlMixin |
+| `hint`                |         | `string \| undefined`                             |                                                                      | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+| `hintSize`            |         | `LabelSize`                                       | `'md'`                                                               | The hint size.                                                                                                                  | HintMixin        |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
+| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
+| `#onInput`              |         |             | `{ target }: Event & { target: HTMLInputElement }`                | `void`           |                  |
+| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
+| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
+| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
+| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
+| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
+
+### Attributes
+
+| Name                   | Field        | Inherited From   |
+| ---------------------- | ------------ | ---------------- |
+| `autocomplete`         | autocomplete |                  |
+| `maxlength`            | maxLength    |                  |
+| `minlength`            | minLength    |                  |
+| `min`                  | min          |                  |
+| `max`                  | max          |                  |
+| `step`                 | step         |                  |
+| `pattern`              | pattern      |                  |
+| `placeholder`          | placeholder  |                  |
+| `invalid`              | invalid      |                  |
+| `valid`                | valid        |                  |
+| `showValid`            | showValid    |                  |
+| `focus-visible-within` | focusVisible |                  |
+| `readonly`             | readonly     |                  |
+| `size`                 | size         |                  |
+| `type`                 | type         |                  |
+| `value`                | value        |                  |
+| `disabled`             | disabled     | FormControlMixin |
+| `name`                 | name         | FormControlMixin |
+| `required`             | required     | FormControlMixin |
+| `hint`                 | hint         | HintMixin        |
+| `hintSize`             | hintSize     | HintMixin        |
+
+### Slots
+
+| Name     | Description                    |
+| -------- | ------------------------------ |
+| `prefix` | Content shown before the input |
+| `input`  | The slot for the input element |
+| `suffix` | Content shown after the input  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name    | Declaration | Module                                 | Package |
+| ---- | ------- | ----------- | -------------------------------------- | ------- |
+| `js` | `Input` | Input       | ../../packages/core/src/input/input.ts |         |
+
+# `../../packages/core/src/input/register.ts`:
+
+## Exports
+
+| Kind                        | Name       | Declaration | Module                            | Package |
+| --------------------------- | ---------- | ----------- | --------------------------------- | ------- |
+| `custom-element-definition` | `sl-input` | Input       | /packages/core/src/input/input.js |         |
 
 # `../../packages/core/src/locales/locale-codes.ts`:
 
@@ -1384,6 +1421,7 @@
 | `form`                      |         | `HTMLFormElement \| null`              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
 | `labels`                    |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
 | `hint`                      |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+| `hintSize`                  |         | `LabelSize`                            | `'md'`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | The hint size.                                                                                                                  | HintMixin        |
 
 ### Methods
 
@@ -1414,6 +1452,7 @@
 | `name`       | name       | FormControlMixin |
 | `required`   | required   | FormControlMixin |
 | `hint`       | hint       | HintMixin        |
+| `hintSize`   | hintSize   | HintMixin        |
 
 <hr/>
 
@@ -2133,6 +2172,7 @@
 | `form`                |         | `HTMLFormElement \| null`              |                                                                         |                                                                                                                                 | FormControlMixin |
 | `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                         |                                                                                                                                 | FormControlMixin |
 | `hint`                |         | `string \| undefined`                  |                                                                         | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+| `hintSize`            |         | `LabelSize`                            | `'md'`                                                                  | The hint size.                                                                                                                  | HintMixin        |
 
 ### Methods
 
@@ -2163,6 +2203,7 @@
 | `name`        | name        | FormControlMixin |
 | `required`    | required    | FormControlMixin |
 | `hint`        | hint        | HintMixin        |
+| `hintSize`    | hintSize    | HintMixin        |
 
 <hr/>
 
@@ -2641,6 +2682,87 @@
 | `js` | `flipPlacement`           | flipPlacement           | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
 | `js` | `positionAnchoredElement` | positionAnchoredElement | ../../packages/core/src/popover/utils/position-anchored-element.ts |         |
 
+# `../../packages/core/src/utils/data-source/array-data-source.ts`:
+
+## class: `ArrayDataSource`
+
+### Superclass
+
+| Name         | Module                                              | Package |
+| ------------ | --------------------------------------------------- | ------- |
+| `DataSource` | /packages/core/src/utils/data-source/data-source.js |         |
+
+### Fields
+
+| Name             | Privacy | Type                                   | Default      | Description                                               | Inherited From |
+| ---------------- | ------- | -------------------------------------- | ------------ | --------------------------------------------------------- | -------------- |
+| `#items`         | private | `T[]`                                  | `[...items]` | Array of filtered & sorted items.                         |                |
+| `#originalItems` | private | `T[]`                                  | `[...items]` | The original array of items as passed to the constructor. |                |
+| `items`          |         | `T[]`                                  |              | The array of items.                                       | DataSource     |
+| `size`           |         | `number`                               |              | Size of the item collection.                              | DataSource     |
+| `filter`         |         | `DataSourceFilter<T> \| undefined`     |              | The filter implementation.                                | DataSource     |
+| `filterValues`   |         | `DataSourceFilterValue[] \| undefined` |              | The values to filter on.                                  | DataSource     |
+| `sorter`         |         | `DataSourceSorter<T> \| undefined`     |              | The sorter implementation.                                | DataSource     |
+| `sortValue`      |         | `DataSourceSortValue \| undefined`     |              | The path & direction to sort on.                          | DataSource     |
+
+### Methods
+
+| Name      | Privacy | Description | Parameters                        | Return                        | Inherited From |
+| --------- | ------- | ----------- | --------------------------------- | ----------------------------- | -------------- |
+| `#filter` |         |             | `values: DataSourceFilterValue[]` | `DataSourceFilterFunction<T>` |                |
+
+### Events
+
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                                         | Package |
+| ---- | ----------------- | --------------- | -------------------------------------------------------------- | ------- |
+| `js` | `ArrayDataSource` | ArrayDataSource | ../../packages/core/src/utils/data-source/array-data-source.ts |         |
+
+# `../../packages/core/src/utils/data-source/data-source.ts`:
+
+## class: `DataSource`
+
+### Superclass
+
+| Name          | Module                                                   | Package |
+| ------------- | -------------------------------------------------------- | ------- |
+| `EventTarget` | ../../packages/core/src/utils/data-source/data-source.ts |         |
+
+### Fields
+
+| Name           | Privacy | Type                                   | Default | Description                      | Inherited From |
+| -------------- | ------- | -------------------------------------- | ------- | -------------------------------- | -------------- |
+| `filter`       |         | `DataSourceFilter<T> \| undefined`     |         | The filter implementation.       |                |
+| `filterValues` |         | `DataSourceFilterValue[] \| undefined` |         | The values to filter on.         |                |
+| `sorter`       |         | `DataSourceSorter<T> \| undefined`     |         | The sorter implementation.       |                |
+| `sortValue`    |         | `DataSourceSortValue \| undefined`     |         | The path & direction to sort on. |                |
+| `items`        |         | `T[]`                                  |         | The array of items.              |                |
+| `size`         |         | `number`                               |         | Size of the item collection.     |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                                   | Package |
+| ---- | ------------ | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `DataSource` | DataSource  | ../../packages/core/src/utils/data-source/data-source.ts |         |
+
+# `../../packages/core/src/utils/data-source/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./array-data-source.js |
+| `js` | `*`  | *           |        | ./data-source.js       |
+
 # `../../packages/core/src/utils/controllers/events.ts`:
 
 ## class: `EventsController`
@@ -2847,24 +2969,27 @@
 
 ### Fields
 
-| Name                          | Privacy | Type                                                      | Default | Description                                                                                                         | Inherited From |
-| ----------------------------- | ------- | --------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#abortController`            | private | `AbortController \| undefined`                            |         | An internal abort controller for cancelling pending async validation.                                               |                |
-| `#previousAbortController`    | private | `AbortController \| undefined`                            |         |                                                                                                                     |                |
-| `#customValidators`           | private | `Validator[] \| undefined`                                |         | Custom validators set at runtime.                                                                                   |                |
-| `#host`                       | private | `ReactiveControllerHost & HTMLElement`                    | `host`  | Controller host.                                                                                                    |                |
-| `#showErrors`                 | private | `boolean`                                                 | `false` | Determines when validation messages should be shown.                                                                |                |
-| `#target`                     | private | `ValidationTarget \| undefined`                           |         | The element which is being validated. Either a Form Associated&#xA;Custom Element, or an `<input>` or `<textarea>`. |                |
-| `#targetFn`                   | private | `() => ValidationTarget \| undefined`                     |         | The target is set after the host's connectedCallback has run.                                                       |                |
-| `#validationComplete`         | private |                                                           |         | Used when validation is pending.                                                                                    |                |
-| `#validationCompleteResolver` | private | `(value: void \| PromiseLike<void>) => void \| undefined` |         | Save a reference to the validation complete resolver                                                                |                |
-| `#validationPending`          | private | `boolean`                                                 | `false` | Whether validation is pending.                                                                                      |                |
-| `#validators`                 | private | `Validator[]`                                             | `[]`    | The custom validators. If the target is an `<input>` or `<textarea>`,&#xA;the target has built-in validators.       |                |
-| `#onInvalid`                  | private |                                                           |         | Event handler for when invalid validity must be reported.                                                           |                |
-| `#onReset`                    | private |                                                           |         | Event handler for when the parent form is reset.                                                                    |                |
-| `target`                      |         | `ValidationTarget`                                        |         |                                                                                                                     |                |
-| `validationMessage`           |         | `string`                                                  |         |                                                                                                                     |                |
-| `validity`                    |         | `ValidityState`                                           |         |                                                                                                                     |                |
+| Name                          | Privacy | Type                                                      | Default                            | Description                                                                                                         | Inherited From |
+| ----------------------------- | ------- | --------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#abortController`            | private | `AbortController \| undefined`                            |                                    | An internal abort controller for cancelling pending async validation.                                               |                |
+| `#previousAbortController`    | private | `AbortController \| undefined`                            |                                    |                                                                                                                     |                |
+| `#customValidators`           | private | `Validator[] \| undefined`                                |                                    | Custom validators set at runtime.                                                                                   |                |
+| `#host`                       | private | `ReactiveControllerHost & HTMLElement`                    | `host`                             | Controller host.                                                                                                    |                |
+| `#showErrors`                 | private | `boolean`                                                 | `false`                            | Determines when validation messages should be shown.                                                                |                |
+| `#messageSize`                | private | `MessageSize`                                             | `'md'`                             | Error message size.                                                                                                 |                |
+| `#target`                     | private | `ValidationTarget \| undefined`                           |                                    | The element which is being validated. Either a Form Associated&#xA;Custom Element, or an `<input>` or `<textarea>`. |                |
+| `#targetFn`                   | private | `() => ValidationTarget \| undefined`                     |                                    | The target is set after the host's connectedCallback has run.                                                       |                |
+| `#validationComplete`         | private |                                                           |                                    | Used when validation is pending.                                                                                    |                |
+| `#validationCompleteResolver` | private | `(value: void \| PromiseLike<void>) => void \| undefined` |                                    | Save a reference to the validation complete resolver                                                                |                |
+| `#validationPending`          | private | `boolean`                                                 | `false`                            | Whether validation is pending.                                                                                      |                |
+| `#validators`                 | private | `Validator[]`                                             | `[]`                               | The custom validators. If the target is an `<input>` or `<textarea>`,&#xA;the target has built-in validators.       |                |
+| `#errorMessageId`             | private |                                                           | `` `sl-error-${nextUniqueId++}` `` | Unique ID for error message.                                                                                        |                |
+| `#slotName`                   | private | `string`                                                  | `''`                               | Name of slotted validation message.                                                                                 |                |
+| `#onInvalid`                  | private |                                                           |                                    | Event handler for when invalid validity must be reported.                                                           |                |
+| `#onReset`                    | private |                                                           |                                    | Event handler for when the parent form is reset.                                                                    |                |
+| `target`                      |         | `ValidationTarget`                                        |                                    |                                                                                                                     |                |
+| `validationMessage`           |         | `string`                                                  |                                    |                                                                                                                     |                |
+| `validity`                    |         | `ValidityState`                                           |                                    |                                                                                                                     |                |
 
 ### Methods
 
@@ -2873,6 +2998,8 @@
 | `hostConnected`                  |         |             |                                                                            | `Promise<void>`                    |                |
 | `hostDisconnected`               |         |             |                                                                            | `void`                             |                |
 | `hostUpdated`                    |         |             |                                                                            | `void`                             |                |
+| `#updateValidationMessage`       |         |             |                                                                            | `void`                             |                |
+| `#removeValidationMessage`       |         |             |                                                                            | `void`                             |                |
 | `addValidator`                   |         |             | `validator: Validator`                                                     | `void`                             |                |
 | `removeValidator`                |         |             | `validator: Validator`                                                     | `void`                             |                |
 | `setCustomValidity`              |         |             | `message: string`                                                          | `void`                             |                |
@@ -2898,87 +3025,6 @@
 | ---- | ---------------------- | -------------------- | ------------------------------------------------------- | ------- |
 | `js` | `validationStyles`     | validationStyles     | ../../packages/core/src/utils/controllers/validation.ts |         |
 | `js` | `ValidationController` | ValidationController | ../../packages/core/src/utils/controllers/validation.ts |         |
-
-# `../../packages/core/src/utils/data-source/array-data-source.ts`:
-
-## class: `ArrayDataSource`
-
-### Superclass
-
-| Name         | Module                                              | Package |
-| ------------ | --------------------------------------------------- | ------- |
-| `DataSource` | /packages/core/src/utils/data-source/data-source.js |         |
-
-### Fields
-
-| Name             | Privacy | Type                                   | Default      | Description                                               | Inherited From |
-| ---------------- | ------- | -------------------------------------- | ------------ | --------------------------------------------------------- | -------------- |
-| `#items`         | private | `T[]`                                  | `[...items]` | Array of filtered & sorted items.                         |                |
-| `#originalItems` | private | `T[]`                                  | `[...items]` | The original array of items as passed to the constructor. |                |
-| `items`          |         | `T[]`                                  |              | The array of items.                                       | DataSource     |
-| `size`           |         | `number`                               |              | Size of the item collection.                              | DataSource     |
-| `filter`         |         | `DataSourceFilter<T> \| undefined`     |              | The filter implementation.                                | DataSource     |
-| `filterValues`   |         | `DataSourceFilterValue[] \| undefined` |              | The values to filter on.                                  | DataSource     |
-| `sorter`         |         | `DataSourceSorter<T> \| undefined`     |              | The sorter implementation.                                | DataSource     |
-| `sortValue`      |         | `DataSourceSortValue \| undefined`     |              | The path & direction to sort on.                          | DataSource     |
-
-### Methods
-
-| Name      | Privacy | Description | Parameters                        | Return                        | Inherited From |
-| --------- | ------- | ----------- | --------------------------------- | ----------------------------- | -------------- |
-| `#filter` |         |             | `values: DataSourceFilterValue[]` | `DataSourceFilterFunction<T>` |                |
-
-### Events
-
-| Name        | Type          | Description | Inherited From |
-| ----------- | ------------- | ----------- | -------------- |
-| `sl-update` | `CustomEvent` |             |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                                         | Package |
-| ---- | ----------------- | --------------- | -------------------------------------------------------------- | ------- |
-| `js` | `ArrayDataSource` | ArrayDataSource | ../../packages/core/src/utils/data-source/array-data-source.ts |         |
-
-# `../../packages/core/src/utils/data-source/data-source.ts`:
-
-## class: `DataSource`
-
-### Superclass
-
-| Name          | Module                                                   | Package |
-| ------------- | -------------------------------------------------------- | ------- |
-| `EventTarget` | ../../packages/core/src/utils/data-source/data-source.ts |         |
-
-### Fields
-
-| Name           | Privacy | Type                                   | Default | Description                      | Inherited From |
-| -------------- | ------- | -------------------------------------- | ------- | -------------------------------- | -------------- |
-| `filter`       |         | `DataSourceFilter<T> \| undefined`     |         | The filter implementation.       |                |
-| `filterValues` |         | `DataSourceFilterValue[] \| undefined` |         | The values to filter on.         |                |
-| `sorter`       |         | `DataSourceSorter<T> \| undefined`     |         | The sorter implementation.       |                |
-| `sortValue`    |         | `DataSourceSortValue \| undefined`     |         | The path & direction to sort on. |                |
-| `items`        |         | `T[]`                                  |         | The array of items.              |                |
-| `size`         |         | `number`                               |         | Size of the item collection.     |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                                   | Package |
-| ---- | ------------ | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `DataSource` | DataSource  | ../../packages/core/src/utils/data-source/data-source.ts |         |
-
-# `../../packages/core/src/utils/data-source/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                |
-| ---- | ---- | ----------- | ------ | ---------------------- |
-| `js` | `*`  | *           |        | ./array-data-source.js |
-| `js` | `*`  | *           |        | ./data-source.js       |
 
 # `../../packages/core/src/utils/decorators/base.ts`:
 
@@ -3131,9 +3177,10 @@
 
 ### Fields
 
-| Name   | Privacy | Type                  | Default | Description                                                         | Inherited From |
-| ------ | ------- | --------------------- | ------- | ------------------------------------------------------------------- | -------------- |
-| `hint` |         | `string \| undefined` |         | The hint. If you need to display HTML, use the `hint` slot instead. | HintMixin      |
+| Name       | Privacy | Type                  | Default | Description                                                         | Inherited From |
+| ---------- | ------- | --------------------- | ------- | ------------------------------------------------------------------- | -------------- |
+| `hint`     |         | `string \| undefined` |         | The hint. If you need to display HTML, use the `hint` slot instead. | HintMixin      |
+| `hintSize` |         | `LabelSize`           | `'md'`  | The hint size.                                                      | HintMixin      |
 
 ### Methods
 
@@ -3146,9 +3193,10 @@
 
 ### Attributes
 
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `hint` | hint  | HintMixin      |
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `hint`     | hint     | HintMixin      |
+| `hintSize` | hintSize | HintMixin      |
 
 <hr/>
 
@@ -3170,9 +3218,10 @@
 
 ### Fields
 
-| Name   | Privacy | Type                  | Default | Description                                                         | Inherited From |
-| ------ | ------- | --------------------- | ------- | ------------------------------------------------------------------- | -------------- |
-| `hint` |         | `string \| undefined` |         | The hint. If you need to display HTML, use the `hint` slot instead. |                |
+| Name       | Privacy | Type                  | Default | Description                                                         | Inherited From |
+| ---------- | ------- | --------------------- | ------- | ------------------------------------------------------------------- | -------------- |
+| `hint`     |         | `string \| undefined` |         | The hint. If you need to display HTML, use the `hint` slot instead. |                |
+| `hintSize` |         | `LabelSize`           | `'md'`  | The hint size.                                                      |                |
 
 ### Methods
 
@@ -3185,17 +3234,27 @@
 
 ### Attributes
 
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `hint` | hint  |                |
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `hint`     | hint     |                |
+| `hintSize` | hintSize |                |
+
+<hr/>
+
+## Variables
+
+| Name         | Description | Type             |
+| ------------ | ----------- | ---------------- |
+| `hintStyles` |             | `CSSResultGroup` |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                       | Package |
-| ---- | ----------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `HintMixin` | HintMixin   | ../../packages/core/src/utils/mixins/hint.ts |         |
+| Kind | Name         | Declaration | Module                                       | Package |
+| ---- | ------------ | ----------- | -------------------------------------------- | ------- |
+| `js` | `hintStyles` | hintStyles  | ../../packages/core/src/utils/mixins/hint.ts |         |
+| `js` | `HintMixin`  | HintMixin   | ../../packages/core/src/utils/mixins/hint.ts |         |
 
 # `../../packages/core/src/utils/mixins/index.ts`:
 
@@ -3293,6 +3352,7 @@
 | `form`                |         | `HTMLFormElement \| null`              |                                                                             |                                                                                                                                 | FormControlMixin |
 | `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                             |                                                                                                                                 | FormControlMixin |
 | `hint`                |         | `string \| undefined`                  |                                                                             | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+| `hintSize`            |         | `LabelSize`                            | `'md'`                                                                      | The hint size.                                                                                                                  | HintMixin        |
 
 ### Methods
 
@@ -3321,6 +3381,7 @@
 | `name`     | name     | FormControlMixin |
 | `required` | required | FormControlMixin |
 | `hint`     | hint     | HintMixin        |
+| `hintSize` | hintSize | HintMixin        |
 
 <hr/>
 
@@ -3505,20 +3566,22 @@
 
 ### Fields
 
-| Name        | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ----------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#width`    | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `columns`   |         | `Array<GridColumn<T>>`                            | `[]`      | The nested columns in the group.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
-| `width`     |         | `number \| undefined`                             |           | The width of the group column is either manually specified, or the sum of the nested columns.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
-| `align`     |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `autoWidth` |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
-| `grid`      |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
-| `grow`      |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
-| `header`    |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
-| `path`      |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
-| `parts`     |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `renderer`  |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `sticky`    |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| Name             | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#width`         | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `columns`        |         | `Array<GridColumn<T>>`                            | `[]`      | The nested columns in the group.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
+| `width`          |         | `number \| undefined`                             |           | The width of the group column is either manually specified, or the sum of the nested columns.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `autoWidth`      |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |           | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `grid`           |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
+| `grow`           |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `path`           |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |           | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `sticky`         |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
 
 ### Methods
 
@@ -3561,19 +3624,21 @@
 
 ### Fields
 
-| Name        | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ----------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#width`    | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
-| `align`     |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
-| `autoWidth` |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. |                |
-| `grid`      |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
-| `grow`      |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                |
-| `header`    |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
-| `path`      |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
-| `parts`     |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
-| `renderer`  |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
-| `sticky`    |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |                |
-| `width`     |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
+| Name             | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#width`         | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
+| `autoWidth`      |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. |                |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |           | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
+| `grid`           |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
+| `grow`           |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
+| `path`           |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |           | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
+| `sticky`         |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |                |
+| `width`          |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
 
 ### Methods
 
@@ -3613,33 +3678,23 @@
 | ------------ | ---------------------------- | ------- |
 | `GridColumn` | /packages/grid/src/column.js |         |
 
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
 ### Fields
 
-| Name        | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ----------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#width`    | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `align`     |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `autoWidth` |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
-| `grid`      |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
-| `grow`      |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
-| `header`    |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
-| `path`      |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
-| `parts`     |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `renderer`  |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `sticky`    |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
-| `width`     |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| Name             | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#width`         | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `autoWidth`      |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |           | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `grid`           |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
+| `grow`           |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `path`           |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |           | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `sticky`         |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `width`          |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
 ### Methods
 
@@ -3689,7 +3744,7 @@
 
 <hr/>
 
-## class: `GridFilter`, `sl-grid-filter`
+## class: `GridFilter`
 
 ### Superclass
 
@@ -3768,6 +3823,18 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
 ### Fields
 
 | Name                             | Privacy | Type                                         | Default                            | Description                                                          | Inherited From |
@@ -3795,12 +3862,14 @@
 | `renderItem`              |         |                                                                          | `item: T, index: number`                                                                 | `TemplateResult`              |                |
 | `recalculateColumnWidths` |         | Updates the `width` of all columns which have `autoWidth` set to `true`. |                                                                                          | `Promise<void>`               |                |
 | `#onClickRow`             |         |                                                                          | `event: Event, item: T`                                                                  | `void`                        |                |
+| `#onColumnUpdate`         |         |                                                                          | `event: Event & { target: GridColumn<T> }`                                               | `void`                        |                |
 | `#onDirectionChange`      |         |                                                                          | `{ target }: CustomEvent<DataSourceSortDirection \| undefined> & { target: GridSorter }` | `void`                        |                |
 | `#onFilterChange`         |         |                                                                          | `{ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter }`             | `void`                        |                |
 | `#onFilterValueChange`    |         |                                                                          |                                                                                          | `void`                        |                |
 | `#onSlotchange`           |         |                                                                          | `event: Event & { target: HTMLSlotElement }`                                             | `void`                        |                |
 | `#onSorterChange`         |         |                                                                          | `{ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter }`             | `void`                        |                |
 | `#onVisibilityChanged`    |         |                                                                          |                                                                                          | `void`                        |                |
+| `#addScopedElements`      |         |                                                                          | `col: GridColumn<T>`                                                                     | `void`                        |                |
 | `#applyFilters`           |         |                                                                          |                                                                                          | `void`                        |                |
 | `#applySorters`           |         |                                                                          |                                                                                          | `void`                        |                |
 | `#getHeaderRows`          |         |                                                                          | `columns: Array<GridColumn<T>>`                                                          | `Array<Array<GridColumn<T>>>` |                |
@@ -3846,11 +3915,9 @@
 | `custom-element-definition` | `sl-grid`                  | Grid                | /packages/grid/src/grid.js             |         |
 | `custom-element-definition` | `sl-grid-column`           | GridColumn          | /packages/grid/src/column.js           |         |
 | `custom-element-definition` | `sl-grid-column-group`     | GridColumnGroup     | /packages/grid/src/column-group.js     |         |
-| `custom-element-definition` | `sl-grid-filter`           | GridFilter          | /packages/grid/src/filter.js           |         |
 | `custom-element-definition` | `sl-grid-filter-column`    | GridFilterColumn    | /packages/grid/src/filter-column.js    |         |
 | `custom-element-definition` | `sl-grid-selection-column` | GridSelectionColumn | /packages/grid/src/selection-column.js |         |
 | `custom-element-definition` | `sl-grid-sort-column`      | GridSortColumn      | /packages/grid/src/sort-column.js      |         |
-| `custom-element-definition` | `sl-grid-sorter`           | GridSorter          | /packages/grid/src/sorter.js           |         |
 
 # `../../packages/grid/src/selection-column.ts`:
 
@@ -3862,36 +3929,26 @@
 | ------------ | ---------------------------- | ------- |
 | `GridColumn` | /packages/grid/src/column.js |         |
 
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
 ### Fields
 
-| Name         | Privacy | Type                                              | Default                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ------------ | ------- | ------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#events`    | private |                                                   | `new EventsController(this)` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
-| `autoSelect` |         | `boolean \| undefined`                            |                              | When true, the active rows get selected automatically.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
-| `selectAll`  |         | `boolean \| undefined`                            |                              | When true, all items are selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                |
-| `#width`     | private | `number \| undefined`                             |                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `align`      |         | `'start' \| 'center' \| 'end'`                    | `'start'`                    | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `autoWidth`  |         | `boolean \| undefined`                            |                              | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
-| `grid`       |         | `Grid<T> \| undefined`                            |                              | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
-| `grow`       |         | `number`                                          | `1`                          | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
-| `header`     |         | `string \| GridColumnHeaderRenderer \| undefined` |                              | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
-| `path`       |         | `string \| undefined`                             |                              | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
-| `parts`      |         | `string \| GridColumnParts<T> \| undefined`       |                              | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `renderer`   |         | `GridColumnDataRenderer<T> \| undefined`          |                              | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `sticky`     |         | `boolean \| undefined`                            |                              | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
-| `width`      |         | `number \| undefined`                             |                              | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| Name             | Privacy | Type                                              | Default                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#events`        | private |                                                   | `new EventsController(this)` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
+| `autoSelect`     |         | `boolean \| undefined`                            |                              | When true, the active rows get selected automatically.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
+| `selectAll`      |         | `boolean \| undefined`                            |                              | When true, all items are selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                |
+| `#width`         | private | `number \| undefined`                             |                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'`                    | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `autoWidth`      |         | `boolean \| undefined`                            |                              | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |                              | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `grid`           |         | `Grid<T> \| undefined`                            |                              | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
+| `grow`           |         | `number`                                          | `1`                          | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |                              | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `path`           |         | `string \| undefined`                             |                              | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |                              | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |                              | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |                              | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `sticky`         |         | `boolean \| undefined`                            |                              | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `width`          |         | `number \| undefined`                             |                              | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
 ### Methods
 
@@ -3936,33 +3993,23 @@
 | ------------ | ---------------------------- | ------- |
 | `GridColumn` | /packages/grid/src/column.js |         |
 
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
 ### Fields
 
-| Name        | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
-| ----------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#width`    | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `align`     |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
-| `autoWidth` |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
-| `grid`      |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
-| `grow`      |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
-| `header`    |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
-| `path`      |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
-| `parts`     |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `renderer`  |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `sticky`    |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
-| `width`     |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| Name             | Privacy | Type                                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#width`         | private | `number \| undefined`                             |           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `align`          |         | `'start' \| 'center' \| 'end'`                    | `'start'` | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
+| `autoWidth`      |         | `boolean \| undefined`                            |           | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `columnUpdate`   |         | `EventEmitter<void>`                              |           | Emits when the column definition has changed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
+| `grid`           |         | `Grid<T> \| undefined`                            |           | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
+| `grow`           |         | `number`                                          | `1`       | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
+| `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |           | The label for the column header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `path`           |         | `string \| undefined`                             |           | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |           | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |           | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |           | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
+| `sticky`         |         | `boolean \| undefined`                            |           | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `width`          |         | `number \| undefined`                             |           | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
 ### Methods
 
@@ -4002,7 +4049,7 @@
 
 # `../../packages/grid/src/sorter.ts`:
 
-## class: `GridSorter`, `sl-grid-sorter`
+## class: `GridSorter`
 
 ### Superclass
 
@@ -4042,42 +4089,6 @@
 | Kind | Name         | Declaration | Module                            | Package |
 | ---- | ------------ | ----------- | --------------------------------- | ------- |
 | `js` | `GridSorter` | GridSorter  | ../../packages/grid/src/sorter.ts |         |
-
-# `../../packages/grid/src/locales/locale-codes.ts`:
-
-## Variables
-
-| Name            | Description                                                                                   | Type             |
-| --------------- | --------------------------------------------------------------------------------------------- | ---------------- |
-| `sourceLocale`  | The locale code that templates in this source code are written in.                            |                  |
-| `targetLocales` | The other locale codes that this application is localized into. Sorted&#xA;lexicographically. | ``[`nl`]``       |
-| `allLocales`    | All valid project locale codes. Sorted lexicographically.                                     | ``[`en`, `nl`]`` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------- | ------- |
-| `js` | `sourceLocale`  | sourceLocale  | ../../packages/grid/src/locales/locale-codes.ts |         |
-| `js` | `targetLocales` | targetLocales | ../../packages/grid/src/locales/locale-codes.ts |         |
-| `js` | `allLocales`    | allLocales    | ../../packages/grid/src/locales/locale-codes.ts |         |
-
-# `../../packages/grid/src/locales/nl.ts`:
-
-## Variables
-
-| Name        | Description | Type     |
-| ----------- | ----------- | -------- |
-| `templates` |             | `object` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                | Package |
-| ---- | ----------- | ----------- | ------------------------------------- | ------- |
-| `js` | `templates` | templates   | ../../packages/grid/src/locales/nl.ts |         |
 
 # `../../packages/grid/src/stories/basics.stories.ts`:
 
@@ -4213,3 +4224,39 @@
 | `js` | `NoBorders` | NoBorders   | ../../packages/grid/src/stories/styling.stories.ts |         |
 | `js` | `Striped`   | Striped     | ../../packages/grid/src/stories/styling.stories.ts |         |
 | `js` | `Parts`     | Parts       | ../../packages/grid/src/stories/styling.stories.ts |         |
+
+# `../../packages/grid/src/locales/locale-codes.ts`:
+
+## Variables
+
+| Name            | Description                                                                                   | Type             |
+| --------------- | --------------------------------------------------------------------------------------------- | ---------------- |
+| `sourceLocale`  | The locale code that templates in this source code are written in.                            |                  |
+| `targetLocales` | The other locale codes that this application is localized into. Sorted&#xA;lexicographically. | ``[`nl`]``       |
+| `allLocales`    | All valid project locale codes. Sorted lexicographically.                                     | ``[`en`, `nl`]`` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                          | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------- | ------- |
+| `js` | `sourceLocale`  | sourceLocale  | ../../packages/grid/src/locales/locale-codes.ts |         |
+| `js` | `targetLocales` | targetLocales | ../../packages/grid/src/locales/locale-codes.ts |         |
+| `js` | `allLocales`    | allLocales    | ../../packages/grid/src/locales/locale-codes.ts |         |
+
+# `../../packages/grid/src/locales/nl.ts`:
+
+## Variables
+
+| Name        | Description | Type     |
+| ----------- | ----------- | -------- |
+| `templates` |             | `object` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                | Package |
+| ---- | ----------- | ----------- | ------------------------------------- | ------- |
+| `js` | `templates` | templates   | ../../packages/grid/src/locales/nl.ts |         |

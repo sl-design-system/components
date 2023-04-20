@@ -80,6 +80,7 @@ slot[name='input']::slotted(input) {
 
   &::placeholder {
     color: var(--_placeholder-color);
+    opacity: 1;
   }
 
   &[aria-invalid='true'] {

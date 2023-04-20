@@ -36,7 +36,7 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => {\n    return html`\n      <style>\n        form {\n          align-items: start;\n          display: flex;\n          flex-direction: column;\n        }\n        sl-label {\n          margin-block-start: 0.5rem;\n        }\n        sl-label:first-of-type {\n          margin-block-start: 0;\n        }\n        sl-button-bar,\n        sl-input,\n        sl-textarea {\n          align-self: stretch;\n        }\n      </style>\n      <form>\n        <sl-label for=\"input\">Input</sl-label>\n        <sl-input id=\"input\" name=\"input\" required></sl-input>\n\n        <sl-label for=\"textarea\">Textarea</sl-label>\n        <sl-textarea id=\"textarea\" name=\"textarea\" required></sl-textarea>\n\n        <sl-label for=\"checkbox\">Checkbox</sl-label>\n        <sl-checkbox id=\"checkbox\" name=\"checkbox\" required value=\"checkbox\">Checkbox</sl-checkbox>\n\n        <sl-label for=\"checkbox-group\">Checkbox group</sl-label>\n        <sl-checkbox-group id=\"checkbox-group\" name=\"checkboxGroup\" required>\n          <sl-checkbox value=\"0\">Check me</sl-checkbox>\n          <sl-checkbox value=\"1\">No me</sl-checkbox>\n          <sl-checkbox value=\"2\">I was here first</sl-checkbox>\n        </sl-checkbox-group>\n\n        <sl-label for=\"radio-group\">Radio group</sl-label>\n        <sl-radio-group id=\"radio-group\" name=\"radioGroup\" required>\n          <sl-radio value=\"1\">One</sl-radio>\n          <sl-radio value=\"2\">Two</sl-radio>\n          <sl-radio value=\"3\">Three</sl-radio>\n        </sl-radio-group>\n\n        <sl-button-bar align=\"end\">\n          <sl-button type=\"reset\">Reset</sl-button>\n          <sl-button type=\"submit\">Submit</sl-button>\n        </sl-button-bar>\n      </form>\n    `;\n  }\n}"
+          "default": "{\n  render: () => {\n    return html`\n      <style>\n        form {\n          align-items: start;\n          display: flex;\n          flex-direction: column;\n        }\n        sl-label {\n          margin-block-start: 0.5rem;\n        }\n        sl-label:first-of-type {\n          margin-block-start: 0;\n        }\n        sl-button-bar,\n        sl-input,\n        sl-textarea {\n          align-self: stretch;\n        }\n      </style>\n      <form>\n        <sl-label for=\"input\">Input</sl-label>\n        <sl-input id=\"input\" name=\"input\" required></sl-input>\n\n        <sl-label for=\"textarea\">Textarea</sl-label>\n        <sl-textarea id=\"textarea\" name=\"textarea\" required></sl-textarea>\n\n        <sl-label for=\"inputEmail\">Email</sl-label>\n        <sl-input id=\"inputEmail\" type=\"email\" required></sl-input>\n\n        <sl-label for=\"checkbox\">Checkbox</sl-label>\n        <sl-checkbox id=\"checkbox\" name=\"checkbox\" required value=\"checkbox\">Checkbox</sl-checkbox>\n\n        <sl-label for=\"checkbox-group\">Checkbox group</sl-label>\n        <sl-checkbox-group id=\"checkbox-group\" name=\"checkboxGroup\" required>\n          <sl-checkbox value=\"0\">Check me</sl-checkbox>\n          <sl-checkbox value=\"1\">No me</sl-checkbox>\n          <sl-checkbox value=\"2\">I was here first</sl-checkbox>\n        </sl-checkbox-group>\n\n        <sl-label for=\"radio-group\">Radio group</sl-label>\n        <sl-radio-group id=\"radio-group\" name=\"radioGroup\" required>\n          <sl-radio value=\"1\">One</sl-radio>\n          <sl-radio value=\"2\">Two</sl-radio>\n          <sl-radio value=\"3\">Three</sl-radio>\n        </sl-radio-group>\n\n        <sl-button-bar align=\"end\">\n          <sl-button type=\"reset\">Reset</sl-button>\n          <sl-button type=\"submit\">Submit</sl-button>\n        </sl-button-bar>\n      </form>\n    `;\n  }\n}"
         },
         {
           "kind": "variable",
@@ -109,162 +109,6 @@
           "declaration": {
             "name": "Validation",
             "module": "../../packages/core/src/form.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/avatar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/avatar/avatar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/avatar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Basic",
-          "type": {
-            "text": "Story"
-          },
-          "default": "{\n  render: () =>\n    html`\n      <style>\n        section {\n          display: flex;\n          flex-direction: column;\n          gap: 24px;\n        }\n      </style>\n      <section>\n        <sl-avatar uniqueProfileId=\"1\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"2\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"3\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"4\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"5\"></sl-avatar>\n      </section>\n    `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/avatar/avatar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Basic",
-          "declaration": {
-            "name": "Basic",
-            "module": "../../packages/core/src/avatar/avatar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/avatar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Avatar",
-          "members": [
-            {
-              "kind": "field",
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "string"
-              },
-              "default": "'slds'",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "attribute": "uniqueProfileId"
-            },
-            {
-              "kind": "field",
-              "name": "profileName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "user",
-              "type": {
-                "text": "UserProfile | undefined | undefined"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_getUserDetails",
-              "return": {
-                "type": {
-                  "text": "Promise<UserProfile | undefined>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "string"
-              },
-              "default": "'slds'",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "fieldName": "uniqueProfileId"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-avatar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "../../packages/core/src/avatar/avatar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/avatar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "/packages/core/src/avatar/avatar.js"
           }
         }
       ]
@@ -413,6 +257,7 @@
             {
               "kind": "field",
               "name": "internals",
+              "readonly": true,
               "description": "Element internals."
             },
             {
@@ -603,6 +448,163 @@
           "declaration": {
             "name": "Button",
             "module": "/packages/core/src/button/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/avatar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/avatar/avatar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/avatar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  render: () =>\n    html`\n      <style>\n        section {\n          display: flex;\n          flex-direction: column;\n          gap: 24px;\n        }\n      </style>\n      <section>\n        <sl-avatar uniqueProfileId=\"1\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"2\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"3\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"4\"></sl-avatar>\n        <sl-avatar uniqueProfileId=\"5\"></sl-avatar>\n      </section>\n    `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/avatar/avatar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "../../packages/core/src/avatar/avatar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/avatar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Avatar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "string"
+              },
+              "default": "'slds'",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "attribute": "uniqueProfileId"
+            },
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_getUserDetails",
+              "return": {
+                "type": {
+                  "text": "Promise<UserProfile | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "string"
+              },
+              "default": "'slds'",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "fieldName": "uniqueProfileId"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-avatar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "../../packages/core/src/avatar/avatar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/avatar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "/packages/core/src/avatar/avatar.js"
           }
         }
       ]
@@ -862,6 +864,7 @@
             {
               "kind": "field",
               "name": "internals",
+              "readonly": true,
               "description": "Element internals."
             },
             {
@@ -894,7 +897,8 @@
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "method",
@@ -930,6 +934,20 @@
               },
               "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
               "attribute": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
               "inheritedFrom": {
                 "name": "HintMixin",
                 "module": "../../packages/core/src/utils/mixins/hint.ts"
@@ -1016,6 +1034,19 @@
                 "name": "HintMixin",
                 "module": "../../packages/core/src/utils/mixins/hint.ts"
               }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
             }
           ],
           "mixins": [
@@ -1081,7 +1112,7 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => html`\n    <style>\n      .grid {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: repeat(3, 1fr);\n        justify-items: center;\n      }\n      h2 {\n        font-family: var(--sl-text-typeset-font-family-heading);\n      }\n    </style>\n    <h2>Medium</h2>\n    <div class=\"grid\">\n      <sl-checkbox>Default</sl-checkbox>\n      <sl-checkbox checked>Checked</sl-checkbox>\n      <sl-checkbox indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox disabled>Default</sl-checkbox>\n      <sl-checkbox disabled checked>Checked</sl-checkbox>\n      <sl-checkbox disabled indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox invalid>Default</sl-checkbox>\n      <sl-checkbox invalid checked>Checked</sl-checkbox>\n      <sl-checkbox invalid indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox invalid disabled>Default</sl-checkbox>\n      <sl-checkbox invalid disabled checked>Checked</sl-checkbox>\n      <sl-checkbox invalid disabled indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox valid>Default</sl-checkbox>\n      <sl-checkbox valid checked>Checked</sl-checkbox>\n      <sl-checkbox valid indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox valid disabled>Default</sl-checkbox>\n      <sl-checkbox valid disabled checked>Checked</sl-checkbox>\n      <sl-checkbox valid disabled indeterminate>Indeterminate</sl-checkbox>\n    </div>\n    <h2>Large</h2>\n    <div class=\"grid\">\n      <sl-checkbox size=\"lg\">Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" disabled>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" disabled checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" disabled indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" invalid>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" invalid checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" invalid indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" invalid disabled>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" invalid disabled checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" invalid disabled indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" valid>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" valid checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" valid indeterminate>Indeterminate</sl-checkbox>\n\n      <sl-checkbox size=\"lg\" valid disabled>Default</sl-checkbox>\n      <sl-checkbox size=\"lg\" valid disabled checked>Checked</sl-checkbox>\n      <sl-checkbox size=\"lg\" valid disabled indeterminate>Indeterminate</sl-checkbox>\n    </div>\n  `\n}"
+          "default": "{\n  render: () => {\n    // document.querySelectorAll('sl-checkbox')?.forEach(checkbox => {\n    //   checkbox.setAttribute('invalid', '');\n    //   checkbox.setValidity(undefined, 'Please check this one.');\n    //   checkbox.checkValidity();\n    //   checkbox.disabled = true;\n    //   checkbox.setAttribute('invalid', '');\n    // });\n\n    const isDisabled = true;\n    const isInvalid = true;\n\n    return html`\n      <style>\n        .grid {\n          display: inline-grid;\n          gap: 1rem;\n          grid-template-columns: repeat(3, 1fr);\n          // justify-items: center;\n        }\n        h2 {\n          font-family: var(--sl-text-typeset-font-family-heading);\n        }\n      </style>\n      <h2>Medium</h2>\n      <div class=\"grid\">\n        <sl-checkbox>Default</sl-checkbox>\n        <sl-checkbox checked>Checked</sl-checkbox>\n        <sl-checkbox indeterminate>Indeterminate</sl-checkbox>\n\n        <sl-checkbox disabled>Default</sl-checkbox>\n        <sl-checkbox disabled checked>Checked</sl-checkbox>\n        <sl-checkbox disabled indeterminate>Indeterminate</sl-checkbox>\n\n        <sl-checkbox .invalid=${isInvalid} required>Default</sl-checkbox>\n        <sl-checkbox invalid checked required>Checked</sl-checkbox>\n        <sl-checkbox invalid indeterminate required>Indeterminate</sl-checkbox>\n\n        <sl-checkbox invalid .disabled=\"${isDisabled}\" required>Default</sl-checkbox>\n        <sl-checkbox invalid disabled checked required>Checked</sl-checkbox>\n        <sl-checkbox invalid disabled indeterminate required>Indeterminate</sl-checkbox>\n\n        <sl-checkbox valid>Default</sl-checkbox>\n        <sl-checkbox valid checked>Checked</sl-checkbox>\n        <sl-checkbox valid indeterminate>Indeterminate</sl-checkbox>\n\n        <sl-checkbox valid disabled>Default</sl-checkbox>\n        <sl-checkbox valid disabled checked>Checked</sl-checkbox>\n        <sl-checkbox valid disabled indeterminate>Indeterminate</sl-checkbox>\n      </div>\n      <h2>Large</h2>\n      <div class=\"grid\">\n        <sl-checkbox size=\"lg\">Default</sl-checkbox>\n        <sl-checkbox size=\"lg\" checked>Checked</sl-checkbox>\n        <sl-checkbox size=\"lg\" indeterminate>Indeterminate</sl-checkbox>\n\n        <sl-checkbox size=\"lg\" disabled>Default</sl-checkbox>\n        <sl-checkbox size=\"lg\" disabled checked>Checked</sl-checkbox>\n        <sl-checkbox size=\"lg\" disabled indeterminate>Indeterminate</sl-checkbox>\n\n        <sl-checkbox size=\"lg\" invalid required>Default</sl-checkbox>\n        <sl-checkbox size=\"lg\" invalid checked required>Checked</sl-checkbox>\n        <sl-checkbox size=\"lg\" invalid indeterminate required>Indeterminate</sl-checkbox>\n\n        <sl-checkbox size=\"lg\" invalid disabled required>Default</sl-checkbox>\n        <sl-checkbox size=\"lg\" invalid disabled checked required>Checked</sl-checkbox>\n        <sl-checkbox size=\"lg\" invalid disabled indeterminate required>Indeterminate</sl-checkbox>\n\n        <sl-checkbox size=\"lg\" valid>Default</sl-checkbox>\n        <sl-checkbox size=\"lg\" valid checked>Checked</sl-checkbox>\n        <sl-checkbox size=\"lg\" valid indeterminate>Indeterminate</sl-checkbox>\n\n        <sl-checkbox size=\"lg\" valid disabled>Default</sl-checkbox>\n        <sl-checkbox size=\"lg\" valid disabled checked>Checked</sl-checkbox>\n        <sl-checkbox size=\"lg\" valid disabled indeterminate>Indeterminate</sl-checkbox>\n      </div>\n    `;\n  }\n}"
         },
         {
           "kind": "variable",
@@ -1249,6 +1280,7 @@
             {
               "kind": "field",
               "name": "internals",
+              "readonly": true,
               "description": "Element internals."
             },
             {
@@ -1452,6 +1484,7 @@
               "type": {
                 "text": "FormControlElement"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -1463,6 +1496,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -1474,6 +1508,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -1619,6 +1654,20 @@
               }
             },
             {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "renderHint",
               "return": {
@@ -1744,6 +1793,19 @@
               },
               "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
               "fieldName": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
               "inheritedFrom": {
                 "name": "HintMixin",
                 "module": "../../packages/core/src/utils/mixins/hint.ts"
@@ -1940,7 +2002,8 @@
                 "text": "ScopedElementsMap"
               },
               "static": true,
-              "privacy": "private"
+              "privacy": "private",
+              "readonly": true
             },
             {
               "kind": "field",
@@ -2219,7 +2282,8 @@
                 "text": "ScopedElementsMap"
               },
               "static": true,
-              "privacy": "private"
+              "privacy": "private",
+              "readonly": true
             },
             {
               "kind": "field",
@@ -2407,6 +2471,550 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/icon/icon.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "RegisterAdditionalIcons",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  render: () => {\n    // load the entire FA library of a certain variant:\n    Icon.registerIcon(...Object.values(far));\n\n    // load a single icon:\n    Icon.registerIcon(fatPinata);\n    Icon.registerIcon(fatPinata);\n\n    // load multiple icons at once:\n    Icon.registerIcon(falPinata, fasPinata);\n\n    return html`\n    <style>\n        section {\n          display: flex;\n          gap: 8px;\n        }\n      </style>\n      <h2>Icons added directly from FontAwesome:</h2>\n      <section>\n        <sl-icon name=\"fas-pinata\"></sl-icon>\n        <sl-icon name=\"far-pinata\"></sl-icon>\n        <sl-icon name=\"fal-pinata\"></sl-icon>\n        <sl-icon name=\"fat-pinata\"></sl-icon>\n        <sl-icon name=\"far-narwhal\"></sl-icon>\n      </section\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/icon/icon.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "../../packages/core/src/icon/icon.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RegisterAdditionalIcons",
+          "declaration": {
+            "name": "RegisterAdditionalIcons",
+            "module": "../../packages/core/src/icon/icon.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/icon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Icon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "availableStyles",
+              "type": {
+                "text": "IconStyle[]"
+              },
+              "static": true,
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "iconNotDef",
+              "privacy": "private",
+              "default": "`<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\" class=\"icon-not-def\"><path d=\"M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z\"/></svg>`"
+            },
+            {
+              "kind": "method",
+              "name": "registerIcon",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "faIcons",
+                  "type": {
+                    "text": "IconDefinition | IconDefinition[]"
+                  },
+                  "description": "One or more IconDefinition that have been imported from FontAwesome"
+                }
+              ],
+              "description": "Add icon(s) to the icon registry"
+            },
+            {
+              "kind": "method",
+              "name": "registerIcons",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "icons",
+                  "type": {
+                    "text": "IconLibrary"
+                  }
+                }
+              ],
+              "description": "store all icons from the IconLibrary of the theme in the icon registry for easy access"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon to show.",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "icons",
+              "type": {
+                "text": "IconLibrary"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "#resolve",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon to show.",
+              "fieldName": "name"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-icon",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Icon",
+          "declaration": {
+            "name": "Icon",
+            "module": "../../packages/core/src/icon/icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./icon.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./models.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/models.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/icon/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-icon",
+          "declaration": {
+            "name": "Icon",
+            "module": "/packages/core/src/icon/icon.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./label.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/label/label.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    required: false,\n    text: 'Label text'\n  },\n  render: ({ required, text }) => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">${text}</sl-label>\n      <sl-input ?required=${required} id=\"input\"></sl-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "LabelSize",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input1\" size=\"sm\">I am small</sl-label>\n      <sl-input id=\"input1\"></sl-input>\n      <sl-label for=\"input2\" size=\"md\">I am medium</sl-label>\n      <sl-input id=\"input2\"></sl-input>\n      <sl-label for=\"input3\" size=\"lg\">I am large</sl-label>\n      <sl-input id=\"input3\" size=\"lg\"></sl-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomLabel",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">\n        <label slot=\"label\"><u>Hello</u> <em>World</em></label>\n      </sl-label>\n      <sl-input id=\"input\"></sl-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Required",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as required</sl-label>\n      <sl-input required id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Optional input</sl-label>\n      <sl-input id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Optional input</sl-label>\n      <sl-input id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Optional",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as optional</sl-label>\n      <sl-input id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Required input</sl-label>\n      <sl-input required id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Required input</sl-label>\n      <sl-input required id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LabelSize",
+          "declaration": {
+            "name": "LabelSize",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomLabel",
+          "declaration": {
+            "name": "CustomLabel",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Required",
+          "declaration": {
+            "name": "Required",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Optional",
+          "declaration": {
+            "name": "Optional",
+            "module": "../../packages/core/src/label/label.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/label.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Label",
+          "members": [
+            {
+              "kind": "field",
+              "name": "#formControlId",
+              "privacy": "private",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The actual form control id this label links to."
+            },
+            {
+              "kind": "field",
+              "name": "#label",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLLabelElement | undefined"
+              },
+              "description": "The label instance in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "default": "new MutationObserver(() => void this.#update())",
+              "description": "Observe the form control for changes to the required attribute."
+            },
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "attribute": "for"
+            },
+            {
+              "kind": "field",
+              "name": "formControl",
+              "type": {
+                "text": "(HTMLElement & FormControlInterface) | null"
+              },
+              "default": "null",
+              "description": "The associated form control."
+            },
+            {
+              "kind": "field",
+              "name": "optional",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as optional."
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as required."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "Label size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "{ target }",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#update",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "fieldName": "for"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "Label size.",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-label",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "../../packages/core/src/label/label.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/label/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-label",
+          "declaration": {
+            "name": "Label",
+            "module": "/packages/core/src/label/label.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/input/index.ts",
       "declarations": [],
       "exports": [
@@ -2462,11 +3070,19 @@
         },
         {
           "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  argTypes: {\n    size: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: () => html`\n    <style>\n      .content-wrapper {\n        display: inline-grid;\n        gap: 1rem;\n      }\n      .wrapper {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: repeat(2, 1fr);\n        justify-items: center;\n      }\n    </style>\n    <h2>Medium</h2>\n    <div class=\"content-wrapper\">\n      <div class=\"wrapper\">\n        <sl-input size=\"md\" placeholder=\"Placeholder md\"></sl-input>\n        <sl-input size=\"md\" value=\"I am medium\"></sl-input>\n        <sl-input readonly size=\"md\" value=\"I am md readonly\"></sl-input>\n        <sl-input disabled size=\"md\" value=\"I am md disabled\"></sl-input>\n        <sl-input disabled size=\"md\" placeholder=\"Placeholder md disabled\"></sl-input>\n      </div>\n      <div class=\"wrapper\">\n        <sl-input invalid size=\"md\" value=\"I am md invalid\"></sl-input>\n        <sl-input invalid size=\"md\" placeholder=\"Placeholder md invalid\"></sl-input>\n        <sl-input disabled invalid size=\"md\" value=\"I am md invalid disabled\"></sl-input>\n        <sl-input disabled invalid size=\"md\" placeholder=\"Placeholder md disabled invalid\"></sl-input>\n      </div>\n      <div class=\"wrapper\">\n        <sl-input showValid valid size=\"md\" value=\"I am md valid\"></sl-input>\n        <sl-input disabled showValid valid size=\"md\" value=\"I am md valid disabled\"></sl-input>\n      </div>\n      <h2>Large</h2>\n      <div class=\"wrapper\">\n        <sl-input size=\"lg\" placeholder=\"Placeholder lg\"></sl-input>\n        <sl-input size=\"lg\" value=\"I am large\"></sl-input>\n        <sl-input readonly size=\"lg\" value=\"I am lg readonly\"></sl-input>\n        <sl-input disabled size=\"lg\" value=\"I am lg disabled\"></sl-input>\n        <sl-input disabled size=\"lg\" placeholder=\"Placeholder lg disabled\"></sl-input>\n      </div>\n      <div class=\"wrapper\">\n        <sl-input invalid size=\"lg\" value=\"I am lg invalid\"></sl-input>\n        <sl-input invalid size=\"lg\" placeholder=\"Placeholder lg invalid\"></sl-input>\n        <sl-input disabled invalid size=\"lg\" value=\"I am lg invalid disabled\"></sl-input>\n        <sl-input disabled invalid size=\"lg\" placeholder=\"Placeholder lg disabled invalid\"></sl-input>\n      </div>\n      <div class=\"wrapper\">\n        <sl-input showValid valid size=\"lg\" value=\"I am lg valid\"></sl-input>\n        <sl-input disabled showValid valid size=\"lg\" value=\"I am lg valid disabled\"></sl-input>\n      </div>\n    </div>\n  `\n}"
+        },
+        {
+          "kind": "variable",
           "name": "Label",
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">What is your name?</sl-label>\n      <sl-input id=\"input\"></sl-input>\n    </form>\n  `\n}"
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\" size=\"sm\">What is your name?</sl-label>\n      <sl-input id=\"input\"></sl-input>\n      <sl-label for=\"input2\" size=\"md\">What is your name?</sl-label>\n      <sl-input id=\"input2\"></sl-input>\n      <sl-label for=\"input3\" size=\"lg\">What is your name?</sl-label>\n      <sl-input id=\"input3\" size=\"lg\"></sl-input>\n    </form>\n  `\n}"
         },
         {
           "kind": "variable",
@@ -2474,7 +3090,7 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">Nickname</sl-label>\n      <sl-input id=\"input\" hint=\"What would you like people to call you?\"></sl-input>\n    </form>\n  `\n}"
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">Nickname</sl-label>\n      <sl-input id=\"input\" hint=\"What would you like people to call you?\"></sl-input>\n      <sl-label for=\"input2\">Nickname</sl-label>\n      <sl-input id=\"input2\" hint=\"What would you like people to call you?\"></sl-input>\n      <sl-label for=\"input3\">Nickname</sl-label>\n      <sl-input id=\"input3\" hint=\"What would you like people to call you?\" hintSize=\"lg\"></sl-input>\n      <sl-label for=\"input4\">Nickname</sl-label>\n      <sl-input\n        id=\"input4\"\n        disabled\n        hint=\"What would you like people to call you?\"\n        hintSize=\"lg\"\n        value=\"Disabled input\"\n      ></sl-input>\n    </form>\n  `\n}"
         },
         {
           "kind": "variable",
@@ -2483,6 +3099,14 @@
             "text": "StoryObj"
           },
           "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">\n        <label slot=\"label\">Custom <i>label</i></label>\n      </sl-label>\n      <sl-input id=\"input\">\n        <div slot=\"hint\">\n          Hint is an accessible way to provide <strong>additional information</strong> that might help the user\n        </div>\n      </sl-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "InputTypes",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"inputNumber\">Number</sl-label>\n      <sl-input id=\"inputNumber\" type=\"number\" min=\"0\" max=\"3\" step=\"2\"></sl-input>\n      <sl-label for=\"custom2\">Age</sl-label>\n      <sl-input id=\"custom2\" type=\"number\">\n        <input id=\"foo\" slot=\"input\" placeholder=\"I am a custom input\" type=\"number\" min=\"0\" />\n      </sl-input>\n      <sl-label for=\"inputEmail\">Email</sl-label>\n      <sl-input id=\"inputEmail\" type=\"email\"> </sl-input>\n      <sl-label for=\"inputTel\">Tel</sl-label>\n      <sl-input id=\"inputTel\" type=\"tel\"> </sl-input>\n      <sl-label for=\"inputUrl\">Url</sl-label>\n      <sl-input id=\"inputUrl\" type=\"url\"> </sl-input>\n    </form>\n  `\n}"
         },
         {
           "kind": "variable",
@@ -2498,7 +3122,7 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Input)?.reportValidity();\n    };\n\n    return html`\n      <sl-input minlength=\"3\" maxlength=\"5\" placeholder=\"Min 3 and max 5 chars\" required></sl-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Input)?.reportValidity();\n    };\n\n    return html`\n      <style>\n        sl-input {\n          width: 300px;\n          margin-right: 8px;\n        }\n      </style>\n      <sl-input minlength=\"3\" maxlength=\"5\" placeholder=\"Min 3 and max 5 chars\" required></sl-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
         },
         {
           "kind": "variable",
@@ -2506,7 +3130,7 @@
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Input)?.reportValidity();\n    };\n\n    return html`\n      <sl-input pattern=\".{3,5}\" placeholder=\"Min 3 and max 5 chars using pattern\" required></sl-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Input)?.reportValidity();\n    };\n\n    return html`\n      <style>\n        sl-input {\n          width: 300px;\n          margin-right: 8px;\n        }\n      </style>\n      <sl-input pattern=\".{3,5}\" placeholder=\"Min 3 and max 5 chars using pattern\" required></sl-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
         },
         {
           "kind": "variable",
@@ -2518,11 +3142,27 @@
         },
         {
           "kind": "variable",
+          "name": "ValidInput",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Input)?.reportValidity();\n    };\n\n    const inputToConfirm = document.querySelector('#input1') as HTMLInputElement;\n\n    const validator: Validator = {\n      message: 'Enter the same email address',\n      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === inputToConfirm?.value\n    };\n\n    return html`\n      <style>\n        .wrapper {\n          display: flex;\n          flex-direction: column;\n        }\n        sl-input {\n          width: 400px;\n          margin-bottom: 8px;\n        }\n        sl-button {\n          width: fit-content;\n        }\n      </style>\n      <div class=\"wrapper\">\n        <sl-label for=\"input1\">Email</sl-label>\n        <sl-input showValid id=\"input1\" placeholder=\"email\" type=\"email\"></sl-input>\n        <sl-label for=\"input2\">Confirm email</sl-label>\n        <sl-input\n          id=\"input2\"\n          showValid\n          .validators=${[validator]}\n          placeholder=\"confirm email\"\n          @blur=\"${onClick}\"\n          type=\"email\"\n        ></sl-input>\n        <sl-button @click=${onClick}>Validate</sl-button>\n      </div>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
           "name": "CustomValidation",
           "type": {
             "text": "StoryObj"
           },
-          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Input)?.reportValidity();\n    };\n\n    const validator: Validator = {\n      message: 'Enter \"SLDS\"',\n      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'\n    };\n\n    return html`\n      <sl-input required=\"true\" .validators=${[validator]}></sl-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Input)?.reportValidity();\n    };\n\n    const validator: Validator = {\n      message: 'Enter \"SLDS\"',\n      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'\n    };\n\n    return html`\n      <style>\n        sl-input {\n          width: 300px;\n        }\n      </style>\n      <sl-input required=\"true\" .validators=${[validator]}></sl-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomValidationWithHint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Input)?.reportValidity();\n    };\n\n    const validator: Validator = {\n      message: 'Enter \"SLDS\"',\n      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'\n    };\n\n    return html`\n      <style>\n        sl-input {\n          width: 300px;\n        }\n      </style>\n      <sl-input showValid required=\"true\" .validators=${[validator]} hint=\"You need to enter 'SLDS'\"></sl-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
         }
       ],
       "exports": [
@@ -2551,6 +3191,14 @@
         },
         {
           "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "../../packages/core/src/input/input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "Label",
           "declaration": {
             "name": "Label",
@@ -2570,6 +3218,14 @@
           "name": "RichLabelHint",
           "declaration": {
             "name": "RichLabelHint",
+            "module": "../../packages/core/src/input/input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InputTypes",
+          "declaration": {
+            "name": "InputTypes",
             "module": "../../packages/core/src/input/input.stories.ts"
           }
         },
@@ -2607,9 +3263,25 @@
         },
         {
           "kind": "js",
+          "name": "ValidInput",
+          "declaration": {
+            "name": "ValidInput",
+            "module": "../../packages/core/src/input/input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "CustomValidation",
           "declaration": {
             "name": "CustomValidation",
+            "module": "../../packages/core/src/input/input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomValidationWithHint",
+          "declaration": {
+            "name": "CustomValidationWithHint",
             "module": "../../packages/core/src/input/input.stories.ts"
           }
         }
@@ -2640,14 +3312,29 @@
           "members": [
             {
               "kind": "field",
-              "name": "#events",
-              "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
+              "name": "#onKeydown",
+              "privacy": "private"
             },
             {
               "kind": "field",
-              "name": "#onKeydown",
+              "name": "#onFocusin",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onFocusout",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onMousedown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
             },
             {
               "kind": "field",
@@ -2666,6 +3353,7 @@
             {
               "kind": "field",
               "name": "internals",
+              "readonly": true,
               "description": "Element internals."
             },
             {
@@ -2697,6 +3385,33 @@
             },
             {
               "kind": "field",
+              "name": "min",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum value. Only applies to number input type.",
+              "attribute": "min"
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum value. Only applies to number input type.",
+              "attribute": "max"
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
+              "attribute": "step"
+            },
+            {
+              "kind": "field",
               "name": "pattern",
               "type": {
                 "text": "string | undefined"
@@ -2715,9 +3430,72 @@
             },
             {
               "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is invalid.",
+              "attribute": "invalid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is valid.",
+              "attribute": "valid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the input should get valid styles when is valid.",
+              "attribute": "showValid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusVisible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the input has focus visible.",
+              "attribute": "focus-visible-within",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the input or if it is just a static, readonly display.",
+              "attribute": "readonly",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "InputSize"
+              },
+              "default": "'md'",
+              "description": "Input size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "type",
               "type": {
-                "text": "'email' | 'number' | 'password' | 'tel' | 'text' | 'url'"
+                "text": "'email' | 'number' | 'tel' | 'text' | 'url'"
               },
               "default": "'text'",
               "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",
@@ -2739,6 +3517,15 @@
               },
               "description": "The value for the input.",
               "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "#clicked",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
             },
             {
               "kind": "method",
@@ -2865,6 +3652,7 @@
               "type": {
                 "text": "FormControlElement"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -2876,6 +3664,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -2887,6 +3676,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -3032,6 +3822,20 @@
               }
             },
             {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "renderHint",
               "return": {
@@ -3097,6 +3901,30 @@
               "fieldName": "minLength"
             },
             {
+              "name": "min",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum value. Only applies to number input type.",
+              "fieldName": "min"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum value. Only applies to number input type.",
+              "fieldName": "max"
+            },
+            {
+              "name": "step",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
+              "fieldName": "step"
+            },
+            {
               "name": "pattern",
               "type": {
                 "text": "string | undefined"
@@ -3113,9 +3941,60 @@
               "fieldName": "placeholder"
             },
             {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is invalid.",
+              "fieldName": "invalid"
+            },
+            {
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is valid.",
+              "fieldName": "valid"
+            },
+            {
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the input should get valid styles when is valid.",
+              "fieldName": "showValid"
+            },
+            {
+              "name": "focus-visible-within",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the input has focus visible.",
+              "fieldName": "focusVisible"
+            },
+            {
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the input or if it is just a static, readonly display.",
+              "fieldName": "readonly"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "InputSize"
+              },
+              "default": "'md'",
+              "description": "Input size.",
+              "fieldName": "size"
+            },
+            {
               "name": "type",
               "type": {
-                "text": "'email' | 'number' | 'password' | 'tel' | 'text' | 'url'"
+                "text": "'email' | 'number' | 'tel' | 'text' | 'url'"
               },
               "default": "'text'",
               "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",
@@ -3176,6 +4055,19 @@
                 "name": "HintMixin",
                 "module": "../../packages/core/src/utils/mixins/hint.ts"
               }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
             }
           ],
           "mixins": [
@@ -3218,546 +4110,6 @@
           "declaration": {
             "name": "Input",
             "module": "/packages/core/src/input/input.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/icon.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/icon/icon.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/icon.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Basic",
-          "type": {
-            "text": "Story"
-          },
-          "default": "{}"
-        },
-        {
-          "kind": "variable",
-          "name": "RegisterAdditionalIcons",
-          "type": {
-            "text": "Story"
-          },
-          "default": "{\n  render: () => {\n    // load the entire FA library of a certain variant:\n    Icon.registerIcon(...Object.values(far));\n\n    // load a single icon:\n    Icon.registerIcon(fatPinata);\n    Icon.registerIcon(fatPinata);\n\n    // load multiple icons at once:\n    Icon.registerIcon(falPinata, fasPinata);\n\n    return html`\n      <sl-icon name=\"fas-pinata\"></sl-icon>\n      <sl-icon name=\"far-pinata\"></sl-icon>\n      <sl-icon name=\"fal-pinata\"></sl-icon>\n      <sl-icon name=\"fat-pinata\"></sl-icon>\n      <sl-icon name=\"far-narwhal\"></sl-icon>\n    `;\n  }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/icon/icon.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Basic",
-          "declaration": {
-            "name": "Basic",
-            "module": "../../packages/core/src/icon/icon.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RegisterAdditionalIcons",
-          "declaration": {
-            "name": "RegisterAdditionalIcons",
-            "module": "../../packages/core/src/icon/icon.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/icon.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Icon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "availableStyles",
-              "type": {
-                "text": "IconStyle[]"
-              },
-              "static": true,
-              "default": "[]"
-            },
-            {
-              "kind": "method",
-              "name": "registerIcon",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "faIcons",
-                  "type": {
-                    "text": "IconDefinition | IconDefinition[]"
-                  },
-                  "description": "One or more IconDefinition that have been imported from FontAwesome"
-                }
-              ],
-              "description": "Add icon(s) to the icon registry"
-            },
-            {
-              "kind": "method",
-              "name": "registerIcons",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "icons",
-                  "type": {
-                    "text": "IconLibrary"
-                  }
-                }
-              ],
-              "description": "store all icons from the IconLibrary of the theme in the icon registry for easy access"
-            },
-            {
-              "kind": "method",
-              "name": "getIconPrefixFromStyle",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "IconPrefix"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "style",
-                  "type": {
-                    "text": "IconStyle"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
-              "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "iconStyle",
-              "type": {
-                "text": "IconStyle"
-              },
-              "default": "'regular'",
-              "attribute": "iconStyle"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the icon to show.",
-              "attribute": "name"
-            },
-            {
-              "kind": "field",
-              "name": "validatedIconStyle",
-              "type": {
-                "text": "IconStyle"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "icons",
-              "type": {
-                "text": "IconLibrary"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#resolve",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#convertToIconDefinition",
-              "return": {
-                "type": {
-                  "text": "IconDefinition"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "iconName",
-                  "type": {
-                    "text": "IconName"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
-              "fieldName": "label"
-            },
-            {
-              "name": "iconStyle",
-              "type": {
-                "text": "IconStyle"
-              },
-              "default": "'regular'",
-              "fieldName": "iconStyle"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the icon to show.",
-              "fieldName": "name"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-icon",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Icon",
-          "declaration": {
-            "name": "Icon",
-            "module": "../../packages/core/src/icon/icon.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./icon.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/icon/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-icon",
-          "declaration": {
-            "name": "Icon",
-            "module": "/packages/core/src/icon/icon.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./label.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/label/label.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    required: false,\n    text: 'Label text'\n  },\n  render: ({ required, text }) => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">${text}</sl-label>\n      <sl-input ?required=${required} id=\"input\"></sl-input>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "CustomLabel",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">\n        <label slot=\"label\"><u>Hello</u> <em>World</em></label>\n      </sl-label>\n      <sl-input id=\"input\"></sl-input>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Required",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as required</sl-label>\n      <sl-input required id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Optional input</sl-label>\n      <sl-input id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Optional input</sl-label>\n      <sl-input id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "Optional",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as optional</sl-label>\n      <sl-input id=\"input\"></sl-input>\n\n      <sl-label for=\"input2\">Required input</sl-label>\n      <sl-input required id=\"input2\"></sl-input>\n\n      <sl-label for=\"input3\">Required input</sl-label>\n      <sl-input required id=\"input3\"></sl-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CustomLabel",
-          "declaration": {
-            "name": "CustomLabel",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Required",
-          "declaration": {
-            "name": "Required",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Optional",
-          "declaration": {
-            "name": "Optional",
-            "module": "../../packages/core/src/label/label.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/label.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Label",
-          "members": [
-            {
-              "kind": "field",
-              "name": "#formControlId",
-              "privacy": "private",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The actual form control id this label links to."
-            },
-            {
-              "kind": "field",
-              "name": "#label",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLLabelElement | undefined"
-              },
-              "description": "The label instance in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "#observer",
-              "privacy": "private",
-              "default": "new MutationObserver(() => void this.#update())",
-              "description": "Observe the form control for changes to the required attribute."
-            },
-            {
-              "kind": "field",
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "attribute": "for"
-            },
-            {
-              "kind": "field",
-              "name": "formControl",
-              "type": {
-                "text": "(HTMLElement & FormControlInterface) | null"
-              },
-              "default": "null",
-              "description": "The associated form control."
-            },
-            {
-              "kind": "field",
-              "name": "optional",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as optional."
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as required."
-            },
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "{ target }",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#update",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "fieldName": "for"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-label",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Label",
-          "declaration": {
-            "name": "Label",
-            "module": "../../packages/core/src/label/label.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/label/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-label",
-          "declaration": {
-            "name": "Label",
-            "module": "/packages/core/src/label/label.js"
           }
         }
       ]
@@ -4647,6 +4999,7 @@
             {
               "kind": "field",
               "name": "internals",
+              "readonly": true,
               "description": "Element internals."
             },
             {
@@ -4690,7 +5043,8 @@
               "name": "buttons",
               "type": {
                 "text": "Radio[]"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "method",
@@ -4827,6 +5181,7 @@
               "type": {
                 "text": "FormControlElement"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -4838,6 +5193,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -4849,6 +5205,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -4994,6 +5351,20 @@
               }
             },
             {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "renderHint",
               "return": {
@@ -5097,6 +5468,19 @@
                 "name": "HintMixin",
                 "module": "../../packages/core/src/utils/mixins/hint.ts"
               }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
             }
           ],
           "mixins": [
@@ -5177,6 +5561,7 @@
             {
               "kind": "field",
               "name": "internals",
+              "readonly": true,
               "description": "Element internals."
             },
             {
@@ -5318,6 +5703,7 @@
               "type": {
                 "text": "FormControlElement"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -5329,6 +5715,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -5340,6 +5727,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -5803,7 +6191,8 @@
               "type": {
                 "text": "string | null"
               },
-              "description": "Get the selected tab button, or the first tab button."
+              "description": "Get the selected tab button, or the first tab button.",
+              "readonly": true
             },
             {
               "kind": "method",
@@ -6564,11 +6953,13 @@
               "name": "allOptions",
               "type": {
                 "text": "SelectOption[]"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "field",
               "name": "internals",
+              "readonly": true,
               "description": "Element internals."
             },
             {
@@ -6807,6 +7198,7 @@
               "type": {
                 "text": "FormControlElement"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -6818,6 +7210,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -6829,6 +7222,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -7217,7 +7611,8 @@
                 "text": "ScopedElementsMap"
               },
               "static": true,
-              "privacy": "private"
+              "privacy": "private",
+              "readonly": true
             },
             {
               "kind": "field",
@@ -7292,7 +7687,8 @@
               "type": {
                 "text": "Tab | null"
               },
-              "description": "Get the selected tab button, or the first tab button."
+              "description": "Get the selected tab button, or the first tab button.",
+              "readonly": true
             },
             {
               "kind": "method",
@@ -7773,6 +8169,7 @@
             {
               "kind": "field",
               "name": "internals",
+              "readonly": true,
               "description": "Element internals."
             },
             {
@@ -7952,6 +8349,7 @@
               "type": {
                 "text": "FormControlElement"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -7963,6 +8361,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -7974,6 +8373,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -8119,6 +8519,20 @@
               }
             },
             {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "renderHint",
               "return": {
@@ -8234,6 +8648,19 @@
               },
               "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
               "fieldName": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
               "inheritedFrom": {
                 "name": "HintMixin",
                 "module": "../../packages/core/src/utils/mixins/hint.ts"
@@ -9046,6 +9473,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/path.spec.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -10188,6 +10621,252 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/data-source/array-data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ArrayDataSource",
+          "members": [
+            {
+              "kind": "field",
+              "name": "#items",
+              "privacy": "private",
+              "type": {
+                "text": "T[]"
+              },
+              "default": "[...items]",
+              "description": "Array of filtered & sorted items."
+            },
+            {
+              "kind": "field",
+              "name": "#originalItems",
+              "privacy": "private",
+              "type": {
+                "text": "T[]"
+              },
+              "description": "The original array of items as passed to the constructor.",
+              "default": "[...items]"
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Size of the item collection.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#filter",
+              "return": {
+                "type": {
+                  "text": "DataSourceFilterFunction<T>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "values",
+                  "type": {
+                    "text": "DataSourceFilterValue[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../../packages/core/src/utils/data-source/data-source.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-update",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "DataSource",
+            "module": "/packages/core/src/utils/data-source/data-source.js"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ArrayDataSource",
+          "declaration": {
+            "name": "ArrayDataSource",
+            "module": "../../packages/core/src/utils/data-source/array-data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/data-source/data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSource",
+          "members": [
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation."
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on."
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation."
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Size of the item collection."
+            }
+          ],
+          "superclass": {
+            "name": "EventTarget",
+            "module": "../../packages/core/src/utils/data-source/data-source.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataSource",
+          "declaration": {
+            "name": "DataSource",
+            "module": "../../packages/core/src/utils/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/core/src/utils/data-source/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./array-data-source.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./data-source.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../../packages/core/src/utils/controllers/events.ts",
       "declarations": [
         {
@@ -10379,14 +11058,16 @@
               "name": "direction",
               "type": {
                 "text": "DirectionTypes"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "field",
               "name": "elements",
               "type": {
                 "text": "T[]"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "field",
@@ -10405,14 +11086,16 @@
               "name": "focusInElement",
               "type": {
                 "text": "T"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "field",
               "name": "focusInIndex",
               "type": {
                 "text": "number"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "field",
@@ -10902,6 +11585,7 @@
               "type": {
                 "text": "DirectionTypes"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FocusGroupController",
                 "module": "../../packages/core/src/utils/controllers/focus-group.ts"
@@ -10913,6 +11597,7 @@
               "type": {
                 "text": "T[]"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FocusGroupController",
                 "module": "../../packages/core/src/utils/controllers/focus-group.ts"
@@ -10932,6 +11617,7 @@
               "type": {
                 "text": "T"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FocusGroupController",
                 "module": "../../packages/core/src/utils/controllers/focus-group.ts"
@@ -10943,6 +11629,7 @@
               "type": {
                 "text": "number"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FocusGroupController",
                 "module": "../../packages/core/src/utils/controllers/focus-group.ts"
@@ -11276,7 +11963,8 @@
               "name": "selection",
               "type": {
                 "text": "Set<T>"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "method",
@@ -11406,7 +12094,7 @@
           "type": {
             "text": "CSSResultGroup"
           },
-          "default": "css`\n  slot[part='error'] {\n    color: #c00;\n  }\n`"
+          "default": "css`\n  slot[part='error'] {\n    color: #c73434;\n    display: inline-flex;\n    align-items: center;\n    fill: var(--sl-color-text-field-invalid-focus-icon);\n  }\n  slot[part='error']::slotted(sl-icon) {\n    width: 20px;\n    height: 20px;\n    fill: var(--sl-color-text-field-invalid-focus-icon);\n    --_icon-size: 20px;\n  }\n`"
         },
         {
           "kind": "class",
@@ -11458,6 +12146,16 @@
               },
               "default": "false",
               "description": "Determines when validation messages should be shown."
+            },
+            {
+              "kind": "field",
+              "name": "#messageSize",
+              "privacy": "private",
+              "type": {
+                "text": "MessageSize"
+              },
+              "default": "'md'",
+              "description": "Error message size."
             },
             {
               "kind": "field",
@@ -11514,6 +12212,23 @@
             },
             {
               "kind": "field",
+              "name": "#errorMessageId",
+              "privacy": "private",
+              "default": "`sl-error-${nextUniqueId++}`",
+              "description": "Unique ID for error message."
+            },
+            {
+              "kind": "field",
+              "name": "#slotName",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "description": "Name of slotted validation message.",
+              "default": "''"
+            },
+            {
+              "kind": "field",
               "name": "#onInvalid",
               "privacy": "private",
               "description": "Event handler for when invalid validity must be reported."
@@ -11529,21 +12244,24 @@
               "name": "target",
               "type": {
                 "text": "ValidationTarget"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "field",
               "name": "validationMessage",
               "type": {
                 "text": "string"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "field",
               "name": "validity",
               "type": {
                 "text": "ValidityState"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "method",
@@ -11566,6 +12284,24 @@
             {
               "kind": "method",
               "name": "hostUpdated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#updateValidationMessage",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#removeValidationMessage",
               "return": {
                 "type": {
                   "text": "void"
@@ -11739,248 +12475,6 @@
           "declaration": {
             "name": "ValidationController",
             "module": "../../packages/core/src/utils/controllers/validation.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "#items",
-              "privacy": "private",
-              "type": {
-                "text": "T[]"
-              },
-              "default": "[...items]",
-              "description": "Array of filtered & sorted items."
-            },
-            {
-              "kind": "field",
-              "name": "#originalItems",
-              "privacy": "private",
-              "type": {
-                "text": "T[]"
-              },
-              "description": "The original array of items as passed to the constructor.",
-              "default": "[...items]"
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "description": "The array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "description": "Size of the item collection.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#filter",
-              "return": {
-                "type": {
-                  "text": "DataSourceFilterFunction<T>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "values",
-                  "type": {
-                    "text": "DataSourceFilterValue[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../../packages/core/src/utils/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/packages/core/src/utils/data-source/data-source.js"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "../../packages/core/src/utils/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation."
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on."
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation."
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "description": "The array of items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "description": "Size of the item collection."
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "../../packages/core/src/utils/data-source/data-source.ts"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "../../packages/core/src/utils/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/core/src/utils/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
           }
         }
       ]
@@ -12241,21 +12735,24 @@
               "name": "formControlElement",
               "type": {
                 "text": "FormControlElement"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "field",
               "name": "labels",
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
-              }
+              },
+              "readonly": true
             },
             {
               "kind": "method",
@@ -12430,6 +12927,20 @@
               }
             },
             {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "updated",
               "return": {
@@ -12514,6 +13025,19 @@
                 "name": "HintMixin",
                 "module": "../../packages/core/src/utils/mixins/hint.ts"
               }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
             }
           ]
         }
@@ -12534,6 +13058,14 @@
       "path": "../../packages/core/src/utils/mixins/hint.ts",
       "declarations": [
         {
+          "kind": "variable",
+          "name": "hintStyles",
+          "type": {
+            "text": "CSSResultGroup"
+          },
+          "default": "css`\n  slot[name='hint'] {\n    color: blue;\n  }\n`"
+        },
+        {
           "kind": "mixin",
           "description": "",
           "name": "HintMixin",
@@ -12546,6 +13078,16 @@
               },
               "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
               "attribute": "hint"
+            },
+            {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize"
             },
             {
               "kind": "method",
@@ -12600,6 +13142,15 @@
               },
               "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
               "fieldName": "hint"
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize"
             }
           ],
           "parameters": [
@@ -12613,6 +13164,14 @@
         }
       ],
       "exports": [
+        {
+          "kind": "js",
+          "name": "hintStyles",
+          "declaration": {
+            "name": "hintStyles",
+            "module": "../../packages/core/src/utils/mixins/hint.ts"
+          }
+        },
         {
           "kind": "js",
           "name": "HintMixin",
@@ -12791,6 +13350,7 @@
             {
               "kind": "field",
               "name": "internals",
+              "readonly": true,
               "description": "Element internals."
             },
             {
@@ -12919,6 +13479,7 @@
               "type": {
                 "text": "FormControlElement"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -12930,6 +13491,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -12941,6 +13503,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../../packages/core/src/utils/mixins/form-control.ts"
@@ -13086,6 +13649,20 @@
               }
             },
             {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "renderHint",
               "return": {
@@ -13176,6 +13753,19 @@
               },
               "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
               "fieldName": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../../packages/core/src/utils/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
               "inheritedFrom": {
                 "name": "HintMixin",
                 "module": "../../packages/core/src/utils/mixins/hint.ts"
@@ -14146,6 +14736,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../../packages/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -14216,6 +14818,18 @@
                 "text": "GridColumnDataRenderer<T> | undefined"
               },
               "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../../packages/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../../packages/grid/src/column.ts"
@@ -14414,6 +15028,14 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed."
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -14464,6 +15086,14 @@
                 "text": "GridColumnDataRenderer<T> | undefined"
               },
               "description": "Renderer function for the column value of each cell."
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid."
             },
             {
               "kind": "field",
@@ -14608,15 +15238,6 @@
           "name": "GridFilterColumn",
           "members": [
             {
-              "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
-              "privacy": "private"
-            },
-            {
               "kind": "method",
               "name": "renderHeader",
               "return": {
@@ -14663,6 +15284,18 @@
               },
               "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
               "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../../packages/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../../packages/grid/src/column.ts"
@@ -14747,6 +15380,18 @@
             },
             {
               "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../../packages/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "sticky",
               "type": {
                 "text": "boolean | undefined"
@@ -14792,12 +15437,6 @@
                 "name": "GridColumn",
                 "module": "../../packages/grid/src/column.ts"
               }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
             }
           ],
           "superclass": {
@@ -14958,7 +15597,8 @@
                 "text": "ScopedElementsMap"
               },
               "static": true,
-              "privacy": "private"
+              "privacy": "private",
+              "readonly": true
             },
             {
               "kind": "field",
@@ -15037,7 +15677,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-grid-filter",
           "customElement": true
         }
       ],
@@ -15094,6 +15733,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "#filters",
               "privacy": "private",
               "type": {
@@ -15125,6 +15774,7 @@
             {
               "kind": "field",
               "name": "selection",
+              "readonly": true,
               "default": "new SelectionController<T>(this)",
               "description": "Selection manager."
             },
@@ -15284,6 +15934,23 @@
             },
             {
               "kind": "method",
+              "name": "#onColumnUpdate",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: GridColumn<T> }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onDirectionChange",
               "return": {
                 "type": {
@@ -15370,6 +16037,23 @@
             },
             {
               "kind": "method",
+              "name": "#addScopedElements",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "col",
+                  "type": {
+                    "text": "GridColumn<T>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#applyFilters",
               "return": {
                 "type": {
@@ -15453,6 +16137,12 @@
               },
               "description": "Uses alternating background colors for the rows when set.",
               "fieldName": "striped"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
             }
           ],
           "superclass": {
@@ -15568,14 +16258,6 @@
         },
         {
           "kind": "custom-element-definition",
-          "name": "sl-grid-filter",
-          "declaration": {
-            "name": "GridFilter",
-            "module": "/packages/grid/src/filter.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
           "name": "sl-grid-filter-column",
           "declaration": {
             "name": "GridFilterColumn",
@@ -15597,14 +16279,6 @@
             "name": "GridSortColumn",
             "module": "/packages/grid/src/sort-column.js"
           }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-grid-sorter",
-          "declaration": {
-            "name": "GridSorter",
-            "module": "/packages/grid/src/sorter.js"
-          }
         }
       ]
     },
@@ -15617,15 +16291,6 @@
           "description": "",
           "name": "GridSelectionColumn",
           "members": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
-              "privacy": "private"
-            },
             {
               "kind": "field",
               "name": "#events",
@@ -15782,6 +16447,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../../packages/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -15852,6 +16529,18 @@
                 "text": "GridColumnDataRenderer<T> | undefined"
               },
               "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../../packages/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../../packages/grid/src/column.ts"
@@ -16001,12 +16690,6 @@
               }
             }
           ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
-            }
-          ],
           "superclass": {
             "name": "GridColumn",
             "module": "/packages/grid/src/column.js"
@@ -16035,15 +16718,6 @@
           "description": "",
           "name": "GridSortColumn",
           "members": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
-              "privacy": "private"
-            },
             {
               "kind": "method",
               "name": "renderHeader",
@@ -16091,6 +16765,18 @@
               },
               "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
               "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../../packages/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../../packages/grid/src/column.ts"
@@ -16175,6 +16861,18 @@
             },
             {
               "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../../packages/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "sticky",
               "type": {
                 "text": "boolean | undefined"
@@ -16220,12 +16918,6 @@
                 "name": "GridColumn",
                 "module": "../../packages/grid/src/column.ts"
               }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
             }
           ],
           "superclass": {
@@ -16467,7 +17159,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-grid-sorter",
           "customElement": true
         }
       ],
@@ -16478,86 +17169,6 @@
           "declaration": {
             "name": "GridSorter",
             "module": "../../packages/grid/src/sorter.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/grid/src/locales/locale-codes.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "sourceLocale",
-          "default": "`en`",
-          "description": "The locale code that templates in this source code are written in."
-        },
-        {
-          "kind": "variable",
-          "name": "targetLocales",
-          "type": {
-            "text": "[`nl`]"
-          },
-          "default": "[`nl`]",
-          "description": "The other locale codes that this application is localized into. Sorted\nlexicographically."
-        },
-        {
-          "kind": "variable",
-          "name": "allLocales",
-          "type": {
-            "text": "[`en`, `nl`]"
-          },
-          "default": "[`en`, `nl`]",
-          "description": "All valid project locale codes. Sorted lexicographically."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "sourceLocale",
-          "declaration": {
-            "name": "sourceLocale",
-            "module": "../../packages/grid/src/locales/locale-codes.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "targetLocales",
-          "declaration": {
-            "name": "targetLocales",
-            "module": "../../packages/grid/src/locales/locale-codes.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "allLocales",
-          "declaration": {
-            "name": "allLocales",
-            "module": "../../packages/grid/src/locales/locale-codes.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../../packages/grid/src/locales/nl.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "templates",
-          "type": {
-            "text": "object"
-          },
-          "default": "{\n  sd0b6082239185272: `Select all`\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "templates",
-          "declaration": {
-            "name": "templates",
-            "module": "../../packages/grid/src/locales/nl.ts"
           }
         }
       ]
@@ -16903,6 +17514,86 @@
           "declaration": {
             "name": "Parts",
             "module": "../../packages/grid/src/stories/styling.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/grid/src/locales/locale-codes.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "sourceLocale",
+          "default": "`en`",
+          "description": "The locale code that templates in this source code are written in."
+        },
+        {
+          "kind": "variable",
+          "name": "targetLocales",
+          "type": {
+            "text": "[`nl`]"
+          },
+          "default": "[`nl`]",
+          "description": "The other locale codes that this application is localized into. Sorted\nlexicographically."
+        },
+        {
+          "kind": "variable",
+          "name": "allLocales",
+          "type": {
+            "text": "[`en`, `nl`]"
+          },
+          "default": "[`en`, `nl`]",
+          "description": "All valid project locale codes. Sorted lexicographically."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "sourceLocale",
+          "declaration": {
+            "name": "sourceLocale",
+            "module": "../../packages/grid/src/locales/locale-codes.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "targetLocales",
+          "declaration": {
+            "name": "targetLocales",
+            "module": "../../packages/grid/src/locales/locale-codes.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "allLocales",
+          "declaration": {
+            "name": "allLocales",
+            "module": "../../packages/grid/src/locales/locale-codes.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../packages/grid/src/locales/nl.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "templates",
+          "type": {
+            "text": "object"
+          },
+          "default": "{\n  sd0b6082239185272: `Select all`\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "templates",
+          "declaration": {
+            "name": "templates",
+            "module": "../../packages/grid/src/locales/nl.ts"
           }
         }
       ]

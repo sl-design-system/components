@@ -1,4 +1,4 @@
-function noPrivateFieldsPlugin() {
+export function noPrivateFieldsPlugin() {
   return {
     name: 'no-private-fields-plugin',
     packageLinkPhase({ customElementsManifest, context }) {
@@ -27,7 +27,7 @@ function noPrivateFieldsPlugin() {
   }
 }
 
-function sortMembersPlugin() {
+export function sortMembersPlugin() {
   return {
     name: 'sort-members-plugin',
     packageLinkPhase({ customElementsManifest, context }) {
@@ -49,13 +49,3 @@ function sortMembersPlugin() {
     }    
   }
 }
-
-export default {
-  globs: ['packages/components/**/*.ts'],
-  exclude: ['packages/components/**/*.{d,e2e,spec,stories}.ts'],
-  litelement: true,
-  plugins: [
-    noPrivateFieldsPlugin(),
-    sortMembersPlugin()
-  ]
-};

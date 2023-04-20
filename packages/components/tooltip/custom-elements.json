@@ -1,0 +1,224 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/tooltip.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/tooltip-directive.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-tooltip",
+          "declaration": {
+            "name": "Tooltip",
+            "module": "/src/tooltip.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tooltip-directive.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TooltipDirective",
+          "members": [
+            {
+              "kind": "field",
+              "name": "content",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "didSetupLazy",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "part",
+              "type": {
+                "text": "ElementPart | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderContent",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setupLazy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "Tooltip | undefined"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "tooltip"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TooltipDirective",
+          "declaration": {
+            "name": "TooltipDirective",
+            "module": "src/tooltip-directive.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "tooltip",
+          "declaration": {
+            "name": "tooltip",
+            "module": "src/tooltip-directive.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tooltip.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/tooltip.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tooltip.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Tooltip component.",
+          "name": "Tooltip",
+          "members": [
+            {
+              "kind": "method",
+              "name": "lazy",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "callback",
+                  "type": {
+                    "text": "(target: Tooltip) => void"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              },
+              "default": "'bottom'",
+              "description": "Tooltip placement.",
+              "attribute": "placement"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              },
+              "default": "'bottom'",
+              "description": "Tooltip placement.",
+              "fieldName": "placement"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "AnchoredPopoverMixin",
+              "package": "@sl-design-system/popover"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tooltip",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Tooltip",
+          "declaration": {
+            "name": "Tooltip",
+            "module": "src/tooltip.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

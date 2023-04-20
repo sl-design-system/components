@@ -18,21 +18,21 @@
 }
 
 @mixin sl-text-button-text-lg {
-  font-family: var(--sl-text-typeset-font-family-heading);
+  font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-button-label-lg);
 }
 
 @mixin sl-text-button-text-md {
-  font-family: var(--sl-text-typeset-font-family-heading);
+  font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-button-label-md);
 }
 
 @mixin sl-text-button-text-sm {
-  font-family: var(--sl-text-typeset-font-family-heading);
+  font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-button-label-sm);

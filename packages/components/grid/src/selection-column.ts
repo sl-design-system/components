@@ -1,13 +1,12 @@
 import type { PropertyValues, TemplateResult } from 'lit';
 import type { GridActiveItemChangeEvent } from './grid.js';
-import { localized, msg } from '@lit/localize';
+import { msg } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { EventsController } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
-@localized()
 export class GridSelectionColumn<T extends Record<string, unknown> = Record<string, unknown>> extends GridColumn {
   #events = new EventsController(this);
 

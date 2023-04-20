@@ -8,8 +8,9 @@ import type {
   DataSourceSortDirection,
   EventEmitter
 } from '@sl-design-system/shared';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { localized } from '@lit/localize';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { ArrayDataSource, SelectionController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -26,6 +27,7 @@ export class GridActiveItemChangeEvent<T> extends Event {
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 
+@localized()
 export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {

@@ -4,30 +4,39 @@
 <body>
 <trans-unit id="sd7cc2f6441ad9a1c">
   <source>Bad input</source>
+  <target>Verkeerde invoer</target>
 </trans-unit>
 <trans-unit id="s1e4177e8de76dfc9">
   <source>Please match the specified pattern.</source>
+  <target>Dit veld volgt niet het gespecificeerde patroon.</target>
 </trans-unit>
 <trans-unit id="sf078a76e5c674713">
   <source>The value is outside the minimum or maximum allowed range.</source>
+  <target>De waarde is buiten de minimum of maximum toegetane reeks.</target>
 </trans-unit>
 <trans-unit id="s5def830dd16bcde9">
   <source>Step mismatch</source>
+  <target>Stap komt niet overeen</target>
 </trans-unit>
 <trans-unit id="sd6f67602bb05032b">
   <source>Please use no more than <x id="0" equiv-text="${maxLength}"/> characters (you are currently using <x id="1" equiv-text="${length}"/> characters).</source>
+  <target>Gebruik niet meer dan <x id="0" equiv-text="${maxLength}"/> karakters (je gebruikt nu <x id="1" equiv-text="${length}"/> karakters).</target>
 </trans-unit>
 <trans-unit id="s45d6e41483a83f82">
   <source>This field must be at least <x id="0" equiv-text="${count}"/> character<x id="1" equiv-text="${count &gt; 1 ? 's' : ''}"/> long.</source>
+  <target>Dit veld moet tenminste <x id="0" equiv-text="${count}"/> karakter<x id="1" equiv-text="${count &gt; 1 ? 's' : ''}"/> lang zijn.</target>
 </trans-unit>
 <trans-unit id="s321a73dff0c18f15">
   <source>The value does not match the specified type.</source>
+  <target>De waarde komt niet overeen met het gespecificeerde type.</target>
 </trans-unit>
 <trans-unit id="s3ee922cc6e82d53a">
   <source>This field must be filled in.</source>
+  <target>Dit veld moet verplicht ingevuld worden.</target>
 </trans-unit>
 <trans-unit id="sd0b6082239185272">
   <source>Select all</source>
+  <target>Selecteer alles</target>
 </trans-unit>
 </body>
 </file>

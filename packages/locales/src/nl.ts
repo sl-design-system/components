@@ -7,13 +7,13 @@ import { str } from '@lit/localize';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export const templates = {
-  sd7cc2f6441ad9a1c: `Bad input`,
-  s1e4177e8de76dfc9: `Please match the specified pattern.`,
-  sf078a76e5c674713: `The value is outside the minimum or maximum allowed range.`,
-  s5def830dd16bcde9: `Step mismatch`,
-  sd6f67602bb05032b: str`Please use no more than ${0} characters (you are currently using ${1} characters).`,
-  s45d6e41483a83f82: str`This field must be at least ${0} character${1} long.`,
-  s321a73dff0c18f15: `The value does not match the specified type.`,
-  s3ee922cc6e82d53a: `This field must be filled in.`,
-  sd0b6082239185272: `Select all`
+  s1e4177e8de76dfc9: `Dit veld volgt niet het gespecificeerde patroon.`,
+  s321a73dff0c18f15: `De waarde komt niet overeen met het gespecificeerde type.`,
+  s3ee922cc6e82d53a: `Dit veld moet verplicht ingevuld worden.`,
+  s45d6e41483a83f82: str`Dit veld moet tenminste ${0} karakter${1} lang zijn.`,
+  s5def830dd16bcde9: `Stap komt niet overeen`,
+  sd0b6082239185272: `Selecteer alles`,
+  sd6f67602bb05032b: str`Gebruik niet meer dan ${0} karakters (je gebruikt nu ${1} karakters).`,
+  sd7cc2f6441ad9a1c: `Verkeerde invoer`,
+  sf078a76e5c674713: `De waarde is buiten de minimum of maximum toegetane reeks.`
 };

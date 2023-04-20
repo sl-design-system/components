@@ -8,7 +8,7 @@ import { updateTheme, themes } from './themes.js';
 const { setLocale } = configureLocalization({
   sourceLocale: 'en',
   targetLocales: ['nl'],
-  loadLocale: locale => import(`../src/locales/${locale}.ts`)
+  loadLocale: locale => import(`../packages/locales/src/${locale}.ts`)
 });
 
 const preview: Preview = {

@@ -3312,7 +3312,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit/localize@npm:^0.11.0":
+"@lit/localize@npm:^0.11.0, @lit/localize@npm:^0.11.4":
   version: 0.11.4
   resolution: "@lit/localize@npm:0.11.4"
   dependencies:
@@ -3987,6 +3987,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/locales@workspace:packages/locales":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/locales@workspace:packages/locales"
+  dependencies:
+    "@lit/localize": ^0.11.4
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/magister@workspace:packages/themes/magister":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/magister@workspace:packages/themes/magister"
@@ -4192,6 +4200,7 @@ __metadata:
     "@custom-elements-manifest/to-markdown": ^0.1.0
     "@lit-labs/eleventy-plugin-lit": ^0.2.3
     "@luncheon/esbuild-plugin-gzip": ^0.1.0
+    "@types/markdown-it": ^12.2.3
     "@web/dev-server": ^0.1.38
     "@webcomponents/template-shadowroot": ^0.1.0
     cpx: ^1.5.0
@@ -5784,10 +5793,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/linkify-it@npm:*":
+  version: 3.0.2
+  resolution: "@types/linkify-it@npm:3.0.2"
+  checksum: 4cf1452a11f5b9465aafe0448b36323fdc640bd370a61c44421bed89b8b88b77d94deede21e1bd54e410412492a1c21252efc15fa80b1529df5057f03a15bd49
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.167":
   version: 4.14.186
   resolution: "@types/lodash@npm:4.14.186"
   checksum: 6e0c73ead3eb5073e37c9b8141004369776fba31a3876d2b647d590b78256e414b770753f767a548a70ad23408ac5cc83b174adfd5dba2bb88b833f2763c632b
+  languageName: node
+  linkType: hard
+
+"@types/markdown-it@npm:^12.2.3":
+  version: 12.2.3
+  resolution: "@types/markdown-it@npm:12.2.3"
+  dependencies:
+    "@types/linkify-it": "*"
+    "@types/mdurl": "*"
+  checksum: f72e08f69d76be2e30cd367fd6e5302c6878aa44e5b1a952fe7e41280044502bcb9bac8459ad94f6bb5e4f9c4cb52803950609ad66786f0fddc3a8bd533f777d
   languageName: node
   linkType: hard
 
@@ -5797,6 +5823,13 @@ __metadata:
   dependencies:
     "@types/unist": "*"
   checksum: 375f08b3910505291b2815d9edf55dca63c6c4ec58dd33c866521e68905fd4e8fe83b397e167af2cdd3799b851a7e02817d58610cfb814aee20bf3c52d87be9b
+  languageName: node
+  linkType: hard
+
+"@types/mdurl@npm:*":
+  version: 1.0.2
+  resolution: "@types/mdurl@npm:1.0.2"
+  checksum: 38d18f0d63af68d0480b821b3d884e144b669c0617010da4c13a444498384b4833aff17f84768afeeca7ef3e6cfcd8bb7c462ffbc39a81ff549f17ae5c3ffb8e
   languageName: node
   linkType: hard
 

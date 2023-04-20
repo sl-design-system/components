@@ -10,6 +10,7 @@
   "workspaces": [
     "packages/angular",
     "packages/components/*",
+    "packages/locales",
     "packages/themes/*",
     "packages/tokens",
     "scripts",
@@ -19,7 +20,7 @@
   "scripts": {
     "build": "wireit",
     "build:tokens": "wireit",
-    "extract-i18n": "wireit",
+    "extract-i18n": "lit-localize extract",
     "lint": "wireit",
     "postinstall": "husky install",
     "release": "wireit",
@@ -68,7 +69,15 @@
       ]
     },
     "build:locales": {
-      "command": "node ./scripts/build-locales.js"
+      "command": "lit-localize build && eslint --fix \"packages/locales/src/*.ts\"",
+      "clean": false,
+      "files": [
+        "lit-localize.json",
+        "packages/locales/src/*.xlf"
+      ],
+      "output": [
+        "packages/locales/src/*.ts"
+      ]
     },
     "build:scss": {
       "command": "node ./scripts/build-scss.js",
@@ -117,9 +126,6 @@
         "packages/**/tsconfig.tsbuildinfo",
         "packages/**/*.d.ts"
       ]
-    },
-    "extract-i18n": {
-      "command": "node ./scripts/extract-i18n.js"
     },
     "lint": {
       "dependencies": [

@@ -25,7 +25,7 @@
     "**/*.js",
     "**/*.js.map"
   ],
-  "scripts": {
-    "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  "dependencies": {
+    "@lit/localize": "^0.11.4"
   }
 }

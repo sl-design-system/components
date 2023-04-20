@@ -53,7 +53,7 @@
       ]
     },
     "build:components": {
-      "command": "node ./scripts/build-components.js",
+      "command": "node ./scripts/build-packages.js components",
       "clean": "if-file-deleted",
       "dependencies": [
         "build:locales",
@@ -90,7 +90,7 @@
       ]
     },
     "build:themes": {
-      "command": "node ./scripts/build-themes.js",
+      "command": "node ./scripts/build-packages.js themes",
       "clean": "if-file-deleted",
       "files": [
         "packages/themes/**/*.ts",

@@ -1,5 +1,5 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
-import { argv} from 'node:process';
+import { argv } from 'node:process';
 
 const devMode = !argv.includes('build');
 

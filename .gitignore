@@ -61,6 +61,10 @@ packages/components/**/*.d.ts
 packages/components/**/*.d.ts.map
 packages/components/**/*.js
 packages/components/**/*.js.map
+packages/locales/**/*.d.ts
+packages/locales/**/*.d.ts.map
+packages/locales/**/*.js
+packages/locales/**/*.js.map
 packages/themes/**/*.d.ts
 packages/themes/**/*.d.ts.map
 packages/themes/**/*.js

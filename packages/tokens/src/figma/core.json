@@ -689,7 +689,7 @@
     "typeset": {
       "fontFamily": {
         "icon": {
-          "value": "Font Awesome 7 Pro",
+          "value": "Font Awesome 6 Pro",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.icon"
         }

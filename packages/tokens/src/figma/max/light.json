@@ -109,12 +109,12 @@
               "description": "color.button.default.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.outline.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.neutral.100}",
+              "value": "{color.palette.neutral.150}",
               "type": "color",
               "description": "color.button.default.outline.idle.border"
             }
@@ -126,7 +126,7 @@
               "description": "color.button.default.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.outline.hover.foreground"
             },
@@ -138,12 +138,12 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.neutral.150}",
               "type": "color",
               "description": "color.button.default.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground"
             },
@@ -160,12 +160,12 @@
               "description": "color.button.default.focus.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.neutral.150}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }

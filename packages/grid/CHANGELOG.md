@@ -1,5 +1,14 @@
 # @sanomalearning/slds-grid
 
+## 0.0.4
+
+### Patch Changes
+
+- [#348](https://github.com/sanomalearning/design-system/pull/348) [`e222feb`](https://github.com/sanomalearning/design-system/commit/e222feb7a80885e9a5deb3d8bfeda9dede6058f6) - Add proper support for scoped elements
+
+- Updated dependencies [[`167077f`](https://github.com/sanomalearning/design-system/commit/167077f7d8a3347bbb8571697b1e8ce27b9f5294), [`22336cf`](https://github.com/sanomalearning/design-system/commit/22336cf0935399d3e50306e1a9cfcc0d1d2f8b5d), [`8d20cdb`](https://github.com/sanomalearning/design-system/commit/8d20cdbf6f0c592dd675767305de3191c6064798)]:
+  - @sanomalearning/slds-core@0.2.1
+
 ## 0.0.3
 
 ### Patch Changes

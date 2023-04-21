@@ -1,7 +1,7 @@
 {
   "name": "@sanomalearning/slds-storybook",
   "description": "SLDS Storybook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "repository": {
     "type": "git",

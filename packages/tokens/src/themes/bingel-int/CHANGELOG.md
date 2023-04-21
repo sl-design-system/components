@@ -1,6 +1,6 @@
-# @sanomalearning/slds-sanoma-learning
+# @sanomalearning/slds-bingel-int
 
-## 0.0.2
+## 0.0.1
 
 ### Patch Changes
 
@@ -8,8 +8,4 @@
 
 - [#353](https://github.com/sanomalearning/design-system/pull/353) [`8d20cdb`](https://github.com/sanomalearning/design-system/commit/8d20cdbf6f0c592dd675767305de3191c6064798) - changed text_field to textField to avoid problems in figma, added tokens for text field and area
 
-## 0.0.1
-
-### Patch Changes
-
-- [#334](https://github.com/sanomalearning/design-system/pull/334) [`3a3d2f6`](https://github.com/sanomalearning/design-system/commit/3a3d2f603fe7244e6234089f56d7e093861e3a2a) - Release initial version
+- [#360](https://github.com/sanomalearning/design-system/pull/360) [`a587125`](https://github.com/sanomalearning/design-system/commit/a587125b640ec8e5f9750a37f1182e132926504d) - colour changes for radio group

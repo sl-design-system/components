@@ -1,7 +1,7 @@
 {
   "name": "@sanomalearning/slds-neon",
   "description": "SLDS Theme for NEON",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

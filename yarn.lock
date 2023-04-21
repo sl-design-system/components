@@ -2958,6 +2958,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-svg-core@npm:^6.4.0":
+  version: 6.4.0
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.4.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-svg-core%2F-%2F6.4.0%2Ffontawesome-svg-core-6.4.0.tgz"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.4.0
+  checksum: fae9957c4ac453c89b6b5654106db35733d110932d291d78b039e3e00419015245e40bd627cfa48156be995e5daa0782597be504fac40c53c76ab131f1424658
+  languageName: node
+  linkType: hard
+
 "@fortawesome/pro-duotone-svg-icons@npm:^6.4.0":
   version: 6.4.0
   resolution: "@fortawesome/pro-duotone-svg-icons@npm:6.4.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-duotone-svg-icons%2F-%2F6.4.0%2Fpro-duotone-svg-icons-6.4.0.tgz"
@@ -4101,6 +4110,7 @@ __metadata:
     "@figma-export/cli": ^4.5.0
     "@figma-export/output-components-as-svg": ^4.5.0
     "@figma-export/transform-svg-with-svgo": ^4.5.0
+    "@fortawesome/fontawesome-svg-core": ^6.4.0
     "@fortawesome/pro-duotone-svg-icons": ^6.4.0
     "@fortawesome/pro-light-svg-icons": ^6.4.0
     "@fortawesome/pro-regular-svg-icons": ^6.4.0

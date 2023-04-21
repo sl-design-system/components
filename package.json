@@ -19,7 +19,6 @@
   ],
   "scripts": {
     "build": "wireit",
-    "build:tokens": "wireit",
     "extract-i18n": "lit-localize extract",
     "lint": "wireit",
     "postinstall": "husky install",
@@ -28,6 +27,7 @@
     "start": "wireit",
     "storybook": "wireit",
     "test": "wireit",
+    "transform-tokens": "wireit",
     "website": "wireit"
   },
   "wireit": {
@@ -35,6 +35,7 @@
       "dependencies": [
         "build:cem",
         "build:components",
+        "build:locales",
         "build:themes",
         "build:types"
       ]
@@ -53,10 +54,9 @@
       ]
     },
     "build:components": {
-      "command": "node ./scripts/build-packages.js components",
+      "command": "node scripts/build-packages.js components",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:locales",
         "build:scss"
       ],
       "files": [
@@ -68,7 +68,37 @@
         "packages/components/**/*.js.map"
       ]
     },
+    "build:icons": {
+      "command": "node scripts/build-icons.js",
+      "clean": false,
+      "dependencies": [
+        "build:tokens"
+      ],
+      "files": [
+        "figma-icon-pages.json",
+        "packages/tokens/src/core.json",
+        "packages/tokens/src/*/base.json"
+      ],
+      "output": [
+        "packages/themes/*/icons.ts",
+        "packages/themes/*/icons/*.svg"
+      ]
+    },
     "build:locales": {
+      "command": "node scripts/build-packages.js locales",
+      "dependencies": [
+        "build:lit-localize"
+      ],
+      "files": [
+        "packages/locales/**/*.ts",
+        "!packages/locales/**/*.d.ts"
+      ],
+      "output": [
+        "packages/locales/**/*.js",
+        "packages/locales/**/*.js.map"
+      ]
+    },
+    "build:lit-localize": {
       "command": "lit-localize build && eslint --fix \"packages/locales/src/*.ts\"",
       "clean": false,
       "files": [
@@ -80,7 +110,7 @@
       ]
     },
     "build:scss": {
-      "command": "node ./scripts/build-scss.js",
+      "command": "node scripts/build-scss.js",
       "clean": "if-file-deleted",
       "files": [
         "packages/components/**/*.scss"
@@ -90,7 +120,7 @@
       ]
     },
     "build:themes": {
-      "command": "node ./scripts/build-packages.js themes",
+      "command": "node scripts/build-packages.js themes",
       "clean": "if-file-deleted",
       "files": [
         "packages/themes/**/*.ts",
@@ -102,13 +132,14 @@
       ]
     },
     "build:tokens": {
-      "command": "node ./scripts/build-tokens.js",
+      "command": "node scripts/build-tokens.js",
       "clean": "if-file-deleted",
       "files": [
         "packages/tokens/src/**/*.json"
       ],
       "output": [
         "packages/themes/**/*.{css,json,scss}",
+        "!packages/themes/*/fonts.css",
         "!packages/themes/*/{package,tsconfig}.json"
       ]
     },
@@ -196,6 +227,12 @@
       "files": [
         "web-test-runner.config.js",
         "packages/components/**/*.spec.ts"
+      ]
+    },
+    "transform-tokens": {
+      "dependencies": [
+        "build:icons",
+        "build:tokens"
       ]
     },
     "website": {

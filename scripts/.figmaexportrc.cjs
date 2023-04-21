@@ -35,7 +35,7 @@ module.exports = {
         ],
         outputters: [
           require('@figma-export/output-components-as-svg')({
-            output: `./src/themes/${theme}/icons`,
+            output: `../packages/themes/${theme}/icons`,
             getDirname: (options) => `.${path.sep}${options.dirname}`
           })
         ]

@@ -12,6 +12,7 @@
     "@figma-export/cli": "^4.5.0",
     "@figma-export/output-components-as-svg": "^4.5.0",
     "@figma-export/transform-svg-with-svgo": "^4.5.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/pro-duotone-svg-icons": "^6.4.0",
     "@fortawesome/pro-light-svg-icons": "^6.4.0",
     "@fortawesome/pro-regular-svg-icons": "^6.4.0",

@@ -40,8 +40,7 @@ const extract = async (component) => {
 };
 
 const extractAll = async () => {
-  // const components = await fg('../packages/components/*', { cwd, onlyDirectories: true });
-  const components = await fg('../packages/components/button', { cwd, onlyDirectories: true });
+  const components = await fg('../packages/components/*', { cwd, onlyDirectories: true });
 
   components.forEach(component => extract(basename(component)));
 };

@@ -570,7 +570,7 @@
           "description": "text.typeset.lineHeight.sm"
         },
         "md": {
-          "value": 22,
+          "value": 20,
           "type": "lineHeights",
           "description": "text.typeset.lineHeight.md"
         },
@@ -1031,7 +1031,7 @@
         }
       }
     },
-    "text_field": {
+    "textField": {
       "fontIcon": {
         "md": {
           "value": {
@@ -1312,7 +1312,7 @@
         "type": "spacing"
       }
     },
-    "text_field": {
+    "textField": {
       "block": {
         "md": {
           "value": "{space.sm}",
@@ -1554,6 +1554,90 @@
         },
         "lg": {
           "value": "{space.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      }
+    },
+    "helper": {
+      "gap": {
+        "sm": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      },
+      "paddingTop": {
+        "sm": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      }
+    },
+    "label": {
+      "gap": {
+        "sm": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      },
+      "icon": {
+        "md": {
+          "value": "{space.2xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        }
+      },
+      "paddingBottom": {
+        "sm": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.md}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
         }

@@ -23,12 +23,15 @@ export const hintStyles: CSSResultGroup = css`
   }
   slot[hintsize='sm'] {
     font: var(--sl-text-input-helper-sm);
+    padding-top: var(--sl-space-helper-padding-top-sm);
   }
   slot[hintsize='md'] {
     font: var(--sl-text-input-helper-md);
+    padding-top: var(--sl-space-helper-padding-top-md);
   }
   slot[hintsize='lg'] {
     font: var(--sl-text-input-helper-lg);
+    padding-top: var(--sl-space-helper-padding-top-lg);
   }
 `;
 

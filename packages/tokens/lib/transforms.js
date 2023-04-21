@@ -39,7 +39,7 @@ export const boxShadow = {
   transitive: true,
   matcher: token => token.type === 'boxShadow',
   transformer: token => {
-    return `${token.value.x}px ${token.value.y}px ${token.value.blur}px ${token.value.spread}px ${token.value.color}`;
+    return `${token.value.x}px ${token.value.y}px ${token.value.blur}px ${token.value.spread}px ${token.value.color.replace(',','/')}`;
   }
 };
 
@@ -48,12 +48,12 @@ export const sizePx = {
   type: 'value',
   matcher: token =>
     [
-      'borderRadius', 
+      'borderRadius',
       'borderWidth',
       'fontSizes',
-      'lineHeights', 
-      'paragraphSpacing', 
-      'sizing', 
+      'lineHeights',
+      'paragraphSpacing',
+      'sizing',
       'spacing'
     ].includes(token.type),
   transformer: token => (typeof token.value === 'string' ? token.value : `${token.value}px`)

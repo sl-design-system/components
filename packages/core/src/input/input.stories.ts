@@ -194,6 +194,41 @@ export const RichLabelHint: StoryObj = {
   `
 };
 
+export const ErrorMessageSizes: StoryObj = {
+  render: () => {
+    setTimeout(() => document.querySelector('form')?.reportValidity());
+
+    return html`
+      <style>
+        form {
+          align-items: start;
+          display: flex;
+          flex-direction: column;
+        }
+        sl-label {
+          margin-block-start: 0.5rem;
+        }
+        sl-label:first-of-type {
+          margin-block-start: 0;
+        }
+        sl-input {
+          align-self: stretch;
+        }
+      </style>
+      <form>
+        <sl-label for="input">Small</sl-label>
+        <sl-input id="input" name="input" required error-size="sm"></sl-input>
+
+        <sl-label for="input2">Medium</sl-label>
+        <sl-input id="input2" name="input" required error-size="md"></sl-input>
+
+        <sl-label for="input3">Large</sl-label>
+        <sl-input id="input3" name="input" required error-size="lg"></sl-input>
+      </form>
+    `;
+  }
+};
+
 export const InputTypes: StoryObj = {
   render: () => html`
     <style>

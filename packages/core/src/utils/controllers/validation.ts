@@ -45,17 +45,21 @@ export const validationStyles: CSSResultGroup = css`
     fill: var(--sl-color-text-field-invalid-focus-icon);
     --_size: 20px;
   }
-  :host([error-size='sm']),
-  slot[error-size='sm'] {
+  slot[part='error'][error-size='sm'] {
     font: var(--sl-text-input-helper-sm);
+    padding-top: var(--sl-space-helper-padding-top-sm);
+    // gap: var(--sl-space-helper-gap-sm);
   }
-  :host([error-size='md']),
-  slot[error-size='md'] {
+  slot[part='error'][error-size='md'] {
     font: var(--sl-text-input-helper-md);
+    padding-top: var(--sl-space-helper-padding-top-md);
+    // gap: var(--sl-space-helper-gap-md);
   }
-  :host([error-size='lg']),
-  slot[error-size='lg'] {
+  slot[part='error'][error-size='lg'] {
     font: var(--sl-text-input-helper-lg);
+    padding-top: var(--sl-space-helper-padding-top-lg);
+    // gap: var(--sl-space-helper-gap-lg);
+    // display: inline-flex;
   }
   slot[part='error']::slotted(sl-icon) {
     width: 20px;
@@ -364,15 +368,23 @@ export class ValidationController implements ReactiveController {
       /*const icon: Icon | null = !isNative(this.target)
         ? '<sl-icon class="invalid-icon" name="fas-triangle-exclamation" style="width: 20px; height: 20px; margin-right: `${var(--sl-space-group-md)}`;}"></sl-icon>'
         : null;*/
-      const icon =
-        '<sl-icon class="invalid-icon" name="fas-triangle-exclamation" style="width: 20px; height: 20px; margin-right: `${var(--sl-space-group-md)}`;}"></sl-icon>';
+      const iconSize = this.#messageSize === 'sm' ? 'md' : 'lg';
+      // const icon = '<sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>';
+      const icon = document.createElement('sl-icon');
+      icon.setAttribute('name', 'fas-triangle-exclamation');
+      icon.setAttribute('size', iconSize);
       // const icon = (new Icon().name = 'fas-triangle-exclamation') as Icon;
       //div.innerText = this.validationMessage;
       //icon = this.#icon();
       if (icon && !isNative(this.target)) {
-        div.append(icon as unknown as HTMLElement);
+        // (icon as unknown as Icon).size = iconSize;
+        div.append(icon);
+        const validationMessage = document.createTextNode(this.validationMessage);
+        div.appendChild(validationMessage);
+        console.log('iconn', icon);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/restrict-template-expressions
-        div.innerHTML = `${icon} ${this.validationMessage}`;
+        // div.innerHTML = `${icon} ${this.validationMessage}`;
+        // div.append(icon);
       } else {
         div.innerHTML = this.validationMessage;
       }

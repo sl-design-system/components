@@ -3,6 +3,8 @@ $sizes: sm, md, lg;
 :host {
   --_font-weight: 600;
   --_line-height: 24px;
+  font: var(--_font);
+  padding-bottom: var(--_padding-bottom);
 }
 
 :host {
@@ -17,6 +19,7 @@ $sizes: sm, md, lg;
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_font: var(--sl-text-input-text-#{$size}); // TODO: use exact token
+    --_font: var(--sl-text-input-label-#{$size}); // TODO: use exact token
+    --_padding-bottom: var(--sl-space-label-padding-bottom-#{$size});
   }
 }

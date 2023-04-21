@@ -933,7 +933,7 @@
       }
     },
     "core": {
-      "face-smiley": {
+      "face-smile": {
         "value": "face-smile",
         "type": "Icons",
         "description": "icon.core.face-smile"

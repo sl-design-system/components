@@ -26,7 +26,7 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
       rgb: { r, g, b }
     } = token.attributes;
 
-    return `${options.prefix}--${token.name}: ${r},${g},${b};`;
+    return `${options.prefix}--${token.name}: ${r} ${g} ${b};`;
   } else if (typeof value === 'object' && token.type === 'typography') {
     const [fontFamily, fontSize, fontWeight, lineHeight] = ['fontFamily', 'fontSize', 'fontWeight', 'lineHeight'].map(
       //FIXME remove Elvis operator, this should fail when there's no value.

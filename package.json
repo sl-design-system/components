@@ -184,6 +184,10 @@
       ],
       "dependencies": [
         {
+          "script": "build:components",
+          "cascade": false
+        },
+        {
           "script": "build:locales",
           "cascade": false
         },

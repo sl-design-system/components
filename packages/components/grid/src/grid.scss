@@ -4,6 +4,7 @@
   --_cell-background: #fff;
   --_cell-border: 1px solid #eee;
   --_cell-padding: 0.25rem 1rem;
+  --_font: var(--sl-text-body-md-normal);
   --_header-background: #fff;
   --_header-font-weight: 600;
   --_header-padding: 0.5rem 1rem;
@@ -15,6 +16,7 @@
   border: var(--_border);
   border-radius: var(--_border-radius);
   display: block;
+  font: var(--_font);
 }
 
 :host([no-border]) {

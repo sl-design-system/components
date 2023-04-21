@@ -790,7 +790,7 @@
         }
       }
     },
-    "text_field": {
+    "textField": {
       "fontIcon": {
         "md": {
           "value": {
@@ -978,7 +978,7 @@
         "type": "spacing"
       }
     },
-    "text_field": {
+    "textField": {
       "block": {
         "md": {
           "value": "{space.sm}",

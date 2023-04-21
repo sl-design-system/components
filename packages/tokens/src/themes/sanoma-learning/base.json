@@ -1017,7 +1017,8 @@
             "lineHeight": "{text.typeset.lineHeight.md}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
-          "type": "typography"
+          "type": "typography",
+          "description": "Is use in Radio and Checkbox"
         },
         "lg": {
           "value": {
@@ -1026,7 +1027,72 @@
             "lineHeight": "{text.typeset.lineHeight.lg}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
-          "type": "typography"
+          "type": "typography",
+          "description": "Is use in Radio and Checkbox"
+        },
+        "label": {
+          "sm": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.xl}"
+            },
+            "type": "typography",
+            "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+          }
+        },
+        "tag": {
+          "sm": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.xl}"
+            },
+            "type": "typography",
+            "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+          }
         }
       },
       "text": {
@@ -1082,7 +1148,7 @@
         }
       }
     },
-    "text_field": {
+    "textField": {
       "fontIcon": {
         "md": {
           "value": {

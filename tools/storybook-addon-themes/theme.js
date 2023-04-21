@@ -21,6 +21,6 @@ export const updateTheme = (theme,mode='light') => {
     });
   }
 
-  theme.setup?.();
+  theme?.setup?.();
 };
 

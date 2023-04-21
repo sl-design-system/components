@@ -465,7 +465,7 @@
           "description": "text.typeset.fontFamily.body"
         },
         "icon": {
-          "value": "Font Awesome 6 Pro",
+          "value": "{icon.fontFamily.classic}",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.fontIcon"
         }
@@ -968,8 +968,6 @@
       "fontIcon": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xxs}",
             "fontSize": 13
           },
@@ -977,8 +975,6 @@
         },
         "md": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xs}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -986,8 +982,6 @@
         },
         "lg": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -1255,7 +1249,7 @@
         "description": "border.radius.3xl"
       },
       "full": {
-        "value": "100%",
+        "value": "50rem",
         "type": "borderRadius",
         "description": "border.radius.full"
       }
@@ -1673,70 +1667,105 @@
     }
   },
   "icon": {
-    "base": {
-      "face-smile": {
-        "value": "{icon.core.fa-face_smile}",
-        "type": "Icons",
-        "description": "icon.base.face-smile"
+    "style": {
+      "outline": {
+        "value": "{text.typeset.fontWeight.icon-regular}",
+        "type": "fontWeights"
       },
-      "menu": {
-        "value": "{icon.core.fa-menu}",
-        "type": "Icons",
-        "description": "icon.base.menu"
-      },
-      "fav": {
-        "value": "{icon.custom.fav}",
-        "type": "Icons",
-        "description": "icon.base.fav"
-      },
-      "chevron-down": {
-        "value": "{icon.core.fa-chevron-down}",
-        "type": "Icons",
-        "description": "icon.base.fav"
-      },
-      "check": {
-        "value": "{icon.core.fa-check}",
-        "type": "Icons",
-        "description": "icon.base.check"
+      "solid": {
+        "value": "{text.typeset.fontWeight.icon-solid}",
+        "type": "fontWeights"
       }
     },
-    "custom": {
-      "fav": {
-        "value": "fav",
-        "type": "Icons",
-        "description": "icon.custom.fav"
+    "fontFamily": {
+      "classic": {
+        "value": "Font Awesome 6 Pro",
+        "type": "fontFamilies"
+      },
+      "sharp": {
+        "value": "Font Awesome 6 Sharp",
+        "type": "fontFamilies"
       }
-    },
-    "font-weight": {
-      "value": "{text.typeset.fontWeight.icon-regular}",
-      "type": "fontWeights",
-      "description": "icon.font-weight"
     },
     "core": {
-      "fa-face_smile": {
-        "value": "fa-face-smile",
+      "face-smile": {
+        "value": "face-smile",
         "type": "Icons",
-        "description": "icon.core.fa-face_smile"
+        "description": "icon.core.face-smile"
       },
-      "fa-menu": {
-        "value": "fa-bars",
+      "menu": {
+        "value": "bars",
         "type": "Icons",
-        "description": "icon.core.fa-menu"
+        "description": "icon.core.menu"
       },
-      "fa-fav": {
-        "value": "fa-star",
+      "fav": {
+        "value": "star",
         "type": "Icons",
-        "description": "icon.core.fa-fav"
+        "description": "icon.core.fav"
       },
-      "fa-chevron-down": {
-        "value": "fa-chevron-down",
+      "pinata": {
+        "value": "pinata",
         "type": "Icons",
-        "description": "icon.core.fa-chevron-down"
+        "description": "icon.core.pinata"
       },
-      "fa-check": {
-        "value": "fa-chevron-down",
+      "pinata-solid": {
+        "value": "pinata",
         "type": "Icons",
-        "description": "icon.core.fa-check"
+        "description": "icon.core.pinata"
+      },
+      "chevron-down": {
+        "value": "chevron-down",
+        "type": "Icons",
+        "description": "icon.core.chevron-down"
+      },
+      "check": {
+        "value": "chevron-down",
+        "type": "Icons",
+        "description": "icon.core.check"
+      }
+    },
+    "typeset": {
+      "fontSize": {
+        "xs": {
+          "value": "{size.xs}",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.xs"
+        },
+        "sm": {
+          "value": "{size.sm}",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.sm"
+        },
+        "md": {
+          "value": "{size.md}",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.md"
+        },
+        "lg": {
+          "value": "{size.lg}",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.lg"
+        },
+        "xl": {
+          "value": "{size.xl}",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.xl"
+        },
+        "2xl": {
+          "value": "{size.2xl}",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.2xl"
+        },
+        "3xl": {
+          "value": "{size.3xl}",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.3xl"
+        },
+        "4xl": {
+          "value": "{size.4xl}",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.4xl"
+        }
       }
     }
   },
@@ -1819,112 +1848,118 @@
       "description": "size.2xs"
     },
     "xs": {
-      "value": 16,
+      "value": 12,
       "type": "sizing",
       "description": "size.xs"
     },
     "sm": {
-      "value": 24,
+      "value": 14,
       "type": "sizing",
-      "description": "size.xs"
+      "description": "size.sm"
     },
     "md": {
-      "value": 32,
+      "value": 16,
       "type": "sizing",
       "description": "size.md"
     },
     "lg": {
-      "value": 40,
+      "value": 18,
       "type": "sizing",
       "description": "size.lg"
     },
     "xl": {
-      "value": 48,
+      "value": 24,
       "type": "sizing",
       "description": "size.xl"
     },
     "2xl": {
-      "value": 56,
+      "value": 32,
       "type": "sizing",
       "description": "size.2xl"
     },
     "3xl": {
-      "value": 64,
+      "value": 48,
       "type": "sizing",
       "description": "size.3xl"
     },
     "4xl": {
-      "value": 72,
+      "value": 64,
       "type": "sizing",
       "description": "size.4xl"
     },
     "input": {
       "md": {
-        "value": "{size.sm}",
+        "value": "{size.xl}",
         "type": "sizing",
         "description": "size.input.md"
       },
       "lg": {
-        "value": "{size.md}",
+        "value": "{size.2xl}",
         "type": "sizing",
         "description": "size.input.lg"
       }
     },
-    "button": {
-      "icon": {
-        "sm": {
-          "value": "{text.typeset.lineHeight.xxs}",
-          "type": "sizing"
-        },
-        "md": {
-          "value": "{text.typeset.lineHeight.xs}",
-          "type": "sizing"
-        },
-        "lg": {
-          "value": "{text.typeset.lineHeight.sm}",
-          "type": "sizing"
-        }
+    "icon": {
+      "xs": {
+        "value": "{size.xs}",
+        "type": "sizing"
       },
+      "sm": {
+        "value": "{size.sm}",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "{size.md}",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "{size.lg}",
+        "type": "sizing"
+      },
+      "xl": {
+        "value": "{size.xl}",
+        "type": "sizing"
+      },
+      "2xl": {
+        "value": "{size.2xl}",
+        "type": "sizing"
+      },
+      "3xl": {
+        "value": "{size.3xl}",
+        "type": "sizing"
+      },
+      "4xl": {
+        "value": "{size.4xl}",
+        "type": "sizing"
+      }
+    },
+    "button": {
       "icon-container": {
         "icon-only": {
           "sm": {
+            "value": "{size.md}",
+            "type": "sizing"
+          },
+          "md": {
+            "value": "{size.md}",
+            "type": "sizing"
+          },
+          "lg": {
+            "value": "{size.xl}",
+            "type": "sizing"
+          }
+        },
+        "inline": {
+          "sm": {
             "value": "{size.xs}",
             "type": "sizing"
           },
           "md": {
-            "value": "{size.xs}",
-            "type": "sizing"
-          },
-          "lg": {
             "value": "{size.sm}",
             "type": "sizing"
-          }
-        },
-        "height": {
-          "sm": {
-            "value": "{button.label.sm}",
-            "type": "sizing"
-          },
-          "md": {
-            "value": "{button.label.md}",
-            "type": "sizing"
           },
           "lg": {
-            "value": "{button.label.lg}",
-            "type": "sizing"
-          }
-        },
-        "width": {
-          "sm": {
-            "value": "{size.button.icon.sm}",
-            "type": "sizing"
-          },
-          "md": {
-            "value": "{size.button.icon.md}",
-            "type": "sizing"
-          },
-          "lg": {
-            "value": "{size.button.icon.lg}",
+            "value": "{size.md}",
             "type": "sizing"
           }
         }

@@ -28,12 +28,12 @@
           "description": "color.palette.primary.300"
         },
         "400": {
-          "value": "#A47CCF",
+          "value": "#9F5F9D",
           "type": "color",
           "description": "color.palette.primary.400"
         },
         "500": {
-          "value": "#9261C6",
+          "value": "#8E6CB1",
           "type": "color",
           "description": "color.palette.primary.500"
         },
@@ -53,7 +53,7 @@
           "description": "color.palette.primary.800"
         },
         "900": {
-          "value": "#391F54",
+          "value": "#40235F",
           "type": "color",
           "description": "color.palette.primary.900"
         },
@@ -95,7 +95,7 @@
           "description": "color.palette.accent.400"
         },
         "500": {
-          "value": "#C36106",
+          "value": "#DB7109",
           "type": "color",
           "description": "color.palette.accent.500"
         },
@@ -132,7 +132,7 @@
           "description": "color.palette.neutral.50"
         },
         "100": {
-          "value": "#EFEFF0",
+          "value": "#F5F5F6",
           "type": "color",
           "description": "color.palette.neutral.100"
         },
@@ -142,42 +142,42 @@
           "description": "color.palette.neutral.150"
         },
         "200": {
-          "value": "#C8C8CC",
+          "value": "#E2E2E4",
           "type": "color",
           "description": "color.palette.neutral.200"
         },
         "300": {
-          "value": "#B1B1B6",
+          "value": "#CECFD2",
           "type": "color",
           "description": "color.palette.neutral.300"
         },
         "400": {
-          "value": "#9A9AA1",
+          "value": "#B1B2B7",
           "type": "color",
           "description": "color.palette.neutral.400"
         },
         "500": {
-          "value": "#85858D",
+          "value": "#95969D",
           "type": "color",
           "description": "color.palette.neutral.500"
         },
         "600": {
-          "value": "#72727A",
+          "value": "#6D6E73",
           "type": "color",
           "description": "color.palette.neutral.600"
         },
         "700": {
-          "value": "#606067",
+          "value": "#444548",
           "type": "color",
           "description": "color.palette.neutral.700"
         },
         "800": {
-          "value": "#515157",
+          "value": "#29292B",
           "type": "color",
           "description": "color.palette.neutral.800"
         },
         "900": {
-          "value": "#3C3C40",
+          "value": "#0E0E0F",
           "type": "color",
           "description": "color.palette.neutral.900"
         },
@@ -194,7 +194,7 @@
           "description": "color.palette.info.50"
         },
         "100": {
-          "value": "#E6EDF9",
+          "value": "#F0F4F6",
           "type": "color",
           "description": "color.palette.info.100"
         },
@@ -204,7 +204,7 @@
           "description": "color.palette.info.150"
         },
         "200": {
-          "value": "#A7C1EA",
+          "value": "#91BFF4",
           "type": "color",
           "description": "color.palette.info.200"
         },
@@ -239,7 +239,7 @@
           "description": "color.palette.info.800"
         },
         "900": {
-          "value": "#142B52",
+          "value": "#0C1C65",
           "type": "color",
           "description": "color.palette.info.900"
         },
@@ -256,7 +256,7 @@
           "description": "color.palette.success.50"
         },
         "100": {
-          "value": "#DDF1E9",
+          "value": "#ECF1EC",
           "type": "color",
           "description": "color.palette.success.100"
         },
@@ -286,7 +286,7 @@
           "description": "color.palette.success.500"
         },
         "600": {
-          "value": "#157250",
+          "value": "#306B34",
           "type": "color",
           "description": "color.palette.success.600"
         },
@@ -318,7 +318,7 @@
           "description": "color.palette.warning.50"
         },
         "100": {
-          "value": "#FFF8D1",
+          "value": "#FEF7EB",
           "type": "color",
           "description": "color.palette.warning.100"
         },
@@ -380,7 +380,7 @@
           "description": "color.palette.danger.50"
         },
         "100": {
-          "value": "#FCE7E7",
+          "value": "#FDF2F2",
           "type": "color",
           "description": "color.palette.danger.100"
         },
@@ -465,7 +465,7 @@
           "description": "text.typeset.fontFamily.body"
         },
         "icon": {
-          "value": "Font Awesome 6 Pro",
+          "value": "{icon.fontFamily.classic}",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.fontIcon"
         }
@@ -716,8 +716,6 @@
       "fontIcon": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xxs}",
             "fontSize": "13"
           },
@@ -725,8 +723,6 @@
         },
         "md": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xs}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -734,8 +730,6 @@
         },
         "lg": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -1045,44 +1039,15 @@
     }
   },
   "icon": {
-    "base": {
-      "face-smile": {
-        "value": "{icon.core.fa-face_smile}",
-        "type": "Icons",
-        "description": "icon.base.face-smile"
+    "style": {
+      "outline": {
+        "value": "{text.typeset.fontWeight.icon-regular}",
+        "type": "fontWeights"
       },
-      "menu": {
-        "value": "{icon.core.fa-menu}",
-        "type": "Icons",
-        "description": "icon.base.menu"
-      },
-      "fav": {
-        "value": "{icon.custom.fav}",
-        "type": "Icons",
-        "description": "icon.base.fav"
-      },
-      "chevron-down": {
-        "value": "{icon.core.fa-chevron-down}",
-        "type": "Icons",
-        "description": "icon.base.fav"
-      },
-      "check": {
-        "value": "{icon.core.fa-check}",
-        "type": "Icons",
-        "description": "icon.base.check"
+      "solid": {
+        "value": "{text.typeset.fontWeight.icon-solid}",
+        "type": "fontWeights"
       }
-    },
-    "custom": {
-      "fav": {
-        "value": "fav",
-        "type": "Icons",
-        "description": "icon.custom.fav"
-      }
-    },
-    "font-weight": {
-      "value": "{text.typeset.fontWeight.icon-regular}",
-      "type": "fontWeights",
-      "description": "icon.font-weight"
     }
   }
 }

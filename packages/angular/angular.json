@@ -38,7 +38,9 @@
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "browserTarget": "angular-core:build-storybook",
-            "port": 6007,
+            "ci": true,
+            "compodoc": false,
+            "port": 6010,
             "quiet": true
           }
         },
@@ -46,13 +48,7 @@
           "builder": "@storybook/angular:build-storybook",
           "options": {
             "browserTarget": "angular-core:build-storybook",
-            "quiet": true
-          }
-        },
-        "docs": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "browserTarget": "angular-core:build",
+            "compodoc": false,
             "outputDir": "../../docs/dist/angular",
             "quiet": true
           }

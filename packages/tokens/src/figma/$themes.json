@@ -1,6 +1,6 @@
 [
   {
-    "id": "dbf699c87fe5fc210bf698833079d033caf0f12d",
+    "id": "bbf49d078873187233841390f8c0ea3c266e50e1",
     "name": "bingel/light",
     "selectedTokenSets": {
       "core": "enabled",
@@ -1571,5 +1571,15 @@
       "text.input.text.lg": "S:907cd9e39d172f46f27da01e830ebbcb9532553e,",
       "boxShadow.none": "S:fdb170d403971d1746c1aecf4e7034ae8f7c880e,"
     }
+  },
+  {
+    "id": "60a68a937863627cbe44b73f4c022517333e0de6",
+    "name": "neon/dark",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "neon/base": "enabled",
+      "neon/dark": "enabled"
+    },
+    "$figmaStyleReferences": {}
   }
 ]

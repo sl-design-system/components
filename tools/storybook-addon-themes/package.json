@@ -13,15 +13,16 @@
   "exports": {
     ".": "./index.js",
     "./manager": "./manager.js",
-    "./preset": "./preset.js"
+    "./preset": "./preset.js",
+    "./preview": "./preview.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@storybook/addons": "^7.0.0-beta.60",
-    "@storybook/api": "^7.0.0-beta.60",
-    "@storybook/components": "^7.0.0-beta.60",
-    "@storybook/theming": "^7.0.0-beta.60"
+    "@storybook/addons": "^7.0.4",
+    "@storybook/api": "^7.0.4",
+    "@storybook/components": "^7.0.4",
+    "@storybook/theming": "^7.0.4"
   }
 }

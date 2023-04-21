@@ -102,7 +102,8 @@ export class Label extends LitElement {
       this.#label.innerHTML = '';
       this.#label.append(...nodes);
     } else {
-      this.#label ??= this.querySelector('label[slot="label"]') || document.createElement('label');
+      // Workaround for `??=` output missing parens around OR statement
+      this.#label = this.#label ?? (this.querySelector('label[slot="label"]') || document.createElement('label'));
       this.#label.htmlFor = this.#formControlId ?? '';
       this.#label.slot = 'label';
       this.#label.append(...nodes);

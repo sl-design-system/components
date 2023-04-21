@@ -444,7 +444,7 @@
       },
       "white": {
         "base": {
-          "value": "#F9F9F9",
+          "value": "#FFFFFF",
           "type": "color",
           "description": "color.palette.white.base"
         }
@@ -455,12 +455,12 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Open Sans",
+          "value": "Lato",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },
         "body": {
-          "value": "Open Sans",
+          "value": "Lato",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.body"
         },
@@ -940,7 +940,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
@@ -949,7 +949,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.md}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -958,7 +958,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.lg}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -1079,17 +1079,17 @@
   "borderRadius": {
     "button": {
       "sm": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "md": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "lg": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
@@ -1140,7 +1140,7 @@
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.none}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.link"
         }

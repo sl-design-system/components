@@ -463,7 +463,7 @@
     --sl-color-button-danger-outline-hover-background: rgb(var(--sl-color-palette-danger-50));
     --sl-color-button-danger-outline-idle-border: rgb(var(--sl-color-palette-danger-300));
     --sl-color-button-danger-outline-idle-foreground: rgb(var(--sl-color-palette-danger-600));
-    --sl-color-button-danger-outline-idle-background: rgba(var(--sl-color-palette-danger-base), 0);
+    --sl-color-button-danger-outline-idle-background: rgba(var(--sl-color-palette-danger-base) / 0);
     --sl-color-button-danger-default-disabled-border: rgb(var(--sl-color-palette-danger-150));
     --sl-color-button-danger-default-disabled-foreground: rgb(var(--sl-color-palette-danger-300));
     --sl-color-button-danger-default-disabled-background: rgb(var(--sl-color-palette-danger-150));
@@ -535,7 +535,7 @@
     --sl-color-button-success-default-idle-background: rgb(var(--sl-color-palette-success-200));
     --sl-color-button-primary-outline-disabled-border: rgb(var(--sl-color-palette-primary-200));
     --sl-color-button-primary-outline-disabled-foreground: rgb(var(--sl-color-palette-primary-200));
-    --sl-color-button-primary-outline-disabled-background: rgba(var(--sl-color-palette-primary-base), 0);
+    --sl-color-button-primary-outline-disabled-background: rgba(var(--sl-color-palette-primary-base) / 0);
     --sl-color-button-primary-outline-focus-border: rgb(var(--sl-color-palette-info-base));
     --sl-color-button-primary-outline-focus-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-color-button-primary-outline-active-border: rgb(var(--sl-color-palette-black-base));

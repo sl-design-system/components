@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { CustomIconDefinition, IconDefinition, IconLibrary, IconStyle } from './models.js';
+import type { IconDefinition, IconLibrary, IconStyle } from './models.js';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
@@ -12,6 +12,8 @@ declare global {
     };
   }
 }
+
+export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 window.SLDS ||= { icons: {} };
 
@@ -30,7 +32,7 @@ export class Icon extends LitElement {
    */
   static registerIcon(...faIcons: IconDefinition[]): void {
     // TODO: find a better (and more universal) way to only log these kind of warnings in dev mode
-    let isDevMode = location.hostname === 'localhost';
+    const isDevMode = location.hostname === 'localhost';
 
     faIcons.forEach(icon => {
       if (window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] && isDevMode) {
@@ -65,6 +67,9 @@ export class Icon extends LitElement {
   /** The name of the icon to show. */
   @property() name?: string;
 
+  /** Icon size. */
+  @property({ reflect: true }) size: IconSize = 'md';
+
   get icons(): IconLibrary {
     return window.SLDS.icons;
   }
@@ -94,6 +99,6 @@ export class Icon extends LitElement {
   }
 
   #resolve(name: string): string {
-    return this.icons[name] ? (this.icons[name] as CustomIconDefinition).svg : this.iconNotDef;
+    return this.icons[name] ? this.icons[name].svg : this.iconNotDef;
   }
 }

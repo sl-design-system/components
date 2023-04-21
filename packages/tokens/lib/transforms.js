@@ -39,7 +39,7 @@ export const boxShadow = {
   transitive: true,
   matcher: token => token.type === 'boxShadow',
   transformer: token => {
-    return `${token.value.x}px ${token.value.y}px ${token.value.blur}px ${token.value.spread}px ${token.value.color.replace(',', '/')}`;
+    return `${token.value.x}px ${token.value.y}px ${token.value.blur}px ${token.value.spread}px ${token.value.color.replace(',','/')}`;
   }
 };
 

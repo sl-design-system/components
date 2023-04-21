@@ -1,5 +1,5 @@
 export declare const icons: {
-    face_smile: {
+    "face-smile": {
         value: string;
         type: string;
         description: string;

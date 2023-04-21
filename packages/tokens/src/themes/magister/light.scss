@@ -264,7 +264,7 @@
   --sl-color-button-default-default-hover-background: rgb(var(--sl-color-palette-primary-50));
   --sl-color-button-default-default-idle-border: rgb(var(--sl-color-palette-primary-600));
   --sl-color-button-default-default-idle-foreground: rgb(var(--sl-color-palette-primary-600));
-  --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base), var(--sl-opacity-500));
+  --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
   --sl-color-input-valid-checked-disabled-border: var(--sl-color-input-valid-checked-disabled-background);
   --sl-color-input-valid-checked-focus-border: var(--sl-color-input-valid-checked-focus-background);

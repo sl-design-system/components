@@ -18,21 +18,41 @@ export const API: StoryObj = {
     prefix: '',
     required: false,
     suffix: '',
-    value: ''
+    value: '',
+    readonly: false,
+    size: 'md'
   },
   argTypes: {
     maxLength: { type: 'number' },
-    minLength: { type: 'number' }
+    minLength: { type: 'number' },
+    size: {
+      control: 'inline-radio',
+      options: ['md', 'lg']
+    }
   },
-  render: ({ disabled, hint, maxLength, minLength, placeholder, prefix, required, suffix, value }) => html`
+  render: ({
+    disabled,
+    hint,
+    maxLength,
+    minLength,
+    placeholder,
+    prefix,
+    required,
+    suffix,
+    value,
+    readonly,
+    size
+  }) => html`
     <sl-input
       ?disabled=${disabled}
       ?required=${required}
       .hint=${hint}
+      .size=${size}
       .maxLength=${maxLength}
       .minLength=${minLength}
       .placeholder=${placeholder}
       .value=${value}
+      ?readonly=${readonly}
     >
       ${prefix ? html`<span slot="prefix">${prefix}</span>` : ''}
       ${suffix ? html`<span slot="suffix">${suffix}</span>` : ''}

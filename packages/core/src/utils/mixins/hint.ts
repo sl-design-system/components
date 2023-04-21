@@ -17,7 +17,8 @@ export const hintStyles: CSSResultGroup = css`
   slot[name='hint'] {
     color: var(--sl-color-helper-text-default); //blue;
   }
-  slot[name='hint'][disabled] {
+  slot[name='hint'][disabled],
+  slot[name='hint']:disabled {
     color: var(--sl-color-helper-text-disabled);
   }
   slot[hintsize='sm'] {
@@ -39,7 +40,10 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     /** The hint size. */
     @property() hintSize: LabelSize = 'md';
 
-    // TODO: disabled attribute
+    /** The hint disabled state. */
+    #disabled = false;
+
+    // TODO: disabled attribute or detect host disabled
 
     // TODO: add sm / md / lg sizes of hint
 
@@ -56,13 +60,26 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     }
 
     renderHint(): TemplateResult {
-      console.log('render hint');
-      return html`<slot @slotchange=${() => this.#updateHint()} name="hint" hintSize="${this.hintSize}"></slot>`;
+      const input = this.querySelector('input, textarea');
+      if (input?.hasAttribute('disabled')) {
+        this.#disabled = true;
+      }
+
+      console.log('render hint', input, input?.hasAttribute('disabled'));
+      return html`<slot
+          @slotchange=${() => this.#updateHint()}
+          name="hint"
+          hintSize="${this.hintSize}"
+          disabled=${this.#disabled}
+        ></slot
+        >${this.#disabled}`;
     }
 
     #updateHint(): void {
       const input = this.querySelector('input, textarea'),
         hint = this.querySelector('[slot="hint"]');
+
+      console.log('hint 2', hint, this.hint);
 
       console.log(
         hint?.hasAttribute('hintsize'),
@@ -102,6 +119,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
         //input?.setAttribute('aria-describedby', hint.id);
         if (input?.hasAttribute('disabled')) {
           hint.setAttribute('disabled', '');
+          this.#disabled = true;
         }
       } else if (this.hint) {
         const div = document.createElement('div');
@@ -110,6 +128,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
         div.slot = 'hint';
         if (this.hasAttribute('disabled')) {
           div.setAttribute('disabled', '');
+          this.#disabled = true;
         }
         this.append(div);
       } /*else {

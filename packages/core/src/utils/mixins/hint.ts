@@ -15,7 +15,10 @@ let nextUniqueId = 0;
 
 export const hintStyles: CSSResultGroup = css`
   slot[name='hint'] {
-    color: blue;
+    color: var(--sl-color-helper-text-default); //blue;
+  }
+  slot[name='hint'][disabled] {
+    color: var(--sl-color-helper-text-disabled);
   }
   slot[hintsize='sm'] {
     font: var(--sl-text-input-helper-sm);
@@ -35,6 +38,8 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
 
     /** The hint size. */
     @property() hintSize: LabelSize = 'md';
+
+    // TODO: disabled attribute
 
     // TODO: add sm / md / lg sizes of hint
 

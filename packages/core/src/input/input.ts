@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { MessageSize, Validator } from '../utils/index.js';
+import type { Validator } from '../utils/index.js';
 import { faCircleCheck, faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import { Icon } from '@sanomalearning/slds-core/icon';
 import { LitElement, html } from 'lit';
@@ -51,7 +51,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     click: this.#onClick
   });
 
-  #errorSize: MessageSize = 'lg';
+  // #errorSize: MessageSize = 'lg';
 
   #validation = new ValidationController(this, {
     target: () => this.input //,

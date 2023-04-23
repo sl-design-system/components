@@ -1,146 +1,129 @@
-import type { ButtonFill, ButtonSize, ButtonVariant } from './button.js';
+import type { Button, ButtonFill, ButtonSize, ButtonVariant } from './button.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/icon/register.js';
 import { html } from 'lit';
 import '../register.js';
 
-interface Props {
-  fill: ButtonFill;
-  size: ButtonSize;
+interface Props extends Pick<Button, 'fill' | 'size' | 'variant'> {
+  icon: string;
   text: string;
-  variant: ButtonVariant;
+  disabled: boolean;
 }
 
 type Story = StoryObj<Props>;
 
+const fills: ButtonFill[] = ['default', 'outline', 'link'];
+const variants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
+const disabledStates = [false, true];
+const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
+
 export default {
   title: 'Button',
   args: {
-    fill: 'default',
-    size: 'md',
     text: 'Button',
+    icon: 'none',
+    size: 'md',
+    fill: 'default',
     variant: 'default'
   },
   argTypes: {
-    fill: {
-      control: 'inline-radio',
-      options: ['default', 'outline']
-    },
     size: {
       control: 'inline-radio',
-      options: ['sm', 'md', 'lg']
+      options: sizes
+    },
+    icon: {
+      control: 'inline-radio',
+      options: ['start', 'end', 'none']
+    },
+    fill: {
+      control: 'inline-radio',
+      options: fills
     },
     variant: {
       control: 'radio',
-      options: ['default', 'primary', 'success', 'warning', 'danger']
+      options: variants
     }
   },
-  render: ({ fill, size, text, variant }) =>
-    html`<sl-button .fill=${fill} .size=${size} .variant=${variant}>${text}</sl-button>`
+  render: ({ fill, size, text, variant, icon }) => {
+    const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
+    const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
+
+    return html`<sl-button .fill=${fill} .size=${size} .variant=${variant}>${startIcon}${text}${endIcon}</sl-button>`;
+  }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
 export const All: Story = {
-  render: () => html`
-    <style>
-      .grid {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        justify-items: center;
-      }
-    </style>
-    <div class="grid">
-      <sl-button fill="default" size="sm">Default</sl-button>
-      <sl-button fill="default" size="sm" variant="primary">Primary</sl-button>
-      <sl-button fill="default" size="sm" variant="success">Success</sl-button>
-      <sl-button fill="default" size="sm" variant="warning">Warning</sl-button>
-      <sl-button fill="default" size="sm" variant="danger">Danger</sl-button>
+  render: ({ icon, size, text }) => {
+    const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
+    const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
+    return html` <style>
+        table {
+          border-collapse: collapse;
+        }
 
-      <sl-button disabled fill="default" size="sm">Default</sl-button>
-      <sl-button disabled fill="default" size="sm" variant="primary">Primary</sl-button>
-      <sl-button disabled fill="default" size="sm" variant="success">Success</sl-button>
-      <sl-button disabled fill="default" size="sm" variant="warning">Warning</sl-button>
-      <sl-button disabled fill="default" size="sm" variant="danger">Danger</sl-button>
+        th {
+          text-transform: capitalize;
+        }
+        th,
+        td {
+          padding: 4px 8px;
+        }
+        thead td {
+          text-align: center;
+        }
 
-      <sl-button fill="outline" size="sm">Default</sl-button>
-      <sl-button fill="outline" size="sm" variant="primary">Primary</sl-button>
-      <sl-button fill="outline" size="sm" variant="success">Success</sl-button>
-      <sl-button fill="outline" size="sm" variant="warning">Warning</sl-button>
-      <sl-button fill="outline" size="sm" variant="danger">Danger</sl-button>
-
-      <sl-button disabled fill="outline" size="sm">Default</sl-button>
-      <sl-button disabled fill="outline" size="sm" variant="primary">Primary</sl-button>
-      <sl-button disabled fill="outline" size="sm" variant="success">Success</sl-button>
-      <sl-button disabled fill="outline" size="sm" variant="warning">Warning</sl-button>
-      <sl-button disabled fill="outline" size="sm" variant="danger">Danger</sl-button>
-
-      <sl-button fill="default" size="md">Default</sl-button>
-      <sl-button fill="default" size="md" variant="primary">Primary</sl-button>
-      <sl-button fill="default" size="md" variant="success">Success</sl-button>
-      <sl-button fill="default" size="md" variant="warning">Warning</sl-button>
-      <sl-button fill="default" size="md" variant="danger">Danger</sl-button>
-
-      <sl-button disabled fill="default" size="md">Default</sl-button>
-      <sl-button disabled fill="default" size="md" variant="primary">Primary</sl-button>
-      <sl-button disabled fill="default" size="md" variant="success">Success</sl-button>
-      <sl-button disabled fill="default" size="md" variant="warning">Warning</sl-button>
-      <sl-button disabled fill="default" size="md" variant="danger">Danger</sl-button>
-
-      <sl-button fill="outline" size="md">Default</sl-button>
-      <sl-button fill="outline" size="md" variant="primary">Primary</sl-button>
-      <sl-button fill="outline" size="md" variant="success">Success</sl-button>
-      <sl-button fill="outline" size="md" variant="warning">Warning</sl-button>
-      <sl-button fill="outline" size="md" variant="danger">Danger</sl-button>
-
-      <sl-button disabled fill="outline" size="md">Default</sl-button>
-      <sl-button disabled fill="outline" size="md" variant="primary">Primary</sl-button>
-      <sl-button disabled fill="outline" size="md" variant="success">Success</sl-button>
-      <sl-button disabled fill="outline" size="md" variant="warning">Warning</sl-button>
-      <sl-button disabled fill="outline" size="md" variant="danger">Danger</sl-button>
-
-      <sl-button fill="default" size="lg">Default</sl-button>
-      <sl-button fill="default" size="lg" variant="primary">Primary</sl-button>
-      <sl-button fill="default" size="lg" variant="success">Success</sl-button>
-      <sl-button fill="default" size="lg" variant="warning">Warning</sl-button>
-      <sl-button fill="default" size="lg" variant="danger">Danger</sl-button>
-
-      <sl-button disabled fill="default" size="lg">Default</sl-button>
-      <sl-button disabled fill="default" size="lg" variant="primary">Primary</sl-button>
-      <sl-button disabled fill="default" size="lg" variant="success">Success</sl-button>
-      <sl-button disabled fill="default" size="lg" variant="warning">Warning</sl-button>
-      <sl-button disabled fill="default" size="lg" variant="danger">Danger</sl-button>
-
-      <sl-button fill="outline" size="lg">Default</sl-button>
-      <sl-button fill="outline" size="lg" variant="primary">Primary</sl-button>
-      <sl-button fill="outline" size="lg" variant="success">Success</sl-button>
-      <sl-button fill="outline" size="lg" variant="warning">Warning</sl-button>
-      <sl-button fill="outline" size="lg" variant="danger">Danger</sl-button>
-
-      <sl-button disabled fill="outline" size="lg">Default</sl-button>
-      <sl-button disabled fill="outline" size="lg" variant="primary">Primary</sl-button>
-      <sl-button disabled fill="outline" size="lg" variant="success">Success</sl-button>
-      <sl-button disabled fill="outline" size="lg" variant="warning">Warning</sl-button>
-      <sl-button disabled fill="outline" size="lg" variant="danger">Danger</sl-button>
-    </div>
-  `
-};
-
-export const Fills: Story = {
-  argTypes: {
-    fill: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: ({ size, variant }) => html`
-    <sl-button-bar>
-      <sl-button fill="default" .size=${size} .variant=${variant}>Default</sl-button>
-      <sl-button fill="outline" .size=${size} .variant=${variant}>Outline</sl-button>
-    </sl-button-bar>
-  `
+        tbody td:nth-of-type(4n) {
+          border-right: 2px solid #dedede;
+          padding-right: 24px;
+        }
+        tbody td:nth-of-type(4n + 1):not(:first-of-type) {
+          padding-left: 24px;
+        }
+        tbody td:last-of-type {
+          border: none;
+        }
+      </style>
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            ${fills.map(fill => html`<th colspan="4">${fill}</th>`)}
+          </tr>
+          <tr>
+            <td></td>
+            ${fills.map(_ =>
+              disabledStates.map(disabledState => html` <td colspan="2">${disabledState ? 'Disabled' : 'Enabled'}</td>`)
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          ${variants.map(
+            variant => html`
+              <tr>
+                <th>${variant}</th>
+                ${fills.map(fill =>
+                  disabledStates.map(
+                    disabledState => html` <td>
+                        <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} .variant=${variant}>
+                          ${startIcon}${text}${endIcon}
+                        </sl-button>
+                      </td>
+                      <td>
+                        <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} .variant=${variant}>
+                          <sl-icon name="face-smile"></sl-icon>
+                        </sl-button>
+                      </td>`
+                  )
+                )}
+              </tr>
+            `
+          )}
+        </tbody>
+      </table>`;
+  }
 };
 
 export const Sizes: Story = {
@@ -152,42 +135,27 @@ export const Sizes: Story = {
     }
   },
   render: ({ fill, variant }) => html`
-    <sl-button-bar>
-      <sl-button .fill=${fill} size="sm" .variant=${variant}>Small</sl-button>
-      <sl-button .fill=${fill} size="md" .variant=${variant}>Medium</sl-button>
-      <sl-button .fill=${fill} size="lg" .variant=${variant}>Large</sl-button>
-    </sl-button-bar>
-  `
-};
-
-export const Variants: Story = {
-  argTypes: {
-    variant: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: ({ fill, size }) => html`
     <style>
       .grid {
         display: inline-grid;
         gap: 1rem;
-        grid-template-columns: 1fr 1fr;
-        justify-items: center;
+        grid-template-columns: repeat(4, max-content);
+        justify-items: start;
       }
     </style>
     <div class="grid">
-      <sl-button .fill=${fill} .size=${size}>Default</sl-button>
-      <sl-button .fill=${fill} .size=${size} disabled>Disabled</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="primary">Primary</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="primary" disabled>Disabled</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="success">Success</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="success" disabled>Disabled</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="warning">Warning</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="warning" disabled>Disabled</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="danger">Danger</sl-button>
-      <sl-button .fill=${fill} .size=${size} variant="danger" disabled>Disabled</sl-button>
+      ${sizes.map(
+        size => html`
+          <sl-button .fill=${fill} .size=${size} .variant=${variant}><sl-icon name="face-smile"></sl-icon></sl-button>
+          <sl-button .fill=${fill} .size=${size} .variant=${variant}
+            ><sl-icon name="face-smile"></sl-icon> Icon ${size}</sl-button
+          >
+          <sl-button .fill=${fill} .size=${size} .variant=${variant}
+            >Icon ${size}<sl-icon name="face-smile"></sl-icon
+          ></sl-button>
+          <sl-button .fill=${fill} .size=${size} .variant=${variant}>${size}</sl-button>
+        `
+      )}
     </div>
   `
 };

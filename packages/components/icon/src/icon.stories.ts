@@ -1,3 +1,4 @@
+import type { IconSize } from './icon.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
@@ -7,25 +8,63 @@ import { html } from 'lit';
 import { Icon } from './icon.js';
 import '../register.js';
 
-interface Props extends Pick<Icon, 'label' | 'name'> {
+interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
   icons: string[];
 }
+
+const sizes: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+
+const sizeName = (size: IconSize): string => {
+  switch (size) {
+    case 'sm':
+      return 'Small';
+    case 'md':
+      return 'Medium';
+    case 'lg':
+      return 'Large';
+    case 'xl':
+      return 'Extra Large';
+    case '2xl':
+      return '2 Extra Large';
+    case '3xl':
+      return '3 Extra Large';
+    case '4xl':
+      return '4 Extra Large';
+    default:
+      return 'Extra Small';
+  }
+};
 
 export default {
   title: 'Icon',
   args: {
     icons: Object.keys(window.SLDS.icons)
   },
+  argTypes: {
+    icons: {
+      control: {
+        type: null
+      }
+    }
+  },
   render: ({ icons }) => {
     return html`
       <style>
         section {
-          display: flex;
+          display: grid;
+          grid-auto-columns: var(--sl-size-icon-4xl);
           gap: 8px;
+          grid-auto-flow: column;
+          justify-items: center;
         }
       </style>
       <h2>System and custom icons:</h2>
-      <section>${icons.map(i => html`<sl-icon .name=${i}></sl-icon>`)}</section>
+      ${sizes.map(
+        size => html`
+          <h3>${sizeName(size)}</h3>
+          <section>${icons.map(i => html`<sl-icon .name=${i} .size=${size}></sl-icon>`)}</section>
+        `
+      )}
       <h2>Referring to a non-existing icon:</h2>
       <section><sl-icon name="sl-non-existent"></sl-icon></section>
     `;
@@ -48,7 +87,7 @@ export const RegisterAdditionalIcons: Story = {
     Icon.registerIcon(falPinata, fasPinata);
 
     return html`
-    <style>
+      <style>
         section {
           display: flex;
           gap: 8px;

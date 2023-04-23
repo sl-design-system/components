@@ -2,7 +2,7 @@ import type { Button, ButtonType } from './button.js';
 import { expect, fixture } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { restore, stub } from 'sinon';
+import { restore, spy, stub } from 'sinon';
 import '../register.js';
 
 describe('sl-button', () => {
@@ -70,6 +70,51 @@ describe('sl-button', () => {
     });
   });
 
+  describe('icon', () => {
+    describe('icon only, directly in button', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-button><sl-icon name="star"></sl-icon></sl-button>`);
+      });
+
+      it('should have an icon-only attribute', () => {
+        expect(el).to.have.attribute('icon-only');
+      });
+
+      it('should have an the same size as the button', () => {
+        expect(el.querySelector('sl-icon')).to.have.attribute('size','md');
+      });
+    });
+
+    describe('icon only, wrapped in container', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-button><span><sl-icon name="star"></sl-icon></span>
+          </sl-button>`);
+      });
+
+      it('should have an icon-only attribute', () => {
+        expect(el).to.have.attribute('icon-only');
+      });
+
+      it('should have an the same size as the button', () => {
+        expect(el.querySelector('sl-icon')).to.have.attribute('size','md');
+      });
+    });
+
+    describe('icon combined with text', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-button size="lg"><sl-icon name="star"></sl-icon> You're a star</sl-button>`);
+      });
+      
+      it('should not have an icon-only attribute', () => {
+        expect(el).not.to.have.attribute('icon-only');
+      });
+
+      it('should have an the same size as the button', () => {
+        expect(el.querySelector('sl-icon')).to.have.attribute('size','lg');
+      });
+    });
+  });
+
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-button>Hello world</sl-button>`);
@@ -91,6 +136,20 @@ describe('sl-button', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('tabindex', '-1');
+    });
+
+    it('should not emit a click event when the button is disabled', async () => {
+      const clickEvent = new Event('click');
+      const preventDefaultSpy = spy(clickEvent,'preventDefault');
+      const stopPropagationSpy = spy(clickEvent,'stopPropagation');
+      
+      el.setAttribute('disabled', '');
+      await el.updateComplete;
+      
+      el.dispatchEvent(clickEvent);
+      
+      expect(preventDefaultSpy).to.have.been.called;
+      expect(stopPropagationSpy).to.have.been.called;
     });
   });
 

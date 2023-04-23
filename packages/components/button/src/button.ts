@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { EventsController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -6,7 +6,7 @@ import styles from './button.scss.js';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-export type ButtonFill = 'default' | 'outline' | 'pill';
+export type ButtonFill = 'default' | 'outline' | 'link';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
@@ -56,16 +56,24 @@ export class Button extends LitElement {
     }
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('size')) {
+      this.#setIconProperties(Array.from(this.childNodes));
+    }
+  }
+
+  override render(): TemplateResult {
+    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
+  }
+
   formDisabledCallback(disabled: boolean): void {
     if (disabled) {
       this.originalTabIndex = this.tabIndex;
     }
 
     this.tabIndex = disabled ? -1 : this.originalTabIndex;
-  }
-
-  override render(): TemplateResult {
-    return html`<slot></slot>`;
   }
 
   #onClick(event: Event): void {
@@ -86,5 +94,41 @@ export class Button extends LitElement {
       event.preventDefault();
       event.stopPropagation();
     }
+  }
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const assignedNodes = event.target.assignedNodes({ flatten: true });
+    this.#setIconProperties(assignedNodes);
+  }
+
+  #hasOnlyIconAsChild(el: HTMLElement): boolean {
+    return (
+      (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
+    );
+  }
+
+  #setIconProperties(assignedNodes: Node[]): void {
+    const filteredNodes = assignedNodes.filter(node => {
+      return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
+    });
+
+    let hasIcon = false;
+
+    filteredNodes.forEach(node => {
+      const el = node as HTMLElement;
+      if (el.nodeName === 'SL-ICON') {
+        el.setAttribute('size', this.size);
+      } else if (this.#hasOnlyIconAsChild(el)) {
+        (el.children[0] as HTMLElement).setAttribute('size', this.size);
+      }
+    });
+
+    if (filteredNodes.length === 1) {
+      const el = filteredNodes[0] as HTMLElement;
+      // This button is icon-only if it only contains an icon.
+      hasIcon = el.nodeName === 'SL-ICON' || this.#hasOnlyIconAsChild(el);
+    }
+
+    this.toggleAttribute('icon-only', hasIcon);
   }
 }

@@ -13,6 +13,8 @@ declare global {
   }
 }
 
+export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+
 window.SLDS ||= { icons: {} };
 
 export class Icon extends LitElement {
@@ -64,6 +66,9 @@ export class Icon extends LitElement {
 
   /** The name of the icon to show. */
   @property() name?: string;
+
+  /** Icon size. */
+  @property({ reflect: true }) size: IconSize = 'md';
 
   get icons(): IconLibrary {
     return window.SLDS.icons;

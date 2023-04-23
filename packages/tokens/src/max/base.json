@@ -716,8 +716,6 @@
       "fontIcon": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xxs}",
             "fontSize": "13"
           },
@@ -725,8 +723,6 @@
         },
         "md": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.xs}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -734,8 +730,6 @@
         },
         "lg": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -785,7 +779,7 @@
         }
       }
     },
-    "text_field": {
+    "textField": {
       "fontIcon": {
         "md": {
           "value": {
@@ -836,33 +830,33 @@
   "borderRadius": {
     "button": {
       "sm": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "md": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "lg": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "icon-only": {
         "sm": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.2xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "md": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.2xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "lg": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.2xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         }
@@ -973,7 +967,7 @@
         "type": "spacing"
       }
     },
-    "text_field": {
+    "textField": {
       "block": {
         "md": {
           "value": "{space.sm}",

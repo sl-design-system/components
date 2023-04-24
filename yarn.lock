@@ -4088,6 +4088,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/editor@workspace:packages/components/editor":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/editor@workspace:packages/components/editor"
+  dependencies:
+    "@sl-design-system/shared": 0.0.0
+    lit: ^2.7.2
+    prosemirror-commands: ^1.5.1
+    prosemirror-history: ^1.3.0
+    prosemirror-inputrules: ^1.2.0
+    prosemirror-keymap: ^1.2.1
+    prosemirror-model: ^1.19.0
+    prosemirror-schema-list: ^1.2.2
+    prosemirror-state: ^1.4.2
+    prosemirror-view: ^1.30.2
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/example-data@workspace:tools/example-data":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/example-data@workspace:tools/example-data"
@@ -4297,23 +4314,6 @@ __metadata:
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:
     lit: ^2.7.2
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/slds-editor@workspace:packages/components/editor":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/slds-editor@workspace:packages/components/editor"
-  dependencies:
-    "@sl-design-system/shared": 0.0.0
-    lit: ^2.7.2
-    prosemirror-commands: ^1.5.1
-    prosemirror-history: ^1.3.0
-    prosemirror-inputrules: ^1.2.0
-    prosemirror-keymap: ^1.2.1
-    prosemirror-model: ^1.19.0
-    prosemirror-schema-list: ^1.2.2
-    prosemirror-state: ^1.4.2
-    prosemirror-view: ^1.30.2
   languageName: unknown
   linkType: soft
 

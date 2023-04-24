@@ -11,7 +11,10 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
+    "@sl-design-system/angular-root",
     "@sl-design-system/example-data",
-    "@sl-design-system/scripts"
+    "@sl-design-system/scripts",
+    "@sl-design-system/tokens",
+    "@sl-design-system/website"
   ]
 }

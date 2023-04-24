@@ -10,10 +10,6 @@
   <source>Please match the specified pattern.</source>
   <target>Dit veld volgt niet het gespecificeerde patroon.</target>
 </trans-unit>
-<trans-unit id="sf078a76e5c674713">
-  <source>The value is outside the minimum or maximum allowed range.</source>
-  <target>De waarde is buiten de minimum of maximum toegetane reeks.</target>
-</trans-unit>
 <trans-unit id="s5def830dd16bcde9">
   <source>Step mismatch</source>
   <target>Stap komt niet overeen</target>
@@ -37,6 +33,10 @@
 <trans-unit id="sd0b6082239185272">
   <source>Select all</source>
   <target>Selecteer alles</target>
+</trans-unit>
+<trans-unit id="sf274d65b5f738f24">
+  <source>The value is outside the allowed range.</source>
+  <target>De waarde is buiten de toegestane reeks.</target>
 </trans-unit>
 </body>
 </file>

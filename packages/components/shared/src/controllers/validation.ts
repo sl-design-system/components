@@ -316,7 +316,7 @@ export class ValidationController implements ReactiveController {
       case 'patternMismatch':
         return msg('Please match the specified pattern.');
       case 'rangeOverflow':
-        return msg('The value is outside the minimum or maximum allowed range.');
+        return msg('The value is outside the allowed range.');
       case 'stepMismatch':
         return msg('Step mismatch');
       case 'tooLong':

@@ -189,9 +189,9 @@
   --sl-space-button-default-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
   --sl-space-button-default-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
   --sl-space-button-default-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-default));
-  --sl-space-button-default-inline-lg: calc(var(--sl-space-md) - var(--sl-border-width-button-default));
-  --sl-space-button-default-inline-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
-  --sl-space-button-default-inline-sm: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
+  --sl-space-button-default-inline-lg: calc(var(--sl-space-xl) - var(--sl-border-width-button-default));
+  --sl-space-button-default-inline-md: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));
+  --sl-space-button-default-inline-sm: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));
   --sl-space-button-default-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
   --sl-space-button-default-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
   --sl-space-button-default-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-default));

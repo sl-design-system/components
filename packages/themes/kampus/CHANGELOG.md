@@ -1,6 +1,6 @@
-# @sanomalearning/slds-sanoma-learning
+# @sanomalearning/slds-kampus
 
-## 0.0.2
+## 0.0.1
 
 ### Patch Changes
 
@@ -8,8 +8,4 @@
 
 - [#353](https://github.com/sanomalearning/design-system/pull/353) [`8d20cdb`](https://github.com/sanomalearning/design-system/commit/8d20cdbf6f0c592dd675767305de3191c6064798) - changed text_field to textField to avoid problems in figma, added tokens for text field and area
 
-## 0.0.1
-
-### Patch Changes
-
-- [#334](https://github.com/sanomalearning/design-system/pull/334) [`3a3d2f6`](https://github.com/sanomalearning/design-system/commit/3a3d2f603fe7244e6234089f56d7e093861e3a2a) - Release initial version
+- [#357](https://github.com/sanomalearning/design-system/pull/357) [`ec9f239`](https://github.com/sanomalearning/design-system/commit/ec9f23992855782c948cdc6962c638522fbbfe54) - changed Kampus colours

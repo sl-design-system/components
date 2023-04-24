@@ -35,7 +35,7 @@ export class Avatar extends LitElement {
     return html`
       <img
         alt="picture of ${this.profileName}"
-        src=${this.user?.picture.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
+        .src=${this.user?.picture.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
       />
       <span>${this.profileName}</span>
     `;
@@ -47,19 +47,19 @@ export class Avatar extends LitElement {
     try {
       this.user = await this._getUserDetails(this.uniqueProfileId);
     } catch (error) {
-      console.warn('error loading avatar');
+      console.warn('Error loading user details', error);
     }
   }
 
   async _getUserDetails(id: string): Promise<UserProfile> {
-    try {
-      const response = await fetch(`https://randomuser.me/api/?inc=picture,name&seed=slds-${id}`);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const json: { results: UserProfile[]; info: unknown } = await response?.json();
+    const response = await fetch(`https://randomuser.me/api/?inc=picture,name&seed=slds-${id}`);
+
+    if (response.ok) {
+      const json = (await response.json()) as { results: UserProfile[]; info: unknown };
+
       return json?.results?.[0];
-    } catch (error) {
-      console.warn('error loading avatar');
-      throw error;
+    } else {
+      throw new Error('Error loading avatar');
     }
   }
 }

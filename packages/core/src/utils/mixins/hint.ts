@@ -50,6 +50,12 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
 
     // TODO: add sm / md / lg sizes of hint
 
+    override connectedCallback(): void {
+      super.connectedCallback();
+
+      console.log('conected callback hint');
+    }
+
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
@@ -68,7 +74,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
         this.#disabled = true;
       }
 
-      console.log('render hint', input, input?.hasAttribute('disabled'));
+      console.log('render hint', input, input?.hasAttribute('disabled'), input?.getAttribute('disabled'));
       return html`<slot
           @slotchange=${() => this.#updateHint()}
           name="hint"

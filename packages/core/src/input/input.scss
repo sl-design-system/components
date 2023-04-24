@@ -89,6 +89,7 @@ slot[name='input']::slotted(input) {
 }
 
 .wrapper {
+  align-items: center;
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
@@ -110,12 +111,6 @@ slot[name='input']::slotted(input) {
   .invalid-icon {
     display: block;
   }
-}
-
-sl-icon {
-  //fill: var(--sl-color-text-field-invalid-focus-icon); // --fill-default:color.textField.invalid.focus.icon
-  height: 20px;
-  width: 20px;
 }
 
 sl-error {

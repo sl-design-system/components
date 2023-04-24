@@ -112,8 +112,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
    */
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' = 'text'; // TODO: password type will be added in the future
 
-  // TODO: add multiple attribute for email type?
-
   // TODO: add spellcheck attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url#spellcheck
 
   /** Custom validators specified by the user. */
@@ -122,19 +120,11 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** The value for the input. */
   @property() value?: string;
 
-  /** @private */
+  /** @private used for focusVisible */
   #clicked = false;
-
-  // TODO: invalid state?
-
-  // TODO: valid styles on demand?
 
   override connectedCallback(): void {
     super.connectedCallback();
-
-    // if (this.errorSize) {
-    //   this.#errorSize = this.errorSize;
-    // }
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
@@ -157,8 +147,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
       this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
     }
-
-    // this.checkValidity();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -168,11 +156,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
     if (changes.has('invalid')) {
       console.log('invalid in changes', this.invalid, this.input, this);
-      // this.internals.setValidity();
-      // this.input.
-      // this.invalid = !this.input.validity.valid;
-      // this.invalid = this.input.hasAttribute('invalid');
-      // this.invalid = changes;
       if (this.invalid) {
         this.input.setAttribute('invalid', this.invalid.toString());
       } else {
@@ -207,12 +190,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     }
 
     if (changes.has('min')) {
-      console.log('min in changes', this.min, this.type, this.type === 'number', this.min && this.type === 'number');
       const min = this.min?.toString();
       if (min) {
         this.input.setAttribute('min', min);
       } else {
-        console.log('min in else', this.min);
         this.input.removeAttribute('min');
       }
     }
@@ -224,11 +205,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       } else {
         this.input.removeAttribute('max');
       }
-      // if (this.max) {
-      //   this.input.setAttribute('max', this.max.toString());
-      // } else {
-      //   this.input.removeAttribute('max');
-      // }
     }
 
     if (changes.has('step')) {
@@ -289,30 +265,13 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
           @mousedown=${this.#onMousedown}
         ></slot>
         <slot name="suffix">
-          <sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>
-          <svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-            <path
-              fill="#E5454A"
-              d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"
-            />
-          </svg>
-          ${this.valid
-            ? html`<sl-icon name="fas-circle-check"></sl-icon>
-                <svg class="valid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-                  <path
-                    fill="#28854E"
-                    d="M2.5 10.375c0-4.13086 3.33984-7.5 7.5-7.5 4.1309 0 7.5 3.36914 7.5 7.5 0 4.1602-3.3691 7.5-7.5 7.5-4.16016 0-7.5-3.3398-7.5-7.5Zm10.8691-1.28906c.3223-.32227.3223-.82032 0-1.14258-.3222-.32227-.8203-.32227-1.1425 0L9.0625 11.1074 7.74414 9.81836c-.32226-.32227-.82031-.32227-1.14258 0-.32226.32224-.32226.82034 0 1.14254l1.875 1.875c.32227.3223.82032.3223 1.14258 0l3.74996-3.74996Z"
-                  />
-                </svg>`
-            : null}
+          <sl-icon class="invalid-icon" name="fas-triangle-exclamation" size=${this.size}></sl-icon>
+          ${this.valid ? html`<sl-icon name="fas-circle-check" size=${this.size}></sl-icon>` : null}
         </slot>
       </div>
       ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
-  // TODO: use sl-icon instead of plain SVGs
-
-  // TODO: icon sizes
 
   // ${!this.input.validity.valid} ${this.hasAttribute('invalid')} internals.validity.valid:
   //   ${this.internals.validity.valid} ${this.invalid} ${this.hasAttribute('invalid')}
@@ -341,7 +300,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     this.#validation.validate(this.value);
     this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
     if (this.valid) {
-      this.input.setAttribute('aria-live', 'polite'); // TODO: for valid state?
+      this.input.setAttribute('aria-live', 'polite');
     }
   }
 
@@ -349,10 +308,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     console.log('event on slothcnage', event);
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
-
-    // if (this.errorSize) {
-    //   this.#errorSize = this.errorSize;
-    // }
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (inputs.length) {

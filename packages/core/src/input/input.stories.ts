@@ -20,7 +20,8 @@ export const API: StoryObj = {
     suffix: '',
     value: '',
     readonly: false,
-    size: 'md'
+    size: 'md',
+    type: 'text'
   },
   argTypes: {
     maxLength: { type: 'number' },
@@ -28,7 +29,14 @@ export const API: StoryObj = {
     size: {
       control: 'inline-radio',
       options: ['md', 'lg']
-    }
+    },
+    type: {
+      control: 'inline-radio',
+      options: ['text', 'number', 'email', 'tel', 'url']
+    },
+    min: { type: 'number' },
+    max: { type: 'number' },
+    step: { type: 'number' }
   },
   render: ({
     disabled,
@@ -41,27 +49,46 @@ export const API: StoryObj = {
     suffix,
     value,
     readonly,
-    size
+    size,
+    type,
+    min,
+    max,
+    step
   }) => html`
+    <style>
+      sl-input {
+        width: 400px;
+      }
+    </style>
     <sl-input
       ?disabled=${disabled}
       ?required=${required}
       .hint=${hint}
       .size=${size}
+      .min=${min}
+      .max=${max}
+      .step=${step}
       .maxLength=${maxLength}
       .minLength=${minLength}
       .placeholder=${placeholder}
       .value=${value}
+      .type=${type}
       ?readonly=${readonly}
     >
       ${prefix ? html`<span slot="prefix">${prefix}</span>` : ''}
       ${suffix ? html`<span slot="suffix">${suffix}</span>` : ''}
     </sl-input>
   `
-};
+}; // TODO: type
 
 export const Disabled: StoryObj = {
-  render: () => html`<sl-input disabled value="I am disabled"></sl-input>`
+  render: () => html`
+    <style>
+      sl-input {
+        width: 400px;
+      }
+      </style>
+    </style><sl-input disabled value="I am disabled"></sl-input>`
 };
 
 // TODO: all instead of sizes
@@ -256,10 +283,29 @@ export const InputTypes: StoryObj = {
 
 export const PrefixSuffix: StoryObj = {
   render: () => html`
-    <sl-input>
-      <span slot="prefix">prefix</span>
-      <span slot="suffix">suffix</span>
-    </sl-input>
+    <style>
+      .wrapper {
+        display: flex;
+        gap: 16px;
+      }
+      sl-input {
+        width: 400px;
+      }
+      sl-icon {
+        display: flex;
+        align-self: center;
+      }
+    </style>
+    <div class="wrapper">
+      <sl-input>
+        <span slot="prefix">prefix</span>
+        <span slot="suffix">suffix</span>
+      </sl-input>
+      <sl-input>
+        <sl-icon slot="prefix" name="face-smile"></sl-icon>
+        <sl-icon slot="suffix" name="face-smile"></sl-icon>
+      </sl-input>
+    </div>
   `
 };
 

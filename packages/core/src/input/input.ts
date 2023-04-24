@@ -104,7 +104,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
   /** Input size. */
-  @property({ reflect: true }) size: InputSize = 'md'; // TODO: use input size attribute a change this one to eg. variant
+  @property({ reflect: true }) size: InputSize = 'md';
 
   /**
    * The input type. Only text types are valid here. For other types,
@@ -311,6 +311,8 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     `;
   } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
   // TODO: use sl-icon instead of plain SVGs
+
+  // TODO: icon sizes
 
   // ${!this.input.validity.valid} ${this.hasAttribute('invalid')} internals.validity.valid:
   //   ${this.internals.validity.valid} ${this.invalid} ${this.hasAttribute('invalid')}

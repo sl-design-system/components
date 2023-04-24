@@ -44,7 +44,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     @property() hintSize: LabelSize = 'md';
 
     /** The hint disabled state. */
-    #disabled = false;
+    #disabled?: boolean;
 
     // TODO: disabled attribute or detect host disabled
 
@@ -73,7 +73,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
           @slotchange=${() => this.#updateHint()}
           name="hint"
           hintSize="${this.hintSize}"
-          disabled=${this.#disabled}
+          ?disabled=${this.#disabled}
         ></slot
         >${this.#disabled}`;
     }

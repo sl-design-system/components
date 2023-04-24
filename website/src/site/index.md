@@ -416,7 +416,7 @@ Sanoma Learning Design System v0.0.1 {.ds-call-to-action__heading .ds-heading-1}
 
 This latest release includes form controls.
 
-<a class="ds-call-to-action__link" href="https://github.com/sanomalearning/design-system/releases" target="_blank">
+<a class="ds-call-to-action__link" href="https://github.com/sl-design-system/components/releases" target="_blank">
   View the release notes 
 </a>
 
@@ -431,10 +431,10 @@ This latest release includes form controls.
 Contribute {.ds-heading-1}
 
 <div class="ds-contact-block__description">
-Sanoma Learning Design System is hosted on GitHub. Request features or report bugs through our <a class="ds-contact-block__description-link" href="https://github.com/sanomalearning/design-system/issues/new/choose" target="_blank">issue form</a>.
+Sanoma Learning Design System is hosted on GitHub. Request features or report bugs through our <a class="ds-contact-block__description-link" href="https://github.com/sl-design-system/components/issues/new/choose" target="_blank">issue form</a>.
 </div>
 
-<a class="ds-contact-block__button" href="https://github.com/sanomalearning/design-system/blob/main/CONTRIBUTING.md" target="_blank">
+<a class="ds-contact-block__button" href="https://github.com/sl-design-system/components/blob/main/CONTRIBUTING.md" target="_blank">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="none">
 <path fill="#FEFEFE" d="M5.568 11.535c0 .059-.058.088-.146.088-.088.03-.147-.03-.147-.088 0-.058.059-.117.147-.117s.146.059.146.117Zm-.908-.146c0 .058.059.146.147.146a.14.14 0 0 0 .175-.058c0-.059-.029-.118-.117-.147-.088-.03-.176 0-.205.059Zm1.319-.03c-.088 0-.147.059-.147.147 0 .059.088.088.176.059.088-.03.146-.06.117-.118 0-.058-.088-.117-.146-.088ZM7.883.11C3.84.11.734 3.215.734 7.258c0 3.252 2.022 6.035 4.952 7.031.38.059.498-.176.498-.351V12.12s-2.051.44-2.49-.879c0 0-.323-.85-.792-1.055 0 0-.673-.468.03-.468 0 0 .732.058 1.142.761.645 1.143 1.7.82 2.139.616.058-.469.234-.791.469-.996-1.641-.176-3.31-.41-3.31-3.223 0-.82.233-1.201.702-1.729-.088-.205-.322-.966.088-1.992.586-.176 2.022.791 2.022.791.586-.176 1.2-.234 1.816-.234.645 0 1.26.058 1.846.234 0 0 1.406-.996 2.021-.79.41 1.025.147 1.786.088 1.991.469.528.762.909.762 1.729 0 2.812-1.729 3.047-3.37 3.223.264.234.499.673.499 1.377 0 .966-.03 2.197-.03 2.431 0 .205.147.44.528.352 2.93-.967 4.922-3.75 4.922-7.002 0-4.043-3.31-7.149-7.383-7.149ZM3.576 10.217c-.058.03-.03.117 0 .176.059.029.117.058.176.029.03-.03.03-.117-.03-.176-.058-.03-.117-.059-.146-.03Zm-.322-.235c-.03.059 0 .088.058.118.06.029.118.029.147-.03 0-.029-.03-.058-.088-.088-.058-.029-.088-.029-.117 0Zm.937 1.055c-.029.03-.029.117.059.176.059.059.146.088.176.03.03-.03.03-.118-.03-.177-.058-.058-.146-.088-.205-.029Zm-.322-.44c-.058.03-.058.118 0 .176.059.059.117.088.176.059.03-.03.03-.117 0-.176-.059-.058-.117-.088-.176-.058Z"/>
 </svg>
@@ -461,7 +461,7 @@ Slack channel
 Contact support
 </a>
 
-<a class="ds-contact-block__link ds-contact-block__bug" href="https://github.com/sanomalearning/design-system/issues/new/choose" target="_blank">
+<a class="ds-contact-block__link ds-contact-block__bug" href="https://github.com/sl-design-system/components/issues/new/choose" target="_blank">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="none">
 <path fill="#36F" d="M11 3v.125c0 .5-.406.875-.906.875H5.875A.854.854 0 0 1 5 3.125V3c0-1.656 1.313-3 3-3a3 3 0 0 1 3 3Zm-9.781.219a.736.736 0 0 1 1.031 0L4.531 5.5A3.17 3.17 0 0 1 6.25 5h3.5c.625 0 1.188.188 1.688.5l2.28-2.281a.736.736 0 0 1 1.032 0c.313.312.313.781 0 1.062L12.5 6.563c.313.5.5 1.062.5 1.687h2.25A.76.76 0 0 1 16 9a.74.74 0 0 1-.75.75H13V10c0 .875-.219 1.656-.594 2.375l2.344 2.344c.313.312.313.781 0 1.062a.684.684 0 0 1-1.031 0L11.5 13.594A5.046 5.046 0 0 1 8 15a5.065 5.065 0 0 1-3.531-1.406L2.25 15.78a.684.684 0 0 1-1.031 0c-.313-.281-.313-.75 0-1.062l2.343-2.344C3.188 11.656 3 10.875 3 10v-.25H.75A.722.722 0 0 1 0 9a.74.74 0 0 1 .75-.75H3c0-.625.156-1.188.469-1.688l-2.25-2.28c-.313-.282-.313-.75 0-1.063ZM4.5 10a3.49 3.49 0 0 0 2.75 3.438V8.75A.74.74 0 0 1 8 8a.76.76 0 0 1 .75.75v4.688A3.522 3.522 0 0 0 11.5 10V8.25c0-.938-.813-1.75-1.75-1.75h-3.5c-.969 0-1.75.813-1.75 1.75V10Z"/>
 </svg>

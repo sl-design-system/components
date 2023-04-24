@@ -4,12 +4,12 @@
 
 ### Patch Changes
 
-- [#326](https://github.com/sanomalearning/design-system/pull/326) [`22336cf`](https://github.com/sanomalearning/design-system/commit/22336cf0935399d3e50306e1a9cfcc0d1d2f8b5d) - Setup for FontAwesome and custom icons
+- [#326](https://github.com/sl-design-system/components/pull/326) [`22336cf`](https://github.com/sl-design-system/components/commit/22336cf0935399d3e50306e1a9cfcc0d1d2f8b5d) - Setup for FontAwesome and custom icons
 
-- [#353](https://github.com/sanomalearning/design-system/pull/353) [`8d20cdb`](https://github.com/sanomalearning/design-system/commit/8d20cdbf6f0c592dd675767305de3191c6064798) - changed text_field to textField to avoid problems in figma, added tokens for text field and area
+- [#353](https://github.com/sl-design-system/components/pull/353) [`8d20cdb`](https://github.com/sl-design-system/components/commit/8d20cdbf6f0c592dd675767305de3191c6064798) - changed text_field to textField to avoid problems in figma, added tokens for text field and area
 
 ## 0.0.1
 
 ### Patch Changes
 
-- [#334](https://github.com/sanomalearning/design-system/pull/334) [`3a3d2f6`](https://github.com/sanomalearning/design-system/commit/3a3d2f603fe7244e6234089f56d7e093861e3a2a) - Release initial version
+- [#334](https://github.com/sl-design-system/components/pull/334) [`3a3d2f6`](https://github.com/sl-design-system/components/commit/3a3d2f603fe7244e6234089f56d7e093861e3a2a) - Release initial version

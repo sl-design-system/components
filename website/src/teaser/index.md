@@ -27,7 +27,7 @@ eleventyExcludeFromCollections: true
     <h1>Sanoma Learning <span class="ds-teaser__heading-part">Design System</span></h1>    
     <p>Hold tight! This documentation website is coming soon.</p>
     <div class="ds-teaser__card-wrapper">
-      <a href="https://github.com/orgs/sanomalearning/projects/2" target="_blank" class="ds-teaser__card">
+      <a href="https://github.com/orgs/sl-design-system/projects/2" target="_blank" class="ds-teaser__card">
         <div class="ds-teaser__card-text">
           <p class="ds-teaser__card-text-heading">Planning</p>
           <span>See more info here</span>

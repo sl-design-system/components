@@ -2,7 +2,7 @@
 
 ## Create a new branch
 
-https://github.com/sanomalearning/design-system/branches
+https://github.com/sl-design-system/components/branches
 
 Create a new branch:
 
@@ -14,7 +14,7 @@ New branch should use `main` branch as a source:
 
 <img width="443" alt="creating branch image" src="https://user-images.githubusercontent.com/111562742/214253485-d4a4bd36-3226-4bd1-a5f9-f82a77e09446.png">
 
-Let’s name our new branch like `docs/button-documentation` or something similar (more info: https://github.com/sanomalearning/design-system/blob/main/CONTRIBUTING.md).
+Let’s name our new branch like `docs/button-documentation` or something similar (more info: https://github.com/sl-design-system/components/blob/main/CONTRIBUTING.md).
 
 After creating our new branch, let’s open this branch and check the structure, where we are placing our component’s documentation.
 

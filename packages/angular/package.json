@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/sanomalearning/design-system.git",
+    "url": "https://github.com/sl-design-system/components.git",
     "directory": "packages/angular"
   },
   "type": "module",

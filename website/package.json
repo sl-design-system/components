@@ -137,7 +137,7 @@
     "build:site:dev:eleventy": {
       "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
-        "../packages/tokens:build",
+        "..:build:tokens",
         "analyze",
         "copy:tokens",
         "build:site:dev:styles",

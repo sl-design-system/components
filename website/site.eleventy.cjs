@@ -119,9 +119,9 @@ module.exports = function(eleventyConfig) {
   eleventyConfig
     .addPassthroughCopy({ './src/shared/assets': 'assets' })
     .addPassthroughCopy('./src/site/assets')
-    .addPassthroughCopy({ './../../packages/tokens/src/themes/sanoma-learning': `styles/slds-sanoma-learning` })
-    .addPassthroughCopy({ './../../packages/tokens/src/themes/sanoma-learning/*.json': `_data` });
-
+    .addPassthroughCopy({ './../packages/themes/sanoma-learning': `styles/slds-sanoma-learning` })
+    .addPassthroughCopy({ './../packages/tokens/src/sanoma-learning/*.json': `_data` });
+   
   const NOT_FOUND_PATH = `${outputFolder}/site/404.html`;
 
   eleventyConfig.setBrowserSyncConfig({

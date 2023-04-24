@@ -15,5 +15,5 @@ export const templates = {
   sd0b6082239185272: `Selecteer alles`,
   sd6f67602bb05032b: str`Gebruik niet meer dan ${0} karakters (je gebruikt nu ${1} karakters).`,
   sd7cc2f6441ad9a1c: `Verkeerde invoer`,
-  sf078a76e5c674713: `De waarde is buiten de minimum of maximum toegetane reeks.`
+  sf274d65b5f738f24: `De waarde is buiten de toegestane reeks.`
 };

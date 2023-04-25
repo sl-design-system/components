@@ -1,9 +1,6 @@
-//@import './../breakpoints';
-
 $sizes: md, lg;
 $variants: default, valid, invalid; // TODO: what about readonly?
 $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
-//$states: default, hover, active, focus, disabled; // TODO: what about readonly? readonly the same as default, but different behaviour
 
 // TODO: default instead of enable?
 // TODO: with value and with placeholder filled/unfilled?
@@ -27,13 +24,12 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   display: inline-flex;
   flex-direction: column;
   transition: var(--_transition);
-  // gap: var(--_gap); // TODO: token for gap? // --sl-space-text-field-gap-lg / md
   vertical-align: top;
   width: 100%;
 
-  &:where([invalid], :invalid) {
-    background-color: #1f97f9 !important;
-  }
+  //&:where([invalid], :invalid) {
+  //  background-color: #1f97f9 !important;
+  //}
 }
 
 :host(:focus-visible) {
@@ -114,14 +110,9 @@ slot[name='input']::slotted(input) {
 }
 
 sl-error {
-  color: #1f97f9;
+  //color: #1f97f9;
   display: inline-flex;
 }
-
-// TODO icon color
-// --sl-color-text-field-invalid-hover-icon
-
-// TODO: for valid adn showvalid?
 
 /**
  * theming
@@ -131,18 +122,6 @@ sl-error {
   :host([size='#{$size}']) {
     slot[name='input']::slotted(input) {
       --_font: var(--sl-text-input-text-#{$size});
-      //--_line-height: var(--sl-text-typeset-line-height-#{$size});
-
-      //--_padding: var(--sl-space-text-field-block-#{$size})
-      //var(--sl-space-text-field-inline-#{$size})
-      //var(--sl-space-text-field-block-#{$size})
-      //var(--sl-space-text-field-inline-#{$size});
-      //--_font-size: var(--sl-text-typeset-font-size-#{$size});
-
-      //@include sl-text-input-text-lg;
-      //font-family: var(--sl-text-typeset-font-family-body);
-      //font-weight: var(--sl-text-typeset-font-weight-regular);
-      //line-height: var(--sl-text-typeset-line-height-#{$size});
     }
 
     .wrapper {
@@ -158,7 +137,6 @@ sl-error {
 // TODO: what about default values for css variables?
 
 @each $variant in $variants {
-  //@each $state in $states {
   $i: index($variants, $variant);
   $variant-selector: nth($variant-selectors, $i);
 
@@ -188,12 +166,6 @@ sl-error {
         fill: var(--sl-color-text-field-#{$variant}-default-icon);
       }
     }
-
-    //sl-icon {
-    //  fill: var(--sl-color-text-field-#{$variant}-focus-icon); // --fill-default:color.textField.invalid.focus.icon
-    //  //height: 20px;
-    //  //width: 20px;
-    //}
 
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-default-background);

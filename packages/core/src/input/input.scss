@@ -118,6 +118,9 @@ sl-error {
   display: inline-flex;
 }
 
+// TODO icon color
+// --sl-color-text-field-invalid-hover-icon
+
 // TODO: for valid adn showvalid?
 
 /**
@@ -179,11 +182,18 @@ sl-error {
       }
     }
 
-    sl-icon {
-      fill: var(--sl-color-text-field-#{$variant}-focus-icon); // --fill-default:color.textField.invalid.focus.icon
-      //height: 20px;
-      //width: 20px;
+    slot[name='suffix'] {
+      /* stylelint-disable-next-line max-nesting-depth */
+      sl-icon {
+        fill: var(--sl-color-text-field-#{$variant}-default-icon);
+      }
     }
+
+    //sl-icon {
+    //  fill: var(--sl-color-text-field-#{$variant}-focus-icon); // --fill-default:color.textField.invalid.focus.icon
+    //  //height: 20px;
+    //  //width: 20px;
+    //}
 
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-default-background);
@@ -207,6 +217,13 @@ sl-error {
       }
     }
 
+    slot[name='suffix'] {
+      /* stylelint-disable-next-line max-nesting-depth */
+      sl-icon {
+        fill: var(--sl-color-text-field-#{$variant}-hover-icon);
+      }
+    }
+
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-hover-background);
     }
@@ -224,6 +241,13 @@ sl-error {
       /* stylelint-disable-next-line max-nesting-depth */
       &::placeholder {
         --_placeholder-color: var(--sl-color-text-field-#{$variant}-active-placeholder);
+      }
+    }
+
+    slot[name='suffix'] {
+      /* stylelint-disable-next-line max-nesting-depth */
+      sl-icon {
+        fill: var(--sl-color-text-field-#{$variant}-active-icon);
       }
     }
 
@@ -245,6 +269,13 @@ sl-error {
       /* stylelint-disable-next-line max-nesting-depth */
       &::placeholder {
         --_placeholder-color: var(--sl-color-text-field-#{$variant}-focus-placeholder);
+      }
+    }
+
+    slot[name='suffix'] {
+      /* stylelint-disable-next-line max-nesting-depth */
+      sl-icon {
+        fill: var(--sl-color-text-field-#{$variant}-focus-icon);
       }
     }
 
@@ -275,12 +306,15 @@ sl-error {
       }
     }
 
+    slot[name='suffix'] {
+      /* stylelint-disable-next-line max-nesting-depth */
+      sl-icon {
+        fill: var(--sl-color-text-field-#{$variant}-disabled-icon);
+      }
+    }
+
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-disabled-background);
     }
   }
 }
-
-//:host(:where(:invalid)) {
-//  border: 3px solid #6b1313;
-//}

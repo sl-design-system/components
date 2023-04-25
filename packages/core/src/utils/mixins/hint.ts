@@ -76,13 +76,12 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
 
       console.log('render hint', input, input?.hasAttribute('disabled'), input?.getAttribute('disabled'));
       return html`<slot
-          @slotchange=${() => this.#updateHint()}
-          name="hint"
-          hintSize="${this.hintSize}"
-          ?disabled=${this.#disabled}
-        ></slot
-        >${this.#disabled}`;
-    }
+        @slotchange=${() => this.#updateHint()}
+        name="hint"
+        hintSize="${this.hintSize}"
+        ?disabled=${this.#disabled}
+      ></slot>`;
+    } // ${this.#disabled}
 
     #updateHint(): void {
       const input = this.querySelector('input, textarea'),

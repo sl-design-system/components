@@ -266,7 +266,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
         ></slot>
         <slot name="suffix">
           <sl-icon class="invalid-icon" name="fas-triangle-exclamation" size=${this.size}></sl-icon>
-          ${this.valid ? html`<sl-icon name="fas-circle-check" size=${this.size}></sl-icon>` : null}
+          ${this.valid ? html`<sl-icon class="valid-icon" name="fas-circle-check" size=${this.size}></sl-icon>` : null}
         </slot>
       </div>
       ${this.#validation.render() ? this.#validation.render() : this.renderHint()}

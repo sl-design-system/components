@@ -9,6 +9,7 @@ on:
 
 env:
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+  FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
 
 permissions: 
   contents: write

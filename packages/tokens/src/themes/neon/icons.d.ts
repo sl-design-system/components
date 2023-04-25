@@ -1,8 +1,5 @@
 export declare const icons: {
     "face-smile": {
-        value: string;
-        type: string;
-        description: string;
         svg: string;
     };
     menu: {
@@ -12,9 +9,6 @@ export declare const icons: {
         svg: string;
     };
     fav: {
-        value: string;
-        type: string;
-        description: string;
         svg: string;
     };
     pinata: {
@@ -39,6 +33,15 @@ export declare const icons: {
         value: string;
         type: string;
         description: string;
+        svg: string;
+    };
+    neon: {
+        svg: string;
+    };
+    "open-eye": {
+        svg: string;
+    };
+    hello: {
         svg: string;
     };
 };

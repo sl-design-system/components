@@ -41,4 +41,19 @@ export declare const icons: {
         description: string;
         svg: string;
     };
+    cirlce: {
+        svg: string;
+    };
+    smile: {
+        svg: string;
+    };
+    hand: {
+        svg: string;
+    };
+    eye: {
+        svg: string;
+    };
+    star: {
+        svg: string;
+    };
 };

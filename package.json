@@ -75,7 +75,8 @@
         "build:tokens"
       ],
       "files": [
-        "figma-icon-pages.json",
+        "scripts/build-icons.js",
+        "scripts/figma-icon-pages.json",
         "packages/tokens/src/core.json",
         "packages/tokens/src/*/base.json"
       ],
@@ -135,6 +136,7 @@
       "command": "node scripts/build-tokens.js",
       "clean": "if-file-deleted",
       "files": [
+        "scripts/build-tokens.js",
         "packages/tokens/src/**/*.json"
       ],
       "output": [

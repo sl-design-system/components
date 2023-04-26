@@ -27,7 +27,6 @@
   },
   "files": [
     "**/*.d.ts",
-    "**/*.d.ts.map",
     "**/*.js",
     "**/*.js.map",
     "custom-elements.json"

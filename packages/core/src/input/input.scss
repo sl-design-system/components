@@ -55,11 +55,9 @@ slot[name='input']::slotted(input) {
   appearance: none;
   background: none;
   border: 0;
-  color: var(--_color); //inherit;
+  color: var(--_color);
   flex: 1;
-  font: var(--_font); //inherit;
-  //font-size: var(--_font-size);
-  //line-height: var(--_line-height);
+  font: var(--_font);
   margin: 0;
   outline: none;
   //padding: var(--_padding); //0;
@@ -92,7 +90,6 @@ slot[name='input']::slotted(input) {
   box-shadow: var(--_box-shadow);
   display: flex;
   gap: var(--_gap);
-  //padding: calc(0.25rem - 1px) 0.5rem;
   padding: var(--_padding);
   transition: var(--_transition);
   transition-property: background, border, box-shadow, color, filter;

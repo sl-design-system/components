@@ -254,6 +254,8 @@ export class ValidationController implements ReactiveController {
 
     const state = this.#getInvalidState(this.validity);
 
+    console.log('validation render', this.#messageSize, this.#showErrors, state);
+
     if (this.#showErrors && state) {
       this.#slotName = dasherize(state);
       this.#target.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
@@ -299,7 +301,7 @@ export class ValidationController implements ReactiveController {
     const errorPart = this.#host.querySelector('[part="error"]');
 
     console.log(
-      'hint',
+      'error validation',
       error,
       errorPart,
       this.target.querySelector('[slot]'),
@@ -321,8 +323,17 @@ export class ValidationController implements ReactiveController {
     // this.target.setAttribute('aria-describedby', this.#errorMessageId);
 
     if (this.target.querySelector('[slot]')) {
-      console.log('idzie if');
-      console.log('error error', error);
+      // TODO: problems error vs hint slot mismatch
+      // console.log('idzie if');
+      console.log(
+        'error error',
+        this.target.shadowRoot?.querySelectorAll('[slot]'),
+        error,
+        errorPart,
+        this.#host,
+        this.#host.shadowRoot?.querySelector('[slot]'),
+        this.target.querySelector('[slot]')
+      );
       if (error) {
         error.id = `sl-error-${nextUniqueId++}`;
         // if (!error.hasAttribute('size')) {
@@ -336,7 +347,7 @@ export class ValidationController implements ReactiveController {
         //this.#host.requestUpdate();
       }
     } else if (this.validationMessage && errorPart?.slot !== this.#slotName && !this.target.querySelector('[slot]')) {
-      console.log('idzie else if', this.#messageSize);
+      // console.log('idzie else if', this.#messageSize);
       // console.log(
       //   '111hint error   this.target',
       //   this.target,
@@ -381,7 +392,7 @@ export class ValidationController implements ReactiveController {
         div.append(icon);
         const validationMessage = document.createTextNode(this.validationMessage);
         div.appendChild(validationMessage);
-        console.log('iconn', icon);
+        // console.log('iconn', icon);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/restrict-template-expressions
         // div.innerHTML = `${icon} ${this.validationMessage}`;
         // div.append(icon);
@@ -458,7 +469,7 @@ export class ValidationController implements ReactiveController {
       asyncValidators: Array<Promise<boolean | void>> = [],
       validity: CustomValidityState = {};
 
-    console.log('this.validity.valid in validate', this.validity.valid, this.#host);
+    // console.log('this.validity.valid in validate', this.validity.valid, this.#host);
 
     if (!this.#validationPending) {
       this.#validationComplete = new Promise(resolve => {

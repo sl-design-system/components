@@ -108,8 +108,8 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
         </span>
         <span class="label"><slot></slot></span>
       </div>
-      ${this.renderHint()} ${this.#validation.render()}
-    `;
+      ${this.#validation.render()} ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
+    `; // ${this.renderHint()} ${this.#validation.render()}
   }
 
   #onClick(event: Event): void {

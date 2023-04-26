@@ -44,7 +44,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     @property() hintSize: LabelSize = 'md';
 
     /** The hint disabled state. */
-    #disabled?: boolean;
+    @property() disabled?: boolean;
 
     // TODO: disabled attribute or detect host disabled
 
@@ -59,6 +59,8 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
+      console.log('render hint in updated', changes, this.hint);
+
       if (changes.has('hint')) {
         if (this.hint) {
           this.#updateHint();
@@ -71,23 +73,26 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     renderHint(): TemplateResult {
       const input = this.querySelector('input, textarea');
       if (input?.hasAttribute('disabled')) {
-        this.#disabled = true;
+        this.disabled = true;
       }
+
+      // console.log('this isNative', isNative(this), this, this.querySelector('input, textarea'));
 
       console.log('render hint', input, input?.hasAttribute('disabled'), input?.getAttribute('disabled'));
       return html`<slot
-        @slotchange=${() => this.#updateHint()}
-        name="hint"
-        hintSize="${this.hintSize}"
-        ?disabled=${this.#disabled}
-      ></slot>`;
+          @slotchange=${() => this.#updateHint()}
+          name="hint"
+          hintSize="${this.hintSize}"
+          ?disabled=${this.disabled}
+        ></slot
+        >${this.disabled}`;
     } // ${this.#disabled}
 
     #updateHint(): void {
       const input = this.querySelector('input, textarea'),
         hint = this.querySelector('[slot="hint"]');
 
-      console.log('hint 2', hint, this.hint);
+      console.log('render hint 2', hint, this.hint, input, this);
 
       console.log(
         hint?.hasAttribute('hintsize'),
@@ -117,31 +122,52 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
         //hint.hintSize = this.hintSize;
         //hint.setAttribute('hintSize', this.hintSize);
 
-        if (input?.hasAttribute('aria-describedby')) {
-          const currentId = input.getAttribute('aria-describedby') as string;
-          input?.setAttribute('aria-describedby', currentId + ' ' + hint.id);
+        const target = this.querySelector('input, textarea') ? this.querySelector('input, textarea') : this;
+        console.log('target in hint', target);
+
+        // if (input?.hasAttribute('aria-describedby')) {
+        //   const currentId = input.getAttribute('aria-describedby') as string;
+        //   input?.setAttribute('aria-describedby', currentId + ' ' + hint.id);
+        // } else {
+        //   input?.setAttribute('aria-describedby', hint.id);
+        // }
+        //
+        // //input?.setAttribute('aria-describedby', hint.id);
+        // if (input?.hasAttribute('disabled')) {
+        //   hint.setAttribute('disabled', '');
+        //   this.disabled = true;
+        //   console.log('render hint 2 disabled', hint, input, this.disabled, this.hint, this);
+        // }
+
+        if (target?.hasAttribute('aria-describedby')) {
+          const currentId = target.getAttribute('aria-describedby') as string;
+          target?.setAttribute('aria-describedby', currentId + ' ' + hint.id);
         } else {
-          input?.setAttribute('aria-describedby', hint.id);
+          target?.setAttribute('aria-describedby', hint.id);
         }
 
         //input?.setAttribute('aria-describedby', hint.id);
-        if (input?.hasAttribute('disabled')) {
+        if (target?.hasAttribute('disabled')) {
           hint.setAttribute('disabled', '');
-          this.#disabled = true;
+          this.disabled = true;
+          console.log('render hint 2 disabled', hint, target, this.disabled, this.hint, this);
         }
       } else if (this.hint) {
+        console.log('else if hint', this.hint);
         const div = document.createElement('div');
         div.innerText = this.hint;
         div.setAttribute('hintSize', this.hintSize);
         div.slot = 'hint';
         if (this.hasAttribute('disabled')) {
           div.setAttribute('disabled', '');
-          this.#disabled = true;
+          this.disabled = true;
         }
         this.append(div);
       } /*else {
         input?.removeAttribute('aria-describedby');
       }*/
+
+      // TODO: aria describedby as well?
     }
 
     #removeHint(): void {

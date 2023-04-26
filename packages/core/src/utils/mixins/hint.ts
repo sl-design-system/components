@@ -16,6 +16,7 @@ let nextUniqueId = 0;
 export const hintStyles: CSSResultGroup = css`
   slot[name='hint'] {
     color: var(--sl-color-helper-text-default); //blue;
+    display: inline-flex;
   }
   slot[name='hint'][disabled],
   slot[name='hint']:disabled {

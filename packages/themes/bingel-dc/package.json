@@ -26,7 +26,9 @@
     "**/*.js",
     "**/*.js.map",
     "**/*.json",
-    "**/*.scss"
+    "**/*.scss",
+    "fonts/*",
+    "CHANGELOG.md"
   ],
   "dependencies": {
     "@sl-design-system/icon": "0.0.0"

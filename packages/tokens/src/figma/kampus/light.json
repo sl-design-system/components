@@ -806,7 +806,7 @@
         "default": {
           "idle": {
             "background": {
-              "value": "{color.palette.warning.300}",
+              "value": "{color.palette.warning.base}",
               "type": "color",
               "description": "color.button.info.warning.idle.background"
             },
@@ -816,7 +816,7 @@
               "description": "color.button.warning.solid.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.warning.300}",
+              "value": "{color.palette.warning.base}",
               "type": "color",
               "description": "color.button.info.warning.idle.border"
             }
@@ -857,7 +857,7 @@
           },
           "focus": {
             "background": {
-              "value": "{color.palette.warning.300}",
+              "value": "{color.palette.warning.base}",
               "type": "color",
               "description": "color.button.default.focus.background"
             },
@@ -867,7 +867,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.warning.300}",
+              "value": "{color.palette.warning.base}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -1069,7 +1069,7 @@
         "default": {
           "idle": {
             "background": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.700}",
               "type": "color",
               "description": "color.button.danger.warning.idle.background"
             },
@@ -1079,14 +1079,14 @@
               "description": "color.button.danger.solid.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.700}",
               "type": "color",
               "description": "color.button.danger.warning.idle.border"
             }
           },
           "hover": {
             "background": {
-              "value": "{color.palette.danger.700}",
+              "value": "{color.palette.danger.800}",
               "type": "color",
               "description": "color.button.danger.solid.hover.background"
             },
@@ -1096,14 +1096,14 @@
               "description": "color.button.danger.solid.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.danger.700}",
+              "value": "{color.palette.danger.800}",
               "type": "color",
               "description": "color.button.danger.solid.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.solid.active.background"
             },
@@ -1113,14 +1113,14 @@
               "description": "color.button.danger.solid.active.foreground"
             },
             "border": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.solid.active.border"
             }
           },
           "focus": {
             "background": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.700}",
               "type": "color",
               "description": "color.button.default.focus.background"
             },
@@ -1130,7 +1130,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.700}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -2057,7 +2057,7 @@
         "y": "0",
         "blur": "0",
         "spread": "3",
-        "color": "rgba({color.palette.info.base},{opacity.400})",
+        "color": "rgba({color.palette.info.base},{opacity.700})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

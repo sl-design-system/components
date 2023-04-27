@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import type { CSSResultGroup, ReactiveController, ReactiveControllerHost, TemplateResult } from 'lit';
+import type { CSSResultGroup, LitElement, ReactiveController, ReactiveControllerHost, TemplateResult } from 'lit';
 import type { MessageSize, ValidationValue, Validator } from '../validators.js';
 import { msg, str } from '@lit/localize';
 import { faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
@@ -268,7 +268,12 @@ export class ValidationController implements ReactiveController {
 
       // @slotchange="${this.#updateValidationMessage}"
 
-      return html`<slot .name=${this.#slotName} part="error" error-size="${this.#messageSize}"></slot>`;
+      return html`<slot
+        class="error-message"
+        .name=${this.#slotName}
+        part="error"
+        error-size="${this.#messageSize}"
+      ></slot>`;
       // size="${this.#messageSize}"
     } else if (this.validity.valid) {
       this.#removeValidationMessage();
@@ -300,9 +305,36 @@ export class ValidationController implements ReactiveController {
     const error = this.#host.querySelector('[slot]');
     const errorPart = this.#host.querySelector('[part="error"]');
 
+    const checkbox = document.querySelector('#checkbox') as LitElement;
+    const errorSlot = checkbox?.shadowRoot?.querySelector('slot.error-message');
+    checkbox?.updateComplete.then(() => {
+      const errorSlot = checkbox.shadowRoot?.querySelector('slot.error-message');
+      console.log('new validation 7 in updatecomplete', errorSlot, this.target); // check if errorSlot is not null
+    });
+
+    console.log('1111new validation 7 in updatecomplete target', this.target, this.#target, this.#host, errorSlot);
+
+    console.log('1a1a1a1anew validation 7 in updatecomplete target', this.#host);
+
+    (this.#host as unknown as LitElement)?.updateComplete?.then(() => {
+      const errorSlot = checkbox.shadowRoot?.querySelector('slot.error-message');
+      const errorSlotAll = checkbox.shadowRoot?.querySelectorAll('slot.error-message');
+      console.log(
+        'new validation 7 in updatecomplete target',
+        this.target,
+        this.#target,
+        errorSlot,
+        errorSlotAll,
+        errorSlot?.slot
+      ); // check if errorSlot is not null
+    });
+
+    console.log('new validation 7', checkbox, errorSlot);
+
     console.log(
       'error validation',
       error,
+      error?.slot == this.#slotName,
       errorPart,
       this.target.querySelector('[slot]'),
       this.#host.shadowRoot?.querySelector('[part="error"]'),
@@ -317,16 +349,37 @@ export class ValidationController implements ReactiveController {
       this.#slotName
     );
 
+    console.log(
+      this.#host.shadowRoot?.mode,
+      this.target.shadowRoot,
+      this.target.shadowRoot?.querySelectorAll('slot.error-message'),
+      this.target.shadowRoot?.querySelector('.error-message'),
+      'error validation 2222',
+      errorSlot?.slot != this.#slotName,
+      error,
+      errorSlot,
+      errorSlot?.slot == this.#slotName,
+      errorSlot?.slot,
+      this.#slotName,
+      this.target,
+      this.target.querySelector('[slot]'),
+      this.target.querySelector('[slot]')?.slot == this.#slotName
+    );
+
     // const customErrorMessage = error && error.slot === this.#slotName;
     // console.log('customErrorMessage', customErrorMessage, error, error?.hasAttribute('part'));
 
     // this.target.setAttribute('aria-describedby', this.#errorMessageId);
 
-    if (this.target.querySelector('[slot]')) {
+    const currentError = this.#host.querySelector('sl-error');
+
+    /* if (/!*this.target.querySelector('[slot]')*!/ errorSlot) {
       // TODO: problems error vs hint slot mismatch
       // console.log('idzie if');
       console.log(
-        'error error',
+        this.#host.querySelector('sl-error'),
+        this.validationMessage,
+        'error error123',
         this.target.shadowRoot?.querySelectorAll('[slot]'),
         error,
         errorPart,
@@ -334,19 +387,24 @@ export class ValidationController implements ReactiveController {
         this.#host.shadowRoot?.querySelector('[slot]'),
         this.target.querySelector('[slot]')
       );
-      if (error) {
-        error.id = `sl-error-${nextUniqueId++}`;
+      if (errorSlot) {
+        errorSlot.id = `sl-error-${nextUniqueId++}`;
         // if (!error.hasAttribute('size')) {
         //   error.setAttribute('size', this.#messageSize);
         // }
-        if (error.hasAttribute('error-size')) {
-          this.#messageSize = error.getAttribute('error-size') as MessageSize;
+        if (errorSlot.hasAttribute('error-size')) {
+          this.#messageSize = errorSlot.getAttribute('error-size') as MessageSize;
         }
-        this.target.setAttribute('aria-describedby', error.id); // TODO: check if it is the right place
-        error.setAttribute('aria-live', 'assertive');
+        this.target.setAttribute('aria-describedby', errorSlot.id); // TODO: check if it is the right place
+        errorSlot.setAttribute('aria-live', 'assertive');
         //this.#host.requestUpdate();
       }
-    } else if (this.validationMessage && errorPart?.slot !== this.#slotName && !this.target.querySelector('[slot]')) {
+    } else*/ if (
+      (!currentError && this.validationMessage) ||
+      currentError?.slot !== this.#slotName /*&&
+      (errorSlot as unknown as LitElement)?.slot != this.#slotName*/ /*&& !this.target.querySelector('[slot]')*/
+    ) {
+      // TODO: check if sl-error
       // console.log('idzie else if', this.#messageSize);
       // console.log(
       //   '111hint error   this.target',
@@ -357,6 +415,10 @@ export class ValidationController implements ReactiveController {
       //   errorPart,
       //   this.target.getAttribute('aria-describedby')
       // );
+      if (currentError) {
+        currentError.remove();
+      }
+
       if (this.target.hasAttribute('aria-describedby')) {
         this.target.removeAttribute('aria-describedby'); // TODO: check if it is the right place and good to remove it here?
       }
@@ -372,7 +434,15 @@ export class ValidationController implements ReactiveController {
       //   this.target.getAttribute('aria-describedby')
       // );
       // this.target.setAttribute('aria-describedby', this.#errorMessageId);
-      errorPart?.remove();
+
+      console.log(
+        '11errorslot in else if',
+        errorSlot,
+        this.validationMessage && (errorSlot as unknown as LitElement)?.slot !== this.#slotName
+      );
+      // (errorSlot as unknown as Element)?.remove();
+
+      console.log('errorslot in else if', errorSlot);
       const div = document.createElement('sl-error');
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
       Icon.registerIcon(faTriangleExclamation);

@@ -152,7 +152,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    console.log('changes in updated', changes);
+    // console.log('changes in updated', changes);
 
     if (changes.has('invalid')) {
       console.log('invalid in changes', this.invalid, this.input, this);

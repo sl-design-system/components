@@ -13,6 +13,7 @@ import styles from './sorter.scss.js';
 
 export type GridSorterChange = 'added' | 'removed';
 
+// FIXME: these should be registered in the theme
 Icon.registerIcon(faArrowUpArrowDown, faArrowDownWideShort, faArrowUpShortWide);
 
 export class GridSorter extends ScopedElementsMixin(LitElement) {

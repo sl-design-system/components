@@ -4116,7 +4116,9 @@ __metadata:
   resolution: "@sl-design-system/grid@workspace:packages/components/grid"
   dependencies:
     "@lit-labs/virtualizer": ^2.0.0
+    "@open-wc/scoped-elements": 2.1.4
     "@sl-design-system/checkbox": 0.0.0
+    "@sl-design-system/icon": 0.0.0
     "@sl-design-system/input": 0.0.0
     "@sl-design-system/shared": 0.0.0
     lit: ^2.7.2

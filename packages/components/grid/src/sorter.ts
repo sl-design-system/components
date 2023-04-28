@@ -1,6 +1,10 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { DataSourceSortDirection, EventEmitter } from '@sl-design-system/shared';
+import { faArrowDownWideShort, faArrowUpArrowDown, faArrowUpShortWide } from '@fortawesome/pro-regular-svg-icons';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { Icon } from '@sl-design-system/icon';
 import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -9,7 +13,16 @@ import styles from './sorter.scss.js';
 
 export type GridSorterChange = 'added' | 'removed';
 
-export class GridSorter extends LitElement {
+Icon.registerIcon(faArrowUpArrowDown, faArrowDownWideShort, faArrowUpShortWide);
+
+export class GridSorter extends ScopedElementsMixin(LitElement) {
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-icon': Icon
+    };
+  }
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -63,10 +76,10 @@ export class GridSorter extends LitElement {
         ${choose(
           this.direction,
           [
-            ['asc', () => html`⬆️`],
-            ['desc', () => html`⬇️`]
+            ['asc', () => html`<sl-icon name="far-arrow-up-short-wide"></sl-icon>`],
+            ['desc', () => html`<sl-icon name="far-arrow-down-wide-short"></sl-icon>`]
           ],
-          () => html`↕️`
+          () => html`<sl-icon name="far-arrow-up-arrow-down"></sl-icon>`
         )}
       </span>
     `;

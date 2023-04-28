@@ -121,3 +121,22 @@ export const Optional: StoryObj = {
     </form>
   `
 };
+
+export const LabelWithInfoIcon: StoryObj = {
+  render: () => html`
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <form>
+      <sl-label for="input1" size="sm" info="true">I am small</sl-label>
+      <sl-input id="input1"></sl-input>
+      <sl-label for="input2" size="md" info="true">I am medium</sl-label>
+      <sl-input id="input2"></sl-input>
+      <sl-label for="input3" size="lg" info="true">I am large</sl-label>
+      <sl-input id="input3" size="lg"></sl-input>
+    </form>
+  `
+};

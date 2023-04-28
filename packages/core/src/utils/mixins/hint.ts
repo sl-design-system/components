@@ -14,23 +14,23 @@ export type LabelSize = 'sm' | 'md' | 'lg';
 let nextUniqueId = 0;
 
 export const hintStyles: CSSResultGroup = css`
-  slot[name='hint'] {
-    color: var(--sl-color-helper-text-default); //blue;
+  slot[name='hint']::slotted(*) {
+    color: var(--sl-color-helper-text-default);
     display: inline-flex;
   }
-  slot[name='hint'][disabled],
-  slot[name='hint']:disabled {
+  slot[name='hint'][disabled]::slotted(*),
+  slot[name='hint']:disabled::slotted(*) {
     color: var(--sl-color-helper-text-disabled);
   }
-  slot[hintsize='sm'] {
+  slot[hintsize='sm']::slotted(*) {
     font: var(--sl-text-input-helper-sm);
     padding-top: var(--sl-space-helper-padding-top-sm);
   }
-  slot[hintsize='md'] {
+  slot[hintsize='md']::slotted(*) {
     font: var(--sl-text-input-helper-md);
     padding-top: var(--sl-space-helper-padding-top-md);
   }
-  slot[hintsize='lg'] {
+  slot[hintsize='lg']::slotted(*) {
     font: var(--sl-text-input-helper-lg);
     padding-top: var(--sl-space-helper-padding-top-lg);
   }

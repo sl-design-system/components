@@ -38,28 +38,31 @@ const isNative = (target: ValidationTarget): target is NativeValidationTarget =>
 let nextUniqueId = 0;
 
 export const validationStyles: CSSResultGroup = css`
-  slot[part='error'] {
+  slot[part='error']::slotted(*) {
     color: #c73434;
     display: inline-flex;
     align-items: center;
     fill: var(--sl-color-text-field-invalid-focus-icon);
     --_size: 20px;
   }
-  slot[part='error'][error-size='sm'] {
+  slot[part='error'][error-size='sm']::slotted(*) {
     font: var(--sl-text-input-helper-sm);
     padding-top: var(--sl-space-helper-padding-top-sm);
     // gap: var(--sl-space-helper-gap-sm);
+    gap: var(--sl-space-helper-gap-sm);
   }
-  slot[part='error'][error-size='md'] {
+  slot[part='error'][error-size='md']::slotted(*) {
     font: var(--sl-text-input-helper-md);
     padding-top: var(--sl-space-helper-padding-top-md);
     // gap: var(--sl-space-helper-gap-md);
+    gap: var(--sl-space-helper-gap-md);
   }
-  slot[part='error'][error-size='lg'] {
+  slot[part='error'][error-size='lg']::slotted(*) {
     font: var(--sl-text-input-helper-lg);
     padding-top: var(--sl-space-helper-padding-top-lg);
     // gap: var(--sl-space-helper-gap-lg);
     // display: inline-flex;
+    gap: var(--sl-space-helper-gap-lg);
   }
   slot[part='error']::slotted(sl-icon) {
     width: 20px;
@@ -419,9 +422,9 @@ export class ValidationController implements ReactiveController {
         currentError.remove();
       }
 
-      if (this.target.hasAttribute('aria-describedby')) {
-        this.target.removeAttribute('aria-describedby'); // TODO: check if it is the right place and good to remove it here?
-      }
+      // if (this.target.hasAttribute('aria-describedby')) {
+      //   this.target.removeAttribute('aria-describedby'); // TODO: check if it is the right place and good to remove it here?
+      // }
       this.target.setAttribute('aria-describedby', this.#errorMessageId);
       //this.#host.requestUpdate();
       // console.log(
@@ -474,9 +477,9 @@ export class ValidationController implements ReactiveController {
       // div.setAttribute('hintSize', this.hintSize);
       // div.part = 'error';
       div.setAttribute('part', 'error');
-      div.style.display = 'inline-flex';
-      div.style.alignItems = 'center';
-      div.style.setProperty('gap', `var(--sl-space-helper-gap-${this.#messageSize})`); // TODO: space-helper-gap token + add sizes
+      // div.style.display = 'inline-flex';
+      // div.style.alignItems = 'center';
+      // div.style.setProperty('gap', `var(--sl-space-helper-gap-${this.#messageSize})`); // TODO: space-helper-gap token + add sizes
       div.setAttribute('error-size', this.#messageSize);
       div.slot = this.#slotName;
       //div.appendChild(this.#icon());
@@ -498,18 +501,60 @@ export class ValidationController implements ReactiveController {
   #removeValidationMessage(): void {
     this.#host.querySelector('[part="error"]')?.remove();
     if (this.#target?.hasAttribute('aria-describedby')) {
-      // console.log(
-      //   "this.#target?.getAttribute('aria-describedby')",
-      //   this.#target?.getAttribute('aria-describedby'),
-      //   this.#errorMessageId
-      // );
+      console.log(
+        "this.#target?.getAttribute('aria-describedby')",
+        this.#target?.getAttribute('aria-describedby'),
+        'error_message_id___',
+        this.#errorMessageId
+      );
       const describedBy = this.#target?.getAttribute('aria-describedby');
-      describedBy?.replace(this.#errorMessageId, '').replace('  ', ' ').trim();
+      // describedBy?.replace(this.#errorMessageId, '').replace('  ', ' ').trim();
       // this.#host.requestUpdate();
       // console.log(
       //   "this.#target?.getAttribute('aria-describedby')",
       //   this.#target?.getAttribute('aria-describedby'),
       //   this.#errorMessageId
+      // );
+
+      const ids = describedBy?.split(' ');
+
+      // Find the index of the ID to remove
+      const index = ids?.indexOf(this.#errorMessageId);
+
+      if (index !== -1 && ids) {
+        // Remove the ID from the array
+        let newIds: string[] = [];
+        if (index) {
+          newIds = ids.splice(index, 1);
+        }
+
+        // Join the remaining IDs back into a string
+        const newAriaDescribedby = ids?.join(' ');
+
+        // Set the new aria-describedby attribute on the element
+        if (newAriaDescribedby) {
+          this.#target.setAttribute('aria-describedby', newIds.toString() /*newAriaDescribedby*/);
+        }
+        console.log(
+          index,
+          ids,
+          newAriaDescribedby,
+          ids?.splice(index, 1).toString(),
+          "222this.#target?.getAttribute('aria-describedby')",
+          describedBy,
+          'desdcribedby on target-------',
+          this.#target?.getAttribute('aria-describedby'),
+          'error_message_id___',
+          this.#errorMessageId
+        );
+      }
+
+      // console.log(index, ids,
+      //   "222this.#target?.getAttribute('aria-describedby')",
+      //   describedBy,
+      //   'desdcribedby on target-------',
+      //   this.#target?.getAttribute('aria-describedby'),
+      //   'error_message_id___', this.#errorMessageId
       // );
     }
     // this.target.removeAttribute('aria-describedby');

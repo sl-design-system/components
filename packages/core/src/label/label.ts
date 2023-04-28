@@ -34,8 +34,14 @@ export class Label extends LitElement {
   /** Whether this label should be marked as required. */
   @state() required?: boolean;
 
+  /** Whether this label should have an (info) icon. */
+  @state() info?: boolean;
+
   /** Label size. */
   @property({ reflect: true }) size: LabelSize = 'md';
+
+  /** The label disabled state. */
+  @property() disabled?: boolean;
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
@@ -82,6 +88,11 @@ export class Label extends LitElement {
           target = this.formControl.querySelector('input, textarea') as HTMLElement;
         }
 
+        console.log('formcontrol', this.formControl, this.formControl.hasAttribute('disabled'));
+        if (this.formControl.hasAttribute('disabled')) {
+          this.disabled = true;
+        }
+
         this.#observer.observe(target, { attributes: true, attributeFilter: ['required'] });
         void this.#update();
       } else {
@@ -92,12 +103,15 @@ export class Label extends LitElement {
   }
 
   override render(): TemplateResult {
+    console.log('this.info in label', this.info);
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
-      <slot name="label"></slot>
+      <slot name="label" ?disabled=${this.disabled}></slot>
+      ${this.info ? html`<span class="info">info icon</span>` : ''}
       ${this.optional ? html`<span class="optional">(optional)</span>` : ''}
-      ${this.required ? html`<span class="required">*</span>` : ''}
-    `;
+      ${this.required ? html`<span class="required">(required)</span>` : ''}
+    `; // TODO: what about tooltip here? for the info icon?
+    // <slot name="icon" ?disabled=${this.disabled}></slot>
   }
 
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {

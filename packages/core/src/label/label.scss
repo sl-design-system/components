@@ -8,8 +8,8 @@ $sizes: sm, md, lg;
 }
 
 :host {
-  font-weight: var(--_font-weight);
-  line-height: var(--_line-height);
+  //font-weight: var(--_font-weight);
+  //line-height: var(--_line-height);
 }
 
 .optional,
@@ -19,7 +19,11 @@ $sizes: sm, md, lg;
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_font: var(--sl-text-input-label-#{$size}); // TODO: use exact token
+    //--_font: var(--sl-text-input-label-label-#{$size}); // TODO: use exact token
     --_padding-bottom: var(--sl-space-label-padding-bottom-#{$size});
+
+    slot[name='label']::slotted(*) {
+      --_font: var(--sl-text-input-label-label-#{$size});
+    }
   }
 }

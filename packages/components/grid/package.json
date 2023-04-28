@@ -1,0 +1,47 @@
+{
+  "name": "@sl-design-system/grid",
+  "version": "0.0.0",
+  "description": "Grid components for the SL Design System",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/grid"
+  },
+  "homepage": "https://sanomalearning.design/components/grid",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "customElements": "custom-elements.json",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./register.js": "./register.js"
+  },
+  "files": [
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.js.map",
+    "custom-elements.json"
+  ],
+  "sideEffects": [
+    "register.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  },
+  "dependencies": {
+    "@lit-labs/virtualizer": "^2.0.0",
+    "@sl-design-system/checkbox": "0.0.0",
+    "@sl-design-system/input": "0.0.0",
+    "@sl-design-system/shared": "0.0.0",
+    "lit": "^2.7.2"
+  }
+}

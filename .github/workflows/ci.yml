@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 env:
-  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
 
 jobs:
   build:

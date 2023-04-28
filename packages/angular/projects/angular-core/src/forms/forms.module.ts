@@ -1,11 +1,13 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import '@sl-design-system/checkbox/register.js';
+import '@sl-design-system/input/register.js';
+import '@sl-design-system/radio-group/register.js';
+import '@sl-design-system/textarea/register.js';
 import { CheckboxDirective} from './checkbox/checkbox.directive';
 import { InputDirective } from './input/input.directive';
 import { TextareaDirective } from './textarea/textarea.directive';
-import { RadioGroupDirective } from "./radio-group/radio-group.directive";
-import { RadioDirective } from "./radio-group/radio.directive";
-
-
+import { RadioGroupDirective } from './radio-group/radio-group.directive';
+import { RadioDirective } from './radio-group/radio.directive';
 
 @NgModule({
   declarations: [
@@ -14,8 +16,6 @@ import { RadioDirective } from "./radio-group/radio.directive";
     TextareaDirective,
     RadioGroupDirective,
     RadioDirective
-  ],
-  imports: [
   ],
   exports: [
     CheckboxDirective,
@@ -26,4 +26,4 @@ import { RadioDirective } from "./radio-group/radio.directive";
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class FormsModule { }
+export class FormsModule {}

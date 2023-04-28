@@ -1,0 +1,177 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button",
+          "declaration": {
+            "name": "Button",
+            "module": "/src/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/button.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/button.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Button",
+          "members": [
+            {
+              "kind": "field",
+              "name": "fill",
+              "type": {
+                "text": "ButtonFill"
+              },
+              "default": "'default'",
+              "description": "The button fill.",
+              "attribute": "fill",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "description": "Button size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "button | reset | submit"
+              },
+              "default": "'button'",
+              "description": "The button type. Defaults to `button`, but can be set to `submit` when used in a form.",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'default'",
+              "description": "The button variant. If no variant is specified, it uses the default button style.",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "fill",
+              "type": {
+                "text": "ButtonFill"
+              },
+              "default": "'default'",
+              "description": "The button fill.",
+              "fieldName": "fill"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "description": "Button size.",
+              "fieldName": "size"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "button | reset | submit"
+              },
+              "default": "'button'",
+              "description": "The button type. Defaults to `button`, but can be set to `submit` when used in a form.",
+              "fieldName": "type"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'default'",
+              "description": "The button variant. If no variant is specified, it uses the default button style.",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Button",
+          "declaration": {
+            "name": "Button",
+            "module": "src/button.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

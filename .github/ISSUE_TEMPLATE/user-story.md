@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 # Button tokens in Magister theme
-**This user story is part of https://github.com/sanomalearning/design-system/issues/160**
+**This user story is part of https://github.com/sl-design-system/components/issues/160**
 
 |<div align="left">**What is the problem we are solving and why?**|
 |-------------|

@@ -1,0 +1,79 @@
+:host {
+  --_border: 1px solid #eee;
+  --_border-radius: 3px;
+  --_cell-background: #fff;
+  --_cell-border: 1px solid #eee;
+  --_cell-padding: 0.25rem 1rem;
+  --_font: var(--sl-text-body-md-normal);
+  --_header-background: #fff;
+  --_header-font-weight: 600;
+  --_header-padding: 0.5rem 1rem;
+  --_selected-background: #338bff0f;
+  --_striped-background: #f9f9f9;
+}
+
+:host {
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  display: block;
+  font: var(--_font);
+}
+
+:host([no-border]) {
+  --_border: none;
+}
+
+:host([no-row-border]) {
+  --_cell-border: none;
+}
+
+:host([striped]) tr[part~='odd'] {
+  --_cell-background: var(--_striped-background);
+}
+
+table {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  width: fit-content;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+tr {
+  display: flex;
+  margin: 0;
+  width: 100%;
+
+  &[part~='selected'] {
+    --_cell-background: var(--_selected-background);
+  }
+}
+
+th,
+td {
+  align-items: center;
+  display: inline-flex;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+th {
+  background: var(--_header-background);
+  border-bottom: var(--_cell-border);
+  font-weight: var(--_header-font-weight);
+  padding: var(--_header-padding);
+}
+
+td {
+  background: var(--_cell-background);
+  padding: var(--_cell-padding);
+}
+
+tr:not(:first-of-type) td {
+  border-top: var(--_cell-border);
+}

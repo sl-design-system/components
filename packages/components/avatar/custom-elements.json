@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "/src/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/avatar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/avatar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/avatar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Avatar",
+          "members": [
+            {
+              "kind": "method",
+              "name": "_getUserDetails",
+              "return": {
+                "type": {
+                  "text": "Promise<UserProfile>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "string"
+              },
+              "default": "'slds'",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "attribute": "uniqueProfileId"
+            },
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "string"
+              },
+              "default": "'slds'",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "fieldName": "uniqueProfileId"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-avatar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "src/avatar.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

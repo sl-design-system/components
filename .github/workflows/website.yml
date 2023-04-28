@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'packages/tokens/src/figma/**'
+      - 'packages/tokens/src/**'
     types: [opened, synchronize, reopened, closed]
 
   push:
@@ -16,8 +16,8 @@ on:
   workflow_dispatch:
 
 env:
-  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: 'docs/website/dist/teaser'
+          path: 'website/dist/teaser'
       - id: deployment
         uses: actions/deploy-pages@v1
 
@@ -64,7 +64,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.WEBSITE_AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: upload
-          app_location: docs/website/dist/site
+          app_location: website/dist/site
           production_branch: main
           skip_api_build: true
           skip_app_build: true
@@ -84,7 +84,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ### 🕸 Website preview
-            You can view a preview [here](${{ steps.deploy.outputs.static_web_app_url }}) (commit [`${{ github.event.pull_request.head.sha }}`](https://github.com/sanomalearning/design-system/commit/${{ github.event.pull_request.head.sha }})).
+            You can view a preview [here](${{ steps.deploy.outputs.static_web_app_url }}) (commit [`${{ github.event.pull_request.head.sha }}`](https://github.com/sl-design-system/components/commit/${{ github.event.pull_request.head.sha }})).
           edit-mode: replace
 
   cleanup:

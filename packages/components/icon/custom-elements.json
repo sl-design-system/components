@@ -1,0 +1,185 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/icon.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/models.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-icon",
+          "declaration": {
+            "name": "Icon",
+            "module": "/src/icon.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/icon.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/icon.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/icon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Icon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "availableStyles",
+              "type": {
+                "text": "IconStyle[]"
+              },
+              "static": true,
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "icons",
+              "type": {
+                "text": "IconLibrary"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon to show.",
+              "attribute": "name"
+            },
+            {
+              "kind": "method",
+              "name": "registerIcon",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "faIcons",
+                  "type": {
+                    "text": "IconDefinition | IconDefinition[]"
+                  },
+                  "description": "One or more IconDefinition that have been imported from FontAwesome"
+                }
+              ],
+              "description": "Add icon(s) to the icon registry"
+            },
+            {
+              "kind": "method",
+              "name": "registerIcons",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "icons",
+                  "type": {
+                    "text": "IconLibrary"
+                  }
+                }
+              ],
+              "description": "store all icons from the IconLibrary of the theme in the icon registry for easy access"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon to show.",
+              "fieldName": "name"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-icon",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Icon",
+          "declaration": {
+            "name": "Icon",
+            "module": "src/icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/models.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

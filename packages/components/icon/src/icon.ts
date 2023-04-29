@@ -55,7 +55,7 @@ export class Icon extends LitElement {
    * store all icons from the IconLibrary of the theme in the icon registry for easy access
    */
   static registerIcons(icons: IconLibrary): void {
-    window.SLDS.icons = icons;
+    window.SLDS.icons = { ...window.SLDS.icons, ...icons };
   }
 
   /**

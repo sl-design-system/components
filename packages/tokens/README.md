@@ -8,4 +8,4 @@ Figma is the tool used for managing the design tokens. Figma is the one source o
 
 Once the tokens in the figma folder have been updated, various files are generated from those using [style-dictionary](https://amzn.github.io/style-dictionary).
 
-Every theme has its own separate folder. Each folder is then also published as a separate package, e.g. `@sanomalearning/slds-sanoma-learning`. The `@sanomalearning/slds-tokens` package is private and is itself not published.
+Every theme has its own separate folder. Each folder is then also published as a separate package, e.g. `@sl-design-system/sanoma-learning`. The `@sl-design-system/tokens` package is private and is itself not published.

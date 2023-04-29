@@ -17,7 +17,7 @@ permissions:
 jobs:
   release:
     # Prevents changesets action from creating a PR on forks
-    if: github.repository == 'sanomalearning/design-system'
+    if: github.repository == 'sl-design-system/components'
     name: Release
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +31,7 @@ jobs:
           node-version: 16
           cache: 'yarn'
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@sanomalearning'
+          scope: '@sl-design-system'
 
       - run: yarn install --immutable
 

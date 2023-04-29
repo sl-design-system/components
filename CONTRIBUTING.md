@@ -38,7 +38,7 @@ This is used for typechecking your component by the TypeScript compiler.
 This is an international project and as such everything uses the American English language.
 
 When writing code in this project, please follow the following naming conventions:
-- For NPM packages, we use the `sanomalearning` organization with the `slds-` prefix for the actual packages; for example: `@sanomalearning/slds-core`
+- For NPM packages, we use the `sl-design-system` organization with component name for the actual packages; for example: `@sl-design-system/button`
 - For web components, we use the `sl-` prefix; for example: `<sl-button>`
 - All web component events use the `sl-` prefix and "dasherize" convention; for example: `sl-active-item-change`
 

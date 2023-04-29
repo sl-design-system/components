@@ -6,7 +6,6 @@
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git"
   },
-  "type": "module",
   "workspaces": [
     "packages/angular",
     "packages/components/*",
@@ -231,7 +230,7 @@
         "build:scss"
       ],
       "files": [
-        "web-test-runner.config.js",
+        "web-test-runner.config.mjs",
         "packages/components/**/*.spec.ts"
       ]
     },

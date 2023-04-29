@@ -1,4 +1,4 @@
-import { getInfo, getInfoFromPullRequest } from '@changesets/get-github-info';
+const { getInfo, getInfoFromPullRequest } = require('@changesets/get-github-info');
 
 async function getReleaseLine(changeset, type, options) {
   if (!options || !options.repo) {

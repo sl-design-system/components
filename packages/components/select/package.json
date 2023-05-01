@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/select",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Select component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/popover": "0.0.2",
-    "@sl-design-system/shared": "0.0.2",
+    "@sl-design-system/popover": "0.0.3",
+    "@sl-design-system/shared": "0.0.3",
     "lit": "^2.7.2"
   }
 }

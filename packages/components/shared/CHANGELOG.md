@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.0.3
+
+### Patch Changes
+
+- [#388](https://github.com/sl-design-system/components/pull/388) [`d45dbfa`](https://github.com/sl-design-system/components/commit/d45dbfa4289439cdfba237190dbf910478f282db) - Handle null values in valueByPath
+
 ## 0.0.2
 
 ### Patch Changes

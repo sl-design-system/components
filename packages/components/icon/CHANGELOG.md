@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 0.0.2
+
+### Patch Changes
+
+- [#381](https://github.com/sl-design-system/components/pull/381) [`bf663ee`](https://github.com/sl-design-system/components/commit/bf663eecbb5e1607562c94058002569d481298eb) - Fix types to work without "nodenext" module resolution
+
 ## 0.0.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @sanomalearning/slds-clickedu
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`bf663ee`](https://github.com/sl-design-system/components/commit/bf663eecbb5e1607562c94058002569d481298eb)]:
+  - @sl-design-system/icon@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes

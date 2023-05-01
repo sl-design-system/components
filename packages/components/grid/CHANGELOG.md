@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.4
+
+### Patch Changes
+
+- [#386](https://github.com/sl-design-system/components/pull/386) [`81c8d1f`](https://github.com/sl-design-system/components/commit/81c8d1f445e524c3b70ec3f8e4e106630dd60ea5) - Fix external styling on row hover
+
 ## 0.0.3
 
 ### Patch Changes

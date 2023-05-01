@@ -1,5 +1,5 @@
 export declare const icons: {
-    'face-smile': {
+    "face-smile": {
         value: string;
         type: string;
         description: string;
@@ -23,13 +23,13 @@ export declare const icons: {
         description: string;
         svg: string;
     };
-    'pinata-solid': {
+    "pinata-solid": {
         value: string;
         type: string;
         description: string;
         svg: string;
     };
-    'chevron-down': {
+    "chevron-down": {
         value: string;
         type: string;
         description: string;

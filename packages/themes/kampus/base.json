@@ -1079,17 +1079,17 @@
   "borderRadius": {
     "button": {
       "sm": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "md": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "lg": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
@@ -1411,17 +1411,17 @@
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.lg} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }

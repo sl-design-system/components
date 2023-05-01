@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.3
+
+### Patch Changes
+
+- [#384](https://github.com/sl-design-system/components/pull/384) [`155195e`](https://github.com/sl-design-system/components/commit/155195ef3d6531d991346d6aaff685ca64be210a) - Fix scoped elements with sortable column
+
 ## 0.0.2
 
 ### Patch Changes

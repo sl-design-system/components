@@ -240,6 +240,15 @@
         "build:tokens"
       ]
     },
+    "version": {
+      "command": "yarn",
+      "dependencies": [
+        "version:changeset"
+      ]
+    },
+    "version:changeset": {
+      "command": "yarn changeset version"
+    },
     "website": {
       "dependencies": [
         "./website:build:prod"

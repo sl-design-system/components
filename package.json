@@ -242,7 +242,7 @@
       ]
     },
     "version": {
-      "command": "yarn",
+      "command": "yarn install",
       "dependencies": [
         "version:changeset"
       ]

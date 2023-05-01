@@ -26,6 +26,10 @@ export const getValueByPath = (object: unknown, path = ''): unknown => {
 
   let result = object;
   for (const part of parts) {
+    if (!result) {
+      break;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
     result = (result as any)[part];
   }

@@ -27,6 +27,7 @@
     "storybook": "wireit",
     "test": "wireit",
     "transform-tokens": "wireit",
+    "version": "wireit",
     "website": "wireit"
   },
   "wireit": {
@@ -239,6 +240,15 @@
         "build:icons",
         "build:tokens"
       ]
+    },
+    "version": {
+      "command": "yarn",
+      "dependencies": [
+        "version:changeset"
+      ]
+    },
+    "version:changeset": {
+      "command": "yarn changeset version"
     },
     "website": {
       "dependencies": [

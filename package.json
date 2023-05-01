@@ -27,6 +27,7 @@
     "storybook": "wireit",
     "test": "wireit",
     "transform-tokens": "wireit",
+    "version": "wireit",
     "website": "wireit"
   },
   "wireit": {

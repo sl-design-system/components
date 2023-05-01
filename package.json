@@ -242,7 +242,7 @@
       ]
     },
     "version": {
-      "command": "yarn install",
+      "command": "yarn install --no-immutable",
       "dependencies": [
         "version:changeset"
       ]

@@ -127,57 +127,57 @@
       },
       "neutral": {
         "50": {
-          "value": "#ffffff",
+          "value": "#FFFFFF",
           "type": "color",
           "description": "color.palette.neutral.50"
         },
         "100": {
-          "value": "#EAEAEA",
+          "value": "#f5f5f6",
           "type": "color",
           "description": "color.palette.neutral.100"
         },
         "150": {
-          "value": "#D5D5D5",
+          "value": "#E2E2E4",
           "type": "color",
           "description": "color.palette.neutral.150"
         },
         "200": {
-          "value": "#BCBCBC",
+          "value": "#D7D7D7",
           "type": "color",
           "description": "color.palette.neutral.200"
         },
         "300": {
-          "value": "#A2A1A1",
+          "value": "#CECFD2",
           "type": "color",
           "description": "color.palette.neutral.300"
         },
         "400": {
-          "value": "#898989",
+          "value": "#C3C3C4",
           "type": "color",
           "description": "color.palette.neutral.400"
         },
         "500": {
-          "value": "#737373",
+          "value": "#B1B2B7",
           "type": "color",
           "description": "color.palette.neutral.500"
         },
         "600": {
-          "value": "#605F5F",
+          "value": "#95969D",
           "type": "color",
           "description": "color.palette.neutral.600"
         },
         "700": {
-          "value": "#4E4E4E",
+          "value": "#6D6E73",
           "type": "color",
           "description": "color.palette.neutral.700"
         },
         "800": {
-          "value": "#3E3D3D",
+          "value": "#444548",
           "type": "color",
           "description": "color.palette.neutral.800"
         },
         "900": {
-          "value": "#2E2E2E",
+          "value": "#29292B",
           "type": "color",
           "description": "color.palette.neutral.900"
         },
@@ -436,14 +436,14 @@
       },
       "black": {
         "base": {
-          "value": "{color.palette.neutral.base}",
+          "value": "#29292B",
           "type": "color",
           "description": "color.palette.black.base"
         }
       },
       "white": {
         "base": {
-          "value": "{color.palette.neutral.50}",
+          "value": "#FFFFFF",
           "type": "color",
           "description": "color.palette.white.base"
         }

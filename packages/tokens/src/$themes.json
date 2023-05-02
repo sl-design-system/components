@@ -5,9 +5,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel/base": "enabled",
-      "bingel/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "bingel/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -17,9 +15,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-dc/base": "enabled",
-      "bingel-dc/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "bingel-dc/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -29,9 +25,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-int/base": "enabled",
-      "bingel-int/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "bingel-int/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -41,9 +35,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "clickedu/base": "enabled",
-      "clickedu/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "clickedu/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -53,9 +45,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "itslearning/base": "enabled",
-      "itslearning/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "itslearning/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -65,9 +55,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "kampus/base": "enabled",
-      "kampus/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "kampus/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -77,9 +65,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "magister/base": "enabled",
-      "magister/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "magister/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -89,9 +75,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "max/base": "enabled",
-      "max/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "max/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -101,9 +85,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "neon/base": "enabled",
-      "neon/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "neon/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -113,9 +95,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/light": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "sanoma-learning/light": "enabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:d48001ec2d75d36a13f1588a7e9a5014145f36c9,",
@@ -1012,9 +992,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/dark": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "sanoma-learning/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e436f1f9f05abf7e76d0f3753b0a9e05e7ad0753,",
@@ -1600,9 +1578,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "neon/base": "enabled",
-      "neon/dark": "enabled",
-      "teas/base": "disabled",
-      "teas/light": "disabled"
+      "neon/dark": "enabled"
     },
     "$figmaStyleReferences": {}
   },

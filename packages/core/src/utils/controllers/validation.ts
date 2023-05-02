@@ -48,19 +48,16 @@ export const validationStyles: CSSResultGroup = css`
   slot[part='error'][error-size='sm']::slotted(*) {
     font: var(--sl-text-input-helper-sm);
     padding-top: var(--sl-space-helper-padding-top-sm);
-    // gap: var(--sl-space-helper-gap-sm);
     gap: var(--sl-space-helper-gap-sm);
   }
   slot[part='error'][error-size='md']::slotted(*) {
     font: var(--sl-text-input-helper-md);
     padding-top: var(--sl-space-helper-padding-top-md);
-    // gap: var(--sl-space-helper-gap-md);
     gap: var(--sl-space-helper-gap-md);
   }
   slot[part='error'][error-size='lg']::slotted(*) {
     font: var(--sl-text-input-helper-lg);
     padding-top: var(--sl-space-helper-padding-top-lg);
-    // gap: var(--sl-space-helper-gap-lg);
     // display: inline-flex;
     gap: var(--sl-space-helper-gap-lg);
   }
@@ -539,7 +536,7 @@ export class ValidationController implements ReactiveController {
           index,
           ids,
           newAriaDescribedby,
-          ids?.splice(index, 1).toString(),
+          //ids?.splice(index, 1).toString(),
           "222this.#target?.getAttribute('aria-describedby')",
           describedBy,
           'desdcribedby on target-------',

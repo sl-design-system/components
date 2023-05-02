@@ -877,7 +877,7 @@
     "width": {
       "button": {
         "default": {
-          "value": "{border.width.md}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.default"
         },
@@ -899,7 +899,7 @@
           "description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }

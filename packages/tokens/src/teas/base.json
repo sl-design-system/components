@@ -251,61 +251,61 @@
       },
       "success": {
         "50": {
-          "value": "#EBF5EE",
+          "value": "#D8F7E5",
           "type": "color",
           "description": "color.palette.success.50"
         },
         "100": {
-          "value": "#D7F5E1",
+          "value": "#AFEFC8",
           "type": "color",
           "description": "color.palette.success.100"
         },
         "150": {
-          "value": "#AEEBC4",
+          "value": "#85E6AC",
           "type": "color"
         },
         "200": {
-          "value": "#70E09D",
+          "value": "#5BDE90",
           "type": "color",
           "description": "color.palette.success.200"
         },
         "300": {
-          "value": "#45CC80",
+          "value": "#32D573",
           "type": "color",
           "description": "color.palette.success.300"
         },
         "400": {
-          "value": "#39B26C",
+          "value": "#08CD57",
           "type": "color",
           "description": "color.palette.success.400"
         },
         "500": {
-          "value": "#28854E",
+          "value": "#07AA48",
           "type": "color",
           "description": "color.palette.success.500"
         },
         "600": {
-          "value": "#1B6137",
+          "value": "#05883A",
           "type": "color",
           "description": "color.palette.success.600"
         },
         "700": {
-          "value": "#114224",
+          "value": "#04652B",
           "type": "color",
           "description": "color.palette.success.700"
         },
         "800": {
-          "value": "#0B331A",
+          "value": "#03431C",
           "type": "color",
           "description": "color.palette.success.800"
         },
         "900": {
-          "value": "#082613",
+          "value": "#01200E",
           "type": "color",
           "description": "color.palette.success.900"
         },
         "base": {
-          "value": "#45CC80",
+          "value": "#08CD57",
           "type": "color",
           "description": "color.palette.success.base"
         }
@@ -367,7 +367,7 @@
           "description": "color.palette.warning.900"
         },
         "base": {
-          "value": "#FFCF0D",
+          "value": "#F88600",
           "type": "color",
           "description": "color.palette.warning.base"
         }
@@ -429,7 +429,7 @@
           "description": "color.palette.danger.900"
         },
         "base": {
-          "value": "#FF575C",
+          "value": "#D40000",
           "type": "color",
           "description": "color.palette.danger.base"
         }

@@ -39,7 +39,7 @@ let nextUniqueId = 0;
 
 export const validationStyles: CSSResultGroup = css`
   slot[part='error']::slotted(*) {
-    color: #c73434;
+    color: var(--sl-color-helper-text-invalid); //#c73434;
     display: inline-flex;
     align-items: center;
     fill: var(--sl-color-text-field-invalid-focus-icon);

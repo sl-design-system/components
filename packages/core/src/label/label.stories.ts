@@ -35,14 +35,34 @@ export const LabelSize: StoryObj = {
         display: flex;
         flex-direction: column;
       }
+      sl-label:not(:first-child) {
+        margin-top: 16px;
+      }
     </style>
     <form>
-      <sl-label for="input1" size="sm">I am small</sl-label>
+      <sl-label for="input1a" size="sm" info="true">
+        I am small
+        <span slot="info">test <sl-icon name="fas-pinata"></sl-icon></span>
+      </sl-label>
+      <sl-input id="input1a"></sl-input>
+      <sl-label for="input1" size="sm" info="true">I am small</sl-label>
       <sl-input id="input1"></sl-input>
-      <sl-label for="input2" size="md">I am medium</sl-label>
+      <sl-label for="input2" size="md" info="true">I am medium</sl-label>
       <sl-input id="input2"></sl-input>
-      <sl-label for="input3" size="lg">I am large</sl-label>
+      <sl-label for="input3" size="lg" info="true">I am large</sl-label>
       <sl-input id="input3" size="lg"></sl-input>
+      <sl-label for="input4" size="sm">I am small disabled</sl-label>
+      <sl-input id="input4" disabled value="Disabled input"></sl-input>
+      <sl-label for="input5" size="md">I am medium disabled</sl-label>
+      <sl-input id="input5" disabled value="Disabled input"></sl-input>
+      <sl-label for="input6" size="lg">I am large disabled</sl-label>
+      <sl-input id="input6" size="lg" disabled value="Invalid input"></sl-input>
+      <sl-label for="input4" size="sm" invalid>I am small disabled</sl-label>
+      <sl-input id="input4" value="Invalid input" invalid></sl-input>
+      <sl-label for="input5" size="md" invalid>I am medium disabled</sl-label>
+      <sl-input id="input5" value="Invalid input" invalid></sl-input>
+      <sl-label for="input6" size="lg" invalid>I am large disabled</sl-label>
+      <sl-input id="input6" size="lg" value="Disabled input" invalid></sl-input>
     </form>
   `
 };

@@ -35,13 +35,16 @@ export class Label extends LitElement {
   @state() required?: boolean;
 
   /** Whether this label should have an (info) icon. */
-  @state() info?: boolean;
+  @property({ reflect: true }) info?: boolean;
 
   /** Label size. */
   @property({ reflect: true }) size: LabelSize = 'md';
 
   /** The label disabled state. */
-  @property() disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** The label invalid state. */
+  @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
@@ -51,6 +54,8 @@ export class Label extends LitElement {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    console.log('changes in label', changes);
 
     if (changes.has('for')) {
       if (this.for) {
@@ -69,15 +74,73 @@ export class Label extends LitElement {
               this.#formControlId = input.id;
               this.#label?.setAttribute('for', input.id);
             }
+
+            input?.addEventListener('invalid', () => {
+              this.invalid = input?.hasAttribute('invalid'); //true;
+              console.log('this.formControl in invalid label', input, input?.hasAttribute('invalid'));
+            });
+
+            input?.addEventListener('input', () => {
+              if ((input as HTMLInputElement)?.checkValidity()) {
+                this.invalid = false;
+              }
+            });
+
+            input?.addEventListener('change', () => {
+              if ((input as HTMLInputElement)?.checkValidity()) {
+                this.invalid = false;
+              }
+            });
+
+            console.log(
+              'in label updateComplete',
+              input,
+              input?.hasAttribute('invalid'),
+              this.formControl,
+              this.formControl?.hasAttribute('invalid')
+            );
           });
         } else {
           this.#formControlId = this.for;
           this.#label?.setAttribute('for', this.for);
+
+          this.formControl?.addEventListener('invalid', () => {
+            this.invalid = this.formControl?.hasAttribute('invalid'); //true;
+            console.log(
+              'this.formControl in invalid label',
+              this.formControl,
+              this.formControl?.hasAttribute('invalid')
+            );
+          });
         }
       } else {
         this.#label?.removeAttribute('for');
         this.formControl = null;
       }
+
+      // this.formControl?.addEventListener('invalid', () => {
+      //   this.invalid = this.formControl?.hasAttribute('invalid');//true;
+      //   console.log('this.formControl in invalid label', this.formControl, this.formControl?.hasAttribute('invalid'));
+      // });
+
+      // this.formControl?.addEventListener('change', () => {
+      //   console.log('change goes...');
+      //   if (this.formControl?.checkValidity()) {
+      //     this.invalid = false;
+      //   }
+      // });
+
+      // this.formControl?.addEventListener('input', () => {
+      //   this.invalid = false;
+      // });
+
+      console.log(
+        'formcontrol in forrr',
+        this.formControl,
+        this.formControl.hasAttribute('disabled'),
+        'invalid? ------->>>',
+        this.formControl.hasAttribute('invalid')
+      );
     }
 
     if (changes.has('formControl')) {
@@ -88,12 +151,44 @@ export class Label extends LitElement {
           target = this.formControl.querySelector('input, textarea') as HTMLElement;
         }
 
-        console.log('formcontrol', this.formControl, this.formControl.hasAttribute('disabled'));
+        console.log(
+          'formcontrol',
+          target,
+          this.formControl,
+          this.formControl.hasAttribute('disabled'),
+          'invalid? ------->>>',
+          this.formControl.hasAttribute('invalid'),
+          target.hasAttribute('invalid')
+        );
         if (this.formControl.hasAttribute('disabled')) {
           this.disabled = true;
         }
 
-        this.#observer.observe(target, { attributes: true, attributeFilter: ['required'] });
+        requestAnimationFrame(() => {
+          console.log(
+            'formcontrol in raf',
+            this.formControl.hasAttribute('aria-invalid'),
+            target,
+            this.formControl,
+            this.formControl.hasAttribute('disabled'),
+            'invalid? ------->>>',
+            this.formControl.hasAttribute('invalid'),
+            target.hasAttribute('invalid')
+          );
+        });
+
+        // void (target as LitElement)?.updateComplete.then(() => {
+        //   if (target.hasAttribute('disabled')) {
+        //     this.invalid = true;
+        //   }
+        //   console.log('formcontrol223', target, this.formControl, this.formControl.hasAttribute('disabled'), 'invalid? ------->>>', this.formControl.hasAttribute('invalid'), target.hasAttribute('invalid'));
+        // });
+
+        if (this.formControl.hasAttribute('invalid')) {
+          this.invalid = true;
+        }
+
+        this.#observer.observe(target, { attributes: true, attributeFilter: ['required'] }); // TODO: invalid here and disabled?
         void this.#update();
       } else {
         this.#observer.disconnect();
@@ -102,20 +197,60 @@ export class Label extends LitElement {
     }
   }
 
+  override update(changes: PropertyValues<this>): void {
+    super.update(changes);
+
+    console.log('changes in label update ee', changes, this.formControl?.hasAttribute('invalid'));
+
+    // if (this.formControl?.hasAttribute('invalid')) {
+    //   this.invalid = true;
+    // }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    console.log('changes in labe updatedl', changes);
+
+    if (this.formControl?.hasAttribute('invalid')) {
+      this.invalid = true;
+    } /*else {
+      this.invalid = false;
+    }*/
+  }
+
   override render(): TemplateResult {
     console.log('this.info in label', this.info);
+
+    console.log(
+      'formcontrol in render',
+      this.formControl,
+      this.formControl.hasAttribute('disabled'),
+      'invalid? ------->>>',
+      this.formControl.hasAttribute('invalid')
+    );
+
+    // if (this.formControl?.hasAttribute('invalid')) {
+    //   this.invalid = true;
+    // } else {
+    //   this.invalid = false;
+    // }
+
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
-      <slot name="label" ?disabled=${this.disabled}></slot>
-      ${this.info ? html`<span class="info">info icon</span>` : ''}
+      <slot name="label" ?disabled=${this.disabled} ?invalid=${this.invalid}></slot>
+      ${this.info ? html`<sl-icon name="face-smile"></sl-icon><span class="info">info icon</span>` : ''}
+      <slot name="icon"></slot>
       ${this.optional ? html`<span class="optional">(optional)</span>` : ''}
       ${this.required ? html`<span class="required">(required)</span>` : ''}
     `; // TODO: what about tooltip here? for the info icon?
+    // TODO: sl-icon not font awesome?
     // <slot name="icon" ?disabled=${this.disabled}></slot>
   }
 
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
     const nodes = target.assignedNodes({ flatten: true });
+    console.log('nodes in slotchange', nodes);
 
     if (this.#label && nodes.length) {
       this.#label.innerHTML = '';
@@ -136,6 +271,20 @@ export class Label extends LitElement {
 
     const { form } = this.formControl || {},
       required = this.formControl?.hasAttribute('required');
+
+    console.log(
+      'formcontrol in #update',
+      this.formControl.hasAttribute('aria-invalid'),
+      this.formControl,
+      this.formControl.hasAttribute('disabled'),
+      'invalid? ------->>>',
+      this.formControl.hasAttribute('invalid')
+    );
+
+    // this.formControl?.addEventListener('invalid', () => {
+    //   this.invalid = this.formControl?.hasAttribute('invalid');//true;
+    //   console.log('this.formControl in invalid label', this.formControl, this.formControl?.hasAttribute('invalid'));
+    // });
 
     if (form) {
       const controls = Array.from(form.elements).filter(el => !(el instanceof Button));

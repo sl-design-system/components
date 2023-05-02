@@ -21,9 +21,19 @@ $sizes: sm, md, lg;
   :host([size='#{$size}']) {
     //--_font: var(--sl-text-input-label-label-#{$size}); // TODO: use exact token
     --_padding-bottom: var(--sl-space-label-padding-bottom-#{$size});
+    //--_font: var(--sl-text-input-label-label-#{$size});
 
     slot[name='label']::slotted(*) {
-      --_font: var(--sl-text-input-label-label-#{$size});
+      font: var(--sl-text-input-label-label-#{$size});
+      //color: yellow;
     }
+  }
+
+  :host([disabled]) {
+    color: var(--sl-color-label-text-disabled);
+  }
+
+  :host([invalid]) {
+    color: var(--sl-color-label-text-invalid);
   }
 }

@@ -87,12 +87,18 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       } else {
         return this.formControlElement.internals.labels as NodeListOf<HTMLLabelElement>;
       }
+      console.log(
+        'in labels',
+        (this.formControlElement as NativeFormControlElement)?.labels,
+        (this.formControlElement as CustomFormControlElement)?.internals.labels
+      );
     }
 
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
       console.log('changes in updated in form', changes);
+      console.log('labels in form control', this.labels);
 
       if (changes.has('disabled') && isNative(this.formControlElement)) {
         this.formControlElement.toggleAttribute('disabled', this.disabled);

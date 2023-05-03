@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.6
+
+### Patch Changes
+
+- [#391](https://github.com/sl-design-system/components/pull/391) [`7f57d0e`](https://github.com/sl-design-system/components/commit/7f57d0ec7427d1e6b55c08f01a8546611a71eed7) - Enable customisation of `<thead>` using CSS parts
+
 ## 0.0.5
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import type { CSSResultGroup, LitElement, ReactiveController, ReactiveControllerHost, TemplateResult } from 'lit';
 import type { MessageSize, ValidationValue, Validator } from '../validators.js';
+import type { FormControlInterface } from '../mixins';
 import { msg, str } from '@lit/localize';
 import { faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import { Icon } from '@sanomalearning/slds-core/icon';
@@ -116,10 +117,39 @@ export class ValidationController implements ReactiveController {
   /** Name of slotted validation message. */
   #slotName: string;
 
+  /** Label connected with the element being validated */
+  #label?: HTMLElement;
+
   /** Event handler for when invalid validity must be reported. */
   #onInvalid = (event: Event): void => {
     // Prevent the browser from showing the built-in validation UI
     event.preventDefault();
+
+    // console.log(
+    //   'this.getRootNode() in validation',
+    //   (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+    //     `[for=${this.#target?.id}]`
+    //   ),
+    //   this.#target
+    // );
+
+    console.log(
+      'this.getRootNode() in validation host',
+      (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+        `[for=${this.#host?.id}]`
+      ),
+      this.#host
+    );
+
+    // const label: (HTMLElement & FormControlInterface) | null = isNative(this.target)
+    //   ? (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+    //       `[for=${this.#host?.id}]`
+    //     )
+    //   : (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+    //       `[for=${this.#target?.id}]`
+    //     );
+    //
+    // console.log('labellllllll ------ this.getRootNode() in validation host', label);
 
     // this.#host.setAttribute('invalid', '');
     this.#target?.setAttribute('invalid', '');
@@ -128,6 +158,7 @@ export class ValidationController implements ReactiveController {
       this.target.ariaInvalid = 'true';
       this.#host.requestUpdate();
     } // TODO: not necessary?
+    this.#label?.setAttribute('invalid', '');
 
     if (this.#showErrors !== !this.validity.valid) {
       const state = this.#getInvalidState(this.validity);
@@ -138,6 +169,7 @@ export class ValidationController implements ReactiveController {
       this.#target?.setAttribute('aria-describedby', this.#errorMessageId); // TODO: check if it is the right place
       this.#updateValidationMessage();
       this.#target?.setAttribute('invalid', '');
+      this.#label?.setAttribute('invalid', '');
       this.#showErrors = !this.validity.valid;
       // if (isNative(this.target)) {
       //   this.#host.setAttribute('invalid', '');
@@ -154,6 +186,7 @@ export class ValidationController implements ReactiveController {
     if (form === event.target) {
       this.#showErrors = false;
       this.#host.removeAttribute('invalid');
+      this.#label?.removeAttribute('invalid');
       this.target.ariaInvalid = null;
       this.#removeValidationMessage();
       // this.#host.removeAttribute('invalid');
@@ -229,6 +262,18 @@ export class ValidationController implements ReactiveController {
       this.target.setAttribute('title', '');
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    this.#label = isNative(this.target)
+      ? (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+          `[for=${this.#host?.id}]`
+        )
+      : (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          `[for=${this.#target?.id}]`
+        );
+
+    console.log('####labellllllll ------ this.getRootNode() in validation host', this.#label);
+
     document.addEventListener('reset', this.#onReset);
     this.target.addEventListener('invalid', this.#onInvalid);
   }
@@ -254,7 +299,7 @@ export class ValidationController implements ReactiveController {
 
     const state = this.#getInvalidState(this.validity);
 
-    console.log('validation render', this.#messageSize, this.#showErrors, state);
+    console.log('validation render', this.#messageSize, this.#showErrors, state, this.validationMessage);
 
     if (this.#showErrors && state) {
       this.#slotName = dasherize(state);
@@ -263,6 +308,7 @@ export class ValidationController implements ReactiveController {
         this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
         this.#host.requestUpdate();
       }
+      this.#label?.setAttribute('invalid', '');
 
       this.#updateValidationMessage();
 
@@ -280,6 +326,7 @@ export class ValidationController implements ReactiveController {
       // this.#target.removeAttribute('invalid');
       //  if (isNative(this.target)) {
       this.#host.removeAttribute('invalid'); // TODO: causes problems with invalid checkbox
+      this.#label?.removeAttribute('invalid');
       this.target.ariaInvalid = null;
       this.#host.requestUpdate();
       // }
@@ -313,8 +360,6 @@ export class ValidationController implements ReactiveController {
     });
 
     console.log('1111new validation 7 in updatecomplete target', this.target, this.#target, this.#host, errorSlot);
-
-    console.log('1a1a1a1anew validation 7 in updatecomplete target', this.#host);
 
     (this.#host as unknown as LitElement)?.updateComplete?.then(() => {
       const errorSlot = checkbox.shadowRoot?.querySelector('slot.error-message');
@@ -373,6 +418,15 @@ export class ValidationController implements ReactiveController {
 
     const currentError = this.#host.querySelector('sl-error');
 
+    console.log(
+      '1a1a1a1anew validation 7 in updatecomplete target',
+      this.#host,
+      currentError?.slot,
+      this.#slotName,
+      this.validationMessage,
+      (errorPart as HTMLElement)?.innerText
+    );
+
     /* if (/!*this.target.querySelector('[slot]')*!/ errorSlot) {
       // TODO: problems error vs hint slot mismatch
       // console.log('idzie if');
@@ -402,7 +456,8 @@ export class ValidationController implements ReactiveController {
     } else*/ if (
       (!currentError && this.validationMessage) ||
       currentError?.slot !== this.#slotName /*&&
-      (errorSlot as unknown as LitElement)?.slot != this.#slotName*/ /*&& !this.target.querySelector('[slot]')*/
+      (errorSlot as unknown as LitElement)?.slot != this.#slotName*/ /*&& !this.target.querySelector('[slot]')*/ ||
+      this.validationMessage !== (errorPart as HTMLElement)?.innerText
     ) {
       // TODO: check if sl-error
       // console.log('idzie else if', this.#messageSize);

@@ -55,6 +55,10 @@ export class Label extends LitElement {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
+    // console.log('this.getRootNode()', (this.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+    //   `#${this.for}`
+    // ), this);
+
     console.log('changes in label', changes);
 
     if (changes.has('for')) {
@@ -75,8 +79,8 @@ export class Label extends LitElement {
               this.#label?.setAttribute('for', input.id);
             }
 
-            input?.addEventListener('invalid', () => {
-              this.invalid = input?.hasAttribute('invalid'); //true;
+            /*            input?.addEventListener('invalid', () => {
+              this.invalid = true; //input?.hasAttribute('invalid'); //true;
               console.log('this.formControl in invalid label', input, input?.hasAttribute('invalid'));
             });
 
@@ -90,7 +94,7 @@ export class Label extends LitElement {
               if ((input as HTMLInputElement)?.checkValidity()) {
                 this.invalid = false;
               }
-            });
+            });*/
 
             console.log(
               'in label updateComplete',
@@ -104,14 +108,26 @@ export class Label extends LitElement {
           this.#formControlId = this.for;
           this.#label?.setAttribute('for', this.for);
 
-          this.formControl?.addEventListener('invalid', () => {
-            this.invalid = this.formControl?.hasAttribute('invalid'); //true;
+          /*          this.formControl?.addEventListener('invalid', () => {
+            this.invalid = true; //this.formControl?.hasAttribute('invalid'); //true;
             console.log(
               'this.formControl in invalid label',
               this.formControl,
               this.formControl?.hasAttribute('invalid')
             );
           });
+
+          this.formControl?.addEventListener('input', () => {
+            if (this.formControl?.checkValidity()) {
+              this.invalid = false;
+            }
+          });
+
+          this.formControl?.addEventListener('change', () => {
+            if (this.formControl?.checkValidity()) {
+              this.invalid = false;
+            }
+          });*/
         }
       } else {
         this.#label?.removeAttribute('for');
@@ -184,9 +200,9 @@ export class Label extends LitElement {
         //   console.log('formcontrol223', target, this.formControl, this.formControl.hasAttribute('disabled'), 'invalid? ------->>>', this.formControl.hasAttribute('invalid'), target.hasAttribute('invalid'));
         // });
 
-        if (this.formControl.hasAttribute('invalid')) {
+        /*        if (this.formControl.hasAttribute('invalid')) {
           this.invalid = true;
-        }
+        }*/
 
         this.#observer.observe(target, { attributes: true, attributeFilter: ['required'] }); // TODO: invalid here and disabled?
         void this.#update();
@@ -239,8 +255,11 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label" ?disabled=${this.disabled} ?invalid=${this.invalid}></slot>
-      ${this.info ? html`<sl-icon name="face-smile"></sl-icon><span class="info">info icon</span>` : ''}
+      ${this.info
+        ? html`<sl-icon name="face-smile"></sl-icon><span class="info" aria-describedby="tooltip">info icon</span>`
+        : ''}
       <slot name="icon"></slot>
+      <sl-tooltip id="tooltip">I am shared between different elements</sl-tooltip>
       ${this.optional ? html`<span class="optional">(optional)</span>` : ''}
       ${this.required ? html`<span class="required">(required)</span>` : ''}
     `; // TODO: what about tooltip here? for the info icon?
@@ -250,7 +269,7 @@ export class Label extends LitElement {
 
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
     const nodes = target.assignedNodes({ flatten: true });
-    console.log('nodes in slotchange', nodes);
+    console.log('nodes in slotchange', nodes, target, this.#label && nodes.length, this.#label, nodes.length);
 
     if (this.#label && nodes.length) {
       this.#label.innerHTML = '';

@@ -42,9 +42,9 @@ export const LabelSize: StoryObj = {
     <form>
       <sl-label for="input1a" size="sm" info="true">
         I am small
-        <span slot="info">test <sl-icon name="fas-pinata"></sl-icon></span>
+        <span slot="icon">test <sl-icon name="face-smile"></sl-icon></span>
       </sl-label>
-      <sl-input id="input1a"></sl-input>
+      <sl-input id="input1a" required></sl-input>
       <sl-label for="input1" size="sm" info="true">I am small</sl-label>
       <sl-input id="input1"></sl-input>
       <sl-label for="input2" size="md" info="true">I am medium</sl-label>

@@ -12,9 +12,14 @@ $sizes: sm, md, lg;
 //  //line-height: var(--_line-height);
 //}
 
-.optional,
-.required {
-  margin-left: 0.25rem;
+//.optional,
+//.required {
+//  margin-left: var(--sl-space-label-gap-md); //0.25rem;
+//  font: var(--sl-text-input-label-tag-md);
+//}
+
+sl-tooltip {
+  overflow: hidden;
 }
 
 @each $size in $sizes {
@@ -23,9 +28,15 @@ $sizes: sm, md, lg;
     --_padding-bottom: var(--sl-space-label-padding-bottom-#{$size});
     //--_font: var(--sl-text-input-label-label-#{$size});
 
-    slot[name='label']::slotted(*) {
+    slot[name='label']::slotted(label) {
       font: var(--sl-text-input-label-label-#{$size});
       //color: yellow;
+    }
+
+    .optional,
+    .required {
+      font: var(--sl-text-input-label-tag-#{$size});
+      margin-left: var(--sl-space-label-gap-#{$size}); //0.25rem;
     }
   }
 

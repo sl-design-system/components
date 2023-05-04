@@ -246,13 +246,13 @@ export const ErrorMessageSizes: StoryObj = {
         }
       </style>
       <form>
-        <sl-label for="input">Small</sl-label>
+        <sl-label for="input" size="sm">Small</sl-label>
         <sl-input id="input" name="input" required error-size="sm"></sl-input>
 
-        <sl-label for="input2">Medium</sl-label>
+        <sl-label for="input2" size="md">Medium</sl-label>
         <sl-input id="input2" name="input" required error-size="md"></sl-input>
 
-        <sl-label for="input3">Large</sl-label>
+        <sl-label for="input3" size="lg">Large</sl-label>
         <sl-input id="input3" name="input" required error-size="lg"></sl-input>
       </form>
     `;

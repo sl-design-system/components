@@ -34,8 +34,8 @@ export class Label extends LitElement {
   /** Whether this label should be marked as required. */
   @state() required?: boolean;
 
-  /** Whether this label should have an (info) icon. */
-  @property({ reflect: true }) info?: boolean;
+  // /** Whether this label should have an (info) icon. */
+  // @property({ reflect: true }) info?: boolean;
 
   /** Label size. */
   @property({ reflect: true }) size: LabelSize = 'md';
@@ -153,9 +153,9 @@ export class Label extends LitElement {
       console.log(
         'formcontrol in forrr',
         this.formControl,
-        this.formControl.hasAttribute('disabled'),
+        this.formControl?.hasAttribute('disabled'),
         'invalid? ------->>>',
-        this.formControl.hasAttribute('invalid')
+        this.formControl?.hasAttribute('invalid')
       );
     }
 
@@ -183,12 +183,12 @@ export class Label extends LitElement {
         requestAnimationFrame(() => {
           console.log(
             'formcontrol in raf',
-            this.formControl.hasAttribute('aria-invalid'),
+            this.formControl?.hasAttribute('aria-invalid'),
             target,
             this.formControl,
-            this.formControl.hasAttribute('disabled'),
+            this.formControl?.hasAttribute('disabled'),
             'invalid? ------->>>',
-            this.formControl.hasAttribute('invalid'),
+            this.formControl?.hasAttribute('invalid'),
             target.hasAttribute('invalid')
           );
         });
@@ -241,9 +241,9 @@ export class Label extends LitElement {
     console.log(
       'formcontrol in render',
       this.formControl,
-      this.formControl.hasAttribute('disabled'),
+      this.formControl?.hasAttribute('disabled'),
       'invalid? ------->>>',
-      this.formControl.hasAttribute('invalid')
+      this.formControl?.hasAttribute('invalid')
     );
 
     // if (this.formControl?.hasAttribute('invalid')) {
@@ -255,21 +255,30 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label" ?disabled=${this.disabled} ?invalid=${this.invalid}></slot>
-      ${this.info
-        ? html`<sl-icon name="face-smile"></sl-icon><span class="info" aria-describedby="tooltip">info icon</span>`
-        : ''}
       <slot name="icon"></slot>
-      <sl-tooltip id="tooltip">I am shared between different elements</sl-tooltip>
+      <slot name="tooltip"></slot>
       ${this.optional ? html`<span class="optional">(optional)</span>` : ''}
       ${this.required ? html`<span class="required">(required)</span>` : ''}
     `; // TODO: what about tooltip here? for the info icon?
     // TODO: sl-icon not font awesome?
     // <slot name="icon" ?disabled=${this.disabled}></slot>
+    /*    ${this.info
+  ? html`<sl-icon name="face-smile"></sl-icon><span class="info" aria-describedby="tooltip">info icon</span>`
+  : ''}*/
+    // <sl-tooltip id="tooltip">I am shared between different elements</sl-tooltip>
   }
 
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
     const nodes = target.assignedNodes({ flatten: true });
-    console.log('nodes in slotchange', nodes, target, this.#label && nodes.length, this.#label, nodes.length);
+    console.log(
+      'nodes in slotchange',
+      nodes,
+      target,
+      this.#label && nodes.length,
+      '#####label',
+      this.#label,
+      nodes.length
+    );
 
     if (this.#label && nodes.length) {
       this.#label.innerHTML = '';
@@ -293,11 +302,11 @@ export class Label extends LitElement {
 
     console.log(
       'formcontrol in #update',
-      this.formControl.hasAttribute('aria-invalid'),
+      this.formControl?.hasAttribute('aria-invalid'),
       this.formControl,
-      this.formControl.hasAttribute('disabled'),
+      this.formControl?.hasAttribute('disabled'),
       'invalid? ------->>>',
-      this.formControl.hasAttribute('invalid')
+      this.formControl?.hasAttribute('invalid')
     );
 
     // this.formControl?.addEventListener('invalid', () => {

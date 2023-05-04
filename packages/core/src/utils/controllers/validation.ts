@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import type { CSSResultGroup, LitElement, ReactiveController, ReactiveControllerHost, TemplateResult } from 'lit';
 import type { MessageSize, ValidationValue, Validator } from '../validators.js';
-import type { FormControlInterface } from '../mixins';
 import { msg, str } from '@lit/localize';
 import { faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import { Icon } from '@sanomalearning/slds-core/icon';
@@ -118,7 +117,7 @@ export class ValidationController implements ReactiveController {
   #slotName: string;
 
   /** Label connected with the element being validated */
-  #label?: HTMLElement;
+  #label?: HTMLElement | null;
 
   /** Event handler for when invalid validity must be reported. */
   #onInvalid = (event: Event): void => {
@@ -133,13 +132,13 @@ export class ValidationController implements ReactiveController {
     //   this.#target
     // );
 
-    console.log(
-      'this.getRootNode() in validation host',
-      (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
-        `[for=${this.#host?.id}]`
-      ),
-      this.#host
-    );
+    // console.log(
+    //   'this.getRootNode() in validation host',
+    //   (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+    //     `[for=${this.#host?.id}]`
+    //   ),
+    //   this.#host
+    // );
 
     // const label: (HTMLElement & FormControlInterface) | null = isNative(this.target)
     //   ? (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
@@ -263,16 +262,36 @@ export class ValidationController implements ReactiveController {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    this.#label = isNative(this.target)
-      ? (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+    /*    this.#label = isNative(this.target)
+      ? (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement>(
           `[for=${this.#host?.id}]`
         )
-      : (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
+      : (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement>(
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           `[for=${this.#target?.id}]`
-        );
+        );*/
 
-    console.log('####labellllllll ------ this.getRootNode() in validation host', this.#label);
+    if (isNative(this.target)) {
+      if (this.#host.id) {
+        this.#label = (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement>(`[for=${this.#host.id}]`);
+      }
+    } else {
+      if (this.#target?.id) {
+        this.#label = (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement>(
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          `[for=${this.#target.id}]`
+        );
+      }
+    }
+
+    console.log(
+      '####labellllllll ------ this.getRootNode() in validation host',
+      this.#label,
+      (this.target.getRootNode() as Element)?.querySelector<HTMLElement>(
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        `[for=${this.#target?.id}]`
+      )
+    );
 
     document.addEventListener('reset', this.#onReset);
     this.target.addEventListener('invalid', this.#onInvalid);

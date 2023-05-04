@@ -38,6 +38,8 @@ export function AnchoredMixin<T extends Constructor<ReactiveElement>>(
         this.anchorElement.style.anchorName = '--anchor';
       }
 
+      console.log('anchorElement', this.anchorElement);
+
       this.addEventListenersToAnchor();
     }
 

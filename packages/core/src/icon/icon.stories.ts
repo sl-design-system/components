@@ -62,7 +62,7 @@ export default {
       ${sizes.map(
         size => html`
           <h3>${sizeName(size)}</h3>
-          <section>${icons.map(i => html`<sl-icon .name=${i} .size=${size}></sl-icon>`)}</section>
+          <section>${icons.map(i => html`<sl-icon .name=${i} .size=${size}></sl-icon><span>${i}</span>`)}</section>
         `
       )}
       <h2>Referring to a non-existing icon:</h2>

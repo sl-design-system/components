@@ -1140,7 +1140,7 @@
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.none}",
           "type": "borderWidth",
           "description": "border.width.button.link"
         }
@@ -1152,7 +1152,7 @@
           "description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
@@ -1416,7 +1416,7 @@
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.lg} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },

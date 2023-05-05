@@ -28,8 +28,8 @@ export type ValidationTarget = NativeValidationTarget | CustomValidationTarget;
 
 export type ValidationConfig = {
   target?: ValidationTarget | (() => ValidationTarget);
-  validators?: Validator[];
-  size?: MessageSize; // TODO: use messagesize of md by default
+  validators?: Validator[]; //;
+  //size?: MessageSize; // TODO: use messagesize of md by default
 };
 
 const isNative = (target: ValidationTarget): target is NativeValidationTarget =>
@@ -124,42 +124,17 @@ export class ValidationController implements ReactiveController {
     // Prevent the browser from showing the built-in validation UI
     event.preventDefault();
 
-    // console.log(
-    //   'this.getRootNode() in validation',
-    //   (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
-    //     `[for=${this.#target?.id}]`
-    //   ),
-    //   this.#target
-    // );
+    console.log('oninvalid event', event, this.#showErrors, !this.validity.valid);
 
-    // console.log(
-    //   'this.getRootNode() in validation host',
-    //   (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
-    //     `[for=${this.#host?.id}]`
-    //   ),
-    //   this.#host
-    // );
+    // this.#target?.setAttribute('invalid', '');
+    // if (isNative(this.target)) {
+    //   this.#host.setAttribute('invalid', '');
+    //   this.target.ariaInvalid = 'true';
+    //   this.#host.requestUpdate();
+    // }
+    // this.#label?.setAttribute('invalid', '');
 
-    // const label: (HTMLElement & FormControlInterface) | null = isNative(this.target)
-    //   ? (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
-    //       `[for=${this.#host?.id}]`
-    //     )
-    //   : (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
-    //       `[for=${this.#target?.id}]`
-    //     );
-    //
-    // console.log('labellllllll ------ this.getRootNode() in validation host', label);
-
-    // this.#host.setAttribute('invalid', '');
-    this.#target?.setAttribute('invalid', '');
-    if (isNative(this.target)) {
-      this.#host.setAttribute('invalid', '');
-      this.target.ariaInvalid = 'true';
-      this.#host.requestUpdate();
-    } // TODO: not necessary?
-    this.#label?.setAttribute('invalid', '');
-
-    if (this.#showErrors !== !this.validity.valid) {
+    if (this.#showErrors /*!==*/ || !this.validity.valid) {
       const state = this.#getInvalidState(this.validity);
       if (!state) {
         return;
@@ -168,19 +143,27 @@ export class ValidationController implements ReactiveController {
       this.#target?.setAttribute('aria-describedby', this.#errorMessageId); // TODO: check if it is the right place
       this.#updateValidationMessage();
       this.#target?.setAttribute('invalid', '');
+      this.#host.setAttribute('invalid', '');
       this.#label?.setAttribute('invalid', '');
       this.#showErrors = !this.validity.valid;
-      // if (isNative(this.target)) {
-      //   this.#host.setAttribute('invalid', '');
-      //   this.#host.requestUpdate();
-      // }
       this.#host.requestUpdate();
     }
+
+    // if (!this.validity.valid) {
+    //   this.#target?.setAttribute('aria-describedby', this.#errorMessageId); // TODO: check if it is the right place
+    //   this.#updateValidationMessage();
+    //   this.#target?.setAttribute('invalid', '');
+    //   this.#label?.setAttribute('invalid', '');
+    //   this.#showErrors = !this.validity.valid;
+    //   this.#host.requestUpdate();
+    // }
   };
 
   /** Event handler for when the parent form is reset. */
   #onReset = (event: Event): void => {
     const { form } = isNative(this.target) ? this.target : this.target.internals;
+
+    console.log('form in reset', form);
 
     if (form === event.target) {
       this.#showErrors = false;
@@ -188,7 +171,6 @@ export class ValidationController implements ReactiveController {
       this.#label?.removeAttribute('invalid');
       this.target.ariaInvalid = null;
       this.#removeValidationMessage();
-      // this.#host.removeAttribute('invalid');
       this.#host.requestUpdate();
     }
   };
@@ -221,21 +203,11 @@ export class ValidationController implements ReactiveController {
     this.#host = host;
     this.#host.addController(this);
 
-    // console.log('size in validation constructor', size, this, host);
-
-    // if (size) {
-    //   this.#messageSize = size;
-    // } else {
-    //   this.#messageSize = 'md';
-    // }
-
     if (this.#host.hasAttribute('error-size')) {
       this.#messageSize = this.#host.getAttribute('error-size') as MessageSize;
     } else {
       this.#messageSize = 'md';
     }
-
-    // console.log('size in validation constructor - 2', size, this, host);
 
     if (typeof target === 'function') {
       this.#targetFn = target;
@@ -261,16 +233,6 @@ export class ValidationController implements ReactiveController {
       this.target.setAttribute('title', '');
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    /*    this.#label = isNative(this.target)
-      ? (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement>(
-          `[for=${this.#host?.id}]`
-        )
-      : (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement>(
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          `[for=${this.#target?.id}]`
-        );*/
-
     if (isNative(this.target)) {
       if (this.#host.id) {
         this.#label = (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement>(`[for=${this.#host.id}]`);
@@ -284,17 +246,9 @@ export class ValidationController implements ReactiveController {
       }
     }
 
-    console.log(
-      '####labellllllll ------ this.getRootNode() in validation host',
-      this.#label,
-      (this.target.getRootNode() as Element)?.querySelector<HTMLElement>(
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        `[for=${this.#target?.id}]`
-      )
-    );
-
     document.addEventListener('reset', this.#onReset);
     this.target.addEventListener('invalid', this.#onInvalid);
+    this.target.addEventListener('blur', this.#onBlur);
   }
 
   hostDisconnected(): void {
@@ -308,6 +262,33 @@ export class ValidationController implements ReactiveController {
     }
   }
 
+  #onBlur = (event: Event): void => {
+    const state = this.#getInvalidState(this.validity);
+    // if (!(state && this.#showErrors)) {
+    //   return;
+    // }
+    console.log('event on blur', event, this.validity.valid);
+    // this.#showErrors = !this.validity.valid;
+    if (!this.validity.valid && state && this.#showErrors) {
+      // this.#showErrors = !this.validity.valid;
+      this.#target?.setAttribute('invalid', '');
+      if (isNative(this.target)) {
+        this.#host.setAttribute('invalid', '');
+        this.target.ariaInvalid = 'true';
+        this.#host.requestUpdate();
+      }
+      this.#label?.setAttribute('invalid', '');
+    } else {
+      this.#target?.removeAttribute('invalid');
+      if (isNative(this.target)) {
+        this.#host.removeAttribute('invalid');
+        this.target.ariaInvalid = null;
+        this.#host.requestUpdate();
+      }
+      this.#label?.removeAttribute('invalid');
+    }
+  };
+
   render(): TemplateResult | undefined {
     if (!this.#target || !this.target || !this.#host) {
       return;
@@ -318,20 +299,19 @@ export class ValidationController implements ReactiveController {
 
     const state = this.#getInvalidState(this.validity);
 
-    console.log('validation render', this.#messageSize, this.#showErrors, state, this.validationMessage);
+    // console.log('validation render', this.#messageSize, this.#showErrors, state, this.validationMessage);
 
-    if (this.#showErrors && state) {
+    if ((this.#showErrors && state) || !this.validity.valid) {
+      // TODO: maybe add here this.#onInvalid?
       this.#slotName = dasherize(state);
-      this.#target.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
-      if (isNative(this.target)) {
-        this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
-        this.#host.requestUpdate();
-      }
-      this.#label?.setAttribute('invalid', '');
+      // this.#target.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
+      // if (isNative(this.target)) {
+      //   this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
+      //   this.#host.requestUpdate();
+      // }
+      // this.#label?.setAttribute('invalid', '');
 
       this.#updateValidationMessage();
-
-      // @slotchange="${this.#updateValidationMessage}"
 
       return html`<slot
         class="error-message"
@@ -339,44 +319,25 @@ export class ValidationController implements ReactiveController {
         part="error"
         error-size="${this.#messageSize}"
       ></slot>`;
-      // size="${this.#messageSize}"
-    } else if (this.validity.valid) {
+    } /*else if (this.validity.valid) {
       this.#removeValidationMessage();
-      // this.#target.removeAttribute('invalid');
-      //  if (isNative(this.target)) {
-      this.#host.removeAttribute('invalid'); // TODO: causes problems with invalid checkbox
+      this.#host.removeAttribute('invalid');
       this.#label?.removeAttribute('invalid');
       this.target.ariaInvalid = null;
       this.#host.requestUpdate();
-      // }
-      //this.#host.requestUpdate();
-    }
-
-    /*    ${!isNative(this.target)
-  ? html`<sl-icon class="invalid-icon" name="fas-triangle-exclamation"></sl-icon>`
-  : null}
-    ${this.validationMessage}*/
-
-    // <svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none">
-    // <path
-    //   fill="#E5454A"
-    // d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"
-    //   />
-    //   </svg>
+    }*/
   }
 
   #updateValidationMessage(): void {
-    //const input = this.querySelector('input, textarea'),
-    //const hint = this.#host.querySelector('[part="error"]');
     const error = this.#host.querySelector('[slot]');
     const errorPart = this.#host.querySelector('[part="error"]');
 
     const checkbox = document.querySelector('#checkbox') as LitElement;
     const errorSlot = checkbox?.shadowRoot?.querySelector('slot.error-message');
-    checkbox?.updateComplete.then(() => {
-      const errorSlot = checkbox.shadowRoot?.querySelector('slot.error-message');
-      console.log('new validation 7 in updatecomplete', errorSlot, this.target); // check if errorSlot is not null
-    });
+    // checkbox?.updateComplete.then(() => {
+    //   const errorSlot = checkbox.shadowRoot?.querySelector('slot.error-message');
+    //   console.log('new validation 7 in updatecomplete', errorSlot, this.target); // check if errorSlot is not null
+    // });
 
     console.log('1111new validation 7 in updatecomplete target', this.target, this.#target, this.#host, errorSlot);
 

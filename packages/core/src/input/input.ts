@@ -51,11 +51,8 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     click: this.#onClick
   });
 
-  // #errorSize: MessageSize = 'lg';
-
   #validation = new ValidationController(this, {
-    target: () => this.input //,
-    //size: this.#errorSize
+    target: () => this.input
   });
 
   /** The input element in the light DOM. */
@@ -89,10 +86,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   @property() placeholder?: string;
 
   /** Whether the input is invalid. */
-  @property({ type: Boolean, reflect: true }) invalid?: boolean; // = false;
+  @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
   /** Whether the input is valid. */
-  @property({ type: Boolean, reflect: true }) valid?: boolean; // = false;
+  @property({ type: Boolean, reflect: true }) valid?: boolean;
 
   /** Whether the input should get valid styles when is valid. */
   @property({ type: Boolean, reflect: true }) showValid = false;
@@ -111,8 +108,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
    * see their respective components.
    */
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' = 'text'; // TODO: password type will be added in the future
-
-  // TODO: add spellcheck attribute https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url#spellcheck
 
   /** Custom validators specified by the user. */
   @property({ attribute: false }) validators?: Validator[];
@@ -145,17 +140,14 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
       this.#validation.validate(this.value);
 
-      this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
+      this.valid = this.showValid ? this.#validation.validity.valid : false;
     }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    // console.log('changes in updated', changes);
-
     if (changes.has('invalid')) {
-      console.log('invalid in changes', this.invalid, this.input, this);
       if (this.invalid) {
         this.input.setAttribute('invalid', this.invalid.toString());
       } else {
@@ -173,7 +165,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
     if (changes.has('maxLength')) {
       if (this.maxLength) {
-        console.log('maxlength if', this.maxLength);
         this.input.setAttribute('maxlength', this.maxLength.toString());
       } else {
         this.input.removeAttribute('maxlength');
@@ -181,7 +172,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     }
 
     if (changes.has('minLength')) {
-      console.log('minlength', this.minLength);
       if (this.minLength) {
         this.input.setAttribute('minlength', this.minLength.toString());
       } else {
@@ -271,19 +261,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       </div>
       ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
-  } // TODO: different icon for invalid and valid states, slot for suffix icon/element in default state
-
-  // ${!this.input.validity.valid} ${this.hasAttribute('invalid')} internals.validity.valid:
-  //   ${this.internals.validity.valid} ${this.invalid} ${this.hasAttribute('invalid')}
-  // ${this.input.hasAttribute('invalid')} input valid: ${this.input.validity.valid}
-  // ${this.renderHint()} ${this.input.validity.valid ? this.renderHint() : null}
-  // ${this.#validation.render()}
-
-  // exact hint: ${this.renderHint()}
-
-  // ${this.invalid
-  // ? svg`<svg class="invalid-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path fill="#E5454A" d="M17.3242 15.0918 11.084 4.4278c-.4981-.8204-1.6992-.8204-2.168 0l-6.2695 10.664c-.4688.8203.1172 1.8457 1.084 1.8457h12.5097c.9668 0 1.5528-1.0254 1.084-1.8457Zm-8.0273-7.295c0-.3808.293-.703.7031-.703.3809 0 .7031.3222.7031.703v3.7501c0 .4101-.3222.7031-.7031.7031-.3516 0-.7031-.293-.7031-.7031v-3.75ZM10 15.0626c-.5273 0-.9375-.4102-.9375-.9082 0-.4981.4102-.9082.9375-.9082.498 0 .9082.4101.9082.9082 0 .498-.4102.9082-.9082.9082Z"/></svg>`
-  // : null}
+  }
 
   #onClick(event: Event): void {
     this.focusVisible = false;
@@ -298,14 +276,13 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
     this.#validation.validate(this.value);
-    this.valid = this.showValid ? this.#validation.validity.valid : false; // TODO: emitting when valid? or use only in the story as an example
+    this.valid = this.showValid ? this.#validation.validity.valid : false;
     if (this.valid) {
       this.input.setAttribute('aria-live', 'polite');
     }
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    console.log('event on slothcnage', event);
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
 

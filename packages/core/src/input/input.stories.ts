@@ -440,7 +440,7 @@ export const CustomValidationWithHint: StoryObj = {
           width: 300px;
         }
       </style>
-      <sl-input showValid required="true" .validators=${[validator]} hint="You need to enter 'SLDS'"></sl-input>
+      <sl-input required="true" .validators=${[validator]} hint="You need to enter 'SLDS'"></sl-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
   }

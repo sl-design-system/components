@@ -1,22 +1,12 @@
 $sizes: sm, md, lg;
 
 :host {
-  --_font-weight: 600;
-  --_line-height: 24px;
+  align-items: center;
+  color: var(--sl-body-foreground);
+  display: inline-flex;
   font: var(--_font);
   padding-bottom: var(--_padding-bottom);
 }
-
-//:host {
-//  //font-weight: var(--_font-weight);
-//  //line-height: var(--_line-height);
-//}
-
-//.optional,
-//.required {
-//  margin-left: var(--sl-space-label-gap-md); //0.25rem;
-//  font: var(--sl-text-input-label-tag-md);
-//}
 
 sl-tooltip {
   overflow: hidden;
@@ -24,19 +14,20 @@ sl-tooltip {
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    //--_font: var(--sl-text-input-label-label-#{$size}); // TODO: use exact token
     --_padding-bottom: var(--sl-space-label-padding-bottom-#{$size});
-    //--_font: var(--sl-text-input-label-label-#{$size});
 
     slot[name='label']::slotted(label) {
       font: var(--sl-text-input-label-label-#{$size});
-      //color: yellow;
+    }
+
+    slot[name='icon']::slotted(sl-icon) {
+      margin-left: var(--sl-space-label-icon-md);
     }
 
     .optional,
     .required {
       font: var(--sl-text-input-label-tag-#{$size});
-      margin-left: var(--sl-space-label-gap-#{$size}); //0.25rem;
+      margin-left: var(--sl-space-label-gap-#{$size});
     }
   }
 

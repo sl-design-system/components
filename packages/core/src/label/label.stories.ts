@@ -161,20 +161,20 @@ export const LabelWithInfoIcon: StoryObj = {
     </style>
     <form>
       <sl-label for="input1" size="sm" info="true">
-        I am small
-        <sl-icon slot="icon" name="face-smile" aria-describedby="tooltip"></sl-icon>
+        Label small
+        <sl-icon slot="icon" name="face-smile" size="xs" aria-describedby="tooltip"></sl-icon>
         <sl-tooltip slot="tooltip" id="tooltip">I am a tooltip for the info icon</sl-tooltip>
       </sl-label>
       <sl-input id="input1"></sl-input>
       <sl-label for="input2" size="md" info="true">
-        I am medium
-        <sl-icon slot="icon" name="face-smile" aria-describedby="tooltip1"></sl-icon>
+        Label medium
+        <sl-icon slot="icon" name="face-smile" size="sm" aria-describedby="tooltip1"></sl-icon>
         <sl-tooltip slot="tooltip" id="tooltip1">I am a tooltip for the info icon</sl-tooltip>
       </sl-label>
       <sl-input id="input2"></sl-input>
       <sl-label for="input3" size="lg" info="true">
-        I am large
-        <sl-icon slot="icon" name="face-smile" aria-describedby="tooltip2"></sl-icon>
+        Label large
+        <sl-icon slot="icon" name="face-smile" size="md" aria-describedby="tooltip2"></sl-icon>
         <sl-tooltip slot="tooltip" id="tooltip2">I am a tooltip for the info icon</sl-tooltip>
       </sl-label>
       <sl-input id="input3" size="lg"></sl-input>

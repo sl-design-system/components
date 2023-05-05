@@ -1,21 +1,12 @@
 $sizes: md, lg;
-$variants: default, valid, invalid; // TODO: what about readonly?
+$variants: default, valid, invalid;
 $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 
-// TODO: default instead of enable?
-// TODO: with value and with placeholder filled/unfilled?
-
-// TODO: add tokens for icons
-
 :host {
-  //--_border-color: var(--sl-color-text-field-default-enable-border); //#d3d3d3;
-  //--_border-radius: 3px;
-  //--_border-size: var(--sl-border-width-input-border); // TODO: or border-width-button-default?
   --_border-size: var(--sl-border-width-button-default);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
-  --_box-shadow: var(--sl-box-shadow-none); //none;
-  //--_gap: 0.25rem; // TODO: what about the default values?
+  --_box-shadow: var(--sl-box-shadow-none);
   --_transition: 200ms ease-in-out;
 }
 
@@ -26,30 +17,16 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   transition: var(--_transition);
   vertical-align: top;
   width: 100%;
-
-  //&:where([invalid], :invalid) {
-  //  background-color: #1f97f9 !important;
-  //}
 }
 
 :host(:focus-visible) {
   outline: none;
-  //box-shadow: var(--sl-box-shadow-focus);
 }
 
 :host(:disabled) {
   cursor: default;
   pointer-events: none;
 }
-
-//:host(:focus-within) {
-//  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
-//  --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
-//}
-
-//:host(:where(:--invalid, [state--invalid], :invalid)) {
-//  //--_border-color: #c00;
-//}
 
 slot[name='input']::slotted(input) {
   appearance: none;
@@ -60,26 +37,16 @@ slot[name='input']::slotted(input) {
   font: var(--_font);
   margin: 0;
   outline: none;
-  //padding: var(--_padding); //0;
   padding: 0;
 
   &:focus {
     outline: none;
   }
 
-  //&:invalid {
-  //  //border: 3px solid red;
-  //  background-color: #6b1313;
-  //}
-
   &::placeholder {
     color: var(--_placeholder-color);
     opacity: 1;
   }
-
-  //&[aria-invalid='true'] {
-  //  background-color: #6b1313;
-  //}
 }
 
 .wrapper {
@@ -107,7 +74,6 @@ slot[name='input']::slotted(input) {
 }
 
 sl-error {
-  //color: #1f97f9;
   display: inline-flex;
 }
 
@@ -131,22 +97,12 @@ sl-error {
   }
 }
 
-// TODO: what about default values for css variables?
-
 @each $variant in $variants {
   $i: index($variants, $variant);
   $variant-selector: nth($variant-selectors, $i);
 
-  //@debug $variant;
-  //@debug $variant-selector;
-
-  //:host(:where(:#{$variant}, [#{$variant}], [state--invalid])) {
-  //  :host(:where(:#{$variant-selector}, [#{$variant-selector}])) {
   :host(#{$variant-selector}) {
-    // :host(:where(:--invalid, [state--invalid]))
     --_border-color: var(--sl-color-text-field-#{$variant}-default-border);
-    //var(--sl-color-text-field-default-enable-border); //var(--sl-color-text-field-#{$variant}-#{$state}-border); //#c00;
-    //--sl-color-text-field-default-enable-border
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-text-field-#{$variant}-default-input-text);
@@ -168,13 +124,9 @@ sl-error {
       --_background: var(--sl-color-text-field-#{$variant}-default-background);
     }
   }
-  //}
 
-  //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):hover) {
   :host(#{$variant-selector}:hover) {
     --_border-color: var(--sl-color-text-field-#{$variant}-hover-border);
-    //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-hover-label);
-    //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-hover-icon);
     --_background: var(--sl-color-text-field-#{$variant}-hover-background);
 
     slot[name='input']::slotted(input) {
@@ -198,11 +150,8 @@ sl-error {
     }
   }
 
-  //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):active) {
   :host(#{$variant-selector}:focus-within:not([focus-visible-within])) {
     --_border-color: var(--sl-color-text-field-#{$variant}-active-border);
-    //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
-    //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-text-field-#{$variant}-active-input-text);
@@ -225,11 +174,8 @@ sl-error {
     }
   }
 
-  //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid]):focus-visible) { // :focus-within
   :host(#{$variant-selector}[focus-visible-within]:not([disabled])) {
     --_border-color: var(--sl-color-text-field-#{$variant}-focus-border);
-    //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
-    //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
     --_box-shadow: var(--sl-box-shadow-focus);
 
     slot[name='input']::slotted(input) {
@@ -260,11 +206,8 @@ sl-error {
     }
   }
 
-  //:host(:where(:#{$variant-selector}, [#{$variant-selector}], [state--invalid])[disabled]) {
   :host(#{$variant-selector}[disabled]) {
     --_border-color: var(--sl-color-text-field-#{$variant}-disabled-border);
-    //--_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);
-    //--_stroke: var(--sl-color-input-#{$variant}-#{$state}-disabled-icon);
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-text-field-#{$variant}-disabled-input-text);

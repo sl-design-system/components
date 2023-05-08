@@ -1002,7 +1002,7 @@
               "description": "color.button.warning.outline.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.warning.base}",
+              "value": "rgba({body.background},{opacity.transparent})",
               "type": "color",
               "description": "color.button.warning.outline.idle.border"
             }
@@ -1014,12 +1014,12 @@
               "description": "color.button.warning.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.warning.700}",
+              "value": "{color.palette.warning.600}",
               "type": "color",
               "description": "color.button.warning.outline.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.warning.300}",
+              "value": "{color.palette.warning.50}",
               "type": "color",
               "description": "color.button.warning.outline.hover.border"
             }
@@ -1031,12 +1031,12 @@
               "description": "color.button.warning.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.warning.900}",
+              "value": "{color.palette.warning.700}",
               "type": "color",
               "description": "color.button.warning.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.warning.300}",
+              "value": "{color.palette.warning.100}",
               "type": "color",
               "description": "color.button.warning.outline.active.border"
             }
@@ -1053,7 +1053,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "rgba({body.background},{opacity.100})",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -1065,12 +1065,12 @@
               "description": "color.button.warning.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.warning.150}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.button.warning.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.warning.150}",
+              "value": "rgba({body.background},{opacity.transparent})",
               "type": "color",
               "description": "color.button.warning.outline.disabled.border"
             }

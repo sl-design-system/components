@@ -37,6 +37,8 @@ export class Label extends LitElement {
   /** Label size. */
   @property({ reflect: true }) size: LabelSize = 'md';
 
+  // TODO: add no-spacing attribute
+
   /** The label disabled state. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 

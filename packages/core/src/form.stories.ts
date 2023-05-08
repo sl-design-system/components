@@ -19,35 +19,6 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 
-const onSubmit2 = (event: Event & { target: HTMLFormElement }): void => {
-  // const data = new FormData(event.target),
-  //   output = (event.target.nextElementSibling || document.createElement('pre')) as HTMLOutputElement;
-
-  // let submitted = false;
-
-  event.preventDefault();
-  // event.target.after(output);
-  // submitted = true;
-
-  // output.textContent = '';
-  // data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
-  //
-  // data.getAll('form').forEach(element => element.addEventListener('blur', e => {
-  //   // run client-side validation
-  //   // if (!input.validity.valid) {
-  //   //   input.oninvalid;
-  //   // } else {
-  //   //   !input.oninvalid;
-  //   // }
-  //   if (submitted) {
-  //     element.reportValidity();
-  //   }
-  //   console.log('report validity input', input.reportValidity());
-  // }));
-
-  console.log('submit2', event);
-};
-
 export default {
   title: 'Forms'
 };
@@ -217,26 +188,7 @@ export const ValidationRequired: StoryObj = {
 
 export const ValidationRequiredReport: StoryObj = {
   render: () => {
-    let submitted = false;
-    const input = document.querySelector('input');
-    setTimeout(() => {
-      document.querySelector('form')?.reportValidity();
-      submitted = true;
-    });
-
-    input?.addEventListener('blur', e => {
-      console.log('ee', e);
-      // run client-side validation
-      // if (!input.validity.valid) {
-      //   input.oninvalid;
-      // } else {
-      //   !input.oninvalid;
-      // }
-      if (submitted) {
-        input.reportValidity();
-      }
-      console.log('report validity input', input.reportValidity());
-    });
+    setTimeout(() => document.querySelector('form')?.reportValidity());
 
     return html`
       <style>
@@ -305,7 +257,7 @@ export const Validation: StoryObj = {
         align-self: stretch;
       }
     </style>
-    <form @submit=${onSubmit2}>
+    <form @submit=${onSubmit}>
       <sl-label for="input">Label for the input</sl-label>
       <sl-input id="input" minlength="8" name="input" placeholder="Type at least 8 characters here" required></sl-input>
 
@@ -368,6 +320,7 @@ export const ValidationSizes: StoryObj = {
       </style>
       <form>
         <h2>Small</h2>
+
         <sl-label for="input">Input</sl-label>
         <sl-input id="input" name="input" required error-size="sm"></sl-input>
 
@@ -390,48 +343,52 @@ export const ValidationSizes: StoryObj = {
           <sl-radio value="2">Two</sl-radio>
           <sl-radio value="3">Three</sl-radio>
         </sl-radio-group>
+
         <h2>Medium</h2>
-        <sl-label for="input">Input</sl-label>
-        <sl-input id="input" name="input" required error-size="md"></sl-input>
 
-        <sl-label for="textarea">Textarea</sl-label>
-        <sl-textarea id="textarea" name="textarea" required error-size="md"></sl-textarea>
+        <sl-label for="input2">Input</sl-label>
+        <sl-input id="input2" name="input" required error-size="md"></sl-input>
 
-        <sl-label for="checkbox">Checkbox</sl-label>
-        <sl-checkbox id="checkbox" name="checkbox" required value="checkbox" error-size="md">Checkbox</sl-checkbox>
+        <sl-label for="textarea2">Textarea</sl-label>
+        <sl-textarea id="textarea2" name="textarea2" required error-size="md"></sl-textarea>
 
-        <sl-label for="checkbox-group">Checkbox group</sl-label>
-        <sl-checkbox-group id="checkbox-group" name="checkboxGroup" required error-size="md">
+        <sl-label for="checkbox2">Checkbox</sl-label>
+        <sl-checkbox id="checkbox2" name="checkbox2" required value="checkbox" error-size="md">Checkbox</sl-checkbox>
+
+        <sl-label for="checkbox-group2">Checkbox group</sl-label>
+        <sl-checkbox-group id="checkbox-group2" name="checkboxGroup2" required error-size="md">
           <sl-checkbox value="0">Check me</sl-checkbox>
           <sl-checkbox value="1">No me</sl-checkbox>
           <sl-checkbox value="2">I was here first</sl-checkbox>
         </sl-checkbox-group>
 
-        <sl-label for="radio-group">Radio group</sl-label>
-        <sl-radio-group id="radio-group" name="radioGroup" required error-size="md">
+        <sl-label for="radio-group2">Radio group</sl-label>
+        <sl-radio-group id="radio-group2" name="radioGroup2" required error-size="md">
           <sl-radio value="1">One</sl-radio>
           <sl-radio value="2">Two</sl-radio>
           <sl-radio value="3">Three</sl-radio>
         </sl-radio-group>
+
         <h2>Large</h2>
-        <sl-label for="input">Input</sl-label>
-        <sl-input id="input" name="input" required error-size="lg"></sl-input>
 
-        <sl-label for="textarea">Textarea</sl-label>
-        <sl-textarea id="textarea" name="textarea" required error-size="lg"></sl-textarea>
+        <sl-label for="input3">Input</sl-label>
+        <sl-input id="input3" name="input3" required error-size="lg"></sl-input>
 
-        <sl-label for="checkbox">Checkbox</sl-label>
-        <sl-checkbox id="checkbox" name="checkbox" required value="checkbox" error-size="lg">Checkbox</sl-checkbox>
+        <sl-label for="textarea3">Textarea</sl-label>
+        <sl-textarea id="textarea3" name="textarea3" required error-size="lg"></sl-textarea>
 
-        <sl-label for="checkbox-group">Checkbox group</sl-label>
-        <sl-checkbox-group id="checkbox-group" name="checkboxGroup" required error-size="lg">
+        <sl-label for="checkbox3">Checkbox</sl-label>
+        <sl-checkbox id="checkbox3" name="checkbox3" required value="checkbox" error-size="lg">Checkbox</sl-checkbox>
+
+        <sl-label for="checkbox-group3">Checkbox group</sl-label>
+        <sl-checkbox-group id="checkbox-group3" name="checkboxGroup3" required error-size="lg">
           <sl-checkbox value="0">Check me</sl-checkbox>
           <sl-checkbox value="1">No me</sl-checkbox>
           <sl-checkbox value="2">I was here first</sl-checkbox>
         </sl-checkbox-group>
 
-        <sl-label for="radio-group">Radio group</sl-label>
-        <sl-radio-group id="radio-group" name="radioGroup" required error-size="lg">
+        <sl-label for="radio-group3">Radio group</sl-label>
+        <sl-radio-group id="radio-group3" name="radioGroup3" required error-size="lg">
           <sl-radio value="1">One</sl-radio>
           <sl-radio value="2">Two</sl-radio>
           <sl-radio value="3">Three</sl-radio>

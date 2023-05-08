@@ -103,24 +103,13 @@ export const API: StoryObj = {
 
 export const All: StoryObj = {
   render: () => {
-    // document.querySelectorAll('sl-checkbox')?.forEach(checkbox => {
-    //   checkbox.setAttribute('invalid', '');
-    //   checkbox.setValidity(undefined, 'Please check this one.');
-    //   checkbox.checkValidity();
-    //   checkbox.disabled = true;
-    //   checkbox.setAttribute('invalid', '');
-    // });
-
-    const isDisabled = true;
-    const isInvalid = true;
-
     return html`
       <style>
         .grid {
           display: inline-grid;
           gap: 1rem;
           grid-template-columns: repeat(3, 1fr);
-          // justify-items: center;
+          justify-items: center;
         }
         h2 {
           font-family: var(--sl-text-typeset-font-family-heading);
@@ -136,11 +125,11 @@ export const All: StoryObj = {
         <sl-checkbox disabled checked>Checked</sl-checkbox>
         <sl-checkbox disabled indeterminate>Indeterminate</sl-checkbox>
 
-        <sl-checkbox .invalid=${isInvalid} required>Default</sl-checkbox>
+        <sl-checkbox invalid required>Default</sl-checkbox>
         <sl-checkbox invalid checked required>Checked</sl-checkbox>
         <sl-checkbox invalid indeterminate required>Indeterminate</sl-checkbox>
 
-        <sl-checkbox invalid .disabled="${isDisabled}" required>Default</sl-checkbox>
+        <sl-checkbox invalid disabled required>Default</sl-checkbox>
         <sl-checkbox invalid disabled checked required>Checked</sl-checkbox>
         <sl-checkbox invalid disabled indeterminate required>Indeterminate</sl-checkbox>
 

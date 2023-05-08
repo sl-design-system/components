@@ -12,6 +12,8 @@ sl-tooltip {
   overflow: hidden;
 }
 
+// TODO: add none padding bottom variant necessary for switch component
+
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_padding-bottom: var(--sl-space-label-padding-bottom-#{$size});

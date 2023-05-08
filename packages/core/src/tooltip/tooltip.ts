@@ -17,7 +17,6 @@ export class Tooltip extends AnchoredPopoverMixin(LitElement) {
   static override styles: CSSResultGroup = [popoverMixinStyles, styles];
 
   static lazy(target: Element, callback: (target: Tooltip) => void): void {
-    console.log('render tooltip lazy', target);
     const createTooltip = (): void => {
       const tooltip = document.createElement('sl-tooltip');
       tooltip.id = `sl-tooltip-${nextUniqueId++}`;
@@ -76,7 +75,6 @@ export class Tooltip extends AnchoredPopoverMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    console.log('render tooltip goes', this);
     return html`<slot></slot>`;
   }
 }

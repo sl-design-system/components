@@ -71,7 +71,7 @@ export class CheckboxGroup extends HintMixin(LitElement) {
         <slot @slotchange=${this.#onSlotchange}></slot>
       </div>
       ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
-    `; // ${this.renderHint()} ${this.#validation.render()}
+    `;
   }
 
   #onClick(event: Event): void {

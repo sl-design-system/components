@@ -215,6 +215,7 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-space-label-padding-bottom-none: var(--sl-space-none);
   --sl-space-label-padding-bottom-lg: var(--sl-space-md);
   --sl-space-label-padding-bottom-md: var(--sl-space-sm);
   --sl-space-label-padding-bottom-sm: var(--sl-space-sm);

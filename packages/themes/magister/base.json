@@ -1636,6 +1636,11 @@
           "value": "{space.md}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
+        },
+        "none": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
         }
       }
     }

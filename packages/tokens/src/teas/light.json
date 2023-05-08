@@ -739,7 +739,7 @@
               "description": "color.button.success.outline.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.success.200}",
+              "value": "rgba({body.background},{opacity.transparent})",
               "type": "color",
               "description": "color.button.success.outline.idle.border"
             }
@@ -751,29 +751,29 @@
               "description": "color.button.success.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.success.800}",
+              "value": "{color.palette.success.700}",
               "type": "color",
               "description": "color.button.success.outline.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.success.300}",
+              "value": "{color.palette.success.50}",
               "type": "color",
               "description": "color.button.success.outline.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.palette.success.100}",
               "type": "color",
               "description": "color.button.success.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.success.900}",
+              "value": "{color.palette.success.700}",
               "type": "color",
               "description": "color.button.success.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.success.300}",
+              "value": "{color.palette.success.100}",
               "type": "color",
               "description": "color.button.success.outline.active.border"
             }
@@ -785,12 +785,12 @@
               "description": "color.button.default.focus.background"
             },
             "foreground": {
-              "value": "{color.palette.success.500}",
+              "value": "{color.palette.success.600}",
               "type": "color",
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "rgba({body.background},{opacity.100})",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -802,12 +802,12 @@
               "description": "color.button.success.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.button.success.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.success.150}",
+              "value": "rgba({body.background},{opacity.transparent})",
               "type": "color",
               "description": "color.button.success.outline.disabled.border"
             }

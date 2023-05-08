@@ -208,6 +208,8 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-space-switch-padding-inner: var(--sl-space-2xs);
+  --sl-space-switch-padding-outer: var(--sl-space-xs);
   --sl-space-label-padding-bottom-none: var(--sl-space-none);
   --sl-space-label-padding-bottom-lg: var(--sl-space-md);
   --sl-space-label-padding-bottom-md: var(--sl-space-sm);
@@ -278,6 +280,15 @@
   --sl-size-icon-md: var(--sl-size-md);
   --sl-size-icon-sm: var(--sl-size-sm);
   --sl-size-icon-xs: var(--sl-size-xs);
+  --sl-size-switch-controller-width-lg: var(--sl-size-4xl);
+  --sl-size-switch-controller-width-md: var(--sl-size-3xl);
+  --sl-size-switch-controller-width-sm: var(--sl-size-2xl);
+  --sl-size-switch-controller-height-lg: var(--sl-size-2xl);
+  --sl-size-switch-controller-height-md: var(--sl-size-xl);
+  --sl-size-switch-controller-height-sm: var(--sl-size-md);
+  --sl-size-switch-handle-lg: calc(var(--sl-size-2xl) - (2 * var(--sl-space-switch-padding-inner)));
+  --sl-size-switch-handle-md: calc(var(--sl-size-xl) - (2 * var(--sl-space-switch-padding-inner)));
+  --sl-size-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-switch-padding-inner)));
   --sl-size-input-lg: var(--sl-size-2xl);
   --sl-size-input-md: var(--sl-size-xl);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);

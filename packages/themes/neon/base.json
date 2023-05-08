@@ -1652,6 +1652,20 @@
           "description": "{space.button.gap.lg}"
         }
       }
+    },
+    "switch": {
+      "padding": {
+        "outer": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "space.switch.padding.outer"
+        },
+        "inner": {
+          "value": "{space.2xs}",
+          "type": "spacing",
+          "description": "space.switch.padding.outer"
+        }
+      }
     }
   },
   "animation": {
@@ -1941,6 +1955,61 @@
         "value": "{size.2xl}",
         "type": "sizing",
         "description": "size.input.lg"
+      }
+    },
+    "switch": {
+      "handle": {
+        "sm": {
+          "value": "{size.md} - (2 * {space.switch.padding.inner})",
+          "type": "sizing",
+          "description": "size.input.md"
+        },
+        "md": {
+          "value": "{size.xl} - (2 * {space.switch.padding.inner})",
+          "type": "sizing",
+          "description": "size.input.md"
+        },
+        "lg": {
+          "value": "{size.2xl} - (2 * {space.switch.padding.inner})",
+          "type": "sizing",
+          "description": "size.input.md"
+        }
+      },
+      "controller": {
+        "height": {
+          "sm": {
+            "value": "{size.md}",
+            "type": "sizing",
+            "description": "size.switch.controller.sm"
+          },
+          "md": {
+            "value": "{size.xl}",
+            "type": "sizing",
+            "description": "size.switch.controller.md"
+          },
+          "lg": {
+            "value": "{size.2xl}",
+            "type": "sizing",
+            "description": "size.switch.controller.lg"
+          }
+        },
+        "width": {
+          "sm": {
+            "value": "{size.2xl}",
+            "type": "sizing",
+            "description": "size.switch.controller.sm"
+          },
+          "md": {
+            "value": "{size.3xl}",
+            "type": "sizing",
+            "description": "size.switch.controller.md"
+          },
+          "lg": {
+            "value": "{size.4xl}",
+            "type": "sizing",
+            "description": "size.switch.controller.lg"
+          }
+        }
       }
     },
     "icon": {

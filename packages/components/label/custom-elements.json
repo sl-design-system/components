@@ -57,16 +57,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The label disabled state.",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "for",
               "type": {
                 "text": "string | undefined"
@@ -85,16 +75,6 @@
             },
             {
               "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The label invalid state.",
-              "attribute": "invalid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "optional",
               "type": {
                 "text": "boolean | undefined"
@@ -108,17 +88,6 @@
                 "text": "boolean | undefined"
               },
               "description": "Whether this label should be marked as required."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "LabelSize"
-              },
-              "default": "'md'",
-              "description": "Label size.",
-              "attribute": "size",
-              "reflects": true
             }
           ],
           "attributes": [
@@ -129,31 +98,6 @@
               },
               "description": "The DOM id of the form control this is linked to.",
               "fieldName": "for"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "LabelSize"
-              },
-              "default": "'md'",
-              "description": "Label size.",
-              "fieldName": "size"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The label disabled state.",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The label invalid state.",
-              "fieldName": "invalid"
             }
           ],
           "superclass": {

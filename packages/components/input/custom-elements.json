@@ -80,17 +80,6 @@
             },
             {
               "kind": "field",
-              "name": "focusVisible",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input has focus visible.",
-              "attribute": "focus-visible-within",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "input",
               "type": {
                 "text": "HTMLInputElement"
@@ -105,40 +94,12 @@
             },
             {
               "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is invalid.",
-              "attribute": "invalid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "max",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum value. Only applies to number input type.",
-              "attribute": "max"
-            },
-            {
-              "kind": "field",
               "name": "maxLength",
               "type": {
                 "text": "number | undefined"
               },
               "description": "Maximum length (number of characters).",
               "attribute": "maxlength"
-            },
-            {
-              "kind": "field",
-              "name": "min",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum value. Only applies to number input type.",
-              "attribute": "min"
             },
             {
               "kind": "field",
@@ -169,64 +130,13 @@
             },
             {
               "kind": "field",
-              "name": "readonly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether you can interact with the input or if it is just a static, readonly display.",
-              "attribute": "readonly",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "showValid",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input should get valid styles when is valid.",
-              "attribute": "showValid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "InputSize"
-              },
-              "default": "'md'",
-              "description": "Input size.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "step",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
-              "attribute": "step"
-            },
-            {
-              "kind": "field",
               "name": "type",
               "type": {
-                "text": "'email' | 'number' | 'tel' | 'text' | 'url'"
+                "text": "'email' | 'number' | 'password' | 'tel' | 'text' | 'url'"
               },
               "default": "'text'",
               "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",
               "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "valid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is valid.",
-              "attribute": "valid",
-              "reflects": true
             },
             {
               "kind": "field",
@@ -272,30 +182,6 @@
               "fieldName": "minLength"
             },
             {
-              "name": "min",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum value. Only applies to number input type.",
-              "fieldName": "min"
-            },
-            {
-              "name": "max",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum value. Only applies to number input type.",
-              "fieldName": "max"
-            },
-            {
-              "name": "step",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
-              "fieldName": "step"
-            },
-            {
               "name": "pattern",
               "type": {
                 "text": "string | undefined"
@@ -312,60 +198,9 @@
               "fieldName": "placeholder"
             },
             {
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is invalid.",
-              "fieldName": "invalid"
-            },
-            {
-              "name": "valid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is valid.",
-              "fieldName": "valid"
-            },
-            {
-              "name": "showValid",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input should get valid styles when is valid.",
-              "fieldName": "showValid"
-            },
-            {
-              "name": "focus-visible-within",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input has focus visible.",
-              "fieldName": "focusVisible"
-            },
-            {
-              "name": "readonly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether you can interact with the input or if it is just a static, readonly display.",
-              "fieldName": "readonly"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "InputSize"
-              },
-              "default": "'md'",
-              "description": "Input size.",
-              "fieldName": "size"
-            },
-            {
               "name": "type",
               "type": {
-                "text": "'email' | 'number' | 'tel' | 'text' | 'url'"
+                "text": "'email' | 'number' | 'password' | 'tel' | 'text' | 'url'"
               },
               "default": "'text'",
               "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",

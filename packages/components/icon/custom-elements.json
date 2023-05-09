@@ -136,17 +136,6 @@
                 }
               ],
               "description": "store all icons from the IconLibrary of the theme in the icon registry for easy access"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "IconSize"
-              },
-              "default": "'md'",
-              "description": "Icon size.",
-              "attribute": "size",
-              "reflects": true
             }
           ],
           "attributes": [
@@ -165,15 +154,6 @@
               },
               "description": "The name of the icon to show.",
               "fieldName": "name"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "IconSize"
-              },
-              "default": "'md'",
-              "description": "Icon size.",
-              "fieldName": "size"
             }
           ],
           "superclass": {

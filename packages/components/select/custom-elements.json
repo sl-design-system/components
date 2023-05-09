@@ -1,0 +1,543 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/select.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/select-option.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/select-option-group.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-select",
+          "declaration": {
+            "name": "Select",
+            "module": "/src/select.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-select-option",
+          "declaration": {
+            "name": "SelectOption",
+            "module": "/src/select-option.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-select-option-group",
+          "declaration": {
+            "name": "SelectOptionGroup",
+            "module": "/src/select-option-group.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-select-overlay",
+          "declaration": {
+            "name": "SelectOverlay",
+            "module": "/src/select-overlay.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/select-option-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/select-option-group.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/select-option-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SelectOptionGroup",
+          "members": [
+            {
+              "kind": "field",
+              "name": "groupTitle",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "group-title"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "group-title",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "groupTitle"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-select-option-group",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SelectOptionGroup",
+          "declaration": {
+            "name": "SelectOptionGroup",
+            "module": "src/select-option-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/select-option.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/select-option.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/select-option.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SelectOption",
+          "members": [
+            {
+              "kind": "field",
+              "name": "contentType",
+              "type": {
+                "text": "'string' | 'element' | undefined"
+              },
+              "description": "Whether the content of the option item is a node",
+              "attribute": "contentType",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the option item is disabled",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "handleSelectionChange",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the option item is selected",
+              "attribute": "selected",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "{ width: number; height: number }"
+              },
+              "default": "{ width: 0, height: 0 }",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "FormControlValue | undefined"
+              },
+              "description": "Whether the option item is selected",
+              "attribute": "value"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "FormControlValue | undefined"
+              },
+              "description": "Whether the option item is selected",
+              "fieldName": "value"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the option item is selected",
+              "fieldName": "selected"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the option item is disabled",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "contentType",
+              "type": {
+                "text": "'string' | 'element' | undefined"
+              },
+              "description": "Whether the content of the option item is a node",
+              "fieldName": "contentType"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "{ width: number; height: number }"
+              },
+              "default": "{ width: 0, height: 0 }",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-select-option",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SelectOption",
+          "declaration": {
+            "name": "SelectOption",
+            "module": "src/select-option.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/select-overlay.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/select-overlay.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/select-overlay.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SelectOverlay",
+          "members": [
+            {
+              "kind": "method",
+              "name": "hide",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "EventTarget | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              },
+              "default": "'bottom-start'",
+              "description": "Tooltip placement.",
+              "attribute": "placement"
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              },
+              "default": "'bottom-start'",
+              "description": "Tooltip placement.",
+              "fieldName": "placement"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "AnchoredPopoverMixin",
+              "package": "@sl-design-system/popover"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-select-overlay",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SelectOverlay",
+          "declaration": {
+            "name": "SelectOverlay",
+            "module": "src/select-overlay.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/select.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/select.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/select.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Select",
+          "members": [
+            {
+              "kind": "field",
+              "name": "allOptions",
+              "type": {
+                "text": "SelectOption[]"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "description": "Element internals."
+            },
+            {
+              "kind": "field",
+              "name": "maxOverlayHeight",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "maxOverlayHeight"
+            },
+            {
+              "kind": "method",
+              "name": "openSelect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "optionGroups",
+              "type": {
+                "text": "SelectOptionGroup[] | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "SelectOption[] | undefined"
+              },
+              "description": "The slotted options."
+            },
+            {
+              "kind": "field",
+              "name": "overlay",
+              "type": {
+                "text": "SelectOverlay | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "selectedOptionPlaceholder",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "{ width: string; height: string } | undefined"
+              },
+              "default": "{ width: '500px', height: '32px' }",
+              "description": "render helpers",
+              "attribute": "size"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "{ width: string; height: string } | undefined"
+              },
+              "default": "{ width: '500px', height: '32px' }",
+              "description": "render helpers",
+              "fieldName": "size"
+            },
+            {
+              "name": "maxOverlayHeight",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "maxOverlayHeight"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/shared"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-select",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Select",
+          "declaration": {
+            "name": "Select",
+            "module": "src/select.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

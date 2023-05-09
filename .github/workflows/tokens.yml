@@ -5,11 +5,11 @@ on:
     branches-ignore: 
       - main
     paths: 
-      - 'packages/tokens/src/figma/**'
+      - 'packages/tokens/src/**'
 
 env:
-  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
 
 permissions: 
   contents: write
@@ -26,7 +26,7 @@ jobs:
           node-version: 16
           cache: 'yarn'
       - run: yarn install --immutable
-      - run: yarn workspace @sanomalearning/slds-tokens build
+      - run: yarn transform-tokens
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: '⚙️ Generate theme tokens'

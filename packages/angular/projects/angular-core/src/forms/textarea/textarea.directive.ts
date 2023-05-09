@@ -1,6 +1,5 @@
 import {Directive, ElementRef, forwardRef, HostListener} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import '@sanomalearning/slds-core/textarea/register.js';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector

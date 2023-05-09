@@ -1,33 +1,13 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "core": [
-        "dist/core"
-      ]
-    },
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "ES2022",
+    "emitDeclarationOnly": false,
     "module": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "moduleResolution": "node",
+    "noPropertyAccessFromIndexSignature": true,
+    "outDir": "./dist/out-tsc"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

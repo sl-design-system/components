@@ -6,8 +6,8 @@ on:
       - main
 
 env:
-  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
 
 permissions:
   contents: write
@@ -17,7 +17,7 @@ permissions:
 jobs:
   release:
     # Prevents changesets action from creating a PR on forks
-    if: github.repository == 'sanomalearning/design-system'
+    if: github.repository == 'sl-design-system/components'
     name: Release
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +31,7 @@ jobs:
           node-version: 16
           cache: 'yarn'
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@sanomalearning'
+          scope: '@sl-design-system'
 
       - run: yarn install --immutable
 
@@ -39,7 +39,7 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: yarn release
-          version: yarn changeset version
+          version: yarn version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

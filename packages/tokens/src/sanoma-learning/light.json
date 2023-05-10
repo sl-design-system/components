@@ -1382,7 +1382,7 @@
       }
     },
     "input": {
-      "options": {
+      "option": {
         "default": {
           "unchecked": {
             "default": {
@@ -1504,7 +1504,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.default.checked.default.background}",
+                "value": "{color.input.option.default.checked.default.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1526,7 +1526,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.default.checked.hover.background}",
+                "value": "{color.input.option.default.checked.hover.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1548,7 +1548,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.default.checked.active.background}",
+                "value": "{color.input.option.default.checked.active.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1570,7 +1570,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.default.checked.focus.background}",
+                "value": "{color.input.option.default.checked.focus.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1592,7 +1592,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.default.checked.disabled.background}",
+                "value": "{color.input.option.default.checked.disabled.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1730,7 +1730,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.invalid.checked.default.background}",
+                "value": "{color.input.option.invalid.checked.default.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1752,7 +1752,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.invalid.checked.hover.background}",
+                "value": "{color.input.option.invalid.checked.hover.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1774,7 +1774,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.invalid.checked.active.background}",
+                "value": "{color.input.option.invalid.checked.active.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1796,7 +1796,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.invalid.checked.focus.background}",
+                "value": "{color.input.option.invalid.checked.focus.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1818,7 +1818,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.invalid.checked.disabled.background}",
+                "value": "{color.input.option.invalid.checked.disabled.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1956,7 +1956,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.valid.checked.default.background}",
+                "value": "{color.input.option.valid.checked.default.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1978,7 +1978,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.valid.checked.hover.background}",
+                "value": "{color.input.option.valid.checked.hover.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2000,7 +2000,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.valid.checked.active.background}",
+                "value": "{color.input.option.valid.checked.active.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2022,7 +2022,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.valid.checked.focus.background}",
+                "value": "{color.input.option.valid.checked.focus.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2044,7 +2044,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.input.options.valid.checked.disabled.background}",
+                "value": "{color.input.option.valid.checked.disabled.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },

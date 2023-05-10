@@ -6,10 +6,13 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
+/** Custom renderer type for column headers. */
 export type GridColumnHeaderRenderer = () => string | undefined | TemplateResult;
 
+/** Custom renderer type for column cells. */
 export type GridColumnDataRenderer<T> = (model: T) => string | undefined | TemplateResult;
 
+/** Custom type for providing parts to a cell. */
 export type GridColumnParts<T> = (model: T) => string | undefined;
 
 export class GridColumn<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {

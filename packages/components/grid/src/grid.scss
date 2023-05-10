@@ -1,7 +1,7 @@
 :host {
   --_border: 1px solid #eee;
   --_border-radius: 3px;
-  --_cell-background: transparent;
+  --_cell-background: #fff;
   --_cell-border: 1px solid #eee;
   --_cell-padding: 0.25rem 1rem;
   --_font: var(--sl-text-body-md-normal);
@@ -64,6 +64,7 @@ tr {
 th,
 td {
   align-items: center;
+  box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
   overflow: hidden;

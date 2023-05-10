@@ -4329,6 +4329,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/teas@workspace:packages/themes/teas":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/teas@workspace:packages/themes/teas"
+  dependencies:
+    "@sl-design-system/icon": 0.0.2
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/textarea@0.0.3, @sl-design-system/textarea@workspace:packages/components/textarea":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/textarea@workspace:packages/components/textarea"

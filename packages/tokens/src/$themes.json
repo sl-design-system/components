@@ -1584,7 +1584,7 @@
   },
   {
     "id": "f76ab6629be224b8b2a31bc50e52bd0408bc72d6",
-    "name": "light/teas",
+    "name": "teas/light",
     "selectedTokenSets": {
       "core": "enabled",
       "teas/base": "enabled",

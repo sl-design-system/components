@@ -1411,17 +1411,17 @@
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.lg} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
@@ -1897,7 +1897,7 @@
       "description": "size.md"
     },
     "lg": {
-      "value": 18,
+      "value": 20,
       "type": "sizing",
       "description": "size.lg"
     },

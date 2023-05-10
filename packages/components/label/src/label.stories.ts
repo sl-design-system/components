@@ -1,6 +1,7 @@
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/icon/register.js';
 import '@sl-design-system/input/register.js';
 import '@sl-design-system/tooltip/register.js';
 import { html } from 'lit';
@@ -41,35 +42,63 @@ export const LabelSize: StoryObj = {
       }
     </style>
     <form>
-      <sl-label for="input1a" size="sm" info="true">
+      <sl-label for="input1" size="sm" info="true">
         I am small
-        <sl-icon slot="icon" name="info" aria-describedby="tooltip1"></sl-icon>
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip1" size="xs"></sl-icon>
         <sl-tooltip slot="tooltip" id="tooltip1">I am a tooltip for the info icon</sl-tooltip>
       </sl-label>
-      <sl-input id="input1a" required></sl-input>
-      <sl-label for="input1" size="sm" info="true">I am small</sl-label>
       <sl-input id="input1" required></sl-input>
-      <sl-label for="input2" size="md" info="true">I am medium</sl-label>
+      <sl-label for="input2" size="md" info="true">
+        I am medium
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip2" size="sm"></sl-icon>
+        <sl-tooltip slot="tooltip" id="tooltip2">I am a tooltip for the info icon</sl-tooltip>
+      </sl-label>
       <sl-input id="input2" required></sl-input>
-      <sl-label for="input3" size="lg" info="true">I am large</sl-label>
+      <sl-label for="input3" size="lg" info="true">
+        I am large
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip3" size="md"></sl-icon>
+        <sl-tooltip slot="tooltip" id="tooltip3">I am a tooltip for the info icon</sl-tooltip>
+      </sl-label>
       <sl-input id="input3" size="lg" required></sl-input>
-      <sl-label for="input4" size="sm">I am small disabled</sl-label>
-      <sl-input id="input4" disabled value="Disabled input"></sl-input>
-      <sl-label for="input5" size="md">I am medium disabled</sl-label>
+      <sl-label for="input4" size="sm">
+        I am small disabled
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip4" size="xs"></sl-icon>
+        <sl-tooltip slot="tooltip" id="tooltip4">I am a tooltip for the info icon</sl-tooltip>
+      </sl-label>
+      <sl-input id="input4" disabled value="Disabled input" required></sl-input>
+      <sl-label for="input5" size="md">
+        I am medium disabled
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip5" size="sm"></sl-icon>
+        <sl-tooltip slot="tooltip" id="tooltip5">I am a tooltip for the info icon</sl-tooltip>
+      </sl-label>
       <sl-input id="input5" disabled value="Disabled input"></sl-input>
-      <sl-label for="input6" size="lg">I am large disabled</sl-label>
+      <sl-label for="input6" size="lg">
+        I am large disabled
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip6" size="md"></sl-icon>
+        <sl-tooltip slot="tooltip" id="tooltip6">I am a tooltip for the info icon</sl-tooltip>
+      </sl-label>
       <sl-input id="input6" size="lg" disabled value="Invalid input"></sl-input>
-      <sl-label for="input7" size="sm" invalid>I am small invalid</sl-label>
+      <sl-label for="input7" size="sm" invalid>
+        I am small invalid
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip7" size="xs"></sl-icon>
+        <sl-tooltip slot="tooltip" id="tooltip7">I am a tooltip for the info icon</sl-tooltip></sl-label
+      >
       <sl-input id="input7" value="Invalid input" invalid></sl-input>
-      <sl-label for="input8" size="md" invalid>I am medium invalid</sl-label>
+      <sl-label for="input8" size="md" invalid>
+        I am medium invalid
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip8" size="sm"></sl-icon>
+        <sl-tooltip slot="tooltip" id="tooltip8">I am a tooltip for the info icon</sl-tooltip>
+      </sl-label>
       <sl-input id="input8" value="Invalid input" invalid></sl-input>
-      <sl-label for="input9" size="lg" invalid>I am large invalid</sl-label>
+      <sl-label for="input9" size="lg" invalid>
+        I am large invalid
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip9" size="md"></sl-icon>
+        <sl-tooltip slot="tooltip" id="tooltip9">I am a tooltip for the info icon</sl-tooltip>
+      </sl-label>
       <sl-input id="input9" size="lg" value="Disabled input" invalid></sl-input>
-      <span aria-describedby="tooltip">Button</span>
-      <sl-tooltip id="tooltip" .position="bottom">testtt</sl-tooltip>
     </form>
   `
-}; // <span slot="icon">test <sl-icon name="face-smile" aria-describedby="tooltip1"></sl-icon></span>
+};
 
 export const CustomLabel: StoryObj = {
   render: () => html`
@@ -134,6 +163,10 @@ export const Optional: StoryObj = {
       sl-input {
         margin-block-end: 0.5rem;
       }
+
+      sl-button-bar {
+        margin-top: 0.5rem;
+      }
     </style>
     <form>
       <sl-label for="input">This label should be marked as optional</sl-label>
@@ -158,6 +191,9 @@ export const LabelWithInfoIcon: StoryObj = {
       form {
         display: flex;
         flex-direction: column;
+      }
+      sl-input {
+        margin-block-end: 0.5rem;
       }
     </style>
     <form>

@@ -118,13 +118,7 @@ export class ValidationController implements ReactiveController {
     // Prevent the browser from showing the built-in validation UI
     event.preventDefault();
 
-    this.#target?.setAttribute('invalid', '');
-    if (isNative(this.target)) {
-      this.#host.setAttribute('invalid', '');
-      this.target.ariaInvalid = 'true';
-      this.#host.requestUpdate();
-    }
-    this.#label?.setAttribute('invalid', '');
+    this.#setInvalidState();
 
     if (this.#showErrors !== !this.validity.valid) {
       const state = this.#getInvalidState(this.validity);
@@ -132,10 +126,8 @@ export class ValidationController implements ReactiveController {
         return;
       }
       this.#slotName = dasherize(state);
-      this.#target?.setAttribute('aria-describedby', this.#errorMessageId); // TODO: check if it is the right place
+      this.#target?.setAttribute('aria-describedby', this.#errorMessageId);
       this.#updateValidationMessage();
-      this.#target?.setAttribute('invalid', '');
-      this.#label?.setAttribute('invalid', '');
       this.#showErrors = !this.validity.valid;
       this.#host.requestUpdate();
     }
@@ -147,11 +139,7 @@ export class ValidationController implements ReactiveController {
 
     if (form === event.target) {
       this.#showErrors = false;
-      this.#host.removeAttribute('invalid');
-      this.#label?.removeAttribute('invalid');
-      this.target.ariaInvalid = null;
-      this.#removeValidationMessage();
-      this.#host.requestUpdate();
+      this.#removeInvalidState();
     }
   };
 
@@ -250,12 +238,8 @@ export class ValidationController implements ReactiveController {
 
     if (this.#showErrors && state) {
       this.#slotName = dasherize(state);
-      this.#target.setAttribute('invalid', '');
-      if (isNative(this.target)) {
-        this.#host.setAttribute('invalid', ''); // TODO: it breaks initially added invalid
-        this.#host.requestUpdate();
-      }
-      this.#label?.setAttribute('invalid', '');
+
+      this.#setInvalidState();
 
       this.#updateValidationMessage();
 
@@ -266,12 +250,30 @@ export class ValidationController implements ReactiveController {
         error-size="${this.#messageSize}"
       ></slot>`;
     } else if (this.validity.valid) {
-      this.#removeValidationMessage();
-      this.#host.removeAttribute('invalid');
-      this.#label?.removeAttribute('invalid');
-      this.target.ariaInvalid = null;
+      this.#removeInvalidState();
+    }
+  }
+
+  #setInvalidState(): void {
+    if (!this.#target || !this.target || !this.#host) {
+      return;
+    }
+
+    this.#target.setAttribute('invalid', '');
+    if (isNative(this.target)) {
+      this.#host.setAttribute('invalid', '');
+      this.target.ariaInvalid = 'true';
       this.#host.requestUpdate();
     }
+    this.#label?.setAttribute('invalid', '');
+  }
+
+  #removeInvalidState(): void {
+    this.#removeValidationMessage();
+    this.#host.removeAttribute('invalid');
+    this.#label?.removeAttribute('invalid');
+    this.target.ariaInvalid = null;
+    this.#host.requestUpdate();
   }
 
   #updateValidationMessage(): void {

@@ -23,6 +23,7 @@ sl-tooltip {
     }
 
     slot[name='icon']::slotted(sl-icon) {
+      fill: var(--sl-color-label-icon-default);
       margin-left: var(--sl-space-label-icon-md);
     }
 
@@ -35,9 +36,9 @@ sl-tooltip {
 
   :host([disabled]) {
     color: var(--sl-color-label-text-disabled);
-  }
 
-  //:host([invalid]) {
-  //  color: var(--sl-color-label-text-invalid);
-  //}
+    slot[name='icon']::slotted(sl-icon) {
+      fill: var(--sl-color-label-icon-disabled); //blue;
+    }
+  }
 }

@@ -79,7 +79,7 @@ export const API: StoryObj = {
       ${suffix ? html`<span slot="suffix">${suffix}</span>` : ''}
     </sl-input>
   `
-}; // TODO: type
+};
 
 export const Disabled: StoryObj = {
   render: () => html`
@@ -91,7 +91,6 @@ export const Disabled: StoryObj = {
     </style><sl-input disabled value="I am disabled"></sl-input>`
 };
 
-// TODO: all instead of sizes
 export const All: StoryObj = {
   argTypes: {
     size: {
@@ -167,7 +166,7 @@ export const Label: StoryObj = {
     </style>
     <form>
       <sl-label for="input" size="sm">What is your name?</sl-label>
-      <sl-input id="input"><span id="123a" slot="hint" hintSize="lg">test</span></sl-input>
+      <sl-input id="input"></sl-input>
       <sl-label for="input2" size="md">What is your name?</sl-label>
       <sl-input id="input2"></sl-input>
       <sl-label for="input3" size="lg">What is your name?</sl-label>
@@ -209,6 +208,10 @@ export const RichLabelHint: StoryObj = {
       form {
         display: flex;
         flex-direction: column;
+      }
+
+      div {
+        gap: 0.25rem;
       }
     </style>
     <form>
@@ -318,7 +321,7 @@ export const MinMaxLength: StoryObj = {
       <style>
         sl-input {
           width: 300px;
-          margin-right: 8px;
+          margin-bottom: 8px;
         }
       </style>
       <sl-input minlength="3" maxlength="5" placeholder="Min 3 and max 5 chars" required></sl-input>
@@ -337,7 +340,7 @@ export const Pattern: StoryObj = {
       <style>
         sl-input {
           width: 300px;
-          margin-right: 8px;
+          margin-bottom: 8px;
         }
       </style>
       <sl-input pattern=".{3,5}" placeholder="Min 3 and max 5 chars using pattern" required></sl-input>
@@ -376,7 +379,7 @@ export const ValidInput: StoryObj = {
         }
         sl-input {
           width: 400px;
-          margin-bottom: 8px;
+          margin-bottom: 16px;
         }
         sl-button {
           width: fit-content;
@@ -415,6 +418,7 @@ export const CustomValidation: StoryObj = {
       <style>
         sl-input {
           width: 300px;
+          margin-bottom: 8px;
         }
       </style>
       <sl-input required="true" .validators=${[validator]} error-size="sm"></sl-input>
@@ -438,6 +442,7 @@ export const CustomValidationWithHint: StoryObj = {
       <style>
         sl-input {
           width: 300px;
+          margin-bottom: 8px;
         }
       </style>
       <sl-input required="true" .validators=${[validator]} hint="You need to enter 'SLDS'"></sl-input>

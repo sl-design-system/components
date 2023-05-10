@@ -11,9 +11,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 }
 
 :host {
-  align-items: start;
-  display: inline-flex;
-  flex-direction: column;
+  display: block;
   transition: var(--_transition);
   vertical-align: top;
   width: 100%;
@@ -60,7 +58,7 @@ slot[name='input']::slotted(input) {
   padding: var(--_padding);
   transition: var(--_transition);
   transition-property: background, border, box-shadow, color, filter;
-  width: 100%;
+  width: auto;
 }
 
 .invalid-icon {
@@ -212,7 +210,7 @@ sl-error {
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-text-field-#{$variant}-disabled-input-text);
 
-      /* stylelint-disable-next-line max-nesting-depth */ /* stylelint-disable-next-line max-nesting-depth */
+      /* stylelint-disable-next-line max-nesting-depth */
       &::placeholder {
         --_placeholder-color: var(--sl-color-text-field-#{$variant}-disabled-placeholder);
       }

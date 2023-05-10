@@ -16,4 +16,4 @@
 '@sl-design-system/max': patch
 ---
 
-added teas theme, some additional icons
+Added teas theme, some additional icons

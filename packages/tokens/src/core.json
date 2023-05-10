@@ -358,17 +358,17 @@
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.lg} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
@@ -681,6 +681,68 @@
           "value": "{space.md}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
+        }
+      }
+    },
+    "select": {
+      "panel": {
+        "block": {
+          "lg": {
+            "value": "{space.sm} - {border.width.select.panel}",
+            "type": "spacing"
+          }
+        },
+        "inline": {
+          "lg": {
+            "value": "{space.sm} - {border.width.select.panel}",
+            "type": "spacing"
+          }
+        },
+        "gap": {
+          "lg": {
+            "value": "{space.xs}",
+            "type": "spacing"
+          }
+        }
+      },
+      "divider": {
+        "block": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        },
+        "inline": {
+          "lg": {
+            "value": "0",
+            "type": "spacing"
+          }
+        },
+        "gap": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        }
+      },
+      "item": {
+        "block": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        },
+        "inline": {
+          "lg": {
+            "value": "{space.md}",
+            "type": "spacing"
+          }
+        },
+        "gap": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
         }
       }
     }

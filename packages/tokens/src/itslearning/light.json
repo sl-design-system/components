@@ -78,7 +78,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.primary.700}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -341,7 +341,7 @@
               "description": "color.button.primary.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "description": "color.button.primary.default.focus.border"
             }
@@ -604,7 +604,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -867,7 +867,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.warning.base}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -1130,7 +1130,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.danger.base}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -2056,8 +2056,8 @@
         "x": "0",
         "y": "0",
         "blur": "0",
-        "spread": "2",
-        "color": "rgba({color.palette.info.500},{opacity.1000})",
+        "spread": "3",
+        "color": "rgba({color.palette.info.500},{opacity.500})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

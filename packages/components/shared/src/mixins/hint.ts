@@ -74,6 +74,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
 
     #updateHint(): void {
       const hint = this.querySelector('[slot="hint"]');
+      const target = this.querySelector('input, textarea') ? this.querySelector('input, textarea') : this;
 
       if (hint) {
         hint.id ||= `sl-hint-${nextUniqueId++}`;
@@ -86,11 +87,15 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
           this.hintSize = hint.getAttribute('hintsize') as HintSize;
         }
 
-        const target = this.querySelector('input, textarea') ? this.querySelector('input, textarea') : this;
+        // const target = this.querySelector('input, textarea') ? this.querySelector('input, textarea') : this;
 
         if (target?.hasAttribute('aria-describedby')) {
           const currentId = target.getAttribute('aria-describedby') as string;
-          target?.setAttribute('aria-describedby', `${currentId} ${hint.id}`);
+          if (currentId.includes('hint')) {
+            target?.setAttribute('aria-describedby', `${hint.id}`);
+          } else {
+            target?.setAttribute('aria-describedby', `${currentId} ${hint.id}`);
+          }
         } else {
           target?.setAttribute('aria-describedby', hint.id);
         }

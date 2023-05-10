@@ -23,10 +23,10 @@ describe('sl-label', () => {
 
     it('should render the label in the light DOM', () => {
       const label = el.querySelector('label');
-      
+
       expect(label).to.have.text('My label');
     });
-    
+
     it('should link the label to the form control', () => {
       const input = el.querySelector('input'),
         label = el.querySelector('label');
@@ -74,10 +74,10 @@ describe('sl-label', () => {
 
     it('should use the slotted label', () => {
       const label = slLabel.querySelector('label');
-      
+
       expect(label).to.have.trimmed.text('Slotted label');
     });
-    
+
     it('should link the label to the input', () => {
       const label = slLabel.querySelector('label');
 
@@ -108,11 +108,11 @@ describe('sl-label', () => {
       expect(optional).not.to.be.null;
       expect(optional).to.have.text('(optional)');
     });
-    
+
     it('should not mark the required labels', () => {
       el.querySelectorAll<Label>('sl-label:not(:first-of-type)').forEach((label: Label) => {
         const requiredOrOptional = label.renderRoot.querySelector('.required, .optional');
-  
+
         expect(requiredOrOptional).to.be.null;
       });
     });
@@ -140,7 +140,7 @@ describe('sl-label', () => {
         required = label?.renderRoot.querySelector('.required');
 
       expect(required).not.to.be.null;
-      expect(required).to.have.text('*');
+      expect(required).to.have.text('(required)');
     });
 
     it('should not mark the optional labels', () => {

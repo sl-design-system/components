@@ -1,5 +1,26 @@
 # @sl-design-system/grid
 
+## 0.0.6
+
+### Patch Changes
+
+- [#391](https://github.com/sl-design-system/components/pull/391) [`7f57d0e`](https://github.com/sl-design-system/components/commit/7f57d0ec7427d1e6b55c08f01a8546611a71eed7) - Enable customisation of `<thead>` using CSS parts
+
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`d45dbfa`](https://github.com/sl-design-system/components/commit/d45dbfa4289439cdfba237190dbf910478f282db)]:
+  - @sl-design-system/shared@0.0.3
+  - @sl-design-system/checkbox@0.0.3
+  - @sl-design-system/input@0.0.3
+
+## 0.0.4
+
+### Patch Changes
+
+- [#386](https://github.com/sl-design-system/components/pull/386) [`81c8d1f`](https://github.com/sl-design-system/components/commit/81c8d1f445e524c3b70ec3f8e4e106630dd60ea5) - Fix external styling on row hover
+
 ## 0.0.3
 
 ### Patch Changes

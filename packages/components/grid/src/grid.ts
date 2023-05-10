@@ -108,6 +108,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
           @sl-filter-change=${this.#onFilterChange}
           @sl-filter-value-change=${this.#onFilterValueChange}
           @sl-sorter-change=${this.#onSorterChange}
+          part="thead"
         >
           ${this.renderHeader()}
         </thead>
@@ -117,7 +118,6 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
-        <tfoot></tfoot>
       </table>
     `;
   }

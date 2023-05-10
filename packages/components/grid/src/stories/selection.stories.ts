@@ -22,6 +22,14 @@ export const Single: Story = {
     };
 
     return html`
+      <style>
+        sl-grid::part(row) {
+          cursor: pointer;
+        }
+        sl-grid::part(row):hover {
+          background-color: #f5f5f5;
+        }
+      </style>
       <sl-grid @sl-active-item-change=${onActiveItemChange} .items=${people}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
@@ -54,6 +62,14 @@ export const MultipleAutoSelect: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     return html`
+      <style>
+        sl-grid::part(row) {
+          cursor: pointer;
+        }
+        sl-grid::part(row):hover {
+          background-color: #f5f5f5;
+        }
+      </style>
       <sl-grid .items=${people}>
         <sl-grid-selection-column auto-select></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>

@@ -4040,21 +4040,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button@0.0.2, @sl-design-system/button@workspace:packages/components/button":
+"@sl-design-system/button@0.0.3, @sl-design-system/button@workspace:packages/components/button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button@workspace:packages/components/button"
   dependencies:
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/checkbox@0.0.2, @sl-design-system/checkbox@workspace:packages/components/checkbox":
+"@sl-design-system/checkbox@0.0.3, @sl-design-system/checkbox@workspace:packages/components/checkbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/components/checkbox"
   dependencies:
     "@lit-labs/observers": ^2.0.0
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
@@ -4082,7 +4082,7 @@ __metadata:
   resolution: "@sl-design-system/drawer@workspace:packages/components/drawer"
   dependencies:
     "@open-wc/scoped-elements": 2.1.4
-    "@sl-design-system/button": 0.0.2
+    "@sl-design-system/button": 0.0.3
     "@sl-design-system/button-bar": 0.0.2
     lit: ^2.7.2
   languageName: unknown
@@ -4092,7 +4092,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/editor@workspace:packages/components/editor"
   dependencies:
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
     prosemirror-commands: ^1.5.1
     prosemirror-history: ^1.3.0
@@ -4117,10 +4117,10 @@ __metadata:
   dependencies:
     "@lit-labs/virtualizer": ^2.0.0
     "@open-wc/scoped-elements": 2.1.4
-    "@sl-design-system/checkbox": 0.0.2
+    "@sl-design-system/checkbox": 0.0.3
     "@sl-design-system/icon": 0.0.2
-    "@sl-design-system/input": 0.0.2
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/input": 0.0.3
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
@@ -4133,11 +4133,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/input@0.0.2, @sl-design-system/input@workspace:packages/components/input":
+"@sl-design-system/input@0.0.3, @sl-design-system/input@workspace:packages/components/input":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/input@workspace:packages/components/input"
   dependencies:
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
@@ -4162,9 +4162,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/label@workspace:packages/components/label"
   dependencies:
-    "@sl-design-system/button": 0.0.2
-    "@sl-design-system/input": 0.0.2
-    "@sl-design-system/textarea": 0.0.2
+    "@sl-design-system/button": 0.0.3
+    "@sl-design-system/input": 0.0.3
+    "@sl-design-system/textarea": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
@@ -4248,12 +4248,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/popover@0.0.2, @sl-design-system/popover@workspace:packages/components/popover":
+"@sl-design-system/popover@0.0.3, @sl-design-system/popover@workspace:packages/components/popover":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/popover@workspace:packages/components/popover"
   dependencies:
     "@floating-ui/dom": ^1.2.6
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
@@ -4263,7 +4263,7 @@ __metadata:
   resolution: "@sl-design-system/radio-group@workspace:packages/components/radio-group"
   dependencies:
     "@lit-labs/observers": ^2.0.0
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
@@ -4305,13 +4305,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/select@workspace:packages/components/select"
   dependencies:
-    "@sl-design-system/popover": 0.0.2
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/popover": 0.0.3
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/shared@0.0.2, @sl-design-system/shared@workspace:packages/components/shared":
+"@sl-design-system/shared@0.0.3, @sl-design-system/shared@workspace:packages/components/shared":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:
@@ -4324,16 +4324,16 @@ __metadata:
   resolution: "@sl-design-system/tabs@workspace:packages/components/tabs"
   dependencies:
     "@open-wc/scoped-elements": 2.1.4
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/textarea@0.0.2, @sl-design-system/textarea@workspace:packages/components/textarea":
+"@sl-design-system/textarea@0.0.3, @sl-design-system/textarea@workspace:packages/components/textarea":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/textarea@workspace:packages/components/textarea"
   dependencies:
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft
@@ -4348,8 +4348,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tooltip@workspace:packages/components/tooltip"
   dependencies:
-    "@sl-design-system/popover": 0.0.2
-    "@sl-design-system/shared": 0.0.2
+    "@sl-design-system/popover": 0.0.3
+    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.2
   languageName: unknown
   linkType: soft

@@ -64,8 +64,11 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   /** Provide your own implementation for getting the data. */
   @property({ attribute: false }) dataSource?: DataSource<T>;
 
+  /** The `<tbody>` element. */
+  @query('tbody') tbody!: HTMLTableSectionElement;
+
   /** The `<thead>` element. */
-  @query('thead') header!: HTMLTableSectionElement;
+  @query('thead') thead!: HTMLTableSectionElement;
 
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
@@ -96,11 +99,14 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#resizeObserver.observe(this);
   }
 
-  override disconnectedCallback(): void {
-    this.#resizeObserver?.disconnect();
-    this.#resizeObserver = undefined;
-
-    super.disconnectedCallback();
+  override firstUpdated(): void {
+    this.tbody.addEventListener(
+      'scroll',
+      () => {
+        this.thead.scrollLeft = this.tbody.scrollLeft;
+      },
+      { passive: true }
+    );
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -123,6 +129,13 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     }
   }
 
+  override disconnectedCallback(): void {
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = undefined;
+
+    super.disconnectedCallback();
+  }
+
   override render(): TemplateResult {
     return html`
       <slot @sl-column-update=${this.#onColumnUpdate} @slotchange=${this.#onSlotchange} style="display:none"></slot>
@@ -139,7 +152,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         >
           ${this.renderHeader()}
         </thead>
-        <tbody @scroll=${this.#onScroll} @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
+        <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
             items: this.dataSource?.items,
             renderItem: (item, index) => this.renderItem(item, index)
@@ -273,10 +286,6 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onFilterValueChange(): void {
     this.#applyFilters();
-  }
-
-  #onScroll(event: Event & { target: HTMLElement }): void {
-    this.header.scrollLeft = event.target.scrollLeft;
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

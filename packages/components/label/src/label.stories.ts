@@ -59,12 +59,12 @@ export const LabelSize: StoryObj = {
       <sl-input id="input5" disabled value="Disabled input"></sl-input>
       <sl-label for="input6" size="lg">I am large disabled</sl-label>
       <sl-input id="input6" size="lg" disabled value="Invalid input"></sl-input>
-      <sl-label for="input4" size="sm" invalid>I am small invalid</sl-label>
-      <sl-input id="input4" value="Invalid input" invalid></sl-input>
-      <sl-label for="input5" size="md" invalid>I am medium invalid</sl-label>
-      <sl-input id="input5" value="Invalid input" invalid></sl-input>
-      <sl-label for="input6" size="lg" invalid>I am large invalid</sl-label>
-      <sl-input id="input6" size="lg" value="Disabled input" invalid></sl-input>
+      <sl-label for="input7" size="sm" invalid>I am small invalid</sl-label>
+      <sl-input id="input7" value="Invalid input" invalid></sl-input>
+      <sl-label for="input8" size="md" invalid>I am medium invalid</sl-label>
+      <sl-input id="input8" value="Invalid input" invalid></sl-input>
+      <sl-label for="input9" size="lg" invalid>I am large invalid</sl-label>
+      <sl-input id="input9" size="lg" value="Disabled input" invalid></sl-input>
       <span aria-describedby="tooltip">Button</span>
       <sl-tooltip id="tooltip" .position="bottom">testtt</sl-tooltip>
     </form>

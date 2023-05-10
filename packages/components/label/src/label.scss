@@ -37,7 +37,7 @@ sl-tooltip {
     color: var(--sl-color-label-text-disabled);
   }
 
-  :host([invalid]) {
-    color: var(--sl-color-label-text-invalid);
-  }
+  //:host([invalid]) {
+  //  color: var(--sl-color-label-text-invalid);
+  //}
 }

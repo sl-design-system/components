@@ -12,4 +12,4 @@
 '@sl-design-system/max': patch
 ---
 
-checkbox and radio button tokens added
+Checkbox and radio button tokens added

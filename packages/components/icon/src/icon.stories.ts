@@ -1,4 +1,6 @@
 import type { IconSize } from './icon.js';
+import { addons } from '@storybook/preview-api';
+import Events from '@storybook/core-events';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
@@ -13,6 +15,7 @@ interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
 }
 
 const sizes: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+let storyId: string;
 
 const sizeName = (size: IconSize): string => {
   switch (size) {
@@ -35,11 +38,21 @@ const sizeName = (size: IconSize): string => {
   }
 };
 
+const copyIconName = (name: string): void => {
+  console.log(name);
+};
+
 export default {
   title: 'Icon',
   args: {
-    icons: Object.keys(window.SLDS.icons)
+    icons: Object.keys(window.SLDS?.icons)
   },
+  decorators: [
+    (story, storyProperties) => {
+      storyId = storyProperties.id;
+      return story();
+    }
+  ],
   argTypes: {
     icons: {
       control: {
@@ -48,6 +61,14 @@ export default {
     }
   },
   render: ({ icons }) => {
+    if (icons.length === 0) {
+      setTimeout(() => {
+        addons.getChannel().emit(Events.UPDATE_STORY_ARGS, {
+          storyId,
+          updatedArgs: { icons: Object.keys(window.SLDS.icons) }
+        });
+      }, 200);
+    }
     return html`
       <style>
         section {
@@ -62,7 +83,18 @@ export default {
       ${sizes.map(
         size => html`
           <h3>${sizeName(size)}</h3>
-          <section>${icons.map(i => html`<sl-icon .name=${i} .size=${size}></sl-icon>`)}</section>
+          <section>
+            ${icons.map(
+              i =>
+                html`<sl-icon
+                  .name=${i}
+                  .size=${size}
+                  .label=${i}
+                  title="${i}"
+                  @click="${() => copyIconName(i)}"
+                ></sl-icon>`
+            )}
+          </section>
         `
       )}
       <h2>Referring to a non-existing icon:</h2>

@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { IconDefinition, IconLibrary, IconStyle } from './models.js';
 import { LitElement, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './icon.scss.js';
 
@@ -24,6 +24,8 @@ export class Icon extends LitElement {
   static availableStyles: IconStyle[] = [];
 
   private iconNotDef = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>`;
+  // do we want to show something here? it would probably only cause flickering
+  private iconLoading = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"></svg>`;
 
   /**
    * Add icon(s) to the icon registry
@@ -70,14 +72,17 @@ export class Icon extends LitElement {
   /** Icon size. */
   @property({ reflect: true }) size: IconSize = 'md';
 
+  @state() iconHTML?: string = this.iconLoading;
+
   get icons(): IconLibrary {
     return window.SLDS.icons;
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    // if (changes.has('label')) {
+    if (this.name) {
+      this.#resolve(this.name);
+    }
     if (this.label) {
       this.setAttribute('role', 'img');
       this.setAttribute('aria-label', this.label);
@@ -87,18 +92,17 @@ export class Icon extends LitElement {
       this.removeAttribute('aria-label');
       this.setAttribute('aria-hidden', 'true');
     }
-    // }
   }
 
   override render(): TemplateResult {
-    if (this.name) {
-      return html`${unsafeHTML(this.#resolve(this.name))}`;
-    } else {
-      return html`${unsafeHTML(this.iconNotDef)}`;
-    }
+    return html`${unsafeHTML(this.iconHTML)}`;
   }
 
-  #resolve(name: string): string {
-    return this.icons[name] ? this.icons[name].svg : this.iconNotDef;
+  #resolve(name: string): void {
+    if (!window.SLDS?.icons || Object.keys(window.SLDS.icons).length === 0) {
+      setTimeout(() => this.#resolve(name), 100);
+    } else {
+      this.iconHTML = this.icons[name] ? this.icons[name].svg : this.iconNotDef;
+    }
   }
 }

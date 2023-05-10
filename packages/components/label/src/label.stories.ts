@@ -2,6 +2,7 @@ import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/input/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { html } from 'lit';
 import '../register.js';
 
@@ -42,7 +43,7 @@ export const LabelSize: StoryObj = {
     <form>
       <sl-label for="input1a" size="sm" info="true">
         I am small
-        <sl-icon slot="icon" name="face-smile" aria-describedby="tooltip1"></sl-icon>
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip1"></sl-icon>
         <sl-tooltip slot="tooltip" id="tooltip1">I am a tooltip for the info icon</sl-tooltip>
       </sl-label>
       <sl-input id="input1a" required></sl-input>
@@ -84,7 +85,7 @@ export const CustomLabel: StoryObj = {
     <form>
       <sl-label for="input">
         <label slot="label"
-          ><u>Hello</u> <em>World</em><sl-icon slot="icon" name="face-smile" aria-describedby="tooltip1"></sl-icon>
+          ><u>Hello</u> <em>World</em><sl-icon slot="icon" name="info" aria-describedby="tooltip1"></sl-icon>
           <sl-tooltip id="tooltip1">I am a tooltip for the info icon</sl-tooltip></label
         >
       </sl-label>
@@ -162,19 +163,19 @@ export const LabelWithInfoIcon: StoryObj = {
     <form>
       <sl-label for="input1" size="sm" info="true">
         Label small
-        <sl-icon slot="icon" name="face-smile" size="xs" aria-describedby="tooltip"></sl-icon>
+        <sl-icon slot="icon" name="info" size="xs" aria-describedby="tooltip"></sl-icon>
         <sl-tooltip slot="tooltip" id="tooltip">I am a tooltip for the info icon</sl-tooltip>
       </sl-label>
       <sl-input id="input1"></sl-input>
       <sl-label for="input2" size="md" info="true">
         Label medium
-        <sl-icon slot="icon" name="face-smile" size="sm" aria-describedby="tooltip1"></sl-icon>
+        <sl-icon slot="icon" name="info" size="sm" aria-describedby="tooltip1"></sl-icon>
         <sl-tooltip slot="tooltip" id="tooltip1">I am a tooltip for the info icon</sl-tooltip>
       </sl-label>
       <sl-input id="input2"></sl-input>
       <sl-label for="input3" size="lg" info="true">
         Label large
-        <sl-icon slot="icon" name="face-smile" size="md" aria-describedby="tooltip2"></sl-icon>
+        <sl-icon slot="icon" name="info" size="md" aria-describedby="tooltip2"></sl-icon>
         <sl-tooltip slot="tooltip" id="tooltip2">I am a tooltip for the info icon</sl-tooltip>
       </sl-label>
       <sl-input id="input3" size="lg"></sl-input>

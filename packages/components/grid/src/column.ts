@@ -6,9 +6,9 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-export type GridColumnHeaderRenderer = () => TemplateResult;
+export type GridColumnHeaderRenderer = () => string | undefined | TemplateResult;
 
-export type GridColumnDataRenderer<T> = (model: T) => TemplateResult;
+export type GridColumnDataRenderer<T> = (model: T) => string | undefined | TemplateResult;
 
 export type GridColumnParts<T> = (model: T) => string | undefined;
 

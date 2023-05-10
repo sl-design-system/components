@@ -1095,17 +1095,17 @@
       },
       "icon-only": {
         "sm": {
-          "value": "{border.radius.2xs}",
+          "value": "{border.radius.full}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "md": {
-          "value": "{border.radius.2xs}",
+          "value": "{border.radius.full}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "lg": {
-          "value": "{border.radius.2xs}",
+          "value": "{border.radius.full}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         }
@@ -1152,7 +1152,7 @@
           "description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
@@ -1411,17 +1411,17 @@
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.lg} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }

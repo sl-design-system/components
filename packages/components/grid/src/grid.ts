@@ -13,7 +13,7 @@ import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { ArrayDataSource, SelectionController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
@@ -43,6 +43,9 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
 
+  /** Observe the grid width. */
+  #resizeObserver?: ResizeObserver;
+
   /** The sorters for this grid. */
   #sorters: GridSorter[] = [];
 
@@ -61,6 +64,9 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   /** Provide your own implementation for getting the data. */
   @property({ attribute: false }) dataSource?: DataSource<T>;
 
+  /** The `<thead>` element. */
+  @query('thead') header!: HTMLTableSectionElement;
+
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
 
@@ -75,6 +81,27 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** Uses alternating background colors for the rows when set. */
   @property({ type: Boolean, reflect: true }) striped?: boolean;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#resizeObserver = new ResizeObserver(entries => {
+      const {
+        borderBoxSize: [{ inlineSize }]
+      } = entries[0];
+
+      this.style.setProperty('--sl-grid-width', `${inlineSize}px`);
+    });
+
+    this.#resizeObserver.observe(this);
+  }
+
+  override disconnectedCallback(): void {
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = undefined;
+
+    super.disconnectedCallback();
+  }
 
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('items')) {
@@ -102,7 +129,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       <style>
         ${this.renderStyles()}
       </style>
-      <table>
+      <table part="table">
         <thead
           @sl-direction-change=${this.#onDirectionChange}
           @sl-filter-change=${this.#onFilterChange}
@@ -112,7 +139,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         >
           ${this.renderHeader()}
         </thead>
-        <tbody @visibilityChanged=${this.#onVisibilityChanged}>
+        <tbody @scroll=${this.#onScroll} @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
             items: this.dataSource?.items,
             renderItem: (item, index) => this.renderItem(item, index)
@@ -246,6 +273,10 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onFilterValueChange(): void {
     this.#applyFilters();
+  }
+
+  #onScroll(event: Event & { target: HTMLElement }): void {
+    this.header.scrollLeft = event.target.scrollLeft;
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

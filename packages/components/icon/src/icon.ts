@@ -25,7 +25,7 @@ export class Icon extends LitElement {
 
   private iconNotDef = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>`;
   // do we want to show something here? it would probably only cause flickering
-  private iconLoading = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"></svg>`;
+  private iconLoading = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-loading"></svg>`;
 
   /**
    * Add icon(s) to the icon registry
@@ -83,6 +83,7 @@ export class Icon extends LitElement {
     if (this.name) {
       this.#resolve(this.name);
     }
+
     if (this.label) {
       this.setAttribute('role', 'img');
       this.setAttribute('aria-label', this.label);
@@ -99,6 +100,7 @@ export class Icon extends LitElement {
   }
 
   #resolve(name: string): void {
+    console.log('resolve', name);
     if (!window.SLDS?.icons || Object.keys(window.SLDS.icons).length === 0) {
       setTimeout(() => this.#resolve(name), 100);
     } else {

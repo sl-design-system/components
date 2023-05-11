@@ -1,1 +1,0 @@
-# @sl-design-system/teas

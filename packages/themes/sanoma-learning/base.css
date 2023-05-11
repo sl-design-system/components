@@ -118,6 +118,7 @@
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-body: source-sans-pro;
   --sl-text-typeset-font-family-heading: the-message;
+  --sl-color-palette-transparent-base: 0 0 0 / 0;
   --sl-color-palette-white-base: 254 254 254;
   --sl-color-palette-black-base: 34 34 34;
   --sl-color-palette-danger-base: 255 87 92;

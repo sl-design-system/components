@@ -447,7 +447,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.primary.base}, {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.background"
             },
@@ -534,7 +534,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.primary.base}, {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.background"
             },
@@ -1236,7 +1236,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.danger.base}, {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.background"
             },
@@ -1323,7 +1323,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({color.palette.danger.base}, {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.background"
             },
@@ -1386,7 +1386,7 @@
         "unchecked": {
           "default": {
             "background": {
-              "value": "rgba({body.background} , {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1474,7 +1474,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background} , {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1612,7 +1612,7 @@
         "unchecked": {
           "default": {
             "background": {
-              "value": "rgba({body.background} , {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1700,7 +1700,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background} , {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1838,7 +1838,7 @@
         "unchecked": {
           "default": {
             "background": {
-              "value": "rgba({body.background} , {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -1926,7 +1926,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background} , {opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2065,7 +2065,7 @@
       "default": {
         "default": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{color.palette.transparent.base}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2227,7 +2227,7 @@
       "invalid": {
         "default": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{color.palette.transparent.base}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2355,7 +2355,7 @@
         },
         "disabled": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{color.palette.transparent.base}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2389,7 +2389,7 @@
       "valid": {
         "default": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{color.palette.transparent.base}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },
@@ -2497,7 +2497,7 @@
         },
         "disabled": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{color.palette.transparent.base}",
             "type": "color",
             "description": "color.surface.solid.primary.background"
           },

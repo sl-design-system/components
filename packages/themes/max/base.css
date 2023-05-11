@@ -118,6 +118,7 @@
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-body: open-sans;
   --sl-text-typeset-font-family-heading: open-sans;
+  --sl-color-palette-transparent-base: 0 0 0 / 0;
   --sl-color-palette-white-base: 254 254 254;
   --sl-color-palette-black-base: 37 54 70;
   --sl-color-palette-danger-base: 211 37 52;

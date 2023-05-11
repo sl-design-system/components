@@ -118,6 +118,7 @@
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-body: open-sans;
   --sl-text-typeset-font-family-heading: montserrat;
+  --sl-color-palette-transparent-base: 0 0 0 / 0;
   --sl-color-palette-white-base: 255 255 255;
   --sl-color-palette-black-base: 41 41 41;
   --sl-color-palette-danger-base: 227 10 39;

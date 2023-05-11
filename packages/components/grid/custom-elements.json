@@ -2074,6 +2074,12 @@
               "fieldName": "direction"
             }
           ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"

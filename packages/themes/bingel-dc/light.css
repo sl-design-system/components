@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
-  --sl-box-shadow-none: 0px 0px 0px 0px;
-  --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-500));
+  --sl-box-shadow-none: 0px 0px 0px 0px ;
+  --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-500)/var(--sl-opacity-500));
   --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
@@ -346,13 +346,13 @@
   --sl-color-input-default-unchecked-active-label: var(--sl-body-foreground);
   --sl-color-input-default-unchecked-hover-label: var(--sl-body-foreground);
   --sl-color-input-default-unchecked-default-label: var(--sl-body-foreground);
-  --sl-color-button-danger-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+  --sl-color-button-danger-link-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
   --sl-color-button-danger-outline-disabled-background: var(--sl-body-background);
   --sl-color-button-danger-outline-focus-background: var(--sl-body-background);
-  --sl-color-button-warning-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+  --sl-color-button-warning-link-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
   --sl-color-button-warning-outline-disabled-background: var(--sl-body-background);
   --sl-color-button-warning-outline-idle-background: var(--sl-body-background);
-  --sl-color-button-success-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+  --sl-color-button-success-link-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
   --sl-color-button-success-outline-idle-background: var(--sl-body-background);
   --sl-color-button-primary-outline-focus-background: var(--sl-body-background);
   --sl-color-button-primary-outline-idle-background: var(--sl-body-background);

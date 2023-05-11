@@ -688,13 +688,13 @@
       "panel": {
         "block": {
           "lg": {
-            "value": "{space.sm} - {border.width.select.panel}",
+            "value": "{space.sm} - {border.width.sm}",
             "type": "spacing"
           }
         },
         "inline": {
           "lg": {
-            "value": "{space.sm} - {border.width.select.panel}",
+            "value": "{space.sm} - {border.width.sm}",
             "type": "spacing"
           }
         },

@@ -5,6 +5,9 @@
 
 @mixin sl-theme-light {
   --sl-box-shadow-none: 0px 0px 0px 0px;
+  --sl-dropshadow-select-panel: 0px 0px var(--sl-size-3xs) px 0px
+    rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)) 0px var(--sl-size-3xs) px var(--sl-size-2xs) px
+    0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
   --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
   --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
@@ -14,6 +17,20 @@
   --sl-color-label-text-disabled: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-helper-text-disabled: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-select-panel-bacground-copy: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-select-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-select-focus-foreground: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-select-selected-border: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-select-selected-foreground: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-select-selected-background: rgb(var(--sl-color-palette-accent-50));
+  --sl-color-select-active-border: rgba(var(--sl-color-palette-accent-base) / 0);
+  --sl-color-select-active-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-select-active-background: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-select-default-foreground: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-select-divider-line: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-select-group-title-foreground: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-select-hover-foreground: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-select-hover-background: rgb(var(--sl-color-palette-accent-100));
   --sl-color-text-field-valid-disabled-icon: rgb(var(--sl-color-palette-success-150));
   --sl-color-text-field-valid-disabled-label: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-text-field-valid-active-background: rgba(var(--sl-color-palette-success-base) / var(--sl-opacity-100));
@@ -378,6 +395,14 @@
   --sl-color-helper-icon-default: var(--sl-body-foreground);
   --sl-color-helper-text-invalid: var(--sl-color-text-field-invalid-default-icon);
   --sl-color-helper-text-default: var(--sl-body-foreground);
+  --sl-color-select-panel-bacground: var(--sl-body-background);
+  --sl-color-select-disabled-border: rgba(var(--sl-body-background) / 0);
+  --sl-color-select-disabled-background: rgba(var(--sl-body-background) / 0);
+  --sl-color-select-focus-border: rgba(var(--sl-body-background) / 0);
+  --sl-color-select-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+  --sl-color-select-default-border: rgba(var(--sl-body-background) / 0);
+  --sl-color-select-default-background: rgba(var(--sl-body-background) / 0);
+  --sl-color-select-hover-border: rgba(var(--sl-body-background) / 0);
   --sl-color-text-field-valid-disabled-input-text: var(--sl-color-text-field-default-disabled-input-text);
   --sl-color-text-field-valid-disabled-border: var(--sl-color-text-field-default-disabled-border);
   --sl-color-text-field-valid-disabled-background: rgba(var(--sl-body-background) / 0);

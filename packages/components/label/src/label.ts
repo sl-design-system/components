@@ -45,6 +45,9 @@ export class Label extends LitElement {
   /** The label invalid state. */
   @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
+  /** Maximum length (number of characters). */
+  @property({ type: Boolean, attribute: 'no-padding' }) noPadding?: boolean;
+
   override disconnectedCallback(): void {
     this.#observer.disconnect();
 

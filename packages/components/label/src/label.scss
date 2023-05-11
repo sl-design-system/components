@@ -1,18 +1,32 @@
 $sizes: sm, md, lg;
 
 :host {
+  --_color: var(--sl-body-foreground);
+}
+
+:host {
   align-items: center;
-  color: var(--sl-body-foreground);
+  color: var(--_color);
   display: inline-flex;
-  font: var(--_font);
   padding-bottom: var(--_padding-bottom);
 }
 
-sl-tooltip {
-  overflow: hidden;
+slot[name='icon']::slotted(sl-icon) {
+  fill: var(--_fill);
+  margin-left: var(--sl-space-label-icon-md);
 }
 
-// TODO: add none padding bottom variant necessary for switch component
+slot[name='icon']::slotted(sl-icon) {
+  --_fill: var(--sl-color-label-icon-default);
+}
+
+:host([disabled]) {
+  --_color: var(--sl-color-label-text-disabled);
+
+  slot[name='icon']::slotted(sl-icon) {
+    --_fill: var(--sl-color-label-icon-disabled);
+  }
+}
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
@@ -22,11 +36,6 @@ sl-tooltip {
       font: var(--sl-text-input-label-label-#{$size});
     }
 
-    slot[name='icon']::slotted(sl-icon) {
-      fill: var(--sl-color-label-icon-default);
-      margin-left: var(--sl-space-label-icon-md);
-    }
-
     .optional,
     .required {
       font: var(--sl-text-input-label-tag-#{$size});
@@ -34,11 +43,7 @@ sl-tooltip {
     }
   }
 
-  :host([disabled]) {
-    color: var(--sl-color-label-text-disabled);
-
-    slot[name='icon']::slotted(sl-icon) {
-      fill: var(--sl-color-label-icon-disabled); //blue;
-    }
+  :host([no-padding]) {
+    --_padding-bottom: var(--sl-space-label-padding-bottom-none); // TODO: add exact no padding token
   }
 }

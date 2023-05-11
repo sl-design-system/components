@@ -1,7 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Validator } from '@sl-design-system/shared';
-import { faCircleCheck, faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
-import { Icon } from '@sl-design-system/icon';
 import {
   EventsController,
   FormControlMixin,
@@ -247,7 +245,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
   override render(): TemplateResult {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    Icon.registerIcon(faTriangleExclamation, faCircleCheck);
+    // Icon.registerIcon(faTriangleExclamation, faCircleCheck);
 
     return html`
       <div @input=${this.#onInput} class="wrapper">

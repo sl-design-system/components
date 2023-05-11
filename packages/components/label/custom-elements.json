@@ -95,6 +95,15 @@
             },
             {
               "kind": "field",
+              "name": "noPadding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Maximum length (number of characters).",
+              "attribute": "no-padding"
+            },
+            {
+              "kind": "field",
               "name": "optional",
               "type": {
                 "text": "boolean | undefined"
@@ -154,6 +163,14 @@
               },
               "description": "The label invalid state.",
               "fieldName": "invalid"
+            },
+            {
+              "name": "no-padding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Maximum length (number of characters).",
+              "fieldName": "noPadding"
             }
           ],
           "superclass": {

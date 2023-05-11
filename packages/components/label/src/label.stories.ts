@@ -60,6 +60,12 @@ export const LabelSize: StoryObj = {
         <sl-tooltip slot="tooltip" id="tooltip3">I am a tooltip for the info icon</sl-tooltip>
       </sl-label>
       <sl-input id="input3" size="lg" required></sl-input>
+      <sl-label for="input3a" size="lg" info="true" no-padding>
+        I am large with no padding
+        <sl-icon slot="icon" name="info" aria-describedby="tooltip3a" size="md"></sl-icon>
+        <sl-tooltip slot="tooltip" id="tooltip3a">I am a tooltip for the info icon</sl-tooltip>
+      </sl-label>
+      <sl-input id="input3a" size="lg"></sl-input>
       <sl-label for="input4" size="sm">
         I am small disabled
         <sl-icon slot="icon" name="info" aria-describedby="tooltip4" size="xs"></sl-icon>

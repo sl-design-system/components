@@ -2,8 +2,6 @@
 import type { CSSResultGroup, ReactiveController, ReactiveControllerHost, TemplateResult } from 'lit';
 import type { MessageSize, ValidationValue, Validator } from '../validators.js';
 import { msg, str } from '@lit/localize';
-import { faTriangleExclamation } from '@fortawesome/pro-solid-svg-icons';
-import { Icon } from '@sl-design-system/icon';
 import { css, html } from 'lit';
 import { dasherize } from '../string.js';
 
@@ -41,7 +39,7 @@ export const validationStyles: CSSResultGroup = css`
     color: var(--sl-color-helper-text-invalid);
     display: inline-flex;
     align-items: center;
-    fill: var(--sl-color-text-field-invalid-focus-icon);
+    fill: var(--sl-color-text-field-invalid-default-icon);
   }
   slot[part='error'][error-size='sm']::slotted(*) {
     font: var(--sl-text-input-helper-sm);
@@ -58,10 +56,7 @@ export const validationStyles: CSSResultGroup = css`
     padding-top: var(--sl-space-helper-padding-top-lg);
     gap: var(--sl-space-helper-gap-lg);
   }
-  slot[part='error']::slotted(sl-icon) {
-    fill: var(--sl-color-text-field-invalid-focus-icon);
-  }
-`; // TODO change token for the icon colour
+`;
 
 export class ValidationController implements ReactiveController {
   /** An internal abort controller for cancelling pending async validation. */
@@ -232,7 +227,7 @@ export class ValidationController implements ReactiveController {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    Icon.registerIcon(faTriangleExclamation);
+    // Icon.registerIcon(faTriangleExclamation);
 
     const state = this.#getInvalidState(this.validity);
 
@@ -295,7 +290,7 @@ export class ValidationController implements ReactiveController {
         iconSize = this.#messageSize === 'sm' ? 'md' : 'lg',
         icon = document.createElement('sl-icon');
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
-      Icon.registerIcon(faTriangleExclamation);
+      // Icon.registerIcon(faTriangleExclamation);
       icon.setAttribute('name', 'fas-triangle-exclamation');
       icon.setAttribute('size', iconSize);
 

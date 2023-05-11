@@ -4,7 +4,6 @@ import type { EventEmitter } from '@sl-design-system/shared';
 import { dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 
 /** Custom renderer type for column headers. */
 export type GridColumnHeaderRenderer = () => string | undefined | TemplateResult;
@@ -93,26 +92,34 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
   }
 
   renderHeader(): TemplateResult {
-    return html`<th>${this.header ?? getNameByPath(this.path)}</th>`;
+    const parts = ['header', ...this.#getParts()];
+
+    return html`<th part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
   }
 
   renderData(item: T): TemplateResult {
-    let parts;
-
-    if (typeof this.parts === 'string') {
-      parts = this.parts;
-    } else if (typeof this.parts === 'function') {
-      parts = this.parts(item);
-    }
-
-    if (this.path) {
-      parts = `${dasherize(this.path.replaceAll('.', '-'))} ${parts || ''}`.trim();
-    }
+    const parts = ['data', ...this.#getParts(item)];
 
     return html`
-      <td part=${ifDefined(parts)}>
+      <td part=${parts.join(' ')}>
         ${this.renderer ? this.renderer(item) : this.path ? getValueByPath(item, this.path) : 'No path set'}
       </td>
     `;
+  }
+
+  #getParts(item?: T): string[] {
+    let parts: string[] = [];
+
+    if (typeof this.parts === 'string') {
+      parts = this.parts.split(' ');
+    } else if (typeof this.parts === 'function' && item) {
+      parts = this.parts(item)?.split(' ') ?? [];
+    }
+
+    if (this.path) {
+      parts.push(dasherize(this.path.replaceAll('.', '-')));
+    }
+
+    return parts;
   }
 }

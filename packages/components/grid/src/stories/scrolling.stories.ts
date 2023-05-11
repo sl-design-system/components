@@ -45,6 +45,15 @@ export const HorizontalSticky: Story = {
     };
 
     return html`
+      <style>
+        sl-grid::part(thead) {
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+          clip-path: inset(0 0 -10px 0);
+        }
+        sl-grid::part(email) {
+          border-right: 1px solid #eee;
+        }
+      </style>
       <sl-grid .items=${people}>
         <sl-grid-column header="Name" .renderer=${nameRenderer} sticky></sl-grid-column>
         <sl-grid-column path="email" sticky></sl-grid-column>

@@ -61,7 +61,7 @@
               "description": "color.button.default.active.foreground"
             },
             "border": {
-              "value": "{color.palette.neutral.150}",
+              "value": "{color.palette.primary.800}",
               "type": "color",
               "description": "color.button.default.active.border"
             }

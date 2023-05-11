@@ -116,6 +116,19 @@ export const themes: Theme[] = [
 
       setup();
     }
+  },
+  {
+    id: 'teas',
+    name: 'TEAS',
+    fonts: [
+      'https://use.typekit.net/kes1hoh.css',
+      '/themes/teas/fonts.css'
+    ],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/teas');
+
+      setup();
+    }
   }
 ];
 

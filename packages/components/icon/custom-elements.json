@@ -65,6 +65,14 @@
           "members": [
             {
               "kind": "field",
+              "name": "SLDSRegistry",
+              "type": {
+                "text": "{ icons: IconLibrary } | undefined"
+              },
+              "attribute": "SLDSRegistry"
+            },
+            {
+              "kind": "field",
               "name": "availableStyles",
               "type": {
                 "text": "IconStyle[]"
@@ -181,6 +189,13 @@
               "default": "'md'",
               "description": "Icon size.",
               "fieldName": "size"
+            },
+            {
+              "name": "SLDSRegistry",
+              "type": {
+                "text": "{ icons: IconLibrary } | undefined"
+              },
+              "fieldName": "SLDSRegistry"
             }
           ],
           "superclass": {

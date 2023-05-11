@@ -1581,5 +1581,15 @@
       "neon/dark": "enabled"
     },
     "$figmaStyleReferences": {}
+  },
+  {
+    "id": "8b23509cf0a35208aad368c416a303dcc9c17258",
+    "name": "magister/dark",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "magister/base": "enabled",
+      "magister/dark": "enabled"
+    },
+    "$figmaStyleReferences": {}
   }
 ]

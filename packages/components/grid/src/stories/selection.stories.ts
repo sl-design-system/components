@@ -27,7 +27,7 @@ export const Single: Story = {
           cursor: pointer;
         }
         sl-grid::part(row):hover {
-          background-color: #f5f5f5;
+          --_cell-background: #f5f5f5;
         }
       </style>
       <sl-grid @sl-active-item-change=${onActiveItemChange} .items=${people}>
@@ -67,7 +67,7 @@ export const MultipleAutoSelect: Story = {
           cursor: pointer;
         }
         sl-grid::part(row):hover {
-          background-color: #f5f5f5;
+          --_cell-background: #f5f5f5;
         }
       </style>
       <sl-grid .items=${people}>

@@ -30,6 +30,8 @@
     "itslearning/dark",
     "clickedu/dark",
     "bingel-int/dark",
-    "bingel-dc/dark"
+    "bingel-dc/dark",
+    "teas/base",
+    "teas/light"
   ]
 }

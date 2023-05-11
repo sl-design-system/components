@@ -31,7 +31,7 @@ describe('HintMixin', () => {
       expect(slot).to.have.attribute('name', 'hint');
     });
 
-    it('should have a hint slot of size medium', () => {
+    it('should have a hint slot of size medium by default', () => {
       const slot = el.renderRoot.querySelector('slot');
       console.log('el', slot);
       expect(slot).to.have.attribute('hintSize', 'md');
@@ -42,6 +42,13 @@ describe('HintMixin', () => {
       slot?.setAttribute('hintsize', 'sm');
       console.log('el2', slot);
       expect(slot).to.have.attribute('hintSize', 'sm');
+    });
+
+    it('should have a hint slot of large size when set', () => {
+      const slot = el.renderRoot.querySelector('slot');
+      slot?.setAttribute('hintsize', 'lg');
+      console.log('el2', slot);
+      expect(slot).to.have.attribute('hintSize', 'lg');
     });
 
     it('should render the hint text', async () => {
@@ -112,6 +119,22 @@ describe('HintMixin', () => {
       expect(input).to.have.attribute('aria-describedby', div?.id);
     });
 
+    // it('removes the `hint` element when the `hint` property is removed', async () => {
+    //   el.hint = 'This is a hint';
+    //   await el.updateComplete;
+    //
+    //   const hintSlot = el.shadowRoot?.querySelector('slot[name="hint"]');
+    //   // const hintElement = hintSlot.assignedNodes()[0];
+    //   expect(hintSlot).to.exist;
+    //
+    //   console.log('hintSlot', hintSlot);
+    //
+    //   el.hint = undefined;
+    //   await el.updateComplete;
+    //
+    //   expect(hintSlot.assignedNodes().length).to.equal(0);
+    // });
+
     // it('should remove the aria-describedby attribute when the hint is removed', async ()  => {
     //   el.querySelector('p')?.remove();
     //   await el.updateComplete;
@@ -122,6 +145,8 @@ describe('HintMixin', () => {
   });
 
   describe('disabled', () => {
+    let el: TestHint;
+
     beforeEach(async () => {
       el = await fixture(html`<test-hint></test-hint>`);
     });
@@ -129,6 +154,23 @@ describe('HintMixin', () => {
     it('should not be disabled by default', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el).not.to.match(':disabled');
+    });
+
+    it('should be disabled when the input is disabled', async () => {
+      // const input2: TestHint;
+      const input = el.querySelector('input');
+      console.log('Input:', input);
+      if (input) {
+        input.disabled = true;
+      }
+
+      el.hint = 'This is a hint';
+      await el.updateComplete;
+
+      console.log('input, el', input, el);
+
+      const hintSlot = el.shadowRoot?.querySelector('slot[name="hint"]');
+      expect(hintSlot?.hasAttribute('disabled')).to.be.true;
     });
 
 /*    it('should have the :disabled pseudo class', () => {

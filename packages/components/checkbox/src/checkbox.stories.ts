@@ -223,7 +223,25 @@ export const Indeterminate: StoryObj = {
 };
 
 export const NoText: StoryObj = {
-  render: () => html`<sl-checkbox aria-label="Hello world"></sl-checkbox>`
+  render: () => html`
+    <style>
+      div {
+        align-items: start;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      sl-checkbox {
+        background: hotpink;
+      }
+    </style>
+    <div>
+      <sl-checkbox aria-label="Hello world"> </sl-checkbox>
+      <sl-checkbox>Hello world</sl-checkbox>
+      <sl-checkbox aria-label="Hello world" size="lg"></sl-checkbox>
+      <sl-checkbox size="lg">Hello world</sl-checkbox>
+    </div>
+  `
 };
 
 export const Overflow: StoryObj = {

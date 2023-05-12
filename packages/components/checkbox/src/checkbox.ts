@@ -49,7 +49,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the checkbox has the indeterminate state. */
   @property({ type: Boolean }) indeterminate = false;
 
-  /** Button size. */
+  /** Checkbox size. */
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
   /** The value for the checkbox. */
@@ -63,6 +63,8 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     this.setFormControlElement(this);
 
     this.#validation.validate(this.checked ? this.value : undefined);
+
+    this.#updateNoLabel();
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
@@ -106,14 +108,18 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   override render(): TemplateResult {
     return html`
       <div @click=${this.#onToggle} class="wrapper">
-        <span class="box">
-          <svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
-            ${this.indeterminate
-              ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
-              : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
-          </svg>
+        <div class="outer">
+          <div class="inner">
+            <svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
+              ${this.indeterminate
+                ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
+                : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
+            </svg>
+          </div>
+        </div>
+        <span class="label">
+          <slot @slotchange=${() => this.#updateNoLabel()}></slot>
         </span>
-        <span class="label"><slot></slot></span>
       </div>
       ${this.#validation.render()} ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
@@ -149,5 +155,20 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     this.checked = !this.checked;
     this.#validation.validate(this.checked ? this.value : undefined);
     this.change.emit(this.checked);
+  }
+
+  /**
+   * Updates the `no-label` attribute based on the presence of a label.
+   */
+  #updateNoLabel(): void {
+    const empty = Array.from(this.childNodes)
+      .filter(
+        node =>
+          (node.nodeType === Node.ELEMENT_NODE && !(node as Element).hasAttribute('slot')) ||
+          node.nodeType === Node.TEXT_NODE
+      )
+      .every(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim() === '');
+
+    this.toggleAttribute('no-label', empty);
   }
 }

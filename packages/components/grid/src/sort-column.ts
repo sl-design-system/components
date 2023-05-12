@@ -8,8 +8,8 @@ export class GridSortColumn extends GridColumn {
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('scopedElements')) {
       this.scopedElements = {
-        ...this.scopedElements,
-        'sl-grid-sorter': GridSorter
+        'sl-grid-sorter': GridSorter,
+        ...this.scopedElements
       };
     }
   }

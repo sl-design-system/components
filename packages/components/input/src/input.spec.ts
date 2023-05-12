@@ -80,7 +80,50 @@ describe('sl-input', () => {
 
       expect(input).to.have.attribute('placeholder', 'my placeholder');
     });
+
+    it('should not have a pattern by default', () => {
+      expect(el).not.to.have.attribute('pattern');
+    });
+
+    // TODO: add type text
+
+    it('should have a pattern when set', async () => {
+      el.pattern = '.{3,5}';
+      await el.updateComplete;
+
+      const input = el.querySelector('input');
+
+      console.log('el with placeholder', el, el.querySelector('input'));
+
+      expect(input).to.have.attribute('pattern', '.{3,5}');
+    });
+
+    it('should not have a min by default', () => {
+      expect(el).not.to.have.attribute('min');
+    });
+
+    // it('should have a min when set and is type of number', async () => {
+    //   el.pattern = '.{3,5}';
+    //   await el.updateComplete;
+    //
+    //   const input = el.querySelector('input');
+    //
+    //   console.log('el with placeholder', el, el.querySelector('input'));
+    //
+    //   expect(input).to.have.attribute('pattern', '.{3,5}');
+    // });
+
+    it('should not have a max by default', () => {
+      expect(el).not.to.have.attribute('max');
+    });
+
+    it('should not have a step by default', () => {
+      expect(el).not.to.have.attribute('step');
+    });
   });
 });
 
 // TODO: showVALID, invalid, valid
+
+
+// TODO: describe number type / numbers

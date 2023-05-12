@@ -105,7 +105,7 @@ export default {
         `
       )}
       <h2>Referring to a non-existing icon:</h2>
-      <section><sl-icon name="sl-non-existent"></sl-icon></section>
+      <section><sl-icon></sl-icon></section>
     `;
   }
 } satisfies Meta<Props>;

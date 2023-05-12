@@ -1,5 +1,5 @@
 import type { IconDefinition } from './models.js';
-import { expect, fixture } from '@open-wc/testing';
+import { expect, fixture, elementUpdated } from '@open-wc/testing';
 import { html } from 'lit';
 import { SinonStub, stub } from 'sinon';
 import { Icon } from './icon.js';
@@ -62,7 +62,7 @@ describe('sl-icon', () => {
     ]
   };
 
-  xdescribe('without icons registered', () => {
+  describe('without icons registered', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-icon></sl-icon>`);
     });
@@ -100,25 +100,25 @@ describe('sl-icon', () => {
       consoleStub = stub(console, 'warn');
     });
 
-    xit('should not render anything when no icon name is given', () => {
-      expect(el.shadowRoot?.firstElementChild).to.match('.icon-loading');
+    it('should not render anything when no icon name is given', () => {
+      expect(el.shadowRoot?.firstElementChild).to.match('.icon-not-def');
     });
   
     it('should be able to show a registered icon.', async () => {
       el.name = 'menu';
       await el.updateComplete;
+      await elementUpdated(el);
+
       const icon = el.shadowRoot?.querySelector('svg');
-      console.log(window.SLDS.icons.menu, icon);
       expect(icon?.outerHTML).to.equal(systemIcons.menu.svg);
-      setTimeout(()=>console.log(window.SLDS.icons.menu, icon),1000);
     });
   
-    xit('should show the correct label and be accessible', () => {
+    it('should show the correct label and be accessible', () => {
       expect(el).attribute('aria-hidden').to.equal('true');
       expect(el).not.have.attribute('role');
     });
   
-    xit('should show the correct label and be accessible when a label is set', async () => {
+    it('should show the correct label and be accessible when a label is set', async () => {
       el.label = 'menu';
       await el.updateComplete;
       expect(el).not.have.attribute('aria-hidden');
@@ -126,26 +126,26 @@ describe('sl-icon', () => {
       expect(el).attribute('aria-label').to.equal('menu');
     });
   
-    xit('should be able to register a single FA icon', () => {
+    it('should be able to register a single FA icon', () => {
       Icon.registerIcon(faIcon1);
       expect(window.SLDS.icons['fat-pinata']).not.to.be.undefined;
     });
   
-    xit('should not register the same icon twice', () => {
+    it('should not register the same icon twice', () => {
       Icon.registerIcon(faIcon1);
       expect(consoleStub.calledWith('Icon fat-pinata is already in the registry')).to.be.true;
     });
   
-    xit('should be able to register multiple FA icons', () => {
+    it('should be able to register multiple FA icons', () => {
       Icon.registerIcon(faIcon2, faIcon3);
       expect(window.SLDS.icons['fal-pinata']).not.to.be.undefined;
       expect(window.SLDS.icons['fas-pinata']).not.to.be.undefined;
     });
   
-    xit('should be able to show a FA icon', async () => {
+    it('should be able to show a FA icon', async () => {
       el.name = 'fal-pinata';
       await el.updateComplete;
-  
+      await elementUpdated(el);
       expect(el.shadowRoot?.firstElementChild).not.to.match('.icon-not-def');
     });
   });  

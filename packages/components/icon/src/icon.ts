@@ -108,6 +108,10 @@ export class Icon extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    if (changes.has('name')) {
+      this.iconHTML = this.getIconHTML();
+    }
+
     if (this.label) {
       this.setAttribute('role', 'img');
       this.setAttribute('aria-label', this.label);

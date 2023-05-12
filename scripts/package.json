@@ -23,9 +23,9 @@
     "@fortawesome/sharp-solid-svg-icons": "^6.4.0",
     "esbuild": "^0.17.18",
     "fast-glob": "^3.2.12",
-    "sass": "^1.62.0",
-    "style-dictionary": "^3.7.2",
-    "stylelint": "^15.6.0",
+    "sass": "^1.62.1",
+    "style-dictionary": "^3.8.0",
+    "stylelint": "^15.6.1",
     "token-transformer": "^0.0.32"
   }
 }

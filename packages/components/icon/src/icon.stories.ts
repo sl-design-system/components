@@ -39,8 +39,8 @@ const sizeName = (size: IconSize): string => {
   }
 };
 
-const copyIconName = (name: string): void => {
-  console.log(name);
+const copyIconName = async (name: string): Promise<void> => {
+  await navigator.clipboard.writeText(name);
 };
 
 export default {
@@ -79,22 +79,28 @@ export default {
           grid-auto-flow: column;
           justify-items: center;
         }
+        .copyable sl-icon {
+          cursor: pointer;
+        }
       </style>
       <h2>System and custom icons:</h2>
+      <small>Click on the icon to copy the name</small>
       ${sizes.map(
         size => html`
           <h3>${sizeName(size)}</h3>
-          <section>
-            ${icons.map(
-              i =>
-                html`<sl-icon
-                  .name=${i}
-                  .size=${size}
-                  .label=${i}
-                  title="${i}"
-                  @click="${() => copyIconName(i)}"
-                ></sl-icon>`
-            )}
+          <section class="copyable">
+            ${icons
+              .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')
+              .map(
+                i =>
+                  html`<sl-icon
+                    .name=${i}
+                    .size=${size}
+                    .label=${i}
+                    title="${i}"
+                    @click="${async () => copyIconName(i)}"
+                  ></sl-icon>`
+              )}
           </section>
         `
       )}

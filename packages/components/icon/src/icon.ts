@@ -49,7 +49,7 @@ export class Icon extends LitElement {
       const svg = `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">${paths
         .map((p: string, i) => `<path d="${p}" fill="var(--fill-${Icon.getColorToken(i, icon.prefix)})"></path>`)
         .join('')}</svg>`;
-      window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] = { svg };
+      window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] = { svg, type: 'RegisterdIcon' };
     });
   }
 

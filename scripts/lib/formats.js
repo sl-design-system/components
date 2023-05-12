@@ -23,13 +23,17 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
 
   if (token.palette) {
     const {
-      rgb: { r, g, b }
+      rgb: { r, g, b, a }
     } = token.attributes;
 
-    return `${options.prefix}--${token.name}: ${r} ${g} ${b};`;
+    if (a !== 1) {
+      return `${options.prefix}--${token.name}: ${r} ${g} ${b} / ${a};`;
+    } else {
+      return `${options.prefix}--${token.name}: ${r} ${g} ${b};`;
+    }
   } else if (typeof value === 'object' && token.type === 'typography') {
     const [fontFamily, fontSize, fontWeight, lineHeight] = ['fontFamily', 'fontSize', 'fontWeight', 'lineHeight'].map(
-      //FIXME remove Elvis operator, this should fail when there's no value.
+      // FIXME remove Elvis operator, this should fail when there's no value.
       attr => replaceReferences(dictionary, token.original.value[attr], value[attr]?.toString()));
 
     return `${options.prefix}--${token.name}: ${fontWeight} ${fontSize}/${lineHeight} ${fontFamily};`;

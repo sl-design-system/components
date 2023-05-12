@@ -22,7 +22,7 @@ $variants: default, primary, success, warning, danger;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transform: var(--_transform);
-  transition-property: background, border-color, border-radius, box-shadow, color;
+  transition-property: background, border-color, box-shadow, color;
   vertical-align: top;
 }
 

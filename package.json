@@ -202,6 +202,10 @@
           "cascade": false
         },
         {
+          "script": "build:tokens",
+          "cascade": false
+        },
+        {
           "script": "build:types",
           "cascade": false
         }

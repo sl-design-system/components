@@ -46,8 +46,8 @@ export class Icon extends LitElement {
           icon: [width, height, , , path]
         } = icon,
         paths = Array.isArray(path) ? path : [path];
-      const svg = `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg">${paths
-        .map(p => `<path d="${p}"></path>`)
+      const svg = `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">${paths
+        .map((p: string, i) => `<path d="${p}" fill="var(--fill-${Icon.getColorToken(i, icon.prefix)})"></path>`)
         .join('')}</svg>`;
       window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] = { svg };
     });
@@ -58,6 +58,10 @@ export class Icon extends LitElement {
    */
   static registerIcons(icons: IconLibrary): void {
     window.SLDS.icons = { ...window.SLDS.icons, ...icons };
+  }
+
+  static getColorToken(pathCounter: number, style: string): string {
+    return pathCounter === 0 && style === 'fad' ? 'accent' : 'default';
   }
 
   /**
@@ -72,17 +76,37 @@ export class Icon extends LitElement {
   /** Icon size. */
   @property({ reflect: true }) size: IconSize = 'md';
 
-  @state() iconHTML?: string = this.iconLoading;
+  getIconHTML(): string {
+    if (!this.sldsLibrary) {
+      return this.iconLoading;
+    }
+    if (!this.name) {
+      return this.iconNotDef;
+    }
+    return this.sldsLibrary.icons[this.name] ? this.sldsLibrary.icons[this.name].svg : this.iconNotDef;
+  }
 
-  get icons(): IconLibrary {
-    return window.SLDS.icons;
+  @state()
+  iconHTML?: string = this.iconLoading;
+
+  @state()
+  sldsLibrary?: { icons: IconLibrary };
+
+  override async connectedCallback(): Promise<void> {
+    super.connectedCallback();
+
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', '-1');
+    }
+
+    await this.waitForWindowProperty().then(() => {
+      this.sldsLibrary = window.SLDS;
+      this.iconHTML = this.getIconHTML();
+    });
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-    if (this.name) {
-      this.#resolve(this.name);
-    }
 
     if (this.label) {
       this.setAttribute('role', 'img');
@@ -99,12 +123,16 @@ export class Icon extends LitElement {
     return html`${unsafeHTML(this.iconHTML)}`;
   }
 
-  #resolve(name: string): void {
-    console.log('resolve', name);
-    if (!window.SLDS?.icons || Object.keys(window.SLDS.icons).length === 0) {
-      setTimeout(() => this.#resolve(name), 100);
-    } else {
-      this.iconHTML = this.icons[name] ? this.icons[name].svg : this.iconNotDef;
-    }
+  async waitForWindowProperty(): Promise<void> {
+    return new Promise<void>(resolve => {
+      const checkProperty = (): void => {
+        if (window.SLDS?.icons && Object.keys(window.SLDS.icons).length > 0) {
+          resolve();
+        } else {
+          setTimeout(checkProperty, 100); // check again in 100ms
+        }
+      };
+      checkProperty();
+    });
   }
 }

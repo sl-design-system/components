@@ -5,6 +5,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
+import { faNarwhal as fadNarwhal } from '@fortawesome/pro-duotone-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { html } from 'lit';
 import { Icon } from './icon.js';
@@ -116,7 +117,7 @@ export const RegisterAdditionalIcons: Story = {
     Icon.registerIcon(fatPinata);
 
     // load multiple icons at once:
-    Icon.registerIcon(falPinata, fasPinata);
+    Icon.registerIcon(falPinata, fasPinata, fadNarwhal);
 
     return html`
       <style>
@@ -132,7 +133,8 @@ export const RegisterAdditionalIcons: Story = {
         <sl-icon name="fal-pinata"></sl-icon>
         <sl-icon name="fat-pinata"></sl-icon>
         <sl-icon name="far-narwhal"></sl-icon>
-      </section
+        <sl-icon name="fad-narwhal"></sl-icon>
+      </section>
     `;
   }
 };

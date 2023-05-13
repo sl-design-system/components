@@ -62,7 +62,7 @@ $sizes: md, lg;
       --_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}[disabled]) {
+    :host(#{$variant-selector + $state-selector}:where(:disabled, [internals-disabled])) {
       --_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
       --_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
       --_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);

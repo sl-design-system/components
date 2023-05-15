@@ -143,8 +143,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       this.setFormControlElement(this.input);
 
       this.#validation.validate(this.value);
-
-      this.valid = this.showValid ? this.#validation.validity.valid : false;
+    } else {
+      if (this.#validation) {
+        this.valid = this.showValid ? this.#validation.validity.valid : false;
+      }
     }
   }
 

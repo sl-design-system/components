@@ -361,14 +361,15 @@ export const CustomInput: StoryObj = {
 export const ValidInput: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.previousElementSibling as Input)?.reportValidity();
+      const secondInput = event.target.previousElementSibling as Input;
+      secondInput.reportValidity();
     };
-
-    const inputToConfirm = document.querySelector('#input1') as HTMLInputElement;
 
     const validator: Validator = {
       message: 'Enter the same email address',
-      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === inputToConfirm?.value
+      isValid: (_: HTMLElement, value: ValidationValue): boolean => {
+        return value?.toString() === document.querySelectorAll('sl-input')[0].value;
+      }
     };
 
     return html`
@@ -387,16 +388,9 @@ export const ValidInput: StoryObj = {
       </style>
       <div class="wrapper">
         <sl-label for="input1">Email</sl-label>
-        <sl-input showValid id="input1" placeholder="email" type="email"></sl-input>
+        <sl-input showValid .validators=${[validator]} id="input1" placeholder="email" type="email"></sl-input>
         <sl-label for="input2">Confirm email</sl-label>
-        <sl-input
-          id="input2"
-          showValid
-          .validators=${[validator]}
-          placeholder="confirm email"
-          @blur="${onClick}"
-          type="email"
-        ></sl-input>
+        <sl-input id="input2" showValid .validators=${[validator]} placeholder="confirm email" type="email"></sl-input>
         <sl-button @click=${onClick}>Validate</sl-button>
       </div>
     `;

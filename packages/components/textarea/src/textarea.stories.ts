@@ -30,6 +30,71 @@ export const Disabled: StoryObj = {
   render: () => html`<sl-textarea disabled value="I am disabled"></sl-textarea>`
 };
 
+export const All: StoryObj = {
+  argTypes: {
+    size: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: () => html`
+    <style>
+      .content-wrapper {
+        display: inline-grid;
+        gap: 1rem;
+      }
+      .wrapper {
+        display: inline-grid;
+        gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+      }
+      sl-input {
+        width: 300px;
+      }
+    </style>
+    <h2>Medium</h2>
+    <div class="content-wrapper">
+      <div class="wrapper">
+        <sl-textarea size="md" placeholder="Placeholder md"></sl-textarea>
+        <sl-textarea size="md" value="I am medium"></sl-textarea>
+        <sl-textarea readonly size="md" value="I am md readonly"></sl-textarea>
+        <sl-textarea disabled size="md" value="I am md disabled"></sl-textarea>
+        <sl-textarea disabled size="md" placeholder="Placeholder md disabled"></sl-textarea>
+      </div>
+      <div class="wrapper">
+        <sl-textarea invalid size="md" value="I am md invalid"></sl-textarea>
+        <sl-textarea invalid size="md" placeholder="Placeholder md invalid"></sl-textarea>
+        <sl-textarea disabled invalid size="md" value="I am md invalid disabled"></sl-textarea>
+        <sl-textarea disabled invalid size="md" placeholder="Placeholder md disabled invalid"></sl-textarea>
+      </div>
+      <div class="wrapper">
+        <sl-textarea showValid valid size="md" value="I am md valid"></sl-textarea>
+        <sl-textarea disabled showValid valid size="md" value="I am md valid disabled"></sl-textarea>
+      </div>
+      <h2>Large</h2>
+      <div class="wrapper">
+        <sl-textarea size="lg" placeholder="Placeholder lg"></sl-textarea>
+        <sl-textarea size="lg" value="I am large"></sl-textarea>
+        <sl-textarea readonly size="lg" value="I am lg readonly"></sl-textarea>
+        <sl-textarea disabled size="lg" value="I am lg disabled"></sl-textarea>
+        <sl-textarea disabled size="lg" placeholder="Placeholder lg disabled"></sl-textarea>
+      </div>
+      <div class="wrapper">
+        <sl-textarea invalid size="lg" value="I am lg invalid"></sl-textarea>
+        <sl-textarea invalid size="lg" placeholder="Placeholder lg invalid"></sl-textarea>
+        <sl-textarea disabled invalid size="lg" value="I am lg invalid disabled"></sl-textarea>
+        <sl-textarea disabled invalid size="lg" placeholder="Placeholder lg disabled invalid"></sl-textarea>
+      </div>
+      <div class="wrapper">
+        <sl-textarea showValid valid size="lg" value="I am lg valid"></sl-textarea>
+        <sl-textarea disabled showValid valid size="lg" value="I am lg valid disabled"></sl-textarea>
+      </div>
+    </div>
+  `
+};
+
 export const Label: StoryObj = {
   render: () => html`
     <style>

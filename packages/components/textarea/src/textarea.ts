@@ -11,8 +11,15 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './textarea.scss.js';
 
+export type TextareaSize = 'md' | 'lg';
+
 let nextUniqueId = 0;
 
+/**
+ * Single line text input component.
+ *
+ * @slot textarea - The slot for the textarea element
+ */
 export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
@@ -40,11 +47,19 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** Placeholder text in the input. */
   @property() placeholder?: string;
 
+  /** Whether you can interact with the textarea or if it is just a static, readonly display. */
+  @property({ type: Boolean, reflect: true }) readonly?: boolean;
+
   /** Custom validators specified by the user. */
   @property({ attribute: false }) validators?: Validator[];
 
   /** The value for the textarea. */
   @property() value?: string;
+
+  /** Textarea size. */
+  @property({ reflect: true }) size: TextareaSize = 'md';
+
+  // TODO resize vertical / horizontal /  none? maybe vertical by default?
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -54,6 +69,10 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
         this.querySelector<HTMLTextAreaElement>('textarea[slot="input"]') || document.createElement('textarea');
       this.textarea.id ||= `sl-textarea-${nextUniqueId++}`;
       this.textarea.slot = 'textarea';
+
+      if (this.readonly) {
+        this.textarea.readOnly = this.readonly;
+      }
 
       if (!this.textarea.parentElement) {
         this.append(this.textarea);
@@ -92,6 +111,14 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       }
     }
 
+    if (changes.has('readonly')) {
+      if (this.readonly) {
+        this.textarea.readOnly = this.readonly;
+      } else {
+        this.textarea.removeAttribute('readonly');
+      }
+    }
+
     if (changes.has('value') && this.value !== this.textarea.value) {
       this.textarea.value = this.value || '';
     }
@@ -101,10 +128,16 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     return html`
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
+        <slot name="suffix">
+          <sl-icon name="face-smile"></sl-icon>
+        </slot>
       </div>
       ${this.renderHint()} ${this.#validation.render()}
-    `;
+    `; //         <span>Place for icon</span>
   }
+
+  // <sl-icon class="invalid-icon" name="fas-triangle-exclamation" size=${this.size}></sl-icon>
+  //           ${this.valid ? html`<sl-icon class="valid-icon" name="fas-circle-check" size=${this.size}></sl-icon>` : null}
 
   #onClick(event: Event): void {
     if (event.target === this.textarea) {
@@ -129,6 +162,10 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     if (textareas.length) {
       this.textarea = textareas[0];
       this.textarea.id ||= `sl-input-${nextUniqueId++}`;
+
+      if (this.readonly) {
+        this.textarea.readOnly = this.readonly;
+      }
 
       this.setFormControlElement(this.textarea);
     }

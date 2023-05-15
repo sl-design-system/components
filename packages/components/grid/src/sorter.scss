@@ -5,14 +5,14 @@
   --_gap: 0.5rem;
 }
 
+:host([direction]) {
+  --_direction-color: var(--_active-color);
+}
+
 :host {
   cursor: pointer;
   display: inline-flex;
   gap: var(--_gap);
-}
-
-:host([direction]) {
-  --_direction-color: var(--_active-color);
 }
 
 .direction {

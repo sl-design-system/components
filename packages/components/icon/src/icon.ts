@@ -127,6 +127,12 @@ export class Icon extends LitElement {
     return html`${unsafeHTML(this.iconHTML)}`;
   }
 
+  /**
+   * sometimes the icon tries to render before any icons are registered,
+   * that's why we need to check if the icons have been registered, and if not
+   * we need to wait a bit and then check again, so we can (re)render the icon when the library is set.
+   */
+
   async waitForWindowProperty(): Promise<void> {
     return new Promise<void>(resolve => {
       const checkProperty = (): void => {

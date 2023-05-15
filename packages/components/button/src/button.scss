@@ -5,50 +5,8 @@ $variants: default, primary, success, warning, danger;
 :host {
   --_animation: var(--sl-animation-button);
   --_background: var(--sl-color-button-default-idle-background);
-  --_cursor: pointer;
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
-}
-
-:host {
-  background: var(--_background);
-  border: var(--_border-width) solid var(--_border-color);
-  border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow, none);
-  color: var(--_color);
-  cursor: var(--_cursor);
-  display: inline-flex;
-  font: var(--_font);
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
-  transform: var(--_transform);
-  transition-property: background, border-color, box-shadow, color;
-  vertical-align: top;
-}
-
-::slotted(sl-icon) {
-  fill: var(--_color);
-}
-
-slot {
-  align-items: center;
-  display: flex;
-  gap: var(--_label-gap);
-}
-
-:host(:where(:disabled, [internals-disabled])) {
-  --_cursor: default;
-  pointer-events: none;
-}
-
-:host(:focus),
-:host(:focus-visible) {
-  outline: none;
-}
-
-:host([fill]) {
-  transition-duration: var(--_transition-duration);
-  transition-timing-function: var(--_transition-easing);
 }
 
 @each $fill in $fills {
@@ -85,8 +43,9 @@ slot {
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:focus) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:focus-visible) {
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
+      --_box-shadow: var(--sl-box-shadow-focus);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
     }
   }
@@ -101,6 +60,7 @@ slot {
     --_padding-block: var(--sl-space-button-default-block-#{$size});
     --_padding-inline: var(--sl-space-button-default-inline-#{$size});
   }
+
   :host([size='#{$size}'][icon-only]) {
     --icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
     --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
@@ -110,6 +70,39 @@ slot {
   }
 }
 
+:host {
+  align-items: center;
+  background: var(--_background);
+  border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow, none);
+  color: var(--_color);
+  cursor: pointer;
+  display: inline-flex;
+  font: var(--_font);
+  gap: var(--_label-gap);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+  transform: var(--_transform);
+  vertical-align: top;
+}
+
+:host(:focus),
 :host(:focus-visible) {
-  --_box-shadow: var(--sl-box-shadow-focus);
+  outline: none;
+}
+
+:host(:where(:active, :focus-visible, :hover)) {
+  transition-duration: var(--_transition-duration);
+  transition-property: background, border-color, box-shadow, color;
+  transition-timing-function: var(--_transition-easing);
+}
+
+:host(:where(:disabled, [internals-disabled])) {
+  cursor: default;
+  pointer-events: none;
+}
+
+::slotted(sl-icon) {
+  fill: var(--_color);
 }

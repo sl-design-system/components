@@ -1,9 +1,9 @@
-import type { PropertyValues, TemplateResult } from 'lit';
+import type { CSSResult, PropertyValues, TemplateResult } from 'lit';
 import type { GridActiveItemChangeEvent } from './grid.js';
 import { msg } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { EventsController } from '@sl-design-system/shared';
-import { html } from 'lit';
+import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
@@ -63,6 +63,14 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
           ?checked=${checked}
         ></sl-checkbox>
       </td>
+    `;
+  }
+
+  override renderStyles(): CSSResult {
+    return css`
+      inline-size: calc(2 * var(--sl-space-input-inline-md) + var(--sl-size-input-md) + 1rem);
+      padding-block: 0;
+      padding-inline: 0.5rem;
     `;
   }
 

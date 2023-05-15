@@ -3,11 +3,13 @@
   --_border-radius: 3px;
   --_cell-background: #fff;
   --_cell-border: 1px solid #eee;
-  --_cell-padding: 0.25rem 1rem;
+  --_cell-padding-block: 0.5rem;
+  --_cell-padding-inline: 1rem;
   --_font: var(--sl-text-body-md-normal);
   --_header-background: #fff;
   --_header-font-weight: 600;
-  --_header-padding: 0.5rem 1rem;
+  --_header-padding-block: 0.5rem;
+  --_header-padding-inline: 1rem;
   --_selected-background: #338bff0f;
   --_striped-background: #f9f9f9;
 }
@@ -74,12 +76,12 @@ th {
   background: var(--_header-background);
   border-bottom: var(--_cell-border);
   font-weight: var(--_header-font-weight);
-  padding: var(--_header-padding);
+  padding: var(--_header-padding-block) var(--_header-padding-inline);
 }
 
 td {
   background: var(--_cell-background);
-  padding: var(--_cell-padding);
+  padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 }
 
 tr:not(:first-of-type) td {

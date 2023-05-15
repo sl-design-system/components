@@ -19,7 +19,7 @@
     "build": {
       "command": "ng build angular-core",
       "dependencies": [
-        "../../build"
+        "../..:build"
       ],
       "files": [
         "projects/angular-core/**/*"
@@ -43,7 +43,7 @@
         "./storybook/main.ts"
       ],
       "dependencies": [
-        "../../build"
+        "../..:build"
       ]
     },
     "storybook": {

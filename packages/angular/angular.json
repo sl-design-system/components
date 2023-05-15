@@ -40,7 +40,7 @@
             "browserTarget": "angular-core:build-storybook",
             "ci": true,
             "compodoc": false,
-            "port": 6010,
+            "port": 6007,
             "quiet": true
           }
         },

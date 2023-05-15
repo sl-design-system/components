@@ -52,8 +52,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Single line text input component.",
           "name": "Textarea",
+          "slots": [
+            {
+              "description": "The slot for the textarea element",
+              "name": "textarea"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -87,6 +93,27 @@
               },
               "description": "Placeholder text in the input.",
               "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
+              "attribute": "readonly",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "TextareaSize"
+              },
+              "default": "'md'",
+              "description": "Textarea size.",
+              "attribute": "size",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -140,12 +167,29 @@
               "fieldName": "placeholder"
             },
             {
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
+              "fieldName": "readonly"
+            },
+            {
               "name": "value",
               "type": {
                 "text": "string | undefined"
               },
               "description": "The value for the textarea.",
               "fieldName": "value"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "TextareaSize"
+              },
+              "default": "'md'",
+              "description": "Textarea size.",
+              "fieldName": "size"
             }
           ],
           "mixins": [

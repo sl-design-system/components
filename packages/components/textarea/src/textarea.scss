@@ -108,7 +108,8 @@ slot[name='suffix'] {
     slot[name='suffix'] {
       /* stylelint-disable-next-line max-nesting-depth */
       sl-icon {
-        fill: var(--sl-color-text-field-#{$variant}-default-icon);
+        //fill: var(--sl-color-text-field-#{$variant}-default-icon);
+        --fill-default: var(--sl-color-text-field-#{$variant}-default-icon);
       }
     }
 

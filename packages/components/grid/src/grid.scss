@@ -64,7 +64,7 @@ tr {
 th,
 td {
   align-items: center;
-  box-sizing: border-box;
+  box-sizing: content-box;
   display: inline-flex;
   flex-shrink: 0;
   overflow: hidden;

@@ -1,9 +1,9 @@
 import type { Meta } from '@storybook/angular';
-import '@sanomalearning/slds-core/label/register.js';
-import '@sanomalearning/slds-core/button/register.js';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { moduleMetadata, StoryFn, StoryObj } from '@storybook/angular';
+import '@sl-design-system/label/register.js';
+import '@sl-design-system/button/register.js';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
 
 @Component({
@@ -196,10 +196,10 @@ export class TemplateFormComponent {
   }
 
   onSubmit(model: Person): void {
-    alert(`form submit: Name: ${this.model.name},
-          Description: ${this.model.description},
-          Approval: ${this.model.approval},
-          Option: ${this.model.option.value} ${this.model.option.text}`);
+    alert(`form submit: Name: ${model.name},
+          Description: ${model.description},
+          Approval: ${model.approval},
+          Option: ${model.option.value} ${model.option.text}`);
   }
 }
 

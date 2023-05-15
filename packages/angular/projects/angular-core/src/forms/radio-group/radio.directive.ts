@@ -5,7 +5,6 @@ import {
   HostListener, Renderer2
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import '@sanomalearning/slds-core/radio-group/register.js';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector

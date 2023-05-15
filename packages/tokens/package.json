@@ -1,68 +1,11 @@
 {
-  "name": "@sanomalearning/slds-tokens",
-  "description": "SLDS Design Tokens",
-  "version": "0.0.1",
+  "name": "@sl-design-system/tokens",
+  "description": "Design tokens for the SL Design System",
+  "version": "0.0.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/sanomalearning/design-system.git",
+    "url": "https://github.com/sl-design-system/components.git",
     "directory": "packages/tokens"
-  },
-  "type": "module",
-  "workspaces": [
-    "src/themes/bingel",
-    "src/themes/bingel-dc",
-    "src/themes/bingel-int",
-    "src/themes/clickedu",
-    "src/themes/itslearning",
-    "src/themes/kampus",
-    "src/themes/magister",
-    "src/themes/max",
-    "src/themes/neon",
-    "src/themes/sanoma-learning"
-  ],
-  "scripts": {
-    "build": "wireit",
-    "clean": "wireit"
-  },
-  "wireit": {
-    "build": {
-      "dependencies": [
-        "./src/themes/bingel:build",
-        "./src/themes/bingel-dc:build",
-        "./src/themes/bingel-int:build",
-        "./src/themes/clickedu:build",
-        "./src/themes/magister:build",
-        "./src/themes/itslearning:build",
-        "./src/themes/kampus:build",
-        "./src/themes/max:build",
-        "./src/themes/neon:build",
-        "./src/themes/sanoma-learning:build"
-      ]
-    },
-    "clean": {
-      "command": "rimraf --glob \"src/themes/**/.wireit\""
-    }
-  },
-  "dependencies": {
-    "@fortawesome/pro-duotone-svg-icons": "^6.4.0",
-    "@fortawesome/pro-light-svg-icons": "^6.4.0",
-    "@fortawesome/pro-regular-svg-icons": "^6.4.0",
-    "@fortawesome/pro-solid-svg-icons": "^6.4.0",
-    "@fortawesome/pro-thin-svg-icons": "^6.4.0",
-    "@fortawesome/sharp-light-svg-icons": "^6.4.0",
-    "@fortawesome/sharp-regular-svg-icons": "^6.4.0",
-    "@fortawesome/sharp-solid-svg-icons": "^6.4.0"
-  },
-  "devDependencies": {
-    "@figma-export/cli": "^4.5.0",
-    "@figma-export/output-components-as-svg": "^4.5.0",
-    "@figma-export/transform-svg-with-svgo": "^4.5.0",
-    "rimraf": "^5.0.0",
-    "sass": "^1.62.0",
-    "style-dictionary": "^3.7.2",
-    "token-transformer": "^0.0.32",
-    "typescript": "^4.9.5",
-    "wireit": "^0.9.5"
   }
 }

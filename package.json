@@ -1,56 +1,163 @@
 {
-  "name": "@sanomalearning/slds-root",
-  "packageManager": "yarn@3.3.1",
+  "name": "@sl-design-system/monorepo",
+  "packageManager": "yarn@3.5.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/sanomalearning/design-system.git"
+    "url": "https://github.com/sl-design-system/components.git"
   },
   "workspaces": [
-    "docs/storybook",
-    "docs/website",
     "packages/angular",
-    "packages/core",
-    "packages/editor",
-    "packages/grid",
+    "packages/components/*",
+    "packages/locales",
+    "packages/themes/*",
     "packages/tokens",
-    "packages/tokens/src/themes/*",
     "scripts",
-    "tools/changesets-changelog",
     "tools/example-data",
-    "tools/storybook-addon-themes"
+    "website"
   ],
   "scripts": {
     "build": "wireit",
-    "clean": "wireit",
-    "docs": "wireit",
+    "extract-i18n": "lit-localize extract",
     "lint": "wireit",
     "postinstall": "husky install",
     "release": "wireit",
     "reset": "wireit",
+    "start": "wireit",
+    "storybook": "wireit",
     "test": "wireit",
+    "transform-tokens": "wireit",
+    "version": "wireit",
     "website": "wireit"
   },
   "wireit": {
     "build": {
       "dependencies": [
-        "./packages/core:build",
-        "./packages/editor:build",
-        "./packages/grid:build",
-        "./packages/tokens:build",
-        "./packages/angular:build"
+        "build:cem",
+        "build:components",
+        "build:locales",
+        "build:themes",
+        "build:types"
       ]
     },
-    "clean": {
-      "command": "rimraf --glob dist docs/*/dist packages/*/dist"
-    },
-    "docs": {
+    "build:cem": {
+      "command": "node scripts/build-cem.js",
       "dependencies": [
-        "./docs/storybook:build",
-        "./packages/core:docs",
-        "./packages/editor:docs",
-        "./packages/grid:docs",
-        "./packages/angular:docs"
+        "build:scss"
+      ],
+      "files": [
+        "packages/components/**/*.ts",
+        "!packages/components/**/*.{d,spec,stories}.ts"
+      ],
+      "output": [
+        "packages/components/*/custom-elements.json"
+      ]
+    },
+    "build:components": {
+      "command": "node scripts/build-packages.js components",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:scss"
+      ],
+      "files": [
+        "packages/components/**/*.ts",
+        "!packages/components/**/*.d.ts"
+      ],
+      "output": [
+        "packages/components/**/*.js",
+        "packages/components/**/*.js.map"
+      ]
+    },
+    "build:icons": {
+      "command": "node scripts/build-icons.js",
+      "clean": false,
+      "dependencies": [
+        "build:tokens"
+      ],
+      "files": [
+        "scripts/build-icons.js",
+        "scripts/figma-icon-pages.json",
+        "packages/tokens/src/core.json",
+        "packages/tokens/src/*/base.json"
+      ],
+      "output": [
+        "packages/themes/*/icons.ts",
+        "packages/themes/*/icons/*.svg"
+      ]
+    },
+    "build:locales": {
+      "command": "node scripts/build-packages.js locales",
+      "dependencies": [
+        "build:lit-localize"
+      ],
+      "files": [
+        "packages/locales/**/*.ts",
+        "!packages/locales/**/*.d.ts"
+      ],
+      "output": [
+        "packages/locales/**/*.js",
+        "packages/locales/**/*.js.map"
+      ]
+    },
+    "build:lit-localize": {
+      "command": "lit-localize build && eslint --fix \"packages/locales/src/*.ts\"",
+      "clean": false,
+      "files": [
+        "lit-localize.json",
+        "packages/locales/src/*.xlf"
+      ],
+      "output": [
+        "packages/locales/src/*.ts"
+      ]
+    },
+    "build:scss": {
+      "command": "node scripts/build-scss.js",
+      "clean": "if-file-deleted",
+      "files": [
+        "packages/components/**/*.scss"
+      ],
+      "output": [
+        "packages/components/**/*.scss.ts"
+      ]
+    },
+    "build:themes": {
+      "command": "node scripts/build-packages.js themes",
+      "clean": "if-file-deleted",
+      "files": [
+        "packages/themes/**/*.ts",
+        "!packages/themes/**/*.d.ts"
+      ],
+      "output": [
+        "packages/themes/**/*.js",
+        "packages/themes/**/*.js.map"
+      ]
+    },
+    "build:tokens": {
+      "command": "node scripts/build-tokens.js",
+      "clean": "if-file-deleted",
+      "files": [
+        "scripts/build-tokens.js",
+        "packages/tokens/src/**/*.json"
+      ],
+      "output": [
+        "packages/themes/**/*.{css,json,scss}",
+        "!packages/themes/*/fonts.css",
+        "!packages/themes/*/{package,tsconfig}.json"
+      ]
+    },
+    "build:types": {
+      "command": "tsc --build tsconfig.all.json --pretty",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:locales",
+        "build:scss"
+      ],
+      "files": [
+        "packages/**/*.ts"
+      ],
+      "output": [
+        "packages/**/tsconfig.tsbuildinfo",
+        "packages/**/*.d.ts"
       ]
     },
     "lint": {
@@ -67,14 +174,89 @@
     "reset": {
       "command": "rimraf --glob \"**/.wireit\""
     },
+    "start": {
+      "command": "storybook dev -p 6006 --no-open --quiet",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
+        }
+      },
+      "files": [
+        ".storybook/main.ts"
+      ],
+      "dependencies": [
+        {
+          "script": "build:components",
+          "cascade": false
+        },
+        {
+          "script": "build:locales",
+          "cascade": false
+        },
+        {
+          "script": "build:scss",
+          "cascade": false
+        },
+        {
+          "script": "build:themes",
+          "cascade": false
+        },
+        {
+          "script": "build:tokens",
+          "cascade": false
+        },
+        {
+          "script": "build:types",
+          "cascade": false
+        }
+      ]
+    },
+    "storybook": {
+      "command": "yarn workspace @sl-design-system/angular-root storybook",
+      "dependencies": [
+        "storybook:build"
+      ]
+    },
+    "storybook:build": {
+      "command": "storybook build -o dist --quiet",
+      "dependencies": [
+        "build:components",
+        "build:themes"
+      ]
+    },
     "test": {
       "dependencies": [
-        "./packages/core:test"
+        "test:components"
       ]
+    },
+    "test:components": {
+      "command": "wtr --static-logging",
+      "dependencies": [
+        "build:scss"
+      ],
+      "files": [
+        "web-test-runner.config.mjs",
+        "packages/components/**/*.spec.ts"
+      ]
+    },
+    "transform-tokens": {
+      "dependencies": [
+        "build:icons",
+        "build:tokens"
+      ]
+    },
+    "version": {
+      "command": "yarn install --no-immutable",
+      "dependencies": [
+        "version:changeset"
+      ]
+    },
+    "version:changeset": {
+      "command": "yarn changeset version"
     },
     "website": {
       "dependencies": [
-        "./docs/website:build:prod"
+        "./website:build:prod"
       ]
     }
   },
@@ -82,24 +264,42 @@
     "@11ty/eleventy": "^1.0.2",
     "@changesets/cli": "^2.26.1",
     "@changesets/get-github-info": "^0.5.2",
-    "@custom-elements-manifest/analyzer": "^0.8.0",
-    "@typescript-eslint/eslint-plugin": "^5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
-    "eslint": "^8.38.0",
+    "@custom-elements-manifest/analyzer": "^0.8.1",
+    "@lit/localize-tools": "^0.6.9",
+    "@open-wc/testing": "^3.1.8",
+    "@storybook/addon-a11y": "^7.0.10",
+    "@storybook/addon-essentials": "^7.0.10",
+    "@storybook/addon-storysource": "^7.0.10",
+    "@storybook/web-components-vite": "^7.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.59.5",
+    "@typescript-eslint/parser": "^5.59.5",
+    "@web/dev-server-esbuild": "^0.4.1",
+    "@web/test-runner": "^0.16.1",
+    "@web/test-runner-commands": "^0.7.0",
+    "@web/test-runner-playwright": "^0.10.0",
+    "@webcomponents/scoped-custom-element-registry": "^0.0.9",
+    "element-internals-polyfill": "1.3.5",
+    "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.1",
-    "prettier": "^2.8.7",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rimraf": "^5.0.0",
-    "sass": "^1.62.0",
-    "stylelint": "^15.4.0",
+    "rollup": "^3.21.6",
+    "sass": "^1.62.1",
+    "sinon": "^15.0.4",
+    "storybook": "^7.0.10",
+    "stylelint": "^15.6.1",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
     "typescript": "^4.9.5",
+    "vite": "^4.3.5",
     "wireit": "^0.9.5"
   }
 }

@@ -1,0 +1,2118 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/column.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/column-group.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/filter-column.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/grid.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/selection-column.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/sort-column.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-grid",
+          "declaration": {
+            "name": "Grid",
+            "module": "/src/grid.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-grid-column",
+          "declaration": {
+            "name": "GridColumn",
+            "module": "/src/column.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-grid-column-group",
+          "declaration": {
+            "name": "GridColumnGroup",
+            "module": "/src/column-group.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-grid-filter-column",
+          "declaration": {
+            "name": "GridFilterColumn",
+            "module": "/src/filter-column.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-grid-selection-column",
+          "declaration": {
+            "name": "GridSelectionColumn",
+            "module": "/src/selection-column.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-grid-sort-column",
+          "declaration": {
+            "name": "GridSortColumn",
+            "module": "/src/sort-column.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/column-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridColumnGroup",
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "attribute": "align",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "autoWidth",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "default": "[]",
+              "description": "The nested columns in the group."
+            },
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "attribute": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "attribute": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "attribute": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "attribute": "sticky",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The width of the group column is either manually specified, or the sum of the nested columns.",
+              "attribute": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "GridColumn",
+            "module": "/src/column.js"
+          },
+          "tagName": "sl-grid-column-group",
+          "customElement": true,
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "fieldName": "align",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "auto-width",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "fieldName": "autoWidth",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "fieldName": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "fieldName": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "fieldName": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "fieldName": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "fieldName": "sticky",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "fieldName": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridColumnGroup",
+          "declaration": {
+            "name": "GridColumnGroup",
+            "module": "src/column-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/column.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridColumn",
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "attribute": "align"
+            },
+            {
+              "kind": "field",
+              "name": "autoWidth",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "attribute": "auto-width"
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed."
+            },
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance."
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "attribute": "grow"
+            },
+            {
+              "kind": "field",
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "attribute": "header"
+            },
+            {
+              "kind": "field",
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "attribute": "parts"
+            },
+            {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "attribute": "path"
+            },
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell."
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid."
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "attribute": "sticky",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "attribute": "width"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "fieldName": "align"
+            },
+            {
+              "name": "auto-width",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "fieldName": "autoWidth"
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "fieldName": "grow"
+            },
+            {
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "fieldName": "header"
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "fieldName": "path"
+            },
+            {
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "fieldName": "parts"
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "fieldName": "sticky"
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "fieldName": "width"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-grid-column",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridColumn",
+          "declaration": {
+            "name": "GridColumn",
+            "module": "src/column.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/filter-column.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridFilterColumn",
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "attribute": "align",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "autoWidth",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "attribute": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "attribute": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "attribute": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "attribute": "sticky",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "attribute": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "GridColumn",
+            "module": "/src/column.js"
+          },
+          "tagName": "sl-grid-filter-column",
+          "customElement": true,
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "fieldName": "align",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "auto-width",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "fieldName": "autoWidth",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "fieldName": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "fieldName": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "fieldName": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "fieldName": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "fieldName": "sticky",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "fieldName": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridFilterColumn",
+          "declaration": {
+            "name": "GridFilterColumn",
+            "module": "src/filter-column.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/filter.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/filter.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/filter.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridFilterValueChangeEvent",
+          "superclass": {
+            "name": "Event",
+            "module": "src/filter.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridFilter",
+          "members": [
+            {
+              "kind": "field",
+              "name": "column",
+              "type": {
+                "text": "GridColumn"
+              },
+              "description": "The grid column."
+            },
+            {
+              "kind": "field",
+              "name": "filterChange",
+              "type": {
+                "text": "EventEmitter<GridFilterChange>"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filterValueChange",
+              "type": {
+                "text": "EventEmitter<GridFilterValueChangeEvent>"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "value"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "value"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridFilterValueChangeEvent",
+          "declaration": {
+            "name": "GridFilterValueChangeEvent",
+            "module": "src/filter.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridFilter",
+          "declaration": {
+            "name": "GridFilter",
+            "module": "src/filter.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/grid.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/grid.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/grid.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridActiveItemChangeEvent",
+          "superclass": {
+            "name": "Event",
+            "module": "src/grid.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Grid",
+          "members": [
+            {
+              "kind": "field",
+              "name": "activeItem",
+              "type": {
+                "text": "T | undefined"
+              },
+              "description": "The active item in the grid."
+            },
+            {
+              "kind": "field",
+              "name": "activeItemChange",
+              "type": {
+                "text": "EventEmitter<GridActiveItemChangeEvent<T>>"
+              },
+              "description": "Emits when the active item changes"
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "default": "[]",
+              "description": "The columns in the grid."
+            },
+            {
+              "kind": "field",
+              "name": "dataSource",
+              "type": {
+                "text": "DataSource<T> | undefined"
+              },
+              "description": "Provide your own implementation for getting the data."
+            },
+            {
+              "kind": "field",
+              "name": "itemParts",
+              "type": {
+                "text": "GridItemParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<tr>` so it can be styled externally."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[] | undefined"
+              },
+              "description": "An array of items to be displayed in the grid.",
+              "attribute": "items"
+            },
+            {
+              "kind": "field",
+              "name": "noBorder",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Hide the border around the grid when true.",
+              "attribute": "no-border",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "noRowBorder",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Hides the border between rows when true.",
+              "attribute": "no-row-border",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "recalculateColumnWidths",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "Updates the `width` of all columns which have `autoWidth` set to `true`."
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderItem",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "selection",
+              "readonly": true,
+              "default": "new SelectionController<T>(this)",
+              "description": "Selection manager."
+            },
+            {
+              "kind": "field",
+              "name": "striped",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Uses alternating background colors for the rows when set.",
+              "attribute": "striped",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "tbody",
+              "type": {
+                "text": "HTMLTableSectionElement"
+              },
+              "description": "The `<tbody>` element."
+            },
+            {
+              "kind": "field",
+              "name": "thead",
+              "type": {
+                "text": "HTMLTableSectionElement"
+              },
+              "description": "The `<thead>` element."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "items",
+              "type": {
+                "text": "T[] | undefined"
+              },
+              "description": "An array of items to be displayed in the grid.",
+              "fieldName": "items"
+            },
+            {
+              "name": "no-border",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Hide the border around the grid when true.",
+              "fieldName": "noBorder"
+            },
+            {
+              "name": "no-row-border",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Hides the border between rows when true.",
+              "fieldName": "noRowBorder"
+            },
+            {
+              "name": "striped",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Uses alternating background colors for the rows when set.",
+              "fieldName": "striped"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-grid",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridActiveItemChangeEvent",
+          "declaration": {
+            "name": "GridActiveItemChangeEvent",
+            "module": "src/grid.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Grid",
+          "declaration": {
+            "name": "Grid",
+            "module": "src/grid.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/selection-column.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridSelectionColumn",
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "attribute": "align",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "autoSelect",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When true, the active rows get selected automatically.",
+              "attribute": "auto-select"
+            },
+            {
+              "kind": "field",
+              "name": "autoWidth",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "attribute": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "attribute": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "attribute": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "selectAll",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When true, all items are selected.",
+              "attribute": "select-all"
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "attribute": "sticky",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "attribute": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "auto-select",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When true, the active rows get selected automatically.",
+              "fieldName": "autoSelect"
+            },
+            {
+              "name": "select-all",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When true, all items are selected.",
+              "fieldName": "selectAll"
+            },
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "fieldName": "align",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "auto-width",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "fieldName": "autoWidth",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "fieldName": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "fieldName": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "fieldName": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "fieldName": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "fieldName": "sticky",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "fieldName": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "GridColumn",
+            "module": "/src/column.js"
+          },
+          "tagName": "sl-grid-selection-column",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridSelectionColumn",
+          "declaration": {
+            "name": "GridSelectionColumn",
+            "module": "src/selection-column.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/sort-column.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridSortColumn",
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "attribute": "align",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "autoWidth",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "attribute": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "attribute": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "attribute": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "attribute": "sticky",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "attribute": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "GridColumn",
+            "module": "/src/column.js"
+          },
+          "tagName": "sl-grid-sort-column",
+          "customElement": true,
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "fieldName": "align",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "auto-width",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "fieldName": "autoWidth",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "fieldName": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "fieldName": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "fieldName": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "fieldName": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "fieldName": "sticky",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "fieldName": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridSortColumn",
+          "declaration": {
+            "name": "GridSortColumn",
+            "module": "src/sort-column.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/sorter.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/sorter.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/sorter.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridSorter",
+          "members": [
+            {
+              "kind": "field",
+              "name": "column",
+              "type": {
+                "text": "GridColumn"
+              },
+              "description": "The grid column."
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "type": {
+                "text": "DataSourceSortDirection | undefined"
+              },
+              "description": "The direction in which to sort the items.",
+              "attribute": "direction",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "directionChange",
+              "type": {
+                "text": "EventEmitter<DataSourceSortDirection | undefined>"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reset",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sorterChange",
+              "type": {
+                "text": "EventEmitter<GridSorterChange>"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "direction",
+              "type": {
+                "text": "DataSourceSortDirection | undefined"
+              },
+              "description": "The direction in which to sort the items.",
+              "fieldName": "direction"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridSorter",
+          "declaration": {
+            "name": "GridSorter",
+            "module": "src/sorter.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

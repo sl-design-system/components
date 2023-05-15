@@ -2,4 +2,4 @@
  * Public API Surface of core
  */
 
-export * from './forms/index';
+export * from './forms/index.js';

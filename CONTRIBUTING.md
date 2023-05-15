@@ -8,12 +8,37 @@ Thanks for wanting to contribute to the project!
 - Ensure if you are using Windows to use the Windows Subsystem for Linux (WSL)
 - Please be respectful when communicating within the project
 
+### Creating a new component
+
+These are the steps to follow when creating a new component:
+
+1. Create a new folder in `packages` with the name of your component
+2. Add the following files in the new folder:
+  - `.eslintrc.cjs`
+  - `index.ts`
+  - `package.json`
+  - `register.ts`
+  - `tsconfig.json`
+  - `src/<component-name>.ts`
+  - `src/<component-name>.scss`
+
+When in doubt, copy the files from an existing component and rename accordingly.
+
+3. Add the new component to `tsconfig.all.json` in the root of the project. 
+This is used for typechecking your component by the TypeScript compiler.
+
+4. Add a `src/<component-name>.stories.ts` file and start writing Storybook stories
+
+5. Run `yarn start --watch` in the root of the project to start Storybook
+
+6. Start developing your new component!
+
 ## Naming
 
 This is an international project and as such everything uses the American English language.
 
 When writing code in this project, please follow the following naming conventions:
-- For NPM packages, we use the `sanomalearning` organization with the `slds-` prefix for the actual packages; for example: `@sanomalearning/slds-core`
+- For NPM packages, we use the `sl-design-system` organization with component name for the actual packages; for example: `@sl-design-system/button`
 - For web components, we use the `sl-` prefix; for example: `<sl-button>`
 - All web component events use the `sl-` prefix and "dasherize" convention; for example: `sl-active-item-change`
 

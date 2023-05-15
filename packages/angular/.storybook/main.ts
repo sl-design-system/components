@@ -5,7 +5,6 @@ const config: StorybookConfig = {
     '../projects/angular-core/**/*.stories.ts'
   ],
   addons: [
-    '@sanomalearning/storybook-addon-themes',
     '@storybook/addon-a11y', 
     '@storybook/addon-actions', 
     {
@@ -20,7 +19,7 @@ const config: StorybookConfig = {
   },
   framework: '@storybook/angular',
   staticDirs: [
-    { from: '../../tokens/src/themes', to: '/themes' }
+    { from: '../../themes', to: '/themes' }
   ]
 };
 

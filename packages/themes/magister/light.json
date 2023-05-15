@@ -1685,13 +1685,13 @@
           },
           "focus": {
             "background": {
-              "value": "rgba({color.palette.accent.base} / {opacity.100})",
+              "value": "rgba({color.palette.primary.base} / {opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true

@@ -15,58 +15,6 @@ $sizes: md, lg;
   --sl-size-input-icon-size-lg: 28px;
 }
 
-:host {
-  align-items: start;
-  color: var(--_label-color);
-  cursor: pointer;
-  display: inline-flex;
-  font: var(--sl-text-input-label-md);
-  gap: var(--_gap);
-  line-height: var(--_line-height);
-  outline: none;
-  padding: var(--_padding);
-}
-
-:host(:where(:disabled, [internals-disabled])) {
-  cursor: default;
-  pointer-events: none;
-}
-
-.box {
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
-  display: inline-flex;
-  flex-shrink: 0;
-  padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
-  transition: var(--_transition);
-  transition-property: background, border-color, box-shadow, color, filter;
-}
-
-.label {
-  margin-block-start: calc((var(--_size) - var(--_line-height)) / 2);
-}
-
-sl-icon,
-svg {
-  align-self: center;
-  box-sizing: border-box;
-  fill: none;
-  height: var(--_icon-size);
-  transition: var(--_transition);
-  transition-property: background, border-color, box-shadow, fill;
-  width: var(--_icon-size);
-}
-
-circle {
-  fill: var(--_fill, transparent);
-}
-
-/**
- * theming 
- */
-
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_line-height: var(--sl-text-typeset-line-height-#{$size});
@@ -124,4 +72,50 @@ circle {
       --_fill: var(--sl-color-input-#{$variant}-#{$state}-disabled-icon);
     }
   }
+}
+
+:host {
+  align-items: start;
+  color: var(--_label-color);
+  cursor: pointer;
+  display: inline-flex;
+  font: var(--sl-text-input-label-md);
+  gap: var(--_gap);
+  line-height: var(--_line-height);
+  outline: none;
+  padding: var(--_padding);
+}
+
+:host(:where(:active, :focus-visible, :hover)) .box {
+  transition: var(--_transition);
+  transition-property: background, border-color, box-shadow, color, filter;
+}
+
+:host(:where(:disabled, [internals-disabled])) {
+  cursor: default;
+  pointer-events: none;
+}
+
+.box {
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
+}
+
+.label {
+  margin-block-start: calc((var(--_size) - var(--_line-height)) / 2);
+}
+
+svg {
+  block-size: var(--_icon-size);
+  fill: none;
+  inline-size: var(--_icon-size);
+}
+
+circle {
+  fill: var(--_fill, transparent);
 }

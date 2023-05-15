@@ -23,6 +23,7 @@ const {
   default: { icon: coreIcons }
 } = await import('../packages/tokens/src/core.json', { assert: { type: 'json' } });
 
+
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
     if (cur[0] === collection) {
@@ -134,7 +135,7 @@ const buildIcons = async theme => {
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
-    sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...iconsCustom }).sort()),
+    sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
     source = `export const icons = ${JSON.stringify(sortedIcons)};`,
     results = await eslint.lintText(source, { filePath });
   
@@ -144,9 +145,51 @@ const buildIcons = async theme => {
 };
 
 const buildAllIcons = async () => {
-  const themes = await fg('../packages/themes/*', { cwd, onlyDirectories: true });
+  const themes = (await fg('../packages/themes/*', { cwd, onlyDirectories: true })).filter(theme => theme.indexOf('core') < 0);
 
   themes.forEach(component => buildIcons(basename(component)));
 };
 
+const exportCoreIcons = async () => {
+  const iconsFolderPath = join(cwd, `../packages/themes/core/icons/`);
+  if (!existsSync(iconsFolderPath)) {
+    await fs.mkdir(iconsFolderPath);
+  }
+
+  for (const file of await fs.readdir(iconsFolderPath)) {
+    await fs.unlink(join(iconsFolderPath, file));
+  }
+
+  // load all custom icons from figma and store svgs
+  await new Promise((resolve, reject) => {
+    console.log(`Extracting icons from Figma for core...`);
+    exec(`yarn run figma-export use-config .figmaexportrc.cjs SKFTFiiz7YK9E2TPfCan9o core`, { cwd }, error => {
+      if (error) {
+        reject(error);
+      }
+
+      resolve();
+    });
+  });
+
+  // 3. Convert downloaded icons to appropriate format?
+  // We only need the `<path>` data for `<sl-icon>`
+
+  const customIconFiles = await fs.readdir(iconsFolderPath);
+  const iconsCustom = [];
+
+  const filesToRead = customIconFiles.map(fileName => {
+    const iconName = fileName.replace('icon=', '').replace('.svg', '');
+
+    return fs
+      .readFile(join(cwd, `../packages/themes/core/icons/${fileName}`), 'utf8')
+      .then(svg => (iconsCustom[iconName] = { svg }));
+  });
+
+  await Promise.all(filesToRead);
+
+  return iconsCustom;
+};
+
+const coreCustomIcons  = await exportCoreIcons();
 buildAllIcons();

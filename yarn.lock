@@ -3972,6 +3972,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/switch@workspace:packages/components/switch":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/switch@workspace:packages/components/switch"
+  dependencies:
+    "@lit-labs/observers": ^2.0.0
+    "@sl-design-system/shared": 0.0.3
+    lit: ^2.7.4
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/tabs@workspace:packages/components/tabs":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tabs@workspace:packages/components/tabs"

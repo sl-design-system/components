@@ -67,7 +67,11 @@ export const Parts: Story = {
 
     return html`
       <style>
-        sl-grid::part(customer-rating) {
+        sl-grid::part(thead) {
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+          clip-path: inset(0 0 -10px 0);
+        }
+        sl-grid::part(data customer-rating) {
           font-weight: bold;
         }
         sl-grid::part(high-rating) {

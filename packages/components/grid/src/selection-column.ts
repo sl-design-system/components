@@ -42,7 +42,7 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
       indeterminate = this.grid?.selection.areSomeSelected();
 
     return html`
-      <th>
+      <th part="header selection">
         <sl-checkbox
           @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelectAll(detail)}
           ?checked=${checked}

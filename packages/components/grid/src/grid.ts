@@ -187,7 +187,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
             ${
               col.sticky
                 ? `
-                  inset-inline-start: ${this.#getStickyColumnOffset(index)};
+                  inset-inline-start: ${this.#getStickyColumnOffset(index)}px;
                   position: sticky;
                 `
                 : ''

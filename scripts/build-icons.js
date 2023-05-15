@@ -144,9 +144,35 @@ const buildIcons = async theme => {
 };
 
 const buildAllIcons = async () => {
-  const themes = await fg('../packages/themes/*', { cwd, onlyDirectories: true });
+  const themes = (await fg('../packages/themes/*', { cwd, onlyDirectories: true })).filter(theme => theme.indexOf('core') < 0);
 
   themes.forEach(component => buildIcons(basename(component)));
 };
 
+const exportCoreIcons = async () => {
+  console.log('exportCoreIcons');
+  const iconsFolderPath = join(cwd, `../packages/themes/core/icons/`);
+  if (!existsSync(iconsFolderPath)) {
+    await fs.mkdir(iconsFolderPath);
+  }
+
+  for (const file of await fs.readdir(iconsFolderPath)) {
+    await fs.unlink(join(iconsFolderPath, file));
+  }
+
+  // load all custom icons from figma and store svgs
+  await new Promise((resolve, reject) => {
+    console.log(`Extracting icons from Figma for core...`);
+    exec(`yarn run figma-export use-config .figmaexportrc.cjs SKFTFiiz7YK9E2TPfCan9o core`, { cwd }, error => {
+      if (error) {
+        reject(error);
+      }
+
+      resolve();
+    });
+  });
+};
+
+// "core": "SKFTFiiz7YK9E2TPfCan9o",
+exportCoreIcons();
 buildAllIcons();

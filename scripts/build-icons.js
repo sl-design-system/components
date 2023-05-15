@@ -22,7 +22,7 @@ const cwd = new URL('.', import.meta.url).pathname,
 const {
   default: { icon: coreIcons }
 } = await import('../packages/tokens/src/core.json', { assert: { type: 'json' } });
-let coreCustomIcons;
+
 
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -188,8 +188,8 @@ const exportCoreIcons = async () => {
 
   await Promise.all(filesToRead);
 
-  coreCustomIcons = iconsCustom;
+  return iconsCustom;
 };
 
-await exportCoreIcons();
+const coreCustomIcons  = await exportCoreIcons();
 buildAllIcons();

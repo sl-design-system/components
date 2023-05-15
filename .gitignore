@@ -88,3 +88,6 @@ documentation.json
 
 # Test files
 __snapshots__
+
+# Intellij
+.idea/

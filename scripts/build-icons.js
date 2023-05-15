@@ -22,6 +22,7 @@ const cwd = new URL('.', import.meta.url).pathname,
 const {
   default: { icon: coreIcons }
 } = await import('../packages/tokens/src/core.json', { assert: { type: 'json' } });
+let coreCustomIcons;
 
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -134,7 +135,7 @@ const buildIcons = async theme => {
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
-    sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...iconsCustom }).sort()),
+    sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
     source = `export const icons = ${JSON.stringify(sortedIcons)};`,
     results = await eslint.lintText(source, { filePath });
   
@@ -150,7 +151,6 @@ const buildAllIcons = async () => {
 };
 
 const exportCoreIcons = async () => {
-  console.log('exportCoreIcons');
   const iconsFolderPath = join(cwd, `../packages/themes/core/icons/`);
   if (!existsSync(iconsFolderPath)) {
     await fs.mkdir(iconsFolderPath);
@@ -171,8 +171,25 @@ const exportCoreIcons = async () => {
       resolve();
     });
   });
+
+  // 3. Convert downloaded icons to appropriate format?
+  // We only need the `<path>` data for `<sl-icon>`
+
+  const customIconFiles = await fs.readdir(iconsFolderPath);
+  const iconsCustom = [];
+
+  const filesToRead = customIconFiles.map(fileName => {
+    const iconName = fileName.replace('icon=', '').replace('.svg', '');
+
+    return fs
+      .readFile(join(cwd, `../packages/themes/core/icons/${fileName}`), 'utf8')
+      .then(svg => (iconsCustom[iconName] = { svg }));
+  });
+
+  await Promise.all(filesToRead);
+
+  coreCustomIcons = iconsCustom;
 };
 
-// "core": "SKFTFiiz7YK9E2TPfCan9o",
-exportCoreIcons();
+await exportCoreIcons();
 buildAllIcons();

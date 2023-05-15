@@ -58,16 +58,12 @@ describe('sl-label', () => {
     });
 
     it('should have a label of medium size by default', () => {
-      console.log('slLabel', slLabel);
       expect(slLabel).to.have.attribute('size', 'md');
     });
 
     it('should have a label of small size when set', () => {
-      // slLabel.size = 'sm';
       slLabel.setAttribute('size', 'sm');
-      // await slLabel.updateComplete;
 
-      console.log('slLabel sm', slLabel);
       expect(slLabel).to.have.attribute('size', 'sm');
     });
 
@@ -116,67 +112,6 @@ describe('sl-label', () => {
       const label = slLabel.querySelector('label');
 
       expect(label?.htmlFor).to.match(/sl-input-\d+/);
-    });
-
-    it('should be disabled when the input is disabled', async () => {
-      // const input2: TestHint;
-      // const input = el.querySelector('input');
-      // console.log('Input:', input);
-      // if (input) {
-        slInput.disabled = true;
-        // slInput.setAttribute('disabled','');
-      // }
-
-
-      await slInput.updateComplete;
-      // await slLabel.update;
-      await slLabel.updateComplete;
-
-     // slLabel.formControl = slInput as HTMLElement & FormControlInterface;
-
-      //slLabel.requestUpdate();
-
-      // el.hint = 'This is a hint';
-      // await el.updateComplete;
-      // slInput.requestUpdate();
-
-      // slLabel.willUpdate(new Map<string, unknown>([['formControl', slInput]]));
-
-      // const convertToPropertyValueMap = <T>(map: Map<string, T>): PropertyValues<T> =>
-      //   Object.fromEntries(map) as unknown as PropertyValues<T>;
-
-      // const mockPropertyValues = convertToPropertyValueMap(
-      //   new Map([['formControl', slInput as HTMLElement & FormControlInterface]])
-      // );
-
-      // const mockPropertyValues: PropertyValues<Label> = convertToPropertyValueMap(
-      //   new Map([['formControl', slInput as HTMLElement & FormControlInterface]])
-      // );
-      //
-      // // const mockValues: PropertyValues<Label> = new Map([['formControl', slInput as HTMLElement & FormControlInterface]]);
-      // // slLabel.willUpdate(mockPropertyValues);
-      // slLabel.willUpdate.call(slLabel, mockPropertyValues);
-
-      // slLabel.formControl = slInput;
-
-      // slLabel.connectedCallback();
-
-      // await Promise.resolve();
-
-      // await slInput.updateComplete;
-      //  await slLabel.updateComplete;
-
-       console.log('input, label111', slInput, slLabel);
-
-      // const slLabel = el.shadowRoot?.querySelector('slot[name="hint"]');
-      // expect(slLabel.disabled).to.be.true;
-      // expect(slLabel?.hasAttribute('disabled')).to.be.true;
-      // expect(slLabel.hasAttribute('disabled')).to.be.true;
-      // expect(slLabel.hasAttribute('disabled')).to.be.true;
-      // expect(slLabel).to.have.attribute('disabled');
-
-      // expect(slLabel.disabled).to.be.true;
-      expect(slLabel.hasAttribute('disabled')).to.be.true;
     });
   });
 

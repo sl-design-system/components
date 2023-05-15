@@ -92,15 +92,11 @@ describe('sl-input', () => {
 
       const input = el.querySelector('input');
 
-      console.log('el with placeholder', el, el.querySelector('input'));
-
       expect(input).to.have.attribute('placeholder', 'my placeholder');
     });
 
     it('should have a text type by default', () => {
       const input = el.querySelector('input');
-
-      console.log('el with input', el, el.querySelector('input'));
 
       expect(input).to.have.attribute('type', 'text');
     });
@@ -145,15 +141,11 @@ describe('sl-input', () => {
       expect(el).not.to.have.attribute('pattern');
     });
 
-    // TODO: add type text
-
     it('should have a pattern when set', async () => {
       el.pattern = '.{3,5}';
       await el.updateComplete;
 
       const input = el.querySelector('input');
-
-      console.log('el with placeholder', el, el.querySelector('input'));
 
       expect(input).to.have.attribute('pattern', '.{3,5}');
     });
@@ -188,6 +180,16 @@ describe('sl-input', () => {
 
     it('should not have a step by default', () => {
       expect(el).not.to.have.attribute('step');
+    });
+
+    it('should not have a autocomplete attribute when autocomplete property is not provided', async() => {
+      el.autocomplete = "off";
+      await el.updateComplete;
+
+      el.autocomplete = undefined;
+      await el.updateComplete;
+
+      expect(el.input.getAttribute('autocomplete')).to.be.null;
     });
 
     it('should not have maxlength attribute when maxLength property is not provided', async() => {
@@ -269,8 +271,6 @@ describe('sl-input', () => {
 
       expect(el.input.getAttribute('readonly')).to.be.null;
     });
-
-    // TODO: add more tests for removed attributes
   });
 
   describe('text input', () => {
@@ -341,10 +341,21 @@ describe('sl-input', () => {
       expect(el.focusVisible).to.be.true;
     });
 
-    it('should not have focus-visible-within when focused click', async () => {
+    it('should not have focus-visible-within when focused on click', async () => {
       el.click();
+      await el.updateComplete;
 
       expect(el.focusVisible).not.to.be.true;
+    });
+
+    it('should focus input on click', async () => {
+      const input = el.querySelector('input');
+      const focusSpy = spy(input as any, 'focus');
+
+      el.click();
+      input?.focus();
+
+      expect(focusSpy).to.have.been.called;
     });
   });
 

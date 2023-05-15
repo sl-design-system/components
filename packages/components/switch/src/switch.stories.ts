@@ -1,7 +1,7 @@
 import type { Switch } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),

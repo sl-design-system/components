@@ -1260,6 +1260,22 @@
               "description": "Uses alternating background colors for the rows when set.",
               "attribute": "striped",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "tbody",
+              "type": {
+                "text": "HTMLTableSectionElement"
+              },
+              "description": "The `<tbody>` element."
+            },
+            {
+              "kind": "field",
+              "name": "thead",
+              "type": {
+                "text": "HTMLTableSectionElement"
+              },
+              "description": "The `<thead>` element."
             }
           ],
           "attributes": [

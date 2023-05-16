@@ -55,8 +55,8 @@ tbody {
 
 tr {
   display: flex;
+  inline-size: max(var(--sl-grid-row-width), 100%);
   margin: 0;
-  width: 100%;
 
   &[part~='selected'] {
     --_cell-background: var(--_selected-background);

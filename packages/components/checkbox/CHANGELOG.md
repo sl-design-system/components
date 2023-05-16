@@ -1,5 +1,13 @@
 # @sl-design-system/checkbox
 
+## 0.0.4
+
+### Patch Changes
+
+- [#423](https://github.com/sl-design-system/components/pull/423) [`81957ec`](https://github.com/sl-design-system/components/commit/81957ec587349c09d0a3d4e8ae41301c5730785f) - Fix transitions and other minor styling issues
+
+- [#416](https://github.com/sl-design-system/components/pull/416) [`8bf9457`](https://github.com/sl-design-system/components/commit/8bf945764ab0fec52c87053d4758f86f4f21ae05) - Fix checkbox being too big when there is no label
+
 ## 0.0.3
 
 ### Patch Changes

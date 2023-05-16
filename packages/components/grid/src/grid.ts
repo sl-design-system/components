@@ -187,7 +187,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
             ${
               col.sticky
                 ? `
-                  inset-inline-start: ${this.#getStickyColumnOffset(index)};
+                  inset-inline-start: ${this.#getStickyColumnOffset(index)}px;
                   position: sticky;
                 `
                 : ''
@@ -259,6 +259,12 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
           return Math.max(acc, width);
         }, 0);
       });
+
+    // Since we set an explicit width for the `<thead>` and `<tbody>`, we also need
+    // to set an explicit with for all the `<tr>` elements. Otherwise, the sticky columns
+    // will not be sticky when you scroll horizontally.
+    const rowWidth = this.columns.reduce((acc, cur) => acc + (cur.width ?? 0), 0);
+    this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
 
     this.requestUpdate('columns');
   }

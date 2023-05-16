@@ -38,7 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@lit-labs/virtualizer": "^2.0.1",
+    "@lit-labs/virtualizer": "^2.0.2",
     "@open-wc/scoped-elements": "2.1.5",
     "@sl-design-system/checkbox": "0.0.3",
     "@sl-design-system/icon": "0.0.2",

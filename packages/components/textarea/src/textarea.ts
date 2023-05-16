@@ -13,6 +13,8 @@ import styles from './textarea.scss.js';
 
 export type TextareaSize = 'md' | 'lg';
 
+export type ResizeType = 'none' | 'both' | 'horizontal' | 'vertical'; // TODO: add auto?
+
 let nextUniqueId = 0;
 
 /**
@@ -55,6 +57,9 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   /** The value for the textarea. */
   @property() value?: string;
+
+  /** Textarea size. */
+  @property({ reflect: true }) resize: ResizeType = 'vertical'; // TODO: add auto?
 
   /** Textarea size. */
   @property({ reflect: true }) size: TextareaSize = 'md';

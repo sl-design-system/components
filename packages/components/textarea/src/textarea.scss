@@ -1,6 +1,7 @@
 $sizes: md, lg;
 $variants: default, valid, invalid;
 $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$resize-types: none, both, horizontal, vertical;
 
 :host {
   //--_border: 1px solid var(--_border-color);
@@ -29,13 +30,21 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 }
 
 :host(:focus-within) {
-  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
+  //--_border-color: hsl(207, 95%, calc(55% - 8% * 2));
   --_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
 }
 
-:host(:where(:--invalid, [state--invalid])) {
-  --_border-color: #c00;
-}
+//:host(:where(:--invalid, [state--invalid])) {
+//  --_border-color: #c00;
+//}
+
+//:host(:where([resize="none"])) {
+//  background-color: #00e0e0;
+//
+//  slot[name='textarea']::slotted(textarea) {
+//    resize: none;
+//  }
+//}
 
 slot[name='textarea']::slotted(textarea) {
   appearance: none;
@@ -89,6 +98,14 @@ slot[name='suffix'] {
   }
 }
 
+@each $resize in $resize-types {
+  :host([resize='#{$resize}']) {
+    slot[name='textarea']::slotted(textarea) {
+      resize: $resize;
+    }
+  }
+}
+
 @each $variant in $variants {
   $i: index($variants, $variant);
   $variant-selector: nth($variant-selectors, $i);
@@ -96,7 +113,7 @@ slot[name='suffix'] {
   :host(#{$variant-selector}) {
     --_border-color: var(--sl-color-text-field-#{$variant}-default-border);
 
-    slot[name='textarea']::slotted(input) {
+    slot[name='textarea']::slotted(textarea) {
       --_color: var(--sl-color-text-field-#{$variant}-default-input-text);
 
       /* stylelint-disable-next-line max-nesting-depth */
@@ -122,7 +139,7 @@ slot[name='suffix'] {
     --_border-color: var(--sl-color-text-field-#{$variant}-hover-border);
     --_background: var(--sl-color-text-field-#{$variant}-hover-background);
 
-    slot[name='textarea']::slotted(input) {
+    slot[name='textarea']::slotted(textarea) {
       --_color: var(--sl-color-text-field-#{$variant}-hover-input-text);
 
       /* stylelint-disable-next-line max-nesting-depth */
@@ -146,7 +163,7 @@ slot[name='suffix'] {
   :host(#{$variant-selector}:focus-within:not([focus-visible-within])) {
     --_border-color: var(--sl-color-text-field-#{$variant}-active-border);
 
-    slot[name='textarea']::slotted(input) {
+    slot[name='textarea']::slotted(textarea) {
       --_color: var(--sl-color-text-field-#{$variant}-active-input-text);
 
       /* stylelint-disable-next-line max-nesting-depth */
@@ -171,7 +188,7 @@ slot[name='suffix'] {
     --_border-color: var(--sl-color-text-field-#{$variant}-focus-border);
     --_box-shadow: var(--sl-box-shadow-focus);
 
-    slot[name='textarea']::slotted(input) {
+    slot[name='textarea']::slotted(textarea) {
       --_color: var(--sl-color-text-field-#{$variant}-focus-input-text);
 
       /* stylelint-disable-next-line max-nesting-depth */
@@ -192,7 +209,7 @@ slot[name='suffix'] {
     }
   }
 
-  slot[name='textarea']::slotted(input) {
+  slot[name='textarea']::slotted(textarea) {
     &:focus-visible {
       --_color: var(--sl-color-text-field-#{$variant}-focus-input-text);
       --_box-shadow: var(--sl-box-shadow-focus);
@@ -202,7 +219,7 @@ slot[name='suffix'] {
   :host(#{$variant-selector}[disabled]) {
     --_border-color: var(--sl-color-text-field-#{$variant}-disabled-border);
 
-    slot[name='textarea']::slotted(input) {
+    slot[name='textarea']::slotted(textarea) {
       --_color: var(--sl-color-text-field-#{$variant}-disabled-input-text);
 
       /* stylelint-disable-next-line max-nesting-depth */

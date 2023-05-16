@@ -1,4 +1,4 @@
-import type { Textarea } from './textarea.js';
+import type { ResizeType, Textarea } from './textarea.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/label/register.js';
 import { html } from 'lit';
@@ -8,20 +8,35 @@ export default {
   title: 'Textarea'
 };
 
+const resizeTypes: ResizeType[] = ['none', 'both', 'horizontal', 'vertical'];
+
 export const API: StoryObj = {
   args: {
     disabled: false,
     placeholder: 'Type here',
     required: false,
-    value: ''
+    value: '',
+    resize: 'none'
   },
-  render: ({ disabled, placeholder, required, value }) =>
+  argTypes: {
+    resize: {
+      control: 'inline-radio',
+      options: resizeTypes
+    }
+  },
+  render: ({ disabled, placeholder, required, value, resize }) =>
     html`
+      <style>
+        sl-textarea {
+          min-width: 500px;
+        }
+      </style>
       <sl-textarea
         .disabled=${disabled}
         .placeholder=${placeholder}
         .required=${required}
         .value=${value}
+        .resize=${resize}
       ></sl-textarea>
     `
 };

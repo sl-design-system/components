@@ -106,6 +106,17 @@
             },
             {
               "kind": "field",
+              "name": "resize",
+              "type": {
+                "text": "ResizeType"
+              },
+              "default": "'none'",
+              "description": "Textarea size.",
+              "attribute": "resize",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "TextareaSize"
@@ -181,6 +192,15 @@
               },
               "description": "The value for the textarea.",
               "fieldName": "value"
+            },
+            {
+              "name": "resize",
+              "type": {
+                "text": "ResizeType"
+              },
+              "default": "'none'",
+              "description": "Textarea size.",
+              "fieldName": "resize"
             },
             {
               "name": "size",

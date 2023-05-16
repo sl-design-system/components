@@ -2,14 +2,18 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
+import { faFilter } from '@fortawesome/pro-regular-svg-icons';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import { Input } from '@sl-design-system/input';
+import { Icon } from '@sl-design-system/icon';
+import { Popover } from '@sl-design-system/popover';
 import { event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './filter.scss.js';
 
 export type GridFilterChange = 'added' | 'removed';
+
+Icon.registerIcon(faFilter);
 
 export class GridFilterValueChangeEvent extends Event {
   constructor(public readonly column: GridColumn, public readonly value: string) {
@@ -21,7 +25,8 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-input': Input
+      'sl-icon': Icon,
+      'sl-popover': Popover
     };
   }
 
@@ -61,15 +66,11 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <label>
+      <div id="anchor" class="wrapper">
         <slot></slot>
-        <sl-input @input=${this.#onInput} placeholder="Filter"></sl-input>
-      </label>
+        <sl-icon name="far-filter"></sl-icon>
+      </div>
+      <sl-popover anchor="anchor"> Amet et amet laborum eu excepteur id ut aute Lorem est nostrud. </sl-popover>
     `;
-  }
-
-  #onInput({ target }: Event & { target: Input }): void {
-    this.value = target.value?.toString().trim() || '';
-    this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
   }
 }

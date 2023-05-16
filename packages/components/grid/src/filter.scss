@@ -7,13 +7,11 @@
   width: 100%;
 }
 
-label {
+.wrapper {
+  align-items: center;
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
   gap: var(--_gap);
-  text-align: start;
-}
-
-sl-input {
-  font-weight: normal;
+  inline-size: 100%;
+  justify-content: space-between;
 }

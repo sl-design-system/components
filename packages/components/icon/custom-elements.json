@@ -65,14 +65,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "SLDSRegistry",
-              "type": {
-                "text": "{ icons: IconLibrary } | undefined"
-              },
-              "attribute": "SLDSRegistry"
-            },
-            {
-              "kind": "field",
               "name": "availableStyles",
               "type": {
                 "text": "IconStyle[]"
@@ -81,19 +73,44 @@
               "default": "[]"
             },
             {
+              "kind": "method",
+              "name": "getColorToken",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "pathCounter",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "style",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getIconHTML",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "iconHTML",
               "type": {
                 "text": "string | undefined"
               }
-            },
-            {
-              "kind": "field",
-              "name": "icons",
-              "type": {
-                "text": "IconLibrary"
-              },
-              "readonly": true
             },
             {
               "kind": "field",
@@ -162,6 +179,23 @@
               "description": "Icon size.",
               "attribute": "size",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sldsLibrary",
+              "type": {
+                "text": "{ icons: IconLibrary } | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "waitForWindowProperty",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "sometimes the icon tries to render before any icons are registered,\nthat's why we need to check if the icons have been registered, and if not\nwe need to wait a bit and then check again, so we can (re)render the icon when the library is set."
             }
           ],
           "attributes": [
@@ -189,13 +223,6 @@
               "default": "'md'",
               "description": "Icon size.",
               "fieldName": "size"
-            },
-            {
-              "name": "SLDSRegistry",
-              "type": {
-                "text": "{ icons: IconLibrary } | undefined"
-              },
-              "fieldName": "SLDSRegistry"
             }
           ],
           "superclass": {

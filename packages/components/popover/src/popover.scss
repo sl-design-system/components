@@ -15,16 +15,27 @@
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 
-:host(:open) {
+:host(:where(:popover-open, [popover-open])) {
   opacity: 1;
+}
+
+:host([actual-placement='bottom']) .arrow {
+  inset-block-start: -12px;
+  scale: 1 -1;
+}
+
+:host([actual-placement='left']) .arrow {
+  inset-inline-end: -18px;
+  rotate: -90deg;
+}
+
+:host([actual-placement='right']) .arrow {
+  inset-inline-start: -18px;
+  rotate: 90deg;
 }
 
 :host([actual-placement='top']) .arrow {
-  bottom: -12px;
-}
-
-:host([popover-open]) {
-  opacity: 1;
+  inset-block-end: -12px;
 }
 
 .container {

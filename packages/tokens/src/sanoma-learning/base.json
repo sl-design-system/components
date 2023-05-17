@@ -1053,6 +1053,13 @@
           "description": "border.width.button.link"
         }
       },
+      "select": {
+        "panel": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        }
+      },
       "input": {
         "none": {
           "value": "{border.width.none}",
@@ -1109,6 +1116,12 @@
         "value": "{text.typeset.fontWeight.icon-solid}",
         "type": "fontWeights"
       }
+    }
+  },
+  "select": {
+    "panel": {
+      "value": "{border.radius.2xs}",
+      "type": "borderRadius"
     }
   }
 }

@@ -1531,6 +1531,16 @@
         "value": "chevron-down",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "triangleExclamation": {
+        "value": "triangle-exclamation",
+        "type": "Icons",
+        "description": "icon.core.triangleExclamation"
+      },
+      "circleCheck": {
+        "value": "circle-check",
+        "type": "Icons",
+        "description": "icon.core.circleCheck"
       }
     },
     "typeset": {

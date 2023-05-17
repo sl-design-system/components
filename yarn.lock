@@ -3651,7 +3651,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-dc@workspace:packages/themes/bingel-dc"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3659,7 +3659,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-int@workspace:packages/themes/bingel-int"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3667,7 +3667,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel@workspace:packages/themes/bingel"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3679,7 +3679,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button@0.0.3, @sl-design-system/button@workspace:packages/components/button":
+"@sl-design-system/button@0.0.4, @sl-design-system/button@workspace:packages/components/button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button@workspace:packages/components/button"
   dependencies:
@@ -3688,7 +3688,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/checkbox@0.0.3, @sl-design-system/checkbox@workspace:packages/components/checkbox":
+"@sl-design-system/checkbox@0.0.4, @sl-design-system/checkbox@workspace:packages/components/checkbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/components/checkbox"
   dependencies:
@@ -3702,7 +3702,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/clickedu@workspace:packages/themes/clickedu"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3721,7 +3721,7 @@ __metadata:
   resolution: "@sl-design-system/drawer@workspace:packages/components/drawer"
   dependencies:
     "@open-wc/scoped-elements": 2.1.5
-    "@sl-design-system/button": 0.0.3
+    "@sl-design-system/button": 0.0.4
     "@sl-design-system/button-bar": 0.0.2
     lit: ^2.7.4
   languageName: unknown
@@ -3756,15 +3756,15 @@ __metadata:
   dependencies:
     "@lit-labs/virtualizer": ^2.0.2
     "@open-wc/scoped-elements": 2.1.5
-    "@sl-design-system/checkbox": 0.0.3
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/checkbox": 0.0.4
+    "@sl-design-system/icon": 0.0.3
     "@sl-design-system/input": 0.0.3
     "@sl-design-system/shared": 0.0.3
     lit: ^2.7.4
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/icon@0.0.2, @sl-design-system/icon@workspace:packages/components/icon":
+"@sl-design-system/icon@0.0.3, @sl-design-system/icon@workspace:packages/components/icon":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/icon@workspace:packages/components/icon"
   dependencies:
@@ -3785,7 +3785,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/itslearning@workspace:packages/themes/itslearning"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3793,7 +3793,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/kampus@workspace:packages/themes/kampus"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3801,7 +3801,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/label@workspace:packages/components/label"
   dependencies:
-    "@sl-design-system/button": 0.0.3
+    "@sl-design-system/button": 0.0.4
     "@sl-design-system/input": 0.0.3
     "@sl-design-system/textarea": 0.0.3
     lit: ^2.7.4
@@ -3820,7 +3820,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/magister@workspace:packages/themes/magister"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3828,7 +3828,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/max@workspace:packages/themes/max"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3883,7 +3883,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/neon@workspace:packages/themes/neon"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3911,7 +3911,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 
@@ -3972,7 +3972,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/teas@workspace:packages/themes/teas"
   dependencies:
-    "@sl-design-system/icon": 0.0.2
+    "@sl-design-system/icon": 0.0.3
   languageName: unknown
   linkType: soft
 

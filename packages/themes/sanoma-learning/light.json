@@ -3333,7 +3333,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground",
           "failedToResolve": true
@@ -3355,7 +3355,7 @@
       },
       "default": {
         "background": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground",
           "failedToResolve": true
@@ -3367,7 +3367,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground",
           "failedToResolve": true
@@ -3387,7 +3387,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "rgba({color.palette.accent.base},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground",
           "failedToResolve": true
@@ -3427,7 +3427,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground",
           "failedToResolve": true
@@ -3435,7 +3435,7 @@
       },
       "disabled": {
         "background": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground",
           "failedToResolve": true
@@ -3447,7 +3447,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground",
           "failedToResolve": true
@@ -4063,7 +4063,7 @@
         "y": 0,
         "blur": 0,
         "spread": 0,
-        "color": "rgba({color.palette.info.base},{opacity.transparent})",
+        "color": "{color.palette.transparent.base}",
         "type": "dropShadow"
       },
       "type": "boxShadow",

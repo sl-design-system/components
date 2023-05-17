@@ -2839,7 +2839,7 @@
           "description": "color.surface.solid.primary.foreground"
         },
         "border": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground"
         }
@@ -2858,7 +2858,7 @@
       },
       "default": {
         "background": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground"
         },
@@ -2868,7 +2868,7 @@
           "description": "color.surface.solid.primary.foreground"
         },
         "border": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground"
         }
@@ -2885,7 +2885,7 @@
           "description": "color.surface.solid.primary.foreground"
         },
         "border": {
-          "value": "rgba({color.palette.accent.base},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground"
         }
@@ -2919,14 +2919,14 @@
           "description": "color.surface.solid.primary.foreground"
         },
         "border": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground"
         }
       },
       "disabled": {
         "background": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground"
         },
@@ -2936,7 +2936,7 @@
           "description": "color.surface.solid.primary.foreground"
         },
         "border": {
-          "value": "rgba({body.background},{opacity.transparent})",
+          "value": "{color.palette.transparent.base}",
           "type": "color",
           "description": "color.surface.solid.primary.foreground"
         }
@@ -3498,7 +3498,7 @@
         "y": "0",
         "blur": "0",
         "spread": "0",
-        "color": "rgba({color.palette.info.base},{opacity.transparent})",
+        "color": "{color.palette.transparent.base}",
         "type": "dropShadow"
       },
       "type": "boxShadow",

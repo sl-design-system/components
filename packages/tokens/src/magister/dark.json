@@ -358,7 +358,7 @@
               "description": "color.button.primary.solid.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.primary.300},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.default.disabled.border"
             }
@@ -621,7 +621,7 @@
               "description": "color.button.success.solid.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.success.300},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.success.solid.disabled.border"
             }
@@ -884,7 +884,7 @@
               "description": "color.button.warning.solid.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.warning.400},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.warning.default.disabled.border"
             }
@@ -1147,7 +1147,7 @@
               "description": "color.button.danger.solid.disabled.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.danger.200},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.danger.default.disabled.border"
             }

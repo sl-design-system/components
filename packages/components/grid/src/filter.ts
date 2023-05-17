@@ -4,6 +4,7 @@ import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { faFilter } from '@fortawesome/pro-regular-svg-icons';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { event } from '@sl-design-system/shared';
@@ -25,6 +26,8 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-checkbox': Checkbox,
+      'sl-checkbox-group': CheckboxGroup,
       'sl-icon': Icon,
       'sl-popover': Popover
     };
@@ -70,7 +73,14 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
         <slot></slot>
         <sl-icon name="far-filter"></sl-icon>
       </div>
-      <sl-popover anchor="anchor"> Amet et amet laborum eu excepteur id ut aute Lorem est nostrud. </sl-popover>
+      <sl-popover anchor="anchor">
+        <sl-checkbox-group>
+          <sl-checkbox>VMBO-K</sl-checkbox>
+          <sl-checkbox>VMBO-TL</sl-checkbox>
+          <sl-checkbox>HAVO</sl-checkbox>
+          <sl-checkbox>VWO</sl-checkbox>
+        </sl-checkbox-group>
+      </sl-popover>
     `;
   }
 }

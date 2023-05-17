@@ -2168,5 +2168,15 @@
       "text.icon.font.icon.md": "S:b28ee9a3f5056829045e3dc0326a894a3fb1f0be,",
       "text.icon.font.icon.lg": "S:25a06c3e31b0a19322370bf920262515fdd1d1ad,"
     }
+  },
+  {
+    "id": "8b23509cf0a35208aad368c416a303dcc9c17258",
+    "name": "magister/dark",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "magister/base": "enabled",
+      "magister/dark": "enabled"
+    },
+    "$figmaStyleReferences": {}
   }
 ]

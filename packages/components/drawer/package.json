@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/drawer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Drawer component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,9 +38,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@open-wc/scoped-elements": "2.1.4",
-    "@sl-design-system/button": "0.0.3",
+    "@open-wc/scoped-elements": "2.1.5",
+    "@sl-design-system/button": "0.0.4",
     "@sl-design-system/button-bar": "0.0.2",
-    "lit": "^2.7.2"
+    "lit": "^2.7.4"
   }
 }

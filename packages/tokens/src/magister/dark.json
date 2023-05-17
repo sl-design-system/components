@@ -17,7 +17,7 @@
         "default": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.idle.background"
             },
@@ -85,7 +85,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.disabled.background"
             },
@@ -104,7 +104,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.idle.background"
             },
@@ -172,7 +172,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.disabled.background"
             },
@@ -191,7 +191,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.idle.background"
             },
@@ -259,7 +259,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.disabled.background"
             },
@@ -367,7 +367,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.idle.background"
             },
@@ -435,7 +435,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.disabled.background"
             },
@@ -454,7 +454,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.idle.background"
             },
@@ -522,7 +522,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.disabled.background"
             },
@@ -630,7 +630,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.success.outline.idle.background"
             },
@@ -698,7 +698,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.success.outline.disabled.background"
             },
@@ -717,7 +717,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.success.outline.idle.background"
             },
@@ -785,7 +785,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.success.outline.disabled.background"
             },
@@ -893,7 +893,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.warning.outline.idle.background"
             },
@@ -961,7 +961,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.warning.outline.disabled.background"
             },
@@ -980,7 +980,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.warning.outline.idle.background"
             },
@@ -1048,7 +1048,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.warning.outline.disabled.background"
             },
@@ -1156,7 +1156,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.danger.outline.idle.background"
             },
@@ -1224,7 +1224,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.background"
             },
@@ -1243,7 +1243,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.danger.outline.idle.background"
             },
@@ -1311,7 +1311,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.background"
             },
@@ -1375,7 +1375,7 @@
           "unchecked": {
             "default": {
               "background": {
-                "value": "rgba({body.background} / {opacity.transparent})",
+                "value": "{color.palette.transparent.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1601,7 +1601,7 @@
           "unchecked": {
             "default": {
               "background": {
-                "value": "rgba({body.background} / {opacity.transparent})",
+                "value": "{color.palette.transparent.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1689,7 +1689,7 @@
             },
             "disabled": {
               "background": {
-                "value": "rgba({body.background} / {opacity.transparent})",
+                "value": "{color.palette.transparent.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1827,7 +1827,7 @@
           "unchecked": {
             "default": {
               "background": {
-                "value": "rgba({body.background} / {opacity.transparent})",
+                "value": "{color.palette.transparent.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1915,7 +1915,7 @@
             },
             "disabled": {
               "background": {
-                "value": "rgba({body.background} / {opacity.transparent})",
+                "value": "{color.palette.transparent.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },

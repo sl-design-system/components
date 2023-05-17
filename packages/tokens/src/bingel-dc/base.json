@@ -448,6 +448,13 @@
           "type": "color",
           "description": "color.palette.white.base"
         }
+      },
+      "transparent": {
+        "base": {
+          "value": "#00000000",
+          "type": "color",
+          "description": "color.palette.transparent.base"
+        }
       }
     }
   },
@@ -893,7 +900,7 @@
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.none}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.link"
         }

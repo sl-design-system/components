@@ -45,7 +45,12 @@ export const HorizontalSticky: Story = {
     };
 
     return html`
-      <sl-grid .items=${people} style="width: calc(100vw-32px); overflow-x: auto">
+      <style>
+        sl-grid::part(email) {
+          border-right: 1px solid #eee;
+        }
+      </style>
+      <sl-grid .items=${people}>
         <sl-grid-column header="Name" .renderer=${nameRenderer} sticky></sl-grid-column>
         <sl-grid-column path="email" sticky></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>

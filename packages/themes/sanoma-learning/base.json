@@ -447,6 +447,13 @@
           "type": "color",
           "description": "color.palette.white.base"
         }
+      },
+      "transparent": {
+        "base": {
+          "value": "#00000000",
+          "type": "color",
+          "description": "color.palette.transparent.base"
+        }
       }
     }
   },
@@ -1316,9 +1323,16 @@
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.none}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.link"
+        }
+      },
+      "select": {
+        "panel": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
         }
       },
       "input": {
@@ -1590,6 +1604,12 @@
       }
     }
   },
+  "select": {
+    "panel": {
+      "value": "{border.radius.2xs}",
+      "type": "borderRadius"
+    }
+  },
   "opacity": {
     "100": {
       "value": 0.04,
@@ -1684,7 +1704,7 @@
       "description": "size.md"
     },
     "lg": {
-      "value": 18,
+      "value": 20,
       "type": "sizing",
       "description": "size.lg"
     },
@@ -1906,17 +1926,17 @@
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.lg} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
@@ -2256,6 +2276,68 @@
       "xl": {
         "value": "{space.sm}",
         "type": "spacing"
+      }
+    },
+    "select": {
+      "panel": {
+        "block": {
+          "lg": {
+            "value": "{space.sm} - {border.width.sm}",
+            "type": "spacing"
+          }
+        },
+        "inline": {
+          "lg": {
+            "value": "{space.sm} - {border.width.sm}",
+            "type": "spacing"
+          }
+        },
+        "gap": {
+          "lg": {
+            "value": "{space.xs}",
+            "type": "spacing"
+          }
+        }
+      },
+      "divider": {
+        "block": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        },
+        "inline": {
+          "lg": {
+            "value": 0,
+            "type": "spacing"
+          }
+        },
+        "gap": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        }
+      },
+      "item": {
+        "block": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        },
+        "inline": {
+          "lg": {
+            "value": "{space.md}",
+            "type": "spacing"
+          }
+        },
+        "gap": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        }
       }
     }
   },

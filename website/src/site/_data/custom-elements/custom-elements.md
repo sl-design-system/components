@@ -1,19 +1,3 @@
-# `../packages/components/button/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/button.js |
-
-# `../packages/components/button/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
-
 # `../packages/components/avatar/index.ts`:
 
 ## Exports
@@ -46,6 +30,22 @@
 | --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
 
+# `../packages/components/button/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/button.js |
+
+# `../packages/components/button/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
+
 # `../packages/components/checkbox/index.ts`:
 
 ## Exports
@@ -64,21 +64,21 @@
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/components/checkbox/src/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/components/checkbox/src/checkbox-group.js |         |
 
-# `../packages/components/editor/index.ts`:
+# `../packages/components/dialog/index.ts`:
 
 ## Exports
 
 | Kind | Name | Declaration | Module | Package         |
 | ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/editor.js |
+| `js` | `*`  | *           |        | ./src/dialog.js |
 
-# `../packages/components/editor/register.ts`:
+# `../packages/components/dialog/register.ts`:
 
 ## Exports
 
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
+| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
 
 # `../packages/components/drawer/index.ts`:
 
@@ -96,38 +96,21 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
 
-# `../packages/components/dialog/index.ts`:
+# `../packages/components/editor/index.ts`:
 
 ## Exports
 
 | Kind | Name | Declaration | Module | Package         |
 | ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/dialog.js |
+| `js` | `*`  | *           |        | ./src/editor.js |
 
-# `../packages/components/dialog/register.ts`:
+# `../packages/components/editor/register.ts`:
 
 ## Exports
 
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
-
-# `../packages/components/icon/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/icon.js   |
-| `js` | `*`  | *           |        | ./src/models.js |
-
-# `../packages/components/icon/register.ts`:
-
-## Exports
-
-| Kind                        | Name      | Declaration | Module                                | Package |
-| --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
-| `custom-element-definition` | `sl-icon` | Icon        | /packages/components/icon/src/icon.js |         |
+| `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
 
 # `../packages/components/grid/index.ts`:
 
@@ -154,6 +137,23 @@
 | `custom-element-definition` | `sl-grid-filter-column`    | GridFilterColumn    | /packages/components/grid/src/filter-column.js    |         |
 | `custom-element-definition` | `sl-grid-selection-column` | GridSelectionColumn | /packages/components/grid/src/selection-column.js |         |
 | `custom-element-definition` | `sl-grid-sort-column`      | GridSortColumn      | /packages/components/grid/src/sort-column.js      |         |
+
+# `../packages/components/icon/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/icon.js   |
+| `js` | `*`  | *           |        | ./src/models.js |
+
+# `../packages/components/icon/register.ts`:
+
+## Exports
+
+| Kind                        | Name      | Declaration | Module                                | Package |
+| --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
+| `custom-element-definition` | `sl-icon` | Icon        | /packages/components/icon/src/icon.js |         |
 
 # `../packages/components/input/index.ts`:
 
@@ -224,22 +224,6 @@
 | `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
 | `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
 
-# `../packages/components/shared/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                    |
-| ---- | ---- | ----------- | ------ | -------------------------- |
-| `js` | `*`  | *           |        | ./src/controllers/index.js |
-| `js` | `*`  | *           |        | ./src/data-source/index.js |
-| `js` | `*`  | *           |        | ./src/decorators/index.js  |
-| `js` | `*`  | *           |        | ./src/mixins/index.js      |
-| `js` | `*`  | *           |        | ./src/css.js               |
-| `js` | `*`  | *           |        | ./src/path.js              |
-| `js` | `*`  | *           |        | ./src/string.js            |
-| `js` | `*`  | *           |        | ./src/types.js             |
-| `js` | `*`  | *           |        | ./src/validators.js        |
-
 # `../packages/components/select/index.ts`:
 
 ## Exports
@@ -260,6 +244,22 @@
 | `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
 | `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
 | `custom-element-definition` | `sl-select-overlay`      | SelectOverlay     | /packages/components/select/src/select-overlay.js      |         |
+
+# `../packages/components/shared/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                    |
+| ---- | ---- | ----------- | ------ | -------------------------- |
+| `js` | `*`  | *           |        | ./src/controllers/index.js |
+| `js` | `*`  | *           |        | ./src/data-source/index.js |
+| `js` | `*`  | *           |        | ./src/decorators/index.js  |
+| `js` | `*`  | *           |        | ./src/mixins/index.js      |
+| `js` | `*`  | *           |        | ./src/css.js               |
+| `js` | `*`  | *           |        | ./src/path.js              |
+| `js` | `*`  | *           |        | ./src/string.js            |
+| `js` | `*`  | *           |        | ./src/types.js             |
+| `js` | `*`  | *           |        | ./src/validators.js        |
 
 # `../packages/components/tabs/index.ts`:
 
@@ -297,6 +297,52 @@
 | --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-textarea` | Textarea    | /packages/components/textarea/src/textarea.js |         |
 
+# `../packages/components/avatar/src/avatar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/avatar/src/avatar.scss.ts |         |
+
+# `../packages/components/avatar/src/avatar.ts`:
+
+## class: `Avatar`, `sl-avatar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name              | Privacy | Type                       | Default  | Description                                                   | Inherited From |
+| ----------------- | ------- | -------------------------- | -------- | ------------------------------------------------------------- | -------------- |
+| `uniqueProfileId` |         | `string`                   | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
+| `user`            |         | `UserProfile \| undefined` |          |                                                               |                |
+| `profileName`     |         | `string`                   |          |                                                               |                |
+
+### Methods
+
+| Name              | Privacy | Description | Parameters   | Return                 | Inherited From |
+| ----------------- | ------- | ----------- | ------------ | ---------------------- | -------------- |
+| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile>` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `uniqueProfileId` | uniqueProfileId |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | ../packages/components/avatar/src/avatar.ts |         |
+
 # `../packages/components/tooltip/index.ts`:
 
 ## Exports
@@ -313,6 +359,68 @@
 | Kind                        | Name         | Declaration | Module                                      | Package |
 | --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/components/tooltip/src/tooltip.js |         |
+
+# `../packages/components/button-bar/src/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
+
+# `../packages/components/button-bar/src/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
+| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
+| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
+| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
+| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters | Return          | Inherited From |
+| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
+| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+
+### Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `align`     | align    |                |
+| `icon-only` | iconOnly |                |
+| `reverse`   | reverse  |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
+
+# `../packages/components/button/src/button.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/button/src/button.scss.ts |         |
 
 # `../packages/components/button/src/button.ts`:
 
@@ -370,9 +478,17 @@
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Button` | Button      | ../packages/components/button/src/button.ts |         |
 
-# `../packages/components/avatar/src/avatar.ts`:
+# `../packages/components/dialog/src/dialog.scss.ts`:
 
-## class: `Avatar`, `sl-avatar`
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
+
+# `../packages/components/dialog/src/dialog.ts`:
+
+## class: `Dialog`, `sl-dialog`
 
 ### Superclass
 
@@ -380,25 +496,52 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
 ### Fields
 
-| Name              | Privacy | Type                       | Default  | Description                                                   | Inherited From |
-| ----------------- | ------- | -------------------------- | -------- | ------------------------------------------------------------- | -------------- |
-| `uniqueProfileId` |         | `string`                   | `'slds'` | Renders the tabs vertically instead of the default horizontal |                |
-| `user`            |         | `UserProfile \| undefined` |          |                                                               |                |
-| `profileName`     |         | `string`                   |          |                                                               |                |
+| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
+| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
+| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
+| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
+| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
 
 ### Methods
 
-| Name              | Privacy | Description | Parameters   | Return                 | Inherited From |
-| ----------------- | ------- | ----------- | ------------ | ---------------------- | -------------- |
-| `_getUserDetails` |         |             | `id: string` | `Promise<UserProfile>` |                |
+| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
+| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `showModal` |         |             |                                                 | `void` |                |
+| `close`     |         |             |                                                 | `void` |                |
+| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
+| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
+| `#onClose`  |         |             |                                                 | `void` |                |
 
 ### Attributes
 
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `uniqueProfileId` | uniqueProfileId |                |
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `disable-close` | disableClose |                |
+| `role`          | role         |                |
+
+### Slots
+
+| Name      | Description                          |
+| --------- | ------------------------------------ |
+| `action`  | Area where action buttons are placed |
+| `default` | Body content for the dialog          |
+| `footer`  | Footer content for the dialog        |
+| `header`  | Header content for the dialog        |
+| `title`   | The title of the dialog              |
 
 <hr/>
 
@@ -406,7 +549,15 @@
 
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | ../packages/components/avatar/src/avatar.ts |         |
+| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
+
+# `../packages/components/checkbox/src/checkbox-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/checkbox/src/checkbox-group.scss.ts |         |
 
 # `../packages/components/checkbox/src/checkbox-group.ts`:
 
@@ -486,6 +637,14 @@
 | Kind | Name            | Declaration   | Module                                                | Package |
 | ---- | --------------- | ------------- | ----------------------------------------------------- | ------- |
 | `js` | `CheckboxGroup` | CheckboxGroup | ../packages/components/checkbox/src/checkbox-group.ts |         |
+
+# `../packages/components/checkbox/src/checkbox.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/checkbox/src/checkbox.scss.ts |         |
 
 # `../packages/components/checkbox/src/checkbox.ts`:
 
@@ -580,9 +739,17 @@
 | ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Checkbox` | Checkbox    | ../packages/components/checkbox/src/checkbox.ts |         |
 
-# `../packages/components/button-bar/src/button-bar.ts`:
+# `../packages/components/drawer/src/drawer.scss.ts`:
 
-## class: `ButtonBar`, `sl-button-bar`
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
+
+# `../packages/components/drawer/src/drawer.ts`:
+
+## class: `Drawer`, `sl-drawer`
 
 ### Superclass
 
@@ -590,41 +757,60 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
 ### Fields
 
-| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
-| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
-| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
-| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
-| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
+| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
+| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
+| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
+| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
+| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
 
 ### Methods
 
-| Name            | Privacy | Description | Parameters | Return          | Inherited From |
-| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
-| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
+| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `showModal` |         |             |                                                 | `void` |                |
+| `close`     |         |             |                                                 | `void` |                |
+| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
+| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
+| `#onClose`  |         |             |                                                 | `void` |                |
 
 ### Attributes
 
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `align`     | align    |                |
-| `icon-only` | iconOnly |                |
-| `reverse`   | reverse  |                |
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `disable-close`   | disableClose    |                |
+| `attachment`      | attachment      |                |
+| `closeButtonSize` | closeButtonSize |                |
 
 ### Slots
 
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
+| Name      | Description                   |
+| --------- | ----------------------------- |
+| `default` | Body content for the drawer   |
+| `header`  | Header content for the drawer |
+| `title`   | The title of the drawer       |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
 
 # `../packages/components/editor/src/commands.ts`:
 
@@ -641,6 +827,14 @@
 | Kind | Name      | Declaration | Module                                        | Package |
 | ---- | --------- | ----------- | --------------------------------------------- | ------- |
 | `js` | `setHTML` | setHTML     | ../packages/components/editor/src/commands.ts |         |
+
+# `../packages/components/editor/src/editor.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/editor/src/editor.scss.ts |         |
 
 # `../packages/components/editor/src/editor.ts`:
 
@@ -835,135 +1029,13 @@
 | `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
 | `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
 
-# `../packages/components/dialog/src/dialog.ts`:
-
-## class: `Dialog`, `sl-dialog`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
-| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
-| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
-| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
-| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
-| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
-| `showModal` |         |             |                                                 | `void` |                |
-| `close`     |         |             |                                                 | `void` |                |
-| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
-| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
-| `#onClose`  |         |             |                                                 | `void` |                |
-
-### Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `disable-close` | disableClose |                |
-| `role`          | role         |                |
-
-### Slots
-
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `action`  | Area where action buttons are placed |
-| `default` | Body content for the dialog          |
-| `footer`  | Footer content for the dialog        |
-| `header`  | Header content for the dialog        |
-| `title`   | The title of the dialog              |
-
-<hr/>
+# `../packages/components/icon/src/icon.scss.ts`:
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
-
-# `../packages/components/drawer/src/drawer.ts`:
-
-## class: `Drawer`, `sl-drawer`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
-| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
-| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
-| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
-| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
-| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
-| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
-| `showModal` |         |             |                                                 | `void` |                |
-| `close`     |         |             |                                                 | `void` |                |
-| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
-| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
-| `#onClose`  |         |             |                                                 | `void` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `disable-close`   | disableClose    |                |
-| `attachment`      | attachment      |                |
-| `closeButtonSize` | closeButtonSize |                |
-
-### Slots
-
-| Name      | Description                   |
-| --------- | ----------------------------- |
-| `default` | Body content for the drawer   |
-| `header`  | Header content for the drawer |
-| `title`   | The title of the drawer       |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
 
 # `../packages/components/icon/src/icon.ts`:
 
@@ -1190,6 +1262,14 @@
 | ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
 | `js` | `GridFilterColumn` | GridFilterColumn | ../packages/components/grid/src/filter-column.ts |         |
 
+# `../packages/components/grid/src/filter.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/filter.scss.ts |         |
+
 # `../packages/components/grid/src/filter.ts`:
 
 ## class: `GridFilterValueChangeEvent`
@@ -1252,6 +1332,14 @@
 | ---- | ---------------------------- | -------------------------- | ----------------------------------------- | ------- |
 | `js` | `GridFilterValueChangeEvent` | GridFilterValueChangeEvent | ../packages/components/grid/src/filter.ts |         |
 | `js` | `GridFilter`                 | GridFilter                 | ../packages/components/grid/src/filter.ts |         |
+
+# `../packages/components/grid/src/grid.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/grid.scss.ts |         |
 
 # `../packages/components/grid/src/grid.ts`:
 
@@ -1463,6 +1551,14 @@
 | ---- | ---------------- | -------------- | ---------------------------------------------- | ------- |
 | `js` | `GridSortColumn` | GridSortColumn | ../packages/components/grid/src/sort-column.ts |         |
 
+# `../packages/components/grid/src/sorter.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/sorter.scss.ts |         |
+
 # `../packages/components/grid/src/sorter.ts`:
 
 ## class: `GridSorter`
@@ -1472,6 +1568,18 @@
 | Name         | Module | Package |
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
 
 ### Fields
 
@@ -1505,6 +1613,14 @@
 | Kind | Name         | Declaration | Module                                    | Package |
 | ---- | ------------ | ----------- | ----------------------------------------- | ------- |
 | `js` | `GridSorter` | GridSorter  | ../packages/components/grid/src/sorter.ts |         |
+
+# `../packages/components/input/src/input.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/input/src/input.scss.ts |         |
 
 # `../packages/components/input/src/input.ts`:
 
@@ -1603,86 +1719,13 @@
 | ---- | ------- | ----------- | ----------------------------------------- | ------- |
 | `js` | `Input` | Input       | ../packages/components/input/src/input.ts |         |
 
-# `../packages/components/popover/src/popover.ts`:
-
-## class: `Popover`, `sl-popover`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                   | Module                                                      | Package |
-| ---------------------- | ----------------------------------------------------------- | ------- |
-| `AnchoredPopoverMixin` | /packages/components/popover/src/mixins/anchored-popover.js |         |
-
-### Fields
-
-| Name                 | Privacy | Type                       | Default | Description                                          | Inherited From       |
-| -------------------- | ------- | -------------------------- | ------- | ---------------------------------------------------- | -------------------- |
-| `#onAnchorClick`     | private |                            |         |                                                      |                      |
-| `arrow`              |         | `HTMLElement \| undefined` |         | The arrow linking the popover to the anchor element. | AnchoredPopoverMixin |
-| `placement`          |         | `Placement`                | `'top'` | Popover placement relative to the anchor.            | AnchoredPopoverMixin |
-| `#onPopoverHide`     | private |                            |         |                                                      | AnchoredPopoverMixin |
-| `cleanupFloatingUI`  |         | `() => void \| undefined`  |         | Cleanup callback for floating-ui.                    | AnchoredPopoverMixin |
-| `#anchorElement`     | private | `HTMLElement \| undefined` |         |                                                      | AnchoredMixin        |
-| `anchorElement`      |         | `HTMLElement \| undefined` |         |                                                      | AnchoredMixin        |
-| `#popoverOpen`       | private | `boolean`                  | `false` |                                                      | PopoverMixin         |
-| `#onDocumentClick`   | private |                            |         |                                                      | PopoverMixin         |
-| `#onDocumentKeydown` | private |                            |         |                                                      | PopoverMixin         |
-| `open`               |         | `boolean`                  | `false` | Whether the popover is open or not.                  | PopoverMixin         |
-| `receivesFocus`      |         | `'auto' \| undefined`      |         |                                                      | PopoverMixin         |
-| `popoverOpen`        | public  | `boolean`                  |         |                                                      | PopoverMixin         |
-
-### Methods
-
-| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
-| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
-| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `#onClick`                       |         |                                                                        | `event: Event`                  | `void`          |                      |
-| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
-| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
-| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
-| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
-
-### Events
-
-| Name          | Type    | Description | Inherited From |
-| ------------- | ------- | ----------- | -------------- |
-| `popovershow` | `Event` |             | PopoverMixin   |
-| `popoverhide` | `Event` |             | PopoverMixin   |
-
-### Attributes
-
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `placement`      | placement     |                |
-| `open`           | open          | PopoverMixin   |
-| `receives-focus` | receivesFocus | PopoverMixin   |
-
-### CSS Parts
-
-| Name        | Description                   |
-| ----------- | ----------------------------- |
-| `container` | The container for the popover |
-
-<hr/>
+# `../packages/components/label/src/label.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `Popover` | Popover     | ../packages/components/popover/src/popover.ts |         |
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/label/src/label.scss.ts |         |
 
 # `../packages/components/label/src/label.ts`:
 
@@ -1726,6 +1769,14 @@
 | Kind | Name    | Declaration | Module                                    | Package |
 | ---- | ------- | ----------- | ----------------------------------------- | ------- |
 | `js` | `Label` | Label       | ../packages/components/label/src/label.ts |         |
+
+# `../packages/components/radio-group/src/radio-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/radio-group/src/radio-group.scss.ts |         |
 
 # `../packages/components/radio-group/src/radio-group.ts`:
 
@@ -1843,6 +1894,14 @@
 | ---- | ------------ | ----------- | ----------------------------------------------------- | ------- |
 | `js` | `RadioGroup` | RadioGroup  | ../packages/components/radio-group/src/radio-group.ts |         |
 
+# `../packages/components/radio-group/src/radio.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/radio-group/src/radio.scss.ts |         |
+
 # `../packages/components/radio-group/src/radio.ts`:
 
 ## class: `Radio`, `sl-radio`
@@ -1917,6 +1976,95 @@
 | Kind | Name    | Declaration | Module                                          | Package |
 | ---- | ------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Radio` | Radio       | ../packages/components/radio-group/src/radio.ts |         |
+
+# `../packages/components/popover/src/popover.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/popover/src/popover.scss.ts |         |
+
+# `../packages/components/popover/src/popover.ts`:
+
+## class: `Popover`, `sl-popover`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                   | Module                                                      | Package |
+| ---------------------- | ----------------------------------------------------------- | ------- |
+| `AnchoredPopoverMixin` | /packages/components/popover/src/mixins/anchored-popover.js |         |
+
+### Fields
+
+| Name                 | Privacy | Type                       | Default | Description                                          | Inherited From       |
+| -------------------- | ------- | -------------------------- | ------- | ---------------------------------------------------- | -------------------- |
+| `#onAnchorClick`     | private |                            |         |                                                      |                      |
+| `arrow`              |         | `HTMLElement \| undefined` |         | The arrow linking the popover to the anchor element. | AnchoredPopoverMixin |
+| `placement`          |         | `Placement`                | `'top'` | Popover placement relative to the anchor.            | AnchoredPopoverMixin |
+| `#onPopoverHide`     | private |                            |         |                                                      | AnchoredPopoverMixin |
+| `cleanupFloatingUI`  |         | `() => void \| undefined`  |         | Cleanup callback for floating-ui.                    | AnchoredPopoverMixin |
+| `#anchorElement`     | private | `HTMLElement \| undefined` |         |                                                      | AnchoredMixin        |
+| `anchorElement`      |         | `HTMLElement \| undefined` |         |                                                      | AnchoredMixin        |
+| `#popoverOpen`       | private | `boolean`                  | `false` |                                                      | PopoverMixin         |
+| `#onDocumentClick`   | private |                            |         |                                                      | PopoverMixin         |
+| `#onDocumentKeydown` | private |                            |         |                                                      | PopoverMixin         |
+| `open`               |         | `boolean`                  | `false` | Whether the popover is open or not.                  | PopoverMixin         |
+| `receivesFocus`      |         | `'auto' \| undefined`      |         |                                                      | PopoverMixin         |
+| `popoverOpen`        | public  | `boolean`                  |         |                                                      | PopoverMixin         |
+
+### Methods
+
+| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
+| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
+| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `#onClick`                       |         |                                                                        | `event: Event`                  | `void`          |                      |
+| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
+| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
+| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
+| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
+
+### Events
+
+| Name          | Type    | Description | Inherited From |
+| ------------- | ------- | ----------- | -------------- |
+| `popovershow` | `Event` |             | PopoverMixin   |
+| `popoverhide` | `Event` |             | PopoverMixin   |
+
+### Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `placement`      | placement     |                |
+| `open`           | open          | PopoverMixin   |
+| `receives-focus` | receivesFocus | PopoverMixin   |
+
+### CSS Parts
+
+| Name        | Description                   |
+| ----------- | ----------------------------- |
+| `container` | The container for the popover |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `Popover` | Popover     | ../packages/components/popover/src/popover.ts |         |
 
 # `../packages/components/shared/src/css.ts`:
 
@@ -2011,6 +2159,451 @@
 | `js` | `minLengthValidator`    | minLengthValidator    | ../packages/components/shared/src/validators.ts |         |
 | `js` | `maxLengthValidator`    | maxLengthValidator    | ../packages/components/shared/src/validators.ts |         |
 | `js` | `patternValidator`      | patternValidator      | ../packages/components/shared/src/validators.ts |         |
+
+# `../packages/components/select/src/select-option-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                        | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-option-group.scss.ts |         |
+
+# `../packages/components/select/src/select-option-group.ts`:
+
+## class: `SelectOptionGroup`, `sl-select-option-group`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name         | Privacy | Type                  | Default | Description | Inherited From |
+| ------------ | ------- | --------------------- | ------- | ----------- | -------------- |
+| `groupTitle` |         | `string \| undefined` |         |             |                |
+
+### Attributes
+
+| Name          | Field      | Inherited From |
+| ------------- | ---------- | -------------- |
+| `group-title` | groupTitle |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                | Declaration       | Module                                                   | Package |
+| ---- | ------------------- | ----------------- | -------------------------------------------------------- | ------- |
+| `js` | `SelectOptionGroup` | SelectOptionGroup | ../packages/components/select/src/select-option-group.ts |         |
+
+# `../packages/components/select/src/select-option.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-option.scss.ts |         |
+
+# `../packages/components/select/src/select-option.ts`:
+
+## class: `SelectOption`, `sl-select-option`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name          | Privacy | Type                                 | Default                   | Description                                           | Inherited From |
+| ------------- | ------- | ------------------------------------ | ------------------------- | ----------------------------------------------------- | -------------- |
+| `value`       |         | `FormControlValue \| undefined`      |                           | Whether the option item is selected                   |                |
+| `selected`    |         | `boolean`                            | `false`                   | Whether the option item is selected                   |                |
+| `disabled`    |         | `boolean`                            | `false`                   | Whether the option item is disabled                   |                |
+| `contentType` |         | `'string' \| 'element' \| undefined` |                           | Whether the content of the option item is a node      |                |
+| `size`        |         | `{ width: number; height: number }`  | `{ width: 0, height: 0 }` |                                                       |                |
+| `#observer`   | private | `ResizeObserver \| undefined`        |                           |                                                       |                |
+| `#tabIndex`   | private | `string \| null`                     |                           | Get the selected tab button, or the first tab button. |                |
+
+### Methods
+
+| Name                    | Privacy   | Description                                                                                               | Parameters                                   | Return          | Inherited From |
+| ----------------------- | --------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------- | --------------- | -------------- |
+| `handleSelectionChange` | protected | Apply accessible attributes and values to the tab button.&#xA;Observe the selected property if it changes |                                              | `void`          |                |
+| `#onSlotchange`         |           |                                                                                                           | `event: Event & { target: HTMLSlotElement }` | `Promise<void>` |                |
+| `#handleResize`         |           |                                                                                                           | `mutations: ResizeObserverEntry[]`           | `void`          |                |
+
+### Attributes
+
+| Name          | Field       | Inherited From |
+| ------------- | ----------- | -------------- |
+| `value`       | value       |                |
+| `selected`    | selected    |                |
+| `disabled`    | disabled    |                |
+| `contentType` | contentType |                |
+| `size`        | size        |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                             | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------- | ------- |
+| `js` | `SelectOption` | SelectOption | ../packages/components/select/src/select-option.ts |         |
+
+# `../packages/components/select/src/select-overlay.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-overlay.scss.ts |         |
+
+# `../packages/components/select/src/select-overlay.ts`:
+
+## class: `SelectOverlay`, `sl-select-overlay`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                   | Module | Package                   |
+| ---------------------- | ------ | ------------------------- |
+| `AnchoredPopoverMixin` |        | @sl-design-system/popover |
+
+### Fields
+
+| Name                 | Privacy | Type                       | Default                      | Description                               | Inherited From       |
+| -------------------- | ------- | -------------------------- | ---------------------------- | ----------------------------------------- | -------------------- |
+| `placement`          |         | `Placement`                | `'bottom-start'`             | Tooltip placement.                        | AnchoredPopoverMixin |
+| `#events`            | private |                            | `new EventsController(this)` |                                           |                      |
+| `#onPopoverHide`     | private |                            |                              |                                           | AnchoredPopoverMixin |
+| `arrow`              |         | `HTMLElement \| undefined` |                              | The arrow pointing to the anchor element. | AnchoredPopoverMixin |
+| `cleanupFloatingUI`  |         | `() => void \| undefined`  |                              | Cleanup callback for floating-ui.         | AnchoredPopoverMixin |
+| `#anchorElement`     | private | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
+| `anchorElement`      |         | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
+| `#popoverOpen`       | private | `boolean`                  | `false`                      |                                           | PopoverMixin         |
+| `#onDocumentClick`   | private |                            |                              |                                           | PopoverMixin         |
+| `#onDocumentKeydown` | private |                            |                              |                                           | PopoverMixin         |
+| `open`               |         | `boolean`                  | `false`                      | Whether the popover is open or not.       | PopoverMixin         |
+| `receivesFocus`      |         | `'auto' \| undefined`      |                              |                                           | PopoverMixin         |
+| `popoverOpen`        | public  | `boolean`                  |                              |                                           | PopoverMixin         |
+
+### Methods
+
+| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
+| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
+| `show`                           |         |                                                                        | `target: HTMLElement`           | `void`          |                      |
+| `hide`                           |         |                                                                        | `target: EventTarget \| null`   | `void`          |                      |
+| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
+| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
+| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
+| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
+| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
+| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
+| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
+
+### Events
+
+| Name          | Type    | Description | Inherited From |
+| ------------- | ------- | ----------- | -------------- |
+| `popovershow` | `Event` |             | PopoverMixin   |
+| `popoverhide` | `Event` |             | PopoverMixin   |
+
+### Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `placement`      | placement     |                |
+| `open`           | open          | PopoverMixin   |
+| `receives-focus` | receivesFocus | PopoverMixin   |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                              | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------- | ------- |
+| `js` | `SelectOverlay` | SelectOverlay | ../packages/components/select/src/select-overlay.ts |         |
+
+# `../packages/components/select/src/select.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select.scss.ts |         |
+
+# `../packages/components/select/src/select.ts`:
+
+## class: `Select`, `sl-select`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+
+### Static Fields
+
+| Name               | Privacy | Type      | Default                                                                                                                 | Description | Inherited From |
+| ------------------ | ------- | --------- | ----------------------------------------------------------------------------------------------------------------------- | ----------- | -------------- |
+| `formAssociated`   |         | `boolean` | `true`                                                                                                                  |             |                |
+| `#observerOptions` | private | `object`  | `{
+    attributes: true,
+    subtree: true,
+    attributeFilter: ['selected', 'size'],
+    attributeOldValue: true
+  }` |             |                |
+
+### Fields
+
+| Name                        | Privacy | Type                                             | Default                                                                                                                                                                                                                                                                                 | Description                                                                                                                     | Inherited From   |
+| --------------------------- | ------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `overlay`                   |         | `SelectOverlay \| undefined`                     |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
+| `selectedOptionPlaceholder` |         | `HTMLElement \| undefined`                       |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
+| `options`                   |         | `SelectOption[] \| undefined`                    |                                                                                                                                                                                                                                                                                         | The slotted options.                                                                                                            |                  |
+| `optionGroups`              |         | `SelectOptionGroup[] \| undefined`               |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
+| `size`                      |         | `{ width: string; height: string } \| undefined` | `{ width: '500px', height: '32px' }`                                                                                                                                                                                                                                                    | render helpers                                                                                                                  |                  |
+| `maxOverlayHeight`          |         | `string \| undefined`                            |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
+| `#rovingTabindexController` | private |                                                  | `new RovingTabindexController<SelectOption>(this, {
+    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.overlay?.popoverOpen),
+    elements: () => this.allOptions \|\| [],
+    isFocusableElement: (el: SelectOption) => !el.disabled
+  })` |                                                                                                                                 |                  |
+| `#validation`               | private |                                                  | `new ValidationController(this, {
+    validators: [requiredValidator]
+  })`                                                                                                                                                                                                             |                                                                                                                                 |                  |
+| `#observer`                 | private | `MutationObserver \| undefined`                  |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
+| `#selectId`                 | private |                                                  | `` `sl-select-${nextUniqueId++}` ``                                                                                                                                                                                                                                                     |                                                                                                                                 |                  |
+| `allOptions`                |         | `SelectOption[]`                                 |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
+| `internals`                 |         |                                                  |                                                                                                                                                                                                                                                                                         | Element internals.                                                                                                              |                  |
+| `selectedOption`            | private | `SelectOption \| null \| undefined`              |                                                                                                                                                                                                                                                                                         | The current tab node selected in the tab group.                                                                                 |                  |
+| `#cachedValue`              | private | `FormControlValue \| undefined`                  |                                                                                                                                                                                                                                                                                         | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement`       | private | `FormControlElement \| undefined`                |                                                                                                                                                                                                                                                                                         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`                  |         | `boolean \| undefined`                           |                                                                                                                                                                                                                                                                                         | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                      |         | `string \| undefined`                            |                                                                                                                                                                                                                                                                                         | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`                  |         | `boolean \| undefined`                           |                                                                                                                                                                                                                                                                                         | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`        |         | `FormControlElement`                             |                                                                                                                                                                                                                                                                                         |                                                                                                                                 | FormControlMixin |
+| `form`                      |         | `HTMLFormElement \| null`                        |                                                                                                                                                                                                                                                                                         |                                                                                                                                 | FormControlMixin |
+| `labels`                    |         | `NodeListOf<HTMLLabelElement> \| null`           |                                                                                                                                                                                                                                                                                         |                                                                                                                                 | FormControlMixin |
+
+### Methods
+
+| Name                        | Privacy | Description                                                                                       | Parameters                                                        | Return    | Inherited From   |
+| --------------------------- | ------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
+| `openSelect`                |         |                                                                                                   | `event: Event & { target: HTMLElement }`                          | `void`    |                  |
+| `#closeSelect`              |         |                                                                                                   |                                                                   | `void`    |                  |
+| `#handleOptionsSlotChange`  |         |                                                                                                   |                                                                   | `void`    |                  |
+| `#handleMutation`           |         | If an option is selected programmatically update all the options or the size of the select itself | `mutations: MutationRecord[]`                                     | `void`    |                  |
+| `#handleOptionChange`       |         | One of the options in the select has been clicked, get the right target and update the selection  | `event: Event`                                                    | `void`    |                  |
+| `#updateSelectedOption`     |         | Update the selected option with attributes and values.                                            | `selectedOption: SelectOption`                                    | `void`    |                  |
+| `#updateSize`               |         | Find the largest option and set the select to that width                                          |                                                                   | `void`    |                  |
+| `#setSelectedOptionVisible` |         | Copy the value/represenation of the selected option to the placeholder                            | `option: SelectOption`                                            | `void`    |                  |
+| `#handleOverlayKeydown`     |         | Handle keyboard accessible controls.                                                              | `event: KeyboardEvent`                                            | `void`    |                  |
+| `#handleOverallKeydown`     |         | Handle keyboard accessible controls.                                                              | `event: KeyboardEvent & { target: HTMLElement }`                  | `void`    |                  |
+| `updated`                   |         |                                                                                                   | `changes: PropertyValues<this>`                                   | `void`    | FormControlMixin |
+| `checkValidity`             |         |                                                                                                   |                                                                   | `boolean` | FormControlMixin |
+| `reportValidity`            |         |                                                                                                   |                                                                   | `boolean` | FormControlMixin |
+| `setFormControlElement`     |         |                                                                                                   | `element: FormControlElement`                                     | `void`    | FormControlMixin |
+| `setValidity`               |         |                                                                                                   | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
+| `setFormValue`              |         |                                                                                                   | `value: FormControlValue`                                         | `void`    | FormControlMixin |
+
+### Attributes
+
+| Name               | Field            | Inherited From   |
+| ------------------ | ---------------- | ---------------- |
+| `size`             | size             |                  |
+| `maxOverlayHeight` | maxOverlayHeight |                  |
+| `disabled`         | disabled         | FormControlMixin |
+| `name`             | name             | FormControlMixin |
+| `required`         | required         | FormControlMixin |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Select` | Select      | ../packages/components/select/src/select.ts |         |
+
+# `../packages/components/tabs/src/tab-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tabs/src/tab-group.scss.ts |         |
+
+# `../packages/components/tabs/src/tab-group.ts`:
+
+## class: `TabGroup`, `sl-tab-group`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name               | Privacy | Type                | Default                                                                                                         | Description | Inherited From |
+| ------------------ | ------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----------- | -------------- |
+| `scopedElements`   | private | `ScopedElementsMap` |                                                                                                                 |             |                |
+| `#observerOptions` | private | `object`            | `{
+    attributes: true,
+    subtree: true,
+    attributeFilter: ['selected'],
+    attributeOldValue: true
+  }` |             |                |
+
+### Fields
+
+| Name                        | Privacy | Type                            | Default                                                                                                                                                                                                                 | Description                                                           | Inherited From |
+| --------------------------- | ------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------- |
+| `#tabGroupId`               | private |                                 | `` `sl-tab-group-${nextUniqueId++}` ``                                                                                                                                                                                  | Unique ID for each tab group component present.                       |                |
+| `#observer`                 | private | `MutationObserver \| undefined` |                                                                                                                                                                                                                         |                                                                       |                |
+| `#rovingTabindexController` | private |                                 | `new RovingTabindexController<Tab>(this, {
+    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
+    elements: () => this.tabs \|\| [],
+    isFocusableElement: (el: Tab) => !el.disabled
+  })` |                                                                       |                |
+| `tabs`                      |         | `Tab[] \| undefined`            |                                                                                                                                                                                                                         | The slotted tabs.                                                     |                |
+| `selectedTab`               | private | `Tab \| null`                   |                                                                                                                                                                                                                         | The current tab node selected in the tab group.                       |                |
+| `tabChange`                 |         | `EventEmitter<number>`          |                                                                                                                                                                                                                         |                                                                       |                |
+| `vertical`                  |         | `boolean`                       | `false`                                                                                                                                                                                                                 | Renders the tabs vertically instead of the default horizontal         |                |
+| `#initialSelectedTab`       | private | `Tab \| null`                   |                                                                                                                                                                                                                         | Get the selected tab button, or the first tab button.                 |                |
+| `#handleMutation`           | private |                                 |                                                                                                                                                                                                                         | If the selected tab is selected programmatically update all the tabs. |                |
+
+### Methods
+
+| Name                        | Privacy | Description                                                                                | Parameters             | Return | Inherited From |
+| --------------------------- | ------- | ------------------------------------------------------------------------------------------ | ---------------------- | ------ | -------------- |
+| `#updateSlots`              |         |                                                                                            |                        | `void` |                |
+| `#setupTabs`                |         | Apply accessible attributes and values to the tab buttons.                                 |                        | `void` |                |
+| `#setupPanels`              |         | Apply accessible attributes and values to the tab panels.                                  |                        | `void` |                |
+| `#handleTabChange`          |         |                                                                                            | `event: Event`         | `void` |                |
+| `#updateSelectedTab`        |         | Update the selected tab button with attributes and values.&#xA;Update the tab group state. | `selectedTab: Tab`     | `void` |                |
+| `#handleKeydown`            |         | Handle keyboard accessible controls.                                                       | `event: KeyboardEvent` | `void` |                |
+| `#updateSelectionIndicator` |         |                                                                                            |                        | `void` |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `vertical` | vertical |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                       | Package |
+| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `TabGroup` | TabGroup    | ../packages/components/tabs/src/tab-group.ts |         |
+
+# `../packages/components/tabs/src/tab-panel.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tabs/src/tab-panel.scss.ts |         |
+
+# `../packages/components/tabs/src/tab-panel.ts`:
+
+## class: `TabPanel`, `sl-tab-panel`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                       | Package |
+| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `TabPanel` | TabPanel    | ../packages/components/tabs/src/tab-panel.ts |         |
+
+# `../packages/components/tabs/src/tab.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tabs/src/tab.scss.ts |         |
+
+# `../packages/components/tabs/src/tab.ts`:
+
+## class: `Tab`, `sl-tab`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type      | Default | Description                      | Inherited From |
+| ---------- | ------- | --------- | ------- | -------------------------------- | -------------- |
+| `selected` |         | `boolean` | `false` | Whether the tab item is selected |                |
+| `disabled` |         | `boolean` | `false` | Whether the tab item is disabled |                |
+
+### Methods
+
+| Name                    | Privacy   | Description                                                                                               | Parameters | Return | Inherited From |
+| ----------------------- | --------- | --------------------------------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `handleSelectionChange` | protected | Apply accessible attributes and values to the tab button.&#xA;Observe the selected property if it changes |            | `void` |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `selected` | selected |                |
+| `disabled` | disabled |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name  | Declaration | Module                                 | Package |
+| ---- | ----- | ----------- | -------------------------------------- | ------- |
+| `js` | `Tab` | Tab         | ../packages/components/tabs/src/tab.ts |         |
+
+# `../packages/components/textarea/src/textarea.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/textarea/src/textarea.scss.ts |         |
 
 # `../packages/components/textarea/src/textarea.ts`:
 
@@ -2137,6 +2730,14 @@
 | `js` | `TooltipDirective` | TooltipDirective | ../packages/components/tooltip/src/tooltip-directive.ts |         |
 | `js` | `tooltip`          | tooltip          | ../packages/components/tooltip/src/tooltip-directive.ts |         |
 
+# `../packages/components/tooltip/src/tooltip.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tooltip/src/tooltip.scss.ts |         |
+
 # `../packages/components/tooltip/src/tooltip.ts`:
 
 ## class: `Tooltip`, `sl-tooltip`
@@ -2219,387 +2820,6 @@
 | Kind | Name      | Declaration | Module                                        | Package |
 | ---- | --------- | ----------- | --------------------------------------------- | ------- |
 | `js` | `Tooltip` | Tooltip     | ../packages/components/tooltip/src/tooltip.ts |         |
-
-# `../packages/components/tabs/src/tab-group.ts`:
-
-## class: `TabGroup`, `sl-tab-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name               | Privacy | Type                | Default                                                                                                         | Description | Inherited From |
-| ------------------ | ------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----------- | -------------- |
-| `scopedElements`   | private | `ScopedElementsMap` |                                                                                                                 |             |                |
-| `#observerOptions` | private | `object`            | `{
-    attributes: true,
-    subtree: true,
-    attributeFilter: ['selected'],
-    attributeOldValue: true
-  }` |             |                |
-
-### Fields
-
-| Name                        | Privacy | Type                            | Default                                                                                                                                                                                                                 | Description                                                           | Inherited From |
-| --------------------------- | ------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------- |
-| `#tabGroupId`               | private |                                 | `` `sl-tab-group-${nextUniqueId++}` ``                                                                                                                                                                                  | Unique ID for each tab group component present.                       |                |
-| `#observer`                 | private | `MutationObserver \| undefined` |                                                                                                                                                                                                                         |                                                                       |                |
-| `#rovingTabindexController` | private |                                 | `new RovingTabindexController<Tab>(this, {
-    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
-    elements: () => this.tabs \|\| [],
-    isFocusableElement: (el: Tab) => !el.disabled
-  })` |                                                                       |                |
-| `tabs`                      |         | `Tab[] \| undefined`            |                                                                                                                                                                                                                         | The slotted tabs.                                                     |                |
-| `selectedTab`               | private | `Tab \| null`                   |                                                                                                                                                                                                                         | The current tab node selected in the tab group.                       |                |
-| `tabChange`                 |         | `EventEmitter<number>`          |                                                                                                                                                                                                                         |                                                                       |                |
-| `vertical`                  |         | `boolean`                       | `false`                                                                                                                                                                                                                 | Renders the tabs vertically instead of the default horizontal         |                |
-| `#initialSelectedTab`       | private | `Tab \| null`                   |                                                                                                                                                                                                                         | Get the selected tab button, or the first tab button.                 |                |
-| `#handleMutation`           | private |                                 |                                                                                                                                                                                                                         | If the selected tab is selected programmatically update all the tabs. |                |
-
-### Methods
-
-| Name                        | Privacy | Description                                                                                | Parameters             | Return | Inherited From |
-| --------------------------- | ------- | ------------------------------------------------------------------------------------------ | ---------------------- | ------ | -------------- |
-| `#updateSlots`              |         |                                                                                            |                        | `void` |                |
-| `#setupTabs`                |         | Apply accessible attributes and values to the tab buttons.                                 |                        | `void` |                |
-| `#setupPanels`              |         | Apply accessible attributes and values to the tab panels.                                  |                        | `void` |                |
-| `#handleTabChange`          |         |                                                                                            | `event: Event`         | `void` |                |
-| `#updateSelectedTab`        |         | Update the selected tab button with attributes and values.&#xA;Update the tab group state. | `selectedTab: Tab`     | `void` |                |
-| `#handleKeydown`            |         | Handle keyboard accessible controls.                                                       | `event: KeyboardEvent` | `void` |                |
-| `#updateSelectionIndicator` |         |                                                                                            |                        | `void` |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `vertical` | vertical |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `TabGroup` | TabGroup    | ../packages/components/tabs/src/tab-group.ts |         |
-
-# `../packages/components/tabs/src/tab-panel.ts`:
-
-## class: `TabPanel`, `sl-tab-panel`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `TabPanel` | TabPanel    | ../packages/components/tabs/src/tab-panel.ts |         |
-
-# `../packages/components/tabs/src/tab.ts`:
-
-## class: `Tab`, `sl-tab`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name       | Privacy | Type      | Default | Description                      | Inherited From |
-| ---------- | ------- | --------- | ------- | -------------------------------- | -------------- |
-| `selected` |         | `boolean` | `false` | Whether the tab item is selected |                |
-| `disabled` |         | `boolean` | `false` | Whether the tab item is disabled |                |
-
-### Methods
-
-| Name                    | Privacy   | Description                                                                                               | Parameters | Return | Inherited From |
-| ----------------------- | --------- | --------------------------------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
-| `handleSelectionChange` | protected | Apply accessible attributes and values to the tab button.&#xA;Observe the selected property if it changes |            | `void` |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `selected` | selected |                |
-| `disabled` | disabled |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name  | Declaration | Module                                 | Package |
-| ---- | ----- | ----------- | -------------------------------------- | ------- |
-| `js` | `Tab` | Tab         | ../packages/components/tabs/src/tab.ts |         |
-
-# `../packages/components/select/src/select-option-group.ts`:
-
-## class: `SelectOptionGroup`, `sl-select-option-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name         | Privacy | Type                  | Default | Description | Inherited From |
-| ------------ | ------- | --------------------- | ------- | ----------- | -------------- |
-| `groupTitle` |         | `string \| undefined` |         |             |                |
-
-### Attributes
-
-| Name          | Field      | Inherited From |
-| ------------- | ---------- | -------------- |
-| `group-title` | groupTitle |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                | Declaration       | Module                                                   | Package |
-| ---- | ------------------- | ----------------- | -------------------------------------------------------- | ------- |
-| `js` | `SelectOptionGroup` | SelectOptionGroup | ../packages/components/select/src/select-option-group.ts |         |
-
-# `../packages/components/select/src/select-option.ts`:
-
-## class: `SelectOption`, `sl-select-option`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name          | Privacy | Type                                 | Default                   | Description                                           | Inherited From |
-| ------------- | ------- | ------------------------------------ | ------------------------- | ----------------------------------------------------- | -------------- |
-| `value`       |         | `FormControlValue \| undefined`      |                           | Whether the option item is selected                   |                |
-| `selected`    |         | `boolean`                            | `false`                   | Whether the option item is selected                   |                |
-| `disabled`    |         | `boolean`                            | `false`                   | Whether the option item is disabled                   |                |
-| `contentType` |         | `'string' \| 'element' \| undefined` |                           | Whether the content of the option item is a node      |                |
-| `size`        |         | `{ width: number; height: number }`  | `{ width: 0, height: 0 }` |                                                       |                |
-| `#observer`   | private | `ResizeObserver \| undefined`        |                           |                                                       |                |
-| `#tabIndex`   | private | `string \| null`                     |                           | Get the selected tab button, or the first tab button. |                |
-
-### Methods
-
-| Name                    | Privacy   | Description                                                                                               | Parameters                                   | Return          | Inherited From |
-| ----------------------- | --------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------- | --------------- | -------------- |
-| `handleSelectionChange` | protected | Apply accessible attributes and values to the tab button.&#xA;Observe the selected property if it changes |                                              | `void`          |                |
-| `#onSlotchange`         |           |                                                                                                           | `event: Event & { target: HTMLSlotElement }` | `Promise<void>` |                |
-| `#handleResize`         |           |                                                                                                           | `mutations: ResizeObserverEntry[]`           | `void`          |                |
-
-### Attributes
-
-| Name          | Field       | Inherited From |
-| ------------- | ----------- | -------------- |
-| `value`       | value       |                |
-| `selected`    | selected    |                |
-| `disabled`    | disabled    |                |
-| `contentType` | contentType |                |
-| `size`        | size        |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                             | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------- | ------- |
-| `js` | `SelectOption` | SelectOption | ../packages/components/select/src/select-option.ts |         |
-
-# `../packages/components/select/src/select-overlay.ts`:
-
-## class: `SelectOverlay`, `sl-select-overlay`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                   | Module | Package                   |
-| ---------------------- | ------ | ------------------------- |
-| `AnchoredPopoverMixin` |        | @sl-design-system/popover |
-
-### Fields
-
-| Name                 | Privacy | Type                       | Default                      | Description                               | Inherited From       |
-| -------------------- | ------- | -------------------------- | ---------------------------- | ----------------------------------------- | -------------------- |
-| `placement`          |         | `Placement`                | `'bottom-start'`             | Tooltip placement.                        | AnchoredPopoverMixin |
-| `#events`            | private |                            | `new EventsController(this)` |                                           |                      |
-| `#onPopoverHide`     | private |                            |                              |                                           | AnchoredPopoverMixin |
-| `arrow`              |         | `HTMLElement \| undefined` |                              | The arrow pointing to the anchor element. | AnchoredPopoverMixin |
-| `cleanupFloatingUI`  |         | `() => void \| undefined`  |                              | Cleanup callback for floating-ui.         | AnchoredPopoverMixin |
-| `#anchorElement`     | private | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
-| `anchorElement`      |         | `HTMLElement \| undefined` |                              |                                           | AnchoredMixin        |
-| `#popoverOpen`       | private | `boolean`                  | `false`                      |                                           | PopoverMixin         |
-| `#onDocumentClick`   | private |                            |                              |                                           | PopoverMixin         |
-| `#onDocumentKeydown` | private |                            |                              |                                           | PopoverMixin         |
-| `open`               |         | `boolean`                  | `false`                      | Whether the popover is open or not.       | PopoverMixin         |
-| `receivesFocus`      |         | `'auto' \| undefined`      |                              |                                           | PopoverMixin         |
-| `popoverOpen`        | public  | `boolean`                  |                              |                                           | PopoverMixin         |
-
-### Methods
-
-| Name                             | Privacy | Description                                                            | Parameters                      | Return          | Inherited From       |
-| -------------------------------- | ------- | ---------------------------------------------------------------------- | ------------------------------- | --------------- | -------------------- |
-| `show`                           |         |                                                                        | `target: HTMLElement`           | `void`          |                      |
-| `hide`                           |         |                                                                        | `target: EventTarget \| null`   | `void`          |                      |
-| `positionPopover`                |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `cleanupPopover`                 |         |                                                                        |                                 | `void`          | AnchoredPopoverMixin |
-| `addEventListenersToAnchor`      |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `removeEventListenersFromAnchor` |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `firstUpdated`                   |         |                                                                        | `changes: PropertyValues<this>` | `void`          | AnchoredMixin        |
-| `#resolveAnchor`                 |         |                                                                        |                                 | `void`          | AnchoredMixin        |
-| `willUpdate`                     |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `updated`                        |         |                                                                        | `changes: PropertyValues<this>` | `void`          | PopoverMixin         |
-| `showPopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `hidePopover`                    |         |                                                                        |                                 | `void`          | PopoverMixin         |
-| `#setup`                         |         | Setup light dismiss handlers if no top-layer and not a manual popover. |                                 | `Promise<void>` | PopoverMixin         |
-| `#cleanup`                       |         | Cleanup light dismiss handlers.                                        |                                 | `void`          | PopoverMixin         |
-
-### Events
-
-| Name          | Type    | Description | Inherited From |
-| ------------- | ------- | ----------- | -------------- |
-| `popovershow` | `Event` |             | PopoverMixin   |
-| `popoverhide` | `Event` |             | PopoverMixin   |
-
-### Attributes
-
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `placement`      | placement     |                |
-| `open`           | open          | PopoverMixin   |
-| `receives-focus` | receivesFocus | PopoverMixin   |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                              | Package |
-| ---- | --------------- | ------------- | --------------------------------------------------- | ------- |
-| `js` | `SelectOverlay` | SelectOverlay | ../packages/components/select/src/select-overlay.ts |         |
-
-# `../packages/components/select/src/select.ts`:
-
-## class: `Select`, `sl-select`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-
-### Static Fields
-
-| Name               | Privacy | Type      | Default                                                                                                                 | Description | Inherited From |
-| ------------------ | ------- | --------- | ----------------------------------------------------------------------------------------------------------------------- | ----------- | -------------- |
-| `formAssociated`   |         | `boolean` | `true`                                                                                                                  |             |                |
-| `#observerOptions` | private | `object`  | `{
-    attributes: true,
-    subtree: true,
-    attributeFilter: ['selected', 'size'],
-    attributeOldValue: true
-  }` |             |                |
-
-### Fields
-
-| Name                        | Privacy | Type                                             | Default                                                                                                                                                                                                                                                                                 | Description                                                                                                                     | Inherited From   |
-| --------------------------- | ------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `overlay`                   |         | `SelectOverlay \| undefined`                     |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
-| `selectedOptionPlaceholder` |         | `HTMLElement \| undefined`                       |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
-| `options`                   |         | `SelectOption[] \| undefined`                    |                                                                                                                                                                                                                                                                                         | The slotted options.                                                                                                            |                  |
-| `optionGroups`              |         | `SelectOptionGroup[] \| undefined`               |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
-| `size`                      |         | `{ width: string; height: string } \| undefined` | `{ width: '500px', height: '32px' }`                                                                                                                                                                                                                                                    | render helpers                                                                                                                  |                  |
-| `maxOverlayHeight`          |         | `string \| undefined`                            |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
-| `#rovingTabindexController` | private |                                                  | `new RovingTabindexController<SelectOption>(this, {
-    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.overlay?.popoverOpen),
-    elements: () => this.allOptions \|\| [],
-    isFocusableElement: (el: SelectOption) => !el.disabled
-  })` |                                                                                                                                 |                  |
-| `#validation`               | private |                                                  | `new ValidationController(this, {
-    validators: [requiredValidator]
-  })`                                                                                                                                                                                                             |                                                                                                                                 |                  |
-| `#observer`                 | private | `MutationObserver \| undefined`                  |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
-| `#selectId`                 | private |                                                  | `` `sl-select-${nextUniqueId++}` ``                                                                                                                                                                                                                                                     |                                                                                                                                 |                  |
-| `allOptions`                |         | `SelectOption[]`                                 |                                                                                                                                                                                                                                                                                         |                                                                                                                                 |                  |
-| `internals`                 |         |                                                  |                                                                                                                                                                                                                                                                                         | Element internals.                                                                                                              |                  |
-| `selectedOption`            | private | `SelectOption \| null \| undefined`              |                                                                                                                                                                                                                                                                                         | The current tab node selected in the tab group.                                                                                 |                  |
-| `#cachedValue`              | private | `FormControlValue \| undefined`                  |                                                                                                                                                                                                                                                                                         | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement`       | private | `FormControlElement \| undefined`                |                                                                                                                                                                                                                                                                                         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`                  |         | `boolean \| undefined`                           |                                                                                                                                                                                                                                                                                         | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                      |         | `string \| undefined`                            |                                                                                                                                                                                                                                                                                         | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`                  |         | `boolean \| undefined`                           |                                                                                                                                                                                                                                                                                         | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`        |         | `FormControlElement`                             |                                                                                                                                                                                                                                                                                         |                                                                                                                                 | FormControlMixin |
-| `form`                      |         | `HTMLFormElement \| null`                        |                                                                                                                                                                                                                                                                                         |                                                                                                                                 | FormControlMixin |
-| `labels`                    |         | `NodeListOf<HTMLLabelElement> \| null`           |                                                                                                                                                                                                                                                                                         |                                                                                                                                 | FormControlMixin |
-
-### Methods
-
-| Name                        | Privacy | Description                                                                                       | Parameters                                                        | Return    | Inherited From   |
-| --------------------------- | ------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
-| `openSelect`                |         |                                                                                                   | `event: Event & { target: HTMLElement }`                          | `void`    |                  |
-| `#closeSelect`              |         |                                                                                                   |                                                                   | `void`    |                  |
-| `#handleOptionsSlotChange`  |         |                                                                                                   |                                                                   | `void`    |                  |
-| `#handleMutation`           |         | If an option is selected programmatically update all the options or the size of the select itself | `mutations: MutationRecord[]`                                     | `void`    |                  |
-| `#handleOptionChange`       |         | One of the options in the select has been clicked, get the right target and update the selection  | `event: Event`                                                    | `void`    |                  |
-| `#updateSelectedOption`     |         | Update the selected option with attributes and values.                                            | `selectedOption: SelectOption`                                    | `void`    |                  |
-| `#updateSize`               |         | Find the largest option and set the select to that width                                          |                                                                   | `void`    |                  |
-| `#setSelectedOptionVisible` |         | Copy the value/represenation of the selected option to the placeholder                            | `option: SelectOption`                                            | `void`    |                  |
-| `#handleOverlayKeydown`     |         | Handle keyboard accessible controls.                                                              | `event: KeyboardEvent`                                            | `void`    |                  |
-| `#handleOverallKeydown`     |         | Handle keyboard accessible controls.                                                              | `event: KeyboardEvent & { target: HTMLElement }`                  | `void`    |                  |
-| `updated`                   |         |                                                                                                   | `changes: PropertyValues<this>`                                   | `void`    | FormControlMixin |
-| `checkValidity`             |         |                                                                                                   |                                                                   | `boolean` | FormControlMixin |
-| `reportValidity`            |         |                                                                                                   |                                                                   | `boolean` | FormControlMixin |
-| `setFormControlElement`     |         |                                                                                                   | `element: FormControlElement`                                     | `void`    | FormControlMixin |
-| `setValidity`               |         |                                                                                                   | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
-| `setFormValue`              |         |                                                                                                   | `value: FormControlValue`                                         | `void`    | FormControlMixin |
-
-### Attributes
-
-| Name               | Field            | Inherited From   |
-| ------------------ | ---------------- | ---------------- |
-| `size`             | size             |                  |
-| `maxOverlayHeight` | maxOverlayHeight |                  |
-| `disabled`         | disabled         | FormControlMixin |
-| `name`             | name             | FormControlMixin |
-| `required`         | required         | FormControlMixin |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Select` | Select      | ../packages/components/select/src/select.ts |         |
 
 # `../packages/components/popover/src/mixins/anchored-popover.ts`:
 
@@ -2781,6 +3001,114 @@
 | ---- | -------------------- | ------------------ | ---------------------------------------------------- | ------- |
 | `js` | `popoverMixinStyles` | popoverMixinStyles | ../packages/components/popover/src/mixins/popover.ts |         |
 | `js` | `PopoverMixin`       | PopoverMixin       | ../packages/components/popover/src/mixins/popover.ts |         |
+
+# `../packages/components/popover/src/utils/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                        |
+| ---- | ---- | ----------- | ------ | ------------------------------ |
+| `js` | `*`  | *           |        | ./position-anchored-element.js |
+
+# `../packages/components/popover/src/utils/position-anchored-element.ts`:
+
+## Functions
+
+| Name                      | Description | Parameters                                                                           | Return         |
+| ------------------------- | ----------- | ------------------------------------------------------------------------------------ | -------------- |
+| `flipPlacement`           |             | `placement: Placement`                                                               | `Placement`    |
+| `positionAnchoredElement` |             | `element: HTMLElement, anchor: HTMLElement, options: PositionAnchoredElementOptions` | `(() => void)` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                      | Declaration             | Module                                                                | Package |
+| ---- | ------------------------- | ----------------------- | --------------------------------------------------------------------- | ------- |
+| `js` | `Placement`               | Placement               | ../packages/components/popover/src/utils/position-anchored-element.ts |         |
+| `js` | `flipPlacement`           | flipPlacement           | ../packages/components/popover/src/utils/position-anchored-element.ts |         |
+| `js` | `positionAnchoredElement` | positionAnchoredElement | ../packages/components/popover/src/utils/position-anchored-element.ts |         |
+
+# `../packages/components/shared/src/data-source/array-data-source.ts`:
+
+## class: `ArrayDataSource`
+
+### Superclass
+
+| Name         | Module                                                     | Package |
+| ------------ | ---------------------------------------------------------- | ------- |
+| `DataSource` | /packages/components/shared/src/data-source/data-source.js |         |
+
+### Fields
+
+| Name             | Privacy | Type                                   | Default      | Description                                               | Inherited From |
+| ---------------- | ------- | -------------------------------------- | ------------ | --------------------------------------------------------- | -------------- |
+| `#items`         | private | `T[]`                                  | `[...items]` | Array of filtered & sorted items.                         |                |
+| `#originalItems` | private | `T[]`                                  | `[...items]` | The original array of items as passed to the constructor. |                |
+| `items`          |         | `T[]`                                  |              | The array of items.                                       | DataSource     |
+| `size`           |         | `number`                               |              | Size of the item collection.                              | DataSource     |
+| `filter`         |         | `DataSourceFilter<T> \| undefined`     |              | The filter implementation.                                | DataSource     |
+| `filterValues`   |         | `DataSourceFilterValue[] \| undefined` |              | The values to filter on.                                  | DataSource     |
+| `sorter`         |         | `DataSourceSorter<T> \| undefined`     |              | The sorter implementation.                                | DataSource     |
+| `sortValue`      |         | `DataSourceSortValue \| undefined`     |              | The path & direction to sort on.                          | DataSource     |
+
+### Methods
+
+| Name      | Privacy | Description | Parameters                        | Return                        | Inherited From |
+| --------- | ------- | ----------- | --------------------------------- | ----------------------------- | -------------- |
+| `#filter` |         |             | `values: DataSourceFilterValue[]` | `DataSourceFilterFunction<T>` |                |
+
+### Events
+
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                                             | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------ | ------- |
+| `js` | `ArrayDataSource` | ArrayDataSource | ../packages/components/shared/src/data-source/array-data-source.ts |         |
+
+# `../packages/components/shared/src/data-source/data-source.ts`:
+
+## class: `DataSource`
+
+### Superclass
+
+| Name          | Module                                                       | Package |
+| ------------- | ------------------------------------------------------------ | ------- |
+| `EventTarget` | ../packages/components/shared/src/data-source/data-source.ts |         |
+
+### Fields
+
+| Name           | Privacy | Type                                   | Default | Description                      | Inherited From |
+| -------------- | ------- | -------------------------------------- | ------- | -------------------------------- | -------------- |
+| `filter`       |         | `DataSourceFilter<T> \| undefined`     |         | The filter implementation.       |                |
+| `filterValues` |         | `DataSourceFilterValue[] \| undefined` |         | The values to filter on.         |                |
+| `sorter`       |         | `DataSourceSorter<T> \| undefined`     |         | The sorter implementation.       |                |
+| `sortValue`    |         | `DataSourceSortValue \| undefined`     |         | The path & direction to sort on. |                |
+| `items`        |         | `T[]`                                  |         | The array of items.              |                |
+| `size`         |         | `number`                               |         | Size of the item collection.     |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                                       | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------ | ------- |
+| `js` | `DataSource` | DataSource  | ../packages/components/shared/src/data-source/data-source.ts |         |
+
+# `../packages/components/shared/src/data-source/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./array-data-source.js |
+| `js` | `*`  | *           |        | ./data-source.js       |
 
 # `../packages/components/shared/src/controllers/events.ts`:
 
@@ -3040,87 +3368,6 @@
 | `js` | `validationStyles`     | validationStyles     | ../packages/components/shared/src/controllers/validation.ts |         |
 | `js` | `ValidationController` | ValidationController | ../packages/components/shared/src/controllers/validation.ts |         |
 
-# `../packages/components/shared/src/data-source/array-data-source.ts`:
-
-## class: `ArrayDataSource`
-
-### Superclass
-
-| Name         | Module                                                     | Package |
-| ------------ | ---------------------------------------------------------- | ------- |
-| `DataSource` | /packages/components/shared/src/data-source/data-source.js |         |
-
-### Fields
-
-| Name             | Privacy | Type                                   | Default      | Description                                               | Inherited From |
-| ---------------- | ------- | -------------------------------------- | ------------ | --------------------------------------------------------- | -------------- |
-| `#items`         | private | `T[]`                                  | `[...items]` | Array of filtered & sorted items.                         |                |
-| `#originalItems` | private | `T[]`                                  | `[...items]` | The original array of items as passed to the constructor. |                |
-| `items`          |         | `T[]`                                  |              | The array of items.                                       | DataSource     |
-| `size`           |         | `number`                               |              | Size of the item collection.                              | DataSource     |
-| `filter`         |         | `DataSourceFilter<T> \| undefined`     |              | The filter implementation.                                | DataSource     |
-| `filterValues`   |         | `DataSourceFilterValue[] \| undefined` |              | The values to filter on.                                  | DataSource     |
-| `sorter`         |         | `DataSourceSorter<T> \| undefined`     |              | The sorter implementation.                                | DataSource     |
-| `sortValue`      |         | `DataSourceSortValue \| undefined`     |              | The path & direction to sort on.                          | DataSource     |
-
-### Methods
-
-| Name      | Privacy | Description | Parameters                        | Return                        | Inherited From |
-| --------- | ------- | ----------- | --------------------------------- | ----------------------------- | -------------- |
-| `#filter` |         |             | `values: DataSourceFilterValue[]` | `DataSourceFilterFunction<T>` |                |
-
-### Events
-
-| Name        | Type          | Description | Inherited From |
-| ----------- | ------------- | ----------- | -------------- |
-| `sl-update` | `CustomEvent` |             |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                                             | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------ | ------- |
-| `js` | `ArrayDataSource` | ArrayDataSource | ../packages/components/shared/src/data-source/array-data-source.ts |         |
-
-# `../packages/components/shared/src/data-source/data-source.ts`:
-
-## class: `DataSource`
-
-### Superclass
-
-| Name          | Module                                                       | Package |
-| ------------- | ------------------------------------------------------------ | ------- |
-| `EventTarget` | ../packages/components/shared/src/data-source/data-source.ts |         |
-
-### Fields
-
-| Name           | Privacy | Type                                   | Default | Description                      | Inherited From |
-| -------------- | ------- | -------------------------------------- | ------- | -------------------------------- | -------------- |
-| `filter`       |         | `DataSourceFilter<T> \| undefined`     |         | The filter implementation.       |                |
-| `filterValues` |         | `DataSourceFilterValue[] \| undefined` |         | The values to filter on.         |                |
-| `sorter`       |         | `DataSourceSorter<T> \| undefined`     |         | The sorter implementation.       |                |
-| `sortValue`    |         | `DataSourceSortValue \| undefined`     |         | The path & direction to sort on. |                |
-| `items`        |         | `T[]`                                  |         | The array of items.              |                |
-| `size`         |         | `number`                               |         | Size of the item collection.     |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                                       | Package |
-| ---- | ------------ | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `DataSource` | DataSource  | ../packages/components/shared/src/data-source/data-source.ts |         |
-
-# `../packages/components/shared/src/data-source/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                |
-| ---- | ---- | ----------- | ------ | ---------------------- |
-| `js` | `*`  | *           |        | ./array-data-source.js |
-| `js` | `*`  | *           |        | ./data-source.js       |
-
 # `../packages/components/shared/src/decorators/base.ts`:
 
 ## Functions
@@ -3203,33 +3450,6 @@
 | Kind | Name      | Declaration | Module                                                  | Package |
 | ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
 | `js` | `observe` | observe     | ../packages/components/shared/src/decorators/observe.ts |         |
-
-# `../packages/components/popover/src/utils/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                        |
-| ---- | ---- | ----------- | ------ | ------------------------------ |
-| `js` | `*`  | *           |        | ./position-anchored-element.js |
-
-# `../packages/components/popover/src/utils/position-anchored-element.ts`:
-
-## Functions
-
-| Name                      | Description | Parameters                                                                           | Return         |
-| ------------------------- | ----------- | ------------------------------------------------------------------------------------ | -------------- |
-| `flipPlacement`           |             | `placement: Placement`                                                               | `Placement`    |
-| `positionAnchoredElement` |             | `element: HTMLElement, anchor: HTMLElement, options: PositionAnchoredElementOptions` | `(() => void)` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                      | Declaration             | Module                                                                | Package |
-| ---- | ------------------------- | ----------------------- | --------------------------------------------------------------------- | ------- |
-| `js` | `Placement`               | Placement               | ../packages/components/popover/src/utils/position-anchored-element.ts |         |
-| `js` | `flipPlacement`           | flipPlacement           | ../packages/components/popover/src/utils/position-anchored-element.ts |         |
-| `js` | `positionAnchoredElement` | positionAnchoredElement | ../packages/components/popover/src/utils/position-anchored-element.ts |         |
 
 # `../packages/components/shared/src/mixins/form-control.ts`:
 

@@ -54,7 +54,7 @@ export const themes: Theme[] = [
   {
     id: 'itslearning',
     name: 'itslearning',
-    fonts: ['https://use.typekit.net/xrr8gdw.css'],
+    fonts: ['https://use.typekit.net/ucw7xel.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/itslearning');
 
@@ -113,6 +113,19 @@ export const themes: Theme[] = [
     ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/sanoma-learning');
+
+      setup();
+    }
+  },
+  {
+    id: 'teas',
+    name: 'TEAS',
+    fonts: [
+      'https://use.typekit.net/kes1hoh.css',
+      '/themes/teas/fonts.css'
+    ],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/teas');
 
       setup();
     }

@@ -1,5 +1,11 @@
 # @sl-design-system/radio-group
 
+## 0.0.4
+
+### Patch Changes
+
+- [#423](https://github.com/sl-design-system/components/pull/423) [`81957ec`](https://github.com/sl-design-system/components/commit/81957ec587349c09d0a3d4e8ae41301c5730785f) - Fix transitions and other minor styling issues
+
 ## 0.0.3
 
 ### Patch Changes

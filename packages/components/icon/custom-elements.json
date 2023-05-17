@@ -73,12 +73,44 @@
               "default": "[]"
             },
             {
-              "kind": "field",
-              "name": "icons",
-              "type": {
-                "text": "IconLibrary"
+              "kind": "method",
+              "name": "getColorToken",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "string"
+                }
               },
-              "readonly": true
+              "parameters": [
+                {
+                  "name": "pathCounter",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "style",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getIconHTML",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "iconHTML",
+              "type": {
+                "text": "string | undefined"
+              }
             },
             {
               "kind": "field",
@@ -136,6 +168,34 @@
                 }
               ],
               "description": "store all icons from the IconLibrary of the theme in the icon registry for easy access"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "IconSize"
+              },
+              "default": "'md'",
+              "description": "Icon size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sldsLibrary",
+              "type": {
+                "text": "{ icons: IconLibrary } | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "waitForWindowProperty",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "description": "sometimes the icon tries to render before any icons are registered,\nthat's why we need to check if the icons have been registered, and if not\nwe need to wait a bit and then check again, so we can (re)render the icon when the library is set."
             }
           ],
           "attributes": [
@@ -154,6 +214,15 @@
               },
               "description": "The name of the icon to show.",
               "fieldName": "name"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "IconSize"
+              },
+              "default": "'md'",
+              "description": "Icon size.",
+              "fieldName": "size"
             }
           ],
           "superclass": {

@@ -448,6 +448,13 @@
           "type": "color",
           "description": "color.palette.white.base"
         }
+      },
+      "transparent": {
+        "base": {
+          "value": "#00000000",
+          "type": "color",
+          "description": "color.palette.transparent.base"
+        }
       }
     }
   },
@@ -848,17 +855,17 @@
       },
       "icon-only": {
         "sm": {
-          "value": "{border.radius.2xs}",
+          "value": "{border.radius.full}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "md": {
-          "value": "{border.radius.2xs}",
+          "value": "{border.radius.full}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "lg": {
-          "value": "{border.radius.2xs}",
+          "value": "{border.radius.full}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         }
@@ -893,7 +900,7 @@
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.none}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.link"
         }
@@ -905,7 +912,7 @@
           "description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }

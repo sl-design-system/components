@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-# Button tokens in Magister theme
+# Name of the user story
 **This user story is part of https://github.com/sl-design-system/components/issues/160**
 
 |<div align="left">**What is the problem we are solving and why?**|
@@ -22,7 +22,9 @@ Place description here
 ## Design
 Explain where the design can be found
 
-## Tasks
-- [ ] Link to task
-- [ ] Link to task
-- [ ] Link to task
+```[tasklist]
+## Acceptance criteria
+- [ ] Function description
+- [ ] Function description
+- [ ] Function description
+```

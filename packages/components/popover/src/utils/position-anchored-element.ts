@@ -80,7 +80,7 @@ export const positionAnchoredElement = (
       element.setAttribute('actual-placement', actualPlacement);
 
       if (arrow && options.arrow) {
-        options.arrow.style.transform = `translateX(${arrow.x || 0}px)`;
+        options.arrow.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`;
       }
     });
   });

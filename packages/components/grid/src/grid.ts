@@ -171,8 +171,9 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
           return `
             thead tr:nth-child(${rowIndex + 1}) th:nth-child(${colIndex + 1}) {
               flex-grow: ${(col as GridColumnGroup<T>).columns.length};
+              inline-size: ${col.width || '100'}px;
               justify-content: ${col.align};
-              width: ${col.width || '100'}px;
+              ${col.renderStyles()?.toString() ?? ''}
             }
           `;
         });
@@ -181,16 +182,17 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         return `
           :where(td, thead tr:last-of-type th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
+            inline-size: ${col.width || '100'}px;
             justify-content: ${col.align};
-            width: ${col.width || '100'}px;
             ${
               col.sticky
                 ? `
-                  left: ${this.#getStickyColumnOffset(index)}px;
+                  inset-inline-start: ${this.#getStickyColumnOffset(index)}px;
                   position: sticky;
                 `
                 : ''
             }
+            ${col.renderStyles()?.toString() ?? ''}
           }
         `;
       })}
@@ -257,6 +259,12 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
           return Math.max(acc, width);
         }, 0);
       });
+
+    // Since we set an explicit width for the `<thead>` and `<tbody>`, we also need
+    // to set an explicit with for all the `<tr>` elements. Otherwise, the sticky columns
+    // will not be sticky when you scroll horizontally.
+    const rowWidth = this.columns.reduce((acc, cur) => acc + (cur.width ?? 0), 0);
+    this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
 
     this.requestUpdate('columns');
   }

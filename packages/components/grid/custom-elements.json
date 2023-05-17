@@ -269,6 +269,19 @@
               }
             },
             {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "renderer",
               "type": {
@@ -547,6 +560,15 @@
               }
             },
             {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "renderer",
               "type": {
@@ -809,6 +831,19 @@
               "return": {
                 "type": {
                   "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
                 }
               },
               "inheritedFrom": {
@@ -1260,6 +1295,22 @@
               "description": "Uses alternating background colors for the rows when set.",
               "attribute": "striped",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "tbody",
+              "type": {
+                "text": "HTMLTableSectionElement"
+              },
+              "description": "The `<tbody>` element."
+            },
+            {
+              "kind": "field",
+              "name": "thead",
+              "type": {
+                "text": "HTMLTableSectionElement"
+              },
+              "description": "The `<thead>` element."
             }
           ],
           "attributes": [
@@ -1478,6 +1529,19 @@
               "return": {
                 "type": {
                   "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult"
                 }
               },
               "inheritedFrom": {
@@ -1821,6 +1885,19 @@
               "return": {
                 "type": {
                   "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
                 }
               },
               "inheritedFrom": {

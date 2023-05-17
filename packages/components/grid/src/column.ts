@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import type { CSSResult, TemplateResult } from 'lit';
 import type { Grid } from './grid.js';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
@@ -86,7 +86,7 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
     super.connectedCallback();
 
     // If width and autoWidth are not set, set autoWidth to true
-    if (!this.width && this.autoWidth === undefined) {
+    if (this.width === undefined && this.autoWidth === undefined) {
       this.autoWidth = true;
     }
   }
@@ -106,6 +106,9 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
       </td>
     `;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  renderStyles(): CSSResult | void {}
 
   #getParts(item?: T): string[] {
     let parts: string[] = [];

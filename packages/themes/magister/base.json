@@ -444,6 +444,13 @@
           "type": "color",
           "description": "color.palette.white.base"
         }
+      },
+      "transparent": {
+        "base": {
+          "value": "#00000000",
+          "type": "color",
+          "description": "color.palette.transparent.base"
+        }
       }
     }
   },
@@ -936,7 +943,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
@@ -945,7 +952,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "lineHeight": "{button.label.md}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -954,7 +961,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "lineHeight": "{button.label.lg}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -1126,7 +1133,7 @@
     "width": {
       "button": {
         "default": {
-          "value": "{border.width.md}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.default"
         },
@@ -1136,7 +1143,7 @@
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.none}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.link"
         }
@@ -1252,142 +1259,25 @@
     }
   },
   "space": {
-    "input": {
-      "block": {
-        "md": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
-        },
-        "lg": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
-        }
-      },
-      "inline": {
-        "md": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
-        },
-        "lg": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
-        }
-      },
-      "gap": {
-        "md": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
-        }
-      }
-    },
-    "group": {
-      "sm": {
-        "value": "{space.2xs}",
-        "type": "spacing"
-      },
-      "md": {
-        "value": "{space.xs}",
-        "type": "spacing"
-      },
-      "lg": {
-        "value": "{space.sm}",
-        "type": "spacing"
-      },
-      "xl": {
-        "value": "{space.sm}",
-        "type": "spacing"
-      }
-    },
-    "textField": {
-      "block": {
-        "md": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
-        },
-        "lg": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
-        }
-      },
-      "inline": {
-        "md": {
-          "value": "{space.md}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
-        },
-        "lg": {
-          "value": "{space.lg}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
-        }
-      },
-      "gap": {
-        "md": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
-        }
-      }
-    },
-    "none": {
-      "value": 0,
-      "type": "spacing",
-      "description": "space.none"
-    },
-    "2xs": {
-      "value": 2,
-      "type": "spacing",
-      "description": "space.2xs"
-    },
-    "xs": {
-      "value": 4,
-      "type": "spacing",
-      "description": "space.xs"
-    },
-    "sm": {
-      "value": 8,
-      "type": "spacing",
-      "description": "space.sm"
-    },
-    "md": {
-      "value": 12,
-      "type": "spacing",
-      "description": "space.md"
-    },
-    "lg": {
-      "value": 16,
-      "type": "spacing",
-      "description": "space.lg"
-    },
-    "xl": {
-      "value": 24,
-      "type": "spacing",
-      "description": "space.xl"
-    },
-    "2xl": {
-      "value": 30,
-      "type": "spacing",
-      "description": "space.2xl"
-    },
     "button": {
       "default": {
+        "inline": {
+          "md": {
+            "value": "{space.lg} - {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "sm": {
+            "value": "{space.lg} - {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.sm"
+          },
+          "lg": {
+            "value": "{space.xl} - {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
         "block": {
           "sm": {
             "value": "{space.xs} - {border.width.button.default}",
@@ -1403,23 +1293,6 @@
             "value": "{space.sm} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
-          }
-        },
-        "inline": {
-          "sm": {
-            "value": "{space.lg} - {border.width.button.default}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.sm"
-          },
-          "md": {
-            "value": "{space.xl} - {border.width.button.default}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
-          },
-          "lg": {
-            "value": "{space.xl} - {border.width.button.default}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
           }
         },
         "icon-only": {
@@ -1554,6 +1427,140 @@
           "description": "{space.button.gap.lg}"
         }
       }
+    },
+    "input": {
+      "block": {
+        "md": {
+          "value": "{space.button.outline.block.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        },
+        "lg": {
+          "value": "{space.button.outline.block.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.block.lg"
+        }
+      },
+      "inline": {
+        "md": {
+          "value": "{space.button.outline.block.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        },
+        "lg": {
+          "value": "{space.button.outline.block.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.lg"
+        }
+      },
+      "gap": {
+        "md": {
+          "value": "{space.button.outline.block.md}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.button.outline.block.md}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      }
+    },
+    "group": {
+      "sm": {
+        "value": "{space.2xs}",
+        "type": "spacing"
+      },
+      "md": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      },
+      "lg": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "xl": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      }
+    },
+    "textField": {
+      "block": {
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.block.lg"
+        }
+      },
+      "inline": {
+        "md": {
+          "value": "{space.md}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        },
+        "lg": {
+          "value": "{space.lg}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.lg"
+        }
+      },
+      "gap": {
+        "md": {
+          "value": "{space.button.outline.block.md}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.button.outline.block.md}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      }
+    },
+    "none": {
+      "value": 0,
+      "type": "spacing",
+      "description": "space.none"
+    },
+    "2xs": {
+      "value": 2,
+      "type": "spacing",
+      "description": "space.2xs"
+    },
+    "xs": {
+      "value": 4,
+      "type": "spacing",
+      "description": "space.xs"
+    },
+    "sm": {
+      "value": 8,
+      "type": "spacing",
+      "description": "space.sm"
+    },
+    "md": {
+      "value": 12,
+      "type": "spacing",
+      "description": "space.md"
+    },
+    "lg": {
+      "value": 16,
+      "type": "spacing",
+      "description": "space.lg"
+    },
+    "xl": {
+      "value": 24,
+      "type": "spacing",
+      "description": "space.xl"
+    },
+    "2xl": {
+      "value": 30,
+      "type": "spacing",
+      "description": "space.2xl"
     },
     "helper": {
       "gap": {

@@ -119,6 +119,7 @@
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-body: source-sans-pro;
   --sl-text-typeset-font-family-heading: the-message;
+  --sl-color-palette-transparent-base: 0 0 0 / 0;
   --sl-color-palette-white-base: 254 254 254;
   --sl-color-palette-black-base: 34 34 34;
   --sl-color-palette-danger-base: 255 87 92;
@@ -304,7 +305,7 @@
   --sl-border-width-input-border: var(--sl-border-width-sm);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-select-panel: var(--sl-border-width-xs);
-  --sl-border-width-button-link: var(--sl-border-width-none);
+  --sl-border-width-button-link: var(--sl-border-width-xs);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-xs);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);

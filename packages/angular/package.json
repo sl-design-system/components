@@ -19,7 +19,7 @@
     "build": {
       "command": "ng build angular-core",
       "dependencies": [
-        "../../build"
+        "../..:build"
       ],
       "files": [
         "projects/angular-core/**/*"
@@ -43,7 +43,7 @@
         "./storybook/main.ts"
       ],
       "dependencies": [
-        "../../build"
+        "../..:build"
       ]
     },
     "storybook": {
@@ -68,13 +68,13 @@
     "@angular-eslint/eslint-plugin-template": "^15.2.1",
     "@angular/cli": "~15.2.8",
     "@angular/compiler-cli": "^15.2.9",
-    "@storybook/addon-essentials": "^7.0.10",
-    "@storybook/addon-links": "^7.0.10",
-    "@storybook/angular": "^7.0.10",
-    "@storybook/blocks": "^7.0.10",
+    "@storybook/addon-essentials": "^7.0.12",
+    "@storybook/addon-links": "^7.0.12",
+    "@storybook/angular": "^7.0.12",
+    "@storybook/blocks": "^7.0.12",
     "@types/jasmine": "~4.3.1",
     "eslint": "^8.40.0",
-    "jasmine-core": "~4.6.0",
+    "jasmine-core": "~5.0.0",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
@@ -83,8 +83,8 @@
     "ng-packagr": "^15.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.10",
-    "typescript": "~4.9.5",
+    "storybook": "^7.0.12",
+    "typescript": "~5.0.4",
     "wireit": "^0.9.5"
   }
 }

@@ -1,9 +1,25 @@
 :host {
+  --_active-color: #000;
+  --_inactive-color: #ccc;
+  --_direction-color: var(--_inactive-color);
   --_gap: 0.5rem;
+}
+
+:host([direction]) {
+  --_direction-color: var(--_active-color);
 }
 
 :host {
   cursor: pointer;
   display: inline-flex;
   gap: var(--_gap);
+}
+
+.direction {
+  align-items: center;
+  display: inline-flex;
+}
+
+sl-icon {
+  fill: var(--_direction-color);
 }

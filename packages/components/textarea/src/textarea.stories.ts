@@ -8,7 +8,7 @@ export default {
   title: 'Textarea'
 };
 
-const resizeTypes: ResizeType[] = ['none', 'both', 'horizontal', 'vertical'];
+const resizeTypes: ResizeType[] = ['none', 'vertical'];
 
 export const API: StoryObj = {
   args: {

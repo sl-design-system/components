@@ -13,7 +13,8 @@ import styles from './textarea.scss.js';
 
 export type TextareaSize = 'md' | 'lg';
 
-export type ResizeType = 'none' | 'both' | 'horizontal' | 'vertical'; // TODO: add auto?
+export type ResizeType = 'none' | 'vertical'; // TODO: add auto?
+// 'none' | 'both' | 'horizontal' | 'vertical';
 
 let nextUniqueId = 0;
 
@@ -66,6 +67,9 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   // TODO resize vertical / horizontal /  none? maybe vertical by default?
 
+  /** The number of rows. */
+  @property({ type: Number }) rows = 3;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -116,6 +120,14 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       }
     }
 
+    if (changes.has('rows')) {
+      if (this.rows) {
+        this.textarea.setAttribute('rows', this.rows.toString());
+      } else {
+        this.textarea.removeAttribute('rows');
+      }
+    }
+
     if (changes.has('readonly')) {
       if (this.readonly) {
         this.textarea.readOnly = this.readonly;
@@ -129,12 +141,14 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     }
   }
 
+  // TODO: add focus-visible-within attribute
+
   override render(): TemplateResult {
     return html`
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
         <slot name="suffix">
-          <sl-icon name="face-smile"></sl-icon>
+          <sl-icon name="face-smile" size="lg"></sl-icon>
         </slot>
       </div>
       ${this.renderHint()} ${this.#validation.render()}

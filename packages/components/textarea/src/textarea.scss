@@ -22,6 +22,7 @@ $resize-types: none, both, horizontal, vertical;
   flex-direction: column;
   gap: var(--_gap);
   vertical-align: top;
+  width: 100%; // TODO: check if necessary
 }
 
 :host(:disabled) {
@@ -52,11 +53,13 @@ slot[name='textarea']::slotted(textarea) {
   border: 0;
   color: inherit;
   flex: 1;
-  font: inherit;
+  font: var(--_font); //inherit;
   line-height: 24px;
   margin: 0;
   outline: none;
-  padding: calc(0.25rem - 1px) 0.5rem;
+  //padding: calc(0.25rem - 1px) 0.5rem;
+  padding: var(--_padding);
+  min-block-size: 72px; // TODO: it should come from a token or how? Maybe added by user?
 
   &:focus {
     outline: none;
@@ -78,28 +81,46 @@ slot[name='textarea']::slotted(textarea) {
 slot[name='suffix'] {
   sl-icon {
     position: absolute;
-    right: 0;
+    //right: 0;
+    //background-color: #00e0e0;
   }
 }
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    slot[name='input']::slotted(input) {
+    --_gap: var(--sl-space-text-field-gap-#{$size});
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    slot[name='textarea']::slotted(textarea) {
       --_font: var(--sl-text-input-text-#{$size});
+      --_padding: var(--sl-space-text-field-block-#{$size}) var(--sl-space-text-field-inline-#{$size}) var(--sl-space-text-field-block-#{$size}) var(--sl-space-text-field-inline-#{$size});
+      //--_gap: var(--sl-space-text-field-gap-#{$size});
+      padding-right: calc(var(--sl-space-text-field-inline-#{$size}) + var(--sl-space-text-field-gap-#{$size}) + var(--icon-container-size, var(--sl-size-icon-lg)));
     }
 
-    .wrapper {
-      --_padding: var(--sl-space-text-field-block-#{$size})
-        var(--sl-space-text-field-inline-#{$size})
-        var(--sl-space-text-field-block-#{$size})
-        var(--sl-space-text-field-inline-#{$size});
-      --_gap: var(--sl-space-text-field-gap-#{$size});
+    //.wrapper {
+    //  --_padding: var(--sl-space-text-field-block-#{$size})
+    //    var(--sl-space-text-field-inline-#{$size})
+    //    var(--sl-space-text-field-block-#{$size})
+    //    var(--sl-space-text-field-inline-#{$size});
+    //  --_gap: var(--sl-space-text-field-gap-#{$size});
+    //}
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    slot[name='suffix'] {
+      /* stylelint-disable-next-line max-nesting-depth */
+      sl-icon {
+        top:  var(--sl-space-text-field-block-#{$size});
+        right:  var(--sl-space-text-field-inline-#{$size});
+      }
     }
   }
 }
 
 @each $resize in $resize-types {
+  /* stylelint-disable-next-line max-nesting-depth */
   :host([resize='#{$resize}']) {
+    /* stylelint-disable-next-line max-nesting-depth */
     slot[name='textarea']::slotted(textarea) {
       resize: $resize;
     }
@@ -130,6 +151,7 @@ slot[name='suffix'] {
       }
     }
 
+    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-default-background);
     }
@@ -155,6 +177,7 @@ slot[name='suffix'] {
       }
     }
 
+    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-hover-background);
     }
@@ -179,6 +202,7 @@ slot[name='suffix'] {
       }
     }
 
+    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-active-background);
     }
@@ -204,6 +228,7 @@ slot[name='suffix'] {
       }
     }
 
+    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
       --_background: var(--sl-color-text-field-#{$variant}-focus-background);
     }
@@ -235,7 +260,9 @@ slot[name='suffix'] {
       }
     }
 
+    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
+      /* stylelint-disable-next-line max-nesting-depth */
       --_background: var(--sl-color-text-field-#{$variant}-disabled-background);
     }
   }

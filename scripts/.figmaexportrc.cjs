@@ -8,7 +8,7 @@ module.exports = {
       'components',
       {
         fileId,
-        onlyFromPages: ['Custom Icons'],
+        onlyFromPages: ['Custom Icons'], //this is case sensitive, make sure your Figma page name matches exactly
         transformers: [
           require('@figma-export/transform-svg-with-svgo')({
             plugins: [

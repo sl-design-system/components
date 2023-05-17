@@ -223,7 +223,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -291,7 +291,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -516,7 +516,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -584,7 +584,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -811,7 +811,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -821,7 +821,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             }
@@ -879,7 +879,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -890,7 +890,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.link.disabled.foreground",
               "failedToResolve": true
@@ -1106,7 +1106,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -1116,7 +1116,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             }
@@ -1133,7 +1133,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             }
@@ -1150,7 +1150,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             }
@@ -1174,7 +1174,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -1185,7 +1185,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.link.disabled.foreground",
               "failedToResolve": true
@@ -1401,7 +1401,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -1469,7 +1469,7 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background},{opacity.transparent})",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "failedToResolve": true
             },

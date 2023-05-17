@@ -2,6 +2,8 @@ import type { Button, ButtonFill, ButtonSize, ButtonVariant } from './button.js'
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/icon/register.js';
+import { faPinata } from '@fortawesome/pro-regular-svg-icons';
+import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
 
@@ -158,4 +160,23 @@ export const Sizes: Story = {
       )}
     </div>
   `
+};
+
+export const AlignmentIssues: Story = {
+  argTypes: {
+    size: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: ({ fill, variant }) => {
+    Icon.registerIcon(faPinata);
+    return html`
+      <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button>
+      <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button><br />
+      <span>Some random text</span>
+      <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button>
+    `;
+  }
 };

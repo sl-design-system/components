@@ -3,6 +3,7 @@
 }
 
 :host {
+  align-items: start;
   display: flex;
   flex-direction: column;
   gap: var(--_gap);
@@ -10,6 +11,7 @@
 }
 
 .wrapper {
+  align-items: start;
   display: flex;
   flex-direction: column;
   gap: var(--_gap);

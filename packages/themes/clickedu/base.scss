@@ -40,6 +40,7 @@
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
   --sl-animation-duration-fast: 90ms;
+  --sl-space-select-divider-inline-lg: 0px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -119,6 +120,7 @@
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-body: open-sans;
   --sl-text-typeset-font-family-heading: open-sans;
+  --sl-color-palette-transparent-base: 0 0 0 / 0;
   --sl-color-palette-white-base: 254 254 254;
   --sl-color-palette-black-base: 0 0 0;
   --sl-color-palette-danger-base: 220 53 69;
@@ -238,6 +240,14 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-select-item-gap-lg: var(--sl-space-sm);
+  --sl-space-select-item-inline-lg: var(--sl-space-md);
+  --sl-space-select-item-block-lg: var(--sl-space-sm);
+  --sl-space-select-divider-gap-lg: var(--sl-space-sm);
+  --sl-space-select-divider-block-lg: var(--sl-space-sm);
+  --sl-space-select-panel-gap-lg: var(--sl-space-xs);
+  --sl-space-select-panel-inline-lg: calc(var(--sl-space-sm) - var(--sl-border-width-sm));
+  --sl-space-select-panel-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-sm));
   --sl-space-label-padding-bottom-lg: var(--sl-space-md);
   --sl-space-label-padding-bottom-md: var(--sl-space-sm);
   --sl-space-label-padding-bottom-sm: var(--sl-space-sm);

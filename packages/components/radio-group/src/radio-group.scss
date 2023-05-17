@@ -17,6 +17,7 @@
 }
 
 .wrapper {
+  align-items: start;
   display: flex;
   flex-direction: var(--_direction);
   gap: var(--_gap);

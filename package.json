@@ -162,8 +162,12 @@
     },
     "lint": {
       "dependencies": [
-        "./packages/core:lint"
+        "lint:components",
+        "./packages/angular:lint"
       ]
+    },
+    "lint:components": {
+      "command": "eslint \"packages/components/**/!(*.{d,spec}).ts\""
     },
     "release": {
       "command": "yarn changeset publish",
@@ -264,7 +268,7 @@
     "@11ty/eleventy": "^1.0.2",
     "@changesets/cli": "^2.26.1",
     "@changesets/get-github-info": "^0.5.2",
-    "@custom-elements-manifest/analyzer": "^0.8.2",
+    "@custom-elements-manifest/analyzer": "^0.8.3",
     "@lit/localize-tools": "^0.6.9",
     "@open-wc/testing": "^3.1.8",
     "@storybook/addon-a11y": "^7.0.12",
@@ -290,16 +294,16 @@
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rimraf": "^5.0.0",
-    "rollup": "^3.21.8",
+    "rimraf": "^5.0.1",
+    "rollup": "^3.22.0",
     "sass": "^1.62.1",
     "sinon": "^15.0.4",
     "storybook": "^7.0.12",
-    "stylelint": "^15.6.1",
+    "stylelint": "^15.6.2",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
     "typescript": "^5.0.4",
-    "vite": "^4.3.6",
+    "vite": "^4.3.7",
     "wireit": "^0.9.5"
   }
 }

@@ -25,7 +25,6 @@ module.exports = {
     '**/*.e2e.tsx',
     '**/*.scss.ts',
     '**/*.spec.ts',
-    '**/*.stories.js',
     '**/*.js',
     '**/*.cjs',
     '**/*.d.ts',

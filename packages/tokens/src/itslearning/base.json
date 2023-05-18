@@ -745,44 +745,46 @@
       }
     },
     "input": {
-      "fontIcon": {
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "15"
+      "option": {
+        "fontIcon": {
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "15"
+            },
+            "type": "typography"
           },
-          "type": "typography"
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "18"
+            },
+            "type": "typography"
+          }
         },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "fontSize": "18"
+        "label": {
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography"
           },
-          "type": "typography"
-        }
-      },
-      "label": {
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "fontSize": "{text.typeset.fontSize.md}"
-          },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.lg}",
-            "fontSize": "{text.typeset.fontSize.lg}"
-          },
-          "type": "typography"
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography"
+          }
         }
       }
     },
@@ -853,17 +855,17 @@
       },
       "icon-only": {
         "sm": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.2xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "md": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.2xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "lg": {
-          "value": "{border.radius.full}",
+          "value": "{border.radius.2xs}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         }
@@ -888,17 +890,17 @@
     "width": {
       "button": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.default"
         },
         "outline": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.link"
         }
@@ -919,40 +921,80 @@
   },
   "space": {
     "input": {
-      "block": {
-        "md": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
+      "option": {
+        "block": {
+          "md": {
+            "value": "{space.button.outline.block.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.button.outline.block.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
         },
-        "lg": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
+        "inline": {
+          "md": {
+            "value": "{space.button.outline.block.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.button.outline.block.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.button.outline.block.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.button.outline.block.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
         }
       },
-      "inline": {
-        "md": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
+      "textField": {
+        "block": {
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
         },
-        "lg": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
-        }
-      },
-      "gap": {
-        "md": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
+        "inline": {
+          "md": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
         },
-        "lg": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
+        "gap": {
+          "md": {
+            "value": "{space.button.outline.block.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.button.outline.block.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
         }
       }
     },
@@ -972,44 +1014,6 @@
       "xl": {
         "value": "{space.sm}",
         "type": "spacing"
-      }
-    },
-    "textField": {
-      "block": {
-        "md": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
-        },
-        "lg": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
-        }
-      },
-      "inline": {
-        "md": {
-          "value": "{space.md}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
-        },
-        "lg": {
-          "value": "{space.lg}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
-        }
-      },
-      "gap": {
-        "md": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
-        }
       }
     }
   },

@@ -54,7 +54,7 @@ export const themes: Theme[] = [
   {
     id: 'itslearning',
     name: 'itslearning',
-    fonts: ['https://use.typekit.net/xrr8gdw.css'],
+    fonts: ['https://use.typekit.net/ucw7xel.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/itslearning');
 
@@ -97,7 +97,7 @@ export const themes: Theme[] = [
   {
     id: 'neon',
     name: 'NEON',
-    fonts: ['https://use.typekit.net/kes1hoh.css'],
+    fonts: ['https://use.typekit.net/ghy4rhf.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/neon');
 

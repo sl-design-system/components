@@ -8,7 +8,7 @@ $sizes: md, lg;
   --_border-radius: var(--sl-border-radius-circle);
   --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
-  --_gap: var(--sl-space-input-gap-md);
+  --_gap: var(--sl-space-input-option-gap-md);
   --_line-height: var(--sl-text-typeset-line-height-md);
   --_transition: 200ms ease-in-out;
   --sl-size-input-icon-size-md: 20px;
@@ -18,13 +18,14 @@ $sizes: md, lg;
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_line-height: var(--sl-text-typeset-line-height-#{$size});
-    --_padding: var(--sl-space-input-block-#{$size})
-      var(--sl-space-input-inline-#{$size})
-      var(--sl-space-input-block-#{$size})
+    --_padding: var(--sl-space-input-option-block-#{$size})
+      var(--sl-space-input-option-inline-#{$size})
+      var(--sl-space-input-option-block-#{$size})
       0;
-    --_gap: var(--sl-space-input-gap-#{$size});
-    --_size: var(--sl-size-input-#{$size});
+    --_gap: var(--sl-space-input-option-gap-#{$size});
+    --_size: var(--sl-size-input-option-#{$size});
     --_icon-size: var(--sl-size-input-icon-size-#{$size});
+    --_font: var(--sl-text-input-option-#{$size});
   }
 }
 
@@ -37,39 +38,39 @@ $sizes: md, lg;
     $state-selector: nth($state-selectors, $j);
 
     :host(#{$variant-selector + $state-selector}) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-default-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-default-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-default-label);
-      --_fill: var(--sl-color-input-#{$variant}-#{$state}-default-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-default-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-label);
+      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
     }
 
     :host(#{$variant-selector + $state-selector}:hover) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-hover-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-hover-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-hover-label);
-      --_fill: var(--sl-color-input-#{$variant}-#{$state}-hover-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
+      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
     }
 
     :host(#{$variant-selector + $state-selector}:active) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-active-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-active-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
-      --_fill: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
+      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
     }
 
     :host(#{$variant-selector + $state-selector}:focus-visible) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-focus-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-focus-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
-      --_fill: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
+      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
       --_box-shadow: var(--sl-box-shadow-focus);
     }
 
     :host(#{$variant-selector + $state-selector}[disabled]) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);
-      --_fill: var(--sl-color-input-#{$variant}-#{$state}-disabled-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
+      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-icon);
     }
   }
 }
@@ -79,7 +80,7 @@ $sizes: md, lg;
   color: var(--_label-color);
   cursor: pointer;
   display: inline-flex;
-  font: var(--sl-text-input-label-md);
+  font: var(--_font);
   gap: var(--_gap);
   line-height: var(--_line-height);
   outline: none;

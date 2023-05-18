@@ -68,7 +68,7 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
 
   override renderStyles(): CSSResult {
     return css`
-      inline-size: calc(2 * var(--sl-space-input-inline-md) + var(--sl-size-input-md) + 1rem);
+      inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
       padding-block: 0;
       padding-inline: 0.5rem;
     `;

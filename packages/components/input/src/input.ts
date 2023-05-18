@@ -261,13 +261,15 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
           @mousedown=${this.#onMousedown}
         ></slot>
         <slot name="suffix">
-          <sl-icon class="invalid-icon" name="fas-triangle-exclamation" size=${this.size}></sl-icon>
-          ${this.valid ? html`<sl-icon class="valid-icon" name="fas-circle-check" size=${this.size}></sl-icon>` : null}
+          <sl-icon class="invalid-icon" name="triangleExclamation" size=${this.size}></sl-icon>
+          ${this.valid ? html`<sl-icon class="valid-icon" name="circleCheck" size=${this.size}></sl-icon>` : null}
         </slot>
       </div>
       ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
   }
+  // fas-triangle-exclamation
+  // fas-circle-check
 
   #onClick(event: Event): void {
     this.focusVisible = false;

@@ -15,23 +15,23 @@ let nextUniqueId = 0;
 
 export const hintStyles: CSSResultGroup = css`
   slot[name='hint']::slotted(*) {
-    color: var(--sl-color-helper-text-default);
+    color: var(--sl-color-input-helper-text-default);
     display: inline-flex;
   }
   slot[name='hint'][disabled]::slotted(*) {
-    color: var(--sl-color-helper-text-disabled);
+    color: var(--sl-color-input-helper-text-disabled);
   }
   slot[hintsize='sm']::slotted(*) {
-    font: var(--sl-text-input-helper-sm);
-    padding-top: var(--sl-space-helper-padding-top-sm);
+    font: var(--sl-text-input-helper-text-sm);
+    padding-top: var(--sl-space-input-helper-padding-top-sm);
   }
   slot[hintsize='md']::slotted(*) {
-    font: var(--sl-text-input-helper-md);
-    padding-top: var(--sl-space-helper-padding-top-md);
+    font: var(--sl-text-input-helper-text-md);
+    padding-top: var(--sl-space-input-helper-padding-top-md);
   }
   slot[hintsize='lg']::slotted(*) {
-    font: var(--sl-text-input-helper-lg);
-    padding-top: var(--sl-space-helper-padding-top-lg);
+    font: var(--sl-text-input-helper-text-lg);
+    padding-top: var(--sl-space-input-helper-padding-top-lg);
   }
 `;
 

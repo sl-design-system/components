@@ -36,25 +36,25 @@ let nextUniqueId = 0;
 
 export const validationStyles: CSSResultGroup = css`
   slot[part='error']::slotted(*) {
-    color: var(--sl-color-helper-text-invalid);
+    color: var(--sl-color-input-helper-text-invalid);
     display: inline-flex;
     align-items: center;
-    fill: var(--sl-color-text-field-invalid-default-icon);
+    fill: var(--sl-color-input-helper-icon-invalid);
   }
   slot[part='error'][error-size='sm']::slotted(*) {
-    font: var(--sl-text-input-helper-sm);
-    padding-top: var(--sl-space-helper-padding-top-sm);
-    gap: var(--sl-space-helper-gap-sm);
+    font: var(--sl-text-input-helper-text-sm);
+    padding-top: var(--sl-space-input-helper-padding-top-sm);
+    gap: var(--sl-space-input-helper-gap-sm);
   }
   slot[part='error'][error-size='md']::slotted(*) {
-    font: var(--sl-text-input-helper-md);
-    padding-top: var(--sl-space-helper-padding-top-md);
-    gap: var(--sl-space-helper-gap-md);
+    font: var(--sl-text-input-helper-text-md);
+    padding-top: var(--sl-space-input-helper-padding-top-md);
+    gap: var(--sl-space-input-helper-gap-md);
   }
   slot[part='error'][error-size='lg']::slotted(*) {
-    font: var(--sl-text-input-helper-lg);
-    padding-top: var(--sl-space-helper-padding-top-lg);
-    gap: var(--sl-space-helper-gap-lg);
+    font: var(--sl-text-input-helper-text-lg);
+    padding-top: var(--sl-space-input-helper-padding-top-lg);
+    gap: var(--sl-space-input-helper-gap-lg);
   }
 `;
 
@@ -291,7 +291,8 @@ export class ValidationController implements ReactiveController {
         icon = document.createElement('sl-icon');
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
       // Icon.registerIcon(faTriangleExclamation);
-      icon.setAttribute('name', 'fas-triangle-exclamation');
+      // icon.setAttribute('name', 'fas-triangle-exclamation');
+      icon.setAttribute('name', 'triangleExclamation');
       icon.setAttribute('size', iconSize);
 
       if (icon && !isNative(this.target)) {

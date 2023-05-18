@@ -17773,16 +17773,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-model@npm:^1.0.0, prosemirror-model@npm:^1.16.0":
-  version: 1.19.0
-  resolution: "prosemirror-model@npm:1.19.0"
-  dependencies:
-    orderedmap: ^2.0.0
-  checksum: cca95e2d1b0dd9570ab059c602f964feb2d4ff398c9cc2d47cc233aa58014d8ff03497bcf6d6207eae94bf6440a80c4639a0b85eb16d1cef57419c01db7abd6e
-  languageName: node
-  linkType: hard
-
-"prosemirror-model@npm:^1.19.1":
+"prosemirror-model@npm:^1.0.0, prosemirror-model@npm:^1.16.0, prosemirror-model@npm:^1.19.1":
   version: 1.19.1
   resolution: "prosemirror-model@npm:1.19.1"
   dependencies:
@@ -17802,18 +17793,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-state@npm:^1.0.0, prosemirror-state@npm:^1.2.2":
-  version: 1.4.2
-  resolution: "prosemirror-state@npm:1.4.2"
-  dependencies:
-    prosemirror-model: ^1.0.0
-    prosemirror-transform: ^1.0.0
-    prosemirror-view: ^1.27.0
-  checksum: cf1d63a22212c45b8000f4a31b1133853d606479cd982a81060d1e711e7d30ffb32e35edb2e4c492bbf938669d8416abb008542bc50ef7dd4c1a83e676183aba
-  languageName: node
-  linkType: hard
-
-"prosemirror-state@npm:^1.4.3":
+"prosemirror-state@npm:^1.0.0, prosemirror-state@npm:^1.2.2, prosemirror-state@npm:^1.4.3":
   version: 1.4.3
   resolution: "prosemirror-state@npm:1.4.3"
   dependencies:
@@ -17833,18 +17813,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-view@npm:^1.27.0, prosemirror-view@npm:^1.31.0":
-  version: 1.31.2
-  resolution: "prosemirror-view@npm:1.31.2"
-  dependencies:
-    prosemirror-model: ^1.16.0
-    prosemirror-state: ^1.0.0
-    prosemirror-transform: ^1.1.0
-  checksum: f946c22859d15cee60c3efdc022793123c5f990ab03ecf30ec64c5c4ed5c77ef05d8023f8e3ccfa6e8dc44c3cc7563d85cbd17aad3733a69d020bbff994acd2c
-  languageName: node
-  linkType: hard
-
-"prosemirror-view@npm:^1.31.3":
+"prosemirror-view@npm:^1.27.0, prosemirror-view@npm:^1.31.0, prosemirror-view@npm:^1.31.3":
   version: 1.31.3
   resolution: "prosemirror-view@npm:1.31.3"
   dependencies:
@@ -18849,21 +18818,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.25.0 || ^3.3.0, rollup@npm:^3.0.0, rollup@npm:^3.15.0, rollup@npm:^3.21.0":
-  version: 3.21.8
-  resolution: "rollup@npm:3.21.8"
-  dependencies:
-    fsevents: ~2.3.2
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: 7f1f1442b282006a144d5d02f060438329bb2fc81c5e3a74d040c0b082c76b92e73a13ed47bebc0afba76825897d7beaa6b70c83d3775b4b90ddd02c3e7ba7cb
-  languageName: node
-  linkType: hard
-
-"rollup@npm:^3.22.0":
+"rollup@npm:^2.25.0 || ^3.3.0, rollup@npm:^3.0.0, rollup@npm:^3.15.0, rollup@npm:^3.21.0, rollup@npm:^3.22.0":
   version: 3.22.0
   resolution: "rollup@npm:3.22.0"
   dependencies:
@@ -20742,7 +20697,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.5.0, tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.5.0":
+"tslib@npm:2.5.0":
   version: 2.5.0
   resolution: "tslib@npm:2.5.0"
   checksum: e32fc99cc730dd514e53c44e668d76016e738f0bcc726aad5dbd2d335cf19b87a95a9b1e4f0a9993e370f1d702b5e471cdd4acabcac428a3099d496b9af2021e
@@ -20756,7 +20711,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.5.1":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.5.0, tslib@npm:^2.5.1":
   version: 2.5.1
   resolution: "tslib@npm:2.5.1"
   checksum: f22552f49090ebd75b3585904ac8a1784ef81609f5294969b30b03cf3729be28ffac03e1a0e9e416cabe60a7ebe0caa5f911ee40dfe53ffc1204c96d6b7fa4d2

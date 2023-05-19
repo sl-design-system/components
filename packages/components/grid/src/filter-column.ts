@@ -29,7 +29,7 @@ export class GridFilterColumn extends GridColumn {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.scopedElements = { 'sl-grid-filter': GridFilter };
+    this.scopedElements = { ...this.scopedElements, 'sl-grid-filter': GridFilter };
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

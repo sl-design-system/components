@@ -8,9 +8,7 @@ export class GridSortColumn extends GridColumn {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.scopedElements = {
-      'sl-grid-sorter': GridSorter
-    };
+    this.scopedElements = { ...this.scopedElements, 'sl-grid-sorter': GridSorter };
   }
 
   override renderHeader(): TemplateResult {

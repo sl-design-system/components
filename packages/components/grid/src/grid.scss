@@ -91,3 +91,7 @@ td {
 tr:not(:first-of-type) td {
   border-top: var(--_cell-border);
 }
+
+.selection-count {
+  font-weight: normal;
+}

@@ -1,10 +1,16 @@
 :host {
+  --_active-color: var(--sl-color-input-option-default-checked-default-background);
   --_gap: 0.25rem;
+  --_icon-color: currentColor;
 }
 
 :host {
   display: block;
   width: 100%;
+}
+
+:host([active]) {
+  --_icon-color: var(--_active-color);
 }
 
 .wrapper {
@@ -18,4 +24,8 @@
 
 sl-popover {
   padding: 0.25rem;
+}
+
+sl-icon {
+  color: var(--_icon-color);
 }

@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
@@ -24,7 +24,7 @@ export interface GridFilterOption {
   value?: unknown;
 }
 
-Icon.registerIcon(faFilter), faFilterList;
+Icon.registerIcon(faFilter, faFilterList);
 
 export class GridFilterValueChangeEvent extends Event {
   constructor(public readonly column: GridColumn, public readonly value: string | string[] | undefined) {
@@ -50,6 +50,9 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   /** The filter value(s). */
   #value?: string | string[];
+
+  /** Whether the grid is currently being filtered by this column. */
+  @property({ type: Boolean, reflect: true }) active = false;
 
   /** The grid column. */
   @property({ attribute: false }) column!: GridColumn;
@@ -83,11 +86,17 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
     super.disconnectedCallback();
   }
 
+  override willUpdate(changes: PropertyValues<this>): void {
+    if (changes.has('value')) {
+      this.active = Array.isArray(this.value) ? this.value.length > 0 : !!this.value;
+    }
+  }
+
   override render(): TemplateResult {
     return html`
       <div id="anchor" class="wrapper">
         <slot></slot>
-        <sl-icon name="far-filter"></sl-icon>
+        <sl-icon .name=${this.active ? 'far-filter-list' : 'far-filter'}></sl-icon>
       </div>
       <sl-popover anchor="anchor">
         ${this.mode === 'select'
@@ -117,10 +126,12 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
     this.value = this.options?.filter(option => option.selected).map(option => option.value?.toString() ?? '');
     this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
+    this.requestUpdate('value');
   }
 
   #onInput(event: Event & { target: HTMLInputElement }): void {
     this.value = event.target.value.trim();
     this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
+    this.requestUpdate('value');
   }
 }

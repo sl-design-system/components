@@ -1,12 +1,13 @@
 import type { CSSResult, PropertyValues, TemplateResult } from 'lit';
 import type { GridActiveItemChangeEvent } from './grid.js';
-import { msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { EventsController } from '@sl-design-system/shared';
 import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
+@localized()
 export class GridSelectionColumn<T extends Record<string, unknown> = Record<string, unknown>> extends GridColumn {
   #events = new EventsController(this);
 
@@ -49,6 +50,19 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
           ?indeterminate=${indeterminate}
           aria-label=${msg('Select all')}
         ></sl-checkbox>
+      </th>
+    `;
+  }
+
+  renderSelectionHeader(): TemplateResult {
+    const count = this.grid?.selection.areAllSelected()
+      ? this.grid?.selection.size
+      : this.grid?.selection.selection.size;
+
+    return html`
+      <th part="header active-selection">
+        <span class="selection-count">${msg(str`${count} selected`)}</span>
+        <slot name="selection-header"></slot>
       </th>
     `;
   }

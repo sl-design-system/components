@@ -1,6 +1,7 @@
 import type { Grid, GridActiveItemChangeEvent } from '../grid.js';
 import type { StoryObj } from '@storybook/web-components';
 import type { Person } from '@sl-design-system/example-data';
+import '@sl-design-system/button/register.js';
 import { getPeople } from '@sl-design-system/example-data';
 import { html } from 'lit';
 import '../../register.js';
@@ -75,6 +76,31 @@ export const MultipleAutoSelect: Story = {
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const MultipleWithCustomHeader: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: ({ selectAll }, { loaded: { people } }) => {
+    return html`
+      <style>
+        sl-grid::part(active-selection) {
+          gap: 0.5rem;
+          padding-block: 0.125rem;
+        }
+      </style>
+      <sl-grid .items=${people}>
+        <sl-grid-selection-column .selectAll=${selectAll}></sl-grid-selection-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+
+        <sl-button-bar slot="selection-header">
+          <sl-button fill="link">Do something</sl-button>
+          <sl-button fill="link">Or something else</sl-button>
+        </sl-button-bar>
       </sl-grid>
     `;
   }

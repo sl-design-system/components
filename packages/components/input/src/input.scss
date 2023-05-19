@@ -114,7 +114,6 @@ sl-error {
     slot[name='suffix'] {
       /* stylelint-disable-next-line max-nesting-depth */
       sl-icon {
-        //fill: var(--sl-color-input-text-field-#{$variant}-default-icon);
         --fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
       }
     }
@@ -140,7 +139,6 @@ sl-error {
     slot[name='suffix'] {
       /* stylelint-disable-next-line max-nesting-depth */
       sl-icon {
-        //fill: var(--sl-color-input-text-field-#{$variant}-hover-icon);
         --fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
       }
     }
@@ -165,7 +163,6 @@ sl-error {
     slot[name='suffix'] {
       /* stylelint-disable-next-line max-nesting-depth */
       sl-icon {
-        //fill: var(--sl-color-input-text-field-#{$variant}-active-icon);
         --fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
       }
     }
@@ -191,7 +188,6 @@ sl-error {
     slot[name='suffix'] {
       /* stylelint-disable-next-line max-nesting-depth */
       sl-icon {
-        //fill: var(--sl-color-input-text-field-#{$variant}-focus-icon);
         --fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
       }
     }
@@ -223,7 +219,6 @@ sl-error {
     slot[name='suffix'] {
       /* stylelint-disable-next-line max-nesting-depth */
       sl-icon {
-        //fill: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
         --fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
       }
     }

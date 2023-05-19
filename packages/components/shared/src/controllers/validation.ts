@@ -105,9 +105,6 @@ export class ValidationController implements ReactiveController {
   /** Name of slotted validation message. */
   #slotName: string;
 
-  /** Label connected with the element being validated */
-  #label?: HTMLElement | null;
-
   /** Event handler for when invalid validity must be reported. */
   #onInvalid = (event: Event): void => {
     // Prevent the browser from showing the built-in validation UI
@@ -162,7 +159,7 @@ export class ValidationController implements ReactiveController {
     }
   }
 
-  constructor(host: ReactiveControllerHost & HTMLElement, { target, validators = [] /*, size*/ }: ValidationConfig) {
+  constructor(host: ReactiveControllerHost & HTMLElement, { target, validators = [] }: ValidationConfig) {
     this.#host = host;
     this.#host.addController(this);
 
@@ -196,16 +193,6 @@ export class ValidationController implements ReactiveController {
       this.target.setAttribute('title', '');
     }
 
-    if (isNative(this.target)) {
-      if (this.#host.id) {
-        this.#label = (this.#host?.getRootNode() as Element)?.querySelector<HTMLElement>(`[for=${this.#host.id}]`);
-      }
-    } else {
-      if (this.#target?.id) {
-        this.#label = (this.#target?.getRootNode() as Element)?.querySelector<HTMLElement>(`[for=${this.#target.id}]`);
-      }
-    }
-
     document.addEventListener('reset', this.#onReset);
     this.target.addEventListener('invalid', this.#onInvalid);
   }
@@ -226,9 +213,6 @@ export class ValidationController implements ReactiveController {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    // Icon.registerIcon(faTriangleExclamation);
-
     const state = this.#getInvalidState(this.validity);
 
     if (this.#showErrors && state) {
@@ -239,13 +223,23 @@ export class ValidationController implements ReactiveController {
       this.#updateValidationMessage();
 
       return html`<slot
-        class="error-message"
         .name=${this.#slotName}
         part="error"
         error-size="${this.#messageSize}"
+        @slotchange=${this.#onSlotchange}
       ></slot>`;
     } else if (this.validity.valid) {
       this.#removeInvalidState();
+    }
+  }
+
+  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = event.target.assignedElements({ flatten: true });
+
+    // Removing sl-error when custom errors are provided
+    if (elements.length > 1) {
+      const nonCustomErrors = elements.filter(element => element.tagName === 'SL-ERROR');
+      nonCustomErrors.forEach(error => error.remove());
     }
   }
 
@@ -260,13 +254,11 @@ export class ValidationController implements ReactiveController {
       this.target.ariaInvalid = 'true';
       this.#host.requestUpdate();
     }
-    this.#label?.setAttribute('invalid', '');
   }
 
   #removeInvalidState(): void {
     this.#removeValidationMessage();
     this.#host.removeAttribute('invalid');
-    this.#label?.removeAttribute('invalid');
     this.target.ariaInvalid = null;
     this.#host.requestUpdate();
   }
@@ -289,9 +281,6 @@ export class ValidationController implements ReactiveController {
       const div = document.createElement('sl-error'),
         iconSize = this.#messageSize === 'sm' ? 'md' : 'lg',
         icon = document.createElement('sl-icon');
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
-      // Icon.registerIcon(faTriangleExclamation);
-      // icon.setAttribute('name', 'fas-triangle-exclamation');
       icon.setAttribute('name', 'triangleExclamation');
       icon.setAttribute('size', iconSize);
 
@@ -319,7 +308,7 @@ export class ValidationController implements ReactiveController {
         ids = describedBy?.split(' '),
         index = ids?.indexOf(this.#errorMessageId);
 
-      if (index !== -1 && ids) {
+      if (index !== -1 && ids && this.#target) {
         let newIds: string[] = [];
         if (index) {
           newIds = ids.splice(index, 1);

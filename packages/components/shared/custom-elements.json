@@ -530,215 +530,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Size of the item collection.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/src/data-source/data-source.js"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "src/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation."
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Size of the item collection."
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on."
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation."
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "src/data-source/data-source.ts"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "src/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/controllers/events.ts",
       "declarations": [
         {
@@ -1796,7 +1587,7 @@
           "type": {
             "text": "CSSResultGroup"
           },
-          "default": "css`\n  slot[part='error']::slotted(*) {\n    color: var(--sl-color-helper-text-invalid);\n    display: inline-flex;\n    align-items: center;\n    fill: var(--sl-color-text-field-invalid-default-icon);\n  }\n  slot[part='error'][error-size='sm']::slotted(*) {\n    font: var(--sl-text-input-helper-sm);\n    padding-top: var(--sl-space-helper-padding-top-sm);\n    gap: var(--sl-space-helper-gap-sm);\n  }\n  slot[part='error'][error-size='md']::slotted(*) {\n    font: var(--sl-text-input-helper-md);\n    padding-top: var(--sl-space-helper-padding-top-md);\n    gap: var(--sl-space-helper-gap-md);\n  }\n  slot[part='error'][error-size='lg']::slotted(*) {\n    font: var(--sl-text-input-helper-lg);\n    padding-top: var(--sl-space-helper-padding-top-lg);\n    gap: var(--sl-space-helper-gap-lg);\n  }\n`"
+          "default": "css`\n  slot[part='error']::slotted(*) {\n    color: var(--sl-color-input-helper-text-invalid);\n    display: inline-flex;\n    align-items: center;\n    fill: var(--sl-color-input-helper-icon-invalid);\n  }\n  slot[part='error'][error-size='sm']::slotted(*) {\n    font: var(--sl-text-input-helper-text-sm);\n    padding-top: var(--sl-space-input-helper-padding-top-sm);\n    gap: var(--sl-space-input-helper-gap-sm);\n  }\n  slot[part='error'][error-size='md']::slotted(*) {\n    font: var(--sl-text-input-helper-text-md);\n    padding-top: var(--sl-space-input-helper-padding-top-md);\n    gap: var(--sl-space-input-helper-gap-md);\n  }\n  slot[part='error'][error-size='lg']::slotted(*) {\n    font: var(--sl-text-input-helper-text-lg);\n    padding-top: var(--sl-space-input-helper-padding-top-lg);\n    gap: var(--sl-space-input-helper-gap-lg);\n  }\n`"
         },
         {
           "kind": "class",
@@ -2141,6 +1932,215 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/data-source/array-data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ArrayDataSource",
+          "members": [
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Size of the item collection.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-update",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "DataSource",
+            "module": "/src/data-source/data-source.js"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ArrayDataSource",
+          "declaration": {
+            "name": "ArrayDataSource",
+            "module": "src/data-source/array-data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/data-source/data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSource",
+          "members": [
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation."
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Size of the item collection."
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on."
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation."
+            }
+          ],
+          "superclass": {
+            "name": "EventTarget",
+            "module": "src/data-source/data-source.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataSource",
+          "declaration": {
+            "name": "DataSource",
+            "module": "src/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/data-source/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./array-data-source.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./data-source.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/mixins/form-control.ts",
       "declarations": [
         {
@@ -2362,7 +2362,7 @@
           "type": {
             "text": "CSSResultGroup"
           },
-          "default": "css`\n  slot[name='hint']::slotted(*) {\n    color: var(--sl-color-helper-text-default);\n    display: inline-flex;\n  }\n  slot[name='hint'][disabled]::slotted(*) {\n    color: var(--sl-color-helper-text-disabled);\n  }\n  slot[hintsize='sm']::slotted(*) {\n    font: var(--sl-text-input-helper-sm);\n    padding-top: var(--sl-space-helper-padding-top-sm);\n  }\n  slot[hintsize='md']::slotted(*) {\n    font: var(--sl-text-input-helper-md);\n    padding-top: var(--sl-space-helper-padding-top-md);\n  }\n  slot[hintsize='lg']::slotted(*) {\n    font: var(--sl-text-input-helper-lg);\n    padding-top: var(--sl-space-helper-padding-top-lg);\n  }\n`"
+          "default": "css`\n  slot[name='hint']::slotted(*) {\n    color: var(--sl-color-input-helper-text-default);\n    display: inline-flex;\n  }\n  slot[name='hint'][disabled]::slotted(*) {\n    color: var(--sl-color-input-helper-text-disabled);\n  }\n  slot[hintsize='sm']::slotted(*) {\n    font: var(--sl-text-input-helper-text-sm);\n    padding-top: var(--sl-space-input-helper-padding-top-sm);\n  }\n  slot[hintsize='md']::slotted(*) {\n    font: var(--sl-text-input-helper-text-md);\n    padding-top: var(--sl-space-input-helper-padding-top-md);\n  }\n  slot[hintsize='lg']::slotted(*) {\n    font: var(--sl-text-input-helper-text-lg);\n    padding-top: var(--sl-space-input-helper-padding-top-lg);\n  }\n`"
         },
         {
           "kind": "mixin",

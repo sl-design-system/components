@@ -85,16 +85,6 @@
             },
             {
               "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The label invalid state.",
-              "attribute": "invalid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "noPadding",
               "type": {
                 "text": "boolean | undefined"
@@ -155,14 +145,6 @@
               },
               "description": "The label disabled state.",
               "fieldName": "disabled"
-            },
-            {
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The label invalid state.",
-              "fieldName": "invalid"
             },
             {
               "name": "no-padding",

@@ -272,8 +272,16 @@ export const Overflow: StoryObj = {
 
 export const WithLabel: StoryObj = {
   render: () => html`
-    <label for="checkbox">Label</label>
-    <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+    <style>
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <div class="wrapper">
+      <sl-label for="checkbox">Label</sl-label>
+      <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+    </div>
   `
 };
 

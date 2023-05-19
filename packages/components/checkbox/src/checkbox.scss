@@ -22,10 +22,10 @@ $sizes: md, lg;
     --_padding-inline: var(--sl-space-input-option-inline-#{$size});
     --_gap: calc(var(--sl-space-input-option-gap-#{$size}) - var(--_padding-inline));
     --_size: var(--sl-size-input-option-#{$size});
-  }
 
-  .wrapper {
-    --_font: var(--sl-text-input-option-#{$size});
+    .wrapper {
+      --_font: var(--sl-text-input-option-#{$size});
+    }
   }
 }
 

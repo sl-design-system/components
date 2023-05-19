@@ -42,9 +42,6 @@ export class Label extends LitElement {
   /** The label disabled state. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** The label invalid state. */
-  @property({ type: Boolean, reflect: true }) invalid?: boolean;
-
   /** Maximum length (number of characters). */
   @property({ type: Boolean, attribute: 'no-padding' }) noPadding?: boolean;
 

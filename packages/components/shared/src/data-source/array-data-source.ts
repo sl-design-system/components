@@ -62,10 +62,15 @@ export class ArrayDataSource<T> extends DataSource<T> {
 
   #filter(values: DataSourceFilterValue[]): DataSourceFilterFunction<T> {
     const filters = values.map(({ path, value }) => {
-      const regex = new RegExp(value, 'i');
+      const regexes = (Array.isArray(value) ? value : [value])
+        .filter((v): v is string => !!v)
+        .map(v => new RegExp(v, 'i'));
 
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      return (item: T) => regex.test(`${getValueByPath(item, path)}`);
+      return (item: T) => {
+        const value = getValueByPath(item, path)?.toString() ?? '';
+
+        return regexes.some(regex => regex.test(value));
+      };
     });
 
     return item => filters.every(fn => fn(item));

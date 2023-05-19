@@ -340,7 +340,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     }
 
     const filterValues: DataSourceFilterValue[] = this.#filters
-      .filter(filter => !!filter.value)
+      .filter(filter => (Array.isArray(filter.value) ? filter.value.length > 0 : !!filter.value))
       .map(filter => ({ path: filter.column.path || '', value: filter.value }));
 
     this.dataSource.filterValues = filterValues;

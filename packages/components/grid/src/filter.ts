@@ -27,7 +27,7 @@ export interface GridFilterOption {
 Icon.registerIcon(faFilter), faFilterList;
 
 export class GridFilterValueChangeEvent extends Event {
-  constructor(public readonly column: GridColumn, public readonly value: string) {
+  constructor(public readonly column: GridColumn, public readonly value: string | string[] | undefined) {
     super('sl-filter-value-change', { bubbles: true, composed: true });
   }
 }
@@ -48,8 +48,8 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** The filter value. */
-  #value = '';
+  /** The filter value(s). */
+  #value?: string | string[];
 
   /** The grid column. */
   @property({ attribute: false }) column!: GridColumn;
@@ -62,12 +62,12 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   @property({ attribute: false }) options?: GridFilterOption[];
 
-  set value(value: string) {
+  set value(value: string | string[] | undefined) {
     this.#value = value;
   }
 
   @property()
-  get value(): string {
+  get value(): string | string[] | undefined {
     return this.#value;
   }
 
@@ -114,10 +114,13 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   #onChange(option: GridFilterOption, checked: boolean): void {
     option.selected = checked;
-    console.log('change', option, checked);
+
+    this.value = this.options?.filter(option => option.selected).map(option => option.value?.toString() ?? '');
+    this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
   }
 
   #onInput(event: Event & { target: HTMLInputElement }): void {
-    console.log('input', event.target.value);
+    this.value = event.target.value.trim();
+    this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
   }
 }

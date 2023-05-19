@@ -19,10 +19,10 @@ $sizes: md, lg;
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_line-height: var(--sl-text-typeset-line-height-#{$size});
-    --_padding-block: var(--sl-space-input-block-#{$size});
-    --_padding-inline: var(--sl-space-input-inline-#{$size});
-    --_gap: calc(var(--sl-space-input-gap-#{$size}) - var(--_padding-inline));
-    --_size: var(--sl-size-input-#{$size});
+    --_padding-block: var(--sl-space-input-option-block-#{$size});
+    --_padding-inline: var(--sl-space-input-option-inline-#{$size});
+    --_gap: calc(var(--sl-space-input-option-gap-#{$size}) - var(--_padding-inline));
+    --_size: var(--sl-size-input-option-#{$size});
   }
 }
 
@@ -35,39 +35,39 @@ $sizes: md, lg;
     $state-selector: nth($state-selectors, $j);
 
     :host(#{$variant-selector + $state-selector}) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-default-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-default-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-default-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-default-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-default-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
     }
 
     :host(#{$variant-selector + $state-selector}) .wrapper:hover {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-hover-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-hover-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-hover-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-hover-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
     }
 
     :host(#{$variant-selector + $state-selector}) .wrapper:active {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-active-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-active-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
     }
 
     :host(#{$variant-selector + $state-selector}:focus-visible) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-focus-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-focus-border);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
       --_box-shadow: var(--sl-box-shadow-focus);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
     }
 
     :host(#{$variant-selector + $state-selector}:where(:disabled, [internals-disabled])) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-disabled-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-icon);
     }
   }
 }

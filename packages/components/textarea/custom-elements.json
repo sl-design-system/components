@@ -63,6 +63,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "focusVisible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the input has focus visible.",
+              "attribute": "focus-visible-within",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "internals",
               "readonly": true,
               "description": "Element internals."
@@ -110,10 +121,20 @@
               "type": {
                 "text": "ResizeType"
               },
-              "default": "'none'",
+              "default": "'vertical'",
               "description": "Textarea size.",
               "attribute": "resize",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "number"
+              },
+              "default": "3",
+              "description": "The number of rows.",
+              "attribute": "rows"
             },
             {
               "kind": "field",
@@ -198,7 +219,7 @@
               "type": {
                 "text": "ResizeType"
               },
-              "default": "'none'",
+              "default": "'vertical'",
               "description": "Textarea size.",
               "fieldName": "resize"
             },
@@ -210,6 +231,24 @@
               "default": "'md'",
               "description": "Textarea size.",
               "fieldName": "size"
+            },
+            {
+              "name": "rows",
+              "type": {
+                "text": "number"
+              },
+              "default": "3",
+              "description": "The number of rows.",
+              "fieldName": "rows"
+            },
+            {
+              "name": "focus-visible-within",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the input has focus visible.",
+              "fieldName": "focusVisible"
             }
           ],
           "mixins": [

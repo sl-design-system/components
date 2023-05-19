@@ -2,6 +2,7 @@ import type { Grid, GridActiveItemChangeEvent } from '../grid.js';
 import type { StoryObj } from '@storybook/web-components';
 import type { Person } from '@sl-design-system/example-data';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
 import { getPeople } from '@sl-design-system/example-data';
 import { html } from 'lit';
 import '../../register.js';

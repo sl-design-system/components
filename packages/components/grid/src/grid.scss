@@ -41,6 +41,8 @@ table {
 }
 
 thead {
+  border-start-end-radius: var(--_border-radius);
+  border-start-start-radius: var(--_border-radius);
   inset-block-start: 0;
   max-width: var(--sl-grid-width);
   overflow-x: hidden;
@@ -49,6 +51,8 @@ thead {
 }
 
 tbody {
+  border-end-end-radius: var(--_border-radius);
+  border-end-start-radius: var(--_border-radius);
   max-width: var(--sl-grid-width);
   overflow-x: auto;
 }

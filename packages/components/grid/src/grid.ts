@@ -90,7 +90,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
     this.#resizeObserver = new ResizeObserver(entries => {
       const {
-        borderBoxSize: [{ inlineSize }]
+        contentBoxSize: [{ inlineSize }]
       } = entries[0];
 
       this.style.setProperty('--sl-grid-width', `${inlineSize}px`);

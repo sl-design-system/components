@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
@@ -20,7 +20,6 @@ export type GridFilterMode = 'select' | 'text';
 
 export interface GridFilterOption {
   label: string;
-  selected?: boolean;
   value?: unknown;
 }
 
@@ -51,7 +50,10 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   /** The filter value(s). */
   #value?: string | string[];
 
-  /** Whether the grid is currently being filtered by this column. */
+  /**
+   * Whether the grid is currently being filtered by this column.
+   * @private
+   */
   @property({ type: Boolean, reflect: true }) active = false;
 
   /** The grid column. */
@@ -66,10 +68,17 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   @property({ attribute: false }) options?: GridFilterOption[];
 
   set value(value: string | string[] | undefined) {
-    this.#value = value;
+    if (this.mode !== 'text') {
+      this.#value = Array.isArray(value) ? value : value?.split(',');
+    } else {
+      this.#value = value;
+    }
+
+    this.active = Array.isArray(this.#value) ? this.#value.length > 0 : !!this.#value;
+    this.requestUpdate('value');
   }
 
-  @property()
+  @property({ type: String })
   get value(): string | string[] | undefined {
     return this.#value;
   }
@@ -84,12 +93,6 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
     this.filterChange.emit('removed');
 
     super.disconnectedCallback();
-  }
-
-  override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('value')) {
-      this.active = Array.isArray(this.value) ? this.value.length > 0 : !!this.value;
-    }
   }
 
   override render(): TemplateResult {
@@ -107,7 +110,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
                     html`
                       <sl-checkbox
                         @sl-change=${(event: CustomEvent<boolean>) => this.#onChange(option, event.detail)}
-                        ?checked=${option.selected}
+                        ?checked=${this.value?.includes(option.value?.toString() ?? '')}
                         .value=${option.value}
                       >
                         ${option.label}
@@ -116,17 +119,27 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
                 )}
               </sl-checkbox-group>
             `
-          : html`<sl-input @input=${this.#onInput} .placeholder=${msg('Type here to filter')}></sl-input>`}
+          : html`<sl-input
+              @input=${this.#onInput}
+              .placeholder=${msg('Type here to filter')}
+              .value=${this.value?.toString() ?? ''}
+            ></sl-input>`}
       </sl-popover>
     `;
   }
 
   #onChange(option: GridFilterOption, checked: boolean): void {
-    option.selected = checked;
+    if (!Array.isArray(this.value)) {
+      return;
+    }
 
-    this.value = this.options?.filter(option => option.selected).map(option => option.value?.toString() ?? '');
+    if (checked) {
+      this.value = [...this.value, option.value?.toString() ?? ''];
+    } else {
+      this.value = this.value.filter(value => value !== option.value?.toString());
+    }
+
     this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
-    this.requestUpdate('value');
   }
 
   #onInput(event: Event & { target: HTMLInputElement }): void {

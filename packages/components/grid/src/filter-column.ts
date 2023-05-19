@@ -26,6 +26,9 @@ export class GridFilterColumn extends GridColumn {
    */
   @property({ attribute: false }) options?: GridFilterOption[];
 
+  /** The value for this filter column. */
+  @property({ type: String }) value?: string | string[];
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -54,7 +57,12 @@ export class GridFilterColumn extends GridColumn {
   override renderHeader(): TemplateResult {
     return html`
       <th>
-        <sl-grid-filter .column=${this} .mode=${this.mode || 'select'} .options=${this.options ?? this.internalOptions}>
+        <sl-grid-filter
+          .column=${this}
+          .mode=${this.mode || 'select'}
+          .options=${this.options ?? this.internalOptions}
+          .value=${this.value}
+        >
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-filter>
       </th>

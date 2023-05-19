@@ -59,9 +59,8 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
         return;
       }
 
-      event.preventDefault();
-
       if (event.key === 'Escape') {
+        event.preventDefault();
         this.open = false;
       }
     };

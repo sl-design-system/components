@@ -29,7 +29,9 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('popover', '');
+    if (!this.hasAttribute('popover')) {
+      this.setAttribute('popover', '');
+    }
   }
 
   override render(): TemplateResult {

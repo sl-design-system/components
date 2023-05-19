@@ -2,10 +2,12 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
-import { faFilter } from '@fortawesome/pro-regular-svg-icons';
+import { faFilter, faFilterList } from '@fortawesome/pro-regular-svg-icons';
+import { localized, msg } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
+import { Input } from '@sl-design-system/input';
 import { Popover } from '@sl-design-system/popover';
 import { event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
@@ -14,7 +16,15 @@ import styles from './filter.scss.js';
 
 export type GridFilterChange = 'added' | 'removed';
 
-Icon.registerIcon(faFilter);
+export type GridFilterMode = 'select' | 'text';
+
+export interface GridFilterOption {
+  label: string;
+  selected?: boolean;
+  value?: unknown;
+}
+
+Icon.registerIcon(faFilter), faFilterList;
 
 export class GridFilterValueChangeEvent extends Event {
   constructor(public readonly column: GridColumn, public readonly value: string) {
@@ -22,6 +32,7 @@ export class GridFilterValueChangeEvent extends Event {
   }
 }
 
+@localized()
 export class GridFilter extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -29,6 +40,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
       'sl-checkbox': Checkbox,
       'sl-checkbox-group': CheckboxGroup,
       'sl-icon': Icon,
+      'sl-input': Input,
       'sl-popover': Popover
     };
   }
@@ -45,6 +57,10 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   @event() filterChange!: EventEmitter<GridFilterChange>;
 
   @event() filterValueChange!: EventEmitter<GridFilterValueChangeEvent>;
+
+  @property({ type: String }) mode?: GridFilterMode;
+
+  @property({ attribute: false }) options?: GridFilterOption[];
 
   set value(value: string) {
     this.#value = value;
@@ -74,13 +90,34 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
         <sl-icon name="far-filter"></sl-icon>
       </div>
       <sl-popover anchor="anchor">
-        <sl-checkbox-group>
-          <sl-checkbox>VMBO-K</sl-checkbox>
-          <sl-checkbox>VMBO-TL</sl-checkbox>
-          <sl-checkbox>HAVO</sl-checkbox>
-          <sl-checkbox>VWO</sl-checkbox>
-        </sl-checkbox-group>
+        ${this.mode === 'select'
+          ? html`
+              <sl-checkbox-group>
+                ${this.options?.map(
+                  option =>
+                    html`
+                      <sl-checkbox
+                        @sl-change=${(event: CustomEvent<boolean>) => this.#onChange(option, event.detail)}
+                        ?checked=${option.selected}
+                        .value=${option.value}
+                      >
+                        ${option.label}
+                      </sl-checkbox>
+                    `
+                )}
+              </sl-checkbox-group>
+            `
+          : html`<sl-input @input=${this.#onInput} .placeholder=${msg('Type here to filter')}></sl-input>`}
       </sl-popover>
     `;
+  }
+
+  #onChange(option: GridFilterOption, checked: boolean): void {
+    option.selected = checked;
+    console.log('change', option, checked);
+  }
+
+  #onInput(event: Event & { target: HTMLInputElement }): void {
+    console.log('input', event.target.value);
   }
 }

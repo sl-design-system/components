@@ -19,6 +19,7 @@ export const PerColumn: Story = {
     <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-filter-column mode="text" path="profession"></sl-grid-filter-column>
       <sl-grid-filter-column path="status"></sl-grid-filter-column>
       <sl-grid-filter-column path="membership"></sl-grid-filter-column>
     </sl-grid>

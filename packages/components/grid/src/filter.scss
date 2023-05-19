@@ -1,5 +1,7 @@
 :host {
+  --_active-color: var(--sl-color-input-option-default-checked-default-background);
   --_gap: 0.25rem;
+  --_icon-color: currentColor;
 }
 
 :host {
@@ -7,13 +9,23 @@
   width: 100%;
 }
 
-label {
-  display: flex;
-  flex-direction: column;
-  gap: var(--_gap);
-  text-align: start;
+:host([active]) {
+  --_icon-color: var(--_active-color);
 }
 
-sl-input {
-  font-weight: normal;
+.wrapper {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: var(--_gap);
+  inline-size: 100%;
+  justify-content: space-between;
+}
+
+sl-popover {
+  padding: 0.25rem;
+}
+
+sl-icon {
+  color: var(--_icon-color);
 }

@@ -17,10 +17,10 @@ export const PerColumn: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people}>
-      <sl-grid-filter-column path="firstName"></sl-grid-filter-column>
-      <sl-grid-filter-column path="lastName"></sl-grid-filter-column>
-      <sl-grid-filter-column path="email"></sl-grid-filter-column>
-      <sl-grid-filter-column path="profession"></sl-grid-filter-column>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-filter-column path="status"></sl-grid-filter-column>
+      <sl-grid-filter-column path="membership"></sl-grid-filter-column>
     </sl-grid>
   `
 };

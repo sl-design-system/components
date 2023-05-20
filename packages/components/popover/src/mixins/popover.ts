@@ -13,22 +13,6 @@ export interface PopoverInterface {
 }
 
 export const popoverMixinStyles: CSSResultGroup = css`
-  @supports selector(:open) {
-    :host(:open) {
-      display: flex;
-      opacity: 1;
-      pointer-events: auto;
-    }
-  }
-
-  @supports not selector(:open) {
-    :host([popover-open]) {
-      display: flex;
-      opacity: 1;
-      pointer-events: auto;
-    }
-  }
-
   :host {
     background: none;
     border: 0;
@@ -41,6 +25,11 @@ export const popoverMixinStyles: CSSResultGroup = css`
     pointer-events: none;
     position: fixed;
     top: 0;
+  }
+
+  :host(:where(:popover-open, [popover-open])) {
+    opacity: 1;
+    pointer-events: auto;
   }
 `;
 
@@ -124,7 +113,7 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
       this.popoverOpen = true;
 
       if (super.showPopover) {
-        if (!this.matches(':open')) {
+        if (!this.matches(':popover-open')) {
           super.showPopover();
         }
 
@@ -146,7 +135,7 @@ export function PopoverMixin<T extends Constructor<ReactiveElement>>(
       this.popoverOpen = false;
 
       if (super.hidePopover) {
-        if (this.matches(':open')) {
+        if (this.matches(':popover-open')) {
           super.hidePopover();
         }
 

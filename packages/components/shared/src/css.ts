@@ -1,4 +1,4 @@
-export const supportsTopLayer = CSS.supports('selector(:open)');
+export const supportsTopLayer = CSS.supports('selector(:popover-open)');
 
 export const supportsHas = CSS.supports('selector(:has())');
 

@@ -26,8 +26,8 @@ export default {
     layout: 'centered'
   },
   render: ({ placement }) => html`
-    <sl-button id="button">Toggle popover</sl-button>
-    <sl-popover anchor="button" placement=${ifDefined(placement)}>I'm a popover</sl-popover>
+    <sl-button popovertarget="popover">Toggle popover</sl-button>
+    <sl-popover id="popover" placement=${ifDefined(placement)}>I'm a popover</sl-popover>
   `
 } satisfies Meta;
 

@@ -2,7 +2,6 @@ import type { Placement } from './utils/position-anchored-element.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { AnchoredPopoverMixin } from './mixins/anchored-popover.js';
 import styles from './popover.scss.js';
 import { popoverMixinStyles } from './mixins/popover.js';
 
@@ -11,7 +10,7 @@ import { popoverMixinStyles } from './mixins/popover.js';
  *
  * @csspart container - The container for the popover
  */
-export class Popover extends AnchoredPopoverMixin(LitElement) {
+export class Popover extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = [popoverMixinStyles, styles];
 
@@ -50,19 +49,19 @@ export class Popover extends AnchoredPopoverMixin(LitElement) {
     `;
   }
 
-  override addEventListenersToAnchor(): void {
-    this.anchorElement?.addEventListener('click', this.#onAnchorClick);
-  }
+  // override addEventListenersToAnchor(): void {
+  //   this.anchorElement?.addEventListener('click', this.#onAnchorClick);
+  // }
 
-  override removeEventListenersFromAnchor(): void {
-    this.anchorElement?.removeEventListener('click', this.#onAnchorClick);
-  }
+  // override removeEventListenersFromAnchor(): void {
+  //   this.anchorElement?.removeEventListener('click', this.#onAnchorClick);
+  // }
 
   #onClick(event: Event): void {
     if (event.defaultPrevented) {
       return;
     }
 
-    this.open = !this.open;
+    // this.open = !this.open;
   }
 }

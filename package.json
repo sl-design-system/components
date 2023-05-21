@@ -270,6 +270,7 @@
     "@changesets/get-github-info": "^0.5.2",
     "@custom-elements-manifest/analyzer": "^0.8.3",
     "@lit/localize-tools": "^0.6.9",
+    "@oddbird/popover-polyfill": "^0.2.1",
     "@open-wc/testing": "^3.1.8",
     "@storybook/addon-a11y": "^7.0.12",
     "@storybook/addon-essentials": "^7.0.12",

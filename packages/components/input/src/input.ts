@@ -250,12 +250,12 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
       <div @input=${this.#onInput} class="wrapper">
         <slot name="prefix"></slot>
         <slot
-          @slotchange=${this.#onSlotchange}
-          name="input"
-          @keydown=${this.#onKeydown}
           @focusin=${this.#onFocusin}
           @focusout=${this.#onFocusout}
+          @keydown=${this.#onKeydown}
           @mousedown=${this.#onMousedown}
+          @slotchange=${this.#onSlotchange}
+          name="input"
         ></slot>
         <slot name="suffix">
           <sl-icon class="invalid-icon" name="triangle-exclamation-solid" size=${this.size}></sl-icon>

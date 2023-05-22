@@ -18,9 +18,11 @@ export const hintStyles: CSSResultGroup = css`
     color: var(--sl-color-input-helper-text-default);
     display: inline-flex;
   }
+
   slot[name='hint'][disabled]::slotted(*) {
     color: var(--sl-color-input-helper-text-disabled);
   }
+
   slot[hintsize='sm']::slotted(*) {
     font: var(--sl-text-input-helper-text-sm);
     padding-top: var(--sl-space-input-helper-padding-top-sm);
@@ -29,6 +31,7 @@ export const hintStyles: CSSResultGroup = css`
     font: var(--sl-text-input-helper-text-md);
     padding-top: var(--sl-space-input-helper-padding-top-md);
   }
+
   slot[hintsize='lg']::slotted(*) {
     font: var(--sl-text-input-helper-text-lg);
     padding-top: var(--sl-space-input-helper-padding-top-lg);

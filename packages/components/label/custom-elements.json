@@ -89,7 +89,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Maximum length (number of characters).",
+              "description": "Whether this label should have no padding bottom.",
               "attribute": "no-padding"
             },
             {
@@ -151,7 +151,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Maximum length (number of characters).",
+              "description": "Whether this label should have no padding bottom.",
               "fieldName": "noPadding"
             }
           ],

@@ -41,16 +41,19 @@ export const validationStyles: CSSResultGroup = css`
     align-items: center;
     fill: var(--sl-color-input-helper-icon-invalid);
   }
+
   slot[part='error'][error-size='sm']::slotted(*) {
     font: var(--sl-text-input-helper-text-sm);
     padding-top: var(--sl-space-input-helper-padding-top-sm);
     gap: var(--sl-space-input-helper-gap-sm);
   }
+
   slot[part='error'][error-size='md']::slotted(*) {
     font: var(--sl-text-input-helper-text-md);
     padding-top: var(--sl-space-input-helper-padding-top-md);
     gap: var(--sl-space-input-helper-gap-md);
   }
+
   slot[part='error'][error-size='lg']::slotted(*) {
     font: var(--sl-text-input-helper-text-lg);
     padding-top: var(--sl-space-input-helper-padding-top-lg);

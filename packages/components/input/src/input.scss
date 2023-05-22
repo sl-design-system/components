@@ -10,76 +10,6 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   --_transition: 200ms ease-in-out;
 }
 
-:host {
-  display: block;
-  transition: var(--_transition);
-  vertical-align: top;
-  width: 100%;
-}
-
-:host(:focus-visible) {
-  outline: none;
-}
-
-:host(:disabled) {
-  cursor: default;
-  pointer-events: none;
-}
-
-slot[name='input']::slotted(input) {
-  appearance: none;
-  background: none;
-  border: 0;
-  color: var(--_color);
-  flex: 1;
-  font: var(--_font);
-  margin: 0;
-  outline: none;
-  padding: 0;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: var(--_placeholder-color);
-    opacity: 1;
-  }
-}
-
-.wrapper {
-  align-items: center;
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
-  box-sizing: border-box;
-  display: flex;
-  gap: var(--_gap);
-  padding: var(--_padding);
-  transition: var(--_transition);
-  transition-property: background, border, box-shadow, color, filter;
-  width: auto;
-}
-
-.invalid-icon {
-  display: none;
-}
-
-:host(:where([invalid])) {
-  .invalid-icon {
-    display: block;
-  }
-}
-
-sl-error {
-  display: inline-flex;
-}
-
-/**
- * theming
- */
-
 @each $size in $sizes {
   :host([size='#{$size}']) {
     slot[name='input']::slotted(input) {
@@ -228,4 +158,70 @@ sl-error {
       --_background: var(--sl-color-input-text-field-#{$variant}-disabled-background);
     }
   }
+}
+
+:host {
+  display: block;
+  transition: var(--_transition);
+  vertical-align: top;
+  width: 100%;
+}
+
+:host(:focus-visible) {
+  outline: none;
+}
+
+:host(:disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+slot[name='input']::slotted(input) {
+  appearance: none;
+  background: none;
+  border: 0;
+  color: var(--_color);
+  flex: 1;
+  font: var(--_font);
+  margin: 0;
+  outline: none;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--_placeholder-color);
+    opacity: 1;
+  }
+}
+
+.wrapper {
+  align-items: center;
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--_gap);
+  padding: var(--_padding);
+  transition: var(--_transition);
+  transition-property: background, border, box-shadow, color, filter;
+  width: auto;
+}
+
+.invalid-icon {
+  display: none;
+}
+
+:host(:where([invalid])) {
+  .invalid-icon {
+    display: block;
+  }
+}
+
+sl-error {
+  display: inline-flex;
 }

@@ -63,6 +63,7 @@ export const API: StoryObj = {
     <sl-input
       ?disabled=${disabled}
       ?required=${required}
+      ?readonly=${readonly}
       .hint=${hint}
       .size=${size}
       .min=${min}
@@ -73,7 +74,6 @@ export const API: StoryObj = {
       .placeholder=${placeholder}
       .value=${value}
       .type=${type}
-      ?readonly=${readonly}
     >
       ${prefix ? html`<span slot="prefix">${prefix}</span>` : ''}
       ${suffix ? html`<span slot="suffix">${suffix}</span>` : ''}
@@ -88,7 +88,7 @@ export const Disabled: StoryObj = {
         width: 400px;
       }
       </style>
-    </style><sl-input disabled value="I am disabled"></sl-input>`
+    </style><sl-input disabled value="Input disabled"></sl-input>`
 };
 
 export const All: StoryObj = {

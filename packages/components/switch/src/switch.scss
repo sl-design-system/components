@@ -1,7 +1,7 @@
-$sizes: md, lg;
+$sizes: sm, md, lg;
 
 :host {
-  --_main-background-color: rgb(var(--sl-color-palette-neutral-400));
+  --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
   --_thumb-position: 0%;
   --isLTR: 1;
   align-items: stretch;
@@ -16,8 +16,8 @@ $sizes: md, lg;
 }
 
 :host([checked]) {
-  --_main-background-color: rgb(var(--sl-color-palette-success-base));
-  --_thumb-position: calc((var(--_toggle-width) - (2 * var(--_toggle-padding)) - 100%) * var(--isLTR));//calc(var(--_toggle-width) - var(--_thumb-size) - (2 * var(--_toggle-padding)));
+  --_main-background-color: var(--sl-color-input-switch-default-checked-default-background);
+  --_thumb-position: calc((var(--_toggle-width) - 100%) * var(--isLTR));//calc(var(--_toggle-width) - var(--_thumb-size) - (2 * var(--_toggle-padding)));
 }
 
 :host(:focus-visible) .track {
@@ -63,9 +63,9 @@ label {
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_toggle-padding: var(--sl-space-input-block-#{$size});
-    --_thumb-size: var(--sl-size-input-#{$size});
-    --_toggle-width: calc(var(--_thumb-size) * 2) ;
+    --_toggle-padding: var(--sl-space-input-switch-padding-inner);
+    --_thumb-size: var(--sl-size-input-switch-handle-#{$size});
+    --_toggle-width: var(--sl-size-input-switch-controller-width-#{$size});
     --_gap: var(--sl-space-input-gap-#{$size});
   }
 }

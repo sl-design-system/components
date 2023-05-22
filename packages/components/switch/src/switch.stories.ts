@@ -1,4 +1,4 @@
-import type { Switch } from './switch.js';
+import type { Switch, SwitchSize } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
@@ -18,6 +18,21 @@ interface Props extends Pick<Switch, 'checked' | 'disabled' | 'value' | 'size' |
   label: string;
 }
 
+type Story = StoryObj<Props>;
+
+const sizes: SwitchSize[] = ['sm', 'md', 'lg'];
+
+const sizeName = (size: SwitchSize): string => {
+  switch (size) {
+    case 'sm':
+      return 'Small';
+    case 'md':
+      return 'Medium';
+    case 'lg':
+      return 'Large';
+  }
+};
+
 export default {
   title: 'Switch',
   args: {
@@ -31,7 +46,7 @@ export default {
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: ['md', 'lg']
+      options: sizes
     }
   },
   render: ({ checked, disabled, value, size, hint, label }) => html`
@@ -41,25 +56,30 @@ export default {
   `
 } satisfies Meta<Props>;
 
-type Story = StoryObj<Props>;
-
 export const Basic: Story = {};
 
 export const All: Story = {
   render: () => {
-    return html`
-      <style>
+    return html` <style>
         #root-inner {
-          display: flex;
-          flex-direction: column;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           gap: 24px;
         }
+        h2 {
+          grid-column-end: -1;
+          grid-column-start: 1;
+        }
       </style>
-      <sl-switch>Unchecked</sl-switch>
-      <sl-switch checked>Checked</sl-switch>
-      <sl-switch disabled>Disabled unchecked</sl-switch>
-      <sl-switch disabled checked>Disabled checked</sl-switch>
-    `;
+      ${sizes.map(
+        size => html`
+          <h2>${sizeName(size)}</h2>
+          <sl-switch .size=${size}>Unchecked</sl-switch>
+          <sl-switch .size=${size} checked>Checked</sl-switch>
+          <sl-switch .size=${size} disabled>Disabled unchecked</sl-switch>
+          <sl-switch .size=${size} disabled checked>Disabled checked</sl-switch>
+        `
+      )}`;
   }
 };
 

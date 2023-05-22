@@ -13,7 +13,7 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
-export type SwitchSize = 'md' | 'lg';
+export type SwitchSize = 'sm' | 'md' | 'lg';
 
 export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */

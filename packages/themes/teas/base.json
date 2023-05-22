@@ -1525,10 +1525,10 @@
         "type": "Icons",
         "description": "icon.core.check"
       },
-      "close-solid": {
-        "value": "close",
+      "xmark": {
+        "value": "xmark",
         "type": "Icons",
-        "description": "icon.core.close-solid"
+        "description": "icon.core.xmark"
       }
     },
     "typeset": {

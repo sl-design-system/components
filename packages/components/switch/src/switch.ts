@@ -47,6 +47,10 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** The value for the switch. */
   @property() value?: string;
 
+  get icon(): string {
+    return this.checked ? 'check' : 'far-xmark';
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -97,7 +101,9 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     return html`
       <label>
         <slot></slot>
-        <div @click=${this.#onToggle} class="track"><div></div></div>
+        <div @click=${this.#onToggle} class="track">
+          <div><sl-icon .name=${this.icon}></sl-icon></div>
+        </div>
       </label>
       ${this.renderHint()} ${this.#validation.render()}
     `;

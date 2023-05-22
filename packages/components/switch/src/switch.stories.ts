@@ -1,5 +1,6 @@
 import type { Switch, SwitchSize } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/icon/register.js';
 import { html } from 'lit';
 import '../register.js';
 

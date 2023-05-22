@@ -2,6 +2,8 @@ $sizes: sm, md, lg;
 
 :host {
   --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
+  --_toggle-padding: var(--sl-space-input-switch-padding-controller);
+
   --_thumb-position: 0%;
   --isLTR: 1;
   align-items: stretch;
@@ -63,7 +65,6 @@ label {
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_toggle-padding: var(--sl-space-input-switch-padding-inner);
     --_thumb-size: var(--sl-size-input-switch-handle-#{$size});
     --_toggle-width: var(--sl-size-input-switch-controller-width-#{$size});
     --_gap: var(--sl-space-input-gap-#{$size});

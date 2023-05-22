@@ -780,6 +780,31 @@
             },
             {
               "kind": "field",
+              "name": "internalOptions",
+              "type": {
+                "text": "GridFilterOption[] | undefined"
+              },
+              "description": "The internal options if none are provided."
+            },
+            {
+              "kind": "field",
+              "name": "mode",
+              "type": {
+                "text": "select | text"
+              },
+              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text input.",
+              "attribute": "mode"
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "GridFilterOption[] | undefined"
+              },
+              "description": "The options you can choose from to filter. If not provided,\nthe filter will be a text input."
+            },
+            {
+              "kind": "field",
               "name": "parts",
               "type": {
                 "text": "string | GridColumnParts<T> | undefined"
@@ -903,13 +928,15 @@
               }
             }
           ],
-          "superclass": {
-            "name": "GridColumn",
-            "module": "/src/column.js"
-          },
-          "tagName": "sl-grid-filter-column",
-          "customElement": true,
           "attributes": [
+            {
+              "name": "mode",
+              "type": {
+                "text": "select | text"
+              },
+              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text input.",
+              "fieldName": "mode"
+            },
             {
               "name": "align",
               "type": {
@@ -1008,7 +1035,13 @@
                 "module": "src/column.ts"
               }
             }
-          ]
+          ],
+          "superclass": {
+            "name": "GridColumn",
+            "module": "/src/column.js"
+          },
+          "tagName": "sl-grid-filter-column",
+          "customElement": true
         }
       ],
       "exports": [
@@ -1056,6 +1089,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the grid is currently being filtered by this column.",
+              "attribute": "active",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "column",
               "type": {
                 "text": "GridColumn"
@@ -1078,18 +1122,49 @@
             },
             {
               "kind": "field",
+              "name": "mode",
+              "type": {
+                "text": "GridFilterMode | undefined"
+              },
+              "attribute": "mode"
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "GridFilterOption[] | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string"
+                "text": "string | string[] | undefined"
               },
               "attribute": "value"
             }
           ],
           "attributes": [
             {
+              "name": "active",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the grid is currently being filtered by this column.",
+              "fieldName": "active"
+            },
+            {
+              "name": "mode",
+              "type": {
+                "text": "GridFilterMode | undefined"
+              },
+              "fieldName": "mode"
+            },
+            {
               "name": "value",
               "type": {
-                "text": "string"
+                "text": "string | string[] | undefined"
               },
               "fieldName": "value"
             }
@@ -1534,6 +1609,15 @@
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderSelectionHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
               }
             },
             {

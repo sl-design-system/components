@@ -1,4 +1,5 @@
-import type { StoryObj } from '@storybook/web-components';
+import type { Popover } from './popover.js';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/input/register.js';
@@ -6,30 +7,49 @@ import { html } from 'lit';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import '../register.js';
 
+type Props = Pick<Popover, 'placement'>;
+
+type Story = StoryObj<Props>;
+
 export default {
   title: 'Popover',
-  parameters: {
-    layout: 'centered'
+  args: {
+    placement: 'top'
   },
   argTypes: {
     placement: {
       control: 'inline-radio',
       options: ['top', 'right', 'bottom', 'left']
     }
-  }
-};
-
-export const API: StoryObj = {
-  args: {
-    placement: 'top'
+  },
+  parameters: {
+    layout: 'centered'
   },
   render: ({ placement }) => html`
     <sl-button id="button">Toggle popover</sl-button>
     <sl-popover anchor="button" placement=${ifDefined(placement)}>I'm a popover</sl-popover>
   `
+} satisfies Meta;
+
+export const Basic: Story = {};
+
+export const All: Story = {
+  render: () => {
+    setTimeout(() => {
+      document.querySelectorAll('sl-popover').forEach(popover => popover.showPopover());
+    });
+
+    return html`
+      <span id="anchor">Popover</span>
+      <sl-popover anchor="anchor" placement="top" popover="manual">Top</sl-popover>
+      <sl-popover anchor="anchor" placement="right" popover="manual">Right</sl-popover>
+      <sl-popover anchor="anchor" placement="bottom" popover="manual">Bottom</sl-popover>
+      <sl-popover anchor="anchor" placement="left" popover="manual">Left</sl-popover>
+    `;
+  }
 };
 
-export const Focus: StoryObj = {
+export const Focus: Story = {
   render: () => html`
     <style>
       sl-popover form {

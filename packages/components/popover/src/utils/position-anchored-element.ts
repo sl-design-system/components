@@ -75,12 +75,12 @@ export const positionAnchoredElement = (
       middleware
     }).then(({ x, y, middlewareData: { arrow }, placement: actualPlacement }) => {
       Object.assign(element.style, {
-        transform: `translate(${roundByDPR(x)}px, ${roundByDPR(y)}px)`
+        translate: `${roundByDPR(x)}px ${roundByDPR(y)}px`
       });
       element.setAttribute('actual-placement', actualPlacement);
 
       if (arrow && options.arrow) {
-        options.arrow.style.transform = `translateX(${arrow.x || 0}px)`;
+        options.arrow.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`;
       }
     });
   });

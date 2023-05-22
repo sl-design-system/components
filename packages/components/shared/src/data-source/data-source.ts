@@ -1,4 +1,4 @@
-export type DataSourceFilterValue = { path: string; value: string };
+export type DataSourceFilterValue = { path: string; value?: string | string[] };
 
 export type DataSourceFilterFunction<T> = (item: T, index: number, array: T[]) => boolean;
 

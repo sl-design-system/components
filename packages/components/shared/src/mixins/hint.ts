@@ -73,8 +73,8 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     }
 
     #updateHint(): void {
-      const hint = this.querySelector('[slot="hint"]');
-      const target = this.querySelector('input, textarea') ? this.querySelector('input, textarea') : this;
+      const hint = this.querySelector('[slot="hint"]'),
+        target = this.querySelector('input, textarea') ? this.querySelector('input, textarea') : this;
 
       if (hint) {
         hint.id ||= `sl-hint-${nextUniqueId++}`;
@@ -86,8 +86,6 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
         if (hint.hasAttribute('hintsize')) {
           this.hintSize = hint.getAttribute('hintsize') as HintSize;
         }
-
-        // const target = this.querySelector('input, textarea') ? this.querySelector('input, textarea') : this;
 
         if (target?.hasAttribute('aria-describedby')) {
           const currentId = target.getAttribute('aria-describedby') as string;

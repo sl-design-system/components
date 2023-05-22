@@ -281,7 +281,7 @@ export class ValidationController implements ReactiveController {
       const div = document.createElement('sl-error'),
         iconSize = this.#messageSize === 'sm' ? 'md' : 'lg',
         icon = document.createElement('sl-icon');
-      icon.setAttribute('name', 'triangleExclamation');
+      icon.setAttribute('name', 'triangle-exclamation-solid');
       icon.setAttribute('size', iconSize);
 
       if (icon && !isNative(this.target)) {

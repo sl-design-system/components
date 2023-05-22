@@ -246,9 +246,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    // Icon.registerIcon(faTriangleExclamation, faCircleCheck);
-
     return html`
       <div @input=${this.#onInput} class="wrapper">
         <slot name="prefix"></slot>
@@ -261,15 +258,15 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
           @mousedown=${this.#onMousedown}
         ></slot>
         <slot name="suffix">
-          <sl-icon class="invalid-icon" name="triangleExclamation" size=${this.size}></sl-icon>
-          ${this.valid ? html`<sl-icon class="valid-icon" name="circleCheck" size=${this.size}></sl-icon>` : null}
+          <sl-icon class="invalid-icon" name="triangle-exclamation-solid" size=${this.size}></sl-icon>
+          ${this.valid
+            ? html`<sl-icon class="valid-icon" name="circle-check-solid" size=${this.size}></sl-icon>`
+            : null}
         </slot>
       </div>
       ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
   }
-  // fas-triangle-exclamation
-  // fas-circle-check
 
   #onClick(event: Event): void {
     this.focusVisible = false;

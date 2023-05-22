@@ -1013,12 +1013,12 @@
       },
       "switch": {
         "padding": {
-          "outer": {
+          "container": {
             "value": "{space.xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
           },
-          "inner": {
+          "controller": {
             "value": "{space.2xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
@@ -1647,17 +1647,17 @@
       "switch": {
         "handle": {
           "sm": {
-            "value": "{size.md} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.md} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "md": {
-            "value": "{size.xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "lg": {
-            "value": "{size.2xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.2xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           }

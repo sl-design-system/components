@@ -11,6 +11,12 @@ export const icons = {
     description: 'icon.core.chevron-down',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M239 401c9.4 9.4 24.6 9.4 33.9 0L465 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L81 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L239 401z" fill="var(--fill-default)"></path></svg>'
   },
+  'close-solid': {
+    value: 'close',
+    type: 'Icons',
+    description: 'icon.core.close-solid',
+    svg: '<svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" fill="var(--fill-default)"></path></svg>'
+  },
   'face-smile': {
     value: 'face-smile',
     type: 'Icons',

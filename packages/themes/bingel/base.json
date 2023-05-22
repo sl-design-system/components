@@ -1466,6 +1466,11 @@
         "value": "chevron-down",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "close-solid": {
+        "value": "close",
+        "type": "Icons",
+        "description": "icon.core.close-solid"
       }
     },
     "typeset": {

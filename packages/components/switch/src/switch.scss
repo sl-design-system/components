@@ -56,6 +56,8 @@ label {
     translate: var(--_thumb-position);
     width: var(--_thumb-size);
     will-change: transform;
+    display: grid;
+    place-content: center;
     
     @media (prefers-reduced-motion: no-preference) {
       transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);

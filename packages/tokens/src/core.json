@@ -1146,6 +1146,11 @@
         "value": "chevron-down",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "xmark": {
+        "value": "xmark",
+        "type": "Icons",
+        "description": "icon.core.xmark"
       }
     },
     "typeset": {

@@ -41,10 +41,10 @@ export const All: Story = {
 
     return html`
       <span id="anchor">Popover</span>
-      <sl-popover anchor="anchor" placement="top">Top</sl-popover>
-      <sl-popover anchor="anchor" placement="right">Right</sl-popover>
-      <sl-popover anchor="anchor" placement="bottom">Bottom</sl-popover>
-      <sl-popover anchor="anchor" placement="left">Left</sl-popover>
+      <sl-popover anchor="anchor" placement="top" popover="manual">Top</sl-popover>
+      <sl-popover anchor="anchor" placement="right" popover="manual">Right</sl-popover>
+      <sl-popover anchor="anchor" placement="bottom" popover="manual">Bottom</sl-popover>
+      <sl-popover anchor="anchor" placement="left" popover="manual">Left</sl-popover>
     `;
   }
 };

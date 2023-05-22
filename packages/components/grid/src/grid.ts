@@ -15,9 +15,10 @@ import { ArrayDataSource, SelectionController, event } from '@sl-design-system/s
 import { LitElement, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
+import styles from './grid.scss.js';
+import { GridSelectionColumn } from './selection-column.js';
 
 export class GridActiveItemChangeEvent<T> extends Event {
   constructor(public readonly item: T, public readonly relatedEvent: Event | null) {
@@ -90,7 +91,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
     this.#resizeObserver = new ResizeObserver(entries => {
       const {
-        borderBoxSize: [{ inlineSize }]
+        contentBoxSize: [{ inlineSize }]
       } = entries[0];
 
       this.style.setProperty('--sl-grid-width', `${inlineSize}px`);
@@ -200,17 +201,30 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   renderHeader(): TemplateResult {
-    const rows = this.#getHeaderRows(this.columns);
+    const rows = this.#getHeaderRows(this.columns),
+      showSelectionHeader =
+        (this.selection.areSomeSelected() || this.selection.areAllSelected()) &&
+        rows.at(-1)?.[0] instanceof GridSelectionColumn;
 
     return html`
-      ${rows.map(
-        row =>
-          html`
+      ${rows.slice(0, -1).map(
+        row => html`
+          <tr>
+            ${row.map(col => col.renderHeader())}
+          </tr>
+        `
+      )}
+      ${showSelectionHeader
+        ? html`
             <tr>
-              ${row.map(col => col.renderHeader())}
+              ${rows.at(-1)?.[0].renderHeader()} ${(rows.at(-1)?.[0] as GridSelectionColumn).renderSelectionHeader()}
             </tr>
           `
-      )}
+        : html`
+            <tr>
+              ${rows.at(-1)?.map(col => col.renderHeader())}
+            </tr>
+          `}
     `;
   }
 
@@ -340,7 +354,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     }
 
     const filterValues: DataSourceFilterValue[] = this.#filters
-      .filter(filter => !!filter.value)
+      .filter(filter => (Array.isArray(filter.value) ? filter.value.length > 0 : !!filter.value))
       .map(filter => ({ path: filter.column.path || '', value: filter.value }));
 
     this.dataSource.filterValues = filterValues;

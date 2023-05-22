@@ -25,7 +25,11 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   /** Events controller. */
   #events = new EventsController(this, { click: this.#onClick });
 
-  /** Observe changes to the checkboxes. */
+  /**
+   * Observe changes to the checkboxes.
+   *
+   * FIXME: This causes a warning in the console: https://github.com/lit/lit/issues/3597
+   */
   #mutation = new MutationController(this, {
     callback: () => {
       const value = this.boxes

@@ -38,6 +38,14 @@
   <source>The value is outside the allowed range.</source>
   <target>De waarde is buiten de toegestane reeks.</target>
 </trans-unit>
+<trans-unit id="s4215e0aa2fa8f5b4">
+  <source>Type here to filter</source>
+  <target>Type hier om te filteren</target>
+</trans-unit>
+<trans-unit id="s58bfb494feb8eb02">
+  <source><x id="0" equiv-text="${count}"/> selected</source>
+  <target><x id="0" equiv-text="${count}"/> geselecteerd</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

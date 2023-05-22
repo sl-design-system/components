@@ -53,6 +53,7 @@ slot[name='input']::slotted(input) {
   border: var(--_border);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
+  box-sizing: border-box;
   display: flex;
   gap: var(--_gap);
   padding: var(--_padding);

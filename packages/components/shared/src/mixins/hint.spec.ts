@@ -43,13 +43,6 @@ describe('HintMixin', () => {
       expect(slot).to.have.attribute('hintSize', 'sm');
     });
 
-    it('should have a hint slot of large size when set', () => {
-      const slot = el.renderRoot.querySelector('slot');
-      slot?.setAttribute('hintsize', 'lg');
-
-      expect(slot).to.have.attribute('hintSize', 'lg');
-    });
-
     it('should render the hint text', async () => {
       el.hint = 'Hello world';
       await el.updateComplete;

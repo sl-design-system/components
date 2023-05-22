@@ -35,18 +35,11 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-input-text-field-#{$variant}-default-input-text);
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      &::placeholder {
-        --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-default-placeholder);
-      }
+      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-default-placeholder);
     }
 
-    slot[name='suffix'] {
-      /* stylelint-disable-next-line max-nesting-depth */
-      sl-icon {
-        --fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
-      }
+    slot[name='suffix'] sl-icon {
+      --fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
     }
 
     .wrapper {
@@ -60,18 +53,11 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-input-text-field-#{$variant}-hover-input-text);
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      &::placeholder {
-        --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-hover-placeholder);
-      }
+      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-hover-placeholder);
     }
 
-    slot[name='suffix'] {
-      /* stylelint-disable-next-line max-nesting-depth */
-      sl-icon {
-        --fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
-      }
+    slot[name='suffix'] sl-icon {
+      --fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
     }
 
     .wrapper {
@@ -84,18 +70,11 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-input-text-field-#{$variant}-active-input-text);
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      &::placeholder {
-        --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-active-placeholder);
-      }
+      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-active-placeholder);
     }
 
-    slot[name='suffix'] {
-      /* stylelint-disable-next-line max-nesting-depth */
-      sl-icon {
-        --fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
-      }
+    slot[name='suffix'] sl-icon {
+      --fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
     }
 
     .wrapper {
@@ -109,18 +88,11 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      &::placeholder {
-        --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-focus-placeholder);
-      }
+      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-focus-placeholder);
     }
 
-    slot[name='suffix'] {
-      /* stylelint-disable-next-line max-nesting-depth */
-      sl-icon {
-        --fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
-      }
+    slot[name='suffix'] sl-icon {
+      --fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
     }
 
     .wrapper {
@@ -140,18 +112,11 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-input-text-field-#{$variant}-disabled-input-text);
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      &::placeholder {
-        --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-disabled-placeholder);
-      }
+      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-disabled-placeholder);
     }
 
-    slot[name='suffix'] {
-      /* stylelint-disable-next-line max-nesting-depth */
-      sl-icon {
-        --fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
-      }
+    slot[name='suffix'] sl-icon {
+      --fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
     }
 
     .wrapper {

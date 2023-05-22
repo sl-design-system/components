@@ -1,4 +1,4 @@
-import type { Checkbox } from './checkbox.js';
+import type { Checkbox, CheckboxSize } from './checkbox.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/label/register.js';
 import { html } from 'lit';
@@ -68,6 +68,8 @@ const onChange = (event: Event): void => {
   }
 };
 
+const sizes: CheckboxSize[] = ['md', 'lg'];
+
 export default {
   title: 'Checkbox',
   args: {
@@ -115,58 +117,36 @@ export const All: StoryObj = {
           font-family: var(--sl-text-typeset-font-family-heading);
         }
       </style>
-      <h2>Medium</h2>
-      <div class="grid">
-        <sl-checkbox>Default</sl-checkbox>
-        <sl-checkbox checked>Checked</sl-checkbox>
-        <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+      ${sizes.map(
+        size => html`
+          <h2>Size: ${size}</h2>
+          <div class="grid">
+            <sl-checkbox size=${size}>Default</sl-checkbox>
+            <sl-checkbox checked size=${size}>Checked</sl-checkbox>
+            <sl-checkbox indeterminate size=${size}>Indeterminate</sl-checkbox>
 
-        <sl-checkbox disabled>Default</sl-checkbox>
-        <sl-checkbox disabled checked>Checked</sl-checkbox>
-        <sl-checkbox disabled indeterminate>Indeterminate</sl-checkbox>
+            <sl-checkbox disabled size=${size}>Default</sl-checkbox>
+            <sl-checkbox disabled checked size=${size}>Checked</sl-checkbox>
+            <sl-checkbox disabled indeterminate size=${size}>Indeterminate</sl-checkbox>
 
-        <sl-checkbox invalid required>Default</sl-checkbox>
-        <sl-checkbox invalid checked required>Checked</sl-checkbox>
-        <sl-checkbox invalid indeterminate required>Indeterminate</sl-checkbox>
+            <sl-checkbox invalid required size=${size}>Default</sl-checkbox>
+            <sl-checkbox invalid checked required size=${size}>Checked</sl-checkbox>
+            <sl-checkbox invalid indeterminate required size=${size}>Indeterminate</sl-checkbox>
 
-        <sl-checkbox invalid disabled required>Default</sl-checkbox>
-        <sl-checkbox invalid disabled checked required>Checked</sl-checkbox>
-        <sl-checkbox invalid disabled indeterminate required>Indeterminate</sl-checkbox>
+            <sl-checkbox invalid disabled required size=${size}>Default</sl-checkbox>
+            <sl-checkbox invalid disabled checked required size=${size}>Checked</sl-checkbox>
+            <sl-checkbox invalid disabled indeterminate required size=${size}>Indeterminate</sl-checkbox>
 
-        <sl-checkbox valid>Default</sl-checkbox>
-        <sl-checkbox valid checked>Checked</sl-checkbox>
-        <sl-checkbox valid indeterminate>Indeterminate</sl-checkbox>
+            <sl-checkbox valid size=${size}>Default</sl-checkbox>
+            <sl-checkbox valid checked size=${size}>Checked</sl-checkbox>
+            <sl-checkbox valid indeterminate size=${size}>Indeterminate</sl-checkbox>
 
-        <sl-checkbox valid disabled>Default</sl-checkbox>
-        <sl-checkbox valid disabled checked>Checked</sl-checkbox>
-        <sl-checkbox valid disabled indeterminate>Indeterminate</sl-checkbox>
-      </div>
-      <h2>Large</h2>
-      <div class="grid">
-        <sl-checkbox size="lg">Default</sl-checkbox>
-        <sl-checkbox size="lg" checked>Checked</sl-checkbox>
-        <sl-checkbox size="lg" indeterminate>Indeterminate</sl-checkbox>
-
-        <sl-checkbox size="lg" disabled>Default</sl-checkbox>
-        <sl-checkbox size="lg" disabled checked>Checked</sl-checkbox>
-        <sl-checkbox size="lg" disabled indeterminate>Indeterminate</sl-checkbox>
-
-        <sl-checkbox size="lg" invalid required>Default</sl-checkbox>
-        <sl-checkbox size="lg" invalid checked required>Checked</sl-checkbox>
-        <sl-checkbox size="lg" invalid indeterminate required>Indeterminate</sl-checkbox>
-
-        <sl-checkbox size="lg" invalid disabled required>Default</sl-checkbox>
-        <sl-checkbox size="lg" invalid disabled checked required>Checked</sl-checkbox>
-        <sl-checkbox size="lg" invalid disabled indeterminate required>Indeterminate</sl-checkbox>
-
-        <sl-checkbox size="lg" valid>Default</sl-checkbox>
-        <sl-checkbox size="lg" valid checked>Checked</sl-checkbox>
-        <sl-checkbox size="lg" valid indeterminate>Indeterminate</sl-checkbox>
-
-        <sl-checkbox size="lg" valid disabled>Default</sl-checkbox>
-        <sl-checkbox size="lg" valid disabled checked>Checked</sl-checkbox>
-        <sl-checkbox size="lg" valid disabled indeterminate>Indeterminate</sl-checkbox>
-      </div>
+            <sl-checkbox valid disabled size=${size}>Default</sl-checkbox>
+            <sl-checkbox valid disabled checked size=${size}>Checked</sl-checkbox>
+            <sl-checkbox valid disabled indeterminate size=${size}>Indeterminate</sl-checkbox>
+          </div>
+        `
+      )}
     `;
   }
 };

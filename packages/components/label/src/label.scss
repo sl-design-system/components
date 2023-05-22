@@ -2,6 +2,7 @@ $sizes: sm, md, lg;
 
 :host {
   --_color: var(--sl-body-foreground);
+  --_fill: var(--sl-color-input-field-label-icon-default);
 }
 
 :host {
@@ -16,16 +17,9 @@ slot[name='icon']::slotted(sl-icon) {
   margin-left: var(--sl-space-input-field-label-icon-md);
 }
 
-slot[name='icon']::slotted(sl-icon) {
-  --_fill: var(--sl-color-input-field-label-icon-default);
-}
-
 :host([disabled]) {
   --_color: var(--sl-color-input-field-label-text-disabled);
-
-  slot[name='icon']::slotted(sl-icon) {
-    --_fill: var(--sl-color-input-field-label-icon-disabled);
-  }
+  --_fill: var(--sl-color-input-field-label-icon-disabled);
 }
 
 @each $size in $sizes {

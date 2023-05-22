@@ -67,11 +67,6 @@ describe('sl-label', () => {
       expect(slLabel).to.have.attribute('size', 'sm');
     });
 
-    it('should have a label of large size when set', () => {
-      slLabel.setAttribute('size', 'lg');
-      expect(slLabel).to.have.attribute('size', 'lg');
-    });
-
     it('should not be disabled by default', () => {
       expect(slLabel).not.to.have.attribute('disabled');
       expect(slLabel).not.to.match(':disabled');

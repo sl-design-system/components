@@ -166,12 +166,6 @@ export class ValidationController implements ReactiveController {
     this.#host = host;
     this.#host.addController(this);
 
-    if (this.#host.hasAttribute('error-size')) {
-      this.#messageSize = this.#host.getAttribute('error-size') as MessageSize;
-    } else {
-      this.#messageSize = 'md';
-    }
-
     if (typeof target === 'function') {
       this.#targetFn = target;
     } else {
@@ -189,6 +183,10 @@ export class ValidationController implements ReactiveController {
     if (!this.#target && this.#targetFn) {
       this.#target = this.#targetFn();
     }
+
+    this.#messageSize = this.#host.hasAttribute('error-size')
+      ? (this.#host.getAttribute('error-size') as MessageSize)
+      : 'md';
 
     // If the element has no title attribute, then add one, otherwise
     // the native `validationMessage` will be shown in a native tooltip.

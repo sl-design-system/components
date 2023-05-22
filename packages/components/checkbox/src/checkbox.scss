@@ -7,6 +7,7 @@ $sizes: md, lg;
 :host {
   --_border-radius: var(--sl-border-radius-checkbox);
   --_border-size: var(--sl-border-width-input-border);
+  --_box-shadow: none;
   --_cursor: pointer;
   --_icon-size: 1rem;
   --_path-length: 23;

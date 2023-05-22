@@ -40,7 +40,7 @@ export class Label extends LitElement {
   /** The label disabled state. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** Maximum length (number of characters). */
+  /** Whether this label should have no padding bottom. */
   @property({ type: Boolean, attribute: 'no-padding' }) noPadding?: boolean;
 
   override disconnectedCallback(): void {

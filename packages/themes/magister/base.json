@@ -1850,10 +1850,15 @@
         "type": "Icons",
         "description": "icon.core.check"
       },
-      "triangleExclamation": {
+      "triangle-exclamation": {
         "value": "triangle-exclamation",
         "type": "Icons",
-        "description": "icon.core.triangleExclamation"
+        "description": "icon.core.triangle-exclamation"
+      },
+      "triangle-exclamation-solid": {
+        "value": "triangle-exclamation",
+        "type": "Icons",
+        "description": "icon.core.triangle-exclamation-solid"
       },
       "circleCheck": {
         "value": "circle-check",

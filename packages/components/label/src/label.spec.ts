@@ -1,13 +1,12 @@
-import type { Input } from '@sl-design-system/input';
+import type { TextInput } from '@sl-design-system/text-input';
 import type { Label } from './label.js';
 import { expect, fixture } from '@open-wc/testing';
-import '@sl-design-system/input/register.js';
-import {html, PropertyValues} from 'lit';
+import '@sl-design-system/text-input/register.js';
+import {html} from 'lit';
 import '../register.js';
-import {FormControlInterface} from "@sl-design-system/shared";
 
 describe('sl-label', () => {
-  let el: HTMLElement, slLabel: Label, slInput: Input;
+  let el: HTMLElement, slLabel: Label, slInput: TextInput;
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -19,7 +18,7 @@ describe('sl-label', () => {
       `);
 
       slLabel = el.querySelector('sl-label') as Label;
-      slInput = el.querySelector('sl-text-input') as Input;
+      slInput = el.querySelector('sl-text-input') as TextInput;
     });
 
     it('should render the label in the light DOM', () => {
@@ -94,7 +93,7 @@ describe('sl-label', () => {
       `);
 
       slLabel = el.querySelector('sl-label') as Label;
-      slInput = el.querySelector('sl-text-input') as Input;
+      slInput = el.querySelector('sl-text-input') as TextInput;
     });
 
     it('should use the slotted label', () => {

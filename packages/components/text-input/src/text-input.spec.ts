@@ -1,11 +1,11 @@
-import type { Input } from './input.js';
+import type { TextInput } from './text-input';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
 import { spy} from "sinon";
 
 describe('sl-text-input', () => {
-  let el: Input;
+  let el: TextInput;
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -397,21 +397,21 @@ describe('sl-text-input', () => {
     });
 
     it('should use the slotted input', () => {
-      const slInput = el.querySelector('sl-text-input') as Input;
+      const slInput = el.querySelector('sl-text-input') as TextInput;
       const input = slInput.querySelector('input');
 
       expect(input).to.have.attribute('placeholder', 'I am a custom input');
     });
 
     it('should have a slotted input with autocomplete by default when not set', () => {
-      const slInput = el.querySelector('sl-text-input') as Input;
+      const slInput = el.querySelector('sl-text-input') as TextInput;
       const input = slInput.querySelector('input');
 
       expect(input).to.have.attribute('autocomplete', 'off');
     });
 
     it('should have a slotted input which is not readonly by default', () => {
-      const slInput = el.querySelector('sl-text-input') as Input;
+      const slInput = el.querySelector('sl-text-input') as TextInput;
       const input = slInput.querySelector('input');
 
       expect(input).not.to.have.attribute('readonly');

@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/input': minor
+'@sl-design-system/text-input': minor
 ---
 
 Styled input component

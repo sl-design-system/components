@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { FormControlInterface } from '@sl-design-system/shared';
 import { Button } from '@sl-design-system/button';
-import { Input } from '@sl-design-system/input';
+import { TextInput } from '@sl-design-system/text-input';
 import { Textarea } from '@sl-design-system/textarea';
 import { msg } from '@lit/localize';
 import { property, state } from 'lit/decorators.js';
@@ -62,7 +62,7 @@ export class Label extends LitElement {
         // If the form control is an <sl-text-input> or <sl-textarea>,
         // automatically associate the label with the <input> or
         // <textarea> in the light DOM
-        if (this.formControl instanceof Input || this.formControl instanceof Textarea) {
+        if (this.formControl instanceof TextInput || this.formControl instanceof Textarea) {
           void this.formControl.updateComplete.then(() => {
             const input = this.formControl?.querySelector('input, textarea');
 
@@ -85,7 +85,7 @@ export class Label extends LitElement {
       if (this.formControl) {
         let target: HTMLElement = this.formControl;
 
-        if (target instanceof Input || target instanceof Textarea) {
+        if (target instanceof TextInput || target instanceof Textarea) {
           target = this.formControl.querySelector('input, textarea') as HTMLElement;
         }
 

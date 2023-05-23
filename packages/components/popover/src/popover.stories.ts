@@ -2,7 +2,7 @@ import type { Popover } from './popover.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/input/register.js';
+import '@sl-design-system/text-input/register.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import '../register.js';

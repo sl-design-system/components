@@ -1,4 +1,4 @@
-import type { Input, InputSize } from './input.js';
+import type { InputSize, TextInput } from './text-input';
 import type { ValidationValue, Validator } from '@sl-design-system/shared';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
@@ -8,7 +8,7 @@ import { html } from 'lit';
 import '../register.js';
 
 export default {
-  title: 'Input'
+  title: 'Text Input'
 };
 
 const sizes: InputSize[] = ['md', 'lg'];
@@ -310,7 +310,7 @@ export const PrefixSuffix: StoryObj = {
 export const MinMaxLength: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.previousElementSibling as Input)?.reportValidity();
+      (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
     return html`
@@ -329,7 +329,7 @@ export const MinMaxLength: StoryObj = {
 export const Pattern: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.previousElementSibling as Input)?.reportValidity();
+      (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
     return html`
@@ -357,7 +357,7 @@ export const CustomInput: StoryObj = {
 export const ValidInput: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      const secondInput = event.target.previousElementSibling as Input;
+      const secondInput = event.target.previousElementSibling as TextInput;
       secondInput.reportValidity();
     };
 
@@ -408,7 +408,7 @@ export const ValidInput: StoryObj = {
 export const CustomValidation: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.previousElementSibling as Input)?.reportValidity();
+      (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
     const validator: Validator = {
@@ -432,7 +432,7 @@ export const CustomValidation: StoryObj = {
 export const CustomValidationWithHint: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.previousElementSibling as Input)?.reportValidity();
+      (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
     const validator: Validator = {

@@ -10,7 +10,7 @@ import {
 } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './input.scss.js';
+import styles from './text-input.scss.js';
 
 export type InputSize = 'md' | 'lg';
 
@@ -23,7 +23,7 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
  */
-export class Input extends FormControlMixin(HintMixin(LitElement)) {
+export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 

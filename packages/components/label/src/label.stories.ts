@@ -3,7 +3,7 @@ import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/icon/register.js';
-import '@sl-design-system/input/register.js';
+import '@sl-design-system/text-input/register.js';
 import '@sl-design-system/tooltip/register.js';
 import type { IconSize } from '@sl-design-system/icon';
 import { html } from 'lit';

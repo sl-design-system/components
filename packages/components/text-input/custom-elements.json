@@ -12,7 +12,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/input.js"
+            "package": "./src/text-input"
           }
         }
       ]
@@ -26,34 +26,34 @@
           "kind": "custom-element-definition",
           "name": "sl-text-input",
           "declaration": {
-            "name": "Input",
-            "module": "/src/input.js"
+            "name": "TextInput",
+            "module": "/src/text-input"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/input.scss.ts",
+      "path": "src/text-input.scss.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "src/input.scss.ts"
+            "module": "src/text-input.scss.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/input.ts",
+      "path": "src/text-input.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "Single line text input component.",
-          "name": "Input",
+          "name": "TextInput",
           "slots": [
             {
               "description": "Content shown before the input",
@@ -381,10 +381,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "Input",
+          "name": "TextInput",
           "declaration": {
-            "name": "Input",
-            "module": "src/input.ts"
+            "name": "TextInput",
+            "module": "src/text-input.ts"
           }
         }
       ]

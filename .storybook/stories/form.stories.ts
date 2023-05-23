@@ -2,7 +2,7 @@ import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
-import '@sl-design-system/input/register.js';
+import '@sl-design-system/text-input/register.js';
 import '@sl-design-system/label/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/textarea/register.js';

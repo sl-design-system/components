@@ -1,32 +1,78 @@
 $sizes: sm, md, lg;
 
 :host {
-  --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
   --_toggle-padding: var(--sl-space-input-switch-padding-controller);
+  --_track-radius: calc((var(--handle-size) + var(--_toggle-padding) * 2) / 2);
 
-  --_thumb-position: 0%;
+  --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
+  --_handle-color: var(--sl-color-input-switch-default-unchecked-default-handle);
+  --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
+
+  --handle-position: 0%;
   --isLTR: 1;
+  
   display: inline-flex;
   gap: var(--sl-space-input-switch-padding-gap);
-  // line-height: var(--_line-height);
   outline: none;
-  border: 1px solid gold;
 }
 :host-context([dir="rtl"]){
   --isLTR: -1;
 }
 
-:host([checked]) {
-  --_main-background-color: var(--sl-color-input-switch-default-checked-default-background);
-  --_thumb-position: calc((var(--_toggle-width) - 100%) * var(--isLTR));//calc(var(--_toggle-width) - var(--_thumb-size) - (2 * var(--_toggle-padding)));
-}
-
+// setting scenario-specific variables
 :host(:focus-visible) .track {
   --_box-shadow: var(--sl-box-shadow-focus);
 }
+
+
+:host(:hover) {
+  --_main-background-color: var(--sl-color-input-switch-default-unchecked-hover-background);
+  --_handle-color: var(--sl-color-input-switch-default-unchecked-hover-handle);
+  --_icon-color: var(--sl-color-input-switch-default-unchecked-hover-icon);
+}
+
+:host(:active) {
+  --_main-background-color: var(--sl-color-input-switch-default-unchecked-active-background);
+  --_handle-color: var(--sl-color-input-switch-default-unchecked-active-handle);
+  --_icon-color: var(--sl-color-input-switch-default-unchecked-active-icon);
+}
+
+:host(:where(:disabled, [internals-disabled])) {
+  --_main-background-color: var(--sl-color-input-switch-default-unchecked-disabled-background);
+  --_handle-color: var(--sl-color-input-switch-default-unchecked-disabled-handle);
+  --_icon-color: var(--sl-color-input-switch-default-unchecked-disabled-icon);
+}
+
+:host([checked]) {
+  --_main-background-color: var(--sl-color-input-switch-default-checked-default-background);
+  --_handle-color: var(--sl-color-input-switch-default-checked-default-handle);
+  --_icon-color: var(--sl-color-input-switch-default-checked-default-icon);
+  
+  --handle-position: calc((var(--_toggle-width) - 100%) * var(--isLTR));
+}
+
+:host([checked]:hover) {
+  --_main-background-color: var(--sl-color-input-switch-default-checked-hover-background);
+  --_handle-color: var(--sl-color-input-switch-default-checked-hover-handle);
+  --_icon-color: var(--sl-color-input-switch-default-checked-hover-icon);
+}
+
+:host([checked]:active) {
+  --_main-background-color: var(--sl-color-input-switch-default-checked-active-background);
+  --_handle-color: var(--sl-color-input-switch-default-checked-active-handle);
+  --_icon-color: var(--sl-color-input-switch-default-checked-active-icon);
+}
+
+:host([checked]:where(:disabled, [internals-disabled])) {
+  --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
+  --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
+  --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
+}
+
+// applying styles 
+
 :host(:where(:disabled, [internals-disabled])) {
   cursor: default;
-  opacity: 0.6;
   pointer-events: none;
 }
 
@@ -37,19 +83,20 @@ $sizes: sm, md, lg;
   flex-direction: column;
   gap: var(--_gap);
   justify-content: flex-start;
-  border: 1px solid rgb(12, 206, 60);
+  // border: 1px solid rgb(12, 206, 60);
   flex: 1 1 auto;
 }
 
 .toggle {
+  cursor: pointer;
   flex: 0;
-  border: 1px solid red;
+  // border: 1px solid red;
   padding: var(--sl-space-input-switch-padding-container);
 }
 
 .track {
   background-color: var(--_main-background-color);
-  border-radius: calc((var(--_thumb-size) + var(--_toggle-padding) * 2) / 2);
+  border-radius: var(--_track-radius);
   box-shadow: var(--_box-shadow);
   display: inline-grid;
   transition: background-color var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
@@ -57,11 +104,11 @@ $sizes: sm, md, lg;
   width: var(--_toggle-width);
   
   div {
-    background-color: white;
-    border-radius: calc(var(--_thumb-size) / 2);
-    height: var(--_thumb-size);
-    translate: var(--_thumb-position);
-    width: var(--_thumb-size);
+    background-color: var(--_handle-color);
+    border-radius: calc(var(--handle-size) / 2);
+    height: var(--handle-size);
+    translate: var(--handle-position);
+    width: var(--handle-size);
     will-change: transform;
     display: grid;
     place-content: center;
@@ -74,7 +121,7 @@ $sizes: sm, md, lg;
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_thumb-size: var(--sl-size-input-switch-handle-#{$size});
+    --handle-size: var(--sl-size-input-switch-handle-#{$size});
     --_toggle-width: var(--sl-size-input-switch-controller-width-#{$size});
     --_gap: var(--sl-space-input-gap-#{$size});
   }

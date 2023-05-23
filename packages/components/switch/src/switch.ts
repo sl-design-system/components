@@ -41,6 +41,12 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the checkbox is invalid. */
   @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
+  /** Custom icon in "off" state. */
+  @property({ reflect: true }) iconOff?: string;
+
+  /** Custom icon in "on" state. */
+  @property({ reflect: true }) iconOn?: string;
+
   /** Button size. */
   @property({ reflect: true }) size: SwitchSize = 'md';
 
@@ -48,7 +54,11 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   @property() value?: string;
 
   get icon(): string {
-    return this.checked ? 'check' : 'xmark';
+    return this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark';
+  }
+
+  get iconSize(): string {
+    return this.size === 'md' ? 'xs' : 'md';
   }
 
   override connectedCallback(): void {
@@ -105,7 +115,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
       </div>
       <div class="toggle">
         <div @click=${this.#onToggle} class="track">
-          <div>${this.size !== 'sm' ? html`<sl-icon .name=${this.icon}></sl-icon>` : ``}</div>
+          <div>${this.size !== 'sm' ? html`<sl-icon .name=${this.icon} .size=${this.iconSize}></sl-icon>` : ``}</div>
         </div>
       </div>
     `;

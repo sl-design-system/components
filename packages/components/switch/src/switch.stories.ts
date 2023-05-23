@@ -1,6 +1,8 @@
 import type { Switch, SwitchSize } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/icon/register.js';
+import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
+import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
 
@@ -84,6 +86,15 @@ export const All: Story = {
           <sl-switch .size=${size} disabled checked>Disabled checked</sl-switch>
         `
       )}`;
+  }
+};
+
+export const CustomIcons: Story = {
+  render: () => {
+    Icon.registerIcon(faTurtle, faRabbitRunning);
+    return html` ${sizes.map(
+      size => html` <sl-switch .size=${size} iconOff="far-turtle" iconOn="far-rabbit-running"></sl-switch> `
+    )}`;
   }
 };
 

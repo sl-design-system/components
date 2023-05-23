@@ -67,7 +67,7 @@ export const Focus: Story = {
     <sl-popover anchor="button">
       <form>
         <label>Label</label>
-        <sl-input placeholder="Input"></sl-input>
+        <sl-text-input placeholder="Input"></sl-text-input>
         <sl-button-bar align="end">
           <sl-button size="sm">Save</sl-button>
         </sl-button-bar>

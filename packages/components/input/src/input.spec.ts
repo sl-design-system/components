@@ -2,15 +2,14 @@ import type { Input } from './input.js';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
-import { sendKeys } from '@web/test-runner-commands';
 import { spy} from "sinon";
 
-describe('sl-input', () => {
+describe('sl-text-input', () => {
   let el: Input;
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-input></sl-input>`);
+      el = await fixture(html`<sl-text-input></sl-text-input>`);
     });
 
     it('should render correctly', () => {
@@ -275,7 +274,7 @@ describe('sl-input', () => {
 
   describe('text input', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-input type="text"></sl-input>`);
+      el = await fixture(html`<sl-text-input type="text"></sl-text-input>`);
     });
 
     it('should have a minLength of 3 when set', async() => {
@@ -299,7 +298,7 @@ describe('sl-input', () => {
 
   describe('number input', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-input type="number"></sl-input>`);
+      el = await fixture(html`<sl-text-input type="number"></sl-text-input>`);
     });
 
     it('should have a min of 2 when set', async() => {
@@ -332,20 +331,7 @@ describe('sl-input', () => {
 
   describe('focusing', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-input></sl-input>`);
-    });
-
-    it('should have focus-visible-within when focused by keyboard', async () => {
-      await sendKeys({press: 'Tab'});
-
-      expect(el.focusVisible).to.be.true;
-    });
-
-    it('should not have focus-visible-within when focused on click', async () => {
-      el.click();
-      await el.updateComplete;
-
-      expect(el.focusVisible).not.to.be.true;
+      el = await fixture(html`<sl-text-input></sl-text-input>`);
     });
 
     it('should focus input on click', async () => {
@@ -361,7 +347,7 @@ describe('sl-input', () => {
 
   describe('validation', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-input name="my-input" required></sl-input>`);
+      el = await fixture(html`<sl-text-input name="my-input" required></sl-text-input>`);
     });
 
     it('should not be valid when the input is empty and when it is required', async () => {
@@ -403,29 +389,29 @@ describe('sl-input', () => {
       el = await fixture(html`
         <form>
           <sl-label for="custom">Custom input</sl-label>
-          <sl-input id="custom">
+          <sl-text-input id="custom">
             <input id="foo" slot="input" placeholder="I am a custom input" />
-          </sl-input>
+          </sl-text-input>
         </form>
       `);
     });
 
     it('should use the slotted input', () => {
-      const slInput = el.querySelector('sl-input') as Input;
+      const slInput = el.querySelector('sl-text-input') as Input;
       const input = slInput.querySelector('input');
 
       expect(input).to.have.attribute('placeholder', 'I am a custom input');
     });
 
     it('should have a slotted input with autocomplete by default when not set', () => {
-      const slInput = el.querySelector('sl-input') as Input;
+      const slInput = el.querySelector('sl-text-input') as Input;
       const input = slInput.querySelector('input');
 
       expect(input).to.have.attribute('autocomplete', 'off');
     });
 
     it('should have a slotted input which is not readonly by default', () => {
-      const slInput = el.querySelector('sl-input') as Input;
+      const slInput = el.querySelector('sl-text-input') as Input;
       const input = slInput.querySelector('input');
 
       expect(input).not.to.have.attribute('readonly');
@@ -435,10 +421,10 @@ describe('sl-input', () => {
   describe('slotted prefix / suffix', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-input>
+        <sl-text-input>
           <span slot="prefix">prefix example</span>
           <span slot="suffix">suffix example</span>
-        </sl-input>
+        </sl-text-input>
       `);
     });
 
@@ -460,7 +446,7 @@ describe('sl-input', () => {
 
   describe('readonly input', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-input readonly></sl-input>`);
+      el = await fixture(html`<sl-text-input readonly></sl-text-input>`);
     });
 
     it('should not allow editing the value when input is readonly', () => {

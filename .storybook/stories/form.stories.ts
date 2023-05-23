@@ -42,14 +42,14 @@ export const Form: StoryObj = {
         margin-block-start: 0;
       }
       sl-button-bar,
-      sl-input,
+      sl-text-input,
       sl-textarea {
         align-self: stretch;
       }
     </style>
     <form>
       <sl-label for="input">Input</sl-label>
-      <sl-input id="input" name="input" placeholder="Placeholder"></sl-input>
+      <sl-text-input id="input" name="input" placeholder="Placeholder"></sl-text-input>
 
       <sl-label for="textarea">Textarea</sl-label>
       <sl-textarea id="textarea" name="textarea" placeholder="Placeholder"></sl-textarea>
@@ -94,14 +94,14 @@ export const Hints: StoryObj = {
         margin-block-start: 0;
       }
       sl-button-bar,
-      sl-input,
+      sl-text-input,
       sl-textarea {
         align-self: stretch;
       }
     </style>
     <form @submit=${onSubmit}>
       <sl-label for="input">Input</sl-label>
-      <sl-input id="input" hint="Hint for the text input." name="input" required></sl-input>
+      <sl-text-input id="input" hint="Hint for the text input." name="input" required></sl-text-input>
 
       <sl-label for="textarea">Textarea</sl-label>
       <sl-textarea id="textarea" hint="Hint for the textarea." name="textarea" required></sl-textarea>
@@ -149,20 +149,20 @@ export const ValidationRequired: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-input,
+        sl-text-input,
         sl-textarea {
           align-self: stretch;
         }
       </style>
       <form>
         <sl-label for="input">Input</sl-label>
-        <sl-input id="input" name="input" required></sl-input>
+        <sl-text-input id="input" name="input" required></sl-text-input>
 
         <sl-label for="textarea">Textarea</sl-label>
         <sl-textarea id="textarea" name="textarea" required></sl-textarea>
 
         <sl-label for="inputEmail">Email</sl-label>
-        <sl-input id="inputEmail" type="email" required></sl-input>
+        <sl-text-input id="inputEmail" type="email" required></sl-text-input>
 
         <sl-label for="checkbox">Checkbox</sl-label>
         <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">Checkbox</sl-checkbox>
@@ -208,14 +208,14 @@ export const ValidationRequiredReport: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-input,
+        sl-text-input,
         sl-textarea {
           align-self: stretch;
         }
       </style>
       <form>
         <sl-label for="input">Input</sl-label>
-        <sl-input id="input" name="input" required></sl-input>
+        <sl-text-input id="input" name="input" required></sl-text-input>
 
         <sl-label for="textarea">Textarea</sl-label>
         <sl-textarea id="textarea" name="textarea" required></sl-textarea>
@@ -256,14 +256,14 @@ export const Validation: StoryObj = {
         margin-block-start: 0;
       }
       sl-button-bar,
-      sl-input,
+      sl-text-input,
       sl-textarea {
         align-self: stretch;
       }
     </style>
     <form @submit=${onSubmit}>
       <sl-label for="input">Label for the input</sl-label>
-      <sl-input id="input" minlength="8" name="input" placeholder="Type at least 8 characters here" required></sl-input>
+      <sl-text-input id="input" minlength="8" name="input" placeholder="Type at least 8 characters here" required></sl-text-input>
 
       <sl-label for="textarea">Textarea</sl-label>
       <sl-textarea
@@ -328,7 +328,7 @@ export const ValidationSizes: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-input,
+        sl-text-input,
         sl-textarea {
           align-self: stretch;
         }
@@ -339,7 +339,7 @@ export const ValidationSizes: StoryObj = {
             <h2>Size: ${size}</h2>
 
             <sl-label>Input</sl-label>
-            <sl-input name="input" required error-size=${size}></sl-input>
+            <sl-text-input name="input" required error-size=${size}></sl-text-input>
 
             <sl-label>Textarea</sl-label>
             <sl-textarea name="textarea" required error-size=${size}></sl-textarea>

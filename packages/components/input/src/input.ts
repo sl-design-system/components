@@ -28,29 +28,10 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   #onKeydown = (event: Event): void => {
-    this.#clicked = false;
-
     if ((event as KeyboardEvent).key === 'Enter') {
       this.input.form?.requestSubmit();
     }
   };
-
-  #onFocusin = (): void => {
-    if (!this.#clicked) {
-      this.focusVisible = true;
-    }
-  };
-
-  #onFocusout = (): void => {
-    this.#clicked = false;
-    this.focusVisible = false;
-  };
-
-  #onMousedown = (): void => {
-    this.#clicked = true;
-    this.focusVisible = false;
-  };
-
   #events = new EventsController(this, {
     click: this.#onClick
   });
@@ -98,9 +79,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the input should get valid styles when is valid. */
   @property({ type: Boolean, reflect: true }) showValid = false;
 
-  /** Whether the input has focus visible. */
-  @property({ type: Boolean, reflect: true, attribute: 'focus-visible-within' }) focusVisible = false;
-
   /** Whether you can interact with the input or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
@@ -111,7 +89,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
    * The input type. Only text types are valid here. For other types,
    * see their respective components.
    */
-  @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' = 'text'; // TODO: password type will be added in the future
+  @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
   /** Custom validators specified by the user. */
   @property({ attribute: false }) validators?: Validator[];
@@ -119,16 +97,13 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   /** The value for the input. */
   @property() value?: string;
 
-  /** @private used for focusVisible */
-  #clicked = false;
-
   override connectedCallback(): void {
     super.connectedCallback();
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.autocomplete ||= this.autocomplete || 'off';
-      this.input.id ||= `sl-input-${nextUniqueId++}`;
+      this.input.id ||= `sl-text-input-${nextUniqueId++}`;
       this.input.slot = 'input';
       if (this.readonly) {
         this.input.readOnly = this.readonly;
@@ -249,14 +224,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
     return html`
       <div @input=${this.#onInput} class="wrapper">
         <slot name="prefix"></slot>
-        <slot
-          @focusin=${this.#onFocusin}
-          @focusout=${this.#onFocusout}
-          @keydown=${this.#onKeydown}
-          @mousedown=${this.#onMousedown}
-          @slotchange=${this.#onSlotchange}
-          name="input"
-        ></slot>
+        <slot @keydown=${this.#onKeydown} @slotchange=${this.#onSlotchange} name="input"></slot>
         <slot name="suffix">
           <sl-icon class="invalid-icon" name="triangle-exclamation-solid" size=${this.size}></sl-icon>
           ${this.valid
@@ -269,8 +237,6 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   #onClick(event: Event): void {
-    this.focusVisible = false;
-
     if (event.target === this.input) {
       event.preventDefault();
 
@@ -297,7 +263,7 @@ export class Input extends FormControlMixin(HintMixin(LitElement)) {
 
       this.input = inputs[0];
       this.input.autocomplete ||= this.autocomplete || 'off';
-      this.input.id ||= `sl-input-${nextUniqueId++}`;
+      this.input.id ||= `sl-text-input-${nextUniqueId++}`;
       if (this.readonly) {
         this.input.readOnly = this.readonly;
       }

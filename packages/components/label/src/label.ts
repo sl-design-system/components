@@ -3,6 +3,7 @@ import type { FormControlInterface } from '@sl-design-system/shared';
 import { Button } from '@sl-design-system/button';
 import { Input } from '@sl-design-system/input';
 import { Textarea } from '@sl-design-system/textarea';
+import { msg } from '@lit/localize';
 import { property, state } from 'lit/decorators.js';
 import { LitElement, html } from 'lit';
 import styles from './label.scss.js';
@@ -58,7 +59,7 @@ export class Label extends LitElement {
           `#${this.for}`
         );
 
-        // If the form control is an <sl-input> or <sl-textarea>,
+        // If the form control is an <sl-text-input> or <sl-textarea>,
         // automatically associate the label with the <input> or
         // <textarea> in the light DOM
         if (this.formControl instanceof Input || this.formControl instanceof Textarea) {
@@ -107,8 +108,8 @@ export class Label extends LitElement {
       <slot name="label"></slot>
       <slot name="icon"></slot>
       <slot name="tooltip"></slot>
-      ${this.optional ? html`<span class="optional">(optional)</span>` : ''}
-      ${this.required ? html`<span class="required">(required)</span>` : ''}
+      ${this.optional ? html`<span class="optional">(${msg('optional')})</span>` : ''}
+      ${this.required ? html`<span class="required">(${msg('required')})</span>` : ''}
     `;
   }
 

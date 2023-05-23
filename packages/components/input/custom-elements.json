@@ -24,7 +24,7 @@
       "exports": [
         {
           "kind": "custom-element-definition",
-          "name": "sl-input",
+          "name": "sl-text-input",
           "declaration": {
             "name": "Input",
             "module": "/src/input.js"
@@ -77,17 +77,6 @@
               },
               "description": "Specifies which type of data the browser can use to pre-fill the input.",
               "attribute": "autocomplete"
-            },
-            {
-              "kind": "field",
-              "name": "focusVisible",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input has focus visible.",
-              "attribute": "focus-visible-within",
-              "reflects": true
             },
             {
               "kind": "field",
@@ -212,7 +201,7 @@
               "kind": "field",
               "name": "type",
               "type": {
-                "text": "'email' | 'number' | 'tel' | 'text' | 'url'"
+                "text": "'email' | 'number' | 'tel' | 'text' | 'url' | 'password'"
               },
               "default": "'text'",
               "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",
@@ -337,15 +326,6 @@
               "fieldName": "showValid"
             },
             {
-              "name": "focus-visible-within",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input has focus visible.",
-              "fieldName": "focusVisible"
-            },
-            {
               "name": "readonly",
               "type": {
                 "text": "boolean | undefined"
@@ -365,7 +345,7 @@
             {
               "name": "type",
               "type": {
-                "text": "'email' | 'number' | 'tel' | 'text' | 'url'"
+                "text": "'email' | 'number' | 'tel' | 'text' | 'url' | 'password'"
               },
               "default": "'text'",
               "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",
@@ -394,7 +374,7 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-input",
+          "tagName": "sl-text-input",
           "customElement": true
         }
       ],

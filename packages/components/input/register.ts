@@ -1,9 +1,9 @@
 import { Input } from './src/input.js';
 
-customElements.define('sl-input', Input);
+customElements.define('sl-text-input', Input);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-input': Input;
+    'sl-text-input': Input;
   }
 }

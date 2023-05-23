@@ -14,12 +14,12 @@ describe('sl-label', () => {
       el = await fixture(html`
         <form>
           <sl-label for="input">My label</sl-label>
-          <sl-input id="input"></sl-input>
+          <sl-text-input id="input"></sl-text-input>
         </form>
       `);
 
       slLabel = el.querySelector('sl-label') as Label;
-      slInput = el.querySelector('sl-input') as Input;
+      slInput = el.querySelector('sl-text-input') as Input;
     });
 
     it('should render the label in the light DOM', () => {
@@ -32,7 +32,7 @@ describe('sl-label', () => {
       const input = el.querySelector('input'),
         label = el.querySelector('label');
 
-      expect(input?.id).to.match(/sl-input-\d+/);
+      expect(input?.id).to.match(/sl-text-input-\d+/);
       expect(label).to.have.attribute('for', input?.id);
     });
 
@@ -89,12 +89,12 @@ describe('sl-label', () => {
           <sl-label for="input">
             <label slot="label">Slotted label</label>
           </sl-label>
-          <sl-input id="input"></sl-input>
+          <sl-text-input id="input"></sl-text-input>
         </form>
       `);
 
       slLabel = el.querySelector('sl-label') as Label;
-      slInput = el.querySelector('sl-input') as Input;
+      slInput = el.querySelector('sl-text-input') as Input;
     });
 
     it('should use the slotted label', () => {
@@ -106,7 +106,7 @@ describe('sl-label', () => {
     it('should link the label to the input', () => {
       const label = slLabel.querySelector('label');
 
-      expect(label?.htmlFor).to.match(/sl-input-\d+/);
+      expect(label?.htmlFor).to.match(/sl-text-input-\d+/);
     });
   });
 
@@ -115,13 +115,13 @@ describe('sl-label', () => {
       el = await fixture(html`
         <form>
           <sl-label for="input">My label</sl-label>
-          <sl-input id="input"></sl-input>
+          <sl-text-input id="input"></sl-text-input>
 
           <sl-label for="input2">Input 2</sl-label>
-          <sl-input id="input2" required></sl-input>
+          <sl-text-input id="input2" required></sl-text-input>
 
           <sl-label for="input3">Input 3</sl-label>
-          <sl-input id="input3" required></sl-input>
+          <sl-text-input id="input3" required></sl-text-input>
         </form>
       `);
     });
@@ -149,13 +149,13 @@ describe('sl-label', () => {
       el = await fixture(html`
         <form>
           <sl-label for="input">My label</sl-label>
-          <sl-input id="input" required></sl-input>
+          <sl-text-input id="input" required></sl-text-input>
 
           <sl-label for="input2">Input 2</sl-label>
-          <sl-input id="input2"></sl-input>
+          <sl-text-input id="input2"></sl-text-input>
 
           <sl-label for="input3">Input 3</sl-label>
-          <sl-input id="input3"></sl-input>
+          <sl-text-input id="input3"></sl-text-input>
         </form>
       `);
     });

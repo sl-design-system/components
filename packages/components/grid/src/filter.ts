@@ -40,7 +40,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
       'sl-checkbox': Checkbox,
       'sl-checkbox-group': CheckboxGroup,
       'sl-icon': Icon,
-      'sl-input': Input,
+      'sl-text-input': Input,
       'sl-popover': Popover
     };
   }
@@ -116,7 +116,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
                 )}
               </sl-checkbox-group>
             `
-          : html`<sl-input @input=${this.#onInput} .placeholder=${msg('Type here to filter')}></sl-input>`}
+          : html`<sl-text-input @input=${this.#onInput} .placeholder=${msg('Type here to filter')}></sl-text-input>`}
       </sl-popover>
     `;
   }

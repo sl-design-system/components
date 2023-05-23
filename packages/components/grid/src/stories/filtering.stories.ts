@@ -40,12 +40,12 @@ export const OutsideGrid: Story = {
 
     return html`
       <style>
-        sl-input {
+        sl-text-input {
           margin-bottom: 1rem;
           width: 300px;
         }
       </style>
-      <sl-input @input=${onInput} placeholder="Filter here"></sl-input>
+      <sl-text-input @input=${onInput} placeholder="Filter here"></sl-text-input>
       <sl-grid .items=${people}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

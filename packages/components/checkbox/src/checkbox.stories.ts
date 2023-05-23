@@ -258,10 +258,15 @@ export const WithLabel: StoryObj = {
         flex-direction: column;
       }
     </style>
-    <div class="wrapper">
-      <sl-label for="checkbox">Label</sl-label>
-      <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
-    </div>
+    ${sizes.map(
+      size => html`
+        <h2>Size: ${size}</h2>
+        <div class="wrapper">
+          <sl-label for="checkbox" size=${size}>Label</sl-label>
+          <sl-checkbox id="checkbox" size=${size}>Checkbox</sl-checkbox>
+        </div>
+      `
+    )}
   `
 };
 
@@ -295,7 +300,7 @@ export const ValidateInForm: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-input,
+        sl-text-input,
         sl-textarea {
           align-self: stretch;
         }

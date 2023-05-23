@@ -65,7 +65,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
     }
   }
 
-  :host(#{$variant-selector}:focus-within:not([focus-visible-within])) {
+  :host(#{$variant-selector}:active:not([disabled])) {
     --_border-color: var(--sl-color-input-text-field-#{$variant}-active-border);
 
     slot[name='input']::slotted(input) {
@@ -82,7 +82,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
     }
   }
 
-  :host(#{$variant-selector}[focus-visible-within]:not([disabled])) {
+  :host(#{$variant-selector}:focus-within:not([disabled])) {
     --_border-color: var(--sl-color-input-text-field-#{$variant}-focus-border);
     --_box-shadow: var(--sl-box-shadow-focus);
 
@@ -97,13 +97,6 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
     .wrapper {
       --_background: var(--sl-color-input-text-field-#{$variant}-focus-background);
-    }
-  }
-
-  slot[name='input']::slotted(input) {
-    &:focus-visible {
-      --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
-      --_box-shadow: var(--sl-box-shadow-focus);
     }
   }
 

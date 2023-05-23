@@ -99,18 +99,22 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
-      <label>
-        <slot></slot>
+      <div class="text">
+        <sl-label><slot></slot></sl-label>
+        ${this.renderHint()} ${this.#validation.render()}
+      </div>
+      <div class="toggle">
         <div @click=${this.#onToggle} class="track">
           <div>${this.size !== 'sm' ? html`<sl-icon .name=${this.icon}></sl-icon>` : ``}</div>
         </div>
-      </label>
-      ${this.renderHint()} ${this.#validation.render()}
+      </div>
     `;
   }
 
   #onClick(event: Event): void {
-    // If the user clicked the label, toggle the checkbox
+    // If the user clicked the label, toggle the switch
+
+    // TODO: make sure this only happens with clicks on the toggle and the label?
     if (event.target === this) {
       this.renderRoot.querySelector<HTMLElement>('.track')?.click();
     }

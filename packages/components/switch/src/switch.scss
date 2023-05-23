@@ -6,12 +6,11 @@ $sizes: sm, md, lg;
 
   --_thumb-position: 0%;
   --isLTR: 1;
-  align-items: stretch;
   display: inline-flex;
-  flex-direction: column;
-  gap: var(--_gap);
-  line-height: var(--_line-height);
+  gap: var(--sl-space-input-switch-padding-gap);
+  // line-height: var(--_line-height);
   outline: none;
+  border: 1px solid gold;
 }
 :host-context([dir="rtl"]){
   --isLTR: -1;
@@ -31,12 +30,21 @@ $sizes: sm, md, lg;
   pointer-events: none;
 }
 
-label {
-  align-items: center;
+.text {
+  align-items: flex-start;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   gap: var(--_gap);
-  justify-content: space-between;
+  justify-content: flex-start;
+  border: 1px solid rgb(12, 206, 60);
+  flex: 1 1 auto;
+}
+
+.toggle {
+  flex: 0;
+  border: 1px solid red;
+  padding: var(--sl-space-input-switch-padding-container);
 }
 
 .track {
@@ -47,7 +55,6 @@ label {
   transition: background-color var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   padding: var(--_toggle-padding);
   width: var(--_toggle-width);
-  
   
   div {
     background-color: white;

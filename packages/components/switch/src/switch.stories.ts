@@ -63,9 +63,10 @@ export const All: Story = {
   render: () => {
     return html` <style>
         #root-inner {
+          align-items: start;
           display: grid;
-          grid-template-columns: 1fr 1fr;
           gap: 24px;
+          grid-template-columns: 1fr 1fr;
         }
         h2 {
           grid-column-end: -1;
@@ -75,7 +76,9 @@ export const All: Story = {
       ${sizes.map(
         size => html`
           <h2>${sizeName(size)}</h2>
-          <sl-switch .size=${size}>Unchecked</sl-switch>
+          <sl-switch .size=${size}></sl-switch>
+          <sl-switch .size=${size} checked></sl-switch>
+          <sl-switch .size=${size} hint="Check this one">Unchecked</sl-switch>
           <sl-switch .size=${size} checked>Checked</sl-switch>
           <sl-switch .size=${size} disabled>Disabled unchecked</sl-switch>
           <sl-switch .size=${size} disabled checked>Disabled checked</sl-switch>

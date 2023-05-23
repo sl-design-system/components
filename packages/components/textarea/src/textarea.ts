@@ -5,6 +5,7 @@ import {
   FormControlMixin,
   HintMixin,
   ValidationController,
+  hintStyles,
   validationStyles
 } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
@@ -15,7 +16,7 @@ let nextUniqueId = 0;
 
 export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   #events = new EventsController(this, {
     click: this.#onClick
@@ -102,7 +103,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
       </div>
-      ${this.renderHint()} ${this.#validation.render()}
+      ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
   }
 
@@ -128,7 +129,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textareas.length) {
       this.textarea = textareas[0];
-      this.textarea.id ||= `sl-input-${nextUniqueId++}`;
+      this.textarea.id ||= `sl-textarea-${nextUniqueId++}`;
 
       this.setFormControlElement(this.textarea);
     }

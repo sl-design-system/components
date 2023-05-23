@@ -1,4 +1,4 @@
-# @sl-design-system/input
+# @sl-design-system/text-input
 
 ## 0.0.3
 

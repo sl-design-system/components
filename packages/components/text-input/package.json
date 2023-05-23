@@ -1,5 +1,5 @@
 {
-  "name": "@sl-design-system/input",
+  "name": "@sl-design-system/text-input",
   "version": "0.0.3",
   "description": "Input component for the SL Design System",
   "license": "Apache-2.0",

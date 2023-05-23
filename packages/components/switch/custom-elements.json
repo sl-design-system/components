@@ -93,6 +93,14 @@
             },
             {
               "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "internals",
               "readonly": true,
               "description": "Element internals."

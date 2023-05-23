@@ -1447,6 +1447,11 @@
             "value": "{space.2xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
+          },
+          "gap": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.input.switch.padding.gap"
           }
         }
       }

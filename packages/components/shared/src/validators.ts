@@ -68,6 +68,8 @@ export interface AsyncValidator extends ValidatorBase {
   isValid(instance: HTMLElement, value: ValidationValue, signal: AbortSignal): Promise<boolean | void>;
 }
 
+export type MessageSize = 'sm' | 'md' | 'lg';
+
 export type Validator = SyncValidator | AsyncValidator;
 
 export const requiredValidator: Validator = {

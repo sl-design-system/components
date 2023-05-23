@@ -53,12 +53,12 @@ export const sizePx = {
   type: 'value',
   matcher: token =>
     [
-      'borderRadius', 
+      'borderRadius',
       'borderWidth',
       'fontSizes',
-      'lineHeights', 
-      'paragraphSpacing', 
-      'sizing', 
+      'lineHeights',
+      'paragraphSpacing',
+      'sizing',
       'spacing'
     ].includes(token.type),
   transformer: token => (typeof token.value === 'string' ? token.value : `${token.value}px`)

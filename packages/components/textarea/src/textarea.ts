@@ -5,6 +5,7 @@ import {
   FormControlMixin,
   HintMixin,
   ValidationController,
+  hintStyles,
   validationStyles
 } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
@@ -25,7 +26,7 @@ let nextUniqueId = 0;
  */
 export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   // #onKeydown = (): void => {
   //   this.#clicked = false;
@@ -183,7 +184,8 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
           <sl-icon name="face-smile" size="lg"></sl-icon>
         </slot>
       </div>
-      ${this.renderHint()} ${this.#validation.render()}
+      ${this.#validation.render() ? this.#validation.render() : this.renderHint()} ${this.renderHint()}
+      ${this.#validation.render()}
     `; //         <span>Place for icon</span>
   }
 
@@ -217,7 +219,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textareas.length) {
       this.textarea = textareas[0];
-      this.textarea.id ||= `sl-input-${nextUniqueId++}`;
+      this.textarea.id ||= `sl-textarea-${nextUniqueId++}`;
 
       if (this.readonly) {
         this.textarea.readOnly = this.readonly;

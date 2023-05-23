@@ -16,7 +16,7 @@ Input example
 <div class="ds-code">
 
 ```html
-  <sl-input>Input example code</sl-input>
+  <sl-text-input>Input example code</sl-text-input>
  ```
 
 </div>

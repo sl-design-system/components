@@ -1,4 +1,4 @@
-import type { Checkbox } from './checkbox.js';
+import type { Checkbox, CheckboxSize } from './checkbox.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/label/register.js';
 import { html } from 'lit';
@@ -68,6 +68,8 @@ const onChange = (event: Event): void => {
   }
 };
 
+const sizes: CheckboxSize[] = ['md', 'lg'];
+
 export default {
   title: 'Checkbox',
   args: {
@@ -102,71 +104,51 @@ export const API: StoryObj = {
 };
 
 export const All: StoryObj = {
-  render: () => html`
-    <style>
-      .grid {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: repeat(3, 1fr);
-        justify-items: center;
-      }
-      h2 {
-        font-family: var(--sl-text-typeset-font-family-heading);
-      }
-    </style>
-    <h2>Medium</h2>
-    <div class="grid">
-      <sl-checkbox>Default</sl-checkbox>
-      <sl-checkbox checked>Checked</sl-checkbox>
-      <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+  render: () => {
+    return html`
+      <style>
+        .grid {
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: repeat(3, 1fr);
+          justify-items: center;
+        }
+        h2 {
+          font-family: var(--sl-text-typeset-font-family-heading);
+        }
+      </style>
+      ${sizes.map(
+        size => html`
+          <h2>Size: ${size}</h2>
+          <div class="grid">
+            <sl-checkbox size=${size}>Default</sl-checkbox>
+            <sl-checkbox checked size=${size}>Checked</sl-checkbox>
+            <sl-checkbox indeterminate size=${size}>Indeterminate</sl-checkbox>
 
-      <sl-checkbox disabled>Default</sl-checkbox>
-      <sl-checkbox disabled checked>Checked</sl-checkbox>
-      <sl-checkbox disabled indeterminate>Indeterminate</sl-checkbox>
+            <sl-checkbox disabled size=${size}>Default</sl-checkbox>
+            <sl-checkbox disabled checked size=${size}>Checked</sl-checkbox>
+            <sl-checkbox disabled indeterminate size=${size}>Indeterminate</sl-checkbox>
 
-      <sl-checkbox invalid>Default</sl-checkbox>
-      <sl-checkbox invalid checked>Checked</sl-checkbox>
-      <sl-checkbox invalid indeterminate>Indeterminate</sl-checkbox>
+            <sl-checkbox invalid required size=${size}>Default</sl-checkbox>
+            <sl-checkbox invalid checked required size=${size}>Checked</sl-checkbox>
+            <sl-checkbox invalid indeterminate required size=${size}>Indeterminate</sl-checkbox>
 
-      <sl-checkbox invalid disabled>Default</sl-checkbox>
-      <sl-checkbox invalid disabled checked>Checked</sl-checkbox>
-      <sl-checkbox invalid disabled indeterminate>Indeterminate</sl-checkbox>
+            <sl-checkbox invalid disabled required size=${size}>Default</sl-checkbox>
+            <sl-checkbox invalid disabled checked required size=${size}>Checked</sl-checkbox>
+            <sl-checkbox invalid disabled indeterminate required size=${size}>Indeterminate</sl-checkbox>
 
-      <sl-checkbox valid>Default</sl-checkbox>
-      <sl-checkbox valid checked>Checked</sl-checkbox>
-      <sl-checkbox valid indeterminate>Indeterminate</sl-checkbox>
+            <sl-checkbox valid size=${size}>Default</sl-checkbox>
+            <sl-checkbox valid checked size=${size}>Checked</sl-checkbox>
+            <sl-checkbox valid indeterminate size=${size}>Indeterminate</sl-checkbox>
 
-      <sl-checkbox valid disabled>Default</sl-checkbox>
-      <sl-checkbox valid disabled checked>Checked</sl-checkbox>
-      <sl-checkbox valid disabled indeterminate>Indeterminate</sl-checkbox>
-    </div>
-    <h2>Large</h2>
-    <div class="grid">
-      <sl-checkbox size="lg">Default</sl-checkbox>
-      <sl-checkbox size="lg" checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" disabled>Default</sl-checkbox>
-      <sl-checkbox size="lg" disabled checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" disabled indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" invalid>Default</sl-checkbox>
-      <sl-checkbox size="lg" invalid checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" invalid indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" invalid disabled>Default</sl-checkbox>
-      <sl-checkbox size="lg" invalid disabled checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" invalid disabled indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" valid>Default</sl-checkbox>
-      <sl-checkbox size="lg" valid checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" valid indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" valid disabled>Default</sl-checkbox>
-      <sl-checkbox size="lg" valid disabled checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" valid disabled indeterminate>Indeterminate</sl-checkbox>
-    </div>
-  `
+            <sl-checkbox valid disabled size=${size}>Default</sl-checkbox>
+            <sl-checkbox valid disabled checked size=${size}>Checked</sl-checkbox>
+            <sl-checkbox valid disabled indeterminate size=${size}>Indeterminate</sl-checkbox>
+          </div>
+        `
+      )}
+    `;
+  }
 };
 
 export const Indeterminate: StoryObj = {
@@ -270,8 +252,21 @@ export const Overflow: StoryObj = {
 
 export const WithLabel: StoryObj = {
   render: () => html`
-    <label for="checkbox">Label</label>
-    <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+    <style>
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    ${sizes.map(
+      size => html`
+        <h2>Size: ${size}</h2>
+        <div class="wrapper">
+          <sl-label for="checkbox" size=${size}>Label</sl-label>
+          <sl-checkbox id="checkbox" size=${size}>Checkbox</sl-checkbox>
+        </div>
+      `
+    )}
   `
 };
 
@@ -305,7 +300,7 @@ export const ValidateInForm: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-input,
+        sl-text-input,
         sl-textarea {
           align-self: stretch;
         }

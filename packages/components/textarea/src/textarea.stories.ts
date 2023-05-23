@@ -42,7 +42,7 @@ export const API: StoryObj = {
 };
 
 export const Disabled: StoryObj = {
-  render: () => html`<sl-textarea disabled value="I am disabled"></sl-textarea>`
+  render: () => html`<sl-textarea disabled value="Textarea disabled"></sl-textarea>`
 };
 
 export const All: StoryObj = {

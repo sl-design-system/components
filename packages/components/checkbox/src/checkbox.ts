@@ -7,6 +7,7 @@ import {
   HintMixin,
   ValidationController,
   event,
+  hintStyles,
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
@@ -21,7 +22,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   #events = new EventsController(this, {
     click: this.#onClick,
@@ -120,7 +121,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
           <slot @slotchange=${() => this.#updateNoLabel()}></slot>
         </span>
       </div>
-      ${this.renderHint()} ${this.#validation.render()}
+      ${this.#validation.render()} ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
   }
 

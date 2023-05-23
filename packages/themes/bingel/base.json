@@ -1466,6 +1466,16 @@
         "value": "chevron-down",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "triangle-exclamation-solid": {
+        "value": "triangle-exclamation",
+        "type": "Icons",
+        "description": "icon.core.triangle-exclamation-solid"
+      },
+      "circle-check-solid": {
+        "value": "circle-check",
+        "type": "Icons",
+        "description": "icon.core.circle-check-solid"
       }
     },
     "typeset": {

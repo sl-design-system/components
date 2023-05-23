@@ -239,3 +239,13 @@ slot[name='suffix'] {
     }
   }
 }
+
+.invalid-icon {
+  display: none;
+}
+
+:host(:where([invalid])) {
+  .invalid-icon {
+    display: block;
+  }
+}

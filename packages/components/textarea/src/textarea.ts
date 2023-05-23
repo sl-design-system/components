@@ -181,13 +181,17 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
         <slot name="suffix">
-          <sl-icon name="face-smile" size="lg"></sl-icon>
+          <sl-icon class="invalid-icon" name="triangle-exclamation-solid" size=${this.size}></sl-icon>
+          ${this.valid
+            ? html`<sl-icon class="valid-icon" name="circle-check-solid" size=${this.size}></sl-icon>`
+            : null}
         </slot>
       </div>
-      ${this.#validation.render() ? this.#validation.render() : this.renderHint()} ${this.renderHint()}
-      ${this.#validation.render()}
+      ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `; //         <span>Place for icon</span>
   }
+
+  // <sl-icon name="face-smile" size="lg"></sl-icon>
 
   // <sl-icon class="invalid-icon" name="fas-triangle-exclamation" size=${this.size}></sl-icon>
   //           ${this.valid ? html`<sl-icon class="valid-icon" name="fas-circle-check" size=${this.size}></sl-icon>` : null}
@@ -196,6 +200,8 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   // @focusin=${this.#onFocusin}
   // @focusout=${this.#onFocusout}
   // @mousedown=${this.#onMousedown}
+
+  // TODO: set valid when showValid and textarea is valid
 
   #onClick(event: Event): void {
     if (event.target === this.textarea) {

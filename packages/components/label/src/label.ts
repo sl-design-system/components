@@ -1,11 +1,14 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { FormControlInterface } from '@sl-design-system/shared';
 import { Button } from '@sl-design-system/button';
-import { Input } from '@sl-design-system/input';
+import { TextInput } from '@sl-design-system/text-input';
 import { Textarea } from '@sl-design-system/textarea';
+import { msg } from '@lit/localize';
 import { property, state } from 'lit/decorators.js';
 import { LitElement, html } from 'lit';
 import styles from './label.scss.js';
+
+export type LabelSize = 'sm' | 'md' | 'lg';
 
 export class Label extends LitElement {
   /** @private */
@@ -32,6 +35,15 @@ export class Label extends LitElement {
   /** Whether this label should be marked as required. */
   @state() required?: boolean;
 
+  /** Label size. */
+  @property({ reflect: true }) size: LabelSize = 'md';
+
+  /** The label disabled state. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** Whether this label should have no padding bottom. */
+  @property({ type: Boolean, attribute: 'no-padding' }) noPadding?: boolean;
+
   override disconnectedCallback(): void {
     this.#observer.disconnect();
 
@@ -47,10 +59,10 @@ export class Label extends LitElement {
           `#${this.for}`
         );
 
-        // If the form control is an <sl-input> or <sl-textarea>,
+        // If the form control is an <sl-text-input> or <sl-textarea>,
         // automatically associate the label with the <input> or
         // <textarea> in the light DOM
-        if (this.formControl instanceof Input || this.formControl instanceof Textarea) {
+        if (this.formControl instanceof TextInput || this.formControl instanceof Textarea) {
           void this.formControl.updateComplete.then(() => {
             const input = this.formControl?.querySelector('input, textarea');
 
@@ -73,8 +85,12 @@ export class Label extends LitElement {
       if (this.formControl) {
         let target: HTMLElement = this.formControl;
 
-        if (target instanceof Input || target instanceof Textarea) {
+        if (target instanceof TextInput || target instanceof Textarea) {
           target = this.formControl.querySelector('input, textarea') as HTMLElement;
+        }
+
+        if (this.formControl.hasAttribute('disabled')) {
+          this.disabled = true;
         }
 
         this.#observer.observe(target, { attributes: true, attributeFilter: ['required'] });
@@ -90,8 +106,10 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label"></slot>
-      ${this.optional ? html`<span class="optional">(optional)</span>` : ''}
-      ${this.required ? html`<span class="required">*</span>` : ''}
+      <slot name="icon"></slot>
+      <slot name="tooltip"></slot>
+      ${this.optional ? html`<span class="optional">(${msg('optional')})</span>` : ''}
+      ${this.required ? html`<span class="required">(${msg('required')})</span>` : ''}
     `;
   }
 

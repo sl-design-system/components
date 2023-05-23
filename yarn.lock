@@ -3822,8 +3822,8 @@ __metadata:
     "@open-wc/scoped-elements": 2.1.5
     "@sl-design-system/checkbox": 0.0.4
     "@sl-design-system/icon": 0.0.3
-    "@sl-design-system/input": 0.0.3
     "@sl-design-system/shared": 0.0.3
+    "@sl-design-system/text-input": 0.0.3
     lit: ^2.7.4
   languageName: unknown
   linkType: soft
@@ -3832,15 +3832,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/icon@workspace:packages/components/icon"
   dependencies:
-    lit: ^2.7.4
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/input@0.0.3, @sl-design-system/input@workspace:packages/components/input":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/input@workspace:packages/components/input"
-  dependencies:
-    "@sl-design-system/shared": 0.0.3
     lit: ^2.7.4
   languageName: unknown
   linkType: soft
@@ -3866,7 +3857,7 @@ __metadata:
   resolution: "@sl-design-system/label@workspace:packages/components/label"
   dependencies:
     "@sl-design-system/button": 0.0.4
-    "@sl-design-system/input": 0.0.3
+    "@sl-design-system/text-input": 0.0.3
     "@sl-design-system/textarea": 0.0.3
     lit: ^2.7.4
   languageName: unknown
@@ -4037,6 +4028,15 @@ __metadata:
   resolution: "@sl-design-system/teas@workspace:packages/themes/teas"
   dependencies:
     "@sl-design-system/icon": 0.0.3
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/text-input@0.0.3, @sl-design-system/text-input@workspace:packages/components/text-input":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/text-input@workspace:packages/components/text-input"
+  dependencies:
+    "@sl-design-system/shared": 0.0.3
+    lit: ^2.7.4
   languageName: unknown
   linkType: soft
 

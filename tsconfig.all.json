@@ -20,7 +20,7 @@
     { "path": "./packages/components/editor" },
     { "path": "./packages/components/grid" },
     { "path": "./packages/components/icon" },
-    { "path": "./packages/components/input" },
+    { "path": "./packages/components/text-input"},
     { "path": "./packages/components/label" },
     { "path": "./packages/components/popover" },
     { "path": "./packages/components/radio-group" },

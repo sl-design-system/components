@@ -88,3 +88,5 @@ documentation.json
 
 # Test files
 __snapshots__
+
+.idea/

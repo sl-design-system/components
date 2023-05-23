@@ -25,6 +25,7 @@ $sizes: md, lg;
     --_gap: var(--sl-space-input-option-gap-#{$size});
     --_size: var(--sl-size-input-option-#{$size});
     --_icon-size: var(--sl-size-input-icon-size-#{$size});
+    --_font: var(--sl-text-input-option-#{$size});
   }
 }
 
@@ -79,7 +80,7 @@ $sizes: md, lg;
   color: var(--_label-color);
   cursor: pointer;
   display: inline-flex;
-  font: var(--sl-text-input-label-md);
+  font: var(--_font);
   gap: var(--_gap);
   line-height: var(--_line-height);
   outline: none;

@@ -63,17 +63,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "focusVisible",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input has focus visible.",
-              "attribute": "focus-visible-within",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "internals",
               "readonly": true,
               "description": "Element internals."
@@ -138,6 +127,17 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the textarea should get valid styles when is valid.",
+              "attribute": "showValid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "TextareaSize"
@@ -154,6 +154,16 @@
                 "text": "HTMLTextAreaElement"
               },
               "description": "The textarea in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is valid.",
+              "attribute": "valid",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -215,6 +225,23 @@
               "fieldName": "value"
             },
             {
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is valid.",
+              "fieldName": "valid"
+            },
+            {
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the textarea should get valid styles when is valid.",
+              "fieldName": "showValid"
+            },
+            {
               "name": "resize",
               "type": {
                 "text": "ResizeType"
@@ -240,15 +267,6 @@
               "default": "3",
               "description": "The number of rows.",
               "fieldName": "rows"
-            },
-            {
-              "name": "focus-visible-within",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input has focus visible.",
-              "fieldName": "focusVisible"
             }
           ],
           "mixins": [

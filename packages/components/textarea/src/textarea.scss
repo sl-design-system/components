@@ -33,7 +33,7 @@ $resize-types: none, both, horizontal, vertical;
 :host(:focus-within) {
   //--_border-color: hsl(207, 95%, calc(55% - 8% * 2));
   //--_box-shadow: 0 0 0 3px hsla(207, 95%, calc(55% - 8%), 0.25);
-  box-shadow: var(--_box-shadow); // TODO: border radius ???
+  //box-shadow: var(--_box-shadow); // TODO: border radius ???
 }
 
 //:host(:where(:--invalid, [state--invalid])) {
@@ -77,6 +77,7 @@ slot[name='textarea']::slotted(textarea) {
   border: var(--_border);
   border-radius: var(--_border-radius);
   //box-shadow: var(--_box-shadow);
+  box-shadow: var(--_box-shadow);
   display: flex;
   position: relative;
   transition: 0.2s ease-in-out;
@@ -146,22 +147,14 @@ slot[name='suffix'] {
 
     slot[name='textarea']::slotted(textarea) {
       --_color: var(--sl-color-input-text-field-#{$variant}-default-input-text);
-
-      /* stylelint-disable-next-line max-nesting-depth */
-      //&::placeholder {
       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-default-placeholder);
-      //}
     }
 
-    slot[name='suffix'] {
-      /* stylelint-disable-next-line max-nesting-depth */
-      sl-icon {
-        //fill: var(--sl-color-text-field-#{$variant}-default-icon);
-        --fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
-      }
+    slot[name='suffix'] sl-icon {
+      //fill: var(--sl-color-text-field-#{$variant}-default-icon);
+      --fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
     }
 
-    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
       --_background: var(--sl-color-input-text-field-#{$variant}-default-background);
     }
@@ -180,13 +173,13 @@ slot[name='suffix'] {
       fill: var(--sl-color-input-text-field-#{$variant}-hover-icon);
     }
 
-    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
       --_background: var(--sl-color-input-text-field-#{$variant}-hover-background);
     }
   }
 
-  :host(#{$variant-selector}:focus-within:not([focus-visible-within])) {
+  //:host(#{$variant-selector}:focus-within:not([focus-visible-within])) {
+  :host(#{$variant-selector}:active:not([disabled])) {
     --_border-color: var(--sl-color-input-text-field-#{$variant}-active-border);
 
     slot[name='textarea']::slotted(textarea) {
@@ -198,13 +191,13 @@ slot[name='suffix'] {
       fill: var(--sl-color-input-text-field-#{$variant}-active-icon);
     }
 
-    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
       --_background: var(--sl-color-input-text-field-#{$variant}-active-background);
     }
   }
 
-  :host(#{$variant-selector}[focus-visible-within]:not([disabled])) {
+  //:host(#{$variant-selector}[focus-visible-within]:not([disabled])) {
+  :host(#{$variant-selector}:focus-within:not([disabled])) {
     --_border-color: var(--sl-color-input-text-field-#{$variant}-focus-border);
     --_box-shadow: var(--sl-box-shadow-focus);
 
@@ -217,7 +210,6 @@ slot[name='suffix'] {
       fill: var(--sl-color-input-text-field-#{$variant}-focus-icon);
     }
 
-    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
       --_background: var(--sl-color-input-text-field-#{$variant}-focus-background);
     }
@@ -242,9 +234,7 @@ slot[name='suffix'] {
       fill: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
     }
 
-    /* stylelint-disable-next-line max-nesting-depth */
     .wrapper {
-      /* stylelint-disable-next-line max-nesting-depth */
       --_background: var(--sl-color-input-text-field-#{$variant}-disabled-background);
     }
   }

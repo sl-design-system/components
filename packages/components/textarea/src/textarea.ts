@@ -27,25 +27,25 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, styles];
 
-  #onKeydown = (): void => {
-    this.#clicked = false;
-  };
-
-  #onFocusin = (): void => {
-    if (!this.#clicked) {
-      this.focusVisible = true;
-    }
-  };
-
-  #onFocusout = (): void => {
-    this.#clicked = false;
-    this.focusVisible = false;
-  };
-
-  #onMousedown = (): void => {
-    this.#clicked = true;
-    this.focusVisible = false;
-  };
+  // #onKeydown = (): void => {
+  //   this.#clicked = false;
+  // };
+  //
+  // #onFocusin = (): void => {
+  //   if (!this.#clicked) {
+  //     this.focusVisible = true;
+  //   }
+  // };
+  //
+  // #onFocusout = (): void => {
+  //   this.#clicked = false;
+  //   this.focusVisible = false;
+  // };
+  //
+  // #onMousedown = (): void => {
+  //   this.#clicked = true;
+  //   this.focusVisible = false;
+  // };
 
   #events = new EventsController(this, {
     click: this.#onClick
@@ -79,6 +79,12 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** The value for the textarea. */
   @property() value?: string;
 
+  /** Whether the textarea is valid. */
+  @property({ type: Boolean, reflect: true }) valid?: boolean;
+
+  /** Whether the textarea should get valid styles when is valid. */
+  @property({ type: Boolean, reflect: true }) showValid = false;
+
   /** Textarea size. */
   @property({ reflect: true }) resize: ResizeType = 'vertical'; // TODO: add auto?
 
@@ -90,11 +96,11 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** The number of rows. */
   @property({ type: Number }) rows = 3;
 
-  /** Whether the input has focus visible. */
-  @property({ type: Boolean, reflect: true, attribute: 'focus-visible-within' }) focusVisible = false;
-
-  /** @private used for focusVisible */
-  #clicked = false;
+  // /** Whether the input has focus visible. */
+  // @property({ type: Boolean, reflect: true, attribute: 'focus-visible-within' }) focusVisible = false;
+  //
+  // /** @private used for focusVisible */
+  // #clicked = false;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -172,14 +178,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   override render(): TemplateResult {
     return html`
       <div @input=${this.#onInput} class="wrapper">
-        <slot
-          @slotchange=${this.#onSlotchange}
-          name="textarea"
-          @keydown=${this.#onKeydown}
-          @focusin=${this.#onFocusin}
-          @focusout=${this.#onFocusout}
-          @mousedown=${this.#onMousedown}
-        ></slot>
+        <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
         <slot name="suffix">
           <sl-icon name="face-smile" size="lg"></sl-icon>
         </slot>
@@ -190,6 +189,11 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   // <sl-icon class="invalid-icon" name="fas-triangle-exclamation" size=${this.size}></sl-icon>
   //           ${this.valid ? html`<sl-icon class="valid-icon" name="fas-circle-check" size=${this.size}></sl-icon>` : null}
+
+  // @keydown=${this.#onKeydown}
+  // @focusin=${this.#onFocusin}
+  // @focusout=${this.#onFocusout}
+  // @mousedown=${this.#onMousedown}
 
   #onClick(event: Event): void {
     if (event.target === this.textarea) {

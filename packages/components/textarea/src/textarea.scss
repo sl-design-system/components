@@ -1,7 +1,7 @@
 $sizes: md, lg;
 $variants: default, valid, invalid;
 $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
-$resize-types: none, both, horizontal, vertical;
+$resize-types: none, both, horizontal, vertical, auto;
 
 :host {
   //--_border: 1px solid var(--_border-color);
@@ -14,6 +14,8 @@ $resize-types: none, both, horizontal, vertical;
   --_border-radius: var(--sl-border-radius-default);
   --_box-shadow: var(--sl-box-shadow-none);
   --_transition: 200ms ease-in-out;
+  --_min-block-size-md: calc(72px - 2 * var(--sl-border-width-button-default));
+  --_min-block-size-lg: calc(88px - 2 * var(--sl-border-width-button-default));
 }
 
 :host {
@@ -52,12 +54,14 @@ slot[name='textarea']::slotted(textarea) {
   appearance: none;
   background: none;
   border: 0;
+  box-sizing: border-box;
   color: inherit;
   flex: 1;
   font: var(--_font); //inherit;
   line-height: 24px;
   margin: 0;
-  min-block-size: 72px; // TODO: it should come from a token or how? Maybe added by user?
+  //min-block-size: 72px; // TODO: it should come from a token or how? Maybe added by user?
+  //min-block-size: var(--_min-block-size);
   outline: none;
   //padding: calc(0.25rem - 1px) 0.5rem;
   padding: var(--_padding);
@@ -79,6 +83,7 @@ slot[name='textarea']::slotted(textarea) {
   //box-shadow: var(--_box-shadow);
   box-shadow: var(--_box-shadow);
   display: flex;
+  min-block-size: var(--_min-block-size);
   position: relative;
   transition: 0.2s ease-in-out;
   transition-property: background, border, box-shadow, color, filter;
@@ -108,8 +113,21 @@ slot[name='suffix'] {
       padding-right: calc(
         var(--sl-space-input-text-field-inline-#{$size}) +
         var(--sl-space-input-text-field-gap-#{$size}) +
-        var(--icon-container-size, var(--sl-size-icon-lg))
+        var(--sl-size-icon-#{$size})
       );
+      // min-block-size: 72px; // TODO: it should come from a token or how? Maybe added by user?
+
+      //padding-right: calc(
+      //  var(--sl-space-input-text-field-inline-#{$size}) +
+      //  var(--sl-space-input-text-field-gap-#{$size}) +
+      //  var(--icon-container-size, var(--sl-size-icon-#{$size}))
+      //);
+
+      //--_min-block-size: var(--_min-block-size-#{$size});
+    }
+
+    .wrapper {
+      --_min-block-size: var(--_min-block-size-#{$size});
     }
 
     //.wrapper {

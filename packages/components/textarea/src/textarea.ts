@@ -14,7 +14,7 @@ import styles from './textarea.scss.js';
 
 export type TextareaSize = 'md' | 'lg';
 
-export type ResizeType = 'none' | 'vertical'; // TODO: add auto?
+export type ResizeType = 'none' | 'vertical' | 'auto'; // TODO: add auto?
 // 'none' | 'both' | 'horizontal' | 'vertical';
 
 let nextUniqueId = 0;
@@ -87,15 +87,15 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   @property({ type: Boolean, reflect: true }) showValid = false;
 
   /** Textarea size. */
-  @property({ reflect: true }) resize: ResizeType = 'vertical'; // TODO: add auto?
+  @property({ reflect: true }) resize: ResizeType = 'vertical'; // TODO: add auto? auto or autogrow?
 
   /** Textarea size. */
   @property({ reflect: true }) size: TextareaSize = 'md';
 
   // TODO resize vertical / horizontal /  none? maybe vertical by default?
 
-  /** The number of rows. */
-  @property({ type: Number }) rows = 3;
+  // /** The number of rows. */
+  // @property({ type: Number }) rows = 3; // TODO: min-block-size instead?
 
   // /** Whether the input has focus visible. */
   // @property({ type: Boolean, reflect: true, attribute: 'focus-visible-within' }) focusVisible = false;
@@ -124,6 +124,17 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
       this.#validation.validate(this.value);
     }
+
+    console.log(
+      'setSize in connectedCallback',
+      this.textarea.scrollHeight,
+      (this as HTMLElement).scrollHeight,
+      (this as HTMLElement).clientHeight,
+      this.textarea.clientHeight,
+      this.textarea.getBoundingClientRect().height,
+      this.textarea.getBoundingClientRect().top,
+      this.textarea.getBoundingClientRect().right
+    );
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -153,13 +164,13 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       }
     }
 
-    if (changes.has('rows')) {
-      if (this.rows) {
-        this.textarea.setAttribute('rows', this.rows.toString());
-      } else {
-        this.textarea.removeAttribute('rows');
-      }
-    }
+    // if (changes.has('rows')) {
+    //   if (this.rows) {
+    //     this.textarea.setAttribute('rows', this.rows.toString());
+    //   } else {
+    //     this.textarea.removeAttribute('rows');
+    //   }
+    // }
 
     if (changes.has('readonly')) {
       if (this.readonly) {
@@ -172,11 +183,44 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     if (changes.has('value') && this.value !== this.textarea.value) {
       this.textarea.value = this.value || '';
     }
+
+    // if (changes.has('resize')) {
+    //   if (this.resize) {
+    //     this.textarea.style.resize = this.resize;
+    //   } else {
+    //     this.textarea.style.resize = 'vertical';
+    //   }
+    // }
+
+    // resize
+
+    // TODO: set height auto for other resizes than auto
+
+    console.log(
+      'setSize in updated',
+      this.textarea.scrollHeight,
+      (this as HTMLElement).scrollHeight,
+      (this as HTMLElement).clientHeight,
+      this.textarea.clientHeight,
+      this.textarea.getBoundingClientRect().height,
+      this.textarea.getBoundingClientRect().top,
+      this.textarea.getBoundingClientRect().right
+    );
   }
 
   // TODO: add focus-visible-within attribute
 
   override render(): TemplateResult {
+    console.log(
+      'setSize in render',
+      this.textarea.scrollHeight,
+      (this as HTMLElement).scrollHeight,
+      (this as HTMLElement).clientHeight,
+      this.textarea.clientHeight,
+      this.textarea.getBoundingClientRect().height,
+      this.textarea.getBoundingClientRect().top,
+      this.textarea.getBoundingClientRect().right
+    );
     return html`
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
@@ -214,6 +258,34 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   #onInput({ target }: Event & { target: HTMLTextAreaElement }): void {
     this.value = target.value;
     this.#validation.validate(this.value);
+
+    if (this.resize === 'auto') {
+      this.#setSize();
+    }
+  }
+
+  #setSize(): void {
+    console.log(
+      'setSize',
+      this.textarea.offsetHeight,
+      this.textarea.scrollHeight,
+      this.textarea.clientHeight,
+      (this as HTMLElement).scrollHeight,
+      (this as HTMLElement).clientHeight,
+      this.textarea.getBoundingClientRect().height,
+      this.textarea.getBoundingClientRect().top,
+      this.textarea.getBoundingClientRect().right
+    );
+    this.textarea.style.height = 'auto';
+    this.textarea.style.height = `${this.textarea.scrollHeight}px`;
+    //this.textarea.style.resize = 'none';
+    // (this as HTMLElement).style.height = 'auto';
+    // (this as HTMLElement).style.height = `${(this as HTMLElement).scrollHeight}px`;
+    // const wrapper = this.renderRoot.querySelector<HTMLElement>('.wrapper');
+    // if (wrapper) {
+    //   wrapper.style.height = 'auto';
+    //   wrapper.style.height = `${(this as HTMLElement).scrollHeight}px`;
+    // }
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

@@ -8,7 +8,7 @@ export default {
   title: 'Textarea'
 };
 
-const resizeTypes: ResizeType[] = ['none', 'vertical'];
+const resizeTypes: ResizeType[] = ['none', 'vertical', 'auto'];
 
 export const API: StoryObj = {
   args: {
@@ -32,7 +32,7 @@ export const API: StoryObj = {
         }
       </style>
       <sl-textarea
-        .disabled=${disabled}
+        ?disabled=${disabled}
         .placeholder=${placeholder}
         .required=${required}
         .value=${value}

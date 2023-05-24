@@ -71,7 +71,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   set value(value: string | string[] | undefined) {
     if (this.mode !== 'text') {
-      this.#value = Array.isArray(value) ? value : value?.split(',');
+      this.#value = Array.isArray(value) ? value : value?.split(',') ?? [];
     } else {
       this.#value = value;
     }

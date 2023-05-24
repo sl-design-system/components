@@ -56,7 +56,7 @@ export class GridFilterColumn extends GridColumn {
 
   override renderHeader(): TemplateResult {
     return html`
-      <th>
+      <th part="header filter">
         <sl-grid-filter
           .column=${this}
           .mode=${this.mode || 'select'}

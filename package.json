@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "wireit",
-    "chromatic": "chromatic",
+    "chromatic": "wireit",
     "extract-i18n": "lit-localize extract",
     "lint": "wireit",
     "postinstall": "husky install",
@@ -160,6 +160,9 @@
         "packages/**/tsconfig.tsbuildinfo",
         "packages/**/*.d.ts"
       ]
+    },
+    "chromatic": {
+      "command": "chromatic --build-script-name storybook -o dist --exit-zero-on-changes"
     },
     "lint": {
       "dependencies": [

@@ -11,6 +11,10 @@ on:
   push:
     branches: [ "main" ]
 
+env:
+  FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+
 
 # List of jobs
 jobs:

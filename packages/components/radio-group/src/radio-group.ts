@@ -7,6 +7,7 @@ import {
   HintMixin,
   RovingTabindexController,
   ValidationController,
+  hintStyles,
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
@@ -20,7 +21,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   /** Events controller. */
   #events = new EventsController(this, {
@@ -110,7 +111,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
       <div class="wrapper">
         <slot @slotchange=${this.#onSlotchange}></slot>
       </div>
-      ${this.renderHint()} ${this.#validation.render()}
+      ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
   }
 

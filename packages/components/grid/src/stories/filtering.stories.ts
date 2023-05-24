@@ -1,9 +1,9 @@
 import type { Grid } from '../grid.js';
 import type { Person } from '@sl-design-system/example-data';
-import type { Input } from '@sl-design-system/input';
+import type { TextInput } from '@sl-design-system/text-input';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { getPeople } from '@sl-design-system/example-data';
-import '@sl-design-system/input/register.js';
+import '@sl-design-system/text-input/register.js';
 import { html } from 'lit';
 import '../../register.js';
 
@@ -40,7 +40,7 @@ export const Filtered: Story = {
 
 export const OutsideGrid: Story = {
   render: (_, { loaded: { people } }) => {
-    const onInput = ({ target }: Event & { target: Input }): void => {
+    const onInput = ({ target }: Event & { target: TextInput }): void => {
       const grid = document.querySelector('sl-grid') as Grid,
         regex = new RegExp(target.value?.toString().trim() ?? '', 'i');
 
@@ -51,12 +51,12 @@ export const OutsideGrid: Story = {
 
     return html`
       <style>
-        sl-input {
+        sl-text-input {
           margin-bottom: 1rem;
           width: 300px;
         }
       </style>
-      <sl-input @input=${onInput} placeholder="Filter here"></sl-input>
+      <sl-text-input @input=${onInput} placeholder="Filter here"></sl-text-input>
       <sl-grid .items=${people}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

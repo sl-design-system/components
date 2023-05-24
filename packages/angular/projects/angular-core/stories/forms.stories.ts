@@ -15,14 +15,14 @@ import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
       gap: 8px;
     }
 
-    sl-input {
+    sl-text-input {
       width: 250px;
     }
   `],
   template: `
     <div class="example-input">
       <sl-label for="input-id">My label</sl-label>
-      <sl-input id="input-id" [value]="value" (input)="onValueChange($event.target)"></sl-input>
+      <sl-text-input id="input-id" [value]="value" (input)="onValueChange($event.target)"></sl-text-input>
       <div>value: <i>{{value}}</i></div>
     </div>
   `
@@ -99,7 +99,7 @@ export class CheckboxComponent {
       gap: 8px;
     }
 
-    sl-input,
+    sl-text-input,
     sl-textarea {
       width: 50%;
     }
@@ -111,7 +111,7 @@ export class CheckboxComponent {
   template: `
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
       <sl-label for="name-input">Name</sl-label>
-      <sl-input id="name-input" formControlName="name" placeholder="Your name"></sl-input>
+      <sl-text-input id="name-input" formControlName="name" placeholder="Your name"></sl-text-input>
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" formControlName="description" placeholder="Add short description here"></sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
@@ -156,7 +156,7 @@ export class ReactiveFormComponent {
       gap: 8px;
     }
 
-    sl-input,
+    sl-text-input,
     sl-textarea {
       width: 50%;
     }
@@ -168,7 +168,7 @@ export class ReactiveFormComponent {
   template: `
     <form (ngSubmit)="onSubmit(model)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-input id="my-value" [(ngModel)]="model.name" name="name"></sl-input>
+      <sl-text-input id="my-value" [(ngModel)]="model.name" name="name"></sl-text-input>
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" [(ngModel)]="model.description" name="description"></sl-textarea>
       <sl-label for="checkbox-with-ngmodel">Checkbox</sl-label>

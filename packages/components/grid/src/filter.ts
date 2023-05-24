@@ -8,7 +8,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Button } from '@sl-design-system/button';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
-import { Input } from '@sl-design-system/input';
+import { TextInput } from '@sl-design-system/text-input';
 import { Popover } from '@sl-design-system/popover';
 import { event, getNameByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
@@ -41,7 +41,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
       'sl-checkbox': Checkbox,
       'sl-checkbox-group': CheckboxGroup,
       'sl-icon': Icon,
-      'sl-input': Input,
+      'sl-text-input': TextInput,
       'sl-popover': Popover
     };
   }
@@ -130,12 +130,12 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
               </sl-checkbox-group>
             `
           : html`
-              <sl-input
+              <sl-text-input
                 @input=${this.#onInput}
                 .placeholder=${msg('Type here to filter')}
                 .value=${this.value?.toString() ?? ''}
                 aria-labelledby="title"
-              ></sl-input>
+              ></sl-text-input>
             `}
       </sl-popover>
     `;

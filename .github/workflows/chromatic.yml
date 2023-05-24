@@ -37,4 +37,4 @@ jobs:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           buildScriptName: storybook
-          storybookBuildDir: dist
+          storybookBaseDir: dist

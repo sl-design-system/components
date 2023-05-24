@@ -11,6 +11,7 @@ $sizes: sm, md, lg;
   --handle-position: 0%;
   --isLTR: 1;
   
+  align-items: flex-start;
   display: inline-flex;
   gap: var(--sl-space-input-switch-padding-gap);
   outline: none;
@@ -25,48 +26,50 @@ $sizes: sm, md, lg;
 }
 
 
-:host(:hover) {
+.toggle:hover {
   --_main-background-color: var(--sl-color-input-switch-default-unchecked-hover-background);
   --_handle-color: var(--sl-color-input-switch-default-unchecked-hover-handle);
   --_icon-color: var(--sl-color-input-switch-default-unchecked-hover-icon);
 }
 
-:host(:active) {
+.toggle:active {
   --_main-background-color: var(--sl-color-input-switch-default-unchecked-active-background);
   --_handle-color: var(--sl-color-input-switch-default-unchecked-active-handle);
   --_icon-color: var(--sl-color-input-switch-default-unchecked-active-icon);
 }
 
-:host(:where(:disabled, [internals-disabled])) {
+.toggle:where(:disabled, [internals-disabled]) {
   --_main-background-color: var(--sl-color-input-switch-default-unchecked-disabled-background);
   --_handle-color: var(--sl-color-input-switch-default-unchecked-disabled-handle);
   --_icon-color: var(--sl-color-input-switch-default-unchecked-disabled-icon);
 }
 
-:host([checked]) {
-  --_main-background-color: var(--sl-color-input-switch-default-checked-default-background);
-  --_handle-color: var(--sl-color-input-switch-default-checked-default-handle);
-  --_icon-color: var(--sl-color-input-switch-default-checked-default-icon);
-  
-  --handle-position: calc((var(--_toggle-width) - 100%) * var(--isLTR));
-}
+:host([checked]){
+  .toggle {
+    --_main-background-color: var(--sl-color-input-switch-default-checked-default-background);
+    --_handle-color: var(--sl-color-input-switch-default-checked-default-handle);
+    --_icon-color: var(--sl-color-input-switch-default-checked-default-icon);
+    
+    --handle-position: calc((var(--_toggle-width) - 100%) * var(--isLTR));
+  }
 
-:host([checked]:hover) {
-  --_main-background-color: var(--sl-color-input-switch-default-checked-hover-background);
-  --_handle-color: var(--sl-color-input-switch-default-checked-hover-handle);
-  --_icon-color: var(--sl-color-input-switch-default-checked-hover-icon);
-}
+  .toggle:hover {
+    --_main-background-color: var(--sl-color-input-switch-default-checked-hover-background);
+    --_handle-color: var(--sl-color-input-switch-default-checked-hover-handle);
+    --_icon-color: var(--sl-color-input-switch-default-checked-hover-icon);
+  }
 
-:host([checked]:active) {
-  --_main-background-color: var(--sl-color-input-switch-default-checked-active-background);
-  --_handle-color: var(--sl-color-input-switch-default-checked-active-handle);
-  --_icon-color: var(--sl-color-input-switch-default-checked-active-icon);
-}
+  .toggle:active {
+    --_main-background-color: var(--sl-color-input-switch-default-checked-active-background);
+    --_handle-color: var(--sl-color-input-switch-default-checked-active-handle);
+    --_icon-color: var(--sl-color-input-switch-default-checked-active-icon);
+  }
 
-:host([checked]:where(:disabled, [internals-disabled])) {
-  --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
-  --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
-  --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
+  .toggle:where(:disabled, [internals-disabled]) {
+    --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
+    --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
+    --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
+  }
 }
 
 // applying styles 

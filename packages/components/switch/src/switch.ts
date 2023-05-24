@@ -10,7 +10,7 @@ import {
   validationStyles
 } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
 export type SwitchSize = 'sm' | 'md' | 'lg';
@@ -52,6 +52,8 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
 
   /** The value for the switch. */
   @property() value?: string;
+
+  @queryAssignedElements() label?: string;
 
   get icon(): string {
     return this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark';
@@ -107,10 +109,14 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     this.change.emit(this.checked);
   }
 
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    console.log(this.label, event.target.assignedNodes({ flatten: false }));
+  }
+
   override render(): TemplateResult {
     return html`
       <div class="text">
-        <sl-label><slot></slot></sl-label>
+        <sl-label .size=${this.size}><slot @slotchange=${this.#onSlotChange}></slot></sl-label>
         ${this.renderHint()} ${this.#validation.render()}
       </div>
       <div class="toggle">

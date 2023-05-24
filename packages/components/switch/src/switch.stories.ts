@@ -78,12 +78,12 @@ export const All: Story = {
       ${sizes.map(
         size => html`
           <h2>${sizeName(size)}</h2>
-          <sl-switch .size=${size}></sl-switch>
-          <sl-switch .size=${size} checked></sl-switch>
           <sl-switch .size=${size} hint="Check this one">Unchecked</sl-switch>
           <sl-switch .size=${size} checked>Checked</sl-switch>
           <sl-switch .size=${size} disabled>Disabled unchecked</sl-switch>
           <sl-switch .size=${size} disabled checked>Disabled checked</sl-switch>
+          <sl-switch .size=${size}></sl-switch>
+          <sl-switch .size=${size} checked></sl-switch>
         `
       )}`;
   }

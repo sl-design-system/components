@@ -88,6 +88,7 @@ export const All: Story = {
           border: none;
         }
       </style>
+      Trigger Chromatic
       <table>
         <thead>
           <tr>

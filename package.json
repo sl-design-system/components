@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "wireit",
-    "chromatic": "chromatic", 
+    "chromatic": "chromatic",
     "extract-i18n": "lit-localize extract",
     "lint": "wireit",
     "postinstall": "husky install",

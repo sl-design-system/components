@@ -63,6 +63,15 @@
           "members": [
             {
               "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the input.",
+              "attribute": "autocomplete"
+            },
+            {
+              "kind": "field",
               "name": "internals",
               "readonly": true,
               "description": "Element internals."
@@ -114,16 +123,6 @@
               "description": "Textarea size.",
               "attribute": "resize",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "rows",
-              "type": {
-                "text": "number"
-              },
-              "default": "3",
-              "description": "The number of rows.",
-              "attribute": "rows"
             },
             {
               "kind": "field",
@@ -184,6 +183,14 @@
             }
           ],
           "attributes": [
+            {
+              "name": "autocomplete",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the input.",
+              "fieldName": "autocomplete"
+            },
             {
               "name": "maxlength",
               "type": {
@@ -258,15 +265,6 @@
               "default": "'md'",
               "description": "Textarea size.",
               "fieldName": "size"
-            },
-            {
-              "name": "rows",
-              "type": {
-                "text": "number"
-              },
-              "default": "3",
-              "description": "The number of rows.",
-              "fieldName": "rows"
             }
           ],
           "mixins": [

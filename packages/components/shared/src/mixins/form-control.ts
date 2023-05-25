@@ -29,6 +29,7 @@ export interface FormControlInterface {
   disabled?: boolean;
   name?: string;
   required?: boolean;
+  autofocus?: boolean;
 
   checkValidity(): boolean;
   reportValidity(): boolean;
@@ -62,6 +63,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     /** Whether this form control is a required field. */
     @property({ type: Boolean, reflect: true }) required?: boolean;
 
+    // /** Whether this form control should receive focus on page load. */
+    // @property({ type: Boolean, reflect: true }) autofocus?: boolean;
+
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {
         return this.#formControlElement;
@@ -89,6 +93,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
+      console.log('formcontrolelement in formcontrol', changes, this.formControlElement, this.#formControlElement); // TODO: disabled check in textarea?
+
       if (changes.has('disabled') && isNative(this.formControlElement)) {
         console.log('disabled  changes in form control', this.disabled);
         this.formControlElement.toggleAttribute('disabled', this.disabled);
@@ -101,6 +107,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (changes.has('required') && isNative(this.formControlElement)) {
         this.formControlElement.toggleAttribute('required', this.required);
       }
+
+      // if (changes.has('autofocus') && isNative(this.formControlElement)) {
+      //   this.formControlElement.toggleAttribute('autofocus', this.autofocus);
+      // }
     }
 
     checkValidity(): boolean {

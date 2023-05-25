@@ -10,21 +10,29 @@ export default {
 
 const resizeTypes: ResizeType[] = ['none', 'vertical', 'auto'];
 
+//const sizes: TextareaSize[] = ['md', 'lg'];
+
 export const API: StoryObj = {
   args: {
     disabled: false,
     placeholder: 'Type here',
     required: false,
+    autofocus: false,
+    size: 'md',
     value: '',
     resize: 'none'
   },
   argTypes: {
+    size: {
+      control: 'inline-radio',
+      options: ['md', 'lg']
+    },
     resize: {
       control: 'inline-radio',
       options: resizeTypes
     }
   },
-  render: ({ disabled, placeholder, required, value, resize }) =>
+  render: ({ disabled, placeholder, required, autofocus, size, value, resize }) =>
     html`
       <style>
         sl-textarea {
@@ -32,14 +40,16 @@ export const API: StoryObj = {
         }
       </style>
       <sl-textarea
-        ?disabled=${disabled}
+        .disabled=${disabled}
         .placeholder=${placeholder}
         .required=${required}
+        .autofocus=${autofocus}
+        .size=${size}
         .value=${value}
         .resize=${resize}
       ></sl-textarea>
     `
-};
+}; // TODO: add hint as well?
 
 export const Disabled: StoryObj = {
   render: () => html`<sl-textarea disabled value="Textarea disabled"></sl-textarea>`

@@ -28,26 +28,6 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
-  // #onKeydown = (): void => {
-  //   this.#clicked = false;
-  // };
-  //
-  // #onFocusin = (): void => {
-  //   if (!this.#clicked) {
-  //     this.focusVisible = true;
-  //   }
-  // };
-  //
-  // #onFocusout = (): void => {
-  //   this.#clicked = false;
-  //   this.focusVisible = false;
-  // };
-  //
-  // #onMousedown = (): void => {
-  //   this.#clicked = true;
-  //   this.focusVisible = false;
-  // };
-
   #events = new EventsController(this, {
     click: this.#onClick
   });
@@ -61,6 +41,11 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   /** The textarea in the light DOM. */
   textarea!: HTMLTextAreaElement;
+
+  // TODO: add autofocus as well? or maybe for formControl?
+
+  /** Specifies which type of data the browser can use to pre-fill the input. */
+  @property() autocomplete?: string;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -94,6 +79,8 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   // TODO resize vertical / horizontal /  none? maybe vertical by default?
 
+  // TODO: add wrap attribute?
+
   // /** The number of rows. */
   // @property({ type: Number }) rows = 3; // TODO: min-block-size instead?
 
@@ -109,6 +96,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     if (!this.textarea) {
       this.textarea =
         this.querySelector<HTMLTextAreaElement>('textarea[slot="input"]') || document.createElement('textarea');
+      this.textarea.autocomplete ||= this.autocomplete || 'off';
       this.textarea.id ||= `sl-textarea-${nextUniqueId++}`;
       this.textarea.slot = 'textarea';
 
@@ -123,7 +111,11 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       this.setFormControlElement(this.textarea);
 
       this.#validation.validate(this.value);
+
+      console.log('resize in connectedCallback in if', this.resize);
     }
+
+    console.log('resize in connectedCallback', this.resize);
 
     console.log(
       'setSize in connectedCallback',
@@ -139,6 +131,8 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    console.log('changes in updated textarea', changes);
 
     if (changes.has('maxLength')) {
       if (this.maxLength) {
@@ -164,6 +158,14 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       }
     }
 
+    if (changes.has('autocomplete')) {
+      if (this.autocomplete) {
+        this.textarea.setAttribute('autocomplete', this.autocomplete);
+      } else {
+        this.textarea.removeAttribute('autocomplete');
+      }
+    }
+
     // if (changes.has('rows')) {
     //   if (this.rows) {
     //     this.textarea.setAttribute('rows', this.rows.toString());
@@ -172,6 +174,8 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     //   }
     // }
 
+    // TODO: rows and cols?
+
     if (changes.has('readonly')) {
       if (this.readonly) {
         this.textarea.readOnly = this.readonly;
@@ -179,6 +183,14 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
         this.textarea.removeAttribute('readonly');
       }
     }
+
+    // if (changes.has('disabled')) {
+    //   if (this.disabled) {
+    //     this.textarea.readOnly = this.readonly;
+    //   } else {
+    //     this.textarea.removeAttribute('readonly');
+    //   }
+    // }
 
     if (changes.has('value') && this.value !== this.textarea.value) {
       this.textarea.value = this.value || '';
@@ -297,6 +309,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textareas.length) {
       this.textarea = textareas[0];
+      this.textarea.autocomplete ||= this.autocomplete || 'off';
       this.textarea.id ||= `sl-textarea-${nextUniqueId++}`;
 
       if (this.readonly) {

@@ -4,18 +4,15 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 $resize-types: none, both, horizontal, vertical, auto;
 
 :host {
-  //--_border: 1px solid var(--_border-color);
-  //--_border-color: #d3d3d3;
-  //--_border-radius: 3px;
-  //--_box-shadow: none;
-  //--_gap: 0.25rem;
   --_border-size: var(--sl-border-width-button-default);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
   --_box-shadow: var(--sl-box-shadow-none);
   --_transition: 200ms ease-in-out;
-  --_min-block-size-md: calc(72px - 2 * var(--sl-border-width-button-default));
-  --_min-block-size-lg: calc(88px - 2 * var(--sl-border-width-button-default));
+  //--_min-block-size-md: calc(72px - 2 * var(--sl-border-width-button-default));
+  //--_min-block-size-lg: calc(88px - 2 * var(--sl-border-width-button-default));
+  --_min-height-md: 72px;
+  --_min-height-lg: 88px;
 }
 
 :host {
@@ -31,6 +28,8 @@ $resize-types: none, both, horizontal, vertical, auto;
   cursor: default;
   pointer-events: none;
 }
+
+// TODO: min and max height as custom property???
 
 :host(:focus-within) {
   //--_border-color: hsl(207, 95%, calc(55% - 8% * 2));
@@ -60,6 +59,7 @@ slot[name='textarea']::slotted(textarea) {
   font: var(--_font); //inherit;
   line-height: 24px;
   margin: 0;
+  min-height: var(--_min-height); //70px;
   //min-block-size: 72px; // TODO: it should come from a token or how? Maybe added by user?
   //min-block-size: var(--_min-block-size);
   outline: none;
@@ -109,6 +109,9 @@ slot[name='suffix'] {
         var(--sl-space-input-text-field-inline-#{$size})
         var(--sl-space-input-text-field-block-#{$size})
         var(--sl-space-input-text-field-inline-#{$size});
+      --_min-height: calc(
+        var(--_min-height-#{$size}) - 2 * var(--sl-border-width-button-default)
+      ); //var(--_min-height-#{$size});
       //--_gap: var(--sl-space-text-field-gap-#{$size});
       padding-right: calc(
         var(--sl-space-input-text-field-inline-#{$size}) +
@@ -127,7 +130,7 @@ slot[name='suffix'] {
     }
 
     .wrapper {
-      --_min-block-size: var(--_min-block-size-#{$size});
+      //--_min-block-size: var(--_min-block-size-#{$size});
     }
 
     //.wrapper {
@@ -147,11 +150,16 @@ slot[name='suffix'] {
 }
 
 @each $resize in $resize-types {
-  /* stylelint-disable-next-line max-nesting-depth */
   :host([resize='#{$resize}']) {
     /* stylelint-disable-next-line max-nesting-depth */
     slot[name='textarea']::slotted(textarea) {
-      resize: $resize;
+      @if $resize == auto {
+        /* stylelint-disable-next-line max-nesting-depth */
+        resize: none;
+      } @else {
+        /* stylelint-disable-next-line max-nesting-depth */
+        resize: $resize;
+      }
     }
   }
 }

@@ -10,7 +10,7 @@ import { All as AllButton} from "../../../packages/components/button/src/button.
 import { All as AllCheckbox} from "../../../packages/components/checkbox/src/checkbox.stories";
 import { All as AllRadioGroup} from "../../../packages/components/radio-group/src/radio-group.stories";
 import { html } from 'lit';
-import { themes } from '../themes';
+import { themes } from '../../../.storybook/themes';
 
 export default {
   title: 'Max',

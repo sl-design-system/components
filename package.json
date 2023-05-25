@@ -13,6 +13,7 @@
     "packages/themes/*",
     "packages/tokens",
     "scripts",
+    "chromatic",
     "tools/example-data",
     "website"
   ],
@@ -162,7 +163,7 @@
       ]
     },
     "chromatic": {
-      "command": "chromatic --build-script-name storybook -o dist --exit-zero-on-changes"
+      "command": "yarn workspace @sl-design-system/chromatic chromatic"
     },
     "lint": {
       "dependencies": [

@@ -1,5 +1,22 @@
 # @sl-design-system/grid
 
+## 0.0.8
+
+### Patch Changes
+
+- [#453](https://github.com/sl-design-system/components/pull/453) [`36e9946`](https://github.com/sl-design-system/components/commit/36e9946d5eea0c76207fc3273563bacdd2ea01d5) - Add support for initial filtered/sorted columns
+
+- [#450](https://github.com/sl-design-system/components/pull/450) [`0246004`](https://github.com/sl-design-system/components/commit/0246004048c9f66dd19bee69177d1cecaacd1b95) - Add support for options in the grid filter column
+
+- [#451](https://github.com/sl-design-system/components/pull/451) [`7923328`](https://github.com/sl-design-system/components/commit/7923328bbd949d761803f28bb8ce18efdae8c1ef) - Fix missing border with horizontal overflow
+
+- [#452](https://github.com/sl-design-system/components/pull/452) [`892687a`](https://github.com/sl-design-system/components/commit/892687a3c4c0306964641c0e62ffb015227d58d2) - When 1 or more rows are selected, change the header
+
+- Updated dependencies [[`4c1ba25`](https://github.com/sl-design-system/components/commit/4c1ba250a5b5edc65a74c47b9fbd869324791f17), [`0246004`](https://github.com/sl-design-system/components/commit/0246004048c9f66dd19bee69177d1cecaacd1b95), [`4c1ba25`](https://github.com/sl-design-system/components/commit/4c1ba250a5b5edc65a74c47b9fbd869324791f17)]:
+  - @sl-design-system/shared@0.1.0
+  - @sl-design-system/checkbox@0.0.5
+  - @sl-design-system/text-input@0.1.0
+
 ## 0.0.7
 
 ### Patch Changes

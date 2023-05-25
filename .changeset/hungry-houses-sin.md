@@ -1,6 +1,6 @@
 ---
-'@sanomalearning/slds-max': patch
-'@sanomalearning/slds-tokens': patch
+'@sl-design-system/max': patch
+'@sl-design-system/tokens': patch
 ---
 
-max button styling
+Max button styling

@@ -81,6 +81,10 @@ th {
   border-bottom: var(--_cell-border);
   font-weight: var(--_header-font-weight);
   padding: var(--_header-padding-block) var(--_header-padding-inline);
+
+  &[part~='filter'] {
+    padding: 0;
+  }
 }
 
 td {

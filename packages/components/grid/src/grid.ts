@@ -304,6 +304,11 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     } else {
       this.#filters = this.#filters.filter(filter => filter !== target);
     }
+
+    // If any filter starts out active, we need to apply it
+    if (this.#filters.some(filter => filter.active)) {
+      this.#applyFilters();
+    }
   }
 
   #onFilterValueChange(): void {
@@ -327,6 +332,11 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       this.#sorters = [...this.#sorters, target];
     } else {
       this.#sorters = this.#sorters.filter(sorter => sorter !== target);
+    }
+
+    // If any sorter starts out active, sort the grid
+    if (this.#sorters.some(sorter => sorter.direction !== undefined)) {
+      this.#applySorters();
     }
   }
 

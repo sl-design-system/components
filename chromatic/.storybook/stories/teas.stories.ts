@@ -5,11 +5,11 @@ import { html } from 'lit';
 import { setTheme } from "../../utils/theme"
 
 export default {
-  title: 'Max',
+  title: 'TEAS',
   decorators: [
     (Story) => {
       return html`
-        ${setTheme('max')}
+        ${setTheme('teas')}
         ${Story()}`
     },
   ],

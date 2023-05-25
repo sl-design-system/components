@@ -19,7 +19,8 @@
   ],
   "scripts": {
     "build": "wireit",
-    "chromatic": "wireit",
+    "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
+    "chromatic-storybook": "yarn workspace @sl-design-system/chromatic storybook",
     "extract-i18n": "lit-localize extract",
     "lint": "wireit",
     "postinstall": "husky install",
@@ -161,9 +162,6 @@
         "packages/**/tsconfig.tsbuildinfo",
         "packages/**/*.d.ts"
       ]
-    },
-    "chromatic": {
-      "command": "yarn workspace @sl-design-system/chromatic chromatic"
     },
     "lint": {
       "dependencies": [

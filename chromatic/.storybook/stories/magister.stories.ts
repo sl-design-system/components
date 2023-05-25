@@ -7,7 +7,7 @@ import '@sl-design-system/label/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/textarea/register.js';
 import { All as AllButton} from "../../../packages/components/button/src/button.stories";
-import { All as AllRadioGroup} from "../../../packages/components/button/src/button.stories";
+import { All as AllRadioGroup} from "../../../packages/components/radio-group/src/radio-group.stories";
 import { updateTheme } from '../themes';
 
 updateTheme('magister','light');

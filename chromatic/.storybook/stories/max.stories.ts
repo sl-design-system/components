@@ -7,7 +7,8 @@ import '@sl-design-system/label/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/textarea/register.js';
 import {MessageSize} from "@sl-design-system/shared";
-import { All } from "../../../packages/components/button/src/button.stories";
+import { All as AllButton} from "../../../packages/components/button/src/button.stories";
+import { All as AllRadioGroup} from "../../../packages/components/radio-group/src/radio-group.stories";
 import { updateTheme } from '../themes';
 
 
@@ -25,4 +26,5 @@ export default {
   },
 };
 
-export const Buttons = All;
+export const Buttons = AllButton;
+export const RadioGroup = AllRadioGroup;

@@ -13,19 +13,37 @@
   --_icon-color: var(--_active-color);
 }
 
-.wrapper {
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  gap: var(--_gap);
+.toggle {
+  box-sizing: border-box;
   inline-size: 100%;
   justify-content: space-between;
 }
 
 sl-popover {
-  padding: 0.25rem;
+  --_padding: 0;
+  padding: 0;
 }
 
-sl-icon {
-  color: var(--_icon-color);
+header {
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
+}
+
+h1 {
+  font: var(--sl-text-body-md-normal);
+  margin: 0;
+
+  span {
+    text-transform: lowercase;
+  }
+}
+
+sl-checkbox-group,
+sl-text-input {
+  margin: 0.5rem;
 }

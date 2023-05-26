@@ -6,7 +6,7 @@
   --_cell-padding-block: 0.5rem;
   --_cell-padding-inline: 1rem;
   --_font: var(--sl-text-body-md-normal);
-  --_header-background: #fff;
+  --_header-background: #f9f9f9;
   --_header-font-weight: 600;
   --_header-padding-block: 0.5rem;
   --_header-padding-inline: 1rem;
@@ -86,6 +86,7 @@ th {
   background: var(--_header-background);
   font-weight: var(--_header-font-weight);
   padding: var(--_header-padding-block) var(--_header-padding-inline);
+  text-align: start;
 
   &[part~='filter'] {
     padding: 0;

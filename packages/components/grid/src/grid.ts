@@ -203,6 +203,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   renderHeader(): TemplateResult {
     const rows = this.#getHeaderRows(this.columns),
       showSelectionHeader =
+        this.selection.size > 0 &&
         (this.selection.areSomeSelected() || this.selection.areAllSelected()) &&
         rows.at(-1)?.[0] instanceof GridSelectionColumn;
 

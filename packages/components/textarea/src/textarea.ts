@@ -14,7 +14,7 @@ import styles from './textarea.scss.js';
 
 export type TextareaSize = 'md' | 'lg';
 
-export type ResizeType = 'none' | 'vertical' | 'auto'; // TODO: add auto?
+export type ResizeType = 'none' | 'vertical' | 'auto';
 // 'none' | 'both' | 'horizontal' | 'vertical';
 
 let nextUniqueId = 0;
@@ -43,6 +43,9 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   textarea!: HTMLTextAreaElement;
 
   // TODO: add autofocus as well? or maybe for formControl?
+
+  /** Observe the grid width. */
+  #resizeObserver?: ResizeObserver;
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete?: string;
@@ -112,21 +115,35 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
       this.#validation.validate(this.value);
 
-      console.log('resize in connectedCallback in if', this.resize);
+      // console.log('resize in connectedCallback in if', this.resize);
     }
+
+    this.#resizeObserver = new ResizeObserver(() => setTimeout(() => this.#setSize()));
+
+    // this.updateComplete.then(() => {
+    //   this.#setSize();
+    this.#resizeObserver?.observe(this.textarea);
+    // });
 
     console.log('resize in connectedCallback', this.resize);
 
-    console.log(
-      'setSize in connectedCallback',
-      this.textarea.scrollHeight,
-      (this as HTMLElement).scrollHeight,
-      (this as HTMLElement).clientHeight,
-      this.textarea.clientHeight,
-      this.textarea.getBoundingClientRect().height,
-      this.textarea.getBoundingClientRect().top,
-      this.textarea.getBoundingClientRect().right
-    );
+    // console.log(
+    //   'setSize in connectedCallback',
+    //   this.textarea.scrollHeight,
+    //   (this as HTMLElement).scrollHeight,
+    //   (this as HTMLElement).clientHeight,
+    //   this.textarea.clientHeight,
+    //   this.textarea.getBoundingClientRect().height,
+    //   this.textarea.getBoundingClientRect().top,
+    //   this.textarea.getBoundingClientRect().right
+    // );
+  }
+
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+
+    this.#resizeObserver?.unobserve(this.textarea);
+    this.#resizeObserver = undefined;
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -237,10 +254,8 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
         <slot name="suffix">
-          <sl-icon class="invalid-icon" name="triangle-exclamation-solid" size=${this.size}></sl-icon>
-          ${this.valid
-            ? html`<sl-icon class="valid-icon" name="circle-check-solid" size=${this.size}></sl-icon>`
-            : null}
+          <sl-icon class="invalid-icon" name="triangle-exclamation-solid" size="lg"></sl-icon>
+          ${this.valid ? html`<sl-icon class="valid-icon" name="circle-check-solid" size="lg"></sl-icon>` : null}
         </slot>
       </div>
       ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
@@ -277,17 +292,17 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   #setSize(): void {
-    console.log(
-      'setSize',
-      this.textarea.offsetHeight,
-      this.textarea.scrollHeight,
-      this.textarea.clientHeight,
-      (this as HTMLElement).scrollHeight,
-      (this as HTMLElement).clientHeight,
-      this.textarea.getBoundingClientRect().height,
-      this.textarea.getBoundingClientRect().top,
-      this.textarea.getBoundingClientRect().right
-    );
+    // console.log(
+    //   'setSize',
+    //   this.textarea.offsetHeight,
+    //   this.textarea.scrollHeight,
+    //   this.textarea.clientHeight,
+    //   (this as HTMLElement).scrollHeight,
+    //   (this as HTMLElement).clientHeight,
+    //   this.textarea.getBoundingClientRect().height,
+    //   this.textarea.getBoundingClientRect().top,
+    //   this.textarea.getBoundingClientRect().right
+    // );
     this.textarea.style.height = 'auto';
     this.textarea.style.height = `${this.textarea.scrollHeight}px`;
     //this.textarea.style.resize = 'none';
@@ -301,6 +316,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    console.log('onslotchange event', event);
     const elements = event.target.assignedElements({ flatten: true }),
       textareas = elements.filter(
         (el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement && el !== this.textarea

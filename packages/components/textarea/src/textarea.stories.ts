@@ -1,4 +1,4 @@
-import type { ResizeType, Textarea } from './textarea.js';
+import type { ResizeType, Textarea, TextareaSize } from './textarea.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/label/register.js';
 import { html } from 'lit';
@@ -10,7 +10,7 @@ export default {
 
 const resizeTypes: ResizeType[] = ['none', 'vertical', 'auto'];
 
-//const sizes: TextareaSize[] = ['md', 'lg'];
+const sizes: TextareaSize[] = ['md', 'lg'];
 
 export const API: StoryObj = {
   args: {
@@ -20,7 +20,8 @@ export const API: StoryObj = {
     autofocus: false,
     size: 'md',
     value: '',
-    resize: 'none'
+    resize: 'none',
+    hint: ''
   },
   argTypes: {
     size: {
@@ -32,12 +33,12 @@ export const API: StoryObj = {
       options: resizeTypes
     }
   },
-  render: ({ disabled, placeholder, required, autofocus, size, value, resize }) =>
+  render: ({ disabled, placeholder, required, autofocus, size, value, resize, hint }) =>
     html`
       <style>
-        sl-textarea {
-          min-width: 500px;
-        }
+        /*sl-textarea {*/
+        /*  width: 500px;*/
+        /*}*/
       </style>
       <sl-textarea
         .disabled=${disabled}
@@ -47,6 +48,7 @@ export const API: StoryObj = {
         .size=${size}
         .value=${value}
         .resize=${resize}
+        .hint=${hint}
       ></sl-textarea>
     `
 }; // TODO: add hint as well?
@@ -75,10 +77,36 @@ export const All: StoryObj = {
         grid-template-columns: repeat(2, 1fr);
         justify-items: center;
       }
-      sl-input {
+      sl-textarea {
         width: 300px;
       }
     </style>
+
+    ${sizes.map(
+      size => html`
+        <h2>Size: ${size}</h2>
+        <div class="content-wrapper">
+          <div class="wrapper">
+            <sl-textarea size="md" placeholder="Placeholder md"></sl-textarea>
+            <sl-textarea size="md" value="I am medium"></sl-textarea>
+            <sl-textarea readonly size="md" value="I am md readonly"></sl-textarea>
+            <sl-textarea disabled size="md" value="I am md disabled"></sl-textarea>
+            <sl-textarea disabled size="md" placeholder="Placeholder md disabled"></sl-textarea>
+          </div>
+          <div class="wrapper">
+            <sl-textarea invalid size="md" value="I am md invalid"></sl-textarea>
+            <sl-textarea invalid size="md" placeholder="Placeholder md invalid"></sl-textarea>
+            <sl-textarea disabled invalid size="md" value="I am md invalid disabled"></sl-textarea>
+            <sl-textarea disabled invalid size="md" placeholder="Placeholder md disabled invalid"></sl-textarea>
+          </div>
+          <div class="wrapper">
+            <sl-textarea showValid valid size="md" value="I am md valid"></sl-textarea>
+            <sl-textarea disabled showValid valid size="md" value="I am md valid disabled"></sl-textarea>
+          </div>
+        </div>
+      `
+    )}
+
     <h2>Medium</h2>
     <div class="content-wrapper">
       <div class="wrapper">
@@ -126,6 +154,10 @@ export const Label: StoryObj = {
       form {
         display: flex;
         flex-direction: column;
+      }
+      sl-textarea {
+        width: 300px;
+        --sl-textarea-min-height-md: 100px;
       }
     </style>
     <form>

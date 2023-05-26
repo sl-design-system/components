@@ -72,6 +72,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   override updated(changes: PropertyValues<this>): void {
+    console.log('updated in checkbox', changes);
     super.updated(changes);
 
     if (changes.has('checked') || changes.has('indeterminate')) {
@@ -121,7 +122,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
           <slot @slotchange=${() => this.#updateNoLabel()}></slot>
         </span>
       </div>
-      ${this.#validation.render()} ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
+      ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
     `;
   }
 

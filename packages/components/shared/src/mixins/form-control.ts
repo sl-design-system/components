@@ -98,6 +98,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (changes.has('disabled') && isNative(this.formControlElement)) {
         console.log('disabled  changes in form control', this.disabled);
         this.formControlElement.toggleAttribute('disabled', this.disabled);
+        this.#formControlElement?.toggleAttribute('disabled', this.disabled);
       }
 
       if (changes.has('name') && isNative(this.formControlElement)) {

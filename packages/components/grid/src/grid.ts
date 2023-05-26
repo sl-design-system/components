@@ -277,7 +277,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     // Since we set an explicit width for the `<thead>` and `<tbody>`, we also need
     // to set an explicit with for all the `<tr>` elements. Otherwise, the sticky columns
     // will not be sticky when you scroll horizontally.
-    const rowWidth = this.columns.reduce((acc, cur) => acc + (cur.width ?? 0), 0);
+    const rowWidth = this.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
     this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
 
     this.requestUpdate('columns');

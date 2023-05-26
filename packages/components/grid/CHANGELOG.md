@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.9
+
+### Patch Changes
+
+- [#456](https://github.com/sl-design-system/components/pull/456) [`0ea4cc3`](https://github.com/sl-design-system/components/commit/0ea4cc3b4345fcadff3687ae3c8730707088a874) - Various grid fixes
+
 ## 0.0.8
 
 ### Patch Changes

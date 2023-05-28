@@ -1,5 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
+import type { GridFilterMode, GridFilterOption } from './filter-column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { faFilter, faFilterList, faXmark } from '@fortawesome/pro-regular-svg-icons';
@@ -16,13 +17,6 @@ import { property } from 'lit/decorators.js';
 import styles from './filter.scss.js';
 
 export type GridFilterChange = 'added' | 'removed';
-
-export type GridFilterMode = 'select' | 'text';
-
-export interface GridFilterOption {
-  label: string;
-  value?: unknown;
-}
 
 Icon.registerIcon(faFilter, faFilterList, faXmark);
 

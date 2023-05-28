@@ -38,7 +38,7 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
   }
 
   override renderHeader(): TemplateResult {
-    const checked = this.grid?.selection.areAllSelected(),
+    const checked = !!this.grid?.selection.size && this.grid?.selection.areAllSelected(),
       indeterminate = this.grid?.selection.areSomeSelected();
 
     return html`

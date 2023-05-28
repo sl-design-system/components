@@ -19,6 +19,7 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     'sl-active-item-change': GridActiveItemChangeEvent<any>;
     'sl-filter-change': GridFilterValueChangeEvent;
+    'sl-grid-items-change': Event;
   }
 
   interface HTMLElementTagNameMap {

@@ -23,8 +23,8 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
     this.scopedElements = { 'sl-checkbox': Checkbox };
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('grid') && this.grid) {
       this.#events.listen(this.grid, 'sl-active-item-change', this.#onActiveItemChange);

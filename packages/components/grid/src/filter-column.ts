@@ -44,7 +44,15 @@ export class GridFilterColumn extends GridColumn {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('grid') && this.mode !== 'text' && typeof this.options === 'undefined') {
+    if (changes.has('grid')) {
+      this.itemsChanged();
+    }
+  }
+
+  override itemsChanged(): void {
+    super.itemsChanged();
+
+    if (this.mode !== 'text' && typeof this.options === 'undefined') {
       // No options were provided, so we'll create a list of options based on the column's values
       this.internalOptions = this.grid?.items
         ?.reduce((acc, item) => {

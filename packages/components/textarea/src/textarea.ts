@@ -15,7 +15,6 @@ import styles from './textarea.scss.js';
 export type TextareaSize = 'md' | 'lg';
 
 export type ResizeType = 'none' | 'vertical' | 'auto';
-// 'none' | 'both' | 'horizontal' | 'vertical';
 
 let nextUniqueId = 0;
 
@@ -75,7 +74,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   @property({ type: Boolean, reflect: true }) showValid = false;
 
   /** Textarea size. */
-  @property({ reflect: true }) resize: ResizeType = 'vertical'; // TODO: add auto? auto or autogrow?
+  @property({ reflect: true }) resize: ResizeType = 'vertical';
 
   /** Textarea size. */
   @property({ reflect: true }) size: TextareaSize = 'md';
@@ -86,12 +85,6 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   // /** The number of rows. */
   // @property({ type: Number }) rows = 3; // TODO: min-block-size instead?
-
-  // /** Whether the input has focus visible. */
-  // @property({ type: Boolean, reflect: true, attribute: 'focus-visible-within' }) focusVisible = false;
-  //
-  // /** @private used for focusVisible */
-  // #clicked = false;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -114,18 +107,14 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       this.setFormControlElement(this.textarea);
 
       this.#validation.validate(this.value);
-
-      // console.log('resize in connectedCallback in if', this.resize);
     }
 
-    this.#resizeObserver = new ResizeObserver(() => setTimeout(() => this.#setSize()));
+    if (this.resize === 'auto') {
+      this.#resizeObserver = new ResizeObserver(() => this.#setSize());
 
-    // this.updateComplete.then(() => {
-    //   this.#setSize();
-    this.#resizeObserver?.observe(this.textarea);
-    // });
-
-    console.log('resize in connectedCallback', this.resize);
+      this.#resizeObserver?.observe(this.textarea);
+    }
+    //console.log('resize in connectedCallback', this.resize);
 
     // console.log(
     //   'setSize in connectedCallback',

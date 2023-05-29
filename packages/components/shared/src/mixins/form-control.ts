@@ -8,6 +8,7 @@ export type FormControlValue = ValidationValue;
 export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;
   labels: NodeListOf<HTMLLabelElement> | null;
+  // disabled?: boolean;
   name: string;
   value?: FormControlValue;
 
@@ -96,7 +97,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       console.log('formcontrolelement in formcontrol', changes, this.formControlElement, this.#formControlElement); // TODO: disabled check in textarea?
 
       if (changes.has('disabled') && isNative(this.formControlElement)) {
-        console.log('disabled  changes in form control', this.disabled);
+        console.log('disabled  changes in form control', this.disabled, this.#formControlElement);
         this.formControlElement.toggleAttribute('disabled', this.disabled);
         this.#formControlElement?.toggleAttribute('disabled', this.disabled);
       }

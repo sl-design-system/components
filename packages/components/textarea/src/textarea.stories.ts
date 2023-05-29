@@ -87,64 +87,25 @@ export const All: StoryObj = {
         <h2>Size: ${size}</h2>
         <div class="content-wrapper">
           <div class="wrapper">
-            <sl-textarea size="md" placeholder="Placeholder md"></sl-textarea>
-            <sl-textarea size="md" value="I am medium"></sl-textarea>
-            <sl-textarea readonly size="md" value="I am md readonly"></sl-textarea>
-            <sl-textarea disabled size="md" value="I am md disabled"></sl-textarea>
-            <sl-textarea disabled size="md" placeholder="Placeholder md disabled"></sl-textarea>
+            <sl-textarea size=${size} placeholder="Placeholder ${size}"></sl-textarea>
+            <sl-textarea size=${size} value="I am ${size}"></sl-textarea>
+            <sl-textarea readonly size=${size} value="${size} readonly"></sl-textarea>
+            <sl-textarea disabled size=${size} value="${size} disabled"></sl-textarea>
+            <sl-textarea disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-textarea>
           </div>
           <div class="wrapper">
-            <sl-textarea invalid size="md" value="I am md invalid"></sl-textarea>
-            <sl-textarea invalid size="md" placeholder="Placeholder md invalid"></sl-textarea>
-            <sl-textarea disabled invalid size="md" value="I am md invalid disabled"></sl-textarea>
-            <sl-textarea disabled invalid size="md" placeholder="Placeholder md disabled invalid"></sl-textarea>
+            <sl-textarea invalid size=${size} value="${size} invalid"></sl-textarea>
+            <sl-textarea invalid size=${size} placeholder="Placeholder ${size} invalid"></sl-textarea>
+            <sl-textarea disabled invalid size=${size} value="${size} invalid disabled"></sl-textarea>
+            <sl-textarea disabled invalid size=${size} placeholder="Placeholder ${size} disabled invalid"></sl-textarea>
           </div>
           <div class="wrapper">
-            <sl-textarea showValid valid size="md" value="I am md valid"></sl-textarea>
-            <sl-textarea disabled showValid valid size="md" value="I am md valid disabled"></sl-textarea>
+            <sl-textarea showValid valid size=${size} value="I am md valid"></sl-textarea>
+            <sl-textarea disabled showValid valid size=${size} value="${size} valid disabled"></sl-textarea>
           </div>
         </div>
       `
     )}
-
-    <h2>Medium</h2>
-    <div class="content-wrapper">
-      <div class="wrapper">
-        <sl-textarea size="md" placeholder="Placeholder md"></sl-textarea>
-        <sl-textarea size="md" value="I am medium"></sl-textarea>
-        <sl-textarea readonly size="md" value="I am md readonly"></sl-textarea>
-        <sl-textarea disabled size="md" value="I am md disabled"></sl-textarea>
-        <sl-textarea disabled size="md" placeholder="Placeholder md disabled"></sl-textarea>
-      </div>
-      <div class="wrapper">
-        <sl-textarea invalid size="md" value="I am md invalid"></sl-textarea>
-        <sl-textarea invalid size="md" placeholder="Placeholder md invalid"></sl-textarea>
-        <sl-textarea disabled invalid size="md" value="I am md invalid disabled"></sl-textarea>
-        <sl-textarea disabled invalid size="md" placeholder="Placeholder md disabled invalid"></sl-textarea>
-      </div>
-      <div class="wrapper">
-        <sl-textarea showValid valid size="md" value="I am md valid"></sl-textarea>
-        <sl-textarea disabled showValid valid size="md" value="I am md valid disabled"></sl-textarea>
-      </div>
-      <h2>Large</h2>
-      <div class="wrapper">
-        <sl-textarea size="lg" placeholder="Placeholder lg"></sl-textarea>
-        <sl-textarea size="lg" value="I am large"></sl-textarea>
-        <sl-textarea readonly size="lg" value="I am lg readonly"></sl-textarea>
-        <sl-textarea disabled size="lg" value="I am lg disabled"></sl-textarea>
-        <sl-textarea disabled size="lg" placeholder="Placeholder lg disabled"></sl-textarea>
-      </div>
-      <div class="wrapper">
-        <sl-textarea invalid size="lg" value="I am lg invalid"></sl-textarea>
-        <sl-textarea invalid size="lg" placeholder="Placeholder lg invalid"></sl-textarea>
-        <sl-textarea disabled invalid size="lg" value="I am lg invalid disabled"></sl-textarea>
-        <sl-textarea disabled invalid size="lg" placeholder="Placeholder lg disabled invalid"></sl-textarea>
-      </div>
-      <div class="wrapper">
-        <sl-textarea showValid valid size="lg" value="I am lg valid"></sl-textarea>
-        <sl-textarea disabled showValid valid size="lg" value="I am lg valid disabled"></sl-textarea>
-      </div>
-    </div>
   `
 };
 
@@ -210,6 +171,12 @@ export const MinMaxLength: StoryObj = {
     };
 
     return html`
+      <style>
+        sl-textarea {
+          width: 350px;
+          margin-bottom: 8px;
+        }
+      </style>
       <sl-textarea minlength="3" maxlength="5" placeholder="Min 3 and max 5 chars" required></sl-textarea>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
@@ -223,6 +190,12 @@ export const CustomValidation: StoryObj = {
     };
 
     return html`
+      <style>
+        sl-textarea {
+          width: 350px;
+          margin-bottom: 8px;
+        }
+      </style>
       <sl-textarea minlength="3" maxlength="5" required="true">
         <div slot="too-short">You need to enter at least 3 characters here; this is a custom message.</div>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>

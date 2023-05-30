@@ -11,21 +11,14 @@
   "type": "module",
   "scripts": {
     "chromatic": "wireit",
-    "storybook": "wireit",
+    "build-storybook": "wireit",
     "start": "wireit"
   },
   "wireit": {
     "chromatic": {
-      "command": "chromatic --build-script-name storybook -o storybook-static --exit-zero-on-changes"
+      "command": "chromatic --build-script-name build-storybook -o storybook-static --exit-zero-on-changes"
     },
-    "components": {
-      "command": "storybook build",
-      "dependencies": [
-        "..:build:components",
-        "..:build:themes"
-      ]
-    },
-    "themes": {
+    "build-storybook": {
       "command": "storybook build",
       "dependencies": [
         "..:build:components",

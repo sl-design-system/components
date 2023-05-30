@@ -152,23 +152,36 @@ export const All: StoryObj = {
 };
 
 export const Label: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-    <form>
-      ${labelSizes.map(size => {
-        const inputSize = size === 'lg' ? size : 'md';
-        return html`
-          <sl-label for="input" size=${size}>What is your name?</sl-label>
-          <sl-text-input id="input" size=${inputSize}></sl-text-input>
-        `;
-      })}
-    </form>
-  `
+  render: () => {
+    setTimeout(() => {
+      const form = document.querySelector('form');
+      const slLabels = form?.querySelectorAll('sl-label');
+
+      slLabels?.forEach((label, idx) => {
+        const id = `form-${idx}`;
+        label.setAttribute('for', id);
+        (label.nextElementSibling as HTMLElement).setAttribute('id', id);
+      });
+    });
+
+    return html`
+      <style>
+        form {
+          display: flex;
+          flex-direction: column;
+        }
+      </style>
+      <form>
+        ${labelSizes.map(size => {
+          const inputSize = size === 'lg' ? size : 'md';
+          return html`
+            <sl-label size=${size}>What is your name?</sl-label>
+            <sl-text-input size=${inputSize}></sl-text-input>
+          `;
+        })}
+      </form>
+    `;
+  }
 };
 
 export const Hint: StoryObj = {

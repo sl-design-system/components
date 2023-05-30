@@ -1,6 +1,7 @@
 import type { ResizeType, Textarea, TextareaSize } from './textarea.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/label/register.js';
+import type { HintSize } from '@sl-design-system/shared';
 import { html } from 'lit';
 import '../register.js';
 
@@ -8,16 +9,27 @@ export default {
   title: 'Textarea'
 };
 
+const generateIds = (form: HTMLFormElement): void => {
+  const slLabels = form.querySelectorAll('sl-label');
+
+  slLabels?.forEach((label, idx) => {
+    const id = `form-textarea-${idx}`;
+    label.setAttribute('for', id);
+    (label.nextElementSibling as HTMLElement).setAttribute('id', id);
+  });
+};
+
 const resizeTypes: ResizeType[] = ['none', 'vertical', 'auto'];
 
 const sizes: TextareaSize[] = ['md', 'lg'];
+
+const hintSizes: HintSize[] = ['sm', 'md', 'lg'];
 
 export const API: StoryObj = {
   args: {
     disabled: false,
     placeholder: 'Type here',
     required: false,
-    autofocus: false,
     size: 'md',
     value: '',
     resize: 'none',
@@ -33,25 +45,19 @@ export const API: StoryObj = {
       options: resizeTypes
     }
   },
-  render: ({ disabled, placeholder, required, autofocus, size, value, resize, hint }) =>
+  render: ({ disabled, placeholder, required, size, value, resize, hint }) =>
     html`
-      <style>
-        /*sl-textarea {*/
-        /*  width: 500px;*/
-        /*}*/
-      </style>
       <sl-textarea
         .disabled=${disabled}
         .placeholder=${placeholder}
         .required=${required}
-        .autofocus=${autofocus}
         .size=${size}
         .value=${value}
         .resize=${resize}
         .hint=${hint}
       ></sl-textarea>
     `
-}; // TODO: add hint as well?
+};
 
 export const Disabled: StoryObj = {
   render: () => html`<sl-textarea disabled value="Textarea disabled"></sl-textarea>`
@@ -110,37 +116,77 @@ export const All: StoryObj = {
 };
 
 export const Label: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-      sl-textarea {
-        width: 300px;
-        --sl-textarea-min-height-md: 100px;
-      }
-    </style>
-    <form>
-      <sl-label for="textarea">What is your name?</sl-label>
-      <sl-textarea id="textarea"></sl-textarea>
-    </form>
-  `
+  render: () => {
+    requestAnimationFrame(() => {
+      const form = document.querySelector('form') as HTMLFormElement;
+      generateIds(form);
+    });
+
+    return html`
+      <style>
+        form {
+          display: flex;
+          flex-direction: column;
+        }
+
+        sl-textarea {
+          width: 300px;
+          --sl-textarea-min-height-md: 100px;
+          --sl-textarea-min-height-lg: 150px;
+          margin-bottom: 1rem;
+        }
+      </style>
+      <form>
+        <sl-label>What is your name?</sl-label>
+        <sl-textarea></sl-textarea>
+        ${sizes.map(size => {
+          const textareaSize = size === 'lg' ? size : 'md';
+          return html`
+            <sl-label size=${size}>What is your name?</sl-label>
+            <sl-textarea size=${textareaSize}></sl-textarea>
+          `;
+        })}
+      </form>
+    `;
+  }
 };
 
 export const Hint: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-    <form>
-      <sl-label for="textarea">Nickname</sl-label>
-      <sl-textarea id="textarea" hint="What would you like people to call you?"></sl-textarea>
-    </form>
-  `
+  render: () => {
+    requestAnimationFrame(() => {
+      const form = document.querySelector('form') as HTMLFormElement;
+      generateIds(form);
+    });
+
+    return html`
+      <style>
+        form {
+          display: flex;
+          flex-direction: column;
+        }
+
+        sl-textarea {
+          margin-bottom: 1rem;
+        }
+      </style>
+      <form>
+        ${hintSizes.map(hintSize => {
+          return html`
+            <sl-label>Nickname</sl-label>
+            <sl-textarea hint="What would you like people to call you?" hintSize=${hintSize}></sl-textarea>
+          `;
+        })}
+        <sl-label for="textarea4">Nickname</sl-label>
+        <sl-textarea
+          id="textarea4"
+          disabled
+          hint="What would you like people to call you?"
+          hintSize="lg"
+          value="Disabled textarea"
+        ></sl-textarea>
+      </form>
+    `;
+  }
 };
 
 export const RichLabelHint: StoryObj = {
@@ -149,6 +195,10 @@ export const RichLabelHint: StoryObj = {
       form {
         display: flex;
         flex-direction: column;
+      }
+
+      div {
+        gap: 0.25rem;
       }
     </style>
     <form>

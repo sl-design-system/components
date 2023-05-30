@@ -16,6 +16,8 @@ export type TextareaSize = 'md' | 'lg';
 
 export type ResizeType = 'none' | 'vertical' | 'auto';
 
+export type WrapType = 'soft' | 'hard';
+
 let nextUniqueId = 0;
 
 /**
@@ -40,8 +42,6 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   /** The textarea in the light DOM. */
   textarea!: HTMLTextAreaElement;
-
-  // TODO: add autofocus as well? or maybe for formControl?
 
   /** Observe the grid width. */
   #resizeObserver?: ResizeObserver;
@@ -79,12 +79,8 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** Textarea size. */
   @property({ reflect: true }) size: TextareaSize = 'md';
 
-  // TODO resize vertical / horizontal /  none? maybe vertical by default?
-
-  // TODO: add wrap attribute?
-
-  // /** The number of rows. */
-  // @property({ type: Number }) rows = 3; // TODO: min-block-size instead?
+  /** Specifies how the text should be wrapped during form submission. */
+  @property({ reflect: true }) wrap?: WrapType = 'soft';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -98,6 +94,10 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
       if (this.readonly) {
         this.textarea.readOnly = this.readonly;
+      }
+
+      if (this.wrap) {
+        this.textarea.wrap = this.wrap;
       }
 
       if (!this.textarea.parentElement) {
@@ -114,7 +114,6 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
       this.#resizeObserver?.observe(this.textarea);
     }
-    //console.log('resize in connectedCallback', this.resize);
 
     // console.log(
     //   'setSize in connectedCallback',
@@ -180,8 +179,6 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     //   }
     // }
 
-    // TODO: rows and cols?
-
     if (changes.has('readonly')) {
       if (this.readonly) {
         this.textarea.readOnly = this.readonly;
@@ -190,13 +187,13 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       }
     }
 
-    // if (changes.has('disabled')) {
-    //   if (this.disabled) {
-    //     this.textarea.readOnly = this.readonly;
-    //   } else {
-    //     this.textarea.removeAttribute('readonly');
-    //   }
-    // }
+    if (changes.has('wrap')) {
+      if (this.wrap) {
+        this.textarea.wrap = this.wrap;
+      } else {
+        this.textarea.removeAttribute('wrap');
+      }
+    }
 
     if (changes.has('value') && this.value !== this.textarea.value) {
       this.textarea.value = this.value || '';
@@ -210,10 +207,6 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     //   }
     // }
 
-    // resize
-
-    // TODO: set height auto for other resizes than auto
-
     console.log(
       'setSize in updated',
       this.textarea.scrollHeight,
@@ -226,19 +219,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     );
   }
 
-  // TODO: add focus-visible-within attribute
-
   override render(): TemplateResult {
-    console.log(
-      'setSize in render',
-      this.textarea.scrollHeight,
-      (this as HTMLElement).scrollHeight,
-      (this as HTMLElement).clientHeight,
-      this.textarea.clientHeight,
-      this.textarea.getBoundingClientRect().height,
-      this.textarea.getBoundingClientRect().top,
-      this.textarea.getBoundingClientRect().right
-    );
     return html`
       <div @input=${this.#onInput} class="wrapper">
         <slot @slotchange=${this.#onSlotchange} name="textarea"></slot>
@@ -255,11 +236,6 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   // <sl-icon class="invalid-icon" name="fas-triangle-exclamation" size=${this.size}></sl-icon>
   //           ${this.valid ? html`<sl-icon class="valid-icon" name="fas-circle-check" size=${this.size}></sl-icon>` : null}
-
-  // @keydown=${this.#onKeydown}
-  // @focusin=${this.#onFocusin}
-  // @focusout=${this.#onFocusout}
-  // @mousedown=${this.#onMousedown}
 
   // TODO: set valid when showValid and textarea is valid
 
@@ -281,27 +257,8 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   #setSize(): void {
-    // console.log(
-    //   'setSize',
-    //   this.textarea.offsetHeight,
-    //   this.textarea.scrollHeight,
-    //   this.textarea.clientHeight,
-    //   (this as HTMLElement).scrollHeight,
-    //   (this as HTMLElement).clientHeight,
-    //   this.textarea.getBoundingClientRect().height,
-    //   this.textarea.getBoundingClientRect().top,
-    //   this.textarea.getBoundingClientRect().right
-    // );
     this.textarea.style.height = 'auto';
     this.textarea.style.height = `${this.textarea.scrollHeight}px`;
-    //this.textarea.style.resize = 'none';
-    // (this as HTMLElement).style.height = 'auto';
-    // (this as HTMLElement).style.height = `${(this as HTMLElement).scrollHeight}px`;
-    // const wrapper = this.renderRoot.querySelector<HTMLElement>('.wrapper');
-    // if (wrapper) {
-    //   wrapper.style.height = 'auto';
-    //   wrapper.style.height = `${(this as HTMLElement).scrollHeight}px`;
-    // }
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
@@ -319,6 +276,10 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
       if (this.readonly) {
         this.textarea.readOnly = this.readonly;
+      }
+
+      if (this.wrap) {
+        this.textarea.wrap = this.wrap;
       }
 
       this.setFormControlElement(this.textarea);

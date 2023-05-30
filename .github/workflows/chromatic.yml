@@ -47,7 +47,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           # buildScriptName: chromatic-themes
           workingDir: chromatic
-          storybookBuildDir: themes
           exitOnceUploaded: true
 
           

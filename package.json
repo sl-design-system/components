@@ -19,6 +19,7 @@
   ],
   "scripts": {
     "build": "wireit",
+    "build-storybook" : "storybook build -o dist --quiet",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
     "chromatic-components": "yarn workspace @sl-design-system/chromatic components",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",

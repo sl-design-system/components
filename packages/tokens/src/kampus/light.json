@@ -2406,10 +2406,10 @@
   "boxShadow": {
     "focus": {
       "value": {
-        "x": 0,
-        "y": 0,
-        "blur": 0,
-        "spread": 3,
+        "x": "0",
+        "y": "0",
+        "blur": "0",
+        "spread": "3",
         "color": "rgba({color.palette.info.base},{opacity.600})",
         "type": "dropShadow"
       },
@@ -2419,10 +2419,10 @@
     },
     "none": {
       "value": {
-        "x": 0,
-        "y": 0,
-        "blur": 0,
-        "spread": 0,
+        "x": "0",
+        "y": "0",
+        "blur": "0",
+        "spread": "0",
         "color": "",
         "type": "dropShadow"
       },

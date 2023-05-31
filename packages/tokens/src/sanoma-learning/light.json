@@ -2595,6 +2595,498 @@
           "description": "color.surface.solid.primary.foreground"
         }
       }
+    },
+    "select": {
+      "item": {
+        "default": {
+          "background": {
+            "value": "rgba({body.background} , {opacity.transparent})",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.neutral.600}",
+            "type": "color"
+          },
+          "border": {
+            "value": "rgba({body.background} , {opacity.transparent})",
+            "type": "color"
+          },
+          "indicator": {
+            "value": "{color.palette.accent.base}",
+            "type": "color"
+          }
+        },
+        "hover": {
+          "background": {
+            "value": "{color.palette.accent.100}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.neutral.600}",
+            "type": "color"
+          },
+          "border": {
+            "value": "rgba({body.background} , {opacity.transparent})",
+            "type": "color"
+          },
+          "indicator": {
+            "value": "{color.palette.accent.base}",
+            "type": "color"
+          }
+        },
+        "active": {
+          "background": {
+            "value": "{color.palette.accent.150}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.neutral.600}",
+            "type": "color"
+          },
+          "border": {
+            "value": "rgba({body.background} , {opacity.transparent})",
+            "type": "color"
+          },
+          "indicator": {
+            "value": "{color.palette.accent.base}",
+            "type": "color"
+          }
+        },
+        "focus": {
+          "background": {
+            "value": "rgba({body.background} , {opacity.transparent})",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.neutral.600}",
+            "type": "color"
+          },
+          "border": {
+            "value": "rgba({body.background} , {opacity.transparent})",
+            "type": "color"
+          },
+          "indicator": {
+            "value": "{color.palette.accent.base}",
+            "type": "color"
+          }
+        },
+        "disabled": {
+          "background": {
+            "value": "rgba({body.background} , {opacity.transparent})",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.neutral.300}",
+            "type": "color"
+          },
+          "border": {
+            "value": "rgba({body.background} , {opacity.transparent})",
+            "type": "color"
+          },
+          "indicator": {
+            "value": "{color.palette.neutral.300}",
+            "type": "color"
+          }
+        }
+      },
+      "selectbox": {
+        "default": {
+          "default": {
+            "background": {
+              "value": "{color.textField.default.default.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.default.default.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.default.default.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.default.default.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.default.default.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.default.default.placeholder}",
+              "type": "color"
+            }
+          },
+          "hover": {
+            "background": {
+              "value": "{color.textField.default.hover.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.default.hover.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.default.hover.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.default.hover.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.default.hover.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.default.hover.placeholder}",
+              "type": "color"
+            }
+          },
+          "active": {
+            "background": {
+              "value": "{color.textField.default.active.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.default.active.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.default.active.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.default.active.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.default.active.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.default.active.placeholder}",
+              "type": "color"
+            }
+          },
+          "focus": {
+            "background": {
+              "value": "{color.textField.default.focus.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.default.focus.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.default.focus.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.default.focus.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.default.focus.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.default.focus.placeholder}",
+              "type": "color"
+            }
+          },
+          "disabled": {
+            "background": {
+              "value": "{color.textField.default.disabled.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.default.disabled.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.default.disabled.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.default.disabled.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.default.disabled.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.default.disabled.placeholder}",
+              "type": "color"
+            }
+          }
+        },
+        "invalid": {
+          "default": {
+            "background": {
+              "value": "{color.textField.invalid.default.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.invalid.default.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.invalid.default.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.invalid.default.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.invalid.default.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.invalid.default.placeholder}",
+              "type": "color"
+            }
+          },
+          "hover": {
+            "background": {
+              "value": "{color.textField.invalid.hover.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.invalid.hover.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.invalid.hover.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.invalid.hover.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.invalid.hover.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.invalid.hover.placeholder}",
+              "type": "color"
+            }
+          },
+          "active": {
+            "background": {
+              "value": "{color.textField.invalid.active.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.invalid.active.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.invalid.active.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.invalid.active.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.invalid.active.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.invalid.active.placeholder}",
+              "type": "color"
+            }
+          },
+          "focus": {
+            "background": {
+              "value": "{color.textField.invalid.focus.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.invalid.focus.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.invalid.focus.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.invalid.focus.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.invalid.focus.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.invalid.focus.placeholder}",
+              "type": "color"
+            }
+          },
+          "disabled": {
+            "background": {
+              "value": "{color.textField.invalid.disabled.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.invalid.disabled.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.invalid.disabled.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.invalid.disabled.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.invalid.disabled.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.invalid.disabled.placeholder}",
+              "type": "color"
+            }
+          }
+        },
+        "valid": {
+          "default": {
+            "background": {
+              "value": "{color.textField.valid.default.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.valid.default.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.valid.default.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.valid.default.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.valid.default.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.valid.default.placeholder}",
+              "type": "color"
+            }
+          },
+          "hover": {
+            "background": {
+              "value": "{color.textField.valid.hover.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.valid.hover.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.valid.hover.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.valid.hover.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.valid.hover.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.valid.hover.placeholder}",
+              "type": "color"
+            }
+          },
+          "active": {
+            "background": {
+              "value": "{color.textField.valid.active.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.valid.active.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.valid.active.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.valid.active.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.valid.active.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.valid.active.placeholder}",
+              "type": "color"
+            }
+          },
+          "focus": {
+            "background": {
+              "value": "{color.textField.valid.focus.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.valid.focus.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.valid.focus.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.valid.focus.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.valid.focus.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.valid.focus.placeholder}",
+              "type": "color"
+            }
+          },
+          "disabled": {
+            "background": {
+              "value": "{color.textField.valid.disabled.background}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.textField.valid.disabled.border}",
+              "type": "color"
+            },
+            "label": {
+              "value": "{color.textField.valid.disabled.label}",
+              "type": "color"
+            },
+            "icon": {
+              "value": "{color.textField.valid.disabled.icon}",
+              "type": "color"
+            },
+            "inputText": {
+              "value": "{color.textField.valid.disabled.inputText}",
+              "type": "color"
+            },
+            "placeholder": {
+              "value": "{color.textField.valid.disabled.placeholder}",
+              "type": "color"
+            }
+          }
+        }
+      }
     }
   },
   "button": {

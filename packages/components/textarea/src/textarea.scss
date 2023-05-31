@@ -17,25 +17,22 @@ $resize-types: none, both, horizontal, vertical, auto;
   :host([size='#{$size}']) {
     --_gap: var(--sl-space-text-field-gap-#{$size});
 
-    /* stylelint-disable-next-line max-nesting-depth */
     slot[name='textarea']::slotted(textarea) {
       --_font: var(--sl-text-input-text-field-text-#{$size});
       --_padding: var(--sl-space-input-text-field-block-#{$size})
-        var(--sl-space-input-text-field-inline-#{$size})
+        calc(
+          var(--sl-space-input-text-field-inline-#{$size}) +
+          var(--sl-space-input-text-field-gap-#{$size}) +
+          var(--sl-size-icon-#{$size})
+        )
         var(--sl-space-input-text-field-block-#{$size})
         var(--sl-space-input-text-field-inline-#{$size});
       --_min-height: calc(var(--sl-textarea-min-height-#{$size}) - 2 * var(--sl-border-width-button-default));
-      padding-right: calc(
-        var(--sl-space-input-text-field-inline-#{$size}) +
-        var(--sl-space-input-text-field-gap-#{$size}) +
-        var(--sl-size-icon-#{$size})
-      );
     }
 
-    /* stylelint-disable-next-line max-nesting-depth */
     slot[name='suffix'] sl-icon {
-      right: var(--sl-space-input-text-field-inline-#{$size});
-      top: var(--sl-space-input-text-field-block-#{$size});
+      --_right: var(--sl-space-input-text-field-inline-#{$size});
+      --_top: var(--sl-space-input-text-field-block-#{$size});
     }
   }
 }
@@ -200,6 +197,8 @@ slot[name='textarea']::slotted(textarea) {
 
 slot[name='suffix'] sl-icon {
   position: absolute;
+  right: var(--_right);
+  top: var(--_top);
 }
 
 .invalid-icon {

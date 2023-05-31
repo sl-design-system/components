@@ -73,7 +73,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the textarea should get valid styles when is valid. */
   @property({ type: Boolean, reflect: true }) showValid = false;
 
-  /** Textarea size. */
+  /** Specifies how textarea can be resized. */
   @property({ reflect: true }) resize: ResizeType = 'vertical';
 
   /** Textarea size. */
@@ -109,22 +109,9 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       this.#validation.validate(this.value);
     }
 
-    if (this.resize === 'auto') {
-      this.#resizeObserver = new ResizeObserver(() => this.#setSize());
+    this.#resizeObserver = new ResizeObserver(() => this.#setSize());
 
-      this.#resizeObserver?.observe(this.textarea);
-    }
-
-    // console.log(
-    //   'setSize in connectedCallback',
-    //   this.textarea.scrollHeight,
-    //   (this as HTMLElement).scrollHeight,
-    //   (this as HTMLElement).clientHeight,
-    //   this.textarea.clientHeight,
-    //   this.textarea.getBoundingClientRect().height,
-    //   this.textarea.getBoundingClientRect().top,
-    //   this.textarea.getBoundingClientRect().right
-    // );
+    this.#resizeObserver?.observe(this.textarea);
   }
 
   override disconnectedCallback(): void {
@@ -136,8 +123,6 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    console.log('changes in updated textarea', changes);
 
     if (changes.has('maxLength')) {
       if (this.maxLength) {
@@ -171,13 +156,14 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       }
     }
 
-    // if (changes.has('rows')) {
-    //   if (this.rows) {
-    //     this.textarea.setAttribute('rows', this.rows.toString());
-    //   } else {
-    //     this.textarea.removeAttribute('rows');
-    //   }
-    // }
+    if (changes.has('resize')) {
+      if (this.resize) {
+        this.textarea.setAttribute('resize', this.resize);
+      } else {
+        this.resize = 'vertical';
+        this.textarea.setAttribute('resize', this.resize);
+      }
+    }
 
     if (changes.has('readonly')) {
       if (this.readonly) {
@@ -191,32 +177,14 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
       if (this.wrap) {
         this.textarea.wrap = this.wrap;
       } else {
-        this.textarea.removeAttribute('wrap');
+        this.wrap = 'soft';
+        this.textarea.setAttribute('wrap', this.wrap);
       }
     }
 
     if (changes.has('value') && this.value !== this.textarea.value) {
       this.textarea.value = this.value || '';
     }
-
-    // if (changes.has('resize')) {
-    //   if (this.resize) {
-    //     this.textarea.style.resize = this.resize;
-    //   } else {
-    //     this.textarea.style.resize = 'vertical';
-    //   }
-    // }
-
-    console.log(
-      'setSize in updated',
-      this.textarea.scrollHeight,
-      (this as HTMLElement).scrollHeight,
-      (this as HTMLElement).clientHeight,
-      this.textarea.clientHeight,
-      this.textarea.getBoundingClientRect().height,
-      this.textarea.getBoundingClientRect().top,
-      this.textarea.getBoundingClientRect().right
-    );
   }
 
   override render(): TemplateResult {
@@ -229,15 +197,8 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
         </slot>
       </div>
       ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
-    `; //         <span>Place for icon</span>
+    `;
   }
-
-  // <sl-icon name="face-smile" size="lg"></sl-icon>
-
-  // <sl-icon class="invalid-icon" name="fas-triangle-exclamation" size=${this.size}></sl-icon>
-  //           ${this.valid ? html`<sl-icon class="valid-icon" name="fas-circle-check" size=${this.size}></sl-icon>` : null}
-
-  // TODO: set valid when showValid and textarea is valid
 
   #onClick(event: Event): void {
     if (event.target === this.textarea) {
@@ -251,18 +212,19 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     this.value = target.value;
     this.#validation.validate(this.value);
 
-    if (this.resize === 'auto') {
-      this.#setSize();
-    }
+    this.#setSize();
   }
 
   #setSize(): void {
-    this.textarea.style.height = 'auto';
-    this.textarea.style.height = `${this.textarea.scrollHeight}px`;
+    if (this.resize === 'auto') {
+      this.textarea.style.height = 'auto';
+      this.textarea.style.height = `${this.textarea.scrollHeight}px`;
+    } else {
+      (this.textarea.style.height as string | undefined) = undefined;
+    }
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    console.log('onslotchange event', event);
     const elements = event.target.assignedElements({ flatten: true }),
       textareas = elements.filter(
         (el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement && el !== this.textarea

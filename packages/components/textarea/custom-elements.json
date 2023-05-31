@@ -120,7 +120,7 @@
                 "text": "ResizeType"
               },
               "default": "'vertical'",
-              "description": "Textarea size.",
+              "description": "Specifies how textarea can be resized.",
               "attribute": "resize",
               "reflects": true
             },
@@ -180,6 +180,17 @@
               },
               "description": "The value for the textarea.",
               "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "wrap",
+              "type": {
+                "text": "WrapType | undefined"
+              },
+              "default": "'soft'",
+              "description": "Specifies how the text should be wrapped during form submission.",
+              "attribute": "wrap",
+              "reflects": true
             }
           ],
           "attributes": [
@@ -254,7 +265,7 @@
                 "text": "ResizeType"
               },
               "default": "'vertical'",
-              "description": "Textarea size.",
+              "description": "Specifies how textarea can be resized.",
               "fieldName": "resize"
             },
             {
@@ -265,6 +276,15 @@
               "default": "'md'",
               "description": "Textarea size.",
               "fieldName": "size"
+            },
+            {
+              "name": "wrap",
+              "type": {
+                "text": "WrapType | undefined"
+              },
+              "default": "'soft'",
+              "description": "Specifies how the text should be wrapped during form submission.",
+              "fieldName": "wrap"
             }
           ],
           "mixins": [

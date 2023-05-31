@@ -8,7 +8,6 @@ export type FormControlValue = ValidationValue;
 export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;
   labels: NodeListOf<HTMLLabelElement> | null;
-  // disabled?: boolean;
   name: string;
   value?: FormControlValue;
 
@@ -90,12 +89,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     override shouldUpdate(changedProperties: PropertyValues<this>): boolean {
       if (super.shouldUpdate(changedProperties)) {
         if (changedProperties.has('disabled') && isNative(this.formControlElement)) {
-          // console.log('disabled changes in form control', this.disabled, this.#formControlElement);
           if (this.disabled) {
             this.formControlElement.setAttribute('disabled', '');
           } else {
             this.formControlElement.removeAttribute('disabled');
-            this.disabled = false; // Set the disabled property explicitly
+            this.disabled = false;
           }
         }
         return true;
@@ -105,20 +103,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
-
-      //console.log('formcontrolelement in formcontrol', changes, this.formControlElement, this.#formControlElement); // TODO: disabled check in textarea?
-
-      // if (changes.has('disabled') && isNative(this.formControlElement)) {
-      //   console.log('disabled  changes in form control', this.disabled, this.#formControlElement);
-      //   // this.formControlElement.toggleAttribute('disabled', this.disabled);
-      //   // this.#formControlElement?.toggleAttribute('disabled', this.disabled);
-      //
-      //   // if (this.disabled) {
-      //   //   this.formControlElement.setAttribute('disabled', '');
-      //   // } else {
-      //   //   this.formControlElement.removeAttribute('disabled');
-      //   // }
-      // } // TODO: disabled not working for input and textarea
 
       if (changes.has('name') && isNative(this.formControlElement)) {
         this.formControlElement.name = this.name ?? '';

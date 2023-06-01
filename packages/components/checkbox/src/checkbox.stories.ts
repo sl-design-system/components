@@ -125,7 +125,7 @@ export const All: StoryObj = {
           text-align: center;
         }
 
-        tbody td:nth-of-type(4n + 1) {
+        tbody td:nth-of-type(4n + 5) {
           border-right: 2px solid #dedede;
           padding-right: 24px;
         }

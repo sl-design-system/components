@@ -58,9 +58,7 @@ export default {
 export const Basic: Story = {};
 
 export const All: Story = {
-  render: ({ icon, size, text }) => {
-    const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
-    const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
+  render: () => {
     return html` <style>
         table {
           border-collapse: collapse;
@@ -77,11 +75,11 @@ export const All: Story = {
           text-align: center;
         }
 
-        tbody td:nth-of-type(4n) {
+        tbody td:nth-of-type(6n) {
           border-right: 2px solid #dedede;
           padding-right: 24px;
         }
-        tbody td:nth-of-type(4n + 1):not(:first-of-type) {
+        tbody td:nth-of-type(6n + 1):not(:first-of-type) {
           padding-left: 24px;
         }
         tbody td:last-of-type {
@@ -106,30 +104,42 @@ export const All: Story = {
             variant => html`
               <tr>
                 <th>${variant}</th>
-                ${fills.map(fill =>
-                  disabledStates.map(
-                    disabledState => html` <td>
-                        <sl-button
-                          .fill=${fill}
-                          .size=${size}
-                          ?disabled=${disabledState}
-                          .variant=${variant}
-                          data-mock-state
-                        >
-                          ${startIcon}${text}${endIcon}
-                        </sl-button>
-                      </td>
-                      <td>
-                        <sl-button
-                          .fill=${fill}
-                          .size=${size}
-                          ?disabled=${disabledState}
-                          .variant=${variant}
-                          data-mock-state
-                        >
-                          <sl-icon name="face-smile"></sl-icon>
-                        </sl-button>
-                      </td>`
+                ${sizes.map(size =>
+                  fills.map(fill =>
+                    disabledStates.map(
+                      disabledState => html` <td>
+                          <sl-button
+                            .fill=${fill}
+                            .size=${size}
+                            ?disabled=${disabledState}
+                            .variant=${variant}
+                            data-mock-state
+                            >Label
+                          </sl-button>
+                        </td>
+                        <td>
+                          <sl-button
+                            .fill=${fill}
+                            .size=${size}
+                            ?disabled=${disabledState}
+                            .variant=${variant}
+                            data-mock-state
+                          >
+                            <sl-icon name="face-smile"></sl-icon> Label
+                          </sl-button>
+                        </td>
+                        <td>
+                          <sl-button
+                            .fill=${fill}
+                            .size=${size}
+                            ?disabled=${disabledState}
+                            .variant=${variant}
+                            data-mock-state
+                          >
+                            <sl-icon name="face-smile"></sl-icon>
+                          </sl-button>
+                        </td>`
+                    )
                   )
                 )}
               </tr>

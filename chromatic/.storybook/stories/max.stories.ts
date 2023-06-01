@@ -22,14 +22,7 @@ export default {
         </div>
         ${setPseudoStates()}`
     },
-  ],
-  args: {
-    text: 'Button',
-    icon: 'none',
-    size: 'md',
-    fill: 'default',
-    variant: 'default'
-  }
+  ]
 };
 
 export const Button = AllButton;

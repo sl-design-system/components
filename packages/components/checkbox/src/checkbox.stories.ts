@@ -69,6 +69,8 @@ const onChange = (event: Event): void => {
 };
 
 const sizes: CheckboxSize[] = ['md', 'lg'];
+const states: string[] = ['', 'valid', 'invalid'];
+const checked: string[] = ['', 'checked', 'indeterminate'];
 
 export default {
   title: 'Checkbox',
@@ -107,46 +109,79 @@ export const All: StoryObj = {
   render: () => {
     return html`
       <style>
-        .grid {
-          display: inline-grid;
-          gap: 1rem;
-          grid-template-columns: repeat(3, 1fr);
-          justify-items: center;
+        table {
+          border-collapse: collapse;
+          margin-bottom: 24px;
         }
-        h2 {
-          font-family: var(--sl-text-typeset-font-family-heading);
+
+        th {
+          text-transform: capitalize;
+        }
+        th,
+        td {
+          padding: 4px 8px;
+        }
+        thead td {
+          text-align: center;
+        }
+
+        tbody td:nth-of-type(4n + 1) {
+          border-right: 2px solid #dedede;
+          padding-right: 24px;
+        }
+        tbody td:nth-of-type(4n + 2):not(:first-of-type) {
+          padding-left: 24px;
+        }
+        tbody td:last-of-type {
+          border: none;
         }
       </style>
-      ${sizes.map(
-        size => html`
-          <h2>Size: ${size}</h2>
-          <div class="grid">
-            <sl-checkbox size=${size}>Default</sl-checkbox>
-            <sl-checkbox checked size=${size}>Checked</sl-checkbox>
-            <sl-checkbox indeterminate size=${size}>Indeterminate</sl-checkbox>
-
-            <sl-checkbox disabled size=${size}>Default</sl-checkbox>
-            <sl-checkbox disabled checked size=${size}>Checked</sl-checkbox>
-            <sl-checkbox disabled indeterminate size=${size}>Indeterminate</sl-checkbox>
-
-            <sl-checkbox invalid required size=${size}>Default</sl-checkbox>
-            <sl-checkbox invalid checked required size=${size}>Checked</sl-checkbox>
-            <sl-checkbox invalid indeterminate required size=${size}>Indeterminate</sl-checkbox>
-
-            <sl-checkbox invalid disabled required size=${size}>Default</sl-checkbox>
-            <sl-checkbox invalid disabled checked required size=${size}>Checked</sl-checkbox>
-            <sl-checkbox invalid disabled indeterminate required size=${size}>Indeterminate</sl-checkbox>
-
-            <sl-checkbox valid size=${size}>Default</sl-checkbox>
-            <sl-checkbox valid checked size=${size}>Checked</sl-checkbox>
-            <sl-checkbox valid indeterminate size=${size}>Indeterminate</sl-checkbox>
-
-            <sl-checkbox valid disabled size=${size}>Default</sl-checkbox>
-            <sl-checkbox valid disabled checked size=${size}>Checked</sl-checkbox>
-            <sl-checkbox valid disabled indeterminate size=${size}>Indeterminate</sl-checkbox>
-          </div>
-        `
-      )}
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            ${sizes.map(size => html` <th colspan=${states.length + 1}>Size: ${size}</th> `)}
+          </tr>
+        </thead>
+        <tbody>
+          ${checked.map(
+            c =>
+              html` <tr>
+                <td>${c}</td>
+                ${sizes.map(
+                  size =>
+                    html`${states.map(
+                        state =>
+                          html`
+                            <td>
+                              <sl-checkbox
+                                ?checked=${c === 'checked'}
+                                ?indeterminate=${c === 'indeterminate'}
+                                ?invalid=${state === 'invalid'}
+                                ?required=${state === 'invalid'}
+                                ?valid=${state === 'valid'}
+                                size=${size}
+                                data-mock-state
+                                >Label
+                              </sl-checkbox>
+                            </td>
+                          `
+                      )}
+                      <td>
+                        <sl-checkbox
+                          ?checked=${c === 'checked'}
+                          ?indeterminate=${c === 'indeterminate'}
+                          size=${size}
+                          disabled
+                          data-mock-state
+                          >Label
+                        </sl-checkbox>
+                      </td>`
+                )}
+              </tr>`
+          )}
+        </tbody>
+      </table>
     `;
   }
 };

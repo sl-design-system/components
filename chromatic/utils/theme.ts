@@ -10,3 +10,50 @@ export const setTheme = (name: string, mode = 'light') => {
     ${fonts.map(font => html`<link href="${font}" rel="stylesheet">`)}
   `;
 }
+
+
+
+export const setPseudoStates = () =>{
+  setTimeout(() => {
+    setStyle('hover');
+    setStyle('active');
+    setStyle('focus-visible');
+  }, 100);
+}
+
+const matches = function (element: Element, selector:string, pseudoClass: string){
+  // TODO: this replacing needs to be smarter:
+  selector = selector.replace(new RegExp(/:host\(/, 'g'), element.nodeName);
+  selector = selector.replace(new RegExp(/\)/, 'g'), '');
+  selector = selector.replace(new RegExp(pseudoClass, 'g'), '');
+  // console.log(selector);
+  for (const part of selector.split(/ +/)) {
+    try {
+      if (element.matches(part)) {
+        return true;
+      }
+    } catch (ignored) {
+      // reached a non-selector part such as '>'
+    }
+  }
+  return false;
+}
+
+const setStyle = async (state:string) =>{
+  const elements = document.querySelectorAll(`.sb-fake-${state} [data-mock-state]`);
+  elements.forEach(element => {
+    if(!element.shadowRoot?.adoptedStyleSheets){
+      return;
+    }
+    // const rules = element.shadowRoot?.adoptedStyleSheets.flat()[0].cssRules;
+    const rules = element.shadowRoot?.adoptedStyleSheets.flat().map(sheet => Array.from(sheet.cssRules)).flat();
+    const matchedRules = Array.from(rules).filter(rule => rule instanceof CSSStyleRule && rule.selectorText.indexOf(`:${state}`)>0 && matches(element,rule?.selectorText,`:${state}`));
+    // console.log(rules, matchedRules);
+    matchedRules.forEach(match =>{
+      const newRule = match as CSSStyleRule;
+      // console.log(match)
+      newRule.selectorText = `:host-context(.sb-fake-${state})${newRule.selectorText.replace(`:${state}`,'')}`
+    })
+  });
+
+}

@@ -12,6 +12,7 @@ const config: StorybookConfig = {
     '@storybook/addon-a11y', 
     '@storybook/addon-actions', 
     '@storybook/addon-storysource',
+    'storybook-addon-pseudo-states',
     {
       name: '@storybook/addon-essentials',
       options: {

@@ -2,7 +2,7 @@ import { All as AllButton} from "../../../packages/components/button/src/button.
 import { All as AllCheckbox} from "../../../packages/components/checkbox/src/checkbox.stories";
 import { All as AllRadioGroup} from "../../../packages/components/radio-group/src/radio-group.stories";
 import { html } from 'lit';
-import { setTheme } from "../../utils/theme"
+import { setPseudoStates, setTheme } from "../../utils/theme"
 
 export default {
   title: 'Bingel',
@@ -10,7 +10,17 @@ export default {
     (Story) => {
       return html`
         ${setTheme('bingel')}
-        ${Story()}`
+        ${Story()}
+        <div class="sb-fake-hover">
+          ${Story()}
+        </div>
+        <div class="sb-fake-active">
+          ${Story()}
+        </div>
+        <div class="sb-fake-focus-visible">
+          ${Story()}
+        </div>
+        ${setPseudoStates()}`
     },
   ],
   args: {

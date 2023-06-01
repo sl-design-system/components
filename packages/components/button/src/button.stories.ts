@@ -109,12 +109,24 @@ export const All: Story = {
                 ${fills.map(fill =>
                   disabledStates.map(
                     disabledState => html` <td>
-                        <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} .variant=${variant}>
+                        <sl-button
+                          .fill=${fill}
+                          .size=${size}
+                          ?disabled=${disabledState}
+                          .variant=${variant}
+                          data-mock-state
+                        >
                           ${startIcon}${text}${endIcon}
                         </sl-button>
                       </td>
                       <td>
-                        <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} .variant=${variant}>
+                        <sl-button
+                          .fill=${fill}
+                          .size=${size}
+                          ?disabled=${disabledState}
+                          .variant=${variant}
+                          data-mock-state
+                        >
                           <sl-icon name="face-smile"></sl-icon>
                         </sl-button>
                       </td>`

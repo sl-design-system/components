@@ -11,16 +11,6 @@ export default {
   title: 'Text Input'
 };
 
-const generateIds = (form: HTMLFormElement): void => {
-  const slLabels = form.querySelectorAll('sl-label');
-
-  slLabels?.forEach((label, idx) => {
-    const id = `form-textarea-${idx}`;
-    label.setAttribute('for', id);
-    (label.nextElementSibling as HTMLElement).setAttribute('id', id);
-  });
-};
-
 const sizes: InputSize[] = ['md', 'lg'],
   labelSizes: LabelSize[] = ['sm', 'md', 'lg'],
   hintSizes: HintSize[] = ['sm', 'md', 'lg'];
@@ -164,11 +154,6 @@ export const All: StoryObj = {
 
 export const Label: StoryObj = {
   render: () => {
-    requestAnimationFrame(() => {
-      const form = document.querySelector('form') as HTMLFormElement;
-      generateIds(form);
-    });
-
     return html`
       <style>
         form {
@@ -181,11 +166,11 @@ export const Label: StoryObj = {
         }
       </style>
       <form>
-        ${labelSizes.map(size => {
+        ${labelSizes.map((size, id) => {
           const inputSize = size === 'lg' ? size : 'md';
           return html`
-            <sl-label size=${size}>What is your name?</sl-label>
-            <sl-text-input size=${inputSize}></sl-text-input>
+            <sl-label for="form-text-input-${id}" size=${size}>What is your name?</sl-label>
+            <sl-text-input id="form-text-input-${id}" size=${inputSize}></sl-text-input>
           `;
         })}
       </form>
@@ -195,10 +180,6 @@ export const Label: StoryObj = {
 
 export const Hint: StoryObj = {
   render: () => {
-    requestAnimationFrame(() => {
-      const form = document.querySelector('form') as HTMLFormElement;
-      generateIds(form);
-    });
     return html`
       <style>
         form {
@@ -211,10 +192,14 @@ export const Hint: StoryObj = {
         }
       </style>
       <form>
-        ${hintSizes.map(hintSize => {
+        ${hintSizes.map((hintSize, id) => {
           return html`
-            <sl-label>Nickname</sl-label>
-            <sl-text-input hint="What would you like people to call you?" hintSize=${hintSize}></sl-text-input>
+            <sl-label for="form-text-input-${id}">Nickname</sl-label>
+            <sl-text-input
+              id="form-text-input-${id}"
+              hint="What would you like people to call you?"
+              hintSize=${hintSize}
+            ></sl-text-input>
           `;
         })}
         <sl-label for="input4">Nickname</sl-label>

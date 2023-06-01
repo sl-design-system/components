@@ -2,6 +2,7 @@ import type { ResizeType, Textarea, TextareaSize } from './textarea.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/label/register.js';
 import type { HintSize } from '@sl-design-system/shared';
+import type { LabelSize } from '@sl-design-system/label';
 import { html } from 'lit';
 import '../register.js';
 
@@ -9,19 +10,10 @@ export default {
   title: 'Textarea'
 };
 
-const generateIds = (form: HTMLFormElement): void => {
-  const slLabels = form.querySelectorAll('sl-label');
-
-  slLabels?.forEach((label, idx) => {
-    const id = `form-textarea-${idx}`;
-    label.setAttribute('for', id);
-    (label.nextElementSibling as HTMLElement).setAttribute('id', id);
-  });
-};
-
 const resizeTypes: ResizeType[] = ['none', 'vertical', 'auto'],
   sizes: TextareaSize[] = ['md', 'lg'],
-  hintSizes: HintSize[] = ['sm', 'md', 'lg'];
+  hintSizes: HintSize[] = ['sm', 'md', 'lg'],
+  labelSizes: LabelSize[] = ['sm', 'md', 'lg'];
 
 export const API: StoryObj = {
   args: {
@@ -115,11 +107,6 @@ export const All: StoryObj = {
 
 export const Label: StoryObj = {
   render: () => {
-    requestAnimationFrame(() => {
-      const form = document.querySelector('form') as HTMLFormElement;
-      generateIds(form);
-    });
-
     return html`
       <style>
         form {
@@ -135,13 +122,11 @@ export const Label: StoryObj = {
         }
       </style>
       <form>
-        <sl-label>What is your name?</sl-label>
-        <sl-textarea></sl-textarea>
-        ${sizes.map(size => {
+        ${labelSizes.map((size, id) => {
           const textareaSize = size === 'lg' ? size : 'md';
           return html`
-            <sl-label size=${size}>What is your name?</sl-label>
-            <sl-textarea size=${textareaSize}></sl-textarea>
+            <sl-label for="form-textarea-${id}" size=${size}>What is your name?</sl-label>
+            <sl-textarea id="form-textarea-${id}" size=${textareaSize}></sl-textarea>
           `;
         })}
       </form>
@@ -151,11 +136,6 @@ export const Label: StoryObj = {
 
 export const Hint: StoryObj = {
   render: () => {
-    requestAnimationFrame(() => {
-      const form = document.querySelector('form') as HTMLFormElement;
-      generateIds(form);
-    });
-
     return html`
       <style>
         form {
@@ -168,10 +148,14 @@ export const Hint: StoryObj = {
         }
       </style>
       <form>
-        ${hintSizes.map(hintSize => {
+        ${hintSizes.map((hintSize, id) => {
           return html`
-            <sl-label>Nickname</sl-label>
-            <sl-textarea hint="What would you like people to call you?" hintSize=${hintSize}></sl-textarea>
+            <sl-label for="form-textarea-${id}">Nickname</sl-label>
+            <sl-textarea
+              id="form-textarea-${id}"
+              hint="What would you like people to call you?"
+              hintSize=${hintSize}
+            ></sl-textarea>
           `;
         })}
         <sl-label for="textarea4">Nickname</sl-label>

@@ -46,7 +46,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** Observe the grid width. */
   #resizeObserver?: ResizeObserver;
 
-  /** Specifies which type of data the browser can use to pre-fill the input. */
+  /** Specifies which type of data the browser can use to pre-fill the textarea. */
   @property() autocomplete?: string;
 
   /** Maximum length (number of characters). */

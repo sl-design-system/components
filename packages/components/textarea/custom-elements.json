@@ -67,7 +67,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Specifies which type of data the browser can use to pre-fill the input.",
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.",
               "attribute": "autocomplete"
             },
             {
@@ -199,7 +199,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Specifies which type of data the browser can use to pre-fill the input.",
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.",
               "fieldName": "autocomplete"
             },
             {

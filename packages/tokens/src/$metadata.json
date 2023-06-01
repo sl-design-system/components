@@ -30,6 +30,8 @@
     "max/dark",
     "neon/base",
     "neon/light",
-    "neon/dark"
+    "neon/dark",
+    "teas/base",
+    "teas/light"
   ]
 }

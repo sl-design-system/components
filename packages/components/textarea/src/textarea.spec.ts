@@ -1,8 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
-import { spy} from "sinon";
-import {ResizeType, Textarea, WrapType} from './textarea';
+import { spy, stub } from 'sinon';
+import { ResizeType, Textarea, WrapType } from './textarea';
 
 describe('sl-textarea', () => {
   let el: Textarea;
@@ -185,8 +185,6 @@ describe('sl-textarea', () => {
       expect(el.textarea.getAttribute('placeholder')).to.be.null;
     });
 
-    // TODO: test wrap
-
     it('should not have readonly attribute when readonly property is not provided', async() => {
       el.readonly = true;
       await el.updateComplete;
@@ -198,51 +196,26 @@ describe('sl-textarea', () => {
     });
   });
 
-//   describe('resize of textarea', () => {
-//     beforeEach(async () => {
-//       el = await fixture(html`<sl-textarea></sl-textarea>`);
-//     });
-//
-//     it('should focus textarea on click', async () => {
-//       const textarea = el.querySelector('textarea');
-//       const focusSpy = spy(textarea as any, 'focus');
-//
-//       el.click();
-//       textarea?.focus();
-//
-//       expect(focusSpy).to.have.been.called;
-//     });
-//
-//     it('should set the textarea height to auto if resize is auto', () => {
-//       el.resize = 'auto';
-//       const scrollHeightSpy = spy(Object.getPrototypeOf(el.textarea), 'scrollHeight');
-//       const textareaStyleSpy = spy(el.textarea.style, 'setProperty');
-//
-//       // Act
-//       el.setSize();
-//
-//       // Assert
-//       expect(textareaStyleSpy.calledWith('height', 'auto')).toBe(true);
-//       expect(scrollHeightSpy.calledOnce).toBe(true);
-//
-//       // Clean up
-//       scrollHeightSpy.restore();
-//       textareaStyleSpy.restore();
-//     });
-//
-//     it('should set the textarea height to scrollHeight if resize is auto', () => {
-//       el.resize = 'auto';
-//       spyOnProperty(el.textarea, 'scrollHeight', 'get').and.returnValue(100);
-//
-//       // el.setSize();
-//
-//       expect(el.textarea.style.height).to.equal('100px');
-//     });
-//
-//     it('should unset the textarea height if resize is not auto', () => {
-// //
-//     });
-//   });
+  describe('resize of textarea', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-textarea></sl-textarea>`);
+    });
+
+    it('should set the textarea height to 100px if resize is auto and 100px height is set', async() => {
+      el.resize = 'auto';
+      await el.updateComplete;
+      const textarea = el.querySelector('textarea') as HTMLTextAreaElement,
+       textareaStyleStub = stub(Object.getPrototypeOf(textarea), 'scrollHeight').get(() => 100);
+
+      textarea.value = 'Test input event on textarea';
+      const event = new Event('input', { bubbles: true });
+      textarea.dispatchEvent(event);
+
+      expect(textarea.style.height).to.equal('100px');
+      textareaStyleStub.restore();
+      el.disconnectedCallback();
+    });
+  });
 
   describe('focusing', () => {
     beforeEach(async () => {
@@ -250,8 +223,8 @@ describe('sl-textarea', () => {
     });
 
     it('should focus textarea on click', async () => {
-      const textarea = el.querySelector('textarea');
-      const focusSpy = spy(textarea as any, 'focus');
+      const textarea = el.querySelector('textarea'),
+      focusSpy = spy(textarea as any, 'focus');
 
       el.click();
       textarea?.focus();
@@ -262,7 +235,7 @@ describe('sl-textarea', () => {
 
   describe('validation', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-textarea name="my-input" required></sl-textarea>`);
+      el = await fixture(html`<sl-textarea name="my-textarea" required></sl-textarea>`);
     });
 
     it('should not be valid when the textarea is empty and when it is required', async () => {
@@ -297,41 +270,57 @@ describe('sl-textarea', () => {
       expect(textarea?.validity.valid).to.equal(true);
       expect(el).to.have.attribute('showValid');
     });
+
+    it('should show circle-check-solid icon when the textarea is valid', async () => {
+      el.value = "my value";
+      el.setAttribute('showValid', '');
+      el.valid = true;
+      await el.updateComplete;
+
+      const textarea = el.querySelector('textarea'),
+       suffixSlot = el.renderRoot.querySelector('slot[name="suffix"]'),
+       validIcon = suffixSlot?.querySelector('.valid-icon');
+
+      expect(textarea?.validity.valid).to.equal(true);
+      expect(el).to.have.attribute('showValid');
+      expect(validIcon).not.to.be.null;
+      expect(validIcon).to.have.attribute('name', 'circle-check-solid');
+    });
   });
 
-/*  describe('slotted input', () => {
+  describe('slotted textarea', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <form>
-          <sl-label for="custom">Custom input</sl-label>
-          <sl-text-input id="custom">
-            <input id="foo" slot="input" placeholder="I am a custom input" />
-          </sl-text-input>
+          <sl-label for="custom">Custom textarea</sl-label>
+          <sl-textarea id="custom">
+            <textarea id="foo" slot="textarea" placeholder="I am a custom textarea" />
+          </sl-textarea>
         </form>
       `);
     });
 
-    it('should use the slotted input', () => {
-      const slInput = el.querySelector('sl-text-input') as TextInput;
-      const input = slInput.querySelector('input');
+    it('should use the slotted textarea', () => {
+      const slTextarea = el.querySelector('sl-textarea') as Textarea,
+       textarea = slTextarea.querySelector('textarea');
 
-      expect(input).to.have.attribute('placeholder', 'I am a custom input');
+      expect(textarea).to.have.attribute('placeholder', 'I am a custom textarea');
     });
 
-    it('should have a slotted input with autocomplete by default when not set', () => {
-      const slInput = el.querySelector('sl-text-input') as TextInput;
-      const input = slInput.querySelector('input');
+    it('should have a slotted textarea with autocomplete by default when not set', () => {
+      const slTextarea = el.querySelector('sl-textarea') as Textarea,
+       textarea = slTextarea.querySelector('textarea');
 
-      expect(input).to.have.attribute('autocomplete', 'off');
+      expect(textarea).to.have.attribute('autocomplete', 'off');
     });
 
-    it('should have a slotted input which is not readonly by default', () => {
-      const slInput = el.querySelector('sl-text-input') as TextInput;
-      const input = slInput.querySelector('input');
+    it('should have a slotted textarea which is not readonly by default', () => {
+      const slTextarea = el.querySelector('sl-textarea') as Textarea,
+        textarea = slTextarea.querySelector('textarea');
 
-      expect(input).not.to.have.attribute('readonly');
+      expect(textarea).not.to.have.attribute('readonly');
     });
-  });*/
+  });
 
   describe('readonly textarea', () => {
     beforeEach(async () => {

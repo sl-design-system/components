@@ -19,11 +19,9 @@ const generateIds = (form: HTMLFormElement): void => {
   });
 };
 
-const resizeTypes: ResizeType[] = ['none', 'vertical', 'auto'];
-
-const sizes: TextareaSize[] = ['md', 'lg'];
-
-const hintSizes: HintSize[] = ['sm', 'md', 'lg'];
+const resizeTypes: ResizeType[] = ['none', 'vertical', 'auto'],
+  sizes: TextareaSize[] = ['md', 'lg'],
+  hintSizes: HintSize[] = ['sm', 'md', 'lg'];
 
 export const API: StoryObj = {
   args: {

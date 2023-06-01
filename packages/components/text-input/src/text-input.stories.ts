@@ -1,5 +1,5 @@
 import type { InputSize, TextInput } from './text-input';
-import type { ValidationValue, Validator } from '@sl-design-system/shared';
+import type { HintSize, ValidationValue, Validator } from '@sl-design-system/shared';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/label/register.js';
@@ -11,8 +11,19 @@ export default {
   title: 'Text Input'
 };
 
-const sizes: InputSize[] = ['md', 'lg'];
-const labelSizes: LabelSize[] = ['sm', 'md', 'lg'];
+const generateIds = (form: HTMLFormElement): void => {
+  const slLabels = form.querySelectorAll('sl-label');
+
+  slLabels?.forEach((label, idx) => {
+    const id = `form-textarea-${idx}`;
+    label.setAttribute('for', id);
+    (label.nextElementSibling as HTMLElement).setAttribute('id', id);
+  });
+};
+
+const sizes: InputSize[] = ['md', 'lg'],
+  labelSizes: LabelSize[] = ['sm', 'md', 'lg'],
+  hintSizes: HintSize[] = ['sm', 'md', 'lg'];
 
 export const API: StoryObj = {
   args: {
@@ -153,15 +164,9 @@ export const All: StoryObj = {
 
 export const Label: StoryObj = {
   render: () => {
-    setTimeout(() => {
-      const form = document.querySelector('form');
-      const slLabels = form?.querySelectorAll('sl-label');
-
-      slLabels?.forEach((label, idx) => {
-        const id = `form-${idx}`;
-        label.setAttribute('for', id);
-        (label.nextElementSibling as HTMLElement).setAttribute('id', id);
-      });
+    requestAnimationFrame(() => {
+      const form = document.querySelector('form') as HTMLFormElement;
+      generateIds(form);
     });
 
     return html`
@@ -169,6 +174,10 @@ export const Label: StoryObj = {
         form {
           display: flex;
           flex-direction: column;
+        }
+
+        sl-text-input {
+          margin-bottom: 16px;
         }
       </style>
       <form>
@@ -185,30 +194,40 @@ export const Label: StoryObj = {
 };
 
 export const Hint: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-    <form>
-      <sl-label for="input">Nickname</sl-label>
-      <sl-text-input id="input" hint="What would you like people to call you?" hintSize="sm"></sl-text-input>
-      <sl-label for="input2">Nickname</sl-label>
-      <sl-text-input id="input2" hint="What would you like people to call you?"></sl-text-input>
-      <sl-label for="input3">Nickname</sl-label>
-      <sl-text-input id="input3" hint="What would you like people to call you?" hintSize="lg"></sl-text-input>
-      <sl-label for="input4">Nickname</sl-label>
-      <sl-text-input
-        id="input4"
-        disabled
-        hint="What would you like people to call you?"
-        hintSize="lg"
-        value="Disabled input"
-      ></sl-text-input>
-    </form>
-  `
+  render: () => {
+    requestAnimationFrame(() => {
+      const form = document.querySelector('form') as HTMLFormElement;
+      generateIds(form);
+    });
+    return html`
+      <style>
+        form {
+          display: flex;
+          flex-direction: column;
+        }
+
+        sl-text-input {
+          margin-bottom: 16px;
+        }
+      </style>
+      <form>
+        ${hintSizes.map(hintSize => {
+          return html`
+            <sl-label>Nickname</sl-label>
+            <sl-text-input hint="What would you like people to call you?" hintSize=${hintSize}></sl-text-input>
+          `;
+        })}
+        <sl-label for="input4">Nickname</sl-label>
+        <sl-text-input
+          id="input4"
+          disabled
+          hint="What would you like people to call you?"
+          hintSize="lg"
+          value="Disabled input"
+        ></sl-text-input>
+      </form>
+    `;
+  }
 };
 
 export const RichLabelHint: StoryObj = {

@@ -106,12 +106,12 @@ describe('sl-textarea', () => {
       expect(textarea).to.have.attribute('placeholder', 'my placeholder');
     });
 
-    it('should not have a minLength by default', () => {
-      expect(el).not.to.have.attribute('minLength');
+    it('should not have a minlength by default', () => {
+      expect(el).not.to.have.attribute('minlength');
     });
 
-    it('should not have a maxLength by default', () => {
-      expect(el).not.to.have.attribute('maxLength');
+    it('should not have a maxlength by default', () => {
+      expect(el).not.to.have.attribute('maxlength');
     });
 
     it('should not be invalid by default', () => {
@@ -156,7 +156,7 @@ describe('sl-textarea', () => {
       expect(el.textarea.getAttribute('wrap')).to.equal('soft');
     });
 
-    it('should not have maxlength attribute when maxLength property is not provided', async () => {
+    it('should not have maxlength attribute when maxlength property is not provided', async () => {
       el.maxLength = 8;
       await el.updateComplete;
 
@@ -166,16 +166,16 @@ describe('sl-textarea', () => {
       expect(el.textarea.getAttribute('maxlength')).to.be.null;
     });
 
-    it('should not have minlength attribute when minLength property is not provided', async () => {
+    it('should not have minlength attribute when minlength property is not provided', async () => {
       el.minLength = 2;
       await el.updateComplete;
 
-      expect(el.textarea.getAttribute('minLength')).to.be.equal('2');
+      expect(el.textarea.getAttribute('minlength')).to.be.equal('2');
 
       el.minLength = undefined;
       await el.updateComplete;
 
-      expect(el.textarea.getAttribute('minLength')).to.be.null;
+      expect(el.textarea.getAttribute('minlength')).to.be.null;
     });
 
 

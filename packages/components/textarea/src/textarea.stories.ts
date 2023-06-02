@@ -23,6 +23,7 @@ export const API: StoryObj = {
     size: 'md',
     value: '',
     resize: 'none',
+    readonly: false,
     hint: ''
   },
   argTypes: {
@@ -35,9 +36,10 @@ export const API: StoryObj = {
       options: resizeTypes
     }
   },
-  render: ({ disabled, placeholder, required, size, value, resize, hint }) =>
+  render: ({ disabled, placeholder, required, size, value, resize, readonly, hint }) =>
     html`
       <sl-textarea
+        ?readonly=${readonly}
         .disabled=${disabled}
         .placeholder=${placeholder}
         .required=${required}
@@ -116,8 +118,7 @@ export const Label: StoryObj = {
 
         sl-textarea {
           width: 300px;
-          --sl-textarea-min-height-md: 100px;
-          --sl-textarea-min-height-lg: 150px;
+          --sl-textarea-rows: 5;
           margin-bottom: 1rem;
         }
       </style>

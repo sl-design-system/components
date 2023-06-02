@@ -38,7 +38,7 @@ describe('sl-textarea', () => {
       expect(el).not.to.have.attribute('value');
     });
 
-    it('should have a value when set', async() => {
+    it('should have a value when set', async () => {
       el.value = "my value";
       await el.updateComplete;
 
@@ -51,8 +51,9 @@ describe('sl-textarea', () => {
       expect(el).to.have.attribute('size', 'md');
     });
 
-    it('should have a large size when set', () => {
-      el.setAttribute('size', 'lg');
+    it('should have a large size when set', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
 
       expect(el).to.have.attribute('size', 'lg');
     });
@@ -61,8 +62,9 @@ describe('sl-textarea', () => {
       expect(el).to.have.attribute('wrap', 'soft');
     });
 
-    it('should have a wrap property of hard when set', () => {
-      el.setAttribute('wrap', 'hard');
+    it('should have a wrap property of hard when set', async () => {
+      el.wrap = 'hard';
+      await el.updateComplete;
 
       expect(el).to.have.attribute('wrap', 'hard');
     });
@@ -82,7 +84,7 @@ describe('sl-textarea', () => {
       expect(el).not.to.have.attribute('autocomplete');
     });
 
-    it('should not have an autocomplete when set', async() => {
+    it('should not have an autocomplete when set', async () => {
       el.autocomplete = 'off';
       await el.updateComplete;
 
@@ -124,7 +126,7 @@ describe('sl-textarea', () => {
       expect(el).not.to.have.attribute('showValid');
     });
 
-    it('should not have a autocomplete attribute when autocomplete property is not provided', async() => {
+    it('should not have a autocomplete attribute when autocomplete property is not provided', async () => {
       el.autocomplete = "off";
       await el.updateComplete;
 
@@ -134,7 +136,7 @@ describe('sl-textarea', () => {
       expect(el.textarea.getAttribute('autocomplete')).to.be.null;
     });
 
-    it('should have a resize attribute of vertical when resize property is not provided', async() => {
+    it('should have a resize attribute of vertical when resize property is not provided', async () => {
       el.resize = "auto";
       await el.updateComplete;
 
@@ -144,7 +146,7 @@ describe('sl-textarea', () => {
       expect(el.textarea.getAttribute('resize')).to.equal('vertical');
     });
 
-    it('should have a wrap attribute of soft value when wrap property is not provided', async() => {
+    it('should have a wrap attribute of soft value when wrap property is not provided', async () => {
       el.wrap = "hard";
       await el.updateComplete;
 
@@ -154,7 +156,7 @@ describe('sl-textarea', () => {
       expect(el.textarea.getAttribute('wrap')).to.equal('soft');
     });
 
-    it('should not have maxlength attribute when maxLength property is not provided', async() => {
+    it('should not have maxlength attribute when maxLength property is not provided', async () => {
       el.maxLength = 8;
       await el.updateComplete;
 
@@ -164,9 +166,11 @@ describe('sl-textarea', () => {
       expect(el.textarea.getAttribute('maxlength')).to.be.null;
     });
 
-    it('should not have minlength attribute when minLength property is not provided', async() => {
+    it('should not have minlength attribute when minLength property is not provided', async () => {
       el.minLength = 2;
       await el.updateComplete;
+
+      expect(el.textarea.getAttribute('minLength')).to.be.equal('2');
 
       el.minLength = undefined;
       await el.updateComplete;
@@ -175,7 +179,7 @@ describe('sl-textarea', () => {
     });
 
 
-    it('should not have a placeholder attribute when placeholder property is not provided', async() => {
+    it('should not have a placeholder attribute when placeholder property is not provided', async () => {
       el.placeholder = "my placeholder";
       await el.updateComplete;
 
@@ -185,7 +189,7 @@ describe('sl-textarea', () => {
       expect(el.textarea.getAttribute('placeholder')).to.be.null;
     });
 
-    it('should not have readonly attribute when readonly property is not provided', async() => {
+    it('should not have readonly attribute when readonly property is not provided', async () => {
       el.readonly = true;
       await el.updateComplete;
 
@@ -201,7 +205,7 @@ describe('sl-textarea', () => {
       el = await fixture(html`<sl-textarea></sl-textarea>`);
     });
 
-    it('should set the textarea height to 100px if resize is auto and 100px height is set', async() => {
+    it('should set the textarea height to the value of the scrollHeight', async () => {
       el.resize = 'auto';
       await el.updateComplete;
       const textarea = el.querySelector('textarea') as HTMLTextAreaElement,

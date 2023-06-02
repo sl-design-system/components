@@ -90,12 +90,20 @@ export const All: Story = {
         <thead>
           <tr>
             <td></td>
-            ${fills.map(fill => html`<th colspan="4">${fill}</th>`)}
+            ${sizes.map(size => html`<th colspan="18">Size: ${size}</th>`)}
           </tr>
           <tr>
             <td></td>
-            ${fills.map(_ =>
-              disabledStates.map(disabledState => html` <td colspan="2">${disabledState ? 'Disabled' : 'Enabled'}</td>`)
+            ${sizes.map(_ => fills.map(fill => html`<th colspan="6">${fill}</th>`))}
+          </tr>
+          <tr>
+            <td></td>
+            ${sizes.map(_ =>
+              fills.map(_ =>
+                disabledStates.map(
+                  disabledState => html` <td colspan="3">${disabledState ? 'Disabled' : 'Enabled'}</td>`
+                )
+              )
             )}
           </tr>
         </thead>

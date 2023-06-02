@@ -22,12 +22,13 @@ export const setPseudoStates = () =>{
 }
 
 const matches = function (element: Element, selector:string, pseudoClass: string){
-  // TODO: this replacing needs to be smarter:
-  selector = selector.replace(new RegExp(/:host\(/, 'g'), element.nodeName);
-  selector = selector.replace(new RegExp(/\)/, 'g'), '');
-  selector = selector.replace(new RegExp(pseudoClass, 'g'), '');
-  // console.log(selector);
-  for (const part of selector.split(/ +/)) {
+  const selectors = selector.split(':host').filter(empty=>!!empty).map(s=>`:host${s}`.replace(new RegExp(/,\s+$/, 'g'),''));
+  const newSelector = selectors.map(selectorPart => {
+    selectorPart = selectorPart.replace(new RegExp(/:host\(((?:(.*).)*)(\))(.*)/, 'g'), `${element.nodeName}$1$4`);
+    selectorPart = selectorPart.replace(new RegExp(pseudoClass, 'g'), '');
+    return selectorPart;
+  }).join(', ');
+  for (const part of newSelector.split(/ +/)) {
     try {
       if (element.matches(part)) {
         return true;
@@ -45,13 +46,11 @@ const setStyle = async (state:string) =>{
     if(!element.shadowRoot?.adoptedStyleSheets){
       return;
     }
-    // const rules = element.shadowRoot?.adoptedStyleSheets.flat()[0].cssRules;
     const rules = element.shadowRoot?.adoptedStyleSheets.flat().map(sheet => Array.from(sheet.cssRules)).flat();
-    const matchedRules = Array.from(rules).filter(rule => rule instanceof CSSStyleRule && rule.selectorText.indexOf(`:${state}`)>0 && matches(element,rule?.selectorText,`:${state}`));
-    // console.log(rules, matchedRules);
+    const matchedRules = Array.from(rules).filter(rule => rule instanceof CSSStyleRule && rule.selectorText.indexOf(`:${state}`)>0 && matches(element,rule?.selectorText,`:${state}`)
+    );
     matchedRules.forEach(match =>{
       const newRule = match as CSSStyleRule;
-      // console.log(match)
       newRule.selectorText = `:host-context(.sb-fake-${state})${newRule.selectorText.replace(`:${state}`,'')}`
     })
   });

@@ -230,7 +230,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
           ${this.valid ? html`<sl-icon class="valid-icon" name="circle-check-solid" size="lg"></sl-icon>` : null}
         </slot>
       </div>
-      ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 

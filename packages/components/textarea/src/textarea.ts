@@ -43,7 +43,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** The textarea in the light DOM. */
   textarea!: HTMLTextAreaElement;
 
-  /** Observe the grid width. */
+  /** Observe the textarea width. */
   #resizeObserver?: ResizeObserver;
 
   /** Specifies which type of data the browser can use to pre-fill the textarea. */
@@ -157,20 +157,14 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     }
 
     if (changes.has('resize')) {
-      if (this.resize) {
-        this.textarea.setAttribute('resize', this.resize);
-      } else {
+      if (!this.resize) {
         this.resize = 'vertical';
-        this.textarea.setAttribute('resize', this.resize);
       }
+      this.textarea.setAttribute('resize', this.resize);
     }
 
     if (changes.has('readonly')) {
-      if (this.readonly) {
-        this.textarea.readOnly = this.readonly;
-      } else {
-        this.textarea.removeAttribute('readonly');
-      }
+      this.textarea.readOnly = this.readonly as boolean;
     }
 
     if (changes.has('wrap')) {
@@ -196,7 +190,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
           ${this.valid ? html`<sl-icon class="valid-icon" name="circle-check-solid" size="lg"></sl-icon>` : null}
         </slot>
       </div>
-      ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 

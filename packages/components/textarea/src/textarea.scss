@@ -12,7 +12,7 @@ $resize-types: none, both, horizontal, vertical, auto;
   --_transition: 200ms ease-in-out;
   --_min-height: calc(var(--sl-textarea-rows) * 1lh);
   // TODO: needs to be removed in the future when lh unit will be supported for Firefox as well
-  @supports (-moz-appearance: none) {
+  @supports not (height: 1lh) {
     --_min-height: calc(var(--sl-textarea-rows) * 1.4em);
   }
 }

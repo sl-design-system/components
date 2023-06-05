@@ -1,5 +1,25 @@
 # @sl-design-system/label
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`8bd69c5`](https://github.com/sl-design-system/components/commit/8bd69c525e06b9dcc29d4085e8099eba3413a3ed)]:
+  - @sl-design-system/textarea@0.1.0
+
+## 0.1.0
+
+### Minor Changes
+
+- [#454](https://github.com/sl-design-system/components/pull/454) [`4c1ba25`](https://github.com/sl-design-system/components/commit/4c1ba250a5b5edc65a74c47b9fbd869324791f17) - Styled label component
+
+### Patch Changes
+
+- Updated dependencies [[`4c1ba25`](https://github.com/sl-design-system/components/commit/4c1ba250a5b5edc65a74c47b9fbd869324791f17)]:
+  - @sl-design-system/text-input@0.1.0
+  - @sl-design-system/button@0.0.5
+  - @sl-design-system/textarea@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes

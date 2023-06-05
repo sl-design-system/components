@@ -1,5 +1,14 @@
 # @sl-design-system/checkbox
 
+## 0.0.5
+
+### Patch Changes
+
+- [#450](https://github.com/sl-design-system/components/pull/450) [`0246004`](https://github.com/sl-design-system/components/commit/0246004048c9f66dd19bee69177d1cecaacd1b95) - Fix with incorrectly inherited box-shadow
+
+- Updated dependencies [[`4c1ba25`](https://github.com/sl-design-system/components/commit/4c1ba250a5b5edc65a74c47b9fbd869324791f17)]:
+  - @sl-design-system/shared@0.1.0
+
 ## 0.0.4
 
 ### Patch Changes

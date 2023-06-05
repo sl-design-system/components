@@ -54,6 +54,14 @@
   <source>required</source>
   <target>verplicht</target>
 </trans-unit>
+<trans-unit id="sca81470958a97fc4">
+  <source>Filter by</source>
+  <target>Filter op</target>
+</trans-unit>
+<trans-unit id="s5e8250fb85d64c23">
+  <source>Close</source>
+  <target>Sluiten</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

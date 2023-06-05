@@ -1,5 +1,13 @@
 # @sanomalearning/slds-max
 
+## 0.0.4
+
+### Patch Changes
+
+- [#454](https://github.com/sl-design-system/components/pull/454) [`4c1ba25`](https://github.com/sl-design-system/components/commit/4c1ba250a5b5edc65a74c47b9fbd869324791f17) - Max button styling
+
+- [#420](https://github.com/sl-design-system/components/pull/420) [`81f448f`](https://github.com/sl-design-system/components/commit/81f448f5e00897ab4aac32961fe301f2657709a3) - Restructuring of tokens
+
 ## 0.0.3
 
 ### Patch Changes

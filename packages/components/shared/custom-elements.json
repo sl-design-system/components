@@ -2289,6 +2289,23 @@
             },
             {
               "kind": "method",
+              "name": "shouldUpdate",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changes",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "updated",
               "return": {
                 "type": {

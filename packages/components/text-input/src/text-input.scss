@@ -122,7 +122,6 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   display: block;
   transition: var(--_transition);
   vertical-align: top;
-  width: 100%;
 }
 
 :host(:focus-visible) {
@@ -177,6 +176,10 @@ slot[name='input']::slotted(input) {
 :host(:where([invalid])) {
   .invalid-icon {
     display: block;
+  }
+
+  slot[name='hint']::slotted(*) {
+    display: none;
   }
 }
 

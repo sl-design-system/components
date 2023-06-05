@@ -177,6 +177,10 @@ slot[name='input']::slotted(input) {
   .invalid-icon {
     display: block;
   }
+
+  slot[name='hint']::slotted(*) {
+    display: none;
+  }
 }
 
 sl-error {

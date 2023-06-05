@@ -55,82 +55,51 @@ $resize-types: none, both, horizontal, vertical, auto;
   $variant-selector: nth($variant-selectors, $i);
 
   :host(#{$variant-selector}) {
+    --_background: var(--sl-color-input-text-field-#{$variant}-default-background);
     --_border-color: var(--sl-color-input-text-field-#{$variant}-default-border);
+    --_color: var(--sl-color-input-text-field-#{$variant}-default-input-text);
     --fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
-
-    slot[name='textarea']::slotted(textarea) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-default-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-default-placeholder);
-    }
-
-    .wrapper {
-      --_background: var(--sl-color-input-text-field-#{$variant}-default-background);
-    }
+    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-default-placeholder);
   }
 
   :host(#{$variant-selector}:hover) {
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-hover-border);
     --_background: var(--sl-color-input-text-field-#{$variant}-hover-background);
+    --_border-color: var(--sl-color-input-text-field-#{$variant}-hover-border);
+    --_color: var(--sl-color-input-text-field-#{$variant}-hover-input-text);
     --fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
-
-    slot[name='textarea']::slotted(textarea) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-hover-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-hover-placeholder);
-    }
-
-    .wrapper {
-      --_background: var(--sl-color-input-text-field-#{$variant}-hover-background);
-    }
+    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-hover-placeholder);
   }
 
   :host(#{$variant-selector}:active:not([disabled])) {
+    --_background: var(--sl-color-input-text-field-#{$variant}-active-background);
     --_border-color: var(--sl-color-input-text-field-#{$variant}-active-border);
+    --_color: var(--sl-color-input-text-field-#{$variant}-active-input-text);
     --fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
-
-    slot[name='textarea']::slotted(textarea) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-active-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-active-placeholder);
-    }
-
-    .wrapper {
-      --_background: var(--sl-color-input-text-field-#{$variant}-active-background);
-    }
+    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-active-placeholder);
   }
 
   :host(#{$variant-selector}:focus-within:not([disabled])) {
+    --_background: var(--sl-color-input-text-field-#{$variant}-focus-background);
     --_border-color: var(--sl-color-input-text-field-#{$variant}-focus-border);
     --_box-shadow: var(--sl-box-shadow-focus);
+    --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
     --fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
-
-    slot[name='textarea']::slotted(textarea) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-focus-placeholder);
-    }
-
-    .wrapper {
-      --_background: var(--sl-color-input-text-field-#{$variant}-focus-background);
-    }
+    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-focus-placeholder);
   }
 
   slot[name='textarea']::slotted(textarea) {
     &:focus-visible {
-      --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
       --_box-shadow: var(--sl-box-shadow-focus);
+      --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
     }
   }
 
   :host(#{$variant-selector}[disabled]) {
+    --_background: var(--sl-color-input-text-field-#{$variant}-disabled-background);
     --_border-color: var(--sl-color-input-text-field-#{$variant}-disabled-border);
+    --_color: var(--sl-color-input-text-field-#{$variant}-disabled-input-text);
     --fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
-
-    slot[name='textarea']::slotted(textarea) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-disabled-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-disabled-placeholder);
-    }
-
-    .wrapper {
-      --_background: var(--sl-color-input-text-field-#{$variant}-disabled-background);
-    }
+    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-disabled-placeholder);
   }
 }
 

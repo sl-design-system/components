@@ -1409,12 +1409,12 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.accent.50}",
+                "value": "{color.palette.primary.50}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.primary.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1424,19 +1424,19 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.accent.500}",
+                "value": "{color.palette.primary.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
             },
             "active": {
               "background": {
-                "value": "rgba({color.palette.accent.base} , {opacity.400})",
+                "value": "{color.palette.primary.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.accent.600}",
+                "value": "{color.palette.primary.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1446,19 +1446,19 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.accent.700}",
+                "value": "{color.palette.primary.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
             },
             "focus": {
               "background": {
-                "value": "rgba({color.palette.accent.base} , {opacity.100})",
+                "value": "rgba({color.palette.white.base} , {opacity.100})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.accent.base}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1468,7 +1468,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -1499,7 +1499,7 @@
           "checked": {
             "default": {
               "background": {
-                "value": "{color.palette.accent.300}",
+                "value": "{color.palette.primary.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1521,7 +1521,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.primary.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1543,7 +1543,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.accent.600}",
+                "value": "{color.palette.primary.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1565,7 +1565,7 @@
             },
             "focus": {
               "background": {
-                "value": "{color.palette.accent.base}",
+                "value": "{color.palette.primary.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },

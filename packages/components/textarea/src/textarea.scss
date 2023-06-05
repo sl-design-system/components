@@ -11,31 +11,26 @@ $resize-types: none, both, horizontal, vertical, auto;
   --_box-shadow: var(--sl-box-shadow-none);
   --_transition: 200ms ease-in-out;
   --_min-height: calc(var(--sl-textarea-rows) * 1lh);
-  // TODO: needs to be removed in the future when lh unit will be supported for Firefox as well
-  @supports not (min-height: 1lh) {
-    --_min-height: calc(var(--sl-textarea-rows) * 1.4em);
-  }
 }
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
+    --_font: var(--sl-text-input-text-field-text-#{$size});
     --_gap: var(--sl-space-text-field-gap-#{$size});
+    --_padding: var(--sl-space-input-text-field-block-#{$size})
+      calc(
+        var(--sl-space-input-text-field-inline-#{$size}) +
+        var(--sl-space-input-text-field-gap-#{$size}) +
+        var(--sl-size-icon-#{$size})
+      )
+      var(--sl-space-input-text-field-block-#{$size})
+      var(--sl-space-input-text-field-inline-#{$size});
+    --_right: var(--sl-space-input-text-field-inline-#{$size});
+    --_top: var(--sl-space-input-text-field-block-#{$size});
 
-    slot[name='textarea']::slotted(textarea) {
-      --_font: var(--sl-text-input-text-field-text-#{$size});
-      --_padding: var(--sl-space-input-text-field-block-#{$size})
-        calc(
-          var(--sl-space-input-text-field-inline-#{$size}) +
-          var(--sl-space-input-text-field-gap-#{$size}) +
-          var(--sl-size-icon-#{$size})
-        )
-        var(--sl-space-input-text-field-block-#{$size})
-        var(--sl-space-input-text-field-inline-#{$size});
-    }
-
-    slot[name='suffix'] sl-icon {
-      --_right: var(--sl-space-input-text-field-inline-#{$size});
-      --_top: var(--sl-space-input-text-field-block-#{$size});
+    // TODO: needs to be removed in the future when lh unit will be supported for Firefox as well
+    @supports not (min-height: 1lh) {
+      --_min-height: calc(var(--sl-textarea-rows) * var(--sl-text-typeset-line-height-#{$size}));
     }
   }
 }

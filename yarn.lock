@@ -3859,7 +3859,7 @@ __metadata:
   dependencies:
     "@sl-design-system/button": 0.0.5
     "@sl-design-system/text-input": 0.1.0
-    "@sl-design-system/textarea": 0.0.4
+    "@sl-design-system/textarea": 0.1.0
     lit: ^2.7.4
   languageName: unknown
   linkType: soft
@@ -4041,7 +4041,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/textarea@0.0.4, @sl-design-system/textarea@workspace:packages/components/textarea":
+"@sl-design-system/textarea@0.1.0, @sl-design-system/textarea@workspace:packages/components/textarea":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/textarea@workspace:packages/components/textarea"
   dependencies:

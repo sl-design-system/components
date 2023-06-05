@@ -31,9 +31,9 @@ export class GridSorter extends ScopedElementsMixin(LitElement) {
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;
 
-  @event() directionChange!: EventEmitter<DataSourceSortDirection | undefined>;
-
   @event() sorterChange!: EventEmitter<GridSorterChange>;
+
+  @event() sorterDirectionChange!: EventEmitter<DataSourceSortDirection | undefined>;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -88,7 +88,7 @@ export class GridSorter extends ScopedElementsMixin(LitElement) {
 
   #onClick(): void {
     this.#toggleDirection();
-    this.directionChange.emit(this.direction);
+    this.sorterDirectionChange.emit(this.direction);
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -96,7 +96,7 @@ export class GridSorter extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
 
       this.#toggleDirection();
-      this.directionChange.emit(this.direction);
+      this.sorterDirectionChange.emit(this.direction);
     }
   }
 

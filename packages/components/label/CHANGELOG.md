@@ -1,5 +1,12 @@
 # @sl-design-system/label
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`8bd69c5`](https://github.com/sl-design-system/components/commit/8bd69c525e06b9dcc29d4085e8099eba3413a3ed)]:
+  - @sl-design-system/textarea@0.1.0
+
 ## 0.1.0
 
 ### Minor Changes

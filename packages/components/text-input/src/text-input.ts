@@ -226,13 +226,11 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
         <slot name="prefix"></slot>
         <slot @keydown=${this.#onKeydown} @slotchange=${this.#onSlotchange} name="input"></slot>
         <slot name="suffix">
-          <sl-icon class="invalid-icon" name="triangle-exclamation-solid" size=${this.size}></sl-icon>
-          ${this.valid
-            ? html`<sl-icon class="valid-icon" name="circle-check-solid" size=${this.size}></sl-icon>`
-            : null}
+          <sl-icon class="invalid-icon" name="triangle-exclamation-solid" size="lg"></sl-icon>
+          ${this.valid ? html`<sl-icon class="valid-icon" name="circle-check-solid" size="lg"></sl-icon>` : null}
         </slot>
       </div>
-      ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 

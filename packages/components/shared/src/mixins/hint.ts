@@ -110,6 +110,18 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
         div.innerText = this.hint;
         div.setAttribute('hintSize', this.hintSize);
         div.slot = 'hint';
+        const id = `sl-hint-${nextUniqueId++}`;
+        if (target?.hasAttribute('aria-describedby')) {
+          const currentId = target.getAttribute('aria-describedby') as string;
+          if (currentId.includes('hint')) {
+            target?.setAttribute('aria-describedby', `${id}`);
+          } else {
+            target?.setAttribute('aria-describedby', `${currentId} ${id}`);
+          }
+        } else {
+          target?.setAttribute('aria-describedby', id);
+        }
+
         if (this.hasAttribute('disabled')) {
           div.setAttribute('disabled', '');
           this.disabled = true;

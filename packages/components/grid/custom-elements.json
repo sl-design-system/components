@@ -916,6 +916,15 @@
             },
             {
               "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | string[] | undefined"
+              },
+              "description": "The value for this filter column.",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
               "name": "width",
               "type": {
                 "text": "number | undefined"
@@ -936,6 +945,14 @@
               },
               "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text input.",
               "fieldName": "mode"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | string[] | undefined"
+              },
+              "description": "The value for this filter column.",
+              "fieldName": "value"
             },
             {
               "name": "align",
@@ -1089,17 +1106,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "active",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the grid is currently being filtered by this column.",
-              "attribute": "active",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "column",
               "type": {
                 "text": "GridColumn"
@@ -1145,15 +1151,6 @@
             }
           ],
           "attributes": [
-            {
-              "name": "active",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the grid is currently being filtered by this column.",
-              "fieldName": "active"
-            },
             {
               "name": "mode",
               "type": {
@@ -1879,6 +1876,15 @@
             },
             {
               "kind": "field",
+              "name": "direction",
+              "type": {
+                "text": "DataSourceSortDirection | undefined"
+              },
+              "description": "The direction this columns should be sorted in.",
+              "attribute": "direction"
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -2041,13 +2047,15 @@
               }
             }
           ],
-          "superclass": {
-            "name": "GridColumn",
-            "module": "/src/column.js"
-          },
-          "tagName": "sl-grid-sort-column",
-          "customElement": true,
           "attributes": [
+            {
+              "name": "direction",
+              "type": {
+                "text": "DataSourceSortDirection | undefined"
+              },
+              "description": "The direction this columns should be sorted in.",
+              "fieldName": "direction"
+            },
             {
               "name": "align",
               "type": {
@@ -2146,7 +2154,13 @@
                 "module": "src/column.ts"
               }
             }
-          ]
+          ],
+          "superclass": {
+            "name": "GridColumn",
+            "module": "/src/column.js"
+          },
+          "tagName": "sl-grid-sort-column",
+          "customElement": true
         }
       ],
       "exports": [

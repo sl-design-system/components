@@ -443,7 +443,7 @@
       },
       "white": {
         "base": {
-          "value": "#F6F8F8",
+          "value": "#FFFFFF",
           "type": "color",
           "description": "color.palette.white.base"
         }
@@ -461,12 +461,12 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "The Message",
+          "value": "Open Sans",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Open Sans",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.body"
         },
@@ -694,7 +694,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
@@ -703,7 +703,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.md}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -712,7 +712,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.lg}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -1013,33 +1013,33 @@
   "borderRadius": {
     "button": {
       "sm": {
-        "value": "{border.radius.3xs}",
+        "value": "{border.radius.full}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "md": {
-        "value": "{border.radius.3xs}",
+        "value": "{border.radius.full}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "lg": {
-        "value": "{border.radius.3xs}",
+        "value": "{border.radius.full}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
       "icon-only": {
         "sm": {
-          "value": "{border.radius.3xs}",
+          "value": "{border.radius.full}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "md": {
-          "value": "{border.radius.3xs}",
+          "value": "{border.radius.full}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         },
         "lg": {
-          "value": "{border.radius.3xs}",
+          "value": "{border.radius.full}",
           "type": "borderRadius",
           "description": "borderRadius.button"
         }
@@ -1097,6 +1097,10 @@
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
+      },
+      "focusRing": {
+        "value": "{border.width.sm}",
+        "type": "borderWidth"
       }
     }
   },

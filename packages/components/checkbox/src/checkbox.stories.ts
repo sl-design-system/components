@@ -259,11 +259,11 @@ export const WithLabel: StoryObj = {
       }
     </style>
     ${sizes.map(
-      size => html`
+      (size, id) => html`
         <h2>Size: ${size}</h2>
         <div class="wrapper">
-          <sl-label for="checkbox" size=${size}>Label</sl-label>
-          <sl-checkbox id="checkbox" size=${size}>Checkbox</sl-checkbox>
+          <sl-label for="checkbox-${id}" size=${size}>Label</sl-label>
+          <sl-checkbox id="checkbox-${id}" size=${size}>Checkbox</sl-checkbox>
         </div>
       `
     )}

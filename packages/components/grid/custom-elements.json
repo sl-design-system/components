@@ -125,7 +125,7 @@
               "kind": "field",
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -203,6 +203,19 @@
               },
               "description": "The label for the column header.",
               "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -343,7 +356,7 @@
             {
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -465,7 +478,7 @@
               "kind": "field",
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -514,6 +527,15 @@
               },
               "description": "The label for the column header.",
               "attribute": "header"
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             },
             {
               "kind": "field",
@@ -608,7 +630,7 @@
             {
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -704,7 +726,7 @@
               "kind": "field",
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -785,6 +807,19 @@
                 "text": "GridFilterOption[] | undefined"
               },
               "description": "The internal options if none are provided."
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
             },
             {
               "kind": "field",
@@ -957,7 +992,7 @@
             {
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -1265,6 +1300,14 @@
             },
             {
               "kind": "field",
+              "name": "gridItemsChange",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the items in the grid have changed."
+            },
+            {
+              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
@@ -1465,7 +1508,7 @@
               "kind": "field",
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -1543,6 +1586,19 @@
               },
               "description": "The label for the column header.",
               "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1711,7 +1767,7 @@
             {
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -1839,7 +1895,7 @@
               "kind": "field",
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -1917,6 +1973,19 @@
               },
               "description": "The label for the column header.",
               "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -2059,7 +2128,7 @@
             {
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end'"
+                "text": "GridColumnAlignment"
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
@@ -2216,13 +2285,6 @@
               "reflects": true
             },
             {
-              "kind": "field",
-              "name": "directionChange",
-              "type": {
-                "text": "EventEmitter<DataSourceSortDirection | undefined>"
-              }
-            },
-            {
               "kind": "method",
               "name": "reset",
               "return": {
@@ -2236,6 +2298,13 @@
               "name": "sorterChange",
               "type": {
                 "text": "EventEmitter<GridSorterChange>"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sorterDirectionChange",
+              "type": {
+                "text": "EventEmitter<DataSourceSortDirection | undefined>"
               }
             }
           ],

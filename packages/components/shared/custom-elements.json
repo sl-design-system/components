@@ -1894,7 +1894,7 @@
               },
               "parameters": [
                 {
-                  "name": "changedProperties",
+                  "name": "changes",
                   "type": {
                     "text": "PropertyValues<this>"
                   }

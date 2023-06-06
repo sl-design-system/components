@@ -236,7 +236,7 @@
     "test:components": {
       "command": "wtr --static-logging",
       "dependencies": [
-        "build:scss"
+        "build:components"
       ],
       "files": [
         "web-test-runner.config.mjs",

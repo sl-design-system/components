@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.2.8",
+    "@floating-ui/dom": "^1.2.9",
     "@sl-design-system/shared": "0.1.0",
-    "lit": "^2.7.4"
+    "lit": "^2.7.5"
   }
 }

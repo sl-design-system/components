@@ -39,6 +39,6 @@
   },
   "dependencies": {
     "@sl-design-system/shared": "0.1.0",
-    "lit": "^2.7.4"
+    "lit": "^2.7.5"
   }
 }

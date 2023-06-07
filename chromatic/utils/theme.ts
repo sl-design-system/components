@@ -11,8 +11,6 @@ export const setTheme = (name: string, mode = 'light') => {
   `;
 }
 
-
-
 export const setPseudoStates = () =>{
   setTimeout(() => {
     setStyle('hover');
@@ -23,12 +21,13 @@ export const setPseudoStates = () =>{
 
 const matches = function (element: Element, selector:string, pseudoClass: string){
   const selectors = selector.split(':host').filter(empty=>!!empty).map(s=>`:host${s}`.replace(new RegExp(/,\s+$/, 'g'),''));
-  const newSelector = selectors.map(selectorPart => {
+  const newSelectors = selectors.map(selectorPart => {
     selectorPart = selectorPart.replace(new RegExp(/:host\(((?:(.*).)*)(\))(.*)/, 'g'), `${element.nodeName}$1$4`);
-    selectorPart = selectorPart.replace(new RegExp(pseudoClass, 'g'), '');
+    selectorPart = selectorPart.replace(new RegExp(`:${pseudoClass}`, 'g'), '');
     return selectorPart;
-  }).join(', ');
-  for (const part of newSelector.split(/ +/)) {
+  });
+
+  for (const part of newSelectors) {
     try {
       if (element.matches(part)) {
         return true;
@@ -47,12 +46,11 @@ const setStyle = async (state:string) =>{
       return;
     }
     const rules = element.shadowRoot?.adoptedStyleSheets.flat().map(sheet => Array.from(sheet.cssRules)).flat();
-    const matchedRules = Array.from(rules).filter(rule => rule instanceof CSSStyleRule && rule.selectorText.indexOf(`:${state}`)>0 && matches(element,rule?.selectorText,`:${state}`)
+    const matchedRules = Array.from(rules).filter(rule => rule instanceof CSSStyleRule && rule.selectorText.indexOf(`:${state}`)>0 && matches(element,rule?.selectorText,state)
     );
     matchedRules.forEach(match =>{
       const newRule = match as CSSStyleRule;
       newRule.selectorText = `:host-context(.sb-fake-${state})${newRule.selectorText.replace(`:${state}`,'')}`
     })
   });
-
 }

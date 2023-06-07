@@ -167,7 +167,7 @@ export const All: StoryObj = {
                             </td>
                           `
                       )}
-                      <td>
+                      <!--<td>
                         <sl-checkbox
                           ?checked=${c === 'checked'}
                           ?indeterminate=${c === 'indeterminate'}
@@ -176,7 +176,7 @@ export const All: StoryObj = {
                           data-mock-state
                           >Label
                         </sl-checkbox>
-                      </td>`
+                      </td>-->`
                 )}
               </tr>`
           )}

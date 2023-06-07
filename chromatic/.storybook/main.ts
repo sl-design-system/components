@@ -6,7 +6,6 @@ const devMode = !argv.includes('build');
 const config: StorybookConfig = {
   stories: [
     './stories/**/*.stories.ts',
-    // '../../packages/components/**/*.stories.ts'
   ],
   addons: [
     '@storybook/addon-a11y', 

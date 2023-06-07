@@ -23,6 +23,7 @@ const matches = function (element: Element, selector:string, pseudoClass: string
   const selectors = selector.split(':host').filter(empty=>!!empty).map(s=>`:host${s}`.replace(new RegExp(/,\s+$/, 'g'),''));
   const newSelectors = selectors.map(selectorPart => {
     selectorPart = selectorPart.replace(new RegExp(/:host\(((?:(.*).)*)(\))(.*)/, 'g'), `${element.nodeName}$1$4`);
+    selectorPart = selectorPart.replace(new RegExp(`.wrapper:${pseudoClass}`, 'g'), '');
     selectorPart = selectorPart.replace(new RegExp(`:${pseudoClass}`, 'g'), '');
     return selectorPart;
   });

@@ -19,7 +19,7 @@ export const setPseudoStates = () =>{
   }, 100);
 }
 
-const matches = function (element: Element, selector:string, pseudoClass: string){
+const matches = function (element: Element, selector:string, pseudoClass: string): boolean{
   const selectors = selector.split(':host').filter(empty=>!!empty).map(s=>`:host${s}`.replace(new RegExp(/,\s+$/, 'g'),''));
   const newSelectors = selectors.map(selectorPart => {
     selectorPart = selectorPart.replace(new RegExp(/:host\(((?:(.*).)*)(\))(.*)/, 'g'), `${element.nodeName}$1$4`);
@@ -33,14 +33,12 @@ const matches = function (element: Element, selector:string, pseudoClass: string
       if (element.matches(part)) {
         return true;
       }
-    } catch (ignored) {
-      // reached a non-selector part such as '>'
-    }
+    } catch { }
   }
   return false;
 }
 
-const setStyle = async (state:string) =>{
+const setStyle = async (state:string):Promise<void> => {
   const elements = document.querySelectorAll(`.sb-fake-${state} [data-mock-state]`);
   elements.forEach(element => {
     if(!element.shadowRoot?.adoptedStyleSheets){

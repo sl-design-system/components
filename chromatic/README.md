@@ -1,14 +1,15 @@
 # Sanoma Learning Design System Chromatic
 
 Chromatic automatically preforms visual tests for all pages in Storybook
-For all themes there are separate pages that are compliled of all the "All" stories in the components
+For all themes there are separate pages that are compiled of all the "All" stories in the components
 
 ### Local development
 
 To launch a local version of the theme Storybook:
 - `yarn workspace @sl-design-system/chromatic start`
 
-You don't need to run a separarate `yarn build --watch` to build the components separately
+To publish to Chromatic from you local machine you can use 
+- `yarn workspace @sl-design-system/chromatic chromatic`
 
 ### Chromatic action
 

@@ -7,13 +7,13 @@
     "url": "https://github.com/sl-design-system/components.git"
   },
   "workspaces": [
+    "chromatic",
     "packages/angular",
     "packages/components/*",
     "packages/locales",
     "packages/themes/*",
     "packages/tokens",
     "scripts",
-    "chromatic",
     "tools/example-data",
     "website"
   ],

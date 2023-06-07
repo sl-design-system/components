@@ -42,17 +42,17 @@
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.0.12",
-    "@storybook/addon-essentials": "^7.0.12",
-    "@storybook/addon-storysource": "^7.0.12",
-    "@storybook/web-components-vite": "^7.0.12",
-    "@typescript-eslint/eslint-plugin": "5.48.2",
-    "@typescript-eslint/parser": "5.48.2",
-    "eslint": "^8.33.0",
+    "@storybook/addon-a11y": "^7.0.18",
+    "@storybook/addon-essentials": "^7.0.18",
+    "@storybook/addon-storysource": "^7.0.18",
+    "@storybook/web-components-vite": "^7.0.18",
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.59.9",
+    "eslint": "^8.42.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.12",
-    "typescript": "~5.0.4",
+    "storybook": "^7.0.18",
+    "typescript": "^5.0.4",
     "wireit": "^0.9.5"
   }
 }

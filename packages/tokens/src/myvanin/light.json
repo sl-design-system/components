@@ -68,7 +68,7 @@
               "description": "color.button.default.active.background"
             },
             "foreground": {
-              "value": "{color.palette.info.500}",
+              "value": "{color.palette.info.600}",
               "type": "color",
               "description": "color.button.default.active.foreground"
             },

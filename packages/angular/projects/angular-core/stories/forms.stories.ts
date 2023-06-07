@@ -22,7 +22,7 @@ import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
   template: `
     <div class="example-input">
       <sl-label for="input-id">My label</sl-label>
-      <sl-text-input id="input-id" [value]="value" (input)="onValueChange($event.target)"></sl-text-input>
+      <sl-text-input id="input-id" [value]="value" (input)="onValueChange($event.target)" required></sl-text-input>
       <div>value: <i>{{value}}</i></div>
     </div>
   `
@@ -111,7 +111,7 @@ export class CheckboxComponent {
   template: `
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" formControlName="name" placeholder="Your name"></sl-text-input>
+      <sl-text-input id="name-input" formControlName="name" placeholder="Your name" minlength="8" required></sl-text-input>
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" formControlName="description" placeholder="Add short description here"></sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
@@ -132,17 +132,25 @@ export class CheckboxComponent {
 })
 export class ReactiveFormComponent {
   myForm = new FormGroup({
-    name: new FormControl('John'),
+    name: new FormControl(''),
     description: new FormControl('Short description'),
     approval: new FormControl(true),
     option: new FormControl()
   });
 
   onSubmit(form: FormGroup) {
+    console.log('form on submit', form);
     alert(`form submit: Name: ${form.value.name},
           Description: ${form.value.description},
           Approval: ${form.value.approval},
-          Option: ${form.value.option}`);
+          Option: ${form.value.option},
+          form-invalid: ${form.invalid}`);
+
+    // form.addValidators(() => )
+
+    // if (form.invalid) {
+    //   return;
+    // }
   }
 }
 
@@ -153,7 +161,6 @@ export class ReactiveFormComponent {
     form {
       display: flex;
       flex-direction: column;
-      gap: 8px;
     }
 
     sl-text-input,

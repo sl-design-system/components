@@ -1012,16 +1012,14 @@
     "select": {
       "selectbox": {
         "text": {
-          "": {
-            "md": {
-              "value": "{text.input.textField.text.md}",
-              "type": "typography",
-              "description": "UPDATED - Line height md from 22px to 20px"
-            },
-            "lg": {
-              "value": "{text.input.textField.text.lg}",
-              "type": "typography"
-            }
+          "md": {
+            "value": "{text.input.textField.text.md}",
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "lg": {
+            "value": "{text.input.textField.text.lg}",
+            "type": "typography"
           }
         }
       }

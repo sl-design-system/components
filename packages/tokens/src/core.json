@@ -813,27 +813,45 @@
           }
         }
       },
-      "item": {
+      "selectbox": {
         "block": {
+          "md": {
+            "value": "{space.input.textField.block.md}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "value": "{space.input.textField.block.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
           }
         },
         "inline": {
+          "md": {
+            "value": "{space.input.textField.inline.md}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
           "lg": {
-            "value": "{space.md}",
-            "type": "spacing"
+            "value": "{space.input.textField.inline.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
           }
         },
         "gap": {
+          "md": {
+            "value": "{space.input.textField.gap.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "value": "{space.input.textField.gap.lg}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
           }
         }
       },
-      "selectbox": {
+      "item": {
         "block": {
           "md": {
             "value": "{space.input.textField.block.md}",

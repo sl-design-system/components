@@ -1068,7 +1068,7 @@
     --sl-color-button-default-default-idle-border: rgb(var(--sl-color-palette-primary-200));
     --sl-color-button-default-default-idle-foreground: rgb(var(--sl-color-palette-primary-200));
     --sl-color-button-default-default-idle-background: rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
+    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-600));
     --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
     --sl-body-background: var(--sl-color-surface-solid-primary-background);
     --sl-color-input-option-valid-checked-disabled-border: var(

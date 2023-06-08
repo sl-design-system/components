@@ -233,17 +233,17 @@
       "switch": {
         "handle": {
           "sm": {
-            "value": "{size.md} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.md} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "md": {
-            "value": "{size.xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "lg": {
-            "value": "{size.2xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.2xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           }
@@ -736,15 +736,20 @@
       },
       "switch": {
         "padding": {
-          "outer": {
+          "container": {
             "value": "{space.xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
           },
-          "inner": {
+          "controller": {
             "value": "{space.2xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
+          },
+          "gap": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.input.switch.padding.gap"
           }
         }
       }
@@ -832,31 +837,37 @@
         "block": {
           "md": {
             "value": "{space.input.textField.block.md}",
-            "type": "spacing"
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
           },
           "lg": {
             "value": "{space.input.textField.block.lg}",
-            "type": "spacing"
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "md": {
             "value": "{space.input.textField.inline.md}",
-            "type": "spacing"
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
           },
           "lg": {
             "value": "{space.input.textField.inline.lg}",
-            "type": "spacing"
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
           }
         },
         "gap": {
           "md": {
             "value": "{space.input.textField.gap.md}",
-            "type": "spacing"
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
           },
           "lg": {
             "value": "{space.input.textField.gap.lg}",
-            "type": "spacing"
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
           }
         }
       }
@@ -1175,9 +1186,14 @@
         "description": "icon.core.chevron-down"
       },
       "check": {
-        "value": "chevron-down",
+        "value": "check",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "xmark": {
+        "value": "xmark",
+        "type": "Icons",
+        "description": "icon.core.xmark"
       },
       "triangle-exclamation-solid": {
         "value": "triangle-exclamation",

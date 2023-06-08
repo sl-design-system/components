@@ -1008,6 +1008,23 @@
           }
         }
       }
+    },
+    "select": {
+      "selectbox": {
+        "text": {
+          "": {
+            "md": {
+              "value": "{text.input.textField.text.md}",
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "lg": {
+              "value": "{text.input.textField.text.lg}",
+              "type": "typography"
+            }
+          }
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1147,6 +1164,10 @@
   "select": {
     "panel": {
       "value": "{border.radius.2xs}",
+      "type": "borderRadius"
+    },
+    "item": {
+      "value": "{border.radius.3xs}",
       "type": "borderRadius"
     }
   }

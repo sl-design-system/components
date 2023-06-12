@@ -8,9 +8,16 @@ import { html } from 'lit';
 
 const preview: Preview = {
   decorators: [
+
+    // (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
+    //   updateTheme(theme, mode);
+      
+    //   return story();
+    // },
     (story, data) => {
       updateTheme(data.args.theme, 'light');
       return html`
+      ${setTheme(data.args.theme)}
       ${story()}
       <div class="sb-fake-hover">
         ${story()}
@@ -37,6 +44,16 @@ const preview: Preview = {
 };
 
 export default preview;
+
+export const setTheme = (name: string, mode = 'light') => {
+  const fonts = themes.find(theme => theme.id===name)?.fonts || [];
+  
+  return html`
+    <link href="/themes/${name}/base.css" rel="stylesheet">
+    <link href="/themes/${name}/${mode}.css" rel="stylesheet">
+    ${fonts.map(font => html`<link href="${font}" rel="stylesheet">`)}
+  `;
+}
 
 export const setPseudoStates = () =>{
   setTimeout(() => {

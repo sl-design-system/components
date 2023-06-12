@@ -697,7 +697,7 @@
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.demibold}",
             "lineHeight": "{button.label.sm}",
-            "fontSize": "{text.typeset.fontSize.sm}"
+            "fontSize": "{text.typeset.fontSize.md}"
           },
           "type": "typography"
         },

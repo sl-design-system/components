@@ -296,7 +296,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "failedToResolve": true
             },
@@ -589,7 +589,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.button.primary.link.disabled.foreground",
               "failedToResolve": true
@@ -816,7 +816,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.success.200}",
+              "value": "{color.palette.success.400}",
               "type": "color",
               "failedToResolve": true
             },
@@ -833,7 +833,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.success.200}",
+              "value": "{color.palette.success.400}",
               "type": "color",
               "failedToResolve": true
             },
@@ -850,7 +850,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.success.200}",
+              "value": "{color.palette.success.300}",
               "type": "color",
               "failedToResolve": true
             },
@@ -867,7 +867,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.success.200}",
+              "value": "{color.palette.success.400}",
               "type": "color",
               "failedToResolve": true
             },
@@ -884,7 +884,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.button.primary.link.disabled.foreground",
               "failedToResolve": true

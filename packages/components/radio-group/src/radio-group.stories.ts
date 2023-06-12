@@ -1,4 +1,5 @@
 import type { RadioGroup } from './radio-group.js';
+import type { RadioButtonSize } from './radio.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/checkbox/register.js';
@@ -15,6 +16,10 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   output.textContent = '';
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
+
+const sizes: RadioButtonSize[] = ['md', 'lg'];
+const states: string[] = ['', 'valid', 'invalid'];
+const checked: string[] = ['', 'checked'];
 
 export default {
   title: 'Radio group'
@@ -49,56 +54,71 @@ export const API: StoryObj = {
 export const All: StoryObj = {
   render: () => html`
     <style>
-      .grid {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: repeat(2, 1fr);
-        justify-items: center;
+      table {
+        border-collapse: collapse;
+        margin-bottom: 24px;
       }
-      h2 {
-        font-family: var(--sl-text-typeset-font-family-heading);
+
+      th {
+        text-transform: capitalize;
+      }
+      th,
+      td {
+        padding: 4px 8px;
+      }
+      thead td {
+        text-align: center;
+      }
+
+      tbody td:nth-of-type(4n + 5) {
+        border-right: 2px solid #dedede;
+        padding-right: 24px;
+      }
+      tbody td:nth-of-type(4n + 2):not(:first-of-type) {
+        padding-left: 24px;
+      }
+      tbody td:last-of-type {
+        border: none;
       }
     </style>
-    <h2>Medium</h2>
-    <div class="grid">
-      <sl-radio>Default</sl-radio>
-      <sl-radio checked>Checked</sl-radio>
-
-      <sl-radio disabled>Default</sl-radio>
-      <sl-radio disabled checked>Checked</sl-radio>
-
-      <sl-radio invalid>Default</sl-radio>
-      <sl-radio invalid checked>Checked</sl-radio>
-
-      <sl-radio invalid disabled>Default</sl-radio>
-      <sl-radio invalid disabled checked>Checked</sl-radio>
-
-      <sl-radio valid>Default</sl-radio>
-      <sl-radio valid checked>Checked</sl-radio>
-
-      <sl-radio valid disabled>Default</sl-radio>
-      <sl-radio valid disabled checked>Checked</sl-radio>
-    </div>
-    <h2>Large</h2>
-    <div class="grid">
-      <sl-radio size="lg">Default</sl-radio>
-      <sl-radio size="lg" checked>Checked</sl-radio>
-
-      <sl-radio size="lg" disabled>Default</sl-radio>
-      <sl-radio size="lg" disabled checked>Checked</sl-radio>
-
-      <sl-radio size="lg" invalid>Default</sl-radio>
-      <sl-radio size="lg" invalid checked>Checked</sl-radio>
-
-      <sl-radio size="lg" invalid disabled>Default</sl-radio>
-      <sl-radio size="lg" invalid disabled checked>Checked</sl-radio>
-
-      <sl-radio size="lg" valid>Default</sl-radio>
-      <sl-radio size="lg" valid checked>Checked</sl-radio>
-
-      <sl-radio size="lg" valid disabled>Default</sl-radio>
-      <sl-radio size="lg" valid disabled checked>Checked</sl-radio>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          ${sizes.map(size => html` <th colspan=${states.length + 1}>Size: ${size}</th> `)}
+        </tr>
+      </thead>
+      <tbody>
+        ${checked.map(
+          c =>
+            html` <tr>
+              <td>${c}</td>
+              ${sizes.map(
+                size =>
+                  html`${states.map(
+                      state =>
+                        html`
+                          <td>
+                            <sl-radio
+                              ?checked=${c === 'checked'}
+                              ?invalid=${state === 'invalid'}
+                              ?required=${state === 'invalid'}
+                              ?valid=${state === 'valid'}
+                              size=${size}
+                              data-mock-state
+                              >Label
+                            </sl-radio>
+                          </td>
+                        `
+                    )}
+                    <td>
+                      <sl-radio ?checked=${c === 'checked'} size=${size} disabled data-mock-state>Label </sl-radio>
+                    </td>`
+              )}
+            </tr>`
+        )}
+      </tbody>
+    </table>
   `
 };
 

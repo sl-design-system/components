@@ -40,6 +40,6 @@
   "dependencies": {
     "@lit-labs/observers": "^2.0.0",
     "@sl-design-system/shared": "0.1.0",
-    "lit": "^2.7.4"
+    "lit": "^2.7.5"
   }
 }

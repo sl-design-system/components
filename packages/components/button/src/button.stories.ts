@@ -58,9 +58,7 @@ export default {
 export const Basic: Story = {};
 
 export const All: Story = {
-  render: ({ icon, size, text }) => {
-    const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
-    const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
+  render: () => {
     return html` <style>
         table {
           border-collapse: collapse;
@@ -77,54 +75,81 @@ export const All: Story = {
           text-align: center;
         }
 
-        tbody td:nth-of-type(4n) {
+        tbody td:nth-of-type(6n) {
           border-right: 2px solid #dedede;
           padding-right: 24px;
         }
-        tbody td:nth-of-type(4n + 1):not(:first-of-type) {
+        tbody td:nth-of-type(6n + 1):not(:first-of-type) {
           padding-left: 24px;
         }
         tbody td:last-of-type {
           border: none;
         }
       </style>
-      <table>
-        <thead>
-          <tr>
-            <td></td>
-            ${fills.map(fill => html`<th colspan="4">${fill}</th>`)}
-          </tr>
-          <tr>
-            <td></td>
-            ${fills.map(_ =>
-              disabledStates.map(disabledState => html` <td colspan="2">${disabledState ? 'Disabled' : 'Enabled'}</td>`)
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          ${variants.map(
-            variant => html`
+      ${sizes.map(
+        size => html` <h2>Size: ${size}</h2>
+          <table>
+            <thead>
               <tr>
-                <th>${variant}</th>
-                ${fills.map(fill =>
+                <td></td>
+                ${fills.map(fill => html`<th colspan="6">${fill}</th>`)}
+              </tr>
+              <tr>
+                <td></td>
+                ${fills.map(_ =>
                   disabledStates.map(
-                    disabledState => html` <td>
-                        <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} .variant=${variant}>
-                          ${startIcon}${text}${endIcon}
-                        </sl-button>
-                      </td>
-                      <td>
-                        <sl-button .fill=${fill} .size=${size} ?disabled=${disabledState} .variant=${variant}>
-                          <sl-icon name="face-smile"></sl-icon>
-                        </sl-button>
-                      </td>`
+                    disabledState => html` <td colspan="3">${disabledState ? 'Disabled' : 'Enabled'}</td>`
                   )
                 )}
               </tr>
-            `
-          )}
-        </tbody>
-      </table>`;
+            </thead>
+            <tbody>
+              ${variants.map(
+                variant => html`
+                  <tr>
+                    <th>${variant}</th>
+                    ${fills.map(fill =>
+                      disabledStates.map(
+                        disabledState => html` <td>
+                            <sl-button
+                              .fill=${fill}
+                              .size=${size}
+                              ?disabled=${disabledState}
+                              .variant=${variant}
+                              data-mock-state
+                              >Label
+                            </sl-button>
+                          </td>
+                          <td>
+                            <sl-button
+                              .fill=${fill}
+                              .size=${size}
+                              ?disabled=${disabledState}
+                              .variant=${variant}
+                              data-mock-state
+                            >
+                              <sl-icon name="face-smile"></sl-icon> Label
+                            </sl-button>
+                          </td>
+                          <td>
+                            <sl-button
+                              .fill=${fill}
+                              .size=${size}
+                              ?disabled=${disabledState}
+                              .variant=${variant}
+                              data-mock-state
+                            >
+                              <sl-icon name="face-smile"></sl-icon>
+                            </sl-button>
+                          </td>`
+                      )
+                    )}
+                  </tr>
+                `
+              )}
+            </tbody>
+          </table>`
+      )}`;
   }
 };
 

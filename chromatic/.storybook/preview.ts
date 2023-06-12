@@ -14,7 +14,7 @@ const preview: Preview = {
       return story();
     },
     (story, data) => {
-      updateTheme(data.args.theme, 'light');
+      // updateTheme(data.args.theme, 'light');
       return html`
       ${setTheme(data.args.theme)}
       ${story()}

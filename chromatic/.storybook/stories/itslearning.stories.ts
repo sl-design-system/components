@@ -4,7 +4,7 @@ import { All as AllRadioGroup} from "../../../packages/components/radio-group/sr
 
 export default {
   title: 'ItsLearning',
-  args: {theme:'itslearing'}
+  args: {theme:'itslearning'}
 };
 
 export const Button = AllButton;

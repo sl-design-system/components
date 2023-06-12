@@ -113,6 +113,8 @@ export class ValidationController implements ReactiveController {
     // Prevent the browser from showing the built-in validation UI
     event.preventDefault();
 
+    console.log('on invalid', event);
+
     this.#setInvalidState();
 
     if (this.#showErrors !== !this.validity.valid) {
@@ -162,9 +164,12 @@ export class ValidationController implements ReactiveController {
   }
 
   get validity(): ValidityState {
+    console.log('validity', this.target);
     if (isNative(this.target)) {
+      console.log('validity native', this.target.validity);
       return this.target.validity;
     } else {
+      console.log('validity not native', this.target.internals.validity);
       return this.target.internals.validity;
     }
   }
@@ -180,6 +185,7 @@ export class ValidationController implements ReactiveController {
     }
 
     this.#validators = validators || [];
+    console.log('this.#validators', this.#validators);
     this.#slotName = '';
   }
 
@@ -222,6 +228,8 @@ export class ValidationController implements ReactiveController {
     }
 
     const state = this.#getInvalidState(this.validity);
+
+    console.log('state and this.validity', state, this.validity, this.#showErrors);
 
     if (this.#showErrors && state) {
       this.#slotName = dasherize(state);

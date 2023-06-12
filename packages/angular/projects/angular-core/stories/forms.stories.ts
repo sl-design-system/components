@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/angular';
 import '@sl-design-system/label/register.js';
 import '@sl-design-system/button/register.js';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
@@ -113,7 +113,7 @@ export class CheckboxComponent {
       <sl-label for="name-input">Name</sl-label>
       <sl-text-input id="name-input" formControlName="name" placeholder="Your name" minlength="8" required></sl-text-input>
       <sl-label for="description-id">Description</sl-label>
-      <sl-textarea id="description-id" formControlName="description" placeholder="Add short description here"></sl-textarea>
+      <sl-textarea id="description-id" formControlName="description" placeholder="Add short description here" required></sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
       <sl-checkbox id="approval-id" formControlName="approval">Check me</sl-checkbox>
       <sl-label for="radio-group-options">Select option</sl-label>
@@ -132,7 +132,7 @@ export class CheckboxComponent {
 })
 export class ReactiveFormComponent {
   myForm = new FormGroup({
-    name: new FormControl(''),
+    name: new FormControl('', [Validators.minLength(8), Validators.required]),
     description: new FormControl('Short description'),
     approval: new FormControl(true),
     option: new FormControl()
@@ -175,7 +175,8 @@ export class ReactiveFormComponent {
   template: `
     <form (ngSubmit)="onSubmit(model)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" [(ngModel)]="model.name" name="name"></sl-text-input>
+      <sl-text-input id="my-value" [(ngModel)]="model.name" name="name" [minlength]="8" required></sl-text-input>
+      {{ this.model.name }} {{ this.model.name.length }}
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" [(ngModel)]="model.description" name="description"></sl-textarea>
       <sl-label for="checkbox-with-ngmodel">Checkbox</sl-label>

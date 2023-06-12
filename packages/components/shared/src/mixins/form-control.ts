@@ -113,6 +113,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
 
     checkValidity(): boolean {
+      console.log('checkvalidity in form-control', this.formControlElement);
       if (isNative(this.formControlElement)) {
         return this.formControlElement.checkValidity();
       } else {

@@ -70,15 +70,35 @@ export class InputDirective implements ControlValueAccessor, Validator {
   //   return this.validator ? this.validator(c) : null;
   // }
 
-  validate(): ValidationErrors | null {
+  validate(control: AbstractControl): ValidationErrors | null {
     const nativeElement: HTMLInputElement = this.elementRef.nativeElement;
-    console.log('nativeElement in validate', nativeElement, nativeElement.validity?.valid); // reportValidity
-    if (nativeElement.checkValidity()) {
+    const input: HTMLInputElement = nativeElement.querySelector('input') as HTMLInputElement;
+    console.log('nativeElement in validate',control,  nativeElement, nativeElement.validity?.valid, input, control.errors); // reportValidity
+/*    if (/!*nativeElement.checkValidity()*!/ input.checkValidity()) {
       return null;
     } else {
-      return {
-        invalid: true
-      };
+      // return {
+      //   //invalid: true
+      //   invalid: control.errors
+      // };
+      return control.errors;
+    }*/
+    // return control.errors;
+
+    // this.elementRef.nativeElement.setValidity(control);
+
+    for (const validatorName in control?.errors) {
+      if(control.touched)
+        // return getValidatorErrorMessage(validatorName, this.control.errors[validatorName]);
+        this.elementRef.nativeElement.setValidity(control.errors, validatorName);
+    }
+
+    if (input.checkValidity() && control.errors) {
+      console.log('in input validate if');
+      return {invalid: true}
+    } else {
+      console.log('in input validate else');
+      return null;
     }
   }
 
@@ -107,11 +127,12 @@ export class InputDirective implements ControlValueAccessor, Validator {
     this.validator = Validators.compose(null);
   }
 
-  // TODO: register icon separately?
+  // TODO: register icon separately? necessary to add import
 
   @HostListener('input', ['$event.target.value'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
     this.value = value;
+    // this.validatorOnChange();
   }
 }

@@ -4,20 +4,24 @@ import 'element-internals-polyfill';
 import { configureLocalization } from '@lit/localize';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { updateTheme, themes } from '../../.storybook/themes';
-
-const { setLocale } = configureLocalization({
-  sourceLocale: 'en',
-  targetLocales: ['nl'],
-  loadLocale: locale => import(`../packages/locales/src/${locale}.ts`)
-});
+import { html } from 'lit';
 
 const preview: Preview = {
   decorators: [
-
-    (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      updateTheme(theme, mode);
-      
-      return story();
+    (story, data) => {
+      updateTheme(data.args.theme, 'light');
+      return html`
+      ${story()}
+      <div class="sb-fake-hover">
+        ${story()}
+      </div>
+      <div class="sb-fake-active">
+        ${story()}
+      </div>
+      <div class="sb-fake-focus-visible">
+        ${story()}
+      </div>
+      ${setPseudoStates()}`
     }
   ],
   parameters: {
@@ -33,3 +37,46 @@ const preview: Preview = {
 };
 
 export default preview;
+
+export const setPseudoStates = () =>{
+  setTimeout(() => {
+    setStyle('hover');
+    setStyle('active');
+    setStyle('focus-visible');
+  }, 100);
+}
+
+const matches = function (element: Element, selector:string, pseudoClass: string): boolean{
+  const selectors = selector.split(':host').filter(empty=>!!empty).map(s=>`:host${s}`.replace(new RegExp(/,\s+$/, 'g'),''));
+  const newSelectors = selectors.map(selectorPart => {
+    selectorPart = selectorPart.replace(new RegExp(/:host\(((?:(.*).)*)(\))(.*)/, 'g'), `${element.nodeName}$1$4`);
+    selectorPart = selectorPart.replace(new RegExp(`.wrapper:${pseudoClass}`, 'g'), '');
+    selectorPart = selectorPart.replace(new RegExp(`:${pseudoClass}`, 'g'), '');
+    return selectorPart;
+  });
+
+  for (const part of newSelectors) {
+    try {
+      if (element.matches(part)) {
+        return true;
+      }
+    } catch { }
+  }
+  return false;
+}
+
+const setStyle = async (state:string):Promise<void> => {
+  const elements = document.querySelectorAll(`.sb-fake-${state} [data-mock-state]`);
+  elements.forEach(element => {
+    if(!element.shadowRoot?.adoptedStyleSheets){
+      return;
+    }
+    const rules = element.shadowRoot?.adoptedStyleSheets.flat().map(sheet => Array.from(sheet.cssRules)).flat();
+    const matchedRules = Array.from(rules).filter(rule => rule instanceof CSSStyleRule && rule.selectorText.indexOf(`:${state}`)>0 && matches(element,rule?.selectorText,state)
+    );
+    matchedRules.forEach(match =>{
+      const newRule = match as CSSStyleRule;
+      newRule.selectorText = `:host-context(.sb-fake-${state})${newRule.selectorText.replace(`:${state}`,'')}`
+    })
+  });
+}

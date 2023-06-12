@@ -349,7 +349,7 @@
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-md: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
+  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
@@ -397,7 +397,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     --sl-box-shadow-none: 0px 0px 0px 0px;
-    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-600));
+    --sl-box-shadow-focus: 0px 0px 0px 4px rgba(var(--sl-color-palette-primary-500) / var(--sl-opacity-1000));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));

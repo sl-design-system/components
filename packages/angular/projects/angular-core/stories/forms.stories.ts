@@ -115,7 +115,7 @@ export class CheckboxComponent {
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" formControlName="description" placeholder="Add short description here" required></sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
-      <sl-checkbox id="approval-id" formControlName="approval">Check me</sl-checkbox>
+      <sl-checkbox id="approval-id" formControlName="approval" required>Check me</sl-checkbox>
       <sl-label for="radio-group-options">Select option</sl-label>
       <sl-radio-group id="radio-group-options">
         <sl-radio value="1" formControlName="option">First option</sl-radio>
@@ -132,17 +132,17 @@ export class CheckboxComponent {
 })
 export class ReactiveFormComponent {
   myForm = new FormGroup({
-    name: new FormControl('', [Validators.minLength(8), Validators.required]),
+    name: new FormControl(''), // , [Validators.minLength(8), Validators.required]
     description: new FormControl('Short description'),
-    approval: new FormControl(true),
+    approval: new FormControl(false, Validators.requiredTrue),
     option: new FormControl()
   });
 
   onSubmit(form: FormGroup) {
-    console.log('form on submit', form);
+    console.log('form on submit', form, form.valid);
     alert(`form submit: Name: ${form.value.name},
           Description: ${form.value.description},
-          Approval: ${form.value.approval},
+          Approval: ${form.value.approval} ${form.value.approval.valid},
           Option: ${form.value.option},
           form-invalid: ${form.invalid}`);
 
@@ -173,14 +173,14 @@ export class ReactiveFormComponent {
     }
   `],
   template: `
-    <form (ngSubmit)="onSubmit(model)">
+    <form #myForm="ngForm" (ngSubmit)="onSubmit(model)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" [(ngModel)]="model.name" name="name" [minlength]="8" required></sl-text-input>
+      <sl-text-input id="my-value" [(ngModel)]="model.name" name="name" minlength="8" required></sl-text-input>
       {{ this.model.name }} {{ this.model.name.length }}
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" [(ngModel)]="model.description" name="description"></sl-textarea>
-      <sl-label for="checkbox-with-ngmodel">Checkbox</sl-label>
-      <sl-checkbox id="checkbox-with-ngmodel" [(ngModel)]="model.approval" name="approval">my checkbox</sl-checkbox>
+      <sl-label for="checkboxWithNgmodel">Checkbox</sl-label>
+      <sl-checkbox id="checkboxWithNgmodel" #checkboxWithNgmodel="ngModel" [(ngModel)]="model.approval" name="approval" required>my checkbox</sl-checkbox>
       <sl-label for="radio-group">Select option</sl-label>
       <sl-radio-group id="radio-group" [(ngModel)]="model.option" name="option">
         <sl-radio value="1" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">One</sl-radio>
@@ -190,8 +190,9 @@ export class ReactiveFormComponent {
       <sl-button type="submit" variant="primary">Submit</sl-button>
       <div>Name: <i>{{model.name}}</i></div>
       <div>Description: <i>{{model.description}}</i></div>
-      <div>Approval: <i>{{model.approval}}</i></div>
+      <div>Approval: <i>{{model.approval}}</i>{{checkboxWithNgmodel.valid}}</div><i>{{checkboxWithNgmodel.errors}}</i>
       <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>
+      <div>Form submitted: {{myForm.submitted}}</div>
     </form>
   `
 })

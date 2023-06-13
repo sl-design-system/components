@@ -90,7 +90,8 @@ export class InputDirective implements ControlValueAccessor, Validator {
     for (const validatorName in control?.errors) {
       if(control.touched)
         // return getValidatorErrorMessage(validatorName, this.control.errors[validatorName]);
-        this.elementRef.nativeElement.setValidity(control.errors, validatorName);
+        // this.elementRef.nativeElement.setValidity(control.errors, validatorName);
+      this.elementRef.nativeElement.validity.validate(control.value);
     }
 
     if (input.checkValidity() && control.errors) {

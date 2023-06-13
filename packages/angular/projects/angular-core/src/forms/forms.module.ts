@@ -1,4 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import '@sl-design-system/shared';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/text-input/register.js';

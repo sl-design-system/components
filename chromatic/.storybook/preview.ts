@@ -15,14 +15,20 @@ const preview: Preview = {
     },
     (story, data) => {
       return html`
-      <style>h1:not(:first-of-type) {
-        margin-top: 40px;
-        border-top: 1px solid currentColor;
-        padding-top: 24px;
-      }
+      <style>
+        h1:not(:first-of-type) {
+          margin-top: 40px;
+          border-top: 1px solid currentColor;
+          padding-top: 24px;
+        }
+        .sb-fake-hover :where([disabled]),
+        .sb-fake-active :where([disabled]),
+        .sb-fake-focus-visible :where([disabled]){
+          display:none;
+        }
       </style>
       ${setTheme(data.args.theme, data.args.mode)}
-      <h1>State: Default</h1>
+      <h1>State: Default <small>(including "disabled")</small></h1>
       ${story()}
       <h1>State: Hover</h1>
       <div class="sb-fake-hover">

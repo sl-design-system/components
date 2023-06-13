@@ -15,7 +15,7 @@ const preview: Preview = {
     },
     (story, data) => {
       return html`
-      ${setTheme(data.args.theme)}
+      ${setTheme(data.args.theme, data.args.mode)}
       ${story()}
       <div class="sb-fake-hover">
         ${story()}

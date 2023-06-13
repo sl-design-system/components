@@ -101,7 +101,7 @@ const setStyle = async (state:string):Promise<void> => {
     );
     matchedRules.forEach(match =>{
       const newRule = match as CSSStyleRule;
-      newRule.selectorText = `:host-context(.sb-fake-${state})${newRule.selectorText.replace(`:${state}`,'')}:not(:disabled, [internals-disabled])`
+      newRule.selectorText = `:host-context(.sb-fake-${state})${newRule.selectorText.replace(`:${state}`,'')}`
     })
   });
 }

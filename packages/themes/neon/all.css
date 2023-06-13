@@ -809,13 +809,19 @@
     --sl-color-input-option-default-unchecked-disabled-border: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-input-option-default-unchecked-disabled-background: rgb(var(--sl-color-palette-neutral-700));
     --sl-color-input-option-default-unchecked-focus-icon: rgb(var(--sl-color-palette-accent-400));
-    --sl-color-input-option-default-unchecked-focus-border: rgb(var(--sl-color-palette-primary-400));
+    --sl-color-input-option-default-unchecked-focus-border: rgb(var(--sl-color-palette-primary-150));
     --sl-color-input-option-default-unchecked-active-icon: rgb(var(--sl-color-palette-accent-700));
-    --sl-color-input-option-default-unchecked-active-border: rgb(var(--sl-color-palette-primary-400));
+    --sl-color-input-option-default-unchecked-active-border: rgb(var(--sl-color-palette-primary-150));
+    --sl-color-input-option-default-unchecked-active-background: rgba(
+      var(--sl-color-palette-primary-150) / var(--sl-opacity-400)
+    );
     --sl-color-input-option-default-unchecked-hover-icon: rgb(var(--sl-color-palette-accent-500));
-    --sl-color-input-option-default-unchecked-hover-border: rgb(var(--sl-color-palette-primary-400));
+    --sl-color-input-option-default-unchecked-hover-border: rgb(var(--sl-color-palette-primary-150));
+    --sl-color-input-option-default-unchecked-hover-background: rgba(
+      var(--sl-color-palette-primary-150) / var(--sl-opacity-200)
+    );
     --sl-color-input-option-default-unchecked-default-icon: rgb(var(--sl-color-palette-neutral-400));
-    --sl-color-input-option-default-unchecked-default-border: rgb(var(--sl-color-palette-primary-400));
+    --sl-color-input-option-default-unchecked-default-border: rgb(var(--sl-color-palette-primary-150));
     --sl-color-input-option-default-unchecked-default-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-surface-solid-accent-foreground: rgb(var(--sl-color-palette-accent-50));
     --sl-color-surface-solid-accent-background: rgb(var(--sl-color-palette-accent-base));
@@ -1113,11 +1119,7 @@
     --sl-color-input-option-default-unchecked-focus-label: var(--sl-body-foreground);
     --sl-color-input-option-default-unchecked-focus-background: rgba(var(--sl-body-foreground) / var(--sl-opacity-100));
     --sl-color-input-option-default-unchecked-active-label: var(--sl-body-foreground);
-    --sl-color-input-option-default-unchecked-active-background: rgba(
-      var(--sl-body-foreground) / var(--sl-opacity-200)
-    );
     --sl-color-input-option-default-unchecked-hover-label: var(--sl-body-foreground);
-    --sl-color-input-option-default-unchecked-hover-background: rgba(var(--sl-body-foreground) / var(--sl-opacity-100));
     --sl-color-input-option-default-unchecked-default-label: var(--sl-body-foreground);
     --sl-color-button-danger-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
     --sl-color-button-warning-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));

@@ -1547,7 +1547,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.palette.primary.400}",
+                "value": "{color.palette.primary.150}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -1567,13 +1567,13 @@
             },
             "hover": {
               "background": {
-                "value": "rgba({body.foreground},{opacity.100})",
+                "value": "rgba({color.palette.primary.150},{opacity.200})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.palette.primary.400}",
+                "value": "{color.palette.primary.150}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -1593,13 +1593,13 @@
             },
             "active": {
               "background": {
-                "value": "rgba({body.foreground},{opacity.200})",
+                "value": "rgba({color.palette.primary.150},{opacity.400})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.palette.primary.400}",
+                "value": "{color.palette.primary.150}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -1625,7 +1625,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.palette.primary.400}",
+                "value": "{color.palette.primary.150}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true

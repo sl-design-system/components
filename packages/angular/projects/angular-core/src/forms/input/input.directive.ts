@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, HostListener } from '@angular/core';
+import {Directive, ElementRef, forwardRef, HostListener, Renderer2} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -50,12 +50,14 @@ export class InputDirective implements ControlValueAccessor, Validator {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
+    console.log('val in set value', val, this.value, this.elementRef.nativeElement.input.value, this._value);
     if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
       this.onTouched();
       this.elementRef.nativeElement.input.value = val;
     }
+    console.log('val in set value after if', val, this.value, this.elementRef.nativeElement.input.value, this._value);
   }
 
   /** Implemented as part of Validator. */
@@ -73,28 +75,37 @@ export class InputDirective implements ControlValueAccessor, Validator {
   validate(control: AbstractControl): ValidationErrors | null {
     const nativeElement: HTMLInputElement = this.elementRef.nativeElement;
     const input: HTMLInputElement = nativeElement.querySelector('input') as HTMLInputElement;
-    console.log('nativeElement in validate',control,  nativeElement, nativeElement.validity?.valid, input, control.errors); // reportValidity
-/*    if (/!*nativeElement.checkValidity()*!/ input.checkValidity()) {
-      return null;
-    } else {
-      // return {
-      //   //invalid: true
-      //   invalid: control.errors
-      // };
-      return control.errors;
-    }*/
+    console.log('nativeElement in validate',control,  nativeElement, nativeElement.validity?.valid, input, control.errors, this.elementRef.nativeElement.validity); // reportValidity
+    //console.log('nativeElement in validate',this.value, control,  nativeElement, nativeElement.validity?.valid, input, control.errors, this.elementRef.nativeElement.internals); // reportValidity
+
+    /*    if (/!*nativeElement.checkValidity()*!/ input.checkValidity()) {
+          return null;
+        } else {
+          // return {
+          //   //invalid: true
+          //   invalid: control.errors
+          // };
+          return control.errors;
+        }*/
     // return control.errors;
 
     // this.elementRef.nativeElement.setValidity(control);
 
-    for (const validatorName in control?.errors) {
-      if(control.touched)
-        // return getValidatorErrorMessage(validatorName, this.control.errors[validatorName]);
-        // this.elementRef.nativeElement.setValidity(control.errors, validatorName);
-      this.elementRef.nativeElement.validity.validate(control.value);
+    // for (const validatorName in control?.errors) {
+    //   console.log('validatorName in input', validatorName, control.errors, control.value);
+    //   if(control.touched)
+    //     // return getValidatorErrorMessage(validatorName, this.control.errors[validatorName]);
+    //     // this.elementRef.nativeElement.setValidity(control.errors, validatorName);
+    //   this.elementRef.nativeElement.validate(control.value);
+    // }
+
+    if (control.invalid) {
+      this.renderer.setAttribute(this.elementRef.nativeElement, 'invalid', '');
+    } else {
+      this.renderer.removeAttribute(this.elementRef.nativeElement, 'invalid');
     }
 
-    if (input.checkValidity() && control.errors) {
+    if (input.checkValidity() /*&& control.errors*/) {
       console.log('in input validate if');
       return {invalid: true}
     } else {
@@ -124,8 +135,9 @@ export class InputDirective implements ControlValueAccessor, Validator {
   //   this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);
   // }
 
-  constructor(private elementRef: ElementRef) {
-    this.validator = Validators.compose(null);
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+    // this.validator = Validators.compose(null);
+    this.validator = Validators.compose([this.parseValidator/*, this.minValidator, this.maxValidator, this.filterValidator*/]);
   }
 
   // TODO: register icon separately? necessary to add import
@@ -133,7 +145,26 @@ export class InputDirective implements ControlValueAccessor, Validator {
   @HostListener('input', ['$event.target.value'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
+    console.log('input event on input', value);
     this.value = value;
     // this.validatorOnChange();
   }
+
+  parseValidator: ValidatorFn = (): ValidationErrors | null => {
+    return this.value ? null : { inputParse: { text: this.elementRef.nativeElement.value } };
+  }
+
+  ValidateUrl(control: AbstractControl) {
+    if (!control.value.startsWith('https') || !control.value.includes('.io')) {
+      return { invalidUrl: true };
+    }
+    return null;
+  }
 }
+
+// export function ValidateUrl(control: AbstractControl) {
+//   if (!control.value.startsWith('https') || !control.value.includes('.io')) {
+//     return { invalidUrl: true };
+//   }
+//   return null;
+// }

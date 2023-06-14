@@ -1,10 +1,19 @@
 import type { Meta } from '@storybook/angular';
 import '@sl-design-system/label/register.js';
 import '@sl-design-system/button/register.js';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
+import {InputDirective} from "../src/forms";
 
 @Component({
   selector: 'sla-input',
@@ -127,16 +136,25 @@ export class CheckboxComponent {
       <div>Description: {{myForm.value.description}}</div>
       <div>Approval: {{myForm.value.approval}}</div>
       <div>Option: {{myForm.value.option}}</div>
+      <div>Form valid? {{myForm.valid}}</div>
+      <div>Form validator: {{myForm.controls.name.errors | json}}</div>
     </form>
   `,
 })
 export class ReactiveFormComponent {
   myForm = new FormGroup({
-    name: new FormControl(''), // , [Validators.minLength(8), Validators.required]
+    name: new FormControl('', [Validators.minLength(8), Validators.required]/*, ValidateUrl*/), // , [Validators.minLength(8), Validators.required]
     description: new FormControl('Short description'),
     approval: new FormControl(false, Validators.requiredTrue),
     option: new FormControl()
   });
+
+  // ValidateUrl(control: AbstractControl) {
+  //   if (!control.value.startsWith('https') || !control.value.includes('.io')) {
+  //     return { invalidUrl: true };
+  //   }
+  //   return null;
+  // }
 
   onSubmit(form: FormGroup) {
     console.log('form on submit', form, form.valid);
@@ -173,10 +191,12 @@ export class ReactiveFormComponent {
     }
   `],
   template: `
-    <form #myForm="ngForm" (ngSubmit)="onSubmit(model)">
+    <form #myForm="ngForm" (ngSubmit)="onSubmit(model, myForm)">
       <sl-label for="my-value">Name</sl-label>
       <sl-text-input id="my-value" [(ngModel)]="model.name" name="name" minlength="8" required></sl-text-input>
       {{ this.model.name }} {{ this.model.name.length }}
+      <div>error message example</div>
+      <div>hint example</div>
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" [(ngModel)]="model.description" name="description"></sl-textarea>
       <sl-label for="checkboxWithNgmodel">Checkbox</sl-label>
@@ -188,11 +208,14 @@ export class ReactiveFormComponent {
         <sl-radio value="3" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Three</sl-radio>
       </sl-radio-group>
       <sl-button type="submit" variant="primary">Submit</sl-button>
+      <sl-button type="reset" variant="primary" (click)="myForm.reset()">Reset</sl-button>
       <div>Name: <i>{{model.name}}</i></div>
       <div>Description: <i>{{model.description}}</i></div>
-      <div>Approval: <i>{{model.approval}}</i>{{checkboxWithNgmodel.valid}}</div><i>{{checkboxWithNgmodel.errors}}</i>
+      <div>Approval: <i>{{model.approval}}</i>{{checkboxWithNgmodel.valid}}</div><i>{{checkboxWithNgmodel.errors | json}}</i>
       <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>
       <div>Form submitted: {{myForm.submitted}}</div>
+      <div>Form valid: {{myForm.valid}}</div>
+      <div>Form validator: {{myForm.form.errors| json}}</div>
     </form>
   `
 })
@@ -204,11 +227,16 @@ export class TemplateFormComponent {
     this.model.option.text = event.textContent;
   }
 
-  onSubmit(model: Person): void {
+  onSubmit(model: Person, form: NgForm): void {
     alert(`form submit: Name: ${model.name},
           Description: ${model.description},
           Approval: ${model.approval},
           Option: ${model.option.value} ${model.option.text}`);
+    if (form.valid) {
+      alert('form is valid and would be submitted');
+    } else {
+      alert('form is not valid and would not be submitted');
+    }
   }
 }
 

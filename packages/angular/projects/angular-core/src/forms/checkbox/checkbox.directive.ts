@@ -2,13 +2,13 @@ import {
   Directive,
   forwardRef,
   ElementRef,
-  HostListener,
+  HostListener, HostBinding, Renderer2,
 } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
+  NG_VALUE_ACCESSOR, NgModel,
   ValidationErrors,
   Validator
 } from '@angular/forms';
@@ -85,22 +85,56 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
         }*/
     // return control.errors;
 
-    // this.elementRef.nativeElement.setValidity(control);
+    console.log('in checkbox control status', control.status, control.invalid);
 
-    for (const validatorName in control?.errors) {
-      console.log('validatorName in checkbox', validatorName, control.errors, control.value);
-      if(control.touched)
+    // if (control.errors) {
+    //     this.renderer.setAttribute(this.elementRef.nativeElement, 'invalid', '');
+    // } else {
+    //   this.renderer.removeAttribute(this.elementRef.nativeElement, 'invalid');
+    // }
+
+    // for (const validatorName in control?.errors) {
+    //   console.log('validatorName in checkbox', validatorName, control.errors, control.value);
+    //   if(control.touched)
+    //     // return getValidatorErrorMessage(validatorName, this.control.errors[validatorName]);
+    //     // this.elementRef.nativeElement.setValidity(control.errors, validatorName);
+    //     this.elementRef.nativeElement.validity.validate(control.value);
+    // }
+
+    if (input.checkValidity() /*&& control.errors*/) {
+      console.log('in input validate if');
+      //this.elementRef.nativeElement.validation.render();
+      return {invalid: true}
+    } else {
+      console.log('in input validate else');
+      return null;
+    }
+
+    // this.elementRef.nativeElement.setValidity(control);
+    // this.elementRef.nativeElement.validity.validate(control.value/*this.value ? control.value : undefined*/);
+/*    if (control.errors) {
+    for (const validatorName in control.errors) {
+      console.log('validatorName in checkbox', validatorName, control.errors, control.value, control.errors[validatorName]);
+      //if(control.touched)
         // return getValidatorErrorMessage(validatorName, this.control.errors[validatorName]);
         // this.elementRef.nativeElement.setValidity(control.errors, validatorName);
         // this.elementRef.nativeElement.validity.validate(control.value);
         // this.elementRef.nativeElement.internals.validity.validate(control.value);
-      this.elementRef.nativeElement.validity.validate(this.value ? control.value : undefined);
+      // this.elementRef.nativeElement.validity.validate(control.value/!*this.value ? control.value : undefined*!/);
       // this.#validation.validate(this.checked ? this.value : undefined);
+      // return control.errors;
+      // return {invalid: true}
+      return control.errors; //{validatorName: true};
     }
+    return {invalid: true};
+    } else {
+      return null;
+    }*/
 
-    console.log('control.value in checkbox', control.value, control.errors);
+  //  console.log('control.value in checkbox', control.value, control.errors);
 
-    return control.errors; // TODO: chanking value is not reflecting
+    // return control.errors; // TODO: changing value is not reflecting
+
 
     // if (this.elementRef.nativeElement.checkValidity() && control.errors) {
     //   console.log('in checkbox validate if');
@@ -128,13 +162,14 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
     this.onTouched = fn;
   }
 
-  constructor(private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
   }
 
   @HostListener('sl-change', ['$event.target.checked'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
+    console.log('value in checkbox listenforvaluechange', value);
     this.value = value;
-    //this.validatorOnChange();
+    // this.validatorOnChange();
   }
-}
+} // TODO: on reset mark as pristine?

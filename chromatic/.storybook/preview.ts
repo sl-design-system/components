@@ -21,11 +21,6 @@ const preview: Preview = {
           border-top: 1px solid currentColor;
           padding-top: 24px;
         }
-        .sb-fake-hover :where([disabled]),
-        .sb-fake-active :where([disabled]),
-        .sb-fake-focus-visible :where([disabled]){
-          display:none;
-        }
       </style>
       ${setTheme(data.args.theme, data.args.mode)}
       <h1>State: Default <small>(including "disabled")</small></h1>

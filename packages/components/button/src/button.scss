@@ -55,11 +55,11 @@ $variants: default, primary, success, warning, danger;
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --icon-container-size: var(--sl-size-button-icon-#{$size});
-    --_border-radius: var(--sl-border-radius-button-#{$size});
-    --_font: var(--sl-text-button-text-#{$size});
-    --_label-gap: var(--sl-space-button-gap-#{$size});
-    --_padding-block: var(--sl-space-button-default-block-#{$size});
-    --_padding-inline: var(--sl-space-button-default-inline-#{$size});
+    --_border-radius: var(--sl-component-button-#{$size}-border-radius, var(--sl-control-#{$size}-border-radius));
+    --_font: var(--sl-component-button-#{$size}-font, var(--sl-control-#{$size}-font));
+    --_gap: var(--sl-component-button-#{$size}-gap, var(--sl-control-#{$size}-gap));
+    --_padding-block: var(--sl-component-button-#{$size}-padding-block, var(--sl-control-#{$size}-padding-block));
+    --_padding-inline: var(--sl-component-button-#{$size}-padding-inline, var(--sl-control-#{$size}-padding-inline));
   }
 
   :host([size='#{$size}'][icon-only]) {
@@ -81,7 +81,7 @@ $variants: default, primary, success, warning, danger;
   cursor: pointer;
   display: inline-flex;
   font: var(--_font);
-  gap: var(--_label-gap);
+  gap: var(--_gap);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transform: var(--_transform);

@@ -1,4 +1,462 @@
 {
+  "color": {
+    "palette": {
+      "primary": {
+        "50": {
+          "value": "#FEFEFE",
+          "type": "color",
+          "description": "color.palette.primary.50"
+        },
+        "100": {
+          "value": "#EAEAEA",
+          "type": "color",
+          "description": "color.palette.primary.100"
+        },
+        "150": {
+          "value": "#D5D5D5",
+          "type": "color",
+          "description": "color.palette.primary.150"
+        },
+        "200": {
+          "value": "#BCBCBC",
+          "type": "color",
+          "description": "color.palette.primary.200"
+        },
+        "300": {
+          "value": "#A2A1A1",
+          "type": "color",
+          "description": "color.palette.primary.300"
+        },
+        "400": {
+          "value": "#898989",
+          "type": "color",
+          "description": "color.palette.primary.400"
+        },
+        "500": {
+          "value": "#737373",
+          "type": "color",
+          "description": "color.palette.primary.500"
+        },
+        "600": {
+          "value": "#605F5F",
+          "type": "color",
+          "description": "color.palette.primary.600"
+        },
+        "700": {
+          "value": "#4E4E4E",
+          "type": "color",
+          "description": "color.palette.primary.700"
+        },
+        "800": {
+          "value": "#3E3D3D",
+          "type": "color",
+          "description": "color.palette.primary.800"
+        },
+        "900": {
+          "value": "#262626",
+          "type": "color",
+          "description": "color.palette.primary.900"
+        },
+        "base": {
+          "value": "#222222",
+          "type": "color",
+          "description": "color.palette.primary.base"
+        }
+      },
+      "accent": {
+        "50": {
+          "value": "#EDF2FC",
+          "type": "color",
+          "description": "color.palette.accent.50"
+        },
+        "100": {
+          "value": "#E0EAFF",
+          "type": "color",
+          "description": "color.palette.accent.100"
+        },
+        "150": {
+          "value": "#CCDBFF",
+          "type": "color",
+          "description": "color.palette.accent.150"
+        },
+        "200": {
+          "value": "#9EBAFF",
+          "type": "color",
+          "description": "color.palette.accent.200"
+        },
+        "300": {
+          "value": "#5985FF",
+          "type": "color",
+          "description": "color.palette.accent.300"
+        },
+        "400": {
+          "value": "#3366FF",
+          "type": "color",
+          "description": "color.palette.accent.400"
+        },
+        "500": {
+          "value": "#2351DB",
+          "type": "color",
+          "description": "color.palette.accent.500"
+        },
+        "600": {
+          "value": "#1138AD",
+          "type": "color",
+          "description": "color.palette.accent.600"
+        },
+        "700": {
+          "value": "#09298E",
+          "type": "color",
+          "description": "color.palette.accent.700"
+        },
+        "800": {
+          "value": "#00175F",
+          "type": "color",
+          "description": "color.palette.accent.800"
+        },
+        "900": {
+          "value": "#000D33",
+          "type": "color",
+          "description": "color.palette.accent.900"
+        },
+        "base": {
+          "value": "#3366FF",
+          "type": "color",
+          "description": "color.palette.accent.base"
+        }
+      },
+      "neutral": {
+        "50": {
+          "value": "#f3f3f3",
+          "type": "color",
+          "description": "color.palette.neutral.50"
+        },
+        "100": {
+          "value": "#EAEAEA",
+          "type": "color",
+          "description": "color.palette.neutral.100"
+        },
+        "150": {
+          "value": "#D5D5D5",
+          "type": "color",
+          "description": "color.palette.neutral.150"
+        },
+        "200": {
+          "value": "#BCBCBC",
+          "type": "color",
+          "description": "color.palette.neutral.200"
+        },
+        "300": {
+          "value": "#A2A1A1",
+          "type": "color",
+          "description": "color.palette.neutral.300"
+        },
+        "400": {
+          "value": "#898989",
+          "type": "color",
+          "description": "color.palette.neutral.400"
+        },
+        "500": {
+          "value": "#737373",
+          "type": "color",
+          "description": "color.palette.neutral.500"
+        },
+        "600": {
+          "value": "#605F5F",
+          "type": "color",
+          "description": "color.palette.neutral.600"
+        },
+        "700": {
+          "value": "#4E4E4E",
+          "type": "color",
+          "description": "color.palette.neutral.700"
+        },
+        "800": {
+          "value": "#3E3D3D",
+          "type": "color",
+          "description": "color.palette.neutral.800"
+        },
+        "900": {
+          "value": "#2E2E2E",
+          "type": "color",
+          "description": "color.palette.neutral.900"
+        },
+        "base": {
+          "value": "#222222",
+          "type": "color",
+          "description": "color.palette.neutral.base"
+        }
+      },
+      "info": {
+        "50": {
+          "value": "#F0F5FF",
+          "type": "color",
+          "description": "color.palette.info.50"
+        },
+        "100": {
+          "value": "#E0EAFF",
+          "type": "color",
+          "description": "color.palette.info.100"
+        },
+        "150": {
+          "value": "#CCDBFF",
+          "type": "color",
+          "description": "color.palette.info.150"
+        },
+        "200": {
+          "value": "#9EBAFF",
+          "type": "color",
+          "description": "color.palette.info.200"
+        },
+        "300": {
+          "value": "#5985FF",
+          "type": "color",
+          "description": "color.palette.info.300"
+        },
+        "400": {
+          "value": "#3366FF",
+          "type": "color",
+          "description": "color.palette.info.400"
+        },
+        "500": {
+          "value": "#2351DB",
+          "type": "color",
+          "description": "color.palette.info.500"
+        },
+        "600": {
+          "value": "#1138AD",
+          "type": "color",
+          "description": "color.palette.info.600"
+        },
+        "700": {
+          "value": "#09298E",
+          "type": "color",
+          "description": "color.palette.info.700"
+        },
+        "800": {
+          "value": "#00175F",
+          "type": "color",
+          "description": "color.palette.info.800"
+        },
+        "900": {
+          "value": "#000D33",
+          "type": "color",
+          "description": "color.palette.info.900"
+        },
+        "base": {
+          "value": "#3366FF",
+          "type": "color",
+          "description": "color.palette.info.base"
+        }
+      },
+      "success": {
+        "50": {
+          "value": "#EBF5EE",
+          "type": "color",
+          "description": "color.palette.success.50"
+        },
+        "100": {
+          "value": "#D7F5E1",
+          "type": "color",
+          "description": "color.palette.success.100"
+        },
+        "150": {
+          "value": "#AEEBC4",
+          "type": "color"
+        },
+        "200": {
+          "value": "#70E09D",
+          "type": "color",
+          "description": "color.palette.success.200"
+        },
+        "300": {
+          "value": "#45CC80",
+          "type": "color",
+          "description": "color.palette.success.300"
+        },
+        "400": {
+          "value": "#39B26C",
+          "type": "color",
+          "description": "color.palette.success.400"
+        },
+        "500": {
+          "value": "#28854E",
+          "type": "color",
+          "description": "color.palette.success.500"
+        },
+        "600": {
+          "value": "#1B6137",
+          "type": "color",
+          "description": "color.palette.success.600"
+        },
+        "700": {
+          "value": "#114224",
+          "type": "color",
+          "description": "color.palette.success.700"
+        },
+        "800": {
+          "value": "#0B331A",
+          "type": "color",
+          "description": "color.palette.success.800"
+        },
+        "900": {
+          "value": "#082613",
+          "type": "color",
+          "description": "color.palette.success.900"
+        },
+        "base": {
+          "value": "#45CC80",
+          "type": "color",
+          "description": "color.palette.success.base"
+        }
+      },
+      "warning": {
+        "50": {
+          "value": "#FAF4DC",
+          "type": "color",
+          "description": "color.palette.warning.50"
+        },
+        "100": {
+          "value": "#FCECAA",
+          "type": "color",
+          "description": "color.palette.warning.100"
+        },
+        "150": {
+          "value": "#FDE376",
+          "type": "color",
+          "description": "color.palette.warning.150"
+        },
+        "200": {
+          "value": "#FEDA42",
+          "type": "color",
+          "description": "color.palette.warning.200"
+        },
+        "300": {
+          "value": "#FFCF0D",
+          "type": "color",
+          "description": "color.palette.warning.300"
+        },
+        "400": {
+          "value": "#E1B00F",
+          "type": "color",
+          "description": "color.palette.warning.400"
+        },
+        "500": {
+          "value": "#AE830E",
+          "type": "color",
+          "description": "color.palette.warning.500"
+        },
+        "600": {
+          "value": "#79590D",
+          "type": "color",
+          "description": "color.palette.warning.600"
+        },
+        "700": {
+          "value": "#563D0C",
+          "type": "color",
+          "description": "color.palette.warning.700"
+        },
+        "800": {
+          "value": "#34270C",
+          "type": "color",
+          "description": "color.palette.warning.800"
+        },
+        "900": {
+          "value": "#261D0B",
+          "type": "color",
+          "description": "color.palette.warning.900"
+        },
+        "base": {
+          "value": "#FFCF0D",
+          "type": "color",
+          "description": "color.palette.warning.base"
+        }
+      },
+      "danger": {
+        "50": {
+          "value": "#FFEDEB",
+          "type": "color",
+          "description": "color.palette.danger.50"
+        },
+        "100": {
+          "value": "#FFD6D1",
+          "type": "color",
+          "description": "color.palette.danger.100"
+        },
+        "150": {
+          "value": "#FFBCB8",
+          "type": "color",
+          "description": "color.palette.danger.150"
+        },
+        "200": {
+          "value": "#FF8E8A",
+          "type": "color",
+          "description": "color.palette.danger.200"
+        },
+        "300": {
+          "value": "#FF575C",
+          "type": "color",
+          "description": "color.palette.danger.300"
+        },
+        "400": {
+          "value": "#E5454A",
+          "type": "color",
+          "description": "color.palette.danger.400"
+        },
+        "500": {
+          "value": "#C73434",
+          "type": "color",
+          "description": "color.palette.danger.500"
+        },
+        "600": {
+          "value": "#992224",
+          "type": "color",
+          "description": "color.palette.danger.600"
+        },
+        "700": {
+          "value": "#6B1313",
+          "type": "color",
+          "description": "color.palette.danger.700"
+        },
+        "800": {
+          "value": "#470D0D",
+          "type": "color",
+          "description": "color.palette.danger.800"
+        },
+        "900": {
+          "value": "#260808",
+          "type": "color",
+          "description": "color.palette.danger.900"
+        },
+        "base": {
+          "value": "#FF575C",
+          "type": "color",
+          "description": "color.palette.danger.base"
+        }
+      },
+      "black": {
+        "base": {
+          "value": "#222222",
+          "type": "color",
+          "description": "color.palette.black.base"
+        }
+      },
+      "white": {
+        "base": {
+          "value": "#FEFEFE",
+          "type": "color",
+          "description": "color.palette.white.base"
+        }
+      },
+      "transparent": {
+        "base": {
+          "value": "#00000000",
+          "type": "color",
+          "description": "color.palette.transparent.base"
+        }
+      }
+    }
+  },
   "border": {
     "radius": {
       "none": {
@@ -1242,6 +1700,288 @@
       "lg": {
         "value": "{text.typeset.lineHeight.lg}",
         "type": "lineHeights"
+      }
+    }
+  },
+  "control": {
+    "sm": {
+      "border": {
+        "radius": {
+          "value": "{border.radius.3xs}",
+          "type": "borderRadius",
+          "description": "control.sm.border.radius"  
+        },
+        "width": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "control.sm.border.width"
+        }
+      },
+      "font": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{text.typeset.fontSize.sm}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.sm}"
+        },
+        "type": "typography"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing",
+        "description": "{control.sm.gap}"
+      },
+      "outline": {
+        "offset": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "control.sm.outline.offset"
+        },
+        "width": {
+          "value": "{border.width.md}",
+          "type": "borderWidth",
+          "description": "control.sm.outline.width"
+        }
+      },
+      "padding": {
+        "block": {
+          "value": "{space.xs} - {control.sm.border.width}",
+          "type": "spacing",
+          "description": "control.sm.padding.block"
+        },
+        "inline": {
+          "value": "{space.lg} - {control.sm.border.width}",
+          "type": "spacing",
+          "description": "control.sm.padding.inline"
+        }
+      }
+    },
+    "md": {
+      "border": {
+        "radius": {
+          "value": "{border.radius.3xs}",
+          "type": "borderRadius",
+          "description": "control.sm.border.radius"  
+        },
+        "width": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "control.md.border.width"
+        }
+      },
+      "font": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{text.typeset.fontSize.md}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.sm}"
+        },
+        "type": "typography"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing",
+        "description": "{control.md.gap}"
+      },
+      "outline": {
+        "offset": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "control.sm.outline.offset"
+        },
+        "width": {
+          "value": "{border.width.md}",
+          "type": "borderWidth",
+          "description": "control.md.outline.width"
+        }
+      },
+      "padding": {
+        "block": {
+          "value": "{space.sm} - {control.md.border.width}",
+          "type": "spacing",
+          "description": "control.md.padding.block"
+        },
+        "inline": {
+          "value": "{space.xl} - {control.md.border.width}",
+          "type": "spacing",
+          "description": "control.md.padding.inline"
+        }
+      }
+    },
+    "lg": {
+      "border": {
+        "radius": {
+          "value": "{border.radius.3xs}",
+          "type": "borderRadius",
+          "description": "control.sm.border.radius"  
+        },
+        "width": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "control.lg.border.width"
+        }
+      },
+      "font": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{text.typeset.fontSize.lg}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.lg}"
+        },
+        "type": "typography"
+      },
+      "gap": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "{control.lg.gap}"
+      },
+      "outline": {
+        "offset": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "control.sm.outline.offset"
+        },
+        "width": {
+          "value": "{border.width.md}",
+          "type": "borderWidth",
+          "description": "control.lg.outline.width"
+        }
+      },
+      "padding": {
+        "block": {
+          "value": "{space.sm} - {control.lg.border.width}",
+          "type": "spacing",
+          "description": "control.lg.padding.block"
+        },
+        "inline": {
+          "value": "{space.xl} - {control.lg.border.width}",
+          "type": "spacing",
+          "description": "control.lg.padding.inline"
+        }
+      }
+    },
+    "idle": {
+      "background": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color",
+        "description": "control.idle.background"
+      },
+      "foreground": {
+        "value": "{color.palette.neutral.500}",
+        "type": "color",
+        "description": "control.idle.foreground"
+      },
+      "border": {
+        "color": {
+          "value": "{color.palette.neutral.400}",
+          "type": "color",
+          "description": "control.idle.border.color"
+        }
+      }
+    },
+    "hover": {
+      "background": {
+        "value": "{color.palette.accent.50}",
+        "type": "color",
+        "description": "control.hover.background"
+      },
+      "foreground": {
+        "value": "{color.palette.accent.base}",
+        "type": "color",
+        "description": "control.hover.foreground"
+      },
+      "border": {
+        "color": {
+          "value": "{color.palette.accent.base}",
+          "type": "color",
+          "description": "control.hover.border.color"
+        }
+      }
+    },
+    "active": {
+      "background": {
+        "value": "{color.palette.accent.150}",
+        "type": "color",
+        "description": "control.active.background"
+      },
+      "foreground": {
+        "value": "{color.palette.accent.900}",
+        "type": "color",
+        "description": "control.active.foreground"
+      },
+      "border": {
+        "color": {
+          "value": "{color.palette.accent.600}",
+          "type": "color",
+          "description": "control.active.border.color"
+        }
+      }
+    },
+    "focus": {
+      "background": {
+        "value": "{color.palette.accent.150}",
+        "type": "color",
+        "description": "control.focus.background"
+      },
+      "foreground": {
+        "value": "{control.idle.background}",
+        "type": "color",
+        "description": "control.focus.foreground"
+      },
+      "border": {
+        "color": {
+          "value": "{color.palette.info.base}",
+          "type": "color",
+          "description": "control.focus.border.color"
+        }
+      },
+      "offset": {
+        "color": {
+          "value": "rgba({color.palette.info.base}, {opacity.500})",
+          "type": "color",
+          "description": "control.focus.offset.color"
+        }
+      }
+    },
+    "disabled": {
+      "background": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color",
+        "description": "control.disabled.background"
+      },
+      "foreground": {
+        "value": "{color.palette.neutral.200}",
+        "type": "color",
+        "description": "control.disabled.foreground"
+      },
+      "border": {
+        "color": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color",
+          "description": "control.disabled.border.color"
+        }
+      }
+    }
+  },
+  "component": {
+    "button": {
+      "default": {
+        "default": {
+          "idle": {
+            "background": {
+              "value": "{color.palette.transparent.base}",
+              "type": "color",
+              "description": "component.button.default.default.idle.background"
+            },
+            "border": {
+              "color": {
+                "value": "{control.idle.border.color}",
+                "type": "color",
+                "description": "component.button.default.default.border.color"
+              }
+            }
+          }
+        }
       }
     }
   }

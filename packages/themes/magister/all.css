@@ -211,6 +211,46 @@
   --sl-color-palette-primary-150: 151 207 252;
   --sl-color-palette-primary-100: 183 222 253;
   --sl-color-palette-primary-50: 221 239 254;
+  --sl-control-disabled-border-color: rgb(var(--sl-color-palette-neutral-200));
+  --sl-control-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
+  --sl-control-disabled-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-control-focus-background: rgb(var(--sl-color-palette-accent-150));
+  --sl-control-active-border-color: rgb(var(--sl-color-palette-accent-600));
+  --sl-control-active-foreground: rgb(var(--sl-color-palette-accent-900));
+  --sl-control-active-background: rgb(var(--sl-color-palette-accent-150));
+  --sl-control-hover-border-color: rgb(var(--sl-color-palette-accent-base));
+  --sl-control-hover-foreground: rgb(var(--sl-color-palette-accent-base));
+  --sl-control-hover-background: rgb(var(--sl-color-palette-accent-50));
+  --sl-control-idle-border-color: rgb(var(--sl-color-palette-neutral-400));
+  --sl-control-idle-foreground: rgb(var(--sl-color-palette-neutral-500));
+  --sl-control-idle-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-control-lg-padding-inline: calc(var(--sl-space-xl) - var(--sl-control-lg-border-width));
+  --sl-control-lg-padding-block: calc(var(--sl-space-sm) - var(--sl-control-lg-border-width));
+  --sl-control-lg-outline-width: var(--sl-border-width-md);
+  --sl-control-lg-outline-offset: var(--sl-space-none);
+  --sl-control-lg-gap: var(--sl-space-sm);
+  --sl-control-lg-font: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-control-lg-border-width: var(--sl-border-width-xs);
+  --sl-control-lg-border-radius: var(--sl-border-radius-3xs);
+  --sl-control-md-padding-inline: calc(var(--sl-space-xl) - var(--sl-control-md-border-width));
+  --sl-control-md-padding-block: calc(var(--sl-space-sm) - var(--sl-control-md-border-width));
+  --sl-control-md-outline-width: var(--sl-border-width-md);
+  --sl-control-md-outline-offset: var(--sl-space-none);
+  --sl-control-md-gap: var(--sl-space-xs);
+  --sl-control-md-font: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-control-md-border-width: var(--sl-border-width-xs);
+  --sl-control-md-border-radius: var(--sl-border-radius-3xs);
+  --sl-control-sm-padding-inline: calc(var(--sl-space-lg) - var(--sl-control-sm-border-width));
+  --sl-control-sm-padding-block: calc(var(--sl-space-xs) - var(--sl-control-sm-border-width));
+  --sl-control-sm-outline-width: var(--sl-border-width-md);
+  --sl-control-sm-outline-offset: var(--sl-space-none);
+  --sl-control-sm-gap: var(--sl-space-xs);
+  --sl-control-sm-font: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-control-sm-border-width: var(--sl-border-width-xs);
+  --sl-control-sm-border-radius: var(--sl-border-radius-3xs);
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
@@ -249,6 +289,7 @@
   --sl-icon-typeset-font-size-xs: var(--sl-size-xs);
   --sl-icon-style-solid: var(--sl-text-typeset-font-weight-icon-solid);
   --sl-icon-style-outline: 400;
+  --sl-component-button-default-default-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-md: [object Object];
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
@@ -380,6 +421,10 @@
   --sl-color-palette-success-base: 19 196 163;
   --sl-color-palette-info-base: 31 151 249;
   --sl-color-palette-primary-base: 31 151 249;
+  --sl-control-focus-offset-color: rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
+  --sl-control-focus-border-color: rgb(var(--sl-color-palette-info-base));
+  --sl-control-focus-foreground: var(--sl-control-idle-background);
+  --sl-component-button-default-default-idle-border-color: var(--sl-control-idle-border-color);
   --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-gap-lg: var(--sl-space-button-outline-block-md);

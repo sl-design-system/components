@@ -13,8 +13,6 @@ export interface UserProfileName {
   title: string;
 }
 export interface UserProfilePicture {
-  large: string;
-  medium: string;
   thumbnail: string;
 }
 
@@ -22,10 +20,62 @@ export class Avatar extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Renders the tabs vertically instead of the default horizontal  */
-  @property() uniqueProfileId = 'slds';
+  @property() uniqueProfileId = 0;
 
   @state() user?: UserProfile;
+
+  @property() users: UserProfile[] = [
+    {
+      name: {
+        title: 'Mr',
+        first: 'Yousef',
+        last: 'Van der Schaaf'
+      },
+      picture: {
+        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
+      }
+    },
+    {
+      name: {
+        title: 'Mr',
+        first: 'Chester',
+        last: 'Reid'
+      },
+      picture: {
+        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'
+      }
+    },
+    {
+      name: {
+        title: 'Mr',
+        first: 'Johnni',
+        last: 'Sullivan'
+      },
+      picture: {
+        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'
+      }
+    },
+    {
+      name: {
+        title: 'Mr',
+        first: 'Gustav',
+        last: 'Christensen'
+      },
+      picture: {
+        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'
+      }
+    },
+    {
+      name: {
+        title: 'Ms',
+        first: 'Emma',
+        last: 'Henderson'
+      },
+      picture: {
+        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'
+      }
+    }
+  ];
 
   get profileName(): string {
     return `${this.user?.name.first || 'John'} ${this.user?.name.last || 'Doe'}`;
@@ -44,22 +94,10 @@ export class Avatar extends LitElement {
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    try {
-      this.user = await this._getUserDetails(this.uniqueProfileId);
-    } catch (error) {
-      console.warn('Error loading user details', error);
-    }
-  }
-
-  async _getUserDetails(id: string): Promise<UserProfile> {
-    const response = await fetch(`https://randomuser.me/api/?inc=picture,name&seed=slds-${id}`);
-
-    if (response.ok) {
-      const json = (await response.json()) as { results: UserProfile[]; info: unknown };
-
-      return json?.results?.[0];
+    if (this.users[this.uniqueProfileId]) {
+      this.user = this.users[this.uniqueProfileId];
     } else {
-      throw new Error('Error loading avatar');
+      console.warn('Error loading user details');
     }
   }
 }

@@ -15,14 +15,25 @@ const preview: Preview = {
     },
     (story, data) => {
       return html`
-      ${setTheme(data.args.theme)}
+      <style>
+        h1:not(:first-of-type) {
+          margin-top: 40px;
+          border-top: 1px solid currentColor;
+          padding-top: 24px;
+        }
+      </style>
+      ${setTheme(data.args.theme, data.args.mode)}
+      <h1>State: Default <small>(including "disabled")</small></h1>
       ${story()}
+      <h1>State: Hover</h1>
       <div class="sb-fake-hover">
         ${story()}
       </div>
+      <h1>State: Active</h1>
       <div class="sb-fake-active">
         ${story()}
       </div>
+      <h1>State: Focus</h1>
       <div class="sb-fake-focus-visible">
         ${story()}
       </div>

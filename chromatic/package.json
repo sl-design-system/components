@@ -34,8 +34,6 @@
       ]
     }
   },
-  "dependencies": {
-  },
   "devDependencies": {
     "@storybook/addon-a11y": "^7.0.18",
     "@storybook/addon-essentials": "^7.0.18",

@@ -2,4 +2,4 @@
 '@sl-design-system/myvanin': patch
 ---
 
-Added My Van In theme
+Added My Van In theme.

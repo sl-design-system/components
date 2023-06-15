@@ -32,6 +32,8 @@
     "neon/light",
     "neon/dark",
     "teas/base",
-    "teas/light"
+    "teas/light",
+    "myvanin/base",
+    "myvanin/light"
   ]
 }

@@ -3079,5 +3079,15 @@
       "boxShadow.focus": "S:48fac57de2bba9ab131d2af116e8b1e077febc27,",
       "boxShadow.none": "S:1e5aab87fe5f35d6547deff049bb2c1d880af256,"
     }
+  },
+  {
+    "id": "602a04f491ccd8e9e737d56ed95cb349b5904c9c",
+    "name": "myvanin/light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "core": "enabled",
+      "myvanin/base": "enabled",
+      "myvanin/light": "enabled"
+    }
   }
 ]

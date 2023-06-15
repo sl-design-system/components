@@ -3973,6 +3973,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/myvanin@workspace:packages/themes/myvanin":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/myvanin@workspace:packages/themes/myvanin"
+  dependencies:
+    "@sl-design-system/icon": 0.0.3
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/neon@workspace:packages/themes/neon":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/neon@workspace:packages/themes/neon"

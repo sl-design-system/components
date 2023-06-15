@@ -1,10 +1,16 @@
 import type { PropertyValues, TemplateResult } from 'lit';
-import type { GridFilterMode, GridFilterOption } from './filter.js';
 import { getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 import { GridFilter } from './filter.js';
+
+export type GridFilterMode = 'select' | 'text';
+
+export interface GridFilterOption {
+  label: string;
+  value?: unknown;
+}
 
 export class GridFilterColumn extends GridColumn {
   /** The internal options if none are provided. */
@@ -38,7 +44,15 @@ export class GridFilterColumn extends GridColumn {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('grid') && this.mode !== 'text' && typeof this.options === 'undefined') {
+    if (changes.has('grid')) {
+      this.itemsChanged();
+    }
+  }
+
+  override itemsChanged(): void {
+    super.itemsChanged();
+
+    if (this.mode !== 'text' && typeof this.options === 'undefined') {
       // No options were provided, so we'll create a list of options based on the column's values
       this.internalOptions = this.grid?.items
         ?.reduce((acc, item) => {

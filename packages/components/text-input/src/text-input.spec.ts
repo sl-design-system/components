@@ -153,12 +153,12 @@ describe('sl-text-input', () => {
       expect(el).not.to.have.attribute('min');
     });
 
-    it('should not have a minLength by default', () => {
-      expect(el).not.to.have.attribute('minLength');
+    it('should not have a minlength by default', () => {
+      expect(el).not.to.have.attribute('minlength');
     });
 
-    it('should not have a maxLength by default', () => {
-      expect(el).not.to.have.attribute('maxLength');
+    it('should not have a maxlength by default', () => {
+      expect(el).not.to.have.attribute('maxlength');
     });
 
     it('should not be invalid by default', () => {
@@ -191,7 +191,7 @@ describe('sl-text-input', () => {
       expect(el.input.getAttribute('autocomplete')).to.be.null;
     });
 
-    it('should not have maxlength attribute when maxLength property is not provided', async() => {
+    it('should not have maxlength attribute when maxlength property is not provided', async() => {
       el.maxLength = 8;
       await el.updateComplete;
 
@@ -201,14 +201,14 @@ describe('sl-text-input', () => {
       expect(el.input.getAttribute('maxlength')).to.be.null;
     });
 
-    it('should not have minlength attribute when minLength property is not provided', async() => {
+    it('should not have minlength attribute when minlength property is not provided', async() => {
       el.minLength = 2;
       await el.updateComplete;
 
       el.minLength = undefined;
       await el.updateComplete;
 
-      expect(el.input.getAttribute('minLength')).to.be.null;
+      expect(el.input.getAttribute('minlength')).to.be.null;
     });
 
     it('should not have min attribute when min property is not provided', async() => {
@@ -277,22 +277,22 @@ describe('sl-text-input', () => {
       el = await fixture(html`<sl-text-input type="text"></sl-text-input>`);
     });
 
-    it('should have a minLength of 3 when set', async() => {
+    it('should have a minlength of 3 when set', async() => {
       el.minLength = 3;
       await el.updateComplete;
 
       const input = el.querySelector('input');
 
-      expect(input).to.have.attribute('minLength', '3');
+      expect(input).to.have.attribute('minlength', '3');
     });
 
-    it('should have a maxLength of 8 when set', async() => {
+    it('should have a maxlength of 8 when set', async() => {
       el.maxLength = 8;
       await el.updateComplete;
 
       const input = el.querySelector('input');
 
-      expect(input).to.have.attribute('maxLength', '8');
+      expect(input).to.have.attribute('maxlength', '8');
     });
   });
 

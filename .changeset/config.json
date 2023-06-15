@@ -12,6 +12,7 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "@sl-design-system/angular-root",
+    "@sl-design-system/chromatic",
     "@sl-design-system/example-data",
     "@sl-design-system/scripts",
     "@sl-design-system/tokens",

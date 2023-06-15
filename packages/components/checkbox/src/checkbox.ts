@@ -121,7 +121,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
           <slot @slotchange=${() => this.#updateNoLabel()}></slot>
         </span>
       </div>
-      ${this.#validation.render()} ${this.#validation.render() ? this.#validation.render() : this.renderHint()}
+      ${this.renderHint()} ${this.#validation.render()}
     `;
   }
 

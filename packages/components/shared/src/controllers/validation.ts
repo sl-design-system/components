@@ -121,7 +121,14 @@ export class ValidationController implements ReactiveController {
         return;
       }
       this.#slotName = dasherize(state);
-      this.#target?.setAttribute('aria-describedby', this.#errorMessageId);
+
+      if (this.target.hasAttribute('aria-describedby')) {
+        const currentId = this.target.getAttribute('aria-describedby') as string;
+        this.target.setAttribute('aria-describedby', `${currentId} ${this.#errorMessageId}`);
+      } else {
+        this.target.setAttribute('aria-describedby', this.#errorMessageId);
+      }
+
       this.#updateValidationMessage();
       this.#showErrors = !this.validity.valid;
       this.#host.requestUpdate();
@@ -277,7 +284,14 @@ export class ValidationController implements ReactiveController {
         currentError.remove();
       }
 
-      this.target.setAttribute('aria-describedby', this.#errorMessageId);
+      if (this.target.hasAttribute('aria-describedby')) {
+        const currentId = this.target.getAttribute('aria-describedby') as string;
+        if (!currentId.includes('error')) {
+          this.target.setAttribute('aria-describedby', `${currentId} ${this.#errorMessageId}`);
+        }
+      } else {
+        this.target.setAttribute('aria-describedby', this.#errorMessageId);
+      }
 
       const div = document.createElement('sl-error'),
         iconSize = this.#messageSize === 'sm' ? 'md' : 'lg',
@@ -304,19 +318,18 @@ export class ValidationController implements ReactiveController {
 
   #removeValidationMessage(): void {
     this.#host.querySelector('[part="error"]')?.remove();
-    if (this.#target?.hasAttribute('aria-describedby')) {
-      const describedBy = this.#target?.getAttribute('aria-describedby'),
+    if (this.target.hasAttribute('aria-describedby')) {
+      const describedBy = this.target.getAttribute('aria-describedby'),
         ids = describedBy?.split(' '),
         index = ids?.indexOf(this.#errorMessageId);
 
-      if (index !== -1 && ids && this.#target) {
-        let newIds: string[] = [];
+      if (index !== -1 && ids && this.target && ids?.length > 1) {
         if (index) {
-          newIds = ids.splice(index, 1);
+          ids.splice(index, 1);
         }
         const newAriaDescribedby = ids?.join(' ');
         if (newAriaDescribedby) {
-          this.#target.setAttribute('aria-describedby', newIds.toString());
+          this.target.setAttribute('aria-describedby', newAriaDescribedby.toString());
         }
       }
     }

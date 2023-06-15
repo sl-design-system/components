@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/label",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Label component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -40,7 +40,7 @@
   "dependencies": {
     "@sl-design-system/button": "0.0.5",
     "@sl-design-system/text-input": "0.1.0",
-    "@sl-design-system/textarea": "0.0.4",
-    "lit": "^2.7.4"
+    "@sl-design-system/textarea": "0.1.0",
+    "lit": "^2.7.5"
   }
 }

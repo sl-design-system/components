@@ -1,5 +1,5 @@
 import type { InputSize, TextInput } from './text-input';
-import type { ValidationValue, Validator } from '@sl-design-system/shared';
+import type { HintSize, ValidationValue, Validator } from '@sl-design-system/shared';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/label/register.js';
@@ -11,8 +11,9 @@ export default {
   title: 'Text Input'
 };
 
-const sizes: InputSize[] = ['md', 'lg'];
-const labelSizes: LabelSize[] = ['sm', 'md', 'lg'];
+const sizes: InputSize[] = ['md', 'lg'],
+  labelSizes: LabelSize[] = ['sm', 'md', 'lg'],
+  hintSizes: HintSize[] = ['sm', 'md', 'lg'];
 
 export const API: StoryObj = {
   args: {
@@ -152,50 +153,66 @@ export const All: StoryObj = {
 };
 
 export const Label: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-    <form>
-      ${labelSizes.map(size => {
-        const inputSize = size === 'lg' ? size : 'md';
-        return html`
-          <sl-label for="input" size=${size}>What is your name?</sl-label>
-          <sl-text-input id="input" size=${inputSize}></sl-text-input>
-        `;
-      })}
-    </form>
-  `
+  render: () => {
+    return html`
+      <style>
+        form {
+          display: flex;
+          flex-direction: column;
+        }
+
+        sl-text-input {
+          margin-bottom: 16px;
+        }
+      </style>
+      <form>
+        ${labelSizes.map((size, id) => {
+          const inputSize = size === 'lg' ? size : 'md';
+          return html`
+            <sl-label for="form-text-input-${id}" size=${size}>What is your name?</sl-label>
+            <sl-text-input id="form-text-input-${id}" size=${inputSize}></sl-text-input>
+          `;
+        })}
+      </form>
+    `;
+  }
 };
 
 export const Hint: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-    <form>
-      <sl-label for="input">Nickname</sl-label>
-      <sl-text-input id="input" hint="What would you like people to call you?" hintSize="sm"></sl-text-input>
-      <sl-label for="input2">Nickname</sl-label>
-      <sl-text-input id="input2" hint="What would you like people to call you?"></sl-text-input>
-      <sl-label for="input3">Nickname</sl-label>
-      <sl-text-input id="input3" hint="What would you like people to call you?" hintSize="lg"></sl-text-input>
-      <sl-label for="input4">Nickname</sl-label>
-      <sl-text-input
-        id="input4"
-        disabled
-        hint="What would you like people to call you?"
-        hintSize="lg"
-        value="Disabled input"
-      ></sl-text-input>
-    </form>
-  `
+  render: () => {
+    return html`
+      <style>
+        form {
+          display: flex;
+          flex-direction: column;
+        }
+
+        sl-text-input {
+          margin-bottom: 16px;
+        }
+      </style>
+      <form>
+        ${hintSizes.map((hintSize, id) => {
+          return html`
+            <sl-label for="form-text-input-${id}">Nickname</sl-label>
+            <sl-text-input
+              id="form-text-input-${id}"
+              hint="What would you like people to call you?"
+              hintSize=${hintSize}
+            ></sl-text-input>
+          `;
+        })}
+        <sl-label for="input4">Nickname</sl-label>
+        <sl-text-input
+          id="input4"
+          disabled
+          hint="What would you like people to call you?"
+          hintSize="lg"
+          value="Disabled input"
+        ></sl-text-input>
+      </form>
+    `;
+  }
 };
 
 export const RichLabelHint: StoryObj = {

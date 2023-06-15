@@ -14,6 +14,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
 import {InputDirective} from "../src/forms";
+import {ValidateUrl} from "../src/forms/form-control/validators";
 
 @Component({
   selector: 'sla-input',
@@ -120,9 +121,11 @@ export class CheckboxComponent {
   template: `
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" formControlName="name" placeholder="Your name" minlength="8" required></sl-text-input>
+      <sl-text-input id="name-input" formControlName="name" placeholder="Your name" hint="this is a hint for the text input" minlength="8" required></sl-text-input>
       <sl-label for="description-id">Description</sl-label>
-      <sl-textarea id="description-id" formControlName="description" placeholder="Add short description here" required></sl-textarea>
+      <sl-textarea id="description-id" formControlName="description" placeholder="Add short description here" required>
+        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
+      </sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
       <sl-checkbox id="approval-id" formControlName="approval" required>Check me</sl-checkbox>
       <sl-label for="radio-group-options">Select option</sl-label>
@@ -132,10 +135,10 @@ export class CheckboxComponent {
         <sl-radio value="3" formControlName="option">Third option</sl-radio>
       </sl-radio-group>
       <sl-button type="submit" variant="primary">Send</sl-button>
-      <div>Name: {{myForm.value.name}}</div>
-      <div>Description: {{myForm.value.description}}</div>
-      <div>Approval: {{myForm.value.approval}}</div>
-      <div>Option: {{myForm.value.option}}</div>
+      <div>Name: {{myForm.value.name}} {{myForm.controls.name.valid}}</div>
+      <div>Description: {{myForm.value.description}} {{myForm.controls.description.valid}}</div>
+      <div>Approval: {{myForm.value.approval}} {{myForm.controls.approval.valid}}</div>
+      <div>Option: {{myForm.value.option}} {{myForm.controls.option.valid}}</div>
       <div>Form valid? {{myForm.valid}}</div>
       <div>Form validator: {{myForm.controls.name.errors | json}}</div>
     </form>
@@ -143,8 +146,8 @@ export class CheckboxComponent {
 })
 export class ReactiveFormComponent {
   myForm = new FormGroup({
-    name: new FormControl('', [Validators.minLength(8), Validators.required]/*, ValidateUrl*/), // , [Validators.minLength(8), Validators.required]
-    description: new FormControl('Short description'),
+    name: new FormControl('', [Validators.minLength(8), Validators.required, ValidateUrl]), // , [Validators.minLength(8), Validators.required]
+    description: new FormControl('Short description', Validators.required),
     approval: new FormControl(false, Validators.requiredTrue),
     option: new FormControl()
   });
@@ -193,7 +196,7 @@ export class ReactiveFormComponent {
   template: `
     <form #myForm="ngForm" (ngSubmit)="onSubmit(model, myForm)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" [(ngModel)]="model.name" name="name" minlength="8" required></sl-text-input>
+      <sl-text-input id="my-value" [(ngModel)]="model.name" #inputWithNgmodel="ngModel" name="name" minlength="8" required></sl-text-input>
       {{ this.model.name }} {{ this.model.name.length }}
       <div>error message example</div>
       <div>hint example</div>
@@ -209,9 +212,9 @@ export class ReactiveFormComponent {
       </sl-radio-group>
       <sl-button type="submit" variant="primary">Submit</sl-button>
       <sl-button type="reset" variant="primary" (click)="myForm.reset()">Reset</sl-button>
-      <div>Name: <i>{{model.name}}</i></div>
+      <div>Name: <i>{{model.name}}</i> valid? {{inputWithNgmodel.valid}} <strong>errors?</strong> {{inputWithNgmodel.control.errors | json}}</div>
       <div>Description: <i>{{model.description}}</i></div>
-      <div>Approval: <i>{{model.approval}}</i>{{checkboxWithNgmodel.valid}}</div><i>{{checkboxWithNgmodel.errors | json}}</i>
+      <div>Approval: <i>{{model.approval}}</i> valid? {{checkboxWithNgmodel.valid}}</div><i>errors? {{checkboxWithNgmodel.control.errors | json}}</i>
       <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>
       <div>Form submitted: {{myForm.submitted}}</div>
       <div>Form valid: {{myForm.valid}}</div>

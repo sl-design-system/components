@@ -12,6 +12,7 @@ import {
   ValidationErrors,
   Validator
 } from '@angular/forms';
+import {requiredValidator, ValidationController} from "@sl-design-system/shared";
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -49,6 +50,7 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
+    console.log('set value in checkbox', val);
     if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
@@ -62,6 +64,10 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
     console.log('in registerOnValidatorChange', fn);
     this.validatorOnChange = fn;
   }
+
+  #validation = new ValidationController(this.elementRef.nativeElement, {
+    validators: [requiredValidator]
+  });
 
   /** Implemented as part of Validator. */
   // validate(c: AbstractControl): ValidationErrors | null {
@@ -85,7 +91,9 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
         }*/
     // return control.errors;
 
-    console.log('in checkbox control status', control.status, control.invalid);
+    console.log('in checkbox control status', control, control.status, control.invalid, this.value);
+
+    this.#validation.validate(control.value ? this.value : undefined);
 
     // if (control.errors) {
     //     this.renderer.setAttribute(this.elementRef.nativeElement, 'invalid', '');
@@ -101,13 +109,20 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
     //     this.elementRef.nativeElement.validity.validate(control.value);
     // }
 
-    if (input.checkValidity() /*&& control.errors*/) {
+    // this.#validation.validate(this.checked ? this.value : undefined);
+
+    // this.elementRef.nativeElement.validate(control.value);
+
+    if (nativeElement.checkValidity() /*&& control.errors*/) {
       console.log('in input validate if');
       //this.elementRef.nativeElement.validation.render();
-      return {invalid: true}
+      //  return {invalid: true}
+      //return control.errors;
+      return null;
     } else {
       console.log('in input validate else');
-      return null;
+      // return null;
+      return control.errors;
     }
 
     // this.elementRef.nativeElement.setValidity(control);
@@ -170,6 +185,6 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
   listenForValueChange(value: any): void {
     console.log('value in checkbox listenforvaluechange', value);
     this.value = value;
-    // this.validatorOnChange();
+   // this.validatorOnChange();
   }
 } // TODO: on reset mark as pristine?

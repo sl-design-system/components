@@ -231,6 +231,8 @@ export class ValidationController implements ReactiveController {
 
     console.log('state and this.validity', state, this.validity, this.#showErrors);
 
+    console.log('this.validity.valid this.#showErrors && state', this.validity.valid, this.#showErrors && state);
+
     if (this.#showErrors && state) {
       this.#slotName = dasherize(state);
 
@@ -260,9 +262,11 @@ export class ValidationController implements ReactiveController {
   }
 
   #setInvalidState(): void {
+    console.log('setInvalidState');
     if (!this.#target || !this.target || !this.#host) {
       return;
     }
+    console.log('setInvalidState target etc.', this.#target, this.target, this.#host, isNative(this.target));
 
     this.#target.setAttribute('invalid', '');
     if (isNative(this.target)) {
@@ -270,9 +274,17 @@ export class ValidationController implements ReactiveController {
       this.target.ariaInvalid = 'true';
       this.#host.requestUpdate();
     }
+    console.log(
+      'setInvalidState target etc. should have invalid attribute',
+      this.#target,
+      this.target,
+      this.#host,
+      this.#host.hasAttribute('invalid')
+    );
   }
 
   #removeInvalidState(): void {
+    console.log('is removing invalid state');
     this.#removeValidationMessage();
     this.#host.removeAttribute('invalid');
     this.target.ariaInvalid = null;
@@ -366,6 +378,8 @@ export class ValidationController implements ReactiveController {
       asyncValidators: Array<Promise<boolean | void>> = [],
       validity: CustomValidityState = {};
 
+    console.log('validate in validation ts', validators, hasAsyncValidators, asyncValidators, validity);
+
     if (!this.#validationPending) {
       this.#validationComplete = new Promise(resolve => {
         this.#validationCompleteResolver = resolve;
@@ -452,6 +466,7 @@ export class ValidationController implements ReactiveController {
   }
 
   #getInvalidState(validity: ValidityState): keyof ValidityState | void {
+    console.log('validity in getInvalidState', validity);
     if (validity.badInput) {
       return 'badInput';
     } else if (validity.customError) {

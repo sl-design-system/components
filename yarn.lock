@@ -2821,12 +2821,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/core@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@floating-ui/core@npm:1.3.0"
+  checksum: e78837c86817213d3ff90376fe48cc2f06d4dda1d70bf5bf06bc36dbfde0ecba372ee1b3679259fff9a0320d44309fbec13b3caefae4693a347280ab7ce19127
+  languageName: node
+  linkType: hard
+
 "@floating-ui/dom@npm:^1.2.9":
   version: 1.2.9
   resolution: "@floating-ui/dom@npm:1.2.9"
   dependencies:
     "@floating-ui/core": ^1.2.6
   checksum: cc7307ac189f1f9d744970c6dfe9e15cb14a7c0262b7223081b7b0005e113d727828f41aafb34f7ffa3670ccef0457921551add325fa67de85cc2e65cf10f7fd
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@floating-ui/dom@npm:1.3.0"
+  dependencies:
+    "@floating-ui/core": ^1.3.0
+  checksum: 1a89de17499996fede35c4116e0280df81739a31552b166b12eca2d368190752bccde2a6cb23c15ee7d67148820c037b972f12964c088ca76fa732efbd0435f5
   languageName: node
   linkType: hard
 
@@ -3413,6 +3429,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oddbird/popover-polyfill@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@oddbird/popover-polyfill@npm:0.2.2"
+  checksum: af4aebf975298a3b384b50c637fc4992282e9a499ec15d5648c938a5355fe80862c7c521e1d5ebd3f1ea1fbdf1dd7dcc3a4c84d9e9d2599d0e482708464fcf3c
+  languageName: node
+  linkType: hard
+
 "@open-wc/chai-dom-equals@npm:^0.12.36":
   version: 0.12.36
   resolution: "@open-wc/chai-dom-equals@npm:0.12.36"
@@ -3933,7 +3956,9 @@ __metadata:
     "@changesets/cli": ^2.26.1
     "@changesets/get-github-info": ^0.5.2
     "@custom-elements-manifest/analyzer": ^0.8.3
+    "@floating-ui/dom": ^1.3.0
     "@lit/localize-tools": ^0.6.9
+    "@oddbird/popover-polyfill": ^0.2.2
     "@open-wc/testing": ^3.1.8
     "@storybook/addon-a11y": ^7.0.18
     "@storybook/addon-essentials": ^7.0.18

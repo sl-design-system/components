@@ -2,6 +2,7 @@ import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/label/register.js';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/icon/register.js';
 import { html } from 'lit';
 import '../register.js';
 

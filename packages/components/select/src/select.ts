@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { SelectOverlay } from './select-overlay.js';
 import type { SelectOptionGroup } from './select-option-group.js';
+// import type { ToggleEvent } from '@oddbird/popover-polyfill';
 import {
   FormControlMixin,
   RovingTabindexController,
@@ -9,6 +9,7 @@ import {
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
+import { computePosition } from '@floating-ui/dom';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -16,6 +17,10 @@ import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
 
 let nextUniqueId = 0;
+interface ToggleEvent extends Event {
+  oldState: string;
+  newState: string;
+}
 
 export class Select extends FormControlMixin(LitElement) {
   static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
@@ -29,19 +34,21 @@ export class Select extends FormControlMixin(LitElement) {
     attributeOldValue: true
   };
 
-  @query('sl-select-overlay') overlay?: SelectOverlay;
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
 
   /** The slotted options. */
   @queryAssignedElements({ selector: 'sl-select-option', flatten: false }) options?: SelectOption[];
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
+  @query('dialog') dialog?: HTMLDialogElement;
+  @query('button') button?: HTMLButtonElement;
+
   /** render helpers */
   @property() size?: { width: string; height: string } = { width: '500px', height: '32px' };
   @property() maxOverlayHeight?: string;
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
-    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.overlay?.popoverOpen),
+    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.dialog?.open),
     elements: () => this.allOptions || [],
     isFocusableElement: (el: SelectOption) => !el.disabled
   });
@@ -67,26 +74,19 @@ export class Select extends FormControlMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div
-        id=${this.#selectId}
-        tabindex="0"
-        class="select-toggle"
-        @click=${this.openSelect}
-        @keydown="${this.#handleOverallKeydown}"
-      >
+      <button id=${this.#selectId} tabindex="0" class="select-toggle" popovertarget="dialog-${this.#selectId}">
         <span id="selectedOption" style=${styleMap(this.size || {})}></span>
-
-        <div class="toggle-icon" aria-label="Choose" role="button">🔽</div>
-        <!-- to be replaced by <sl-icon></sl-icon> -->
-      </div>
-      <sl-select-overlay
-        @keydown=${this.#handleOverlayKeydown}
+        <sl-icon name="chevron-down"></sl-icon>
+      </button>
+      <dialog
+        @keydown="${this.#handleOverlayKeydown}"
+        @toggle=${this.#positionPopover}
+        id="dialog-${this.#selectId}"
+        popover
         @click=${this.#handleOptionChange}
-        aria-labelledby=${this.#selectId}
-        style="--max-overlay-height:${this.maxOverlayHeight || 'unset'}"
       >
-        <slot @slotchange=${this.#handleOptionsSlotChange}></slot>
-      </sl-select-overlay>
+        <slot @slotchange=${this.#handleOptionsSlotChange} role="listbox"></slot>
+      </dialog>
       ${this.#validation.render()}
     `;
   }
@@ -110,21 +110,21 @@ export class Select extends FormControlMixin(LitElement) {
     }
   }
 
-  openSelect(event: Event & { target: HTMLElement }): void {
-    const toggle = event.target.closest<HTMLElement>('.select-toggle');
-    if (!toggle) return;
+  // openSelect(event: Event & { target: HTMLElement }): void {
+  //   const toggle = event.target.closest<HTMLElement>('.select-toggle');
+  //   if (!toggle) return;
 
-    if (!this.overlay?.popoverOpen) {
-      this.scrollTo({ top: 0 });
-      this.allOptions.find(option => option.selected)?.focus();
-      this.overlay?.show(toggle);
-    } else {
-      this.overlay?.hidePopover();
-    }
-  }
+  //   // if (!this.overlay?.popoverOpen) {
+  //   //   this.scrollTo({ top: 0 });
+  //   //   this.allOptions.find(option => option.selected)?.focus();
+  //   //   this.overlay?.show(toggle);
+  //   // } else {
+  //   //   this.overlay?.hidePopover();
+  //   // }
+  // }
 
   #closeSelect(): void {
-    this.overlay?.hidePopover();
+    this.dialog?.hidePopover?.();
     this.renderRoot.querySelector<HTMLElement>('.select-toggle')?.focus();
   }
 
@@ -158,6 +158,7 @@ export class Select extends FormControlMixin(LitElement) {
     const selectOption = (event.target as HTMLElement)?.closest('sl-select-option');
 
     if (!event.target || !(selectOption instanceof SelectOption)) return;
+
     this.#updateSelectedOption(selectOption);
   }
 
@@ -171,7 +172,7 @@ export class Select extends FormControlMixin(LitElement) {
     /**
      * Return handler if it's not an option or if it's already selected
      */
-    if (selectedOption === this.selectedOption || selectedOption.disabled) return;
+    if (selectedOption === this.selectedOption || selectedOption.disabled || !this.dialog) return;
 
     // Reset all the selected state of the tabs, and select the clicked tab
     this.allOptions.forEach((option: SelectOption) => {
@@ -186,6 +187,9 @@ export class Select extends FormControlMixin(LitElement) {
           this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
         );
         this.#setSelectedOptionVisible(option);
+
+        if (!this.dialog?.hidePopover) return; // we can remove this check when Typescript knows the PopoverApi
+        this.dialog.hidePopover();
       }
     });
   }
@@ -237,21 +241,16 @@ export class Select extends FormControlMixin(LitElement) {
     }
   }
 
-  /**
-   * Handle keyboard accessible controls.
-   */
-  #handleOverallKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    switch (event.key) {
-      case 'Enter':
-      case ' ':
-        event.preventDefault();
-        this.openSelect(event);
-        break;
-      case 'Escape':
-        this.#closeSelect();
-        break;
-      default:
-        break;
+  #positionPopover(event: ToggleEvent): void {
+    if (event.newState === 'open' && this.button && this.dialog) {
+      void computePosition(this.button, this.dialog).then(({ x, y }) => {
+        if (this.dialog) {
+          Object.assign(this.dialog.style, {
+            left: `${x}px`,
+            top: `${y}px`
+          });
+        }
+      });
     }
   }
 }

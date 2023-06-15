@@ -12,6 +12,11 @@
   gap: var(--_gap);
 }
 
+dialog {
+  margin: 0;
+  position: absolute;
+}
+
 .select-toggle {
   --_background: var(--sl-color-button-default-default-idle-background);
   --_border-color: var(--sl-color-button-default-default-idle-border);

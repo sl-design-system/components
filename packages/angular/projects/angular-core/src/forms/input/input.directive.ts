@@ -3,13 +3,13 @@ import {
   AbstractControl,
   ControlValueAccessor,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
+  NG_VALUE_ACCESSOR, NgForm,
   ValidationErrors,
   Validator,
   ValidatorFn,
   Validators
 } from "@angular/forms";
-import {ValidationController} from "@sl-design-system/shared";
+import {EventEmitter, ValidationController} from "@sl-design-system/shared";
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -115,18 +115,42 @@ export class InputDirective implements ControlValueAccessor, Validator {
     // this.#validation.validate(control.value); // TODO: necessary?
 
     // this.#validation.render();
+    //this.onChange('invalid');
 
-    if (input.checkValidity() /*&& control.errors*/) { // TODO: working only on required, not minlength etc.
+    // TODO: on touched and on submitted
+
+    // new EventEmitter(this.elementRef.nativeElement, 'invalid');
+
+    console.log('control touched -------->>>>>>>', control, control.touched, control.valid, input.validationMessage, (control.parent as NgForm).submitted /*, input.reportValidity()*/);
+
+    if (input.checkValidity() /*input.reportValidity()*/ /*&& control.errors*/) { // TODO: working only on required, not minlength etc.
       console.log('in input validate if');
        // return {invalid: true}
       return null;
       // return control.errors;
     } else {
       console.log('in input validate else');
+      // this.elementRef.nativeElement.emit('invalid');
+      // new EventEmitter(this.elementRef.nativeElement, 'invalid');
+      // this.elementRef.nativeElement.invalid = true;
       // return null;
       // return {invalid: true}
       return control.errors;
-    }
+     }
+    // TODO: emit invalid event?
+    //this.onChange(emit(event));
+    // return control.errors;
+
+    // if (input) {
+    //   const isValid = this.elementRef.nativeElement.checkValidity();
+    //
+    //   if (!isValid) {
+    //     return { customValidation: true };
+    //   }
+    // }
+    //
+    // return null;
+
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -10,7 +10,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, ViewChild} from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
 import {InputDirective} from "../src/forms";
@@ -119,7 +119,7 @@ export class CheckboxComponent {
     }
   `],
   template: `
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)" novalidate>
       <sl-label for="name-input">Name</sl-label>
       <sl-text-input id="name-input" formControlName="name" placeholder="Your name" hint="this is a hint for the text input" minlength="8" required></sl-text-input>
       <sl-label for="description-id">Description</sl-label>
@@ -141,6 +141,7 @@ export class CheckboxComponent {
       <div>Option: {{myForm.value.option}} {{myForm.controls.option.valid}}</div>
       <div>Form valid? {{myForm.valid}}</div>
       <div>Form validator: {{myForm.controls.name.errors | json}}</div>
+      <div>Form touched: {{myForm.touched | json}} {{myForm.controls.name.touched}}</div>
     </form>
   `,
 })
@@ -159,19 +160,49 @@ export class ReactiveFormComponent {
   //   return null;
   // }
 
+  validateAllFormFields(formGroup: FormGroup) {
+    console.log('validateall');//{1}
+    Object.keys(formGroup.controls).forEach(field => {  //{2}
+      const control = formGroup.get(field);
+      console.log('control', control);//{3}
+      if (control instanceof FormControl) {
+        console.log('ifff');//{4}
+        control.markAsTouched({ onlySelf: true });
+        control.markAsDirty({ onlySelf: true });
+       // control.registerOnChange();
+      } /*else if (control instanceof FormGroup) {        //{5}
+        this.validateAllFormFields(control);            //{6}
+      }*/
+    });
+  }
+
   onSubmit(form: FormGroup) {
-    console.log('form on submit', form, form.valid);
-    alert(`form submit: Name: ${form.value.name},
-          Description: ${form.value.description},
-          Approval: ${form.value.approval} ${form.value.approval.valid},
-          Option: ${form.value.option},
-          form-invalid: ${form.invalid}`);
+    console.log('form on submit', form, form.valid, form.controls);
+    // form.markAsTouched();
+    // alert(`form submit: Name: ${form.value.name},
+    //       Description: ${form.value.description},
+    //       Approval: ${form.value.approval} ${form.value.approval.valid},
+    //       Option: ${form.value.option},
+    //       form-invalid: ${form.invalid}`);
 
     // form.addValidators(() => )
+
+    Object.values(form.controls).forEach(control => {
+      control.markAsTouched();
+      control.updateValueAndValidity();
+    });
 
     // if (form.invalid) {
     //   return;
     // }
+    if (form.valid) {
+      alert('form submitted');
+    } else {
+      alert('form NOT submitted');
+      // this.myForm.controls.name.markAsTouched();
+      // this.myForm.markAllAsTouched();
+     // this.validateAllFormFields(form); //{7}
+    }
   }
 }
 
@@ -221,13 +252,44 @@ export class ReactiveFormComponent {
       <div>Form validator: {{myForm.form.errors| json}}</div>
     </form>
   `
-})
-export class TemplateFormComponent {
+}) // TODO: after form submitted and after form control touched
+// TODO: reportvalidity ?
+export class TemplateFormComponent implements OnInit {
   model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
+
+  @ViewChild('myForm', { static: false }) myForm!: NgForm;
+
+  ngOnInit(): void {
+    // if (this.myForm.submitted) {
+    //   Object.values(form.controls).forEach(control => {
+    //     control.markAsTouched();
+    //   })
+    // }
+  }
 
   onRadioValueChange(event: any): void {
     this.model.option.value = event.value;
     this.model.option.text = event.textContent;
+  }
+
+  validateAllFormFields(form: NgForm) {
+    console.log('validateall', form.controls);//{1}
+
+   // form.controls.name.updateValueAndValidity({ emitEvent: true });
+
+    // Object.keys(form.controls).forEach(field =>
+    // field.markAsTouched());
+    // Object.keys(formGroup.controls).forEach(field => {  //{2}
+    //   const control = formGroup.get(field);
+    //   console.log('control', control);//{3}
+    //   if (control instanceof FormControl) {
+    //     console.log('ifff');//{4}
+    //     control.markAsTouched({ onlySelf: true });
+    //     control.markAsDirty({ onlySelf: true });
+    //   } /*else if (control instanceof FormGroup) {        //{5}
+    //     this.validateAllFormFields(control);            //{6}
+    //   }*/
+    // });
   }
 
   onSubmit(model: Person, form: NgForm): void {
@@ -235,11 +297,29 @@ export class TemplateFormComponent {
           Description: ${model.description},
           Approval: ${model.approval},
           Option: ${model.option.value} ${model.option.text}`);
+    // form.controls.markAsTouched();
+
+    Object.values(form.controls).forEach(control => {
+      control.markAsTouched();
+      control.updateValueAndValidity();
+    });
+
     if (form.valid) {
-      alert('form is valid and would be submitted');
+      alert('form submitted');
     } else {
-      alert('form is not valid and would not be submitted');
+      // this.validateAllFormFields(form); //{7}
+      // Object.values(form.controls).forEach(control => {
+      //   control.markAsTouched();
+      // });
+      // form.form.updateValueAndValidity();
+      alert('form is not valid');
     }
+
+    // if (form.valid) {
+    //   alert('form is valid and would be submitted');
+    // } else {
+    //   alert('form is not valid and would not be submitted');
+    // }
   }
 }
 

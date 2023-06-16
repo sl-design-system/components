@@ -1281,7 +1281,7 @@
             "failedToResolve": true
           },
           "foreground": {
-            "value": "{color.palette.black.base}",
+            "value": "{color.palette.primary.base}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground",
             "failedToResolve": true
@@ -2600,7 +2600,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.danger.400}",
+              "value": "{color.palette.danger.700}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -2943,7 +2943,7 @@
             "failedToResolve": true
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground",
             "failedToResolve": true
@@ -2963,7 +2963,7 @@
             "failedToResolve": true
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground",
             "failedToResolve": true

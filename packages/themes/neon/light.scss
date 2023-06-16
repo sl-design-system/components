@@ -29,8 +29,8 @@
   --sl-color-input-field-label-select-hover-background: rgb(var(--sl-color-palette-accent-100));
   --sl-color-input-field-label-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-field-label-text-disabled: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-helper-text-disabled: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-input-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-400));
+  --sl-color-input-helper-text-disabled: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-input-text-field-valid-disabled-icon: rgb(var(--sl-color-palette-success-150));
   --sl-color-input-text-field-valid-disabled-label: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-text-field-valid-disabled-background: rgb(var(--sl-color-palette-transparent-base));
@@ -53,7 +53,7 @@
   --sl-color-input-text-field-invalid-hover-background: rgba(
     var(--sl-color-palette-danger-base) / var(--sl-opacity-300)
   );
-  --sl-color-input-text-field-invalid-default-icon: rgb(var(--sl-color-palette-danger-400));
+  --sl-color-input-text-field-invalid-default-icon: rgb(var(--sl-color-palette-danger-700));
   --sl-color-input-text-field-invalid-default-border: rgb(var(--sl-color-palette-danger-300));
   --sl-color-input-text-field-invalid-default-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-input-text-field-default-disabled-placeholder: rgb(var(--sl-color-palette-neutral-300));
@@ -179,7 +179,7 @@
   --sl-color-surface-solid-accent-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-surface-solid-secondary-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-surface-solid-secondary-background: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-color-surface-solid-primary-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-danger-link-focus-border: rgb(var(--sl-color-palette-info-base));
   --sl-color-button-danger-link-focus-foreground: rgb(var(--sl-color-palette-danger-800));

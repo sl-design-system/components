@@ -15,9 +15,8 @@ interface Props extends Pick<Button, 'fill' | 'size' | 'variant'> {
 
 type Story = StoryObj<Props>;
 
-const fills: ButtonFill[] = ['default', 'outline', 'link'];
+const fills: ButtonFill[] = ['solid', 'outline', 'ghost', 'link'];
 const variants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
-const disabledStates = [false, true];
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
 
 export default {
@@ -26,7 +25,7 @@ export default {
     text: 'Button',
     icon: 'none',
     size: 'md',
-    fill: 'default',
+    fill: 'solid',
     variant: 'default'
   },
   argTypes: {
@@ -59,97 +58,101 @@ export const Basic: Story = {};
 
 export const All: Story = {
   render: () => {
-    return html` <style>
+    return html`
+      <style>
         table {
           border-collapse: collapse;
         }
-
+        td,
         th {
+          padding: 4px;
+        }
+        th {
+          text-align: center;
           text-transform: capitalize;
         }
-        th,
-        td {
-          padding: 4px 8px;
-        }
-        thead td {
-          text-align: center;
-        }
-
-        tbody td:nth-of-type(6n) {
+        td:nth-of-type(6n + 1):not(:last-of-type):not(:nth-of-type(1)) {
           border-right: 2px solid #dedede;
           padding-right: 24px;
         }
-        tbody td:nth-of-type(6n + 1):not(:first-of-type) {
+        td:nth-of-type(6n + 2) {
           padding-left: 24px;
         }
-        tbody td:last-of-type {
-          border: none;
+        td:nth-of-type(1) {
+          border-right: none;
+          font-weight: bold;
+          padding-right: 1rem;
+          text-transform: capitalize;
+        }
+        td.header {
+          font-weight: bold;
+          text-align: center;
+          text-transform: capitalize;
         }
       </style>
-      ${sizes.map(
-        size => html` <h2>Size: ${size}</h2>
-          <table>
-            <thead>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            ${sizes.map(size => html`<th colspan="6">${size}</th>`)}
+          </tr>
+        </thead>
+        <tbody>
+          ${fills.map(
+            fill => html`
               <tr>
                 <td></td>
-                ${fills.map(fill => html`<th colspan="6">${fill}</th>`)}
+                <td colspan="18" class="header">${fill}</td>
               </tr>
               <tr>
                 <td></td>
-                ${fills.map(_ =>
-                  disabledStates.map(
-                    disabledState => html` <td colspan="3">${disabledState ? 'Disabled' : 'Enabled'}</td>`
-                  )
+                ${sizes.map(
+                  () => html`
+                    <td colspan="3" class="header">Enabled</td>
+                    <td colspan="3" class="header">Disabled</td>
+                  `
                 )}
               </tr>
-            </thead>
-            <tbody>
               ${variants.map(
                 variant => html`
                   <tr>
-                    <th>${variant}</th>
-                    ${fills.map(fill =>
-                      disabledStates.map(
-                        disabledState => html` <td>
-                            <sl-button
-                              .fill=${fill}
-                              .size=${size}
-                              ?disabled=${disabledState}
-                              .variant=${variant}
-                              data-mock-state
-                              >Label
-                            </sl-button>
-                          </td>
-                          <td>
-                            <sl-button
-                              .fill=${fill}
-                              .size=${size}
-                              ?disabled=${disabledState}
-                              .variant=${variant}
-                              data-mock-state
-                            >
-                              <sl-icon name="face-smile"></sl-icon> Label
-                            </sl-button>
-                          </td>
-                          <td>
-                            <sl-button
-                              .fill=${fill}
-                              .size=${size}
-                              ?disabled=${disabledState}
-                              .variant=${variant}
-                              data-mock-state
-                            >
-                              <sl-icon name="face-smile"></sl-icon>
-                            </sl-button>
-                          </td>`
-                      )
+                    <td>${variant}</td>
+                    ${sizes.map(
+                      size => html`
+                        <td><sl-button .fill=${fill} .size=${size} .variant=${variant}>Label</sl-button></td>
+                        <td>
+                          <sl-button .fill=${fill} .size=${size} .variant=${variant}>
+                            <sl-icon name="face-smile"></sl-icon>
+                            Label
+                          </sl-button>
+                        </td>
+                        <td>
+                          <sl-button .fill=${fill} .size=${size} .variant=${variant}>
+                            <sl-icon name="face-smile"></sl-icon>
+                          </sl-button>
+                        </td>
+                        <td><sl-button .fill=${fill} .size=${size} .variant=${variant} disabled>Label</sl-button></td>
+                        <td>
+                          <sl-button .fill=${fill} .size=${size} .variant=${variant} disabled>
+                            <sl-icon name="face-smile"></sl-icon>
+                            Label
+                          </sl-button>
+                        </td>
+                        <td>
+                          <sl-button .fill=${fill} .size=${size} .variant=${variant} disabled>
+                            <sl-icon name="face-smile"></sl-icon>
+                          </sl-button>
+                        </td>
+                      `
                     )}
                   </tr>
                 `
               )}
-            </tbody>
-          </table>`
-      )}`;
+            `
+          )}
+        </tbody>
+      </table>
+    `;
   }
 };
 

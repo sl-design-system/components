@@ -1,4 +1,4 @@
-$fills: default, outline, link;
+$fills: solid, outline, ghost, link;
 $sizes: sm, md, lg;
 $variants: default, primary, success, warning, danger;
 
@@ -11,63 +11,107 @@ $variants: default, primary, success, warning, danger;
 }
 
 @each $fill in $fills {
-  :host([fill='#{$fill}']) {
-    --_border-width: var(--sl-border-width-button-#{$fill});
+  @each $size in $sizes {
+    :host([fill='#{$fill}'][size='#{$size}']) {
+      --_border-radius: var(
+        --sl-component-button-#{$fill}-#{$size}-border-radius,
+        var(--sl-control-#{$size}-border-radius)
+      );
+      --_border-width: var(
+        --sl-component-button-#{$fill}-#{$size}-border-width,
+        var(--sl-control-#{$size}-border-width)
+      );
+      --_font: var(--sl-component-button-#{$fill}-#{$size}-font, var(--sl-control-#{$size}-font));
+      --_gap: var(--sl-component-button-#{$fill}-#{$size}-gap, var(--sl-control-#{$size}-gap));
+      --_outline-offset: var(
+        --sl-component-button-#{$fill}-#{$size}-outline-offset,
+        var(--sl-control-#{$size}-outline-offset)
+      );
+      --_outline-width: var(
+        --sl-component-button-#{$fill}-#{$size}-outline-width,
+        var(--sl-control-#{$size}-outline-width)
+      );
+      --_padding-block: var(--sl-component-button-#{$fill}-#{$size}-padding-block, 0.5rem);
+      --_padding-inline: var(--sl-component-button-#{$fill}-#{$size}-padding-inline, 1rem);
+    }
   }
 
   @each $variant in $variants {
     :host([fill='#{$fill}'][variant='#{$variant}']) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
+      --_background: var(--sl-component-button-#{$fill}-#{$variant}-idle-background, var(--sl-control-idle-background));
+      --_border-color: var(
+        --sl-component-button-#{$fill}-#{$variant}-idle-border-color,
+        var(--sl-control-idle-border-color)
+      );
+      --_color: var(--sl-component-button-#{$fill}-#{$variant}-idle-foreground, var(--sl-control-idle-foreground));
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:hover) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-hover);
+      --_background: var(
+        --sl-component-button-#{$fill}-#{$variant}-hover-background,
+        var(--sl-control-hover-background)
+      );
+      --_border-color: var(
+        --sl-component-button-#{$fill}-#{$variant}-hover-border-color,
+        var(--sl-control-hover-border-color)
+      );
+      --_color: var(--sl-component-button-#{$fill}-#{$variant}-hover-foreground, var(--sl-control-hover-foreground));
+      --_text-decoration: var(--sl-component-button-#{$fill}-#{$variant}-hover-text-typeset-text-decoration, none);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:active) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-active);
+      --_background: var(
+        --sl-component-button-#{$fill}-#{$variant}-active-background,
+        var(--sl-control-active-background)
+      );
+      --_border-color: var(
+        --sl-component-button-#{$fill}-#{$variant}-active-border-color,
+        var(--sl-control-active-border-color)
+      );
+      --_color: var(--sl-component-button-#{$fill}-#{$variant}-active-foreground, var(--sl-control-active-foreground));
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:where(:disabled, [internals-disabled])) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
+      --_background: var(
+        --sl-component-button-#{$fill}-#{$variant}-disabled-background,
+        var(--sl-control-disabled-background)
+      );
+      --_border-color: var(
+        --sl-component-button-#{$fill}-#{$variant}-disabled-border-color,
+        var(--sl-control-disabled-border-color)
+      );
+      --_color: var(
+        --sl-component-button-#{$fill}-#{$variant}-disabled-foreground,
+        var(--sl-control-disabled-foreground)
+      );
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:focus-visible) {
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
-      --_box-shadow: var(--sl-box-shadow-focus);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
+      --_background: var(
+        --sl-component-button-#{$fill}-#{$variant}-focus-background,
+        var(--sl-control-focus-background)
+      );
+      --_border-color: var(
+        --sl-component-button-#{$fill}-#{$variant}-focus-border-color,
+        var(--sl-control-focus-border-color)
+      );
+      --_color: var(--sl-component-button-#{$fill}-#{$variant}-focus-foreground, var(--sl-control-focus-foreground));
+      --_outline-color: var(
+        --sl-component-button-#{$fill}-#{$variant}-outline-color,
+        var(--sl-control-focus-outline-color)
+      );
     }
   }
 }
 
 @each $size in $sizes {
-  :host([size='#{$size}']) {
-    --icon-container-size: var(--sl-size-button-icon-#{$size});
-    --_border-radius: var(--sl-component-button-#{$size}-border-radius, var(--sl-control-#{$size}-border-radius));
-    --_font: var(--sl-component-button-#{$size}-font, var(--sl-control-#{$size}-font));
-    --_gap: var(--sl-component-button-#{$size}-gap, var(--sl-control-#{$size}-gap));
-    --_padding-block: var(--sl-component-button-#{$size}-padding-block, var(--sl-control-#{$size}-padding-block));
-    --_padding-inline: var(--sl-component-button-#{$size}-padding-inline, var(--sl-control-#{$size}-padding-inline));
-  }
-
   :host([size='#{$size}'][icon-only]) {
-    --icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
-    --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
-    --_padding-block: var(--sl-space-button-default-icon-only-#{$size});
-    --_padding-inline: var(--sl-space-button-default-icon-only-#{$size});
-    line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
+    --_border-radius: var(
+      --sl-component-button-icon-only-#{$size}-border-radius,
+      var(--sl-control-#{$size}-border-radius)
+    );
+    --_padding-inline: var(--_padding-block);
+    inline-size: var(--sl-component-button-icon-only-#{$size}-inline-size, auto);
   }
 }
 
@@ -76,32 +120,41 @@ $variants: default, primary, success, warning, danger;
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
+  box-shadow: var(--_box-shadow, none);
   color: var(--_color);
   cursor: pointer;
   display: inline-flex;
   font: var(--_font);
   gap: var(--_gap);
+  outline-color: transparent;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
+  text-decoration: var(--_text-decoration);
   transform: var(--_transform);
   vertical-align: top;
 }
 
 :host(:focus),
 :host(:focus-visible) {
-  outline: none;
+  outline: var(--_outline-width) solid var(--_outline-color);
+  outline-offset: var(--_outline-offset);
 }
 
 :host(:where(:active, :focus-visible, :hover)) {
   transition-duration: var(--_transition-duration);
-  transition-property: background, border-color, box-shadow, color;
+  transition-property: background, border-color, box-shadow, color, outline-color;
   transition-timing-function: var(--_transition-easing);
 }
 
 :host(:where(:disabled, [internals-disabled])) {
   cursor: default;
   pointer-events: none;
+}
+
+:host([icon-only]) {
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  justify-content: center;
 }
 
 ::slotted(sl-icon) {

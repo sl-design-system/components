@@ -1500,20 +1500,6 @@
         "type": "composition"
       },
       "default": {
-<<<<<<< HEAD
-        "default": {
-          "idle": {
-            "background": {
-              "value": "{color.palette.transparent.base}",
-              "type": "color",
-              "description": "component.button.default.default.idle.background"
-            },
-            "border": {
-              "color": {
-                "value": "{control.idle.border.color}",
-                "type": "color",
-                "description": "component.button.default.default.border.color"
-=======
         "sm": {
           "padding": {
             "block": {
@@ -1984,13 +1970,10 @@
                 "value": "{color.palette.danger.150}",
                 "type": "color",
                 "description": "color.button.danger.solid.disabled.border.color"
->>>>>>> a98383e (🏕)
               }
             }
           }
         }
-<<<<<<< HEAD
-=======
       },
       "outline": {
         "sm": {
@@ -3070,7 +3053,6 @@
             "description": "component.button.icon-only.lg.inlineSize"
           }
         }
->>>>>>> a98383e (🏕)
       }
     }
   },
@@ -3979,21 +3961,6 @@
           "type": "borderWidth",
           "description": "control.sm.outline.width"
         }
-<<<<<<< HEAD
-      },
-      "padding": {
-        "block": {
-          "value": "{space.xs} - {control.sm.border.width}",
-          "type": "spacing",
-          "description": "control.sm.padding.block"
-        },
-        "inline": {
-          "value": "{space.lg} - {control.sm.border.width}",
-          "type": "spacing",
-          "description": "control.sm.padding.inline"
-        }
-=======
->>>>>>> a98383e (🏕)
       }
     },
     "md": {
@@ -4034,21 +4001,6 @@
           "type": "borderWidth",
           "description": "control.md.outline.width"
         }
-<<<<<<< HEAD
-      },
-      "padding": {
-        "block": {
-          "value": "{space.sm} - {control.md.border.width}",
-          "type": "spacing",
-          "description": "control.md.padding.block"
-        },
-        "inline": {
-          "value": "{space.xl} - {control.md.border.width}",
-          "type": "spacing",
-          "description": "control.md.padding.inline"
-        }
-=======
->>>>>>> a98383e (🏕)
       }
     },
     "lg": {
@@ -4089,30 +4041,11 @@
           "type": "borderWidth",
           "description": "control.lg.outline.width"
         }
-<<<<<<< HEAD
-      },
-      "padding": {
-        "block": {
-          "value": "{space.sm} - {control.lg.border.width}",
-          "type": "spacing",
-          "description": "control.lg.padding.block"
-        },
-        "inline": {
-          "value": "{space.xl} - {control.lg.border.width}",
-          "type": "spacing",
-          "description": "control.lg.padding.inline"
-        }
-=======
->>>>>>> a98383e (🏕)
       }
     },
     "idle": {
       "background": {
-<<<<<<< HEAD
-        "value": "{color.palette.transparent.base}",
-=======
         "value": "{color.palette.white.base}",
->>>>>>> a98383e (🏕)
         "type": "color",
         "description": "control.idle.background"
       },
@@ -4169,20 +4102,12 @@
     },
     "focus": {
       "background": {
-<<<<<<< HEAD
-        "value": "{color.palette.accent.150}",
-=======
         "value": "{control.idle.background}",
->>>>>>> a98383e (🏕)
         "type": "color",
         "description": "control.focus.background"
       },
       "foreground": {
-<<<<<<< HEAD
-        "value": "{control.idle.background}",
-=======
         "value": "{control.idle.foreground}",
->>>>>>> a98383e (🏕)
         "type": "color",
         "description": "control.focus.foreground"
       },
@@ -4193,19 +4118,11 @@
           "description": "control.focus.border.color"
         }
       },
-<<<<<<< HEAD
-      "offset": {
-        "color": {
-          "value": "rgba({color.palette.info.base}, {opacity.500})",
-          "type": "color",
-          "description": "control.focus.offset.color"
-=======
       "outline": {
         "color": {
           "value": "rgba({color.palette.info.base}, {opacity.500})",
           "type": "color",
           "description": "control.focus.outline.color"
->>>>>>> a98383e (🏕)
         }
       }
     },

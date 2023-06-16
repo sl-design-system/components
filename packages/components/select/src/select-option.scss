@@ -9,8 +9,8 @@
 }
 
 :host([contenttype='string']) {
-  --_padding-block: var(--sl-space-button-block-md);
-  --_padding-inline: var(--sl-space-button-inline-md);
+  --_padding-block: var(--sl-space-button-default-block-md);
+  --_padding-inline: var(--sl-space-input-text-field-inline-md);
 }
 
 :host([contenttype='element']) {

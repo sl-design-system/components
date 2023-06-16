@@ -1,7 +1,7 @@
 :host {
   --_background: var(--sl-color-button-default-idle-background);
   --_border-width: 1px;
-  --_border-radius: var(--sl-border-radius-button);
+  --_border-radius: var(--sl-border-radius-button-md);
   --_box-shadow: none;
   --_gap: 0.25rem;
 }
@@ -13,35 +13,56 @@
 }
 
 dialog {
+  --_max-overlay-height: var(--max-overlay-height, 80vh);
   margin: 0;
+  padding: 0;
   position: absolute;
+
+  background-color: #fff;
+  flex-direction: column;
+  gap: 4px;
+  max-height: var(--_max-overlay-height);
+  overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
+  overflow-y: auto;
+  pointer-events: none;
+  transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 
-.select-toggle {
+dialog:popover-open {
+  display: flex;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  opacity: 1;
+  border: none;
+}
+
+button {
   --_background: var(--sl-color-button-default-default-idle-background);
   --_border-color: var(--sl-color-button-default-default-idle-border);
   --_box-shadow: var(--sl-box-shadow-button-default-default-idle);
   --_color: var(--sl-color-button-default-default-idle-foreground);
   --_transform: var(--sl-transform-button-default-default-idle);
-  --_padding-block: var(--sl-space-button-block-md);
-  --_padding-inline: var(--sl-space-button-inline-md);
+  --_padding-block: var(--sl-space-button-default-block-md);
+  --_padding-inline: var(--sl-space-input-text-field-inline-md);
   --_font: var(--sl-text-button-text-md);
-
-  align-items: stretch;
+  
+  align-items: center;
   background: var(--_background);
-  border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
+  border: var(--_border-width) solid var(--_border-color);
   box-shadow: var(--_box-shadow);
   display: grid;
   font: var(--_font);
   gap: var(--_gap);
   grid-template-columns: auto 24px;
-  transition: 0.2s ease-in-out;
+  justify-items: center;
+  padding: 0;
   transition-property: background, border, box-shadow, color, filter;
+  transition: 0.2s ease-in-out;
 
   span {
     padding-block: var(--_padding-block);
     padding-inline: var(--_padding-inline);
+    box-sizing: border-box;
   }
 
   span[contenttype='element'] {

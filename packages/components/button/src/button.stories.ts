@@ -98,7 +98,10 @@ export const All: Story = {
                 <td></td>
                 ${fills.map(_ =>
                   disabledStates.map(
-                    disabledState => html` <td colspan="3">${disabledState ? 'Disabled' : 'Enabled'}</td>`
+                    disabledState =>
+                      html` <td colspan="3" class="${disabledState ? 'sb-disabled' : ''}">
+                        ${disabledState ? 'Disabled' : 'Enabled'}
+                      </td>`
                   )
                 )}
               </tr>
@@ -110,7 +113,7 @@ export const All: Story = {
                     <th>${variant}</th>
                     ${fills.map(fill =>
                       disabledStates.map(
-                        disabledState => html` <td>
+                        disabledState => html` <td class="${disabledState ? 'sb-disabled' : ''}">
                             <sl-button
                               .fill=${fill}
                               .size=${size}
@@ -120,7 +123,7 @@ export const All: Story = {
                               >Label
                             </sl-button>
                           </td>
-                          <td>
+                          <td class="${disabledState ? 'sb-disabled' : ''}">
                             <sl-button
                               .fill=${fill}
                               .size=${size}
@@ -131,7 +134,7 @@ export const All: Story = {
                               <sl-icon name="face-smile"></sl-icon> Label
                             </sl-button>
                           </td>
-                          <td>
+                          <td class="${disabledState ? 'sb-disabled' : ''}">
                             <sl-button
                               .fill=${fill}
                               .size=${size}

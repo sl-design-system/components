@@ -121,7 +121,11 @@ export class InputDirective implements ControlValueAccessor, Validator {
 
     // new EventEmitter(this.elementRef.nativeElement, 'invalid');
 
-    console.log('control touched -------->>>>>>>', control, control.touched, control.valid, input.validationMessage, (control.parent as NgForm).submitted /*, input.reportValidity()*/);
+    console.log('control touched -------->>>>>>>', control.value.includes['invalid'], control, control.touched, control.valid, input.validationMessage, (control.parent as NgForm).submitted /*, input.reportValidity()*/);
+
+    // if (!control.errors)  {
+    //   return null;
+    // }
 
     if (input.checkValidity() /*input.reportValidity()*/ /*&& control.errors*/) { // TODO: working only on required, not minlength etc.
       console.log('in input validate if');

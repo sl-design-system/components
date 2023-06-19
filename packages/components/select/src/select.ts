@@ -144,6 +144,8 @@ export class Select extends FormControlMixin(LitElement) {
         this.#observer?.observe(this, Select.#observerOptions);
       }
       if (mutation.attributeName === 'size') {
+        console.log('size mutation', mutation);
+
         this.#observer?.disconnect();
         this.#updateSize();
         this.#observer?.observe(this, Select.#observerOptions);
@@ -199,6 +201,8 @@ export class Select extends FormControlMixin(LitElement) {
    */
   #updateSize(): void {
     const sizes = this.allOptions ? this.allOptions.map(o => o.size) : [];
+    console.log(sizes);
+
     const maxWidth = Math.max(...sizes.map(s => s.width));
     const maxHeight = Math.max(...sizes.map(s => s.height));
     this.size = {

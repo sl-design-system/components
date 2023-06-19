@@ -21,7 +21,7 @@ export class SelectOption extends LitElement {
   /** Whether the content of the option item is a node*/
   @property({ reflect: true }) contentType?: 'string' | 'element';
 
-  @property({ reflect: true }) size: { width: number; height: number } = { width: 0, height: 0 };
+  @property({ reflect: true }) size: { width: number; height: number } = { width: 200, height: 32 };
 
   #observer?: ResizeObserver;
 
@@ -67,6 +67,7 @@ export class SelectOption extends LitElement {
 
   #handleResize(mutations: ResizeObserverEntry[]): void {
     mutations.forEach(mutation => {
+      console.log('handleResize', mutation.borderBoxSize, mutation.contentRect, mutation.contentBoxSize);
       this.size = {
         width: mutation.borderBoxSize[0].inlineSize,
         height: mutation.borderBoxSize[0].blockSize

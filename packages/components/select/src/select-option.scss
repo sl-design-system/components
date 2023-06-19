@@ -2,6 +2,7 @@
   --_font: var(--sl-text-button-text-md);
 
   cursor: pointer;
+  display: block;
   font: var(--_font);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);

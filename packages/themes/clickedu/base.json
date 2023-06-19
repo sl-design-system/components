@@ -1795,50 +1795,6 @@
         },
         "type": "composition"
       },
-      "default": {
-        "sm": {
-          "padding": {
-            "block": {
-              "value": "{space.xs} - {control.sm.border.width}",
-              "type": "spacing",
-              "description": "control.sm.padding.block"
-            },
-            "inline": {
-              "value": "{space.lg} - {control.sm.border.width}",
-              "type": "spacing",
-              "description": "control.sm.padding.inline"
-            }
-          }
-        },
-        "md": {
-          "padding": {
-            "block": {
-              "value": "{space.sm} - {control.sm.border.width}",
-              "type": "spacing",
-              "description": "control.sm.padding.block"
-            },
-            "inline": {
-              "value": "{space.lg} - {control.sm.border.width}",
-              "type": "spacing",
-              "description": "control.sm.padding.inline"
-            }
-          }
-        },
-        "lg": {
-          "padding": {
-            "block": {
-              "value": "{space.sm} - {control.sm.border.width}",
-              "type": "spacing",
-              "description": "control.sm.padding.block"
-            },
-            "inline": {
-              "value": "{space.lg} - {control.sm.border.width}",
-              "type": "spacing",
-              "description": "control.sm.padding.inline"
-            }
-          }
-        }
-      },
       "solid": {
         "sm": {
           "padding": {
@@ -3308,13 +3264,6 @@
       },
       "icon-only": {
         "sm": {
-          "border": {
-            "radius": {
-              "value": "{border.radius.full}",
-              "type": "borderRadius",
-              "description": "component.button.icon-only.sm.border.radius"
-            }
-          },
           "inlineSize": {
             "value": "{text.typeset.lineHeight.sm}",
             "type": "sizing",
@@ -3322,13 +3271,6 @@
           }
         },
         "md": {
-          "border": {
-            "radius": {
-              "value": "{border.radius.full}",
-              "type": "borderRadius",
-              "description": "component.button.icon-only.md.border.radius"
-            }
-          },
           "inlineSize": {
             "value": "{text.typeset.lineHeight.sm}",
             "type": "sizing",
@@ -3336,13 +3278,6 @@
           }
         },
         "lg": {
-          "border": {
-            "radius": {
-              "value": "{border.radius.full}",
-              "type": "borderRadius",
-              "description": "component.button.icon-only.lg.border.radius"
-            }
-          },
           "inlineSize": {
             "value": "{text.typeset.lineHeight.lg}",
             "type": "sizing",
@@ -3941,7 +3876,7 @@
     },
     "disabled": {
       "background": {
-        "value": "{color.palette.transparent.base}",
+        "value": "{color.palette.white.base}",
         "type": "color",
         "description": "control.disabled.background"
       },

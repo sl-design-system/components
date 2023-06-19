@@ -211,7 +211,7 @@
   --sl-color-palette-primary-50: 254 254 254;
   --sl-control-disabled-border-color: rgb(var(--sl-color-palette-neutral-200));
   --sl-control-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
-  --sl-control-disabled-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-control-disabled-background: rgb(var(--sl-color-palette-white-base));
   --sl-control-focus-outline-color: rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
   --sl-control-focus-border-color: rgb(var(--sl-color-palette-info-base));
   --sl-control-active-border-color: rgb(var(--sl-color-palette-accent-600));
@@ -283,11 +283,8 @@
   --sl-icon-style-solid: var(--sl-text-typeset-font-weight-icon-solid);
   --sl-icon-style-outline: 400;
   --sl-component-button-icon-only-lg-inline-size: var(--sl-text-typeset-line-height-lg);
-  --sl-component-button-icon-only-lg-border-radius: var(--sl-border-radius-full);
   --sl-component-button-icon-only-md-inline-size: var(--sl-text-typeset-line-height-sm);
-  --sl-component-button-icon-only-md-border-radius: var(--sl-border-radius-full);
   --sl-component-button-icon-only-sm-inline-size: var(--sl-text-typeset-line-height-sm);
-  --sl-component-button-icon-only-sm-border-radius: var(--sl-border-radius-full);
   --sl-component-button-link-danger-disabled-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-danger-focus-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-danger-active-border-color: rgb(var(--sl-color-palette-transparent-base));
@@ -507,12 +504,6 @@
   --sl-component-button-solid-md-padding-block: calc(var(--sl-space-sm) - var(--sl-control-sm-border-width));
   --sl-component-button-solid-sm-padding-inline: calc(var(--sl-space-lg) - var(--sl-control-sm-border-width));
   --sl-component-button-solid-sm-padding-block: calc(var(--sl-space-xs) - var(--sl-control-sm-border-width));
-  --sl-component-button-default-lg-padding-inline: calc(var(--sl-space-lg) - var(--sl-control-sm-border-width));
-  --sl-component-button-default-lg-padding-block: calc(var(--sl-space-sm) - var(--sl-control-sm-border-width));
-  --sl-component-button-default-md-padding-inline: calc(var(--sl-space-lg) - var(--sl-control-sm-border-width));
-  --sl-component-button-default-md-padding-block: calc(var(--sl-space-sm) - var(--sl-control-sm-border-width));
-  --sl-component-button-default-sm-padding-inline: calc(var(--sl-space-lg) - var(--sl-control-sm-border-width));
-  --sl-component-button-default-sm-padding-block: calc(var(--sl-space-xs) - var(--sl-control-sm-border-width));
   --sl-component-button-md: [object Object];
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);

@@ -127,7 +127,7 @@
       },
       "neutral": {
         "50": {
-          "value": "#f3f3f3",
+          "value": "#F6F8F8",
           "type": "color",
           "description": "color.palette.neutral.50"
         },
@@ -182,7 +182,7 @@
           "description": "color.palette.neutral.900"
         },
         "base": {
-          "value": "#222222",
+          "value": "#323232",
           "type": "color",
           "description": "color.palette.neutral.base"
         }
@@ -436,14 +436,14 @@
       },
       "black": {
         "base": {
-          "value": "#222222",
+          "value": "#323232",
           "type": "color",
           "description": "color.palette.black.base"
         }
       },
       "white": {
         "base": {
-          "value": "#FEFEFE",
+          "value": "#F6F8F8",
           "type": "color",
           "description": "color.palette.white.base"
         }
@@ -1554,7 +1554,7 @@
         "description": "icon.core.chevron-down"
       },
       "check": {
-        "value": "chevron-down",
+        "value": "check",
         "type": "Icons",
         "description": "icon.core.check"
       },

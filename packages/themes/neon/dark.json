@@ -1567,7 +1567,7 @@
             },
             "hover": {
               "background": {
-                "value": "rgba( {color.palette.primary.150} ,{opacity.300})",
+                "value": "rgba({body.foreground},{opacity.100})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -1593,7 +1593,7 @@
             },
             "active": {
               "background": {
-                "value": "rgba({color.palette.primary.150},{opacity.500})",
+                "value": "rgba({body.foreground},{opacity.200})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true

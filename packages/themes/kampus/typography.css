@@ -12,7 +12,7 @@
 
 .sl-text-input-option-label-md {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
+  font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-md);
 }
@@ -48,7 +48,7 @@
 
 .sl-text-button-text-sm {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
+  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
 }

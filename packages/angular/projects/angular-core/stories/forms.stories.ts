@@ -6,7 +6,7 @@ import {
   FormControl,
   FormGroup,
   FormsModule,
-  NgForm,
+  NgForm, NgModel,
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
@@ -231,6 +231,7 @@ export class ReactiveFormComponent {
       {{ this.model.name }} {{ this.model.name.length }}
       <div>error message example</div>
       <div>hint example</div>
+      <div *ngIf="inputWithNgmodel.hasError('required')">Field is required</div>
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" [(ngModel)]="model.description" name="description"></sl-textarea>
       <sl-label for="checkboxWithNgmodel">Checkbox</sl-label>
@@ -244,7 +245,7 @@ export class ReactiveFormComponent {
       </sl-radio-group>
       <sl-button type="submit" variant="primary">Submit</sl-button>
       <sl-button type="reset" variant="primary" (click)="myForm.reset()">Reset</sl-button>
-      <div>Name: <i>{{model.name}}</i> valid? {{inputWithNgmodel.valid}} <strong>errors?</strong> {{inputWithNgmodel.control.errors | json}}</div>
+      <div>Name: <i>{{model.name}}</i> valid? {{inputWithNgmodel.valid}} <strong>errors?</strong> {{inputWithNgmodel.control.errors | json}} <strong>touched?</strong> {{inputWithNgmodel.control.touched }}</div>
       <div>Description: <i>{{model.description}}</i></div>
       <div>Approval: <i>{{model.approval}}</i> valid? {{checkboxWithNgmodel.valid}}</div><i>errors? {{checkboxWithNgmodel.control.errors | json}}</i>
       <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>
@@ -260,6 +261,8 @@ export class TemplateFormComponent implements OnInit, OnChanges {
 
   @ViewChild('myForm', { static: false }) myForm!: NgForm;
 
+  @ViewChild('inputWithNgmodel', { static: false }) inputWithNgmodel!: NgModel;
+
   submitted = false;
 
   ngOnInit(): void {
@@ -274,9 +277,13 @@ export class TemplateFormComponent implements OnInit, OnChanges {
         control.markAsPristine();
       });
     }
+
+    // this.inputWithNgmodel?.valueChanges.subscribe(value => {
+    //   console.log('inputWithNgmodel?.valueChanges.subscribe', value); // Handle the form control value changes
+    // });
   }
 
-  onChange(e) {
+  onChange(e: Event) {
     // let whatChanged = e.target.getAttribute('ng-reflect-name');
     // let newValue = this[whatChanged];
     // console.log('onchange____checkbox', whatChanged, newValue, e.target);
@@ -294,19 +301,27 @@ export class TemplateFormComponent implements OnInit, OnChanges {
   }
 
   onInput(event: Event): void {
-    console.log('oninput event', event.target);
-    event.preventDefault();
-    event.stopPropagation();
-    if (!this.submitted && this.myForm) {
-      Object.values(this.myForm.controls).forEach(control => {
-        console.log('oninput event inside for each');
-        //control.errors = {};
-        control.markAsUntouched();
-        control.markAsPristine();
-        control.clearValidators();
-        // control.updateValueAndValidity();
-      });
+    console.log('oninput event', event.target, this.submitted);
+
+    if (!this.submitted) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
     }
+
+    // event.preventDefault();
+    // event.stopPropagation();
+    //
+    // if (!this.submitted && this.myForm) {
+    //   Object.values(this.myForm.controls).forEach(control => {
+    //     console.log('oninput event inside for each');
+    //     //control.errors = {};
+    //     control.markAsUntouched();
+    //     control.markAsPristine();
+    //     control.clearValidators();
+    //     // control.updateValueAndValidity();
+    //   });
+    // }
   }
 
   ngOnChanges(changes: SimpleChanges) {

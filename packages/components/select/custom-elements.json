@@ -204,7 +204,7 @@
               "type": {
                 "text": "{ width: number; height: number }"
               },
-              "default": "{ width: 0, height: 0 }",
+              "default": "{ width: 200, height: 32 }",
               "attribute": "size",
               "reflects": true
             },
@@ -258,7 +258,7 @@
               "type": {
                 "text": "{ width: number; height: number }"
               },
-              "default": "{ width: 0, height: 0 }",
+              "default": "{ width: 200, height: 32 }",
               "fieldName": "size"
             }
           ],
@@ -418,6 +418,20 @@
             },
             {
               "kind": "field",
+              "name": "button",
+              "type": {
+                "text": "HTMLButtonElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "formAssociated",
               "type": {
                 "text": "boolean"
@@ -440,23 +454,6 @@
               "attribute": "maxOverlayHeight"
             },
             {
-              "kind": "method",
-              "name": "openSelect",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
               "kind": "field",
               "name": "optionGroups",
               "type": {
@@ -470,13 +467,6 @@
                 "text": "SelectOption[] | undefined"
               },
               "description": "The slotted options."
-            },
-            {
-              "kind": "field",
-              "name": "overlay",
-              "type": {
-                "text": "SelectOverlay | undefined"
-              }
             },
             {
               "kind": "field",

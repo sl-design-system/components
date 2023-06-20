@@ -28,3 +28,7 @@
   opacity: 0.6;
   pointer-events: none;
 }
+
+:host(:is(:hover)) {
+  background-color: var(--sl-color-button-default-default-hover-background);
+}

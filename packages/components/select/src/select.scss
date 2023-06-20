@@ -8,7 +8,7 @@
 
 :host {
   align-items: center;
-  display: inline-flex;
+  display: flex;
   gap: var(--_gap);
 }
 
@@ -17,6 +17,8 @@ dialog {
   margin: 0;
   padding: 0;
   position: absolute;
+  display: none;
+  opacity: 0;
 
   background-color: #fff;
   flex-direction: column;
@@ -24,7 +26,6 @@ dialog {
   max-height: var(--_max-overlay-height);
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;
-  pointer-events: none;
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 
@@ -38,7 +39,6 @@ dialog:popover-open {
 button {
   --_background: var(--sl-color-button-default-default-idle-background);
   --_border-color: var(--sl-color-button-default-default-idle-border);
-  --_box-shadow: var(--sl-box-shadow-button-default-default-idle);
   --_color: var(--sl-color-button-default-default-idle-foreground);
   --_transform: var(--sl-transform-button-default-default-idle);
   --_padding-block: var(--sl-space-button-default-block-md);
@@ -51,11 +51,12 @@ button {
   border: var(--_border-width) solid var(--_border-color);
   box-shadow: var(--_box-shadow);
   display: grid;
+  flex: 1 1 auto;
   font: var(--_font);
   gap: var(--_gap);
   grid-template-columns: auto 24px;
-  justify-items: center;
   padding: 0;
+  text-align: start;
   transition-property: background, border, box-shadow, color, filter;
   transition: 0.2s ease-in-out;
 
@@ -70,7 +71,7 @@ button {
     padding-inline: 0;
   }
 
-  &:focus,
+  &:focus-within,
   &:focus-visible {
     --_background: var(--sl-color-button-default-default-focus-background);
     --_border-color: var(--sl-color-button-default-default-focus-border);
@@ -79,8 +80,8 @@ button {
     outline: none;
   }
 
-  &:focus-visible {
-    --_box-shadow: var(--sl-box-shadow-button-default-default-focus, var(--sl-box-shadow-button-focus, none));
+  &:focus-visible, &:focus-within  {
+    --_box-shadow: var(--sl-box-shadow-focus);
   }
 
   &:hover {

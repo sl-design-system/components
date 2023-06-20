@@ -21,10 +21,6 @@ export class SelectOption extends LitElement {
   /** Whether the content of the option item is a node*/
   @property({ reflect: true }) contentType?: 'string' | 'element';
 
-  @property({ reflect: true }) size: { width: number; height: number } = { width: 200, height: 32 };
-
-  #observer?: ResizeObserver;
-
   /** Get the selected tab button, or the first tab button. */
   get #tabIndex(): string | null {
     return this.getAttribute('tabIndex');
@@ -45,33 +41,11 @@ export class SelectOption extends LitElement {
     this.setAttribute('role', 'option');
   }
 
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
-
-    this.#observer?.disconnect();
-  }
-
-  override firstUpdated(): void {
-    this.#observer = new ResizeObserver(m => this.#handleResize(m));
-    this.#observer?.observe(this);
-  }
-
   override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
   async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
     this.contentType = event.target.assignedNodes()[0].nodeType === 1 ? 'element' : 'string';
-    this.size = { width: this.getBoundingClientRect().width, height: this.getBoundingClientRect().height };
-  }
-
-  #handleResize(mutations: ResizeObserverEntry[]): void {
-    mutations.forEach(mutation => {
-      console.log('handleResize', mutation.borderBoxSize, mutation.contentRect, mutation.contentBoxSize);
-      this.size = {
-        width: mutation.borderBoxSize[0].inlineSize,
-        height: mutation.borderBoxSize[0].blockSize
-      };
-    });
   }
 }

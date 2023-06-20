@@ -12,7 +12,6 @@ import {
 import { computePosition } from '@floating-ui/dom';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
 
@@ -44,7 +43,6 @@ export class Select extends FormControlMixin(LitElement) {
   @query('button') button?: HTMLButtonElement;
 
   /** render helpers */
-  @property() size?: { width: string; height: string } = { width: '500px', height: '32px' };
   @property() maxOverlayHeight?: string;
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
@@ -75,7 +73,7 @@ export class Select extends FormControlMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <button id=${this.#selectId} tabindex="0" class="select-toggle" popovertarget="dialog-${this.#selectId}">
-        <span id="selectedOption" style=${styleMap(this.size || {})}></span>
+        <span id="selectedOption"></span>
         <sl-icon name="chevron-down"></sl-icon>
       </button>
       <dialog
@@ -143,13 +141,6 @@ export class Select extends FormControlMixin(LitElement) {
         this.#updateSelectedOption(selectedOption);
         this.#observer?.observe(this, Select.#observerOptions);
       }
-      if (mutation.attributeName === 'size') {
-        console.log('size mutation', mutation);
-
-        this.#observer?.disconnect();
-        this.#updateSize();
-        this.#observer?.observe(this, Select.#observerOptions);
-      }
     });
   }
 
@@ -197,21 +188,6 @@ export class Select extends FormControlMixin(LitElement) {
   }
 
   /**
-   * Find the largest option and set the select to that width
-   */
-  #updateSize(): void {
-    const sizes = this.allOptions ? this.allOptions.map(o => o.size) : [];
-    console.log(sizes);
-
-    const maxWidth = Math.max(...sizes.map(s => s.width));
-    const maxHeight = Math.max(...sizes.map(s => s.height));
-    this.size = {
-      width: maxWidth > 0 ? `${maxWidth}px` : 'auto',
-      height: maxHeight > 0 ? `${maxHeight}px` : 'auto'
-    };
-  }
-
-  /**
    * Copy the value/represenation of the selected option to the placeholder
    */
   #setSelectedOptionVisible(option: SelectOption): void {
@@ -247,11 +223,12 @@ export class Select extends FormControlMixin(LitElement) {
 
   #positionPopover(event: ToggleEvent): void {
     if (event.newState === 'open' && this.button && this.dialog) {
-      void computePosition(this.button, this.dialog).then(({ x, y }) => {
+      void computePosition(this.button, this.dialog, { placement: 'bottom-start' }).then(({ x, y }) => {
         if (this.dialog) {
           Object.assign(this.dialog.style, {
             left: `${x}px`,
-            top: `${y}px`
+            top: `${y}px`,
+            width: '100%'
           });
         }
       });

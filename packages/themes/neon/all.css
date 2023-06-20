@@ -330,7 +330,7 @@
   --sl-border-width-button-default: var(--sl-border-width-xs);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
-  --sl-border-radius-default: var(--sl-border-radius-3xs);
+  --sl-border-radius-default: var(--sl-border-radius-sm);
   --sl-border-radius-button-icon-only-lg: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-md: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-sm: var(--sl-border-radius-full);
@@ -490,13 +490,11 @@
       var(--sl-color-palette-accent-base) / var(--sl-opacity-100)
     );
     --sl-color-input-text-field-default-hover-icon: rgb(var(--sl-color-palette-neutral-400));
-    --sl-color-input-text-field-default-hover-background: rgba(
-      var(--sl-color-palette-accent-base) / var(--sl-opacity-300)
-    );
+    --sl-color-input-text-field-default-hover-background: rgb(var(--sl-color-palette-primary-50));
     --sl-color-input-text-field-default-default-placeholder: rgb(var(--sl-color-palette-neutral-600));
-    --sl-color-input-text-field-default-default-icon: rgb(var(--sl-color-palette-neutral-400));
-    --sl-color-input-text-field-default-default-border: rgb(var(--sl-color-palette-neutral-400));
-    --sl-color-input-text-field-default-default-background: rgb(var(--sl-color-palette-transparent-base));
+    --sl-color-input-text-field-default-default-icon: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-input-text-field-default-default-border: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-input-text-field-default-default-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-switch-default-checked-disabled-handle: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-switch-default-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-input-switch-default-checked-disabled-background: rgb(var(--sl-color-palette-success-150));

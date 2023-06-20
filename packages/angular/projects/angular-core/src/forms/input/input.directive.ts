@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   Directive,
   ElementRef,
@@ -39,7 +40,7 @@ import {Observable, Subject, Subscription} from "rxjs";
   ]
 })
 
-export class InputDirective implements ControlValueAccessor, Validator, AfterViewInit {
+export class InputDirective implements ControlValueAccessor, Validator, AfterViewInit, AfterViewChecked {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
@@ -75,8 +76,9 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
     if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
-      this.onTouched();
+      //this.onTouched(); // TODO: onTouched is necessary?
       this.elementRef.nativeElement.input.value = val;
+      this.validatorOnChange();
     }
     console.log('val in set value after if', val, this.value, this.elementRef.nativeElement.input.value, this._value);
   }
@@ -136,6 +138,8 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
   ngAfterViewInit() {
     const inputElement = this.elementRef.nativeElement.querySelector('input');
 
+    console.log('input in ngafterviewinit', inputElement);
+
     // if (inputElement) {
     //   const onInvalidListener = () => {
     //     this.validate(inputElement);
@@ -162,6 +166,18 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
       this.#validation.validate(this.value);
     });
 
+  }
+
+  ngAfterViewChecked() {
+    const inputElement = this.elementRef.nativeElement.querySelector('input');
+
+    console.log('input in ngAfterViewChecked', inputElement);
+
+    this.validatorOnChange(); // TODO: helps wirth delay, but not working yet on submitting
+
+    // this.elementRef.nativeElement.addEventListener('invalid', () => {
+    //   this.#validation.validate(this.value);
+    // });
   }
 
   // applyCustomValidationState(): void {
@@ -254,9 +270,12 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
     //   this.#validation.setCustomValidity('');
     // }
 
-    if (control.untouched) {
+    console.log('in input validate control controlll', control, control.untouched);
+
+    if (control.untouched /*&& control.pristine*/) {
       console.log('in input validate control untouched');
-      return control.errors;
+      // return control.errors; // TODO: return null or not causing invalid?
+      return null;
     }
 
 
@@ -338,10 +357,13 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
   listenForValueChange(value: any): void {
     console.log('input event on input', value);
     this.value = value;
+    // this.onTouched();
     // this.validatorOnChange();
 
     console.log('this.elementRef.nativeElement.validators', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
   }
+
+  // @HostListener('invalid', ['$event.target.value'])
 
   // parseValidator: ValidatorFn = (): ValidationErrors | null => {
   //   return this.value ? null : { inputParse: { text: this.elementRef.nativeElement.value } };

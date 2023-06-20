@@ -299,7 +299,7 @@ export class ValidationController implements ReactiveController {
     if (isNative(this.target)) {
       this.#host.setAttribute('invalid', '');
       this.target.ariaInvalid = 'true';
-      // this.#host.requestUpdate();
+      // this.#host.requestUpdate(); // TODO: maybe remove this one?
     }
     console.log(
       'in render setInvalidState target etc. should have invalid attribute',
@@ -315,7 +315,7 @@ export class ValidationController implements ReactiveController {
     this.#removeValidationMessage();
     this.#host.removeAttribute('invalid');
     this.target.ariaInvalid = null;
-    // this.#host.requestUpdate();
+    // this.#host.requestUpdate(); // TODO: maybe remove this one?
   }
 
   #updateValidationMessage(): void {

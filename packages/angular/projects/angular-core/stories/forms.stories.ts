@@ -10,7 +10,15 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import {Component, CUSTOM_ELEMENTS_SCHEMA, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
 import {InputDirective} from "../src/forms";
@@ -227,7 +235,7 @@ export class ReactiveFormComponent {
   template: `
     <form #myForm="ngForm" (ngSubmit)="onSubmit(model, myForm)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" [(ngModel)]="model.name" (input)="onInput($event); inputWithNgmodel.control.markAsUntouched(); inputWithNgmodel.control.markAsPristine()" #inputWithNgmodel="ngModel" name="name" minlength="8" required></sl-text-input>
+      <sl-text-input id="my-value" [(ngModel)]="model.name" (input)="onInput($event);" #inputWithNgmodel="ngModel" name="name" minlength="8" required></sl-text-input>
       {{ this.model.name }} {{ this.model.name.length }}
       <div>error message example</div>
       <div>hint example</div>
@@ -245,7 +253,12 @@ export class ReactiveFormComponent {
       </sl-radio-group>
       <sl-button type="submit" variant="primary">Submit</sl-button>
       <sl-button type="reset" variant="primary" (click)="myForm.reset()">Reset</sl-button>
-      <div>Name: <i>{{model.name}}</i> valid? {{inputWithNgmodel.valid}} <strong>errors?</strong> {{inputWithNgmodel.control.errors | json}} <strong>touched?</strong> {{inputWithNgmodel.control.touched }}</div>
+      <div>
+        Name: <i>{{model.name}}</i> valid? {{inputWithNgmodel.valid}}
+        <strong>errors?</strong> {{inputWithNgmodel.control.errors | json}}
+        <strong>touched?</strong> {{inputWithNgmodel.control.touched }}
+        <strong>pristine?</strong> {{inputWithNgmodel.control.pristine }}
+      </div>
       <div>Description: <i>{{model.description}}</i></div>
       <div>Approval: <i>{{model.approval}}</i> valid? {{checkboxWithNgmodel.valid}}</div><i>errors? {{checkboxWithNgmodel.control.errors | json}}</i>
       <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>
@@ -256,8 +269,9 @@ export class ReactiveFormComponent {
   `
 }) // TODO: after form submitted and after form control touched
 // TODO: reportvalidity ?
-export class TemplateFormComponent implements OnInit, OnChanges {
-  model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
+export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewInit {
+  // model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
+  model = new Person(1, '', 'Short description of John', false, { value: null, text: '' });
 
   @ViewChild('myForm', { static: false }) myForm!: NgForm;
 
@@ -271,7 +285,12 @@ export class TemplateFormComponent implements OnInit, OnChanges {
     //     control.markAsTouched();
     //   })
     // }
-    if (!this.submitted && this.myForm) {
+    console.log('ngoninit in form before if', this.submitted, this.myForm);
+
+    if (!this.submitted && !!this.myForm) {
+      this.inputWithNgmodel.control.markAsUntouched();
+      this.inputWithNgmodel.control.markAsPristine();
+      console.log('ngoninit in form');
       Object.values(this.myForm.controls).forEach(control => {
         control.markAsUntouched();
         control.markAsPristine();
@@ -283,7 +302,9 @@ export class TemplateFormComponent implements OnInit, OnChanges {
     // });
   }
 
-  onChange(e: Event) {
+/*  onChange(e: Event) {
+    console.log('ngonchanges in form before if', this.submitted, this.myForm);
+
     // let whatChanged = e.target.getAttribute('ng-reflect-name');
     // let newValue = this[whatChanged];
     // console.log('onchange____checkbox', whatChanged, newValue, e.target);
@@ -291,42 +312,81 @@ export class TemplateFormComponent implements OnInit, OnChanges {
     // (e.target as FormControl).markAsPristine();
     // checkboxWithNgmodel.control.markAsUntouched(); checkboxWithNgmodel.control.markAsPristine()
     e.preventDefault();
-    if (!this.submitted && this.myForm) {
+    if (!this.submitted && !!this.myForm) {
+      this.inputWithNgmodel.control.markAsUntouched();
+      this.inputWithNgmodel.control.markAsPristine();
       Object.values(this.myForm.controls).forEach(control => {
         control.markAsUntouched();
         control.markAsPristine();
         //control.updateValueAndValidity();
       });
     }
+  }*/
+
+  ngAfterViewInit() {
+    console.log('ngafterviewinit in form before if', this.submitted, this.myForm);
+
+   // e.preventDefault();
+
+    this.myForm.form.markAsUntouched();
+
+    Object.values(this.myForm.controls).forEach(control => {
+      control.markAsUntouched();
+      control.markAsPristine();
+    });
+
+    if (!this.submitted && !!this.myForm) {
+      console.log('ngafterviewinit in form', this.myForm.form.controls, this.myForm.controls, Array.of(this.myForm.controls), this.inputWithNgmodel);
+      this.inputWithNgmodel.control.markAsUntouched();
+      this.inputWithNgmodel.control.markAsPristine();
+      Object.values(this.myForm.form.controls).forEach(control => {
+        console.log('ngafterviewinit in form for each', this.myForm.form.controls, this.myForm.controls, control);
+        control.markAsUntouched();
+        control.markAsPristine();
+      });
+    }
   }
 
   onInput(event: Event): void {
-    console.log('oninput event', event.target, this.submitted);
+    console.log('oninput event', event.target, this.submitted, this.myForm, !this.submitted, !this.submitted && !!this.myForm);
+    console.log('oninput event check condition', !this.submitted && !!this.myForm);
 
-    if (!this.submitted) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
+    // if (!this.submitted) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    //   this.inputWithNgmodel.control.markAsUntouched();
+    //   this.inputWithNgmodel.control.markAsPristine();
+    //   return;
+    // }
+
+   // this.inputWithNgmodel.control.updateValueAndValidity();
 
     // event.preventDefault();
     // event.stopPropagation();
     //
-    // if (!this.submitted && this.myForm) {
-    //   Object.values(this.myForm.controls).forEach(control => {
-    //     console.log('oninput event inside for each');
-    //     //control.errors = {};
-    //     control.markAsUntouched();
-    //     control.markAsPristine();
-    //     control.clearValidators();
-    //     // control.updateValueAndValidity();
-    //   });
-    // }
+    if (!this.submitted /*&& !!this.myForm*/) {
+      console.log('oninput event inside if');
+      this.inputWithNgmodel.control.markAsUntouched();
+      this.inputWithNgmodel.control.markAsPristine();
+      Object.values(this.myForm.controls).forEach(control => {
+        console.log('oninput event inside for each');
+        //control.errors = {};
+        control.markAsUntouched();
+        control.markAsPristine();
+       //control.clearValidators();
+        // control.updateValueAndValidity();
+      });
+    } else {
+      console.log('oninput event inside else');
+      this.inputWithNgmodel.control.markAsTouched();
+      this.inputWithNgmodel.control.markAsDirty();
+      this.inputWithNgmodel.control.updateValueAndValidity();
+    }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('changes in ngonchanges', changes);
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   console.log('changes in ngonchanges', changes);
+  // }
 
   onRadioValueChange(event: any): void {
     this.model.option.value = event.value;
@@ -364,6 +424,10 @@ export class TemplateFormComponent implements OnInit, OnChanges {
       control.markAsTouched();
       control.updateValueAndValidity();
     });
+
+    this.inputWithNgmodel.control.markAsTouched();
+    this.inputWithNgmodel.control.markAsDirty();
+    this.inputWithNgmodel.control.updateValueAndValidity();
 
     this.submitted = true;
 

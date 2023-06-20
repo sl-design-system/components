@@ -1296,7 +1296,7 @@
       }
     },
     "default": {
-      "value": "{border.radius.3xs}",
+      "value": "{border.radius.sm}",
       "type": "borderRadius",
       "description": "borderRadius.button"
     },

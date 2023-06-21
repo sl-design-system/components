@@ -7,6 +7,7 @@
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   white-space: nowrap;
+  box-shadow: var(--_box-shadow,none);
 }
 
 :host([contenttype='string']) {
@@ -32,3 +33,12 @@
 :host(:is(:hover)) {
   background-color: var(--sl-color-button-default-default-hover-background);
 }
+
+:host(:is(:focus)) {
+  outline: 2px solid cornflowerblue;
+  outline-offset: 2px;
+}
+
+// :host(:where(:focus-visible, :focus-within))  {
+//   --_box-shadow: var(--sl-box-shadow-focus);
+// }

@@ -200,16 +200,6 @@
             },
             {
               "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "{ width: number; height: number }"
-              },
-              "default": "{ width: 200, height: 32 }",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "value",
               "type": {
                 "text": "FormControlValue | undefined"
@@ -252,14 +242,6 @@
               },
               "description": "Whether the content of the option item is a node",
               "fieldName": "contentType"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "{ width: number; height: number }"
-              },
-              "default": "{ width: 200, height: 32 }",
-              "fieldName": "size"
             }
           ],
           "superclass": {
@@ -451,6 +433,7 @@
               "type": {
                 "text": "string | undefined"
               },
+              "description": "render helpers",
               "attribute": "maxOverlayHeight"
             },
             {
@@ -474,33 +457,15 @@
               "type": {
                 "text": "HTMLElement | undefined"
               }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "{ width: string; height: string } | undefined"
-              },
-              "default": "{ width: '500px', height: '32px' }",
-              "description": "render helpers",
-              "attribute": "size"
             }
           ],
           "attributes": [
-            {
-              "name": "size",
-              "type": {
-                "text": "{ width: string; height: string } | undefined"
-              },
-              "default": "{ width: '500px', height: '32px' }",
-              "description": "render helpers",
-              "fieldName": "size"
-            },
             {
               "name": "maxOverlayHeight",
               "type": {
                 "text": "string | undefined"
               },
+              "description": "render helpers",
               "fieldName": "maxOverlayHeight"
             }
           ],

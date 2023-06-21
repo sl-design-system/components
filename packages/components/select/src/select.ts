@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { SelectOptionGroup } from './select-option-group.js';
-// import type { ToggleEvent } from '@oddbird/popover-polyfill';
+// import '@oddbird/popover-polyfill';
 import {
   FormControlMixin,
   RovingTabindexController,
@@ -153,6 +153,9 @@ export class Select extends FormControlMixin(LitElement) {
     if (!event.target || !(selectOption instanceof SelectOption)) return;
 
     this.#updateSelectedOption(selectOption);
+
+    if (!this.dialog?.hidePopover) return; // we can remove this check when Typescript knows the PopoverApi
+    this.dialog.hidePopover();
   }
 
   /**
@@ -180,9 +183,6 @@ export class Select extends FormControlMixin(LitElement) {
           this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
         );
         this.#setSelectedOptionVisible(option);
-
-        if (!this.dialog?.hidePopover) return; // we can remove this check when Typescript knows the PopoverApi
-        this.dialog.hidePopover();
       }
     });
   }
@@ -224,11 +224,11 @@ export class Select extends FormControlMixin(LitElement) {
   #positionPopover(event: ToggleEvent): void {
     if (event.newState === 'open' && this.button && this.dialog) {
       void computePosition(this.button, this.dialog, { placement: 'bottom-start' }).then(({ x, y }) => {
-        if (this.dialog) {
+        if (this.dialog && this.button) {
           Object.assign(this.dialog.style, {
             left: `${x}px`,
             top: `${y}px`,
-            width: '100%'
+            width: `${this.button.getBoundingClientRect().width}px`
           });
         }
       });

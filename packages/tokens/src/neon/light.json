@@ -1085,7 +1085,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.danger.150}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -1097,7 +1097,7 @@
               "description": "color.button.danger.solid.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.button.danger.solid.disabled.foreground"
             },
@@ -1172,7 +1172,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.danger.150}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -1184,12 +1184,12 @@
               "description": "color.button.danger.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.border"
             }
@@ -1198,7 +1198,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.transparent.base}",
               "type": "color"
             },
             "foreground": {
@@ -1206,13 +1206,13 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.transparent.base}",
               "type": "color"
             }
           },
           "hover": {
             "background": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.danger.100}",
               "type": "color"
             },
             "foreground": {
@@ -1220,13 +1220,13 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.danger.100}",
               "type": "color"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.danger.150}",
               "type": "color"
             },
             "foreground": {
@@ -1234,13 +1234,13 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.danger.150}",
               "type": "color"
             }
           },
           "focus": {
             "background": {
-              "value": "{color.palette.danger.800}",
+              "value": "rgba({body.background},{opacity.100})",
               "type": "color"
             },
             "foreground": {
@@ -1248,21 +1248,21 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.danger.800}",
+              "value": "rgba({body.background},{opacity.100})",
               "type": "color"
             }
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.transparent.base}",
               "type": "color"
             },
             "foreground": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.neutral.400}",
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.transparent.base}",
               "type": "color"
             }
           }

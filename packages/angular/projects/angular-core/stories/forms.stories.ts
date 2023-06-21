@@ -11,13 +11,15 @@ import {
   Validators
 } from '@angular/forms';
 import {
+  AfterViewChecked,
   AfterViewInit,
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA, EventEmitter,
   OnChanges,
   OnInit,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  Output, ElementRef, Renderer2
 } from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
@@ -235,7 +237,7 @@ export class ReactiveFormComponent {
   template: `
     <form #myForm="ngForm" (ngSubmit)="onSubmit(model, myForm)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" [(ngModel)]="model.name" (input)="onInput($event);" #inputWithNgmodel="ngModel" name="name" minlength="8" required></sl-text-input>
+      <sl-text-input id="my-value" placeholder="type at least 8 characters" [(ngModel)]="model.name" (input)="onInput($event);" #inputWithNgmodel="ngModel" name="name" minlength="8" required></sl-text-input>
       {{ this.model.name }} {{ this.model.name.length }}
       <div>error message example</div>
       <div>hint example</div>
@@ -269,7 +271,7 @@ export class ReactiveFormComponent {
   `
 }) // TODO: after form submitted and after form control touched
 // TODO: reportvalidity ?
-export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewInit {
+export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewInit, AfterViewChecked {
   // model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
   model = new Person(1, '', 'Short description of John', false, { value: null, text: '' });
 
@@ -277,7 +279,17 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
 
   @ViewChild('inputWithNgmodel', { static: false }) inputWithNgmodel!: NgModel;
 
+ // @ViewChild('inputWithNgmodel') myInputRef!: ElementRef;
+
+  @ViewChild('inputWithNgmodel', { static: true, read: ElementRef })
+  myInputRef!: ElementRef<HTMLInputElement>;
+
+  @Output() invalidEvent: EventEmitter<void> = new EventEmitter<void>();
+
   submitted = false;
+
+  constructor(private renderer: Renderer2) {
+  }
 
   ngOnInit(): void {
     // if (this.myForm.submitted) {
@@ -347,6 +359,19 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     }
   }
 
+  ngAfterViewChecked() {
+    console.log('ngafterviewchecked in form before if', this.submitted, this.myForm);
+
+    // if (this.submitted) {
+    //   Object.values(this.myForm.controls).forEach(control => {
+    //     console.log('control on ngafterviewchecked after submit', control);
+    //     control.markAsTouched();
+    //     control.markAsDirty();
+    //     control.updateValueAndValidity();
+    //   });
+    // }
+  }
+
   onInput(event: Event): void {
     console.log('oninput event', event.target, this.submitted, this.myForm, !this.submitted, !this.submitted && !!this.myForm);
     console.log('oninput event check condition', !this.submitted && !!this.myForm);
@@ -414,14 +439,22 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
   }
 
   onSubmit(model: Person, form: NgForm): void {
-    alert(`form submit: Name: ${model.name},
-          Description: ${model.description},
-          Approval: ${model.approval},
-          Option: ${model.option.value} ${model.option.text}`);
+    // alert(`form submit: Name: ${model.name},
+    //       Description: ${model.description},
+    //       Approval: ${model.approval},
+    //       Option: ${model.option.value} ${model.option.text}`);
     // form.controls.markAsTouched();
 
+    requestAnimationFrame(() => {
+
+    this.submitted = true;
+
+    // this.inputWithNgmodel.control.updateValueAndValidity();
+
     Object.values(form.controls).forEach(control => {
+      console.log('control on submit', control);
       control.markAsTouched();
+      control.markAsDirty();
       control.updateValueAndValidity();
     });
 
@@ -429,7 +462,31 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     this.inputWithNgmodel.control.markAsDirty();
     this.inputWithNgmodel.control.updateValueAndValidity();
 
-    this.submitted = true;
+    });
+
+    // this.onInput(this.inputWithNgmodel.control.value);
+
+    //this.renderer.setProperty(this.myInputRef.nativeElement, 'validity', {valid: false});
+
+    //this.invalidEvent.emit();
+
+    //this.inputWithNgmodel.dispatchEvent(new Event('invalid'));
+    // (this.inputWithNgmodel as ElementRef).nativeElement.dispatchEvent(new Event('invalid'));
+    // this.myInputRef.nativeElement?.dispatchEvent(new Event('invalid'));
+/*    console.log('this.myInputRef.nativeElement on submit', this.myInputRef);
+    this.myInputRef.nativeElement.dispatchEvent(new Event('invalid', { bubbles: true }));*/
+
+   // this.inputWithNgmodel.control.registerOnChange(() => {});
+
+
+    // this.inputWithNgmodel.viewToModelUpdate(this.inputWithNgmodel.control.value);
+
+    alert(`form submit: Name: ${model.name},
+          Description: ${model.description},
+          Approval: ${model.approval},
+          Option: ${model.option.value} ${model.option.text}`);
+
+    // this.submitted = true;
 
     if (form.valid) {
       alert('form submitted');

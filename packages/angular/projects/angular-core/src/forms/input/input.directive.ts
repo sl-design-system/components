@@ -5,9 +5,9 @@ import {
   ElementRef,
   forwardRef,
   HostListener, Inject,
-  Injector,
+  Injector, OnChanges,
   Optional,
-  Renderer2, Self
+  Renderer2, Self, SimpleChanges
 } from '@angular/core';
 import {
   AbstractControl,
@@ -40,7 +40,7 @@ import {Observable, Subject, Subscription} from "rxjs";
   ]
 })
 
-export class InputDirective implements ControlValueAccessor, Validator, AfterViewInit, AfterViewChecked {
+export class InputDirective implements ControlValueAccessor, Validator, AfterViewInit, AfterViewChecked, OnChanges {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
@@ -80,6 +80,7 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
       this.elementRef.nativeElement.input.value = val;
       this.validatorOnChange();
     }
+    this.validatorOnChange();
     console.log('val in set value after if', val, this.value, this.elementRef.nativeElement.input.value, this._value);
   }
 
@@ -135,6 +136,10 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
 
   // TODO: use setValidation from validation.ts?
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes in ngOnchanges', changes);
+  }
+
   ngAfterViewInit() {
     const inputElement = this.elementRef.nativeElement.querySelector('input');
 
@@ -166,14 +171,20 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
       this.#validation.validate(this.value);
     });
 
+    // this.validatorOnChange();
+
   }
 
   ngAfterViewChecked() {
     const inputElement = this.elementRef.nativeElement.querySelector('input');
 
-    console.log('input in ngAfterViewChecked', inputElement);
+    console.log('input in ngAfterViewChecked', inputElement, this._value);
+
+   // this.onChange(this._value);
 
     this.validatorOnChange(); // TODO: helps wirth delay, but not working yet on submitting
+
+    this.#validation.validate(this.value);
 
     // this.elementRef.nativeElement.addEventListener('invalid', () => {
     //   this.#validation.validate(this.value);
@@ -202,6 +213,9 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
     const input: HTMLInputElement = nativeElement.querySelector('input') as HTMLInputElement;
     console.log('nativeElement in validate',control, control.status, nativeElement, nativeElement.validity?.valid, input, control.errors, this.elementRef.nativeElement.validity); // reportValidity
     //console.log('nativeElement in validate',this.value, control,  nativeElement, nativeElement.validity?.valid, input, control.errors, this.elementRef.nativeElement.internals); // reportValidity
+
+
+   // debugger;
 
     /*    if (/!*nativeElement.checkValidity()*!/ input.checkValidity()) {
           return null;
@@ -273,19 +287,23 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
     console.log('in input validate control controlll', control, control.untouched);
 
     if (control.untouched /*&& control.pristine*/) {
-      console.log('in input validate control untouched');
+      console.log('in input validate control untouched', control);
       // return control.errors; // TODO: return null or not causing invalid?
       return null;
-    }
+    } /*else {
+      console.log('in input validate control  else', control);
+      return control.errors;
+    }*/
 
 
-    if (input.checkValidity() /*control.invalid && control.touched*/ /*input.reportValidity()*/ /*&& control.errors*/) { // TODO: working only on required, not minlength etc.
-      console.log('in input validate if');
+    if (input.checkValidity()  || control.touched /*control.invalid && control.touched*/ /*input.reportValidity()*/ /*&& control.errors*/) { // TODO: working only on required, not minlength etc.
+      console.log('in input validate if', control);
        // return {invalid: true}
       // return null;
+     // this.onTouched();
       return control.errors;
     } else {
-      console.log('in input validate else');
+      console.log('in input validate else', control);
       // this.elementRef.nativeElement.emit('invalid');
       // new EventEmitter(this.elementRef.nativeElement, 'invalid');
       // this.elementRef.nativeElement.invalid = true;
@@ -337,6 +355,7 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
+    // this.validatorOnChange();
   }
 
   // private control: AbstractControl;

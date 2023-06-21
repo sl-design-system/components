@@ -119,8 +119,9 @@ export class ValidationController implements ReactiveController {
 
     console.log(
       'in render...->>> this.validity.valid before if with  showerrors',
+      this.target,
       this.#showErrors,
-      this.validity.valid,
+      !this.validity.valid,
       this.#showErrors !== !this.validity.valid
     );
 
@@ -155,6 +156,8 @@ export class ValidationController implements ReactiveController {
   /** Event handler for when the parent form is reset. */
   #onReset = (event: Event): void => {
     const { form } = isNative(this.target) ? this.target : this.target.internals;
+
+    console.log('onreset in validation.ts');
 
     if (form === event.target) {
       this.#showErrors = false;

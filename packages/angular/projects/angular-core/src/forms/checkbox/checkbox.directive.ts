@@ -120,7 +120,7 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
       //return control.errors;
       return null;
     } else {
-      console.log('in input validate else');
+      console.log('in checkbox validate else');
       // return null;
       return control.errors;
     }

@@ -2,7 +2,6 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import { argv } from 'node:process';
 import sass from 'sass';
-import stylelint from 'stylelint';
 import figmaThemes from '../packages/tokens/src/$themes.json' assert { type: 'json' };
 import { buildStyles } from './style-dictionary.js';
 import { transformAllTokens } from './token-transformer.js';
@@ -75,15 +74,6 @@ const buildTokens = async name => {
     
     await fs.writeFile(`${folder}/${output}`, css);
   }
-  
-  await stylelint.lint({ 
-    cwd,
-    files: [
-      `../packages/themes/${name}/*.css`, 
-      `../packages/themes/${name}/*.scss`
-    ],
-    fix: true
-  });  
 };
 
 const buildAllTokens = async (themesToBuild) => {

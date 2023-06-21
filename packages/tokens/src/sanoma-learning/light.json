@@ -2654,7 +2654,7 @@
         },
         "focus": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "rgba({body.background} , {opacity.100})",
             "type": "color"
           },
           "foreground": {
@@ -2685,6 +2685,18 @@
           },
           "indicator": {
             "value": "{color.palette.neutral.300}",
+            "type": "color"
+          }
+        },
+        "divider": {
+          "line": {
+            "value": "{color.palette.neutral.100}",
+            "type": "color"
+          }
+        },
+        "group-title": {
+          "foreground": {
+            "value": "{color.palette.neutral.200}",
             "type": "color"
           }
         }
@@ -3085,6 +3097,16 @@
               "type": "color"
             }
           }
+        }
+      },
+      "listbox": {
+        "border": {
+          "value": "{color.palette.neutral.100}",
+          "type": "color"
+        },
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
         }
       }
     }
@@ -3639,6 +3661,23 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.none"
+    },
+    "select": {
+      "listbox": {
+        "value": "{elevation.shadow.md}",
+        "type": "boxShadow"
+      }
+    }
+  },
+  "border": {
+    "width": {
+      "select-copy": {
+        "listbox": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        }
+      }
     }
   }
 }

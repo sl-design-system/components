@@ -219,7 +219,7 @@
   --sl-control-disabled-border-color: rgb(var(--sl-color-palette-neutral-200));
   --sl-control-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
   --sl-control-disabled-background: rgb(var(--sl-color-palette-white-base));
-  --sl-control-focus-outline-color: rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
+  --sl-control-focus-outline-color: rgba(var(--sl-color-palette-info-base)/ var(--sl-opacity-500));
   --sl-control-focus-border-color: rgb(var(--sl-color-palette-info-base));
   --sl-control-active-border-color: rgb(var(--sl-color-palette-accent-600));
   --sl-control-active-foreground: rgb(var(--sl-color-palette-accent-900));
@@ -233,22 +233,19 @@
   --sl-control-lg-outline-width: var(--sl-border-width-md);
   --sl-control-lg-outline-offset: var(--sl-space-none);
   --sl-control-lg-gap: var(--sl-space-sm);
-  --sl-control-lg-font: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-control-lg-font: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg)/var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-control-lg-border-width: var(--sl-border-width-xs);
   --sl-control-lg-border-radius: var(--sl-border-radius-3xs);
   --sl-control-md-outline-width: var(--sl-border-width-md);
   --sl-control-md-outline-offset: var(--sl-space-none);
   --sl-control-md-gap: var(--sl-space-xs);
-  --sl-control-md-font: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-control-md-font: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md)/var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-control-md-border-width: var(--sl-border-width-xs);
   --sl-control-md-border-radius: var(--sl-border-radius-3xs);
   --sl-control-sm-outline-width: var(--sl-border-width-md);
   --sl-control-sm-outline-offset: var(--sl-space-none);
   --sl-control-sm-gap: var(--sl-space-xs);
-  --sl-control-sm-font: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-control-sm-font: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm)/var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-control-sm-border-width: var(--sl-border-width-xs);
   --sl-control-sm-border-radius: var(--sl-border-radius-3xs);
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
@@ -295,41 +292,31 @@
   --sl-component-button-link-danger-disabled-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-danger-focus-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-danger-active-border-color: rgb(var(--sl-color-palette-transparent-base));
-  --sl-component-button-link-danger-hover-text-typeset-text-decoration: var(
-    --sl-text-typeset-text-decoration-underline
-  );
+  --sl-component-button-link-danger-hover-text-typeset-text-decoration: var(--sl-text-typeset-text-decoration-underline);
   --sl-component-button-link-danger-hover-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-danger-idle-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-warning-disabled-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-warning-focus-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-warning-active-border-color: rgb(var(--sl-color-palette-transparent-base));
-  --sl-component-button-link-warning-hover-text-typeset-text-decoration: var(
-    --sl-text-typeset-text-decoration-underline
-  );
+  --sl-component-button-link-warning-hover-text-typeset-text-decoration: var(--sl-text-typeset-text-decoration-underline);
   --sl-component-button-link-warning-hover-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-warning-idle-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-success-disabled-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-success-focus-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-success-active-border-color: rgb(var(--sl-color-palette-transparent-base));
-  --sl-component-button-link-success-hover-text-typeset-text-decoration: var(
-    --sl-text-typeset-text-decoration-underline
-  );
+  --sl-component-button-link-success-hover-text-typeset-text-decoration: var(--sl-text-typeset-text-decoration-underline);
   --sl-component-button-link-success-hover-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-success-idle-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-primary-disabled-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-primary-focus-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-primary-active-border-color: rgb(var(--sl-color-palette-transparent-base));
-  --sl-component-button-link-primary-hover-text-typeset-text-decoration: var(
-    --sl-text-typeset-text-decoration-underline
-  );
+  --sl-component-button-link-primary-hover-text-typeset-text-decoration: var(--sl-text-typeset-text-decoration-underline);
   --sl-component-button-link-primary-hover-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-primary-idle-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-default-disabled-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-default-focus-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-default-active-border-color: rgb(var(--sl-color-palette-transparent-base));
-  --sl-component-button-link-default-hover-text-typeset-text-decoration: var(
-    --sl-text-typeset-text-decoration-underline
-  );
+  --sl-component-button-link-default-hover-text-typeset-text-decoration: var(--sl-text-typeset-text-decoration-underline);
   --sl-component-button-link-default-hover-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-default-idle-border-color: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-link-lg-padding-inline: var(--sl-space-none);
@@ -374,9 +361,7 @@
   --sl-component-button-outline-danger-disabled-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-outline-danger-focus-border-color: rgb(var(--sl-color-palette-info-base));
   --sl-component-button-outline-danger-focus-foreground: rgb(var(--sl-color-palette-danger-400));
-  --sl-component-button-outline-danger-focus-background: rgba(
-    var(--sl-color-palette-danger-base) / var(--sl-opacity-100)
-  );
+  --sl-component-button-outline-danger-focus-background: rgba(var(--sl-color-palette-danger-base)/ var(--sl-opacity-100));
   --sl-component-button-outline-danger-active-border-color: rgb(var(--sl-color-palette-danger-300));
   --sl-component-button-outline-danger-active-foreground: rgb(var(--sl-color-palette-danger-900));
   --sl-component-button-outline-danger-active-background: rgb(var(--sl-color-palette-danger-150));
@@ -391,9 +376,7 @@
   --sl-component-button-outline-warning-disabled-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-outline-warning-focus-border-color: rgb(var(--sl-color-palette-info-base));
   --sl-component-button-outline-warning-focus-foreground: rgb(var(--sl-color-palette-warning-600));
-  --sl-component-button-outline-warning-focus-background: rgba(
-    var(--sl-color-palette-warning-base) / var(--sl-opacity-100)
-  );
+  --sl-component-button-outline-warning-focus-background: rgba(var(--sl-color-palette-warning-base)/ var(--sl-opacity-100));
   --sl-component-button-outline-warning-active-border-color: rgb(var(--sl-color-palette-warning-300));
   --sl-component-button-outline-warning-active-foreground: rgb(var(--sl-color-palette-warning-900));
   --sl-component-button-outline-warning-active-background: rgb(var(--sl-color-palette-warning-100));
@@ -405,14 +388,10 @@
   --sl-component-button-outline-warning-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-outline-success-disabled-border-color: rgb(var(--sl-color-palette-success-150));
   --sl-component-button-outline-success-disabled-foreground: rgb(var(--sl-color-palette-success-150));
-  --sl-component-button-outline-success-disabled-background: rgba(
-    var(--sl-color-palette-transparent-base) / var(--sl-opacity-100)
-  );
+  --sl-component-button-outline-success-disabled-background: rgba(var(--sl-color-palette-transparent-base)/ var(--sl-opacity-100));
   --sl-component-button-outline-success-focus-border-color: rgb(var(--sl-color-palette-info-base));
   --sl-component-button-outline-success-focus-foreground: rgb(var(--sl-color-palette-success-500));
-  --sl-component-button-outline-success-focus-background: rgba(
-    var(--sl-color-palette-success-base) / var(--sl-opacity-100)
-  );
+  --sl-component-button-outline-success-focus-background: rgba(var(--sl-color-palette-success-base)/ var(--sl-opacity-100));
   --sl-component-button-outline-success-active-border-color: rgb(var(--sl-color-palette-success-300));
   --sl-component-button-outline-success-active-foreground: rgb(var(--sl-color-palette-success-900));
   --sl-component-button-outline-success-active-background: rgb(var(--sl-color-palette-success-150));
@@ -427,9 +406,7 @@
   --sl-component-button-outline-primary-disabled-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-component-button-outline-primary-focus-border-color: rgb(var(--sl-color-palette-info-base));
   --sl-component-button-outline-primary-focus-foreground: rgb(var(--sl-color-palette-accent-base));
-  --sl-component-button-outline-primary-focus-background: rgba(
-    var(--sl-color-palette-accent-base) / var(--sl-opacity-100)
-  );
+  --sl-component-button-outline-primary-focus-background: rgba(var(--sl-color-palette-accent-base)/ var(--sl-opacity-100));
   --sl-component-button-outline-primary-active-border-color: rgb(var(--sl-color-palette-black-base));
   --sl-component-button-outline-primary-active-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-component-button-outline-primary-active-background: rgb(var(--sl-color-palette-accent-150));
@@ -593,49 +570,28 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-2xs);
   --sl-border-radius-button-md: var(--sl-border-radius-2xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
-  --sl-text-input-option-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-input-option-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
-    undefined;
-  --sl-text-button-font-icon-md: undefined var(--sl-text-typeset-font-size-md) / var(--sl-text-typeset-line-height-xs)
-    undefined;
-  --sl-text-button-font-icon-sm: undefined 13 / var(--sl-text-typeset-line-height-xxs) undefined;
-  --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-md: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
-    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-body-lg-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-body-md-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-body-md-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-body-md-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-body-sm-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-body-sm-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-body-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-heading-4: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-heading);
-  --sl-text-heading-3: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl) /
-    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
-  --sl-text-heading-2: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-2xl) /
-    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-heading);
-  --sl-text-heading-1: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-3xl) /
-    var(--sl-text-typeset-line-height-3xl) var(--sl-text-typeset-font-family-heading);
-  --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
-    var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
+  --sl-text-input-option-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg)/var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-option-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md)/var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg)/var(--sl-text-typeset-line-height-sm) undefined;
+  --sl-text-button-font-icon-md: undefined var(--sl-text-typeset-font-size-md)/var(--sl-text-typeset-line-height-xs) undefined;
+  --sl-text-button-font-icon-sm: undefined 13/var(--sl-text-typeset-line-height-xxs) undefined;
+  --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg)/var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-text-md: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md)/var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm)/var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg)/var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg)/var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-body-lg-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg)/var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-body-md-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md)/var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-body-md-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md)/var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-body-md-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md)/var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-body-sm-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm)/var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-body-sm-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm)/var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-body-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm)/var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-heading-4: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg)/var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-heading);
+  --sl-text-heading-3: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl)/var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
+  --sl-text-heading-2: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-2xl)/var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-heading);
+  --sl-text-heading-1: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-3xl)/var(--sl-text-typeset-line-height-3xl) var(--sl-text-typeset-font-family-heading);
+  --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl)/var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
   --sl-control-focus-foreground: var(--sl-control-idle-foreground);
   --sl-control-focus-background: var(--sl-control-idle-background);
@@ -647,16 +603,14 @@
   --sl-space-input-option-inline-md: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-lg: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-md: var(--sl-space-button-outline-block-sm);
-  --sl-text-input-option-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-icon);
-  --sl-text-input-option-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
+  --sl-text-input-option-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18/var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-icon);
+  --sl-text-input-option-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15/var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --sl-box-shadow-none: 0px 0px 0px 0px;
-    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-600));
+    --sl-box-shadow-none: 0px 0px 0px 0px ;
+    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base)/var(--sl-opacity-600));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
@@ -998,17 +952,17 @@
     --sl-color-input-default-unchecked-active-label: var(--sl-body-foreground);
     --sl-color-input-default-unchecked-hover-label: var(--sl-body-foreground);
     --sl-color-input-default-unchecked-default-label: var(--sl-body-foreground);
-    --sl-color-button-danger-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+    --sl-color-button-danger-link-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
     --sl-color-button-danger-outline-disabled-background: var(--sl-body-background);
     --sl-color-button-danger-outline-focus-background: var(--sl-body-background);
-    --sl-color-button-warning-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+    --sl-color-button-warning-link-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
     --sl-color-button-warning-outline-disabled-background: var(--sl-body-background);
     --sl-color-button-warning-outline-idle-background: var(--sl-body-background);
-    --sl-color-button-success-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+    --sl-color-button-success-link-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
     --sl-color-button-success-outline-idle-background: var(--sl-body-background);
-    --sl-color-button-primary-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
-    --sl-color-button-primary-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
-    --sl-color-button-default-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
-    --sl-color-button-default-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+    --sl-color-button-primary-link-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
+    --sl-color-button-primary-outline-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
+    --sl-color-button-default-link-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
+    --sl-color-button-default-outline-focus-background: rgba(var(--sl-body-background)/var(--sl-opacity-100));
   }
 }

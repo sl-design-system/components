@@ -7,6 +7,7 @@ import {
   HintMixin,
   RovingTabindexController,
   ValidationController,
+  hintStyles,
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
@@ -19,12 +20,16 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   /** Events controller. */
   #events = new EventsController(this, { click: this.#onClick });
 
-  /** Observe changes to the checkboxes. */
+  /**
+   * Observe changes to the checkboxes.
+   *
+   * FIXME: This causes a warning in the console: https://github.com/lit/lit/issues/3597
+   */
   #mutation = new MutationController(this, {
     callback: () => {
       const value = this.boxes

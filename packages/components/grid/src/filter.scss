@@ -1,5 +1,7 @@
 :host {
+  --_active-color: var(--sl-color-input-option-default-checked-default-background);
   --_gap: 0.25rem;
+  --_icon-color: currentColor;
 }
 
 :host {
@@ -7,13 +9,41 @@
   width: 100%;
 }
 
-label {
-  display: flex;
-  flex-direction: column;
-  gap: var(--_gap);
-  text-align: start;
+:host([active]) {
+  --_icon-color: var(--_active-color);
 }
 
-sl-input {
-  font-weight: normal;
+.toggle {
+  box-sizing: border-box;
+  inline-size: 100%;
+  justify-content: space-between;
+}
+
+sl-popover {
+  --_padding: 0;
+  padding: 0;
+}
+
+header {
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
+}
+
+h1 {
+  font: var(--sl-text-body-md-normal);
+  margin: 0;
+
+  span {
+    text-transform: lowercase;
+  }
+}
+
+sl-checkbox-group,
+sl-text-input {
+  margin: 0.5rem;
 }

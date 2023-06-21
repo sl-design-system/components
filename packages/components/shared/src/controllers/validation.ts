@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import type { CSSResultGroup, ReactiveController, ReactiveControllerHost, TemplateResult } from 'lit';
-import type { ValidationValue, Validator } from '../validators.js';
+import type { MessageSize, ValidationValue, Validator } from '../validators.js';
 import { msg, str } from '@lit/localize';
 import { css, html } from 'lit';
 import { dasherize } from '../string.js';
@@ -32,9 +32,32 @@ export type ValidationConfig = {
 const isNative = (target: ValidationTarget): target is NativeValidationTarget =>
   target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement;
 
+let nextUniqueId = 0;
+
 export const validationStyles: CSSResultGroup = css`
-  slot[part='error'] {
-    color: #c00;
+  slot[part='error']::slotted(*) {
+    color: var(--sl-color-input-helper-text-invalid);
+    display: inline-flex;
+    align-items: center;
+    fill: var(--sl-color-input-helper-icon-invalid);
+  }
+
+  slot[part='error'][error-size='sm']::slotted(*) {
+    font: var(--sl-text-input-helper-text-sm);
+    padding-top: var(--sl-space-input-helper-padding-top-sm);
+    gap: var(--sl-space-input-helper-gap-sm);
+  }
+
+  slot[part='error'][error-size='md']::slotted(*) {
+    font: var(--sl-text-input-helper-text-md);
+    padding-top: var(--sl-space-input-helper-padding-top-md);
+    gap: var(--sl-space-input-helper-gap-md);
+  }
+
+  slot[part='error'][error-size='lg']::slotted(*) {
+    font: var(--sl-text-input-helper-text-lg);
+    padding-top: var(--sl-space-input-helper-padding-top-lg);
+    gap: var(--sl-space-input-helper-gap-lg);
   }
 `;
 
@@ -51,6 +74,9 @@ export class ValidationController implements ReactiveController {
 
   /** Determines when validation messages should be shown. */
   #showErrors = false;
+
+  /** Error message size. */
+  #messageSize: MessageSize = 'md';
 
   /**
    * The element which is being validated. Either a Form Associated
@@ -76,12 +102,34 @@ export class ValidationController implements ReactiveController {
    */
   #validators: Validator[] = [];
 
+  /** Unique ID for error message. */
+  #errorMessageId = `sl-error-${nextUniqueId++}`;
+
+  /** Name of slotted validation message. */
+  #slotName: string;
+
   /** Event handler for when invalid validity must be reported. */
   #onInvalid = (event: Event): void => {
     // Prevent the browser from showing the built-in validation UI
     event.preventDefault();
 
+    this.#setInvalidState();
+
     if (this.#showErrors !== !this.validity.valid) {
+      const state = this.#getInvalidState(this.validity);
+      if (!state) {
+        return;
+      }
+      this.#slotName = dasherize(state);
+
+      if (this.target.hasAttribute('aria-describedby')) {
+        const currentId = this.target.getAttribute('aria-describedby') as string;
+        this.target.setAttribute('aria-describedby', `${currentId} ${this.#errorMessageId}`);
+      } else {
+        this.target.setAttribute('aria-describedby', this.#errorMessageId);
+      }
+
+      this.#updateValidationMessage();
       this.#showErrors = !this.validity.valid;
       this.#host.requestUpdate();
     }
@@ -93,7 +141,7 @@ export class ValidationController implements ReactiveController {
 
     if (form === event.target) {
       this.#showErrors = false;
-      this.#host.requestUpdate();
+      this.#removeInvalidState();
     }
   };
 
@@ -132,6 +180,7 @@ export class ValidationController implements ReactiveController {
     }
 
     this.#validators = validators || [];
+    this.#slotName = '';
   }
 
   async hostConnected(): Promise<void> {
@@ -141,6 +190,10 @@ export class ValidationController implements ReactiveController {
     if (!this.#target && this.#targetFn) {
       this.#target = this.#targetFn();
     }
+
+    this.#messageSize = this.#host.hasAttribute('error-size')
+      ? (this.#host.getAttribute('error-size') as MessageSize)
+      : 'md';
 
     // If the element has no title attribute, then add one, otherwise
     // the native `validationMessage` will be shown in a native tooltip.
@@ -164,14 +217,121 @@ export class ValidationController implements ReactiveController {
   }
 
   render(): TemplateResult | void {
-    if (!this.#target) {
+    if (!this.#target || !this.target || !this.#host) {
       return;
     }
 
     const state = this.#getInvalidState(this.validity);
 
     if (this.#showErrors && state) {
-      return html`<slot .name=${dasherize(state)} part="error">${this.validationMessage}</slot>`;
+      this.#slotName = dasherize(state);
+
+      this.#setInvalidState();
+
+      this.#updateValidationMessage();
+
+      return html`<slot
+        .name=${this.#slotName}
+        part="error"
+        error-size="${this.#messageSize}"
+        @slotchange=${this.#onSlotchange}
+      ></slot>`;
+    } else if (this.validity.valid) {
+      this.#removeInvalidState();
+    }
+  }
+
+  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = event.target.assignedElements({ flatten: true });
+
+    // Removing sl-error when custom errors are provided
+    if (elements.length > 1) {
+      const nonCustomErrors = elements.filter(element => element.tagName === 'SL-ERROR');
+      nonCustomErrors.forEach(error => error.remove());
+    }
+  }
+
+  #setInvalidState(): void {
+    if (!this.#target || !this.target || !this.#host) {
+      return;
+    }
+
+    this.#target.setAttribute('invalid', '');
+    if (isNative(this.target)) {
+      this.#host.setAttribute('invalid', '');
+      this.target.ariaInvalid = 'true';
+      this.#host.requestUpdate();
+    }
+  }
+
+  #removeInvalidState(): void {
+    this.#removeValidationMessage();
+    this.#host.removeAttribute('invalid');
+    this.target.ariaInvalid = null;
+    this.#host.requestUpdate();
+  }
+
+  #updateValidationMessage(): void {
+    const errorPart = this.#host.querySelector('[part="error"]'),
+      currentError = this.#host.querySelector('sl-error');
+
+    if (
+      (!currentError && this.validationMessage) ||
+      currentError?.slot !== this.#slotName ||
+      this.validationMessage !== (errorPart as HTMLElement)?.innerText
+    ) {
+      if (currentError) {
+        currentError.remove();
+      }
+
+      if (this.target.hasAttribute('aria-describedby')) {
+        const currentId = this.target.getAttribute('aria-describedby') as string;
+        if (!currentId.includes('error')) {
+          this.target.setAttribute('aria-describedby', `${currentId} ${this.#errorMessageId}`);
+        }
+      } else {
+        this.target.setAttribute('aria-describedby', this.#errorMessageId);
+      }
+
+      const div = document.createElement('sl-error'),
+        iconSize = this.#messageSize === 'sm' ? 'md' : 'lg',
+        icon = document.createElement('sl-icon');
+      icon.setAttribute('name', 'triangle-exclamation-solid');
+      icon.setAttribute('size', iconSize);
+
+      if (icon && !isNative(this.target)) {
+        div.append(icon);
+        const validationMessage = document.createTextNode(this.validationMessage);
+        div.appendChild(validationMessage);
+      } else {
+        div.innerHTML = this.validationMessage;
+      }
+
+      div.id = this.#errorMessageId;
+      div.setAttribute('part', 'error');
+      div.setAttribute('error-size', this.#messageSize);
+      div.slot = this.#slotName;
+      div.setAttribute('aria-live', 'assertive');
+      this.#host.append(div);
+    }
+  }
+
+  #removeValidationMessage(): void {
+    this.#host.querySelector('[part="error"]')?.remove();
+    if (this.target.hasAttribute('aria-describedby')) {
+      const describedBy = this.target.getAttribute('aria-describedby'),
+        ids = describedBy?.split(' '),
+        index = ids?.indexOf(this.#errorMessageId);
+
+      if (index !== -1 && ids && this.target && ids?.length > 1) {
+        if (index) {
+          ids.splice(index, 1);
+        }
+        const newAriaDescribedby = ids?.join(' ');
+        if (newAriaDescribedby) {
+          this.target.setAttribute('aria-describedby', newAriaDescribedby.toString());
+        }
+      }
     }
   }
 

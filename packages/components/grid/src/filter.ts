@@ -1,35 +1,56 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
+import type { GridFilterMode, GridFilterOption } from './filter-column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
+import { faFilter, faFilterList, faXmark } from '@fortawesome/pro-regular-svg-icons';
+import { localized, msg } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import { Input } from '@sl-design-system/input';
-import { event } from '@sl-design-system/shared';
+import { Button } from '@sl-design-system/button';
+import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
+import { Icon } from '@sl-design-system/icon';
+import { TextInput } from '@sl-design-system/text-input';
+import { Popover } from '@sl-design-system/popover';
+import { event, getNameByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './filter.scss.js';
 
 export type GridFilterChange = 'added' | 'removed';
 
+Icon.registerIcon(faFilter, faFilterList, faXmark);
+
 export class GridFilterValueChangeEvent extends Event {
-  constructor(public readonly column: GridColumn, public readonly value: string) {
+  constructor(public readonly column: GridColumn, public readonly value: string | string[] | undefined) {
     super('sl-filter-value-change', { bubbles: true, composed: true });
   }
 }
 
+@localized()
 export class GridFilter extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-input': Input
+      'sl-button': Button,
+      'sl-checkbox': Checkbox,
+      'sl-checkbox-group': CheckboxGroup,
+      'sl-icon': Icon,
+      'sl-text-input': TextInput,
+      'sl-popover': Popover
     };
   }
 
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** The filter value. */
-  #value = '';
+  /** The filter value(s). */
+  #value?: string | string[];
+
+  /**
+   * Whether the grid is currently being filtered by this column.
+   * @private
+   */
+  @property({ type: Boolean, reflect: true }) active = false;
 
   /** The grid column. */
   @property({ attribute: false }) column!: GridColumn;
@@ -38,12 +59,23 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   @event() filterValueChange!: EventEmitter<GridFilterValueChangeEvent>;
 
-  set value(value: string) {
-    this.#value = value;
+  @property({ type: String }) mode?: GridFilterMode;
+
+  @property({ attribute: false }) options?: GridFilterOption[];
+
+  set value(value: string | string[] | undefined) {
+    if (this.mode !== 'text') {
+      this.#value = Array.isArray(value) ? value : value?.split(',') ?? [];
+    } else {
+      this.#value = value;
+    }
+
+    this.active = Array.isArray(this.#value) ? this.#value.length > 0 : !!this.#value;
+    this.requestUpdate('value');
   }
 
-  @property()
-  get value(): string {
+  @property({ type: String })
+  get value(): string | string[] | undefined {
     return this.#value;
   }
 
@@ -61,15 +93,68 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <label>
+      <sl-button class="toggle" id="anchor" fill="link">
         <slot></slot>
-        <sl-input @input=${this.#onInput} placeholder="Filter"></sl-input>
-      </label>
+        <sl-icon .name=${this.active ? 'far-filter-list' : 'far-filter'}></sl-icon>
+      </sl-button>
+      <sl-popover anchor="anchor">
+        <header>
+          <h1 id="title">
+            ${msg(`Filter by`)} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>
+          </h1>
+          <sl-button @click=${this.#onClick} aria-label=${msg('Close')} fill="link" size="sm">
+            <sl-icon name="far-xmark"></sl-icon>
+          </sl-button>
+        </header>
+        ${this.mode === 'select'
+          ? html`
+              <sl-checkbox-group aria-labelledby="title">
+                ${this.options?.map(
+                  option =>
+                    html`
+                      <sl-checkbox
+                        @sl-change=${(event: CustomEvent<boolean>) => this.#onChange(option, event.detail)}
+                        ?checked=${this.value?.includes(option.value?.toString() ?? '')}
+                        .value=${option.value}
+                      >
+                        ${option.label}
+                      </sl-checkbox>
+                    `
+                )}
+              </sl-checkbox-group>
+            `
+          : html`
+              <sl-text-input
+                @input=${this.#onInput}
+                .placeholder=${msg('Type here to filter')}
+                .value=${this.value?.toString() ?? ''}
+                aria-labelledby="title"
+              ></sl-text-input>
+            `}
+      </sl-popover>
     `;
   }
 
-  #onInput({ target }: Event & { target: Input }): void {
-    this.value = target.value?.toString().trim() || '';
+  #onChange(option: GridFilterOption, checked: boolean): void {
+    if (!Array.isArray(this.value)) {
+      return;
+    }
+
+    if (checked) {
+      this.value = [...this.value, option.value?.toString() ?? ''];
+    } else {
+      this.value = this.value.filter(value => value !== option.value?.toString());
+    }
+
+    this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
+  }
+
+  #onClick(): void {
+    this.renderRoot.querySelector<Popover>('sl-popover')?.hidePopover();
+  }
+
+  #onInput(event: Event & { target: HTMLInputElement }): void {
+    this.value = event.target.value.trim();
     this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
   }
 }

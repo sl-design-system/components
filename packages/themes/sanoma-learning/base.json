@@ -127,7 +127,7 @@
       },
       "neutral": {
         "50": {
-          "value": "#f3f3f3",
+          "value": "#F6F8F8",
           "type": "color",
           "description": "color.palette.neutral.50"
         },
@@ -182,7 +182,7 @@
           "description": "color.palette.neutral.900"
         },
         "base": {
-          "value": "#222222",
+          "value": "#323232",
           "type": "color",
           "description": "color.palette.neutral.base"
         }
@@ -436,16 +436,23 @@
       },
       "black": {
         "base": {
-          "value": "#222222",
+          "value": "#323232",
           "type": "color",
           "description": "color.palette.black.base"
         }
       },
       "white": {
         "base": {
-          "value": "#FEFEFE",
+          "value": "#F6F8F8",
           "type": "color",
           "description": "color.palette.white.base"
+        }
+      },
+      "transparent": {
+        "base": {
+          "value": "#00000000",
+          "type": "color",
+          "description": "color.palette.transparent.base"
         }
       }
     }
@@ -989,27 +996,50 @@
       }
     },
     "input": {
-      "fontIcon": {
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": 15
+      "textField": {
+        "fontIcon": {
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": 15
+            },
+            "type": "typography"
           },
-          "type": "typography"
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": 18
+            },
+            "type": "typography"
+          }
         },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "fontSize": 18
+        "text": {
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
           },
-          "type": "typography"
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography"
+          }
         }
       },
-      "label": {
+      "option": {
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
@@ -1029,7 +1059,9 @@
           },
           "type": "typography",
           "description": "Is use in Radio and Checkbox"
-        },
+        }
+      },
+      "fieldLabel": {
         "label": {
           "sm": {
             "value": {
@@ -1095,56 +1127,57 @@
           }
         }
       },
-      "text": {
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "fontSize": "{text.typeset.fontSize.md}"
-          },
-          "type": "typography",
-          "description": "UPDATED - Line height md from 22px to 20px"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.lg}",
-            "fontSize": "{text.typeset.fontSize.lg}"
-          },
-          "type": "typography"
-        }
-      },
       "helper": {
-        "sm": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "{text.typeset.fontSize.sm}"
+        "text": {
+          "sm": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{text.typeset.fontSize.sm}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
           },
-          "type": "typography",
-          "description": "UPDATED - Line height md from 22px to 20px"
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography"
+          }
         },
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "fontSize": "{text.typeset.fontSize.md}"
+        "fontIcon": {
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": 15
+            },
+            "type": "typography"
           },
-          "type": "typography",
-          "description": "UPDATED - Line height md from 22px to 20px"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.lg}",
-            "fontSize": "{text.typeset.fontSize.lg}"
-          },
-          "type": "typography"
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": 18
+            },
+            "type": "typography"
+          }
         }
       }
     },
@@ -1290,9 +1323,16 @@
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.none}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.link"
+        }
+      },
+      "select": {
+        "panel": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
         }
       },
       "input": {
@@ -1514,9 +1554,19 @@
         "description": "icon.core.chevron-down"
       },
       "check": {
-        "value": "chevron-down",
+        "value": "check",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "triangle-exclamation-solid": {
+        "value": "triangle-exclamation",
+        "type": "Icons",
+        "description": "icon.core.triangle-exclamation-solid"
+      },
+      "circle-check-solid": {
+        "value": "circle-check",
+        "type": "Icons",
+        "description": "icon.core.circle-check-solid"
       }
     },
     "typeset": {
@@ -1562,6 +1612,12 @@
           "description": "icon.typeset.fontSize.4xl"
         }
       }
+    }
+  },
+  "select": {
+    "panel": {
+      "value": "{border.radius.2xs}",
+      "type": "borderRadius"
     }
   },
   "opacity": {
@@ -1658,7 +1714,7 @@
       "description": "size.md"
     },
     "lg": {
-      "value": 18,
+      "value": 20,
       "type": "sizing",
       "description": "size.lg"
     },
@@ -1683,15 +1739,72 @@
       "description": "size.4xl"
     },
     "input": {
-      "md": {
-        "value": "{size.xl}",
-        "type": "sizing",
-        "description": "size.input.md"
+      "option": {
+        "md": {
+          "value": "{size.xl}",
+          "type": "sizing",
+          "description": "size.input.md"
+        },
+        "lg": {
+          "value": "{size.2xl}",
+          "type": "sizing",
+          "description": "size.input.lg"
+        }
       },
-      "lg": {
-        "value": "{size.2xl}",
-        "type": "sizing",
-        "description": "size.input.lg"
+      "switch": {
+        "handle": {
+          "sm": {
+            "value": "{size.md} - (2 * {space.input.switch.padding.inner})",
+            "type": "sizing",
+            "description": "size.input.md"
+          },
+          "md": {
+            "value": "{size.xl} - (2 * {space.input.switch.padding.inner})",
+            "type": "sizing",
+            "description": "size.input.md"
+          },
+          "lg": {
+            "value": "{size.2xl} - (2 * {space.input.switch.padding.inner})",
+            "type": "sizing",
+            "description": "size.input.md"
+          }
+        },
+        "controller": {
+          "height": {
+            "sm": {
+              "value": "{size.md}",
+              "type": "sizing",
+              "description": "size.switch.controller.sm"
+            },
+            "md": {
+              "value": "{size.xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.md"
+            },
+            "lg": {
+              "value": "{size.2xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.lg"
+            }
+          },
+          "width": {
+            "sm": {
+              "value": "{size.2xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.sm"
+            },
+            "md": {
+              "value": "{size.3xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.md"
+            },
+            "lg": {
+              "value": "{size.4xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.lg"
+            }
+          }
+        }
       }
     },
     "icon": {
@@ -1972,40 +2085,188 @@
       }
     },
     "input": {
-      "block": {
-        "md": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
+      "option": {
+        "block": {
+          "md": {
+            "value": "{space.button.outline.block.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.button.outline.block.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
         },
-        "lg": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
+        "inline": {
+          "md": {
+            "value": "{space.button.outline.block.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.button.outline.block.sm}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.button.outline.block.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.button.outline.block.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
         }
       },
-      "inline": {
-        "md": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
+      "textField": {
+        "block": {
+          "md": {
+            "value": "{space.xs} + {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.sm} - {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
         },
-        "lg": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
+        "inline": {
+          "md": {
+            "value": "{space.md} - {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.lg} - {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
         }
       },
-      "gap": {
-        "md": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
+      "helper": {
+        "gap": {
+          "sm": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "md": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
         },
-        "lg": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
+        "paddingTop": {
+          "sm": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "md": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          },
+          "none": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      },
+      "fieldLabel": {
+        "gap": {
+          "sm": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "md": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        },
+        "icon": {
+          "md": {
+            "value": "{space.2xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          }
+        },
+        "paddingBottom": {
+          "sm": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          },
+          "none": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      },
+      "switch": {
+        "padding": {
+          "outer": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "space.switch.padding.outer"
+          },
+          "inner": {
+            "value": "{space.2xs}",
+            "type": "spacing",
+            "description": "space.switch.padding.outer"
+          }
         }
       }
     },
@@ -2027,125 +2288,65 @@
         "type": "spacing"
       }
     },
-    "textField": {
-      "block": {
-        "md": {
-          "value": "{space.xs} + {border.width.button.default}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
+    "select": {
+      "panel": {
+        "block": {
+          "lg": {
+            "value": "{space.sm} - {border.width.sm}",
+            "type": "spacing"
+          }
         },
-        "lg": {
-          "value": "{space.sm} - {border.width.button.default}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
+        "inline": {
+          "lg": {
+            "value": "{space.sm} - {border.width.sm}",
+            "type": "spacing"
+          }
+        },
+        "gap": {
+          "lg": {
+            "value": "{space.xs}",
+            "type": "spacing"
+          }
         }
       },
-      "inline": {
-        "md": {
-          "value": "{space.md} - {border.width.button.default}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
+      "divider": {
+        "block": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
         },
-        "lg": {
-          "value": "{space.lg} - {border.width.button.default}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
+        "inline": {
+          "lg": {
+            "value": 0,
+            "type": "spacing"
+          }
+        },
+        "gap": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
         }
       },
-      "gap": {
-        "md": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
+      "item": {
+        "block": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
         },
-        "lg": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
-        }
-      }
-    },
-    "helper": {
-      "gap": {
-        "sm": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
+        "inline": {
+          "lg": {
+            "value": "{space.md}",
+            "type": "spacing"
+          }
         },
-        "md": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
-        }
-      },
-      "paddingTop": {
-        "sm": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "md": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
-        }
-      }
-    },
-    "label": {
-      "gap": {
-        "sm": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "md": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
-        }
-      },
-      "icon": {
-        "md": {
-          "value": "{space.2xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        }
-      },
-      "paddingBottom": {
-        "sm": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "md": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
+        "gap": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
         }
       }
     }

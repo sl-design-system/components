@@ -1,9 +1,9 @@
-import type { PropertyValues, TemplateResult } from 'lit';
+import type { CSSResult, PropertyValues, TemplateResult } from 'lit';
 import type { GridActiveItemChangeEvent } from './grid.js';
-import { msg } from '@lit/localize';
+import { msg, str } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { EventsController } from '@sl-design-system/shared';
-import { html } from 'lit';
+import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
@@ -23,8 +23,8 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
     this.scopedElements = { 'sl-checkbox': Checkbox };
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('grid') && this.grid) {
       this.#events.listen(this.grid, 'sl-active-item-change', this.#onActiveItemChange);
@@ -38,17 +38,30 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
   }
 
   override renderHeader(): TemplateResult {
-    const checked = this.grid?.selection.areAllSelected(),
+    const checked = !!this.grid?.selection.size && this.grid?.selection.areAllSelected(),
       indeterminate = this.grid?.selection.areSomeSelected();
 
     return html`
-      <th>
+      <th part="header selection">
         <sl-checkbox
           @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelectAll(detail)}
           ?checked=${checked}
           ?indeterminate=${indeterminate}
           aria-label=${msg('Select all')}
         ></sl-checkbox>
+      </th>
+    `;
+  }
+
+  renderSelectionHeader(): TemplateResult {
+    const count = this.grid?.selection.areAllSelected()
+      ? this.grid?.selection.size
+      : this.grid?.selection.selection.size;
+
+    return html`
+      <th part="header active-selection">
+        <span class="selection-count">${msg(str`${count} selected`)}</span>
+        <slot name="selection-header"></slot>
       </th>
     `;
   }
@@ -63,6 +76,14 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
           ?checked=${checked}
         ></sl-checkbox>
       </td>
+    `;
+  }
+
+  override renderStyles(): CSSResult {
+    return css`
+      inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
+      padding-block: 0;
+      padding-inline: 0.5rem;
     `;
   }
 

@@ -1,5 +1,22 @@
 # @sl-design-system/checkbox
 
+## 0.0.5
+
+### Patch Changes
+
+- [#450](https://github.com/sl-design-system/components/pull/450) [`0246004`](https://github.com/sl-design-system/components/commit/0246004048c9f66dd19bee69177d1cecaacd1b95) - Fix with incorrectly inherited box-shadow
+
+- Updated dependencies [[`4c1ba25`](https://github.com/sl-design-system/components/commit/4c1ba250a5b5edc65a74c47b9fbd869324791f17)]:
+  - @sl-design-system/shared@0.1.0
+
+## 0.0.4
+
+### Patch Changes
+
+- [#423](https://github.com/sl-design-system/components/pull/423) [`81957ec`](https://github.com/sl-design-system/components/commit/81957ec587349c09d0a3d4e8ae41301c5730785f) - Fix transitions and other minor styling issues
+
+- [#416](https://github.com/sl-design-system/components/pull/416) [`8bf9457`](https://github.com/sl-design-system/components/commit/8bf945764ab0fec52c87053d4758f86f4f21ae05) - Fix checkbox being too big when there is no label
+
 ## 0.0.3
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import {
   FormControlMixin,
   RovingTabindexController,
   ValidationController,
+  hintStyles,
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
@@ -17,7 +18,7 @@ import styles from './select.scss.js';
 let nextUniqueId = 0;
 
 export class Select extends FormControlMixin(LitElement) {
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   static formAssociated = true;
 

@@ -22,6 +22,16 @@ export const Simple: Story = {
   `
 };
 
+export const Small: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} style="width: 300px">
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
 export const ColumnGroups: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`

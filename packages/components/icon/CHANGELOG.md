@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 0.0.3
+
+### Patch Changes
+
+- [#412](https://github.com/sl-design-system/components/pull/412) [`d0eae48`](https://github.com/sl-design-system/components/commit/d0eae48a112ec6c096ca6f3804cb248a390f04c8) - Fixed several icon issues, including not loading when rendering occurs before icons are registered.
+
 ## 0.0.2
 
 ### Patch Changes

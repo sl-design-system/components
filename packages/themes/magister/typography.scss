@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-@mixin sl-text-input-label-lg {
+@mixin sl-text-input-option-label-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-lg);
 }
 
-@mixin sl-text-input-label-md {
+@mixin sl-text-input-option-label-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-regular);
@@ -35,21 +35,21 @@
 @mixin sl-text-button-text-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
 }
 
 @mixin sl-text-button-text-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
 }
 
 @mixin sl-text-button-text-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
 }
 
@@ -207,14 +207,14 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-input-font-icon-lg {
+@mixin sl-text-input-option-font-icon-lg {
   font-family: var(--sl-text-typeset-font-family-icon);
   font-size: 18;
   font-weight: var(--sl-text-typeset-font-weight-icon-solid);
   line-height: var(--sl-text-typeset-line-height-md);
 }
 
-@mixin sl-text-input-font-icon-md {
+@mixin sl-text-input-option-font-icon-md {
   font-family: var(--sl-text-typeset-font-family-icon);
   font-size: 15;
   font-weight: var(--sl-text-typeset-font-weight-icon-solid);

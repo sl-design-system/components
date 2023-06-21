@@ -1,5 +1,18 @@
 # @sl-design-system/radio-group
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`4c1ba25`](https://github.com/sl-design-system/components/commit/4c1ba250a5b5edc65a74c47b9fbd869324791f17)]:
+  - @sl-design-system/shared@0.1.0
+
+## 0.0.4
+
+### Patch Changes
+
+- [#423](https://github.com/sl-design-system/components/pull/423) [`81957ec`](https://github.com/sl-design-system/components/commit/81957ec587349c09d0a3d4e8ae41301c5730785f) - Fix transitions and other minor styling issues
+
 ## 0.0.3
 
 ### Patch Changes

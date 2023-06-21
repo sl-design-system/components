@@ -47,8 +47,7 @@ export const HorizontalSticky: Story = {
     return html`
       <style>
         sl-grid::part(thead) {
-          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-          clip-path: inset(0 0 -10px 0);
+          inset-block-start: 17px;
         }
         sl-grid::part(email) {
           border-right: 1px solid #eee;

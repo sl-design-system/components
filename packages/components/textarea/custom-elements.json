@@ -52,9 +52,24 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Single line text input component.",
           "name": "Textarea",
+          "slots": [
+            {
+              "description": "The slot for the textarea element",
+              "name": "textarea"
+            }
+          ],
           "members": [
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.",
+              "attribute": "autocomplete"
+            },
             {
               "kind": "field",
               "name": "internals",
@@ -90,11 +105,64 @@
             },
             {
               "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
+              "attribute": "readonly",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "resize",
+              "type": {
+                "text": "ResizeType"
+              },
+              "default": "'vertical'",
+              "description": "Specifies how textarea can be resized.",
+              "attribute": "resize",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the textarea should get valid styles when is valid.",
+              "attribute": "showValid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "TextareaSize"
+              },
+              "default": "'md'",
+              "description": "Textarea size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "textarea",
               "type": {
                 "text": "HTMLTextAreaElement"
               },
               "description": "The textarea in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is valid.",
+              "attribute": "valid",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -112,9 +180,28 @@
               },
               "description": "The value for the textarea.",
               "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "wrap",
+              "type": {
+                "text": "WrapType | undefined"
+              },
+              "default": "'soft'",
+              "description": "Specifies how the text should be wrapped during form submission.",
+              "attribute": "wrap",
+              "reflects": true
             }
           ],
           "attributes": [
+            {
+              "name": "autocomplete",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.",
+              "fieldName": "autocomplete"
+            },
             {
               "name": "maxlength",
               "type": {
@@ -140,12 +227,64 @@
               "fieldName": "placeholder"
             },
             {
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
+              "fieldName": "readonly"
+            },
+            {
               "name": "value",
               "type": {
                 "text": "string | undefined"
               },
               "description": "The value for the textarea.",
               "fieldName": "value"
+            },
+            {
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is valid.",
+              "fieldName": "valid"
+            },
+            {
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the textarea should get valid styles when is valid.",
+              "fieldName": "showValid"
+            },
+            {
+              "name": "resize",
+              "type": {
+                "text": "ResizeType"
+              },
+              "default": "'vertical'",
+              "description": "Specifies how textarea can be resized.",
+              "fieldName": "resize"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "TextareaSize"
+              },
+              "default": "'md'",
+              "description": "Textarea size.",
+              "fieldName": "size"
+            },
+            {
+              "name": "wrap",
+              "type": {
+                "text": "WrapType | undefined"
+              },
+              "default": "'soft'",
+              "description": "Specifies how the text should be wrapped during form submission.",
+              "fieldName": "wrap"
             }
           ],
           "mixins": [

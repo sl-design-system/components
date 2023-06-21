@@ -7,95 +7,26 @@ $sizes: md, lg;
 :host {
   --_border-radius: var(--sl-border-radius-checkbox);
   --_border-size: var(--sl-border-width-input-border);
-  --_border: var(--_border-size) solid var(--_border-color);
-  --_line-height: var(--sl-text-typeset-line-height-md);
+  --_box-shadow: none;
+  --_cursor: pointer;
+  --_icon-size: 1rem;
   --_path-length: 23;
   --_stroke-dashoffset: var(--_path-length);
   --_stroke-linecap: round;
   --_transition: 200ms ease-in-out;
-  --_icon-size: 16px;
 }
-
-:host {
-  align-items: start;
-  display: inline-flex;
-  flex-direction: column;
-  gap: var(--_gap);
-  line-height: var(--_line-height);
-  outline: none;
-  padding: var(--_padding);
-}
-
-:host(:where(:disabled, [internals-disabled])) {
-  cursor: default;
-  pointer-events: none;
-}
-
-.wrapper {
-  align-items: start;
-  color: var(--_label-color);
-  cursor: pointer;
-  display: flex;
-  font: var(--sl-text-input-label-md);
-  gap: var(--_gap);
-  outline: none;
-}
-
-.box {
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
-  display: inline-flex;
-  flex-shrink: 0;
-
-  padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
-  transition: var(--_transition);
-  transition-property: background, border-color, box-shadow, color, filter;
-}
-
-.label {
-  margin-block-start: calc((var(--_size) - var(--_line-height)) / 2);
-}
-
-sl-icon,
-svg {
-  align-self: center;
-  box-sizing: border-box;
-  fill: none;
-  height: var(--_icon-size);
-  transition: var(--_transition);
-  transition-property: background, border, box-shadow, fill;
-  width: var(--_icon-size);
-}
-
-path {
-  stroke: var(--_stroke);
-  stroke-dasharray: var(--_path-length);
-  stroke-dashoffset: var(--_stroke-dashoffset);
-  stroke-linecap: var(--_stroke-linecap);
-  stroke-linejoin: round;
-  stroke-width: 3px;
-  transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
-}
-
-:host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
-  --_stroke-dashoffset: 0;
-}
-
-/**
- * theming 
- */
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_line-height: var(--sl-text-typeset-line-height-#{$size});
-    --_padding: var(--sl-space-input-block-#{$size})
-      var(--sl-space-input-inline-#{$size})
-      var(--sl-space-input-block-#{$size})
-      0;
-    --_gap: var(--sl-space-input-gap-#{$size});
-    --_size: var(--sl-size-input-#{$size});
+    --_padding-block: var(--sl-space-input-option-block-#{$size});
+    --_padding-inline: var(--sl-space-input-option-inline-#{$size});
+    --_gap: calc(var(--sl-space-input-option-gap-#{$size}) - var(--_padding-inline));
+    --_size: var(--sl-size-input-option-#{$size});
+
+    .wrapper {
+      --_font: var(--sl-text-input-option-#{$size});
+    }
   }
 }
 
@@ -108,39 +39,130 @@ path {
     $state-selector: nth($state-selectors, $j);
 
     :host(#{$variant-selector + $state-selector}) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-default-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-default-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-default-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-default-icon);
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-default-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:hover) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-hover-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-hover-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-hover-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-hover-icon);
+    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled])) .wrapper:hover {
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:active) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-active-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-active-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-active-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-active-icon);
+    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled])) .wrapper:active {
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:focus-visible) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-focus-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-focus-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-focus-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-focus-icon);
+    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):focus-visible) {
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
       --_box-shadow: var(--sl-box-shadow-focus);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}[disabled]) {
-      --_background: var(--sl-color-input-#{$variant}-#{$state}-disabled-background);
-      --_border-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-border);
-      --_label-color: var(--sl-color-input-#{$variant}-#{$state}-disabled-label);
-      --_stroke: var(--sl-color-input-#{$variant}-#{$state}-disabled-icon);
+    :host(#{$variant-selector + $state-selector}:where(:disabled, [internals-disabled])) {
+      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
+      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
+      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
+      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-icon);
     }
+  }
+}
+
+:host {
+  align-items: start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--_gap);
+  line-height: var(--_line-height);
+  outline: none;
+}
+
+:host([no-label]) {
+  .outer {
+    padding-inline-start: var(--_padding-inline);
+  }
+
+  .label {
+    display: none;
+  }
+}
+
+:host(:focus-visible) .inner {
+  transition: var(--_transition);
+  transition-property: background, border-color, box-shadow, color, filter;
+}
+
+:host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
+  --_stroke-dashoffset: 0;
+}
+
+:host(:where(:disabled, [internals-disabled])) {
+  --_cursor: default;
+  pointer-events: none;
+}
+
+.wrapper {
+  align-items: start;
+  color: var(--_label-color);
+  cursor: var(--_cursor);
+  display: flex;
+  font: var(--_font);
+  gap: var(--_gap);
+  outline: none;
+
+  &:is(:active, :hover) .inner {
+    transition: var(--_transition);
+    transition-property: background, border-color, box-shadow, color, filter;
+  }
+}
+
+.outer {
+  display: inline-flex;
+  padding-block: var(--_padding-block);
+  padding-inline-end: var(--_padding-inline);
+}
+
+.inner {
+  background: var(--_background);
+  border: var(--_border-size) solid var(--_border-color);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow, none);
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
+}
+
+.label {
+  line-height: var(--_line-height);
+  margin-block-start: calc((var(--_size) + var(--_padding-block) * 2 - var(--_line-height)) / 2);
+}
+
+svg {
+  block-size: var(--_icon-size);
+  fill: none;
+  inline-size: var(--_icon-size);
+}
+
+path {
+  stroke: var(--_stroke);
+  stroke-dasharray: var(--_path-length);
+  stroke-dashoffset: var(--_stroke-dashoffset);
+  stroke-linecap: var(--_stroke-linecap);
+  stroke-linejoin: round;
+  stroke-width: 3px;
+  transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
+}
+
+:host(:where([invalid])) {
+  slot[name='hint']::slotted(*) {
+    display: none;
   }
 }

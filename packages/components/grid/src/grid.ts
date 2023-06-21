@@ -15,9 +15,10 @@ import { ArrayDataSource, SelectionController, event } from '@sl-design-system/s
 import { LitElement, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import styles from './grid.scss.js';
 import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
+import styles from './grid.scss.js';
+import { GridSelectionColumn } from './selection-column.js';
 
 export class GridActiveItemChangeEvent<T> extends Event {
   constructor(public readonly item: T, public readonly relatedEvent: Event | null) {
@@ -64,11 +65,8 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   /** Provide your own implementation for getting the data. */
   @property({ attribute: false }) dataSource?: DataSource<T>;
 
-  /** The `<tbody>` element. */
-  @query('tbody') tbody!: HTMLTableSectionElement;
-
-  /** The `<thead>` element. */
-  @query('thead') thead!: HTMLTableSectionElement;
+  /** Emits when the items in the grid have changed. */
+  @event() gridItemsChange!: EventEmitter<void>;
 
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
@@ -85,12 +83,18 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   /** Uses alternating background colors for the rows when set. */
   @property({ type: Boolean, reflect: true }) striped?: boolean;
 
+  /** The `<tbody>` element. */
+  @query('tbody') tbody!: HTMLTableSectionElement;
+
+  /** The `<thead>` element. */
+  @query('thead') thead!: HTMLTableSectionElement;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.#resizeObserver = new ResizeObserver(entries => {
       const {
-        borderBoxSize: [{ inlineSize }]
+        contentBoxSize: [{ inlineSize }]
       } = entries[0];
 
       this.style.setProperty('--sl-grid-width', `${inlineSize}px`);
@@ -118,6 +122,9 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         this.dataSource = undefined;
         this.selection.size = 0;
       }
+
+      // Notify any listeners (columns) that the items have changed
+      this.gridItemsChange.emit();
     }
   }
 
@@ -144,10 +151,10 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       </style>
       <table part="table">
         <thead
-          @sl-direction-change=${this.#onDirectionChange}
           @sl-filter-change=${this.#onFilterChange}
           @sl-filter-value-change=${this.#onFilterValueChange}
           @sl-sorter-change=${this.#onSorterChange}
+          @sl-sorter-direction-change=${this.#onSorterDirectionChange}
           part="thead"
         >
           ${this.renderHeader()}
@@ -171,8 +178,9 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
           return `
             thead tr:nth-child(${rowIndex + 1}) th:nth-child(${colIndex + 1}) {
               flex-grow: ${(col as GridColumnGroup<T>).columns.length};
+              inline-size: ${col.width || '100'}px;
               justify-content: ${col.align};
-              width: ${col.width || '100'}px;
+              ${col.renderStyles()?.toString() ?? ''}
             }
           `;
         });
@@ -181,16 +189,17 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         return `
           :where(td, thead tr:last-of-type th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
+            inline-size: ${col.width || '100'}px;
             justify-content: ${col.align};
-            width: ${col.width || '100'}px;
             ${
               col.sticky
                 ? `
-                  left: ${this.#getStickyColumnOffset(index)}px;
+                  inset-inline-start: ${this.#getStickyColumnOffset(index)}px;
                   position: sticky;
                 `
                 : ''
             }
+            ${col.renderStyles()?.toString() ?? ''}
           }
         `;
       })}
@@ -198,17 +207,31 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   renderHeader(): TemplateResult {
-    const rows = this.#getHeaderRows(this.columns);
+    const rows = this.#getHeaderRows(this.columns),
+      showSelectionHeader =
+        this.selection.size > 0 &&
+        (this.selection.areSomeSelected() || this.selection.areAllSelected()) &&
+        rows.at(-1)?.[0] instanceof GridSelectionColumn;
 
     return html`
-      ${rows.map(
-        row =>
-          html`
+      ${rows.slice(0, -1).map(
+        row => html`
+          <tr>
+            ${row.map(col => col.renderHeader())}
+          </tr>
+        `
+      )}
+      ${showSelectionHeader
+        ? html`
             <tr>
-              ${row.map(col => col.renderHeader())}
+              ${rows.at(-1)?.[0].renderHeader()} ${(rows.at(-1)?.[0] as GridSelectionColumn).renderSelectionHeader()}
             </tr>
           `
-      )}
+        : html`
+            <tr>
+              ${rows.at(-1)?.map(col => col.renderHeader())}
+            </tr>
+          `}
     `;
   }
 
@@ -258,6 +281,12 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         }, 0);
       });
 
+    // Since we set an explicit width for the `<thead>` and `<tbody>`, we also need
+    // to set an explicit width for all the `<tr>` elements. Otherwise, the sticky columns
+    // will not be sticky when you scroll horizontally.
+    const rowWidth = this.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+    this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
+
     this.requestUpdate('columns');
   }
 
@@ -270,17 +299,16 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#addScopedElements(event.target);
   }
 
-  #onDirectionChange({ target }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {
-    this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
-
-    this.#applySorters();
-  }
-
   #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter }): void {
     if (detail === 'added') {
       this.#filters = [...this.#filters, target];
     } else {
       this.#filters = this.#filters.filter(filter => filter !== target);
+    }
+
+    // If any filter starts out active, we need to apply it
+    if (this.#filters.some(filter => filter.active)) {
+      this.#applyFilters();
     }
   }
 
@@ -306,6 +334,19 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     } else {
       this.#sorters = this.#sorters.filter(sorter => sorter !== target);
     }
+
+    // If any sorter starts out active, sort the grid
+    if (this.#sorters.some(sorter => sorter.direction !== undefined)) {
+      this.#applySorters();
+    }
+  }
+
+  #onSorterDirectionChange({
+    target
+  }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {
+    this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
+
+    this.#applySorters();
   }
 
   #onVisibilityChanged(): void {
@@ -332,7 +373,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     }
 
     const filterValues: DataSourceFilterValue[] = this.#filters
-      .filter(filter => !!filter.value)
+      .filter(filter => (Array.isArray(filter.value) ? filter.value.length > 0 : !!filter.value))
       .map(filter => ({ path: filter.column.path || '', value: filter.value }));
 
     this.dataSource.filterValues = filterValues;

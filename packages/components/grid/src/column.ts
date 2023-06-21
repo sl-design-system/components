@@ -1,9 +1,12 @@
-import type { TemplateResult } from 'lit';
+import type { CSSResult, PropertyValues, TemplateResult } from 'lit';
 import type { Grid } from './grid.js';
 import type { EventEmitter } from '@sl-design-system/shared';
-import { dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import { EventsController, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+
+/** Custom for aligning the content in the cells. */
+export type GridColumnAlignment = 'start' | 'center' | 'end';
 
 /** Custom renderer type for column headers. */
 export type GridColumnHeaderRenderer = () => string | undefined | TemplateResult;
@@ -15,10 +18,13 @@ export type GridColumnDataRenderer<T> = (model: T) => string | undefined | Templ
 export type GridColumnParts<T> = (model: T) => string | undefined;
 
 export class GridColumn<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
+  #events = new EventsController(this);
+
+  /** Actual width of the column. */
   #width?: number;
 
   /** The alignment of the content within the column. */
-  @property() align: 'start' | 'center' | 'end' = 'start';
+  @property() align: GridColumnAlignment = 'start';
 
   /**
    * Automatically sets the width of the column based on the column contents when this is set to `true`.
@@ -86,10 +92,19 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
     super.connectedCallback();
 
     // If width and autoWidth are not set, set autoWidth to true
-    if (!this.width && this.autoWidth === undefined) {
+    if (this.width === undefined && this.autoWidth === undefined) {
       this.autoWidth = true;
     }
   }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    if (changes.has('grid') && this.grid) {
+      this.#events.listen(this.grid, 'sl-grid-items-change', this.itemsChanged);
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  itemsChanged(): void {}
 
   renderHeader(): TemplateResult {
     const parts = ['header', ...this.#getParts()];
@@ -106,6 +121,9 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
       </td>
     `;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  renderStyles(): CSSResult | void {}
 
   #getParts(item?: T): string[] {
     let parts: string[] = [];

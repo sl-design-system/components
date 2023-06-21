@@ -1,8 +1,11 @@
 import type { IconSize } from './icon.js';
+import { addons } from '@storybook/preview-api';
+import Events from '@storybook/core-events';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
+import { faNarwhal as fadNarwhal } from '@fortawesome/pro-duotone-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { html } from 'lit';
 import { Icon } from './icon.js';
@@ -13,6 +16,7 @@ interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
 }
 
 const sizes: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+let storyId: string;
 
 const sizeName = (size: IconSize): string => {
   switch (size) {
@@ -35,11 +39,21 @@ const sizeName = (size: IconSize): string => {
   }
 };
 
+const copyIconName = async (name: string): Promise<void> => {
+  await navigator.clipboard.writeText(name);
+};
+
 export default {
   title: 'Icon',
   args: {
-    icons: Object.keys(window.SLDS.icons)
+    icons: Object.keys(window.SLDS?.icons)
   },
+  decorators: [
+    (story, storyProperties) => {
+      storyId = storyProperties.id;
+      return story();
+    }
+  ],
   argTypes: {
     icons: {
       control: {
@@ -48,6 +62,14 @@ export default {
     }
   },
   render: ({ icons }) => {
+    if (icons.length === 0) {
+      setTimeout(() => {
+        addons.getChannel().emit(Events.UPDATE_STORY_ARGS, {
+          storyId,
+          updatedArgs: { icons: Object.keys(window.SLDS.icons) }
+        });
+      }, 200);
+    }
     return html`
       <style>
         section {
@@ -57,16 +79,33 @@ export default {
           grid-auto-flow: column;
           justify-items: center;
         }
+        .copyable sl-icon {
+          cursor: pointer;
+        }
       </style>
       <h2>System and custom icons:</h2>
+      <small>Click on the icon to copy the name</small>
       ${sizes.map(
         size => html`
           <h3>${sizeName(size)}</h3>
-          <section>${icons.map(i => html`<sl-icon .name=${i} .size=${size}></sl-icon>`)}</section>
+          <section class="copyable">
+            ${icons
+              .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')
+              .map(
+                i =>
+                  html`<sl-icon
+                    .name=${i}
+                    .size=${size}
+                    .label=${i}
+                    title="${i}"
+                    @click="${async () => copyIconName(i)}"
+                  ></sl-icon>`
+              )}
+          </section>
         `
       )}
       <h2>Referring to a non-existing icon:</h2>
-      <section><sl-icon name="sl-non-existent"></sl-icon></section>
+      <section><sl-icon></sl-icon></section>
     `;
   }
 } satisfies Meta<Props>;
@@ -84,7 +123,7 @@ export const RegisterAdditionalIcons: Story = {
     Icon.registerIcon(fatPinata);
 
     // load multiple icons at once:
-    Icon.registerIcon(falPinata, fasPinata);
+    Icon.registerIcon(falPinata, fasPinata, fadNarwhal);
 
     return html`
       <style>
@@ -100,7 +139,8 @@ export const RegisterAdditionalIcons: Story = {
         <sl-icon name="fal-pinata"></sl-icon>
         <sl-icon name="fat-pinata"></sl-icon>
         <sl-icon name="far-narwhal"></sl-icon>
-      </section
+        <sl-icon name="fad-narwhal"></sl-icon>
+      </section>
     `;
   }
 };

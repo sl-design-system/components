@@ -239,7 +239,7 @@
                 "text": "CheckboxSize"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "Checkbox size.",
               "attribute": "size",
               "reflects": true
             },
@@ -285,7 +285,7 @@
                 "text": "CheckboxSize"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "Checkbox size.",
               "fieldName": "size"
             },
             {

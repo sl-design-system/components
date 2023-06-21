@@ -574,7 +574,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.success.150}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -586,7 +586,7 @@
               "description": "color.button.success.solid.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.button.success.solid.disabled.foreground"
             },
@@ -661,7 +661,7 @@
               "description": "color.button.default.focus.foreground"
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.success.800}",
               "type": "color",
               "description": "color.button.default.focus.border"
             }
@@ -673,12 +673,12 @@
               "description": "color.button.success.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.button.success.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.button.success.outline.disabled.border"
             }
@@ -687,7 +687,7 @@
         "link": {
           "idle": {
             "background": {
-              "value": "{color.palette.success.800}",
+              "value": "{color.palette.transparent.base}",
               "type": "color"
             },
             "foreground": {
@@ -695,11 +695,25 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.success.800}",
+              "value": "{color.palette.transparent.base}",
               "type": "color"
             }
           },
           "hover": {
+            "background": {
+              "value": "{color.palette.success.100}",
+              "type": "color"
+            },
+            "foreground": {
+              "value": "{color.palette.success.800}",
+              "type": "color"
+            },
+            "border": {
+              "value": "{color.palette.success.100}",
+              "type": "color"
+            }
+          },
+          "active": {
             "background": {
               "value": "{color.palette.success.150}",
               "type": "color"
@@ -709,27 +723,13 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.success.800}",
-              "type": "color"
-            }
-          },
-          "active": {
-            "background": {
-              "value": "{color.palette.success.200}",
-              "type": "color"
-            },
-            "foreground": {
-              "value": "{color.palette.success.800}",
-              "type": "color"
-            },
-            "border": {
-              "value": "{color.palette.success.800}",
+              "value": "{color.palette.success.150}",
               "type": "color"
             }
           },
           "focus": {
             "background": {
-              "value": "{color.palette.success.200}",
+              "value": "rgba({body.background},{opacity.100})",
               "type": "color"
             },
             "foreground": {
@@ -737,21 +737,21 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "rgba({body.background},{opacity.100})",
               "type": "color"
             }
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.success.200}",
+              "value": "{color.palette.transparent.base}",
               "type": "color"
             },
             "foreground": {
-              "value": "{color.palette.success.800}",
+              "value": "{color.palette.neutral.400}",
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.transparent.base}",
               "type": "color"
             }
           }

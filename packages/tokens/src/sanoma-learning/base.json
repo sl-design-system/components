@@ -1123,7 +1123,7 @@
         }
       },
       "select": {
-        "panel": {
+        "listbox": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.default"

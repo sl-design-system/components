@@ -1008,6 +1008,43 @@
           }
         }
       }
+    },
+    "select": {
+      "selectbox": {
+        "text": {
+          "md": {
+            "value": "{text.input.textField.text.md}",
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "lg": {
+            "value": "{text.input.textField.text.lg}",
+            "type": "typography"
+          }
+        },
+        "title": {
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xxs}",
+              "fontSize": "{icon.typeset.fontSize.xs}",
+              "textCase": "{text.typeset.textCase.uppercase}"
+            },
+            "type": "typography"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xs}",
+              "fontSize": "{icon.typeset.fontSize.sm}",
+              "textCase": "{text.typeset.textCase.uppercase}"
+            },
+            "type": "typography"
+          }
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1058,6 +1095,12 @@
     "checkbox": {
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
+    },
+    "select": {
+      "listbox": {
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -1080,7 +1123,7 @@
         }
       },
       "select": {
-        "panel": {
+        "listbox": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.default"
@@ -1146,6 +1189,14 @@
   },
   "select": {
     "panel": {
+      "value": "{border.radius.2xs}",
+      "type": "borderRadius"
+    },
+    "item": {
+      "value": "{border.radius.3xs}",
+      "type": "borderRadius"
+    },
+    "listbox": {
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
     }

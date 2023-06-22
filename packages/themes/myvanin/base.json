@@ -1562,6 +1562,11 @@
         "type": "Icons",
         "description": "icon.core.check"
       },
+      "xmark": {
+        "value": "xmark",
+        "type": "Icons",
+        "description": "icon.core.xmark"
+      },
       "triangle-exclamation-solid": {
         "value": "triangle-exclamation",
         "type": "Icons",
@@ -2293,21 +2298,33 @@
       }
     },
     "select": {
-      "panel": {
+      "listbox": {
         "block": {
           "lg": {
-            "value": "{space.sm} - {border.width.sm}",
+            "value": "{space.sm} - {border.width.xs}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.xs}",
             "type": "spacing"
           }
         },
         "inline": {
           "lg": {
-            "value": "{space.sm} - {border.width.sm}",
+            "value": "{space.sm} - {border.width.xs}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.xs}",
             "type": "spacing"
           }
         },
         "gap": {
           "lg": {
+            "value": "{space.xs}",
+            "type": "spacing"
+          },
+          "md": {
             "value": "{space.xs}",
             "type": "spacing"
           }
@@ -2318,10 +2335,18 @@
           "lg": {
             "value": "{space.sm}",
             "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing"
           }
         },
         "inline": {
           "lg": {
+            "value": 0,
+            "type": "spacing"
+          },
+          "md": {
             "value": 0,
             "type": "spacing"
           }
@@ -2330,26 +2355,86 @@
           "lg": {
             "value": "{space.sm}",
             "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        }
+      },
+      "selectbox": {
+        "block": {
+          "md": {
+            "value": "{space.input.textField.block.md}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.block.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "md": {
+            "value": "{space.input.textField.inline.md}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.inline.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.input.textField.gap.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.input.textField.gap.lg}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
           }
         }
       },
       "item": {
         "block": {
+          "md": {
+            "value": "{space.input.textField.block.md}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "value": "{space.input.textField.block.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
           }
         },
         "inline": {
+          "md": {
+            "value": "{space.input.textField.inline.md}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
           "lg": {
-            "value": "{space.md}",
-            "type": "spacing"
+            "value": "{space.input.textField.inline.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
           }
         },
         "gap": {
+          "md": {
+            "value": "{space.input.textField.gap.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
           "lg": {
-            "value": "{space.sm}",
-            "type": "spacing"
+            "value": "{space.input.textField.gap.lg}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
           }
         }
       }
@@ -2368,6 +2453,31 @@
       "lg": {
         "value": "{text.typeset.lineHeight.lg}",
         "type": "lineHeights"
+      }
+    }
+  },
+  "elevation": {
+    "shadow": {
+      "md": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "blur": 8,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.200})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
       }
     }
   }

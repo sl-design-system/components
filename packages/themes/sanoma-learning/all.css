@@ -339,7 +339,7 @@
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
   --sl-border-width-input-border: var(--sl-border-width-sm);
   --sl-border-width-input-none: var(--sl-border-width-none);
-  --sl-border-width-select-panel: var(--sl-border-width-xs);
+  --sl-border-width-select-listbox: var(--sl-border-width-xs);
   --sl-border-width-button-link: var(--sl-border-width-xs);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-xs);

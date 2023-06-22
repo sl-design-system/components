@@ -1100,6 +1100,10 @@
       "listbox": {
         "value": "{border.radius.2xs}",
         "type": "borderRadius"
+      },
+      "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
       }
     }
   },
@@ -1185,20 +1189,6 @@
         "value": "{text.typeset.fontWeight.icon-solid}",
         "type": "fontWeights"
       }
-    }
-  },
-  "select": {
-    "panel": {
-      "value": "{border.radius.2xs}",
-      "type": "borderRadius"
-    },
-    "item": {
-      "value": "{border.radius.3xs}",
-      "type": "borderRadius"
-    },
-    "listbox": {
-      "value": "{border.radius.2xs}",
-      "type": "borderRadius"
     }
   }
 }

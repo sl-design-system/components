@@ -362,6 +362,8 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
   ngAfterViewChecked() {
     console.log('ngafterviewchecked in form before if', this.submitted, this.myForm);
 
+    this.inputWithNgmodel.control.updateValueAndValidity();
+
     // if (this.submitted) {
     //   Object.values(this.myForm.controls).forEach(control => {
     //     console.log('control on ngafterviewchecked after submit', control);
@@ -373,7 +375,7 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
   }
 
   onInput(event: Event): void {
-    console.log('oninput event', event.target, this.submitted, this.myForm, !this.submitted, !this.submitted && !!this.myForm);
+    console.log('oninput event', event, event.target, this.submitted, this.myForm, !this.submitted, !this.submitted && !!this.myForm);
     console.log('oninput event check condition', !this.submitted && !!this.myForm);
 
     // if (!this.submitted) {
@@ -445,11 +447,21 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     //       Option: ${model.option.value} ${model.option.text}`);
     // form.controls.markAsTouched();
 
+    console.log('on submit submitted', form.submitted);
+
+    console.log('this.myForm.form.validator', this.myForm.form.validator, this.inputWithNgmodel.control.validator, this.model.name);
+
+    // this.inputWithNgmodel.update;
+
     requestAnimationFrame(() => {
 
     this.submitted = true;
 
     // this.inputWithNgmodel.control.updateValueAndValidity();
+
+      // this.inputWithNgmodel.control.updateModel();
+      this.myForm.form.markAllAsTouched();
+      // this.inputWithNgmodel.control.setValue('aaa');
 
     Object.values(form.controls).forEach(control => {
       console.log('control on submit', control);
@@ -458,9 +470,13 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
       control.updateValueAndValidity();
     });
 
+      // this.inputWithNgmodel.model.dispatchEvent(new Event('input', { bubbles: true }));
+
     this.inputWithNgmodel.control.markAsTouched();
     this.inputWithNgmodel.control.markAsDirty();
     this.inputWithNgmodel.control.updateValueAndValidity();
+
+      this.inputWithNgmodel.update;
 
     });
 

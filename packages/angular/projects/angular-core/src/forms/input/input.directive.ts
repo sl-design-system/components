@@ -240,6 +240,8 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
 
    // control.setErrors()
 
+    // TODO: if when updateon change / submit/ blur?
+
     // if (control.invalid) {
     //   this.renderer.setAttribute(this.elementRef.nativeElement, 'invalid', '');
     // } else {
@@ -296,18 +298,18 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
     }*/
 
 
-    if (input.checkValidity()  || control.touched /*control.invalid && control.touched*/ /*input.reportValidity()*/ /*&& control.errors*/) { // TODO: working only on required, not minlength etc.
+    if (input.checkValidity()  || this.elementRef.nativeElement.checkValidity() || control.touched /*control.invalid && control.touched*/ /*input.reportValidity()*/ /*&& control.errors*/) { // TODO: working only on required, not minlength etc.
       console.log('in input validate if', control);
        // return {invalid: true}
       // return null;
      // this.onTouched();
-      return control.errors;
+      return null; //control.errors;
     } else {
       console.log('in input validate else', control);
       // this.elementRef.nativeElement.emit('invalid');
       // new EventEmitter(this.elementRef.nativeElement, 'invalid');
       // this.elementRef.nativeElement.invalid = true;
-      return null;
+      return control.errors; //null;
       // return {invalid: true}
       // return control.errors;
      }
@@ -354,6 +356,7 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnTouched(fn: any): void {
+    console.log('registerontouched in inpur directive');
     this.onTouched = fn;
     // this.validatorOnChange();
   }
@@ -380,6 +383,17 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
     // this.validatorOnChange();
 
     console.log('this.elementRef.nativeElement.validators', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
+  }
+
+  @HostListener('submit', ['$event.target.value'])
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  listenForValueChange(value: any): void {
+    console.log('submit event on input', value);
+    this.value = value;
+    // this.onTouched();
+    // this.validatorOnChange();
+
+    console.log('this.elementRef.nativeElement.validators___submit', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
   }
 
   // @HostListener('invalid', ['$event.target.value'])

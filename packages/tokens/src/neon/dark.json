@@ -2076,7 +2076,7 @@
             },
             "disabled": {
               "background": {
-                "value": "{color.palette.neutral.150}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2086,12 +2086,12 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{color.palette.neutral.200}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.neutral.50}",
+                "value": "{color.palette.neutral.150}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2188,7 +2188,7 @@
             },
             "disabled": {
               "background": {
-                "value": "{color.palette.neutral.150}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2198,12 +2198,12 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{color.palette.neutral.200}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.neutral.50}",
+                "value": "{color.palette.neutral.150}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2215,12 +2215,12 @@
         "default": {
           "default": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{body.background}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.primary.150}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2230,7 +2230,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.primary.150}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2240,14 +2240,14 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "placeholder": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             }
           },
           "hover": {
             "background": {
-              "value": "{color.palette.primary.100}",
+              "value": "rgba( {color.palette.primary.150},{opacity.200})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2279,7 +2279,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.primary.50}",
+              "value": "rgba( {color.palette.primary.150},{opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2343,12 +2343,12 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.neutral.50}",
+              "value": "{color.palette.neutral.300}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2358,17 +2358,17 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "inputText": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             },
             "placeholder": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             }
@@ -2377,7 +2377,7 @@
         "invalid": {
           "default": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{body.background}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2409,7 +2409,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.danger.150}",
+              "value": "rgba( {color.palette.danger.600} ,{opacity.200})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2441,7 +2441,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.danger.50}",
+              "value": "rgba( {color.palette.danger.600} ,{opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },

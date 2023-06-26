@@ -235,16 +235,19 @@ export class ReactiveFormComponent {
     }
   `],
   template: `
-    <form #myForm="ngForm" (ngSubmit)="onSubmit(model, myForm)">
+    <form #myForm="ngForm" (ngSubmit)="onSubmit($event, model, myForm)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" placeholder="type at least 8 characters" [(ngModel)]="model.name" (input)="onInput($event);" #inputWithNgmodel="ngModel" name="name" minlength="8" required></sl-text-input>
-      {{ this.model.name }} {{ this.model.name.length }}
-      <div>error message example</div>
-      <div>hint example</div>
-      <div *ngIf="inputWithNgmodel.hasError('required')">Field is required</div>
+      <sl-text-input id="my-value" hint="this is a hint" placeholder="type at least 8 characters" [(ngModel)]="model.name" (input)="onInput($event.target);" #inputWithNgmodel="ngModel" name="name" minlength="8" required>
+        <div slot="value-missing">error message example when the field is required</div>
+      </sl-text-input>
+      <!--{{ this.model.name }} {{ this.model.name.length }}-->
+      <!--<div slot="value-missing">error message example</div>-->
+      <!--<div>hint example</div>-->
+      <!--<div *ngIf="inputWithNgmodel.formDirective">Field is required {{inputWithNgmodel.control | json}}</div>-->
+      <!--<div *ngIf="inputWithNgmodel.hasError('required')">Field is required</div>-->
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" [(ngModel)]="model.description" name="description"></sl-textarea>
-      <sl-label for="checkboxWithNgmodel">Checkbox</sl-label>
+      <!--<sl-label for="checkboxWithNgmodel">Checkbox</sl-label>
       <sl-checkbox id="checkboxWithNgmodel" #checkboxWithNgmodel="ngModel" [(ngModel)]="model.approval" name="approval" required>my checkbox</sl-checkbox>
       (change)="checkboxWithNgmodel.control.markAsUntouched(); checkboxWithNgmodel.control.markAsPristine()"
       <sl-label for="radio-group">Select option</sl-label>
@@ -252,7 +255,7 @@ export class ReactiveFormComponent {
         <sl-radio value="1" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">One</sl-radio>
         <sl-radio value="2" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Two</sl-radio>
         <sl-radio value="3" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Three</sl-radio>
-      </sl-radio-group>
+      </sl-radio-group>-->
       <sl-button type="submit" variant="primary">Submit</sl-button>
       <sl-button type="reset" variant="primary" (click)="myForm.reset()">Reset</sl-button>
       <div>
@@ -262,14 +265,16 @@ export class ReactiveFormComponent {
         <strong>pristine?</strong> {{inputWithNgmodel.control.pristine }}
       </div>
       <div>Description: <i>{{model.description}}</i></div>
-      <div>Approval: <i>{{model.approval}}</i> valid? {{checkboxWithNgmodel.valid}}</div><i>errors? {{checkboxWithNgmodel.control.errors | json}}</i>
-      <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>
+<!--      <div>Approval: <i>{{model.approval}}</i> valid? {{checkboxWithNgmodel.valid}}</div><i>errors? {{checkboxWithNgmodel.control.errors | json}}</i>-->
+<!--      <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>-->
       <div>Form submitted: {{myForm.submitted}}</div>
       <div>Form valid: {{myForm.valid}}</div>
       <div>Form validator: {{myForm.form.errors| json}}</div>
     </form>
   `
+  // TODO: with custom validation
 }) // TODO: after form submitted and after form control touched
+// TODO slotted hint
 // TODO: reportvalidity ?
 export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewInit, AfterViewChecked {
   // model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
@@ -374,9 +379,9 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     // }
   }
 
-  onInput(event: Event): void {
-    console.log('oninput event', event, event.target, this.submitted, this.myForm, !this.submitted, !this.submitted && !!this.myForm);
-    console.log('oninput event check condition', !this.submitted && !!this.myForm);
+  onInput(event: HTMLInputElement): void {
+   // console.log('oninput event', event, event.target, this.submitted, this.myForm, !this.submitted, !this.submitted && !!this.myForm);
+    console.log('oninput event check condition', !this.submitted && !!this.myForm, event);
 
     // if (!this.submitted) {
     //   event.preventDefault();
@@ -404,10 +409,20 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
         // control.updateValueAndValidity();
       });
     } else {
+      // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+      // input.dispatchEvent(new Event('invalid', { bubbles: true }));
       console.log('oninput event inside else');
       this.inputWithNgmodel.control.markAsTouched();
       this.inputWithNgmodel.control.markAsDirty();
       this.inputWithNgmodel.control.updateValueAndValidity();
+      Object.values(this.myForm.controls).forEach(control => {
+        console.log('oninput event inside for each');
+        //control.errors = {};
+        control.markAsTouched();
+        control.markAsDirty();
+        //control.clearValidators();
+        control.updateValueAndValidity();
+      });
     }
   }
 
@@ -440,14 +455,14 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     // });
   }
 
-  onSubmit(model: Person, form: NgForm): void {
+  onSubmit(event: Event, model: Person, form: NgForm): void {
     // alert(`form submit: Name: ${model.name},
     //       Description: ${model.description},
     //       Approval: ${model.approval},
     //       Option: ${model.option.value} ${model.option.text}`);
     // form.controls.markAsTouched();
 
-    console.log('on submit submitted', form.submitted);
+    console.log('on submit submitted', form.submitted, event);
 
     console.log('this.myForm.form.validator', this.myForm.form.validator, this.inputWithNgmodel.control.validator, this.model.name);
 
@@ -471,6 +486,11 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     });
 
       // this.inputWithNgmodel.model.dispatchEvent(new Event('input', { bubbles: true }));
+      // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement
+      // this.onInput(input);
+
+      const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+      input.dispatchEvent(new Event('invalid', { bubbles: true }));
 
     this.inputWithNgmodel.control.markAsTouched();
     this.inputWithNgmodel.control.markAsDirty();

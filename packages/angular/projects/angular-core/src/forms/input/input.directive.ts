@@ -37,7 +37,8 @@ import {Observable, Subject, Subscription} from "rxjs";
       useExisting: forwardRef(() => InputDirective),
       multi: true
     }
-  ]
+  ]//,
+ // host: {'(submit)': 'onSubmit($event)'}, // host: {'(submit)': 'onSubmit($event)', '(reset)': 'onReset()'},
 })
 
 export class InputDirective implements ControlValueAccessor, Validator, AfterViewInit, AfterViewChecked, OnChanges {
@@ -80,7 +81,7 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
       this.elementRef.nativeElement.input.value = val;
       this.validatorOnChange();
     }
-    this.validatorOnChange();
+    this.validatorOnChange(); // TODO: necessary?
     console.log('val in set value after if', val, this.value, this.elementRef.nativeElement.input.value, this._value);
   }
 
@@ -374,10 +375,13 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
 
   // TODO: register icon separately? necessary to add import
 
-  @HostListener('input', ['$event.target.value'])
+  // @HostListener('input', ['$event.target.value'])
+  //   @HostListener('touch', ['$event'])
+  @HostListener('input', ['$event'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listenForValueChange(value: any): void {
-    console.log('input event on input', value);
+  listenForValueChange($event: any): void {
+    const value = $event.target.value;
+    console.log('input event on input', $event, value);
     this.value = value;
     // this.onTouched();
     // this.validatorOnChange();
@@ -385,7 +389,31 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
     console.log('this.elementRef.nativeElement.validators', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
   }
 
-  @HostListener('submit', ['$event.target.value'])
+  @HostListener('invalid', ['$event'])
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  listenForValueChangeInvalid($event: any): void {
+    const value = $event.target.value;
+    console.log('invalid event on input-----', $event, value);
+     this.value = value;
+    // this.onTouched();
+     this.validatorOnChange();
+
+    // console.log('this.elementRef.nativeElement.validators', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
+  }
+
+  @HostListener('submit', ['$event'])
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  listenForValueChangeSubmit($event: any): void {
+    const value = $event.target.value;
+    console.log('submit event on input-----', $event, value);
+    // this.value = value;
+    // this.onTouched();
+    // this.validatorOnChange();
+
+    // console.log('this.elementRef.nativeElement.validators', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
+  }
+
+/*  @HostListener('submit', ['$event.target.value'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
     console.log('submit event on input', value);
@@ -395,6 +423,24 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
 
     console.log('this.elementRef.nativeElement.validators___submit', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
   }
+
+  @HostListener('submit')
+  onSubmit() {
+    console.log('Form has been submitted');
+  }*/
+
+  @HostListener('submit')
+  onSubmit2() {
+    console.log('Form has been submitted');
+  }
+
+  // onSubmit($event: Event): void {
+  //   console.log('$event onSubmit', $event);
+  //   // (this as{submitted: boolean}).submitted = true;
+  //   // syncPendingControls(this.form, this._directives);
+  //   // this.ngSubmit.emit($event);
+  //   // return false;
+  // }
 
   // @HostListener('invalid', ['$event.target.value'])
 

@@ -1359,6 +1359,10 @@
       "listbox": {
         "value": "{border.radius.2xs}",
         "type": "borderRadius"
+      },
+      "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
       }
     }
   },
@@ -1670,20 +1674,6 @@
           "description": "icon.typeset.fontSize.4xl"
         }
       }
-    }
-  },
-  "select": {
-    "panel": {
-      "value": "{border.radius.2xs}",
-      "type": "borderRadius"
-    },
-    "item": {
-      "value": "{border.radius.3xs}",
-      "type": "borderRadius"
-    },
-    "listbox": {
-      "value": "{border.radius.2xs}",
-      "type": "borderRadius"
     }
   },
   "opacity": {

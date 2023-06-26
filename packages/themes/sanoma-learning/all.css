@@ -221,8 +221,8 @@
   --sl-color-palette-primary-100: 234 234 234;
   --sl-color-palette-primary-50: 254 254 254;
   --sl-elevation-shadow-md: calc(
-    0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0px 8px 8px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+    0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 8px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
   );
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
@@ -320,9 +320,6 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-inner)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
-  --sl-select-listbox: var(--sl-border-radius-2xs);
-  --sl-select-item: var(--sl-border-radius-3xs);
-  --sl-select-panel: var(--sl-border-radius-2xs);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
   --sl-icon-typeset-font-size-3xl: var(--sl-size-3xl);
   --sl-icon-typeset-font-size-2xl: var(--sl-size-2xl);
@@ -343,6 +340,7 @@
   --sl-border-width-button-link: var(--sl-border-width-xs);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-xs);
+  --sl-border-radius-select-item: var(--sl-border-radius-3xs);
   --sl-border-radius-select-listbox: var(--sl-border-radius-2xs);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
@@ -459,12 +457,11 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --sl-dropshadow-select-panel: 0px 0px var(--sl-size-3xs) px 0px
+    --sl-dropshadow-select-listbox: 0 0 var(--sl-size-3xs) 0
       rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-      0px var(--sl-size-3xs) px var(--sl-size-2xs) px 0px
-      rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
-    --sl-box-shadow-none: 0px 0px 0px 0px rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
+      0 var(--sl-size-3xs) var(--sl-size-2xs) 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
+    --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+    --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
     --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
@@ -1195,8 +1192,8 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --sl-box-shadow-none: 0px 0px 0px 0px rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
+    --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+    --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
     --sl-body-surface-100-copy: rgb(var(--sl-color-palette-neutral-800));
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
     --sl-body-foreground: rgb(var(--sl-color-palette-white-base));

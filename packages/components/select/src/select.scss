@@ -1,4 +1,5 @@
 @import url('@oddbird/popover-polyfill');
+
 :host {
   --_background: var(--sl-color-button-default-idle-background);
   --_border-width: 1px;
@@ -15,26 +16,27 @@
 
 dialog {
   --_max-overlay-height: var(--max-overlay-height, 80vh);
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  display: none;
-  opacity: 0;
-
   background-color: #fff;
+  box-sizing: border-box;
+  display: none;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--sl-space-select-listbox-gap-md);
+  margin: 0;
   max-height: var(--_max-overlay-height);
+  opacity: 0;
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;
+  padding-block: var(--sl-space-select-listbox-block-md);
+  padding-inline: var(--sl-space-select-listbox-inline-md);
+  position: absolute;
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 
 dialog:popover-open {
+  border: 0;
+  box-shadow: var(--sl-dropshadow-select-listbox);
   display: flex;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
   opacity: 1;
-  border: none;
 }
 
 button {
@@ -45,11 +47,11 @@ button {
   --_padding-block: var(--sl-space-button-default-block-md);
   --_padding-inline: var(--sl-space-input-text-field-inline-md);
   --_font: var(--sl-text-button-text-md);
-  
+
   align-items: center;
   background: var(--_background);
-  border-radius: var(--_border-radius);
   border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
   display: grid;
   flex: 1 1 auto;
@@ -58,13 +60,13 @@ button {
   grid-template-columns: auto 24px;
   padding: 0;
   text-align: start;
-  transition-property: background, border, box-shadow, color, filter;
   transition: 0.2s ease-in-out;
+  transition-property: background, border, box-shadow, color, filter;
 
   span {
+    box-sizing: border-box;
     padding-block: var(--_padding-block);
     padding-inline: var(--_padding-inline);
-    box-sizing: border-box;
   }
 
   span[contenttype='element'] {
@@ -81,7 +83,8 @@ button {
     outline: none;
   }
 
-  &:focus-visible, &:focus-within  {
+  &:focus-visible,
+  &:focus-within {
     --_box-shadow: var(--sl-box-shadow-focus);
   }
 

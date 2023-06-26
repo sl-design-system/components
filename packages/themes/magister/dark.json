@@ -2411,7 +2411,7 @@
         "x": 0,
         "y": 0,
         "blur": 0,
-        "spread": 3,
+        "spread": "3px",
         "color": "rgba({color.palette.info.base},{opacity.600})",
         "type": "dropShadow"
       },

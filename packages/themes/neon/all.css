@@ -220,8 +220,8 @@
   --sl-color-palette-primary-100: 197 222 242;
   --sl-color-palette-primary-50: 239 248 255;
   --sl-elevation-shadow-md: calc(
-    0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0px 8px 8px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+    0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 8px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
   );
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
@@ -416,8 +416,8 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --sl-box-shadow-none: 0px 0px 0px 0px rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
+    --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+    --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-option-valid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-option-valid-checked-disabled-label: rgb(var(--sl-color-palette-neutral-400));
@@ -749,8 +749,8 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --sl-box-shadow-none: 0px 0px 0px 0px rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-focus: 0px 0px 0px 4px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-600));
+    --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+    --sl-box-shadow-focus: 0 0 0 4px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-600));
     --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-body-background: rgb(var(--sl-color-palette-primary-900));
     --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));

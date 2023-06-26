@@ -1359,6 +1359,10 @@
       "listbox": {
         "value": "{border.radius.2xs}",
         "type": "borderRadius"
+      },
+      "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
       }
     }
   },
@@ -1670,20 +1674,6 @@
           "description": "icon.typeset.fontSize.4xl"
         }
       }
-    }
-  },
-  "select": {
-    "panel": {
-      "value": "{border.radius.2xs}",
-      "type": "borderRadius"
-    },
-    "item": {
-      "value": "{border.radius.3xs}",
-      "type": "borderRadius"
-    },
-    "listbox": {
-      "value": "{border.radius.2xs}",
-      "type": "borderRadius"
     }
   },
   "opacity": {
@@ -2520,15 +2510,15 @@
           {
             "x": 0,
             "y": 0,
-            "blur": 4,
+            "blur": "4px",
             "spread": 0,
             "color": "rgba({color.palette.neutral.base} , {opacity.100})",
             "type": "dropShadow"
           },
           {
             "x": 0,
-            "y": 8,
-            "blur": 8,
+            "y": "8px",
+            "blur": "8px",
             "spread": 0,
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
             "type": "dropShadow"

@@ -40,10 +40,10 @@ export const boxShadow = {
   matcher: token => token.type === 'boxShadow',
   transformer: token => {
     if(Array.isArray(token.value)){
-      const cssTokens = token.value.map(t => `${t.x}px ${t.y}px ${t.blur}px ${t.spread}px ${t.color.replace(',','/')}`);
+      const cssTokens = token.value.map(t => `${t.x} ${t.y} ${t.blur} ${t.spread} ${t.color.replace(',','/')}`);
       return cssTokens.join(', ');
     }else {
-      return `${token.value.x}px ${token.value.y}px ${token.value.blur}px ${token.value.spread}px ${token.value.color.replace(',','/')}`;
+      return `${token.value.x} ${token.value.y} ${token.value.blur} ${token.value.spread} ${token.value.color.replace(',','/')}`;
     }
   }
 };

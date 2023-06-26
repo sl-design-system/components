@@ -1,18 +1,21 @@
 :host {
   --_font: var(--sl-text-button-text-md);
+  --sl-border-radius-select-item: 2px;
+  border-radius: var(--sl-border-radius-select-item);
+  box-shadow: var(--_box-shadow, none);
 
   cursor: pointer;
   display: block;
   font: var(--_font);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
+  position: relative;
   white-space: nowrap;
-  box-shadow: var(--_box-shadow,none);
 }
 
 :host([contenttype='string']) {
-  --_padding-block: var(--sl-space-button-default-block-md);
-  --_padding-inline: var(--sl-space-input-text-field-inline-md);
+  --_padding-block: var(--sl-space-select-item-block-md);
+  --_padding-inline: var(--sl-space-select-item-inline-md);
 }
 
 :host([contenttype='element']) {
@@ -20,8 +23,15 @@
   --_padding-inline: 0;
 }
 
-:host([selected]) {
-  box-shadow: inset 3px 0 0 var(--sl-color-button-default-default-focus-border);
+:host([selected])::before {
+  background: var(--sl-color-select-item-default-indicator);
+  border-radius: var(--sl-border-radius-select-item);
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: calc(2 * var(--sl-border-radius-select-item));
 }
 
 :host([disabled]) {
@@ -31,14 +41,18 @@
 }
 
 :host(:is(:hover)) {
-  background-color: var(--sl-color-button-default-default-hover-background);
+  background-color: var(--sl-color-select-item-hover-background);
+}
+
+:host(:is(:active)) {
+  background-color: var(--sl-color-select-item-active-background);
 }
 
 :host(:is(:focus)) {
-  outline: 2px solid cornflowerblue;
-  outline-offset: 2px;
+  outline: none;
 }
 
-// :host(:where(:focus-visible, :focus-within))  {
-//   --_box-shadow: var(--sl-box-shadow-focus);
-// }
+:host(:where(:focus-visible, :focus-within)) {
+  --_box-shadow: var(--sl-box-shadow-focus);
+  outline: none;
+}

@@ -2731,7 +2731,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -2769,7 +2769,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{body.foreground}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -2807,7 +2807,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{body.foreground}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -2845,7 +2845,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -2961,7 +2961,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.input.textField.invalid.default.icon}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -2999,7 +2999,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.input.textField.invalid.default.icon}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true

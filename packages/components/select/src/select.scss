@@ -1,17 +1,49 @@
 @import url('@oddbird/popover-polyfill');
+$sizes: md, lg;
 
 :host {
-  --_background: var(--sl-color-button-default-idle-background);
-  --_border-width: 1px;
-  --_border-radius: var(--sl-border-radius-button-md);
   --_box-shadow: none;
-  --_gap: 0.25rem;
-}
 
-:host {
   align-items: center;
   display: flex;
   gap: var(--_gap);
+}
+
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_gap: var(--sl-space-select-listbox-gap-#{$size});
+    --_dialog-padding-block: var(--sl-space-select-listbox-block-#{$size});
+    --_dialog-padding-inline: var(--sl-space-select-listbox-inline-#{$size});
+    --_button-padding-block: var(--sl-space-select-selectbox-block-#{$size});
+    --_button-padding-inline: var(--sl-space-select-selectbox-inline-#{$size});
+    --_font: var(--sl-text-select-selectbox-text-#{$size});
+    // --_font: var(--sl-text-button-text-#{$size});
+    --_border-radius: var(--sl-border-radius-default);
+    --_border-width: var(--sl-border-width-button-default);
+  }
+}
+
+button {
+  &:focus-within,
+  &:focus-visible {
+    --_background: var(--sl-color-select-selectbox-default-focus-background);
+    --_border-color: var(--sl-color-select-selectbox-default-focus-border);
+    --_color: var(--sl-color-select-selectbox-default-focus-foreground);
+    --_box-shadow: var(--sl-box-shadow-focus);
+    outline: none;
+  }
+
+  &:hover {
+    --_background: var(--sl-color-select-selectbox-default-hover-background);
+    --_border-color: var(--sl-color-select-selectbox-default-hover-border);
+    --_color: var(--sl-color-select-selectbox-default-hover-foreground);
+  }
+
+  &:active {
+    --_background: var(--sl-color-select-selectbox-default-active-background);
+    --_border-color: var(--sl-color-select-selectbox-default-active-border);
+    --_color: var(--sl-color-select-selectbox-default-active-foreground);
+  }
 }
 
 dialog {
@@ -20,14 +52,14 @@ dialog {
   box-sizing: border-box;
   display: none;
   flex-direction: column;
-  gap: var(--sl-space-select-listbox-gap-md);
+  gap: var(--_gap);
   margin: 0;
   max-height: var(--_max-overlay-height);
   opacity: 0;
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;
-  padding-block: var(--sl-space-select-listbox-block-md);
-  padding-inline: var(--sl-space-select-listbox-inline-md);
+  padding-block: var(--_dialog-padding-block);
+  padding-inline: var(--_dialog-padding-inline);
   position: absolute;
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
@@ -40,13 +72,9 @@ dialog:popover-open {
 }
 
 button {
-  --_background: var(--sl-color-button-default-default-idle-background);
-  --_border-color: var(--sl-color-button-default-default-idle-border);
-  --_color: var(--sl-color-button-default-default-idle-foreground);
-  --_transform: var(--sl-transform-button-default-default-idle);
-  --_padding-block: var(--sl-space-button-default-block-md);
-  --_padding-inline: var(--sl-space-input-text-field-inline-md);
-  --_font: var(--sl-text-button-text-md);
+  --_background: var(--sl-color-select-selectbox-default-default-background);
+  --_border-color: var(--sl-color-select-selectbox-default-default-border);
+  --_color: var(--sl-color-select-selectbox-default-default-foreground);
 
   align-items: center;
   background: var(--_background);
@@ -65,8 +93,8 @@ button {
 
   span {
     box-sizing: border-box;
-    padding-block: var(--_padding-block);
-    padding-inline: var(--_padding-inline);
+    padding-block: var(--_button-padding-block);
+    padding-inline: var(--_button-padding-inline);
   }
 
   span[contenttype='element'] {
@@ -76,24 +104,7 @@ button {
 
   &:focus-within,
   &:focus-visible {
-    --_background: var(--sl-color-button-default-default-focus-background);
-    --_border-color: var(--sl-color-button-default-default-focus-border);
-    --_color: var(--sl-color-button-default-default-focus-foreground);
-    --_transform: var(--sl-transform-button-default-default-focus);
     outline: none;
-  }
-
-  &:focus-visible,
-  &:focus-within {
-    --_box-shadow: var(--sl-box-shadow-focus);
-  }
-
-  &:hover {
-    --_background: var(--sl-color-button-default-default-hover-background);
-    --_border-color: var(--sl-color-button-default-default-hover-border);
-    --_box-shadow: var(--sl-box-shadow-button-default-default-hover, var(--sl-box-shadow-button-default-default-idle));
-    --_color: var(--sl-color-button-default-default-hover-foreground);
-    --_transform: var(--sl-transform-button-default-default-hover);
   }
 
   span {
@@ -102,7 +113,7 @@ button {
 }
 
 // to be replaced by <sl-icon>
-.toggle-icon {
+sl-icon {
   display: grid;
   place-items: center;
 }

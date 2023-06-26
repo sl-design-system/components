@@ -1,3 +1,4 @@
+import type { SelectSize } from './select.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/label/register.js';
@@ -18,27 +19,35 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 
+const sizes: SelectSize[] = ['md', 'lg'];
+
 export default {
   title: 'Select',
   argTypes: {
     maxOverlayHeight: {
       control: 'text'
+    },
+    size: {
+      control: 'inline-radio',
+      options: sizes
     }
   }
 };
 
-export const API: StoryObj = {
+export const Basic: StoryObj = {
   args: {
+    size: 'md',
     maxOverlayHeight: '200px'
   },
-  render: ({ maxOverlayHeight }) => html`
+  render: ({ maxOverlayHeight, size }) => html`
     <style>
       sl-select {
         width: 400px;
+        display: inline-flex;
       }
     </style>
     <sl-button>To focus</sl-button>
-    <sl-select maxOverlayHeight=${maxOverlayHeight}>
+    <sl-select maxOverlayHeight=${maxOverlayHeight} .size="${size}">
       <sl-select-option-group group-title="Happy">
         <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
         <sl-select-option selected>😂 Face with Tears of Joy</sl-select-option>
@@ -47,11 +56,18 @@ export const API: StoryObj = {
         <sl-select-option disabled>🙂 Slightly Smiling Face</sl-select-option>
         <sl-select-option>🥳 Partying Face</sl-select-option>
       </sl-select-option-group>
+      <sl-select-option>😶 Unfazed</sl-select-option>
       <sl-select-option-group group-title="Sad">
         <sl-select-option>😒 Unamused Face</sl-select-option>
         <sl-select-option>🤧 Sneezing Face</sl-select-option>
         <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>
         <sl-select-option>😡 Enraged Face</sl-select-option>
+      </sl-select-option-group>
+      <sl-select-option-group>
+        <sl-select-option>🐷 Pig</sl-select-option>
+        <sl-select-option>🐨 Koala</sl-select-option>
+        <sl-select-option>🐼 Panda</sl-select-option>
+        <sl-select-option>🦊 Fox</sl-select-option>
       </sl-select-option-group>
       <sl-select-option>🤖 Robot</sl-select-option>
     </sl-select>
@@ -72,8 +88,8 @@ export const CustomComponents: StoryObj = {
       <sl-select-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
       <sl-select-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
       <sl-select-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
-      <sl-select-option disabled><sl-avatar uniqueProfileId="bla"></sl-avatar></sl-select-option>
-      <sl-select-option><sl-avatar uniqueProfileId="xxs"></sl-avatar></sl-select-option>
+      <sl-select-option disabled><sl-avatar uniqueProfileId="4"></sl-avatar></sl-select-option>
+      <sl-select-option><sl-avatar uniqueProfileId="5"></sl-avatar></sl-select-option>
     </sl-select>
     <sl-button>To focus</sl-button>
   `

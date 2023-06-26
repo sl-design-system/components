@@ -1,15 +1,24 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--sl-space-select-listbox-gap-md);
 }
 
-:host(:not(:last-child)) {
-  border-bottom: 1px solid #efefef;
-  padding-bottom: 4px;
+:host(:not(:first-child)) {
+  border-top: 1px solid var(--sl-color-select-item-divider-line);
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+:host(.bottom-divider) {
+  border-bottom: 1px solid var(--sl-color-select-item-divider-line);
+  margin-bottom: 8px;
+  padding-bottom: 8px;
 }
 
 span {
-  font-weight: bold;
-  padding: 0 4px;
+  color: var(--sl-color-select-item-group-title-foreground);
+  font: var(--sl-text-select-selectbox-title-lg);
+  padding: 4px 12px;
+  text-transform: uppercase;
 }

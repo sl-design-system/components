@@ -21,6 +21,8 @@ interface ToggleEvent extends Event {
   newState: string;
 }
 
+export type SelectSize = 'md' | 'lg';
+
 export class Select extends FormControlMixin(LitElement) {
   static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
@@ -35,15 +37,18 @@ export class Select extends FormControlMixin(LitElement) {
 
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
 
-  /** The slotted options. */
+  /** The slotted options and option groups. */
   @queryAssignedElements({ selector: 'sl-select-option', flatten: false }) options?: SelectOption[];
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
-  @query('dialog') dialog?: HTMLDialogElement;
   @query('button') button?: HTMLButtonElement;
+  @query('dialog') dialog?: HTMLDialogElement;
 
   /** render helpers */
   @property() maxOverlayHeight?: string;
+
+  /** Select size. */
+  @property({ reflect: true }) size: SelectSize = 'md';
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
     focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.dialog?.open),
@@ -74,7 +79,7 @@ export class Select extends FormControlMixin(LitElement) {
     return html`
       <button id=${this.#selectId} tabindex="0" class="select-toggle" popovertarget="dialog-${this.#selectId}">
         <span id="selectedOption"></span>
-        <sl-icon name="chevron-down"></sl-icon>
+        <sl-icon name="chevron-down" .size=${this.size}></sl-icon>
       </button>
       <dialog
         @keydown="${this.#handleOverlayKeydown}"
@@ -127,6 +132,14 @@ export class Select extends FormControlMixin(LitElement) {
   }
 
   #handleOptionsSlotChange(): void {
+    if (this.optionGroups) {
+      this.optionGroups.forEach(group => {
+        group.classList.remove('bottom-divider');
+        if (group.nextElementSibling?.nodeName === 'SL-SELECT-OPTION') {
+          group.classList.add('bottom-divider');
+        }
+      });
+    }
     this.#rovingTabindexController.clearElementCache();
   }
 

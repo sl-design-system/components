@@ -11,7 +11,7 @@ export class SelectOptionGroup extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <span>${this.groupTitle}</span>
+      ${this.#groupHeading()}
       <slot></slot>
     `;
   }
@@ -20,5 +20,11 @@ export class SelectOptionGroup extends LitElement {
     super.connectedCallback();
     this.setAttribute('role', 'group');
     this.setAttribute('aria-label', this.groupTitle || '');
+  }
+
+  #groupHeading(): TemplateResult | void {
+    if (this.groupTitle) {
+      return html`<span>${this.groupTitle}</span>`;
+    }
   }
 }

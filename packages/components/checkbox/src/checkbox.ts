@@ -17,6 +17,8 @@ import styles from './checkbox.scss.js';
 
 export type CheckboxSize = 'md' | 'lg';
 
+export type CheckboxVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
+
 export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
@@ -54,6 +56,9 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
 
   /** The value for the checkbox. */
   @property() value?: string;
+
+  /** The checkbox variant. */
+  @property({ reflect: true }) variant: CheckboxVariant = 'default';
 
   override connectedCallback(): void {
     super.connectedCallback();

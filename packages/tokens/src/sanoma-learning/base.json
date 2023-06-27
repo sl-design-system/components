@@ -689,60 +689,6 @@
         }
       }
     },
-    "button": {
-      "text": {
-        "sm": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{button.label.sm}",
-            "fontSize": "{text.typeset.fontSize.sm}"
-          },
-          "type": "typography"
-        },
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{button.label.md}",
-            "fontSize": "{text.typeset.fontSize.md}"
-          },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{button.label.lg}",
-            "fontSize": "{text.typeset.fontSize.lg}"
-          },
-          "type": "typography"
-        }
-      },
-      "fontIcon": {
-        "sm": {
-          "value": {
-            "lineHeight": "{text.typeset.lineHeight.xxs}",
-            "fontSize": "13"
-          },
-          "type": "typography"
-        },
-        "md": {
-          "value": {
-            "lineHeight": "{text.typeset.lineHeight.xs}",
-            "fontSize": "{text.typeset.fontSize.md}"
-          },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "{text.typeset.fontSize.lg}"
-          },
-          "type": "typography"
-        }
-      }
-    },
     "input": {
       "textField": {
         "fontIcon": {
@@ -1010,56 +956,6 @@
       }
     }
   },
-  "borderRadius": {
-    "button": {
-      "sm": {
-        "value": "{border.radius.3xs}",
-        "type": "borderRadius",
-        "description": "borderRadius.button"
-      },
-      "md": {
-        "value": "{border.radius.3xs}",
-        "type": "borderRadius",
-        "description": "borderRadius.button"
-      },
-      "lg": {
-        "value": "{border.radius.3xs}",
-        "type": "borderRadius",
-        "description": "borderRadius.button"
-      },
-      "icon-only": {
-        "sm": {
-          "value": "{border.radius.3xs}",
-          "type": "borderRadius",
-          "description": "borderRadius.button"
-        },
-        "md": {
-          "value": "{border.radius.3xs}",
-          "type": "borderRadius",
-          "description": "borderRadius.button"
-        },
-        "lg": {
-          "value": "{border.radius.3xs}",
-          "type": "borderRadius",
-          "description": "borderRadius.button"
-        }
-      }
-    },
-    "default": {
-      "value": "{border.radius.3xs}",
-      "type": "borderRadius",
-      "description": "borderRadius.button"
-    },
-    "circle": {
-      "value": "{border.radius.full}",
-      "type": "borderRadius",
-      "description": "borderRadius.button"
-    },
-    "checkbox": {
-      "value": "{border.radius.2xs}",
-      "type": "borderRadius"
-    }
-  },
   "border": {
     "width": {
       "button": {
@@ -1111,24 +1007,6 @@
         "value": "{animation.easing.ease-in-out}",
         "type": "other",
         "description": "animation.button.easing"
-      }
-    }
-  },
-  "component": {
-    "button": {
-      "lg": {
-        "value": {
-          "height": "{size.md}",
-          "width": "{size.md}"
-        },
-        "type": "composition"
-      },
-      "md": {
-        "value": {
-          "height": "{size.sm}",
-          "width": "{size.sm}"
-        },
-        "type": "composition"
       }
     }
   },

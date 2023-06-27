@@ -5,8 +5,6 @@ $state-selectors: '', ':where(:--checked, :--indeterminate, [state--checked], [s
 $sizes: md, lg;
 
 :host {
-  --_border-radius: var(--sl-border-radius-checkbox);
-  --_border-size: var(--sl-border-width-input-border);
   --_box-shadow: none;
   --_cursor: pointer;
   --_icon-size: 1rem;
@@ -18,62 +16,68 @@ $sizes: md, lg;
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_line-height: var(--sl-text-typeset-line-height-#{$size});
-    --_padding-block: var(--sl-space-input-option-block-#{$size});
-    --_padding-inline: var(--sl-space-input-option-inline-#{$size});
-    --_gap: calc(var(--sl-space-input-option-gap-#{$size}) - var(--_padding-inline));
-    --_size: var(--sl-size-input-option-#{$size});
-
-    .wrapper {
-      --_font: var(--sl-text-input-option-#{$size});
-    }
+    --_border-radius: var(--sl-component-checkbox-#{$size}-border-radius);
+    --_border-width: var(--sl-component-checkbox-#{$size}-border-width);
+    --_font: var(--sl-component-checkbox-#{$size}-font);
+    --_gap: var(--sl-component-checkbox-#{$size}-gap);
+    --_inline-size: var(--sl-component-checkbox-#{$size}-inline-size);
+    --_outline-offset: var(--sl-component-checkbox-#{$size}-outline-offset);
+    --_outline-width: var(--sl-component-checkbox-#{$size}-outline-width);
+    --_padding-block: var(--sl-component-checkbox-#{$size}-padding-block);
+    --_padding-inline: var(--sl-component-checkbox-#{$size}-padding-inline);
   }
 }
 
 @each $variant in $variants {
-  $i: index($variants, $variant);
-  $variant-selector: nth($variant-selectors, $i);
-
-  @each $state in $states {
-    $j: index($states, $state);
-    $state-selector: nth($state-selectors, $j);
-
-    :host(#{$variant-selector + $state-selector}) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-default-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
-    }
-
-    :host(#{$variant-selector + $state-selector}) .wrapper:hover {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
-    }
-
-    :host(#{$variant-selector + $state-selector}) .wrapper:active {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
-    }
-
-    :host(#{$variant-selector + $state-selector}:focus-visible) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
-      --_box-shadow: var(--sl-box-shadow-focus);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
-    }
-
-    :host(#{$variant-selector + $state-selector}:where(:disabled, [internals-disabled])) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-icon);
-    }
+  :host([#{$variant}]) {
+    --_background: var(--sl-component-checkbox-#{$variant}-idle-background);
+    --_border-color: var(--sl-component-checkbox-#{$variant}-idle-border-color);
+    --_foreground: var(--sl-component-checkbox-#{$variant}-idle-foreground);
   }
+
+  // $i: index($variants, $variant);
+  // $variant-selector: nth($variant-selectors, $i);
+
+  // @each $state in $states {
+  //   $j: index($states, $state);
+  //   $state-selector: nth($state-selectors, $j);
+
+  //   :host(#{$variant-selector + $state-selector}) {
+  //     --_background: var(--sl-color-input-option-#{$variant}-#{$state}-default-background);
+  //     --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-border);
+  //     --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-label);
+  //     --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
+  //   }
+
+  //   :host(#{$variant-selector + $state-selector}) .wrapper:hover {
+  //     --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
+  //     --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
+  //     --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
+  //     --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
+  //   }
+
+  //   :host(#{$variant-selector + $state-selector}) .wrapper:active {
+  //     --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
+  //     --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
+  //     --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
+  //     --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
+  //   }
+
+  //   :host(#{$variant-selector + $state-selector}:focus-visible) {
+  //     --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
+  //     --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
+  //     --_box-shadow: var(--sl-box-shadow-focus);
+  //     --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
+  //     --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
+  //   }
+
+  //   :host(#{$variant-selector + $state-selector}:where(:disabled, [internals-disabled])) {
+  //     --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
+  //     --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
+  //     --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
+  //     --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-icon);
+  //   }
+  // }
 }
 
 :host {
@@ -131,18 +135,21 @@ $sizes: md, lg;
 }
 
 .inner {
+  align-items: center;
+  aspect-ratio: 1;
   background: var(--_background);
-  border: var(--_border-size) solid var(--_border-color);
+  border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow, none);
+  box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
-  padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
+  inline-size: var(--_inline-size);
+  justify-content: center;
 }
 
 .label {
-  line-height: var(--_line-height);
-  margin-block-start: calc((var(--_size) + var(--_padding-block) * 2 - var(--_line-height)) / 2);
+  margin-block-start: calc((var(--_inline-size) + var(--_padding-block) * 2 - 1lh) / 2);
 }
 
 svg {

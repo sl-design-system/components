@@ -13,103 +13,55 @@ $variants: default, primary, success, warning, danger;
 @each $fill in $fills {
   @each $size in $sizes {
     :host([fill='#{$fill}'][size='#{$size}']) {
-      --_border-radius: var(
-        --sl-component-button-#{$fill}-#{$size}-border-radius,
-        var(--sl-control-#{$size}-border-radius)
-      );
-      --_border-width: var(
-        --sl-component-button-#{$fill}-#{$size}-border-width,
-        var(--sl-control-#{$size}-border-width)
-      );
-      --_font: var(--sl-component-button-#{$fill}-#{$size}-font, var(--sl-control-#{$size}-font));
-      --_gap: var(--sl-component-button-#{$fill}-#{$size}-gap, var(--sl-control-#{$size}-gap));
-      --_outline-offset: var(
-        --sl-component-button-#{$fill}-#{$size}-outline-offset,
-        var(--sl-control-#{$size}-outline-offset)
-      );
-      --_outline-width: var(
-        --sl-component-button-#{$fill}-#{$size}-outline-width,
-        var(--sl-control-#{$size}-outline-width)
-      );
-      --_padding-block: var(--sl-component-button-#{$fill}-#{$size}-padding-block, 0.5rem);
-      --_padding-inline: var(--sl-component-button-#{$fill}-#{$size}-padding-inline, 1rem);
+      --_border-radius: var(--sl-component-button-#{$fill}-#{$size}-border-radius);
+      --_border-width: var(--sl-component-button-#{$fill}-#{$size}-border-width);
+      --_font: var(--sl-component-button-#{$fill}-#{$size}-font);
+      --_gap: var(--sl-component-button-#{$fill}-#{$size}-gap);
+      --_outline-offset: var(--sl-component-button-#{$fill}-#{$size}-outline-offset);
+      --_outline-width: var(--sl-component-button-#{$fill}-#{$size}-outline-width);
+      --_padding-block: var(--sl-component-button-#{$fill}-#{$size}-padding-block);
+      --_padding-inline: var(--sl-component-button-#{$fill}-#{$size}-padding-inline);
     }
   }
 
   @each $variant in $variants {
     :host([fill='#{$fill}'][variant='#{$variant}']) {
-      --_background: var(--sl-component-button-#{$fill}-#{$variant}-idle-background, var(--sl-control-idle-background));
-      --_border-color: var(
-        --sl-component-button-#{$fill}-#{$variant}-idle-border-color,
-        var(--sl-control-idle-border-color)
-      );
-      --_color: var(--sl-component-button-#{$fill}-#{$variant}-idle-foreground, var(--sl-control-idle-foreground));
+      --_background: var(--sl-component-button-#{$fill}-#{$variant}-idle-background);
+      --_border-color: var(--sl-component-button-#{$fill}-#{$variant}-idle-border-color);
+      --_color: var(--sl-component-button-#{$fill}-#{$variant}-idle-foreground);
+    }
+
+    :host([fill='#{$fill}'][variant='#{$variant}']:focus-visible) {
+      --_background: var(--sl-component-button-#{$fill}-#{$variant}-focus-background);
+      --_border-color: var(--sl-component-button-#{$fill}-#{$variant}-focus-border-color);
+      --_color: var(--sl-component-button-#{$fill}-#{$variant}-focus-foreground);
+      --_outline-color: var(--sl-component-button-#{$fill}-#{$variant}-focus-outline-color);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:hover) {
-      --_background: var(
-        --sl-component-button-#{$fill}-#{$variant}-hover-background,
-        var(--sl-control-hover-background)
-      );
-      --_border-color: var(
-        --sl-component-button-#{$fill}-#{$variant}-hover-border-color,
-        var(--sl-control-hover-border-color)
-      );
-      --_color: var(--sl-component-button-#{$fill}-#{$variant}-hover-foreground, var(--sl-control-hover-foreground));
+      --_background: var(--sl-component-button-#{$fill}-#{$variant}-hover-background);
+      --_border-color: var(--sl-component-button-#{$fill}-#{$variant}-hover-border-color);
+      --_color: var(--sl-component-button-#{$fill}-#{$variant}-hover-foreground);
       --_text-decoration: var(--sl-component-button-#{$fill}-#{$variant}-hover-text-typeset-text-decoration, none);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:active) {
-      --_background: var(
-        --sl-component-button-#{$fill}-#{$variant}-active-background,
-        var(--sl-control-active-background)
-      );
-      --_border-color: var(
-        --sl-component-button-#{$fill}-#{$variant}-active-border-color,
-        var(--sl-control-active-border-color)
-      );
-      --_color: var(--sl-component-button-#{$fill}-#{$variant}-active-foreground, var(--sl-control-active-foreground));
+      --_background: var(--sl-component-button-#{$fill}-#{$variant}-active-background);
+      --_border-color: var(--sl-component-button-#{$fill}-#{$variant}-active-border-color);
+      --_color: var(--sl-component-button-#{$fill}-#{$variant}-active-foreground);
     }
 
     :host([fill='#{$fill}'][variant='#{$variant}']:where(:disabled, [internals-disabled])) {
-      --_background: var(
-        --sl-component-button-#{$fill}-#{$variant}-disabled-background,
-        var(--sl-control-disabled-background)
-      );
-      --_border-color: var(
-        --sl-component-button-#{$fill}-#{$variant}-disabled-border-color,
-        var(--sl-control-disabled-border-color)
-      );
-      --_color: var(
-        --sl-component-button-#{$fill}-#{$variant}-disabled-foreground,
-        var(--sl-control-disabled-foreground)
-      );
-    }
-
-    :host([fill='#{$fill}'][variant='#{$variant}']:focus-visible) {
-      --_background: var(
-        --sl-component-button-#{$fill}-#{$variant}-focus-background,
-        var(--sl-control-focus-background)
-      );
-      --_border-color: var(
-        --sl-component-button-#{$fill}-#{$variant}-focus-border-color,
-        var(--sl-control-focus-border-color)
-      );
-      --_color: var(--sl-component-button-#{$fill}-#{$variant}-focus-foreground, var(--sl-control-focus-foreground));
-      --_outline-color: var(
-        --sl-component-button-#{$fill}-#{$variant}-outline-color,
-        var(--sl-control-focus-outline-color)
-      );
+      --_background: var(--sl-component-button-#{$fill}-#{$variant}-disabled-background);
+      --_border-color: var(--sl-component-button-#{$fill}-#{$variant}-disabled-border-color);
+      --_color: var(--sl-component-button-#{$fill}-#{$variant}-disabled-foreground);
     }
   }
 }
 
 @each $size in $sizes {
   :host([size='#{$size}'][icon-only]) {
-    --_border-radius: var(
-      --sl-component-button-icon-only-#{$size}-border-radius,
-      var(--sl-control-#{$size}-border-radius)
-    );
+    --_border-radius: var(--sl-component-button-icon-only-#{$size}-border-radius);
     --_padding-inline: var(--_padding-block);
     inline-size: var(--sl-component-button-icon-only-#{$size}-inline-size, auto);
   }

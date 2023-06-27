@@ -231,66 +231,6 @@
         }
       }
     },
-    "button": {
-      "text": {
-        "sm": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{button.label.sm}",
-            "fontSize": "{text.typeset.fontSize.sm}"
-          },
-          "type": "typography"
-        },
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{button.label.md}",
-            "fontSize": "{text.typeset.fontSize.md}"
-          },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{button.label.lg}",
-            "fontSize": "{text.typeset.fontSize.lg}"
-          },
-          "type": "typography"
-        }
-      },
-      "fontIcon": {
-        "sm": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.xxs}",
-            "fontSize": "13"
-          },
-          "type": "typography"
-        },
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.xs}",
-            "fontSize": "{text.typeset.fontSize.md}"
-          },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "{text.typeset.fontSize.lg}"
-          },
-          "type": "typography"
-        }
-      }
-    },
     "input": {
       "fontIcon": {
         "md": {
@@ -465,44 +405,6 @@
     }
   },
   "space": {
-    "input": {
-      "block": {
-        "md": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
-        },
-        "lg": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
-        }
-      },
-      "inline": {
-        "md": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
-        },
-        "lg": {
-          "value": "{space.button.outline.block.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
-        }
-      },
-      "gap": {
-        "md": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
-        }
-      }
-    },
     "group": {
       "sm": {
         "value": "{space.2xs}",
@@ -519,44 +421,6 @@
       "xl": {
         "value": "{space.sm}",
         "type": "spacing"
-      }
-    },
-    "textField": {
-      "block": {
-        "md": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
-        },
-        "lg": {
-          "value": "{space.sm}",
-          "type": "spacing",
-          "description": "space.button.solid.block.lg"
-        }
-      },
-      "inline": {
-        "md": {
-          "value": "{space.md}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.md"
-        },
-        "lg": {
-          "value": "{space.lg}",
-          "type": "spacing",
-          "description": "space.button.solid.inline.lg"
-        }
-      },
-      "gap": {
-        "md": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.md}"
-        },
-        "lg": {
-          "value": "{space.button.outline.block.md}",
-          "type": "spacing",
-          "description": "{space.button.gap.lg}"
-        }
       }
     }
   },

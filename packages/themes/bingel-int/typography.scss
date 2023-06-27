@@ -3,27 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-@mixin sl-control-lg-font {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-lg);
-}
-
-@mixin sl-control-md-font {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-sm);
-}
-
-@mixin sl-control-sm-font {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-sm);
-}
-
 @mixin sl-text-input-opiton-label-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
@@ -36,42 +15,6 @@
   font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-md);
-}
-
-@mixin sl-text-button-font-icon-lg {
-  font-size: var(--sl-text-typeset-font-size-lg);
-  line-height: var(--sl-text-typeset-line-height-sm);
-}
-
-@mixin sl-text-button-font-icon-md {
-  font-size: var(--sl-text-typeset-font-size-md);
-  line-height: var(--sl-text-typeset-line-height-xs);
-}
-
-@mixin sl-text-button-font-icon-sm {
-  font-size: 13;
-  line-height: var(--sl-text-typeset-line-height-xxs);
-}
-
-@mixin sl-text-button-text-lg {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-button-label-lg);
-}
-
-@mixin sl-text-button-text-md {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-button-label-md);
-}
-
-@mixin sl-text-button-text-sm {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-button-label-sm);
 }
 
 @mixin sl-text-body-lg-bold {
@@ -226,6 +169,104 @@
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-component-checkbox-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+@mixin sl-component-checkbox-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+@mixin sl-component-button-link-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+@mixin sl-component-button-link-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+@mixin sl-component-button-link-sm-font {
+  font-family: var(--sl-control-sm-font-family);
+  font-size: var(--sl-control-sm-font-size);
+  font-weight: var(--sl-control-sm-font-weight);
+  line-height: var(--sl-control-sm-font-line-height);
+}
+
+@mixin sl-component-button-ghost-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+@mixin sl-component-button-ghost-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+@mixin sl-component-button-ghost-sm-font {
+  font-family: var(--sl-control-sm-font-family);
+  font-size: var(--sl-control-sm-font-size);
+  font-weight: var(--sl-control-sm-font-weight);
+  line-height: var(--sl-control-sm-font-line-height);
+}
+
+@mixin sl-component-button-outline-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+@mixin sl-component-button-outline-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+@mixin sl-component-button-outline-sm-font {
+  font-family: var(--sl-control-sm-font-family);
+  font-size: var(--sl-control-sm-font-size);
+  font-weight: var(--sl-control-sm-font-weight);
+  line-height: var(--sl-control-sm-font-line-height);
+}
+
+@mixin sl-component-button-solid-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+@mixin sl-component-button-solid-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+@mixin sl-component-button-solid-sm-font {
+  font-family: var(--sl-control-sm-font-family);
+  font-size: var(--sl-control-sm-font-size);
+  font-weight: var(--sl-control-sm-font-weight);
+  line-height: var(--sl-control-sm-font-line-height);
 }
 
 @mixin sl-text-input-opiton-font-icon-lg {

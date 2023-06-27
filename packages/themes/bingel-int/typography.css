@@ -3,27 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-.sl-control-lg-font {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-lg);
-}
-
-.sl-control-md-font {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-sm);
-}
-
-.sl-control-sm-font {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-text-typeset-line-height-sm);
-}
-
 .sl-text-input-opiton-label-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-regular);
@@ -36,42 +15,6 @@
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-md);
   font-size: var(--sl-text-typeset-font-size-md);
-}
-
-.sl-text-button-font-icon-lg {
-  line-height: var(--sl-text-typeset-line-height-sm);
-  font-size: var(--sl-text-typeset-font-size-lg);
-}
-
-.sl-text-button-font-icon-md {
-  line-height: var(--sl-text-typeset-line-height-xs);
-  font-size: var(--sl-text-typeset-font-size-md);
-}
-
-.sl-text-button-font-icon-sm {
-  line-height: var(--sl-text-typeset-line-height-xxs);
-  font-size: 13;
-}
-
-.sl-text-button-text-lg {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-button-label-lg);
-  font-size: var(--sl-text-typeset-font-size-lg);
-}
-
-.sl-text-button-text-md {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-button-label-md);
-  font-size: var(--sl-text-typeset-font-size-md);
-}
-
-.sl-text-button-text-sm {
-  font-family: var(--sl-text-typeset-font-family-body);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-button-label-sm);
-  font-size: var(--sl-text-typeset-font-size-sm);
 }
 
 .sl-text-body-lg-bold {
@@ -226,6 +169,104 @@
   text-transform: var(--sl-text-typeset-text-case-none);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
   letter-spacing: var(--sl-text-typeset-letter-spacing-xs);
+}
+
+.sl-component-checkbox-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+.sl-component-checkbox-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+.sl-component-button-link-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+.sl-component-button-link-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+.sl-component-button-link-sm-font {
+  font-family: var(--sl-control-sm-font-family);
+  font-size: var(--sl-control-sm-font-size);
+  font-weight: var(--sl-control-sm-font-weight);
+  line-height: var(--sl-control-sm-font-line-height);
+}
+
+.sl-component-button-ghost-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+.sl-component-button-ghost-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+.sl-component-button-ghost-sm-font {
+  font-family: var(--sl-control-sm-font-family);
+  font-size: var(--sl-control-sm-font-size);
+  font-weight: var(--sl-control-sm-font-weight);
+  line-height: var(--sl-control-sm-font-line-height);
+}
+
+.sl-component-button-outline-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+.sl-component-button-outline-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+.sl-component-button-outline-sm-font {
+  font-family: var(--sl-control-sm-font-family);
+  font-size: var(--sl-control-sm-font-size);
+  font-weight: var(--sl-control-sm-font-weight);
+  line-height: var(--sl-control-sm-font-line-height);
+}
+
+.sl-component-button-solid-lg-font {
+  font-family: var(--sl-control-lg-font-family);
+  font-size: var(--sl-control-lg-font-size);
+  font-weight: var(--sl-control-lg-font-weight);
+  line-height: var(--sl-control-lg-font-line-height);
+}
+
+.sl-component-button-solid-md-font {
+  font-family: var(--sl-control-md-font-family);
+  font-size: var(--sl-control-md-font-size);
+  font-weight: var(--sl-control-md-font-weight);
+  line-height: var(--sl-control-md-font-line-height);
+}
+
+.sl-component-button-solid-sm-font {
+  font-family: var(--sl-control-sm-font-family);
+  font-size: var(--sl-control-sm-font-size);
+  font-weight: var(--sl-control-sm-font-weight);
+  line-height: var(--sl-control-sm-font-line-height);
 }
 
 .sl-text-input-opiton-font-icon-lg {

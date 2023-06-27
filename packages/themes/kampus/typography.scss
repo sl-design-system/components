@@ -207,6 +207,27 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
+@mixin sl-text-icon-font-icon-lg {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-icon-font-icon-md {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xs);
+}
+
+@mixin sl-text-icon-font-icon-sm {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: 13;
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+}
+
 @mixin sl-text-input-option-font-icon-lg {
   font-family: var(--sl-text-typeset-font-family-icon);
   font-size: 18;

@@ -246,6 +246,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
     this.value = target.value;
     this.#validation.validate(this.value);
     this.valid = this.showValid ? this.#validation.validity.valid : false;
+    console.log('oninput in webcomponent', this.value, this.#validation.validity.valid);
     if (this.valid) {
       this.input.setAttribute('aria-live', 'polite');
     }

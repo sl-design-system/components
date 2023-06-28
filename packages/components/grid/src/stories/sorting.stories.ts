@@ -1,5 +1,5 @@
 import type { TemplateResult } from 'lit';
-import type { StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import type { Person } from '@sl-design-system/example-data';
 import { Button } from '@sl-design-system/button';
 import { getPeople } from '@sl-design-system/example-data';
@@ -9,11 +9,11 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Sorting'
-};
+  title: 'Grid/Sorting',
+  loaders: [async () => ({ people: (await getPeople()).people })]
+} satisfies Meta;
 
-export const Single: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
+export const Basic: Story = {
   render: (_, { loaded: { people } }) => {
     return html`
       <sl-grid .items=${people}>
@@ -25,8 +25,19 @@ export const Single: Story = {
   }
 };
 
+export const Sorted: Story = {
+  render: (_, { loaded: { people } }) => {
+    return html`
+      <sl-grid .items=${people}>
+        <sl-grid-sort-column direction="asc" path="firstName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const ScopedElements: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const renderer = ({ firstName, lastName }: Person): TemplateResult => {
       return html`<sl-button>${firstName} ${lastName}</sl-button>`;

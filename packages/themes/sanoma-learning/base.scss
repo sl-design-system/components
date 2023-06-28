@@ -36,7 +36,9 @@
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
   --sl-opacity-100: 0.04;
-  --sl-icon-core-check: chevron-down;
+  --sl-icon-core-circle-check-solid: circle-check;
+  --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
+  --sl-icon-core-check: check;
   --sl-icon-core-chevron-down: chevron-down;
   --sl-icon-core-pinata-solid: pinata;
   --sl-icon-core-pinata: pinata;
@@ -121,8 +123,8 @@
   --sl-text-typeset-font-family-body: source-sans-pro;
   --sl-text-typeset-font-family-heading: the-message;
   --sl-color-palette-transparent-base: 0 0 0 / 0;
-  --sl-color-palette-white-base: 254 254 254;
-  --sl-color-palette-black-base: 34 34 34;
+  --sl-color-palette-white-base: 246 248 248;
+  --sl-color-palette-black-base: 50 50 50;
   --sl-color-palette-danger-base: 255 87 92;
   --sl-color-palette-danger-900: 38 8 8;
   --sl-color-palette-danger-800: 71 13 13;
@@ -171,7 +173,7 @@
   --sl-color-palette-info-150: 204 219 255;
   --sl-color-palette-info-100: 224 234 255;
   --sl-color-palette-info-50: 240 245 255;
-  --sl-color-palette-neutral-base: 34 34 34;
+  --sl-color-palette-neutral-base: 50 50 50;
   --sl-color-palette-neutral-900: 46 46 46;
   --sl-color-palette-neutral-800: 62 61 61;
   --sl-color-palette-neutral-700: 78 78 78;
@@ -182,7 +184,7 @@
   --sl-color-palette-neutral-200: 188 188 188;
   --sl-color-palette-neutral-150: 213 213 213;
   --sl-color-palette-neutral-100: 234 234 234;
-  --sl-color-palette-neutral-50: 243 243 243;
+  --sl-color-palette-neutral-50: 246 248 248;
   --sl-color-palette-accent-base: 51 102 255;
   --sl-color-palette-accent-900: 0 13 51;
   --sl-color-palette-accent-800: 0 23 95;

@@ -2,7 +2,7 @@ import type { Popover } from './popover.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/input/register.js';
+import '@sl-design-system/text-input/register.js';
 import { html } from 'lit';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import '../register.js';
@@ -67,7 +67,7 @@ export const Focus: Story = {
     <sl-popover anchor="button">
       <form>
         <label>Label</label>
-        <sl-input placeholder="Input"></sl-input>
+        <sl-text-input placeholder="Input"></sl-text-input>
         <sl-button-bar align="end">
           <sl-button size="sm">Save</sl-button>
         </sl-button-bar>

@@ -444,7 +444,7 @@
       },
       "white": {
         "base": {
-          "value": "#f8f8f8",
+          "value": "#ffffff",
           "type": "color",
           "description": "color.palette.white.base"
         }
@@ -1850,9 +1850,19 @@
         "description": "icon.core.chevron-down"
       },
       "check": {
-        "value": "chevron-down",
+        "value": "check",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "triangle-exclamation-solid": {
+        "value": "triangle-exclamation",
+        "type": "Icons",
+        "description": "icon.core.triangle-exclamation-solid"
+      },
+      "circle-check-solid": {
+        "value": "circle-check",
+        "type": "Icons",
+        "description": "icon.core.circle-check-solid"
       }
     },
     "typeset": {

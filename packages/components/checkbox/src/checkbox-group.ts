@@ -7,6 +7,7 @@ import {
   HintMixin,
   RovingTabindexController,
   ValidationController,
+  hintStyles,
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
@@ -19,7 +20,7 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
 
   /** Events controller. */
   #events = new EventsController(this, { click: this.#onClick });

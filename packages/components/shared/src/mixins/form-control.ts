@@ -86,12 +86,22 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
+    override shouldUpdate(changes: PropertyValues<this>): boolean {
+      if (super.shouldUpdate(changes)) {
+        if (changes.has('disabled') && isNative(this.formControlElement)) {
+          if (this.disabled) {
+            this.formControlElement.setAttribute('disabled', '');
+          } else {
+            this.formControlElement.removeAttribute('disabled');
+          }
+        }
+        return true;
+      }
+      return false;
+    }
+
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
-
-      if (changes.has('disabled') && isNative(this.formControlElement)) {
-        this.formControlElement.toggleAttribute('disabled', this.disabled);
-      }
 
       if (changes.has('name') && isNative(this.formControlElement)) {
         this.formControlElement.name = this.name ?? '';

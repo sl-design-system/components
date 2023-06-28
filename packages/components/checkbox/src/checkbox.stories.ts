@@ -1,4 +1,4 @@
-import type { Checkbox } from './checkbox.js';
+import type { Checkbox, CheckboxSize } from './checkbox.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/label/register.js';
 import { html } from 'lit';
@@ -68,6 +68,10 @@ const onChange = (event: Event): void => {
   }
 };
 
+const sizes: CheckboxSize[] = ['md', 'lg'];
+const states: string[] = ['', 'valid', 'invalid'];
+const checked: string[] = ['', 'checked', 'indeterminate'];
+
 export default {
   title: 'Checkbox',
   args: {
@@ -102,71 +106,84 @@ export const API: StoryObj = {
 };
 
 export const All: StoryObj = {
-  render: () => html`
-    <style>
-      .grid {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: repeat(3, 1fr);
-        justify-items: center;
-      }
-      h2 {
-        font-family: var(--sl-text-typeset-font-family-heading);
-      }
-    </style>
-    <h2>Medium</h2>
-    <div class="grid">
-      <sl-checkbox>Default</sl-checkbox>
-      <sl-checkbox checked>Checked</sl-checkbox>
-      <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+  render: () => {
+    return html`
+      <style>
+        table {
+          border-collapse: collapse;
+          margin-bottom: 24px;
+        }
 
-      <sl-checkbox disabled>Default</sl-checkbox>
-      <sl-checkbox disabled checked>Checked</sl-checkbox>
-      <sl-checkbox disabled indeterminate>Indeterminate</sl-checkbox>
+        th {
+          text-transform: capitalize;
+        }
+        th,
+        td {
+          padding: 4px 8px;
+        }
+        thead td {
+          text-align: center;
+        }
 
-      <sl-checkbox invalid>Default</sl-checkbox>
-      <sl-checkbox invalid checked>Checked</sl-checkbox>
-      <sl-checkbox invalid indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox invalid disabled>Default</sl-checkbox>
-      <sl-checkbox invalid disabled checked>Checked</sl-checkbox>
-      <sl-checkbox invalid disabled indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox valid>Default</sl-checkbox>
-      <sl-checkbox valid checked>Checked</sl-checkbox>
-      <sl-checkbox valid indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox valid disabled>Default</sl-checkbox>
-      <sl-checkbox valid disabled checked>Checked</sl-checkbox>
-      <sl-checkbox valid disabled indeterminate>Indeterminate</sl-checkbox>
-    </div>
-    <h2>Large</h2>
-    <div class="grid">
-      <sl-checkbox size="lg">Default</sl-checkbox>
-      <sl-checkbox size="lg" checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" disabled>Default</sl-checkbox>
-      <sl-checkbox size="lg" disabled checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" disabled indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" invalid>Default</sl-checkbox>
-      <sl-checkbox size="lg" invalid checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" invalid indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" invalid disabled>Default</sl-checkbox>
-      <sl-checkbox size="lg" invalid disabled checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" invalid disabled indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" valid>Default</sl-checkbox>
-      <sl-checkbox size="lg" valid checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" valid indeterminate>Indeterminate</sl-checkbox>
-
-      <sl-checkbox size="lg" valid disabled>Default</sl-checkbox>
-      <sl-checkbox size="lg" valid disabled checked>Checked</sl-checkbox>
-      <sl-checkbox size="lg" valid disabled indeterminate>Indeterminate</sl-checkbox>
-    </div>
-  `
+        tbody td:nth-of-type(4n + 5) {
+          border-right: 2px solid #dedede;
+          padding-right: 24px;
+        }
+        tbody td:nth-of-type(4n + 2):not(:first-of-type) {
+          padding-left: 24px;
+        }
+        tbody td:last-of-type {
+          border: none;
+        }
+      </style>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            ${sizes.map(size => html` <th colspan=${states.length + 1}>Size: ${size}</th> `)}
+          </tr>
+        </thead>
+        <tbody>
+          ${checked.map(
+            c =>
+              html` <tr>
+                <td>${c}</td>
+                ${sizes.map(
+                  size =>
+                    html`${states.map(
+                        state =>
+                          html`
+                            <td>
+                              <sl-checkbox
+                                ?checked=${c === 'checked'}
+                                ?indeterminate=${c === 'indeterminate'}
+                                ?invalid=${state === 'invalid'}
+                                ?required=${state === 'invalid'}
+                                ?valid=${state === 'valid'}
+                                size=${size}
+                                data-mock-state
+                                >Label
+                              </sl-checkbox>
+                            </td>
+                          `
+                      )}
+                      <td>
+                        <sl-checkbox
+                          ?checked=${c === 'checked'}
+                          ?indeterminate=${c === 'indeterminate'}
+                          size=${size}
+                          disabled
+                          data-mock-state
+                          >Label
+                        </sl-checkbox>
+                      </td>`
+                )}
+              </tr>`
+          )}
+        </tbody>
+      </table>
+    `;
+  }
 };
 
 export const Indeterminate: StoryObj = {
@@ -270,8 +287,21 @@ export const Overflow: StoryObj = {
 
 export const WithLabel: StoryObj = {
   render: () => html`
-    <label for="checkbox">Label</label>
-    <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+    <style>
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    ${sizes.map(
+      size => html`
+        <h2>Size: ${size}</h2>
+        <div class="wrapper">
+          <sl-label for="checkbox" size=${size}>Label</sl-label>
+          <sl-checkbox id="checkbox" size=${size}>Checkbox</sl-checkbox>
+        </div>
+      `
+    )}
   `
 };
 
@@ -305,7 +335,7 @@ export const ValidateInForm: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-input,
+        sl-text-input,
         sl-textarea {
           align-self: stretch;
         }

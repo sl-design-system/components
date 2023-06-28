@@ -23,6 +23,10 @@ $sizes: md, lg;
     --_padding-inline: var(--sl-space-input-option-inline-#{$size});
     --_gap: calc(var(--sl-space-input-option-gap-#{$size}) - var(--_padding-inline));
     --_size: var(--sl-size-input-option-#{$size});
+
+    .wrapper {
+      --_font: var(--sl-text-input-option-#{$size});
+    }
   }
 }
 
@@ -41,21 +45,21 @@ $sizes: md, lg;
       --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}) .wrapper:hover {
+    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled])) .wrapper:hover {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
       --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}) .wrapper:active {
+    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled])) .wrapper:active {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
       --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:focus-visible) {
+    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):focus-visible) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
       --_box-shadow: var(--sl-box-shadow-focus);
@@ -110,7 +114,7 @@ $sizes: md, lg;
   color: var(--_label-color);
   cursor: var(--_cursor);
   display: flex;
-  font: var(--sl-text-input-label-md);
+  font: var(--_font);
   gap: var(--_gap);
   outline: none;
 
@@ -155,4 +159,10 @@ path {
   stroke-linejoin: round;
   stroke-width: 3px;
   transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
+}
+
+:host(:where([invalid])) {
+  slot[name='hint']::slotted(*) {
+    display: none;
+  }
 }

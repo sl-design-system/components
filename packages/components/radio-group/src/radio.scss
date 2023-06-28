@@ -25,6 +25,7 @@ $sizes: md, lg;
     --_gap: var(--sl-space-input-option-gap-#{$size});
     --_size: var(--sl-size-input-option-#{$size});
     --_icon-size: var(--sl-size-input-icon-size-#{$size});
+    --_font: var(--sl-text-input-option-#{$size});
   }
 }
 
@@ -43,21 +44,21 @@ $sizes: md, lg;
       --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:hover) {
+    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):hover) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
       --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:active) {
+    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):active) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
       --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:focus-visible) {
+    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):focus-visible) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
@@ -65,7 +66,7 @@ $sizes: md, lg;
       --_box-shadow: var(--sl-box-shadow-focus);
     }
 
-    :host(#{$variant-selector + $state-selector}[disabled]) {
+    :host(#{$variant-selector + $state-selector}:where(:disabled, [internals-disabled])) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
@@ -79,7 +80,7 @@ $sizes: md, lg;
   color: var(--_label-color);
   cursor: pointer;
   display: inline-flex;
-  font: var(--sl-text-input-label-md);
+  font: var(--_font);
   gap: var(--_gap);
   line-height: var(--_line-height);
   outline: none;

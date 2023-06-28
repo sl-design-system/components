@@ -3,7 +3,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'sl-input',
+  selector: 'sl-text-input',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

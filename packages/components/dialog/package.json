@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@open-wc/scoped-elements": "2.1.5",
+    "@open-wc/scoped-elements": "2.2.0",
     "@sl-design-system/button-bar": "0.0.2",
-    "lit": "^2.7.4"
+    "lit": "^2.7.5"
   }
 }

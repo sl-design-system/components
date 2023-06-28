@@ -308,17 +308,17 @@
     "@lit-labs/eleventy-plugin-lit": "^0.2.3",
     "@luncheon/esbuild-plugin-gzip": "^0.1.0",
     "@types/markdown-it": "^12.2.3",
-    "@web/dev-server": "^0.2.1",
+    "@web/dev-server": "^0.2.3",
     "@webcomponents/template-shadowroot": "^0.1.0",
     "cpx": "^1.5.0",
     "esbuild": "^0.17.19",
-    "esbuild-plugin-minify-html-literals": "^1.0.4",
+    "esbuild-plugin-minify-html-literals": "^1.0.5",
     "html-minifier": "^4.0.0",
     "markdown-it": "^13.0.1",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-attrs": "^4.1.6",
     "rimraf": "^5.0.1",
-    "sass": "^1.62.1",
+    "sass": "^1.63.6",
     "slugify": "^1.6.6",
     "tiny-glob": "^0.2.9",
     "typescript": "^5.0.4",
@@ -327,6 +327,6 @@
   "dependencies": {
     "@11ty/is-land": "^3.0.0",
     "elasticlunr": "^0.9.5",
-    "lit": "^2.7.4"
+    "lit": "^2.7.5"
   }
 }

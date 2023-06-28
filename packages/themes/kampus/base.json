@@ -949,7 +949,7 @@
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.demibold}",
             "lineHeight": "{button.label.sm}",
-            "fontSize": "{text.typeset.fontSize.sm}"
+            "fontSize": "{text.typeset.fontSize.md}"
           },
           "type": "typography"
         },
@@ -1024,7 +1024,7 @@
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.regular}",
               "lineHeight": "{text.typeset.lineHeight.md}",
-              "fontSize": "{text.typeset.fontSize.md}"
+              "fontSize": "{text.typeset.fontSize.lg}"
             },
             "type": "typography"
           },
@@ -1161,7 +1161,7 @@
           "description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
@@ -1850,9 +1850,19 @@
         "description": "icon.core.chevron-down"
       },
       "check": {
-        "value": "chevron-down",
+        "value": "check",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "triangle-exclamation-solid": {
+        "value": "triangle-exclamation",
+        "type": "Icons",
+        "description": "icon.core.triangle-exclamation-solid"
+      },
+      "circle-check-solid": {
+        "value": "circle-check",
+        "type": "Icons",
+        "description": "icon.core.circle-check-solid"
       }
     },
     "typeset": {

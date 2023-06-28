@@ -1,19 +1,53 @@
-import type { PropertyValues, ReactiveElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, ReactiveElement, TemplateResult } from 'lit';
 import type { Constructor } from '../types.js';
-import { html } from 'lit';
+import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 
 export interface HintInterface {
   hint?: string;
+  hintSize?: HintSize;
   renderHint(): TemplateResult;
 }
 
+export type HintSize = 'sm' | 'md' | 'lg';
+
 let nextUniqueId = 0;
+
+export const hintStyles: CSSResultGroup = css`
+  slot[name='hint']::slotted(*) {
+    color: var(--sl-color-input-helper-text-default);
+    display: inline-flex;
+  }
+
+  slot[name='hint'][disabled]::slotted(*) {
+    color: var(--sl-color-input-helper-text-disabled);
+  }
+
+  slot[hintsize='sm']::slotted(*) {
+    font: var(--sl-text-input-helper-text-sm);
+    padding-top: var(--sl-space-input-helper-padding-top-sm);
+  }
+  slot[hintsize='md']::slotted(*) {
+    font: var(--sl-text-input-helper-text-md);
+    padding-top: var(--sl-space-input-helper-padding-top-md);
+  }
+
+  slot[hintsize='lg']::slotted(*) {
+    font: var(--sl-text-input-helper-text-lg);
+    padding-top: var(--sl-space-input-helper-padding-top-lg);
+  }
+`;
 
 export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<HintInterface> {
   class Hint extends constructor {
     /** The hint. If you need to display HTML, use the `hint` slot instead. */
     @property() hint?: string;
+
+    /** The hint size. */
+    @property() hintSize: HintSize = 'md';
+
+    /** The hint disabled state. */
+    @property() disabled?: boolean;
 
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
@@ -28,12 +62,22 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     }
 
     renderHint(): TemplateResult {
-      return html`<slot @slotchange=${() => this.#updateHint()} name="hint"></slot>`;
+      const input = this.querySelector('input, textarea');
+      if (input?.hasAttribute('disabled')) {
+        this.disabled = true;
+      }
+
+      return html`<slot
+        @slotchange=${() => this.#updateHint()}
+        name="hint"
+        hintSize="${this.hintSize}"
+        ?disabled=${this.disabled}
+      ></slot>`;
     }
 
     #updateHint(): void {
-      const input = this.querySelector('input, textarea'),
-        hint = this.querySelector('[slot="hint"]');
+      const hint = this.querySelector('[slot="hint"]'),
+        target = this.querySelector('input, textarea') ? this.querySelector('input, textarea') : this;
 
       if (hint) {
         hint.id ||= `sl-hint-${nextUniqueId++}`;
@@ -42,14 +86,47 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
           hint.innerHTML = this.hint;
         }
 
-        input?.setAttribute('aria-describedby', hint.id);
+        if (hint.hasAttribute('hintsize')) {
+          this.hintSize = hint.getAttribute('hintsize') as HintSize;
+        }
+
+        if (target?.hasAttribute('aria-describedby')) {
+          const currentId = target.getAttribute('aria-describedby') as string;
+          if (currentId.includes('hint')) {
+            target?.setAttribute('aria-describedby', `${hint.id}`);
+          } else {
+            target?.setAttribute('aria-describedby', `${currentId} ${hint.id}`);
+          }
+        } else {
+          target?.setAttribute('aria-describedby', hint.id);
+        }
+
+        if (target?.hasAttribute('disabled')) {
+          hint.setAttribute('disabled', '');
+          this.disabled = true;
+        }
       } else if (this.hint) {
         const div = document.createElement('div');
         div.innerText = this.hint;
+        div.setAttribute('hintSize', this.hintSize);
         div.slot = 'hint';
+        const id = `sl-hint-${nextUniqueId++}`;
+        if (target?.hasAttribute('aria-describedby')) {
+          const currentId = target.getAttribute('aria-describedby') as string;
+          if (currentId.includes('hint')) {
+            target?.setAttribute('aria-describedby', `${id}`);
+          } else {
+            target?.setAttribute('aria-describedby', `${currentId} ${id}`);
+          }
+        } else {
+          target?.setAttribute('aria-describedby', id);
+        }
+
+        if (this.hasAttribute('disabled')) {
+          div.setAttribute('disabled', '');
+          this.disabled = true;
+        }
         this.append(div);
-      } else {
-        input?.removeAttribute('aria-describedby');
       }
     }
 

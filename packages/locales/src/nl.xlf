@@ -46,6 +46,22 @@
   <source><x id="0" equiv-text="${count}"/> selected</source>
   <target><x id="0" equiv-text="${count}"/> geselecteerd</target>
 </trans-unit>
+<trans-unit id="s629576c6b305d539">
+  <source>optional</source>
+  <target>optioneel</target>
+</trans-unit>
+<trans-unit id="s39bba60b440fcf00">
+  <source>required</source>
+  <target>verplicht</target>
+</trans-unit>
+<trans-unit id="sca81470958a97fc4">
+  <source>Filter by</source>
+  <target>Filter op</target>
+</trans-unit>
+<trans-unit id="s5e8250fb85d64c23">
+  <source>Close</source>
+  <target>Sluiten</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

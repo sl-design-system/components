@@ -95,6 +95,16 @@ export const themes: Theme[] = [
     }
   },
   {
+    id: 'myvanin',
+    name: 'My Van In',
+    fonts: ['https://use.typekit.net/doq6twb.css'],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/myvanin');
+
+      setup();
+    }
+  },
+  {
     id: 'neon',
     name: 'NEON',
     fonts: ['https://use.typekit.net/ghy4rhf.css'],

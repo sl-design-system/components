@@ -1,0 +1,49 @@
+{
+  "name": "@sl-design-system/chromatic",
+  "description": "Storybook setup specifically for chromatic",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "chromatic"
+  },
+  "type": "module",
+  "scripts": {
+    "chromatic": "chromatic --build-script-name build-storybook -o storybook-static --exit-zero-on-changes",
+    "build-storybook": "wireit",
+    "start": "wireit"
+  },
+  "wireit": {
+    "build-storybook": {
+      "command": "storybook build",
+      "dependencies": [
+        "..:build:components",
+        "..:build:themes"
+      ]
+    },
+    "start": {
+      "command": "storybook dev -p 6006 --no-open --quiet",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
+        }
+      },
+      "files": [
+        ".storybook/main.ts"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^7.0.24",
+    "@storybook/addon-essentials": "^7.0.24",
+    "@storybook/addon-storysource": "^7.0.24",
+    "@storybook/web-components-vite": "^7.0.24",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.0.24",
+    "tslib": "^2.6.0",
+    "typescript": "^5.0.4",
+    "wireit": "^0.9.5"
+  }
+}

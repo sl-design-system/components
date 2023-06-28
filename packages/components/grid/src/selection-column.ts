@@ -23,8 +23,8 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
     this.scopedElements = { 'sl-checkbox': Checkbox };
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('grid') && this.grid) {
       this.#events.listen(this.grid, 'sl-active-item-change', this.#onActiveItemChange);
@@ -38,7 +38,7 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
   }
 
   override renderHeader(): TemplateResult {
-    const checked = this.grid?.selection.areAllSelected(),
+    const checked = !!this.grid?.selection.size && this.grid?.selection.areAllSelected(),
       indeterminate = this.grid?.selection.areSomeSelected();
 
     return html`
@@ -81,7 +81,7 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
 
   override renderStyles(): CSSResult {
     return css`
-      inline-size: calc(2 * var(--sl-space-input-inline-md) + var(--sl-size-input-md) + 1rem);
+      inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
       padding-block: 0;
       padding-inline: 0.5rem;
     `;

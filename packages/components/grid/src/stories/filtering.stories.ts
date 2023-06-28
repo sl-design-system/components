@@ -1,20 +1,20 @@
 import type { Grid } from '../grid.js';
 import type { Person } from '@sl-design-system/example-data';
-import type { Input } from '@sl-design-system/input';
-import type { StoryObj } from '@storybook/web-components';
+import type { TextInput } from '@sl-design-system/text-input';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import { getPeople } from '@sl-design-system/example-data';
-import '@sl-design-system/input/register.js';
+import '@sl-design-system/text-input/register.js';
 import { html } from 'lit';
 import '../../register.js';
 
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Filtering'
-};
+  title: 'Grid/Filtering',
+  loaders: [async () => ({ people: (await getPeople()).people })]
+} satisfies Meta;
 
-export const PerColumn: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
+export const Basic: Story = {
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
@@ -26,10 +26,21 @@ export const PerColumn: Story = {
   `
 };
 
+export const Filtered: Story = {
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people}>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-filter-column mode="text" path="profession" value="Endo"></sl-grid-filter-column>
+      <sl-grid-filter-column path="status" value="Available"></sl-grid-filter-column>
+      <sl-grid-filter-column path="membership" value="Regular,Premium"></sl-grid-filter-column>
+    </sl-grid>
+  `
+};
+
 export const OutsideGrid: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const onInput = ({ target }: Event & { target: Input }): void => {
+    const onInput = ({ target }: Event & { target: TextInput }): void => {
       const grid = document.querySelector('sl-grid') as Grid,
         regex = new RegExp(target.value?.toString().trim() ?? '', 'i');
 
@@ -40,12 +51,12 @@ export const OutsideGrid: Story = {
 
     return html`
       <style>
-        sl-input {
+        sl-text-input {
           margin-bottom: 1rem;
           width: 300px;
         }
       </style>
-      <sl-input @input=${onInput} placeholder="Filter here"></sl-input>
+      <sl-text-input @input=${onInput} placeholder="Filter here"></sl-text-input>
       <sl-grid .items=${people}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

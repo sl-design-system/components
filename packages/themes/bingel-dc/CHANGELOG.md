@@ -1,5 +1,11 @@
 # @sanomalearning/slds-bingel-dc
 
+## 0.0.4
+
+### Patch Changes
+
+- [#420](https://github.com/sl-design-system/components/pull/420) [`81f448f`](https://github.com/sl-design-system/components/commit/81f448f5e00897ab4aac32961fe301f2657709a3) - Restructuring of tokens
+
 ## 0.0.3
 
 ### Patch Changes

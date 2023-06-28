@@ -27,7 +27,9 @@
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
   --sl-opacity-100: 0.04;
-  --sl-icon-core-check: chevron-down;
+  --sl-icon-core-circle-check-solid: circle-check;
+  --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
+  --sl-icon-core-check: check;
   --sl-icon-core-chevron-down: chevron-down;
   --sl-icon-core-pinata-solid: pinata;
   --sl-icon-core-pinata: pinata;
@@ -121,7 +123,7 @@
   --sl-text-typeset-font-family-body: open-sans;
   --sl-text-typeset-font-family-heading: open-sans;
   --sl-color-palette-transparent-base: 0 0 0 / 0;
-  --sl-color-palette-white-base: 248 248 248;
+  --sl-color-palette-white-base: 255 255 255;
   --sl-color-palette-black-base: 41 41 41;
   --sl-color-palette-danger-base: 227 10 39;
   --sl-color-palette-danger-900: 36 2 6;

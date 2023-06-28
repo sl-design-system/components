@@ -29,6 +29,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
 
   #onKeydown = (event: Event): void => {
     if ((event as KeyboardEvent).key === 'Enter') {
+      console.log('onkeydown in text input webcomponent', event, (event as KeyboardEvent).key);
       this.input.form?.requestSubmit();
     }
   };

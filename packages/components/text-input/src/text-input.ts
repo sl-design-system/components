@@ -257,6 +257,8 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
 
+    console.log('onSlotchange', elements);
+
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (inputs.length) {
       this.input.removeEventListener('keydown', this.#onKeydown);

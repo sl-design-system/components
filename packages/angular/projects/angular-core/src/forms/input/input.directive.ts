@@ -41,7 +41,7 @@ import {Observable, Subject, Subscription} from "rxjs";
  // host: {'(submit)': 'onSubmit($event)'}, // host: {'(submit)': 'onSubmit($event)', '(reset)': 'onReset()'},
 })
 
-export class InputDirective implements ControlValueAccessor, Validator, AfterViewInit, AfterViewChecked, OnChanges {
+export class InputDirective implements ControlValueAccessor, Validator, /*AfterViewInit,*/ AfterViewChecked {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
@@ -137,11 +137,11 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
 
   // TODO: use setValidation from validation.ts?
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('changes in ngOnchanges', changes);
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   console.log('changes in ngOnchanges', changes);
+  // }
 
-  ngAfterViewInit() {
+/*  ngAfterViewInit() {
     const inputElement = this.elementRef.nativeElement.querySelector('input');
 
     console.log('input in ngafterviewinit', inputElement);
@@ -174,7 +174,7 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
 
     // this.validatorOnChange();
 
-  }
+  }*/
 
   ngAfterViewChecked() {
     const inputElement = this.elementRef.nativeElement.querySelector('input');
@@ -183,9 +183,13 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
 
    // this.onChange(this._value);
 
-    this.validatorOnChange(); // TODO: helps wirth delay, but not working yet on submitting
+    this.validatorOnChange(); // TODO: helps with delay, but not working yet on submitting
 
     this.#validation.validate(this.value);
+
+    // inputElement.reportValidity();
+    //this.#validation.setCustomValidity('bleh');
+    // inputElement.reportValidity();
 
     // this.elementRef.nativeElement.addEventListener('invalid', () => {
     //   this.#validation.validate(this.value);
@@ -288,22 +292,37 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
     // }
 
     console.log('in input validate control controlll', control, control.untouched);
+    // input.reportValidity();
+
+    // control.updateValueAndValidity();
 
     if (control.untouched /*&& control.pristine*/) {
       console.log('in input validate control untouched', control);
       // return control.errors; // TODO: return null or not causing invalid?
       return null;
-    } /*else {
+    } else {
       console.log('in input validate control  else', control);
       return control.errors;
-    }*/
+    }
+
+    // input.reportValidity();
+
+    // control.updateValueAndValidity();
+
+    // if (control.touched) {
+    //   control.updateValueAndValidity();
+    //   console.log('is controlTouched', control, control.touched);
+    // }
+
+    console.log('input in validate', input);
 
 
-    if (input.checkValidity()  || this.elementRef.nativeElement.checkValidity() || control.touched /*control.invalid && control.touched*/ /*input.reportValidity()*/ /*&& control.errors*/) { // TODO: working only on required, not minlength etc.
+/*    if (input.checkValidity()  || this.elementRef.nativeElement.checkValidity() || control.touched /!*control.invalid && control.touched*!/ /!*input.reportValidity()*!/ /!*&& control.errors*!/) { // TODO: working only on required, not minlength etc.
       console.log('in input validate if', control);
        // return {invalid: true}
       // return null;
      // this.onTouched();
+     //  control.updateValueAndValidity();
       return null; //control.errors;
     } else {
       console.log('in input validate else', control);
@@ -313,7 +332,7 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
       return control.errors; //null;
       // return {invalid: true}
       // return control.errors;
-     }
+     }*/
     // TODO: emit invalid event?
     //this.onChange(emit(event));
     // return control.errors;

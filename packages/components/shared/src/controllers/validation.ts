@@ -263,9 +263,9 @@ export class ValidationController implements ReactiveController {
       this.#showErrors && state
     );
 
-    console.log('in render BEFORE if', this.#showErrors, state, this.validity);
+    console.log('in render BEFORE if', this.#showErrors, state, this.validity, this.#showErrors && !!state);
 
-    if (this.#showErrors && state) {
+    if (this.#showErrors && !!state) {
       console.log('in render if', this.#showErrors, state);
       this.#slotName = dasherize(state);
 
@@ -280,6 +280,7 @@ export class ValidationController implements ReactiveController {
         @slotchange=${this.#onSlotchange}
       ></slot>`;
     } else if (this.validity.valid) {
+      // TODO or !state ??
       console.log('in render else if', this.#showErrors, state);
       this.#removeInvalidState();
     }

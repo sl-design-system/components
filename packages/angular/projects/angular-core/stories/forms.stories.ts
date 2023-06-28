@@ -365,7 +365,15 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
   }
 
   ngAfterViewChecked() {
-    console.log('ngafterviewchecked in form before if', this.submitted, this.myForm);
+    console.log('ngafterviewchecked in form before if', this.submitted, this.myForm, this.inputWithNgmodel.errors);
+
+      if (this.submitted) {
+        const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+        input.reportValidity();
+        // this.inputWithNgmodel.control.markAsTouched();
+        // this.inputWithNgmodel.control.updateValueAndValidity();
+      }
+
 
     // this.inputWithNgmodel.control.updateValueAndValidity();
 /*    this.inputWithNgmodel.control.markAsTouched();
@@ -493,13 +501,16 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
       // this.onInput(input);
 
       const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-      input.dispatchEvent(new Event('invalid', { bubbles: true }));
+      input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
+    input.reportValidity();
+      console.log('input.validity onsubmit', input.validity);
 
     this.inputWithNgmodel.control.markAsTouched();
     this.inputWithNgmodel.control.markAsDirty();
-    this.inputWithNgmodel.control.updateValueAndValidity();
+    // this.inputWithNgmodel.control.updateValueAndValidity({ onlySelf: true, emitEvent: true } = {});
+    this.inputWithNgmodel.control.updateValueAndValidity({ onlySelf: true, emitEvent: true });
 
-      this.inputWithNgmodel.update;
+      // this.inputWithNgmodel.update;
 
     // });
 
@@ -551,8 +562,14 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     const value = $event.target.value;
     console.log('submit event on form hostlistener-----', $event, value);
 
+    if (this.inputWithNgmodel.errors) {
+      const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+      input.reportValidity();
+    }
+
     const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-    input.dispatchEvent(new Event('invalid', { bubbles: true }));
+    input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
+    input.reportValidity();
     this.inputWithNgmodel.control.markAsTouched();
     this.inputWithNgmodel.control.markAsDirty();
     this.inputWithNgmodel.control.updateValueAndValidity();

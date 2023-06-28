@@ -404,6 +404,99 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/utils/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./position-anchored-element.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/position-anchored-element.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "flipPlacement",
+          "return": {
+            "type": {
+              "text": "Placement"
+            }
+          },
+          "parameters": [
+            {
+              "name": "placement",
+              "type": {
+                "text": "Placement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "positionAnchoredElement",
+          "return": {
+            "type": {
+              "text": "(() => void)"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "anchor",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "PositionAnchoredElementOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Placement",
+          "declaration": {
+            "name": "Placement",
+            "module": "src/utils/position-anchored-element.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "flipPlacement",
+          "declaration": {
+            "name": "flipPlacement",
+            "module": "src/utils/position-anchored-element.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "positionAnchoredElement",
+          "declaration": {
+            "name": "positionAnchoredElement",
+            "module": "src/utils/position-anchored-element.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/mixins/anchored-popover.ts",
       "declarations": [
         {
@@ -968,99 +1061,6 @@
           "declaration": {
             "name": "PopoverMixin",
             "module": "src/mixins/popover.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/utils/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./position-anchored-element.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/utils/position-anchored-element.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "flipPlacement",
-          "return": {
-            "type": {
-              "text": "Placement"
-            }
-          },
-          "parameters": [
-            {
-              "name": "placement",
-              "type": {
-                "text": "Placement"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "positionAnchoredElement",
-          "return": {
-            "type": {
-              "text": "(() => void)"
-            }
-          },
-          "parameters": [
-            {
-              "name": "element",
-              "type": {
-                "text": "HTMLElement"
-              }
-            },
-            {
-              "name": "anchor",
-              "type": {
-                "text": "HTMLElement"
-              }
-            },
-            {
-              "name": "options",
-              "type": {
-                "text": "PositionAnchoredElementOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Placement",
-          "declaration": {
-            "name": "Placement",
-            "module": "src/utils/position-anchored-element.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "flipPlacement",
-          "declaration": {
-            "name": "flipPlacement",
-            "module": "src/utils/position-anchored-element.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "positionAnchoredElement",
-          "declaration": {
-            "name": "positionAnchoredElement",
-            "module": "src/utils/position-anchored-element.ts"
           }
         }
       ]

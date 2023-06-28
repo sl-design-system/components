@@ -1,5 +1,7 @@
 @import url('@oddbird/popover-polyfill');
 $sizes: md, lg;
+$variants: default, valid, invalid;
+$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 
 :host {
   --_box-shadow: none;
@@ -17,32 +19,49 @@ $sizes: md, lg;
     --_button-padding-block: var(--sl-space-select-selectbox-block-#{$size});
     --_button-padding-inline: var(--sl-space-select-selectbox-inline-#{$size});
     --_font: var(--sl-text-select-selectbox-text-#{$size});
-    // --_font: var(--sl-text-button-text-#{$size});
     --_border-radius: var(--sl-border-radius-default);
     --_border-width: var(--sl-border-width-button-default);
   }
 }
 
-button {
-  &:focus-within,
-  &:focus-visible {
-    --_background: var(--sl-color-select-selectbox-default-focus-background);
-    --_border-color: var(--sl-color-select-selectbox-default-focus-border);
-    --_color: var(--sl-color-select-selectbox-default-focus-foreground);
-    --_box-shadow: var(--sl-box-shadow-focus);
-    outline: none;
+@each $variant in $variants {
+  $i: index($variants, $variant);
+  $variant-selector: nth($variant-selectors, $i);
+
+  :host(#{$variant-selector}:not(:disabled, [internals-disabled])) {
+    button {
+      --_background: var(--sl-color-select-selectbox-#{$variant}-default-background);
+      --_border-color: var(--sl-color-select-selectbox-#{$variant}-default-border);
+      --_color: var(--sl-color-select-selectbox-#{$variant}-default-foreground);
+    }
+
+    button:focus-within,
+    button:focus-visible {
+      --_background: var(--sl-color-select-selectbox-#{$variant}-focus-background);
+      --_border-color: var(--sl-color-select-selectbox-#{$variant}-focus-border);
+      --_color: var(--sl-color-select-selectbox-#{$variant}-focus-foreground);
+      --_box-shadow: var(--sl-box-shadow-focus);
+    }
+
+    button:hover {
+      --_background: var(--sl-color-select-selectbox-#{$variant}-hover-background);
+      --_border-color: var(--sl-color-select-selectbox-#{$variant}-hover-border);
+      --_color: var(--sl-color-select-selectbox-#{$variant}-hover-foreground);
+    }
+
+    button:active {
+      --_background: var(--sl-color-select-selectbox-#{$variant}-active-background);
+      --_border-color: var(--sl-color-select-selectbox-#{$variant}-active-border);
+      --_color: var(--sl-color-select-selectbox-#{$variant}-active-foreground);
+    }
   }
 
-  &:hover {
-    --_background: var(--sl-color-select-selectbox-default-hover-background);
-    --_border-color: var(--sl-color-select-selectbox-default-hover-border);
-    --_color: var(--sl-color-select-selectbox-default-hover-foreground);
-  }
-
-  &:active {
-    --_background: var(--sl-color-select-selectbox-default-active-background);
-    --_border-color: var(--sl-color-select-selectbox-default-active-border);
-    --_color: var(--sl-color-select-selectbox-default-active-foreground);
+  :host(#{$variant-selector}:where(:disabled, [internals-disabled])) {
+    button {
+      --_background: var(--sl-color-select-selectbox-#{$variant}-disabled-background);
+      --_border-color: var(--sl-color-select-selectbox-#{$variant}-disabled-border);
+      --_color: var(--sl-color-select-selectbox-#{$variant}-disabled-foreground);
+    }
   }
 }
 
@@ -72,10 +91,6 @@ dialog:popover-open {
 }
 
 button {
-  --_background: var(--sl-color-select-selectbox-default-default-background);
-  --_border-color: var(--sl-color-select-selectbox-default-default-border);
-  --_color: var(--sl-color-select-selectbox-default-default-foreground);
-
   align-items: center;
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
@@ -86,15 +101,17 @@ button {
   font: var(--_font);
   gap: var(--_gap);
   grid-template-columns: auto 24px;
+  outline: none;
   padding: 0;
   text-align: start;
   transition: 0.2s ease-in-out;
   transition-property: background, border, box-shadow, color, filter;
 
   span {
-    box-sizing: border-box;
+    display: block;
     padding-block: var(--_button-padding-block);
     padding-inline: var(--_button-padding-inline);
+    white-space: nowrap;
   }
 
   span[contenttype='element'] {
@@ -105,10 +122,6 @@ button {
   &:focus-within,
   &:focus-visible {
     outline: none;
-  }
-
-  span {
-    display: block;
   }
 }
 

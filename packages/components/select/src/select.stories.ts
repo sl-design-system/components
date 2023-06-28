@@ -19,6 +19,8 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 
+const states: string[] = ['', 'valid', 'invalid'];
+const disabledStates = [false, true];
 const sizes: SelectSize[] = ['md', 'lg'];
 
 export default {
@@ -73,6 +75,69 @@ export const Basic: StoryObj = {
     </sl-select>
     <sl-button>To focus</sl-button>
   `
+};
+
+const options = html`
+  <sl-select-option>🐷 Pig</sl-select-option>
+  <sl-select-option>🐨 Koala</sl-select-option>
+  <sl-select-option>🐼 Panda</sl-select-option>
+  <sl-select-option>🦊 Fox</sl-select-option>
+`;
+export const All: StoryObj = {
+  render: () => {
+    return html` <style>
+        table {
+          border-collapse: collapse;
+        }
+
+        th {
+          text-transform: capitalize;
+        }
+        th,
+        td {
+          padding: 4px 8px;
+        }
+        thead td {
+          text-align: center;
+        }
+      </style>
+      ${sizes.map(
+        size => html` <h2>Size: ${size}</h2>
+          <table>
+            <thead>
+              <tr>
+                <td></td>
+                ${disabledStates.map(
+                  disabledState =>
+                    html` <td class="${disabledState ? 'sb-disabled' : ''}">
+                      ${disabledState ? 'Disabled' : 'Enabled'}
+                    </td>`
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              ${states.map(
+                state => html` <tr>
+                  <th>${state}</th>
+                  ${disabledStates.map(
+                    disabledState => html` <td class="${disabledState ? 'sb-disabled' : ''}">
+                      <sl-select
+                        ?valid=${state === 'valid'}
+                        ?invalid=${state === 'invalid'}
+                        .size=${size}
+                        ?disabled=${disabledState}
+                        data-mock-state
+                        >${options}
+                      </sl-select>
+                    </td>`
+                  )}
+                </tr>`
+              )}
+              </tr>
+            </tbody>
+          </table>`
+      )}`;
+  }
 };
 
 export const CustomComponents: StoryObj = {

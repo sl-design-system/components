@@ -50,6 +50,9 @@ export class Select extends FormControlMixin(LitElement) {
   /** Select size. */
   @property({ reflect: true }) size: SelectSize = 'md';
 
+  /** Whether the select is invalid. */
+  @property({ type: Boolean, reflect: true }) invalid?: boolean;
+
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
     focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.dialog?.open),
     elements: () => this.allOptions || [],
@@ -72,14 +75,20 @@ export class Select extends FormControlMixin(LitElement) {
   /** Element internals. */
   readonly internals = this.attachInternals();
 
-  /** The current tab node selected in the tab group. */
+  /** The current node selected in the list of options. */
   @state() private selectedOption?: SelectOption | null;
 
   override render(): TemplateResult {
     return html`
-      <button id=${this.#selectId} tabindex="0" class="select-toggle" popovertarget="dialog-${this.#selectId}">
-        <span id="selectedOption"></span>
-        <sl-icon name="chevron-down" .size=${this.size}></sl-icon>
+      <button
+        id=${this.#selectId}
+        tabindex="0"
+        class="select-toggle"
+        popovertarget="dialog-${this.#selectId}"
+        ?disabled=${this.disabled}
+      >
+        <span contenttype=${this.optionContentType}>${this.#renderSelectedOption}</span>
+        <sl-icon name="chevron-down"></sl-icon>
       </button>
       <dialog
         @keydown="${this.#handleOverlayKeydown}"
@@ -109,22 +118,9 @@ export class Select extends FormControlMixin(LitElement) {
     this.selectedOption ||= this.allOptions.find(option => option.selected);
 
     if (this.selectedOption) {
-      this.#setSelectedOptionVisible(this.selectedOption);
+      this.setFormValue(this.selectedOption.value || this.selectedOption.innerHTML);
     }
   }
-
-  // openSelect(event: Event & { target: HTMLElement }): void {
-  //   const toggle = event.target.closest<HTMLElement>('.select-toggle');
-  //   if (!toggle) return;
-
-  //   // if (!this.overlay?.popoverOpen) {
-  //   //   this.scrollTo({ top: 0 });
-  //   //   this.allOptions.find(option => option.selected)?.focus();
-  //   //   this.overlay?.show(toggle);
-  //   // } else {
-  //   //   this.overlay?.hidePopover();
-  //   // }
-  // }
 
   #closeSelect(): void {
     this.dialog?.hidePopover?.();
@@ -192,26 +188,25 @@ export class Select extends FormControlMixin(LitElement) {
         option.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 
         this.selectedOption = option;
-        this.#validation.validate(
-          this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
-        );
-        this.#setSelectedOptionVisible(option);
+        const selectedValue = option.value || option.innerHTML;
+        this.#validation.validate(this.selectedOption ? selectedValue : undefined);
+        this.setFormValue(selectedValue);
       }
     });
   }
 
-  /**
-   * Copy the value/represenation of the selected option to the placeholder
-   */
-  #setSelectedOptionVisible(option: SelectOption): void {
-    this.setFormValue(option.value || option.innerHTML);
+  get #renderSelectedOption(): HTMLElement | TemplateResult {
+    if (!this.selectedOption) {
+      return html`&nbsp`;
+    }
+    return (this.selectedOption.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
+  }
 
-    const clonedOption = (option.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
-    const contentType = (option.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
-
-    this.selectedOptionPlaceholder?.childNodes.forEach(cn => cn.remove());
-    this.selectedOptionPlaceholder?.append(clonedOption);
-    this.selectedOptionPlaceholder?.setAttribute('contentType', contentType);
+  get optionContentType(): string {
+    if (!this.selectedOption) {
+      return `string`;
+    }
+    return (this.selectedOption?.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
   }
 
   /**

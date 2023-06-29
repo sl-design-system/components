@@ -1856,10 +1856,10 @@
                 "description": "color.surface.solid.primary.background"
               },
               "label": {
-                "value": "{color.palette.neutral.300}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
-                "description": "color.surface.solid.primary.foreground",
-                "failedToResolve": true
+                "failedToResolve": true,
+                "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
                 "value": "{color.palette.neutral.400}",
@@ -2122,10 +2122,10 @@
                 "description": "color.surface.solid.primary.background"
               },
               "label": {
-                "value": "{color.palette.neutral.300}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
-                "description": "color.surface.solid.primary.foreground",
-                "failedToResolve": true
+                "failedToResolve": true,
+                "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
                 "value": "{color.palette.neutral.400}",
@@ -2408,7 +2408,7 @@
           "unchecked": {
             "default": {
               "background": {
-                "value": "{color.palette.neutral.300}",
+                "value": "{color.palette.neutral.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2423,14 +2423,14 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
             },
             "hover": {
               "background": {
-                "value": "{color.palette.accent.300}",
+                "value": "{color.palette.neutral.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2445,14 +2445,14 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
             },
             "active": {
               "background": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.neutral.900}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2467,7 +2467,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2489,14 +2489,14 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
             },
             "disabled": {
               "background": {
-                "value": "{color.palette.neutral.150}",
+                "value": "{color.palette.neutral.300}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2511,7 +2511,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.200}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2520,7 +2520,7 @@
           "checked": {
             "default": {
               "background": {
-                "value": "{color.palette.success.400}",
+                "value": "{color.palette.success.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2535,14 +2535,14 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
             },
             "hover": {
               "background": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.palette.success.800}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2557,14 +2557,14 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
             },
             "active": {
               "background": {
-                "value": "{color.palette.success.600}",
+                "value": "{color.palette.success.900}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2579,7 +2579,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2601,14 +2601,14 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
             },
             "disabled": {
               "background": {
-                "value": "{color.palette.success.150}",
+                "value": "{color.palette.neutral.300}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2623,7 +2623,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.200}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -3102,7 +3102,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3119,7 +3119,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3138,7 +3138,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3155,7 +3155,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },

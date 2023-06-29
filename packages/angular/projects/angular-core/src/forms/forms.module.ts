@@ -10,10 +10,12 @@ import { InputDirective } from './input/input.directive';
 import { TextareaDirective } from './textarea/textarea.directive';
 import { RadioGroupDirective } from './radio-group/radio-group.directive';
 import { RadioDirective } from './radio-group/radio.directive';
+import { FormControlElementDirective } from "./form-control/form-control-element.directive";
 
 @NgModule({
   declarations: [
     CheckboxDirective,
+    FormControlElementDirective,
     InputDirective,
     TextareaDirective,
     RadioGroupDirective,
@@ -21,6 +23,7 @@ import { RadioDirective } from './radio-group/radio.directive';
   ],
   exports: [
     CheckboxDirective,
+    FormControlElementDirective,
     InputDirective,
     TextareaDirective,
     RadioGroupDirective,

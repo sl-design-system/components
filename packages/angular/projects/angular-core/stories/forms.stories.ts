@@ -19,7 +19,7 @@ import {
   OnInit,
   SimpleChanges,
   ViewChild,
-  Output, ElementRef, Renderer2, HostListener
+  Output, ElementRef, Renderer2, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked, NgZone
 } from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
@@ -219,6 +219,7 @@ export class ReactiveFormComponent {
 
 @Component({
   selector: 'sla-template-form',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     form {
       display: flex;
@@ -257,7 +258,7 @@ export class ReactiveFormComponent {
         <sl-radio value="3" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Three</sl-radio>
       </sl-radio-group>-->
       <sl-button type="submit" variant="primary">Submit</sl-button>
-      <sl-button type="reset" variant="primary" (click)="myForm.reset()">Reset</sl-button>
+      <!--<sl-button type="reset" variant="primary" (click)="myForm.reset()">Reset</sl-button>-->
       <div>
         Name: <i>{{model.name}}</i> valid? {{inputWithNgmodel.valid}}
         <strong>errors?</strong> {{inputWithNgmodel.control.errors | json}}
@@ -276,7 +277,7 @@ export class ReactiveFormComponent {
 }) // TODO: after form submitted and after form control touched
 // TODO slotted hint
 // TODO: reportvalidity ?
-export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewInit, AfterViewChecked {
+export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewInit, AfterViewChecked, AfterContentChecked {
   // model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
   model = new Person(1, '', 'Short description of John', false, { value: null, text: '' });
 
@@ -293,7 +294,7 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
 
   submitted = false;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2, /*private cdr: ChangeDetectorRef,*/ private ngZone: NgZone) {
   }
 
   ngOnInit(): void {
@@ -340,6 +341,17 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     }
   }*/
 
+  ngAfterContentChecked() {
+    console.log('ngAfterContentChecked', this.submitted);
+    if (this.submitted) {
+      // this.inputWithNgmodel.control.markAsTouched();
+      // this.inputWithNgmodel.control.markAsDirty();
+      // this.inputWithNgmodel.control.updateValueAndValidity(); // updateon
+      // this.cdr.markForCheck();
+      // this.cdr.detectChanges();
+    }
+  }
+
   ngAfterViewInit() {
     console.log('ngafterviewinit in form before if', this.submitted, this.myForm);
 
@@ -369,10 +381,18 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
 
       if (this.submitted) {
         const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-        input.reportValidity();
-        // this.inputWithNgmodel.control.markAsTouched();
-        // this.inputWithNgmodel.control.updateValueAndValidity();
+        // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+        input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
+        // this.myForm.form.updateValueAndValidity();
+        this.inputWithNgmodel.control.markAsTouched();
+        this.inputWithNgmodel.control.updateValueAndValidity();
+       // this.myForm.form.updateValueAndValidity();
+        // this.cdr.markForCheck();
+        // this.cdr.detectChanges();
       }
+
+     //   this.cdr.markForCheck();
+     // this.cdr.detectChanges();
 
 
     // this.inputWithNgmodel.control.updateValueAndValidity();
@@ -392,7 +412,7 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
 
   onInput(event: HTMLInputElement): void {
    // console.log('oninput event', event, event.target, this.submitted, this.myForm, !this.submitted, !this.submitted && !!this.myForm);
-    console.log('oninput event check condition', !this.submitted && !!this.myForm, event);
+    console.log('oninput event check condition', !this.submitted && !!this.myForm, event, this.inputWithNgmodel.control.errors);
 
     // if (!this.submitted) {
     //   event.preventDefault();
@@ -411,14 +431,14 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
       console.log('oninput event inside if');
       this.inputWithNgmodel.control.markAsUntouched();
       this.inputWithNgmodel.control.markAsPristine();
-      Object.values(this.myForm.controls).forEach(control => {
+/*      Object.values(this.myForm.controls).forEach(control => {
         console.log('oninput event inside for each');
         //control.errors = {};
         control.markAsUntouched();
         control.markAsPristine();
        //control.clearValidators();
         // control.updateValueAndValidity();
-      });
+      });*/
     } else {
       // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
       // input.dispatchEvent(new Event('invalid', { bubbles: true }));
@@ -426,14 +446,14 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
       this.inputWithNgmodel.control.markAsTouched();
       this.inputWithNgmodel.control.markAsDirty();
       this.inputWithNgmodel.control.updateValueAndValidity();
-      Object.values(this.myForm.controls).forEach(control => {
+/*      Object.values(this.myForm.controls).forEach(control => {
         console.log('oninput event inside for each');
         //control.errors = {};
         control.markAsTouched();
         control.markAsDirty();
         //control.clearValidators();
         control.updateValueAndValidity();
-      });
+      });*/
     }
   }
 
@@ -481,6 +501,17 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
 
     // requestAnimationFrame(() => {
 
+    // this.ngZone.runOutsideAngular(() => {
+    //   console.log('Do change detection here');
+    //   const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+    //   input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
+    //   // input.checkValidity();
+    //   input.reportValidity();
+      // input.reportValidity();
+    // });
+
+    event.preventDefault();
+
     this.submitted = true;
 
     // this.inputWithNgmodel.control.updateValueAndValidity();
@@ -502,13 +533,15 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
 
       const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
       input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
-    input.reportValidity();
+    // input.reportValidity();
       console.log('input.validity onsubmit', input.validity);
 
     this.inputWithNgmodel.control.markAsTouched();
     this.inputWithNgmodel.control.markAsDirty();
     // this.inputWithNgmodel.control.updateValueAndValidity({ onlySelf: true, emitEvent: true } = {});
     this.inputWithNgmodel.control.updateValueAndValidity({ onlySelf: true, emitEvent: true });
+
+    // this.cdr.detectChanges();
 
       // this.inputWithNgmodel.update;
 
@@ -562,17 +595,19 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     const value = $event.target.value;
     console.log('submit event on form hostlistener-----', $event, value);
 
-    if (this.inputWithNgmodel.errors) {
+/*    if (this.inputWithNgmodel.errors) {
       const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
       input.reportValidity();
     }
 
     const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
     input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
-    input.reportValidity();
+   // input.reportValidity();
     this.inputWithNgmodel.control.markAsTouched();
     this.inputWithNgmodel.control.markAsDirty();
-    this.inputWithNgmodel.control.updateValueAndValidity();
+    this.inputWithNgmodel.control.updateValueAndValidity();*/
+
+    // this.cdr.detectChanges();
     // this.value = value;
     // this.onTouched();
     // this.validatorOnChange();
@@ -580,6 +615,8 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
     // console.log('this.elementRef.nativeElement.validators', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
   }
 }
+
+// TODO: validation required report form story example
 
 export class Person {
   constructor(

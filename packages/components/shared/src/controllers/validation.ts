@@ -251,6 +251,8 @@ export class ValidationController implements ReactiveController {
       return;
     }
 
+    // this.#host.requestUpdate();
+
     const state = this.#getInvalidState(this.validity);
 
     console.log('in render state and this.validity', state, this.validity, this.#showErrors);
@@ -279,7 +281,7 @@ export class ValidationController implements ReactiveController {
         error-size="${this.#messageSize}"
         @slotchange=${this.#onSlotchange}
       ></slot>`;
-    } else if (this.validity.valid) {
+    } /*if (/!*this.validity.valid*!/)*/ else {
       // TODO or !state ??
       console.log('in render else if', this.#showErrors, state);
       this.#removeInvalidState();
@@ -429,6 +431,8 @@ export class ValidationController implements ReactiveController {
       this.#validationPending = true;
     }
 
+    console.log('this.#validationComplete, this.#validationPending', this.#validationComplete, this.#validationPending);
+
     /**
      * If an abort controller exists from a previous validation step
      * notify still-running async validators that we are requesting they
@@ -510,8 +514,10 @@ export class ValidationController implements ReactiveController {
   #getInvalidState(validity: ValidityState): keyof ValidityState | void {
     console.log('in render validity in getInvalidState', validity);
     if (validity.badInput) {
+      console.log('in render validity in getInvalidState badInput', validity.badInput);
       return 'badInput';
     } else if (validity.customError) {
+      console.log('in render validity in getInvalidState customError', validity.customError);
       return 'customError';
     } else if (validity.patternMismatch) {
       return 'patternMismatch';
@@ -524,10 +530,12 @@ export class ValidationController implements ReactiveController {
     } else if (validity.tooLong) {
       return 'tooLong';
     } else if (validity.tooShort) {
+      console.log('in render validity in getInvalidState tooShort', validity.tooShort);
       return 'tooShort';
     } else if (validity.typeMismatch) {
       return 'typeMismatch';
     } else if (validity.valueMissing) {
+      console.log('in render validity in getInvalidState valueMissing', validity.valueMissing);
       return 'valueMissing';
     }
   }

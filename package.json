@@ -282,7 +282,7 @@
     "@changesets/get-github-info": "^0.5.2",
     "@custom-elements-manifest/analyzer": "^0.8.3",
     "@lit/localize-tools": "^0.6.9",
-    "@oddbird/popover-polyfill": "^0.2.1",
+    "@oddbird/popover-polyfill": "^0.2.2",
     "@open-wc/testing": "^3.2.0",
     "@storybook/addon-a11y": "^7.0.24",
     "@storybook/addon-essentials": "^7.0.24",
@@ -304,7 +304,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
+    "lint-staged": "^13.2.3",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -316,7 +316,7 @@
     "stylelint": "^15.9.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
-    "typescript": "^5.0.4",
+    "typescript": "5.2.0-dev.20230629",
     "vite": "^4.3.9",
     "wireit": "^0.9.5"
   }

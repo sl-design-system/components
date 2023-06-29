@@ -47,7 +47,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
   readonly internals = this.attachInternals();
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
-  @property() autocomplete?: string;
+  @property() autocomplete?: AutoFill;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;

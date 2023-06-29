@@ -28,6 +28,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.4.2",
     "lit": "^2.7.5"
   }
 }

@@ -3413,10 +3413,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oddbird/popover-polyfill@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@oddbird/popover-polyfill@npm:0.2.1"
-  checksum: 7eb8a404356f40fabcb3ea24975552859212fc044bd9785dd674480f6c480d7df646164a9a8bc98dc5f113ef5ef694055cdb3bece440c65ddffc4fe30039731d
+"@oddbird/popover-polyfill@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@oddbird/popover-polyfill@npm:0.2.2"
+  checksum: af4aebf975298a3b384b50c637fc4992282e9a499ec15d5648c938a5355fe80862c7c521e1d5ebd3f1ea1fbdf1dd7dcc3a4c84d9e9d2599d0e482708464fcf3c
   languageName: node
   linkType: hard
 
@@ -3704,7 +3704,7 @@ __metadata:
     "@storybook/addon-links": ^7.0.24
     "@storybook/angular": ^7.0.24
     "@storybook/blocks": ^7.0.24
-    "@types/jasmine": ~4.3.4
+    "@types/jasmine": ~4.3.5
     "@typescript-eslint/eslint-plugin": 5.60.1
     "@typescript-eslint/parser": 5.60.1
     eslint: ^8.43.0
@@ -3720,7 +3720,7 @@ __metadata:
     rxjs: ~7.8.1
     storybook: ^7.0.24
     tslib: ^2.6.0
-    typescript: ~5.0.4
+    typescript: ~5.1.6
     wireit: ^0.9.5
     zone.js: ~0.12.0
   languageName: unknown
@@ -3797,7 +3797,7 @@ __metadata:
     react-dom: ^18.2.0
     storybook: ^7.0.24
     tslib: ^2.6.0
-    typescript: ^5.0.4
+    typescript: 5.2.0-dev.20230629
     wireit: ^0.9.5
   languageName: unknown
   linkType: soft
@@ -3937,7 +3937,7 @@ __metadata:
     "@changesets/get-github-info": ^0.5.2
     "@custom-elements-manifest/analyzer": ^0.8.3
     "@lit/localize-tools": ^0.6.9
-    "@oddbird/popover-polyfill": ^0.2.1
+    "@oddbird/popover-polyfill": ^0.2.2
     "@open-wc/testing": ^3.2.0
     "@storybook/addon-a11y": ^7.0.24
     "@storybook/addon-essentials": ^7.0.24
@@ -3959,7 +3959,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-unused-imports: ^2.0.0
     husky: ^8.0.3
-    lint-staged: ^13.2.2
+    lint-staged: ^13.2.3
     prettier: ^2.8.8
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -3971,7 +3971,7 @@ __metadata:
     stylelint: ^15.9.0
     stylelint-config-sass-guidelines: ^9.0.1
     stylelint-prettier: ^3.0.0
-    typescript: ^5.0.4
+    typescript: 5.2.0-dev.20230629
     vite: ^4.3.9
     wireit: ^0.9.5
   languageName: unknown
@@ -3997,7 +3997,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/popover@workspace:packages/components/popover"
   dependencies:
-    "@floating-ui/dom": ^1.4.2
     "@sl-design-system/shared": 0.1.0
     lit: ^2.7.5
   languageName: unknown
@@ -4060,6 +4059,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:
+    "@floating-ui/dom": ^1.4.2
     lit: ^2.7.5
   languageName: unknown
   linkType: soft
@@ -4110,7 +4110,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tooltip@workspace:packages/components/tooltip"
   dependencies:
-    "@sl-design-system/popover": 0.0.4
     "@sl-design-system/shared": 0.1.0
     lit: ^2.7.5
   languageName: unknown
@@ -4144,7 +4143,7 @@ __metadata:
     sass: ^1.63.6
     slugify: ^1.6.6
     tiny-glob: ^0.2.9
-    typescript: ^5.0.4
+    typescript: 5.2.0-dev.20230629
     wireit: ^0.9.5
   languageName: unknown
   linkType: soft
@@ -5747,10 +5746,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jasmine@npm:~4.3.4":
-  version: 4.3.4
-  resolution: "@types/jasmine@npm:4.3.4"
-  checksum: b7234a0754a0a80de7a745df93bb0b6105f1cfd445224bd83750c56bf7f69d71ff536aa40c0398e23bdd5613a7f3cb35193237444b94b51e816094a219ce19b9
+"@types/jasmine@npm:~4.3.5":
+  version: 4.3.5
+  resolution: "@types/jasmine@npm:4.3.5"
+  checksum: c70254fc6a4ceea73ef920acd8b7df2112cfb7dc093cefd7793e806920a7cb97e394e045ae15e118ced4e03fdb3fa23fa719e31c1f0ed0f59bea60432c7cc36b
   languageName: node
   linkType: hard
 
@@ -14637,9 +14636,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^13.2.2":
-  version: 13.2.2
-  resolution: "lint-staged@npm:13.2.2"
+"lint-staged@npm:^13.2.3":
+  version: 13.2.3
+  resolution: "lint-staged@npm:13.2.3"
   dependencies:
     chalk: 5.2.0
     cli-truncate: ^3.1.0
@@ -14656,7 +14655,7 @@ __metadata:
     yaml: ^2.2.2
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: a3f43ad7a88b57cbdd5e15a6b484955092ecf8bfbb38b009ec47d52ef8d16961785ce85fd6fb49a2d57ec7feb54d6724f1b0b2732f425d0e39b17206a88f7f96
+  checksum: 4907d2e60c8bd4b7ba354464a914e9db61d3e121232a3111bfe3e9f24d1ae8c9bd89c8ff19f819227a97fce0d797a33a62bcc29adebb37fb937e012a0a8b358b
   languageName: node
   linkType: hard
 
@@ -21527,6 +21526,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:5.2.0-dev.20230629":
+  version: 5.2.0-dev.20230629
+  resolution: "typescript@npm:5.2.0-dev.20230629"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: aae3515d79569b278fd834b6b98db592e36c702afe3eea3db4186cc9c2b3114dffe6ffc35d91ef02ef9711b3efe48a051a7b43f961105a5f473bf04d9ab1396d
+  languageName: node
+  linkType: hard
+
 "typescript@npm:^2.9.2 || ^3.0.0 || ^4.0.0, typescript@npm:^4.6.2, typescript@npm:^4.7.4":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
@@ -21534,16 +21543,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 5f6cad2e728a8a063521328e612d7876e12f0d8a8390d3b3aaa452a6a65e24e9ac8ea22beb72a924fd96ea0a49ea63bb4e251fb922b12eedfb7f7a26475e5c56
-  languageName: node
-  linkType: hard
-
-"typescript@npm:^5.0.4, typescript@npm:~5.0.4":
-  version: 5.0.4
-  resolution: "typescript@npm:5.0.4"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 2f5bd1cead194905957cb34e220b1d6ff1662399adef8ec1864f74620922d860ee35b6e50eafb3b636ea6fd437195e454e1146cb630a4236b5095ed7617395c2
   languageName: node
   linkType: hard
 
@@ -21557,6 +21556,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:~5.1.6":
+  version: 5.1.6
+  resolution: "typescript@npm:5.1.6"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 45ac28e2df8365fd28dac42f5d62edfe69a7203d5ec646732cadc04065331f34f9078f81f150fde42ed9754eed6fa3b06a8f3523c40b821e557b727f1992e025
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@5.2.0-dev.20230629#~builtin<compat/typescript>":
+  version: 5.2.0-dev.20230629
+  resolution: "typescript@patch:typescript@npm%3A5.2.0-dev.20230629#~builtin<compat/typescript>::version=5.2.0-dev.20230629&hash=85af82"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: a9b4458d9a853ea73cdca02c397187f35ad3ee792203f89a0380c3a7a13dee47cb88140201dfc764ea2280ef373c6e3f272797cd19e23948526afc6653b9a5a7
+  languageName: node
+  linkType: hard
+
 "typescript@patch:typescript@^2.9.2 || ^3.0.0 || ^4.0.0#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
   version: 4.9.5
   resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
@@ -21567,16 +21586,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^5.0.4#~builtin<compat/typescript>, typescript@patch:typescript@~5.0.4#~builtin<compat/typescript>":
-  version: 5.0.4
-  resolution: "typescript@patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=85af82"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: eec385fd53e1800b0986bac2889deafee8e1910ce10108a5fe10644422426f71625c47b3e78e042371df16592881b1b1f97884ab45dc993f3b96a5c954f65dc2
-  languageName: node
-  linkType: hard
-
 "typescript@patch:typescript@~4.3.2#~builtin<compat/typescript>":
   version: 4.3.5
   resolution: "typescript@patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=dba6d9"
@@ -21584,6 +21593,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 8991b4a568bd5a9dab8fa470b5e51368f588e46aebde3a773d9c993ef83e8a1ec0832deae4496d2c788a23c400471117d60b8f9607578ae79779cb3f379308ae
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@~5.1.6#~builtin<compat/typescript>":
+  version: 5.1.6
+  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=85af82"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: c134abcd9fc5c393db30498db18d8e89453efae14e11a39c1adb6238138d4c152472e497499b8a67b0c87ca6eafcb26b0eb02f962f240c233c2e0ad3785f8742
   languageName: node
   linkType: hard
 

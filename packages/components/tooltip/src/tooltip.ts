@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { Placement } from '@sl-design-system/popover';
-import { AnchoredPopoverMixin, popoverMixinStyles } from '@sl-design-system/popover';
+import type { PopoverPosition } from '@sl-design-system/shared';
 import { EventsController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -11,9 +10,9 @@ let nextUniqueId = 0;
 /**
  * Tooltip component.
  */
-export class Tooltip extends AnchoredPopoverMixin(LitElement) {
+export class Tooltip extends LitElement {
   /** @private */
-  static override styles: CSSResultGroup = [popoverMixinStyles, styles];
+  static override styles: CSSResultGroup = styles;
 
   static lazy(target: Element, callback: (target: Tooltip) => void): void {
     const createTooltip = (): void => {
@@ -25,8 +24,8 @@ export class Tooltip extends AnchoredPopoverMixin(LitElement) {
       target.parentNode?.insertBefore(tooltip, target.nextSibling);
       target.setAttribute('aria-describedby', tooltip.id);
 
-      tooltip.anchorElement = target as HTMLElement;
-      tooltip.showPopover();
+      // tooltip.anchorElement = target as HTMLElement;
+      // tooltip.showPopover();
 
       // We only need to create the tooltip once, so ignore all future events.
       ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
@@ -43,20 +42,20 @@ export class Tooltip extends AnchoredPopoverMixin(LitElement) {
 
   #onHide = ({ target }: Event): void => {
     if (this.#matchesAnchor(target as Element)) {
-      this.anchorElement = undefined;
-      this.hidePopover();
+      // this.anchorElement = undefined;
+      // this.hidePopover();
     }
   };
 
   #onShow = ({ target }: Event): void => {
     if (this.#matchesAnchor(target as HTMLElement)) {
-      this.anchorElement = target as HTMLElement;
-      this.showPopover();
+      // this.anchorElement = target as HTMLElement;
+      // this.showPopover();
     }
   };
 
-  /** Tooltip placement. */
-  @property() placement: Placement = 'bottom';
+  /** Tooltip position. */
+  @property() position: PopoverPosition = 'bottom';
 
   override connectedCallback(): void {
     super.connectedCallback();

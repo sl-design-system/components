@@ -41,7 +41,8 @@ export class Select extends FormControlMixin(LitElement) {
   @property() maxOverlayHeight?: string;
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
-    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.overlay?.popoverOpen),
+    focusInIndex: (elements: SelectOption[]) =>
+      elements.findIndex(el => el.selected /* && !!this.overlay?.popoverOpen*/),
     elements: () => this.allOptions || [],
     isFocusableElement: (el: SelectOption) => !el.disabled
   });
@@ -114,13 +115,13 @@ export class Select extends FormControlMixin(LitElement) {
     const toggle = event.target.closest<HTMLElement>('.select-toggle');
     if (!toggle) return;
 
-    if (!this.overlay?.popoverOpen) {
-      this.scrollTo({ top: 0 });
-      this.allOptions.find(option => option.selected)?.focus();
-      this.overlay?.show(toggle);
-    } else {
-      this.overlay?.hidePopover();
-    }
+    // if (!this.overlay?.popoverOpen) {
+    //   this.scrollTo({ top: 0 });
+    //   this.allOptions.find(option => option.selected)?.focus();
+    //   this.overlay?.show(toggle);
+    // } else {
+    //   this.overlay?.hidePopover();
+    // }
   }
 
   #closeSelect(): void {

@@ -43,7 +43,7 @@
     "react-dom": "^18.2.0",
     "storybook": "^7.0.24",
     "tslib": "^2.6.0",
-    "typescript": "^5.0.4",
+    "typescript": "5.2.0-dev.20230629",
     "wireit": "^0.9.5"
   }
 }

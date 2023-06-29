@@ -1,23 +1,25 @@
 import type { Popover } from './popover.js';
+import type { Button } from '@sl-design-system/button';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/text-input/register.js';
+import { anchor } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import '../register.js';
 
-type Props = Pick<Popover, 'placement'>;
+type Props = Pick<Popover, 'position'>;
 
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Popover',
   args: {
-    placement: 'top'
+    position: 'top'
   },
   argTypes: {
-    placement: {
+    position: {
       control: 'inline-radio',
       options: ['top', 'right', 'bottom', 'left']
     }
@@ -25,11 +27,19 @@ export default {
   parameters: {
     layout: 'centered'
   },
-  render: ({ placement }) => html`
-    <sl-button popovertarget="popover">Toggle popover</sl-button>
-    <sl-popover id="popover" placement=${ifDefined(placement)}>I'm a popover</sl-popover>
-  `
-} satisfies Meta;
+  render: ({ position }) => {
+    const onClick = (event: Event & { target: Button }): void => {
+      const popover = event.target.nextElementSibling as HTMLElement;
+
+      popover.togglePopover();
+    };
+
+    return html`
+      <sl-button @click=${onClick} id="button">Toggle popover</sl-button>
+      <sl-popover anchor="button" position=${ifDefined(position)}>I'm a popover</sl-popover>
+    `;
+  }
+} satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
@@ -45,6 +55,21 @@ export const All: Story = {
       <sl-popover anchor="anchor" placement="right" popover="manual">Right</sl-popover>
       <sl-popover anchor="anchor" placement="bottom" popover="manual">Bottom</sl-popover>
       <sl-popover anchor="anchor" placement="left" popover="manual">Left</sl-popover>
+    `;
+  }
+};
+
+export const Directive: Story = {
+  render: ({ position }) => {
+    const onClick = (event: Event & { target: Button }): void => {
+      const popover = event.target.nextElementSibling as HTMLElement;
+
+      popover.togglePopover();
+    };
+
+    return html`
+      <sl-button @click=${onClick} id="button">Toggle popover</sl-button>
+      <dialog anchor="button" ${anchor({ position })}>I'm a popover</dialog>
     `;
   }
 };

@@ -1,9 +1,10 @@
-import type { Placement } from './utils/position-anchored-element.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { PopoverPosition } from '@sl-design-system/shared';
+import { AnchorController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
+import polyfillStyles from './polyfill.scss.js';
 import styles from './popover.scss.js';
-import { popoverMixinStyles } from './mixins/popover.js';
 
 /**
  * Base popover web component.
@@ -12,30 +13,33 @@ import { popoverMixinStyles } from './mixins/popover.js';
  */
 export class Popover extends LitElement {
   /** @private */
-  static override styles: CSSResultGroup = [popoverMixinStyles, styles];
+  static override styles: CSSResultGroup = [polyfillStyles, styles];
 
-  #onAnchorClick = (event: Event): void => {
-    this.#onClick(event);
-    event.preventDefault();
-  };
+  /** Controller for managing anchoring. */
+  #anchor = new AnchorController(this, { arrow: '.arrow' });
 
-  /** The arrow linking the popover to the anchor element. */
-  @query('.arrow') arrow!: Element;
+  /** The position of this popover relative to its anchor. */
+  @property() position?: PopoverPosition = 'top';
 
-  /** Popover placement relative to the anchor. */
-  @property() placement: Placement = 'top';
-
-  override connectedCallback(): void {
-    super.connectedCallback();
+  constructor() {
+    super();
 
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
     }
   }
 
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('position')) {
+      this.#anchor.position = this.position;
+    }
+  }
+
   override render(): TemplateResult {
     return html`
-      <div @click=${(event: Event) => event.stopPropagation()} class="container" part="container">
+      <div class="container" part="container">
         <slot></slot>
       </div>
       <div class="arrow">
@@ -47,21 +51,5 @@ export class Popover extends LitElement {
         </svg>
       </div>
     `;
-  }
-
-  // override addEventListenersToAnchor(): void {
-  //   this.anchorElement?.addEventListener('click', this.#onAnchorClick);
-  // }
-
-  // override removeEventListenersFromAnchor(): void {
-  //   this.anchorElement?.removeEventListener('click', this.#onAnchorClick);
-  // }
-
-  #onClick(event: Event): void {
-    if (event.defaultPrevented) {
-      return;
-    }
-
-    // this.open = !this.open;
   }
 }

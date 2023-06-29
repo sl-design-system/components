@@ -102,7 +102,7 @@ export const All: StoryObj = {
         }
       </style>
       ${sizes.map(
-        size => html` <h2>Size: ${size}</h2>
+        size => html`<h2>Size: ${size}</h2>
           <table>
             <thead>
               <tr>
@@ -124,6 +124,7 @@ export const All: StoryObj = {
                       <sl-select
                         ?valid=${state === 'valid'}
                         ?invalid=${state === 'invalid'}
+                        ?required=${state === 'invalid'}
                         .size=${size}
                         ?disabled=${disabledState}
                         data-mock-state
@@ -190,12 +191,12 @@ export const InForm: StoryObj = {
 
       <sl-label for="avatar">Avatar</sl-label>
       <sl-select id="avatar" name="avatar">
+        <sl-select-option value="0"><sl-avatar uniqueProfileId="0"></sl-avatar></sl-select-option>
         <sl-select-option value="1"><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
         <sl-select-option value="2" selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
         <sl-select-option value="3"><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
+        <sl-select-option value="4" disabled><sl-avatar uniqueProfileId="4"></sl-avatar></sl-select-option>
         <sl-select-option value="14"><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
-        <sl-select-option value="bla" disabled><sl-avatar uniqueProfileId="bla"></sl-avatar></sl-select-option>
-        <sl-select-option value="xxs"><sl-avatar uniqueProfileId="xxs"></sl-avatar></sl-select-option>
       </sl-select>
 
       <sl-label for="mood">Your mood</sl-label>

@@ -92,7 +92,7 @@ export class Select extends FormControlMixin(LitElement) {
       </button>
       <dialog
         @keydown="${this.#handleOverlayKeydown}"
-        @toggle=${this.#positionPopover}
+        @beforetoggle=${this.#positionPopover}
         id="dialog-${this.#selectId}"
         popover
         @click=${this.#handleOptionChange}

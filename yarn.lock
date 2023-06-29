@@ -2821,12 +2821,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/dom@npm:^1.4.2":
-  version: 1.4.2
-  resolution: "@floating-ui/dom@npm:1.4.2"
+"@floating-ui/dom@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@floating-ui/dom@npm:1.4.3"
   dependencies:
     "@floating-ui/core": ^1.3.1
-  checksum: 787fa40062c57395f839674ac52e2fbb03699bfd203596a37ff7fb6433fe495e4b8aecedbd7e43b04b781798c8758258b3f0d6539e5d79c76cd36da95b9e5af3
+  checksum: 2e649d1e2ffb4edfeadab0ab2c2e2a8424df1d9cdb798d5a09ccc8a65b93574449bdb0d25991773a859c9de70b181b596777e61e6581bf942bdef7fc6d18867a
   languageName: node
   linkType: hard
 
@@ -4059,7 +4059,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:
-    "@floating-ui/dom": ^1.4.2
+    "@floating-ui/dom": ^1.4.3
     lit: ^2.7.5
   languageName: unknown
   linkType: soft

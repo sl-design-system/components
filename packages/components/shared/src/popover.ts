@@ -8,13 +8,29 @@ type AlignedPlacement = `${Side}-${Alignment}`;
 export type PopoverPosition = Side | AlignedPlacement;
 
 export interface PositionPopoverOptions {
-  arrow?: HTMLElement;
-  positions: Array<{ position: PopoverPosition; offset?: [number, number] }>;
+  arrow?: string | HTMLElement;
+  position?: PopoverPosition;
+  offset?: [block: number, inline: number];
   viewportMargin?: number;
+}
+
+function getArrowElement(element: HTMLElement, arrow?: string | HTMLElement): HTMLElement | undefined {
+  if (arrow instanceof HTMLElement) {
+    return arrow;
+  } else if (typeof arrow === 'string') {
+    return element.shadowRoot?.querySelector(arrow) || undefined;
+  }
+
+  return undefined;
+}
+
+function getOffset(element: HTMLElement): number {
+  return parseInt(window.getComputedStyle(element).getPropertyValue('--sl-popover-offset')) || 0;
 }
 
 function roundByDPR(num: number): number {
   const dpr = window.devicePixelRatio || 1;
+
   return Math.round(num * dpr) / dpr || -10000;
 }
 
@@ -24,19 +40,19 @@ const virtualTrigger = false;
 
 const MIN_OVERLAY_HEIGHT = 25;
 
-// const flipPlacement = (position: PopoverPosition): PopoverPosition => {
-//   // Position can have a secondary part (-start, -end); we are only
-//   // interested in the first part.
-//   const [, pos] = /(\w+).*$/.exec(position) || [];
+const flipPlacement = (position: PopoverPosition): PopoverPosition => {
+  // Position can have a secondary part (-start, -end); we are only
+  // interested in the first part.
+  const [, pos] = /(\w+).*$/.exec(position) || [];
 
-//   let replace;
-//   if (pos === 'top' || pos === 'bottom') {
-//     replace = pos === 'top' ? 'bottom' : 'top';
-//   } else {
-//     replace = pos === 'left' ? 'right' : 'left';
-//   }
-//   return position.replace(pos, replace) as PopoverPosition;
-// };
+  let replace;
+  if (pos === 'top' || pos === 'bottom') {
+    replace = pos === 'top' ? 'bottom' : 'top';
+  } else {
+    replace = pos === 'left' ? 'right' : 'left';
+  }
+  return position.replace(pos, replace) as PopoverPosition;
+};
 
 export const positionPopover = (
   element: HTMLElement,
@@ -44,13 +60,12 @@ export const positionPopover = (
   options: PositionPopoverOptions
 ): (() => void) => {
   const cleanup = autoUpdate(anchor, element, () => {
-    const { viewportMargin = 0 } = options,
-      { position, offset: [crossAxis, mainAxis] = [0, 0] } = options.positions[0];
+    const { position = 'top', viewportMargin = 0 } = options;
 
     const middleware = [
       shift({ padding: viewportMargin }),
-      flip({ fallbackPlacements: options.positions.slice(1).map(({ position }) => position) }),
-      offset({ mainAxis, crossAxis }),
+      flip({ fallbackPlacements: [flipPlacement(position)] }),
+      offset(getOffset(element)),
       size({
         padding: viewportMargin,
         apply: ({ availableWidth, availableHeight, rects: { floating } }) => {
@@ -68,8 +83,11 @@ export const positionPopover = (
       })
     ];
 
+    let arrowElement: HTMLElement | undefined;
     if (options.arrow) {
-      middleware.push(arrow({ element: options.arrow }));
+      arrowElement = getArrowElement(element, options.arrow);
+
+      middleware.push(arrow({ element: arrowElement }));
     }
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -83,8 +101,8 @@ export const positionPopover = (
       });
       element.setAttribute('actual-placement', actualPlacement);
 
-      if (arrow && options.arrow) {
-        options.arrow.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`;
+      if (arrow && arrowElement) {
+        arrowElement.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`;
       }
     });
   });

@@ -1,6 +1,6 @@
 /* stylelint-disable selector-class-pattern */
 [popover],
-:host([popover]) {
+:host(:where([popover])) {
   background-color: canvas;
   border-color: initial;
   border-image: initial;

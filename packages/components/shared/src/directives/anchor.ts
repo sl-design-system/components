@@ -1,7 +1,7 @@
 import type { DirectiveParameters, ElementPart, PartInfo } from 'lit/directive.js';
-import type { PopoverPosition } from '../popover.js';
 import { Directive, PartType, directive } from 'lit/directive.js';
 import { nothing } from 'lit';
+import { type PopoverPosition, positionPopover } from '../popover.js';
 
 declare global {
   interface HTMLElement {
@@ -10,6 +10,7 @@ declare global {
 }
 
 export interface AnchorDirectiveConfig {
+  arrow?: string | HTMLElement;
   element?: HTMLElement;
   position?: PopoverPosition;
 }
@@ -33,16 +34,26 @@ export class AnchorDirective extends Directive {
   override update(part: ElementPart, [config = {}]: DirectiveParameters<this>): void {
     this.config = { position: 'top', ...config };
     this.host = part.element as HTMLElement;
-    this.host.addEventListener('beforetoggle', event => this.#onBeforeToggle(event as ToggleEvent));
+    this.host.addEventListener('beforetoggle', () => this.#onBeforeToggle());
+
+    // Reset element to top left to prevent layout interference
+    // See https://floating-ui.com/docs/computePosition#initial-layout
+    this.host.style.insetBlockStart = '0px';
+    this.host.style.insetInlineStart = '0px';
   }
 
-  #onBeforeToggle(event: ToggleEvent): void {
+  #onBeforeToggle(): void {
     const anchorElement =
       this.config?.element ??
       this.host?.anchorElement ??
-      (this.host?.getRootNode() as HTMLElement)?.querySelector(this.host?.getAttribute('anchor') ?? '');
+      (this.host?.getRootNode() as HTMLElement)?.querySelector(`#${this.host?.getAttribute('anchor') ?? ''}`);
 
-    console.log('beforetoggle', event, anchorElement);
+    if (anchorElement) {
+      positionPopover(this.host!, anchorElement, {
+        arrow: this.config?.arrow,
+        position: this.config?.position
+      });
+    }
   }
 }
 

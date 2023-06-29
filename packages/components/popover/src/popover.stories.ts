@@ -50,17 +50,22 @@ export const All: Story = {
     });
 
     return html`
+      <style>
+        sl-popover {
+          --sl-popover-offset: 32px;
+        }
+      </style>
       <span id="anchor">Popover</span>
-      <sl-popover anchor="anchor" placement="top" popover="manual">Top</sl-popover>
-      <sl-popover anchor="anchor" placement="right" popover="manual">Right</sl-popover>
-      <sl-popover anchor="anchor" placement="bottom" popover="manual">Bottom</sl-popover>
-      <sl-popover anchor="anchor" placement="left" popover="manual">Left</sl-popover>
+      <sl-popover anchor="anchor" popover="manual" position="top">Top</sl-popover>
+      <sl-popover anchor="anchor" popover="manual" position="right">Right</sl-popover>
+      <sl-popover anchor="anchor" popover="manual" position="bottom">Bottom</sl-popover>
+      <sl-popover anchor="anchor" popover="manual" position="left">Left</sl-popover>
     `;
   }
 };
 
 export const Directive: Story = {
-  render: ({ position }) => {
+  render: () => {
     const onClick = (event: Event & { target: Button }): void => {
       const popover = event.target.nextElementSibling as HTMLElement;
 
@@ -69,7 +74,7 @@ export const Directive: Story = {
 
     return html`
       <sl-button @click=${onClick} id="button">Toggle popover</sl-button>
-      <dialog anchor="button" ${anchor({ position })}>I'm a popover</dialog>
+      <dialog anchor="button" popover ${anchor()}>I'm a popover</dialog>
     `;
   }
 };

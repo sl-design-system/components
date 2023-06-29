@@ -2,7 +2,7 @@ import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import { type PopoverPosition, positionPopover } from '../popover.js';
 
 export interface AnchorControllerConfig {
-  arrow?: string | Element;
+  arrow?: string | HTMLElement;
   position?: PopoverPosition;
 }
 
@@ -17,7 +17,8 @@ export class AnchorController implements ReactiveController {
 
     if (anchorElement) {
       positionPopover(this.#host, anchorElement, {
-        positions: [{ position: this.position ?? this.#config.position ?? 'top' }]
+        arrow: this.#config?.arrow,
+        position: this.position ?? this.#config.position ?? 'top'
       });
     }
   };

@@ -7,19 +7,29 @@ export interface AnchorControllerConfig {
 }
 
 export class AnchorController implements ReactiveController {
+  #cleanup?: () => void;
   #config: AnchorControllerConfig;
   #host: ReactiveControllerHost & HTMLElement;
 
-  #onBeforeToggle = (): void => {
-    const anchorElement =
-      this.#host?.anchorElement ??
-      (this.#host?.getRootNode() as HTMLElement)?.querySelector(`#${this.#host?.getAttribute('anchor') ?? ''}`);
+  #onBeforeToggle = (event: Event): void => {
+    if ((event as ToggleEvent).newState === 'open') {
+      const host = this.#host as HTMLElement;
 
-    if (anchorElement) {
-      positionPopover(this.#host, anchorElement, {
-        arrow: this.#config?.arrow,
-        position: this.position ?? this.#config.position ?? 'top'
-      });
+      let anchorElement = host.anchorElement;
+      if (!anchorElement && host.hasAttribute('anchor')) {
+        anchorElement =
+          (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
+      }
+
+      if (anchorElement) {
+        this.#cleanup = positionPopover(host, anchorElement, {
+          arrow: this.#config?.arrow,
+          position: this.position ?? this.#config.position ?? 'top'
+        });
+      }
+    } else if (this.#cleanup) {
+      this.#cleanup();
+      this.#cleanup = undefined;
     }
   };
 

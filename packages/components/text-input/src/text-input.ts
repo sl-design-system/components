@@ -102,6 +102,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input.autofocus = this.autofocus;
       this.input.autocomplete ||= this.autocomplete || 'off';
       this.input.id ||= `sl-text-input-${nextUniqueId++}`;
       this.input.slot = 'input';

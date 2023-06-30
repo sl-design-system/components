@@ -16,8 +16,9 @@ export interface AnchorDirectiveConfig {
 }
 
 export class AnchorDirective extends Directive {
-  config?: AnchorDirectiveConfig;
-  host?: HTMLElement;
+  #config?: AnchorDirectiveConfig;
+  #host?: HTMLElement;
+  #cleanup?: () => void;
 
   constructor(partInfo: PartInfo) {
     super(partInfo);
@@ -32,27 +33,32 @@ export class AnchorDirective extends Directive {
   }
 
   override update(part: ElementPart, [config = {}]: DirectiveParameters<this>): void {
-    this.config = { position: 'top', ...config };
-    this.host = part.element as HTMLElement;
-    this.host.addEventListener('beforetoggle', () => this.#onBeforeToggle());
-
-    // Reset element to top left to prevent layout interference
-    // See https://floating-ui.com/docs/computePosition#initial-layout
-    this.host.style.insetBlockStart = '0px';
-    this.host.style.insetInlineStart = '0px';
+    this.#config = { position: 'top', ...config };
+    this.#host = part.element as HTMLElement;
+    this.#host.addEventListener('beforetoggle', (event: Event) =>
+      this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
+    );
   }
 
-  #onBeforeToggle(): void {
-    const anchorElement =
-      this.config?.element ??
-      this.host?.anchorElement ??
-      (this.host?.getRootNode() as HTMLElement)?.querySelector(`#${this.host?.getAttribute('anchor') ?? ''}`);
+  #onBeforeToggle(event: ToggleEvent & { target: HTMLElement }): void {
+    if (event.newState === 'open') {
+      const host = event.target;
 
-    if (anchorElement) {
-      positionPopover(this.host!, anchorElement, {
-        arrow: this.config?.arrow,
-        position: this.config?.position
-      });
+      let anchorElement = host.anchorElement;
+      if (!anchorElement && host.hasAttribute('anchor')) {
+        anchorElement =
+          (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
+      }
+
+      if (anchorElement) {
+        this.#cleanup = positionPopover(host, anchorElement, {
+          arrow: this.#config?.arrow,
+          position: this.#config?.position
+        });
+      }
+    } else if (this.#cleanup) {
+      this.#cleanup();
+      this.#cleanup = undefined;
     }
   }
 }

@@ -13,6 +13,9 @@ import styles from './popover.scss.js';
  */
 export class Popover extends LitElement {
   /** @private */
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @private */
   static override styles: CSSResultGroup = [polyfillStyles, styles];
 
   /** Controller for managing anchoring. */

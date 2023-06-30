@@ -59,6 +59,11 @@ export const positionPopover = (
   anchor: Element,
   options: PositionPopoverOptions
 ): (() => void) => {
+  // Reset element to top left to prevent layout interference
+  // See https://floating-ui.com/docs/computePosition#initial-layout
+  element.style.insetBlockStart = '0px';
+  element.style.insetInlineStart = '0px';
+
   const cleanup = autoUpdate(anchor, element, () => {
     const { position = 'top', viewportMargin = 0 } = options;
 

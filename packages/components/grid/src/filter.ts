@@ -150,7 +150,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(): void {
-    this.renderRoot.querySelector<Popover>('sl-popover')?.hidePopover?.();
+    this.renderRoot.querySelector<Popover>('sl-popover')?.hidePopover();
   }
 
   #onInput(event: Event & { target: HTMLInputElement }): void {

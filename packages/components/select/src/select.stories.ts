@@ -79,7 +79,7 @@ export const Basic: StoryObj = {
 
 const options = html`
   <sl-select-option>🐷 Pig</sl-select-option>
-  <sl-select-option>🐨 Koala</sl-select-option>
+  <sl-select-option selected>🐨 Koala</sl-select-option>
   <sl-select-option>🐼 Panda</sl-select-option>
   <sl-select-option>🦊 Fox</sl-select-option>
 `;

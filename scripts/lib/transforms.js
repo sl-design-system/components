@@ -59,7 +59,10 @@ export const sizePx = {
       'lineHeights',
       'paragraphSpacing',
       'sizing',
-      'spacing'
+      'spacing',
+      'blur',
+      'x',
+      'y'
     ].includes(token.type),
   transformer: token => (typeof token.value === 'string' ? token.value : `${token.value}px`)
 };

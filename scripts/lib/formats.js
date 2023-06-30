@@ -46,11 +46,7 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
     }
 
     // Wrap the value inside a calc() function if it contains an expression
-    if(token.name.indexOf('shadow-select-listbox')>-1 && token.filePath.indexOf('sanoma-learning')>-1){
-      console.log({token, value});
-    }
     if (!value.startsWith('rgb') && [' - ', ' + ', ' / '].some(expr => value.indexOf(expr) !== -1)) {
-      // console.log('----------------------------------------------------------------------------------------------------------------');
       value = `calc(${value})`;
     }
 

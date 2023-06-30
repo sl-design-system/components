@@ -37,6 +37,10 @@ function roundByDPR(num: number): number {
   return Math.round(num * dpr) / dpr || -10000;
 }
 
+export const isPopoverOpen = (element: HTMLElement): boolean => {
+  return element.matches(':popover-open') || element.matches('.\\:popover-open');
+};
+
 let initialHeight: number;
 let isConstrained: boolean;
 const virtualTrigger = false;

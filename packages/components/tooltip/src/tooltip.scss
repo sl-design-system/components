@@ -8,6 +8,9 @@
 }
 
 :host {
+  // This has to be in pixels until we can use @property
+  --sl-popover-offset: 8px;
+
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);

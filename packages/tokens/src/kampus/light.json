@@ -2530,7 +2530,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{color.palette.success.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2586,7 +2586,7 @@
             },
             "focus": {
               "background": {
-                "value": "{color.palette.success.400}",
+                "value": "{color.palette.success.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2635,12 +2635,12 @@
         "default": {
           "default": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.neutral.600}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2650,7 +2650,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.neutral.600}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2667,12 +2667,12 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.accent.base} , {opacity.300})",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.input.textField.default.default.border}",
+              "value": "{color.palette.primary.700}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2682,7 +2682,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.primary.700}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2699,12 +2699,12 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.accent.base} , {opacity.100})",
+              "value": "{color.palette.primary.100}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.accent.base}",
+              "value": "{color.palette.primary.700}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2763,12 +2763,12 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background} , {opacity.200})",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2778,17 +2778,17 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.neutral.600}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "inputText": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             },
             "placeholder": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             }

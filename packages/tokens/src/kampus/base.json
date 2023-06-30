@@ -1047,7 +1047,7 @@
       }
     },
     "default": {
-      "value": "{border.radius.3xs}",
+      "value": "{border.radius.2xs}",
       "type": "borderRadius",
       "description": "borderRadius.button"
     },

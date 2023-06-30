@@ -13,15 +13,13 @@
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
   color: var(--_color);
-  display: flex;
+  margin: 0;
+  opacity: 0;
   padding: var(--_padding);
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+:host(:is(:popover-open, .\\:popover-open)) {
+  opacity: 1;
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
-}
-
-:host(:open) {
-  opacity: 1;
-}
-
-:host([popover-open]) {
-  opacity: 1;
 }

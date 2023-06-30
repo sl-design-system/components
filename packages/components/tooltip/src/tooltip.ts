@@ -1,6 +1,6 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { PopoverPosition } from '@sl-design-system/shared';
-import { EventsController } from '@sl-design-system/shared';
+import { AnchorController, EventsController, popoverPolyfillStyles } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
@@ -12,7 +12,7 @@ let nextUniqueId = 0;
  */
 export class Tooltip extends LitElement {
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
 
   static lazy(target: Element, callback: (target: Tooltip) => void): void {
     const createTooltip = (): void => {
@@ -24,8 +24,8 @@ export class Tooltip extends LitElement {
       target.parentNode?.insertBefore(tooltip, target.nextSibling);
       target.setAttribute('aria-describedby', tooltip.id);
 
-      // tooltip.anchorElement = target as HTMLElement;
-      // tooltip.showPopover();
+      tooltip.anchorElement = target as HTMLElement;
+      tooltip.showPopover();
 
       // We only need to create the tooltip once, so ignore all future events.
       ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
@@ -34,6 +34,10 @@ export class Tooltip extends LitElement {
     ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
   }
 
+  /** Controller for managing anchoring. */
+  #anchor = new AnchorController(this);
+
+  /** Events controller. */
   #events = new EventsController(this);
 
   #matchesAnchor = (element: Element): boolean => {
@@ -42,15 +46,15 @@ export class Tooltip extends LitElement {
 
   #onHide = ({ target }: Event): void => {
     if (this.#matchesAnchor(target as Element)) {
-      // this.anchorElement = undefined;
-      // this.hidePopover();
+      this.anchorElement = undefined;
+      this.hidePopover();
     }
   };
 
   #onShow = ({ target }: Event): void => {
     if (this.#matchesAnchor(target as HTMLElement)) {
-      // this.anchorElement = target as HTMLElement;
-      // this.showPopover();
+      this.anchorElement = target as HTMLElement;
+      this.showPopover();
     }
   };
 
@@ -70,6 +74,12 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'focusout', this.#onHide);
     this.#events.listen(root, 'pointerover', this.#onShow);
     this.#events.listen(root, 'pointerout', this.#onHide);
+  }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    if (changes.has('position')) {
+      this.#anchor.position = this.position;
+    }
   }
 
   override render(): TemplateResult {

@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { PopoverPosition } from '@sl-design-system/shared';
-import { EventsController, popoverPolyfillStyles } from '@sl-design-system/shared';
+import { AnchorController, EventsController, popoverPolyfillStyles } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-overlay.scss.js';
@@ -12,6 +12,8 @@ export class SelectOverlay extends LitElement {
 
   /** Tooltip position. */
   @property() position: PopoverPosition = 'bottom-start';
+
+  #anchor = new AnchorController(this);
 
   #events = new EventsController(this);
 

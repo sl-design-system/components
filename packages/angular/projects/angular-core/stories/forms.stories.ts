@@ -2,7 +2,6 @@ import type { Meta } from '@storybook/angular';
 import '@sl-design-system/label/register.js';
 import '@sl-design-system/button/register.js';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
@@ -14,16 +13,17 @@ import {
   AfterViewChecked,
   AfterViewInit,
   Component,
-  CUSTOM_ELEMENTS_SCHEMA, EventEmitter,
-  OnChanges,
+  CUSTOM_ELEMENTS_SCHEMA,
+  EventEmitter,
   OnInit,
-  SimpleChanges,
   ViewChild,
-  Output, ElementRef, Renderer2, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked, NgZone
+  Output,
+  ElementRef,
+  Renderer2,
+  HostListener
 } from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
-import {InputDirective} from "../src/forms";
 import {ValidateUrl} from "../src/forms/form-control/validators";
 
 @Component({
@@ -276,16 +276,13 @@ export class ReactiveFormComponent {
   // TODO: with custom validation
 }) // TODO: after form submitted and after form control touched
 // TODO slotted hint
-// TODO: reportvalidity ?
-export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewInit, AfterViewChecked, AfterContentChecked {
+export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewInit, AfterViewChecked/*, AfterContentChecked*/ {
   // model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
   model = new Person(1, '', 'Short description of John', false, { value: null, text: '' });
 
   @ViewChild('myForm', { static: false }) myForm!: NgForm;
 
   @ViewChild('inputWithNgmodel', { static: false }) inputWithNgmodel!: NgModel;
-
- // @ViewChild('inputWithNgmodel') myInputRef!: ElementRef;
 
   @ViewChild('inputWithNgmodel', { static: true, read: ElementRef })
   myInputRef!: ElementRef<HTMLInputElement>;
@@ -294,17 +291,8 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
 
   submitted = false;
 
-  constructor(private renderer: Renderer2, /*private cdr: ChangeDetectorRef,*/ private ngZone: NgZone) {
-  }
-
   ngOnInit(): void {
-    // if (this.myForm.submitted) {
-    //   Object.values(form.controls).forEach(control => {
-    //     control.markAsTouched();
-    //   })
-    // }
     console.log('ngoninit in form before if', this.submitted, this.myForm);
-
     if (!this.submitted && !!this.myForm) {
       this.inputWithNgmodel.control.markAsUntouched();
       this.inputWithNgmodel.control.markAsPristine();
@@ -314,50 +302,13 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
         control.markAsPristine();
       });
     }
-
-    // this.inputWithNgmodel?.valueChanges.subscribe(value => {
-    //   console.log('inputWithNgmodel?.valueChanges.subscribe', value); // Handle the form control value changes
-    // });
-  }
-
-/*  onChange(e: Event) {
-    console.log('ngonchanges in form before if', this.submitted, this.myForm);
-
-    // let whatChanged = e.target.getAttribute('ng-reflect-name');
-    // let newValue = this[whatChanged];
-    // console.log('onchange____checkbox', whatChanged, newValue, e.target);
-    // (e.target as FormControl).markAsUntouched();
-    // (e.target as FormControl).markAsPristine();
-    // checkboxWithNgmodel.control.markAsUntouched(); checkboxWithNgmodel.control.markAsPristine()
-    e.preventDefault();
-    if (!this.submitted && !!this.myForm) {
-      this.inputWithNgmodel.control.markAsUntouched();
-      this.inputWithNgmodel.control.markAsPristine();
-      Object.values(this.myForm.controls).forEach(control => {
-        control.markAsUntouched();
-        control.markAsPristine();
-        //control.updateValueAndValidity();
-      });
-    }
-  }*/
-
-  ngAfterContentChecked() {
-    console.log('ngAfterContentChecked', this.submitted);
-    if (this.submitted) {
-      // this.inputWithNgmodel.control.markAsTouched();
-      // this.inputWithNgmodel.control.markAsDirty();
-      // this.inputWithNgmodel.control.updateValueAndValidity(); // updateon
-      // this.cdr.markForCheck();
-      // this.cdr.detectChanges();
-    }
   }
 
   ngAfterViewInit() {
     console.log('ngafterviewinit in form before if', this.submitted, this.myForm);
 
-   // e.preventDefault();
-
     this.myForm.form.markAsUntouched();
+
 
     Object.values(this.myForm.controls).forEach(control => {
       control.markAsUntouched();
@@ -381,238 +332,78 @@ export class TemplateFormComponent implements OnInit, /*OnChanges,*/ AfterViewIn
 
       if (this.submitted) {
         const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-        // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-        input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
-        // this.myForm.form.updateValueAndValidity();
-        this.inputWithNgmodel.control.markAsTouched();
-        this.inputWithNgmodel.control.updateValueAndValidity();
-       // this.myForm.form.updateValueAndValidity();
-        // this.cdr.markForCheck();
-        // this.cdr.detectChanges();
+        input.reportValidity();
       }
-
-     //   this.cdr.markForCheck();
-     // this.cdr.detectChanges();
-
-
-    // this.inputWithNgmodel.control.updateValueAndValidity();
-/*    this.inputWithNgmodel.control.markAsTouched();
-    this.inputWithNgmodel.control.markAsDirty();
-    this.inputWithNgmodel.control.updateValueAndValidity();*/
-
-    // if (this.submitted) {
-    //   Object.values(this.myForm.controls).forEach(control => {
-    //     console.log('control on ngafterviewchecked after submit', control);
-    //     control.markAsTouched();
-    //     control.markAsDirty();
-    //     control.updateValueAndValidity();
-    //   });
-    // }
   }
 
-  onInput(event: HTMLInputElement): void {
-   // console.log('oninput event', event, event.target, this.submitted, this.myForm, !this.submitted, !this.submitted && !!this.myForm);
+  onInput(): void {
     console.log('oninput event check condition', !this.submitted && !!this.myForm, event, this.inputWithNgmodel.control.errors);
 
-    // if (!this.submitted) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    //   this.inputWithNgmodel.control.markAsUntouched();
-    //   this.inputWithNgmodel.control.markAsPristine();
-    //   return;
-    // }
-
-   // this.inputWithNgmodel.control.updateValueAndValidity();
-
-    // event.preventDefault();
-    // event.stopPropagation();
-    //
     if (!this.submitted /*&& !!this.myForm*/) {
       console.log('oninput event inside if');
       this.inputWithNgmodel.control.markAsUntouched();
       this.inputWithNgmodel.control.markAsPristine();
-/*      Object.values(this.myForm.controls).forEach(control => {
-        console.log('oninput event inside for each');
-        //control.errors = {};
-        control.markAsUntouched();
-        control.markAsPristine();
-       //control.clearValidators();
-        // control.updateValueAndValidity();
-      });*/
     } else {
-      // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-      // input.dispatchEvent(new Event('invalid', { bubbles: true }));
       console.log('oninput event inside else');
       this.inputWithNgmodel.control.markAsTouched();
       this.inputWithNgmodel.control.markAsDirty();
       this.inputWithNgmodel.control.updateValueAndValidity();
-/*      Object.values(this.myForm.controls).forEach(control => {
-        console.log('oninput event inside for each');
-        //control.errors = {};
-        control.markAsTouched();
-        control.markAsDirty();
-        //control.clearValidators();
-        control.updateValueAndValidity();
-      });*/
     }
   }
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log('changes in ngonchanges', changes);
-  // }
 
   onRadioValueChange(event: any): void {
     this.model.option.value = event.value;
     this.model.option.text = event.textContent;
   }
 
-  validateAllFormFields(form: NgForm) {
-    console.log('validateall', form.controls);//{1}
-
-   // form.controls.name.updateValueAndValidity({ emitEvent: true });
-
-    // Object.keys(form.controls).forEach(field =>
-    // field.markAsTouched());
-    // Object.keys(formGroup.controls).forEach(field => {  //{2}
-    //   const control = formGroup.get(field);
-    //   console.log('control', control);//{3}
-    //   if (control instanceof FormControl) {
-    //     console.log('ifff');//{4}
-    //     control.markAsTouched({ onlySelf: true });
-    //     control.markAsDirty({ onlySelf: true });
-    //   } /*else if (control instanceof FormGroup) {        //{5}
-    //     this.validateAllFormFields(control);            //{6}
-    //   }*/
-    // });
-  }
-
   onSubmit(event: Event, model: Person, form: NgForm): void {
-    // alert(`form submit: Name: ${model.name},
-    //       Description: ${model.description},
-    //       Approval: ${model.approval},
-    //       Option: ${model.option.value} ${model.option.text}`);
-    // form.controls.markAsTouched();
-
     console.log('on submit submitted', form.submitted, event);
-
     console.log('this.myForm.form.validator', this.myForm.form.validator, this.inputWithNgmodel.control.validator, this.model.name);
-
-    // this.inputWithNgmodel.update;
-
-    // requestAnimationFrame(() => {
-
-    // this.ngZone.runOutsideAngular(() => {
-    //   console.log('Do change detection here');
-    //   const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-    //   input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
-    //   // input.checkValidity();
-    //   input.reportValidity();
-      // input.reportValidity();
-    // });
 
     event.preventDefault();
 
     this.submitted = true;
 
-    // this.inputWithNgmodel.control.updateValueAndValidity();
+    this.myForm.form.markAllAsTouched();
 
-      // this.inputWithNgmodel.control.updateModel();
-      this.myForm.form.markAllAsTouched();
-      // this.inputWithNgmodel.control.setValue('aaa');
+    //this.onInput();
+    const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
 
     Object.values(form.controls).forEach(control => {
       console.log('control on submit', control);
       control.markAsTouched();
       control.markAsDirty();
       control.updateValueAndValidity();
+      console.log('control on submit-2', control);
     });
 
-      // this.inputWithNgmodel.model.dispatchEvent(new Event('input', { bubbles: true }));
-      // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement
-      // this.onInput(input);
+    // const oldValue = this.inputWithNgmodel.control.value;
+    // this.inputWithNgmodel.control.setValue('');
+    // this.inputWithNgmodel.control.setValue(oldValue);
 
-      const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-      input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
-    // input.reportValidity();
-      console.log('input.validity onsubmit', input.validity);
 
     this.inputWithNgmodel.control.markAsTouched();
     this.inputWithNgmodel.control.markAsDirty();
-    // this.inputWithNgmodel.control.updateValueAndValidity({ onlySelf: true, emitEvent: true } = {});
     this.inputWithNgmodel.control.updateValueAndValidity({ onlySelf: true, emitEvent: true });
 
-    // this.cdr.detectChanges();
+    // input.reportValidity();
 
-      // this.inputWithNgmodel.update;
+   // input.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
 
-    // });
-
-    // this.onInput(this.inputWithNgmodel.control.value);
-
-    //this.renderer.setProperty(this.myInputRef.nativeElement, 'validity', {valid: false});
-
-    //this.invalidEvent.emit();
-
-    //this.inputWithNgmodel.dispatchEvent(new Event('invalid'));
-    // (this.inputWithNgmodel as ElementRef).nativeElement.dispatchEvent(new Event('invalid'));
-    // this.myInputRef.nativeElement?.dispatchEvent(new Event('invalid'));
-/*    console.log('this.myInputRef.nativeElement on submit', this.myInputRef);
-    this.myInputRef.nativeElement.dispatchEvent(new Event('invalid', { bubbles: true }));*/
-
-   // this.inputWithNgmodel.control.registerOnChange(() => {});
-
-
-    // this.inputWithNgmodel.viewToModelUpdate(this.inputWithNgmodel.control.value);
+    // input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
+    // input.dispatchEvent(new Event('sl-submit', { bubbles: true, cancelable: true }));
+    console.log('input.validity onsubmit', input.validity);
 
     alert(`form submit: Name: ${model.name},
           Description: ${model.description},
           Approval: ${model.approval},
           Option: ${model.option.value} ${model.option.text}`);
 
-    // this.submitted = true;
-
     if (form.valid) {
       alert('form submitted');
     } else {
-      // this.validateAllFormFields(form); //{7}
-      // Object.values(form.controls).forEach(control => {
-      //   control.markAsTouched();
-      // });
-      // form.form.updateValueAndValidity();
       alert('form is not valid');
     }
-
-    // if (form.valid) {
-    //   alert('form is valid and would be submitted');
-    // } else {
-    //   alert('form is not valid and would not be submitted');
-    // }
-  }
-
-  @HostListener('submit', ['$event'])
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listenForValueChangeOnSubmit($event: any): void {
-    const value = $event.target.value;
-    console.log('submit event on form hostlistener-----', $event, value);
-
-/*    if (this.inputWithNgmodel.errors) {
-      const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-      input.reportValidity();
-    }
-
-    const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-    input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
-   // input.reportValidity();
-    this.inputWithNgmodel.control.markAsTouched();
-    this.inputWithNgmodel.control.markAsDirty();
-    this.inputWithNgmodel.control.updateValueAndValidity();*/
-
-    // this.cdr.detectChanges();
-    // this.value = value;
-    // this.onTouched();
-    // this.validatorOnChange();
-
-    // console.log('this.elementRef.nativeElement.validators', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
   }
 }
 

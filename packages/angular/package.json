@@ -47,7 +47,7 @@
       ]
     },
     "storybook": {
-      "command": "yarn exec ng run angular-core:build-storybook"
+      "command": "ng run angular-core:build-storybook"
     }
   },
   "dependencies": {

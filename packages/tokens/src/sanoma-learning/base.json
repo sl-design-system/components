@@ -1058,6 +1058,12 @@
     "checkbox": {
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
+    },
+    "focusring": {
+      "default": {
+        "value": "{borderRadius.default} + 1",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -1096,6 +1102,12 @@
           "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        }
+      },
+      "focusring": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
         }
       }
     }

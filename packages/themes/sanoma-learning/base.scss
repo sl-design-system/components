@@ -72,8 +72,6 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
-  --sl-text-select-selectbox-text-lg: Regular 16/24 Source Sans Pro;
-  --sl-text-select-selectbox-text-md: Regular 14/20 Source Sans Pro;
   --sl-text-text-field: [object Object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
@@ -348,6 +346,10 @@
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-select-selectbox-title-md: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-select-selectbox-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-select-selectbox-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-input-helper-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-helper-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /

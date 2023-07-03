@@ -1263,20 +1263,20 @@
         "text": {
           "md": {
             "value": {
-              "fontFamily": "Source Sans Pro",
-              "fontWeight": "Regular",
-              "lineHeight": 20,
-              "fontSize": 14
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "{text.typeset.fontSize.md}"
             },
             "type": "typography",
             "description": "UPDATED - Line height md from 22px to 20px"
           },
           "lg": {
             "value": {
-              "fontFamily": "Source Sans Pro",
-              "fontWeight": "Regular",
-              "lineHeight": 24,
-              "fontSize": 16
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
             },
             "type": "typography"
           }

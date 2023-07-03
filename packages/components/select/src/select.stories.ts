@@ -132,21 +132,29 @@ export const All: StoryObj = {
                       </sl-select>
                     </td>`
                   )}
+                </tr>`
+              )}
+              <tr>
+                <th>Unselected Option</th>
                   ${disabledStates.map(
                     disabledState => html`
                       <td class="${disabledState ? 'sb-disabled' : ''}">
-                        <sl-select-option .size=${size} ?disabled=${disabledState}>Unselected option</sl-select-option>
-                      </td>
-                      <td class="${disabledState ? 'sb-disabled' : ''}">
-                        <sl-select-option .size=${size} ?disabled=${disabledState} selected
-                          >Selected option</sl-select-option
-                        >
+                        <sl-select-option .size=${size} ?disabled=${disabledState}>🐹 Hamster</sl-select-option>
                       </td>
                     `
                   )}
-                </tr>`
-              )}
+                </th>
               </tr>
+              <tr>
+                <th>Selected Option</th>
+                ${disabledStates.map(
+                  disabledState => html`
+                    <td class="${disabledState ? 'sb-disabled' : ''}">
+                      <sl-select-option .size=${size} ?disabled=${disabledState} selected>🐹 Hamster</sl-select-option>
+                    </td>
+                  `
+                )}
+                </tr>
             </tbody>
           </table>`
       )}`;
@@ -188,6 +196,9 @@ export const InForm: StoryObj = {
 
       sl-button-bar {
         grid-column: 1 / 3;
+      }
+      sl-avatar {
+        margin: 0 4px;
       }
     </style>
     <form @submit=${onSubmit}>

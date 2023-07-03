@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { SelectOptionGroup } from './select-option-group.js';
-// import '@oddbird/popover-polyfill';
 import {
   FormControlMixin,
   RovingTabindexController,
@@ -80,24 +79,26 @@ export class Select extends FormControlMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <button
-        id=${this.#selectId}
-        tabindex="0"
-        class="select-toggle"
-        popovertarget="dialog-${this.#selectId}"
         ?disabled=${this.disabled}
+        class="select-toggle"
+        id=${this.#selectId}
+        popovertarget="dialog-${this.#selectId}"
+        role="combobox"
+        tabindex="0"
       >
         <span contenttype=${this.#optionContentType}>${this.#renderSelectedOption}</span>
         <sl-icon name="chevron-down"></sl-icon>
       </button>
       <dialog
-        @keydown="${this.#handleOverlayKeydown}"
         @beforetoggle=${this.#positionPopover}
+        @click=${this.#handleOptionChange}
+        @keydown="${this.#handleOverlayKeydown}"
         @toggle=${this.#handleOptionFocus}
         id="dialog-${this.#selectId}"
         popover
-        @click=${this.#handleOptionChange}
+        role="listbox"
       >
-        <slot @slotchange=${this.#handleOptionsSlotChange} role="listbox"></slot>
+        <slot @slotchange=${this.#handleOptionsSlotChange}></slot>
       </dialog>
       ${this.#validation.render()}
     `;
@@ -107,6 +108,10 @@ export class Select extends FormControlMixin(LitElement) {
     super.connectedCallback();
     this.internals.role = 'select';
     this.setFormControlElement(this);
+
+    if (this.dialog && this.button) {
+      this.dialog.style.width = `${this.button.getBoundingClientRect().width}px`;
+    }
     this.#validation.validate(
       this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
     );
@@ -136,6 +141,10 @@ export class Select extends FormControlMixin(LitElement) {
         }
       });
     }
+    if (this.allOptions.length > 0) {
+      this.allOptions.forEach(option => (option.size = this.size));
+    }
+
     this.#rovingTabindexController.clearElementCache();
   }
 
@@ -238,12 +247,12 @@ export class Select extends FormControlMixin(LitElement) {
 
   #positionPopover(event: ToggleEvent): void {
     if (event.newState === 'open' && this.button && this.dialog) {
+      this.dialog.style.width = `${this.button.getBoundingClientRect().width}px`;
       void computePosition(this.button, this.dialog, { placement: 'bottom-start' }).then(({ x, y }) => {
         if (this.dialog && this.button) {
           Object.assign(this.dialog.style, {
             left: `${x}px`,
-            top: `${y}px`,
-            width: `${this.button.getBoundingClientRect().width}px`
+            top: `${y}px`
           });
         }
       });

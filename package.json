@@ -305,6 +305,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
+    "lit": "^2.7.5",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -316,7 +317,7 @@
     "stylelint": "^15.9.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
-    "typescript": "5.2.0-dev.20230629",
+    "typescript": "^5.2.0-beta",
     "vite": "^4.3.9",
     "wireit": "^0.9.5"
   }

@@ -321,7 +321,7 @@
     "sass": "^1.63.6",
     "slugify": "^1.6.6",
     "tiny-glob": "^0.2.9",
-    "typescript": "5.2.0-dev.20230629",
+    "typescript": "^5.2.0-beta",
     "wireit": "^0.9.5"
   },
   "dependencies": {

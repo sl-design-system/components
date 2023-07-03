@@ -28,6 +28,18 @@
     { "path": "./packages/components/tabs" },
     { "path": "./packages/components/text-input"},
     { "path": "./packages/components/textarea" },
-    { "path": "./packages/components/tooltip" }
+    { "path": "./packages/components/tooltip" },
+    { "path": "./packages/themes/bingel" },
+    { "path": "./packages/themes/bingel-dc" },
+    { "path": "./packages/themes/bingel-int" },
+    { "path": "./packages/themes/clickedu" },
+    { "path": "./packages/themes/itslearning" },
+    { "path": "./packages/themes/kampus" },
+    { "path": "./packages/themes/magister" },
+    { "path": "./packages/themes/max" },
+    { "path": "./packages/themes/myvanin" },
+    { "path": "./packages/themes/neon" },
+    { "path": "./packages/themes/sanoma-learning" },
+    { "path": "./packages/themes/teas" }
   ]
 }

@@ -46,8 +46,13 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
   /** Element internals. */
   readonly internals = this.attachInternals();
 
-  /** Specifies which type of data the browser can use to pre-fill the input. */
-  @property() autocomplete?: string;
+  /**
+   * Specifies which type of data the browser can use to pre-fill the input.
+   *
+   * NOTE: Declare the type this way so it is backwards compatible with 4.9.5,
+   * which we still use in `@sl-design-system/angular`.
+   */
+  @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -102,6 +107,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input.autofocus = this.autofocus;
       this.input.autocomplete ||= this.autocomplete || 'off';
       this.input.id ||= `sl-text-input-${nextUniqueId++}`;
       this.input.slot = 'input';

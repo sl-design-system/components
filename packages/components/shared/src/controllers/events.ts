@@ -35,7 +35,9 @@ export class EventsController implements ReactiveController {
 
   // FIXME: the types are kind of a mess here
   listen(host: Node, type: string, listener: unknown, options?: boolean | AddEventListenerOptions): void {
-    host.addEventListener(type, (event: Event) => (listener as EventListener).call(this.#host, event), options);
-    this.#listeners.push(() => host.removeEventListener(type, listener as EventListenerObject, options));
+    const callback = (event: Event): void => (listener as EventListener).call(this.#host, event);
+
+    host.addEventListener(type, callback, options);
+    this.#listeners.push(() => host.removeEventListener(type, callback, options));
   }
 }

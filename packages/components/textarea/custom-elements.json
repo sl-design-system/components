@@ -65,9 +65,9 @@
               "kind": "field",
               "name": "autocomplete",
               "type": {
-                "text": "AutoFill | undefined"
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
               },
-              "description": "Specifies which type of data the browser can use to pre-fill the textarea.",
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
               "attribute": "autocomplete"
             },
             {
@@ -197,9 +197,9 @@
             {
               "name": "autocomplete",
               "type": {
-                "text": "AutoFill | undefined"
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
               },
-              "description": "Specifies which type of data the browser can use to pre-fill the textarea.",
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
               "fieldName": "autocomplete"
             },
             {

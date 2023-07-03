@@ -158,11 +158,13 @@
         "build:scss"
       ],
       "files": [
-        "packages/**/*.ts"
+        "packages/components/**./*.ts",
+        "!packages/components/*/node_modules/**/*.ts"
       ],
       "output": [
-        "packages/**/tsconfig.tsbuildinfo",
-        "packages/**/*.d.ts"
+        "packages/components/**/tsconfig.tsbuildinfo",
+        "packages/components/**/*.d.ts",
+        "!packages/components/*/node_modules/**"
       ]
     },
     "lint": {

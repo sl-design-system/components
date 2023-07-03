@@ -158,13 +158,15 @@
         "build:scss"
       ],
       "files": [
-        "packages/components/**./*.ts",
-        "!packages/components/*/node_modules/**/*.ts"
+        "tsconfig.all.json",
+        "packages/{components,themes}/**./*.ts",
+        "!packages/{components,themes}/**./*.d.ts",
+        "!packages/{components,themes}/*/node_modules/**/*.ts"
       ],
       "output": [
-        "packages/components/**/tsconfig.tsbuildinfo",
-        "packages/components/**/*.d.ts",
-        "!packages/components/*/node_modules/**"
+        "packages/{components,themes}/**/tsconfig.tsbuildinfo",
+        "packages/{components,themes}/**/*.d.ts",
+        "!packages/{components,themes}/*/node_modules/**"
       ]
     },
     "lint": {

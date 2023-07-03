@@ -1,5 +1,15 @@
 # @sl-design-system/grid
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [[`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb)]:
+  - @sl-design-system/shared@0.1.1
+  - @sl-design-system/text-input@0.1.1
+  - @sl-design-system/popover@0.0.5
+  - @sl-design-system/checkbox@0.0.6
+
 ## 0.0.10
 
 ### Patch Changes

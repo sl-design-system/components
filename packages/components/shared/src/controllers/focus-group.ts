@@ -144,6 +144,12 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     }
   }
 
+  focusToElement(elementIndex: number): void {
+    this.currentIndex = elementIndex;
+    this.elementEnterAction(this.elements[this.currentIndex]);
+    this.focus({ preventScroll: false });
+  }
+
   clearElementCache(offset = 0): void {
     delete this.cachedElements;
     this.offset = offset;

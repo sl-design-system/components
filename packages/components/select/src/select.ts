@@ -38,7 +38,7 @@ export class Select extends FormControlMixin(LitElement) {
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
 
   /** The slotted options and option groups. */
-  @queryAssignedElements({ selector: 'sl-select-option', flatten: false }) options?: SelectOption[];
+  // @queryAssignedElements({ selector: 'sl-select-option', flatten: false }) options?: SelectOption[];
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
   @query('button') button?: HTMLButtonElement;
@@ -68,8 +68,7 @@ export class Select extends FormControlMixin(LitElement) {
   #selectId = `sl-select-${nextUniqueId++}`;
 
   get allOptions(): SelectOption[] {
-    const groups = this.optionGroups?.map(og => Array.from(og.querySelectorAll('sl-select-option'))) || [];
-    return [...(this.options || []), ...groups.flat()];
+    return Array.from(this.querySelectorAll('sl-select-option'));
   }
 
   /** Element internals. */
@@ -87,12 +86,13 @@ export class Select extends FormControlMixin(LitElement) {
         popovertarget="dialog-${this.#selectId}"
         ?disabled=${this.disabled}
       >
-        <span contenttype=${this.optionContentType}>${this.#renderSelectedOption}</span>
+        <span contenttype=${this.#optionContentType}>${this.#renderSelectedOption}</span>
         <sl-icon name="chevron-down"></sl-icon>
       </button>
       <dialog
         @keydown="${this.#handleOverlayKeydown}"
         @beforetoggle=${this.#positionPopover}
+        @toggle=${this.#handleOptionFocus}
         id="dialog-${this.#selectId}"
         popover
         @click=${this.#handleOptionChange}
@@ -168,6 +168,13 @@ export class Select extends FormControlMixin(LitElement) {
   }
 
   /**
+   * Make sure the focus is on the currently selected option
+   * */
+  #handleOptionFocus(): void {
+    this.#rovingTabindexController.focusToElement(this.allOptions.findIndex(el => el.selected));
+  }
+
+  /**
    * Update the selected option with attributes and values.
    */
   #updateSelectedOption(selectedOption: SelectOption): void {
@@ -202,7 +209,7 @@ export class Select extends FormControlMixin(LitElement) {
     return (this.selectedOption.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
   }
 
-  get optionContentType(): string {
+  get #optionContentType(): string {
     if (!this.selectedOption) {
       return `string`;
     }

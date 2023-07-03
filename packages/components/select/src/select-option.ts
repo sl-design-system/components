@@ -1,4 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { SelectSize } from './select.js';
 import type { FormControlValue } from '@sl-design-system/shared';
 import { observe } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
@@ -8,6 +9,9 @@ import styles from './select-option.scss.js';
 export class SelectOption extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** Select size. */
+  @property({ reflect: true }) size: SelectSize = 'md';
 
   /** Whether the option item is selected*/
   @property() value?: FormControlValue;

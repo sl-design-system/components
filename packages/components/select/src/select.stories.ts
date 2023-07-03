@@ -52,7 +52,7 @@ export const Basic: StoryObj = {
     <sl-select maxOverlayHeight=${maxOverlayHeight} .size="${size}">
       <sl-select-option-group group-title="Happy">
         <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
-        <sl-select-option selected>😂 Face with Tears of Joy</sl-select-option>
+        <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
         <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>
         <sl-select-option>🤩 Star-Struck</sl-select-option>
         <sl-select-option disabled>🙂 Slightly Smiling Face</sl-select-option>
@@ -67,7 +67,7 @@ export const Basic: StoryObj = {
       </sl-select-option-group>
       <sl-select-option-group>
         <sl-select-option>🐷 Pig</sl-select-option>
-        <sl-select-option>🐨 Koala</sl-select-option>
+        <sl-select-option selected>🐨 Koala</sl-select-option>
         <sl-select-option>🐼 Panda</sl-select-option>
         <sl-select-option>🦊 Fox</sl-select-option>
       </sl-select-option-group>
@@ -131,6 +131,18 @@ export const All: StoryObj = {
                         >${options}
                       </sl-select>
                     </td>`
+                  )}
+                  ${disabledStates.map(
+                    disabledState => html`
+                      <td class="${disabledState ? 'sb-disabled' : ''}">
+                        <sl-select-option .size=${size} ?disabled=${disabledState}>Unselected option</sl-select-option>
+                      </td>
+                      <td class="${disabledState ? 'sb-disabled' : ''}">
+                        <sl-select-option .size=${size} ?disabled=${disabledState} selected
+                          >Selected option</sl-select-option
+                        >
+                      </td>
+                    `
                   )}
                 </tr>`
               )}

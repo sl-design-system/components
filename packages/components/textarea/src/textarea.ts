@@ -46,8 +46,13 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** Observe the textarea width. */
   #resizeObserver?: ResizeObserver;
 
-  /** Specifies which type of data the browser can use to pre-fill the textarea. */
-  @property() autocomplete?: AutoFill;
+  /**
+   * Specifies which type of data the browser can use to pre-fill the textarea.
+   *
+   * NOTE: Declare the type this way so it is backwards compatible with 4.9.5,
+   * which we still use in `@sl-design-system/angular`.
+   */
+  @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;

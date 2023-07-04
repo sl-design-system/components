@@ -54,8 +54,9 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
     if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
-      this.onTouched();
+      // this.onTouched();
       this.elementRef.nativeElement.checked = val;
+      this.validatorOnChange();
     }
   }
 
@@ -65,9 +66,9 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
     this.validatorOnChange = fn;
   }
 
-  #validation = new ValidationController(this.elementRef.nativeElement, {
-    validators: [requiredValidator]
-  });
+  // #validation = new ValidationController(this.elementRef.nativeElement, {
+  //   validators: [requiredValidator]
+  // });
 
   /** Implemented as part of Validator. */
   // validate(c: AbstractControl): ValidationErrors | null {
@@ -93,7 +94,7 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
 
     console.log('in checkbox control status', control, control.status, control.invalid, this.value);
 
-    this.#validation.validate(control.value ? this.value : undefined);
+    // this.#validation.validate(control.value ? this.value : undefined);
 
     // if (control.errors) {
     //     this.renderer.setAttribute(this.elementRef.nativeElement, 'invalid', '');
@@ -124,6 +125,17 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
       // return null;
       return control.errors;
     }
+
+    // if (control.untouched /*&& control.pristine*/) {
+    //   console.log('in input validate control untouched', control);
+    //   return control.errors; // TODO: return null or not causing invalid?
+    //   //return null;
+    // } else {
+    //   console.log('in input validate control  else', control);
+    //   // this.validatorOnChange();
+    //   // return control.errors;
+    //   return null;
+    // }
 
     // this.elementRef.nativeElement.setValidity(control);
     // this.elementRef.nativeElement.validity.validate(control.value/*this.value ? control.value : undefined*/);
@@ -175,6 +187,10 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this.elementRef.nativeElement.disabled = disabled;
   }
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {

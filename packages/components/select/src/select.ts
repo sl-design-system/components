@@ -196,6 +196,7 @@ export class Select extends FormControlMixin(LitElement) {
    * Make sure the focus is on the currently selected option
    * */
   #handleOptionFocus(): void {
+    this.button?.setAttribute('aria-expanded', this.dialog?.checkVisibility() ? 'true' : 'false');
     this.#rovingTabindexController.focusToElement(this.allOptions.findIndex(el => el.selected));
   }
 

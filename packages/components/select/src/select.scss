@@ -123,10 +123,11 @@ sl-icon {
   display: grid;
   place-items: center;
   pointer-events: none;
+  transition: transform 0.2s ease-in-out;
 }
 
 button[aria-expanded='true'] sl-icon {
-  rotate: 180deg;
+  transform: rotateX(180deg);
 }
 
 :is(button[aria-expanded='true'] + dialog, dialog:popover-open) {

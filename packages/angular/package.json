@@ -63,19 +63,19 @@
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.2.8",
+    "@angular-devkit/build-angular": "^15.2.9",
     "@angular-eslint/builder": "15.2.1",
     "@angular-eslint/eslint-plugin": "15.2.1",
     "@angular-eslint/eslint-plugin-template": "15.2.1",
     "@angular-eslint/schematics": "15.2.1",
     "@angular-eslint/template-parser": "15.2.1",
-    "@angular/cli": "~15.2.8",
+    "@angular/cli": "~15.2.9",
     "@angular/compiler-cli": "^15.2.9",
     "@storybook/addon-essentials": "^7.0.24",
     "@storybook/addon-links": "^7.0.24",
     "@storybook/angular": "^7.0.24",
     "@storybook/blocks": "^7.0.24",
-    "@types/jasmine": "~4.3.4",
+    "@types/jasmine": "~4.3.5",
     "@typescript-eslint/eslint-plugin": "5.60.1",
     "@typescript-eslint/parser": "5.60.1",
     "eslint": "^8.43.0",
@@ -89,7 +89,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.0.24",
-    "typescript": "~5.0.4",
+    "typescript": "~4.9.5",
     "wireit": "^0.9.5"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
   }
 }

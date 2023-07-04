@@ -1,5 +1,13 @@
 # @sl-design-system/shared
 
+## 0.1.1
+
+### Patch Changes
+
+- [#491](https://github.com/sl-design-system/components/pull/491) [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb) - Fix bug with `EventsController` where the cleanup did not happen
+
+- [#491](https://github.com/sl-design-system/components/pull/491) [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb) - Add `positionPopover` utility utilising `@floating-ui/dom`
+
 ## 0.1.0
 
 ### Minor Changes

@@ -5,6 +5,7 @@ import {
   RovingTabindexController,
   ValidationController,
   hintStyles,
+  isPopoverOpen,
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
@@ -53,7 +54,7 @@ export class Select extends FormControlMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
-    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!this.dialog?.open),
+    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!isPopoverOpen(this.dialog)),
     elements: () => this.allOptions || [],
     isFocusableElement: (el: SelectOption) => !el.disabled
   });
@@ -123,9 +124,23 @@ export class Select extends FormControlMixin(LitElement) {
     this.selectedOption ||= this.allOptions.find(option => option.selected);
 
     if (this.selectedOption) {
-      this.setFormValue(this.selectedOption.value || this.selectedOption.innerHTML);
+      // this.setFormValue(this.selectedOption.value || this.selectedOption.innerHTML);
+      this.#setSelectedOptionVisible(this.selectedOption);
     }
   }
+
+  // openSelect(event: Event & { target: HTMLElement }): void {
+  //   const toggle = event.target.closest<HTMLElement>('.select-toggle');
+  //   if (!toggle) return;
+
+  //   if (!isPopoverOpen(this.overlay)) {
+  //     this.scrollTo({ top: 0 });
+  //     this.allOptions.find(option => option.selected)?.focus();
+  //     this.overlay?.show(toggle);
+  //   } else {
+  //     this.overlay?.hidePopover();
+  //   }
+  // }
 
   #closeSelect(): void {
     this.dialog?.hidePopover?.();
@@ -206,7 +221,7 @@ export class Select extends FormControlMixin(LitElement) {
         this.selectedOption = option;
         const selectedValue = option.value || option.innerHTML;
         this.#validation.validate(this.selectedOption ? selectedValue : undefined);
-        this.setFormValue(selectedValue);
+        this.#setSelectedOptionVisible(option);
       }
     });
   }
@@ -223,6 +238,20 @@ export class Select extends FormControlMixin(LitElement) {
       return `string`;
     }
     return (this.selectedOption?.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
+  }
+
+  /**
+   * Copy the value/represenation of the selected option to the placeholder
+   */
+  #setSelectedOptionVisible(option: SelectOption): void {
+    this.setFormValue(option.value || option.innerHTML);
+
+    const clonedOption = (option.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
+    const contentType = (option.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
+
+    this.selectedOptionPlaceholder?.childNodes.forEach(cn => cn.remove());
+    this.selectedOptionPlaceholder?.append(clonedOption);
+    this.selectedOptionPlaceholder?.setAttribute('contentType', contentType);
   }
 
   /**

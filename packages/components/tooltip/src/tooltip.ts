@@ -1,7 +1,6 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { Placement } from '@sl-design-system/popover';
-import { AnchoredPopoverMixin, popoverMixinStyles } from '@sl-design-system/popover';
-import { EventsController } from '@sl-design-system/shared';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { PopoverPosition } from '@sl-design-system/shared';
+import { AnchorController, EventsController, popoverPolyfillStyles } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
@@ -11,9 +10,9 @@ let nextUniqueId = 0;
 /**
  * Tooltip component.
  */
-export class Tooltip extends AnchoredPopoverMixin(LitElement) {
+export class Tooltip extends LitElement {
   /** @private */
-  static override styles: CSSResultGroup = [popoverMixinStyles, styles];
+  static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
 
   static lazy(target: Element, callback: (target: Tooltip) => void): void {
     const createTooltip = (): void => {
@@ -35,6 +34,10 @@ export class Tooltip extends AnchoredPopoverMixin(LitElement) {
     ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
   }
 
+  /** Controller for managing anchoring. */
+  #anchor = new AnchorController(this);
+
+  /** Events controller. */
   #events = new EventsController(this);
 
   #matchesAnchor = (element: Element): boolean => {
@@ -55,8 +58,8 @@ export class Tooltip extends AnchoredPopoverMixin(LitElement) {
     }
   };
 
-  /** Tooltip placement. */
-  @property() placement: Placement = 'bottom';
+  /** Tooltip position. */
+  @property() position: PopoverPosition = 'bottom';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -71,6 +74,12 @@ export class Tooltip extends AnchoredPopoverMixin(LitElement) {
     this.#events.listen(root, 'focusout', this.#onHide);
     this.#events.listen(root, 'pointerover', this.#onShow);
     this.#events.listen(root, 'pointerout', this.#onHide);
+  }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    if (changes.has('position')) {
+      this.#anchor.position = this.position;
+    }
   }
 
   override render(): TemplateResult {

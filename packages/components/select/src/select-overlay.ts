@@ -1,18 +1,19 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { Placement } from '@sl-design-system/popover';
-import { AnchoredPopoverMixin, popoverMixinStyles } from '@sl-design-system/popover';
-import { EventsController } from '@sl-design-system/shared';
+import type { PopoverPosition } from '@sl-design-system/shared';
+import { AnchorController, EventsController, popoverPolyfillStyles } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-overlay.scss.js';
 import { Select } from './select.js';
 
-export class SelectOverlay extends AnchoredPopoverMixin(LitElement) {
+export class SelectOverlay extends LitElement {
   /** @private */
-  static override styles: CSSResultGroup = [popoverMixinStyles, styles];
+  static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
 
-  /** Tooltip placement. */
-  @property() placement: Placement = 'bottom-start';
+  /** Tooltip position. */
+  @property() position: PopoverPosition = 'bottom-start';
+
+  #anchor = new AnchorController(this);
 
   #events = new EventsController(this);
 

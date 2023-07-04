@@ -200,6 +200,17 @@
             },
             {
               "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "Select size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
                 "text": "FormControlValue | undefined"
@@ -209,6 +220,15 @@
             }
           ],
           "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "Select size.",
+              "fieldName": "size"
+            },
             {
               "name": "value",
               "type": {
@@ -305,13 +325,13 @@
             },
             {
               "kind": "field",
-              "name": "placement",
+              "name": "position",
               "type": {
-                "text": "Placement"
+                "text": "PopoverPosition"
               },
               "default": "'bottom-start'",
-              "description": "Tooltip placement.",
-              "attribute": "placement"
+              "description": "Tooltip position.",
+              "attribute": "position"
             },
             {
               "kind": "method",
@@ -333,19 +353,13 @@
           ],
           "attributes": [
             {
-              "name": "placement",
+              "name": "position",
               "type": {
-                "text": "Placement"
+                "text": "PopoverPosition"
               },
               "default": "'bottom-start'",
-              "description": "Tooltip placement.",
-              "fieldName": "placement"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "AnchoredPopoverMixin",
-              "package": "@sl-design-system/popover"
+              "description": "Tooltip position.",
+              "fieldName": "position"
             }
           ],
           "superclass": {
@@ -429,6 +443,16 @@
             },
             {
               "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is invalid.",
+              "attribute": "invalid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "maxOverlayHeight",
               "type": {
                 "text": "string | undefined"
@@ -441,15 +465,8 @@
               "name": "optionGroups",
               "type": {
                 "text": "SelectOptionGroup[] | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "options",
-              "type": {
-                "text": "SelectOption[] | undefined"
               },
-              "description": "The slotted options."
+              "description": "The slotted options and option groups."
             },
             {
               "kind": "field",
@@ -457,6 +474,17 @@
               "type": {
                 "text": "HTMLElement | undefined"
               }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "Select size.",
+              "attribute": "size",
+              "reflects": true
             }
           ],
           "attributes": [
@@ -467,6 +495,23 @@
               },
               "description": "render helpers",
               "fieldName": "maxOverlayHeight"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "Select size.",
+              "fieldName": "size"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is invalid.",
+              "fieldName": "invalid"
             }
           ],
           "mixins": [

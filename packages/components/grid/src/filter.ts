@@ -3,7 +3,8 @@ import type { GridColumn } from './column.js';
 import type { GridFilterMode, GridFilterOption } from './filter-column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
-import { faFilter, faFilterList, faXmark } from '@fortawesome/pro-regular-svg-icons';
+import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
+import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Button } from '@sl-design-system/button';
@@ -18,7 +19,7 @@ import styles from './filter.scss.js';
 
 export type GridFilterChange = 'added' | 'removed';
 
-Icon.registerIcon(faFilter, faFilterList, faXmark);
+Icon.registerIcon(faFilter, faFilterSolid, faXmark);
 
 export class GridFilterValueChangeEvent extends Event {
   constructor(public readonly column: GridColumn, public readonly value: string | string[] | undefined) {
@@ -93,22 +94,22 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-button class="toggle" id="anchor" fill="link">
+      <sl-button @click=${this.#onClick} class="toggle" id="anchor" fill="link">
         <slot></slot>
-        <sl-icon .name=${this.active ? 'far-filter-list' : 'far-filter'}></sl-icon>
+        <sl-icon .name=${this.active ? 'fas-filter' : 'far-filter'}></sl-icon>
       </sl-button>
       <sl-popover anchor="anchor">
         <header>
           <h1 id="title">
             ${msg(`Filter by`)} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>
           </h1>
-          <sl-button @click=${this.#onClick} aria-label=${msg('Close')} fill="link" size="sm">
+          <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
             <sl-icon name="far-xmark"></sl-icon>
           </sl-button>
         </header>
         ${this.mode === 'select'
           ? html`
-              <sl-checkbox-group aria-labelledby="title">
+              <sl-checkbox-group aria-labelledby="title" autofocus>
                 ${this.options?.map(
                   option =>
                     html`
@@ -125,10 +126,12 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
             `
           : html`
               <sl-text-input
+                @keydown=${this.#onKeydown}
                 @input=${this.#onInput}
                 .placeholder=${msg('Type here to filter')}
                 .value=${this.value?.toString() ?? ''}
                 aria-labelledby="title"
+                autofocus
               ></sl-text-input>
             `}
       </sl-popover>
@@ -150,7 +153,18 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(): void {
+    this.renderRoot.querySelector<Popover>('sl-popover')?.togglePopover();
+  }
+
+  #onHide(): void {
     this.renderRoot.querySelector<Popover>('sl-popover')?.hidePopover();
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.#onClick();
+    }
   }
 
   #onInput(event: Event & { target: HTMLInputElement }): void {

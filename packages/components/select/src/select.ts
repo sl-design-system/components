@@ -1,15 +1,17 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { SelectOptionGroup } from './select-option-group.js';
 import {
+  AnchorController,
   FormControlMixin,
   RovingTabindexController,
   ValidationController,
+  anchor,
   hintStyles,
   isPopoverOpen,
+  popoverPolyfillStyles,
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
-import { computePosition } from '@floating-ui/dom';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectOption } from './select-option.js';
@@ -24,7 +26,7 @@ interface ToggleEvent extends Event {
 export type SelectSize = 'md' | 'lg';
 
 export class Select extends FormControlMixin(LitElement) {
-  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
+  static override styles: CSSResultGroup = [popoverPolyfillStyles, validationStyles, hintStyles, styles];
 
   static formAssociated = true;
 
@@ -64,18 +66,33 @@ export class Select extends FormControlMixin(LitElement) {
   });
 
   #observer?: MutationObserver;
+  #anchor = new AnchorController(this);
 
   #selectId = `sl-select-${nextUniqueId++}`;
-
-  get allOptions(): SelectOption[] {
-    return Array.from(this.querySelectorAll('sl-select-option'));
-  }
 
   /** Element internals. */
   readonly internals = this.attachInternals();
 
   /** The current node selected in the list of options. */
   @state() private selectedOption?: SelectOption | null;
+
+  get allOptions(): SelectOption[] {
+    return Array.from(this.querySelectorAll('sl-select-option'));
+  }
+
+  get #renderSelectedOption(): HTMLElement | TemplateResult {
+    if (!this.selectedOption) {
+      return html`&nbsp`;
+    }
+    return (this.selectedOption.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
+  }
+
+  get #optionContentType(): string {
+    if (!this.selectedOption) {
+      return `string`;
+    }
+    return (this.selectedOption?.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
+  }
 
   override render(): TemplateResult {
     return html`
@@ -91,12 +108,14 @@ export class Select extends FormControlMixin(LitElement) {
         <sl-icon name="chevron-down"></sl-icon>
       </button>
       <dialog
-        @beforetoggle=${this.#positionPopover}
+        @beforetoggle=${this.#setPopoverWidth}
         @click=${this.#handleOptionChange}
         @keydown="${this.#handleOverlayKeydown}"
         @toggle=${this.#handleOptionFocus}
         id="dialog-${this.#selectId}"
+        anchor=${this.#selectId}
         popover
+        ${anchor({ position: 'bottom' })}
         role="listbox"
       >
         <slot @slotchange=${this.#handleOptionsSlotChange}></slot>
@@ -107,12 +126,8 @@ export class Select extends FormControlMixin(LitElement) {
 
   override connectedCallback(): void {
     super.connectedCallback();
-    this.internals.role = 'select';
     this.setFormControlElement(this);
 
-    if (this.dialog && this.button) {
-      this.dialog.style.width = `${this.button.getBoundingClientRect().width}px`;
-    }
     this.#validation.validate(
       this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
     );
@@ -124,23 +139,9 @@ export class Select extends FormControlMixin(LitElement) {
     this.selectedOption ||= this.allOptions.find(option => option.selected);
 
     if (this.selectedOption) {
-      // this.setFormValue(this.selectedOption.value || this.selectedOption.innerHTML);
       this.#setSelectedOptionVisible(this.selectedOption);
     }
   }
-
-  // openSelect(event: Event & { target: HTMLElement }): void {
-  //   const toggle = event.target.closest<HTMLElement>('.select-toggle');
-  //   if (!toggle) return;
-
-  //   if (!isPopoverOpen(this.overlay)) {
-  //     this.scrollTo({ top: 0 });
-  //     this.allOptions.find(option => option.selected)?.focus();
-  //     this.overlay?.show(toggle);
-  //   } else {
-  //     this.overlay?.hidePopover();
-  //   }
-  // }
 
   #closeSelect(): void {
     this.dialog?.hidePopover?.();
@@ -226,20 +227,6 @@ export class Select extends FormControlMixin(LitElement) {
     });
   }
 
-  get #renderSelectedOption(): HTMLElement | TemplateResult {
-    if (!this.selectedOption) {
-      return html`&nbsp`;
-    }
-    return (this.selectedOption.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
-  }
-
-  get #optionContentType(): string {
-    if (!this.selectedOption) {
-      return `string`;
-    }
-    return (this.selectedOption?.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
-  }
-
   /**
    * Copy the value/represenation of the selected option to the placeholder
    */
@@ -274,17 +261,9 @@ export class Select extends FormControlMixin(LitElement) {
     }
   }
 
-  #positionPopover(event: ToggleEvent): void {
+  #setPopoverWidth(event: ToggleEvent): void {
     if (event.newState === 'open' && this.button && this.dialog) {
       this.dialog.style.width = `${this.button.getBoundingClientRect().width}px`;
-      void computePosition(this.button, this.dialog, { placement: 'bottom-start' }).then(({ x, y }) => {
-        if (this.dialog && this.button) {
-          Object.assign(this.dialog.style, {
-            left: `${x}px`,
-            top: `${y}px`
-          });
-        }
-      });
     }
   }
 }

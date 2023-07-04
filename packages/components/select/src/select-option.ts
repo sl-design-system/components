@@ -25,11 +25,6 @@ export class SelectOption extends LitElement {
   /** Whether the content of the option item is a node*/
   @property({ reflect: true }) contentType?: 'string' | 'element';
 
-  /** Get the selected tab button, or the first tab button. */
-  get #tabIndex(): string | null {
-    return this.getAttribute('tabIndex');
-  }
-
   /**
    * Apply accessible attributes and values to the tab button.
    * Observe the selected property if it changes

@@ -4,6 +4,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
 :host {
   --_box-shadow: none;
+  --sl-popover-offset: 0px;
 
   align-items: center;
   display: flex;
@@ -64,7 +65,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   }
 }
 
-dialog {
+dialog[popover] {
   --_max-overlay-height: var(--max-overlay-height, 80vh);
   background-color: #fff;
   box-sizing: border-box;
@@ -122,6 +123,10 @@ sl-icon {
   display: grid;
   place-items: center;
   pointer-events: none;
+}
+
+button[aria-expanded='true'] sl-icon {
+  rotate: 180deg;
 }
 
 :is(button[aria-expanded='true'] + dialog, dialog:popover-open) {

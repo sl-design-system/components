@@ -74,7 +74,7 @@ export const Dialog: Story = {
 
     return html`
       <sl-button @click=${onClick} id="button">Toggle popover</sl-button>
-      <dialog anchor="button" popover ${anchor()}>I'm a popover</dialog>
+      <dialog anchor="button" popover ${anchor({ position: 'bottom' })} position="bottom">I'm a popover</dialog>
     `;
   }
 };

@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.12
+
+### Patch Changes
+
+- [#497](https://github.com/sl-design-system/components/pull/497) [`bcb01a4`](https://github.com/sl-design-system/components/commit/bcb01a425048570dcca4e2dd3e909b6c2893b952) - Fix regresion with filter column click
+
 ## 0.0.11
 
 ### Patch Changes

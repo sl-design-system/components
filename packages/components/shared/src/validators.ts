@@ -80,6 +80,7 @@ export const requiredValidator: Validator = {
     let valid = true;
 
     if ((instance.hasAttribute('required') || instance.required) && !value) {
+      console.log('value valid in requiredvalidator in if ', instance, value, valid);
       valid = false;
     }
     console.log('value valid in requiredvalidator', instance, value, valid);

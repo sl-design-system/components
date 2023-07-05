@@ -126,11 +126,11 @@ export class CheckboxComponent {
     }
   `], // novalidate
   template: `
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit($event, myForm)">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" formControlName="name" placeholder="Your name" hint="this is a hint for the text input" minlength="8" required></sl-text-input>
+      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text input" minlength="8" required></sl-text-input>
       <sl-label for="description-id">Description</sl-label>
-      <sl-textarea id="description-id" formControlName="description" placeholder="Add short description here" required>
+      <sl-textarea id="description-id" #myReactiveTextarea formControlName="description" placeholder="Add short description here" required>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
       </sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
@@ -152,10 +152,10 @@ export class CheckboxComponent {
     </form>
   `,
 })
-export class ReactiveFormComponent {
+export class ReactiveFormComponent implements AfterViewChecked {
   myForm = new FormGroup({
     name: new FormControl('', [Validators.minLength(8), Validators.required, ValidateUrl]), // , [Validators.minLength(8), Validators.required]
-    description: new FormControl('Short description', Validators.required),
+    description: new FormControl('', Validators.required),
     approval: new FormControl(false, Validators.requiredTrue),
     option: new FormControl()
   });
@@ -167,23 +167,65 @@ export class ReactiveFormComponent {
   //   return null;
   // }
 
-  validateAllFormFields(formGroup: FormGroup) {
-    console.log('validateall');//{1}
-    Object.keys(formGroup.controls).forEach(field => {  //{2}
-      const control = formGroup.get(field);
-      console.log('control', control);//{3}
-      if (control instanceof FormControl) {
-        console.log('ifff');//{4}
-        control.markAsTouched({ onlySelf: true });
-        control.markAsDirty({ onlySelf: true });
-       // control.registerOnChange();
-      } /*else if (control instanceof FormGroup) {        //{5}
-        this.validateAllFormFields(control);            //{6}
-      }*/
-    });
+  @ViewChild('myReactiveInput', { static: true, read: ElementRef })
+  myInput!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('myReactiveTextarea', { static: true, read: ElementRef })
+  myTextarea!: ElementRef<HTMLTextAreaElement>;
+
+  submitted = false;
+
+  ngAfterViewChecked(): void {
+    console.log('ngafterviewchecked in form before if', this.submitted, this.myForm, this.myForm.controls.name.errors, this.myInput.nativeElement);
+
+    if (this.submitted) {
+      // this.myForm.controls.name.che
+      // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+      // // input.reportValidity();
+      // input.checkValidity();
+      // // this.inputWithNgmodel.control.markAsTouched();
+      // // this.inputWithNgmodel.control.markAsDirty();
+      // // this.inputWithNgmodel.control.updateValueAndValidity();
+      // const textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      // console.log('textarea...', textarea);
+      // textarea.checkValidity();
+      // //(this.checkboxWithNgmodel as Checkbox).checkValidity();
+      // this.myCheckboxRef.nativeElement.internals.checkValidity();
+
+      const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+      input.checkValidity();
+      const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      textarea.checkValidity();
+    } else {
+      // this.inputWithNgmodel.control.markAsUntouched();
+      // this.inputWithNgmodel.control.markAsPristine();
+      // this.textareaWithNgmodel.control.markAsUntouched();
+      // this.textareaWithNgmodel.control.markAsPristine();
+      // this.checkboxWithNgmodel.control.markAsUntouched();
+      // this.checkboxWithNgmodel.control.markAsPristine();
+
+      this.myForm.controls.name.markAsUntouched();
+      this.myForm.controls.name.markAsPristine();
+    }
   }
 
-  onSubmit(form: FormGroup) {
+  // validateAllFormFields(formGroup: FormGroup) {
+  //   console.log('validateall');//{1}
+  //   Object.keys(formGroup.controls).forEach(field => {  //{2}
+  //     const control = formGroup.get(field);
+  //     console.log('control', control);//{3}
+  //     if (control instanceof FormControl) {
+  //       console.log('ifff');//{4}
+  //       control.markAsTouched({ onlySelf: true });
+  //       control.markAsDirty({ onlySelf: true });
+  //      // control.registerOnChange();
+  //     } /*else if (control instanceof FormGroup) {        //{5}
+  //       this.validateAllFormFields(control);            //{6}
+  //     }*/
+  //   });
+  // }
+
+  onSubmit(event: Event, form: FormGroup) {
     console.log('form on submit', form, form.valid, form.controls);
     // form.markAsTouched();
     // alert(`form submit: Name: ${form.value.name},
@@ -194,7 +236,14 @@ export class ReactiveFormComponent {
 
     // form.addValidators(() => )
 
+    event.preventDefault();
+
+    this.submitted = true;
+
+    this.myForm.markAllAsTouched();
+
     Object.values(form.controls).forEach(control => {
+      console.log('control in reactive', control);
       control.markAsTouched();
       control.updateValueAndValidity();
     });
@@ -282,7 +331,7 @@ export class ReactiveFormComponent {
 // TODO slotted hint
 export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterViewInit, AfterViewChecked/*, AfterContentChecked*/ {
   // model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
-  model = new Person(1, '', 'Short description of John', false, { value: null, text: '' });
+  model = new Person(1, '', '', 'yes', { value: null, text: '' });
 
   @ViewChild('myForm', { static: false }) myForm!: NgForm;
 
@@ -298,7 +347,10 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
   @ViewChild('textareaWithNgmodel', { static: true, read: ElementRef })
   myTextareaRef!: ElementRef<HTMLTextAreaElement>;
 
-  @Output() invalidEvent: EventEmitter<void> = new EventEmitter<void>();
+  @ViewChild('checkboxWithNgmodel', { static: true, read: ElementRef })
+  myCheckboxRef!: ElementRef;
+
+  // @Output() invalidEvent: EventEmitter<void> = new EventEmitter<void>();
 
   submitted = false;
 
@@ -327,13 +379,15 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
 
     if (!this.submitted && !!this.myForm) {
       this.myForm.form.markAsUntouched();
-      console.log('ngafterviewinit in form', this.myForm.form.controls, this.myForm.controls, Array.of(this.myForm.controls), this.inputWithNgmodel);
+      console.log('ngafterviewinit in form', this.myForm.form.controls, this.myForm.controls, Array.of(this.myForm.controls), this.inputWithNgmodel, this.textareaWithNgmodel);
       this.inputWithNgmodel.control.markAsUntouched();
       this.inputWithNgmodel.control.markAsPristine();
       this.textareaWithNgmodel.control.markAsUntouched();
       this.textareaWithNgmodel.control.markAsPristine();
       this.checkboxWithNgmodel.control.markAsUntouched();
       this.checkboxWithNgmodel.control.markAsPristine();
+      console.log('ngafterviewinit in form22', this.myForm.form.controls, this.myForm.controls, Array.of(this.myForm.controls), this.inputWithNgmodel, this.textareaWithNgmodel);
+
       Object.values(this.myForm.form.controls).forEach(control => {
         console.log('ngafterviewinit in form for each', this.myForm.form.controls, this.myForm.controls, control);
         control.markAsUntouched();
@@ -353,8 +407,17 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
         // this.inputWithNgmodel.control.markAsDirty();
         // this.inputWithNgmodel.control.updateValueAndValidity();
         const textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+        console.log('textarea...', textarea);
         textarea.checkValidity();
         //(this.checkboxWithNgmodel as Checkbox).checkValidity();
+        this.myCheckboxRef.nativeElement.internals.checkValidity();
+      } else {
+        this.inputWithNgmodel.control.markAsUntouched();
+        this.inputWithNgmodel.control.markAsPristine();
+        this.textareaWithNgmodel.control.markAsUntouched();
+        this.textareaWithNgmodel.control.markAsPristine();
+        this.checkboxWithNgmodel.control.markAsUntouched();
+        this.checkboxWithNgmodel.control.markAsPristine();
       }
   }
 
@@ -379,28 +442,31 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
   }
 
   onChange(target: NgModel): void {
-    console.log('oninput event check condition', target, !this.submitted && !!this.myForm, event, this.inputWithNgmodel.control.errors);
+    console.log('onChange event check condition', target, !this.submitted && !!this.myForm, event, this.inputWithNgmodel.control.errors);
 
     if (!this.submitted /*&& !!this.myForm*/) {
-      console.log('oninput event inside if');
+      console.log('onChange event inside if');
       // this.inputWithNgmodel.control.markAsUntouched();
       // this.inputWithNgmodel.control.markAsPristine();
       target.control.markAsUntouched();
       target.control.markAsPristine();
     } else {
-      console.log('oninput event inside else');
+      console.log('onChange event inside else');
       // this.inputWithNgmodel.control.markAsTouched();
       // this.inputWithNgmodel.control.markAsDirty();
       // this.inputWithNgmodel.control.updateValueAndValidity();
-      target.control.markAsTouched();
-      target.control.markAsDirty();
-      target.control.updateValueAndValidity();
+      // if (this.myCheckboxRef.nativeElement.checked) {
+        target.control.markAsTouched();
+        target.control.markAsDirty();
+        target.control.updateValueAndValidity();
+      // }
     }
   }
 
   onRadioValueChange(event: any): void {
-    this.model.option.value = event.value;
-    this.model.option.text = event.textContent;
+    console.log('event on radio change', event);
+    // this.model.option.value = event.value;
+    // this.model.option.text = event.textContent;
   }
 
   onSubmit(event: Event, model: Person, form: NgForm): void {
@@ -416,13 +482,13 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
     //this.onInput();
    // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
 
-    Object.values(form.controls).forEach(control => {
+/*    Object.values(form.controls).forEach(control => {
       console.log('control on submit', control);
       control.markAsTouched();
       control.markAsDirty();
       control.updateValueAndValidity();
       console.log('control on submit-2', control);
-    });
+    });*/
 
     // const oldValue = this.inputWithNgmodel.control.value;
     // this.inputWithNgmodel.control.setValue('');
@@ -470,7 +536,7 @@ export class Person {
     public id: number,
     public name: string,
     public description: string,
-    public approval: boolean,
+    public approval: string,
     public option: { value: null, text: '' }
   ) { }
 }

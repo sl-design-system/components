@@ -130,6 +130,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
 
     setFormControlElement(element: FormControlElement): void {
+      console.log('eeeeelement', element);
       this.#formControlElement = element;
     }
 
@@ -139,6 +140,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
     setFormValue(value?: FormControlValue): void {
       this.#cachedValue = value;
+
+      console.log('eeeeelement 2222', this.formControlElement, value);
 
       if (isNative(this.formControlElement)) {
         this.formControlElement.value = value?.toString() ?? '';

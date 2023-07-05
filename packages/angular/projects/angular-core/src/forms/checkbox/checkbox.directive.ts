@@ -51,13 +51,19 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
     console.log('set value in checkbox', val);
-    if (val !== this._value) {
-      this._value = val;
-      this.onChange(this._value);
+    // if (val !== this._value) {
+        this._value = val;
+      // this._value = val ? val : undefined;
+      // this._value = this.elementRef.nativeElement.checked ? val : undefined;
+     // this.#validation.validate(this.checked ? this.value : undefined);
+      this.onChange(/*this._value*/this.elementRef.nativeElement.checked);
       // this.onTouched();
-      this.elementRef.nativeElement.checked = val;
-      this.validatorOnChange();
-    }
+      //  this.elementRef.nativeElement.checked = this._value; //val;
+     // this.elementRef.nativeElement.internals.checked = this._value;
+       this.elementRef.nativeElement.setFormValue(this._value/*this.checked ? this.value : undefined*/);
+    //  this.elementRef.nativeElement.setFormValue(val/*this._value*//*this.checked ? this.value : undefined*/);
+    //   this.validatorOnChange();
+    // }
   }
 
   /** Implemented as part of Validator. */
@@ -92,7 +98,7 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
         }*/
     // return control.errors;
 
-    console.log('in checkbox control status', control, control.status, control.invalid, this.value);
+    console.log('in checkbox control status', control.valid, control, control.status, control.invalid, this.value);
 
     // this.#validation.validate(control.value ? this.value : undefined);
 
@@ -114,8 +120,8 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
 
     // this.elementRef.nativeElement.validate(control.value);
 
-    if (nativeElement.checkValidity() /*&& control.errors*/) {
-      console.log('in input validate if');
+    if (/*nativeElement.checkValidity() &&*/ control.untouched || control.valid /*&& control.errors*/) {
+      console.log('in checkbox validate if');
       //this.elementRef.nativeElement.validation.render();
       //  return {invalid: true}
       //return control.errors;
@@ -174,6 +180,7 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
+    console.log('writevalue', value);
     if (value) {
       this.value = value;
     }
@@ -194,13 +201,28 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
   }
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+    // this.elementRef.nativeElement.setFormControlElement(this);
   }
 
-  @HostListener('sl-change', ['$event.target.checked'])
+  @HostListener('sl-change', ['$event.target.checked']) // ['$event.target.checked']
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
-    console.log('value in checkbox listenforvaluechange', value);
-    this.value = value;
+    console.log('value in checkbox listenforvaluechange', value, this._value, value.checked, this.elementRef.nativeElement.internals.value);
+    // value = this.elementRef.nativeElement.checked ? value : undefined
+    // this.value = value;
+    console.log('1value in checkbox listenforvaluechange', value, this.elementRef.nativeElement.value, value.checked);
+
+    if (value || this._value) {
+      const newValue = this.elementRef.nativeElement.checked ? this._value : undefined;
+      this.elementRef.nativeElement.setFormValue(newValue);
+     // this.value = newValue;
+      console.log('1value in checkbox listenforvaluechange newValue', newValue, this._value);
+    }
+
+    // if (changes.has('checked') || changes.has('value')) {
+    //   this.setFormValue(this.checked ? this.value : undefined);
+    // }
+    // this.elementRef.nativeElement.setFormValue(value/*this._value*//*this.checked ? this.value : undefined*/);
    // this.validatorOnChange();
   }
 } // TODO: on reset mark as pristine?

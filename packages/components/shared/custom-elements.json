@@ -519,7 +519,7 @@
           "type": {
             "text": "Validator"
           },
-          "default": "{\n  attribute: 'required',\n  key: 'valueMissing',\n  message: 'Please fill out this field',\n  isValid(instance: HTMLElement & { required: boolean }, value: ValidationValue): boolean {\n    let valid = true;\n\n    if ((instance.hasAttribute('required') || instance.required) && !value) {\n      valid = false;\n    }\n    console.log('value valid in requiredvalidator', instance, value, valid);\n\n    return valid;\n  }\n}"
+          "default": "{\n  attribute: 'required',\n  key: 'valueMissing',\n  message: 'Please fill out this field',\n  isValid(instance: HTMLElement & { required: boolean }, value: ValidationValue): boolean {\n    let valid = true;\n\n    if ((instance.hasAttribute('required') || instance.required) && !value) {\n      console.log('value valid in requiredvalidator in if ', instance, value, valid);\n      valid = false;\n    }\n    console.log('value valid in requiredvalidator', instance, value, valid);\n\n    return valid;\n  }\n}"
         },
         {
           "kind": "variable",

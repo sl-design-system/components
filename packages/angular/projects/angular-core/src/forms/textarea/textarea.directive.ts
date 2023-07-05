@@ -1,4 +1,4 @@
-import {Directive, ElementRef, forwardRef, HostListener} from '@angular/core';
+import {AfterViewChecked, Directive, ElementRef, forwardRef, HostListener} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -25,7 +25,7 @@ import {
   ]
 })
 
-export class TextareaDirective implements ControlValueAccessor, Validator {
+export class TextareaDirective implements ControlValueAccessor, Validator, AfterViewChecked {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
@@ -45,9 +45,10 @@ export class TextareaDirective implements ControlValueAccessor, Validator {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
+    this.elementRef.nativeElement.textarea.value = val;
     if (val !== this._value) {
       this._value = val;
-      this.elementRef.nativeElement.textarea.value = val;
+      // this.elementRef.nativeElement.textarea.value = val;
       this.onChange(this._value);
       //this.onTouched();
       this.validatorOnChange();
@@ -91,7 +92,7 @@ export class TextareaDirective implements ControlValueAccessor, Validator {
    // console.log('control touched -------->>>>>>>', control, control.touched, control.valid, input.validationMessage/*, (control.parent as NgForm).submitted*/ /*, input.reportValidity()*/);
 
 
-    console.log('in input validate control controlll', control, control.untouched);
+    console.log('in textarea validate control controlll', control, control.untouched);
 
     if (control.untouched /*&& control.pristine*/) {
       console.log('in input validate control untouched', control);
@@ -107,6 +108,16 @@ export class TextareaDirective implements ControlValueAccessor, Validator {
   }
 
   constructor(private elementRef: ElementRef) {}
+
+  ngAfterViewChecked() {
+    const inputElement = this.elementRef.nativeElement.querySelector('input');
+    //
+    // console.log('input in ngAfterViewChecked', inputElement, this._value);
+    //
+     this.validatorOnChange(); // TODO: helps with delay, but not working yet on submitting
+    //
+    // this.#validation.validate(this.value);
+  }
 
   @HostListener('input', ['$event.target.value'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

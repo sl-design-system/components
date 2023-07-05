@@ -2,7 +2,6 @@ import type { Preview } from '@storybook/web-components';
 import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import 'element-internals-polyfill';
-import '@oddbird/popover-polyfill';
 import { configureLocalization } from '@lit/localize';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { updateTheme, themes } from './themes.js';

@@ -183,7 +183,6 @@ export class Select extends FormControlMixin(LitElement) {
    * */
   #handleOptionChange(event: Event): void {
     const selectOption = (event.target as HTMLElement)?.closest('sl-select-option');
-
     if (!event.target || !(selectOption instanceof SelectOption)) return;
 
     this.#updateSelectedOption(selectOption);
@@ -196,7 +195,7 @@ export class Select extends FormControlMixin(LitElement) {
    * Make sure the focus is on the currently selected option
    * */
   #handleOptionFocus(): void {
-    this.button?.setAttribute('aria-expanded', this.dialog?.checkVisibility() ? 'true' : 'false');
+    this.button?.setAttribute('aria-expanded', isPopoverOpen(this.dialog) ? 'true' : 'false');
     this.#rovingTabindexController.focusToElement(this.allOptions.findIndex(el => el.selected));
   }
 

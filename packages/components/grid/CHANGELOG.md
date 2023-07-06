@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.14
+
+### Patch Changes
+
+- [#502](https://github.com/sl-design-system/components/pull/502) [`87a4d29`](https://github.com/sl-design-system/components/commit/87a4d2932a2ce45ae7767e2b988af7fe807916f4) - Fix tbody min-height not taking the border width into account
+
 ## 0.0.13
 
 ### Patch Changes

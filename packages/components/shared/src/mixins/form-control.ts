@@ -147,6 +147,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
         this.formControlElement.value = value?.toString() ?? '';
       } else {
         this.formControlElement.internals.setFormValue(value ?? null);
+        //console.log('eeeeelement 2222aa', this.formControlElement, value, this.formControlElement.internals);
       }
     }
   }

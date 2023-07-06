@@ -2,7 +2,7 @@ import {
   Directive,
   forwardRef,
   ElementRef,
-  HostListener, HostBinding, Renderer2,
+  HostListener, Renderer2, OnInit, AfterContentInit,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -30,7 +30,7 @@ import {requiredValidator, ValidationController} from "@sl-design-system/shared"
     }
   ]
 })
-export class CheckboxDirective implements ControlValueAccessor, Validator {
+export class CheckboxDirective implements ControlValueAccessor, Validator, OnInit, AfterContentInit {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
@@ -39,6 +39,8 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
   /** Part of Validator. */
     // eslint-disable-next-line @typescript-eslint/no-empty-function
   private validatorOnChange = () => {};
+
+  private _initialValue: string | undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _value: any;
@@ -51,19 +53,23 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
     console.log('set value in checkbox', val);
+   // this._initialValue = val;
     // if (val !== this._value) {
         this._value = val;
       // this._value = val ? val : undefined;
       // this._value = this.elementRef.nativeElement.checked ? val : undefined;
      // this.#validation.validate(this.checked ? this.value : undefined);
-      this.onChange(/*this._value*/this.elementRef.nativeElement.checked);
+      this.onChange(this._value/*this.elementRef.nativeElement.checked*/);
       // this.onTouched();
       //  this.elementRef.nativeElement.checked = this._value; //val;
      // this.elementRef.nativeElement.internals.checked = this._value;
-       this.elementRef.nativeElement.setFormValue(this._value/*this.checked ? this.value : undefined*/);
+     //   this.elementRef.nativeElement.setFormValue(this._value/*this.checked ? this.value : undefined*/);
     //  this.elementRef.nativeElement.setFormValue(val/*this._value*//*this.checked ? this.value : undefined*/);
     //   this.validatorOnChange();
     // }
+    this.elementRef.nativeElement.internals.value = this._value;
+    console.log('set value in checkbox this._value', this._value);
+    console.log('writevalue2233', this.elementRef.nativeElement.internals.value);
   }
 
   /** Implemented as part of Validator. */
@@ -181,7 +187,13 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
     console.log('writevalue', value);
+   // this.elementRef.nativeElement.setFormValue(value);
+    console.log('writevalue22', this.elementRef.nativeElement.internals.value, this._initialValue);
+    this._initialValue = value;
+    console.log('writevalue22_', this.elementRef.nativeElement.internals.value, this._initialValue);
     if (value) {
+      this.elementRef.nativeElement.value = this._initialValue;
+      this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
     }
   }
@@ -202,6 +214,15 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {
     // this.elementRef.nativeElement.setFormControlElement(this);
+    //this.value = newValue;
+  }
+
+  ngOnInit(): void {
+    console.log('in ngoninit', this.elementRef.nativeElement, this.elementRef.nativeElement.value, this.elementRef.nativeElement.internals.value);
+  }
+
+  ngAfterContentInit(): void {
+    console.log('in ngAfterContentInit', this.elementRef.nativeElement, this.elementRef.nativeElement.value, this.elementRef.nativeElement.internals.value);
   }
 
   @HostListener('sl-change', ['$event.target.checked']) // ['$event.target.checked']
@@ -210,14 +231,21 @@ export class CheckboxDirective implements ControlValueAccessor, Validator {
     console.log('value in checkbox listenforvaluechange', value, this._value, value.checked, this.elementRef.nativeElement.internals.value);
     // value = this.elementRef.nativeElement.checked ? value : undefined
     // this.value = value;
-    console.log('1value in checkbox listenforvaluechange', value, this.elementRef.nativeElement.value, value.checked);
+    console.log('1value in checkbox listenforvaluechange', value, this.elementRef.nativeElement.value, value.checked, this._initialValue, this.elementRef.nativeElement.checked);
 
-    if (value || this._value) {
-      const newValue = this.elementRef.nativeElement.checked ? this._value : undefined;
-      this.elementRef.nativeElement.setFormValue(newValue);
-     // this.value = newValue;
-      console.log('1value in checkbox listenforvaluechange newValue', newValue, this._value);
-    }
+    // if (value || this._value) {
+    //   const newValue = this.elementRef.nativeElement.checked ? this._value : undefined;
+    //   this.elementRef.nativeElement.setFormValue(newValue);
+    //   this.value = newValue;
+    //   console.log('1value in checkbox listenforvaluechange newValue', newValue, this._value);
+    // }
+    value = this.elementRef.nativeElement.checked ? this._initialValue : undefined;
+
+    console.log('1value in checkbox listenforvaluechange22', value, this._initialValue, this.elementRef.nativeElement.value, value, this._initialValue, this.elementRef.nativeElement.checked);
+
+
+    this.value = value;
+    // this.elementRef.nativeElement.setFormValue(value);
 
     // if (changes.has('checked') || changes.has('value')) {
     //   this.setFormValue(this.checked ? this.value : undefined);

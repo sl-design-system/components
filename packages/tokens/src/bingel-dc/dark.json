@@ -1,1 +1,10 @@
-{}
+{
+  "color": {
+    "focusring": {
+      "default": {
+        "value": "{color.palette.accent.base}",
+        "type": "color"
+      }
+    }
+  }
+}

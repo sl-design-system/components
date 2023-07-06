@@ -44,6 +44,9 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
 
+  /** Observe the tbody style changes. */
+  #mutationObserver?: MutationObserver;
+
   /** Observe the grid width. */
   #resizeObserver?: ResizeObserver;
 
@@ -92,6 +95,18 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.#mutationObserver = new MutationObserver(() => {
+      this.#mutationObserver?.disconnect();
+
+      // This is a workaround for the virtualizer not taking the border width into account
+      // We convert the min-height to a CSS variable so we can use it in the styles and
+      // add the border-width to the eventual min-height value.
+      this.style.setProperty('--sl-grid-tbody-min-height', this.tbody.style.minHeight);
+      this.tbody.style.minHeight = '';
+
+      this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
+    });
+
     this.#resizeObserver = new ResizeObserver(entries => {
       const {
         contentBoxSize: [{ inlineSize }]
@@ -104,6 +119,8 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   override firstUpdated(): void {
+    this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
+
     this.tbody.addEventListener(
       'scroll',
       () => {

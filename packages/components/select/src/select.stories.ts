@@ -45,6 +45,7 @@ export const Basic: StoryObj = {
     <style>
       sl-select {
         width: 400px;
+        max-width: 90vw;
         display: inline-flex;
       }
     </style>

@@ -9,6 +9,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   align-items: center;
   display: flex;
   gap: var(--_gap);
+  outline: none;
 }
 
 @each $size in $sizes {

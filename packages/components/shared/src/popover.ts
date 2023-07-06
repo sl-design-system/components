@@ -33,8 +33,9 @@ function getOffset(element: HTMLElement): number {
 
 function roundByDPR(num: number): number {
   const dpr = window.devicePixelRatio || 1;
+  const rounded = Math.round(num * dpr) / dpr;
 
-  return Math.round(num * dpr) / dpr || -10000;
+  return !isNaN(rounded) ? rounded : -10000;
 }
 
 export const isPopoverOpen = (element?: HTMLElement): boolean => {
@@ -112,6 +113,7 @@ export const positionPopover = (
       placement: position,
       middleware
     }).then(({ x, y, middlewareData: { arrow }, placement: actualPlacement }) => {
+      console.log({ anchor, element, x, y });
       Object.assign(element.style, {
         translate: `${roundByDPR(x)}px ${roundByDPR(y)}px`
       });

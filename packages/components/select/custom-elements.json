@@ -61,14 +61,6 @@
             "name": "SelectOptionGroup",
             "module": "/src/select-option-group.js"
           }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-select-overlay",
-          "declaration": {
-            "name": "SelectOverlay",
-            "module": "/src/select-overlay.js"
-          }
         }
       ]
     },
@@ -366,7 +358,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-select-overlay",
           "customElement": true
         }
       ],

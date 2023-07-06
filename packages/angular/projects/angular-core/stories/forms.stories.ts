@@ -298,7 +298,7 @@ export class ReactiveFormComponent implements AfterViewChecked {
       <sl-checkbox id="checkboxWithNgmodel" #checkboxWithNgmodel="ngModel" [(ngModel)]="model.approval" name="approval" (sl-change)="onChange(checkboxWithNgmodel)" required>my checkbox</sl-checkbox>
       (sl-change)="checkboxWithNgmodel.control.markAsUntouched(); checkboxWithNgmodel.control.markAsPristine()"
       <sl-label for="radio-group">Select option</sl-label>
-      <sl-radio-group id="radio-group" [(ngModel)]="model.option" name="option">
+      <sl-radio-group id="radio-group" #radioGroupWithNgmodel="ngModel" [(ngModel)]="model.option" name="option">
         <sl-radio value="1" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">One</sl-radio>
         <sl-radio value="2" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Two</sl-radio>
         <sl-radio value="3" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Three</sl-radio>
@@ -341,6 +341,8 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
 
   @ViewChild('checkboxWithNgmodel', { static: false }) checkboxWithNgmodel!: NgModel;
 
+  @ViewChild('radioGroupWithNgmodel', { static: false }) radioGroupWithNgmodel!: NgModel;
+
   @ViewChild('inputWithNgmodel', { static: true, read: ElementRef })
   myInputRef!: ElementRef<HTMLInputElement>;
 
@@ -349,6 +351,9 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
 
   @ViewChild('checkboxWithNgmodel', { static: true, read: ElementRef })
   myCheckboxRef!: ElementRef;
+
+  @ViewChild('radioGroupWithNgmodel', { static: true, read: ElementRef })
+  myRadioGroupRef!: ElementRef;
 
   // @Output() invalidEvent: EventEmitter<void> = new EventEmitter<void>();
 
@@ -386,6 +391,8 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
       this.textareaWithNgmodel.control.markAsPristine();
       this.checkboxWithNgmodel.control.markAsUntouched();
       this.checkboxWithNgmodel.control.markAsPristine();
+      this.radioGroupWithNgmodel.control.markAsUntouched();
+      this.radioGroupWithNgmodel.control.markAsPristine();
       console.log('ngafterviewinit in form22', this.myForm.form.controls, this.myForm.controls, Array.of(this.myForm.controls), this.inputWithNgmodel, this.textareaWithNgmodel);
 
       Object.values(this.myForm.form.controls).forEach(control => {
@@ -411,6 +418,7 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
         textarea.checkValidity();
         //(this.checkboxWithNgmodel as Checkbox).checkValidity();
         this.myCheckboxRef.nativeElement.internals.checkValidity();
+        this.myRadioGroupRef.nativeElement.internals.checkValidity();
       } else {
         this.inputWithNgmodel.control.markAsUntouched();
         this.inputWithNgmodel.control.markAsPristine();
@@ -418,6 +426,8 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
         this.textareaWithNgmodel.control.markAsPristine();
         this.checkboxWithNgmodel.control.markAsUntouched();
         this.checkboxWithNgmodel.control.markAsPristine();
+        this.radioGroupWithNgmodel.control.markAsUntouched();
+        this.radioGroupWithNgmodel.control.markAsPristine();
       }
   }
 
@@ -444,23 +454,23 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
   onChange(target: NgModel): void {
     console.log('onChange event check condition', target, !this.submitted && !!this.myForm, event, this.inputWithNgmodel.control.errors);
 
-    if (!this.submitted /*&& !!this.myForm*/) {
-      console.log('onChange event inside if');
-      // this.inputWithNgmodel.control.markAsUntouched();
-      // this.inputWithNgmodel.control.markAsPristine();
-      target.control.markAsUntouched();
-      target.control.markAsPristine();
-    } else {
-      console.log('onChange event inside else');
-      // this.inputWithNgmodel.control.markAsTouched();
-      // this.inputWithNgmodel.control.markAsDirty();
-      // this.inputWithNgmodel.control.updateValueAndValidity();
-      // if (this.myCheckboxRef.nativeElement.checked) {
-        target.control.markAsTouched();
-        target.control.markAsDirty();
-        target.control.updateValueAndValidity();
-      // }
-    }
+    // if (!this.submitted /*&& !!this.myForm*/) {
+    //   console.log('onChange event inside if');
+    //   // this.inputWithNgmodel.control.markAsUntouched();
+    //   // this.inputWithNgmodel.control.markAsPristine();
+    //   target.control.markAsUntouched();
+    //   target.control.markAsPristine();
+    // } else {
+    //   console.log('onChange event inside else');
+    //   // this.inputWithNgmodel.control.markAsTouched();
+    //   // this.inputWithNgmodel.control.markAsDirty();
+    //   // this.inputWithNgmodel.control.updateValueAndValidity();
+    //   // if (this.myCheckboxRef.nativeElement.checked) {
+    //     target.control.markAsTouched();
+    //     target.control.markAsDirty();
+    //     target.control.updateValueAndValidity();
+    //   // }
+    // }
   }
 
   onRadioValueChange(event: any): void {
@@ -507,6 +517,11 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
     this.checkboxWithNgmodel.control.markAllAsTouched();
     this.checkboxWithNgmodel.control.markAsDirty();
     this.checkboxWithNgmodel.control.updateValueAndValidity();
+
+
+    this.radioGroupWithNgmodel.control.markAllAsTouched();
+    this.radioGroupWithNgmodel.control.markAsDirty();
+    this.radioGroupWithNgmodel.control.updateValueAndValidity();
 
     // input.reportValidity();
 

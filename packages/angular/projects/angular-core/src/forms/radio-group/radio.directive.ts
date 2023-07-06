@@ -23,6 +23,8 @@ export class RadioDirective implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onTouched: () => any = () => {};
 
+  private _initialValue: string | undefined;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _value: any;
 
@@ -42,6 +44,7 @@ export class RadioDirective implements ControlValueAccessor {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
+    this._initialValue = value;
     if (value) {
       this.value = value;
     }

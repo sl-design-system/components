@@ -23,6 +23,8 @@ export class RadioGroupDirective implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onTouched: () => any = () => {};
 
+  private _initialValue: string | undefined;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _value: any;
 
@@ -32,6 +34,7 @@ export class RadioGroupDirective implements ControlValueAccessor {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
+    console.log('val in radiogroup', val);
     if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
@@ -41,6 +44,7 @@ export class RadioGroupDirective implements ControlValueAccessor {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
+    this._initialValue = value;
     if (value) {
       this.value = value;
     }
@@ -63,7 +67,7 @@ export class RadioGroupDirective implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
     this.value = value;
-  }
+  } // TODO: use setFormValue ???
 
   setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);

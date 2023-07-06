@@ -152,7 +152,7 @@ export class ValidationController implements ReactiveController {
       //   state,
       //   this.#showErrors
       // );
-      // this.#host.requestUpdate();
+      this.#host.requestUpdate();
     }
     // this.#showErrors = !this.validity.valid;
   };

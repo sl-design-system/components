@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.13
+
+### Patch Changes
+
+- [#500](https://github.com/sl-design-system/components/pull/500) [`3570d7f`](https://github.com/sl-design-system/components/commit/3570d7f87b98190a5bc5ce71718f93004f935cf4) - Add missing part names to sort & selection column
+
 ## 0.0.12
 
 ### Patch Changes

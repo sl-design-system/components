@@ -126,16 +126,16 @@ export class CheckboxDirective implements ControlValueAccessor, Validator, OnIni
 
     // this.elementRef.nativeElement.validate(control.value);
 
-    if (/*nativeElement.checkValidity() &&*/ control.untouched || control.valid /*&& control.errors*/) {
+    if (/*nativeElement.checkValidity() ||*/ control.untouched /*|| control.valid*/ /*&& control.errors*/) {
       console.log('in checkbox validate if');
       //this.elementRef.nativeElement.validation.render();
       //  return {invalid: true}
-      //return control.errors;
-      return null;
+      return control.errors;
+      // return null;
     } else {
       console.log('in checkbox validate else');
-      // return null;
-      return control.errors;
+      return null;
+      // return control.errors;
     }
 
     // if (control.untouched /*&& control.pristine*/) {
@@ -227,7 +227,7 @@ export class CheckboxDirective implements ControlValueAccessor, Validator, OnIni
 
   @HostListener('sl-change', ['$event.target.checked']) // ['$event.target.checked']
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listenForValueChange(value: any): void {
+  listenForValueChange(value: any): void { // TODO: rename value to checked
     console.log('value in checkbox listenforvaluechange', value, this._value, value.checked, this.elementRef.nativeElement.internals.value);
     // value = this.elementRef.nativeElement.checked ? value : undefined
     // this.value = value;

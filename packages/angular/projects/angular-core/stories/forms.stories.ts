@@ -320,7 +320,7 @@ export class ReactiveFormComponent implements AfterViewChecked {
       <div>Approval: <i>{{model.approval}}</i> valid? {{checkboxWithNgmodel.valid}}</div><i>errors? {{checkboxWithNgmodel.control.errors | json}}</i>
       <strong>touched?</strong> {{checkboxWithNgmodel.control.touched }}
       <strong>pristine?</strong> {{checkboxWithNgmodel.control.pristine }}
-      <div>Option: text: <i>{{model.option.text}}</i> value: <i>{{model.option.value}}</i></div>
+      <div>Option: value: <i>{{model.option}}</i></div>
       <div>Form submitted: {{myForm.submitted}}</div>
       <div>Form valid: {{myForm.valid}}</div>
       <div>Form validator: {{myForm.form.errors| json}}</div>
@@ -331,7 +331,7 @@ export class ReactiveFormComponent implements AfterViewChecked {
 // TODO slotted hint
 export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterViewInit, AfterViewChecked/*, AfterContentChecked*/ {
   // model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
-  model = new Person(1, '', '', 'yes', { value: null, text: '' });
+  model = new Person(1, '', '', 'yes', '');
 
   @ViewChild('myForm', { static: false }) myForm!: NgForm;
 
@@ -404,7 +404,7 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
   }
 
   ngAfterViewChecked() {
-    console.log('ngafterviewchecked in form before if', this.submitted, this.myForm, this.inputWithNgmodel.errors);
+    console.log('ngafterviewchecked in form before if', this.submitted, this.myForm, this.inputWithNgmodel.errors, this.radioGroupWithNgmodel.errors);
 
       if (this.submitted) {
         const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
@@ -417,8 +417,8 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
         console.log('textarea...', textarea);
         textarea.checkValidity();
         //(this.checkboxWithNgmodel as Checkbox).checkValidity();
-        this.myCheckboxRef.nativeElement.internals.checkValidity();
-        this.myRadioGroupRef.nativeElement.internals.checkValidity();
+        // this.myCheckboxRef.nativeElement.internals.checkValidity();
+        //this.myRadioGroupRef.nativeElement.internals.checkValidity();
       } else {
         this.inputWithNgmodel.control.markAsUntouched();
         this.inputWithNgmodel.control.markAsPristine();
@@ -475,7 +475,7 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
 
   onRadioValueChange(event: any): void {
     console.log('event on radio change', event);
-    // this.model.option.value = event.value;
+    this.model.option = event.value;
     // this.model.option.text = event.textContent;
   }
 
@@ -517,11 +517,13 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
     this.checkboxWithNgmodel.control.markAllAsTouched();
     this.checkboxWithNgmodel.control.markAsDirty();
     this.checkboxWithNgmodel.control.updateValueAndValidity();
+    this.myCheckboxRef.nativeElement.internals.checkValidity();
 
 
     this.radioGroupWithNgmodel.control.markAllAsTouched();
     this.radioGroupWithNgmodel.control.markAsDirty();
     this.radioGroupWithNgmodel.control.updateValueAndValidity();
+    this.myRadioGroupRef.nativeElement.internals.checkValidity();
 
     // input.reportValidity();
 
@@ -534,7 +536,7 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
     alert(`form submit: Name: ${model.name},
           Description: ${model.description},
           Approval: ${model.approval},
-          Option: ${model.option.value} ${model.option.text}`);
+          Option: ${model.option}`);
 
     if (form.valid) {
       alert('form submitted');
@@ -552,7 +554,7 @@ export class Person {
     public name: string,
     public description: string,
     public approval: string,
-    public option: { value: null, text: '' }
+    public option: string
   ) { }
 }
 

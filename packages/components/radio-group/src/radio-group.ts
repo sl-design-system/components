@@ -94,6 +94,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     console.log('buttons in radiogroup', this.buttons);
 
     this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
+    console.log('val in radiogroup in connectedCallback', this.value, this.buttons);
     // Run initial validation
     this.#validation.validate(this.value);
   }
@@ -102,11 +103,13 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     super.willUpdate(changes);
 
     console.log('buttons in radiogroup willUpdate', this.buttons);
+    console.log('val in radiogroup in willUpdate', this.value);
 
     if (changes.has('value')) {
       this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
       this.setFormValue(this.value);
       this.#validation.validate(this.value);
+      console.log('val in radiogroup in willUpdate in if', this.value, this.buttons);
     }
   }
 

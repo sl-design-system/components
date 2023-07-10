@@ -8,34 +8,37 @@
 }
 
 :host {
+  // This has to be in pixels until we can use @property
+  --sl-popover-offset: 8px;
+
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
-  transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
-}
-
-:host(:where(:popover-open, [popover-open])) {
-  opacity: 1;
+  overflow: visible;
 }
 
 :host([actual-placement='bottom']) .arrow {
   inset-block-start: -12px;
+  inset-inline-start: 0;
   scale: 1 -1;
 }
 
 :host([actual-placement='left']) .arrow {
+  inset-block-start: 0;
   inset-inline-end: -18px;
   rotate: -90deg;
 }
 
 :host([actual-placement='right']) .arrow {
+  inset-block-start: 0;
   inset-inline-start: -18px;
   rotate: 90deg;
 }
 
 :host([actual-placement='top']) .arrow {
   inset-block-end: -12px;
+  inset-inline-start: 0;
 }
 
 .container {

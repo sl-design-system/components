@@ -1,7 +1,7 @@
 import fg from 'fast-glob';
 import { promises as fs } from 'fs';
 import { basename, dirname } from 'path';
-import sass from 'sass';
+import { compileString } from 'sass';
 import stylelint from 'stylelint';
 
 const files = await fg('./packages/components/*/src/**/*.scss');
@@ -14,7 +14,7 @@ await Promise.allSettled(
   files.map(async file => {
     try {
       // Step 1: compile SCSS to CSS
-      const { css } = sass.compileString(
+      const { css } = compileString(
         `
           ${shared ? `@import '${sharedFile}';` : ''}
 

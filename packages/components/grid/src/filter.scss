@@ -15,8 +15,10 @@
 
 .toggle {
   box-sizing: border-box;
+  font-weight: var(--_header-font-weight);
   inline-size: 100%;
   justify-content: space-between;
+  padding-inline: var(--_header-padding-inline);
 }
 
 sl-popover {

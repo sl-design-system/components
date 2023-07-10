@@ -1,5 +1,14 @@
 # @sl-design-system/popover
 
+## 0.0.5
+
+### Patch Changes
+
+- [#491](https://github.com/sl-design-system/components/pull/491) [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb) - Update popover implementation to match with the latest web standards
+
+- Updated dependencies [[`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb)]:
+  - @sl-design-system/shared@0.1.1
+
 ## 0.0.4
 
 ### Patch Changes

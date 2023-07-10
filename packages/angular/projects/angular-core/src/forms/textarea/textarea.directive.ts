@@ -95,14 +95,14 @@ export class TextareaDirective implements ControlValueAccessor, Validator, After
     console.log('in textarea validate control controlll', control, control.untouched);
 
     if (control.untouched /*&& control.pristine*/) {
-      console.log('in input validate control untouched', control);
-      return control.errors; // TODO: return null or not causing invalid?
-      //return null;
-    } else {
-      console.log('in input validate control  else', control);
-      // this.validatorOnChange();
-      // return control.errors;
+      console.log('in textarea validate control untouched', control);
+      // return control.errors; // TODO: return null or not causing invalid?
       return null;
+    } else {
+      console.log('in textarea validate control  else', control);
+      // this.validatorOnChange();
+      return control.errors;
+      // return null;
     }
 
   }

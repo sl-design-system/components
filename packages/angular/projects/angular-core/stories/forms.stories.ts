@@ -128,15 +128,18 @@ export class CheckboxComponent {
   template: `
     <form [formGroup]="myForm" (ngSubmit)="onSubmit($event, myForm)">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text input" minlength="8" required></sl-text-input>
+      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text input" minlength="8" required>
+        <div slot="custom-error">custom error message</div>
+      </sl-text-input>
+      <div *ngIf="myForm.controls.name.errors?.['invalidUrl']">test invalidUrl</div>
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" #myReactiveTextarea formControlName="description" placeholder="Add short description here" required>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
       </sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
-      <sl-checkbox id="approval-id" formControlName="approval" required>Check me</sl-checkbox>
+      <sl-checkbox #myReactiveCheckbox id="approval-id" formControlName="approval" required>Check me</sl-checkbox>
       <sl-label for="radio-group-options">Select option</sl-label>
-      <sl-radio-group id="radio-group-options">
+      <sl-radio-group #myReactiveRadioGroup id="radio-group-options" required>
         <sl-radio value="1" formControlName="option">First option</sl-radio>
         <sl-radio value="2" formControlName="option">Second option</sl-radio>
         <sl-radio value="3" formControlName="option">Third option</sl-radio>
@@ -151,12 +154,12 @@ export class CheckboxComponent {
       <div>Form touched: {{myForm.touched | json}} {{myForm.controls.name.touched}}</div>
     </form>
   `,
-})
+}) // TODO use slot customError for invalidurl example?
 export class ReactiveFormComponent implements AfterViewChecked {
   myForm = new FormGroup({
     name: new FormControl('', [Validators.minLength(8), Validators.required, ValidateUrl]), // , [Validators.minLength(8), Validators.required]
     description: new FormControl('', Validators.required),
-    approval: new FormControl(false, Validators.requiredTrue),
+    approval: new FormControl('yes', Validators.requiredTrue),
     option: new FormControl()
   });
 
@@ -172,6 +175,12 @@ export class ReactiveFormComponent implements AfterViewChecked {
 
   @ViewChild('myReactiveTextarea', { static: true, read: ElementRef })
   myTextarea!: ElementRef<HTMLTextAreaElement>;
+
+  @ViewChild('myReactiveCheckbox', { static: true, read: ElementRef })
+  myCheckbox!: ElementRef;
+
+  @ViewChild('myReactiveRadioGroup', { static: true, read: ElementRef })
+  myRadioGroup!: ElementRef;
 
   submitted = false;
 
@@ -196,6 +205,16 @@ export class ReactiveFormComponent implements AfterViewChecked {
       input.checkValidity();
       const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
       textarea.checkValidity();
+
+      console.log('input.validationMessage in reactiveform', input.validationMessage, this.myInput.nativeElement.validity, this.myForm.controls.name.errors, this.myForm.controls.name.errors?.['invalidUrl']);
+
+      if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
+        // this.myInput.nativeElement.setCustomValidity('invalid url...');
+        input.setCustomValidity('invalid url...');
+      } else {
+        // this.myInput.nativeElement.setCustomValidity('');
+        input.setCustomValidity('');
+      }
     } else {
       // this.inputWithNgmodel.control.markAsUntouched();
       // this.inputWithNgmodel.control.markAsPristine();
@@ -242,11 +261,17 @@ export class ReactiveFormComponent implements AfterViewChecked {
 
     this.myForm.markAllAsTouched();
 
+   // this.myInput.nativeElement.setCustomValidity('teeeest');
+
     Object.values(form.controls).forEach(control => {
       console.log('control in reactive', control);
       control.markAsTouched();
       control.updateValueAndValidity();
     });
+
+    this.myCheckbox.nativeElement.internals.checkValidity();
+
+    this.myRadioGroup.nativeElement.internals.checkValidity();
 
     // if (form.invalid) {
     //   return;
@@ -298,7 +323,7 @@ export class ReactiveFormComponent implements AfterViewChecked {
       <sl-checkbox id="checkboxWithNgmodel" #checkboxWithNgmodel="ngModel" [(ngModel)]="model.approval" name="approval" (sl-change)="onChange(checkboxWithNgmodel)" required>my checkbox</sl-checkbox>
       (sl-change)="checkboxWithNgmodel.control.markAsUntouched(); checkboxWithNgmodel.control.markAsPristine()"
       <sl-label for="radio-group">Select option</sl-label>
-      <sl-radio-group id="radio-group" #radioGroupWithNgmodel="ngModel" [(ngModel)]="model.option" name="option">
+      <sl-radio-group id="radio-group" #radioGroupWithNgmodel="ngModel" [(ngModel)]="model.option" name="option" required>
         <sl-radio value="1" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">One</sl-radio>
         <sl-radio value="2" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Two</sl-radio>
         <sl-radio value="3" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">Three</sl-radio>
@@ -318,12 +343,12 @@ export class ReactiveFormComponent implements AfterViewChecked {
         <strong>pristine?</strong> {{textareaWithNgmodel.control.pristine }}
       </div>
       <div>Approval: <i>{{model.approval}}</i> valid? {{checkboxWithNgmodel.valid}}</div><i>errors? {{checkboxWithNgmodel.control.errors | json}}</i>
-      <strong>touched?</strong> {{checkboxWithNgmodel.control.touched }}
-      <strong>pristine?</strong> {{checkboxWithNgmodel.control.pristine }}
-      <div>Option: value: <i>{{model.option}}</i></div>
-      <div>Form submitted: {{myForm.submitted}}</div>
-      <div>Form valid: {{myForm.valid}}</div>
-      <div>Form validator: {{myForm.form.errors| json}}</div>
+<!--      <strong>touched?</strong> {{checkboxWithNgmodel.control.touched }}-->
+<!--      <strong>pristine?</strong> {{checkboxWithNgmodel.control.pristine }}-->
+<!--      <div>Option: value: <i>{{model.option}}</i></div>-->
+<!--      <div>Form submitted: {{myForm.submitted}}</div>-->
+<!--      <div>Form valid: {{myForm.valid}}</div>-->
+<!--      <div>Form validator: {{myForm.form.errors| json}}</div>-->
     </form>
   `
   // TODO: with custom validation
@@ -395,11 +420,11 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
       this.radioGroupWithNgmodel.control.markAsPristine();
       console.log('ngafterviewinit in form22', this.myForm.form.controls, this.myForm.controls, Array.of(this.myForm.controls), this.inputWithNgmodel, this.textareaWithNgmodel);
 
-      Object.values(this.myForm.form.controls).forEach(control => {
-        console.log('ngafterviewinit in form for each', this.myForm.form.controls, this.myForm.controls, control);
-        control.markAsUntouched();
-        control.markAsPristine();
-      });
+      // Object.values(this.myForm.form.controls).forEach(control => {
+      //   console.log('ngafterviewinit in form for each', this.myForm.form.controls, this.myForm.controls, control);
+      //   control.markAsUntouched();
+      //   control.markAsPristine();
+      // });
     }
   }
 
@@ -523,6 +548,7 @@ export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterVi
     this.radioGroupWithNgmodel.control.markAllAsTouched();
     this.radioGroupWithNgmodel.control.markAsDirty();
     this.radioGroupWithNgmodel.control.updateValueAndValidity();
+    // this.myRadioGroupRef.nativeElement.checkValidity();
     this.myRadioGroupRef.nativeElement.internals.checkValidity();
 
     // input.reportValidity();
@@ -554,7 +580,7 @@ export class Person {
     public name: string,
     public description: string,
     public approval: string,
-    public option: string
+    public option: string | undefined
   ) { }
 }
 

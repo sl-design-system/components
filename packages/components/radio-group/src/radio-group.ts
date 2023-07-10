@@ -103,7 +103,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     super.willUpdate(changes);
 
     console.log('buttons in radiogroup willUpdate', this.buttons);
-    console.log('val in radiogroup in willUpdate', this.value);
+    console.log('val in radiogroup in willUpdate', this.value, changes);
 
     if (changes.has('value')) {
       this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));

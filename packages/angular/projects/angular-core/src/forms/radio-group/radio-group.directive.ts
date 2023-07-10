@@ -3,9 +3,18 @@ import {
   forwardRef,
   ElementRef,
   HostListener,
-  Renderer2
+  Renderer2, AfterContentInit
 } from '@angular/core';
-import {AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator
+} from '@angular/forms';
+import {RadioDirective} from "./radio.directive";
+import {Radio} from "@sl-design-system/radio-group";
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -15,10 +24,15 @@ import {AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ValidationErro
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => RadioGroupDirective),
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RadioGroupDirective),
+      multi: true
     }
   ]
 })
-export class RadioGroupDirective implements ControlValueAccessor, Validator {
+export class RadioGroupDirective implements ControlValueAccessor, Validator, AfterContentInit {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
@@ -43,6 +57,7 @@ export class RadioGroupDirective implements ControlValueAccessor, Validator {
     // if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
+    this.elementRef.nativeElement.buttons?.forEach((radio: Radio) => (radio.checked = radio.value === this.value));
       this.elementRef.nativeElement.internals.value = this._value;
      // this.onTouched();
     // }
@@ -56,9 +71,11 @@ export class RadioGroupDirective implements ControlValueAccessor, Validator {
     value = value ? value : undefined;
     this._initialValue = value;
     //if (value) {
+      this.elementRef.nativeElement.buttons?.forEach((radio: Radio) => (radio.checked = radio.value === this.value));
       this.elementRef.nativeElement.value = this._initialValue;
       this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
+      this.validatorOnChange();
     //}
   }
 
@@ -118,11 +135,11 @@ export class RadioGroupDirective implements ControlValueAccessor, Validator {
 
     // this.elementRef.nativeElement.validate(control.value);
 
-    if (/*nativeElement.checkValidity() &&*/ control.untouched || control.valid /*&& control.errors*/) {
+    if (/*nativeElement.checkValidity() &&*/ control.untouched /*|| control.valid*/ /*&& control.errors*/) {
       console.log('in radio validate if');
       //this.elementRef.nativeElement.validation.render();
       //  return {invalid: true}
-      //return control.errors;
+      // return control.errors;
       return null;
     } else {
       console.log('in radio validate else');
@@ -178,11 +195,17 @@ export class RadioGroupDirective implements ControlValueAccessor, Validator {
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
+  ngAfterContentInit(): void {
+    console.log('in ngAfterContentInit', this.elementRef.nativeElement, this.elementRef.nativeElement.value, this.elementRef.nativeElement.internals.value);
+  }
+
   @HostListener('click', ['$event.target'])
   @HostListener('keydown', ['$event.target'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
+    console.log('value in click radiogroup group...', value.value);
     this.value = value;
+    this.elementRef.nativeElement.checked = value.checked;
   } // TODO: use setFormValue ???
 
   setDisabledState(isDisabled: boolean): void {

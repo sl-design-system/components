@@ -4,7 +4,14 @@ import {
   ElementRef,
   HostListener, Renderer2
 } from '@angular/core';
-import {AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator
+} from '@angular/forms';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -12,6 +19,11 @@ import {AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ValidationErro
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RadioDirective),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => RadioDirective),
       multi: true
     }
@@ -39,17 +51,21 @@ export class RadioDirective implements ControlValueAccessor, Validator {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
-    if (val !== this._value) {
+    // if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
-      this.onTouched();
-    }
+      // this.onTouched();
+      this.elementRef.nativeElement.internals.value = this._value;
+    // }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
     this._initialValue = value;
     if (value) {
+      // this.elementRef.nativeElement.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
+      this.elementRef.nativeElement.value = this._initialValue;
+      this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
     }
   }
@@ -166,12 +182,13 @@ export class RadioDirective implements ControlValueAccessor, Validator {
     // }
   }
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+  constructor(/*private*/ public elementRef: ElementRef, private renderer: Renderer2) {}
 
   @HostListener('click', ['$event.target'])
   @HostListener('keydown', ['$event.target'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
+    console.log('value in click radiogroup', value.value);
     this.value = value.value;
     this.elementRef.nativeElement.checked = value.checked;
   }

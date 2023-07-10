@@ -408,6 +408,7 @@ export class ValidationController implements ReactiveController {
   }
 
   setCustomValidity(message: string): void {
+    console.log('in setCustomValidity', message);
     if (isNative(this.target)) {
       this.target.setCustomValidity(message);
     } else {

@@ -539,7 +539,7 @@ export class ValidationController implements ReactiveController {
       // console.log('in render validity in getInvalidState valueMissing', validity.valueMissing);
       return 'valueMissing';
     }
-  }
+  } // TODO: add customError at the end?
 
   #getValidationMessageForState(state: keyof ValidityState): string | void {
     switch (state) {

@@ -6,7 +6,7 @@ import {
   FormGroup,
   FormsModule,
   NgForm, NgModel,
-  ReactiveFormsModule,
+  ReactiveFormsModule, ValidationErrors,
   Validators
 } from '@angular/forms';
 import {
@@ -206,7 +206,16 @@ export class ReactiveFormComponent implements AfterViewChecked {
       const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
       textarea.checkValidity();
 
-      console.log('input.validationMessage in reactiveform', input.validationMessage, this.myInput.nativeElement.validity, this.myForm.controls.name.errors, this.myForm.controls.name.errors?.['invalidUrl']);
+      console.log('input.validationMessage in reactiveform', input.validationMessage, this.myInput.nativeElement.validity, Object.keys(this.myForm.controls.name.errors), Object.entries(this.myForm.controls.name.errors), Array.of(this.myForm.controls.name.errors as Object), this.myForm.controls.name.errors?.['invalidUrl']);
+
+      // if (this.myForm.controls.name.errors) {
+      //   const keys = Object.keys(this.myForm.controls.name.errors);
+      //   console.log(keys);
+      //
+      //   keys.forEach((key) => {
+      //     console.log(key, this.myForm.controls.name?.errors[key]);
+      //   });
+      // }
 
       if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
         // this.myInput.nativeElement.setCustomValidity('invalid url...');
@@ -214,7 +223,7 @@ export class ReactiveFormComponent implements AfterViewChecked {
       } else {
         // this.myInput.nativeElement.setCustomValidity('');
         input.setCustomValidity('');
-      }
+      } // TODO: maybe move to on submit>? because of the delay
     } else {
       // this.inputWithNgmodel.control.markAsUntouched();
       // this.inputWithNgmodel.control.markAsPristine();
@@ -354,6 +363,8 @@ export class ReactiveFormComponent implements AfterViewChecked {
   // TODO: with custom validation
 }) // TODO: after form submitted and after form control touched
 // TODO slotted hint
+
+// TODO: separated story for custom validation?
 export class TemplateFormComponent implements /*OnInit,*/ /*OnChanges,*/ AfterViewInit, AfterViewChecked/*, AfterContentChecked*/ {
   // model = new Person(1, 'John', 'Short description of John', false, { value: null, text: '' });
   model = new Person(1, '', '', 'yes', '');

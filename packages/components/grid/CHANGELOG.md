@@ -1,5 +1,33 @@
 # @sl-design-system/grid
 
+## 0.0.14
+
+### Patch Changes
+
+- [#502](https://github.com/sl-design-system/components/pull/502) [`87a4d29`](https://github.com/sl-design-system/components/commit/87a4d2932a2ce45ae7767e2b988af7fe807916f4) - Fix tbody min-height not taking the border width into account
+
+## 0.0.13
+
+### Patch Changes
+
+- [#500](https://github.com/sl-design-system/components/pull/500) [`3570d7f`](https://github.com/sl-design-system/components/commit/3570d7f87b98190a5bc5ce71718f93004f935cf4) - Add missing part names to sort & selection column
+
+## 0.0.12
+
+### Patch Changes
+
+- [#497](https://github.com/sl-design-system/components/pull/497) [`bcb01a4`](https://github.com/sl-design-system/components/commit/bcb01a425048570dcca4e2dd3e909b6c2893b952) - Fix regresion with filter column click
+
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [[`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb)]:
+  - @sl-design-system/shared@0.1.1
+  - @sl-design-system/text-input@0.1.1
+  - @sl-design-system/popover@0.0.5
+  - @sl-design-system/checkbox@0.0.6
+
 ## 0.0.10
 
 ### Patch Changes

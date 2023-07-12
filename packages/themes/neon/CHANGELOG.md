@@ -1,5 +1,16 @@
 # @sanomalearning/slds-neon
 
+## 0.0.5
+
+### Patch Changes
+
+- [#477](https://github.com/sl-design-system/components/pull/477) [`e4f0843`](https://github.com/sl-design-system/components/commit/e4f0843778230329aefe67d55e047e46ee9d188c) - Component finetuning
+
+- [#496](https://github.com/sl-design-system/components/pull/496) [`cbab43b`](https://github.com/sl-design-system/components/commit/cbab43b434bd82ea4cacf490034960f554bccc28) - Fix missing types in theme packages
+
+- [#474](https://github.com/sl-design-system/components/pull/474) [`30bf3a2`](https://github.com/sl-design-system/components/commit/30bf3a2945542603f507b9adcef56cedd61e944e) - Neon: Button
+  Magister: Checkbox & Radio button
+
 ## 0.0.4
 
 ### Patch Changes

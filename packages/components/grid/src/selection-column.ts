@@ -70,7 +70,7 @@ export class GridSelectionColumn<T extends Record<string, unknown> = Record<stri
     const checked = this.grid?.selection.isSelected(item);
 
     return html`
-      <td>
+      <td part="data selection">
         <sl-checkbox
           @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
           ?checked=${checked}

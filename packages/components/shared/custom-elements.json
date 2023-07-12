@@ -36,6 +36,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/directives/index.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/mixins/index.js"
           }
         },
@@ -53,6 +61,14 @@
           "declaration": {
             "name": "*",
             "package": "./src/path.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/popover.js"
           }
         },
         {
@@ -87,22 +103,6 @@
       "declarations": [
         {
           "kind": "variable",
-          "name": "supportsTopLayer"
-        },
-        {
-          "kind": "variable",
-          "name": "supportsHas"
-        },
-        {
-          "kind": "variable",
-          "name": "supportsAnchor",
-          "type": {
-            "text": "boolean"
-          },
-          "default": "false"
-        },
-        {
-          "kind": "variable",
           "name": "firstFocusableSelector",
           "type": {
             "text": "string"
@@ -111,30 +111,6 @@
         }
       ],
       "exports": [
-        {
-          "kind": "js",
-          "name": "supportsTopLayer",
-          "declaration": {
-            "name": "supportsTopLayer",
-            "module": "src/css.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "supportsHas",
-          "declaration": {
-            "name": "supportsHas",
-            "module": "src/css.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "supportsAnchor",
-          "declaration": {
-            "name": "supportsAnchor",
-            "module": "src/css.ts"
-          }
-        },
         {
           "kind": "js",
           "name": "firstFocusableSelector",
@@ -233,6 +209,99 @@
           "declaration": {
             "name": "getValueByPath",
             "module": "src/path.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/popover.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/popover.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/popover.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "isPopoverOpen",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "optional": true,
+              "type": {
+                "text": "HTMLElement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "positionPopover",
+          "return": {
+            "type": {
+              "text": "(() => void)"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "anchor",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "PositionPopoverOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "popoverPolyfillStyles",
+          "declaration": {
+            "name": "popoverPolyfillStyles",
+            "module": "src/popover.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPopoverOpen",
+          "declaration": {
+            "name": "isPopoverOpen",
+            "module": "src/popover.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "positionPopover",
+          "declaration": {
+            "name": "positionPopover",
+            "module": "src/popover.ts"
           }
         }
       ]
@@ -524,6 +593,59 @@
           "declaration": {
             "name": "patternValidator",
             "module": "src/validators.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/directives/anchor.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AnchorDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "anchor"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AnchorDirective",
+          "declaration": {
+            "name": "AnchorDirective",
+            "module": "src/directives/anchor.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "anchor",
+          "declaration": {
+            "name": "anchor",
+            "module": "src/directives/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./anchor.js"
           }
         }
       ]
@@ -933,6 +1055,54 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/controllers/anchor.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AnchorController",
+          "members": [
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostDisconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AnchorController",
+          "declaration": {
+            "name": "AnchorController",
+            "module": "src/controllers/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/controllers/events.ts",
       "declarations": [
         {
@@ -1335,6 +1505,14 @@
       "path": "src/controllers/index.ts",
       "declarations": [],
       "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./anchor.js"
+          }
+        },
         {
           "kind": "js",
           "name": "*",

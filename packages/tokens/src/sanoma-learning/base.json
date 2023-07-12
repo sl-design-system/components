@@ -127,7 +127,7 @@
       },
       "neutral": {
         "50": {
-          "value": "#F6F8F8",
+          "value": "#f3f3f3",
           "type": "color",
           "description": "color.palette.neutral.50"
         },
@@ -182,7 +182,7 @@
           "description": "color.palette.neutral.900"
         },
         "base": {
-          "value": "#323232",
+          "value": "#222222",
           "type": "color",
           "description": "color.palette.neutral.base"
         }
@@ -436,14 +436,14 @@
       },
       "black": {
         "base": {
-          "value": "#323232",
+          "value": "#222222",
           "type": "color",
           "description": "color.palette.black.base"
         }
       },
       "white": {
         "base": {
-          "value": "#F6F8F8",
+          "value": "#FEFEFE",
           "type": "color",
           "description": "color.palette.white.base"
         }

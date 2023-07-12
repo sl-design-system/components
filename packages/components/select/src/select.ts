@@ -82,7 +82,7 @@ export class Select extends FormControlMixin(LitElement) {
 
   get #renderSelectedOption(): HTMLElement | TemplateResult {
     if (!this.selectedOption) {
-      return html`&nbsp`;
+      return html`&nbsp;`;
     }
     return (this.selectedOption.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
   }
@@ -102,9 +102,15 @@ export class Select extends FormControlMixin(LitElement) {
         id=${this.#selectId}
         popovertarget="dialog-${this.#selectId}"
         role="combobox"
+        aria-haspopup="listbox"
+        aria-controls="dialog-${this.#selectId}"
+        aria-expanded=${isPopoverOpen(this.dialog)}
+        aria-activedescendant=${this.selectedOption || false}
         tabindex="0"
       >
-        <span contenttype=${this.#optionContentType}>${this.#renderSelectedOption}</span>
+        <span aria-hidden=${!this.selectedOption} contenttype=${this.#optionContentType}
+          >${this.#renderSelectedOption}</span
+        >
         <sl-icon name="chevron-down"></sl-icon>
       </button>
       <dialog
@@ -116,6 +122,7 @@ export class Select extends FormControlMixin(LitElement) {
         anchor=${this.#selectId}
         popover
         ${anchor({ position: 'bottom' })}
+        aria-labelledby=${this.#selectId}
         role="listbox"
       >
         <slot @slotchange=${this.#handleOptionsSlotChange}></slot>

@@ -101,7 +101,7 @@ button {
   transition: 0.2s ease-in-out;
   transition-property: background, border, box-shadow, color, filter;
 
-  span {
+  > span {
     display: block;
     padding-block: var(--_button-padding-block);
     padding-inline: var(--_button-padding-inline);
@@ -109,7 +109,7 @@ button {
     white-space: nowrap;
   }
 
-  span[contenttype='element'] {
+  > span[contenttype='element'] {
     padding-block: 0;
     padding-inline: 0;
   }

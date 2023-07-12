@@ -670,10 +670,6 @@
               "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.border"
-            },
-            "": {
-              "value": "#",
-              "type": "color"
             }
           },
           "active": {

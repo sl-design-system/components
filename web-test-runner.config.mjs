@@ -17,6 +17,7 @@ const config = {
 
   coverageConfig: {
     report: true,
+    include: ['**/*.ts'],
     exclude: ['**/index.ts', '**/register.ts', '**/*.scss.ts']
   },
 

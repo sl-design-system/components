@@ -1,24 +1,32 @@
+$sizes: md, lg;
+
 :host {
   display: flex;
   flex-direction: column;
-  gap: var(--sl-space-select-listbox-gap-md);
+  gap: var(--_gap);
 }
 
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_divider-spacing: var(--sl-space-select-item-divider-gap-#{$size});
+    --_font: var(--sl-text-select-selectbox-title-#{$size});
+    --_gap: var(--sl-space-select-listbox-gap-#{$size});
+    --_padding-block: var(--sl-space-select-item-item-block-#{$size});
+    --_padding-inline: var(--sl-space-select-item-item-inline-#{$size});
+  }
+}
+
+:host(-bottom-divider),
 :host(:not(:first-child)) {
-  border-top: 1px solid var(--sl-color-select-item-divider-line);
-  margin-top: 8px;
-  padding-top: 8px;
-}
-
-:host(.bottom-divider) {
-  border-bottom: 1px solid var(--sl-color-select-item-divider-line);
-  margin-bottom: 8px;
-  padding-bottom: 8px;
+  border-top: var(--sl-border-width-divider) solid var(--sl-color-select-item-divider-line);
+  margin-top: var(--_divider-spacing);
+  padding-top: var(--_divider-spacing);
 }
 
 span {
   color: var(--sl-color-select-item-group-title-foreground);
-  font: var(--sl-text-select-selectbox-title-lg);
-  padding: 4px 12px;
+  font: var(--_font);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
   text-transform: uppercase;
 }

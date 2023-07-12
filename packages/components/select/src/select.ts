@@ -158,7 +158,9 @@ export class Select extends FormControlMixin(LitElement) {
   #handleOptionsSlotChange(): void {
     if (this.optionGroups) {
       this.optionGroups.forEach(group => {
+        group.size = this.size;
         group.classList.remove('bottom-divider');
+
         if (group.nextElementSibling?.nodeName === 'SL-SELECT-OPTION') {
           group.classList.add('bottom-divider');
         }

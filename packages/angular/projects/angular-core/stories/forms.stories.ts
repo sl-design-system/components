@@ -6,7 +6,7 @@ import {
   FormGroup,
   FormsModule,
   NgForm, NgModel,
-  ReactiveFormsModule, ValidationErrors,
+  ReactiveFormsModule,
   Validators
 } from '@angular/forms';
 import {
@@ -14,14 +14,13 @@ import {
   AfterViewInit,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  EventEmitter,
   ViewChild,
-  Output,
-  ElementRef
+  ElementRef,
+  AfterContentChecked, DoCheck, OnChanges, SimpleChanges, AfterContentInit
 } from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
-import {ValidateUrl} from "../src/forms/form-control/validators";
+import { StartsWithThisIs, ValidateUrl} from "../src/forms/form-control/validators";
 
 @Component({
   selector: 'sla-input',
@@ -124,18 +123,24 @@ export class CheckboxComponent {
     sl-button {
       width: fit-content;
     }
-  `], // novalidate
+  `],
   template: `
     <form [formGroup]="myForm" (ngSubmit)="onSubmit($event, myForm)">
       <sl-label for="name-input">Name</sl-label>
       <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text input" minlength="8" required>
-        <div slot="custom-error">custom error message</div>
       </sl-text-input>
+      <sl-label for="website-input">Url (with custom validation)</sl-label>
+      <sl-text-input id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="this is a hint for the text input with your website" minlength="8" required>
+      </sl-text-input>
+      <!--<div slot="custom-error">custom error message - invalid url</div>-->
+      <!--*ngIf="myForm.controls.name.errors?.['invalidUrl']"-->
+      <!--{{myForm.controls.name.errors | json}}-->
       <div *ngIf="myForm.controls.name.errors?.['invalidUrl']">test invalidUrl</div>
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" #myReactiveTextarea formControlName="description" placeholder="Add short description here" required>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
       </sl-textarea>
+      {{myForm.controls.description.errors | json}}
       <sl-label for="approval-id">Approval</sl-label>
       <sl-checkbox #myReactiveCheckbox id="approval-id" formControlName="approval" required>Check me</sl-checkbox>
       <sl-label for="radio-group-options">Select option</sl-label>
@@ -155,10 +160,11 @@ export class CheckboxComponent {
     </form>
   `,
 }) // TODO use slot customError for invalidurl example?
-export class ReactiveFormComponent implements AfterViewChecked {
+export class ReactiveFormComponent implements AfterViewChecked, AfterContentChecked, DoCheck, OnChanges {
   myForm = new FormGroup({
-    name: new FormControl('', [Validators.minLength(8), Validators.required, ValidateUrl]), // , [Validators.minLength(8), Validators.required]
-    description: new FormControl('', Validators.required),
+    name: new FormControl('', [Validators.minLength(8), Validators.required]), // , [Validators.minLength(8), Validators.required]
+    website: new FormControl('', [Validators.minLength(8), Validators.required, ValidateUrl]), // , [Validators.minLength(8), Validators.required]
+    description: new FormControl('', [Validators.required, StartsWithThisIs]),
     approval: new FormControl('yes', Validators.requiredTrue),
     option: new FormControl()
   });
@@ -173,6 +179,9 @@ export class ReactiveFormComponent implements AfterViewChecked {
   @ViewChild('myReactiveInput', { static: true, read: ElementRef })
   myInput!: ElementRef<HTMLInputElement>;
 
+  @ViewChild('myReactiveInputUrl', { static: true, read: ElementRef })
+  myUrlInput!: ElementRef<HTMLInputElement>;
+
   @ViewChild('myReactiveTextarea', { static: true, read: ElementRef })
   myTextarea!: ElementRef<HTMLTextAreaElement>;
 
@@ -183,6 +192,23 @@ export class ReactiveFormComponent implements AfterViewChecked {
   myRadioGroup!: ElementRef;
 
   submitted = false;
+
+  ngOnChanges(changes:SimpleChanges) {
+    console.log('changes in ngOnChanges', changes);
+  }
+
+  ngDoCheck() {
+    // const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+    // if (this.submitted) {
+    //   if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
+    //     // this.myInput.nativeElement.setCustomValidity('invalid url...');
+    //     input.setCustomValidity('invalid url...');
+    //   } /*else {
+    //     // this.myInput.nativeElement.setCustomValidity('');
+    //     input.setCustomValidity('');
+    //   }*/
+    // }
+  }
 
   ngAfterViewChecked(): void {
     console.log('ngafterviewchecked in form before if', this.submitted, this.myForm, this.myForm.controls.name.errors, this.myInput.nativeElement);
@@ -201,12 +227,34 @@ export class ReactiveFormComponent implements AfterViewChecked {
       // //(this.checkboxWithNgmodel as Checkbox).checkValidity();
       // this.myCheckboxRef.nativeElement.internals.checkValidity();
 
+
       const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+      const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+
+      console.log('this.myForm.controls.name.errors?.[\'invalidUrl\']', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
+
+      if (this.myForm.controls.website.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
+        // this.myInput.nativeElement.setCustomValidity('invalid url...');
+        console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in if', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
+        urlInput.setCustomValidity('The url is invalid, please check it');
+      }  else {
+        // this.myInput.nativeElement.setCustomValidity('');
+        console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in else', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
+        urlInput.setCustomValidity('');
+      } // TODO: maybe move to on submit>? because of the delay
+
+      urlInput.checkValidity();
       input.checkValidity();
       const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
-      textarea.checkValidity();
+      if (this.myForm.controls.description.errors?.['invalidStart']) {
+        textarea.setCustomValidity('The description should starts with "This is"');
+      } else {
+        textarea.setCustomValidity('');
+      }
 
-      console.log('input.validationMessage in reactiveform', input.validationMessage, this.myInput.nativeElement.validity, Object.keys(this.myForm.controls.name.errors), Object.entries(this.myForm.controls.name.errors), Array.of(this.myForm.controls.name.errors as Object), this.myForm.controls.name.errors?.['invalidUrl']);
+        textarea.checkValidity();
+
+ //     console.log('input.validationMessage in reactiveform', input.validationMessage, this.myInput.nativeElement.validity, Object.keys(this.myForm.controls.name.errors), Object.entries(this.myForm.controls.name.errors), Array.of(this.myForm.controls.name.errors as Object), this.myForm.controls.name.errors?.['invalidUrl']);
 
       // if (this.myForm.controls.name.errors) {
       //   const keys = Object.keys(this.myForm.controls.name.errors);
@@ -217,13 +265,13 @@ export class ReactiveFormComponent implements AfterViewChecked {
       //   });
       // }
 
-      if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
-        // this.myInput.nativeElement.setCustomValidity('invalid url...');
-        input.setCustomValidity('invalid url...');
-      } else {
-        // this.myInput.nativeElement.setCustomValidity('');
-        input.setCustomValidity('');
-      } // TODO: maybe move to on submit>? because of the delay
+      // if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
+      //   // this.myInput.nativeElement.setCustomValidity('invalid url...');
+      //   input.setCustomValidity('invalid url...');
+      // } /*else {
+      //   // this.myInput.nativeElement.setCustomValidity('');
+      //   input.setCustomValidity('');
+      // }*/ // TODO: maybe move to on submit>? because of the delay
     } else {
       // this.inputWithNgmodel.control.markAsUntouched();
       // this.inputWithNgmodel.control.markAsPristine();
@@ -234,6 +282,25 @@ export class ReactiveFormComponent implements AfterViewChecked {
 
       this.myForm.controls.name.markAsUntouched();
       this.myForm.controls.name.markAsPristine();
+    }
+  }
+
+  ngAfterContentChecked(): void {
+    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+    const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+    const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+  console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in aftercontentchecked', this.myForm.controls.name.errors?.['invalidUrl']);
+    if (this.submitted) {
+      // if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
+      //   // this.myInput.nativeElement.setCustomValidity('invalid url...');
+      //   // input.setCustomValidity('invalid url...');
+      // } else {
+      //   // this.myInput.nativeElement.setCustomValidity('');
+      //   // input.setCustomValidity('');
+      // }
+      urlInput.checkValidity();
+      input.checkValidity();
+      textarea.checkValidity();
     }
   }
 
@@ -270,6 +337,11 @@ export class ReactiveFormComponent implements AfterViewChecked {
 
     this.myForm.markAllAsTouched();
 
+    // const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+    // if (this.myForm.controls.name.errors?.['invalidUrl']) {
+    //   input.setCustomValidity('invalid url...');
+    // }
+
    // this.myInput.nativeElement.setCustomValidity('teeeest');
 
     Object.values(form.controls).forEach(control => {
@@ -292,6 +364,279 @@ export class ReactiveFormComponent implements AfterViewChecked {
       // this.myForm.controls.name.markAsTouched();
       // this.myForm.markAllAsTouched();
      // this.validateAllFormFields(form); //{7}
+    }
+  }
+}
+
+@Component({
+  selector: 'sla-reactive-form-required-report',
+  styles: [`
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    sl-text-input,
+    sl-textarea {
+      width: 50%;
+    }
+
+    sl-button {
+      width: fit-content;
+    }
+  `],
+  template: `
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit($event, myForm)">
+      <sl-label for="name-input">Name</sl-label>
+      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text input" minlength="8" required>
+      </sl-text-input>
+      <sl-label for="website-input">Url (with custom validation)</sl-label>
+      <sl-text-input id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="this is a hint for the text input with your website" minlength="8" required>
+      </sl-text-input>
+      <!--<div slot="custom-error">custom error message - invalid url</div>-->
+      <!--*ngIf="myForm.controls.name.errors?.['invalidUrl']"-->
+      <!--{{myForm.controls.name.errors | json}}-->
+      <div *ngIf="myForm.controls.name.errors?.['invalidUrl']">test invalidUrl</div>
+      <sl-label for="description-id">Description</sl-label>
+      <sl-textarea id="description-id" #myReactiveTextarea formControlName="description" placeholder="Add short description here" required>
+        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
+      </sl-textarea>
+      {{myForm.controls.description.errors | json}}
+      <sl-label for="approval-id">Approval</sl-label>
+      <sl-checkbox #myReactiveCheckbox id="approval-id" formControlName="approval" required>Check me</sl-checkbox>
+      <sl-label for="radio-group-options">Select option</sl-label>
+      <sl-radio-group #myReactiveRadioGroup id="radio-group-options" required>
+        <sl-radio value="1" formControlName="option">First option</sl-radio>
+        <sl-radio value="2" formControlName="option">Second option</sl-radio>
+        <sl-radio value="3" formControlName="option">Third option</sl-radio>
+      </sl-radio-group>
+      <sl-button type="submit" variant="primary">Send</sl-button>
+      <div>Name: {{myForm.value.name}} {{myForm.controls.name.valid}}</div>
+      <div>Description: {{myForm.value.description}} {{myForm.controls.description.valid}}</div>
+      <div>Approval: {{myForm.value.approval}} {{myForm.controls.approval.valid}}</div>
+      <div>Option: {{myForm.value.option}} {{myForm.controls.option.valid}}</div>
+      <div>Form valid? {{myForm.valid}}</div>
+      <div>Form validator: {{myForm.controls.name.errors | json}}</div>
+      <div>Form touched: {{myForm.touched | json}} {{myForm.controls.name.touched}}</div>
+    </form>
+  `,
+}) // TODO use slot customError for invalidurl example?
+export class ReactiveFormRequiredReportComponent implements /*AfterViewInit,*/ AfterViewChecked, AfterContentChecked, AfterContentInit {
+  myForm = new FormGroup({
+    name: new FormControl('', [Validators.minLength(8), Validators.required]), // , [Validators.minLength(8), Validators.required]
+    website: new FormControl('', [Validators.minLength(8), Validators.required, ValidateUrl]), // , [Validators.minLength(8), Validators.required]
+    description: new FormControl('', [Validators.required, StartsWithThisIs]),
+    approval: new FormControl('yes', Validators.requiredTrue),
+    option: new FormControl()
+  });
+
+  // ValidateUrl(control: AbstractControl) {
+  //   if (!control.value.startsWith('https') || !control.value.includes('.io')) {
+  //     return { invalidUrl: true };
+  //   }
+  //   return null;
+  // }
+
+  @ViewChild('myReactiveInput', { static: true, read: ElementRef })
+  myInput!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('myReactiveInputUrl', { static: true, read: ElementRef })
+  myUrlInput!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('myReactiveTextarea', { static: true, read: ElementRef })
+  myTextarea!: ElementRef<HTMLTextAreaElement>;
+
+  @ViewChild('myReactiveCheckbox', { static: true, read: ElementRef })
+  myCheckbox!: ElementRef;
+
+  @ViewChild('myReactiveRadioGroup', { static: true, read: ElementRef })
+  myRadioGroup!: ElementRef;
+
+  submitted = false;
+
+  ngAfterViewChecked(): void {
+    console.log('ngafterviewchecked in form before if', this.submitted, this.myForm, this.myForm.controls.name.errors, this.myInput.nativeElement);
+
+    this.myForm.markAllAsTouched();
+    Object.values(this.myForm.controls).forEach(control => {
+      console.log('control in reactive', control);
+      control.markAsTouched();
+      control.markAsDirty();
+      control.updateValueAndValidity();
+    });
+
+    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+    const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+    input.reportValidity();
+    urlInput.reportValidity();
+
+    if (this.submitted) {
+      // this.myForm.controls.name.che
+      // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+      // // input.reportValidity();
+      // input.checkValidity();
+      // // this.inputWithNgmodel.control.markAsTouched();
+      // // this.inputWithNgmodel.control.markAsDirty();
+      // // this.inputWithNgmodel.control.updateValueAndValidity();
+      // const textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      // console.log('textarea...', textarea);
+      // textarea.checkValidity();
+      // //(this.checkboxWithNgmodel as Checkbox).checkValidity();
+      // this.myCheckboxRef.nativeElement.internals.checkValidity();
+
+
+      const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+      const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+
+      console.log('this.myForm.controls.name.errors?.[\'invalidUrl\']', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
+
+      if (this.myForm.controls.website.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
+        // this.myInput.nativeElement.setCustomValidity('invalid url...');
+        console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in if', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
+        urlInput.setCustomValidity('The url is invalid, please check it');
+      }  else {
+        // this.myInput.nativeElement.setCustomValidity('');
+        console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in else', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
+        urlInput.setCustomValidity('');
+      } // TODO: maybe move to on submit>? because of the delay
+
+      urlInput.checkValidity();
+      input.checkValidity();
+      const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      if (this.myForm.controls.description.errors?.['invalidStart']) {
+        textarea.setCustomValidity('The description should starts with "This is"');
+      } else {
+        textarea.setCustomValidity('');
+      }
+
+      textarea.checkValidity();
+
+      //     console.log('input.validationMessage in reactiveform', input.validationMessage, this.myInput.nativeElement.validity, Object.keys(this.myForm.controls.name.errors), Object.entries(this.myForm.controls.name.errors), Array.of(this.myForm.controls.name.errors as Object), this.myForm.controls.name.errors?.['invalidUrl']);
+
+      // if (this.myForm.controls.name.errors) {
+      //   const keys = Object.keys(this.myForm.controls.name.errors);
+      //   console.log(keys);
+      //
+      //   keys.forEach((key) => {
+      //     console.log(key, this.myForm.controls.name?.errors[key]);
+      //   });
+      // }
+
+      // if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
+      //   // this.myInput.nativeElement.setCustomValidity('invalid url...');
+      //   input.setCustomValidity('invalid url...');
+      // } /*else {
+      //   // this.myInput.nativeElement.setCustomValidity('');
+      //   input.setCustomValidity('');
+      // }*/ // TODO: maybe move to on submit>? because of the delay
+    } else {
+      // this.inputWithNgmodel.control.markAsUntouched();
+      // this.inputWithNgmodel.control.markAsPristine();
+      // this.textareaWithNgmodel.control.markAsUntouched();
+      // this.textareaWithNgmodel.control.markAsPristine();
+      // this.checkboxWithNgmodel.control.markAsUntouched();
+      // this.checkboxWithNgmodel.control.markAsPristine();
+
+      // this.myForm.controls.name.markAsUntouched();
+      // this.myForm.controls.name.markAsPristine();
+    }
+  }
+
+  ngAfterContentInit(): void {
+    // this.myForm.markAllAsTouched();
+    // Object.values(this.myForm.controls).forEach(control => {
+    //   console.log('control in reactive', control);
+    //   control.markAsTouched();
+    //   control.markAsDirty();
+    //   control.updateValueAndValidity();
+    // });
+    //
+    // const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+    // const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+    // input.reportValidity();
+    // urlInput.reportValidity();
+  }
+
+  ngAfterContentChecked(): void {
+    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+    const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+    const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+    console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in aftercontentchecked', this.myForm.controls.name.errors?.['invalidUrl']);
+    if (this.submitted) {
+      // if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
+      //   // this.myInput.nativeElement.setCustomValidity('invalid url...');
+      //   // input.setCustomValidity('invalid url...');
+      // } else {
+      //   // this.myInput.nativeElement.setCustomValidity('');
+      //   // input.setCustomValidity('');
+      // }
+      urlInput.checkValidity();
+      input.checkValidity();
+      textarea.checkValidity();
+    }
+  }
+
+  // validateAllFormFields(formGroup: FormGroup) {
+  //   console.log('validateall');//{1}
+  //   Object.keys(formGroup.controls).forEach(field => {  //{2}
+  //     const control = formGroup.get(field);
+  //     console.log('control', control);//{3}
+  //     if (control instanceof FormControl) {
+  //       console.log('ifff');//{4}
+  //       control.markAsTouched({ onlySelf: true });
+  //       control.markAsDirty({ onlySelf: true });
+  //      // control.registerOnChange();
+  //     } /*else if (control instanceof FormGroup) {        //{5}
+  //       this.validateAllFormFields(control);            //{6}
+  //     }*/
+  //   });
+  // }
+
+  onSubmit(event: Event, form: FormGroup) {
+    console.log('form on submit', form, form.valid, form.controls);
+    // form.markAsTouched();
+    // alert(`form submit: Name: ${form.value.name},
+    //       Description: ${form.value.description},
+    //       Approval: ${form.value.approval} ${form.value.approval.valid},
+    //       Option: ${form.value.option},
+    //       form-invalid: ${form.invalid}`);
+
+    // form.addValidators(() => )
+
+    event.preventDefault();
+
+    this.submitted = true;
+
+    this.myForm.markAllAsTouched();
+
+    // const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+    // if (this.myForm.controls.name.errors?.['invalidUrl']) {
+    //   input.setCustomValidity('invalid url...');
+    // }
+
+    // this.myInput.nativeElement.setCustomValidity('teeeest');
+
+    Object.values(form.controls).forEach(control => {
+      console.log('control in reactive', control);
+      control.markAsTouched();
+      control.updateValueAndValidity();
+    });
+
+    this.myCheckbox.nativeElement.internals.checkValidity();
+
+    this.myRadioGroup.nativeElement.internals.checkValidity();
+
+    // if (form.invalid) {
+    //   return;
+    // }
+    if (form.valid) {
+      alert('form submitted');
+    } else {
+      alert('form NOT submitted');
+      // this.myForm.controls.name.markAsTouched();
+      // this.myForm.markAllAsTouched();
+      // this.validateAllFormFields(form); //{7}
     }
   }
 }
@@ -599,7 +944,7 @@ export default {
   title: 'Forms',
   decorators: [
     moduleMetadata({
-      declarations: [CheckboxComponent, InputComponent, ReactiveFormComponent, TemplateFormComponent, TextareaComponent],
+      declarations: [CheckboxComponent, InputComponent, ReactiveFormComponent, ReactiveFormRequiredReportComponent, TemplateFormComponent, TextareaComponent],
       imports: [CoreFormsModule, FormsModule, ReactiveFormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }),
@@ -622,6 +967,10 @@ export const Checkbox: StoryFn = () => ({
 
 export const ReactiveForm: StoryFn = () => ({
   template: `<sla-reactive-form></sla-reactive-form>`,
+});
+
+export const ReactiveFormRequiredReport: StoryFn = () => ({
+  template: `<sla-reactive-form-required-report></sla-reactive-form-required-report>`,
 });
 
 export const TemplateDrivenForm: StoryFn = () => ({

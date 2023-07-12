@@ -96,13 +96,13 @@ export class TextareaDirective implements ControlValueAccessor, Validator, After
 
     if (control.untouched /*&& control.pristine*/) {
       console.log('in textarea validate control untouched', control);
-      // return control.errors; // TODO: return null or not causing invalid?
-      return null;
+      return control.errors; // TODO: return null or not causing invalid?
+      // return null;
     } else {
       console.log('in textarea validate control  else', control);
       // this.validatorOnChange();
-      return control.errors;
-      // return null;
+      // return control.errors;
+      return null;
     }
 
   }
@@ -110,13 +110,7 @@ export class TextareaDirective implements ControlValueAccessor, Validator, After
   constructor(private elementRef: ElementRef) {}
 
   ngAfterViewChecked() {
-    const inputElement = this.elementRef.nativeElement.querySelector('input');
-    //
-    // console.log('input in ngAfterViewChecked', inputElement, this._value);
-    //
-     this.validatorOnChange(); // TODO: helps with delay, but not working yet on submitting
-    //
-    // this.#validation.validate(this.value);
+     this.validatorOnChange();
   }
 
   @HostListener('input', ['$event.target.value'])

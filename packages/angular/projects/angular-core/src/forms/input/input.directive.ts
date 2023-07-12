@@ -88,12 +88,15 @@ export class InputDirective implements ControlValueAccessor, Validator/*,*/ , Af
     // console.log('control touched -------->>>>>>>', control, control.touched, control.valid, input.validationMessage/*, (control.parent as NgForm).submitted*/ /*, input.reportValidity()*/);
 
 
-    console.log('in input validate control controlll', control, control.untouched);
+    console.log('in input validate control controlll', control, control.untouched, control.valid);
 
     if (control.untouched /*&& control.pristine*/) {
       console.log('in input validate control untouched', control);
-       return control.errors; // TODO: return null or not causing invalid?
+      return control.errors; // TODO: return null or not causing invalid?
       //return null;
+    // } else if (control.errors) {
+    //   console.log('in input validate control  else ifff', control);
+    //   return control.errors;
     } else {
       console.log('in input validate control  else', control);
       // this.validatorOnChange();

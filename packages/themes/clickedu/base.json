@@ -462,7 +462,7 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "The Message",
+          "value": "Space Grotesk",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },
@@ -946,7 +946,7 @@
       "text": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}"
@@ -955,7 +955,7 @@
         },
         "md": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.md}",
             "fontSize": "{text.typeset.fontSize.md}"
@@ -964,7 +964,7 @@
         },
         "lg": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.lg}",
             "fontSize": "{text.typeset.fontSize.lg}"
@@ -1139,12 +1139,12 @@
     "width": {
       "button": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.default"
         },
         "outline": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },

@@ -121,7 +121,7 @@
   --sl-text-typeset-font-weight-bold: 700;
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-body: montserrat;
-  --sl-text-typeset-font-family-heading: the-message;
+  --sl-text-typeset-font-family-heading: space-grotesk;
   --sl-color-palette-transparent-base: 0 0 0 / 0;
   --sl-color-palette-white-base: 255 255 255;
   --sl-color-palette-black-base: 58 58 58;
@@ -318,8 +318,8 @@
   --sl-border-width-input-border: var(--sl-border-width-sm);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-button-link: var(--sl-border-width-none);
-  --sl-border-width-button-outline: var(--sl-border-width-xs);
-  --sl-border-width-button-default: var(--sl-border-width-xs);
+  --sl-border-width-button-outline: var(--sl-border-width-sm);
+  --sl-border-width-button-default: var(--sl-border-width-sm);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
   --sl-border-radius-default: var(--sl-border-radius-3xs);
@@ -338,11 +338,11 @@
     undefined;
   --sl-text-button-font-icon-sm: undefined 13 / var(--sl-text-typeset-line-height-xxs) undefined;
   --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-heading);
   --sl-text-button-text-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
-    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-heading);
   --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-heading);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /

@@ -22,6 +22,19 @@ export const Simple: Story = {
   `
 };
 
+export const Few: Story = {
+  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people}>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="email"></sl-grid-column>
+      <sl-grid-column path="address.phone"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
 export const Small: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`

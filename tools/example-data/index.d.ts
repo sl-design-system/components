@@ -11,4 +11,10 @@ export interface People {
   people: Person[];
 }
 
-export declare function getPeople(): Promise<People>;
+export interface Options {
+  count?: number;
+  managerId?: string;
+  startIndex?: number;
+}
+
+export declare function getPeople(options?: Options): Promise<People>;

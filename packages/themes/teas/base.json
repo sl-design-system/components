@@ -1413,7 +1413,7 @@
         },
         "type": "composition"
       },
-      "solid": {
+      "core": {
         "sm": {
           "border": {
             "radius": {
@@ -1572,7 +1572,9 @@
               "description": "component.button.solid.lg.padding.inline"
             }
           }
-        },
+        }
+      },
+      "solid": {
         "default": {
           "idle": {
             "background": {
@@ -2095,165 +2097,6 @@
         }
       },
       "outline": {
-        "sm": {
-          "border": {
-            "radius": {
-              "value": "{control.sm.border.radius}",
-              "type": "borderRadius",
-              "description": "component.button.outline.sm.border.radius"
-            },
-            "width": {
-              "value": "{control.sm.border.width}",
-              "type": "borderWidth",
-              "description": "component.button.outline.sm.border.width"
-            }
-          },
-          "font": {
-            "value": {
-              "fontFamily": "{control.sm.font.family}",
-              "fontSize": "{control.sm.font.size}",
-              "fontWeight": "{control.sm.font.weight}",
-              "lineHeight": "{control.sm.font.lineHeight}"
-            },
-            "description": "component.button.outline.sm.font",
-            "type": "typography"
-          },
-          "gap": {
-            "value": "{control.sm.gap}",
-            "type": "spacing",
-            "description": "component.button.outline.sm.gap"
-          },
-          "outline": {
-            "offset": {
-              "value": "{control.sm.outline.offset}",
-              "type": "spacing",
-              "description": "component.button.outline.sm.outline.offset"
-            },
-            "width": {
-              "value": "{control.sm.outline.width}",
-              "type": "borderWidth",
-              "description": "component.button.outline.sm.outline.width"
-            }
-          },
-          "padding": {
-            "block": {
-              "value": "{space.xs} - {control.sm.border.width}",
-              "type": "spacing",
-              "description": "component.button.outline.sm.padding.block"
-            },
-            "inline": {
-              "value": "{space.lg} - {control.sm.border.width}",
-              "type": "spacing",
-              "description": "component.button.outline.sm.padding.inline"
-            }
-          }
-        },
-        "md": {
-          "border": {
-            "radius": {
-              "value": "{control.md.border.radius}",
-              "type": "borderRadius",
-              "description": "component.button.outline.md.border.radius"
-            },
-            "width": {
-              "value": "{control.md.border.width}",
-              "type": "borderWidth",
-              "description": "component.button.outline.md.border.width"
-            }
-          },
-          "font": {
-            "value": {
-              "fontFamily": "{control.md.font.family}",
-              "fontSize": "{control.md.font.size}",
-              "fontWeight": "{control.md.font.weight}",
-              "lineHeight": "{control.md.font.lineHeight}"
-            },
-            "description": "component.button.outline.md.font",
-            "type": "typography"
-          },
-          "gap": {
-            "value": "{control.md.gap}",
-            "type": "spacing",
-            "description": "component.button.outline.md.gap"
-          },
-          "outline": {
-            "offset": {
-              "value": "{control.md.outline.offset}",
-              "type": "spacing",
-              "description": "component.button.outline.md.outline.offset"
-            },
-            "width": {
-              "value": "{control.md.outline.width}",
-              "type": "borderWidth",
-              "description": "component.button.outline.md.outline.width"
-            }
-          },
-          "padding": {
-            "block": {
-              "value": "{space.sm} - {control.md.border.width}",
-              "type": "spacing",
-              "description": "component.button.outline.md.padding.block"
-            },
-            "inline": {
-              "value": "{space.lg} - {control.md.border.width}",
-              "type": "spacing",
-              "description": "component.button.outline.md.padding.inline"
-            }
-          }
-        },
-        "lg": {
-          "border": {
-            "radius": {
-              "value": "{control.md.border.radius}",
-              "type": "borderRadius",
-              "description": "component.button.outline.lg.border.radius"
-            },
-            "width": {
-              "value": "{control.md.border.width}",
-              "type": "borderWidth",
-              "description": "component.button.outline.lg.border.width"
-            }
-          },
-          "font": {
-            "value": {
-              "fontFamily": "{control.lg.font.family}",
-              "fontSize": "{control.lg.font.size}",
-              "fontWeight": "{control.lg.font.weight}",
-              "lineHeight": "{control.lg.font.lineHeight}"
-            },
-            "description": "component.button.outline.lg.font",
-            "type": "typography"
-          },
-          "gap": {
-            "value": "{control.md.gap}",
-            "type": "spacing",
-            "description": "component.button.outline.lg.gap"
-          },
-          "outline": {
-            "offset": {
-              "value": "{control.md.outline.offset}",
-              "type": "spacing",
-              "description": "component.button.outline.lg.outline.offset"
-            },
-            "width": {
-              "value": "{control.md.outline.width}",
-              "type": "borderWidth",
-              "description": "component.button.outline.lg.outline.width"
-            }
-          },
-          "padding": {
-            "block": {
-              "value": "{space.sm} - {control.lg.border.width}",
-              "type": "spacing",
-              "description": "component.button.outline.lg.padding.block"
-            },
-            "inline": {
-              "value": "{space.lg} - {control.lg.border.width}",
-              "type": "spacing",
-              "description": "component.button.outline.lg.padding.inline"
-            }
-          }
-        },
         "default": {
           "idle": {
             "background": {
@@ -2776,165 +2619,6 @@
         }
       },
       "ghost": {
-        "sm": {
-          "border": {
-            "radius": {
-              "value": "{control.sm.border.radius}",
-              "type": "borderRadius",
-              "description": "component.button.ghost.sm.border.radius"
-            },
-            "width": {
-              "value": "{border.width.none}",
-              "type": "borderWidth",
-              "description": "component.button.ghost.sm.border.width"
-            }
-          },
-          "font": {
-            "value": {
-              "fontFamily": "{control.sm.font.family}",
-              "fontSize": "{control.sm.font.size}",
-              "fontWeight": "{control.sm.font.weight}",
-              "lineHeight": "{control.sm.font.lineHeight}"
-            },
-            "type": "typography",
-            "description": "component.button.ghost.sm.font"
-          },
-          "gap": {
-            "value": "{control.sm.gap}",
-            "type": "spacing",
-            "description": "component.button.ghost.sm.gap"
-          },
-          "outline": {
-            "offset": {
-              "value": "{control.sm.outline.offset}",
-              "type": "spacing",
-              "description": "component.button.ghost.sm.outline.offset"
-            },
-            "width": {
-              "value": "{control.sm.outline.width}",
-              "type": "borderWidth",
-              "description": "component.button.ghost.sm.outline.width"
-            }
-          },
-          "padding": {
-            "block": {
-              "value": "{space.xs}",
-              "type": "spacing",
-              "description": "component.button.ghost.sm.padding.block"
-            },
-            "inline": {
-              "value": "{space.lg}",
-              "type": "spacing",
-              "description": "component.button.ghost.sm.padding.inline"
-            }
-          }
-        },
-        "md": {
-          "border": {
-            "radius": {
-              "value": "{control.md.border.radius}",
-              "type": "borderRadius",
-              "description": "component.button.ghost.md.border.radius"
-            },
-            "width": {
-              "value": "{border.width.none}",
-              "type": "borderWidth",
-              "description": "component.button.ghost.md.border.width"
-            }
-          },
-          "font": {
-            "value": {
-              "fontFamily": "{control.md.font.family}",
-              "fontSize": "{control.md.font.size}",
-              "fontWeight": "{control.md.font.weight}",
-              "lineHeight": "{control.md.font.lineHeight}"
-            },
-            "type": "typography",
-            "description": "component.button.ghost.md.font"
-          },
-          "gap": {
-            "value": "{control.md.gap}",
-            "type": "spacing",
-            "description": "component.button.ghost.md.gap"
-          },
-          "outline": {
-            "offset": {
-              "value": "{control.md.outline.offset}",
-              "type": "spacing",
-              "description": "component.button.ghost.md.outline.offset"
-            },
-            "width": {
-              "value": "{control.md.outline.width}",
-              "type": "borderWidth",
-              "description": "component.button.ghost.md.outline.width"
-            }
-          },
-          "padding": {
-            "block": {
-              "value": "{space.sm}",
-              "type": "spacing",
-              "description": "component.button.ghost.md.padding.block"
-            },
-            "inline": {
-              "value": "{space.lg}",
-              "type": "spacing",
-              "description": "component.button.ghost.md.padding.inline"
-            }
-          }
-        },
-        "lg": {
-          "border": {
-            "radius": {
-              "value": "{control.lg.border.radius}",
-              "type": "borderRadius",
-              "description": "component.button.ghost.lg.border.radius"
-            },
-            "width": {
-              "value": "{border.width.none}",
-              "type": "borderWidth",
-              "description": "component.button.ghost.lg.border.width"
-            }
-          },
-          "font": {
-            "value": {
-              "fontFamily": "{control.lg.font.family}",
-              "fontSize": "{control.lg.font.size}",
-              "fontWeight": "{control.lg.font.weight}",
-              "lineHeight": "{control.lg.font.lineHeight}"
-            },
-            "type": "typography",
-            "description": "component.button.ghost.lg.font"
-          },
-          "gap": {
-            "value": "{control.lg.gap}",
-            "type": "spacing",
-            "description": "component.button.ghost.lg.gap"
-          },
-          "outline": {
-            "offset": {
-              "value": "{control.lg.outline.offset}",
-              "type": "spacing",
-              "description": "component.button.ghost.lg.outline.offset"
-            },
-            "width": {
-              "value": "{control.lg.outline.width}",
-              "type": "borderWidth",
-              "description": "component.button.ghost.lg.outline.width"
-            }
-          },
-          "padding": {
-            "block": {
-              "value": "{space.sm}",
-              "type": "spacing",
-              "description": "component.button.ghost.lg.padding.block"
-            },
-            "inline": {
-              "value": "{space.lg}",
-              "type": "spacing",
-              "description": "component.button.ghost.lg.padding.inline"
-            }
-          }
-        },
         "default": {
           "idle": {
             "background": {
@@ -3283,18 +2967,6 @@
       },
       "link": {
         "sm": {
-          "border": {
-            "radius": {
-              "value": "{control.sm.border.radius}",
-              "type": "borderRadius",
-              "description": "component.button.link.sm.border.radius"
-            },
-            "width": {
-              "value": "{border.width.none}",
-              "type": "borderWidth",
-              "description": "component.button.link.sm.border.width"
-            }
-          },
           "font": {
             "value": {
               "fontFamily": "{control.sm.font.family}",
@@ -3302,52 +2974,23 @@
               "fontWeight": "{control.sm.font.weight}",
               "lineHeight": "{control.sm.font.lineHeight}"
             },
-            "type": "typography",
-            "description": "component.button.link.sm.font"
-          },
-          "gap": {
-            "value": "{control.sm.gap}",
-            "type": "spacing",
-            "description": "component.button.link.sm.gap"
-          },
-          "outline": {
-            "offset": {
-              "value": "{control.sm.outline.offset}",
-              "type": "spacing",
-              "description": "component.button.link.sm.outline.offset"
-            },
-            "width": {
-              "value": "{control.sm.outline.width}",
-              "type": "borderWidth",
-              "description": "component.button.link.sm.outline.width"
-            }
+            "description": "component.button.solid.sm.font",
+            "type": "typography"
           },
           "padding": {
             "block": {
-              "value": "{space.xs}",
+              "value": "{space.xs} - {control.sm.border.width}",
               "type": "spacing",
-              "description": "component.button.link.sm.padding.block"
+              "description": "component.button.solid.sm.padding.block"
             },
             "inline": {
-              "value": "{space.none}",
+              "value": "{space.lg} - {control.sm.border.width}",
               "type": "spacing",
-              "description": "component.button.link.sm.padding.inline"
+              "description": "component.button.solid.sm.padding.inline"
             }
           }
         },
         "md": {
-          "border": {
-            "radius": {
-              "value": "{control.md.border.radius}",
-              "type": "borderRadius",
-              "description": "component.button.link.md.border.radius"
-            },
-            "width": {
-              "value": "{border.width.none}",
-              "type": "borderWidth",
-              "description": "component.button.link.md.border.width"
-            }
-          },
           "font": {
             "value": {
               "fontFamily": "{control.md.font.family}",
@@ -3355,52 +2998,23 @@
               "fontWeight": "{control.md.font.weight}",
               "lineHeight": "{control.md.font.lineHeight}"
             },
-            "type": "typography",
-            "description": "component.button.link.md.font"
-          },
-          "gap": {
-            "value": "{control.md.gap}",
-            "type": "spacing",
-            "description": "component.button.link.md.gap"
-          },
-          "outline": {
-            "offset": {
-              "value": "{control.md.outline.offset}",
-              "type": "spacing",
-              "description": "component.button.link.md.outline.offset"
-            },
-            "width": {
-              "value": "{control.md.outline.width}",
-              "type": "borderWidth",
-              "description": "component.button.link.md.outline.width"
-            }
+            "description": "component.button.solid.md.font",
+            "type": "typography"
           },
           "padding": {
             "block": {
-              "value": "{space.sm}",
+              "value": "{space.sm} - {control.md.border.width}",
               "type": "spacing",
-              "description": "component.button.link.md.padding.block"
+              "description": "component.button.solid.md.padding.block"
             },
             "inline": {
-              "value": "{space.none}",
+              "value": "{space.lg} - {control.md.border.width}",
               "type": "spacing",
-              "description": "component.button.link.md.padding.inline"
+              "description": "component.button.solid.md.padding.inline"
             }
           }
         },
         "lg": {
-          "border": {
-            "radius": {
-              "value": "{control.md.border.radius}",
-              "type": "borderRadius",
-              "description": "component.button.link.lg.border.radius"
-            },
-            "width": {
-              "value": "{border.width.none}",
-              "type": "borderWidth",
-              "description": "component.button.link.lg.border.width"
-            }
-          },
           "font": {
             "value": {
               "fontFamily": "{control.lg.font.family}",
@@ -3408,36 +3022,19 @@
               "fontWeight": "{control.lg.font.weight}",
               "lineHeight": "{control.lg.font.lineHeight}"
             },
-            "type": "typography",
-            "description": "component.button.link.lg.font"
-          },
-          "gap": {
-            "value": "{control.md.gap}",
-            "type": "spacing",
-            "description": "component.button.link.lg.gap"
-          },
-          "outline": {
-            "offset": {
-              "value": "{control.md.outline.offset}",
-              "type": "spacing",
-              "description": "component.button.link.lg.outline.offset"
-            },
-            "width": {
-              "value": "{control.md.outline.width}",
-              "type": "borderWidth",
-              "description": "component.button.link.lg.outline.width"
-            }
+            "description": "component.button.solid.lg.font",
+            "type": "typography"
           },
           "padding": {
             "block": {
-              "value": "{space.sm}",
+              "value": "{space.sm} - {control.lg.border.width}",
               "type": "spacing",
-              "description": "component.button.link.lg.padding.block"
+              "description": "component.button.solid.lg.padding.block"
             },
             "inline": {
-              "value": "{space.none}",
+              "value": "{space.lg} - {control.lg.border.width}",
               "type": "spacing",
-              "description": "component.button.link.lg.padding.inline"
+              "description": "component.button.solid.lg.padding.inline"
             }
           }
         },
@@ -3828,6 +3425,42 @@
             "value": "{control.lg.font.lineHeight}",
             "type": "sizing",
             "description": "component.button.icon-only.lg.inlineSize"
+          }
+        }
+      },
+      "link-copy": {
+        "sm": {
+          "font": {
+            "value": {
+              "textCase": "{text.typeset.textDecoration.underline}"
+            },
+            "type": "typography",
+            "description": "component.button.solid.sm.font"
+          }
+        },
+        "md": {
+          "font": {
+            "value": {
+              "fontFamily": "{control.md.font.family}",
+              "fontSize": "{control.md.font.size}",
+              "fontWeight": "{control.md.font.weight}",
+              "lineHeight": "{control.md.font.lineHeight}"
+            },
+            "description": "component.button.solid.md.font",
+            "type": "typography"
+          }
+        },
+        "lg": {
+          "font": {
+            "value": {
+              "fontFamily": "{control.lg.font.family}",
+              "fontSize": "{control.lg.font.size}",
+              "fontWeight": "{control.lg.font.weight}",
+              "lineHeight": "{control.lg.font.lineHeight}",
+              "textCase": "{text.typeset.textDecoration.underline}"
+            },
+            "type": "typography",
+            "description": "component.button.solid.lg.font"
           }
         }
       }

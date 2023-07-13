@@ -635,7 +635,7 @@
         "default": {
           "idle": {
             "background": {
-              "value": "{color.palette.success.base}",
+              "value": "{color.palette.success.300}",
               "type": "color",
               "description": "color.button.success.solid.idle.background",
               "failedToResolve": true
@@ -647,7 +647,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.success.base}",
+              "value": "{color.palette.success.300}",
               "type": "color",
               "description": "color.button.success.solid.idle.border",
               "failedToResolve": true

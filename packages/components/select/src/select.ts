@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { SelectOptionGroup } from './select-option-group.js';
 import {
   AnchorController,
@@ -147,6 +147,15 @@ export class Select extends FormControlMixin(LitElement) {
 
     if (this.selectedOption) {
       this.#setSelectedOptionVisible(this.selectedOption);
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('size')) {
+      this.allOptions?.forEach(option => (option.size = this.size));
+      this.optionGroups?.forEach(group => (group.size = this.size));
     }
   }
 

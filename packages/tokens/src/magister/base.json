@@ -965,7 +965,7 @@
               "value": "{border.width.sm}",
               "type": "borderWidth",
               "description": "control.sm.border.width"
-            }    
+            }
           }
         },
         "md": {
@@ -974,7 +974,7 @@
               "value": "{border.width.sm}",
               "type": "borderWidth",
               "description": "control.sm.border.width"
-            }    
+            }
           }
         },
         "lg": {
@@ -983,7 +983,7 @@
               "value": "{border.width.sm}",
               "type": "borderWidth",
               "description": "control.sm.border.width"
-            }    
+            }
           }
         },
         "default": {
@@ -998,7 +998,7 @@
                 "value": "{color.palette.primary.600}",
                 "type": "color",
                 "description": "color.button.default.idle.border"
-              }  
+              }
             }
           },
           "hover": {
@@ -1017,7 +1017,7 @@
                 "value": "{color.palette.primary.700}",
                 "type": "color",
                 "description": "color.button.default.idle.border"
-              }  
+              }
             }
           },
           "active": {
@@ -1150,12 +1150,6 @@
               }
             }
           }
-        },
-        "success": {
-        },
-        "warning": {
-        },
-        "danger": {
         }
       },
       "outline": {
@@ -1165,7 +1159,7 @@
               "value": "{border.width.sm}",
               "type": "borderWidth",
               "description": "control.sm.border.width"
-            }    
+            }
           }
         },
         "md": {
@@ -1174,7 +1168,7 @@
               "value": "{border.width.sm}",
               "type": "borderWidth",
               "description": "control.sm.border.width"
-            }    
+            }
           }
         },
         "lg": {
@@ -1183,7 +1177,7 @@
               "value": "{border.width.sm}",
               "type": "borderWidth",
               "description": "control.sm.border.width"
-            }    
+            }
           }
         }
       },
@@ -1194,7 +1188,7 @@
               "value": "{border.width.sm}",
               "type": "borderWidth",
               "description": "control.sm.border.width"
-            }    
+            }
           }
         },
         "md": {
@@ -1203,7 +1197,7 @@
               "value": "{border.width.sm}",
               "type": "borderWidth",
               "description": "control.sm.border.width"
-            }    
+            }
           }
         },
         "lg": {
@@ -1212,9 +1206,9 @@
               "value": "{border.width.sm}",
               "type": "borderWidth",
               "description": "control.sm.border.width"
-            }    
+            }
           }
-       }
+        }
       },
       "icon-only": {
         "sm": {

@@ -4025,20 +4025,7 @@
             }
           }
         }
-      },
-      "primary": {},
-      "success": {},
-      "warning": {},
-      "danger": {}
-    },
-    "radioGroup": {
-      "md": {},
-      "lg": {},
-      "default": {},
-      "primary": {},
-      "success": {},
-      "warning": {},
-      "danger": {}
+      }
     }
   }
 }

@@ -543,7 +543,7 @@
         "default": {
           "idle": {
             "background": {
-              "value": "{color.palette.success.base}",
+              "value": "{color.palette.success.300}",
               "type": "color",
               "description": "color.button.success.solid.idle.background"
             },
@@ -553,7 +553,7 @@
               "description": "color.button.success.solid.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.success.base}",
+              "value": "{color.palette.success.300}",
               "type": "color",
               "description": "color.button.success.solid.idle.border"
             }

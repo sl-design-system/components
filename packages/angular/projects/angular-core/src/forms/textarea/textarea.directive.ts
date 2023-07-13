@@ -48,9 +48,7 @@ export class TextareaDirective implements ControlValueAccessor, Validator, After
     this.elementRef.nativeElement.textarea.value = val;
     if (val !== this._value) {
       this._value = val;
-      // this.elementRef.nativeElement.textarea.value = val;
       this.onChange(this._value);
-      //this.onTouched();
       this.validatorOnChange();
     }
   }
@@ -82,16 +80,6 @@ export class TextareaDirective implements ControlValueAccessor, Validator, After
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const nativeElement: HTMLInputElement = this.elementRef.nativeElement;
-    const input: HTMLInputElement = nativeElement.querySelector('input') as HTMLInputElement;
-    console.log('nativeElement in validate',control, control.status, nativeElement, nativeElement.validity?.valid, input, control.errors, this.elementRef.nativeElement.validity); // reportValidity
-
-
-    // TODO: if when updateon change / submit/ blur?
-
-   // console.log('control touched -------->>>>>>>', control, control.touched, control.valid, input.validationMessage/*, (control.parent as NgForm).submitted*/ /*, input.reportValidity()*/);
-
-
     console.log('in textarea validate control controlll', control, control.untouched);
 
     if (control.untouched /*&& control.pristine*/) {
@@ -100,7 +88,6 @@ export class TextareaDirective implements ControlValueAccessor, Validator, After
       // return null;
     } else {
       console.log('in textarea validate control  else', control);
-      // this.validatorOnChange();
       // return control.errors;
       return null;
     }

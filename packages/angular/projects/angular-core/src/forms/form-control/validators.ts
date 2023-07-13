@@ -2,7 +2,7 @@ import {AbstractControl, ValidationErrors} from "@angular/forms";
 import {ValidationValue, Validator} from "@sl-design-system/shared";
 
 export function ValidateUrl(control: AbstractControl): ValidationErrors | null {
-  const otherErrors = control.errors ? Object.keys(control.errors).length : null
+  const otherErrors = control.errors ? Object.keys(control.errors).length : 0;
   console.log('control in custom valdator url', control, control.errors, otherErrors, control.errors ? Object.keys(control.errors)?.find(error => error === 'invalidUrl') : null);
   if ((!control.value.startsWith('https') || !control.value.includes('.com')) && otherErrors <= 1 /*&& otherErrors === null*/) {
     console.log('control in custom valdator url in if', control, control.errors ? Object.keys(control.errors) : null, control.errors ? Object.keys(control.errors).length : null);
@@ -12,7 +12,7 @@ export function ValidateUrl(control: AbstractControl): ValidationErrors | null {
 }
 
 export function PasswordStrength(control: AbstractControl): ValidationErrors | null {
-  const otherErrors = control.errors ? Object.keys(control.errors).length : null;
+  const otherErrors = control.errors ? Object.keys(control.errors).length : 0;
   console.log('control in custom valdator url password', control, control.errors, otherErrors, control.errors ? Object.keys(control.errors)?.find(error => error === 'invalidUrl') : null);
   // if ((!control.value.startsWith('https') || !control.value.includes('.com')) && otherErrors <= 1 /*&& otherErrors === null*/) {
   //   console.log('control in custom valdator url in if', control, control.errors ? Object.keys(control.errors) : null, control.errors ? Object.keys(control.errors).length : null);
@@ -39,26 +39,12 @@ export function PasswordStrength(control: AbstractControl): ValidationErrors | n
 }
 
 export function StartsWithThisIs(control: AbstractControl): ValidationErrors | null {
-  const otherErrors = control.errors ? Object.keys(control.errors).length : null;
-  console.log('control in custom valdator url password', control, control.errors, otherErrors, control.errors ? Object.keys(control.errors)?.find(error => error === 'invalidUrl') : null);
-  // if ((!control.value.startsWith('https') || !control.value.includes('.com')) && otherErrors <= 1 /*&& otherErrors === null*/) {
-  //   console.log('control in custom valdator url in if', control, control.errors ? Object.keys(control.errors) : null, control.errors ? Object.keys(control.errors).length : null);
-  //   return { invalidUrl: true };
-  // }
-  // return null;
-
-
+  const otherErrors = control.errors ? Object.keys(control.errors).length : 0;
   const value = control.value;
 
   if (!value) {
     return null;
   }
-
-  // const hasUpperCase = /[A-Z]+/.test(value);
-  //
-  // const hasLowerCase = /[a-z]+/.test(value);
-  //
-  // const hasNumeric = /[0-9]+/.test(value);
 
   const controlValid = value.startsWith('This is');
 
@@ -67,20 +53,3 @@ export function StartsWithThisIs(control: AbstractControl): ValidationErrors | n
 
 // TODO: move to form stories
 
-/*
-export function requiredValidator(control: AbstractControl): ValidationErrors | null {
-  // attribute: 'required',
-  // key: 'valueMissing',
-  // message: 'Please fill out this field',
-  // isValid(instance: HTMLElement & { required: boolean }, value: ValidationValue): boolean {
-  //   let valid = true;
-
-    if (!control.value) {
-      // valid = false;
-      return { valueMissing: true };
-    }
-
-    return null;
-  // }
-}
-*/

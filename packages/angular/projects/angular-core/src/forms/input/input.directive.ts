@@ -56,12 +56,12 @@ export class InputDirective implements ControlValueAccessor, Validator/*,*/ , Af
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
     // console.log('val in set value', val, this.value, this.elementRef.nativeElement.input.value, this._value);
-    //  this.elementRef.nativeElement.input.value = val;
+     this.elementRef.nativeElement.input.value = val;
     if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
       //this.onTouched(); // TODO: onTouched is necessary?
-      //this.elementRef.nativeElement.input.value = val;
+      // this.elementRef.nativeElement.input.value = val;
       this.validatorOnChange();
        // this.#validation.validate(this._value);
     }
@@ -81,9 +81,6 @@ export class InputDirective implements ControlValueAccessor, Validator/*,*/ , Af
     // const nativeElement: HTMLInputElement = this.elementRef.nativeElement;
     // const input: HTMLInputElement = nativeElement.querySelector('input') as HTMLInputElement;
     // console.log('nativeElement in validate',control, control.status, nativeElement, nativeElement.validity?.valid, input, control.errors, this.elementRef.nativeElement.validity); // reportValidity
-
-
-    // TODO: if when updateon change / submit/ blur?
 
     // console.log('control touched -------->>>>>>>', control, control.touched, control.valid, input.validationMessage/*, (control.parent as NgForm).submitted*/ /*, input.reportValidity()*/);
 

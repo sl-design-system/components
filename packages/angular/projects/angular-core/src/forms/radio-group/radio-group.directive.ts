@@ -1,9 +1,10 @@
 import {
+  AfterContentInit,
   Directive,
-  forwardRef,
   ElementRef,
+  forwardRef,
   HostListener,
-  Renderer2, AfterContentInit
+  Renderer2
 } from '@angular/core';
 import {
   AbstractControl,
@@ -13,7 +14,6 @@ import {
   ValidationErrors,
   Validator
 } from '@angular/forms';
-import {RadioDirective} from "./radio.directive";
 import {Radio} from "@sl-design-system/radio-group";
 
 @Directive({
@@ -32,7 +32,7 @@ import {Radio} from "@sl-design-system/radio-group";
     }
   ]
 })
-export class RadioGroupDirective implements ControlValueAccessor, Validator, AfterContentInit {
+export class RadioGroupDirective implements ControlValueAccessor, Validator {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
@@ -53,21 +53,15 @@ export class RadioGroupDirective implements ControlValueAccessor, Validator, Aft
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: string | undefined) {
-    console.log('val in radiogroup directive', val, this.elementRef.nativeElement.buttons);
-    // if (val !== this._value) {
-      this._value = val;
-      this.onChange(this._value);
+    this._value = val;
+    this.onChange(this._value);
     this.elementRef.nativeElement.buttons?.forEach((radio: Radio) => (radio.checked = radio.value === this.value));
-      this.elementRef.nativeElement.internals.value = this._value;
-     // this.onTouched();
-    // }
-
+    this.elementRef.nativeElement.internals.value = this._value;
     this.validatorOnChange();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
-    console.log('value in writeValue in radiogroup', value);
     value = value ? value : undefined;
     this._initialValue = value;
     //if (value) {
@@ -91,50 +85,10 @@ export class RadioGroupDirective implements ControlValueAccessor, Validator, Aft
 
   /** Implemented as part of Validator. */
   registerOnValidatorChange(fn: () => void): void {
-    console.log('in registerOnValidatorChange', fn);
     this.validatorOnChange = fn;
   }
 
-  // TODO: ng-pristine not necessary after checked before submitting?
-
   validate(control: AbstractControl): ValidationErrors | null {
-    // use requiredValidator from validator??
-    const nativeElement: HTMLInputElement = this.elementRef.nativeElement;
-    const input: HTMLInputElement = nativeElement.querySelector('input') as HTMLInputElement;
-    console.log('nativeElement in validate',this.value, control,  nativeElement, nativeElement.validity?.valid, input, control.errors, this.elementRef.nativeElement.internals); // reportValidity
-    /*    if (/!*nativeElement.checkValidity()*!/ input.checkValidity()) {
-          return null;
-        } else {
-          // return {
-          //   //invalid: true
-          //   invalid: control.errors
-          // };
-          return control.errors;
-        }*/
-    // return control.errors;
-
-    console.log('in radio control status', control.valid, control, control.status, control.invalid, this.value);
-
-    // this.#validation.validate(control.value ? this.value : undefined);
-
-    // if (control.errors) {
-    //     this.renderer.setAttribute(this.elementRef.nativeElement, 'invalid', '');
-    // } else {
-    //   this.renderer.removeAttribute(this.elementRef.nativeElement, 'invalid');
-    // }
-
-    // for (const validatorName in control?.errors) {
-    //   console.log('validatorName in checkbox', validatorName, control.errors, control.value);
-    //   if(control.touched)
-    //     // return getValidatorErrorMessage(validatorName, this.control.errors[validatorName]);
-    //     // this.elementRef.nativeElement.setValidity(control.errors, validatorName);
-    //     this.elementRef.nativeElement.validity.validate(control.value);
-    // }
-
-    // this.#validation.validate(this.checked ? this.value : undefined);
-
-    // this.elementRef.nativeElement.validate(control.value);
-
     if (/*nativeElement.checkValidity() &&*/ control.untouched /*|| control.valid*/ /*&& control.errors*/) {
       console.log('in radio validate if');
       //this.elementRef.nativeElement.validation.render();
@@ -146,67 +100,17 @@ export class RadioGroupDirective implements ControlValueAccessor, Validator, Aft
       // return null;
       return control.errors;
     }
-
-    // if (control.untouched /*&& control.pristine*/) {
-    //   console.log('in input validate control untouched', control);
-    //   return control.errors; // TODO: return null or not causing invalid?
-    //   //return null;
-    // } else {
-    //   console.log('in input validate control  else', control);
-    //   // this.validatorOnChange();
-    //   // return control.errors;
-    //   return null;
-    // }
-
-    // this.elementRef.nativeElement.setValidity(control);
-    // this.elementRef.nativeElement.validity.validate(control.value/*this.value ? control.value : undefined*/);
-    /*    if (control.errors) {
-        for (const validatorName in control.errors) {
-          console.log('validatorName in checkbox', validatorName, control.errors, control.value, control.errors[validatorName]);
-          //if(control.touched)
-            // return getValidatorErrorMessage(validatorName, this.control.errors[validatorName]);
-            // this.elementRef.nativeElement.setValidity(control.errors, validatorName);
-            // this.elementRef.nativeElement.validity.validate(control.value);
-            // this.elementRef.nativeElement.internals.validity.validate(control.value);
-          // this.elementRef.nativeElement.validity.validate(control.value/!*this.value ? control.value : undefined*!/);
-          // this.#validation.validate(this.checked ? this.value : undefined);
-          // return control.errors;
-          // return {invalid: true}
-          return control.errors; //{validatorName: true};
-        }
-        return {invalid: true};
-        } else {
-          return null;
-        }*/
-
-    //  console.log('control.value in checkbox', control.value, control.errors);
-
-    // return control.errors; // TODO: changing value is not reflecting
-
-
-    // if (this.elementRef.nativeElement.checkValidity() && control.errors) {
-    //   console.log('in checkbox validate if');
-    //   return {invalid: true}
-    // } else {
-    //   console.log('in checkbox validate else');
-    //   return null;
-    // }
   }
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
-
-  ngAfterContentInit(): void {
-    console.log('in ngAfterContentInit', this.elementRef.nativeElement, this.elementRef.nativeElement.value, this.elementRef.nativeElement.internals.value);
-  }
 
   @HostListener('click', ['$event.target'])
   @HostListener('keydown', ['$event.target'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
-    console.log('value in click radiogroup group...', value.value);
     this.value = value;
     this.elementRef.nativeElement.checked = value.checked;
-  } // TODO: use setFormValue ???
+  }
 
   setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);

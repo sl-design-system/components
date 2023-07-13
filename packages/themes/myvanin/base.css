@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
-  --sl-space-select-divider-inline-md: 0px;
-  --sl-space-select-divider-inline-lg: 0px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -217,8 +215,12 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-space-select-divider-line-md: var(--sl-space-sm);
+  --sl-space-select-divider-line-lg: var(--sl-space-sm);
   --sl-space-select-divider-gap-md: var(--sl-space-sm);
   --sl-space-select-divider-gap-lg: var(--sl-space-sm);
+  --sl-space-select-divider-inline-md: var(--sl-space-md);
+  --sl-space-select-divider-inline-lg: var(--sl-space-md);
   --sl-space-select-divider-block-md: var(--sl-space-sm);
   --sl-space-select-divider-block-lg: var(--sl-space-sm);
   --sl-space-select-listbox-gap-md: var(--sl-space-xs);

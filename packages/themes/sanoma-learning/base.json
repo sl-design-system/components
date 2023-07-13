@@ -1404,6 +1404,10 @@
           "description": "border.width.button.outline"
         }
       },
+      "divider": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
+      },
       "none": {
         "value": 0,
         "type": "borderWidth",
@@ -2390,15 +2394,25 @@
         },
         "inline": {
           "lg": {
-            "value": 0,
+            "value": "{space.md}",
             "type": "spacing"
           },
           "md": {
-            "value": 0,
+            "value": "{space.md}",
             "type": "spacing"
           }
         },
         "gap": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        },
+        "line": {
           "lg": {
             "value": "{space.sm}",
             "type": "spacing"

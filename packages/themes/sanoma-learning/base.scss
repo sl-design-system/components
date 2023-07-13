@@ -4,8 +4,6 @@
  */
 
 @mixin sl-theme-base {
-  --sl-space-select-divider-inline-md: 0px;
-  --sl-space-select-divider-inline-lg: 0px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -218,8 +216,12 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-space-select-divider-line-md: var(--sl-space-sm);
+  --sl-space-select-divider-line-lg: var(--sl-space-sm);
   --sl-space-select-divider-gap-md: var(--sl-space-sm);
   --sl-space-select-divider-gap-lg: var(--sl-space-sm);
+  --sl-space-select-divider-inline-md: var(--sl-space-md);
+  --sl-space-select-divider-inline-lg: var(--sl-space-md);
   --sl-space-select-divider-block-md: var(--sl-space-sm);
   --sl-space-select-divider-block-lg: var(--sl-space-sm);
   --sl-space-select-listbox-gap-md: var(--sl-space-xs);
@@ -325,6 +327,7 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-border-width-divider: var(--sl-border-width-xs);
   --sl-border-width-input-border: var(--sl-border-width-sm);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-select-listbox: var(--sl-border-width-xs);

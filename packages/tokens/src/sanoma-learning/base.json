@@ -1154,6 +1154,10 @@
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
+      },
+      "divider": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
       }
     }
   },

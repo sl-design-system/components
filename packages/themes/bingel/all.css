@@ -50,8 +50,6 @@
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
   --sl-animation-duration-fast: 90ms;
-  --sl-space-select-divider-inline-md: 0px;
-  --sl-space-select-divider-inline-lg: 0px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -178,8 +176,12 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-select-divider-line-md: var(--sl-space-sm);
+  --sl-space-select-divider-line-lg: var(--sl-space-sm);
   --sl-space-select-divider-gap-md: var(--sl-space-sm);
   --sl-space-select-divider-gap-lg: var(--sl-space-sm);
+  --sl-space-select-divider-inline-md: var(--sl-space-md);
+  --sl-space-select-divider-inline-lg: var(--sl-space-md);
   --sl-space-select-divider-block-md: var(--sl-space-sm);
   --sl-space-select-divider-block-lg: var(--sl-space-sm);
   --sl-space-select-listbox-gap-md: var(--sl-space-xs);

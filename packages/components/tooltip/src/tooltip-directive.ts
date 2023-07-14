@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type { DirectiveParameters, ElementPart } from 'lit/directive.js';
 import { Directive, directive } from 'lit/directive.js';
 import { render } from 'lit';

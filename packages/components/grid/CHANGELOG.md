@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.18
+
+### Patch Changes
+
+- [#521](https://github.com/sl-design-system/components/pull/521) [`46fe06a`](https://github.com/sl-design-system/components/commit/46fe06a1be95b1bc1c5244ee5631006bf9c91fc8) - Handle null & undefined when filtering
+
 ## 0.0.17
 
 ### Patch Changes

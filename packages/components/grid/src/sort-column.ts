@@ -6,12 +6,12 @@ import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 import { GridSorter } from './sorter.js';
 
-export class GridSortColumn<T> extends GridColumn {
+export class GridSortColumn extends GridColumn {
   /** The direction this columns should be sorted in. */
   @property({ type: String }) direction?: DataSourceSortDirection;
 
   /** If you want to provide a custom sort function, you can via this property. */
-  @property({ attribute: false }) sort?: DataSourceSortFunction<T>;
+  @property({ attribute: false }) sort?: DataSourceSortFunction;
 
   override connectedCallback(): void {
     super.connectedCallback();

@@ -61,7 +61,7 @@ export class GridFilterColumn extends GridColumn {
           let value = getValueByPath(item, this.path),
             label = value?.toString() ?? '';
 
-          if (typeof value === 'string' && value.trim() === '') {
+          if (value === null || value === undefined || (typeof value === 'string' && value.trim() === '')) {
             label = msg('Blank');
             value = '';
           }

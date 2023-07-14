@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterContentInit, AfterViewChecked,
   AfterViewInit,
   Directive,
   ElementRef,
@@ -32,7 +32,7 @@ import {
   ]
 })
 
-export class InputDirective implements ControlValueAccessor, Validator/*,*/ , AfterViewInit, AfterContentInit, OnChanges /*AfterViewChecked,*/ /*AfterContentChecked */{
+export class InputDirective implements ControlValueAccessor, Validator, AfterViewInit/*,*/ /*, AfterViewInit, AfterContentInit, OnChanges*/, AfterViewChecked /*AfterContentChecked */{
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
@@ -56,7 +56,7 @@ export class InputDirective implements ControlValueAccessor, Validator/*,*/ , Af
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
     // console.log('val in set value', val, this.value, this.elementRef.nativeElement.input.value, this._value);
-     this.elementRef.nativeElement.input.value = val;
+    // this.elementRef.nativeElement.input.value = val;
     if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
@@ -65,7 +65,8 @@ export class InputDirective implements ControlValueAccessor, Validator/*,*/ , Af
       this.validatorOnChange();
        // this.#validation.validate(this._value);
     }
-    console.log('this.elementRef.nativeElement.input', this.elementRef.nativeElement.input);
+    // this.elementRef.nativeElement.input.value = val;
+   // console.log('this.elementRef.nativeElement.input', this.elementRef.nativeElement.input);
     // this.elementRef.nativeElement.input.value = val;
     // this.onChange(this._value);
     // this.validatorOnChange(); // TODO: necessary?
@@ -75,6 +76,31 @@ export class InputDirective implements ControlValueAccessor, Validator/*,*/ , Af
   /** Implemented as part of Validator. */
   registerOnValidatorChange(fn: () => void): void {
     this.validatorOnChange = fn;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  writeValue(value: any): void {
+    if (value) {
+      this.value = value;
+      this.elementRef.nativeElement.input.value = value;
+      // this.elementRef.nativeElement.input.value = value;
+      // this.validatorOnChange();
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+    //this.validatorOnChange();
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this.elementRef.nativeElement.disabled = disabled;
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
@@ -90,7 +116,7 @@ export class InputDirective implements ControlValueAccessor, Validator/*,*/ , Af
     if (control.untouched /*&& control.pristine*/) {
       console.log('in input validate control untouched', control);
       return control.errors; // TODO: return null or not causing invalid?
-      //return null;
+      // return null;
     // } else if (control.errors) {
     //   console.log('in input validate control  else ifff', control);
     //   return control.errors;
@@ -103,59 +129,37 @@ export class InputDirective implements ControlValueAccessor, Validator/*,*/ , Af
 
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  writeValue(value: any): void {
-    if (value) {
-      this.value = value;
-       // this.elementRef.nativeElement.input.value = value;
-      // this.validatorOnChange();
-    }
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  // TODO: set disabled
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-    //this.validatorOnChange();
-  }
-
-  setDisabledState(disabled: boolean): void {
-    this.elementRef.nativeElement.disabled = disabled;
-  }
-
   constructor(private elementRef: ElementRef) {}
 
-  ngOnChanges(changes:SimpleChanges): void {
-    // this.elementRef.nativeElement.input.value = val;
-    console.log('this.elementRef.nativeElement.input.value22aa onchanges', this.elementRef.nativeElement.input.value, this._value, this.value, changes);
-    // this.elementRef.nativeElement.input.value = this.value;
-  }
-
+  // ngOnChanges(changes:SimpleChanges): void {
+  //   // this.elementRef.nativeElement.input.value = val;
+  //   console.log('this.elementRef.nativeElement.input.value22aa onchanges', this.elementRef.nativeElement.input.value, this._value, this.value, changes);
+  //   // this.elementRef.nativeElement.input.value = this.value;
+  // }
+  //
   ngAfterViewInit(): void {
     // this.elementRef.nativeElement.input.value = val;
     console.log('this.elementRef.nativeElement.input.value', this.elementRef.nativeElement.input.value, this._value, this.value);
     // this.elementRef.nativeElement.input.value = this.value;
   }
+  //
+  // ngAfterContentInit(): void {
+  //   // this.elementRef.nativeElement.input.value = val;
+  //   console.log('this.elementRef.nativeElement.input.value22', this.elementRef.nativeElement.input.value, this._value, this.value);
+  //   // this.elementRef.nativeElement.input.value = this.value;
+  // }
 
-  ngAfterContentInit(): void {
-    // this.elementRef.nativeElement.input.value = val;
-    console.log('this.elementRef.nativeElement.input.value22', this.elementRef.nativeElement.input.value, this._value, this.value);
-    // this.elementRef.nativeElement.input.value = this.value;
+  ngAfterViewChecked() {
+    console.log('ngafterviewchecked in input');
+    // this.validatorOnChange();
   }
 
-  @HostListener('input', ['$event'])
+  @HostListener('input', ['$event.target.value'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listenForValueChange($event: any): void {
-    const value = $event.target.value;
+  listenForValueChange(value: any): void {
+    //const value = $event.target.value;
     this.value = value;
     // this.elementRef.nativeElement.input.value = value;
     // console.log('this.elementRef.nativeElement.validators', this.elementRef.nativeElement.validators, this.elementRef.nativeElement, this.elementRef.nativeElement.valid);
   }
-
 }

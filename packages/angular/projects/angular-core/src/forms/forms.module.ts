@@ -15,7 +15,7 @@ import { FormControlElementDirective } from "./form-control/form-control-element
 @NgModule({
   declarations: [
     CheckboxDirective,
-    FormControlElementDirective,
+    //FormControlElementDirective,
     InputDirective,
     TextareaDirective,
     RadioGroupDirective,
@@ -23,7 +23,7 @@ import { FormControlElementDirective } from "./form-control/form-control-element
   ],
   exports: [
     CheckboxDirective,
-    FormControlElementDirective,
+    //FormControlElementDirective,
     InputDirective,
     TextareaDirective,
     RadioGroupDirective,

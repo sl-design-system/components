@@ -45,12 +45,12 @@ export class TextareaDirective implements ControlValueAccessor, Validator, After
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
-    this.elementRef.nativeElement.textarea.value = val;
-    if (val !== this._value) {
+    // this.elementRef.nativeElement.textarea.value = val;
+     if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
       this.validatorOnChange();
-    }
+     }
   }
 
   /** Implemented as part of Validator. */
@@ -62,6 +62,7 @@ export class TextareaDirective implements ControlValueAccessor, Validator, After
   writeValue(value: any): void {
     if (value) {
       this.value = value;
+      this.elementRef.nativeElement.textarea.value = value;
     }
   }
 
@@ -97,7 +98,11 @@ export class TextareaDirective implements ControlValueAccessor, Validator, After
   constructor(private elementRef: ElementRef) {}
 
   ngAfterViewChecked() {
-     this.validatorOnChange();
+    console.log('ngafterviewchecked in textarea')
+    // requestAnimationFrame(() => {
+    // this.validatorOnChange();
+    // });
+     // this.validatorOnChange();
   }
 
   @HostListener('input', ['$event.target.value'])

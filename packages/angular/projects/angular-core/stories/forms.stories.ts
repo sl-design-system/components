@@ -138,9 +138,8 @@ export class CheckboxComponent {
       <sl-label for="website-input">Url (with custom validation)</sl-label>
       <sl-text-input id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="this is a hint for the text input with your website" minlength="8" required>
       </sl-text-input>
-      <div *ngIf="myForm.controls.name.errors?.['invalidUrl']">test invalidUrl</div>
       <sl-label for="description-id">Description</sl-label>
-      <sl-textarea id="description-id" #myReactiveTextarea formControlName="description" placeholder="Add short description here" required>
+      <sl-textarea id="description-id" #myReactiveTextarea (input)="onInput(this.myForm.controls.description);" formControlName="description" placeholder="Add short description here" required>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
       </sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
@@ -152,19 +151,16 @@ export class CheckboxComponent {
         <sl-radio value="3" formControlName="option">Third option</sl-radio>
       </sl-radio-group>
       <sl-button type="submit" variant="primary">Send</sl-button>
-      <div>Name: {{myForm.value.name}} {{myForm.controls.name.valid}}</div>
-      <div>Description: {{myForm.value.description}} {{myForm.controls.description.valid}}</div>
-      <div>Approval: {{myForm.value.approval}} {{myForm.controls.approval.valid}}</div>
-      <div>Option: {{myForm.value.option}} {{myForm.controls.option.valid}}</div>
-      <div>Form valid? {{myForm.valid}}</div>
-      <div>Form validator: {{myForm.controls.name.errors | json}}</div>
-      <div>Form touched: {{myForm.touched | json}} {{myForm.controls.name.touched}}</div>
+      <div>Name: {{myForm.value.name}}</div>
+      <div>Description: {{myForm.value.description}}</div>
+      <div>Approval: {{myForm.value.approval}}</div>
+      <div>Option: {{myForm.value.option}}</div>
     </form>
   `,
 })
 
 // TODO: move validators here
-export class ReactiveFormComponent implements AfterViewChecked, AfterContentChecked {
+export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, AfterContentChecked {
   myForm = new FormGroup({
     name: new FormControl('', [Validators.minLength(8), Validators.required]), // , [Validators.minLength(8), Validators.required]
     website: new FormControl('', [Validators.minLength(8), Validators.required, ValidateUrl]), // , [Validators.minLength(8), Validators.required]
@@ -190,6 +186,49 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
 
   submitted = false;
 
+  ngAfterViewInit(): void {
+    // this.myForm.form.markAsUntouched();
+
+    // Object.values(this.myForm.controls).forEach(control => {
+    //   control.markAsUntouched();
+    //   control.markAsPristine();
+    // });
+
+    if (!this.submitted && !!this.myForm) {
+      console.log('ngafterviewinit in form', this.myForm.controls.description);
+      this.myForm.markAsUntouched();
+      this.myForm.controls.name.markAsUntouched();
+      this.myForm.controls.name.markAsPristine();
+      this.myForm.controls.website.markAsUntouched();
+      this.myForm.controls.website.markAsPristine();
+      this.myForm.controls.description.markAsUntouched();
+      this.myForm.controls.description.markAsPristine();
+      this.myForm.controls.approval.markAsUntouched();
+      this.myForm.controls.approval.markAsPristine();
+      this.myForm.controls.option.markAsUntouched();
+      this.myForm.controls.option.markAsPristine();
+
+      // console.log('ngafterviewinit in form', this.myForm.form.controls, this.myForm.controls, Array.of(this.myForm.controls), this.inputWithNgmodel, this.textareaWithNgmodel);
+      // this.inputWithNgmodel.control.markAsUntouched();
+      // this.inputWithNgmodel.control.markAsPristine();
+      // this.textareaWithNgmodel.control.markAsUntouched();
+      // this.textareaWithNgmodel.control.markAsPristine();
+      // this.checkboxWithNgmodel.control.markAsUntouched();
+      // this.checkboxWithNgmodel.control.markAsPristine();
+      // this.radioGroupWithNgmodel.control.markAsUntouched();
+      // this.radioGroupWithNgmodel.control.markAsPristine();
+
+
+      // console.log('ngafterviewinit in form22', this.myForm.form.controls, this.myForm.controls, Array.of(this.myForm.controls), this.inputWithNgmodel, this.textareaWithNgmodel);
+
+      // Object.values(this.myForm.form.controls).forEach(control => {
+      //   console.log('ngafterviewinit in form for each', this.myForm.form.controls, this.myForm.controls, control);
+      //   control.markAsUntouched();
+      //   control.markAsPristine();
+      // });
+    }
+  }
+
   ngAfterViewChecked(): void {
     console.log('ngafterviewchecked in form before if', this.submitted, this.myForm, this.myForm.controls.name.errors, this.myInput.nativeElement);
 
@@ -211,19 +250,19 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
       const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
       const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
 
-      console.log('this.myForm.controls.name.errors?.[\'invalidUrl\']', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
+      console.log('this.myForm.controls.name.errors?.[\'invalidUrl\']', this.myForm.controls.website.errors?.['invalidUrl'], this.myForm.controls.website.errors);
 
       if (this.myForm.controls.website.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
         // this.myInput.nativeElement.setCustomValidity('invalid url...');
         console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in if', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
-        urlInput.setCustomValidity('The url is invalid, please check it');
+        urlInput.setCustomValidity('The url is invalid, please check it. It should contain "https" and ".com" parts');
       }  else {
         // this.myInput.nativeElement.setCustomValidity('');
         console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in else', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
         urlInput.setCustomValidity('');
       } // TODO: maybe move to on submit>? because of the delay
 
-      urlInput.checkValidity();
+     urlInput.checkValidity();
       input.checkValidity();
       const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
       if (this.myForm.controls.description.errors?.['invalidStart']) {
@@ -232,7 +271,7 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
         textarea.setCustomValidity('');
       }
 
-        textarea.checkValidity();
+      textarea.checkValidity();
 
  //     console.log('input.validationMessage in reactiveform', input.validationMessage, this.myInput.nativeElement.validity, Object.keys(this.myForm.controls.name.errors), Object.entries(this.myForm.controls.name.errors), Array.of(this.myForm.controls.name.errors as Object), this.myForm.controls.name.errors?.['invalidUrl']);
 
@@ -260,8 +299,22 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
       // this.checkboxWithNgmodel.control.markAsUntouched();
       // this.checkboxWithNgmodel.control.markAsPristine();
 
+      // this.myForm.controls.name.markAsUntouched();
+      // this.myForm.controls.name.markAsPristine();
+      // this.myForm.controls.description.markAsUntouched();
+      // this.myForm.controls.description.markAsPristine();
+
+      this.myForm.markAsUntouched();
       this.myForm.controls.name.markAsUntouched();
       this.myForm.controls.name.markAsPristine();
+      this.myForm.controls.website.markAsUntouched();
+      this.myForm.controls.website.markAsPristine();
+      this.myForm.controls.description.markAsUntouched();
+      this.myForm.controls.description.markAsPristine();
+      this.myForm.controls.approval.markAsUntouched();
+      this.myForm.controls.approval.markAsPristine();
+      this.myForm.controls.option.markAsUntouched();
+      this.myForm.controls.option.markAsPristine();
     }
   }
 
@@ -269,7 +322,7 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
     const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
     const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
     const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
-  console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in aftercontentchecked', this.myForm.controls.name.errors?.['invalidUrl']);
+  console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in aftercontentchecked', this.myForm.controls.website.errors?.['invalidUrl']);
     if (this.submitted) {
       // if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
       //   // this.myInput.nativeElement.setCustomValidity('invalid url...');
@@ -278,9 +331,45 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
       //   // this.myInput.nativeElement.setCustomValidity('');
       //   // input.setCustomValidity('');
       // }
+      // if (this.myForm.controls.website.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
+      //   // this.myInput.nativeElement.setCustomValidity('invalid url...');
+      //   console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in if', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
+      //   urlInput.setCustomValidity('The url is invalid, please check it. It should contain "https" and ".com" parts');
+      // }  else {
+      //   // this.myInput.nativeElement.setCustomValidity('');
+      //   console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in else', this.myForm.controls.name.errors?.['invalidUrl'], this.myForm.controls.name.errors);
+      //   urlInput.setCustomValidity('');
+      // } // TODO: maybe move to on submit>? because of the delay
       urlInput.checkValidity();
       input.checkValidity();
       textarea.checkValidity();
+    } //else {
+    //   this.myForm.controls.name.markAsUntouched();
+    //   this.myForm.controls.name.markAsPristine();
+    //   this.myForm.controls.description.markAsUntouched();
+    //   this.myForm.controls.description.markAsPristine();
+    // }
+  }
+
+  onInput(target: FormControl): void {
+    // console.log('oninput event check condition', target, !this.submitted && !!this.myForm, event, this.inputWithNgmodel.control.errors);
+    console.log('oninput event check condition', target, this.myForm.controls.description);
+
+    if (!this.submitted /*&& !!this.myForm*/) {
+      console.log('oninput event inside if');
+      // this.inputWithNgmodel.control.markAsUntouched();
+      // this.inputWithNgmodel.control.markAsPristine();
+      target.markAsUntouched();
+      target.markAsPristine();
+    } else {
+      console.log('oninput event inside else');
+      // this.inputWithNgmodel.control.markAsTouched();
+      // this.inputWithNgmodel.control.markAsDirty();
+      // this.inputWithNgmodel.control.updateValueAndValidity();
+      target.markAsTouched();
+      target.markAsDirty();
+      target.updateValueAndValidity();
+      // (event.target as HTMLFormElement).checkValidity();
     }
   }
 
@@ -311,9 +400,17 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
     Object.values(form.controls).forEach(control => {
       console.log('control in reactive', control);
       control.markAsTouched();
+      control.markAsDirty();
       control.updateValueAndValidity();
     });
 
+    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
+    const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+    const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+
+    input.checkValidity();
+    urlInput.checkValidity();
+    textarea.checkValidity();
     this.myCheckbox.nativeElement.internals.checkValidity();
     this.myRadioGroup.nativeElement.internals.checkValidity();
 
@@ -458,7 +555,7 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
     </form>
   `
 })
-export class TemplateFormComponent implements AfterViewInit, AfterViewChecked {
+export class TemplateFormComponent implements AfterViewInit, AfterViewChecked, AfterContentChecked {
   model = new Person(1, '', '', 'yes', '');
 
   @ViewChild('myForm', { static: false }) myForm!: NgForm;
@@ -542,6 +639,14 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked {
       }
   }
 
+  ngAfterContentChecked(): void {
+    if (this.submitted) {
+      const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+      // input.reportValidity();
+      input.checkValidity();
+    }
+  }
+
   onInput(target: NgModel): void {
     console.log('oninput event check condition', target, !this.submitted && !!this.myForm, event, this.inputWithNgmodel.control.errors);
 
@@ -559,6 +664,7 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked {
       target.control.markAsTouched();
       target.control.markAsDirty();
       target.control.updateValueAndValidity();
+      // (event.target as HTMLFormElement).checkValidity();
     }
   }
 
@@ -599,7 +705,7 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked {
     this.myForm.form.markAllAsTouched();
 
     //this.onInput();
-   // const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
+    const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
 
 /*    Object.values(form.controls).forEach(control => {
       console.log('control on submit', control);
@@ -617,6 +723,7 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked {
     this.inputWithNgmodel.control.markAsTouched();
     this.inputWithNgmodel.control.markAsDirty();
     this.inputWithNgmodel.control.updateValueAndValidity();
+    input.checkValidity();
     // this.inputWithNgmodel.control.updateValueAndValidity({ onlySelf: true, emitEvent: true });
 
     this.textareaWithNgmodel.control.markAsTouched();

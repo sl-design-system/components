@@ -133,13 +133,13 @@ export class CheckboxComponent {
   template: `
     <form [formGroup]="myForm" (ngSubmit)="onSubmit($event, myForm)">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text input" minlength="8" required>
+      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="This is a hint for the text input with your name" minlength="8" required>
       </sl-text-input>
       <sl-label for="website-input">Url (with custom validation)</sl-label>
-      <sl-text-input id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="this is a hint for the text input with your website" minlength="8" required>
+      <sl-text-input id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="Your website adress (should contain 'https' and 'com' parts)" minlength="8" required>
       </sl-text-input>
       <sl-label for="description-id">Description</sl-label>
-      <sl-textarea id="description-id" #myReactiveTextarea (input)="onInput(this.myForm.controls.description);" formControlName="description" placeholder="Add short description here" required>
+      <sl-textarea id="description-id" #myReactiveTextarea (input)="onInput(this.myForm.controls.description);" formControlName="description" placeholder="Add short description here" hint="This textarea should contain a short description starting with 'This is'" required>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
       </sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
@@ -265,7 +265,9 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
      urlInput.checkValidity();
       input.checkValidity();
       const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
-      if (this.myForm.controls.description.errors?.['invalidStart']) {
+      const otherErrors = this.myForm.controls.description.errors ? Object.keys(this.myForm.controls.description.errors).length : 0;
+      console.log('otherErrors...', otherErrors);
+      if (this.myForm.controls.description.errors?.['invalidStart'] && otherErrors <= 1) {
         textarea.setCustomValidity('The description should starts with "This is"');
       } else {
         textarea.setCustomValidity('');

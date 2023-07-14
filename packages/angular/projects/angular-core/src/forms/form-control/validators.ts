@@ -52,7 +52,7 @@ export function StartsWithThisIs(control: AbstractControl): ValidationErrors | n
   // return !controlValid && otherErrors <= 1 ? { invalidStart: true }: null;
 
   console.log('in textarea validate StartsWithThisIs', control.errors, otherErrors, otherErrors <=1);
-  if (!control.value.startsWith('This is') && otherErrors <= 1 /*&& otherErrors === null*/) {
+  if (!control.value.startsWith('This is') /*&& otherErrors <= 1*/ /*&& otherErrors === null*/) {
     console.log('control in custom valdator url in if', control, control.errors ? Object.keys(control.errors) : null, control.errors ? Object.keys(control.errors).length : null);
     return { invalidStart: true };
   }

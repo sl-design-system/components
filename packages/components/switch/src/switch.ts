@@ -1,3 +1,4 @@
+import type { IElementInternals } from 'element-internals-polyfill';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EventEmitter } from '@sl-design-system/shared';
 import {
@@ -9,11 +10,13 @@ import {
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
+import type { IconSize } from '@sl-design-system/icon';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
 export type SwitchSize = 'sm' | 'md' | 'lg';
+export type SwitchOrientation = 'horizontal' | 'vertical';
 
 export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
@@ -30,7 +33,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   #initialState = false;
 
   /** Element internals. */
-  readonly internals = this.attachInternals();
+  readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
 
   /** Emits when the checked state changes. */
   @event() change!: EventEmitter<boolean>;
@@ -47,8 +50,11 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** Custom icon in "on" state. */
   @property({ reflect: true }) iconOn?: string;
 
-  /** Button size. */
+  /** Switch size. */
   @property({ reflect: true }) size: SwitchSize = 'md';
+
+  /** Switch orientation. */
+  @property({ reflect: true }) orientation: SwitchOrientation = 'horizontal';
 
   /** The value for the switch. */
   @property() value?: string;
@@ -59,7 +65,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     return this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark';
   }
 
-  get iconSize(): string {
+  get iconSize(): IconSize {
     return this.size === 'md' ? 'xs' : 'md';
   }
 
@@ -87,7 +93,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     if (changes.has('checked')) {
       this.internals.ariaChecked = this.checked ? 'true' : 'false';
 
-      if (this.checked) {
+      if (this.checked && this.internals.states) {
         this.internals.states.add('--checked');
       } else {
         this.internals.states.delete('--checked');
@@ -115,14 +121,13 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
-      <div class="text">
-        <sl-label .size=${this.size}><slot @slotchange=${this.#onSlotChange}></slot></sl-label>
-        ${this.renderHint()} ${this.#validation.render()}
-      </div>
+      <slot @slotchange=${this.#onSlotChange} class="inputlabel"></slot>
       <div class="toggle">
         <div @click=${this.#onToggle} class="track">
           <div>${this.size !== 'sm' ? html`<sl-icon .name=${this.icon} .size=${this.iconSize}></sl-icon>` : ``}</div>
         </div>
+      </div>
+      <div class="hint">${this.renderHint()} ${this.#validation.render()}</div>
       </div>
     `;
   }

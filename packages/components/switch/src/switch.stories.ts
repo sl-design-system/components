@@ -1,4 +1,4 @@
-import type { Switch, SwitchSize } from './switch.js';
+import type { Switch, SwitchOrientation, SwitchSize } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/icon/register.js';
 import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
@@ -9,7 +9,6 @@ import '../register.js';
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),
     output = (event.target.nextElementSibling || document.createElement('pre')) as HTMLOutputElement;
-  console.log(data, output);
   event.preventDefault();
   event.target.after(output);
 
@@ -24,6 +23,7 @@ interface Props extends Pick<Switch, 'checked' | 'disabled' | 'value' | 'size' |
 type Story = StoryObj<Props>;
 
 const sizes: SwitchSize[] = ['sm', 'md', 'lg'];
+const orientations: SwitchOrientation[] = ['horizontal', 'vertical'];
 
 const sizeName = (size: SwitchSize): string => {
   switch (size) {
@@ -75,16 +75,18 @@ export const All: Story = {
           grid-column-start: 1;
         }
       </style>
-      ${sizes.map(
-        size => html`
-          <h2>${sizeName(size)}</h2>
-          <sl-switch .size=${size} hint="Check this one">Unchecked</sl-switch>
-          <sl-switch .size=${size} checked>Checked</sl-switch>
-          <sl-switch .size=${size} disabled>Disabled unchecked</sl-switch>
-          <sl-switch .size=${size} disabled checked>Disabled checked</sl-switch>
-          <sl-switch .size=${size}></sl-switch>
-          <sl-switch .size=${size} checked></sl-switch>
-        `
+      ${orientations.map(orientation =>
+        sizes.map(
+          size => html`
+            <h2>${sizeName(size)}</h2>
+            <sl-switch .size=${size} .orientation=${orientation} hint="Check this one">Unchecked</sl-switch>
+            <sl-switch .size=${size} .orientation=${orientation} checked>Checked</sl-switch>
+            <sl-switch .size=${size} .orientation=${orientation} disabled>Disabled unchecked</sl-switch>
+            <sl-switch .size=${size} .orientation=${orientation} disabled checked>Disabled checked</sl-switch>
+            <sl-switch .size=${size} .orientation=${orientation}></sl-switch>
+            <sl-switch .size=${size} .orientation=${orientation} checked></sl-switch>
+          `
+        )
       )}`;
   }
 };
@@ -100,7 +102,7 @@ export const CustomIcons: Story = {
 
 export const ValidateInForm: Story = {
   render: () => {
-    setTimeout(() => document.querySelector('form')?.reportValidity());
+    // setTimeout(() => document.querySelector('form')?.reportValidity());
 
     return html`
       <style>

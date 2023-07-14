@@ -10,13 +10,19 @@ $sizes: sm, md, lg;
 
   --handle-position: 0%;
   --isLTR: 1;
-  
-  align-items: flex-start;
-  display: inline-flex;
+
+  align-items: center;
+  display: inline-grid;
   gap: var(--sl-space-input-switch-padding-gap);
+  grid-auto-rows: minmax(0, max-content);
+  grid-template-areas:
+    'inputlabel toggle'
+    'hint toggle';
+  grid-template-columns: 1fr minmax(0, max-content);
   outline: none;
 }
-:host-context([dir="rtl"]){
+
+:host-context([dir='rtl']) {
   --isLTR: -1;
 }
 
@@ -25,6 +31,13 @@ $sizes: sm, md, lg;
   --_box-shadow: var(--sl-box-shadow-focus);
 }
 
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --handle-size: var(--sl-size-input-switch-handle-#{$size});
+    --_toggle-width: var(--sl-size-input-switch-controller-width-#{$size});
+    --_gap: var(--sl-space-input-gap-#{$size});
+  }
+}
 
 .toggle:hover {
   --_main-background-color: var(--sl-color-input-switch-default-unchecked-hover-background);
@@ -44,12 +57,12 @@ $sizes: sm, md, lg;
   --_icon-color: var(--sl-color-input-switch-default-unchecked-disabled-icon);
 }
 
-:host([checked]){
+:host([checked]) {
   .toggle {
     --_main-background-color: var(--sl-color-input-switch-default-checked-default-background);
     --_handle-color: var(--sl-color-input-switch-default-checked-default-handle);
     --_icon-color: var(--sl-color-input-switch-default-checked-default-icon);
-    
+
     --handle-position: calc((var(--_toggle-width) - 100%) * var(--isLTR));
   }
 
@@ -72,28 +85,22 @@ $sizes: sm, md, lg;
   }
 }
 
-// applying styles 
+// applying styles
 
 :host(:where(:disabled, [internals-disabled])) {
   cursor: default;
   pointer-events: none;
 }
 
-.text {
-  align-items: flex-start;
+.inputlabel {
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: var(--_gap);
-  justify-content: flex-start;
-  // border: 1px solid rgb(12, 206, 60);
-  flex: 1 1 auto;
+  grid-area: inputlabel;
 }
 
 .toggle {
+  align-self: flex-start;
   cursor: pointer;
-  flex: 0;
-  // border: 1px solid red;
+  grid-area: toggle;
   padding: var(--sl-space-input-switch-padding-container);
 }
 
@@ -102,32 +109,37 @@ $sizes: sm, md, lg;
   border-radius: var(--_track-radius);
   box-shadow: var(--_box-shadow);
   display: inline-grid;
-  transition: background-color var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   padding: var(--_toggle-padding);
+  transition: background-color var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   width: var(--_toggle-width);
-  
-  div {
-    background-color: var(--_handle-color);
-    border-radius: calc(var(--handle-size) / 2);
-    height: var(--handle-size);
-    translate: var(--handle-position);
-    width: var(--handle-size);
-    will-change: transform;
-    display: grid;
-    place-content: center;
-    
-    @media (prefers-reduced-motion: no-preference) {
-      transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
-    }
+}
+
+.track div {
+  background-color: var(--_handle-color);
+  border-radius: calc(var(--handle-size) / 2);
+  display: grid;
+  height: var(--handle-size);
+  place-content: center;
+  translate: var(--handle-position);
+  width: var(--handle-size);
+  will-change: transform;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   }
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --handle-size: var(--sl-size-input-switch-handle-#{$size});
-    --_toggle-width: var(--sl-size-input-switch-controller-width-#{$size});
-    --_gap: var(--sl-space-input-gap-#{$size});
-  }
+.hint {
+  display: contents;
+  grid-area: hint;
 }
 
+:host([orientation='vertical']) {
+  grid-template-areas:
+    'input-field'
+    'toggle'
+    'hint';
 
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}

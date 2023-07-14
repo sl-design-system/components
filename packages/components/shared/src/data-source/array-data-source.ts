@@ -60,8 +60,8 @@ export class ArrayDataSource<T> extends DataSource<T> {
   #filter(values: DataSourceFilterValue[]): DataSourceFilterFunction<T> {
     const filters = values.map(({ path, value }) => {
       const regexes = (Array.isArray(value) ? value : [value])
-        .filter((v): v is string => !!v)
-        .map(v => new RegExp(v, 'i'));
+        .filter((v): v is string => typeof v === 'string')
+        .map(v => (v === '' ? /^\s*$/ : new RegExp(v, 'i')));
 
       return (item: T) => {
         const value = getValueByPath(item, path)?.toString() ?? '';

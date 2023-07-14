@@ -38,6 +38,23 @@ export const Filtered: Story = {
   `
 };
 
+export const EmptyValues: Story = {
+  render: () => {
+    const items = [
+      { key: 'Foo', value: 'foo' },
+      { key: 'Space', value: ' ' },
+      { key: 'Blank', value: '' }
+    ];
+
+    return html`
+      <sl-grid .items=${items} style="width: 200px">
+        <sl-grid-column path="key"></sl-grid-column>
+        <sl-grid-filter-column path="value"></sl-grid-filter-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const OutsideGrid: Story = {
   render: (_, { loaded: { people } }) => {
     const onInput = ({ target }: Event & { target: TextInput }): void => {

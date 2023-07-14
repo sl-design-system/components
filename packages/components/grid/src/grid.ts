@@ -51,7 +51,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   #resizeObserver?: ResizeObserver;
 
   /** The sorters for this grid. */
-  #sorters: GridSorter[] = [];
+  #sorters: Array<GridSorter<T>> = [];
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
@@ -345,7 +345,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.columns = columns;
   }
 
-  #onSorterChange({ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter }): void {
+  #onSorterChange({ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter<T> }): void {
     if (detail === 'added') {
       this.#sorters = [...this.#sorters, target];
     } else {
@@ -360,7 +360,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onSorterDirectionChange({
     target
-  }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {
+  }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter<T> }): void {
     this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
 
     this.#applySorters();
@@ -403,11 +403,13 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       return;
     }
 
-    const { column, direction } = this.#sorters.find(sorter => !!sorter.direction) || {};
+    const sorter = this.#sorters.find(sorter => !!sorter.direction);
 
-    if (column?.path && direction) {
-      this.dataSource.sortValue = { path: column.path, direction };
+    if (sorter) {
+      this.dataSource.sortFunction = sorter.sort;
+      this.dataSource.sortValue = { path: sorter.column.path, direction: sorter.direction! };
     } else {
+      this.dataSource.sortFunction = undefined;
       this.dataSource.sortValue = undefined;
     }
 

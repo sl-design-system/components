@@ -150,7 +150,7 @@ export class CheckboxComponent {
         <sl-radio value="2" formControlName="option">Second option</sl-radio>
         <sl-radio value="3" formControlName="option">Third option</sl-radio>
       </sl-radio-group>
-      <sl-button type="submit" variant="primary">Send</sl-button>
+      <sl-button type="submit" variant="primary">Submit</sl-button>
       <div>Name: {{myForm.value.name}}</div>
       <div>Description: {{myForm.value.description}}</div>
       <div>Approval: {{myForm.value.approval}}</div>

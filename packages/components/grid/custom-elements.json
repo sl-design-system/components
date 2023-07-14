@@ -2090,6 +2090,14 @@
             },
             {
               "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSortFunction | undefined"
+              },
+              "description": "If you want to provide a custom sort function, you can via this property."
+            },
+            {
+              "kind": "field",
               "name": "sticky",
               "type": {
                 "text": "boolean | undefined"
@@ -2292,6 +2300,14 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSortFunction<T> | undefined"
+              },
+              "description": "An optional custom sort function."
             },
             {
               "kind": "field",

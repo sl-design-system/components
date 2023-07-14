@@ -100,12 +100,12 @@ export abstract class FormControlElementDirective implements Omit<ControlValueAc
     // return undefined;
     if (/*nativeElement.checkValidity() ||*/ control.untouched /*|| control.valid*/) {
       console.log('in checkbox validate if  formcontrollll', control);
-      // return control.errors;
-      return null;
+      return control.errors;
+      // return null;
     } else {
       console.log('in checkbox validate else formcontrollll', control);
-      // return null;
-      return control.errors;
+      return null;
+      // return control.errors;
     }
   }
 

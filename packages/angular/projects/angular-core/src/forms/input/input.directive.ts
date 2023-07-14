@@ -4,7 +4,7 @@ import {
   Directive,
   ElementRef,
   forwardRef,
-  HostListener, OnChanges, SimpleChanges
+  HostListener, Inject, Injector, OnChanges, Renderer2, SimpleChanges
 } from '@angular/core';
 import {
   AbstractControl,
@@ -14,6 +14,7 @@ import {
   ValidationErrors,
   Validator
 } from "@angular/forms";
+import {FormControlElementDirective} from "../form-control/form-control-element.directive";
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -32,18 +33,18 @@ import {
   ]
 })
 
-export class InputDirective implements ControlValueAccessor, Validator, AfterViewInit/*,*/ /*, AfterViewInit, AfterContentInit, OnChanges*/, AfterViewChecked /*AfterContentChecked */{
+export class InputDirective extends FormControlElementDirective /*implements ControlValueAccessor, Validator, AfterViewInit/!*,*!/ /!*, AfterViewInit, AfterContentInit, OnChanges*!/, AfterViewChecked /!*AfterContentChecked *!/*/{
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  onChange: (value: any) => void = () => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  onTouched: () => any = () => {};
-
-  /** Part of Validator. */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private validatorOnChange = () => {};
-
-  /** The combined form control validator for this input. */
-  // private validator: ValidatorFn | null;
+  // onChange: (value: any) => void = () => {};
+  // // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
+  // onTouched: () => any = () => {};
+  //
+  // /** Part of Validator. */
+  //   // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // private validatorOnChange = () => {};
+  //
+  // /** The combined form control validator for this input. */
+  // // private validator: ValidatorFn | null;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _value: any;
@@ -73,10 +74,10 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
    // console.log('val in set value after if', val, this.value, this.elementRef.nativeElement.input.value, this._value);
   }
 
-  /** Implemented as part of Validator. */
-  registerOnValidatorChange(fn: () => void): void {
-    this.validatorOnChange = fn;
-  }
+  // /** Implemented as part of Validator. */
+  // registerOnValidatorChange(fn: () => void): void {
+  //   this.validatorOnChange = fn;
+  // }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
@@ -88,48 +89,50 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
+  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // registerOnChange(fn: any): void {
+  //   this.onChange = fn;
+  // }
+  //
+  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // registerOnTouched(fn: any): void {
+  //   this.onTouched = fn;
+  //   //this.validatorOnChange();
+  // }
+  //
+  // setDisabledState(disabled: boolean): void {
+  //   this.elementRef.nativeElement.disabled = disabled;
+  // }
+
+  // validate(control: AbstractControl): ValidationErrors | null {
+  //   // const nativeElement: HTMLInputElement = this.elementRef.nativeElement;
+  //   // const input: HTMLInputElement = nativeElement.querySelector('input') as HTMLInputElement;
+  //   // console.log('nativeElement in validate',control, control.status, nativeElement, nativeElement.validity?.valid, input, control.errors, this.elementRef.nativeElement.validity); // reportValidity
+  //
+  //   // console.log('control touched -------->>>>>>>', control, control.touched, control.valid, input.validationMessage/*, (control.parent as NgForm).submitted*/ /*, input.reportValidity()*/);
+  //
+  //
+  //   console.log('in input validate control controlll', control, control.untouched, control.valid);
+  //
+  //   if (control.untouched /*&& control.pristine*/) {
+  //     console.log('in input validate control untouched', control);
+  //     return control.errors; // TODO: return null or not causing invalid?
+  //     // return null;
+  //   // } else if (control.errors) {
+  //   //   console.log('in input validate control  else ifff', control);
+  //   //   return control.errors;
+  //   } else {
+  //     console.log('in input validate control  else', control);
+  //     // this.validatorOnChange();
+  //     // return control.errors;
+  //     return null;
+  //   }
+  //
+  // }
+
+  constructor(public override elementRef: ElementRef, private renderer: Renderer2, @Inject(Injector) injector: Injector) {
+    super(elementRef, injector);
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-    //this.validatorOnChange();
-  }
-
-  setDisabledState(disabled: boolean): void {
-    this.elementRef.nativeElement.disabled = disabled;
-  }
-
-  validate(control: AbstractControl): ValidationErrors | null {
-    // const nativeElement: HTMLInputElement = this.elementRef.nativeElement;
-    // const input: HTMLInputElement = nativeElement.querySelector('input') as HTMLInputElement;
-    // console.log('nativeElement in validate',control, control.status, nativeElement, nativeElement.validity?.valid, input, control.errors, this.elementRef.nativeElement.validity); // reportValidity
-
-    // console.log('control touched -------->>>>>>>', control, control.touched, control.valid, input.validationMessage/*, (control.parent as NgForm).submitted*/ /*, input.reportValidity()*/);
-
-
-    console.log('in input validate control controlll', control, control.untouched, control.valid);
-
-    if (control.untouched /*&& control.pristine*/) {
-      console.log('in input validate control untouched', control);
-      return control.errors; // TODO: return null or not causing invalid?
-      // return null;
-    // } else if (control.errors) {
-    //   console.log('in input validate control  else ifff', control);
-    //   return control.errors;
-    } else {
-      console.log('in input validate control  else', control);
-      // this.validatorOnChange();
-      // return control.errors;
-      return null;
-    }
-
-  }
-
-  constructor(private elementRef: ElementRef) {}
 
   // ngOnChanges(changes:SimpleChanges): void {
   //   // this.elementRef.nativeElement.input.value = val;
@@ -137,11 +140,11 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
   //   // this.elementRef.nativeElement.input.value = this.value;
   // }
   //
-  ngAfterViewInit(): void {
-    // this.elementRef.nativeElement.input.value = val;
-    console.log('this.elementRef.nativeElement.input.value', this.elementRef.nativeElement.input.value, this._value, this.value);
-    // this.elementRef.nativeElement.input.value = this.value;
-  }
+  // ngAfterViewInit(): void {
+  //   // this.elementRef.nativeElement.input.value = val;
+  //   console.log('this.elementRef.nativeElement.input.value', this.elementRef.nativeElement.input.value, this._value, this.value);
+  //   // this.elementRef.nativeElement.input.value = this.value;
+  // }
   //
   // ngAfterContentInit(): void {
   //   // this.elementRef.nativeElement.input.value = val;
@@ -149,10 +152,10 @@ export class InputDirective implements ControlValueAccessor, Validator, AfterVie
   //   // this.elementRef.nativeElement.input.value = this.value;
   // }
 
-  ngAfterViewChecked() {
-    console.log('ngafterviewchecked in input');
-    // this.validatorOnChange();
-  }
+  // ngAfterViewChecked() {
+  //   console.log('ngafterviewchecked in input');
+  //   // this.validatorOnChange();
+  // }
 
   @HostListener('input', ['$event.target.value'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

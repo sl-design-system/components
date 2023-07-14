@@ -24,6 +24,7 @@ type Story = StoryObj<Props>;
 
 const sizes: SwitchSize[] = ['sm', 'md', 'lg'];
 const orientations: SwitchOrientation[] = ['horizontal', 'vertical'];
+const states: string[] = ['', 'checked'];
 
 const sizeName = (size: SwitchSize): string => {
   switch (size) {
@@ -64,30 +65,50 @@ export const Basic: Story = {};
 export const All: Story = {
   render: () => {
     return html` <style>
-        #root-inner {
-          align-items: start;
-          display: grid;
-          gap: 24px;
-          grid-template-columns: 1fr 1fr;
-        }
-        h2 {
-          grid-column-end: -1;
-          grid-column-start: 1;
+        sl-switch {
+          min-width: 200px;
         }
       </style>
-      ${orientations.map(orientation =>
-        sizes.map(
-          size => html`
-            <h2>${sizeName(size)}</h2>
-            <sl-switch .size=${size} .orientation=${orientation} hint="Check this one">Unchecked</sl-switch>
-            <sl-switch .size=${size} .orientation=${orientation} checked>Checked</sl-switch>
-            <sl-switch .size=${size} .orientation=${orientation} disabled>Disabled unchecked</sl-switch>
-            <sl-switch .size=${size} .orientation=${orientation} disabled checked>Disabled checked</sl-switch>
-            <sl-switch .size=${size} .orientation=${orientation}></sl-switch>
-            <sl-switch .size=${size} .orientation=${orientation} checked></sl-switch>
-          `
-        )
-      )}`;
+      <table>
+        <tbody>
+          ${sizes.map(
+            size => html` <tr>
+              <td colspan="4">
+                Size: ${sizeName(size)}</td></tr>
+                ${orientations.map(orientation =>
+                  states.map(
+                    state =>
+                      html`<tr>
+                        <th>${state === '' ? 'Unchecked' : 'Checked'}</th>
+                        <td>
+                          <sl-switch
+                            .size=${size}
+                            .orientation=${orientation}
+                            ?checked=${state === 'checked'}
+                            hint="Check this one"
+                            >With hint</sl-switch
+                          >
+                        </td>
+                        <td>
+                          <sl-switch .size=${size} .orientation=${orientation} ?checked=${state === 'checked'}
+                            >Without hint</sl-switch
+                          >
+                        </td>
+                        <td>
+                          <sl-switch
+                            .size=${size}
+                            .orientation=${orientation}
+                            ?checked=${state === 'checked'}
+                          ></sl-switch>
+                        </td>
+                      </tr> `
+                  )
+                )}
+              </td>
+            </tr>`
+          )}
+        </tbody>
+      </table>`;
   }
 };
 

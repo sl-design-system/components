@@ -36,6 +36,8 @@ $sizes: sm, md, lg;
     --handle-size: var(--sl-size-input-switch-handle-#{$size});
     --_toggle-width: var(--sl-size-input-switch-controller-width-#{$size});
     --_gap: var(--sl-space-input-gap-#{$size});
+    --_inputlabel-font: var(--sl-text-input-field-label-tag-#{$size});
+    --_hint-font: var(--sl-text-input-helper-text-#{$size});
   }
 }
 
@@ -94,6 +96,7 @@ $sizes: sm, md, lg;
 
 .inputlabel {
   cursor: pointer;
+  font: var(--_inputlabel-font);
   grid-area: inputlabel;
 }
 
@@ -131,6 +134,7 @@ $sizes: sm, md, lg;
 
 .hint {
   display: contents;
+  font: var(--_hint-font);
   grid-area: hint;
 }
 

@@ -61,6 +61,7 @@ module.exports = {
         checksConditionals: false
       }
     ],
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/prefer-for-of': 'error',

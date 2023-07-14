@@ -1,5 +1,14 @@
 # @sl-design-system/label
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.7
+  - @sl-design-system/text-input@0.1.2
+  - @sl-design-system/textarea@0.1.2
+
 ## 0.1.2
 
 ### Patch Changes

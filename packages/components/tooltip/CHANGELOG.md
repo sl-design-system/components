@@ -1,5 +1,13 @@
 # @sl-design-system/tooltip
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`8a53d80`](https://github.com/sl-design-system/components/commit/8a53d800564073f7840a9f6365b234df3351c44f)]:
+  - @sl-design-system/shared@0.1.2
+  - @sl-design-system/popover@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes

@@ -42,8 +42,10 @@ export const EmptyValues: Story = {
   render: () => {
     const items = [
       { key: 'Foo', value: 'foo' },
-      { key: 'Space', value: ' ' },
-      { key: 'Blank', value: '' }
+      { key: 'Spaces', value: '          ' },
+      { key: 'Blank', value: '' },
+      { key: 'Null', value: null },
+      { key: 'Undefined', value: undefined }
     ];
 
     return html`

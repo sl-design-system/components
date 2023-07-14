@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.15
+
+### Patch Changes
+
+- [#515](https://github.com/sl-design-system/components/pull/515) [`b5f3257`](https://github.com/sl-design-system/components/commit/b5f3257d069613bce30e9417318b246023dffbab) - Add ability to use a custom sort function
+
 ## 0.0.14
 
 ### Patch Changes

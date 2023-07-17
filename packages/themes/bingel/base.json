@@ -870,12 +870,12 @@
             "radius": {
               "value": "{control.sm.border.radius}",
               "type": "borderRadius",
-              "description": "component.button.solid.sm.border.radius"
+              "description": "component.button.core.sm.border.radius"
             },
             "width": {
               "value": "{control.sm.border.width}",
               "type": "borderWidth",
-              "description": "component.button.solid.sm.border.width"
+              "description": "component.button.core.sm.border.width"
             }
           },
           "font": {
@@ -885,36 +885,36 @@
               "fontWeight": "{control.sm.font.weight}",
               "lineHeight": "{control.sm.font.lineHeight}"
             },
-            "description": "component.button.solid.sm.font",
+            "description": "component.button.core.sm.font",
             "type": "typography"
           },
           "gap": {
             "value": "{control.sm.gap}",
             "type": "spacing",
-            "description": "component.button.solid.sm.gap"
+            "description": "component.button.core.sm.gap"
           },
           "outline": {
             "offset": {
               "value": "{control.sm.outline.offset}",
               "type": "spacing",
-              "description": "component.button.solid.sm.outline.offset"
+              "description": "component.button.core.sm.outline.offset"
             },
             "width": {
               "value": "{control.sm.outline.width}",
               "type": "borderWidth",
-              "description": "component.button.solid.sm.outline.width"
+              "description": "component.button.core.sm.outline.width"
             }
           },
           "padding": {
             "block": {
-              "value": "{space.xs} - {control.sm.border.width}",
+              "value": "{space.xs} - {component.button.core.sm.border.width}",
               "type": "spacing",
-              "description": "component.button.solid.sm.padding.block"
+              "description": "component.button.core.sm.padding.block"
             },
             "inline": {
-              "value": "{space.lg} - {control.sm.border.width}",
+              "value": "{space.lg} - {component.button.core.sm.border.width}",
               "type": "spacing",
-              "description": "component.button.solid.sm.padding.inline"
+              "description": "component.button.core.sm.padding.inline"
             }
           }
         },
@@ -928,7 +928,7 @@
             "width": {
               "value": "{control.md.border.width}",
               "type": "borderWidth",
-              "description": "component.button.solid.md.border.width"
+              "description": "component.button.core.md.border.width"
             }
           },
           "font": {
@@ -938,13 +938,13 @@
               "fontWeight": "{control.md.font.weight}",
               "lineHeight": "{control.md.font.lineHeight}"
             },
-            "description": "component.button.solid.md.font",
+            "description": "component.button.core.md.font",
             "type": "typography"
           },
           "gap": {
             "value": "{control.md.gap}",
             "type": "spacing",
-            "description": "component.button.solid.md.gap"
+            "description": "component.button.core.md.gap"
           },
           "outline": {
             "offset": {
@@ -960,14 +960,14 @@
           },
           "padding": {
             "block": {
-              "value": "{space.sm} - {control.md.border.width}",
+              "value": "{space.sm} - {component.button.core.md.border.width}",
               "type": "spacing",
-              "description": "component.button.solid.md.padding.block"
+              "description": "component.button.core.md.padding.block"
             },
             "inline": {
-              "value": "{space.lg} - {control.md.border.width}",
+              "value": "{space.lg} - {component.button.core.md.border.width}",
               "type": "spacing",
-              "description": "component.button.solid.md.padding.inline"
+              "description": "component.button.core.md.padding.inline"
             }
           }
         },
@@ -976,12 +976,12 @@
             "radius": {
               "value": "{control.md.border.radius}",
               "type": "borderRadius",
-              "description": "component.button.solid.lg.border.radius"
+              "description": "component.button.core.lg.border.radius"
             },
             "width": {
               "value": "{control.md.border.width}",
               "type": "borderWidth",
-              "description": "component.button.solid.lg.border.width"
+              "description": "component.button.core.lg.border.width"
             }
           },
           "font": {
@@ -991,13 +991,13 @@
               "fontWeight": "{control.lg.font.weight}",
               "lineHeight": "{control.lg.font.lineHeight}"
             },
-            "description": "component.button.solid.lg.font",
+            "description": "component.button.core.lg.font",
             "type": "typography"
           },
           "gap": {
             "value": "{control.md.gap}",
             "type": "spacing",
-            "description": "component.button.solid.lg.gap"
+            "description": "component.button.core.lg.gap"
           },
           "outline": {
             "offset": {
@@ -1013,14 +1013,14 @@
           },
           "padding": {
             "block": {
-              "value": "{space.sm} - {control.lg.border.width}",
+              "value": "{space.sm} - {component.button.core.lg.border.width}",
               "type": "spacing",
-              "description": "component.button.solid.lg.padding.block"
+              "description": "component.button.core.lg.padding.block"
             },
             "inline": {
-              "value": "{space.lg} - {control.lg.border.width}",
+              "value": "{space.lg} - {component.button.core.lg.border.width}",
               "type": "spacing",
-              "description": "component.button.solid.lg.padding.inline"
+              "description": "component.button.core.lg.padding.inline"
             }
           }
         }
@@ -2418,16 +2418,6 @@
       },
       "link": {
         "sm": {
-          "font": {
-            "value": {
-              "fontFamily": "{control.sm.font.family}",
-              "fontSize": "{control.sm.font.size}",
-              "fontWeight": "{control.sm.font.weight}",
-              "lineHeight": "{control.sm.font.lineHeight}"
-            },
-            "description": "component.button.solid.sm.font",
-            "type": "typography"
-          },
           "padding": {
             "block": {
               "value": "{space.xs} - {control.sm.border.width}",
@@ -2442,16 +2432,6 @@
           }
         },
         "md": {
-          "font": {
-            "value": {
-              "fontFamily": "{control.md.font.family}",
-              "fontSize": "{control.md.font.size}",
-              "fontWeight": "{control.md.font.weight}",
-              "lineHeight": "{control.md.font.lineHeight}"
-            },
-            "description": "component.button.solid.md.font",
-            "type": "typography"
-          },
           "padding": {
             "block": {
               "value": "{space.sm} - {control.md.border.width}",
@@ -2466,16 +2446,6 @@
           }
         },
         "lg": {
-          "font": {
-            "value": {
-              "fontFamily": "{control.lg.font.family}",
-              "fontSize": "{control.lg.font.size}",
-              "fontWeight": "{control.lg.font.weight}",
-              "lineHeight": "{control.lg.font.lineHeight}"
-            },
-            "description": "component.button.solid.lg.font",
-            "type": "typography"
-          },
           "padding": {
             "block": {
               "value": "{space.sm} - {control.lg.border.width}",
@@ -2878,180 +2848,32 @@
             "description": "component.button.icon-only.lg.inlineSize"
           }
         }
-      },
-      "link-copy": {
-        "sm": {
-          "font": {
-            "value": {
-              "textCase": "{text.typeset.textDecoration.underline}"
-            },
-            "type": "typography",
-            "description": "component.button.solid.sm.font"
-          }
-        },
-        "md": {
-          "font": {
-            "value": {
-              "fontFamily": "{control.md.font.family}",
-              "fontSize": "{control.md.font.size}",
-              "fontWeight": "{control.md.font.weight}",
-              "lineHeight": "{control.md.font.lineHeight}"
-            },
-            "description": "component.button.solid.md.font",
-            "type": "typography"
-          }
-        },
-        "lg": {
-          "font": {
-            "value": {
-              "fontFamily": "{control.lg.font.family}",
-              "fontSize": "{control.lg.font.size}",
-              "fontWeight": "{control.lg.font.weight}",
-              "lineHeight": "{control.lg.font.lineHeight}",
-              "textCase": "{text.typeset.textDecoration.underline}"
-            },
-            "type": "typography",
-            "description": "component.button.solid.lg.font"
-          }
-        }
       }
     },
-    "checkbox": {
-      "md": {
-        "border": {
-          "radius": {
-            "value": "{border.radius.2xs}",
-            "type": "borderRadius",
-            "description": "component.checkbox.md.border.radius"
-          },
-          "width": {
-            "value": "{control.md.border.width}",
-            "type": "borderWidth",
-            "description": "component.checkbox.md.border.width"
-          }
-        },
-        "font": {
-          "value": {
-            "fontFamily": "{control.md.font.family}",
-            "fontSize": "{control.md.font.size}",
-            "fontWeight": "{control.md.font.weight}",
-            "lineHeight": "{control.md.font.lineHeight}"
-          },
-          "description": "component.checkbox.md.font",
-          "type": "typography"
-        },
-        "gap": {
-          "value": "{control.md.gap}",
-          "type": "spacing",
-          "description": "component.checkbox.md.gap"
-        },
-        "inlineSize": {
-          "value": "{size.xl}",
-          "type": "sizing",
-          "description": "component.checkbox.md.inlineSize"
-        },
-        "outline": {
-          "offset": {
-            "value": "{control.md.outline.offset}",
-            "type": "spacing",
-            "description": "component.checkbox.md.outline.offset"
-          },
-          "width": {
-            "value": "{control.md.outline.width}",
-            "type": "borderWidth",
-            "description": "component.checkbox.md.outline.width"
-          }
-        },
-        "padding": {
-          "block": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "component.checkbox.md.padding.block"
-          },
-          "inline": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "component.checkbox.md.padding.inline"
-          }
+    "focusring": {
+      "color": {
+        "default": {
+          "value": "{color.palette.neutral.base}",
+          "type": "color"
         }
       },
-      "lg": {
-        "border": {
-          "radius": {
-            "value": "{border.radius.2xs}",
+      "border": {
+        "radius": {
+          "default": {
+            "value": "{control.sm.border.radius} + 1",
             "type": "borderRadius",
-            "description": "component.checkbox.lg.border.radius"
+            "description": "component.focusring.radius.default"
           },
-          "width": {
-            "value": "{control.lg.border.width}",
-            "type": "borderWidth",
-            "description": "component.checkbox.lg.border.width"
+          "full": {
+            "value": "{border.radius.full}",
+            "type": "borderRadius",
+            "description": "component.focusring.radius.full"
           }
         },
-        "font": {
-          "value": {
-            "fontFamily": "{control.lg.font.family}",
-            "fontSize": "{control.lg.font.size}",
-            "fontWeight": "{control.lg.font.weight}",
-            "lineHeight": "{control.lg.font.lineHeight}"
-          },
-          "description": "component.checkbox.lg.font",
-          "type": "typography"
-        },
-        "gap": {
-          "value": "{control.lg.gap}",
-          "type": "spacing",
-          "description": "component.checkbox.lg.gap"
-        },
-        "inlineSize": {
-          "value": "{size.2xl}",
-          "type": "sizing",
-          "description": "component.checkbox.lg.inlineSize"
-        },
-        "outline": {
-          "offset": {
-            "value": "{control.lg.outline.offset}",
-            "type": "spacing",
-            "description": "component.checkbox.lg.outline.offset"
-          },
-          "width": {
-            "value": "{control.lg.outline.width}",
-            "type": "borderWidth",
-            "description": "component.checkbox.lg.outline.width"
-          }
-        },
-        "padding": {
-          "block": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "component.checkbox.lg.padding.block"
-          },
-          "inline": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "component.checkbox.lg.padding.inline"
-          }
-        }
-      },
-      "default": {
-        "idle": {
-          "background": {
-            "value": "{color.palette.transparent.base}",
-            "type": "color",
-            "description": "component.checkbox.default.background"
-          },
-          "foreground": {
-            "value": "{control.default.idle.foreground}",
-            "type": "color",
-            "description": "component.checkbox.default.foreground"
-          },
-          "border": {
-            "color": {
-              "value": "{control.default.idle.border.color}",
-              "type": "color",
-              "description": "component.checkbox.default.border.color"
-            }
-          }
+        "width": {
+          "value": "{control.sm.border.width}",
+          "type": "borderWidth",
+          "description": "component.focusring.border.width"
         }
       }
     }
@@ -4085,6 +3907,145 @@
             "value": "{color.palette.neutral.200}",
             "type": "color",
             "description": "control.danger.disabled.border.color"
+          }
+        }
+      }
+    }
+  },
+  "checkbox": {
+    "md": {
+      "border": {
+        "radius": {
+          "value": "{border.radius.2xs}",
+          "type": "borderRadius",
+          "description": "component.checkbox.md.border.radius"
+        },
+        "width": {
+          "value": "{control.md.border.width}",
+          "type": "borderWidth",
+          "description": "component.checkbox.md.border.width"
+        }
+      },
+      "font": {
+        "value": {
+          "fontFamily": "{control.md.font.family}",
+          "fontSize": "{control.md.font.size}",
+          "fontWeight": "{control.md.font.weight}",
+          "lineHeight": "{control.md.font.lineHeight}"
+        },
+        "description": "component.checkbox.md.font",
+        "type": "typography"
+      },
+      "gap": {
+        "value": "{control.md.gap}",
+        "type": "spacing",
+        "description": "component.checkbox.md.gap"
+      },
+      "inlineSize": {
+        "value": "{size.xl}",
+        "type": "sizing",
+        "description": "component.checkbox.md.inlineSize"
+      },
+      "outline": {
+        "offset": {
+          "value": "{control.md.outline.offset}",
+          "type": "spacing",
+          "description": "component.checkbox.md.outline.offset"
+        },
+        "width": {
+          "value": "{control.md.outline.width}",
+          "type": "borderWidth",
+          "description": "component.checkbox.md.outline.width"
+        }
+      },
+      "padding": {
+        "block": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "component.checkbox.md.padding.block"
+        },
+        "inline": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "component.checkbox.md.padding.inline"
+        }
+      }
+    },
+    "lg": {
+      "border": {
+        "radius": {
+          "value": "{border.radius.2xs}",
+          "type": "borderRadius",
+          "description": "component.checkbox.lg.border.radius"
+        },
+        "width": {
+          "value": "{control.lg.border.width}",
+          "type": "borderWidth",
+          "description": "component.checkbox.lg.border.width"
+        }
+      },
+      "font": {
+        "value": {
+          "fontFamily": "{control.lg.font.family}",
+          "fontSize": "{control.lg.font.size}",
+          "fontWeight": "{control.lg.font.weight}",
+          "lineHeight": "{control.lg.font.lineHeight}"
+        },
+        "description": "component.checkbox.lg.font",
+        "type": "typography"
+      },
+      "gap": {
+        "value": "{control.lg.gap}",
+        "type": "spacing",
+        "description": "component.checkbox.lg.gap"
+      },
+      "inlineSize": {
+        "value": "{size.2xl}",
+        "type": "sizing",
+        "description": "component.checkbox.lg.inlineSize"
+      },
+      "outline": {
+        "offset": {
+          "value": "{control.lg.outline.offset}",
+          "type": "spacing",
+          "description": "component.checkbox.lg.outline.offset"
+        },
+        "width": {
+          "value": "{control.lg.outline.width}",
+          "type": "borderWidth",
+          "description": "component.checkbox.lg.outline.width"
+        }
+      },
+      "padding": {
+        "block": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "component.checkbox.lg.padding.block"
+        },
+        "inline": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "component.checkbox.lg.padding.inline"
+        }
+      }
+    },
+    "default": {
+      "idle": {
+        "background": {
+          "value": "{color.palette.transparent.base}",
+          "type": "color",
+          "description": "component.checkbox.default.background"
+        },
+        "foreground": {
+          "value": "{control.default.idle.foreground}",
+          "type": "color",
+          "description": "component.checkbox.default.foreground"
+        },
+        "border": {
+          "color": {
+            "value": "{control.default.idle.border.color}",
+            "type": "color",
+            "description": "component.checkbox.default.border.color"
           }
         }
       }

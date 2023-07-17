@@ -3,10 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-.sl-component-button-link-copy-sm-font {
-  text-transform: var(--sl-text-typeset-text-decoration-underline);
-}
-
 .sl-text-input-opiton-label-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-weight: var(--sl-text-typeset-font-weight-regular);
@@ -175,54 +171,18 @@
   letter-spacing: var(--sl-text-typeset-letter-spacing-xs);
 }
 
-.sl-component-checkbox-lg-font {
+.sl-checkbox-lg-font {
   font-family: var(--sl-control-lg-font-family);
   font-size: var(--sl-control-lg-font-size);
   font-weight: var(--sl-control-lg-font-weight);
   line-height: var(--sl-control-lg-font-line-height);
 }
 
-.sl-component-checkbox-md-font {
+.sl-checkbox-md-font {
   font-family: var(--sl-control-md-font-family);
   font-size: var(--sl-control-md-font-size);
   font-weight: var(--sl-control-md-font-weight);
   line-height: var(--sl-control-md-font-line-height);
-}
-
-.sl-component-button-link-copy-lg-font {
-  font-family: var(--sl-control-lg-font-family);
-  font-size: var(--sl-control-lg-font-size);
-  font-weight: var(--sl-control-lg-font-weight);
-  line-height: var(--sl-control-lg-font-line-height);
-  text-transform: var(--sl-text-typeset-text-decoration-underline);
-}
-
-.sl-component-button-link-copy-md-font {
-  font-family: var(--sl-control-md-font-family);
-  font-size: var(--sl-control-md-font-size);
-  font-weight: var(--sl-control-md-font-weight);
-  line-height: var(--sl-control-md-font-line-height);
-}
-
-.sl-component-button-link-lg-font {
-  font-family: var(--sl-control-lg-font-family);
-  font-size: var(--sl-control-lg-font-size);
-  font-weight: var(--sl-control-lg-font-weight);
-  line-height: var(--sl-control-lg-font-line-height);
-}
-
-.sl-component-button-link-md-font {
-  font-family: var(--sl-control-md-font-family);
-  font-size: var(--sl-control-md-font-size);
-  font-weight: var(--sl-control-md-font-weight);
-  line-height: var(--sl-control-md-font-line-height);
-}
-
-.sl-component-button-link-sm-font {
-  font-family: var(--sl-control-sm-font-family);
-  font-size: var(--sl-control-sm-font-size);
-  font-weight: var(--sl-control-sm-font-weight);
-  line-height: var(--sl-control-sm-font-line-height);
 }
 
 .sl-component-button-core-lg-font {

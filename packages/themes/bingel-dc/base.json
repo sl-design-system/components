@@ -3337,6 +3337,145 @@
           "description": "component.focusring.border.width"
         }
       }
+    },
+    "checkbox": {
+      "md": {
+        "border": {
+          "radius": {
+            "value": "{border.radius.2xs}",
+            "type": "borderRadius",
+            "description": "component.checkbox.md.border.radius"
+          },
+          "width": {
+            "value": "{control.md.border.width}",
+            "type": "borderWidth",
+            "description": "component.checkbox.md.border.width"
+          }
+        },
+        "font": {
+          "value": {
+            "fontFamily": "{control.md.font.family}",
+            "fontSize": "{control.md.font.size}",
+            "fontWeight": "{control.md.font.weight}",
+            "lineHeight": "{control.md.font.lineHeight}"
+          },
+          "description": "component.checkbox.md.font",
+          "type": "typography"
+        },
+        "gap": {
+          "value": "{control.md.gap}",
+          "type": "spacing",
+          "description": "component.checkbox.md.gap"
+        },
+        "inlineSize": {
+          "value": "{size.xl}",
+          "type": "sizing",
+          "description": "component.checkbox.md.inlineSize"
+        },
+        "outline": {
+          "offset": {
+            "value": "{control.md.outline.offset}",
+            "type": "spacing",
+            "description": "component.checkbox.md.outline.offset"
+          },
+          "width": {
+            "value": "{control.md.outline.width}",
+            "type": "borderWidth",
+            "description": "component.checkbox.md.outline.width"
+          }
+        },
+        "padding": {
+          "block": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "component.checkbox.md.padding.block"
+          },
+          "inline": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "component.checkbox.md.padding.inline"
+          }
+        }
+      },
+      "lg": {
+        "border": {
+          "radius": {
+            "value": "{border.radius.2xs}",
+            "type": "borderRadius",
+            "description": "component.checkbox.lg.border.radius"
+          },
+          "width": {
+            "value": "{control.lg.border.width}",
+            "type": "borderWidth",
+            "description": "component.checkbox.lg.border.width"
+          }
+        },
+        "font": {
+          "value": {
+            "fontFamily": "{control.lg.font.family}",
+            "fontSize": "{control.lg.font.size}",
+            "fontWeight": "{control.lg.font.weight}",
+            "lineHeight": "{control.lg.font.lineHeight}"
+          },
+          "description": "component.checkbox.lg.font",
+          "type": "typography"
+        },
+        "gap": {
+          "value": "{control.lg.gap}",
+          "type": "spacing",
+          "description": "component.checkbox.lg.gap"
+        },
+        "inlineSize": {
+          "value": "{size.2xl}",
+          "type": "sizing",
+          "description": "component.checkbox.lg.inlineSize"
+        },
+        "outline": {
+          "offset": {
+            "value": "{control.lg.outline.offset}",
+            "type": "spacing",
+            "description": "component.checkbox.lg.outline.offset"
+          },
+          "width": {
+            "value": "{control.lg.outline.width}",
+            "type": "borderWidth",
+            "description": "component.checkbox.lg.outline.width"
+          }
+        },
+        "padding": {
+          "block": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "component.checkbox.lg.padding.block"
+          },
+          "inline": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "component.checkbox.lg.padding.inline"
+          }
+        }
+      },
+      "default": {
+        "idle": {
+          "background": {
+            "value": "{color.palette.transparent.base}",
+            "type": "color",
+            "description": "component.checkbox.default.background"
+          },
+          "foreground": {
+            "value": "{control.default.idle.foreground}",
+            "type": "color",
+            "description": "component.checkbox.default.foreground"
+          },
+          "border": {
+            "color": {
+              "value": "{control.default.idle.border.color}",
+              "type": "color",
+              "description": "component.checkbox.default.border.color"
+            }
+          }
+        }
+      }
     }
   },
   "icon": {
@@ -4281,145 +4420,6 @@
             "value": "{color.palette.neutral.200}",
             "type": "color",
             "description": "control.danger.disabled.border.color"
-          }
-        }
-      }
-    }
-  },
-  "checkbox": {
-    "md": {
-      "border": {
-        "radius": {
-          "value": "{border.radius.2xs}",
-          "type": "borderRadius",
-          "description": "component.checkbox.md.border.radius"
-        },
-        "width": {
-          "value": "{control.md.border.width}",
-          "type": "borderWidth",
-          "description": "component.checkbox.md.border.width"
-        }
-      },
-      "font": {
-        "value": {
-          "fontFamily": "{control.md.font.family}",
-          "fontSize": "{control.md.font.size}",
-          "fontWeight": "{control.md.font.weight}",
-          "lineHeight": "{control.md.font.lineHeight}"
-        },
-        "description": "component.checkbox.md.font",
-        "type": "typography"
-      },
-      "gap": {
-        "value": "{control.md.gap}",
-        "type": "spacing",
-        "description": "component.checkbox.md.gap"
-      },
-      "inlineSize": {
-        "value": "{size.xl}",
-        "type": "sizing",
-        "description": "component.checkbox.md.inlineSize"
-      },
-      "outline": {
-        "offset": {
-          "value": "{control.md.outline.offset}",
-          "type": "spacing",
-          "description": "component.checkbox.md.outline.offset"
-        },
-        "width": {
-          "value": "{control.md.outline.width}",
-          "type": "borderWidth",
-          "description": "component.checkbox.md.outline.width"
-        }
-      },
-      "padding": {
-        "block": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "component.checkbox.md.padding.block"
-        },
-        "inline": {
-          "value": "{space.xs}",
-          "type": "spacing",
-          "description": "component.checkbox.md.padding.inline"
-        }
-      }
-    },
-    "lg": {
-      "border": {
-        "radius": {
-          "value": "{border.radius.2xs}",
-          "type": "borderRadius",
-          "description": "component.checkbox.lg.border.radius"
-        },
-        "width": {
-          "value": "{control.lg.border.width}",
-          "type": "borderWidth",
-          "description": "component.checkbox.lg.border.width"
-        }
-      },
-      "font": {
-        "value": {
-          "fontFamily": "{control.lg.font.family}",
-          "fontSize": "{control.lg.font.size}",
-          "fontWeight": "{control.lg.font.weight}",
-          "lineHeight": "{control.lg.font.lineHeight}"
-        },
-        "description": "component.checkbox.lg.font",
-        "type": "typography"
-      },
-      "gap": {
-        "value": "{control.lg.gap}",
-        "type": "spacing",
-        "description": "component.checkbox.lg.gap"
-      },
-      "inlineSize": {
-        "value": "{size.2xl}",
-        "type": "sizing",
-        "description": "component.checkbox.lg.inlineSize"
-      },
-      "outline": {
-        "offset": {
-          "value": "{control.lg.outline.offset}",
-          "type": "spacing",
-          "description": "component.checkbox.lg.outline.offset"
-        },
-        "width": {
-          "value": "{control.lg.outline.width}",
-          "type": "borderWidth",
-          "description": "component.checkbox.lg.outline.width"
-        }
-      },
-      "padding": {
-        "block": {
-          "value": "{space.none}",
-          "type": "spacing",
-          "description": "component.checkbox.lg.padding.block"
-        },
-        "inline": {
-          "value": "{space.none}",
-          "type": "spacing",
-          "description": "component.checkbox.lg.padding.inline"
-        }
-      }
-    },
-    "default": {
-      "idle": {
-        "background": {
-          "value": "{color.palette.transparent.base}",
-          "type": "color",
-          "description": "component.checkbox.default.background"
-        },
-        "foreground": {
-          "value": "{control.default.idle.foreground}",
-          "type": "color",
-          "description": "component.checkbox.default.foreground"
-        },
-        "border": {
-          "color": {
-            "value": "{control.default.idle.border.color}",
-            "type": "color",
-            "description": "component.checkbox.default.border.color"
           }
         }
       }

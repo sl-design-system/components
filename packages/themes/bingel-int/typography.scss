@@ -171,14 +171,14 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-checkbox-lg-font {
+@mixin sl-component-checkbox-lg-font {
   font-family: var(--sl-control-lg-font-family);
   font-size: var(--sl-control-lg-font-size);
   font-weight: var(--sl-control-lg-font-weight);
   line-height: var(--sl-control-lg-font-line-height);
 }
 
-@mixin sl-checkbox-md-font {
+@mixin sl-component-checkbox-md-font {
   font-family: var(--sl-control-md-font-family);
   font-size: var(--sl-control-md-font-size);
   font-weight: var(--sl-control-md-font-weight);

@@ -171,14 +171,14 @@
   letter-spacing: var(--sl-text-typeset-letter-spacing-xs);
 }
 
-.sl-checkbox-lg-font {
+.sl-component-checkbox-lg-font {
   font-family: var(--sl-control-lg-font-family);
   font-size: var(--sl-control-lg-font-size);
   font-weight: var(--sl-control-lg-font-weight);
   line-height: var(--sl-control-lg-font-line-height);
 }
 
-.sl-checkbox-md-font {
+.sl-component-checkbox-md-font {
   font-family: var(--sl-control-md-font-family);
   font-size: var(--sl-control-md-font-size);
   font-weight: var(--sl-control-md-font-weight);

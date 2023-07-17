@@ -32,25 +32,25 @@ import { Radio } from '@sl-design-system/radio-group';
 })
 export class RadioDirective extends FormControlElementDirective {
 
-  private _initialValue: string | undefined;
+  #initialValue: string | undefined;
 
-  private _value: string;
+  #value = '';
 
   get value(): string {
-    return this._value;
+    return this.#value;
   }
 
   set value(val: string) {
-    this._value = val;
-    this.onChange(this._value);
-    this.elementRef.nativeElement.internals.value = this._value;
+    this.#value = val;
+    this.onChange(this.#value);
+    this.elementRef.nativeElement.internals.value = this.#value;
     this.validatorOnChange();
   }
 
   writeValue(value: string): void {
-    this._initialValue = value;
+    this.#initialValue = value;
     if (value) {
-      this.elementRef.nativeElement.value = this._initialValue;
+      this.elementRef.nativeElement.value = this.#initialValue;
       this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
     }

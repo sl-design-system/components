@@ -31,25 +31,25 @@ import {FormControlElementDirective} from '../form-control/form-control-element.
 })
 export class CheckboxDirective extends FormControlElementDirective {
 
-  private _initialValue: string | undefined;
+  #initialValue: string | undefined;
 
-  private _value: string | undefined;
+  #value: string | undefined;
 
   get value(): string | undefined {
-    return this._value;
+    return this.#value;
   }
 
   set value(val: string | undefined) {
-    this._value = val;
-    this.onChange(this._value);
-    this.elementRef.nativeElement.internals.value = this._value;
+    this.#value = val;
+    this.onChange(this.#value);
+    this.elementRef.nativeElement.internals.value = this.#value;
     this.validatorOnChange();
   }
 
   writeValue(value: string | undefined): void {
-    this._initialValue = value;
+    this.#initialValue = value;
     if (value) {
-      this.elementRef.nativeElement.value = this._initialValue;
+      this.elementRef.nativeElement.value = this.#initialValue;
       this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
     }
@@ -61,7 +61,7 @@ export class CheckboxDirective extends FormControlElementDirective {
 
   @HostListener('sl-change', ['$event.target.checked'])
   listenForValueChange(checked: string | undefined): void {
-    checked = this.elementRef.nativeElement.checked ? this._initialValue : undefined;
+    checked = this.elementRef.nativeElement.checked ? this.#initialValue : undefined;
     this.value = checked;
   }
 }

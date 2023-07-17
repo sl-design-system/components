@@ -32,16 +32,16 @@ import { FormControlElementDirective } from '../form-control/form-control-elemen
 
 export class TextareaDirective extends FormControlElementDirective {
 
-  private _value: string | undefined;
+  #value: string | undefined;
 
   get value(): string | undefined {
-    return this._value;
+    return this.#value;
   }
 
   set value(val: string | undefined) {
-     if (val !== this._value) {
-      this._value = val;
-      this.onChange(this._value);
+     if (val !== this.#value) {
+      this.#value = val;
+      this.onChange(this.#value);
       this.validatorOnChange();
      }
   }

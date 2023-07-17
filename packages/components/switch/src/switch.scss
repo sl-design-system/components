@@ -35,7 +35,7 @@ $sizes: sm, md, lg;
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --handle-size: var(--sl-size-input-switch-handle-#{$size});
-    --_toggle-width: var(--sl-size-input-switch-controller-width-#{$size});
+    --_toggle-width: calc(var(--sl-size-input-switch-controller-width-#{$size}) - var(--_toggle-padding) * 2);
     --_gap: var(--sl-space-input-gap-#{$size});
     --_inputlabel-font: var(--sl-text-input-field-label-tag-#{$size});
     --_hint-font: var(--sl-text-input-helper-text-#{$size});

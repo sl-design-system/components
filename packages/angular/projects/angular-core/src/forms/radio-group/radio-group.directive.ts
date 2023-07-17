@@ -1,21 +1,18 @@
 import {
-  AfterContentInit,
   Directive,
   ElementRef,
   forwardRef,
-  HostListener, Inject, Injector,
+  HostListener,
+  Inject,
+  Injector,
   Renderer2
 } from '@angular/core';
 import {
-  AbstractControl,
-  ControlValueAccessor,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-  Validator
+  NG_VALUE_ACCESSOR
 } from '@angular/forms';
-import {Radio} from "@sl-design-system/radio-group";
-import {FormControlElementDirective} from "../form-control/form-control-element.directive";
+import { Radio } from '@sl-design-system/radio-group';
+import { FormControlElementDirective } from '../form-control/form-control-element.directive';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -33,15 +30,7 @@ import {FormControlElementDirective} from "../form-control/form-control-element.
     }
   ]
 })
-export class RadioGroupDirective extends FormControlElementDirective/*implements ControlValueAccessor, Validator*/ {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  // onChange: (value: any) => void = () => {};
-  // // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  // onTouched: () => any = () => {};
-  //
-  // /** Part of Validator. */
-  //   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  // private validatorOnChange = () => {};
+export class RadioGroupDirective extends FormControlElementDirective {
 
   private _initialValue: string | undefined;
 
@@ -74,35 +63,6 @@ export class RadioGroupDirective extends FormControlElementDirective/*implements
     //}
   }
 
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // registerOnChange(fn: any): void {
-  //   this.onChange = fn;
-  // }
-  //
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // registerOnTouched(fn: any): void {
-  //   this.onTouched = fn;
-  // }
-
-  // /** Implemented as part of Validator. */
-  // registerOnValidatorChange(fn: () => void): void {
-  //   this.validatorOnChange = fn;
-  // }
-  //
-  // validate(control: AbstractControl): ValidationErrors | null {
-  //   if (/*nativeElement.checkValidity() &&*/ control.untouched /*|| control.valid*/ /*&& control.errors*/) {
-  //     console.log('in radio validate if');
-  //     //this.elementRef.nativeElement.validation.render();
-  //     //  return {invalid: true}
-  //     // return control.errors;
-  //     return null;
-  //   } else {
-  //     console.log('in radio validate else');
-  //     // return null;
-  //     return control.errors;
-  //   }
-  // }
-
   constructor(public override elementRef: ElementRef, private renderer: Renderer2, @Inject(Injector) injector: Injector) {
     super(elementRef, injector);
   }
@@ -114,8 +74,4 @@ export class RadioGroupDirective extends FormControlElementDirective/*implements
     this.value = value;
     this.elementRef.nativeElement.checked = value.checked;
   }
-
-  // setDisabledState(isDisabled: boolean): void {
-  //   this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);
-  // }
 }

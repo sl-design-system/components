@@ -2,31 +2,27 @@ import type { Meta } from '@storybook/angular';
 import '@sl-design-system/label/register.js';
 import '@sl-design-system/button/register.js';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
   NgForm,
   NgModel,
-  ReactiveFormsModule,
+  ReactiveFormsModule, ValidationErrors,
   Validators
 } from '@angular/forms';
 import {
+  AfterContentChecked,
   AfterViewChecked,
   AfterViewInit,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  ViewChild,
   ElementRef,
-  AfterContentChecked,
-  DoCheck,
-  OnChanges,
-  SimpleChanges
+  ViewChild
 } from '@angular/core';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
-import { StartsWithThisIs, ValidateUrl} from "../src/forms/form-control/validators";
-import {RadioDirective} from "../src/forms";
-import {Radio} from "@sl-design-system/radio-group";
+import { Radio } from '@sl-design-system/radio-group';
 
 @Component({
   selector: 'sla-input',
@@ -138,7 +134,7 @@ export class CheckboxComponent {
       <sl-label for="website-input">Url (with custom validation)</sl-label>
       <sl-text-input id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="Your website adress (should contain 'https' and 'com' parts)" minlength="8" required>
       </sl-text-input>
-      <sl-label for="description-id">Description</sl-label>
+      <sl-label for="description-id">Description (with custom validation)</sl-label>
       <sl-textarea id="description-id" #myReactiveTextarea (input)="onInput(this.myForm.controls.description);" formControlName="description" placeholder="Add short description here" hint="This textarea should contain a short description starting with 'This is'" required>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
       </sl-textarea>
@@ -163,8 +159,8 @@ export class CheckboxComponent {
 export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, AfterContentChecked {
   myForm = new FormGroup({
     name: new FormControl('', [Validators.minLength(8), Validators.required]), // , [Validators.minLength(8), Validators.required]
-    website: new FormControl('', [Validators.minLength(8), Validators.required, ValidateUrl]), // , [Validators.minLength(8), Validators.required]
-    description: new FormControl('', [Validators.required, StartsWithThisIs]),
+    website: new FormControl('', [Validators.minLength(8), Validators.required, validateUrl]), // , [Validators.minLength(8), Validators.required]
+    description: new FormControl('', [Validators.required, startsWithThisIs]),
     approval: new FormControl('yes', Validators.requiredTrue),
     option: new FormControl()
   });
@@ -247,8 +243,8 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
       // this.myCheckboxRef.nativeElement.internals.checkValidity();
 
 
-      const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
-      const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+      const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
+       urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
 
       console.log('this.myForm.controls.name.errors?.[\'invalidUrl\']', this.myForm.controls.website.errors?.['invalidUrl'], this.myForm.controls.website.errors);
 
@@ -264,8 +260,8 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
 
      urlInput.checkValidity();
       input.checkValidity();
-      const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
-      const otherErrors = this.myForm.controls.description.errors ? Object.keys(this.myForm.controls.description.errors).length : 0;
+      const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement,
+       otherErrors = this.myForm.controls.description.errors ? Object.keys(this.myForm.controls.description.errors).length : 0;
       console.log('otherErrors...', otherErrors);
       if (this.myForm.controls.description.errors?.['invalidStart'] && otherErrors <= 1) {
         textarea.setCustomValidity('The description should starts with "This is"');
@@ -321,9 +317,9 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
   }
 
   ngAfterContentChecked(): void {
-    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
-    const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
-    const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
+     textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement,
+     urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
   console.log('this.myForm.controls.name.errors?.[\'invalidUrl\'] in aftercontentchecked', this.myForm.controls.website.errors?.['invalidUrl']);
     if (this.submitted) {
       // if (this.myForm.controls.name.errors?.['invalidUrl']) { // TODO only when no other errors like built-in
@@ -406,9 +402,9 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
       control.updateValueAndValidity();
     });
 
-    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
-    const urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
-    const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
+     urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement,
+     textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
 
     input.checkValidity();
     urlInput.checkValidity();
@@ -422,6 +418,37 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
       alert('form NOT submitted');
     }
   }
+}
+
+export function validateUrl(control: AbstractControl): ValidationErrors | null {
+  const otherErrors = control.errors ? Object.keys(control.errors).length : 0;
+  console.log('control in custom valdator url', control, control.errors, otherErrors, control.errors ? Object.keys(control.errors)?.find(error => error === 'invalidUrl') : null);
+  if ((!control.value.startsWith('https') || !control.value.includes('.com')) && otherErrors <= 1 /*&& otherErrors === null*/) {
+    console.log('control in custom valdator url in if', control, control.errors ? Object.keys(control.errors) : null, control.errors ? Object.keys(control.errors).length : null);
+    return { invalidUrl: true };
+  }
+  return null;
+}
+
+export function startsWithThisIs(control: AbstractControl): ValidationErrors | null {
+  const otherErrors = control.errors ? Object.keys(control.errors).length : 0;
+  const value = control.value;
+
+  // if (!value) {
+  //   return null;
+  // }
+  //
+  // const controlValid = value.startsWith('This is');
+  // console.log('in textarea validate StartsWithThisIs', control.errors, controlValid, otherErrors, !controlValid && otherErrors <=1);
+  //
+  // return !controlValid && otherErrors <= 1 ? { invalidStart: true }: null;
+
+  console.log('in textarea validate StartsWithThisIs', control.errors, otherErrors, otherErrors <=1);
+  if (!control.value.startsWith('This is') /*&& otherErrors <= 1*/ /*&& otherErrors === null*/) {
+    console.log('control in custom valdator url in if', control, control.errors ? Object.keys(control.errors) : null, control.errors ? Object.keys(control.errors).length : null);
+    return { invalidStart: true };
+  }
+  return null;
 }
 
 @Component({
@@ -449,7 +476,6 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
       </sl-text-input>
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" #myReactiveTextarea formControlName="description" placeholder="Add short description here" required>
-        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
       </sl-textarea>
       <sl-label for="approval-id">Approval</sl-label>
       <sl-checkbox #myReactiveCheckbox id="approval-id" formControlName="approval" required>Check me</sl-checkbox>
@@ -484,15 +510,15 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
 
   ngAfterViewChecked(): void {
     this.myForm.markAllAsTouched();
+
     Object.values(this.myForm.controls).forEach(control => {
-      console.log('control in reactive', control);
       control.markAsTouched();
       control.markAsDirty();
       control.updateValueAndValidity();
     });
 
-    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement;
-    const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+    const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
+     textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
     input.reportValidity();
     textarea.reportValidity();
     this.myCheckbox.nativeElement.internals.reportValidity();
@@ -527,7 +553,7 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" [(ngModel)]="model.description" #textareaWithNgmodel="ngModel" (input)="onInput(textareaWithNgmodel);" name="description" minlength="8" required></sl-textarea>
       <sl-label for="checkboxWithNgmodel">Checkbox</sl-label>
-      <sl-checkbox id="checkboxWithNgmodel" #checkboxWithNgmodel="ngModel" [(ngModel)]="model.approval" name="approval" (sl-change)="onChange(checkboxWithNgmodel)" required>my checkbox</sl-checkbox>
+      <sl-checkbox id="checkboxWithNgmodel" #checkboxWithNgmodel="ngModel" [(ngModel)]="model.approval" name="approval" required>my checkbox</sl-checkbox>
       <sl-label for="radio-group">Select option</sl-label>
       <sl-radio-group id="radio-group" #radioGroupWithNgmodel="ngModel" [(ngModel)]="model.option" name="option" required>
         <sl-radio value="1" (click)="onRadioValueChange($event.target)" (keydown)="onRadioValueChange($event.target)">One</sl-radio>
@@ -604,12 +630,6 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked, A
       this.radioGroupWithNgmodel.control.markAsUntouched();
       this.radioGroupWithNgmodel.control.markAsPristine();
       console.log('ngafterviewinit in form22', this.myForm.form.controls, this.myForm.controls, Array.of(this.myForm.controls), this.inputWithNgmodel, this.textareaWithNgmodel);
-
-      // Object.values(this.myForm.form.controls).forEach(control => {
-      //   console.log('ngafterviewinit in form for each', this.myForm.form.controls, this.myForm.controls, control);
-      //   control.markAsUntouched();
-      //   control.markAsPristine();
-      // });
     }
   }
 
@@ -650,46 +670,16 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked, A
   }
 
   onInput(target: NgModel): void {
-    console.log('oninput event check condition', target, !this.submitted && !!this.myForm, event, this.inputWithNgmodel.control.errors);
-
     if (!this.submitted /*&& !!this.myForm*/) {
       console.log('oninput event inside if');
-      // this.inputWithNgmodel.control.markAsUntouched();
-      // this.inputWithNgmodel.control.markAsPristine();
       target.control.markAsUntouched();
       target.control.markAsPristine();
     } else {
       console.log('oninput event inside else');
-      // this.inputWithNgmodel.control.markAsTouched();
-      // this.inputWithNgmodel.control.markAsDirty();
-      // this.inputWithNgmodel.control.updateValueAndValidity();
       target.control.markAsTouched();
       target.control.markAsDirty();
       target.control.updateValueAndValidity();
-      // (event.target as HTMLFormElement).checkValidity();
     }
-  }
-
-  onChange(target: NgModel): void {
-    console.log('onChange event check condition', target, !this.submitted && !!this.myForm, event, this.inputWithNgmodel.control.errors);
-
-    // if (!this.submitted /*&& !!this.myForm*/) {
-    //   console.log('onChange event inside if');
-    //   // this.inputWithNgmodel.control.markAsUntouched();
-    //   // this.inputWithNgmodel.control.markAsPristine();
-    //   target.control.markAsUntouched();
-    //   target.control.markAsPristine();
-    // } else {
-    //   console.log('onChange event inside else');
-    //   // this.inputWithNgmodel.control.markAsTouched();
-    //   // this.inputWithNgmodel.control.markAsDirty();
-    //   // this.inputWithNgmodel.control.updateValueAndValidity();
-    //   // if (this.myCheckboxRef.nativeElement.checked) {
-    //     target.control.markAsTouched();
-    //     target.control.markAsDirty();
-    //     target.control.updateValueAndValidity();
-    //   // }
-    // }
   }
 
   onRadioValueChange(event: any): void {
@@ -706,7 +696,6 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked, A
 
     this.myForm.form.markAllAsTouched();
 
-    //this.onInput();
     const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
 
 /*    Object.values(form.controls).forEach(control => {
@@ -743,13 +732,6 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked, A
     this.radioGroupWithNgmodel.control.updateValueAndValidity();
     this.myRadioGroupRef.nativeElement.internals.checkValidity();
 
-    // input.reportValidity();
-
-   // input.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
-
-    // input.dispatchEvent(new Event('invalid', { bubbles: true, cancelable: true }));
-    // input.dispatchEvent(new Event('sl-submit', { bubbles: true, cancelable: true }));
-    //console.log('input.validity onsubmit', input.validity);
 
     alert(`form submit: Name: ${model.name},
           Description: ${model.description},
@@ -819,14 +801,15 @@ export class TemplateFormRequiredReportComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     this.myForm.form.markAllAsTouched();
+
     Object.values(this.myForm.controls).forEach(control => {
       control.markAsTouched();
       control.markAsDirty();
       control.updateValueAndValidity();
     });
 
-    const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement;
-    const textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+    const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement,
+     textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
     input.reportValidity();
     textarea.reportValidity();
     this.myCheckboxRef.nativeElement.internals.reportValidity();

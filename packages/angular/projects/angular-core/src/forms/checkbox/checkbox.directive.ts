@@ -2,16 +2,14 @@ import {
   Directive,
   ElementRef,
   forwardRef,
-  HostListener, Inject, Injector,
+  HostListener,
+  Inject,
+  Injector,
   Renderer2
 } from '@angular/core';
 import {
-  AbstractControl,
-  ControlValueAccessor,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-  Validator
+  NG_VALUE_ACCESSOR
 } from '@angular/forms';
 import {FormControlElementDirective} from "../form-control/form-control-element.directive";
 
@@ -31,15 +29,7 @@ import {FormControlElementDirective} from "../form-control/form-control-element.
     }
   ]
 })
-export class CheckboxDirective extends FormControlElementDirective /*ControlValueAccessor, Validator*/ {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  // onChange: (value: any) => void = () => {};
-  // // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  // onTouched: () => any = () => {};
-  //
-  // /** Part of Validator. */
-  //   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  // private validatorOnChange = () => {};
+export class CheckboxDirective extends FormControlElementDirective {
 
   private _initialValue: string | undefined;
 
@@ -58,26 +48,6 @@ export class CheckboxDirective extends FormControlElementDirective /*ControlValu
     this.elementRef.nativeElement.internals.value = this._value;
   }
 
-  /** Implemented as part of Validator. */
-  // override registerOnValidatorChange(fn: () => void): void {
-  //   this.validatorOnChange = fn;
-  // }
-
-  // validate(control: AbstractControl): ValidationErrors | null {
-  //   // super.validate(control);
-  //   // console.log('in checkbox control status', control.valid, control, control.status, control.invalid, this.value);
-  //   //
-  //   if (/*nativeElement.checkValidity() ||*/ control.untouched /*|| control.valid*/) {
-  //     console.log('in checkbox validate if');
-  //     return control.errors;
-  //     // return null;
-  //   } else {
-  //     console.log('in checkbox validate else');
-  //     return null;
-  //     // return control.errors;
-  //   }
-  // }
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
     this._initialValue = value;
@@ -88,22 +58,8 @@ export class CheckboxDirective extends FormControlElementDirective /*ControlValu
     }
   }
 
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // registerOnChange(fn: any): void {
-  //   this.onChange = fn;
-  // }
-  //
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // registerOnTouched(fn: any): void {
-  //   this.onTouched = fn;
-  // }
-
-  // setDisabledState(disabled: boolean): void {
-  //   this.elementRef.nativeElement.disabled = disabled;
-  // }
-
   constructor(public override elementRef: ElementRef, private renderer: Renderer2, @Inject(Injector) injector: Injector) {
-    super(elementRef, injector); // TODO: not working
+    super(elementRef, injector);
   }
 
   @HostListener('sl-change', ['$event.target.checked'])

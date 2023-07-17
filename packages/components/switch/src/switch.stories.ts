@@ -66,12 +66,27 @@ export const All: Story = {
   render: () => {
     return html` <style>
         sl-switch {
-          min-width: 200px;
+          min-width: 250px;
         }
-        td {
+        tbody th,
+        tbody td {
+          vertical-align: top;
+        }
+        td > div {
           display: inline-flex;
           flex-direction: column;
           gap: 8px;
+        }
+
+        tbody td:nth-of-type(2n) {
+          border-right: 2px solid #dedede;
+          padding-right: 24px;
+        }
+        tbody td:nth-of-type(2n + 1):not(:first-of-type) {
+          padding-left: 24px;
+        }
+        tbody td:last-of-type {
+          border: none;
         }
         sl-switch:not(:last-of-type) {
           border-bottom: 1px solid #efefef;
@@ -79,19 +94,22 @@ export const All: Story = {
         }
       </style>
       <table>
+        <thead>
+          <tr>
+            <td></td>
+            ${sizes.map(size => html` <th colspan="2">Size: ${sizeName(size)}</th> `)}
+          </tr>
+        </thead>
         <tbody>
-          ${sizes.map(
-            size => html`
-              <tr>
-                <td colspan="4">Size: ${sizeName(size)}</td>
-              </tr>
-              ${orientations.map(
-                orientation =>
-                  html`<tr>
-                    <th>${orientation}</th>
-                    ${states.map(
-                      state => html`
-                        <td>
+          ${orientations.map(
+            orientation =>
+              html`<tr>
+                <th>${orientation}</th>
+                ${sizes.map(size =>
+                  states.map(
+                    state => html`
+                      <td>
+                        <div>
                           <sl-switch
                             .size=${size}
                             .orientation=${orientation}
@@ -107,12 +125,12 @@ export const All: Story = {
                             .orientation=${orientation}
                             ?checked=${state === 'checked'}
                           ></sl-switch>
-                        </td>
-                      `
-                    )}
-                  </tr>`
-              )}
-            `
+                        </div>
+                      </td>
+                    `
+                  )
+                )}
+              </tr>`
           )}
         </tbody>
       </table>`;

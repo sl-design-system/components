@@ -29,7 +29,6 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
 
   #onKeydown = (event: Event): void => {
     if ((event as KeyboardEvent).key === 'Enter') {
-      console.log('onkeydown in text input webcomponent', event, (event as KeyboardEvent).key);
       this.input.form?.requestSubmit();
     }
   };
@@ -253,7 +252,6 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
     this.value = target.value;
     this.#validation.validate(this.value);
     this.valid = this.showValid ? this.#validation.validity.valid : false;
-    console.log('oninput in webcomponent', this.value, this.#validation.validity.valid);
     if (this.valid) {
       this.input.setAttribute('aria-live', 'polite');
     }
@@ -262,8 +260,6 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
-
-    console.log('onSlotchange', elements);
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (inputs.length) {

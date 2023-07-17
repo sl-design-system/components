@@ -54,13 +54,13 @@ export class RadioGroupDirective extends FormControlElementDirective {
   writeValue(value: any): void {
     value = value ? value : undefined;
     this._initialValue = value;
-    //if (value) {
+    if (value) {
       this.elementRef.nativeElement.buttons?.forEach((radio: Radio) => (radio.checked = radio.value === this.value));
       this.elementRef.nativeElement.value = this._initialValue;
       this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
-      this.validatorOnChange();
-    //}
+      //this.validatorOnChange();
+    }
   }
 
   constructor(public override elementRef: ElementRef, private renderer: Renderer2, @Inject(Injector) injector: Injector) {
@@ -72,6 +72,6 @@ export class RadioGroupDirective extends FormControlElementDirective {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
     this.value = value;
-    this.elementRef.nativeElement.checked = value.checked;
+    // this.elementRef.nativeElement.checked = value.checked;
   }
 }

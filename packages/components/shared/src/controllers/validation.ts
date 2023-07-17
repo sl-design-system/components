@@ -113,20 +113,7 @@ export class ValidationController implements ReactiveController {
     // Prevent the browser from showing the built-in validation UI
     event.preventDefault();
 
-    console.log('in render on invalid event working', event);
-
     this.#setInvalidState();
-    // this.#host.requestUpdate();
-
-    // console.log(
-    //   'in render...->>> this.validity.valid before if with  showerrors',
-    //   this.target,
-    //   this.#showErrors,
-    //   !this.validity.valid,
-    //   this.#showErrors !== !this.validity.valid
-    // );
-
-    // this.#showErrors = true;
 
     if (this.#showErrors !== !this.validity.valid) {
       const state = this.#getInvalidState(this.validity);
@@ -142,26 +129,15 @@ export class ValidationController implements ReactiveController {
         this.target.setAttribute('aria-describedby', this.#errorMessageId);
       }
 
-      //console.log('in render... this.validity.valid before setting showerrors', this.validity.valid, state);
-
       this.#updateValidationMessage();
-      this.#showErrors = !this.validity.valid; // TODO: problem in Angular with showErrors?
-      // console.log(
-      //   'in render... this.validity.valid after setting showerrors',
-      //   this.validity.valid,
-      //   state,
-      //   this.#showErrors
-      // );
+      this.#showErrors = !this.validity.valid;
       this.#host.requestUpdate();
     }
-    // this.#showErrors = !this.validity.valid;
   };
 
   /** Event handler for when the parent form is reset. */
   #onReset = (event: Event): void => {
     const { form } = isNative(this.target) ? this.target : this.target.internals;
-
-    console.log('onreset in validation.ts');
 
     if (form === event.target) {
       this.#showErrors = false;
@@ -186,12 +162,9 @@ export class ValidationController implements ReactiveController {
   }
 
   get validity(): ValidityState {
-    // console.log('in render validity', this.target);
     if (isNative(this.target)) {
-      // console.log('in render validity native', this.target, this.target.validity, this.target.validity.valid);
       return this.target.validity;
     } else {
-      // console.log('in render validity not native', this.target.internals.validity);
       return this.target.internals.validity;
     }
   }
@@ -207,7 +180,6 @@ export class ValidationController implements ReactiveController {
     }
 
     this.#validators = validators || [];
-    // console.log('in render this.#validators', this.#validators);
     this.#slotName = '';
   }
 
@@ -229,8 +201,6 @@ export class ValidationController implements ReactiveController {
       this.target.setAttribute('title', '');
     }
 
-    // console.log('host connected', this.#host, this.target);
-
     document.addEventListener('reset', this.#onReset);
     this.target.addEventListener('invalid', this.#onInvalid);
   }
@@ -251,24 +221,9 @@ export class ValidationController implements ReactiveController {
       return;
     }
 
-    // this.#host.requestUpdate();
-
     const state = this.#getInvalidState(this.validity);
 
-    // console.log('in render state and this.validity', state, this.validity, this.#showErrors);
-    //
-    // console.log(
-    //   'in render this.validity.valid this.#showErrors && state',
-    //   this.validity.valid,
-    //   this.#showErrors,
-    //   state,
-    //   this.#showErrors && state
-    // );
-
-    //console.log('in render BEFORE if', this.#showErrors, state, this.validity, this.#showErrors && !!state);
-
     if (this.#showErrors && !!state) {
-      //  console.log('in render if', this.#showErrors, state);
       this.#slotName = dasherize(state);
 
       this.#setInvalidState();
@@ -281,9 +236,7 @@ export class ValidationController implements ReactiveController {
         error-size="${this.#messageSize}"
         @slotchange=${this.#onSlotchange}
       ></slot>`;
-    } /*else if (this.validity.valid) */ else {
-      // TODO or !state ??
-      // console.log('in render else if', this.#showErrors, state);
+    } else {
       this.#removeInvalidState();
     }
   }
@@ -299,40 +252,23 @@ export class ValidationController implements ReactiveController {
   }
 
   #setInvalidState(): void {
-    // console.log('setInvalidState');
     if (!this.#target || !this.target || !this.#host) {
       return;
     }
-    // console.log('in render setInvalidState target etc.', this.#target, this.target, this.#host, isNative(this.target));
 
     this.#target.setAttribute('invalid', '');
     if (isNative(this.target)) {
       this.#host.setAttribute('invalid', '');
       this.target.ariaInvalid = 'true';
-      // console.log('in render setInvalidState isnative host i target', this.#target, this.target, this.#host);
-      this.#host.requestUpdate(); // TODO: maybe remove this one?
+      this.#host.requestUpdate();
     }
-    // this.#host.requestUpdate();
-    // console.log(
-    //   'in render setInvalidState target etc. should have invalid attribute',
-    //   this.#target,
-    //   this.target,
-    //   this.#host,
-    //   this.#host.hasAttribute('invalid'),
-    //   this.#host.getAttribute('invalid')?.toString()
-    // );
-    // console.log(
-    //   'lengthhhhhh in render setInvalidState target etc. should have invalid attribute',
-    //   this.#host.getAttribute('invalid')?.length
-    // );
   }
 
   #removeInvalidState(): void {
-    // console.log('in render is removing invalid state');
     this.#removeValidationMessage();
     this.#host.removeAttribute('invalid');
     this.target.ariaInvalid = null;
-    this.#host.requestUpdate(); // TODO: maybe remove this one?
+    this.#host.requestUpdate();
   }
 
   #updateValidationMessage(): void {
@@ -408,7 +344,6 @@ export class ValidationController implements ReactiveController {
   }
 
   setCustomValidity(message: string): void {
-    console.log('in setCustomValidity', message);
     if (isNative(this.target)) {
       this.target.setCustomValidity(message);
     } else {
@@ -423,16 +358,12 @@ export class ValidationController implements ReactiveController {
       asyncValidators: Array<Promise<boolean | void>> = [],
       validity: CustomValidityState = {};
 
-    // console.log('in render validate in validation ts', validators, hasAsyncValidators, asyncValidators, validity);
-
     if (!this.#validationPending) {
       this.#validationComplete = new Promise(resolve => {
         this.#validationCompleteResolver = resolve;
       });
       this.#validationPending = true;
     }
-
-    // console.log('this.#validationComplete, this.#validationPending', this.#validationComplete, this.#validationPending);
 
     /**
      * If an abort controller exists from a previous validation step
@@ -513,12 +444,9 @@ export class ValidationController implements ReactiveController {
   }
 
   #getInvalidState(validity: ValidityState): keyof ValidityState | void {
-    // console.log('in render validity in getInvalidState', validity);
     if (validity.badInput) {
-      //  console.log('in render validity in getInvalidState badInput', validity.badInput);
       return 'badInput';
     } else if (validity.customError) {
-      // console.log('in render validity in getInvalidState customError', validity.customError);
       return 'customError';
     } else if (validity.patternMismatch) {
       return 'patternMismatch';
@@ -531,15 +459,13 @@ export class ValidationController implements ReactiveController {
     } else if (validity.tooLong) {
       return 'tooLong';
     } else if (validity.tooShort) {
-      // console.log('in render validity in getInvalidState tooShort', validity.tooShort);
       return 'tooShort';
     } else if (validity.typeMismatch) {
       return 'typeMismatch';
     } else if (validity.valueMissing) {
-      // console.log('in render validity in getInvalidState valueMissing', validity.valueMissing);
       return 'valueMissing';
     }
-  } // TODO: add customError at the end?
+  }
 
   #getValidationMessageForState(state: keyof ValidityState): string | void {
     switch (state) {

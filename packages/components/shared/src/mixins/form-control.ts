@@ -113,7 +113,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
 
     checkValidity(): boolean {
-      console.log('checkvalidity in form-control', this.formControlElement);
       if (isNative(this.formControlElement)) {
         return this.formControlElement.checkValidity();
       } else {
@@ -130,7 +129,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
 
     setFormControlElement(element: FormControlElement): void {
-      console.log('eeeeelement', element);
       this.#formControlElement = element;
     }
 
@@ -141,13 +139,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     setFormValue(value?: FormControlValue): void {
       this.#cachedValue = value;
 
-      console.log('eeeeelement 2222', this.formControlElement, value);
-
       if (isNative(this.formControlElement)) {
         this.formControlElement.value = value?.toString() ?? '';
       } else {
         this.formControlElement.internals.setFormValue(value ?? null);
-        //console.log('eeeeelement 2222aa', this.formControlElement, value, this.formControlElement.internals);
       }
     }
   }

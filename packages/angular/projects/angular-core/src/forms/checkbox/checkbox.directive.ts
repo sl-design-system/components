@@ -11,7 +11,7 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR
 } from '@angular/forms';
-import {FormControlElementDirective} from "../form-control/form-control-element.directive";
+import {FormControlElementDirective} from '../form-control/form-control-element.directive';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -43,9 +43,13 @@ export class CheckboxDirective extends FormControlElementDirective {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set value(val: any) {
-    this._value = val;
-    this.onChange(this._value);
-    this.elementRef.nativeElement.internals.value = this._value;
+    console.log('val in checkbox', val);
+   // if (val) {
+      this._value = val;
+      this.onChange(this._value);
+      this.elementRef.nativeElement.internals.value = this._value;
+      this.validatorOnChange();
+   // }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,6 +59,7 @@ export class CheckboxDirective extends FormControlElementDirective {
       this.elementRef.nativeElement.value = this._initialValue;
       this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
+     // this.validatorOnChange();
     }
   }
 

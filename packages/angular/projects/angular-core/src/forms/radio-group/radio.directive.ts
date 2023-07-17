@@ -11,7 +11,7 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR
 } from '@angular/forms';
-import {FormControlElementDirective} from "../form-control/form-control-element.directive";
+import {FormControlElementDirective} from '../form-control/form-control-element.directive';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -45,6 +45,7 @@ export class RadioDirective extends FormControlElementDirective {
     this._value = val;
     this.onChange(this._value);
     this.elementRef.nativeElement.internals.value = this._value;
+    this.validatorOnChange();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,6 +66,7 @@ export class RadioDirective extends FormControlElementDirective {
   @HostListener('keydown', ['$event.target'])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   listenForValueChange(value: any): void {
+    console.log('value in radio', value, value.value, value.checked);
     this.value = value.value;
     this.elementRef.nativeElement.checked = value.checked;
   }

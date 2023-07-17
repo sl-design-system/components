@@ -7,6 +7,7 @@ $sizes: sm, md, lg;
   --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
   --_handle-color: var(--sl-color-input-switch-default-unchecked-default-handle);
   --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
+  --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
 
   --handle-position: 0%;
   --isLTR: 1;
@@ -38,6 +39,14 @@ $sizes: sm, md, lg;
     --_gap: var(--sl-space-input-gap-#{$size});
     --_inputlabel-font: var(--sl-text-input-field-label-tag-#{$size});
     --_hint-font: var(--sl-text-input-helper-text-#{$size});
+  }
+
+  :host([orientation='vertical']) {
+    --_inputlabel-font: var(--sl-text-input-switch-input-field-bold-#{$size});
+    --_hint-font: var(--sl-text-input-helper-text-#{$size});
+    --_toggle-container-padding: var(--sl-space-input-switch-margin-top-#{$size})
+      var(--sl-space-input-switch-padding-container)
+      var(--sl-space-input-switch-margin-bottom-#{$size});
   }
 }
 
@@ -104,7 +113,7 @@ $sizes: sm, md, lg;
   align-self: flex-start;
   cursor: pointer;
   grid-area: toggle;
-  padding: var(--sl-space-input-switch-padding-container);
+  padding: var(--_toggle-container-padding);
 }
 
 .track {

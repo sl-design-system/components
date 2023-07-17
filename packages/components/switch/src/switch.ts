@@ -115,13 +115,9 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     this.change.emit(this.checked);
   }
 
-  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    console.log(this.label, event.target.assignedNodes({ flatten: false }));
-  }
-
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotChange} class="inputlabel"></slot>
+      <slot class="inputlabel"></slot>
       <div class="toggle">
         <div @click=${this.#onToggle} class="track">
           <div>${this.size !== 'sm' ? html`<sl-icon .name=${this.icon} .size=${this.iconSize}></sl-icon>` : ``}</div>

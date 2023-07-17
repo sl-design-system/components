@@ -33,33 +33,25 @@ export class CheckboxDirective extends FormControlElementDirective {
 
   private _initialValue: string | undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _value: any;
+  private _value: string | undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get value(): any {
+  get value(): string | undefined {
     return this._value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set value(val: any) {
-    console.log('val in checkbox', val);
-   // if (val) {
-      this._value = val;
-      this.onChange(this._value);
-      this.elementRef.nativeElement.internals.value = this._value;
-      this.validatorOnChange();
-   // }
+  set value(val: string | undefined) {
+    this._value = val;
+    this.onChange(this._value);
+    this.elementRef.nativeElement.internals.value = this._value;
+    this.validatorOnChange();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  writeValue(value: any): void {
+  writeValue(value: string | undefined): void {
     this._initialValue = value;
     if (value) {
       this.elementRef.nativeElement.value = this._initialValue;
       this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
-     // this.validatorOnChange();
     }
   }
 
@@ -68,8 +60,7 @@ export class CheckboxDirective extends FormControlElementDirective {
   }
 
   @HostListener('sl-change', ['$event.target.checked'])
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listenForValueChange(checked: any): void {
+  listenForValueChange(checked: string | undefined): void {
     checked = this.elementRef.nativeElement.checked ? this._initialValue : undefined;
     this.value = checked;
   }

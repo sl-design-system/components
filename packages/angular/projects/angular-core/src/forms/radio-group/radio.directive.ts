@@ -11,7 +11,8 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR
 } from '@angular/forms';
-import {FormControlElementDirective} from '../form-control/form-control-element.directive';
+import { FormControlElementDirective } from '../form-control/form-control-element.directive';
+import { Radio } from '@sl-design-system/radio-group';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -30,26 +31,23 @@ import {FormControlElementDirective} from '../form-control/form-control-element.
   ]
 })
 export class RadioDirective extends FormControlElementDirective {
+
   private _initialValue: string | undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _value: any;
+  private _value: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get value(): any {
+  get value(): string {
     return this._value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set value(val: any) {
+  set value(val: string) {
     this._value = val;
     this.onChange(this._value);
     this.elementRef.nativeElement.internals.value = this._value;
     this.validatorOnChange();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     this._initialValue = value;
     if (value) {
       this.elementRef.nativeElement.value = this._initialValue;
@@ -62,12 +60,12 @@ export class RadioDirective extends FormControlElementDirective {
     super(elementRef, injector);
   }
 
-  @HostListener('click', ['$event.target'])
-  @HostListener('keydown', ['$event.target'])
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listenForValueChange(value: any): void {
-    console.log('value in radio', value, value.value, value.checked);
-    this.value = value.value;
-    this.elementRef.nativeElement.checked = value.checked;
+  @HostListener('click', ['$event'])
+  @HostListener('keydown', ['$event'])
+  listenForValueChange(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.value = (event.target as Radio).value;
+    this.elementRef.nativeElement.checked = (event.target as Radio).checked;
   }
 }

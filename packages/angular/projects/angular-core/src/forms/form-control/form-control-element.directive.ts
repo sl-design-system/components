@@ -8,13 +8,12 @@ import {
   ControlValueAccessor,
   ValidationErrors,
   Validator
-} from "@angular/forms";
+} from '@angular/forms';
 
 @Injectable()
 export abstract class FormControlElementDirective implements Omit<ControlValueAccessor, 'writeValue'>, Validator {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onChange: (value: any) => void = () => {};
-
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
   onTouched: () => any = () => {};
@@ -48,13 +47,10 @@ export abstract class FormControlElementDirective implements Omit<ControlValueAc
 
   /** Implemented as part of Validator. */
   validate(control: AbstractControl): ValidationErrors | null {
-    console.log('control', control);
     if (control.untouched) {
       return control.errors;
-      // return null;
     } else {
       return null;
-      // return control.errors;
     }
   }
 }

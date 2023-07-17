@@ -151,9 +151,9 @@ export class CheckboxComponent {
       <sl-checkbox #myReactiveCheckbox id="approval-id" formControlName="approval" hint="This is a hint for the checkbox" required>Check me</sl-checkbox>
       <sl-label for="radio-group-options">Select option</sl-label>
       <sl-radio-group #myReactiveRadioGroup id="radio-group-options" formControlName="option" hint="This is a hint for the radio group"  required>
-        <sl-radio value="1">First option</sl-radio>
-        <sl-radio value="2">Second option</sl-radio>
-        <sl-radio value="3">Third option</sl-radio>
+        <sl-radio value="1" formControlName="option">First option</sl-radio>
+        <sl-radio value="2" formControlName="option">Second option</sl-radio>
+        <sl-radio value="3" formControlName="option">Third option</sl-radio>
       </sl-radio-group>
       <sl-button type="submit" variant="primary">Submit</sl-button>
       <div>Name: {{myForm.value.name}}</div>
@@ -164,7 +164,7 @@ export class CheckboxComponent {
   `,
 })
 
-export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, AfterContentChecked {
+export class ReactiveFormComponent implements AfterViewChecked, AfterContentChecked {
   myForm = new FormGroup({
     name: new FormControl('', [Validators.minLength(8), Validators.required]),
     website: new FormControl('', [Validators.minLength(8), Validators.required, validateUrl]),
@@ -190,22 +190,6 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
 
   submitted = false;
 
-  ngAfterViewInit(): void {
-    // if (!this.submitted /*&& !!this.myForm*/) {
-    //   this.myForm.markAsUntouched();
-    //   this.myForm.controls.name.markAsUntouched();
-    //   this.myForm.controls.name.markAsPristine();
-    //   this.myForm.controls.website.markAsUntouched();
-    //   this.myForm.controls.website.markAsPristine();
-    //   this.myForm.controls.description.markAsUntouched();
-    //   this.myForm.controls.description.markAsPristine();
-    //   this.myForm.controls.approval.markAsUntouched();
-    //   this.myForm.controls.approval.markAsPristine();
-    //   this.myForm.controls.option.markAsUntouched();
-    //   this.myForm.controls.option.markAsPristine();
-    // }
-  }
-
   ngAfterViewChecked(): void {
     if (this.submitted) {
       const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
@@ -219,6 +203,7 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
 
      urlInput.checkValidity();
       input.checkValidity();
+
       const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement,
        otherErrors = this.myForm.controls.description.errors ? Object.keys(this.myForm.controls.description.errors).length : 0;
 
@@ -228,25 +213,13 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
         textarea.setCustomValidity('');
       }
       textarea.checkValidity();
-
-      // this.myForm.controls.approval.markAsTouched();
-      // this.myForm.controls.approval.markAsDirty();
-      // this.myForm.controls.approval.updateValueAndValidity();
-      // this.myForm.controls.option.markAsTouched();
-      // this.myForm.controls.option.markAsDirty();
-      // this.myForm.controls.option.updateValueAndValidity();
     } else {
-     // this.myForm.markAsUntouched();
       this.myForm.controls.name.markAsUntouched();
       this.myForm.controls.name.markAsPristine();
       this.myForm.controls.website.markAsUntouched();
       this.myForm.controls.website.markAsPristine();
       this.myForm.controls.description.markAsUntouched();
       this.myForm.controls.description.markAsPristine();
-      // this.myForm.controls.approval.markAsUntouched();
-      // this.myForm.controls.approval.markAsPristine();
-      // this.myForm.controls.option.markAsUntouched();
-      // this.myForm.controls.option.markAsPristine();
     }
   }
 
@@ -273,7 +246,7 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
     }
   }
 
-  onSubmit(event: Event, form: FormGroup) {
+  onSubmit(event: Event, form: FormGroup): void {
 
     event.preventDefault();
 
@@ -282,11 +255,9 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
     this.myForm.markAllAsTouched();
 
     Object.values(form.controls).forEach(control => {
-      console.log('fomr control submit', control);
       control.markAsTouched();
       control.markAsDirty();
       control.updateValueAndValidity();
-      console.log('fomr control submit----2', control);
     });
 
     const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
@@ -298,8 +269,6 @@ export class ReactiveFormComponent implements AfterViewInit, AfterViewChecked, A
     textarea.checkValidity();
     this.myCheckbox.nativeElement.internals.checkValidity();
     this.myRadioGroup.nativeElement.internals.checkValidity();
-
-    console.log('on submit', this.myForm, form, this.myForm.valid, form.valid);
 
     if (this.myForm.valid) {
       alert('form submitted');
@@ -362,10 +331,10 @@ function startsWithThisIs(control: AbstractControl): ValidationErrors | null {
       <sl-label for="approval-id">Approval</sl-label>
       <sl-checkbox #myReactiveCheckbox id="approval-id" formControlName="approval" required>Check me</sl-checkbox>
       <sl-label for="radio-group-options">Select option</sl-label>
-      <sl-radio-group #myReactiveRadioGroup id="radio-group-options" required>
-        <sl-radio value="1" formControlName="option">First option</sl-radio>
-        <sl-radio value="2" formControlName="option">Second option</sl-radio>
-        <sl-radio value="3" formControlName="option">Third option</sl-radio>
+      <sl-radio-group #myReactiveRadioGroup id="radio-group-options" formControlName="option" required>
+        <sl-radio value="1">First option</sl-radio>
+        <sl-radio value="2">Second option</sl-radio>
+        <sl-radio value="3">Third option</sl-radio>
       </sl-radio-group>
     </form>
   `,
@@ -459,7 +428,7 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
     </form>
   `
 })
-export class TemplateFormComponent implements AfterViewInit, AfterViewChecked {
+export class TemplateFormComponent implements AfterViewChecked {
   model = new Person(1, '', '', 'yes', '');
 
   @ViewChild('myForm', { static: false }) myForm!: NgForm;
@@ -486,22 +455,6 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked {
 
   submitted = false;
 
-  ngAfterViewInit(): void {
-    // if (!this.submitted) {
-    //   this.inputWithNgmodel.control.markAsUntouched();
-    //   this.inputWithNgmodel.control.markAsPristine();
-    //
-    //   this.textareaWithNgmodel.control.markAsUntouched();
-    //   this.textareaWithNgmodel.control.markAsPristine();
-    //
-    //   this.checkboxWithNgmodel.control.markAsUntouched();
-    //   this.checkboxWithNgmodel.control.markAsPristine();
-    //
-    //   this.radioGroupWithNgmodel.control.markAsUntouched();
-    //   this.radioGroupWithNgmodel.control.markAsPristine();
-    // }
-  }
-
   ngAfterViewChecked(): void {
       if (this.submitted) {
         const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement,
@@ -509,19 +462,10 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked {
         input.checkValidity();
         textarea.checkValidity();
       } else {
-
-        console.log('ngAfterViewChecked else');
         this.inputWithNgmodel.control.markAsUntouched();
         this.inputWithNgmodel.control.markAsPristine();
-
         this.textareaWithNgmodel.control.markAsUntouched();
         this.textareaWithNgmodel.control.markAsPristine();
-
-        // this.checkboxWithNgmodel.control.markAsUntouched();
-        // this.checkboxWithNgmodel.control.markAsPristine();
-        //
-        // this.radioGroupWithNgmodel.control.markAsUntouched();
-        // this.radioGroupWithNgmodel.control.markAsPristine();
       }
   }
 
@@ -547,24 +491,13 @@ export class TemplateFormComponent implements AfterViewInit, AfterViewChecked {
 
     this.myForm.form.markAllAsTouched();
 
+    Object.values(this.myForm.form.controls).forEach(control => {
+      control.markAsTouched();
+      control.markAsDirty();
+      control.updateValueAndValidity();
+    });
 
-    this.inputWithNgmodel.control.markAsTouched();
-    this.inputWithNgmodel.control.markAsDirty();
-    this.inputWithNgmodel.control.updateValueAndValidity();
-
-    this.textareaWithNgmodel.control.markAsTouched();
-    this.textareaWithNgmodel.control.markAsDirty();
-    this.textareaWithNgmodel.control.updateValueAndValidity();
-
-    this.checkboxWithNgmodel.control.markAsTouched();
-    this.checkboxWithNgmodel.control.markAsDirty();
-    this.checkboxWithNgmodel.control.updateValueAndValidity();
     this.myCheckboxRef.nativeElement.internals.checkValidity();
-
-
-    this.radioGroupWithNgmodel.control.markAsTouched();
-    this.radioGroupWithNgmodel.control.markAsDirty();
-    this.radioGroupWithNgmodel.control.updateValueAndValidity();
     this.myRadioGroupRef.nativeElement.internals.checkValidity();
 
 
@@ -643,7 +576,7 @@ export class TemplateFormRequiredReportComponent implements AfterViewChecked {
   @ViewChild('radioGroupWithNgmodel', { static: true, read: ElementRef })
   myRadioGroupRef!: ElementRef;
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     this.myForm.form.markAllAsTouched();
 
     Object.values(this.myForm.controls).forEach(control => {

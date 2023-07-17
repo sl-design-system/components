@@ -32,16 +32,13 @@ import { FormControlElementDirective } from '../form-control/form-control-elemen
 
 export class TextareaDirective extends FormControlElementDirective {
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _value: any;
+  private _value: string | undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get value(): any {
+  get value(): string | undefined {
     return this._value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set value(val: any) {
+  set value(val: string | undefined) {
      if (val !== this._value) {
       this._value = val;
       this.onChange(this._value);
@@ -49,8 +46,7 @@ export class TextareaDirective extends FormControlElementDirective {
      }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  writeValue(value: any): void {
+  writeValue(value: string | undefined): void {
     if (value) {
       this.value = value;
       this.elementRef.nativeElement.textarea.value = value;
@@ -62,8 +58,7 @@ export class TextareaDirective extends FormControlElementDirective {
   }
 
   @HostListener('input', ['$event.target.value'])
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listenForValueChange(value: any): void {
+  listenForValueChange(value: string | undefined): void {
     this.value = value;
   }
 }

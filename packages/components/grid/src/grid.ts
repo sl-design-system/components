@@ -44,11 +44,14 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
 
+  /** Observe the tbody style changes. */
+  #mutationObserver?: MutationObserver;
+
   /** Observe the grid width. */
   #resizeObserver?: ResizeObserver;
 
   /** The sorters for this grid. */
-  #sorters: GridSorter[] = [];
+  #sorters: Array<GridSorter<T>> = [];
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
@@ -92,6 +95,18 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.#mutationObserver = new MutationObserver(() => {
+      this.#mutationObserver?.disconnect();
+
+      // This is a workaround for the virtualizer not taking the border width into account
+      // We convert the min-height to a CSS variable so we can use it in the styles and
+      // add the border-width to the eventual min-height value.
+      this.style.setProperty('--sl-grid-tbody-min-height', this.tbody.style.minHeight);
+      this.tbody.style.minHeight = '';
+
+      this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
+    });
+
     this.#resizeObserver = new ResizeObserver(entries => {
       const {
         contentBoxSize: [{ inlineSize }]
@@ -104,6 +119,8 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   override firstUpdated(): void {
+    this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
+
     this.tbody.addEventListener(
       'scroll',
       () => {
@@ -328,7 +345,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.columns = columns;
   }
 
-  #onSorterChange({ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter }): void {
+  #onSorterChange({ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter<T> }): void {
     if (detail === 'added') {
       this.#sorters = [...this.#sorters, target];
     } else {
@@ -343,7 +360,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onSorterDirectionChange({
     target
-  }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {
+  }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter<T> }): void {
     this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
 
     this.#applySorters();
@@ -373,7 +390,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     }
 
     const filterValues: DataSourceFilterValue[] = this.#filters
-      .filter(filter => (Array.isArray(filter.value) ? filter.value.length > 0 : !!filter.value))
+      .filter(filter => (Array.isArray(filter.value) ? filter.value.length > 0 : filter.value !== undefined))
       .map(filter => ({ path: filter.column.path || '', value: filter.value }));
 
     this.dataSource.filterValues = filterValues;
@@ -386,11 +403,13 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       return;
     }
 
-    const { column, direction } = this.#sorters.find(sorter => !!sorter.direction) || {};
+    const sorter = this.#sorters.find(sorter => !!sorter.direction);
 
-    if (column?.path && direction) {
-      this.dataSource.sortValue = { path: column.path, direction };
+    if (sorter) {
+      this.dataSource.sortFunction = sorter.sort;
+      this.dataSource.sortValue = { path: sorter.column.path, direction: sorter.direction! };
     } else {
+      this.dataSource.sortFunction = undefined;
       this.dataSource.sortValue = undefined;
     }
 

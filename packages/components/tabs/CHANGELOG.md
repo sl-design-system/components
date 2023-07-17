@@ -1,5 +1,26 @@
 # @sl-design-system/tabs
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`13aa7e7`](https://github.com/sl-design-system/components/commit/13aa7e75e2f26262261dba498fde3412d4259939)]:
+  - @sl-design-system/shared@0.1.3
+
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`8a53d80`](https://github.com/sl-design-system/components/commit/8a53d800564073f7840a9f6365b234df3351c44f)]:
+  - @sl-design-system/shared@0.1.2
+
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb)]:
+  - @sl-design-system/shared@0.1.1
+
 ## 0.0.4
 
 ### Patch Changes

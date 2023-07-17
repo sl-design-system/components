@@ -1,5 +1,25 @@
 # @sl-design-system/shared
 
+## 0.1.3
+
+### Patch Changes
+
+- [#519](https://github.com/sl-design-system/components/pull/519) [`13aa7e7`](https://github.com/sl-design-system/components/commit/13aa7e75e2f26262261dba498fde3412d4259939) - Handle blank values properly when filtering
+
+## 0.1.2
+
+### Patch Changes
+
+- [#517](https://github.com/sl-design-system/components/pull/517) [`8a53d80`](https://github.com/sl-design-system/components/commit/8a53d800564073f7840a9f6365b234df3351c44f) - Update `ArrayDataSource` to use custom sort function
+
+## 0.1.1
+
+### Patch Changes
+
+- [#491](https://github.com/sl-design-system/components/pull/491) [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb) - Fix bug with `EventsController` where the cleanup did not happen
+
+- [#491](https://github.com/sl-design-system/components/pull/491) [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb) - Add `positionPopover` utility utilising `@floating-ui/dom`
+
 ## 0.1.0
 
 ### Minor Changes

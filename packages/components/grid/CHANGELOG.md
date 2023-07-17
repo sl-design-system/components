@@ -1,5 +1,67 @@
 # @sl-design-system/grid
 
+## 0.0.18
+
+### Patch Changes
+
+- [#521](https://github.com/sl-design-system/components/pull/521) [`46fe06a`](https://github.com/sl-design-system/components/commit/46fe06a1be95b1bc1c5244ee5631006bf9c91fc8) - Handle null & undefined when filtering
+
+## 0.0.17
+
+### Patch Changes
+
+- [#519](https://github.com/sl-design-system/components/pull/519) [`13aa7e7`](https://github.com/sl-design-system/components/commit/13aa7e75e2f26262261dba498fde3412d4259939) - Handle blank values properly when filtering
+
+- Updated dependencies [[`13aa7e7`](https://github.com/sl-design-system/components/commit/13aa7e75e2f26262261dba498fde3412d4259939)]:
+  - @sl-design-system/shared@0.1.3
+  - @sl-design-system/checkbox@0.0.8
+  - @sl-design-system/popover@0.0.7
+  - @sl-design-system/text-input@0.1.3
+
+## 0.0.16
+
+### Patch Changes
+
+- Updated dependencies [[`8a53d80`](https://github.com/sl-design-system/components/commit/8a53d800564073f7840a9f6365b234df3351c44f)]:
+  - @sl-design-system/shared@0.1.2
+  - @sl-design-system/checkbox@0.0.7
+  - @sl-design-system/popover@0.0.6
+  - @sl-design-system/text-input@0.1.2
+
+## 0.0.15
+
+### Patch Changes
+
+- [#515](https://github.com/sl-design-system/components/pull/515) [`b5f3257`](https://github.com/sl-design-system/components/commit/b5f3257d069613bce30e9417318b246023dffbab) - Add ability to use a custom sort function
+
+## 0.0.14
+
+### Patch Changes
+
+- [#502](https://github.com/sl-design-system/components/pull/502) [`87a4d29`](https://github.com/sl-design-system/components/commit/87a4d2932a2ce45ae7767e2b988af7fe807916f4) - Fix tbody min-height not taking the border width into account
+
+## 0.0.13
+
+### Patch Changes
+
+- [#500](https://github.com/sl-design-system/components/pull/500) [`3570d7f`](https://github.com/sl-design-system/components/commit/3570d7f87b98190a5bc5ce71718f93004f935cf4) - Add missing part names to sort & selection column
+
+## 0.0.12
+
+### Patch Changes
+
+- [#497](https://github.com/sl-design-system/components/pull/497) [`bcb01a4`](https://github.com/sl-design-system/components/commit/bcb01a425048570dcca4e2dd3e909b6c2893b952) - Fix regresion with filter column click
+
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [[`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb), [`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb)]:
+  - @sl-design-system/shared@0.1.1
+  - @sl-design-system/text-input@0.1.1
+  - @sl-design-system/popover@0.0.5
+  - @sl-design-system/checkbox@0.0.6
+
 ## 0.0.10
 
 ### Patch Changes

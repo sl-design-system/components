@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/text-input",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Input component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,7 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "0.1.0",
+    "@sl-design-system/shared": "0.1.3",
     "lit": "^2.7.5"
   }
 }

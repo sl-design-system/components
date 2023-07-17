@@ -1,5 +1,5 @@
 import type { TemplateResult } from 'lit';
-import type { DataSourceSortDirection } from '@sl-design-system/shared';
+import type { DataSourceSortDirection, DataSourceSortFunction } from '@sl-design-system/shared';
 import { getNameByPath } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -10,6 +10,9 @@ export class GridSortColumn extends GridColumn {
   /** The direction this columns should be sorted in. */
   @property({ type: String }) direction?: DataSourceSortDirection;
 
+  /** If you want to provide a custom sort function, you can via this property. */
+  @property({ attribute: false }) sort?: DataSourceSortFunction;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -18,8 +21,8 @@ export class GridSortColumn extends GridColumn {
 
   override renderHeader(): TemplateResult {
     return html`
-      <th>
-        <sl-grid-sorter .column=${this} .direction=${this.direction}>
+      <th part="header sort">
+        <sl-grid-sorter .column=${this} .direction=${this.direction} .sort=${this.sort}>
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-sorter>
       </th>

@@ -68,18 +68,29 @@ export const All: Story = {
         sl-switch {
           min-width: 200px;
         }
+        td {
+          display: inline-flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        sl-switch:not(:last-of-type) {
+          border-bottom: 1px solid #efefef;
+          padding-bottom: 8px;
+        }
       </style>
       <table>
         <tbody>
           ${sizes.map(
-            size => html` <tr>
-              <td colspan="4">
-                Size: ${sizeName(size)}</td></tr>
-                ${orientations.map(orientation =>
-                  states.map(
-                    state =>
-                      html`<tr>
-                        <th>${state === '' ? 'Unchecked' : 'Checked'}</th>
+            size => html`
+              <tr>
+                <td colspan="4">Size: ${sizeName(size)}</td>
+              </tr>
+              ${orientations.map(
+                orientation =>
+                  html`<tr>
+                    <th>${orientation}</th>
+                    ${states.map(
+                      state => html`
                         <td>
                           <sl-switch
                             .size=${size}
@@ -88,24 +99,20 @@ export const All: Story = {
                             hint="Check this one"
                             >With hint</sl-switch
                           >
-                        </td>
-                        <td>
                           <sl-switch .size=${size} .orientation=${orientation} ?checked=${state === 'checked'}
                             >Without hint</sl-switch
                           >
-                        </td>
-                        <td>
                           <sl-switch
                             .size=${size}
                             .orientation=${orientation}
                             ?checked=${state === 'checked'}
                           ></sl-switch>
                         </td>
-                      </tr> `
-                  )
-                )}
-              </td>
-            </tr>`
+                      `
+                    )}
+                  </tr>`
+              )}
+            `
           )}
         </tbody>
       </table>`;

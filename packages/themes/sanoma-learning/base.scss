@@ -225,6 +225,14 @@
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
   --sl-space-group-sm: var(--sl-space-2xs);
+  --sl-space-input-switch-margin-bottom-none: var(--sl-space-none);
+  --sl-space-input-switch-margin-bottom-lg: var(--sl-space-none);
+  --sl-space-input-switch-margin-bottom-md: var(--sl-space-xs);
+  --sl-space-input-switch-margin-bottom-sm: var(--sl-space-none);
+  --sl-space-input-switch-margin-top-none: var(--sl-space-none);
+  --sl-space-input-switch-margin-top-lg: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-md: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-sm: var(--sl-space-sm);
   --sl-space-input-switch-gap: var(--sl-space-none);
   --sl-space-input-switch-padding-row-none: var(--sl-space-none);
   --sl-space-input-switch-padding-controller: var(--sl-space-2xs);
@@ -336,6 +344,18 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-3xs);
   --sl-border-radius-button-md: var(--sl-border-radius-3xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-3xs);
+  --sl-text-input-switch-input-field-bold-lg: var(--sl-text-typeset-font-weight-bold)
+    var(--sl-text-typeset-font-size-xl) / var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-bold-md: var(--sl-text-typeset-font-weight-bold)
+    var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-bold-sm: var(--sl-text-typeset-font-weight-bold)
+    var(--sl-text-typeset-font-size-md) / var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-regular-lg: var(--sl-text-typeset-font-weight-regular)
+    var(--sl-text-typeset-font-size-xl) / var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-regular-md: var(--sl-text-typeset-font-weight-regular)
+    var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-regular-sm: var(--sl-text-typeset-font-weight-regular)
+    var(--sl-text-typeset-font-size-md) / var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-input-helper-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-helper-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /

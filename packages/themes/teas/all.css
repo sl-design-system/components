@@ -232,6 +232,14 @@
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
   --sl-space-group-sm: var(--sl-space-2xs);
+  --sl-space-input-switch-margin-bottom-none: var(--sl-space-none);
+  --sl-space-input-switch-margin-bottom-lg: var(--sl-space-none);
+  --sl-space-input-switch-margin-bottom-md: var(--sl-space-xs);
+  --sl-space-input-switch-margin-bottom-sm: var(--sl-space-none);
+  --sl-space-input-switch-margin-top-none: var(--sl-space-none);
+  --sl-space-input-switch-margin-top-lg: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-md: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-sm: var(--sl-space-sm);
   --sl-space-input-switch-gap: var(--sl-space-none);
   --sl-space-input-switch-padding-row-none: var(--sl-space-none);
   --sl-space-input-switch-padding-controller: var(--sl-space-2xs);

@@ -1,5 +1,19 @@
 # @sl-design-system/text-input
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`13aa7e7`](https://github.com/sl-design-system/components/commit/13aa7e75e2f26262261dba498fde3412d4259939)]:
+  - @sl-design-system/shared@0.1.3
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`8a53d80`](https://github.com/sl-design-system/components/commit/8a53d800564073f7840a9f6365b234df3351c44f)]:
+  - @sl-design-system/shared@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

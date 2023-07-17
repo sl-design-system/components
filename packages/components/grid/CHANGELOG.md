@@ -1,5 +1,39 @@
 # @sl-design-system/grid
 
+## 0.0.18
+
+### Patch Changes
+
+- [#521](https://github.com/sl-design-system/components/pull/521) [`46fe06a`](https://github.com/sl-design-system/components/commit/46fe06a1be95b1bc1c5244ee5631006bf9c91fc8) - Handle null & undefined when filtering
+
+## 0.0.17
+
+### Patch Changes
+
+- [#519](https://github.com/sl-design-system/components/pull/519) [`13aa7e7`](https://github.com/sl-design-system/components/commit/13aa7e75e2f26262261dba498fde3412d4259939) - Handle blank values properly when filtering
+
+- Updated dependencies [[`13aa7e7`](https://github.com/sl-design-system/components/commit/13aa7e75e2f26262261dba498fde3412d4259939)]:
+  - @sl-design-system/shared@0.1.3
+  - @sl-design-system/checkbox@0.0.8
+  - @sl-design-system/popover@0.0.7
+  - @sl-design-system/text-input@0.1.3
+
+## 0.0.16
+
+### Patch Changes
+
+- Updated dependencies [[`8a53d80`](https://github.com/sl-design-system/components/commit/8a53d800564073f7840a9f6365b234df3351c44f)]:
+  - @sl-design-system/shared@0.1.2
+  - @sl-design-system/checkbox@0.0.7
+  - @sl-design-system/popover@0.0.6
+  - @sl-design-system/text-input@0.1.2
+
+## 0.0.15
+
+### Patch Changes
+
+- [#515](https://github.com/sl-design-system/components/pull/515) [`b5f3257`](https://github.com/sl-design-system/components/commit/b5f3257d069613bce30e9417318b246023dffbab) - Add ability to use a custom sort function
+
 ## 0.0.14
 
 ### Patch Changes

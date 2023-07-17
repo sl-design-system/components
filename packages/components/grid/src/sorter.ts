@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import type { DataSourceSortDirection, EventEmitter } from '@sl-design-system/shared';
+import type { DataSourceSortDirection, DataSourceSortFunction, EventEmitter } from '@sl-design-system/shared';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Icon } from '@sl-design-system/icon';
 import { EventsController, event } from '@sl-design-system/shared';
@@ -12,7 +12,7 @@ import styles from './sorter.scss.js';
 
 export type GridSorterChange = 'added' | 'removed';
 
-export class GridSorter extends ScopedElementsMixin(LitElement) {
+export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -30,6 +30,9 @@ export class GridSorter extends ScopedElementsMixin(LitElement) {
 
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;
+
+  /** An optional custom sort function. */
+  @property({ attribute: false }) sort?: DataSourceSortFunction<T>;
 
   @event() sorterChange!: EventEmitter<GridSorterChange>;
 

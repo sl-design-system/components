@@ -6,9 +6,9 @@ export type DataSourceFilter<T> = (filters: DataSourceFilterValue[]) => DataSour
 
 export type DataSourceSortDirection = 'asc' | 'desc';
 
-export type DataSourceSortValue = { path: string; direction: DataSourceSortDirection };
+export type DataSourceSortValue = { path: string | undefined; direction: DataSourceSortDirection };
 
-export type DataSourceSortFunction<T> = (a: T, b: T) => number;
+export type DataSourceSortFunction<T = unknown> = (a: T, b: T) => number;
 
 export type DataSourceSorter<T> = (sort: DataSourceSortValue) => DataSourceSortFunction<T>;
 
@@ -21,6 +21,9 @@ export abstract class DataSource<T> extends EventTarget {
 
   /** The sorter implementation. */
   sorter?: DataSourceSorter<T>;
+
+  /** The custom sort function; use this if present, otherwise use default sorting. */
+  sortFunction?: DataSourceSortFunction<T>;
 
   /** The path & direction to sort on. */
   sortValue?: DataSourceSortValue;

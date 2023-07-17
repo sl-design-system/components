@@ -1,4 +1,4 @@
-import type { DataSourceFilterFunction, DataSourceFilterValue, DataSourceSortFunction } from './data-source.js';
+import type { DataSourceFilterFunction, DataSourceFilterValue } from './data-source.js';
 import { getStringByPath, getValueByPath } from '../path.js';
 import { DataSource } from './data-source.js';
 
@@ -33,27 +33,24 @@ export class ArrayDataSource<T> extends DataSource<T> {
     }
 
     if (this.sortValue) {
-      let sortFn: DataSourceSortFunction<T> | undefined = this.sorter?.(this.sortValue);
+      const { direction, path } = this.sortValue,
+        ascending = direction === 'asc';
 
-      if (!sortFn) {
-        const { path, direction } = this.sortValue,
-          ascending = direction === 'asc';
-
-        sortFn = (a, b) => {
+      const sortFn =
+        this.sortFunction ||
+        this.sorter?.(this.sortValue) ||
+        ((a, b) => {
           const valueA = getStringByPath(a, path),
             valueB = getStringByPath(b, path);
 
-          if (valueA === valueB) {
-            return 0;
-          } else if (valueA < valueB) {
-            return ascending ? -1 : 1;
-          } else {
-            return ascending ? 1 : -1;
-          }
-        };
-      }
+          return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
+        });
 
-      items.sort(sortFn);
+      items.sort((a, b) => {
+        const result = sortFn(a, b);
+
+        return ascending ? result : -result;
+      });
     }
 
     this.#items = items;
@@ -63,8 +60,8 @@ export class ArrayDataSource<T> extends DataSource<T> {
   #filter(values: DataSourceFilterValue[]): DataSourceFilterFunction<T> {
     const filters = values.map(({ path, value }) => {
       const regexes = (Array.isArray(value) ? value : [value])
-        .filter((v): v is string => !!v)
-        .map(v => new RegExp(v, 'i'));
+        .filter((v): v is string => typeof v === 'string')
+        .map(v => (v === '' ? /^\s*$/ : new RegExp(v, 'i')));
 
       return (item: T) => {
         const value = getValueByPath(item, path)?.toString() ?? '';

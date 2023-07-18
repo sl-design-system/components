@@ -2430,15 +2430,15 @@
           {
             "x": 0,
             "y": 0,
-            "blur": "4px",
+            "blur": 4,
             "spread": 0,
             "color": "rgba({color.palette.neutral.base} , {opacity.100})",
             "type": "dropShadow"
           },
           {
             "x": 0,
-            "y": "8px",
-            "blur": "8px",
+            "y": 8,
+            "blur": 8,
             "spread": 0,
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
             "type": "dropShadow"

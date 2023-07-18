@@ -3,8 +3,14 @@ import type { DataSourceSortDirection, DataSourceSortFunction } from '@sl-design
 import { getNameByPath } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { GridColumn } from './column.js';
+import { GridColumn, GridColumnEvent } from './column.js';
 import { GridSorter } from './sorter.js';
+
+export class GridSortDirectionChangeEvent extends GridColumnEvent {
+  constructor(column: GridColumn, public readonly direction: DataSourceSortDirection | undefined) {
+    super('sl-sort-direction-change', column);
+  }
+}
 
 export class GridSortColumn extends GridColumn {
   /** The direction this columns should be sorted in. */

@@ -92,7 +92,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
         <slot></slot>
         <sl-icon .name=${this.active ? 'fas-filter' : 'far-filter'}></sl-icon>
       </sl-button>
-      <sl-popover anchor="anchor">
+      <sl-popover anchor="anchor" position="bottom">
         <header>
           <h1 id="title">
             ${msg(`Filter by`)} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>

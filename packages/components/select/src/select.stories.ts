@@ -50,8 +50,8 @@ export const Basic: StoryObj = {
       }
     </style>
     <sl-button>To focus</sl-button>
-    <sl-select maxOverlayHeight=${maxOverlayHeight} .size="${size}">
-      <sl-select-option-group group-title="Happy">
+    <sl-select .maxOverlayHeight=${maxOverlayHeight} .size="${size}">
+      <sl-select-option-group group-heading="Happy">
         <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
         <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
         <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>
@@ -60,7 +60,7 @@ export const Basic: StoryObj = {
         <sl-select-option>🥳 Partying Face</sl-select-option>
       </sl-select-option-group>
       <sl-select-option>😶 Unfazed</sl-select-option>
-      <sl-select-option-group group-title="Sad">
+      <sl-select-option-group group-heading="Sad">
         <sl-select-option>😒 Unamused Face</sl-select-option>
         <sl-select-option>🤧 Sneezing Face</sl-select-option>
         <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>
@@ -225,7 +225,7 @@ export const InForm: StoryObj = {
 
       <sl-label for="mood">Your mood</sl-label>
       <sl-select id="mood" name="mood">
-        <sl-select-option-group group-title="Happy">
+        <sl-select-option-group group-heading="Happy">
           <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
           <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
           <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>
@@ -233,7 +233,7 @@ export const InForm: StoryObj = {
           <sl-select-option disabled>🙂 Slightly Smiling Face</sl-select-option>
           <sl-select-option>🥳 Partying Face</sl-select-option>
         </sl-select-option-group>
-        <sl-select-option-group group-title="Sad">
+        <sl-select-option-group group-heading="Sad">
           <sl-select-option>😒 Unamused Face</sl-select-option>
           <sl-select-option>🤧 Sneezing Face</sl-select-option>
           <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>

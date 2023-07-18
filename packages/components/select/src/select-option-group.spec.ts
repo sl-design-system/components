@@ -21,9 +21,9 @@ describe('sl-select-option-group', () => {
     });
 
     it('should show the group title when there is one', async () => {
-      el.setAttribute('group-title','group 1');
+      el.setAttribute('group-heading','group 1');
       await el.updateComplete;
-      expect(el.groupTitle).to.equal('group 1');
+      expect(el.groupHeading).to.equal('group 1');
       expect(el.renderRoot.querySelector('span')).to.have.text('group 1');
     });
   });

@@ -1,7 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { SelectOptionGroup } from './select-option-group.js';
 import {
-  AnchorController,
   FormControlMixin,
   RovingTabindexController,
   ValidationController,
@@ -39,15 +38,13 @@ export class Select extends FormControlMixin(LitElement) {
 
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
 
-  /** The slotted options and option groups. */
-  // @queryAssignedElements({ selector: 'sl-select-option', flatten: false }) options?: SelectOption[];
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
   @query('button') button?: HTMLButtonElement;
   @query('dialog') dialog?: HTMLDialogElement;
 
   /** render helpers */
-  @property() maxOverlayHeight?: string;
+  @property({ attribute: 'max-overlay-height', reflect: true }) maxOverlayHeight?: string;
 
   /** Select size. */
   @property({ reflect: true }) size: SelectSize = 'md';
@@ -56,7 +53,7 @@ export class Select extends FormControlMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
-    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!isPopoverOpen(this.dialog)),
+    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && isPopoverOpen(this.dialog)),
     elements: () => this.allOptions || [],
     isFocusableElement: (el: SelectOption) => !el.disabled
   });
@@ -66,7 +63,6 @@ export class Select extends FormControlMixin(LitElement) {
   });
 
   #observer?: MutationObserver;
-  #anchor = new AnchorController(this);
 
   #selectId = `sl-select-${nextUniqueId++}`;
 
@@ -156,6 +152,9 @@ export class Select extends FormControlMixin(LitElement) {
     if (changes.has('size')) {
       this.allOptions?.forEach(option => (option.size = this.size));
       this.optionGroups?.forEach(group => (group.size = this.size));
+    }
+    if (changes.has('maxOverlayHeight') && this.maxOverlayHeight && this.dialog) {
+      this.dialog.style.setProperty('--max-overlay-height', `${this.maxOverlayHeight}`);
     }
   }
 

@@ -21,14 +21,14 @@ describe('sl-select', () => {
         el = await fixture(html`
           <sl-select>
             <sl-select-option>Won't say</sl-select-option>
-            <sl-select-option-group title="europe">
+            <sl-select-option-group group-heading="europe">
               <sl-select-option>Finland</sl-select-option>
               <sl-select-option>The Netherlands</sl-select-option>
             </sl-select-option-group>
             <sl-select-option>Somewhere else</sl-select-option>
           </sl-select>`);
       });
-      afterEach(async () => {
+      afterEach(() => {
         el.allOptions.forEach(option => option.removeAttribute('selected'));
       });
     

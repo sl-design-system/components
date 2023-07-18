@@ -2,9 +2,11 @@ $sizes: md, lg;
 
 :host {
   --sl-border-radius-select-item: 2px;
+  --_selected-indicator-color: var(--sl-color-select-item-default-indicator);
+  --_text-color: var(--sl-color-select-item-default-foreground);
   border-radius: var(--sl-border-radius-select-item);
   box-shadow: var(--_box-shadow, none);
-
+  color: var(--_text-color);
   cursor: pointer;
   display: block;
   font: var(--_font);
@@ -30,7 +32,7 @@ $sizes: md, lg;
 }
 
 :host([selected])::before {
-  background: var(--sl-color-select-item-default-indicator);
+  background: var(--_selected-indicator-color);
   border-radius: var(--sl-border-radius-select-item);
   bottom: 0;
   content: '';
@@ -41,8 +43,9 @@ $sizes: md, lg;
 }
 
 :host([disabled]) {
+  --_selected-indicator-color: var(--sl-color-select-item-disabled-indicator);
+  --_text-color: var(--sl-color-select-item-disabled-foreground);
   cursor: default;
-  opacity: 0.6;
   pointer-events: none;
 }
 

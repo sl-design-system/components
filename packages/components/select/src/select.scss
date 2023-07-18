@@ -6,8 +6,9 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   --_box-shadow: none;
   --sl-popover-offset: 0px;
 
-  align-items: center;
+  align-items: stretch;
   display: flex;
+  flex-direction: column;
   gap: var(--_gap);
   outline: none;
 }

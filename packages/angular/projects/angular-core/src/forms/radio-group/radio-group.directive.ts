@@ -11,7 +11,7 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR
 } from '@angular/forms';
-import { Radio } from '@sl-design-system/radio-group';
+import type { Radio } from '@sl-design-system/radio-group';
 import { FormControlElementDirective } from '../form-control/form-control-element.directive';
 import { RovingTabindexController } from '@sl-design-system/shared';
 

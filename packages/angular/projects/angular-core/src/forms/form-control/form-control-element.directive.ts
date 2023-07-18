@@ -47,10 +47,6 @@ export abstract class FormControlElementDirective implements Omit<ControlValueAc
 
   /** Implemented as part of Validator. */
   validate(control: AbstractControl): ValidationErrors | null {
-    if (control.untouched) {
-      return control.errors;
-    } else {
-      return null;
-    }
+    return control.untouched ? control.errors : null;
   }
 }

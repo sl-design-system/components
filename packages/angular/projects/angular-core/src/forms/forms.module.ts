@@ -1,5 +1,4 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import '@sl-design-system/shared';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/text-input/register.js';
@@ -15,16 +14,16 @@ import { RadioDirective } from './radio-group/radio.directive';
   declarations: [
     CheckboxDirective,
     InputDirective,
-    TextareaDirective,
     RadioGroupDirective,
-    RadioDirective
+    RadioDirective,
+    TextareaDirective
   ],
   exports: [
     CheckboxDirective,
     InputDirective,
-    TextareaDirective,
     RadioGroupDirective,
-    RadioDirective
+    RadioDirective,
+    TextareaDirective
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

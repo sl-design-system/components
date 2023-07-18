@@ -11,7 +11,7 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR
 } from '@angular/forms';
-import {FormControlElementDirective} from '../form-control/form-control-element.directive';
+import { FormControlElementDirective } from '../form-control/form-control-element.directive';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector

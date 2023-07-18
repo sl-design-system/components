@@ -73,7 +73,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   @property({ attribute: false }) dataSource?: DataSource<T>;
 
   /** Emits when the items in the grid have changed. */
-  @event() gridItemsChange!: EventEmitter<void>;
+  @event() gridItemsChange!: EventEmitter<GridEvent<T>>;
 
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
@@ -145,7 +145,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       }
 
       // Notify any listeners (columns) that the items have changed
-      this.gridItemsChange.emit();
+      this.gridItemsChange.emit(new GridEvent('sl-grid-items-change', this));
     }
   }
 

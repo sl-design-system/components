@@ -42,7 +42,6 @@
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
   --sl-animation-duration-fast: 90ms;
-  --sl-space-select-divider-inline-lg: 0px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -210,6 +209,10 @@
   --sl-color-palette-primary-150: 254 159 166;
   --sl-color-palette-primary-100: 254 192 196;
   --sl-color-palette-primary-50: 255 225 227;
+  --sl-elevation-shadow-md: calc(
+    0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0px 8px 8px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+  );
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
@@ -252,14 +255,20 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
-  --sl-space-select-item-gap-lg: var(--sl-space-sm);
-  --sl-space-select-item-inline-lg: var(--sl-space-md);
-  --sl-space-select-item-block-lg: var(--sl-space-sm);
+  --sl-space-select-divider-line-md: var(--sl-space-sm);
+  --sl-space-select-divider-line-lg: var(--sl-space-sm);
+  --sl-space-select-divider-gap-md: var(--sl-space-sm);
   --sl-space-select-divider-gap-lg: var(--sl-space-sm);
+  --sl-space-select-divider-inline-md: var(--sl-space-md);
+  --sl-space-select-divider-inline-lg: var(--sl-space-md);
+  --sl-space-select-divider-block-md: var(--sl-space-sm);
   --sl-space-select-divider-block-lg: var(--sl-space-sm);
-  --sl-space-select-panel-gap-lg: var(--sl-space-xs);
-  --sl-space-select-panel-inline-lg: calc(var(--sl-space-sm) - var(--sl-border-width-sm));
-  --sl-space-select-panel-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-sm));
+  --sl-space-select-listbox-gap-md: var(--sl-space-xs);
+  --sl-space-select-listbox-gap-lg: var(--sl-space-xs);
+  --sl-space-select-listbox-inline-md: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
+  --sl-space-select-listbox-inline-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
+  --sl-space-select-listbox-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
+  --sl-space-select-listbox-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-button-gap-lg: var(--sl-space-sm);
   --sl-space-button-gap-md: var(--sl-space-xs);
   --sl-space-button-gap-sm: var(--sl-space-xs);
@@ -383,6 +392,14 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
+  --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);
+  --sl-space-select-item-inline-md: var(--sl-space-input-text-field-inline-md);
+  --sl-space-select-item-block-lg: var(--sl-space-input-text-field-block-lg);
+  --sl-space-select-item-block-md: var(--sl-space-input-text-field-block-md);
+  --sl-space-select-selectbox-inline-lg: var(--sl-space-input-text-field-inline-lg);
+  --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
+  --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
+  --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
   --sl-space-input-switch-padding-row-lg: calc(
     var(--sl-size-input-switch-controller-width-lg) + (var(--sl-space-input-switch-padding-container) * 2)
   );
@@ -404,4 +421,8 @@
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-icon);
   --sl-text-input-option-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
+  --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
+  --sl-space-select-item-gap-md: var(--sl-space-input-text-field-gap-md);
+  --sl-space-select-selectbox-gap-lg: var(--sl-space-input-text-field-gap-lg);
+  --sl-space-select-selectbox-gap-md: var(--sl-space-input-text-field-gap-md);
 }

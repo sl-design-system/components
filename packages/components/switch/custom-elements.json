@@ -123,7 +123,7 @@
               "kind": "field",
               "name": "iconSize",
               "type": {
-                "text": "string"
+                "text": "IconSize"
               },
               "readonly": true
             },
@@ -131,6 +131,7 @@
               "kind": "field",
               "name": "internals",
               "readonly": true,
+              "default": "this.attachInternals()",
               "description": "Element internals."
             },
             {
@@ -152,12 +153,23 @@
             },
             {
               "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "SwitchOrientation"
+              },
+              "default": "'horizontal'",
+              "description": "Switch orientation.",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "SwitchSize"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "Switch size.",
               "attribute": "size",
               "reflects": true
             },
@@ -210,8 +222,17 @@
                 "text": "SwitchSize"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "Switch size.",
               "fieldName": "size"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "SwitchOrientation"
+              },
+              "default": "'horizontal'",
+              "description": "Switch orientation.",
+              "fieldName": "orientation"
             },
             {
               "name": "value",

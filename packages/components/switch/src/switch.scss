@@ -110,7 +110,6 @@ $sizes: sm, md, lg;
 }
 
 .toggle {
-  align-self: flex-start;
   cursor: pointer;
   grid-area: toggle;
   padding: var(--_toggle-container-padding);

@@ -1,5 +1,11 @@
 # @sanomalearning/slds-sanoma-learning
 
+## 0.0.6
+
+### Patch Changes
+
+- [#480](https://github.com/sl-design-system/components/pull/480) [`abb5964`](https://github.com/sl-design-system/components/commit/abb5964e20773add8d8f7a2837bb3fc84018f9ac) - Added tokens for select component.
+
 ## 0.0.5
 
 ### Patch Changes

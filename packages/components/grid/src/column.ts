@@ -17,6 +17,15 @@ export type GridColumnDataRenderer<T> = (model: T) => string | undefined | Templ
 /** Custom type for providing parts to a cell. */
 export type GridColumnParts<T> = (model: T) => string | undefined;
 
+export class GridColumnEvent<T extends Record<string, unknown> = Record<string, unknown>> extends Event {
+  column: GridColumn<T>;
+
+  constructor(type: string, column: GridColumn<T>) {
+    super(type, { bubbles: true, composed: true });
+    this.column = column;
+  }
+}
+
 export class GridColumn<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
   #events = new EventsController(this);
 
@@ -44,7 +53,7 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
   @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
 
   /** Emits when the column definition has changed. */
-  @event() columnUpdate!: EventEmitter<void>;
+  @event() columnUpdate!: EventEmitter<GridColumnEvent<T>>;
 
   /** The parent grid instance. */
   @property({ attribute: false }) grid?: Grid<T>;
@@ -83,7 +92,7 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
   }
 
   /** Width of the cells for this column in pixels. */
-  @property()
+  @property({ type: Number })
   get width(): number | undefined {
     return this.#width;
   }

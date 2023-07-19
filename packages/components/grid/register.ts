@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { GridFilterValueChangeEvent } from './src/filter-column.js';
-import type { GridActiveItemChangeEvent, GridEvent } from './src/grid.js';
-import type { GridSortDirectionChangeEvent } from './src/sort-column.js';
+import type {
+  GridActiveItemChangeEvent,
+  GridEvent,
+  GridFilterValueChangeEvent,
+  GridSortDirectionChangeEvent
+} from './src/events.js';
 import { Grid } from './src/grid.js';
 import { GridColumn } from './src/column.js';
 import { GridColumnGroup } from './src/column-group.js';

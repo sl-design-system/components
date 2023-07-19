@@ -2,7 +2,8 @@ import type { PropertyValues, TemplateResult } from 'lit';
 import { getNameByPath } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
-import { GridColumn, GridColumnEvent } from './column.js';
+import { GridColumn } from './column.js';
+import { GridColumnEvent } from './events.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumnGroup<T = any> extends GridColumn<T> {

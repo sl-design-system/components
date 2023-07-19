@@ -17,7 +17,8 @@ customElements.define('sl-grid-sort-column', GridSortColumn);
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-active-item-change': GridActiveItemChangeEvent;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    'sl-active-item-change': GridActiveItemChangeEvent<any>;
     'sl-filter-value-change': GridFilterValueChangeEvent;
     'sl-grid-items-change': GridEvent;
     'sl-sort-direction-change': GridSortDirectionChangeEvent;

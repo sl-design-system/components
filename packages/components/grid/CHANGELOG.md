@@ -1,5 +1,25 @@
 # @sl-design-system/grid
 
+## 0.0.21
+
+### Patch Changes
+
+- [#536](https://github.com/sl-design-system/components/pull/536) [`fea2ecf`](https://github.com/sl-design-system/components/commit/fea2ecfc9c30d8525dec95eed269daadf1f54a9b) - Fix dependency issue by grouping events
+
+## 0.0.20
+
+### Patch Changes
+
+- [#534](https://github.com/sl-design-system/components/pull/534) [`a4b8d7c`](https://github.com/sl-design-system/components/commit/a4b8d7cd9bbf6234fd0d0a85bb47b63d4e627132) - Cleanup types
+
+## 0.0.19
+
+### Patch Changes
+
+- [#533](https://github.com/sl-design-system/components/pull/533) [`ac9fbc8`](https://github.com/sl-design-system/components/commit/ac9fbc8e3ff2a1408800b17db7cde56a32b8b3a6) - Add `position="bottom"` to filter popover so it does not appear below a sticky header above it in browsers that do not support popover yet
+
+- [#533](https://github.com/sl-design-system/components/pull/533) [`ac9fbc8`](https://github.com/sl-design-system/components/commit/ac9fbc8e3ff2a1408800b17db7cde56a32b8b3a6) - Use explicit grid events instead of `CustomEvent`. Allows us to add a `column` property for column related events.
+
 ## 0.0.18
 
 ### Patch Changes

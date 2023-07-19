@@ -14,7 +14,8 @@ export interface GridFilterOption {
 }
 
 @localized()
-export class GridFilterColumn extends GridColumn {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridFilterColumn<T = any> extends GridColumn<T> {
   /** The internal options if none are provided. */
   @state() internalOptions?: GridFilterOption[];
 

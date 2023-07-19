@@ -3,8 +3,10 @@ import { getNameByPath } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
+import { GridColumnEvent } from './events.js';
 
-export class GridColumnGroup<T extends Record<string, unknown> = Record<string, unknown>> extends GridColumn<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridColumnGroup<T = any> extends GridColumn<T> {
   #width?: number;
 
   /** The nested columns in the group. */
@@ -45,6 +47,6 @@ export class GridColumnGroup<T extends Record<string, unknown> = Record<string, 
     }, {});
 
     // Notify the grid that the column definition has changed
-    this.columnUpdate.emit();
+    this.columnUpdate.emit(new GridColumnEvent('sl-column-update', this));
   }
 }

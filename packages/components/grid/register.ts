@@ -1,5 +1,10 @@
-import type { GridFilterValueChangeEvent } from './src/filter.js';
-import type { GridActiveItemChangeEvent } from './src/grid.js';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type {
+  GridActiveItemChangeEvent,
+  GridEvent,
+  GridFilterValueChangeEvent,
+  GridSortDirectionChangeEvent
+} from './src/events.js';
 import { Grid } from './src/grid.js';
 import { GridColumn } from './src/column.js';
 import { GridColumnGroup } from './src/column-group.js';
@@ -16,10 +21,10 @@ customElements.define('sl-grid-sort-column', GridSortColumn);
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     'sl-active-item-change': GridActiveItemChangeEvent<any>;
-    'sl-filter-change': GridFilterValueChangeEvent;
-    'sl-grid-items-change': Event;
+    'sl-filter-value-change': GridFilterValueChangeEvent<any>;
+    'sl-grid-items-change': GridEvent<any>;
+    'sl-sort-direction-change': GridSortDirectionChangeEvent<any>;
   }
 
   interface HTMLElementTagNameMap {

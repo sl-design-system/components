@@ -3,15 +3,22 @@ import type { DataSourceSortDirection, DataSourceSortFunction } from '@sl-design
 import { getNameByPath } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { GridColumn } from './column.js';
+import { GridColumn, GridColumnEvent } from './column.js';
 import { GridSorter } from './sorter.js';
 
-export class GridSortColumn extends GridColumn {
+export class GridSortDirectionChangeEvent<T> extends GridColumnEvent<T> {
+  constructor(column: GridColumn<T>, public readonly direction: DataSourceSortDirection | undefined) {
+    super('sl-sort-direction-change', column);
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridSortColumn<T = any> extends GridColumn<T> {
   /** The direction this columns should be sorted in. */
   @property({ type: String }) direction?: DataSourceSortDirection;
 
   /** If you want to provide a custom sort function, you can via this property. */
-  @property({ attribute: false }) sort?: DataSourceSortFunction;
+  @property({ attribute: false }) sort?: DataSourceSortFunction<T>;
 
   override connectedCallback(): void {
     super.connectedCallback();

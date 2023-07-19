@@ -8,6 +8,7 @@ import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
+import { GridSortDirectionChangeEvent } from './sort-column.js';
 import styles from './sorter.scss.js';
 
 export type GridSorterChange = 'added' | 'removed';
@@ -26,7 +27,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
   #events = new EventsController(this);
 
   /** The grid column.  */
-  @property({ attribute: false }) column!: GridColumn;
+  @property({ attribute: false }) column!: GridColumn<T>;
 
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;
@@ -36,7 +37,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
 
   @event() sorterChange!: EventEmitter<GridSorterChange>;
 
-  @event() sorterDirectionChange!: EventEmitter<DataSourceSortDirection | undefined>;
+  @event() sortDirectionChange!: EventEmitter<GridSortDirectionChangeEvent<T>>;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -91,7 +92,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
 
   #onClick(): void {
     this.#toggleDirection();
-    this.sorterDirectionChange.emit(this.direction);
+    this.sortDirectionChange.emit(new GridSortDirectionChangeEvent(this.column, this.direction));
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -99,7 +100,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
 
       this.#toggleDirection();
-      this.sorterDirectionChange.emit(this.direction);
+      this.sortDirectionChange.emit(new GridSortDirectionChangeEvent(this.column, this.direction));
     }
   }
 

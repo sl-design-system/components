@@ -89,11 +89,11 @@
           "members": [
             {
               "kind": "field",
-              "name": "groupTitle",
+              "name": "groupHeading",
               "type": {
                 "text": "string | undefined"
               },
-              "attribute": "group-title"
+              "attribute": "group-heading"
             },
             {
               "kind": "field",
@@ -118,11 +118,11 @@
               "fieldName": "size"
             },
             {
-              "name": "group-title",
+              "name": "group-heading",
               "type": {
                 "text": "string | undefined"
               },
-              "fieldName": "groupTitle"
+              "fieldName": "groupHeading"
             }
           ],
           "superclass": {
@@ -372,15 +372,15 @@
                 "text": "string | undefined"
               },
               "description": "render helpers",
-              "attribute": "maxOverlayHeight"
+              "attribute": "max-overlay-height",
+              "reflects": true
             },
             {
               "kind": "field",
               "name": "optionGroups",
               "type": {
                 "text": "SelectOptionGroup[] | undefined"
-              },
-              "description": "The slotted options and option groups."
+              }
             },
             {
               "kind": "field",
@@ -403,7 +403,7 @@
           ],
           "attributes": [
             {
-              "name": "maxOverlayHeight",
+              "name": "max-overlay-height",
               "type": {
                 "text": "string | undefined"
               },

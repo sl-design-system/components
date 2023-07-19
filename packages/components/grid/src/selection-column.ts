@@ -1,5 +1,5 @@
 import type { CSSResult, PropertyValues, TemplateResult } from 'lit';
-import type { GridActiveItemChangeEvent } from './grid.js';
+import type { GridActiveItemChangeEvent } from './events.js';
 import { msg, str } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { EventsController } from '@sl-design-system/shared';

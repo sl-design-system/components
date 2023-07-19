@@ -8,7 +8,7 @@ import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
-import { GridSortDirectionChangeEvent } from './sort-column.js';
+import { GridSortDirectionChangeEvent } from './events.js';
 import styles from './sorter.scss.js';
 
 export type GridSorterChange = 'added' | 'removed';

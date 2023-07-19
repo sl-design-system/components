@@ -14,18 +14,7 @@ import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 import styles from './grid.scss.js';
 import { GridSelectionColumn } from './selection-column.js';
-
-export class GridEvent<T> extends Event {
-  constructor(type: string, public readonly grid: Grid<T>) {
-    super(type, { bubbles: true, composed: true });
-  }
-}
-
-export class GridActiveItemChangeEvent<T> extends GridEvent<T> {
-  constructor(grid: Grid<T>, public readonly item: T, public readonly relatedEvent: Event | null) {
-    super('sl-active-item-change', grid);
-  }
-}
+import { GridActiveItemChangeEvent, GridEvent } from './events.js';
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 

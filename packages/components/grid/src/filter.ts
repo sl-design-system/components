@@ -22,7 +22,7 @@ export type GridFilterChange = 'added' | 'removed';
 Icon.registerIcon(faFilter, faFilterSolid, faXmark);
 
 @localized()
-export class GridFilter extends ScopedElementsMixin(LitElement) {
+export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -48,11 +48,11 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) active = false;
 
   /** The grid column. */
-  @property({ attribute: false }) column!: GridColumn;
+  @property({ attribute: false }) column!: GridColumn<T>;
 
   @event() filterChange!: EventEmitter<GridFilterChange>;
 
-  @event() filterValueChange!: EventEmitter<GridFilterValueChangeEvent>;
+  @event() filterValueChange!: EventEmitter<GridFilterValueChangeEvent<T>>;
 
   @property({ type: String }) mode?: GridFilterMode;
 

@@ -152,7 +152,7 @@
               "kind": "field",
               "name": "columnUpdate",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -472,6 +472,15 @@
         {
           "kind": "class",
           "description": "",
+          "name": "GridColumnEvent",
+          "superclass": {
+            "name": "GridEvent",
+            "module": "/src/grid.js"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
           "name": "GridColumn",
           "members": [
             {
@@ -497,7 +506,7 @@
               "kind": "field",
               "name": "columnUpdate",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed."
             },
@@ -705,6 +714,14 @@
       "exports": [
         {
           "kind": "js",
+          "name": "GridColumnEvent",
+          "declaration": {
+            "name": "GridColumnEvent",
+            "module": "src/column.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "GridColumn",
           "declaration": {
             "name": "GridColumn",
@@ -717,6 +734,15 @@
       "kind": "javascript-module",
       "path": "src/filter-column.ts",
       "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridFilterValueChangeEvent",
+          "superclass": {
+            "name": "GridColumnEvent",
+            "module": "/src/column.js"
+          }
+        },
         {
           "kind": "class",
           "description": "",
@@ -753,7 +779,7 @@
               "kind": "field",
               "name": "columnUpdate",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -1099,6 +1125,14 @@
       "exports": [
         {
           "kind": "js",
+          "name": "GridFilterValueChangeEvent",
+          "declaration": {
+            "name": "GridFilterValueChangeEvent",
+            "module": "src/filter-column.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "GridFilterColumn",
           "declaration": {
             "name": "GridFilterColumn",
@@ -1128,22 +1162,13 @@
         {
           "kind": "class",
           "description": "",
-          "name": "GridFilterValueChangeEvent",
-          "superclass": {
-            "name": "Event",
-            "module": "src/filter.ts"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
           "name": "GridFilter",
           "members": [
             {
               "kind": "field",
               "name": "column",
               "type": {
-                "text": "GridColumn"
+                "text": "GridColumn<T>"
               },
               "description": "The grid column."
             },
@@ -1217,14 +1242,6 @@
       "exports": [
         {
           "kind": "js",
-          "name": "GridFilterValueChangeEvent",
-          "declaration": {
-            "name": "GridFilterValueChangeEvent",
-            "module": "src/filter.ts"
-          }
-        },
-        {
-          "kind": "js",
           "name": "GridFilter",
           "declaration": {
             "name": "GridFilter",
@@ -1254,9 +1271,18 @@
         {
           "kind": "class",
           "description": "",
-          "name": "GridActiveItemChangeEvent",
+          "name": "GridEvent",
           "superclass": {
             "name": "Event",
+            "module": "src/grid.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridActiveItemChangeEvent",
+          "superclass": {
+            "name": "GridEvent",
             "module": "src/grid.ts"
           }
         },
@@ -1302,7 +1328,7 @@
               "kind": "field",
               "name": "gridItemsChange",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<GridEvent<T>>"
               },
               "description": "Emits when the items in the grid have changed."
             },
@@ -1479,6 +1505,14 @@
       "exports": [
         {
           "kind": "js",
+          "name": "GridEvent",
+          "declaration": {
+            "name": "GridEvent",
+            "module": "src/grid.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "GridActiveItemChangeEvent",
           "declaration": {
             "name": "GridActiveItemChangeEvent",
@@ -1544,7 +1578,7 @@
               "kind": "field",
               "name": "columnUpdate",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -1889,6 +1923,15 @@
         {
           "kind": "class",
           "description": "",
+          "name": "GridSortDirectionChangeEvent",
+          "superclass": {
+            "name": "GridColumnEvent",
+            "module": "/src/column.js"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
           "name": "GridSortColumn",
           "members": [
             {
@@ -1922,7 +1965,7 @@
               "kind": "field",
               "name": "columnUpdate",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -2090,6 +2133,14 @@
             },
             {
               "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSortFunction | undefined"
+              },
+              "description": "If you want to provide a custom sort function, you can via this property."
+            },
+            {
+              "kind": "field",
               "name": "sticky",
               "type": {
                 "text": "boolean | undefined"
@@ -2235,6 +2286,14 @@
       "exports": [
         {
           "kind": "js",
+          "name": "GridSortDirectionChangeEvent",
+          "declaration": {
+            "name": "GridSortDirectionChangeEvent",
+            "module": "src/sort-column.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "GridSortColumn",
           "declaration": {
             "name": "GridSortColumn",
@@ -2270,7 +2329,7 @@
               "kind": "field",
               "name": "column",
               "type": {
-                "text": "GridColumn"
+                "text": "GridColumn<T>"
               },
               "description": "The grid column."
             },
@@ -2295,16 +2354,24 @@
             },
             {
               "kind": "field",
-              "name": "sorterChange",
+              "name": "sort",
               "type": {
-                "text": "EventEmitter<GridSorterChange>"
+                "text": "DataSourceSortFunction<T> | undefined"
+              },
+              "description": "An optional custom sort function."
+            },
+            {
+              "kind": "field",
+              "name": "sortDirectionChange",
+              "type": {
+                "text": "EventEmitter<GridSortDirectionChangeEvent>"
               }
             },
             {
               "kind": "field",
-              "name": "sorterDirectionChange",
+              "name": "sorterChange",
               "type": {
-                "text": "EventEmitter<DataSourceSortDirection | undefined>"
+                "text": "EventEmitter<GridSorterChange>"
               }
             }
           ],

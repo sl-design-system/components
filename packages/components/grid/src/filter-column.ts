@@ -13,14 +13,15 @@ export interface GridFilterOption {
   value?: unknown;
 }
 
-export class GridFilterValueChangeEvent extends GridColumnEvent {
-  constructor(column: GridColumn, public readonly value: string | string[] | undefined) {
+export class GridFilterValueChangeEvent<T> extends GridColumnEvent<T> {
+  constructor(column: GridColumn<T>, public readonly value: string | string[] | undefined) {
     super('sl-filter-value-change', column);
   }
 }
 
 @localized()
-export class GridFilterColumn extends GridColumn {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridFilterColumn<T = any> extends GridColumn<T> {
   /** The internal options if none are provided. */
   @state() internalOptions?: GridFilterOption[];
 

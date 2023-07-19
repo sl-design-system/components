@@ -7,7 +7,8 @@ import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
-export class GridSelectionColumn<T extends Record<string, unknown> = Record<string, unknown>> extends GridColumn {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridSelectionColumn<T = any> extends GridColumn<T> {
   #events = new EventsController(this);
 
   /** When true, the active rows get selected automatically. */

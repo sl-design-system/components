@@ -60,7 +60,7 @@ export const EmptyValues: Story = {
 export const OutsideGrid: Story = {
   render: (_, { loaded: { people } }) => {
     const onInput = ({ target }: Event & { target: TextInput }): void => {
-      const grid = document.querySelector('sl-grid') as Grid,
+      const grid = document.querySelector('sl-grid') as Grid<Person>,
         regex = new RegExp(target.value?.toString().trim() ?? '', 'i');
 
       grid.items = (people as Person[]).filter(({ firstName, lastName, email, profession }) => {

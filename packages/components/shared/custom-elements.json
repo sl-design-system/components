@@ -599,6 +599,59 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/directives/anchor.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AnchorDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "anchor"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AnchorDirective",
+          "declaration": {
+            "name": "AnchorDirective",
+            "module": "src/directives/anchor.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "anchor",
+          "declaration": {
+            "name": "anchor",
+            "module": "src/directives/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./anchor.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/data-source/array-data-source.ts",
       "declarations": [
         {
@@ -651,6 +704,18 @@
               },
               "readonly": true,
               "description": "Size of the item collection.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sortFunction",
+              "type": {
+                "text": "DataSourceSortFunction<T> | undefined"
+              },
+              "description": "The custom sort function; use this if present, otherwise use default sorting.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "src/data-source/data-source.ts"
@@ -748,6 +813,14 @@
               },
               "readonly": true,
               "description": "Size of the item collection."
+            },
+            {
+              "kind": "field",
+              "name": "sortFunction",
+              "type": {
+                "text": "DataSourceSortFunction<T> | undefined"
+              },
+              "description": "The custom sort function; use this if present, otherwise use default sorting."
             },
             {
               "kind": "field",
@@ -2260,59 +2333,6 @@
           "declaration": {
             "name": "observe",
             "module": "src/decorators/observe.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/directives/anchor.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "AnchorDirective",
-          "members": [],
-          "superclass": {
-            "name": "Directive",
-            "package": "lit/directive.js"
-          }
-        },
-        {
-          "kind": "variable",
-          "name": "anchor"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "AnchorDirective",
-          "declaration": {
-            "name": "AnchorDirective",
-            "module": "src/directives/anchor.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "anchor",
-          "declaration": {
-            "name": "anchor",
-            "module": "src/directives/anchor.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./anchor.js"
           }
         }
       ]

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/skeleton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-skeleton",
+          "declaration": {
+            "name": "Skeleton",
+            "module": "/src/skeleton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/skeleton.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/skeleton.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/skeleton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Use skeletons as an animated placeholder which simulates the layout while content is being loaded.",
+          "name": "Skeleton",
+          "cssProperties": [
+            {
+              "description": "The skeleton's background colour.",
+              "name": "--background"
+            },
+            {
+              "description": "The shine colour when the skeleton is in loading state with effect.",
+              "name": "--shine-color"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "effect",
+              "type": {
+                "text": "'none' | 'shimmer' | 'pulse' | 'sheen'"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "attribute": "effect",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "effect",
+              "type": {
+                "text": "'none' | 'shimmer' | 'pulse' | 'sheen'"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "fieldName": "effect"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-skeleton",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Skeleton",
+          "declaration": {
+            "name": "Skeleton",
+            "module": "src/skeleton.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

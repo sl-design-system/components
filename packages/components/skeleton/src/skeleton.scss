@@ -1,0 +1,66 @@
+:host {
+  //--hue: var(--dna-switch-hue, 0);
+  //--sat: var(--dna-switch-sat, 0%);
+  //--lum: var(--dna-switch-lum, 95%);
+  --background: #c6c6c6; //hsl(var(--hue), var(--sat), calc(var(--lum) - var(--dna-lum-step)));
+  --border-radius: 0.25rem;
+  --min-height: 0.5rem;
+  --shine-color: #fff; //hsl(var(--hue), var(--sat), var(--lum));
+}
+
+:host {
+  background: var(--background);
+  border-radius: var(--border-radius);
+  display: block;
+  min-height: var(--min-height);
+}
+
+:host([effect='shimmer']) {
+  animation: shimmer-effect 2s infinite linear;
+  background: linear-gradient(to right, var(--background) 4%, var(--shine-color) 25%, var(--background) 36%);
+  background-size: 1000px 100%;
+}
+
+:host([effect='sheen']) {
+  animation: sheen-effect 8s ease-in-out infinite;
+  background: linear-gradient(270deg, var(--shine-color), var(--background), var(--background), var(--shine-color));
+  background-size: 400% 100%;
+}
+
+:host([effect='pulse']) {
+  animation: pulse-effect 2s ease-in-out 0.5s infinite;
+}
+
+@keyframes shimmer-effect {
+  from {
+    background-position: -1000px 0;
+  }
+
+  to {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes sheen-effect {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulse-effect {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

@@ -25,11 +25,11 @@ declare global {
   }
 
   interface HTMLElementTagNameMap {
-    'sl-grid': Grid<any>;
-    'sl-grid-column': GridColumn<any>;
-    'sl-grid-column-group': GridColumnGroup<any>;
-    'sl-grid-filter-column': GridFilterColumn<any>;
-    'sl-grid-selection-column': GridSelectionColumn<any>;
-    'sl-grid-sort-column': GridSortColumn<any>;
+    'sl-grid': Grid;
+    'sl-grid-column': GridColumn;
+    'sl-grid-column-group': GridColumnGroup;
+    'sl-grid-filter-column': GridFilterColumn;
+    'sl-grid-selection-column': GridSelectionColumn;
+    'sl-grid-sort-column': GridSortColumn;
   }
 }

@@ -2,7 +2,7 @@ import type { PropertyValues, TemplateResult } from 'lit';
 import { getNameByPath } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
-import { GridColumn } from './column.js';
+import { GridColumn, GridColumnEvent } from './column.js';
 
 export class GridColumnGroup<T extends Record<string, unknown> = Record<string, unknown>> extends GridColumn<T> {
   #width?: number;
@@ -45,6 +45,6 @@ export class GridColumnGroup<T extends Record<string, unknown> = Record<string, 
     }, {});
 
     // Notify the grid that the column definition has changed
-    this.columnUpdate.emit();
+    this.columnUpdate.emit(new GridColumnEvent('sl-column-update', this));
   }
 }

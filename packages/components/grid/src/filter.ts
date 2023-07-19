@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
-import type { GridFilterMode, GridFilterOption } from './filter-column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
@@ -15,17 +14,12 @@ import { Popover } from '@sl-design-system/popover';
 import { event, getNameByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { type GridFilterMode, type GridFilterOption, GridFilterValueChangeEvent } from './filter-column.js';
 import styles from './filter.scss.js';
 
 export type GridFilterChange = 'added' | 'removed';
 
 Icon.registerIcon(faFilter, faFilterSolid, faXmark);
-
-export class GridFilterValueChangeEvent extends Event {
-  constructor(public readonly column: GridColumn, public readonly value: string | string[] | undefined) {
-    super('sl-filter-value-change', { bubbles: true, composed: true });
-  }
-}
 
 @localized()
 export class GridFilter extends ScopedElementsMixin(LitElement) {
@@ -98,7 +92,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
         <slot></slot>
         <sl-icon .name=${this.active ? 'fas-filter' : 'far-filter'}></sl-icon>
       </sl-button>
-      <sl-popover anchor="anchor">
+      <sl-popover anchor="anchor" position="bottom">
         <header>
           <h1 id="title">
             ${msg(`Filter by`)} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>

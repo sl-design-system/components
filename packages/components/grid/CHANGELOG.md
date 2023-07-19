@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.20
+
+### Patch Changes
+
+- [#534](https://github.com/sl-design-system/components/pull/534) [`a4b8d7c`](https://github.com/sl-design-system/components/commit/a4b8d7cd9bbf6234fd0d0a85bb47b63d4e627132) - Cleanup types
+
 ## 0.0.19
 
 ### Patch Changes

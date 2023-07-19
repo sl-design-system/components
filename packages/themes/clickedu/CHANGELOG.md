@@ -1,5 +1,13 @@
 # @sanomalearning/slds-clickedu
 
+## 0.0.6
+
+### Patch Changes
+
+- [#523](https://github.com/sl-design-system/components/pull/523) [`2025c2f`](https://github.com/sl-design-system/components/commit/2025c2f91cc5efbc3e3a09728125265af7aa0c0c) - Updated to new branding colours
+
+- [#480](https://github.com/sl-design-system/components/pull/480) [`abb5964`](https://github.com/sl-design-system/components/commit/abb5964e20773add8d8f7a2837bb3fc84018f9ac) - Added tokens for select component.
+
 ## 0.0.5
 
 ### Patch Changes

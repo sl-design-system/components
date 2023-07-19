@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.21
+
+### Patch Changes
+
+- [#536](https://github.com/sl-design-system/components/pull/536) [`fea2ecf`](https://github.com/sl-design-system/components/commit/fea2ecfc9c30d8525dec95eed269daadf1f54a9b) - Fix dependency issue by grouping events
+
 ## 0.0.20
 
 ### Patch Changes

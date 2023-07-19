@@ -14,26 +14,13 @@ import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 import styles from './grid.scss.js';
 import { GridSelectionColumn } from './selection-column.js';
-
-export class GridEvent<T extends Record<string, unknown> = Record<string, unknown>> extends Event {
-  grid: Grid<T>;
-
-  constructor(type: string, grid: Grid<T>) {
-    super(type, { bubbles: true, composed: true });
-    this.grid = grid;
-  }
-}
-
-export class GridActiveItemChangeEvent<T extends Record<string, unknown> = Record<string, unknown>> extends Event {
-  constructor(public readonly grid: Grid<T>, public readonly item: T, public readonly relatedEvent: Event | null) {
-    super('sl-active-item-change', { bubbles: true, composed: true });
-  }
-}
+import { GridActiveItemChangeEvent, GridEvent } from './events.js';
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 
 @localized()
-export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {};
@@ -43,7 +30,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   static override styles: CSSResultGroup = styles;
 
   /** The filters for this grid. */
-  #filters: GridFilter[] = [];
+  #filters: Array<GridFilter<T>> = [];
 
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
@@ -245,7 +232,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       ${showSelectionHeader
         ? html`
             <tr>
-              ${rows.at(-1)?.[0].renderHeader()} ${(rows.at(-1)?.[0] as GridSelectionColumn).renderSelectionHeader()}
+              ${rows.at(-1)?.[0].renderHeader()} ${(rows.at(-1)?.[0] as GridSelectionColumn<T>).renderSelectionHeader()}
             </tr>
           `
         : html`
@@ -320,7 +307,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#addScopedElements(event.target);
   }
 
-  #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter }): void {
+  #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter<T> }): void {
     if (detail === 'added') {
       this.#filters = [...this.#filters, target];
     } else {

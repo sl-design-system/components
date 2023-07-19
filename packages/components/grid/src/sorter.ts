@@ -8,7 +8,7 @@ import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
-import { GridSortDirectionChangeEvent } from './sort-column.js';
+import { GridSortDirectionChangeEvent } from './events.js';
 import styles from './sorter.scss.js';
 
 export type GridSorterChange = 'added' | 'removed';
@@ -27,7 +27,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
   #events = new EventsController(this);
 
   /** The grid column.  */
-  @property({ attribute: false }) column!: GridColumn;
+  @property({ attribute: false }) column!: GridColumn<T>;
 
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;
@@ -37,7 +37,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
 
   @event() sorterChange!: EventEmitter<GridSorterChange>;
 
-  @event() sortDirectionChange!: EventEmitter<GridSortDirectionChangeEvent>;
+  @event() sortDirectionChange!: EventEmitter<GridSortDirectionChangeEvent<T>>;
 
   override connectedCallback(): void {
     super.connectedCallback();

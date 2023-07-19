@@ -1,9 +1,10 @@
 import type { CSSResult, PropertyValues, TemplateResult } from 'lit';
-import type { Grid } from './grid.js';
+import type { GridColumnEvent } from './events.js';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { type Grid } from './grid.js';
 
 /** Custom for aligning the content in the cells. */
 export type GridColumnAlignment = 'start' | 'center' | 'end';
@@ -17,16 +18,8 @@ export type GridColumnDataRenderer<T> = (model: T) => string | undefined | Templ
 /** Custom type for providing parts to a cell. */
 export type GridColumnParts<T> = (model: T) => string | undefined;
 
-export class GridColumnEvent<T extends Record<string, unknown> = Record<string, unknown>> extends Event {
-  column: GridColumn<T>;
-
-  constructor(type: string, column: GridColumn<T>) {
-    super(type, { bubbles: true, composed: true });
-    this.column = column;
-  }
-}
-
-export class GridColumn<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridColumn<T = any> extends LitElement {
   #events = new EventsController(this);
 
   /** Actual width of the column. */

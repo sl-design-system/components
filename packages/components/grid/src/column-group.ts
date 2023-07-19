@@ -4,7 +4,8 @@ import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { GridColumn, GridColumnEvent } from './column.js';
 
-export class GridColumnGroup<T> extends GridColumn<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridColumnGroup<T = any> extends GridColumn<T> {
   #width?: number;
 
   /** The nested columns in the group. */

@@ -14,8 +14,9 @@ import { Popover } from '@sl-design-system/popover';
 import { event, getNameByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { type GridFilterMode, type GridFilterOption, GridFilterValueChangeEvent } from './filter-column.js';
+import { type GridFilterMode, type GridFilterOption } from './filter-column.js';
 import styles from './filter.scss.js';
+import { GridFilterValueChangeEvent } from './events.js';
 
 export type GridFilterChange = 'added' | 'removed';
 

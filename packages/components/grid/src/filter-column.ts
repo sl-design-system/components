@@ -3,7 +3,7 @@ import { getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { localized, msg } from '@lit/localize';
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { GridColumn, GridColumnEvent } from './column.js';
+import { GridColumn } from './column.js';
 import { GridFilter } from './filter.js';
 
 export type GridFilterMode = 'select' | 'text';
@@ -11,12 +11,6 @@ export type GridFilterMode = 'select' | 'text';
 export interface GridFilterOption {
   label: string;
   value?: unknown;
-}
-
-export class GridFilterValueChangeEvent<T> extends GridColumnEvent<T> {
-  constructor(column: GridColumn<T>, public readonly value: string | string[] | undefined) {
-    super('sl-filter-value-change', column);
-  }
 }
 
 @localized()

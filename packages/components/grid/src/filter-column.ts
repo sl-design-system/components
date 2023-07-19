@@ -13,14 +13,14 @@ export interface GridFilterOption {
   value?: unknown;
 }
 
-export class GridFilterValueChangeEvent extends GridColumnEvent {
-  constructor(column: GridColumn, public readonly value: string | string[] | undefined) {
+export class GridFilterValueChangeEvent<T = unknown> extends GridColumnEvent<T> {
+  constructor(column: GridColumn<T>, public readonly value: string | string[] | undefined) {
     super('sl-filter-value-change', column);
   }
 }
 
 @localized()
-export class GridFilterColumn extends GridColumn {
+export class GridFilterColumn<T = unknown> extends GridColumn<T> {
   /** The internal options if none are provided. */
   @state() internalOptions?: GridFilterOption[];
 

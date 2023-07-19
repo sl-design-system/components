@@ -6,13 +6,13 @@ import { property } from 'lit/decorators.js';
 import { GridColumn, GridColumnEvent } from './column.js';
 import { GridSorter } from './sorter.js';
 
-export class GridSortDirectionChangeEvent extends GridColumnEvent {
-  constructor(column: GridColumn, public readonly direction: DataSourceSortDirection | undefined) {
+export class GridSortDirectionChangeEvent<T = unknown> extends GridColumnEvent<T> {
+  constructor(column: GridColumn<T>, public readonly direction: DataSourceSortDirection | undefined) {
     super('sl-sort-direction-change', column);
   }
 }
 
-export class GridSortColumn extends GridColumn {
+export class GridSortColumn<T = unknown> extends GridColumn<T> {
   /** The direction this columns should be sorted in. */
   @property({ type: String }) direction?: DataSourceSortDirection;
 

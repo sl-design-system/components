@@ -13,7 +13,7 @@ import styles from './sorter.scss.js';
 
 export type GridSorterChange = 'added' | 'removed';
 
-export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
+export class GridSorter<T = unknown> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -27,7 +27,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
   #events = new EventsController(this);
 
   /** The grid column.  */
-  @property({ attribute: false }) column!: GridColumn;
+  @property({ attribute: false }) column!: GridColumn<T>;
 
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;

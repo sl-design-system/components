@@ -7,7 +7,7 @@ import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
-export class GridSelectionColumn<T extends Record<string, unknown> = Record<string, unknown>> extends GridColumn {
+export class GridSelectionColumn<T = unknown> extends GridColumn<T> {
   #events = new EventsController(this);
 
   /** When true, the active rows get selected automatically. */

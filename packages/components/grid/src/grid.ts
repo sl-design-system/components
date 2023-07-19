@@ -15,13 +15,13 @@ import { GridColumnGroup } from './column-group.js';
 import styles from './grid.scss.js';
 import { GridSelectionColumn } from './selection-column.js';
 
-export class GridEvent<T = unknown> extends Event {
+export class GridEvent<T> extends Event {
   constructor(type: string, public readonly grid: Grid<T>) {
     super(type, { bubbles: true, composed: true });
   }
 }
 
-export class GridActiveItemChangeEvent<T = unknown> extends GridEvent<T> {
+export class GridActiveItemChangeEvent<T> extends GridEvent<T> {
   constructor(grid: Grid<T>, public readonly item: T, public readonly relatedEvent: Event | null) {
     super('sl-active-item-change', grid);
   }
@@ -30,7 +30,8 @@ export class GridActiveItemChangeEvent<T = unknown> extends GridEvent<T> {
 export type GridItemParts<T> = (model: T) => string | undefined;
 
 @localized()
-export class Grid<T = unknown> extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {};

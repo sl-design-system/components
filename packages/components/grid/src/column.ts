@@ -17,13 +17,14 @@ export type GridColumnDataRenderer<T> = (model: T) => string | undefined | Templ
 /** Custom type for providing parts to a cell. */
 export type GridColumnParts<T> = (model: T) => string | undefined;
 
-export class GridColumnEvent<T = unknown> extends GridEvent<T> {
+export class GridColumnEvent<T> extends GridEvent<T> {
   constructor(type: string, public readonly column: GridColumn<T>) {
     super(type, column.grid!);
   }
 }
 
-export class GridColumn<T = unknown> extends LitElement {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridColumn<T = any> extends LitElement {
   #events = new EventsController(this);
 
   /** Actual width of the column. */

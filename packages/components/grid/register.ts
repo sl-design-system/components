@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { GridFilterValueChangeEvent } from './src/filter-column.js';
 import type { GridActiveItemChangeEvent, GridEvent } from './src/grid.js';
 import type { GridSortDirectionChangeEvent } from './src/sort-column.js';
@@ -17,18 +18,18 @@ customElements.define('sl-grid-sort-column', GridSortColumn);
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-active-item-change': GridActiveItemChangeEvent;
-    'sl-filter-value-change': GridFilterValueChangeEvent;
-    'sl-grid-items-change': GridEvent;
-    'sl-sort-direction-change': GridSortDirectionChangeEvent;
+    'sl-active-item-change': GridActiveItemChangeEvent<any>;
+    'sl-filter-value-change': GridFilterValueChangeEvent<any>;
+    'sl-grid-items-change': GridEvent<any>;
+    'sl-sort-direction-change': GridSortDirectionChangeEvent<any>;
   }
 
   interface HTMLElementTagNameMap {
-    'sl-grid': Grid;
-    'sl-grid-column': GridColumn;
-    'sl-grid-column-group': GridColumnGroup;
-    'sl-grid-filter-column': GridFilterColumn;
-    'sl-grid-selection-column': GridSelectionColumn;
-    'sl-grid-sort-column': GridSortColumn;
+    'sl-grid': Grid<any>;
+    'sl-grid-column': GridColumn<any>;
+    'sl-grid-column-group': GridColumnGroup<any>;
+    'sl-grid-filter-column': GridFilterColumn<any>;
+    'sl-grid-selection-column': GridSelectionColumn<any>;
+    'sl-grid-sort-column': GridSortColumn<any>;
   }
 }

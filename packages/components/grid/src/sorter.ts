@@ -13,7 +13,7 @@ import styles from './sorter.scss.js';
 
 export type GridSorterChange = 'added' | 'removed';
 
-export class GridSorter<T = unknown> extends ScopedElementsMixin(LitElement) {
+export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -37,7 +37,7 @@ export class GridSorter<T = unknown> extends ScopedElementsMixin(LitElement) {
 
   @event() sorterChange!: EventEmitter<GridSorterChange>;
 
-  @event() sortDirectionChange!: EventEmitter<GridSortDirectionChangeEvent>;
+  @event() sortDirectionChange!: EventEmitter<GridSortDirectionChangeEvent<T>>;
 
   override connectedCallback(): void {
     super.connectedCallback();

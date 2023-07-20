@@ -20,6 +20,21 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     this.scopedElements = { ...this.scopedElements, 'sl-grid-sorter': GridSorter };
   }
 
+  override itemsChanged(): void {
+    super.itemsChanged();
+
+    if (this.grid?.dataSource?.sortValue) {
+      const {
+        sortFunction,
+        sortValue: { path, direction }
+      } = this.grid.dataSource;
+
+      if (this.path === path || (this.sort && this.sort === sortFunction)) {
+        this.direction = direction;
+      }
+    }
+  }
+
   override renderHeader(): TemplateResult {
     return html`
       <th part="header sort">

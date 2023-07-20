@@ -28,6 +28,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/filter-column.js"
           }
         },
@@ -472,15 +480,6 @@
         {
           "kind": "class",
           "description": "",
-          "name": "GridColumnEvent",
-          "superclass": {
-            "name": "GridEvent",
-            "module": "/src/grid.js"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
           "name": "GridColumn",
           "members": [
             {
@@ -714,14 +713,6 @@
       "exports": [
         {
           "kind": "js",
-          "name": "GridColumnEvent",
-          "declaration": {
-            "name": "GridColumnEvent",
-            "module": "src/column.ts"
-          }
-        },
-        {
-          "kind": "js",
           "name": "GridColumn",
           "declaration": {
             "name": "GridColumn",
@@ -732,17 +723,101 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/filter-column.ts",
+      "path": "src/events.ts",
       "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridEvent",
+          "superclass": {
+            "name": "Event",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridActiveItemChangeEvent",
+          "superclass": {
+            "name": "GridEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridColumnEvent",
+          "superclass": {
+            "name": "GridEvent",
+            "module": "src/events.ts"
+          }
+        },
         {
           "kind": "class",
           "description": "",
           "name": "GridFilterValueChangeEvent",
           "superclass": {
             "name": "GridColumnEvent",
-            "module": "/src/column.js"
+            "module": "src/events.ts"
           }
         },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridSortDirectionChangeEvent",
+          "superclass": {
+            "name": "GridColumnEvent",
+            "module": "src/events.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridEvent",
+          "declaration": {
+            "name": "GridEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridActiveItemChangeEvent",
+          "declaration": {
+            "name": "GridActiveItemChangeEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridColumnEvent",
+          "declaration": {
+            "name": "GridColumnEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridFilterValueChangeEvent",
+          "declaration": {
+            "name": "GridFilterValueChangeEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridSortDirectionChangeEvent",
+          "declaration": {
+            "name": "GridSortDirectionChangeEvent",
+            "module": "src/events.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/filter-column.ts",
+      "declarations": [
         {
           "kind": "class",
           "description": "",
@@ -1125,14 +1200,6 @@
       "exports": [
         {
           "kind": "js",
-          "name": "GridFilterValueChangeEvent",
-          "declaration": {
-            "name": "GridFilterValueChangeEvent",
-            "module": "src/filter-column.ts"
-          }
-        },
-        {
-          "kind": "js",
           "name": "GridFilterColumn",
           "declaration": {
             "name": "GridFilterColumn",
@@ -1183,7 +1250,7 @@
               "kind": "field",
               "name": "filterValueChange",
               "type": {
-                "text": "EventEmitter<GridFilterValueChangeEvent>"
+                "text": "EventEmitter<GridFilterValueChangeEvent<T>>"
               }
             },
             {
@@ -1268,24 +1335,6 @@
       "kind": "javascript-module",
       "path": "src/grid.ts",
       "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "GridEvent",
-          "superclass": {
-            "name": "Event",
-            "module": "src/grid.ts"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "GridActiveItemChangeEvent",
-          "superclass": {
-            "name": "GridEvent",
-            "module": "src/grid.ts"
-          }
-        },
         {
           "kind": "class",
           "description": "",
@@ -1503,22 +1552,6 @@
         }
       ],
       "exports": [
-        {
-          "kind": "js",
-          "name": "GridEvent",
-          "declaration": {
-            "name": "GridEvent",
-            "module": "src/grid.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "GridActiveItemChangeEvent",
-          "declaration": {
-            "name": "GridActiveItemChangeEvent",
-            "module": "src/grid.ts"
-          }
-        },
         {
           "kind": "js",
           "name": "Grid",
@@ -1923,15 +1956,6 @@
         {
           "kind": "class",
           "description": "",
-          "name": "GridSortDirectionChangeEvent",
-          "superclass": {
-            "name": "GridColumnEvent",
-            "module": "/src/column.js"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
           "name": "GridSortColumn",
           "members": [
             {
@@ -2135,7 +2159,7 @@
               "kind": "field",
               "name": "sort",
               "type": {
-                "text": "DataSourceSortFunction | undefined"
+                "text": "DataSourceSortFunction<T> | undefined"
               },
               "description": "If you want to provide a custom sort function, you can via this property."
             },
@@ -2286,14 +2310,6 @@
       "exports": [
         {
           "kind": "js",
-          "name": "GridSortDirectionChangeEvent",
-          "declaration": {
-            "name": "GridSortDirectionChangeEvent",
-            "module": "src/sort-column.ts"
-          }
-        },
-        {
-          "kind": "js",
           "name": "GridSortColumn",
           "declaration": {
             "name": "GridSortColumn",
@@ -2364,7 +2380,7 @@
               "kind": "field",
               "name": "sortDirectionChange",
               "type": {
-                "text": "EventEmitter<GridSortDirectionChangeEvent>"
+                "text": "EventEmitter<GridSortDirectionChangeEvent<T>>"
               }
             },
             {

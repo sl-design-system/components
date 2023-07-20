@@ -3,7 +3,7 @@ import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-regi
 import 'element-internals-polyfill';
 import {configureLocalization} from '@lit/localize';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
-import { updateTheme, themes } from './themes';
+import { updateTheme, themes } from '../../../.storybook/themes';
 
 const { setLocale } = configureLocalization({
   sourceLocale: 'en',

@@ -32,13 +32,13 @@ import { FormControlElementDirective } from '../form-control/form-control-elemen
 
 export class TextareaDirective extends FormControlElementDirective {
 
-  #value: string | undefined;
+  #value?: string;
 
-  get value(): string | undefined {
-    return this.#value;
+  get value(): string {
+    return this.#value ? this.#value : '';
   }
 
-  set value(val: string | undefined) {
+  set value(val: string) {
      if (val !== this.#value) {
       this.#value = val;
       this.onChange(this.#value);
@@ -46,7 +46,7 @@ export class TextareaDirective extends FormControlElementDirective {
      }
   }
 
-  writeValue(value: string | undefined): void {
+  writeValue(value: string): void {
     if (value) {
       this.value = value;
       this.elementRef.nativeElement.textarea.value = value;
@@ -58,7 +58,7 @@ export class TextareaDirective extends FormControlElementDirective {
   }
 
   @HostListener('input', ['$event.target.value'])
-  listenForValueChange(value: string | undefined): void {
+  listenForValueChange(value: string): void {
     this.value = value;
   }
 }

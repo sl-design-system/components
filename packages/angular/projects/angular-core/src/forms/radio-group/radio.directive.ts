@@ -32,7 +32,7 @@ import type { Radio } from '@sl-design-system/radio-group';
 })
 export class RadioDirective extends FormControlElementDirective {
 
-  #initialValue: string | undefined;
+  #initialValue?: string;
 
   #value = '';
 

@@ -33,9 +33,9 @@ import { RovingTabindexController } from '@sl-design-system/shared';
 })
 export class RadioGroupDirective extends FormControlElementDirective {
 
-  #initialValue: string | undefined;
+  #initialValue?: string;
 
-  #value: string | undefined;
+  #value?: string;
 
   get value(): string | undefined {
     return this.#value;
@@ -49,14 +49,14 @@ export class RadioGroupDirective extends FormControlElementDirective {
     this.validatorOnChange();
   }
 
-  writeValue(value: string | undefined): void {
-    value = value ? value : undefined;
-    this.#initialValue = value;
-    if (value) {
+  writeValue(value: string): void {
+    const newValue = value ? value : undefined;
+    this.#initialValue = newValue;
+    if (newValue) {
       (this.elementRef.nativeElement.buttons as Radio[])?.forEach((radio: Radio) => (radio.checked = radio.value === this.value));
       this.elementRef.nativeElement.value = this.#initialValue;
-      this.elementRef.nativeElement.setFormValue(value);
-      this.value = value;
+      this.elementRef.nativeElement.setFormValue(newValue);
+      this.value = newValue;
     }
   }
 

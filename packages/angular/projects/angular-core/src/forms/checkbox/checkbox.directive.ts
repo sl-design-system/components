@@ -1,17 +1,6 @@
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  HostListener,
-  Inject,
-  Injector,
-  Renderer2
-} from '@angular/core';
-import {
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR
-} from '@angular/forms';
-import { FormControlElementDirective } from '../form-control/form-control-element.directive';
+import {Directive, ElementRef, forwardRef, HostListener, Inject, Injector, Renderer2} from '@angular/core';
+import {NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {FormControlElementDirective} from '../form-control/form-control-element.directive';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -31,9 +20,9 @@ import { FormControlElementDirective } from '../form-control/form-control-elemen
 })
 export class CheckboxDirective extends FormControlElementDirective {
 
-  #initialValue: string | undefined;
+  #initialValue?: string;
 
-  #value: string | undefined;
+  #value?: string;
 
   get value(): string | undefined {
     return this.#value;
@@ -46,7 +35,7 @@ export class CheckboxDirective extends FormControlElementDirective {
     this.validatorOnChange();
   }
 
-  writeValue(value: string | undefined): void {
+  writeValue(value: string): void {
     this.#initialValue = value;
     if (value) {
       this.elementRef.nativeElement.value = this.#initialValue;
@@ -60,8 +49,7 @@ export class CheckboxDirective extends FormControlElementDirective {
   }
 
   @HostListener('sl-change', ['$event.target.checked'])
-  listenForValueChange(checked: string | undefined): void {
-    checked = this.elementRef.nativeElement.checked ? this.#initialValue : undefined;
-    this.value = checked;
+  listenForValueChange(): void {
+    this.value = this.elementRef.nativeElement.checked ? this.#initialValue : undefined;
   }
 }

@@ -75,6 +75,14 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
         }, [] as GridFilterOption[])
         .sort((a, b) => a.label.localeCompare(b.label));
     }
+
+    if (this.grid?.dataSource?.filterValues) {
+      const { path, value } = this.grid.dataSource.filterValues.find(filter => filter.path === this.path) ?? {};
+
+      if (this.path === path) {
+        this.value = value;
+      }
+    }
   }
 
   override renderHeader(): TemplateResult {

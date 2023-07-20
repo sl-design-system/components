@@ -57,7 +57,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
 
     if (this.mode !== 'text' && typeof this.options === 'undefined') {
       // No options were provided, so we'll create a list of options based on the column's values
-      this.internalOptions = this.grid?.items
+      this.internalOptions = this.grid?.dataSource?.allItems
         ?.reduce((acc, item) => {
           let value = getValueByPath(item, this.path),
             label = value?.toString() ?? '';

@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.1.4
+
+### Patch Changes
+
+- [#539](https://github.com/sl-design-system/components/pull/539) [`46c49dd`](https://github.com/sl-design-system/components/commit/46c49dd2e281d7efbeed40c9ee1e22b44265bc1a) - Fix `EventsController` `listen()` types
+
 ## 0.1.3
 
 ### Patch Changes

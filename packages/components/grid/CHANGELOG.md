@@ -1,5 +1,17 @@
 # @sl-design-system/grid
 
+## 0.0.22
+
+### Patch Changes
+
+- [#541](https://github.com/sl-design-system/components/pull/541) [`8fee657`](https://github.com/sl-design-system/components/commit/8fee65766edce4b08815a8744196d728949226d9) - Update filter & sort state from dataSource
+
+- Updated dependencies [[`46c49dd`](https://github.com/sl-design-system/components/commit/46c49dd2e281d7efbeed40c9ee1e22b44265bc1a)]:
+  - @sl-design-system/shared@0.1.4
+  - @sl-design-system/checkbox@0.0.9
+  - @sl-design-system/popover@0.0.8
+  - @sl-design-system/text-input@0.1.4
+
 ## 0.0.21
 
 ### Patch Changes

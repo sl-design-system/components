@@ -1615,17 +1615,17 @@
           },
           "row": {
             "sm": {
-              "value": "{size.input.switch.controller.width.sm} + ({space.input.switch.padding.container} * 2)",
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.sm} + ({space.input.switch.padding.container} * 2)",
               "type": "spacing",
               "description": "space.switch.padding.outer"
             },
             "md": {
-              "value": "{size.input.switch.controller.width.md} + ({space.input.switch.padding.container} * 2)",
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.md} + ({space.input.switch.padding.container} * 2)",
               "type": "spacing",
               "description": "space.switch.padding.outer"
             },
             "lg": {
-              "value": "{size.input.switch.controller.width.lg} + ({space.input.switch.padding.container} * 2)",
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.lg} + ({space.input.switch.padding.container} * 2)",
               "type": "spacing",
               "description": "space.switch.padding.outer"
             },
@@ -1663,6 +1663,11 @@
               "type": "spacing",
               "description": "space.switch.padding.outer"
             }
+          },
+          "left": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.switch.padding.outer"
           },
           "bottom": {
             "sm": {

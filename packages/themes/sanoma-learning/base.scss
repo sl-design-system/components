@@ -238,6 +238,7 @@
   --sl-space-input-switch-margin-bottom-lg: var(--sl-space-none);
   --sl-space-input-switch-margin-bottom-md: var(--sl-space-xs);
   --sl-space-input-switch-margin-bottom-sm: var(--sl-space-none);
+  --sl-space-input-switch-margin-left: var(--sl-space-sm);
   --sl-space-input-switch-margin-top-none: var(--sl-space-none);
   --sl-space-input-switch-margin-top-lg: var(--sl-space-sm);
   --sl-space-input-switch-margin-top-md: var(--sl-space-sm);
@@ -454,13 +455,16 @@
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
   --sl-space-input-switch-padding-row-lg: calc(
-    var(--sl-size-input-switch-controller-width-lg) + (var(--sl-space-input-switch-padding-container) * 2)
+    var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
+    (var(--sl-space-input-switch-padding-container) * 2)
   );
   --sl-space-input-switch-padding-row-md: calc(
-    var(--sl-size-input-switch-controller-width-md) + (var(--sl-space-input-switch-padding-container) * 2)
+    var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-md) +
+    (var(--sl-space-input-switch-padding-container) * 2)
   );
   --sl-space-input-switch-padding-row-sm: calc(
-    var(--sl-size-input-switch-controller-width-sm) + (var(--sl-space-input-switch-padding-container) * 2)
+    var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
+    (var(--sl-space-input-switch-padding-container) * 2)
   );
   --sl-space-input-option-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-gap-md: var(--sl-space-button-outline-block-md);

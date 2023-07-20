@@ -8,28 +8,11 @@ $sizes: sm, md, lg;
   --_handle-color: var(--sl-color-input-switch-default-unchecked-default-handle);
   --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
   --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
+  --_label-text-color: var(--sl-color-input-field-label-text-default);
+  --_helper-text-color: var(--sl-color-input-helper-text-default);
 
   --handle-position: 0%;
   --isLTR: 1;
-
-  align-items: center;
-  display: inline-grid;
-  gap: var(--sl-space-input-switch-padding-gap);
-  grid-auto-rows: minmax(0, max-content);
-  grid-template-areas:
-    'inputlabel toggle'
-    'hint toggle';
-  grid-template-columns: 1fr minmax(0, max-content);
-  outline: none;
-}
-
-:host-context([dir='rtl']) {
-  --isLTR: -1;
-}
-
-// setting scenario-specific variables
-:host(:focus-visible) .track {
-  --_box-shadow: var(--sl-box-shadow-focus);
 }
 
 @each $size in $sizes {
@@ -37,15 +20,14 @@ $sizes: sm, md, lg;
     --handle-size: var(--sl-size-input-switch-handle-#{$size});
     --_toggle-width: calc(var(--sl-size-input-switch-controller-width-#{$size}) - var(--_toggle-padding) * 2);
     --_gap: var(--sl-space-input-gap-#{$size});
-    --_inputlabel-font: var(--sl-text-input-field-label-tag-#{$size});
-    --_hint-font: var(--sl-text-input-helper-text-#{$size});
+    --_input-label-font: var(--sl-text-input-field-label-tag-#{$size});
+    --_helper-font: var(--sl-text-input-helper-text-#{$size});
   }
 
   :host([orientation='vertical']) {
-    --_inputlabel-font: var(--sl-text-input-switch-input-field-bold-#{$size});
-    --_hint-font: var(--sl-text-input-helper-text-#{$size});
-    --_toggle-container-padding: var(--sl-space-input-switch-margin-top-#{$size})
-      var(--sl-space-input-switch-padding-container)
+    --_input-label-font: var(--sl-text-input-switch-input-field-bold-#{$size});
+    --_toggle-container-margin: var(--sl-space-input-switch-margin-top-#{$size})
+      0
       var(--sl-space-input-switch-margin-bottom-#{$size});
   }
 }
@@ -62,10 +44,15 @@ $sizes: sm, md, lg;
   --_icon-color: var(--sl-color-input-switch-default-unchecked-active-icon);
 }
 
-.toggle:where(:disabled, [internals-disabled]) {
-  --_main-background-color: var(--sl-color-input-switch-default-unchecked-disabled-background);
-  --_handle-color: var(--sl-color-input-switch-default-unchecked-disabled-handle);
-  --_icon-color: var(--sl-color-input-switch-default-unchecked-disabled-icon);
+:host(:where(:disabled, [internals-disabled])) {
+  --_label-text-color: var(--sl-color-input-field-label-text-disabled);
+  --_helper-text-color: var(--sl-color-input-helper-text-disabled);
+
+  .toggle {
+    --_main-background-color: var(--sl-color-input-switch-default-unchecked-disabled-background);
+    --_handle-color: var(--sl-color-input-switch-default-unchecked-disabled-handle);
+    --_icon-color: var(--sl-color-input-switch-default-unchecked-disabled-icon);
+  }
 }
 
 :host([checked]) {
@@ -88,38 +75,63 @@ $sizes: sm, md, lg;
     --_handle-color: var(--sl-color-input-switch-default-checked-active-handle);
     --_icon-color: var(--sl-color-input-switch-default-checked-active-icon);
   }
-
-  .toggle:where(:disabled, [internals-disabled]) {
-    --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
-    --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
-    --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
-  }
 }
 
-// applying styles
+:host([checked]:where([disabled], :disabled, [internals-disabled])) .toggle {
+  --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
+  --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
+  --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
+}
+
+:host {
+  align-items: center;
+  display: inline-grid;
+  gap: 0 var(--sl-space-input-switch-margin-left);
+  grid-auto-rows: 1fr min-content;
+  grid-template-areas:
+    'input-label toggle'
+    'hint toggle';
+  grid-template-columns: 1fr minmax(0, max-content);
+  outline: none;
+}
+
+:host-context([dir='rtl']) {
+  --isLTR: -1;
+}
+
+// setting scenario-specific variables
+:host(:focus-visible) .track {
+  --_box-shadow: var(--sl-box-shadow-focus);
+}
 
 :host(:where(:disabled, [internals-disabled])) {
   cursor: default;
   pointer-events: none;
 }
 
-.inputlabel {
+.input-label {
+  color: var(--_label-text-color);
   cursor: pointer;
-  font: var(--_inputlabel-font);
-  grid-area: inputlabel;
+  font: var(--_input-label-font);
+  grid-area: input-label;
 }
 
 .toggle {
   cursor: pointer;
   grid-area: toggle;
+  margin: var(--_toggle-container-margin);
   padding: var(--_toggle-container-padding);
+}
+
+:host(.no-label) .toggle {
+  margin-top: 0;
 }
 
 .track {
   background-color: var(--_main-background-color);
   border-radius: var(--_track-radius);
   box-shadow: var(--_box-shadow);
-  display: inline-grid;
+  display: grid;
   padding: var(--_toggle-padding);
   transition: background-color var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   width: var(--_toggle-width);
@@ -135,23 +147,32 @@ $sizes: sm, md, lg;
   width: var(--handle-size);
   will-change: transform;
 
+  sl-icon {
+    --fill-default: var(--_icon-color);
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   }
 }
 
-.hint {
+.helper {
+  color: var(--_helper-text-color);
   display: contents;
-  font: var(--_hint-font);
+  font: var(--_helper-font);
   grid-area: hint;
+
+  slot[part='error']::slotted(*) {
+    padding-top: 0;
+  }
+}
+
+:host(:where([invalid])) slot[name='hint']::slotted(*) {
+  display: none;
 }
 
 :host([orientation='vertical']) {
-  grid-template-areas:
-    'input-field'
-    'toggle'
-    'hint';
-
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
 }

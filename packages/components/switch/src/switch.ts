@@ -41,7 +41,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the switch is on or off. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
-  /** Whether the checkbox is invalid. */
+  /** Whether the switch is invalid. */
   @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
   /** Custom icon in "off" state. */
@@ -72,6 +72,8 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.setAttribute('error-size', this.size);
+
     this.internals.role = 'switch';
     this.internals.ariaChecked = this.checked ? 'true' : 'false';
 
@@ -90,6 +92,10 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    if (changes.has('size')) {
+      this.setAttribute('error-size', this.size);
+    }
+
     if (changes.has('checked')) {
       this.internals.ariaChecked = this.checked ? 'true' : 'false';
 
@@ -106,7 +112,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   }
 
   formAssociatedCallback(): void {
-    this.#initialState = this.getAttribute('checked') === null ? false : true;
+    this.#initialState = this.getAttribute('checked') !== null;
   }
 
   formResetCallback(): void {
@@ -117,13 +123,13 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
-      <slot class="inputlabel"></slot>
+      <slot class="input-label" @slotchange=${this.#onSlotchange}></slot>
       <div class="toggle">
         <div @click=${this.#onToggle} class="track">
           <div>${this.size !== 'sm' ? html`<sl-icon .name=${this.icon} .size=${this.iconSize}></sl-icon>` : ``}</div>
         </div>
       </div>
-      <div class="hint">${this.renderHint()} ${this.#validation.render()}</div>
+      <div class="helper">${this.renderHint()} ${this.#validation.render()}</div>
       </div>
     `;
   }
@@ -160,5 +166,18 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     this.checked = !this.checked;
     this.#validation.validate(this.checked ? this.value : undefined);
     this.change.emit(this.checked);
+  }
+
+  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = [
+      ...event.target.assignedNodes({ flatten: true }),
+      ...event.target.assignedElements({ flatten: true })
+    ];
+
+    if (elements.length === 0) {
+      this.classList.add('no-label');
+    } else {
+      this.classList.remove('no-label');
+    }
   }
 }

@@ -16,7 +16,7 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 
-interface Props extends Pick<Switch, 'checked' | 'disabled' | 'value' | 'size' | 'hint'> {
+interface Props extends Pick<Switch, 'checked' | 'disabled' | 'value' | 'size' | 'hint' | 'orientation'> {
   label: string;
 }
 
@@ -44,6 +44,7 @@ export default {
     disabled: false,
     value: '12345',
     size: 'md',
+    orientation: 'horizontal',
     hint: 'Something to help the user out',
     label: 'Label for the switch'
   },
@@ -51,10 +52,20 @@ export default {
     size: {
       control: 'inline-radio',
       options: sizes
+    },
+    orientation: {
+      control: 'inline-radio',
+      options: orientations
     }
   },
-  render: ({ checked, disabled, value, size, hint, label }) => html`
-    <sl-switch ?checked=${checked} ?disabled=${disabled} .value=${value} .size=${size} .hint=${hint}
+  render: ({ checked, disabled, value, size, hint, label, orientation }) => html`
+    <sl-switch
+      ?checked=${checked}
+      ?disabled=${disabled}
+      .value=${value}
+      .size=${size}
+      .hint=${hint}
+      .orientation=${orientation}
       >${label}</sl-switch
     >
   `
@@ -125,6 +136,14 @@ export const All: Story = {
                             .orientation=${orientation}
                             ?checked=${state === 'checked'}
                           ></sl-switch>
+                          <sl-switch
+                            .size=${size}
+                            .orientation=${orientation}
+                            ?checked=${state === 'checked'}
+                            hint="This one can't be changed"
+                            disabled
+                            >Disabled</sl-switch
+                          >
                         </div>
                       </td>
                     `
@@ -147,36 +166,42 @@ export const CustomIcons: Story = {
 };
 
 export const ValidateInForm: Story = {
-  render: () => {
-    // setTimeout(() => document.querySelector('form')?.reportValidity());
-
-    return html`
-      <style>
-        form {
-          align-items: start;
-          display: flex;
-          flex-direction: column;
-        }
-        sl-label {
-          margin-block-start: 0.5rem;
-        }
-        sl-label:first-of-type {
-          margin-block-start: 0;
-        }
-        sl-button-bar,
-        sl-input,
-        sl-textarea {
-          align-self: stretch;
-        }
-      </style>
-      <form @submit=${onSubmit}>
-        <sl-label for="group">Switch</sl-label>
-        <sl-switch required name="newletter" value="subscribe">Subscribed to the newsletter</sl-switch>
-        <sl-button-bar align="end">
-          <sl-button type="reset">Reset</sl-button>
-          <sl-button type="submit">Submit</sl-button>
-        </sl-button-bar>
-      </form>
-    `;
-  }
+  render: ({ checked, disabled, value, size, hint, label, orientation }) => html`
+    <style>
+      form {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      sl-label {
+        margin-block-start: 0.5rem;
+      }
+      sl-label:first-of-type {
+        margin-block-start: 0;
+      }
+      sl-button-bar,
+      sl-input,
+      sl-textarea {
+        align-self: stretch;
+      }
+    </style>
+    <form @submit=${onSubmit}>
+      <sl-label for="group">Switch</sl-label>
+      <sl-switch
+        ?checked=${checked}
+        ?disabled=${disabled}
+        .value=${value}
+        .size=${size}
+        .hint=${hint}
+        .orientation=${orientation}
+        required
+        >${label}</sl-switch
+      >
+      <sl-button-bar align="end">
+        <sl-button type="reset">Reset</sl-button>
+        <sl-button type="submit">Submit</sl-button>
+      </sl-button-bar>
+    </form>
+  `
 };

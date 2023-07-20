@@ -28,7 +28,7 @@ export class CheckboxDirective extends FormControlElementDirective {
     return this.#value;
   }
 
-  set value(val: string | undefined) {
+  set value(val?: string) {
     this.#value = val;
     this.onChange(this.#value);
     this.elementRef.nativeElement.internals.value = this.#value;

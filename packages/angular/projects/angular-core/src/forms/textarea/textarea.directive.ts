@@ -35,7 +35,7 @@ export class TextareaDirective extends FormControlElementDirective {
   #value?: string;
 
   get value(): string {
-    return this.#value ? this.#value : '';
+    return this.#value ?? '';
   }
 
   set value(val: string) {

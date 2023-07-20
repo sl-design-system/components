@@ -90,6 +90,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     this.internals.role = 'radiogroup';
 
     this.setFormControlElement(this);
+
     this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
     // Run initial validation
     this.#validation.validate(this.value);
@@ -97,6 +98,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
     if (changes.has('value')) {
       this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
       this.setFormValue(this.value);

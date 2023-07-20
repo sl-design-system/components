@@ -52,18 +52,8 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Use skeletons as an animated placeholder which simulates the layout while content is being loaded.",
+          "description": "",
           "name": "Skeleton",
-          "cssProperties": [
-            {
-              "description": "The skeleton's background colour.",
-              "name": "--background"
-            },
-            {
-              "description": "The shine colour when the skeleton is in loading state with effect.",
-              "name": "--shine-color"
-            }
-          ],
           "members": [
             {
               "kind": "field",

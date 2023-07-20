@@ -1,12 +1,9 @@
 :host {
-  //--hue: var(--dna-switch-hue, 0);
-  //--sat: var(--dna-switch-sat, 0%);
-  //--lum: var(--dna-switch-lum, 95%);
-  --background: #c6c6c6; //hsl(var(--hue), var(--sat), calc(var(--lum) - var(--dna-lum-step)));
+  --background: rgb(var(--sl-color-palette-primary-150));
   --border-radius: 0.25rem;
   --min-height: 0.5rem;
-  --shine-color: #fff; //hsl(var(--hue), var(--sat), var(--lum));
-}
+  --shine-color: rgb(var(--sl-color-palette-primary-300));
+} // TODO: duration? animation speed?
 
 :host {
   background: var(--background);
@@ -43,11 +40,11 @@
 
 @keyframes sheen-effect {
   from {
-    background-position: 200% 0;
+    background-position: 150% 0;
   }
 
   to {
-    background-position: -200% 0;
+    background-position: -150% 0;
   }
 }
 

@@ -9,7 +9,16 @@ export default {
 };
 
 export const API: Story = {
-  render: () =>
+  args: {
+    effect: 'pulse' // TODO: shimmer?
+  }, // TODO: aria-label as well? a11y
+  argTypes: {
+    effect: {
+      control: 'inline-radio',
+      options: ['none', 'shimmer', 'sheen', 'pulse']
+    }
+  },
+  render: ({ effect }) =>
     html`
       <style>
         section {
@@ -75,49 +84,56 @@ export const API: Story = {
         }
       </style>
       <section>
-        <!--        <sl-skeleton effect="none"></sl-skeleton>-->
-        <!--        <sl-skeleton></sl-skeleton>-->
-        <!--        <sl-skeleton effect="sheen"></sl-skeleton>-->
-        <!--        <sl-skeleton effect="pulse"></sl-skeleton>-->
         <div class="container">
           <div class="title">
-            <sl-skeleton effect="none"></sl-skeleton>
-            <sl-skeleton effect="none"></sl-skeleton>
+            <sl-skeleton .effect=${effect} aria-label="loading avatar"></sl-skeleton>
+            <sl-skeleton .effect=${effect} aria-label="loading header"></sl-skeleton>
           </div>
           <div class="body">
-            <sl-skeleton effect="none"></sl-skeleton>
-            <sl-skeleton effect="none"></sl-skeleton>
-            <sl-skeleton effect="none"></sl-skeleton>
+            <sl-skeleton .effect=${effect} aria-label="loading paragraph"></sl-skeleton>
+            <sl-skeleton .effect=${effect} aria-label="loading paragraph"></sl-skeleton>
+            <sl-skeleton .effect=${effect} aria-label="loading paragraph"></sl-skeleton>
           </div>
         </div>
       </section>
       <section>
         <div class="container-images">
-          <sl-skeleton effect="none"></sl-skeleton>
-          <sl-skeleton effect="none"></sl-skeleton>
-          <sl-skeleton effect="none"></sl-skeleton>
-          <sl-skeleton effect="none"></sl-skeleton>
-          <sl-skeleton effect="none"></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
         </div>
       </section>
     `
 };
 
+// TODO: example of real loading
+
 export const All: Story = {
-  render: () =>
+  args: {
+    width: '80%',
+    height: '0.75rem',
+    radius: '0.5rem'
+  }, // TODO: background and shine colour?
+  render: ({ width, height, radius }) =>
     html`
       <style>
         section {
           display: flex;
           flex-direction: column;
-          gap: 24px;
+          gap: 0.5rem;
         }
       </style>
       <section>
-        <sl-skeleton effect="none"></sl-skeleton>
-        <sl-skeleton></sl-skeleton>
-        <sl-skeleton effect="sheen"></sl-skeleton>
-        <sl-skeleton effect="pulse"></sl-skeleton>
+        <h2>No effect</h2>
+        <sl-skeleton effect="none" style="width: ${width}; height: ${height}; border-radius: ${radius}"></sl-skeleton>
+        <h2>Shimmer effect (default)</h2>
+        <sl-skeleton style="width: ${width}; height: ${height}; border-radius: ${radius}"></sl-skeleton>
+        <h2>Sheen effect</h2>
+        <sl-skeleton effect="sheen" style="width: ${width}; height: ${height}; border-radius: ${radius}"></sl-skeleton>
+        <h2>Pulse effect</h2>
+        <sl-skeleton effect="pulse" style="width: ${width}; height: ${height}; border-radius: ${radius}"></sl-skeleton>
       </section>
     `
 };

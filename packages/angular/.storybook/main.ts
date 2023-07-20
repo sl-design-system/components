@@ -5,8 +5,9 @@ const config: StorybookConfig = {
     '../projects/angular-core/**/*.stories.ts'
   ],
   addons: [
-    '@storybook/addon-a11y', 
-    '@storybook/addon-actions', 
+    '@storybook/addon-a11y',
+    '@storybook/addon-actions',
+    '@storybook/addon-storysource',
     {
       name: '@storybook/addon-essentials',
       options: {

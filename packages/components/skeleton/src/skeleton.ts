@@ -7,7 +7,7 @@ export class Skeleton extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** Skeleton's effect. */
-  @property({ reflect: true }) effect: 'none' | 'shimmer' | 'pulse' | 'sheen' = 'shimmer'; // TODO: pulse as the default one?
+  @property({ reflect: true }) effect: 'none' | 'shimmer' | 'pulse' | 'sheen' = 'shimmer';
 
   override firstUpdated(): void {
     this.setAttribute('aria-busy', 'true');

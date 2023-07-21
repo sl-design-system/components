@@ -10,8 +10,8 @@ export default {
 
 export const API: Story = {
   args: {
-    effect: 'pulse' // TODO: shimmer?
-  }, // TODO: aria-label as well? a11y
+    effect: 'shimmer'
+  },
   argTypes: {
     effect: {
       control: 'inline-radio',
@@ -98,25 +98,37 @@ export const API: Story = {
       </section>
       <section>
         <div class="container-images">
-          <sl-skeleton .effect=${effect}></sl-skeleton>
-          <sl-skeleton .effect=${effect}></sl-skeleton>
-          <sl-skeleton .effect=${effect}></sl-skeleton>
-          <sl-skeleton .effect=${effect}></sl-skeleton>
-          <sl-skeleton .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
+          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
+          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
+          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
+          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
         </div>
       </section>
     `
 };
 
-// TODO: example of real loading
-
 export const All: Story = {
   args: {
     width: '80%',
     height: '0.75rem',
-    radius: '0.5rem'
-  }, // TODO: background and shine colour?
-  render: ({ width, height, radius }) =>
+    radius: '0.5rem',
+    background: '#d5d5d5',
+    shineColor: '#bcbcbc'
+  },
+  argTypes: {
+    background: {
+      control: {
+        type: 'color'
+      }
+    },
+    shineColor: {
+      control: {
+        type: 'color'
+      }
+    }
+  },
+  render: ({ width, height, radius, background, shineColor }) =>
     html`
       <style>
         section {
@@ -127,13 +139,106 @@ export const All: Story = {
       </style>
       <section>
         <h2>No effect</h2>
-        <sl-skeleton effect="none" style="width: ${width}; height: ${height}; border-radius: ${radius}"></sl-skeleton>
+        <sl-skeleton
+          effect="none"
+          style="width: ${width}; height: ${height}; border-radius: ${radius}; --background: ${background}"
+          aria-label="loading element"
+        ></sl-skeleton>
         <h2>Shimmer effect (default)</h2>
-        <sl-skeleton style="width: ${width}; height: ${height}; border-radius: ${radius}"></sl-skeleton>
+        <sl-skeleton
+          style="width: ${width}; height: ${height}; border-radius: ${radius}; --background: ${background}; --shine-color: ${shineColor}"
+          aria-label="loading element"
+        ></sl-skeleton>
         <h2>Sheen effect</h2>
-        <sl-skeleton effect="sheen" style="width: ${width}; height: ${height}; border-radius: ${radius}"></sl-skeleton>
+        <sl-skeleton
+          effect="sheen"
+          style="width: ${width}; height: ${height}; border-radius: ${radius}; --background: ${background}; --shine-color: ${shineColor}"
+          aria-label="loading element"
+        ></sl-skeleton>
         <h2>Pulse effect</h2>
-        <sl-skeleton effect="pulse" style="width: ${width}; height: ${height}; border-radius: ${radius}"></sl-skeleton>
+        <sl-skeleton
+          effect="pulse"
+          style="width: ${width}; height: ${height}; border-radius: ${radius}; --background: ${background}; --shine-color: ${shineColor}"
+          aria-label="loading element"
+        ></sl-skeleton>
       </section>
     `
+};
+
+export const LoadingImage: Story = {
+  args: {
+    effect: 'shimmer',
+    background: '#d5d5d5',
+    shineColor: '#bcbcbc',
+    animationDuration: '2000ms'
+  },
+  argTypes: {
+    effect: {
+      control: 'inline-radio',
+      options: ['none', 'shimmer', 'sheen', 'pulse']
+    },
+    background: {
+      control: {
+        type: 'color'
+      }
+    },
+    shineColor: {
+      control: {
+        type: 'color'
+      }
+    }
+  },
+  render: ({ animationDuration, background, effect, shineColor }) => {
+    setTimeout(() => {
+      const image = document.querySelector('img');
+      if (image) {
+        image.style.opacity = '1';
+      }
+    }, 7000);
+    return html`
+      <style>
+        section {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .picture {
+          position: relative;
+          display: flex;
+          width: 20%;
+          height: 20%;
+        }
+
+        sl-skeleton {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 0.5rem;
+        }
+
+        img {
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          border-radius: 0.5rem;
+          opacity: 0;
+          transition: opacity 2s;
+          z-index: 1;
+        }
+      </style>
+      <section>
+        <div class="picture">
+          <img
+            src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            alt="city"
+          />
+          <sl-skeleton
+            .effect=${effect}
+            style="--background: ${background}; --shine-color: ${shineColor}; --animation-duration: ${animationDuration}"
+            aria-label="loading picture with New York buildings"
+          ></sl-skeleton>
+        </div>
+      </section>
+    `;
+  }
 };

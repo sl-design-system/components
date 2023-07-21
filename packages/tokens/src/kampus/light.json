@@ -77,26 +77,6 @@
               "failedToResolve": true
             }
           },
-          "focus": {
-            "background": {
-              "value": "{color.palette.neutral.100}",
-              "type": "color",
-              "description": "color.button.default.focus.background",
-              "failedToResolve": true
-            },
-            "foreground": {
-              "value": "{color.palette.info.base}",
-              "type": "color",
-              "description": "color.button.default.focus.foreground",
-              "failedToResolve": true
-            },
-            "border": {
-              "value": "{color.palette.neutral.100}",
-              "type": "color",
-              "description": "color.button.default.focus.border",
-              "failedToResolve": true
-            }
-          },
           "disabled": {
             "background": {
               "value": "{color.palette.neutral.100}",
@@ -351,10 +331,10 @@
               "description": "color.button.default.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.info.700}",
               "type": "color",
-              "description": "color.button.default.outline.hover.foreground",
-              "failedToResolve": true
+              "failedToResolve": true,
+              "description": "color.button.default.outline.hover.foreground"
             },
             "border": {
               "value": "{color.palette.transparent.base}",
@@ -371,10 +351,10 @@
               "description": "color.button.default.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.info.800}",
               "type": "color",
-              "description": "color.button.primary.outline.active.foreground",
-              "failedToResolve": true
+              "failedToResolve": true,
+              "description": "color.button.primary.outline.active.foreground"
             },
             "border": {
               "value": "{color.palette.transparent.base}",

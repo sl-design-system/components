@@ -1,5 +1,13 @@
 # @sl-design-system/select
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`46c49dd`](https://github.com/sl-design-system/components/commit/46c49dd2e281d7efbeed40c9ee1e22b44265bc1a)]:
+  - @sl-design-system/shared@0.1.4
+  - @sl-design-system/popover@0.0.8
+
 ## 0.0.7
 
 ### Patch Changes

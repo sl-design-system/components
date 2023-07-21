@@ -599,288 +599,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Size of the item collection.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sortFunction",
-              "type": {
-                "text": "DataSourceSortFunction<T> | undefined"
-              },
-              "description": "The custom sort function; use this if present, otherwise use default sorting.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/src/data-source/data-source.js"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "src/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation."
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Size of the item collection."
-            },
-            {
-              "kind": "field",
-              "name": "sortFunction",
-              "type": {
-                "text": "DataSourceSortFunction<T> | undefined"
-              },
-              "description": "The custom sort function; use this if present, otherwise use default sorting."
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on."
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation."
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "src/data-source/data-source.ts"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "src/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/directives/anchor.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "AnchorDirective",
-          "members": [],
-          "superclass": {
-            "name": "Directive",
-            "package": "lit/directive.js"
-          }
-        },
-        {
-          "kind": "variable",
-          "name": "anchor"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "AnchorDirective",
-          "declaration": {
-            "name": "AnchorDirective",
-            "module": "src/directives/anchor.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "anchor",
-          "declaration": {
-            "name": "anchor",
-            "module": "src/directives/anchor.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./anchor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/controllers/anchor.ts",
       "declarations": [
         {
@@ -2145,6 +1863,235 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/data-source/array-data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ArrayDataSource",
+          "members": [
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Size of the item collection.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sortFunction",
+              "type": {
+                "text": "DataSourceSortFunction<T> | undefined"
+              },
+              "description": "The custom sort function; use this if present, otherwise use default sorting.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-update",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "DataSource",
+            "module": "/src/data-source/data-source.js"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ArrayDataSource",
+          "declaration": {
+            "name": "ArrayDataSource",
+            "module": "src/data-source/array-data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/data-source/data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSource",
+          "members": [
+            {
+              "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilter<T> | undefined"
+              },
+              "description": "The filter implementation."
+            },
+            {
+              "kind": "field",
+              "name": "filterValues",
+              "type": {
+                "text": "DataSourceFilterValue[] | undefined"
+              },
+              "description": "The values to filter on."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Size of the item collection."
+            },
+            {
+              "kind": "field",
+              "name": "sortFunction",
+              "type": {
+                "text": "DataSourceSortFunction<T> | undefined"
+              },
+              "description": "The custom sort function; use this if present, otherwise use default sorting."
+            },
+            {
+              "kind": "field",
+              "name": "sortValue",
+              "type": {
+                "text": "DataSourceSortValue | undefined"
+              },
+              "description": "The path & direction to sort on."
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
+              "type": {
+                "text": "DataSourceSorter<T> | undefined"
+              },
+              "description": "The sorter implementation."
+            }
+          ],
+          "superclass": {
+            "name": "EventTarget",
+            "module": "src/data-source/data-source.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataSource",
+          "declaration": {
+            "name": "DataSource",
+            "module": "src/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/data-source/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./array-data-source.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./data-source.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/decorators/base.ts",
       "declarations": [
         {
@@ -2333,6 +2280,59 @@
           "declaration": {
             "name": "observe",
             "module": "src/decorators/observe.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/directives/anchor.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AnchorDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "anchor"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AnchorDirective",
+          "declaration": {
+            "name": "AnchorDirective",
+            "module": "src/directives/anchor.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "anchor",
+          "declaration": {
+            "name": "anchor",
+            "module": "src/directives/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./anchor.js"
           }
         }
       ]

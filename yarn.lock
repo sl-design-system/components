@@ -5273,8 +5273,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/skeleton@workspace:packages/components/skeleton"
   dependencies:
-    "@sl-design-system/popover": 0.0.7
-    "@sl-design-system/shared": 0.1.3
     lit: ^2.7.5
   languageName: unknown
   linkType: soft

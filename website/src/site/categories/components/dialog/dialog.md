@@ -1,5 +1,5 @@
 ---
-title: Dialog
+title: Dialog (PoC)
 description: Dialog description
 layout: "components/components.njk"
 tags: component

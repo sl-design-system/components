@@ -1,0 +1,5 @@
+{
+  "layout": "components/components.njk",
+  "tags": "button-bar",
+  "componentTagName": "sl-button-bar"
+}

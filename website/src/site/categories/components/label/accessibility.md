@@ -1,9 +1,9 @@
 ---
-title: Button bar accessibility
+title: Label accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Button bar
-  key: ButtonBarAccessibility
+  parent: Label
+  key: LabelAccessibility
 ---
 
 <section> 

@@ -1,11 +1,11 @@
 ---
-title: Dialog (PoC)
-description: Dialog description
+title: Editor (PoC)
+description: Editor component description
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Dialog (PoC)
-  order: 4
+  key: Editor (PoC)
+  order: 5
 ---
 

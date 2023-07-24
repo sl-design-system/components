@@ -1,0 +1,5 @@
+{
+  "layout": "components/components.njk",
+  "tags": "icon",
+  "componentTagName": "sl-icon"
+}

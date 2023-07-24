@@ -1,30 +1,34 @@
 ---
-title: Dialog
+title: Icon
 tags: overview
 eleventyNavigation:
-  parent: Dialog (PoC)
-  key: DialogOverview
+  parent: Icon
+  key: IconOverview
 ---
+
 <section>
+
 <div class="ds-example">
 
-Dialog example
+<sl-button fill="default" variant="primary" size="md">Button</sl-button>
+
+<sl-icon name="face-smile"></sl-icon>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-dialog>dialog code</sl-dialog>
+  <sl-icon name="face-smile"></sl-icon>
   ```
 
 </div>
+
 </section>
 
 <section>
 
 ## Lorem ipsum dolor sit amet
-
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 
 <div class=ds-do-dont>
@@ -36,12 +40,13 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 <div class="ds-success__content">
 
 ### Do
-  
+
 Place text here
 
 </div>
 
 </div>
+
 
 <div class="ds-danger">
 
@@ -50,7 +55,7 @@ Place text here
 <div class="ds-danger__content">
 
 ### Don't
-      
+
 Place text here
 
 </div>
@@ -58,6 +63,7 @@ Place text here
 </div>
 
 </div>
+
 </section>
 
 {% include "../component-table.njk" %}
@@ -65,11 +71,9 @@ Place text here
 <section>
 
 ## Key Points
-
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-  
-### Resources
 
+### Resources
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 
 </section>
@@ -77,7 +81,6 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 <section>
 
 ## Lorem ipsum dolor sit amet
-  
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 
 </section>
@@ -85,8 +88,8 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 <section>
 
 ## Related
-
 Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 
 </section>
+

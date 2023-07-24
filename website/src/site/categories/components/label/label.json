@@ -1,0 +1,5 @@
+{
+  "layout": "components/components.njk",
+  "tags": "label",
+  "componentTagName": "sl-label"
+}

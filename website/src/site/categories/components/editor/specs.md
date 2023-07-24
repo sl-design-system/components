@@ -1,15 +1,15 @@
 ---
-title: Dialog specs
+title: Editor specs
 tags: specs
 eleventyNavigation:
-  parent: Dialog (PoC)
-  key: DialogSpecs
+  parent: Editor
+  key: EditorSpecs
 ---
 <section>
 
-## Dialog specs content
+## Editor specs content
 
-This is the dialog specs content
+This is the editor specs content
 
 </section>
 

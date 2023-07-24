@@ -1,15 +1,15 @@
 ---
-title: Dialog accessibility
+title: Editor accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Dialog (PoC)
-  key: DialogAccessibility
+  parent: Editor
+  key: EditorAccessibility
 ---
 <section>
 
-## Dialog accessibility content
+## Editor accessibility content
 
-This is the accessibility content
+This is the accessibility content of the editor component
 
 </section>
 

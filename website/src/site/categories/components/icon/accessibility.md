@@ -1,9 +1,9 @@
 ---
-title: Button bar accessibility
+title: Icon accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Button bar
-  key: ButtonBarAccessibility
+  parent: Icon
+  key: IconAccessibility
 ---
 
 <section> 

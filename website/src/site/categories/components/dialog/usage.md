@@ -2,7 +2,7 @@
 title: Dialog usage
 tags: usage
 eleventyNavigation:
-  parent: Dialog
+  parent: Dialog (PoC)
   key: DialogUsage
 ---
 <section>

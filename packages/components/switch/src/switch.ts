@@ -72,6 +72,8 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.classList.add('no-label');
+
     this.setAttribute('error-size', this.size);
 
     this.internals.role = 'switch';

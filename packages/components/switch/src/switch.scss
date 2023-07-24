@@ -99,7 +99,6 @@ $sizes: sm, md, lg;
   --isLTR: -1;
 }
 
-// setting scenario-specific variables
 :host(:focus-visible) .track {
   --_box-shadow: var(--sl-box-shadow-focus);
 }

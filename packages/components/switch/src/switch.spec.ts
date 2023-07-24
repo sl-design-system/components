@@ -17,9 +17,22 @@ describe('sl-switch', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
+    it('should have an icon when size is md or lg', async () => {
+      expect(el.renderRoot.querySelector('sl-icon')).not.to.be.null;
+
+      el.size = 'sm';
+      await el.updateComplete;
+      expect(el.renderRoot.querySelector('sl-icon')).to.be.null;
+      
+      el.size = 'lg';
+      await el.updateComplete;
+      expect(el.renderRoot.querySelector('sl-icon')).not.to.be.null;
+    });
+
     it('should not be on by default', () => {
       expect(el.checked).not.to.equal(true);
       expect(el.internals.ariaChecked).to.equal('false');
+      expect(el.icon).to.equal('xmark');
     });
 
     it('should not be disabled by default', () => {
@@ -30,6 +43,7 @@ describe('sl-switch', () => {
       el.click();
 
       expect(el.checked).to.equal(true);
+      expect(el.icon).to.equal('check');
     });
 
     it('should change the state to on when clicked on the track', async () => {
@@ -45,6 +59,38 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(true);
     });
 
+    it('should have a class to indicate it doesn\'t have a label', () => {
+      expect(el.classList.contains('no-label')).to.equal(true);
+    });
+
+    it('should not have a class to indicate it doesn\'t have a label when there is a label present', async () => {
+      el.innerHTML = 'Label';
+      await el.updateComplete;
+
+      expect(el.classList.contains('no-label')).to.equal(false);
+      
+      el.innerHTML = '';
+      await el.updateComplete;
+      expect(el.classList.contains('no-label')).to.equal(true);
+    });
+
+    it('should have the correct icon size', async () => {
+      expect(el.iconSize).to.equal('xs');
+      
+      el.size = 'lg';
+      await el.updateComplete;
+      expect(el.iconSize).to.equal('md');
+    });
+    
+    it('should use custom icon names', async () => {
+      el.iconOn = 'sun';
+      el.iconOff = 'moon';
+      await el.updateComplete;
+
+      expect(el.icon).to.equal('moon');
+      el.click();
+      expect(el.icon).to.equal('sun');
+    });
   });
   
   describe('disabled', () => {

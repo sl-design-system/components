@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import type { EventEmitter } from '@sl-design-system/shared';
+import type { DataSourceFilterFunction, EventEmitter } from '@sl-design-system/shared';
 import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
 import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
@@ -51,13 +51,23 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
   /** The grid column. */
   @property({ attribute: false }) column!: GridColumn<T>;
 
+  /** The custom filter */
+  @property({ attribute: false }) filter?: DataSourceFilterFunction<T>;
+
+  /** Emits when the filter has been added or removed. */
   @event() filterChange!: EventEmitter<GridFilterChange>;
 
+  /** Emits when the value of the this filter has changed. */
   @event() filterValueChange!: EventEmitter<GridFilterValueChangeEvent<T>>;
 
+  /** The mode of the filter. */
   @property({ type: String }) mode?: GridFilterMode;
 
+  /** The filter options. */
   @property({ attribute: false }) options?: GridFilterOption[];
+
+  /** The path to the field to filter on. */
+  @property() path?: string;
 
   set value(value: string | string[] | undefined) {
     if (this.mode !== 'text') {

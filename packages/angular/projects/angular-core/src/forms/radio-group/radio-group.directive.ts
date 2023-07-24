@@ -1,10 +1,19 @@
 import {
   Directive,
-  forwardRef,
   ElementRef,
-  HostListener, Renderer2
+  forwardRef,
+  HostListener,
+  Inject,
+  Injector,
+  Renderer2
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
+import type { Radio } from '@sl-design-system/radio-group';
+import { FormControlElementDirective } from '../form-control/form-control-element.directive';
+import { RovingTabindexController } from '@sl-design-system/shared';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -14,58 +23,65 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => RadioGroupDirective),
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RadioGroupDirective),
+      multi: true
     }
   ]
 })
-export class RadioGroupDirective implements ControlValueAccessor {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  onChange: (value: any) => void = () => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  onTouched: () => any = () => {};
+export class RadioGroupDirective extends FormControlElementDirective {
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _value: any;
+  #initialValue?: string;
 
-  get value() {
-    return this._value;
+  #value?: string;
+
+  get value(): string | undefined {
+    return this.#value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set value(val: any) {
-    if (val !== this._value) {
-      this._value = val;
-      this.onChange(this._value);
-      this.onTouched();
+  set value(val: string | undefined) {
+    this.#value = val;
+    this.onChange(this.#value);
+    (this.elementRef.nativeElement.buttons as Radio[])?.forEach((radio: Radio) => (radio.checked = radio.value === this.value));
+    this.elementRef.nativeElement.internals.value = this.#value;
+    this.validatorOnChange();
+  }
+
+  writeValue(value: string): void {
+    const newValue = value ? value : undefined;
+    this.#initialValue = newValue;
+    if (newValue) {
+      (this.elementRef.nativeElement.buttons as Radio[])?.forEach((radio: Radio) => (radio.checked = radio.value === this.value));
+      this.elementRef.nativeElement.value = this.#initialValue;
+      this.elementRef.nativeElement.setFormValue(newValue);
+      this.value = newValue;
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  writeValue(value: any): void {
-    if (value) {
-      this.value = value;
-    }
+  constructor(public override elementRef: ElementRef, private renderer: Renderer2, @Inject(Injector) injector: Injector) {
+    super(elementRef, injector);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
+  @HostListener('click', ['$event'])
+  @HostListener('keydown', ['$event'])
+  listenForValueChange(event: Event): void {
+    event.preventDefault();
+
+    this.#rovingTabindexController.focus();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
-
-  @HostListener('click', ['$event.target'])
-  @HostListener('keydown', ['$event.target'])
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listenForValueChange(value: any): void {
-    this.value = value;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);
-  }
+  #rovingTabindexController = new RovingTabindexController<Radio>(this.elementRef.nativeElement, {
+    focusInIndex: (elements: Radio[]) => {
+      return elements.findIndex(el => {
+        return this.value ? !el.disabled && el.value === this.value : !el.disabled;
+      });
+    },
+    elementEnterAction: (el: Radio) => {
+      this.value = el.value;
+    },
+    elements: () => this.elementRef.nativeElement.buttons as Radio[],
+    isFocusableElement: (el: Radio) => !el.disabled
+  });
 }

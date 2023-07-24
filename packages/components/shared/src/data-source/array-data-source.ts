@@ -9,6 +9,10 @@ export class ArrayDataSource<T> extends DataSource<T> {
   /** The original array of items as passed to the constructor. */
   #originalItems: T[];
 
+  get allItems(): T[] {
+    return this.#originalItems;
+  }
+
   get items(): T[] {
     return this.#items;
   }

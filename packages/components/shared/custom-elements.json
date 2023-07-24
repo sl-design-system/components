@@ -711,7 +711,7 @@
                 {
                   "name": "host",
                   "type": {
-                    "text": "Node"
+                    "text": "EventTarget"
                   }
                 },
                 {
@@ -723,7 +723,7 @@
                 {
                   "name": "listener",
                   "type": {
-                    "text": "unknown"
+                    "text": "EventListenerOrEventListenerObject"
                   }
                 },
                 {
@@ -1910,6 +1910,19 @@
           "members": [
             {
               "kind": "field",
+              "name": "allItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The unfiltered original list of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "filter",
               "type": {
                 "text": "DataSourceFilter<T> | undefined"
@@ -1939,7 +1952,7 @@
                 "text": "T[]"
               },
               "readonly": true,
-              "description": "The array of items.",
+              "description": "The filtered array of items.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "src/data-source/data-source.ts"
@@ -2031,6 +2044,15 @@
           "members": [
             {
               "kind": "field",
+              "name": "allItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The unfiltered original list of items."
+            },
+            {
+              "kind": "field",
               "name": "filter",
               "type": {
                 "text": "DataSourceFilter<T> | undefined"
@@ -2052,7 +2074,7 @@
                 "text": "T[]"
               },
               "readonly": true,
-              "description": "The array of items."
+              "description": "The filtered array of items."
             },
             {
               "kind": "field",

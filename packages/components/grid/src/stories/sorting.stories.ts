@@ -1,7 +1,6 @@
 import type { TemplateResult } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import type { Person } from '@sl-design-system/example-data';
-import type { DataSourceSortFunction } from '@sl-design-system/shared';
 import { Button } from '@sl-design-system/button';
 import { getPeople } from '@sl-design-system/example-data';
 import { html } from 'lit';
@@ -32,21 +31,19 @@ export const Custom: Story = {
       return html`<sl-button>${firstName} ${lastName}</sl-button>`;
     };
 
-    const sorter: DataSourceSortFunction<Person> = (a: Person, b: Person): number => {
-      if (a.lastName === b.lastName) {
-        if (a.firstName === b.firstName) {
-          return 0;
-        } else {
-          return a.firstName < b.firstName ? -1 : 1;
-        }
+    const sorter = (a: Person, b: Person): number => {
+      const lastNameCmp = a.lastName.localeCompare(b.lastName);
+
+      if (lastNameCmp === 0) {
+        return a.firstName.localeCompare(b.firstName);
       } else {
-        return a.lastName < b.lastName ? -1 : 1;
+        return lastNameCmp;
       }
     };
 
     return html`
       <sl-grid .items=${people}>
-        <sl-grid-sort-column header="User" .renderer=${renderer} .sort=${sorter}></sl-grid-sort-column>
+        <sl-grid-sort-column header="User" .renderer=${renderer} .sorter=${sorter}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
       </sl-grid>
     `;

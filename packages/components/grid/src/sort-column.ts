@@ -6,39 +6,38 @@ import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 import { GridSorter } from './sorter.js';
 
+let nextUniqueId = 0;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSortColumn<T = any> extends GridColumn<T> {
   /** The direction this columns should be sorted in. */
   @property({ type: String }) direction?: DataSourceSortDirection;
 
   /** If you want to provide a custom sort function, you can via this property. */
-  @property({ attribute: false }) sort?: DataSourceSortFunction<T>;
+  @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.id ||= `grid-sort-${nextUniqueId++}`;
     this.scopedElements = { ...this.scopedElements, 'sl-grid-sorter': GridSorter };
   }
 
-  override itemsChanged(): void {
-    super.itemsChanged();
+  override stateChanged(): void {
+    super.stateChanged();
 
-    if (this.grid?.dataSource?.sortValue) {
-      const {
-        sortFunction,
-        sortValue: { path, direction }
-      } = this.grid.dataSource;
-
-      if (this.path === path || (this.sort && this.sort === sortFunction)) {
-        this.direction = direction;
-      }
+    const sort = this.grid?.dataSource?.sort;
+    if (sort?.id === this.id) {
+      this.direction = sort.direction;
+    } else {
+      this.direction = undefined;
     }
   }
 
   override renderHeader(): TemplateResult {
     return html`
       <th part="header sort">
-        <sl-grid-sorter .column=${this} .direction=${this.direction} .sort=${this.sort}>
+        <sl-grid-sorter .column=${this} .direction=${this.direction} .path=${this.path} .sorter=${this.sorter}>
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-sorter>
       </th>

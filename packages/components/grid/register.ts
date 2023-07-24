@@ -24,6 +24,7 @@ declare global {
     'sl-active-item-change': GridActiveItemChangeEvent<any>;
     'sl-filter-value-change': GridFilterValueChangeEvent<any>;
     'sl-grid-items-change': GridEvent<any>;
+    'sl-grid-state-change': GridEvent<any>;
     'sl-sort-direction-change': GridSortDirectionChangeEvent<any>;
   }
 

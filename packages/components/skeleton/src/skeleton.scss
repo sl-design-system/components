@@ -22,13 +22,13 @@
 :host([effect='sheen']) {
   animation: sheen-effect var(--animation-duration) linear infinite;
   background-image: linear-gradient(
-    120deg,
+    100deg,
     var(--shine-color),
     var(--background),
     var(--background),
     var(--shine-color)
   );
-  background-size: 400% 100%;
+  background-size: 200% 100%;
 }
 
 :host([effect='pulse']) {
@@ -47,11 +47,11 @@
 
 @keyframes sheen-effect {
   0% {
-    background-position: 500% 0;
+    background-position: 300% 0;
   }
 
   100% {
-    background-position: -500% 0;
+    background-position: -300% 0;
   }
 }
 

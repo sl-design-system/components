@@ -1,4 +1,5 @@
 import type { PropertyValues, TemplateResult } from 'lit';
+import type { DataSourceFilterFunction } from '@sl-design-system/shared';
 import { getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { localized, msg } from '@lit/localize';
 import { html } from 'lit';
@@ -13,11 +14,16 @@ export interface GridFilterOption {
   value?: unknown;
 }
 
+let nextUniqueId = 0;
+
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridFilterColumn<T = any> extends GridColumn<T> {
   /** The internal options if none are provided. */
   @state() internalOptions?: GridFilterOption[];
+
+  /** The filter function if you want to do custom filtering. */
+  @state() filter?: DataSourceFilterFunction<T>;
 
   /**
    * The mode for the filter:
@@ -41,6 +47,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.id ||= `grid-filter-${nextUniqueId++}`;
     this.scopedElements = { ...this.scopedElements, 'sl-grid-filter': GridFilter };
   }
 
@@ -57,7 +64,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
 
     if (this.mode !== 'text' && typeof this.options === 'undefined') {
       // No options were provided, so we'll create a list of options based on the column's values
-      this.internalOptions = this.grid?.dataSource?.allItems
+      this.internalOptions = this.grid?.dataSource?.items
         ?.reduce((acc, item) => {
           let value = getValueByPath(item, this.path),
             label = value?.toString() ?? '';
@@ -75,14 +82,13 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
         }, [] as GridFilterOption[])
         .sort((a, b) => a.label.localeCompare(b.label));
     }
+  }
 
-    if (this.grid?.dataSource?.filterValues) {
-      const { path, value } = this.grid.dataSource.filterValues.find(filter => filter.path === this.path) ?? {};
+  override stateChanged(): void {
+    super.stateChanged();
 
-      if (this.path === path) {
-        this.value = value;
-      }
-    }
+    const filter = this.grid?.dataSource?.filters.get(this.id);
+    this.value = filter ? filter.value : undefined;
   }
 
   override renderHeader(): TemplateResult {
@@ -92,6 +98,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
           .column=${this}
           .mode=${this.mode || 'select'}
           .options=${this.options ?? this.internalOptions}
+          .path=${this.path}
           .value=${this.value}
         >
           ${this.header ?? getNameByPath(this.path)}

@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
 import type { GridFilter, GridFilterChange } from './filter.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import type { DataSource, DataSourceFilterValue, EventEmitter } from '@sl-design-system/shared';
+import type { DataSource, EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
@@ -61,6 +61,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Emits when the items in the grid have changed. */
   @event() gridItemsChange!: EventEmitter<GridEvent<T>>;
+
+  /** Emits when the state in the grid have changed. */
+  @event() gridStateChange!: EventEmitter<GridEvent<T>>;
 
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
@@ -139,8 +142,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('dataSource')) {
       this.dataSource?.addEventListener('sl-update', () => (this.selection.size = this.dataSource?.size ?? 0));
 
+      this.#applyFilters();
+      this.#applySorters();
+
       // Notify any listeners (columns) that the items have changed
       this.gridItemsChange.emit(new GridEvent('sl-grid-items-change', this));
+      this.gridItemsChange.emit(new GridEvent('sl-grid-state-change', this));
     }
   }
 
@@ -169,7 +176,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
-            items: this.dataSource?.items,
+            items: this.dataSource?.filteredItems,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
@@ -334,8 +341,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       col.grid = this;
 
       if (this.dataSource) {
-        // If we already have a data source, notify the column that the items have changed
+        // If we already have a data source, notify the column that the items & state have changed
         col.itemsChanged();
+        col.stateChanged();
       }
     });
 
@@ -384,13 +392,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const filterValues: DataSourceFilterValue[] = this.#filters
-      .filter(filter => (Array.isArray(filter.value) ? filter.value.length > 0 : filter.value !== undefined))
-      .map(filter => ({ path: filter.column.path || '', value: filter.value }));
+    this.#filters.forEach(f => {
+      const id = f.column.id,
+        empty = (Array.isArray(f.value) && f.value.length === 0) || !f.value;
 
-    this.dataSource.filterValues = filterValues;
+      if (!empty && (f.path || f.filter)) {
+        this.dataSource?.addFilter(id, f.path! || f.filter!, f.value);
+      } else {
+        this.dataSource?.removeFilter(id);
+      }
+    });
+
     this.dataSource.update();
     this.requestUpdate();
+    this.gridStateChange.emit(new GridEvent('sl-grid-state-change', this));
   }
 
   #applySorters(): void {
@@ -398,18 +413,18 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const sorter = this.#sorters.find(sorter => !!sorter.direction);
+    const { id } = this.dataSource.sort ?? {},
+      sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter) {
-      this.dataSource.sortFunction = sorter.sort;
-      this.dataSource.sortValue = { path: sorter.column.path, direction: sorter.direction! };
-    } else {
-      this.dataSource.sortFunction = undefined;
-      this.dataSource.sortValue = undefined;
+      this.dataSource.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction!);
+    } else if (id && this.#sorters.find(s => s.column.id === id)) {
+      this.dataSource.removeSort();
     }
 
     this.dataSource.update();
     this.requestUpdate();
+    this.gridStateChange.emit(new GridEvent('sl-grid-state-change', this));
   }
 
   #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {

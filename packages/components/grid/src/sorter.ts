@@ -32,11 +32,16 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;
 
-  /** An optional custom sort function. */
-  @property({ attribute: false }) sort?: DataSourceSortFunction<T>;
+  /** The path to the field to sort on. */
+  @property() path?: string;
 
+  /** An optional custom sort function. */
+  @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
+
+  /** Emits when the sorter has been added or removed. */
   @event() sorterChange!: EventEmitter<GridSorterChange>;
 
+  /** Emits when the direction has changed. */
   @event() sortDirectionChange!: EventEmitter<GridSortDirectionChangeEvent<T>>;
 
   override connectedCallback(): void {

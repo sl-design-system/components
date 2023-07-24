@@ -102,11 +102,23 @@ export class GridColumn<T = any> extends LitElement {
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('grid') && this.grid) {
       this.#events.listen(this.grid, 'sl-grid-items-change', this.itemsChanged);
+      this.#events.listen(this.grid, 'sl-grid-state-change', this.stateChanged);
     }
   }
 
+  /**
+   * This method is called when the contents of the grid has changed.
+   * This happens when the items property is directly set or when the data source has changed.
+   */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   itemsChanged(): void {}
+
+  /**
+   * This method is called when the state of the grid has changed.
+   * This happens for examples when a filter or sorting changes.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  stateChanged(): void {}
 
   renderHeader(): TemplateResult {
     const parts = ['header', ...this.#getParts()];

@@ -140,7 +140,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the checkbox is invalid.",
+              "description": "Whether the switch is invalid.",
               "attribute": "invalid",
               "reflects": true
             },
@@ -197,7 +197,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the checkbox is invalid.",
+              "description": "Whether the switch is invalid.",
               "fieldName": "invalid"
             },
             {

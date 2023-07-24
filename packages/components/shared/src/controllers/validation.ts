@@ -223,7 +223,7 @@ export class ValidationController implements ReactiveController {
 
     const state = this.#getInvalidState(this.validity);
 
-    if (this.#showErrors && state) {
+    if (this.#showErrors && !!state) {
       this.#slotName = dasherize(state);
 
       this.#setInvalidState();
@@ -236,7 +236,7 @@ export class ValidationController implements ReactiveController {
         error-size="${this.#messageSize}"
         @slotchange=${this.#onSlotchange}
       ></slot>`;
-    } else if (this.validity.valid) {
+    } else {
       this.#removeInvalidState();
     }
   }

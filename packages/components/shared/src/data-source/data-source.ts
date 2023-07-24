@@ -28,7 +28,10 @@ export abstract class DataSource<T> extends EventTarget {
   /** The path & direction to sort on. */
   sortValue?: DataSourceSortValue;
 
-  /** The array of items. */
+  /** The unfiltered original list of items. */
+  abstract readonly allItems: T[];
+
+  /** The filtered array of items. */
   abstract readonly items: T[];
 
   /** Size of the item collection. */

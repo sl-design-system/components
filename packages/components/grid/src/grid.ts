@@ -130,17 +130,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         this.dataSource = undefined;
         this.selection.size = 0;
       }
-
-      // Notify any listeners (columns) that the items have changed
-      this.gridItemsChange.emit(new GridEvent('sl-grid-items-change', this));
     }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('dataSource') && this.dataSource) {
+    if (changes.has('dataSource')) {
       this.dataSource?.addEventListener('sl-update', () => (this.selection.size = this.dataSource?.size ?? 0));
+
+      // Notify any listeners (columns) that the items have changed
+      this.gridItemsChange.emit(new GridEvent('sl-grid-items-change', this));
     }
   }
 
@@ -329,8 +329,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
     columns.forEach(col => {
-      col.grid = this;
       this.#addScopedElements(col);
+
+      col.grid = this;
+
+      if (this.dataSource) {
+        // If we already have a data source, notify the column that the items have changed
+        col.itemsChanged();
+      }
     });
 
     this.columns = columns;

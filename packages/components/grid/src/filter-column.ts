@@ -1,4 +1,4 @@
-import type { PropertyValues, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import type { DataSourceFilterFunction } from '@sl-design-system/shared';
 import { getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { localized, msg } from '@lit/localize';
@@ -49,14 +49,6 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
 
     this.id ||= `grid-filter-${nextUniqueId++}`;
     this.scopedElements = { ...this.scopedElements, 'sl-grid-filter': GridFilter };
-  }
-
-  override willUpdate(changes: PropertyValues<this>): void {
-    super.willUpdate(changes);
-
-    if (changes.has('grid')) {
-      this.itemsChanged();
-    }
   }
 
   override itemsChanged(): void {

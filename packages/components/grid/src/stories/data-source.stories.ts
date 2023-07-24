@@ -31,8 +31,8 @@ export const Simple: Story = {
 export const Filtering: Story = {
   render: (_, { loaded: { people } }) => {
     const dataSource = new ArrayDataSource(people as Person[]);
-    dataSource.addFilter('membership-filter', 'membership', 'Regular');
-    dataSource.addFilter('status-filter', 'status', 'Available');
+    dataSource.addFilter('membership-filter', 'membership', ['Regular']);
+    dataSource.addFilter('status-filter', 'status', ['Available']);
 
     return html`
       <sl-grid .dataSource=${dataSource}>

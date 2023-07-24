@@ -15,6 +15,8 @@ import { GridColumnGroup } from './column-group.js';
 import styles from './grid.scss.js';
 import { GridSelectionColumn } from './selection-column.js';
 import { GridActiveItemChangeEvent, GridEvent } from './events.js';
+import { GridFilterColumn } from './filter-column.js';
+import { GridSortColumn } from './sort-column.js';
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 
@@ -144,10 +146,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       this.#applyFilters();
       this.#applySorters();
-
-      // Notify any listeners (columns) that the items have changed
-      this.gridItemsChange.emit(new GridEvent('sl-grid-items-change', this));
-      this.gridItemsChange.emit(new GridEvent('sl-grid-state-change', this));
     }
   }
 
@@ -338,8 +336,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       col.grid = this;
 
       if (this.dataSource) {
-        // If we already have a data source, notify the column that the items have changed
         col.itemsChanged();
+      }
+
+      if (col instanceof GridFilterColumn) {
+        const { value } = this.dataSource?.filters.get(col.id) || {};
+        if (value) {
+          col.value = value;
+        }
+      } else if (col instanceof GridSortColumn) {
+        const { id, direction } = this.dataSource?.sort || {};
+        if (id === col.id) {
+          col.direction = direction;
+        }
       }
     });
 
@@ -348,7 +357,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {
     this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
-
     this.#applySorters();
   }
 

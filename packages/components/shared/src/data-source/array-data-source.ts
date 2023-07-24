@@ -40,9 +40,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
         items = items.filter(item => {
           const v = getValueByPath(item, path);
-          if (v === undefined || v === null) return false;
 
-          return regexes.some(regex => regex.test(v.toString()));
+          return regexes.some(regex => regex.test(v?.toString() ?? ''));
         });
       }
     }

@@ -321,10 +321,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.#filters = this.#filters.filter(filter => filter !== target);
     }
 
-    // If any filter starts out active, we need to apply it
-    if (this.#filters.some(filter => filter.active)) {
-      this.#applyFilters();
-    }
+    this.#applyFilters();
   }
 
   #onFilterValueChange(): void {
@@ -341,9 +338,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       col.grid = this;
 
       if (this.dataSource) {
-        // If we already have a data source, notify the column that the items & state have changed
+        // If we already have a data source, notify the column that the items have changed
         col.itemsChanged();
-        col.stateChanged();
       }
     });
 
@@ -363,10 +359,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.#sorters = this.#sorters.filter(sorter => sorter !== target);
     }
 
-    // If any sorter starts out active, sort the grid
-    if (this.#sorters.some(sorter => sorter.direction !== undefined)) {
-      this.#applySorters();
-    }
+    this.#applySorters();
   }
 
   #onVisibilityChanged(): void {

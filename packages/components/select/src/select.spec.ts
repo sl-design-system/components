@@ -19,7 +19,7 @@ describe('sl-select', () => {
     describe('nothing selected', () => {
       beforeEach(async () => {
         el = await fixture(html`
-          <sl-select>
+          <sl-select max-overlay-height="200px">
             <sl-select-option>Won't say</sl-select-option>
             <sl-select-option-group group-heading="europe">
               <sl-select-option>Finland</sl-select-option>
@@ -45,6 +45,10 @@ describe('sl-select', () => {
 
       it('should not have a selected option', () => {
         expect(el.renderRoot.querySelector('button span')?.textContent?.trim()).to.equal('');
+      });
+      
+      it('should have a set maximum overlay height', () => {
+        expect(el.dialog?.style.getPropertyValue('--max-overlay-height')).to.equal('200px');
       });
 
       it('should show the options when the button is clicked', async () => {
@@ -105,6 +109,10 @@ describe('sl-select', () => {
 
       it('should have a selected option', () => {
         expect(el.renderRoot.querySelector('button span')?.textContent?.trim()).to.equal('The Netherlands');
+      });
+
+      it('should not have a set maximum overlay height', () => {
+        expect(el.dialog?.style.getPropertyValue('--max-overlay-height')).to.equal('');
       });
     });
   });

@@ -224,6 +224,7 @@
                   "text": "void"
                 }
               },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -321,6 +322,20 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -543,7 +558,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed."
             },
             {
               "kind": "field",
@@ -613,6 +629,16 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid."
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes."
             },
             {
               "kind": "field",
@@ -864,6 +890,14 @@
             },
             {
               "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilterFunction<T> | undefined"
+              },
+              "description": "The filter function if you want to do custom filtering."
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -917,6 +951,7 @@
                   "text": "void"
                 }
               },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1031,6 +1066,20 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1241,17 +1290,27 @@
             },
             {
               "kind": "field",
+              "name": "filter",
+              "type": {
+                "text": "DataSourceFilterFunction<T> | undefined"
+              },
+              "description": "The custom filter"
+            },
+            {
+              "kind": "field",
               "name": "filterChange",
               "type": {
                 "text": "EventEmitter<GridFilterChange>"
-              }
+              },
+              "description": "Emits when the filter has been added or removed."
             },
             {
               "kind": "field",
               "name": "filterValueChange",
               "type": {
                 "text": "EventEmitter<GridFilterValueChangeEvent<T>>"
-              }
+              },
+              "description": "Emits when the value of the this filter has changed."
             },
             {
               "kind": "field",
@@ -1259,6 +1318,7 @@
               "type": {
                 "text": "GridFilterMode | undefined"
               },
+              "description": "The mode of the filter.",
               "attribute": "mode"
             },
             {
@@ -1266,7 +1326,17 @@
               "name": "options",
               "type": {
                 "text": "GridFilterOption[] | undefined"
-              }
+              },
+              "description": "The filter options."
+            },
+            {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the field to filter on.",
+              "attribute": "path"
             },
             {
               "kind": "field",
@@ -1283,7 +1353,16 @@
               "type": {
                 "text": "GridFilterMode | undefined"
               },
+              "description": "The mode of the filter.",
               "fieldName": "mode"
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the field to filter on.",
+              "fieldName": "path"
             },
             {
               "name": "value",
@@ -1380,6 +1459,14 @@
                 "text": "EventEmitter<GridEvent<T>>"
               },
               "description": "Emits when the items in the grid have changed."
+            },
+            {
+              "kind": "field",
+              "name": "gridStateChange",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when the state in the grid have changed."
             },
             {
               "kind": "field",
@@ -1666,6 +1753,7 @@
                   "text": "void"
                 }
               },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1785,6 +1873,20 @@
               },
               "description": "When true, all items are selected.",
               "attribute": "select-all"
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
             },
             {
               "kind": "field",
@@ -2053,6 +2155,7 @@
                   "text": "void"
                 }
               },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -2157,11 +2260,25 @@
             },
             {
               "kind": "field",
-              "name": "sort",
+              "name": "sorter",
               "type": {
                 "text": "DataSourceSortFunction<T> | undefined"
               },
               "description": "If you want to provide a custom sort function, you can via this property."
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
             },
             {
               "kind": "field",
@@ -2360,6 +2477,15 @@
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the field to sort on.",
+              "attribute": "path"
+            },
+            {
               "kind": "method",
               "name": "reset",
               "return": {
@@ -2370,7 +2496,15 @@
             },
             {
               "kind": "field",
-              "name": "sort",
+              "name": "sortDirectionChange",
+              "type": {
+                "text": "EventEmitter<GridSortDirectionChangeEvent<T>>"
+              },
+              "description": "Emits when the direction has changed."
+            },
+            {
+              "kind": "field",
+              "name": "sorter",
               "type": {
                 "text": "DataSourceSortFunction<T> | undefined"
               },
@@ -2378,17 +2512,11 @@
             },
             {
               "kind": "field",
-              "name": "sortDirectionChange",
-              "type": {
-                "text": "EventEmitter<GridSortDirectionChangeEvent<T>>"
-              }
-            },
-            {
-              "kind": "field",
               "name": "sorterChange",
               "type": {
                 "text": "EventEmitter<GridSorterChange>"
-              }
+              },
+              "description": "Emits when the sorter has been added or removed."
             }
           ],
           "attributes": [
@@ -2399,6 +2527,14 @@
               },
               "description": "The direction in which to sort the items.",
               "fieldName": "direction"
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the field to sort on.",
+              "fieldName": "path"
             }
           ],
           "mixins": [

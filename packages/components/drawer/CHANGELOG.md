@@ -1,5 +1,12 @@
 # @sl-design-system/drawer
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.10
+
 ## 0.0.9
 
 ### Patch Changes

@@ -159,8 +159,8 @@
       ],
       "files": [
         "tsconfig.all.json",
-        "packages/{components,themes}/**./*.ts",
-        "!packages/{components,themes}/**./*.d.ts",
+        "packages/{components,themes}/**/*.ts",
+        "!packages/{components,themes}/**/*.d.ts",
         "!packages/{components,themes}/*/node_modules/**/*.ts"
       ],
       "output": [

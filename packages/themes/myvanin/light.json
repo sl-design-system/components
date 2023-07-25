@@ -3465,6 +3465,13 @@
           "failedToResolve": true
         }
       }
+    },
+    "focusring": {
+      "default": {
+        "value": "{color.palette.accent.base}",
+        "type": "color",
+        "failedToResolve": true
+      }
     }
   },
   "button": {

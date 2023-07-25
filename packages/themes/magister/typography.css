@@ -3,62 +3,139 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-.sl-text-input-option-label-lg {
+.sl-text-input-helper-text-lg {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
 }
 
-.sl-text-input-option-label-md {
+.sl-text-input-helper-text-md {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+}
+
+.sl-text-input-helper-text-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
+}
+
+.sl-text-input-field-label-tag-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-xl);
+}
+
+.sl-text-input-field-label-tag-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+}
+
+.sl-text-input-field-label-tag-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-md);
+}
+
+.sl-text-input-field-label-label-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-xl);
+}
+
+.sl-text-input-field-label-label-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+}
+
+.sl-text-input-field-label-label-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-md);
+}
+
+.sl-text-input-option-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+}
+
+.sl-text-input-option-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+}
+
+.sl-text-input-text-field-text-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+}
+
+.sl-text-input-text-field-text-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
 }
 
 .sl-text-button-font-icon-lg {
-  font-size: var(--sl-text-typeset-font-size-lg);
   line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-lg);
 }
 
 .sl-text-button-font-icon-md {
-  font-size: var(--sl-text-typeset-font-size-md);
   line-height: var(--sl-text-typeset-line-height-xs);
+  font-size: var(--sl-text-typeset-font-size-md);
 }
 
 .sl-text-button-font-icon-sm {
-  font-size: 13;
   line-height: var(--sl-text-typeset-line-height-xxs);
+  font-size: 13;
 }
 
 .sl-text-button-text-lg {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
 }
 
 .sl-text-button-text-md {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
+  font-size: var(--sl-text-typeset-font-size-md);
 }
 
 .sl-text-button-text-sm {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
 }
 
 .sl-text-body-lg-bold {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-bold);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
@@ -66,10 +143,10 @@
 
 .sl-text-body-lg-demibold {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
@@ -77,10 +154,10 @@
 
 .sl-text-body-lg-normal {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-lg);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
@@ -88,10 +165,10 @@
 
 .sl-text-body-md-bold {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-bold);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
@@ -99,10 +176,10 @@
 
 .sl-text-body-md-demibold {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
@@ -110,10 +187,10 @@
 
 .sl-text-body-md-normal {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-md);
+  font-size: var(--sl-text-typeset-font-size-md);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
@@ -121,10 +198,10 @@
 
 .sl-text-body-sm-bold {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-bold);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
@@ -132,10 +209,10 @@
 
 .sl-text-body-sm-demibold {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
@@ -143,10 +220,10 @@
 
 .sl-text-body-sm-normal {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
@@ -154,69 +231,104 @@
 
 .sl-text-heading-4 {
   font-family: var(--sl-text-typeset-font-family-heading);
-  font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-bold);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   line-height: var(--sl-text-typeset-line-height-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  font-size: var(--sl-text-typeset-font-size-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
 }
 
 .sl-text-heading-3 {
   font-family: var(--sl-text-typeset-font-family-heading);
-  font-size: var(--sl-text-typeset-font-size-xl);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-xl);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  font-size: var(--sl-text-typeset-font-size-xl);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
 }
 
 .sl-text-heading-2 {
   font-family: var(--sl-text-typeset-font-family-heading);
-  font-size: var(--sl-text-typeset-font-size-2xl);
   font-weight: var(--sl-text-typeset-font-weight-bold);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-2xl);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  font-size: var(--sl-text-typeset-font-size-2xl);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
 }
 
 .sl-text-heading-1 {
   font-family: var(--sl-text-typeset-font-family-heading);
-  font-size: var(--sl-text-typeset-font-size-3xl);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-sm);
   line-height: var(--sl-text-typeset-line-height-3xl);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  font-size: var(--sl-text-typeset-font-size-3xl);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-sm);
 }
 
 .sl-text-heading-0 {
   font-family: var(--sl-text-typeset-font-family-heading);
-  font-size: var(--sl-text-typeset-font-size-4xl);
   font-weight: var(--sl-text-typeset-font-weight-bold);
-  letter-spacing: var(--sl-text-typeset-letter-spacing-xs);
   line-height: var(--sl-text-typeset-line-height-4xl);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  font-size: var(--sl-text-typeset-font-size-4xl);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-xs);
 }
 
-.sl-text-input-option-font-icon-lg {
+.sl-text-icon-font-icon-lg {
   font-family: var(--sl-text-typeset-font-family-icon);
-  font-size: 18;
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: var(--sl-text-typeset-font-size-lg);
+}
+
+.sl-text-icon-font-icon-md {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xs);
+  font-size: var(--sl-text-typeset-font-size-md);
+}
+
+.sl-text-icon-font-icon-sm {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+  font-size: 13;
+}
+
+.sl-text-input-helper-font-icon-lg {
+  font-family: var(--sl-text-typeset-font-family-icon);
   font-weight: var(--sl-text-typeset-font-weight-icon-solid);
   line-height: var(--sl-text-typeset-line-height-md);
+  font-size: 18;
 }
 
-.sl-text-input-option-font-icon-md {
+.sl-text-input-helper-font-icon-md {
   font-family: var(--sl-text-typeset-font-family-icon);
-  font-size: 15;
   font-weight: var(--sl-text-typeset-font-weight-icon-solid);
   line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: 15;
+}
+
+.sl-text-input-text-field-font-icon-lg {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-weight: var(--sl-text-typeset-font-weight-icon-solid);
+  line-height: var(--sl-text-typeset-line-height-md);
+  font-size: 18;
+}
+
+.sl-text-input-text-field-font-icon-md {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-weight: var(--sl-text-typeset-font-weight-icon-solid);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  font-size: 15;
 }

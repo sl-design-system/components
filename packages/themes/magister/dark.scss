@@ -5,6 +5,7 @@
 
 @mixin sl-theme-dark {
   --sl-box-shadow-none: 0px 0px 0px 0px rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
   --sl-color-input-option-valid-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-700));
   --sl-color-input-option-valid-checked-disabled-label: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-input-option-valid-checked-disabled-background: rgb(var(--sl-color-palette-neutral-500));

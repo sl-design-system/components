@@ -35,6 +35,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
       --_background: var(--sl-color-select-selectbox-#{$variant}-default-background);
       --_border-color: var(--sl-color-select-selectbox-#{$variant}-default-border);
       --_color: var(--sl-color-select-selectbox-#{$variant}-default-foreground);
+      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-default-placeholder);
     }
 
     button:focus-within,
@@ -42,6 +43,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
       --_background: var(--sl-color-select-selectbox-#{$variant}-focus-background);
       --_border-color: var(--sl-color-select-selectbox-#{$variant}-focus-border);
       --_color: var(--sl-color-select-selectbox-#{$variant}-focus-foreground);
+      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-focus-placeholder);
       --_box-shadow: var(--sl-box-shadow-focus);
     }
 
@@ -49,12 +51,14 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
       --_background: var(--sl-color-select-selectbox-#{$variant}-hover-background);
       --_border-color: var(--sl-color-select-selectbox-#{$variant}-hover-border);
       --_color: var(--sl-color-select-selectbox-#{$variant}-hover-foreground);
+      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-hover-placeholder);
     }
 
     button:active {
       --_background: var(--sl-color-select-selectbox-#{$variant}-active-background);
       --_border-color: var(--sl-color-select-selectbox-#{$variant}-active-border);
       --_color: var(--sl-color-select-selectbox-#{$variant}-active-foreground);
+      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-active-placeholder);
     }
   }
 
@@ -63,6 +67,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
       --_background: var(--sl-color-select-selectbox-#{$variant}-disabled-background);
       --_border-color: var(--sl-color-select-selectbox-#{$variant}-disabled-border);
       --_color: var(--sl-color-select-selectbox-#{$variant}-disabled-foreground);
+      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-disabled-placeholder);
     }
   }
 }
@@ -117,6 +122,10 @@ button {
   &:focus-within,
   &:focus-visible {
     outline: none;
+  }
+
+  &.placeholder {
+    color: var(--_placeholder-color);
   }
 }
 

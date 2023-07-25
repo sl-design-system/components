@@ -32,6 +32,9 @@ export default {
     size: {
       control: 'inline-radio',
       options: sizes
+    },
+    placeholder: {
+      control: 'text'
     }
   }
 };
@@ -39,9 +42,10 @@ export default {
 export const Basic: StoryObj = {
   args: {
     size: 'md',
-    maxOverlayHeight: '200px'
+    maxOverlayHeight: '200px',
+    placeholder: 'Placeholder'
   },
-  render: ({ maxOverlayHeight, size }) => html`
+  render: ({ maxOverlayHeight, size, placeholder }) => html`
     <style>
       sl-select {
         width: 400px;
@@ -50,7 +54,7 @@ export const Basic: StoryObj = {
       }
     </style>
     <sl-button>To focus</sl-button>
-    <sl-select .maxOverlayHeight=${maxOverlayHeight} .size="${size}">
+    <sl-select .maxOverlayHeight=${maxOverlayHeight} .size=${size} .placeholder=${placeholder}>
       <sl-select-option-group group-heading="Happy">
         <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
         <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
@@ -135,16 +139,36 @@ export const All: StoryObj = {
                   )}
                 </tr>`
               )}
-              <tr>
-                <th>Unselected Option</th>
+              ${states.map(
+                state => html`<tr>
+                  <th>Placeholder ${state}</th>
                   ${disabledStates.map(
                     disabledState => html`
                       <td class="${disabledState ? 'sb-disabled' : ''}">
-                        <sl-select-option .size=${size} ?disabled=${disabledState}>🐹 Hamster</sl-select-option>
+                        <sl-select
+                          ?valid=${state === 'valid'}
+                          ?invalid=${state === 'invalid'}
+                          ?required=${state === 'invalid'}
+                          .size=${size}
+                          ?disabled=${disabledState}
+                          data-mock-state
+                          placeholder="Placeholder"
+                          ><sl-select-option .size=${size} ?disabled=${disabledState}>🐹 Hamster</sl-select-option>
+                        </sl-select>
                       </td>
                     `
                   )}
-                </th>
+                </tr>`
+              )}
+              <tr>
+                <th>Unselected Option</th>
+                ${disabledStates.map(
+                  disabledState => html`
+                    <td class="${disabledState ? 'sb-disabled' : ''}">
+                      <sl-select-option .size=${size} ?disabled=${disabledState}>🐹 Hamster</sl-select-option>
+                    </td>
+                  `
+                )}
               </tr>
               <tr>
                 <th>Selected Option</th>
@@ -155,7 +179,7 @@ export const All: StoryObj = {
                     </td>
                   `
                 )}
-                </tr>
+              </tr>
             </tbody>
           </table>`
       )}`;
@@ -224,7 +248,7 @@ export const InForm: StoryObj = {
       </sl-select>
 
       <sl-label for="mood">Your mood</sl-label>
-      <sl-select id="mood" name="mood">
+      <sl-select id="mood" name="mood" placeholder="How are you feeling today?">
         <sl-select-option-group group-heading="Happy">
           <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
           <sl-select-option>😂 Face with Tears of Joy</sl-select-option>

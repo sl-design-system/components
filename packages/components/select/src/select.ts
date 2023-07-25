@@ -43,11 +43,14 @@ export class Select extends FormControlMixin(LitElement) {
   @query('button') button?: HTMLButtonElement;
   @query('dialog') dialog?: HTMLDialogElement;
 
-  /** render helpers */
+  /** The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen */
   @property({ attribute: 'max-overlay-height', reflect: true }) maxOverlayHeight?: string;
 
   /** Select size. */
   @property({ reflect: true }) size: SelectSize = 'md';
+
+  /** Placeholder to show when no options is chosen. */
+  @property({ reflect: true }) placeholder?: string;
 
   /** Whether the select is invalid. */
   @property({ type: Boolean, reflect: true }) invalid?: boolean;
@@ -78,7 +81,7 @@ export class Select extends FormControlMixin(LitElement) {
 
   get #renderSelectedOption(): HTMLElement | TemplateResult {
     if (!this.selectedOption) {
-      return html`&nbsp;`;
+      return this.placeholder ? html`${this.placeholder}` : html`&nbsp;`;
     }
     return (this.selectedOption.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
   }
@@ -152,6 +155,16 @@ export class Select extends FormControlMixin(LitElement) {
     if (changes.has('size')) {
       this.allOptions?.forEach(option => (option.size = this.size));
       this.optionGroups?.forEach(group => (group.size = this.size));
+    }
+
+    if (changes.has('placeholder')) {
+      if (this.placeholder) {
+        this.setAttribute('aria-placeholder', this.placeholder);
+        this.button?.classList.add('placeholder');
+      } else {
+        this.removeAttribute('aria-placeholder');
+        this.button?.classList.remove('placeholder');
+      }
     }
     if (changes.has('maxOverlayHeight') && this.maxOverlayHeight && this.dialog) {
       this.dialog.style.setProperty('--max-overlay-height', `${this.maxOverlayHeight}`);

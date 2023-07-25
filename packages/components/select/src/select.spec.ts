@@ -49,6 +49,18 @@ describe('sl-select', () => {
       
       it('should have a set maximum overlay height', () => {
         expect(el.dialog?.style.getPropertyValue('--max-overlay-height')).to.equal('200px');
+      })
+      
+      it('should have a placeholder when one is set', async () => {
+        expect(el.renderRoot.querySelector('button span')?.textContent?.trim()).to.equal('');
+
+        el.placeholder = 'Placeholder';
+        await el.updateComplete;
+        expect(el.renderRoot.querySelector('button span')?.textContent?.trim()).to.equal('Placeholder');
+       
+        el.placeholder = undefined;
+        await el.updateComplete;
+        expect(el.renderRoot.querySelector('button span')?.textContent?.trim()).to.equal('');
       });
 
       it('should show the options when the button is clicked', async () => {
@@ -73,7 +85,6 @@ describe('sl-select', () => {
         await sendKeys({ press: 'Enter' });
 
         await new Promise(resolve => setTimeout(resolve));
-        // expect(el.renderRoot.querySelector('button span')?.textContent?.trim()).to.equal(options[1]);
         expect(el.renderRoot.querySelector('button span')?.textContent?.trim()).to.equal('');
         expect(el.button).to.have.attribute('aria-expanded','true');
         await sendKeys({ press: 'ArrowDown' });

@@ -2,14 +2,6 @@
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
  */
-/**
- * Copyright 2022 Sanoma Learning
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * Copyright 2022 Sanoma Learning
- * SPDX-License-Identifier: Apache-2.0
- */
 :root {
   --sl-size-4xl: 64px;
   --sl-size-3xl: 48px;
@@ -77,6 +69,7 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
+  --sl-border-radius-button-lg: 20px;
   --sl-text-text-field: [object Object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
@@ -120,16 +113,102 @@
   --sl-text-typeset-font-size-md: 14px;
   --sl-text-typeset-font-size-sm: 12px;
   --sl-text-typeset-font-size-xs: 10px;
-  --sl-text-typeset-font-weight-bold: 700;
   --sl-text-typeset-font-weight-regular: 400;
   --sl-text-typeset-font-weight-icon-solid: Solid;
   --sl-text-typeset-font-weight-icon-regular: 400;
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
+  --sl-text-typeset-font-weight-bold: 700;
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-body: open-sans;
-  --sl-text-typeset-font-family-heading: open-sans;
-  --sl-color-palette-neutral-base: 170 179 189;
+  --sl-text-typeset-font-family-heading: space-grotesk;
+  --sl-color-palette-transparent-base: 0 0 0 / 0;
+  --sl-color-palette-white-base: 255 255 255;
+  --sl-color-palette-black-base: 58 58 58;
+  --sl-color-palette-danger-base: 167 40 49;
+  --sl-color-palette-danger-900: 40 10 12;
+  --sl-color-palette-danger-800: 82 20 24;
+  --sl-color-palette-danger-700: 125 30 37;
+  --sl-color-palette-danger-600: 167 40 49;
+  --sl-color-palette-danger-500: 210 51 62;
+  --sl-color-palette-danger-400: 252 61 74;
+  --sl-color-palette-danger-300: 253 94 105;
+  --sl-color-palette-danger-200: 253 126 135;
+  --sl-color-palette-danger-150: 254 159 166;
+  --sl-color-palette-danger-100: 254 192 196;
+  --sl-color-palette-danger-50: 255 225 227;
+  --sl-color-palette-warning-base: 254 131 25;
+  --sl-color-palette-warning-900: 40 21 4;
+  --sl-color-palette-warning-800: 83 43 8;
+  --sl-color-palette-warning-700: 126 65 12;
+  --sl-color-palette-warning-600: 168 87 17;
+  --sl-color-palette-warning-500: 211 109 21;
+  --sl-color-palette-warning-400: 254 131 25;
+  --sl-color-palette-warning-300: 254 152 64;
+  --sl-color-palette-warning-200: 254 173 103;
+  --sl-color-palette-warning-150: 255 194 141;
+  --sl-color-palette-warning-100: 255 215 180;
+  --sl-color-palette-warning-50: 255 236 219;
+  --sl-color-palette-success-base: 45 220 147;
+  --sl-color-palette-success-900: 7 35 23;
+  --sl-color-palette-success-800: 15 72 48;
+  --sl-color-palette-success-700: 22 109 73;
+  --sl-color-palette-success-600: 30 146 97;
+  --sl-color-palette-success-500: 37 183 122;
+  --sl-color-palette-success-400: 45 220 147;
+  --sl-color-palette-success-300: 80 226 165;
+  --sl-color-palette-success-200: 116 232 183;
+  --sl-color-palette-success-150: 151 238 202;
+  --sl-color-palette-success-100: 187 244 220;
+  --sl-color-palette-success-50: 222 250 238;
+  --sl-color-palette-info-base: 26 152 255;
+  --sl-color-palette-info-900: 4 24 40;
+  --sl-color-palette-info-800: 8 49 83;
+  --sl-color-palette-info-700: 13 75 126;
+  --sl-color-palette-info-600: 17 101 169;
+  --sl-color-palette-info-500: 22 126 212;
+  --sl-color-palette-info-400: 26 152 255;
+  --sl-color-palette-info-300: 65 169 255;
+  --sl-color-palette-info-200: 103 187 255;
+  --sl-color-palette-info-150: 142 204 255;
+  --sl-color-palette-info-100: 180 221 255;
+  --sl-color-palette-info-50: 219 239 255;
+  --sl-color-palette-neutral-base: 58 58 58;
+  --sl-color-palette-neutral-900: 58 58 58;
+  --sl-color-palette-neutral-800: 76 76 76;
+  --sl-color-palette-neutral-700: 94 94 94;
+  --sl-color-palette-neutral-600: 112 112 112;
+  --sl-color-palette-neutral-500: 129 129 129;
+  --sl-color-palette-neutral-400: 147 147 147;
+  --sl-color-palette-neutral-300: 165 165 165;
+  --sl-color-palette-neutral-200: 183 183 183;
+  --sl-color-palette-neutral-150: 200 200 200;
+  --sl-color-palette-neutral-100: 218 218 218;
+  --sl-color-palette-neutral-50: 236 236 236;
+  --sl-color-palette-accent-base: 166 105 251;
+  --sl-color-palette-accent-900: 26 16 39;
+  --sl-color-palette-accent-800: 54 34 82;
+  --sl-color-palette-accent-700: 82 52 124;
+  --sl-color-palette-accent-600: 110 70 166;
+  --sl-color-palette-accent-500: 138 87 209;
+  --sl-color-palette-accent-400: 166 105 251;
+  --sl-color-palette-accent-300: 181 130 252;
+  --sl-color-palette-accent-200: 196 156 252;
+  --sl-color-palette-accent-150: 211 181 253;
+  --sl-color-palette-accent-100: 226 206 254;
+  --sl-color-palette-accent-50: 241 231 254;
+  --sl-color-palette-primary-base: 252 61 74;
+  --sl-color-palette-primary-900: 40 10 12;
+  --sl-color-palette-primary-800: 82 20 24;
+  --sl-color-palette-primary-700: 125 30 37;
+  --sl-color-palette-primary-600: 167 40 49;
+  --sl-color-palette-primary-500: 210 51 62;
+  --sl-color-palette-primary-400: 252 61 74;
+  --sl-color-palette-primary-300: 253 94 105;
+  --sl-color-palette-primary-200: 253 126 135;
+  --sl-color-palette-primary-150: 254 159 166;
+  --sl-color-palette-primary-100: 254 192 196;
+  --sl-color-palette-primary-50: 255 225 227;
   --sl-elevation-shadow-md: calc(
     0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
     0px 8px 8px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
@@ -229,10 +308,6 @@
   --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-default));
-  --sl-space-text-field-inline-lg: var(--sl-space-lg);
-  --sl-space-text-field-inline-md: var(--sl-space-md);
-  --sl-space-text-field-block-lg: var(--sl-space-sm);
-  --sl-space-text-field-block-md: var(--sl-space-sm);
   --sl-space-group-xl: var(--sl-space-sm);
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
@@ -255,41 +330,38 @@
   --sl-space-input-helper-gap-lg: var(--sl-space-sm);
   --sl-space-input-helper-gap-md: var(--sl-space-xs);
   --sl-space-input-helper-gap-sm: var(--sl-space-xs);
-  --sl-space-input-text-field-gap-lg: var(--sl-space-sm);
-  --sl-space-input-text-field-gap-md: var(--sl-space-sm);
-  --sl-space-input-text-field-inline-lg: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));
-  --sl-space-input-text-field-inline-md: calc(var(--sl-space-md) - var(--sl-border-width-button-default));
-  --sl-space-input-text-field-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
-  --sl-space-input-text-field-block-md: calc(var(--sl-space-xs) + var(--sl-border-width-button-default));
+  --sl-space-input-text-field-inline-lg: var(--sl-space-lg);
+  --sl-space-input-text-field-inline-md: var(--sl-space-md);
+  --sl-space-input-text-field-block-lg: var(--sl-space-sm);
+  --sl-space-input-text-field-block-md: var(--sl-space-sm);
   --sl-border-width-input-border: var(--sl-border-width-sm);
   --sl-border-width-input-none: var(--sl-border-width-none);
-  --sl-border-width-button-link: var(--sl-border-width-xs);
-  --sl-border-width-button-outline: var(--sl-border-width-xs);
-  --sl-border-width-button-default: var(--sl-border-width-xs);
+  --sl-border-width-button-link: var(--sl-border-width-none);
+  --sl-border-width-button-outline: var(--sl-border-width-sm);
+  --sl-border-width-button-default: var(--sl-border-width-sm);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
   --sl-border-radius-default: var(--sl-border-radius-3xs);
   --sl-border-radius-button-icon-only-lg: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-md: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-sm: var(--sl-border-radius-full);
-  --sl-border-radius-button-lg: var(--sl-border-radius-sm);
-  --sl-border-radius-button-md: var(--sl-border-radius-sm);
-  --sl-border-radius-button-sm: var(--sl-border-radius-sm);
-  --sl-text-input-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+  --sl-border-radius-button-md: var(--sl-border-radius-2xl);
+  --sl-border-radius-button-sm: var(--sl-border-radius-lg);
+  --sl-text-input-option-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-input-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+  --sl-text-input-option-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
     undefined;
   --sl-text-button-font-icon-md: undefined var(--sl-text-typeset-font-size-md) / var(--sl-text-typeset-line-height-xs)
     undefined;
   --sl-text-button-font-icon-sm: undefined 13 / var(--sl-text-typeset-line-height-xxs) undefined;
-  --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-heading);
+  --sl-text-button-text-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-heading);
+  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-heading);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
@@ -319,34 +391,28 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
-  --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
-  --sl-space-select-item-gap-md: var(--sl-space-input-text-field-gap-md);
   --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);
   --sl-space-select-item-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-item-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-item-block-md: var(--sl-space-input-text-field-block-md);
-  --sl-space-select-selectbox-gap-lg: var(--sl-space-input-text-field-gap-lg);
-  --sl-space-select-selectbox-gap-md: var(--sl-space-input-text-field-gap-md);
   --sl-space-select-selectbox-inline-lg: var(--sl-space-input-text-field-inline-lg);
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
-  --sl-space-text-field-gap-lg: var(--sl-space-button-outline-block-md);
-  --sl-space-text-field-gap-md: var(--sl-space-button-outline-block-md);
+  --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
+  --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-gap-md: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-inline-lg: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-inline-md: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-lg: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-md: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-gap-lg: var(--sl-space-button-outline-block-md);
-  --sl-space-input-gap-md: var(--sl-space-button-outline-block-md);
-  --sl-space-input-inline-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-inline-md: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-block-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-block-md: var(--sl-space-button-outline-block-sm);
-  --sl-text-input-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 / var(--sl-text-typeset-line-height-md)
-    var(--sl-text-typeset-font-family-icon);
-  --sl-text-input-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 / var(--sl-text-typeset-line-height-sm)
-    var(--sl-text-typeset-font-family-icon);
+  --sl-text-input-option-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-icon);
+  --sl-text-input-option-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
+  --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
+  --sl-space-select-item-gap-md: var(--sl-space-input-text-field-gap-md);
+  --sl-space-select-selectbox-gap-lg: var(--sl-space-input-text-field-gap-lg);
+  --sl-space-select-selectbox-gap-md: var(--sl-space-input-text-field-gap-md);
 }

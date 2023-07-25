@@ -1746,7 +1746,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.default.checked.default.background}",
+                "value": "{color.input.option.default.checked.default.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -1772,7 +1772,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.default.checked.hover.background}",
+                "value": "{color.input.option.default.checked.hover.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -1798,7 +1798,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.default.checked.active.background}",
+                "value": "{color.input.option.default.checked.active.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -1824,7 +1824,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.default.checked.focus.background}",
+                "value": "{color.input.option.default.checked.focus.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -1850,7 +1850,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.default.checked.disabled.background}",
+                "value": "{color.input.option.default.checked.disabled.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2012,7 +2012,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.invalid.checked.default.background}",
+                "value": "{color.input.option.invalid.checked.default.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2038,7 +2038,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.invalid.checked.hover.background}",
+                "value": "{color.input.option.invalid.checked.hover.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2064,7 +2064,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.invalid.checked.active.background}",
+                "value": "{color.input.option.invalid.checked.active.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2090,7 +2090,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.invalid.checked.focus.background}",
+                "value": "{color.input.option.invalid.checked.focus.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2116,7 +2116,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.invalid.checked.disabled.background}",
+                "value": "{color.input.option.invalid.checked.disabled.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2278,7 +2278,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.valid.checked.default.background}",
+                "value": "{color.input.option.valid.checked.default.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2304,7 +2304,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.valid.checked.hover.background}",
+                "value": "{color.input.option.valid.checked.hover.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2330,7 +2330,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.valid.checked.active.background}",
+                "value": "{color.input.option.valid.checked.active.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2356,7 +2356,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.valid.checked.focus.background}",
+                "value": "{color.input.option.valid.checked.focus.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2382,7 +2382,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.input.valid.checked.disabled.background}",
+                "value": "{color.input.option.valid.checked.disabled.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true

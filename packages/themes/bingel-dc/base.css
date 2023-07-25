@@ -2,14 +2,6 @@
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
  */
-/**
- * Copyright 2022 Sanoma Learning
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * Copyright 2022 Sanoma Learning
- * SPDX-License-Identifier: Apache-2.0
- */
 :root {
   --sl-size-4xl: 64px;
   --sl-size-3xl: 48px;
@@ -128,8 +120,94 @@
   --sl-text-typeset-font-weight-icon-thin: 100;
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-body: open-sans;
-  --sl-text-typeset-font-family-heading: open-sans;
+  --sl-text-typeset-font-family-heading: montserrat;
+  --sl-color-palette-transparent-base: 0 0 0 / 0;
+  --sl-color-palette-white-base: 255 255 255;
+  --sl-color-palette-black-base: 41 41 41;
+  --sl-color-palette-danger-base: 227 10 39;
+  --sl-color-palette-danger-900: 36 2 6;
+  --sl-color-palette-danger-800: 74 3 13;
+  --sl-color-palette-danger-700: 112 5 19;
+  --sl-color-palette-danger-600: 150 7 26;
+  --sl-color-palette-danger-500: 189 8 32;
+  --sl-color-palette-danger-400: 227 10 39;
+  --sl-color-palette-danger-300: 232 51 75;
+  --sl-color-palette-danger-200: 236 93 112;
+  --sl-color-palette-danger-150: 241 134 148;
+  --sl-color-palette-danger-100: 246 175 185;
+  --sl-color-palette-danger-50: 251 217 221;
+  --sl-color-palette-warning-base: 255 157 0;
+  --sl-color-palette-warning-900: 40 25 0;
+  --sl-color-palette-warning-800: 83 51 0;
+  --sl-color-palette-warning-700: 126 78 0;
+  --sl-color-palette-warning-600: 169 104 0;
+  --sl-color-palette-warning-500: 212 131 0;
+  --sl-color-palette-warning-400: 255 157 0;
+  --sl-color-palette-warning-300: 255 174 43;
+  --sl-color-palette-warning-200: 255 190 86;
+  --sl-color-palette-warning-150: 255 207 129;
+  --sl-color-palette-warning-100: 255 223 172;
+  --sl-color-palette-warning-50: 255 240 215;
+  --sl-color-palette-success-base: 70 172 0;
+  --sl-color-palette-success-900: 11 27 0;
+  --sl-color-palette-success-800: 23 56 0;
+  --sl-color-palette-success-700: 35 85 0;
+  --sl-color-palette-success-600: 46 114 0;
+  --sl-color-palette-success-500: 58 143 0;
+  --sl-color-palette-success-400: 70 172 0;
+  --sl-color-palette-success-300: 101 186 43;
+  --sl-color-palette-success-200: 132 200 86;
+  --sl-color-palette-success-150: 164 214 129;
+  --sl-color-palette-success-100: 195 228 172;
+  --sl-color-palette-success-50: 226 242 215;
+  --sl-color-palette-info-base: 230 241 251;
+  --sl-color-palette-info-900: 0 18 35;
+  --sl-color-palette-info-800: 0 38 73;
+  --sl-color-palette-info-700: 0 47 98;
+  --sl-color-palette-info-600: 0 77 148;
+  --sl-color-palette-info-500: 0 96 185;
+  --sl-color-palette-info-400: 0 116 223;
+  --sl-color-palette-info-300: 43 139 228;
+  --sl-color-palette-info-200: 86 163 234;
+  --sl-color-palette-info-150: 129 186 239;
+  --sl-color-palette-info-100: 172 210 245;
+  --sl-color-palette-info-50: 230 241 251;
   --sl-color-palette-neutral-base: 170 179 189;
+  --sl-color-palette-neutral-900: 27 28 30;
+  --sl-color-palette-neutral-800: 55 58 62;
+  --sl-color-palette-neutral-700: 84 88 93;
+  --sl-color-palette-neutral-600: 113 119 125;
+  --sl-color-palette-neutral-500: 141 149 157;
+  --sl-color-palette-neutral-400: 170 179 189;
+  --sl-color-palette-neutral-300: 184 192 200;
+  --sl-color-palette-neutral-200: 199 205 211;
+  --sl-color-palette-neutral-150: 213 217 222;
+  --sl-color-palette-neutral-100: 227 230 234;
+  --sl-color-palette-neutral-50: 242 243 245;
+  --sl-color-palette-accent-base: 0 47 98;
+  --sl-color-palette-accent-900: 0 18 35;
+  --sl-color-palette-accent-800: 0 38 73;
+  --sl-color-palette-accent-700: 0 47 98;
+  --sl-color-palette-accent-600: 0 77 148;
+  --sl-color-palette-accent-500: 0 96 185;
+  --sl-color-palette-accent-400: 0 116 223;
+  --sl-color-palette-accent-300: 43 139 228;
+  --sl-color-palette-accent-200: 86 163 234;
+  --sl-color-palette-accent-150: 129 186 239;
+  --sl-color-palette-accent-100: 172 210 245;
+  --sl-color-palette-accent-50: 230 241 251;
+  --sl-color-palette-primary-base: 0 116 223;
+  --sl-color-palette-primary-900: 0 18 35;
+  --sl-color-palette-primary-800: 0 38 73;
+  --sl-color-palette-primary-700: 0 47 98;
+  --sl-color-palette-primary-600: 0 77 148;
+  --sl-color-palette-primary-500: 0 96 185;
+  --sl-color-palette-primary-400: 0 116 223;
+  --sl-color-palette-primary-300: 43 139 228;
+  --sl-color-palette-primary-200: 86 163 234;
+  --sl-color-palette-primary-150: 129 186 239;
+  --sl-color-palette-primary-100: 172 210 245;
+  --sl-color-palette-primary-50: 230 241 251;
   --sl-elevation-shadow-md: calc(
     0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
     0px 8px 8px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
@@ -229,10 +307,6 @@
   --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-default));
-  --sl-space-text-field-inline-lg: var(--sl-space-lg);
-  --sl-space-text-field-inline-md: var(--sl-space-md);
-  --sl-space-text-field-block-lg: var(--sl-space-sm);
-  --sl-space-text-field-block-md: var(--sl-space-sm);
   --sl-space-group-xl: var(--sl-space-sm);
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
@@ -255,40 +329,38 @@
   --sl-space-input-helper-gap-lg: var(--sl-space-sm);
   --sl-space-input-helper-gap-md: var(--sl-space-xs);
   --sl-space-input-helper-gap-sm: var(--sl-space-xs);
-  --sl-space-input-text-field-gap-lg: var(--sl-space-sm);
-  --sl-space-input-text-field-gap-md: var(--sl-space-sm);
-  --sl-space-input-text-field-inline-lg: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));
-  --sl-space-input-text-field-inline-md: calc(var(--sl-space-md) - var(--sl-border-width-button-default));
-  --sl-space-input-text-field-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
-  --sl-space-input-text-field-block-md: calc(var(--sl-space-xs) + var(--sl-border-width-button-default));
+  --sl-space-input-text-field-inline-lg: var(--sl-space-lg);
+  --sl-space-input-text-field-inline-md: var(--sl-space-md);
+  --sl-space-input-text-field-block-lg: var(--sl-space-sm);
+  --sl-space-input-text-field-block-md: var(--sl-space-sm);
   --sl-border-width-input-border: var(--sl-border-width-sm);
   --sl-border-width-input-none: var(--sl-border-width-none);
-  --sl-border-width-button-link: var(--sl-border-width-xs);
-  --sl-border-width-button-outline: var(--sl-border-width-xs);
-  --sl-border-width-button-default: var(--sl-border-width-xs);
+  --sl-border-width-button-link: var(--sl-border-width-sm);
+  --sl-border-width-button-outline: var(--sl-border-width-sm);
+  --sl-border-width-button-default: var(--sl-border-width-sm);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
   --sl-border-radius-default: var(--sl-border-radius-3xs);
   --sl-border-radius-button-icon-only-lg: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-md: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-sm: var(--sl-border-radius-full);
-  --sl-border-radius-button-lg: var(--sl-border-radius-sm);
-  --sl-border-radius-button-md: var(--sl-border-radius-sm);
-  --sl-border-radius-button-sm: var(--sl-border-radius-sm);
-  --sl-text-input-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+  --sl-border-radius-button-lg: var(--sl-border-radius-full);
+  --sl-border-radius-button-md: var(--sl-border-radius-full);
+  --sl-border-radius-button-sm: var(--sl-border-radius-full);
+  --sl-text-input-option-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-input-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+  --sl-text-input-option-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
     undefined;
   --sl-text-button-font-icon-md: undefined var(--sl-text-typeset-font-size-md) / var(--sl-text-typeset-line-height-xs)
     undefined;
   --sl-text-button-font-icon-sm: undefined 13 / var(--sl-text-typeset-line-height-xxs) undefined;
-  --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+  --sl-text-button-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+  --sl-text-button-text-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
@@ -319,34 +391,28 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
-  --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
-  --sl-space-select-item-gap-md: var(--sl-space-input-text-field-gap-md);
   --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);
   --sl-space-select-item-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-item-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-item-block-md: var(--sl-space-input-text-field-block-md);
-  --sl-space-select-selectbox-gap-lg: var(--sl-space-input-text-field-gap-lg);
-  --sl-space-select-selectbox-gap-md: var(--sl-space-input-text-field-gap-md);
   --sl-space-select-selectbox-inline-lg: var(--sl-space-input-text-field-inline-lg);
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
-  --sl-space-text-field-gap-lg: var(--sl-space-button-outline-block-md);
-  --sl-space-text-field-gap-md: var(--sl-space-button-outline-block-md);
+  --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
+  --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-gap-md: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-inline-lg: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-inline-md: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-lg: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-md: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-gap-lg: var(--sl-space-button-outline-block-md);
-  --sl-space-input-gap-md: var(--sl-space-button-outline-block-md);
-  --sl-space-input-inline-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-inline-md: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-block-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-block-md: var(--sl-space-button-outline-block-sm);
-  --sl-text-input-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 / var(--sl-text-typeset-line-height-md)
-    var(--sl-text-typeset-font-family-icon);
-  --sl-text-input-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 / var(--sl-text-typeset-line-height-sm)
-    var(--sl-text-typeset-font-family-icon);
+  --sl-text-input-option-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-icon);
+  --sl-text-input-option-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
+  --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
+  --sl-space-select-item-gap-md: var(--sl-space-input-text-field-gap-md);
+  --sl-space-select-selectbox-gap-lg: var(--sl-space-input-text-field-gap-lg);
+  --sl-space-select-selectbox-gap-md: var(--sl-space-input-text-field-gap-md);
 }

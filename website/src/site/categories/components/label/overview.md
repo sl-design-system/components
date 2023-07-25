@@ -10,14 +10,14 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-button fill="default" variant="primary" size="md">Button</sl-button>
+<sl-label>This is a label</sl-label>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-button fill="default" variant="primary" size="md">Button</sl-button>
+  <sl-label>This is a label</sl-label>
   ```
 
 </div>

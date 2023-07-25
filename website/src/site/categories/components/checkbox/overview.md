@@ -10,6 +10,7 @@ eleventyNavigation:
 <div class="ds-example">
 
 Checkbox example
+<sl-checkbox id="checkbox" name="test" value="test">Checkbox</sl-checkbox>
 <sl-checkbox value="yes" name="newletter">Yes, subscribe me to the newsletter</sl-checkbox>
 
 </div>
@@ -17,7 +18,7 @@ Checkbox example
 <div class="ds-code">
 
   ```html
-  <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+  <sl-checkbox id="checkbox" name="test" value="test">Checkbox</sl-checkbox>
 <sl-checkbox value="yes" name="newletter">Yes, subscribe me to the newsletter</sl-checkbox>
   ```
 

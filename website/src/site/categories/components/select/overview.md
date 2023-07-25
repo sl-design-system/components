@@ -1,30 +1,44 @@
 ---
-title: Button bar
+title: Select
 tags: overview
 eleventyNavigation:
-  parent: Button bar
-  key: ButtonBarOverview
+  parent: Select
+  key: SelectOverview
 ---
 
 <section>
 
+popover import and in build???
+
 <div class="ds-example">
 
-<sl-button-bar align="center">
-<sl-button>One</sl-button>
-<sl-button>Two</sl-button>
-</sl-button-bar>
+<sl-select>
+  <sl-select-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
+  <sl-select-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
+  <sl-select-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
+  <sl-select-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
+  <sl-select-option disabled><sl-avatar uniqueProfileId="bla"></sl-avatar></sl-select-option>
+  <sl-select-option><sl-avatar uniqueProfileId="xxs"></sl-avatar></sl-select-option>
+</sl-select>
 
 </div>
 
 <div class="ds-code">
 
-  ```html
-  <sl-button fill="default" variant="primary" size="md">Button</sl-button>
-  ```
+```html
+
+<sl-select>
+  <sl-select-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
+  <sl-select-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
+  <sl-select-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
+  <sl-select-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
+  <sl-select-option disabled><sl-avatar uniqueProfileId="bla"></sl-avatar></sl-select-option>
+  <sl-select-option><sl-avatar uniqueProfileId="xxs"></sl-avatar></sl-select-option>
+</sl-select>
+
+```
 
 </div>
-
 </section>
 
 <section>
@@ -64,7 +78,6 @@ Place text here
 </div>
 
 </div>
-
 </section>
 
 {% include "../component-table.njk" %}
@@ -91,5 +104,6 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 ## Related
 Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+
 
 </section>

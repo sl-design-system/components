@@ -33,7 +33,9 @@
   --sl-opacity-400: 0.16;
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
+  --sl-opacity-150: 0.06;
   --sl-opacity-100: 0.04;
+  --sl-opacity-50: 0.02;
   --sl-icon-core-circle-check-solid: circle-check;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
   --sl-icon-core-xmark: xmark;
@@ -208,13 +210,17 @@
   --sl-color-palette-primary-150: 132 194 192;
   --sl-color-palette-primary-100: 174 215 214;
   --sl-color-palette-primary-50: 216 236 235;
-  --sl-elevation-shadow-sm: calc(
-    0px 0px 6px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200)),
-    0px 4px 2px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100))
+  --sl-elevation-shadow-lg: calc(
+    0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0px 8px 16px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
   );
   --sl-elevation-shadow-md: calc(
     0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0px 8px 8px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+    0px 4px 8px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150))
+  );
+  --sl-elevation-shadow-sm: calc(
+    0px 0px 6px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
+    0px 2px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
   );
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);

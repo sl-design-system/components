@@ -7,6 +7,7 @@ import {
   HintMixin,
   ValidationController,
   event,
+  hintStyles,
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
@@ -23,7 +24,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = [validationStyles, styles, hintStyles];
 
   #events = new EventsController(this);
 
@@ -75,6 +76,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     this.classList.add('no-label');
 
     this.setAttribute('error-size', this.size);
+    this.hintSize = this.size;
 
     this.internals.role = 'switch';
     this.internals.ariaChecked = this.checked ? 'true' : 'false';

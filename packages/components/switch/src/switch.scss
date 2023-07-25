@@ -9,7 +9,6 @@ $sizes: sm, md, lg;
   --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
   --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
   --_label-text-color: var(--sl-color-input-field-label-text-default);
-  --_helper-text-color: var(--sl-color-input-helper-text-default);
 
   --handle-position: 0%;
   --isLTR: 1;
@@ -21,7 +20,6 @@ $sizes: sm, md, lg;
     --_toggle-width: calc(var(--sl-size-input-switch-controller-width-#{$size}) - var(--_toggle-padding) * 2);
     --_gap: var(--sl-space-input-gap-#{$size});
     --_input-label-font: var(--sl-text-input-field-label-tag-#{$size});
-    --_helper-font: var(--sl-text-input-helper-text-#{$size});
   }
 
   :host([orientation='vertical']) {
@@ -46,7 +44,6 @@ $sizes: sm, md, lg;
 
 :host(:where(:disabled, [internals-disabled])) {
   --_label-text-color: var(--sl-color-input-field-label-text-disabled);
-  --_helper-text-color: var(--sl-color-input-helper-text-disabled);
 
   .toggle {
     --_main-background-color: var(--sl-color-input-switch-default-unchecked-disabled-background);
@@ -156,14 +153,11 @@ $sizes: sm, md, lg;
 }
 
 .helper {
-  color: var(--_helper-text-color);
+  --sl-space-input-helper-padding-top-sm: 0;
+  --sl-space-input-helper-padding-top-md: 0;
+  --sl-space-input-helper-padding-top-lg: 0;
   display: contents;
-  font: var(--_helper-font);
   grid-area: hint;
-
-  slot[part='error']::slotted(*) {
-    padding-top: 0;
-  }
 }
 
 :host(:where([invalid])) slot[name='hint']::slotted(*) {

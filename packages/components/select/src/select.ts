@@ -112,7 +112,7 @@ export class Select extends FormControlMixin(LitElement) {
       <dialog
         @beforetoggle=${this.#setPopoverWidth}
         @click=${this.#handleOptionChange}
-        @keydown="${this.#handleOverlayKeydown}"
+        @keydown=${this.#handleOverlayKeydown}
         @toggle=${this.#handleOptionFocus}
         id="dialog-${this.#selectId}"
         anchor=${this.#selectId}

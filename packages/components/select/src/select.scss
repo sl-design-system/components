@@ -81,7 +81,6 @@ dialog[popover] {
   overflow-y: auto;
   padding-block: var(--_dialog-padding-block);
   padding-inline: var(--_dialog-padding-inline);
-  position: absolute;
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 

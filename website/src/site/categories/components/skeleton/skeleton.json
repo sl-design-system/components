@@ -1,0 +1,5 @@
+{
+  "layout": "components/components.njk",
+  "tags": "skeleton",
+  "componentTagName": "sl-skeleton"
+}

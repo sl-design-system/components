@@ -1,24 +1,22 @@
 ---
-title: Input
+title: Text input
 tags: overview
 eleventyNavigation:
-  parent: Input
-  key: InputOverview
+  parent: Text input
+  key: TextInputOverview
 ---
 <section>
 
 <div class="ds-example">
 
-Input example
-
-<sl-text-input>Input example code</sl-text-input>
+Text input example
 
 </div>
 
 <div class="ds-code">
 
 ```html
-  <sl-text-input placeholder="Input">Input example code</sl-text-input>
+  <sl-text-input>Input example code</sl-text-input>
  ```
 
 </div>

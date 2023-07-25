@@ -1,0 +1,5 @@
+{
+  "layout": "components/components.njk",
+  "tags": "tab-group",
+  "componentTagName": "sl-tab-group"
+}

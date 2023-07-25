@@ -216,6 +216,10 @@
   --sl-color-palette-primary-150: 222 224 227;
   --sl-color-palette-primary-100: 238 239 241;
   --sl-color-palette-primary-50: 254 254 254;
+  --sl-elevation-shadow-sm: calc(
+    0px 0px 6px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200)),
+    0px 4px 2px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100))
+  );
   --sl-elevation-shadow-md: calc(
     0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
     0px 8px 8px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))

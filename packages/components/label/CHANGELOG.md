@@ -1,5 +1,50 @@
 # @sl-design-system/label
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.10
+  - @sl-design-system/text-input@0.1.5
+  - @sl-design-system/textarea@0.1.5
+
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.9
+  - @sl-design-system/text-input@0.1.4
+  - @sl-design-system/textarea@0.1.4
+
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.8
+  - @sl-design-system/text-input@0.1.3
+  - @sl-design-system/textarea@0.1.3
+
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.7
+  - @sl-design-system/text-input@0.1.2
+  - @sl-design-system/textarea@0.1.2
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`d7f7af8`](https://github.com/sl-design-system/components/commit/d7f7af8908b83a5ff5f88400d44cb578eb51e7bb)]:
+  - @sl-design-system/text-input@0.1.1
+  - @sl-design-system/textarea@0.1.1
+  - @sl-design-system/button@0.0.6
+
 ## 0.1.1
 
 ### Patch Changes

@@ -2906,7 +2906,7 @@
         "y": "0",
         "blur": "0",
         "spread": "0",
-        "color": "",
+        "color": "{color.palette.transparent.base}",
         "type": "dropShadow"
       },
       "type": "boxShadow",

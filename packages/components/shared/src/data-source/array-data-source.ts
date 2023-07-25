@@ -1,13 +1,15 @@
-import type { DataSourceFilterFunction, DataSourceFilterValue, DataSourceSortFunction } from './data-source.js';
+import type { DataSourceSortFunction } from './data-source.js';
 import { getStringByPath, getValueByPath } from '../path.js';
 import { DataSource } from './data-source.js';
 
-export class ArrayDataSource<T> extends DataSource<T> {
-  /** Array of filtered & sorted items. */
-  #items: T[] = [];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class ArrayDataSource<T = any> extends DataSource<T> {
+  #filteredItems: T[] = [];
+  #items: T[];
 
-  /** The original array of items as passed to the constructor. */
-  #originalItems: T[];
+  get filteredItems(): T[] {
+    return this.#filteredItems;
+  }
 
   get items(): T[] {
     return this.#items;
@@ -19,60 +21,57 @@ export class ArrayDataSource<T> extends DataSource<T> {
 
   constructor(items: T[]) {
     super();
+    this.#filteredItems = [...items];
     this.#items = [...items];
-    this.#originalItems = [...items];
   }
 
   update(): void {
-    let items = [...this.#originalItems];
+    let items = [...this.#items];
 
-    if (this.filterValues) {
-      const filterFn: DataSourceFilterFunction<T> = this.filter?.(this.filterValues) || this.#filter(this.filterValues);
+    for (const filter of this.filters.values()) {
+      if ('filter' in filter && filter.filter) {
+        items = items.filter(filter.filter);
+      } else if ('path' in filter && filter.path) {
+        const { path, value } = filter;
 
-      items = items.filter(filterFn);
+        const regexes = (Array.isArray(value) ? value : [value])
+          .filter((v): v is string => typeof v === 'string')
+          .map(v => (v === '' ? /^\s*$/ : new RegExp(v, 'i')));
+
+        items = items.filter(item => {
+          const v = getValueByPath(item, path);
+
+          return regexes.some(regex => regex.test(v?.toString() ?? ''));
+        });
+      }
     }
 
-    if (this.sortValue) {
-      let sortFn: DataSourceSortFunction<T> | undefined = this.sorter?.(this.sortValue);
+    if (this.sort) {
+      const ascending = this.sort.direction === 'asc';
 
-      if (!sortFn) {
-        const { path, direction } = this.sortValue,
-          ascending = direction === 'asc';
+      let sortFn: DataSourceSortFunction<T>;
 
-        sortFn = (a, b) => {
+      if ('path' in this.sort && this.sort.path) {
+        const path = this.sort.path;
+
+        sortFn = (a: T, b: T): number => {
           const valueA = getStringByPath(a, path),
             valueB = getStringByPath(b, path);
 
-          if (valueA === valueB) {
-            return 0;
-          } else if (valueA < valueB) {
-            return ascending ? -1 : 1;
-          } else {
-            return ascending ? 1 : -1;
-          }
+          return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
         };
+      } else if ('sorter' in this.sort && this.sort.sorter) {
+        sortFn = this.sort.sorter;
       }
 
-      items.sort(sortFn);
+      items.sort((a, b) => {
+        const result = sortFn(a, b);
+
+        return ascending ? result : -result;
+      });
     }
 
-    this.#items = items;
+    this.#filteredItems = items;
     this.dispatchEvent(new CustomEvent<void>('sl-update'));
-  }
-
-  #filter(values: DataSourceFilterValue[]): DataSourceFilterFunction<T> {
-    const filters = values.map(({ path, value }) => {
-      const regexes = (Array.isArray(value) ? value : [value])
-        .filter((v): v is string => !!v)
-        .map(v => new RegExp(v, 'i'));
-
-      return (item: T) => {
-        const value = getValueByPath(item, path)?.toString() ?? '';
-
-        return regexes.some(regex => regex.test(value));
-      };
-    });
-
-    return item => filters.every(fn => fn(item));
   }
 }

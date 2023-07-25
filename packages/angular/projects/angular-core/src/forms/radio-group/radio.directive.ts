@@ -1,10 +1,18 @@
 import {
   Directive,
-  forwardRef,
   ElementRef,
-  HostListener, Renderer2
+  forwardRef,
+  HostListener,
+  Inject,
+  Injector,
+  Renderer2
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
+import { FormControlElementDirective } from '../form-control/form-control-element.directive';
+import type { Radio } from '@sl-design-system/radio-group';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -14,60 +22,50 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => RadioDirective),
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RadioDirective),
+      multi: true
     }
   ]
 })
-export class RadioDirective implements ControlValueAccessor {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  onChange: (value: any) => void = () => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
-  onTouched: () => any = () => {};
+export class RadioDirective extends FormControlElementDirective {
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _value: any;
+  #initialValue?: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get value(): any {
-    return this._value;
+  #value = '';
+
+  get value(): string {
+    return this.#value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set value(val: any) {
-    if (val !== this._value) {
-      this._value = val;
-      this.onChange(this._value);
-      this.onTouched();
-    }
+  set value(val: string) {
+    this.#value = val;
+    this.onChange(this.#value);
+    this.elementRef.nativeElement.internals.value = this.#value;
+    this.validatorOnChange();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  writeValue(value: any): void {
+  writeValue(value: string): void {
+    this.#initialValue = value;
     if (value) {
+      this.elementRef.nativeElement.value = this.#initialValue;
+      this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
+  constructor(public override elementRef: ElementRef, private renderer: Renderer2, @Inject(Injector) injector: Injector) {
+    super(elementRef, injector);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
-
-  @HostListener('click', ['$event.target'])
-  @HostListener('keydown', ['$event.target'])
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  listenForValueChange(value: any): void {
-    this.value = value.value;
-    this.elementRef.nativeElement.checked = value.checked;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);
+  @HostListener('click', ['$event'])
+  @HostListener('keydown', ['$event'])
+  listenForValueChange(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.value = (event.target as Radio).value;
+    this.elementRef.nativeElement.checked = (event.target as Radio).checked;
   }
 }

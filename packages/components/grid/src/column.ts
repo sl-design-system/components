@@ -1,9 +1,10 @@
 import type { CSSResult, PropertyValues, TemplateResult } from 'lit';
-import type { Grid } from './grid.js';
+import type { GridColumnEvent } from './events.js';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { type Grid } from './grid.js';
 
 /** Custom for aligning the content in the cells. */
 export type GridColumnAlignment = 'start' | 'center' | 'end';
@@ -17,7 +18,8 @@ export type GridColumnDataRenderer<T> = (model: T) => string | undefined | Templ
 /** Custom type for providing parts to a cell. */
 export type GridColumnParts<T> = (model: T) => string | undefined;
 
-export class GridColumn<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridColumn<T = any> extends LitElement {
   #events = new EventsController(this);
 
   /** Actual width of the column. */
@@ -44,7 +46,7 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
   @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
 
   /** Emits when the column definition has changed. */
-  @event() columnUpdate!: EventEmitter<void>;
+  @event() columnUpdate!: EventEmitter<GridColumnEvent<T>>;
 
   /** The parent grid instance. */
   @property({ attribute: false }) grid?: Grid<T>;
@@ -83,7 +85,7 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
   }
 
   /** Width of the cells for this column in pixels. */
-  @property()
+  @property({ type: Number })
   get width(): number | undefined {
     return this.#width;
   }
@@ -98,13 +100,27 @@ export class GridColumn<T extends Record<string, unknown> = Record<string, unkno
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('grid') && this.grid) {
-      this.#events.listen(this.grid, 'sl-grid-items-change', this.itemsChanged);
+    if (changes.has('grid')) {
+      if (this.grid) {
+        this.#events.listen(this.grid, 'sl-grid-items-change', this.itemsChanged);
+        this.#events.listen(this.grid, 'sl-grid-state-change', this.stateChanged);
+      }
     }
   }
 
+  /**
+   * This method is called when the contents of the grid has changed.
+   * This happens when the items property is directly set or when the data source has changed.
+   */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   itemsChanged(): void {}
+
+  /**
+   * This method is called when the state of the grid has changed.
+   * This happens for examples when a filter or sorting changes.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  stateChanged(): void {}
 
   renderHeader(): TemplateResult {
     const parts = ['header', ...this.#getParts()];

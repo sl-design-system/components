@@ -1,18 +1,19 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import type { DataSourceSortDirection, EventEmitter } from '@sl-design-system/shared';
+import type { DataSourceSortDirection, DataSourceSortFunction, EventEmitter } from '@sl-design-system/shared';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Icon } from '@sl-design-system/icon';
 import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
+import { GridSortDirectionChangeEvent } from './events.js';
 import styles from './sorter.scss.js';
 
 export type GridSorterChange = 'added' | 'removed';
 
-export class GridSorter extends ScopedElementsMixin(LitElement) {
+export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -26,14 +27,22 @@ export class GridSorter extends ScopedElementsMixin(LitElement) {
   #events = new EventsController(this);
 
   /** The grid column.  */
-  @property({ attribute: false }) column!: GridColumn;
+  @property({ attribute: false }) column!: GridColumn<T>;
 
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;
 
+  /** The path to the field to sort on. */
+  @property() path?: string;
+
+  /** An optional custom sort function. */
+  @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
+
+  /** Emits when the sorter has been added or removed. */
   @event() sorterChange!: EventEmitter<GridSorterChange>;
 
-  @event() sorterDirectionChange!: EventEmitter<DataSourceSortDirection | undefined>;
+  /** Emits when the direction has changed. */
+  @event() sortDirectionChange!: EventEmitter<GridSortDirectionChangeEvent<T>>;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -88,7 +97,7 @@ export class GridSorter extends ScopedElementsMixin(LitElement) {
 
   #onClick(): void {
     this.#toggleDirection();
-    this.sorterDirectionChange.emit(this.direction);
+    this.sortDirectionChange.emit(new GridSortDirectionChangeEvent(this.column, this.direction));
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -96,7 +105,7 @@ export class GridSorter extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
 
       this.#toggleDirection();
-      this.sorterDirectionChange.emit(this.direction);
+      this.sortDirectionChange.emit(new GridSortDirectionChangeEvent(this.column, this.direction));
     }
   }
 

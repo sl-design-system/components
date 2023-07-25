@@ -323,13 +323,13 @@
             },
             {
               "kind": "field",
-              "name": "placement",
+              "name": "position",
               "type": {
-                "text": "Placement"
+                "text": "PopoverPosition"
               },
               "default": "'bottom-start'",
-              "description": "Tooltip placement.",
-              "attribute": "placement"
+              "description": "Tooltip position.",
+              "attribute": "position"
             },
             {
               "kind": "method",
@@ -351,19 +351,13 @@
           ],
           "attributes": [
             {
-              "name": "placement",
+              "name": "position",
               "type": {
-                "text": "Placement"
+                "text": "PopoverPosition"
               },
               "default": "'bottom-start'",
-              "description": "Tooltip placement.",
-              "fieldName": "placement"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "AnchoredPopoverMixin",
-              "package": "@sl-design-system/popover"
+              "description": "Tooltip position.",
+              "fieldName": "position"
             }
           ],
           "superclass": {

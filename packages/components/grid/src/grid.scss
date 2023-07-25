@@ -1,5 +1,7 @@
 :host {
-  --_border: 1px solid #eee;
+  --_border: var(--_border-width) solid var(--_border-color);
+  --_border-color: #eee;
+  --_border-width: 1px;
   --_border-radius: 3px;
   --_cell-background: #fff;
   --_cell-border: 1px solid #eee;
@@ -60,6 +62,7 @@ tbody {
   border-start-end-radius: 0;
   border-start-start-radius: 0;
   max-width: var(--sl-grid-width);
+  min-height: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
   overflow-x: auto;
 }
 

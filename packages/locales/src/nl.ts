@@ -15,6 +15,7 @@ export const templates = {
   s45d6e41483a83f82: str`Dit veld moet tenminste ${0} karakter${1} lang zijn.`,
   s58bfb494feb8eb02: str`${0} geselecteerd`,
   s5def830dd16bcde9: `Stap komt niet overeen`,
+  s5e10d00d437e2e21: `Leeg`,
   s5e8250fb85d64c23: `Sluiten`,
   s629576c6b305d539: `optioneel`,
   sca81470958a97fc4: `Filter op`,

@@ -2,12 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
 import type { GridFilter, GridFilterChange } from './filter.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import type {
-  DataSource,
-  DataSourceFilterValue,
-  DataSourceSortDirection,
-  EventEmitter
-} from '@sl-design-system/shared';
+import type { DataSource, EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
@@ -19,17 +14,15 @@ import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 import styles from './grid.scss.js';
 import { GridSelectionColumn } from './selection-column.js';
-
-export class GridActiveItemChangeEvent<T> extends Event {
-  constructor(public readonly item: T, public readonly relatedEvent: Event | null) {
-    super('sl-active-item-change', { bubbles: true, composed: true });
-  }
-}
+import { GridActiveItemChangeEvent, GridEvent } from './events.js';
+import { GridFilterColumn } from './filter-column.js';
+import { GridSortColumn } from './sort-column.js';
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 
 @localized()
-export class Grid<T extends Record<string, unknown> = Record<string, unknown>> extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {};
@@ -39,16 +32,19 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   static override styles: CSSResultGroup = styles;
 
   /** The filters for this grid. */
-  #filters: GridFilter[] = [];
+  #filters: Array<GridFilter<T>> = [];
 
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
+
+  /** Observe the tbody style changes. */
+  #mutationObserver?: MutationObserver;
 
   /** Observe the grid width. */
   #resizeObserver?: ResizeObserver;
 
   /** The sorters for this grid. */
-  #sorters: GridSorter[] = [];
+  #sorters: Array<GridSorter<T>> = [];
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
@@ -66,7 +62,10 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   @property({ attribute: false }) dataSource?: DataSource<T>;
 
   /** Emits when the items in the grid have changed. */
-  @event() gridItemsChange!: EventEmitter<void>;
+  @event() gridItemsChange!: EventEmitter<GridEvent<T>>;
+
+  /** Emits when the state in the grid have changed. */
+  @event() gridStateChange!: EventEmitter<GridEvent<T>>;
 
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
@@ -92,6 +91,18 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.#mutationObserver = new MutationObserver(() => {
+      this.#mutationObserver?.disconnect();
+
+      // This is a workaround for the virtualizer not taking the border width into account
+      // We convert the min-height to a CSS variable so we can use it in the styles and
+      // add the border-width to the eventual min-height value.
+      this.style.setProperty('--sl-grid-tbody-min-height', this.tbody.style.minHeight);
+      this.tbody.style.minHeight = '';
+
+      this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
+    });
+
     this.#resizeObserver = new ResizeObserver(entries => {
       const {
         contentBoxSize: [{ inlineSize }]
@@ -104,6 +115,8 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   override firstUpdated(): void {
+    this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
+
     this.tbody.addEventListener(
       'scroll',
       () => {
@@ -122,17 +135,17 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         this.dataSource = undefined;
         this.selection.size = 0;
       }
-
-      // Notify any listeners (columns) that the items have changed
-      this.gridItemsChange.emit();
     }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('dataSource') && this.dataSource) {
+    if (changes.has('dataSource')) {
       this.dataSource?.addEventListener('sl-update', () => (this.selection.size = this.dataSource?.size ?? 0));
+
+      this.#applyFilters();
+      this.#applySorters();
     }
   }
 
@@ -153,15 +166,15 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
         <thead
           @sl-filter-change=${this.#onFilterChange}
           @sl-filter-value-change=${this.#onFilterValueChange}
+          @sl-sort-direction-change=${this.#onSortDirectionChange}
           @sl-sorter-change=${this.#onSorterChange}
-          @sl-sorter-direction-change=${this.#onSorterDirectionChange}
           part="thead"
         >
           ${this.renderHeader()}
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
-            items: this.dataSource?.items,
+            items: this.dataSource?.filteredItems,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
@@ -224,7 +237,7 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       ${showSelectionHeader
         ? html`
             <tr>
-              ${rows.at(-1)?.[0].renderHeader()} ${(rows.at(-1)?.[0] as GridSelectionColumn).renderSelectionHeader()}
+              ${rows.at(-1)?.[0].renderHeader()} ${(rows.at(-1)?.[0] as GridSelectionColumn<T>).renderSelectionHeader()}
             </tr>
           `
         : html`
@@ -292,24 +305,21 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onClickRow(event: Event, item: T): void {
     this.activeItem = item;
-    this.activeItemChange.emit(new GridActiveItemChangeEvent(this.activeItem, event));
+    this.activeItemChange.emit(new GridActiveItemChangeEvent(this, this.activeItem, event));
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
     this.#addScopedElements(event.target);
   }
 
-  #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter }): void {
+  #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter<T> }): void {
     if (detail === 'added') {
       this.#filters = [...this.#filters, target];
     } else {
       this.#filters = this.#filters.filter(filter => filter !== target);
     }
 
-    // If any filter starts out active, we need to apply it
-    if (this.#filters.some(filter => filter.active)) {
-      this.#applyFilters();
-    }
+    this.#applyFilters();
   }
 
   #onFilterValueChange(): void {
@@ -321,30 +331,41 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
     columns.forEach(col => {
-      col.grid = this;
       this.#addScopedElements(col);
+
+      col.grid = this;
+
+      if (this.dataSource) {
+        col.itemsChanged();
+      }
+
+      if (col instanceof GridFilterColumn) {
+        const { value } = this.dataSource?.filters.get(col.id) || {};
+        if (value) {
+          col.value = value;
+        }
+      } else if (col instanceof GridSortColumn) {
+        const { id, direction } = this.dataSource?.sort || {};
+        if (id === col.id) {
+          col.direction = direction;
+        }
+      }
     });
 
     this.columns = columns;
   }
 
-  #onSorterChange({ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter }): void {
+  #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {
+    this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
+    this.#applySorters();
+  }
+
+  #onSorterChange({ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter<T> }): void {
     if (detail === 'added') {
       this.#sorters = [...this.#sorters, target];
     } else {
       this.#sorters = this.#sorters.filter(sorter => sorter !== target);
     }
-
-    // If any sorter starts out active, sort the grid
-    if (this.#sorters.some(sorter => sorter.direction !== undefined)) {
-      this.#applySorters();
-    }
-  }
-
-  #onSorterDirectionChange({
-    target
-  }: CustomEvent<DataSourceSortDirection | undefined> & { target: GridSorter }): void {
-    this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
 
     this.#applySorters();
   }
@@ -372,13 +393,20 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       return;
     }
 
-    const filterValues: DataSourceFilterValue[] = this.#filters
-      .filter(filter => (Array.isArray(filter.value) ? filter.value.length > 0 : !!filter.value))
-      .map(filter => ({ path: filter.column.path || '', value: filter.value }));
+    this.#filters.forEach(f => {
+      const id = f.column.id,
+        empty = (Array.isArray(f.value) && f.value.length === 0) || !f.value;
 
-    this.dataSource.filterValues = filterValues;
+      if (!empty && (f.path || f.filter)) {
+        this.dataSource?.addFilter(id, f.path! || f.filter!, f.value);
+      } else {
+        this.dataSource?.removeFilter(id);
+      }
+    });
+
     this.dataSource.update();
     this.requestUpdate();
+    this.gridStateChange.emit(new GridEvent('sl-grid-state-change', this));
   }
 
   #applySorters(): void {
@@ -386,16 +414,18 @@ export class Grid<T extends Record<string, unknown> = Record<string, unknown>> e
       return;
     }
 
-    const { column, direction } = this.#sorters.find(sorter => !!sorter.direction) || {};
+    const { id } = this.dataSource.sort ?? {},
+      sorter = this.#sorters.find(sorter => !!sorter.direction);
 
-    if (column?.path && direction) {
-      this.dataSource.sortValue = { path: column.path, direction };
-    } else {
-      this.dataSource.sortValue = undefined;
+    if (sorter) {
+      this.dataSource.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction!);
+    } else if (id && this.#sorters.find(s => s.column.id === id)) {
+      this.dataSource.removeSort();
     }
 
     this.dataSource.update();
     this.requestUpdate();
+    this.gridStateChange.emit(new GridEvent('sl-grid-state-change', this));
   }
 
   #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {

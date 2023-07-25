@@ -153,7 +153,7 @@ export const All: StoryObj = {
                           ?disabled=${disabledState}
                           data-mock-state
                           placeholder="Placeholder"
-                          ><sl-select-option .size=${size} ?disabled=${disabledState}>🐹 Hamster</sl-select-option>
+                          ><sl-select-option .size=${size} ?disabled=${disabledState}>Hamster</sl-select-option>
                         </sl-select>
                       </td>
                     `

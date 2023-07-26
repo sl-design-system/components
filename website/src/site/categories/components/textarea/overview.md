@@ -1,22 +1,22 @@
 ---
-title: Text input
+title: Textarea
 tags: overview
 eleventyNavigation:
-  parent: Text input
-  key: TextInputOverview
+  parent: Textarea
+  key: TextareaOverview
 ---
 <section>
 
 <div class="ds-example">
 
-<sl-text-input>Input example code</sl-text-input>
+<sl-textarea placeholder="Textarea">Textarea example code</sl-text-input>
 
 </div>
 
 <div class="ds-code">
 
 ```html
-  <sl-text-input>Input example code</sl-text-input>
+  <sl-textarea placeholder="Textarea">Textarea example code</sl-textarea>
  ```
 
 </div>

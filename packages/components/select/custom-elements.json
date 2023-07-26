@@ -371,7 +371,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "render helpers",
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen",
               "attribute": "max-overlay-height",
               "reflects": true
             },
@@ -381,6 +381,16 @@
               "type": {
                 "text": "SelectOptionGroup[] | undefined"
               }
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder to show when no options is chosen.",
+              "attribute": "placeholder",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -407,7 +417,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "render helpers",
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen",
               "fieldName": "maxOverlayHeight"
             },
             {
@@ -418,6 +428,14 @@
               "default": "'md'",
               "description": "Select size.",
               "fieldName": "size"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder to show when no options is chosen.",
+              "fieldName": "placeholder"
             },
             {
               "name": "invalid",

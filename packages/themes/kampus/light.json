@@ -1633,13 +1633,13 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.primary.100}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.500}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -1659,7 +1659,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.primary.150}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -1691,7 +1691,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -1729,7 +1729,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -1861,7 +1861,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -2127,7 +2127,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -2393,7 +2393,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -2409,8 +2409,8 @@
         "x": 0,
         "y": 0,
         "blur": 0,
-        "spread": "4px",
-        "color": "rgba({color.palette.primary.500},{opacity.1000})",
+        "spread": 3,
+        "color": "rgba({color.palette.info.base},{opacity.600})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

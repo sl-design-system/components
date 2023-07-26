@@ -234,8 +234,19 @@
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
   --sl-space-group-sm: var(--sl-space-2xs);
-  --sl-space-input-switch-padding-inner: var(--sl-space-2xs);
-  --sl-space-input-switch-padding-outer: var(--sl-space-xs);
+  --sl-space-input-switch-margin-bottom-none: var(--sl-space-none);
+  --sl-space-input-switch-margin-bottom-lg: var(--sl-space-none);
+  --sl-space-input-switch-margin-bottom-md: var(--sl-space-xs);
+  --sl-space-input-switch-margin-bottom-sm: var(--sl-space-none);
+  --sl-space-input-switch-margin-left: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-none: var(--sl-space-none);
+  --sl-space-input-switch-margin-top-lg: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-md: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-sm: var(--sl-space-sm);
+  --sl-space-input-switch-gap: var(--sl-space-none);
+  --sl-space-input-switch-padding-row-none: var(--sl-space-none);
+  --sl-space-input-switch-padding-controller: var(--sl-space-2xs);
+  --sl-space-input-switch-padding-container: var(--sl-space-xs);
   --sl-space-input-field-label-padding-bottom-none: var(--sl-space-none);
   --sl-space-input-field-label-padding-bottom-lg: var(--sl-space-md);
   --sl-space-input-field-label-padding-bottom-md: var(--sl-space-sm);
@@ -308,9 +319,9 @@
   --sl-size-input-switch-controller-height-lg: var(--sl-size-2xl);
   --sl-size-input-switch-controller-height-md: var(--sl-size-xl);
   --sl-size-input-switch-controller-height-sm: var(--sl-size-md);
-  --sl-size-input-switch-handle-lg: calc(var(--sl-size-2xl) - (2 * var(--sl-space-input-switch-padding-inner)));
-  --sl-size-input-switch-handle-md: calc(var(--sl-size-xl) - (2 * var(--sl-space-input-switch-padding-inner)));
-  --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-inner)));
+  --sl-size-input-switch-handle-lg: calc(var(--sl-size-2xl) - (2 * var(--sl-space-input-switch-padding-controller)));
+  --sl-size-input-switch-handle-md: calc(var(--sl-size-xl) - (2 * var(--sl-space-input-switch-padding-controller)));
+  --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
   --sl-select-panel: var(--sl-border-radius-2xs);
@@ -422,6 +433,18 @@
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
+  --sl-space-input-switch-padding-row-lg: calc(
+    var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
+    (var(--sl-space-input-switch-padding-container) * 2)
+  );
+  --sl-space-input-switch-padding-row-md: calc(
+    var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-md) +
+    (var(--sl-space-input-switch-padding-container) * 2)
+  );
+  --sl-space-input-switch-padding-row-sm: calc(
+    var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
+    (var(--sl-space-input-switch-padding-container) * 2)
+  );
   --sl-space-input-option-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-gap-md: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-inline-lg: var(--sl-space-button-outline-block-sm);

@@ -20,7 +20,7 @@ const config = {
     include: ['**/*.ts'],
     exclude: ['**/index.ts', '**/register.ts', '**/*.scss.ts']
   },
-
+  
   testRunnerHtml: testFramework => `
     <html>
       <body>

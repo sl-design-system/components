@@ -210,18 +210,17 @@ export const InForm: StoryObj = {
   render: () => html`
     <style>
       form {
-        display: grid;
-        gap: 1rem 0.5rem;
-        grid-template-columns: auto 1fr;
+        display: flex;
+        flex-direction: column;
       }
 
-      sl-label:has(+ :where(sl-select)) {
-        --_line-height: 32px;
+      sl-label {
+        margin-block-start: 0.5rem;
       }
-
       sl-button-bar {
-        grid-column: 1 / 3;
+        margin-block-start: 1rem;
       }
+
       sl-avatar {
         margin: 0 4px;
       }

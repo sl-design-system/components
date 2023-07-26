@@ -3339,6 +3339,20 @@
           "type": "color"
         }
       }
+    },
+    "tooltip": {
+      "background": {
+        "value": "{color.palette.black.base}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color"
+      }
     }
   },
   "button": {

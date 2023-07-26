@@ -80,7 +80,7 @@ describe('sl-button', () => {
         expect(el).to.have.attribute('icon-only');
       });
 
-      it('should have an the same size as the button', () => {
+      it('should have an icon the same size as the button', () => {
         expect(el.querySelector('sl-icon')).to.have.attribute('size','md');
       });
     });
@@ -95,7 +95,7 @@ describe('sl-button', () => {
         expect(el).to.have.attribute('icon-only');
       });
 
-      it('should have an the same size as the button', () => {
+      it('should have an icon the same size as the button', () => {
         expect(el.querySelector('sl-icon')).to.have.attribute('size','md');
       });
     });
@@ -109,7 +109,7 @@ describe('sl-button', () => {
         expect(el).not.to.have.attribute('icon-only');
       });
 
-      it('should have an the same size as the button', () => {
+      it('should have an icon the same size as the button', () => {
         expect(el.querySelector('sl-icon')).to.have.attribute('size','lg');
       });
     });

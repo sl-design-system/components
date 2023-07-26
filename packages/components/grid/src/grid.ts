@@ -142,7 +142,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('dataSource')) {
-      this.dataSource?.addEventListener('sl-update', () => (this.selection.size = this.dataSource?.size ?? 0));
+      this.dataSource?.addEventListener('sl-update', () => {
+        this.selection.size = this.dataSource?.size ?? 0;
+        this.requestUpdate();
+      });
 
       this.#applyFilters();
       this.#applySorters();

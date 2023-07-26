@@ -369,8 +369,8 @@
             "background": {
               "value": "{color.palette.primary.600}",
               "type": "color",
-              "failedToResolve": true,
-              "description": "color.button.primary.solid.active.background"
+              "description": "color.button.primary.solid.active.background",
+              "failedToResolve": true
             },
             "foreground": {
               "value": "{color.palette.white.base}",
@@ -1633,13 +1633,13 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.primary.100}",
               "type": "color",
               "failedToResolve": true,
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.primary.500}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "failedToResolve": true,
               "description": "color.surface.solid.primary.background"
@@ -1659,7 +1659,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.primary.150}",
               "type": "color",
               "failedToResolve": true,
               "description": "color.surface.solid.primary.background"
@@ -1691,10 +1691,10 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.neutral.600}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
-              "failedToResolve": true,
-              "description": "color.surface.solid.primary.background"
+              "description": "color.surface.solid.primary.background",
+              "failedToResolve": true
             },
             "label": {
               "value": "{body.foreground}",
@@ -1729,10 +1729,10 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
-              "failedToResolve": true,
-              "description": "color.surface.solid.primary.background"
+              "description": "color.surface.solid.primary.background",
+              "failedToResolve": true
             }
           }
         },
@@ -1861,10 +1861,10 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.white.base}",
               "type": "color",
-              "failedToResolve": true,
-              "description": "color.surface.solid.primary.background"
+              "description": "color.surface.solid.primary.background",
+              "failedToResolve": true
             }
           }
         }
@@ -2127,10 +2127,10 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.white.base}",
               "type": "color",
-              "failedToResolve": true,
-              "description": "color.surface.solid.primary.background"
+              "description": "color.surface.solid.primary.background",
+              "failedToResolve": true
             }
           }
         }
@@ -2393,10 +2393,10 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.white.base}",
               "type": "color",
-              "failedToResolve": true,
-              "description": "color.surface.solid.primary.background"
+              "description": "color.surface.solid.primary.background",
+              "failedToResolve": true
             }
           }
         }
@@ -2409,13 +2409,13 @@
         "x": "0",
         "y": "0",
         "blur": "0",
-        "spread": "4",
-        "color": "rgba({color.palette.primary.500},{opacity.1000})",
+        "spread": "3",
+        "color": "rgba({color.palette.info.base},{opacity.600})",
         "type": "dropShadow"
       },
       "type": "boxShadow",
-      "failedToResolve": true,
-      "description": "boxShadow.focus"
+      "description": "boxShadow.focus",
+      "failedToResolve": true
     },
     "none": {
       "value": {

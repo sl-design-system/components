@@ -243,9 +243,9 @@
   --sl-size-input-switch-controller-height-lg: var(--sl-size-2xl);
   --sl-size-input-switch-controller-height-md: var(--sl-size-xl);
   --sl-size-input-switch-controller-height-sm: var(--sl-size-md);
-  --sl-size-input-switch-handle-lg: calc(var(--sl-size-2xl) - (2 * var(--sl-space-input-switch-padding-inner)));
-  --sl-size-input-switch-handle-md: calc(var(--sl-size-xl) - (2 * var(--sl-space-input-switch-padding-inner)));
-  --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-inner)));
+  --sl-size-input-switch-handle-lg: calc(var(--sl-size-2xl) - (2 * var(--sl-space-input-switch-padding-controller)));
+  --sl-size-input-switch-handle-md: calc(var(--sl-size-xl) - (2 * var(--sl-space-input-switch-padding-controller)));
+  --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
@@ -310,8 +310,19 @@
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
   --sl-space-group-sm: var(--sl-space-2xs);
-  --sl-space-input-switch-padding-inner: var(--sl-space-2xs);
-  --sl-space-input-switch-padding-outer: var(--sl-space-xs);
+  --sl-space-input-switch-margin-bottom-none: var(--sl-space-none);
+  --sl-space-input-switch-margin-bottom-lg: var(--sl-space-none);
+  --sl-space-input-switch-margin-bottom-md: var(--sl-space-xs);
+  --sl-space-input-switch-margin-bottom-sm: var(--sl-space-none);
+  --sl-space-input-switch-margin-left: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-none: var(--sl-space-none);
+  --sl-space-input-switch-margin-top-lg: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-md: var(--sl-space-sm);
+  --sl-space-input-switch-margin-top-sm: var(--sl-space-sm);
+  --sl-space-input-switch-gap: var(--sl-space-none);
+  --sl-space-input-switch-padding-row-none: var(--sl-space-none);
+  --sl-space-input-switch-padding-controller: var(--sl-space-2xs);
+  --sl-space-input-switch-padding-container: var(--sl-space-xs);
   --sl-space-input-field-label-padding-bottom-none: var(--sl-space-none);
   --sl-space-input-field-label-padding-bottom-lg: var(--sl-space-md);
   --sl-space-input-field-label-padding-bottom-md: var(--sl-space-sm);
@@ -332,7 +343,7 @@
   --sl-space-input-text-field-inline-md: var(--sl-space-md);
   --sl-space-input-text-field-block-lg: var(--sl-space-sm);
   --sl-space-input-text-field-block-md: var(--sl-space-sm);
-  --sl-border-width-input-border: var(--sl-border-width-sm);
+  --sl-border-width-input-border: var(--sl-border-width-xs);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-button-link: var(--sl-border-width-xs);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
@@ -348,7 +359,7 @@
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
   --sl-text-input-option-label-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-input-option-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+  --sl-text-input-option-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
     undefined;
@@ -359,7 +370,7 @@
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-md: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
+  --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
@@ -398,6 +409,18 @@
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
+  --sl-space-input-switch-padding-row-lg: calc(
+    var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
+    (var(--sl-space-input-switch-padding-container) * 2)
+  );
+  --sl-space-input-switch-padding-row-md: calc(
+    var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-md) +
+    (var(--sl-space-input-switch-padding-container) * 2)
+  );
+  --sl-space-input-switch-padding-row-sm: calc(
+    var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
+    (var(--sl-space-input-switch-padding-container) * 2)
+  );
   --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
   --sl-space-input-option-gap-lg: var(--sl-space-button-outline-block-md);
@@ -419,10 +442,10 @@
 @media (prefers-color-scheme: light) {
   :root {
     --sl-box-shadow-none: 0px 0px 0px 0px rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-focus: 0px 0px 0px 4px rgba(var(--sl-color-palette-primary-500) / var(--sl-opacity-1000));
+    --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-600));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-400));
+    --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-valid-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-input-valid-checked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-input-valid-checked-focus-icon: rgb(var(--sl-color-palette-white-base));
@@ -449,7 +472,7 @@
     --sl-color-input-valid-unchecked-default-icon: rgb(var(--sl-color-palette-success-500));
     --sl-color-input-valid-unchecked-default-border: rgb(var(--sl-color-palette-success-base));
     --sl-color-input-valid-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-input-invalid-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-400));
+    --sl-color-input-invalid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-invalid-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-input-invalid-checked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-input-invalid-checked-focus-icon: rgb(var(--sl-color-palette-white-base));
@@ -476,7 +499,7 @@
     --sl-color-input-invalid-unchecked-default-icon: rgb(var(--sl-color-palette-danger-400));
     --sl-color-input-invalid-unchecked-default-border: rgb(var(--sl-color-palette-danger-base));
     --sl-color-input-invalid-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-input-default-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-400));
+    --sl-color-input-default-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-default-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-input-default-checked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-input-default-checked-focus-icon: rgb(var(--sl-color-palette-white-base));
@@ -487,19 +510,19 @@
     --sl-color-input-default-checked-hover-background: rgb(var(--sl-color-palette-primary-500));
     --sl-color-input-default-checked-default-icon: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-default-checked-default-background: rgb(var(--sl-color-palette-primary-base));
-    --sl-color-input-default-unchecked-disabled-icon: rgb(var(--sl-color-palette-neutral-400));
+    --sl-color-input-default-unchecked-disabled-icon: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-input-default-unchecked-disabled-label: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-input-default-unchecked-disabled-border: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-input-default-unchecked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-input-default-unchecked-focus-icon: rgb(var(--sl-color-palette-accent-400));
-    --sl-color-input-default-unchecked-focus-border: rgb(var(--sl-color-palette-neutral-600));
+    --sl-color-input-default-unchecked-focus-border: rgb(var(--sl-color-palette-primary-base));
     --sl-color-input-default-unchecked-focus-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-default-unchecked-active-icon: rgb(var(--sl-color-palette-primary-base));
     --sl-color-input-default-unchecked-active-border: rgb(var(--sl-color-palette-primary-base));
-    --sl-color-input-default-unchecked-active-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-input-default-unchecked-active-background: rgb(var(--sl-color-palette-primary-150));
     --sl-color-input-default-unchecked-hover-icon: rgb(var(--sl-color-palette-primary-base));
-    --sl-color-input-default-unchecked-hover-border: rgb(var(--sl-color-palette-primary-500));
-    --sl-color-input-default-unchecked-hover-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-input-default-unchecked-hover-border: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-input-default-unchecked-hover-background: rgb(var(--sl-color-palette-primary-100));
     --sl-color-input-default-unchecked-default-icon: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-input-default-unchecked-default-border: rgb(var(--sl-color-palette-neutral-600));
     --sl-color-input-default-unchecked-default-background: rgb(var(--sl-color-palette-white-base));

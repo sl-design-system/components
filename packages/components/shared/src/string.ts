@@ -13,6 +13,7 @@ const STRING_DASHERIZE_REGEXP = /[ _]/g,
  * camelize('innerHTML')          // 'innerHTML'
  * camelize('action_name')        // 'actionName'
  * camelize('css-class-name')     // 'cssClassName'
+ * camelize('object.path.name')   // 'objectPathName'
  * camelize('my favorite items')  // 'myFavoriteItems'
  * camelize('My Favorite Items')  // 'myFavoriteItems'
  * ```
@@ -108,13 +109,13 @@ export function decamelize(str: string): string {
  * Returns the Humanized form of a string
  *
  * ```javascript
- * humanize('innerHTML')         // 'Inner HTML'
+ * humanize('innerHTML')         // 'Inner html'
  * humanize('action_name')       // 'Action name'
  * humanize('css-class-name')    // 'Css class name'
  * humanize('my favorite items') // 'My favorite items'
  * ```
  *
- * @method capitalize
+ * @method humanize
  * @param str The string to humanize.
  * @return The humanized string.
  */

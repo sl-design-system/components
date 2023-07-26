@@ -293,6 +293,10 @@ export class ValidationController implements ReactiveController {
         this.target.setAttribute('aria-describedby', this.#errorMessageId);
       }
 
+      this.#messageSize = this.#host.hasAttribute('error-size')
+        ? (this.#host.getAttribute('error-size') as MessageSize)
+        : 'md';
+
       const div = document.createElement('sl-error'),
         iconSize = this.#messageSize === 'sm' ? 'md' : 'lg',
         icon = document.createElement('sl-icon');

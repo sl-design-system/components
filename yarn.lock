@@ -5269,6 +5269,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/switch@workspace:packages/components/switch":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/switch@workspace:packages/components/switch"
+  dependencies:
+    "@lit-labs/observers": ^2.0.0
+    "@sl-design-system/shared": 0.1.5
+    lit: ^2.7.4
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/tabs@workspace:packages/components/tabs":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tabs@workspace:packages/components/tabs"
@@ -15998,7 +16008,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:^2.0.0, lit@npm:^2.3.0, lit@npm:^2.7.0, lit@npm:^2.7.5":
+"lit@npm:^2.0.0, lit@npm:^2.3.0, lit@npm:^2.7.0, lit@npm:^2.7.4, lit@npm:^2.7.5":
   version: 2.7.5
   resolution: "lit@npm:2.7.5"
   dependencies:

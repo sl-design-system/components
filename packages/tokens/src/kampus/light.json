@@ -369,8 +369,8 @@
             "background": {
               "value": "{color.palette.primary.600}",
               "type": "color",
-              "failedToResolve": true,
-              "description": "color.button.primary.solid.active.background"
+              "description": "color.button.primary.solid.active.background",
+              "failedToResolve": true
             },
             "foreground": {
               "value": "{color.palette.white.base}",
@@ -3180,13 +3180,13 @@
         "x": "0",
         "y": "0",
         "blur": "0",
-        "spread": "4",
-        "color": "rgba({color.palette.primary.500},{opacity.1000})",
+        "spread": "3",
+        "color": "rgba({color.palette.info.base},{opacity.600})",
         "type": "dropShadow"
       },
       "type": "boxShadow",
-      "failedToResolve": true,
-      "description": "boxShadow.focus"
+      "description": "boxShadow.focus",
+      "failedToResolve": true
     },
     "none": {
       "value": {

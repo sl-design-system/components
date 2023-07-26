@@ -1211,6 +1211,74 @@
             "type": "typography"
           }
         }
+      },
+      "switch": {
+        "inputField": {
+          "regular": {
+            "sm": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.regular}",
+                "lineHeight": "{text.typeset.lineHeight.sm}",
+                "fontSize": "{text.typeset.fontSize.md}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.regular}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.lg}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.regular}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.xl}"
+              },
+              "type": "typography",
+              "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+            }
+          },
+          "bold": {
+            "sm": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "lineHeight": "{text.typeset.lineHeight.sm}",
+                "fontSize": "{text.typeset.fontSize.md}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.lg}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.xl}"
+              },
+              "type": "typography",
+              "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+            }
+          }
+        }
       }
     },
     "textField": {
@@ -1862,17 +1930,17 @@
       "switch": {
         "handle": {
           "sm": {
-            "value": "{size.md} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.md} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "md": {
-            "value": "{size.xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "lg": {
-            "value": "{size.2xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.2xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           }
@@ -2415,15 +2483,93 @@
       },
       "switch": {
         "padding": {
-          "outer": {
+          "container": {
             "value": "{space.xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
           },
-          "inner": {
+          "controller": {
             "value": "{space.2xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
+          },
+          "row": {
+            "sm": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.sm} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.md} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.lg} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
+          }
+        },
+        "gap": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "space.input.switch.padding.gap"
+        },
+        "margin": {
+          "top": {
+            "sm": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
+          },
+          "left": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.switch.padding.outer"
+          },
+          "bottom": {
+            "sm": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.xs}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
           }
         }
       }

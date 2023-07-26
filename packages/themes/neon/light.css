@@ -6,7 +6,7 @@
   --sl-color-button-primary-link-hover-border: #;
   --sl-box-shadow-none: 0px 0px 0px 0px rgb(var(--sl-color-palette-transparent-base));
   --sl-box-shadow-focus: 0px 0px 0px 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
-  --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-body-background: rgb(var(--sl-color-palette-primary-100));
   --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
   --sl-color-input-field-label-select-panel-bacground-copy: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-input-field-label-select-disabled-border: rgb(var(--sl-color-palette-transparent-base));

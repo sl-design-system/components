@@ -3318,8 +3318,8 @@
         "x": 0,
         "y": 0,
         "blur": 0,
-        "spread": 4,
-        "color": "rgba({color.palette.primary.500},{opacity.1000})",
+        "spread": 3,
+        "color": "rgba({color.palette.info.base},{opacity.600})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

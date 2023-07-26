@@ -3945,6 +3945,23 @@
           "failedToResolve": true
         }
       }
+    },
+    "tooltip": {
+      "background": {
+        "value": "{color.palette.black.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{color.palette.white.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color",
+        "failedToResolve": true
+      }
     }
   },
   "button": {

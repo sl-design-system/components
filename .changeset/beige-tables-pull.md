@@ -1,5 +1,5 @@
 ---
-'@sanomalearning/slds-core': patch
+'@sl-design-system/switch': patch
 ---
 
-added switch component
+New switch component

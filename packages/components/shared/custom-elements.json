@@ -599,235 +599,135 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/data-source/array-data-source.ts",
+      "path": "src/decorators/base.ts",
       "declarations": [
         {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
+          "kind": "function",
+          "name": "decorateProperty",
+          "parameters": [
             {
-              "kind": "field",
-              "name": "allItems",
+              "name": "{\n    finisher,\n    descriptor\n  }",
               "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The unfiltered original list of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
               }
             },
             {
-              "kind": "field",
-              "name": "filter",
+              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
+              "name": "finisher",
               "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
+                "text": "function"
               }
             },
             {
-              "kind": "field",
-              "name": "filterValues",
+              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
+              "name": "descriptor",
               "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Size of the item collection.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sortFunction",
-              "type": {
-                "text": "DataSourceSortFunction<T> | undefined"
-              },
-              "description": "The custom sort function; use this if present, otherwise use default sorting.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
+                "text": "function"
               }
             }
           ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
+          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
+          "return": {
+            "type": {
+              "text": "ClassElement|void"
             }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/src/data-source/data-source.js"
           }
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "ArrayDataSource",
+          "name": "decorateProperty",
           "declaration": {
-            "name": "ArrayDataSource",
-            "module": "src/data-source/array-data-source.ts"
+            "name": "decorateProperty",
+            "module": "src/decorators/base.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/data-source/data-source.ts",
+      "path": "src/decorators/event.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "DataSource",
+          "name": "EventEmitter",
           "members": [
             {
-              "kind": "field",
-              "name": "allItems",
-              "type": {
-                "text": "T[]"
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
               },
-              "readonly": true,
-              "description": "The unfiltered original list of items."
-            },
-            {
-              "kind": "field",
-              "name": "filter",
-              "type": {
-                "text": "DataSourceFilter<T> | undefined"
-              },
-              "description": "The filter implementation."
-            },
-            {
-              "kind": "field",
-              "name": "filterValues",
-              "type": {
-                "text": "DataSourceFilterValue[] | undefined"
-              },
-              "description": "The values to filter on."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered array of items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Size of the item collection."
-            },
-            {
-              "kind": "field",
-              "name": "sortFunction",
-              "type": {
-                "text": "DataSourceSortFunction<T> | undefined"
-              },
-              "description": "The custom sort function; use this if present, otherwise use default sorting."
-            },
-            {
-              "kind": "field",
-              "name": "sortValue",
-              "type": {
-                "text": "DataSourceSortValue | undefined"
-              },
-              "description": "The path & direction to sort on."
-            },
-            {
-              "kind": "field",
-              "name": "sorter",
-              "type": {
-                "text": "DataSourceSorter<T> | undefined"
-              },
-              "description": "The sorter implementation."
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
             }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "src/data-source/data-source.ts"
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "event",
+          "type": {
+            "text": "Event"
           }
+        },
+        {
+          "kind": "function",
+          "name": "event",
+          "return": {
+            "type": {
+              "text": "any"
+            }
+          },
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": {
+                "text": "EventOptions"
+              }
+            }
+          ]
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "DataSource",
+          "name": "EventEmitter",
           "declaration": {
-            "name": "DataSource",
-            "module": "src/data-source/data-source.ts"
+            "name": "EventEmitter",
+            "module": "src/decorators/event.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "event",
+          "declaration": {
+            "name": "event",
+            "module": "src/decorators/event.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/data-source/index.ts",
+      "path": "src/decorators/index.ts",
       "declarations": [],
       "exports": [
         {
@@ -835,7 +735,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./array-data-source.js"
+            "package": "./base.js"
           }
         },
         {
@@ -843,7 +743,50 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./data-source.js"
+            "package": "./event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./observe.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/decorators/observe.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "observe",
+          "parameters": [
+            {
+              "name": "propertyName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "lifecycle",
+              "default": "'update'",
+              "type": {
+                "text": "ObserveLifecycle"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "observe",
+          "declaration": {
+            "name": "observe",
+            "module": "src/decorators/observe.ts"
           }
         }
       ]
@@ -2114,135 +2057,361 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/decorators/base.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "decorateProperty",
-          "parameters": [
-            {
-              "name": "{\n    finisher,\n    descriptor\n  }",
-              "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
-              }
-            },
-            {
-              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
-              "name": "finisher",
-              "type": {
-                "text": "function"
-              }
-            },
-            {
-              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
-              "name": "descriptor",
-              "type": {
-                "text": "function"
-              }
-            }
-          ],
-          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
-          "return": {
-            "type": {
-              "text": "ClassElement|void"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "decorateProperty",
-          "declaration": {
-            "name": "decorateProperty",
-            "module": "src/decorators/base.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/event.ts",
+      "path": "src/data-source/array-data-source.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "EventEmitter",
+          "name": "ArrayDataSource",
           "members": [
             {
               "kind": "method",
-              "name": "emit",
+              "name": "addFilter",
               "return": {
                 "type": {
-                  "text": "boolean"
+                  "text": "void"
                 }
               },
               "parameters": [
                 {
-                  "name": "value",
+                  "name": "id",
                   "type": {
-                    "text": "T"
+                    "text": "string"
                   }
                 },
                 {
-                  "name": "options",
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
                   "optional": true,
                   "type": {
-                    "text": "EventOptions"
+                    "text": "string | string[]"
                   }
                 }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "event",
-          "type": {
-            "text": "Event"
-          }
-        },
-        {
-          "kind": "function",
-          "name": "event",
-          "return": {
-            "type": {
-              "text": "any"
-            }
-          },
-          "parameters": [
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
             {
-              "name": "options",
-              "optional": true,
+              "kind": "field",
+              "name": "filteredItems",
               "type": {
-                "text": "EventOptions"
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
               }
             }
-          ]
+          ],
+          "events": [
+            {
+              "name": "sl-update",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "DataSource",
+            "module": "/src/data-source/data-source.js"
+          }
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "EventEmitter",
+          "name": "ArrayDataSource",
           "declaration": {
-            "name": "EventEmitter",
-            "module": "src/decorators/event.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "event",
-          "declaration": {
-            "name": "event",
-            "module": "src/decorators/event.ts"
+            "name": "ArrayDataSource",
+            "module": "src/data-source/array-data-source.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/decorators/index.ts",
+      "path": "src/data-source/data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSource",
+          "members": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items."
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
+            }
+          ],
+          "superclass": {
+            "name": "EventTarget",
+            "module": "src/data-source/data-source.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataSource",
+          "declaration": {
+            "name": "DataSource",
+            "module": "src/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/data-source/index.ts",
       "declarations": [],
       "exports": [
         {
@@ -2250,7 +2419,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./base.js"
+            "package": "./array-data-source.js"
           }
         },
         {
@@ -2258,50 +2427,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/observe.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "observe",
-          "parameters": [
-            {
-              "name": "propertyName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "lifecycle",
-              "default": "'update'",
-              "type": {
-                "text": "ObserveLifecycle"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "observe",
-          "declaration": {
-            "name": "observe",
-            "module": "src/decorators/observe.ts"
+            "package": "./data-source.js"
           }
         }
       ]
@@ -2355,469 +2481,6 @@
           "declaration": {
             "name": "*",
             "package": "./anchor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "filter",
-                  "type": {
-                    "text": "DataSourceFilter<T>"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Array<DataSourceFilter<T>>"
-              },
-              "default": "[]",
-              "description": "Array of all active filters.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "filter",
-                  "type": {
-                    "text": "DataSourceFilter<T>"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "description": "The value and path/function to use for sorting. When setting this property,\nit will cause the data to be automatically sorted.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/src/data-source/data-source.js"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "src/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "filter",
-                  "type": {
-                    "text": "DataSourceFilter<T>"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items."
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Array<DataSourceFilter<T>>"
-              },
-              "default": "[]",
-              "description": "Array of all active filters."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items."
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "filter",
-                  "type": {
-                    "text": "DataSourceFilter<T>"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source."
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "description": "The value and path/function to use for sorting. When setting this property,\nit will cause the data to be automatically sorted."
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "src/data-source/data-source.ts"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "src/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/base.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "decorateProperty",
-          "parameters": [
-            {
-              "name": "{\n    finisher,\n    descriptor\n  }",
-              "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
-              }
-            },
-            {
-              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
-              "name": "finisher",
-              "type": {
-                "text": "function"
-              }
-            },
-            {
-              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
-              "name": "descriptor",
-              "type": {
-                "text": "function"
-              }
-            }
-          ],
-          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
-          "return": {
-            "type": {
-              "text": "ClassElement|void"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "decorateProperty",
-          "declaration": {
-            "name": "decorateProperty",
-            "module": "src/decorators/base.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EventEmitter",
-          "members": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "event",
-          "type": {
-            "text": "Event"
-          }
-        },
-        {
-          "kind": "function",
-          "name": "event",
-          "return": {
-            "type": {
-              "text": "any"
-            }
-          },
-          "parameters": [
-            {
-              "name": "options",
-              "optional": true,
-              "type": {
-                "text": "EventOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EventEmitter",
-          "declaration": {
-            "name": "EventEmitter",
-            "module": "src/decorators/event.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "event",
-          "declaration": {
-            "name": "event",
-            "module": "src/decorators/event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./base.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/observe.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "observe",
-          "parameters": [
-            {
-              "name": "propertyName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "lifecycle",
-              "default": "'update'",
-              "type": {
-                "text": "ObserveLifecycle"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "observe",
-          "declaration": {
-            "name": "observe",
-            "module": "src/decorators/observe.ts"
           }
         }
       ]

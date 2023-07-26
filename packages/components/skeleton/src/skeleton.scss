@@ -1,38 +1,38 @@
 :host {
-  --background: rgb(var(--sl-color-palette-neutral-150));
-  --border-radius: 0.25rem;
-  --min-height: 0.5rem;
-  --shine-color: rgb(var(--sl-color-palette-neutral-200));
-  --animation-duration: 3000ms;
+  --_background: var(--sl-skeleton-background, rgb(var(--sl-color-palette-neutral-150)));
+  --_border-radius: var(--sl-skeleton-border-radius, 0.25rem);
+  --_min-height: var(--sl-skeleton-min-height, 0.5rem);
+  --_shine-color: var(--sl-skeleton-shine-color, rgb(var(--sl-color-palette-neutral-200)));
+  --_animation-duration: var(--sl-skeleton-animation-duration, 3000ms);
 }
 
 :host {
-  background: var(--background);
-  border-radius: var(--border-radius);
+  background: var(--_background);
+  border-radius: var(--_border-radius);
   display: block;
-  min-height: var(--min-height);
+  min-height: var(--_min-height);
 }
 
 :host([effect='shimmer']) {
-  animation: shimmer-effect var(--animation-duration) linear infinite;
-  background: linear-gradient(to right, var(--background) 4%, var(--shine-color) 25%, var(--background) 36%);
+  animation: shimmer-effect var(--_animation-duration) linear infinite;
+  background: linear-gradient(to right, var(--_background) 4%, var(--_shine-color) 25%, var(--_background) 36%);
   background-size: 2000px 100%;
 }
 
 :host([effect='sheen']) {
-  animation: sheen-effect var(--animation-duration) linear infinite;
+  animation: sheen-effect var(--_animation-duration) linear infinite;
   background-image: linear-gradient(
     100deg,
-    var(--shine-color),
-    var(--background),
-    var(--background),
-    var(--shine-color)
+    var(--_shine-color),
+    var(--_background),
+    var(--_background),
+    var(--_shine-color)
   );
   background-size: 200% 100%;
 }
 
 :host([effect='pulse']) {
-  animation: pulse-effect var(--animation-duration) ease-in-out 0.5s infinite;
+  animation: pulse-effect var(--_animation-duration) ease-in-out 0.5s infinite;
 }
 
 @keyframes shimmer-effect {

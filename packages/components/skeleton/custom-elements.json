@@ -27,7 +27,7 @@
           "name": "sl-skeleton",
           "declaration": {
             "name": "Skeleton",
-            "module": "/src/skeleton"
+            "module": "/src/skeleton.js"
           }
         }
       ]
@@ -59,7 +59,7 @@
               "kind": "field",
               "name": "effect",
               "type": {
-                "text": "'none' | 'shimmer' | 'pulse' | 'sheen'"
+                "text": "SkeletonEffect"
               },
               "default": "'shimmer'",
               "description": "Skeleton's effect.",
@@ -71,7 +71,7 @@
             {
               "name": "effect",
               "type": {
-                "text": "'none' | 'shimmer' | 'pulse' | 'sheen'"
+                "text": "SkeletonEffect"
               },
               "default": "'shimmer'",
               "description": "Skeleton's effect.",

@@ -141,24 +141,24 @@ export const All: Story = {
         <h2>No effect</h2>
         <sl-skeleton
           effect="none"
-          style="width: ${width}; height: ${height}; border-radius: ${radius}; --background: ${background}"
+          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}"
           aria-label="loading element"
         ></sl-skeleton>
         <h2>Shimmer effect (default)</h2>
         <sl-skeleton
-          style="width: ${width}; height: ${height}; border-radius: ${radius}; --background: ${background}; --shine-color: ${shineColor}"
+          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}"
           aria-label="loading element"
         ></sl-skeleton>
         <h2>Sheen effect</h2>
         <sl-skeleton
           effect="sheen"
-          style="width: ${width}; height: ${height}; border-radius: ${radius}; --background: ${background}; --shine-color: ${shineColor}"
+          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}"
           aria-label="loading element"
         ></sl-skeleton>
         <h2>Pulse effect</h2>
         <sl-skeleton
           effect="pulse"
-          style="width: ${width}; height: ${height}; border-radius: ${radius}; --background: ${background}; --shine-color: ${shineColor}"
+          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}"
           aria-label="loading element"
         ></sl-skeleton>
       </section>
@@ -234,7 +234,7 @@ export const LoadingImage: Story = {
           />
           <sl-skeleton
             .effect=${effect}
-            style="--background: ${background}; --shine-color: ${shineColor}; --animation-duration: ${animationDuration}"
+            style="--sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}; --sl-skeleton-animation-duration: ${animationDuration}"
             aria-label="loading picture with New York buildings"
           ></sl-skeleton>
         </div>

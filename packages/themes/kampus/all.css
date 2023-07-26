@@ -442,7 +442,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-focus: 0 0 0 3 rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-600));
+    --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-600));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-valid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));

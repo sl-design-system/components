@@ -5269,6 +5269,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/skeleton@workspace:packages/components/skeleton":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/skeleton@workspace:packages/components/skeleton"
+  dependencies:
+    lit: ^2.7.5
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/switch@workspace:packages/components/switch":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/switch@workspace:packages/components/switch"

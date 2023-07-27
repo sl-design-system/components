@@ -15,6 +15,12 @@ const config = {
   browsers: [playwrightLauncher({ product: 'chromium' })],
   plugins: [a11ySnapshotPlugin(), esbuildPlugin({ ts: true, target: 'es2021' })],
 
+  coverageConfig: {
+    report: true,
+    include: ['**/*.ts'],
+    exclude: ['**/index.ts', '**/register.ts', '**/*.scss.ts']
+  },
+  
   testRunnerHtml: testFramework => `
     <html>
       <body>

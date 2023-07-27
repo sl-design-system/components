@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.24
+
+### Patch Changes
+
+- [#546](https://github.com/sl-design-system/components/pull/546) [`f1aed34`](https://github.com/sl-design-system/components/commit/f1aed34f48df752f74e218558948315234e2fa49) - Fix the grid not updating when the data-source updates
+
 ## 0.0.23
 
 ### Patch Changes

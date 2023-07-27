@@ -25,6 +25,7 @@
     { "path": "./packages/components/radio-group" },
     { "path": "./packages/components/select" },
     { "path": "./packages/components/shared" },
+    { "path": "./packages/components/skeleton" },
     { "path": "./packages/components/tabs" },
     { "path": "./packages/components/text-input"},
     { "path": "./packages/components/textarea" },

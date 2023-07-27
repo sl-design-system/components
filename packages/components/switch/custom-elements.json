@@ -1,5 +1,276 @@
 {
   "schemaVersion": "1.0.0",
   "readme": "",
-  "modules": []
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/switch.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-switch",
+          "declaration": {
+            "name": "Switch",
+            "module": "/src/switch.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/switch.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/switch.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/switch.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Switch",
+          "members": [
+            {
+              "kind": "field",
+              "name": "change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is on or off.",
+              "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "formAssociatedCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "iconOff",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"off\" state.",
+              "attribute": "iconOff",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconOn",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"on\" state.",
+              "attribute": "iconOn",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconSize",
+              "type": {
+                "text": "IconSize"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "default": "this.attachInternals()",
+              "description": "Element internals."
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is invalid.",
+              "attribute": "invalid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "SwitchOrientation"
+              },
+              "default": "'horizontal'",
+              "description": "Switch orientation.",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "SwitchSize"
+              },
+              "default": "'md'",
+              "description": "Switch size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the switch.",
+              "attribute": "value"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is on or off.",
+              "fieldName": "checked"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is invalid.",
+              "fieldName": "invalid"
+            },
+            {
+              "name": "iconOff",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"off\" state.",
+              "fieldName": "iconOff"
+            },
+            {
+              "name": "iconOn",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"on\" state.",
+              "fieldName": "iconOn"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "SwitchSize"
+              },
+              "default": "'md'",
+              "description": "Switch size.",
+              "fieldName": "size"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "SwitchOrientation"
+              },
+              "default": "'horizontal'",
+              "description": "Switch orientation.",
+              "fieldName": "orientation"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the switch.",
+              "fieldName": "value"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/shared"
+            },
+            {
+              "name": "HintMixin",
+              "package": "@sl-design-system/shared"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-switch",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Switch",
+          "declaration": {
+            "name": "Switch",
+            "module": "src/switch.ts"
+          }
+        }
+      ]
+    }
+  ]
 }

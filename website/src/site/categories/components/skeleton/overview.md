@@ -10,6 +10,10 @@ eleventyNavigation:
 
 Skeleton example
 
+<sl-skeleton></sl-skeleton>
+
+<sl-skeleton effect="shimmer" aria-label="loading avatar"></sl-skeleton>
+
 </div>
 
 <div class="ds-code">

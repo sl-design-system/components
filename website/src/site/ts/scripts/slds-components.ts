@@ -9,6 +9,7 @@ import '@sl-design-system/label/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
+import '@sl-design-system/skeleton/register.js';
 import '@sl-design-system/tabs/register.js';
 import '@sl-design-system/text-input/register.js';
 import '@sl-design-system/textarea/register.js';

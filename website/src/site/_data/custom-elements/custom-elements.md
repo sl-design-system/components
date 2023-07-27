@@ -1,3 +1,19 @@
+# `../packages/components/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package             |
+| ---- | ---- | ----------- | ------ | ------------------- |
+| `js` | `*`  | *           |        | ./src/button-bar.js |
+
+# `../packages/components/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                            | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
+
 # `../packages/components/avatar/index.ts`:
 
 ## Exports
@@ -64,22 +80,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
 
-# `../packages/components/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./src/button-bar.js |
-
-# `../packages/components/button-bar/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                            | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
-
 # `../packages/components/editor/index.ts`:
 
 ## Exports
@@ -95,49 +95,6 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
-
-# `../packages/components/drawer/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/drawer.js |
-
-# `../packages/components/drawer/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
-
-# `../packages/components/grid/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                   |
-| ---- | ---- | ----------- | ------ | ------------------------- |
-| `js` | `*`  | *           |        | ./src/column.js           |
-| `js` | `*`  | *           |        | ./src/column-group.js     |
-| `js` | `*`  | *           |        | ./src/events.js           |
-| `js` | `*`  | *           |        | ./src/filter-column.js    |
-| `js` | `*`  | *           |        | ./src/grid.js             |
-| `js` | `*`  | *           |        | ./src/selection-column.js |
-| `js` | `*`  | *           |        | ./src/sort-column.js      |
-
-# `../packages/components/grid/register.ts`:
-
-## Exports
-
-| Kind                        | Name                       | Declaration         | Module                                            | Package |
-| --------------------------- | -------------------------- | ------------------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-grid`                  | Grid                | /packages/components/grid/src/grid.js             |         |
-| `custom-element-definition` | `sl-grid-column`           | GridColumn          | /packages/components/grid/src/column.js           |         |
-| `custom-element-definition` | `sl-grid-column-group`     | GridColumnGroup     | /packages/components/grid/src/column-group.js     |         |
-| `custom-element-definition` | `sl-grid-filter-column`    | GridFilterColumn    | /packages/components/grid/src/filter-column.js    |         |
-| `custom-element-definition` | `sl-grid-selection-column` | GridSelectionColumn | /packages/components/grid/src/selection-column.js |         |
-| `custom-element-definition` | `sl-grid-sort-column`      | GridSortColumn      | /packages/components/grid/src/sort-column.js      |         |
 
 # `../packages/components/icon/index.ts`:
 
@@ -172,6 +129,65 @@
 | --------------------------- | ---------- | ----------- | --------------------------------------- | ------- |
 | `custom-element-definition` | `sl-label` | Label       | /packages/components/label/src/label.js |         |
 
+# `../packages/components/grid/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                   |
+| ---- | ---- | ----------- | ------ | ------------------------- |
+| `js` | `*`  | *           |        | ./src/column.js           |
+| `js` | `*`  | *           |        | ./src/column-group.js     |
+| `js` | `*`  | *           |        | ./src/events.js           |
+| `js` | `*`  | *           |        | ./src/filter-column.js    |
+| `js` | `*`  | *           |        | ./src/grid.js             |
+| `js` | `*`  | *           |        | ./src/selection-column.js |
+| `js` | `*`  | *           |        | ./src/sort-column.js      |
+
+# `../packages/components/grid/register.ts`:
+
+## Exports
+
+| Kind                        | Name                       | Declaration         | Module                                            | Package |
+| --------------------------- | -------------------------- | ------------------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-grid`                  | Grid                | /packages/components/grid/src/grid.js             |         |
+| `custom-element-definition` | `sl-grid-column`           | GridColumn          | /packages/components/grid/src/column.js           |         |
+| `custom-element-definition` | `sl-grid-column-group`     | GridColumnGroup     | /packages/components/grid/src/column-group.js     |         |
+| `custom-element-definition` | `sl-grid-filter-column`    | GridFilterColumn    | /packages/components/grid/src/filter-column.js    |         |
+| `custom-element-definition` | `sl-grid-selection-column` | GridSelectionColumn | /packages/components/grid/src/selection-column.js |         |
+| `custom-element-definition` | `sl-grid-sort-column`      | GridSortColumn      | /packages/components/grid/src/sort-column.js      |         |
+
+# `../packages/components/drawer/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/drawer.js |
+
+# `../packages/components/drawer/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
+
+# `../packages/components/popover/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package          |
+| ---- | ---- | ----------- | ------ | ---------------- |
+| `js` | `*`  | *           |        | ./src/popover.js |
+
+# `../packages/components/popover/register.ts`:
+
+## Exports
+
+| Kind                        | Name         | Declaration | Module                                      | Package |
+| --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-popover` | Popover     | /packages/components/popover/src/popover.js |         |
+
 # `../packages/components/radio-group/index.ts`:
 
 ## Exports
@@ -189,24 +205,6 @@
 | --------------------------- | ---------------- | ----------- | --------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
 | `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
-
-# `../packages/components/shared/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                    |
-| ---- | ---- | ----------- | ------ | -------------------------- |
-| `js` | `*`  | *           |        | ./src/controllers/index.js |
-| `js` | `*`  | *           |        | ./src/data-source/index.js |
-| `js` | `*`  | *           |        | ./src/decorators/index.js  |
-| `js` | `*`  | *           |        | ./src/directives/index.js  |
-| `js` | `*`  | *           |        | ./src/mixins/index.js      |
-| `js` | `*`  | *           |        | ./src/css.js               |
-| `js` | `*`  | *           |        | ./src/path.js              |
-| `js` | `*`  | *           |        | ./src/popover.js           |
-| `js` | `*`  | *           |        | ./src/string.js            |
-| `js` | `*`  | *           |        | ./src/types.js             |
-| `js` | `*`  | *           |        | ./src/validators.js        |
 
 # `../packages/components/select/index.ts`:
 
@@ -227,39 +225,24 @@
 | `custom-element-definition` | `sl-select`              | Select            | /packages/components/select/src/select.js              |         |
 | `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
 | `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
-| `custom-element-definition` | `sl-select-overlay`      | SelectOverlay     | /packages/components/select/src/select-overlay.js      |         |
 
-# `../packages/components/popover/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package          |
-| ---- | ---- | ----------- | ------ | ---------------- |
-| `js` | `*`  | *           |        | ./src/popover.js |
-
-# `../packages/components/popover/register.ts`:
+# `../packages/components/shared/index.ts`:
 
 ## Exports
 
-| Kind                        | Name         | Declaration | Module                                      | Package |
-| --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-popover` | Popover     | /packages/components/popover/src/popover.js |         |
-
-# `../packages/components/switch/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/switch.js |
-
-# `../packages/components/switch/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-switch` | Switch      | /packages/components/switch/src/switch.js |         |
+| Kind | Name | Declaration | Module | Package                    |
+| ---- | ---- | ----------- | ------ | -------------------------- |
+| `js` | `*`  | *           |        | ./src/controllers/index.js |
+| `js` | `*`  | *           |        | ./src/data-source/index.js |
+| `js` | `*`  | *           |        | ./src/decorators/index.js  |
+| `js` | `*`  | *           |        | ./src/directives/index.js  |
+| `js` | `*`  | *           |        | ./src/mixins/index.js      |
+| `js` | `*`  | *           |        | ./src/css.js               |
+| `js` | `*`  | *           |        | ./src/path.js              |
+| `js` | `*`  | *           |        | ./src/popover.js           |
+| `js` | `*`  | *           |        | ./src/string.js            |
+| `js` | `*`  | *           |        | ./src/types.js             |
+| `js` | `*`  | *           |        | ./src/validators.js        |
 
 # `../packages/components/skeleton/index.ts`:
 
@@ -276,6 +259,22 @@
 | Kind                        | Name          | Declaration | Module                                        | Package |
 | --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-skeleton` | Skeleton    | /packages/components/skeleton/src/skeleton.js |         |
+
+# `../packages/components/switch/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/switch.js |
+
+# `../packages/components/switch/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-switch` | Switch      | /packages/components/switch/src/switch.js |         |
 
 # `../packages/components/tabs/index.ts`:
 
@@ -297,22 +296,6 @@
 | `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/components/tabs/src/tab-group.js |         |
 | `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/components/tabs/src/tab-panel.js |         |
 
-# `../packages/components/text-input/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package          |
-| ---- | ---- | ----------- | ------ | ---------------- |
-| `js` | `*`  | *           |        | ./src/text-input |
-
-# `../packages/components/text-input/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                         | Package |
-| --------------------------- | --------------- | ----------- | ---------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-text-input` | TextInput   | /packages/components/text-input/src/text-input |         |
-
 # `../packages/components/textarea/index.ts`:
 
 ## Exports
@@ -328,6 +311,22 @@
 | Kind                        | Name          | Declaration | Module                                        | Package |
 | --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-textarea` | Textarea    | /packages/components/textarea/src/textarea.js |         |
+
+# `../packages/components/text-input/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package          |
+| ---- | ---- | ----------- | ------ | ---------------- |
+| `js` | `*`  | *           |        | ./src/text-input |
+
+# `../packages/components/text-input/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                         | Package |
+| --------------------------- | --------------- | ----------- | ---------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-text-input` | TextInput   | /packages/components/text-input/src/text-input |         |
 
 # `../packages/components/tooltip/index.ts`:
 
@@ -345,6 +344,60 @@
 | Kind                        | Name         | Declaration | Module                                      | Package |
 | --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/components/tooltip/src/tooltip.js |         |
+
+# `../packages/components/button-bar/src/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
+
+# `../packages/components/button-bar/src/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
+| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
+| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
+| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
+| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters | Return          | Inherited From |
+| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
+| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+
+### Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `align`     | align    |                |
+| `icon-only` | iconOnly |                |
+| `reverse`   | reverse  |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
 
 # `../packages/components/avatar/src/avatar.scss.ts`:
 
@@ -502,79 +555,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Button` | Button      | ../packages/components/button/src/button.ts |         |
-
-# `../packages/components/dialog/src/dialog.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
-
-# `../packages/components/dialog/src/dialog.ts`:
-
-## class: `Dialog`, `sl-dialog`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
-| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
-| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
-| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
-| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
-| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
-| `showModal` |         |             |                                                 | `void` |                |
-| `close`     |         |             |                                                 | `void` |                |
-| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
-| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
-| `#onClose`  |         |             |                                                 | `void` |                |
-
-### Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `disable-close` | disableClose |                |
-| `role`          | role         |                |
-
-### Slots
-
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `action`  | Area where action buttons are placed |
-| `default` | Body content for the dialog          |
-| `footer`  | Footer content for the dialog        |
-| `header`  | Header content for the dialog        |
-| `title`   | The title of the dialog              |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
 
 # `../packages/components/checkbox/src/checkbox-group.scss.ts`:
 
@@ -772,71 +752,17 @@
 | ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Checkbox` | Checkbox    | ../packages/components/checkbox/src/checkbox.ts |         |
 
-# `../packages/components/button-bar/src/button-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
-
-# `../packages/components/button-bar/src/button-bar.ts`:
-
-## class: `ButtonBar`, `sl-button-bar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
-| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
-| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
-| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
-| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
-
-### Methods
-
-| Name            | Privacy | Description | Parameters | Return          | Inherited From |
-| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
-| `#onSlotchange` |         |             |            | `Promise<void>` |                |
-
-### Attributes
-
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `align`     | align    |                |
-| `icon-only` | iconOnly |                |
-| `reverse`   | reverse  |                |
-
-### Slots
-
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
-
-# `../packages/components/drawer/src/drawer.scss.ts`:
+# `../packages/components/dialog/src/dialog.scss.ts`:
 
 ## Exports
 
 | Kind | Name      | Declaration | Module                                           | Package |
 | ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
+| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
 
-# `../packages/components/drawer/src/drawer.ts`:
+# `../packages/components/dialog/src/dialog.ts`:
 
-## class: `Drawer`, `sl-drawer`
+## class: `Dialog`, `sl-dialog`
 
 ### Superclass
 
@@ -858,12 +784,11 @@
 
 ### Fields
 
-| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
-| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
-| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
-| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
-| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
-| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
+| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
+| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
+| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
+| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
+| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
 
 ### Methods
 
@@ -877,19 +802,20 @@
 
 ### Attributes
 
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `disable-close`   | disableClose    |                |
-| `attachment`      | attachment      |                |
-| `closeButtonSize` | closeButtonSize |                |
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `disable-close` | disableClose |                |
+| `role`          | role         |                |
 
 ### Slots
 
-| Name      | Description                   |
-| --------- | ----------------------------- |
-| `default` | Body content for the drawer   |
-| `header`  | Header content for the drawer |
-| `title`   | The title of the drawer       |
+| Name      | Description                          |
+| --------- | ------------------------------------ |
+| `action`  | Area where action buttons are placed |
+| `default` | Body content for the dialog          |
+| `footer`  | Footer content for the dialog        |
+| `header`  | Header content for the dialog        |
+| `title`   | The title of the dialog              |
 
 <hr/>
 
@@ -897,294 +823,7 @@
 
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
-
-# `../packages/components/editor/src/commands.ts`:
-
-## Functions
-
-| Name      | Description | Parameters        | Return    |
-| --------- | ----------- | ----------------- | --------- |
-| `setHTML` |             | `content: string` | `Command` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `setHTML` | setHTML     | ../packages/components/editor/src/commands.ts |         |
-
-# `../packages/components/editor/src/editor.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/editor/src/editor.scss.ts |         |
-
-# `../packages/components/editor/src/editor.ts`:
-
-## class: `Editor`, `sl-editor`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-| `HintMixin`        |        | @sl-design-system/shared |
-
-### Static Fields
-
-| Name             | Privacy | Type      | Default | Description | Inherited From |
-| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
-| `formAssociated` | private | `boolean` | `true`  |             |                |
-
-### Fields
-
-| Name                  | Privacy | Type                                   | Default                                                                     | Description                                                                                                                     | Inherited From   |
-| --------------------- | ------- | -------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`             | private |                                        | `new EventsController(this)`                                                | Manage events.                                                                                                                  |                  |
-| `#validation`         | private |                                        | `new ValidationController(this, {
-    validators: [requiredValidator]
-  })` |                                                                                                                                 |                  |
-| `#value`              | private | `string \| undefined`                  |                                                                             | The value of the content in the editor.                                                                                         |                  |
-| `#view`               | private | `EditorView \| undefined`              |                                                                             | The ProseMirror editor view instance.                                                                                           |                  |
-| `internals`           |         |                                        |                                                                             | Element internals.                                                                                                              |                  |
-| `plugins`             |         | `Plugin[] \| undefined`                |                                                                             | Additional plugins.                                                                                                             |                  |
-| `value`               |         | `string \| undefined`                  |                                                                             |                                                                                                                                 |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                             | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                             | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                 |                                                                             | No interaction is possible with this control when disabled.                                                                     | HintMixin        |
-| `name`                |         | `string \| undefined`                  |                                                                             | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                 |                                                                             | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                   |                                                                             |                                                                                                                                 | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`              |                                                                             |                                                                                                                                 | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                             |                                                                                                                                 | FormControlMixin |
-| `hint`                |         | `string \| undefined`                  |                                                                             | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
-| `hintSize`            |         | `HintSize`                             | `'md'`                                                                      | The hint size.                                                                                                                  | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return                             | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------------------------- | ---------------- |
-| `createEditor`          |         |             |                                                                   | `EditorView`                       |                  |
-| `createSchema`          |         |             |                                                                   | `Schema<EditorNodes, EditorMarks>` |                  |
-| `createState`           |         |             |                                                                   | `EditorState`                      |                  |
-| `#onFocusout`           |         |             |                                                                   | `void`                             |                  |
-| `shouldUpdate`          |         |             | `changes: PropertyValues<this>`                                   | `boolean`                          | FormControlMixin |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`                             | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`                          | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`                          | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`                             | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`                             | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`                             | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult`                   | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`                             | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`                             | HintMixin        |
-
-### Attributes
-
-| Name       | Field    | Inherited From   |
-| ---------- | -------- | ---------------- |
-| `value`    | value    |                  |
-| `disabled` | disabled | HintMixin        |
-| `name`     | name     | FormControlMixin |
-| `required` | required | FormControlMixin |
-| `hint`     | hint     | HintMixin        |
-| `hintSize` | hintSize | HintMixin        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Editor` | Editor      | ../packages/components/editor/src/editor.ts |         |
-
-# `../packages/components/editor/src/keymap.ts`:
-
-## Functions
-
-| Name              | Description | Parameters                                 | Return                       |
-| ----------------- | ----------- | ------------------------------------------ | ---------------------------- |
-| `buildKeymap`     |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
-| `buildListKeymap` |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                      | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------- | ------- |
-| `js` | `buildKeymap`     | buildKeymap     | ../packages/components/editor/src/keymap.ts |         |
-| `js` | `buildListKeymap` | buildListKeymap | ../packages/components/editor/src/keymap.ts |         |
-
-# `../packages/components/editor/src/list-utils.ts`:
-
-## Functions
-
-| Name                      | Description | Parameters                                                                                | Return                |
-| ------------------------- | ----------- | ----------------------------------------------------------------------------------------- | --------------------- |
-| `rootListDepth`           |             | `pos: ResolvedPos, nodes: { [key: string]: NodeType }`                                    | `number \| undefined` |
-| `getListLiftTarget`       |             | `schema: Schema, resPos: ResolvedPos`                                                     | `number`              |
-| `liftSelectionList`       |             | `state: EditorState, tr: Transaction`                                                     | `Transaction`         |
-| `toggleList`              |             | `state: EditorState, dispatch: DispatchFn, view: EditorView, listType: string`            | `boolean`             |
-| `toggleListCommand`       |             | `listType: string`                                                                        | `Command`             |
-| `liftFollowingList`       |             | `state: EditorState, from: number, to: number, rootListDepthNum: number, tr: Transaction` | `Transaction`         |
-| `isRangeOfType`           |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos, nodeType: NodeType`                     | `boolean`             |
-| `getAncestorNodesBetween` |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos`                                         | `Node[]`              |
-| `findAncestorPosition`    |             | `doc: Node, pos: ResolvedPos`                                                             | `ResolvedPos`         |
-| `liftListItems`           |             |                                                                                           | `Command`             |
-| `wrapInList`              |             | `nodeType: NodeType`                                                                      | `Command`             |
-| `toggleUnorderedList`     |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
-| `toggleOrderedList`       |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
-| `splitListItemKeepMarks`  |             | `itemType: NodeType`                                                                      |                       |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                      | Declaration             | Module                                          | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------- | ------- |
-| `js` | `rootListDepth`           | rootListDepth           | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `getListLiftTarget`       | getListLiftTarget       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftSelectionList`       | liftSelectionList       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleList`              | toggleList              | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleListCommand`       | toggleListCommand       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftFollowingList`       | liftFollowingList       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `isRangeOfType`           | isRangeOfType           | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `findAncestorPosition`    | findAncestorPosition    | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftListItems`           | liftListItems           | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `wrapInList`              | wrapInList              | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleUnorderedList`     | toggleUnorderedList     | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleOrderedList`       | toggleOrderedList       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | ../packages/components/editor/src/list-utils.ts |         |
-
-# `../packages/components/editor/src/schema.ts`:
-
-## Variables
-
-| Name    | Description | Type                            |
-| ------- | ----------- | ------------------------------- |
-| `marks` |             | `Record<EditorMarks, MarkSpec>` |
-| `nodes` |             | `Record<EditorNodes, NodeSpec>` |
-
-<hr/>
-
-## Functions
-
-| Name                 | Description | Parameters                                                          | Return                   |
-| -------------------- | ----------- | ------------------------------------------------------------------- | ------------------------ |
-| `isEmpty`            |             | `obj: Record<string, unknown>`                                      | `boolean`                |
-| `removeEntries`      |             | `obj: Record<string, unknown>, predicate: (key: string) => boolean` | `Record<string, string>` |
-| `removeEmptyEntries` |             | `obj: Record<string, unknown>`                                      | `Record<string, string>` |
-| `commonAttributes`   |             |                                                                     | `Attrs`                  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                 | Declaration        | Module                                      | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------- | ------- |
-| `js` | `isEmpty`            | isEmpty            | ../packages/components/editor/src/schema.ts |         |
-| `js` | `removeEntries`      | removeEntries      | ../packages/components/editor/src/schema.ts |         |
-| `js` | `removeEmptyEntries` | removeEmptyEntries | ../packages/components/editor/src/schema.ts |         |
-| `js` | `commonAttributes`   | commonAttributes   | ../packages/components/editor/src/schema.ts |         |
-| `js` | `marks`              | marks              | ../packages/components/editor/src/schema.ts |         |
-| `js` | `nodes`              | nodes              | ../packages/components/editor/src/schema.ts |         |
-
-# `../packages/components/editor/src/utils.ts`:
-
-## Functions
-
-| Name                | Description | Parameters              | Return   |
-| ------------------- | ----------- | ----------------------- | -------- |
-| `createContentNode` |             | `schema: Schema, value` | `Node`   |
-| `getHTML`           |             | `state: EditorState`    | `string` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                | Declaration       | Module                                     | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------ | ------- |
-| `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
-| `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
-
-# `../packages/components/icon/src/icon.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
-
-# `../packages/components/icon/src/icon.ts`:
-
-## class: `Icon`, `sl-icon`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name              | Privacy | Type          | Default | Description | Inherited From |
-| ----------------- | ------- | ------------- | ------- | ----------- | -------------- |
-| `availableStyles` |         | `IconStyle[]` | `[]`    |             |                |
-
-### Static Methods
-
-| Name            | Privacy | Description                                                                            | Parameters                                    | Return   | Inherited From |
-| --------------- | ------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | -------- | -------------- |
-| `registerIcon`  |         | Add icon(s) to the icon registry                                                       | `faIcons: IconDefinition \| IconDefinition[]` | `void`   |                |
-| `registerIcons` |         | store all icons from the IconLibrary of the theme in the icon registry for easy access | `icons: IconLibrary`                          | `void`   |                |
-| `getColorToken` |         |                                                                                        | `pathCounter: number, style: string`          | `string` |                |
-
-### Fields
-
-| Name          | Privacy | Type                                  | Default                                                                                                                                                                                                                                                                                                                                                            | Description                                                                                                       | Inherited From |
-| ------------- | ------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | -------------- |
-| `iconNotDef`  | private |                                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>` `` |                                                                                                                   |                |
-| `iconLoading` | private |                                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-loading"></svg>` ``                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
-| `label`       |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
-| `name`        |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    | The name of the icon to show.                                                                                     |                |
-| `size`        |         | `IconSize`                            | `'md'`                                                                                                                                                                                                                                                                                                                                                             | Icon size.                                                                                                        |                |
-| `iconHTML`    |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
-| `sldsLibrary` |         | `{ icons: IconLibrary } \| undefined` |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
-
-### Methods
-
-| Name                    | Privacy | Description                                                                                                                                                                                                                                              | Parameters | Return          | Inherited From |
-| ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------- | -------------- |
-| `getIconHTML`           |         |                                                                                                                                                                                                                                                          |            | `string`        |                |
-| `waitForWindowProperty` |         | sometimes the icon tries to render before any icons are registered,&#xA;that's why we need to check if the icons have been registered, and if not&#xA;we need to wait a bit and then check again, so we can (re)render the icon when the library is set. |            | `Promise<void>` |                |
-
-### Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `label` | label |                |
-| `name`  | name  |                |
-| `size`  | size  |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name   | Declaration | Module                                  | Package |
-| ---- | ------ | ----------- | --------------------------------------- | ------- |
-| `js` | `Icon` | Icon        | ../packages/components/icon/src/icon.ts |         |
+| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
 
 # `../packages/components/grid/src/column-group.ts`:
 
@@ -1804,6 +1443,293 @@
 | ---- | ------------ | ----------- | ----------------------------------------- | ------- |
 | `js` | `GridSorter` | GridSorter  | ../packages/components/grid/src/sorter.ts |         |
 
+# `../packages/components/editor/src/commands.ts`:
+
+## Functions
+
+| Name      | Description | Parameters        | Return    |
+| --------- | ----------- | ----------------- | --------- |
+| `setHTML` |             | `content: string` | `Command` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `setHTML` | setHTML     | ../packages/components/editor/src/commands.ts |         |
+
+# `../packages/components/editor/src/editor.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/editor/src/editor.scss.ts |         |
+
+# `../packages/components/editor/src/editor.ts`:
+
+## class: `Editor`, `sl-editor`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
+
+### Static Fields
+
+| Name             | Privacy | Type      | Default | Description | Inherited From |
+| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `formAssociated` | private | `boolean` | `true`  |             |                |
+
+### Fields
+
+| Name                  | Privacy | Type                                   | Default                                                                     | Description                                                                                                                     | Inherited From   |
+| --------------------- | ------- | -------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`             | private |                                        | `new EventsController(this)`                                                | Manage events.                                                                                                                  |                  |
+| `#validation`         | private |                                        | `new ValidationController(this, {
+    validators: [requiredValidator]
+  })` |                                                                                                                                 |                  |
+| `#value`              | private | `string \| undefined`                  |                                                                             | The value of the content in the editor.                                                                                         |                  |
+| `#view`               | private | `EditorView \| undefined`              |                                                                             | The ProseMirror editor view instance.                                                                                           |                  |
+| `internals`           |         |                                        |                                                                             | Element internals.                                                                                                              |                  |
+| `plugins`             |         | `Plugin[] \| undefined`                |                                                                             | Additional plugins.                                                                                                             |                  |
+| `value`               |         | `string \| undefined`                  |                                                                             |                                                                                                                                 |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                             | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                             | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                 |                                                                             | No interaction is possible with this control when disabled.                                                                     | HintMixin        |
+| `name`                |         | `string \| undefined`                  |                                                                             | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                 |                                                                             | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                   |                                                                             |                                                                                                                                 | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`              |                                                                             |                                                                                                                                 | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                             |                                                                                                                                 | FormControlMixin |
+| `hint`                |         | `string \| undefined`                  |                                                                             | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
+| `hintSize`            |         | `HintSize`                             | `'md'`                                                                      | The hint size.                                                                                                                  | HintMixin        |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return                             | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------------------------- | ---------------- |
+| `createEditor`          |         |             |                                                                   | `EditorView`                       |                  |
+| `createSchema`          |         |             |                                                                   | `Schema<EditorNodes, EditorMarks>` |                  |
+| `createState`           |         |             |                                                                   | `EditorState`                      |                  |
+| `#onFocusout`           |         |             |                                                                   | `void`                             |                  |
+| `shouldUpdate`          |         |             | `changes: PropertyValues<this>`                                   | `boolean`                          | FormControlMixin |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`                             | HintMixin        |
+| `checkValidity`         |         |             |                                                                   | `boolean`                          | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean`                          | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`                             | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`                             | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`                             | FormControlMixin |
+| `renderHint`            |         |             |                                                                   | `TemplateResult`                   | HintMixin        |
+| `#updateHint`           |         |             |                                                                   | `void`                             | HintMixin        |
+| `#removeHint`           |         |             |                                                                   | `void`                             | HintMixin        |
+
+### Attributes
+
+| Name       | Field    | Inherited From   |
+| ---------- | -------- | ---------------- |
+| `value`    | value    |                  |
+| `disabled` | disabled | HintMixin        |
+| `name`     | name     | FormControlMixin |
+| `required` | required | FormControlMixin |
+| `hint`     | hint     | HintMixin        |
+| `hintSize` | hintSize | HintMixin        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Editor` | Editor      | ../packages/components/editor/src/editor.ts |         |
+
+# `../packages/components/editor/src/keymap.ts`:
+
+## Functions
+
+| Name              | Description | Parameters                                 | Return                       |
+| ----------------- | ----------- | ------------------------------------------ | ---------------------------- |
+| `buildKeymap`     |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
+| `buildListKeymap` |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                      | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------- | ------- |
+| `js` | `buildKeymap`     | buildKeymap     | ../packages/components/editor/src/keymap.ts |         |
+| `js` | `buildListKeymap` | buildListKeymap | ../packages/components/editor/src/keymap.ts |         |
+
+# `../packages/components/editor/src/list-utils.ts`:
+
+## Functions
+
+| Name                      | Description | Parameters                                                                                | Return                |
+| ------------------------- | ----------- | ----------------------------------------------------------------------------------------- | --------------------- |
+| `rootListDepth`           |             | `pos: ResolvedPos, nodes: { [key: string]: NodeType }`                                    | `number \| undefined` |
+| `getListLiftTarget`       |             | `schema: Schema, resPos: ResolvedPos`                                                     | `number`              |
+| `liftSelectionList`       |             | `state: EditorState, tr: Transaction`                                                     | `Transaction`         |
+| `toggleList`              |             | `state: EditorState, dispatch: DispatchFn, view: EditorView, listType: string`            | `boolean`             |
+| `toggleListCommand`       |             | `listType: string`                                                                        | `Command`             |
+| `liftFollowingList`       |             | `state: EditorState, from: number, to: number, rootListDepthNum: number, tr: Transaction` | `Transaction`         |
+| `isRangeOfType`           |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos, nodeType: NodeType`                     | `boolean`             |
+| `getAncestorNodesBetween` |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos`                                         | `Node[]`              |
+| `findAncestorPosition`    |             | `doc: Node, pos: ResolvedPos`                                                             | `ResolvedPos`         |
+| `liftListItems`           |             |                                                                                           | `Command`             |
+| `wrapInList`              |             | `nodeType: NodeType`                                                                      | `Command`             |
+| `toggleUnorderedList`     |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
+| `toggleOrderedList`       |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
+| `splitListItemKeepMarks`  |             | `itemType: NodeType`                                                                      |                       |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                      | Declaration             | Module                                          | Package |
+| ---- | ------------------------- | ----------------------- | ----------------------------------------------- | ------- |
+| `js` | `rootListDepth`           | rootListDepth           | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `getListLiftTarget`       | getListLiftTarget       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftSelectionList`       | liftSelectionList       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleList`              | toggleList              | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleListCommand`       | toggleListCommand       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftFollowingList`       | liftFollowingList       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `isRangeOfType`           | isRangeOfType           | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `findAncestorPosition`    | findAncestorPosition    | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftListItems`           | liftListItems           | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `wrapInList`              | wrapInList              | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleUnorderedList`     | toggleUnorderedList     | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleOrderedList`       | toggleOrderedList       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | ../packages/components/editor/src/list-utils.ts |         |
+
+# `../packages/components/editor/src/schema.ts`:
+
+## Variables
+
+| Name    | Description | Type                            |
+| ------- | ----------- | ------------------------------- |
+| `marks` |             | `Record<EditorMarks, MarkSpec>` |
+| `nodes` |             | `Record<EditorNodes, NodeSpec>` |
+
+<hr/>
+
+## Functions
+
+| Name                 | Description | Parameters                                                          | Return                   |
+| -------------------- | ----------- | ------------------------------------------------------------------- | ------------------------ |
+| `isEmpty`            |             | `obj: Record<string, unknown>`                                      | `boolean`                |
+| `removeEntries`      |             | `obj: Record<string, unknown>, predicate: (key: string) => boolean` | `Record<string, string>` |
+| `removeEmptyEntries` |             | `obj: Record<string, unknown>`                                      | `Record<string, string>` |
+| `commonAttributes`   |             |                                                                     | `Attrs`                  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                 | Declaration        | Module                                      | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------- | ------- |
+| `js` | `isEmpty`            | isEmpty            | ../packages/components/editor/src/schema.ts |         |
+| `js` | `removeEntries`      | removeEntries      | ../packages/components/editor/src/schema.ts |         |
+| `js` | `removeEmptyEntries` | removeEmptyEntries | ../packages/components/editor/src/schema.ts |         |
+| `js` | `commonAttributes`   | commonAttributes   | ../packages/components/editor/src/schema.ts |         |
+| `js` | `marks`              | marks              | ../packages/components/editor/src/schema.ts |         |
+| `js` | `nodes`              | nodes              | ../packages/components/editor/src/schema.ts |         |
+
+# `../packages/components/editor/src/utils.ts`:
+
+## Functions
+
+| Name                | Description | Parameters              | Return   |
+| ------------------- | ----------- | ----------------------- | -------- |
+| `createContentNode` |             | `schema: Schema, value` | `Node`   |
+| `getHTML`           |             | `state: EditorState`    | `string` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                | Declaration       | Module                                     | Package |
+| ---- | ------------------- | ----------------- | ------------------------------------------ | ------- |
+| `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
+| `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
+
+# `../packages/components/icon/src/icon.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
+
+# `../packages/components/icon/src/icon.ts`:
+
+## class: `Icon`, `sl-icon`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Static Fields
+
+| Name              | Privacy | Type          | Default | Description | Inherited From |
+| ----------------- | ------- | ------------- | ------- | ----------- | -------------- |
+| `availableStyles` |         | `IconStyle[]` | `[]`    |             |                |
+
+### Static Methods
+
+| Name            | Privacy | Description                                                                            | Parameters                                    | Return   | Inherited From |
+| --------------- | ------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | -------- | -------------- |
+| `registerIcon`  |         | Add icon(s) to the icon registry                                                       | `faIcons: IconDefinition \| IconDefinition[]` | `void`   |                |
+| `registerIcons` |         | store all icons from the IconLibrary of the theme in the icon registry for easy access | `icons: IconLibrary`                          | `void`   |                |
+| `getColorToken` |         |                                                                                        | `pathCounter: number, style: string`          | `string` |                |
+
+### Fields
+
+| Name          | Privacy | Type                                  | Default                                                                                                                                                                                                                                                                                                                                                            | Description                                                                                                       | Inherited From |
+| ------------- | ------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | -------------- |
+| `iconNotDef`  | private |                                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>` `` |                                                                                                                   |                |
+| `iconLoading` | private |                                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-loading"></svg>` ``                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
+| `label`       |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
+| `name`        |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    | The name of the icon to show.                                                                                     |                |
+| `size`        |         | `IconSize`                            | `'md'`                                                                                                                                                                                                                                                                                                                                                             | Icon size.                                                                                                        |                |
+| `iconHTML`    |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
+| `sldsLibrary` |         | `{ icons: IconLibrary } \| undefined` |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
+
+### Methods
+
+| Name                    | Privacy | Description                                                                                                                                                                                                                                              | Parameters | Return          | Inherited From |
+| ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------- | -------------- |
+| `getIconHTML`           |         |                                                                                                                                                                                                                                                          |            | `string`        |                |
+| `waitForWindowProperty` |         | sometimes the icon tries to render before any icons are registered,&#xA;that's why we need to check if the icons have been registered, and if not&#xA;we need to wait a bit and then check again, so we can (re)render the icon when the library is set. |            | `Promise<void>` |                |
+
+### Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+| `name`  | name  |                |
+| `size`  | size  |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name   | Declaration | Module                                  | Package |
+| ---- | ------ | ----------- | --------------------------------------- | ------- |
+| `js` | `Icon` | Icon        | ../packages/components/icon/src/icon.ts |         |
+
 # `../packages/components/label/src/label.scss.ts`:
 
 ## Exports
@@ -1860,6 +1786,130 @@
 | Kind | Name    | Declaration | Module                                    | Package |
 | ---- | ------- | ----------- | ----------------------------------------- | ------- |
 | `js` | `Label` | Label       | ../packages/components/label/src/label.ts |         |
+
+# `../packages/components/drawer/src/drawer.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
+
+# `../packages/components/drawer/src/drawer.ts`:
+
+## class: `Drawer`, `sl-drawer`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
+### Fields
+
+| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
+| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
+| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
+| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
+| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
+| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
+| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `showModal` |         |             |                                                 | `void` |                |
+| `close`     |         |             |                                                 | `void` |                |
+| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
+| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
+| `#onClose`  |         |             |                                                 | `void` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `disable-close`   | disableClose    |                |
+| `attachment`      | attachment      |                |
+| `closeButtonSize` | closeButtonSize |                |
+
+### Slots
+
+| Name      | Description                   |
+| --------- | ----------------------------- |
+| `default` | Body content for the drawer   |
+| `header`  | Header content for the drawer |
+| `title`   | The title of the drawer       |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
+
+# `../packages/components/popover/src/popover.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/popover/src/popover.scss.ts |         |
+
+# `../packages/components/popover/src/popover.ts`:
+
+## class: `Popover`, `sl-popover`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Static Fields
+
+| Name                | Privacy | Type     | Default                                                     | Description | Inherited From |
+| ------------------- | ------- | -------- | ----------------------------------------------------------- | ----------- | -------------- |
+| `shadowRootOptions` | private | `object` | `{ ...LitElement.shadowRootOptions, delegatesFocus: true }` |             |                |
+
+### Fields
+
+| Name       | Privacy | Type                           | Default                                           | Description                                          | Inherited From |
+| ---------- | ------- | ------------------------------ | ------------------------------------------------- | ---------------------------------------------------- | -------------- |
+| `#anchor`  | private |                                | `new AnchorController(this, { arrow: '.arrow' })` | Controller for managing anchoring.                   |                |
+| `position` |         | `PopoverPosition \| undefined` | `'top'`                                           | The position of this popover relative to its anchor. |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `position` | position |                |
+
+### CSS Parts
+
+| Name        | Description                   |
+| ----------- | ----------------------------- |
+| `container` | The container for the popover |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `Popover` | Popover     | ../packages/components/popover/src/popover.ts |         |
 
 # `../packages/components/radio-group/src/radio-group.scss.ts`:
 
@@ -2187,57 +2237,6 @@
 | `js` | `maxLengthValidator`    | maxLengthValidator    | ../packages/components/shared/src/validators.ts |         |
 | `js` | `patternValidator`      | patternValidator      | ../packages/components/shared/src/validators.ts |         |
 
-# `../packages/components/popover/src/popover.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/popover/src/popover.scss.ts |         |
-
-# `../packages/components/popover/src/popover.ts`:
-
-## class: `Popover`, `sl-popover`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name                | Privacy | Type     | Default                                                     | Description | Inherited From |
-| ------------------- | ------- | -------- | ----------------------------------------------------------- | ----------- | -------------- |
-| `shadowRootOptions` | private | `object` | `{ ...LitElement.shadowRootOptions, delegatesFocus: true }` |             |                |
-
-### Fields
-
-| Name       | Privacy | Type                           | Default                                           | Description                                          | Inherited From |
-| ---------- | ------- | ------------------------------ | ------------------------------------------------- | ---------------------------------------------------- | -------------- |
-| `#anchor`  | private |                                | `new AnchorController(this, { arrow: '.arrow' })` | Controller for managing anchoring.                   |                |
-| `position` |         | `PopoverPosition \| undefined` | `'top'`                                           | The position of this popover relative to its anchor. |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `position` | position |                |
-
-### CSS Parts
-
-| Name        | Description                   |
-| ----------- | ----------------------------- |
-| `container` | The container for the popover |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `Popover` | Popover     | ../packages/components/popover/src/popover.ts |         |
-
 # `../packages/components/select/src/select-option-group.scss.ts`:
 
 ## Exports
@@ -2258,15 +2257,17 @@
 
 ### Fields
 
-| Name         | Privacy | Type                  | Default | Description | Inherited From |
-| ------------ | ------- | --------------------- | ------- | ----------- | -------------- |
-| `groupTitle` |         | `string \| undefined` |         |             |                |
+| Name           | Privacy | Type                  | Default | Description  | Inherited From |
+| -------------- | ------- | --------------------- | ------- | ------------ | -------------- |
+| `size`         |         | `SelectSize`          | `'md'`  | Select size. |                |
+| `groupHeading` |         | `string \| undefined` |         |              |                |
 
 ### Attributes
 
-| Name          | Field      | Inherited From |
-| ------------- | ---------- | -------------- |
-| `group-title` | groupTitle |                |
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `size`          | size         |                |
+| `group-heading` | groupHeading |                |
 
 <hr/>
 
@@ -2296,15 +2297,13 @@
 
 ### Fields
 
-| Name          | Privacy | Type                                 | Default                   | Description                                           | Inherited From |
-| ------------- | ------- | ------------------------------------ | ------------------------- | ----------------------------------------------------- | -------------- |
-| `value`       |         | `FormControlValue \| undefined`      |                           | Whether the option item is selected                   |                |
-| `selected`    |         | `boolean`                            | `false`                   | Whether the option item is selected                   |                |
-| `disabled`    |         | `boolean`                            | `false`                   | Whether the option item is disabled                   |                |
-| `contentType` |         | `'string' \| 'element' \| undefined` |                           | Whether the content of the option item is a node      |                |
-| `size`        |         | `{ width: number; height: number }`  | `{ width: 0, height: 0 }` |                                                       |                |
-| `#observer`   | private | `ResizeObserver \| undefined`        |                           |                                                       |                |
-| `#tabIndex`   | private | `string \| null`                     |                           | Get the selected tab button, or the first tab button. |                |
+| Name          | Privacy | Type                                 | Default | Description                                      | Inherited From |
+| ------------- | ------- | ------------------------------------ | ------- | ------------------------------------------------ | -------------- |
+| `size`        |         | `SelectSize`                         | `'md'`  | Select size.                                     |                |
+| `value`       |         | `FormControlValue \| undefined`      |         | Whether the option item is selected              |                |
+| `selected`    |         | `boolean`                            | `false` | Whether the option item is selected              |                |
+| `disabled`    |         | `boolean`                            | `false` | Whether the option item is disabled              |                |
+| `contentType` |         | `'string' \| 'element' \| undefined` |         | Whether the content of the option item is a node |                |
 
 ### Methods
 
@@ -2312,17 +2311,16 @@
 | ----------------------- | --------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------- | --------------- | -------------- |
 | `handleSelectionChange` | protected | Apply accessible attributes and values to the tab button.&#xA;Observe the selected property if it changes |                                              | `void`          |                |
 | `#onSlotchange`         |           |                                                                                                           | `event: Event & { target: HTMLSlotElement }` | `Promise<void>` |                |
-| `#handleResize`         |           |                                                                                                           | `mutations: ResizeObserverEntry[]`           | `void`          |                |
 
 ### Attributes
 
 | Name          | Field       | Inherited From |
 | ------------- | ----------- | -------------- |
+| `size`        | size        |                |
 | `value`       | value       |                |
 | `selected`    | selected    |                |
 | `disabled`    | disabled    |                |
 | `contentType` | contentType |                |
-| `size`        | size        |                |
 
 <hr/>
 
@@ -2331,53 +2329,6 @@
 | Kind | Name           | Declaration  | Module                                             | Package |
 | ---- | -------------- | ------------ | -------------------------------------------------- | ------- |
 | `js` | `SelectOption` | SelectOption | ../packages/components/select/src/select-option.ts |         |
-
-# `../packages/components/select/src/select-overlay.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select-overlay.scss.ts |         |
-
-# `../packages/components/select/src/select-overlay.ts`:
-
-## class: `SelectOverlay`, `sl-select-overlay`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name       | Privacy | Type              | Default                      | Description       | Inherited From |
-| ---------- | ------- | ----------------- | ---------------------------- | ----------------- | -------------- |
-| `position` |         | `PopoverPosition` | `'bottom-start'`             | Tooltip position. |                |
-| `#anchor`  | private |                   | `new AnchorController(this)` |                   |                |
-| `#events`  | private |                   | `new EventsController(this)` |                   |                |
-
-### Methods
-
-| Name   | Privacy | Description | Parameters                    | Return | Inherited From |
-| ------ | ------- | ----------- | ----------------------------- | ------ | -------------- |
-| `show` |         |             | `target: HTMLElement`         | `void` |                |
-| `hide` |         |             | `target: EventTarget \| null` | `void` |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `position` | position |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                              | Package |
-| ---- | --------------- | ------------- | --------------------------------------------------- | ------- |
-| `js` | `SelectOverlay` | SelectOverlay | ../packages/components/select/src/select-overlay.ts |         |
 
 # `../packages/components/select/src/select.scss.ts`:
 
@@ -2417,50 +2368,53 @@
 
 ### Fields
 
-| Name                        | Privacy | Type                                             | Default                                                                                                                                                                                                                                                                                   | Description                                                                                                                     | Inherited From   |
-| --------------------------- | ------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `overlay`                   |         | `SelectOverlay \| undefined`                     |                                                                                                                                                                                                                                                                                           |                                                                                                                                 |                  |
-| `selectedOptionPlaceholder` |         | `HTMLElement \| undefined`                       |                                                                                                                                                                                                                                                                                           |                                                                                                                                 |                  |
-| `options`                   |         | `SelectOption[] \| undefined`                    |                                                                                                                                                                                                                                                                                           | The slotted options.                                                                                                            |                  |
-| `optionGroups`              |         | `SelectOptionGroup[] \| undefined`               |                                                                                                                                                                                                                                                                                           |                                                                                                                                 |                  |
-| `size`                      |         | `{ width: string; height: string } \| undefined` | `{ width: '500px', height: '32px' }`                                                                                                                                                                                                                                                      | render helpers                                                                                                                  |                  |
-| `maxOverlayHeight`          |         | `string \| undefined`                            |                                                                                                                                                                                                                                                                                           |                                                                                                                                 |                  |
-| `#rovingTabindexController` | private |                                                  | `new RovingTabindexController<SelectOption>(this, {
-    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!isPopoverOpen(this.overlay)),
+| Name                        | Privacy | Type                                   | Default                                                                                                                                                                                                                                                                                | Description                                                                                                                     | Inherited From   |
+| --------------------------- | ------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `selectedOptionPlaceholder` |         | `HTMLElement \| undefined`             |                                                                                                                                                                                                                                                                                        |                                                                                                                                 |                  |
+| `optionGroups`              |         | `SelectOptionGroup[] \| undefined`     |                                                                                                                                                                                                                                                                                        |                                                                                                                                 |                  |
+| `button`                    |         | `HTMLButtonElement \| undefined`       |                                                                                                                                                                                                                                                                                        |                                                                                                                                 |                  |
+| `dialog`                    |         | `HTMLDialogElement \| undefined`       |                                                                                                                                                                                                                                                                                        |                                                                                                                                 |                  |
+| `maxOverlayHeight`          |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                        | The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen                 |                  |
+| `size`                      |         | `SelectSize`                           | `'md'`                                                                                                                                                                                                                                                                                 | Select size.                                                                                                                    |                  |
+| `placeholder`               |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                        | Placeholder to show when no options is chosen.                                                                                  |                  |
+| `invalid`                   |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                        | Whether the select is invalid.                                                                                                  |                  |
+| `#rovingTabindexController` | private |                                        | `new RovingTabindexController<SelectOption>(this, {
+    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && isPopoverOpen(this.dialog)),
     elements: () => this.allOptions \|\| [],
     isFocusableElement: (el: SelectOption) => !el.disabled
   })` |                                                                                                                                 |                  |
-| `#validation`               | private |                                                  | `new ValidationController(this, {
+| `#validation`               | private |                                        | `new ValidationController(this, {
     validators: [requiredValidator]
-  })`                                                                                                                                                                                                               |                                                                                                                                 |                  |
-| `#observer`                 | private | `MutationObserver \| undefined`                  |                                                                                                                                                                                                                                                                                           |                                                                                                                                 |                  |
-| `#selectId`                 | private |                                                  | `` `sl-select-${nextUniqueId++}` ``                                                                                                                                                                                                                                                       |                                                                                                                                 |                  |
-| `allOptions`                |         | `SelectOption[]`                                 |                                                                                                                                                                                                                                                                                           |                                                                                                                                 |                  |
-| `internals`                 |         |                                                  |                                                                                                                                                                                                                                                                                           | Element internals.                                                                                                              |                  |
-| `selectedOption`            | private | `SelectOption \| null \| undefined`              |                                                                                                                                                                                                                                                                                           | The current tab node selected in the tab group.                                                                                 |                  |
-| `#cachedValue`              | private | `FormControlValue \| undefined`                  |                                                                                                                                                                                                                                                                                           | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement`       | private | `FormControlElement \| undefined`                |                                                                                                                                                                                                                                                                                           | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`                  |         | `boolean \| undefined`                           |                                                                                                                                                                                                                                                                                           | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                      |         | `string \| undefined`                            |                                                                                                                                                                                                                                                                                           | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`                  |         | `boolean \| undefined`                           |                                                                                                                                                                                                                                                                                           | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`        |         | `FormControlElement`                             |                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
-| `form`                      |         | `HTMLFormElement \| null`                        |                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
-| `labels`                    |         | `NodeListOf<HTMLLabelElement> \| null`           |                                                                                                                                                                                                                                                                                           |                                                                                                                                 | FormControlMixin |
+  })`                                                                                                                                                                                                            |                                                                                                                                 |                  |
+| `#observer`                 | private | `MutationObserver \| undefined`        |                                                                                                                                                                                                                                                                                        |                                                                                                                                 |                  |
+| `#selectId`                 | private |                                        | `` `sl-select-${nextUniqueId++}` ``                                                                                                                                                                                                                                                    |                                                                                                                                 |                  |
+| `internals`                 |         |                                        |                                                                                                                                                                                                                                                                                        | Element internals.                                                                                                              |                  |
+| `selectedOption`            | private | `SelectOption \| null \| undefined`    |                                                                                                                                                                                                                                                                                        | The current node selected in the list of options.                                                                               |                  |
+| `allOptions`                |         | `SelectOption[]`                       |                                                                                                                                                                                                                                                                                        |                                                                                                                                 |                  |
+| `#renderSelectedOption`     | private | `HTMLElement \| TemplateResult`        |                                                                                                                                                                                                                                                                                        |                                                                                                                                 |                  |
+| `#optionContentType`        | private | `string`                               |                                                                                                                                                                                                                                                                                        |                                                                                                                                 |                  |
+| `#cachedValue`              | private | `FormControlValue \| undefined`        |                                                                                                                                                                                                                                                                                        | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement`       | private | `FormControlElement \| undefined`      |                                                                                                                                                                                                                                                                                        | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`                  |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                        | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                      |         | `string \| undefined`                  |                                                                                                                                                                                                                                                                                        | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`                  |         | `boolean \| undefined`                 |                                                                                                                                                                                                                                                                                        | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`        |         | `FormControlElement`                   |                                                                                                                                                                                                                                                                                        |                                                                                                                                 | FormControlMixin |
+| `form`                      |         | `HTMLFormElement \| null`              |                                                                                                                                                                                                                                                                                        |                                                                                                                                 | FormControlMixin |
+| `labels`                    |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                                                                                                                                                                                                                                        |                                                                                                                                 | FormControlMixin |
 
 ### Methods
 
 | Name                        | Privacy | Description                                                                                       | Parameters                                                        | Return    | Inherited From   |
 | --------------------------- | ------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
-| `openSelect`                |         |                                                                                                   | `event: Event & { target: HTMLElement }`                          | `void`    |                  |
 | `#closeSelect`              |         |                                                                                                   |                                                                   | `void`    |                  |
 | `#handleOptionsSlotChange`  |         |                                                                                                   |                                                                   | `void`    |                  |
 | `#handleMutation`           |         | If an option is selected programmatically update all the options or the size of the select itself | `mutations: MutationRecord[]`                                     | `void`    |                  |
 | `#handleOptionChange`       |         | One of the options in the select has been clicked, get the right target and update the selection  | `event: Event`                                                    | `void`    |                  |
+| `#handleOptionFocus`        |         | Make sure the focus is on the currently selected option                                           |                                                                   | `void`    |                  |
 | `#updateSelectedOption`     |         | Update the selected option with attributes and values.                                            | `selectedOption: SelectOption`                                    | `void`    |                  |
-| `#updateSize`               |         | Find the largest option and set the select to that width                                          |                                                                   | `void`    |                  |
 | `#setSelectedOptionVisible` |         | Copy the value/represenation of the selected option to the placeholder                            | `option: SelectOption`                                            | `void`    |                  |
 | `#handleOverlayKeydown`     |         | Handle keyboard accessible controls.                                                              | `event: KeyboardEvent`                                            | `void`    |                  |
-| `#handleOverallKeydown`     |         | Handle keyboard accessible controls.                                                              | `event: KeyboardEvent & { target: HTMLElement }`                  | `void`    |                  |
+| `#setPopoverWidth`          |         |                                                                                                   | `event: ToggleEvent`                                              | `void`    |                  |
 | `shouldUpdate`              |         |                                                                                                   | `changes: PropertyValues<this>`                                   | `boolean` | FormControlMixin |
 | `updated`                   |         |                                                                                                   | `changes: PropertyValues<this>`                                   | `void`    | FormControlMixin |
 | `checkValidity`             |         |                                                                                                   |                                                                   | `boolean` | FormControlMixin |
@@ -2471,13 +2425,15 @@
 
 ### Attributes
 
-| Name               | Field            | Inherited From   |
-| ------------------ | ---------------- | ---------------- |
-| `size`             | size             |                  |
-| `maxOverlayHeight` | maxOverlayHeight |                  |
-| `disabled`         | disabled         | FormControlMixin |
-| `name`             | name             | FormControlMixin |
-| `required`         | required         | FormControlMixin |
+| Name                 | Field            | Inherited From   |
+| -------------------- | ---------------- | ---------------- |
+| `max-overlay-height` | maxOverlayHeight |                  |
+| `size`               | size             |                  |
+| `placeholder`        | placeholder      |                  |
+| `invalid`            | invalid          |                  |
+| `disabled`           | disabled         | FormControlMixin |
+| `name`               | name             | FormControlMixin |
+| `required`           | required         | FormControlMixin |
 
 <hr/>
 
@@ -2634,245 +2590,6 @@
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Switch` | Switch      | ../packages/components/switch/src/switch.ts |         |
 
-# `../packages/components/text-input/src/text-input.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/text-input/src/text-input.scss.ts |         |
-
-# `../packages/components/text-input/src/text-input.ts`:
-
-## class: `TextInput`, `sl-text-input`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-| `HintMixin`        |        | @sl-design-system/shared |
-
-### Fields
-
-| Name                  | Privacy | Type                                                            | Default                                                              | Description                                                                                                                                                                                                       | Inherited From   |
-| --------------------- | ------- | --------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#onKeydown`          | private |                                                                 |                                                                      |                                                                                                                                                                                                                   |                  |
-| `#events`             | private |                                                                 | `new EventsController(this, {
-    click: this.#onClick
-  })`         |                                                                                                                                                                                                                   |                  |
-| `#validation`         | private |                                                                 | `new ValidationController(this, {
-    target: () => this.input
-  })` |                                                                                                                                                                                                                   |                  |
-| `input`               |         | `HTMLInputElement`                                              |                                                                      | The input element in the light DOM.                                                                                                                                                                               |                  |
-| `internals`           |         |                                                                 |                                                                      | Element internals.                                                                                                                                                                                                |                  |
-| `autocomplete`        |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |                                                                      | Specifies which type of data the browser can use to pre-fill the input.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`. |                  |
-| `maxLength`           |         | `number \| undefined`                                           |                                                                      | Maximum length (number of characters).                                                                                                                                                                            |                  |
-| `minLength`           |         | `number \| undefined`                                           |                                                                      | Minimum length (number of characters).                                                                                                                                                                            |                  |
-| `min`                 |         | `number \| undefined`                                           |                                                                      | Minimum value. Only applies to number input type.                                                                                                                                                                 |                  |
-| `max`                 |         | `number \| undefined`                                           |                                                                      | Maximum value. Only applies to number input type.                                                                                                                                                                 |                  |
-| `step`                |         | `number \| undefined`                                           |                                                                      | Specifies the interval between legal numbers for an input field. Only applies to number input type                                                                                                                |                  |
-| `pattern`             |         | `string \| undefined`                                           |                                                                      | Validation using pattern.                                                                                                                                                                                         |                  |
-| `placeholder`         |         | `string \| undefined`                                           |                                                                      | Placeholder text in the input.                                                                                                                                                                                    |                  |
-| `invalid`             |         | `boolean \| undefined`                                          |                                                                      | Whether the input is invalid.                                                                                                                                                                                     |                  |
-| `valid`               |         | `boolean \| undefined`                                          |                                                                      | Whether the input is valid.                                                                                                                                                                                       |                  |
-| `showValid`           |         | `boolean`                                                       | `false`                                                              | Whether the input should get valid styles when is valid.                                                                                                                                                          |                  |
-| `readonly`            |         | `boolean \| undefined`                                          |                                                                      | Whether you can interact with the input or if it is just a static, readonly display.                                                                                                                              |                  |
-| `size`                |         | `InputSize`                                                     | `'md'`                                                               | Input size.                                                                                                                                                                                                       |                  |
-| `type`                |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'`                                                             | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                             |                  |
-| `validators`          |         | `Validator[] \| undefined`                                      |                                                                      | Custom validators specified by the user.                                                                                                                                                                          |                  |
-| `value`               |         | `string \| undefined`                                           |                                                                      | The value for the input.                                                                                                                                                                                          |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`                                 |                                                                      | The cached value for the form control.                                                                                                                                                                            | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`                               |                                                                      | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`.                                                                                   | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                                          |                                                                      | No interaction is possible with this control when disabled.                                                                                                                                                       | HintMixin        |
-| `name`                |         | `string \| undefined`                                           |                                                                      | The name of the form control.                                                                                                                                                                                     | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                                          |                                                                      | Whether this form control is a required field.                                                                                                                                                                    | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                                            |                                                                      |                                                                                                                                                                                                                   | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`                                       |                                                                      |                                                                                                                                                                                                                   | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null`                          |                                                                      |                                                                                                                                                                                                                   | FormControlMixin |
-| `hint`                |         | `string \| undefined`                                           |                                                                      | The hint. If you need to display HTML, use the `hint` slot instead.                                                                                                                                               | HintMixin        |
-| `hintSize`            |         | `HintSize`                                                      | `'md'`                                                               | The hint size.                                                                                                                                                                                                    | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
-| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
-| `#onInput`              |         |             | `{ target }: Event & { target: HTMLInputElement }`                | `void`           |                  |
-| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
-| `shouldUpdate`          |         |             | `changes: PropertyValues<this>`                                   | `boolean`        | FormControlMixin |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
-
-### Attributes
-
-| Name           | Field        | Inherited From   |
-| -------------- | ------------ | ---------------- |
-| `autocomplete` | autocomplete |                  |
-| `maxlength`    | maxLength    |                  |
-| `minlength`    | minLength    |                  |
-| `min`          | min          |                  |
-| `max`          | max          |                  |
-| `step`         | step         |                  |
-| `pattern`      | pattern      |                  |
-| `placeholder`  | placeholder  |                  |
-| `invalid`      | invalid      |                  |
-| `valid`        | valid        |                  |
-| `showValid`    | showValid    |                  |
-| `readonly`     | readonly     |                  |
-| `size`         | size         |                  |
-| `type`         | type         |                  |
-| `value`        | value        |                  |
-| `disabled`     | disabled     | HintMixin        |
-| `name`         | name         | FormControlMixin |
-| `required`     | required     | FormControlMixin |
-| `hint`         | hint         | HintMixin        |
-| `hintSize`     | hintSize     | HintMixin        |
-
-### Slots
-
-| Name     | Description                    |
-| -------- | ------------------------------ |
-| `prefix` | Content shown before the input |
-| `input`  | The slot for the input element |
-| `suffix` | Content shown after the input  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `TextInput` | TextInput   | ../packages/components/text-input/src/text-input.ts |         |
-
-# `../packages/components/textarea/src/textarea.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/textarea/src/textarea.scss.ts |         |
-
-# `../packages/components/textarea/src/textarea.ts`:
-
-## class: `Textarea`, `sl-textarea`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-| `HintMixin`        |        | @sl-design-system/shared |
-
-### Fields
-
-| Name                  | Privacy | Type                                                          | Default                                                                 | Description                                                                                                                                                                                                          | Inherited From   |
-| --------------------- | ------- | ------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`             | private |                                                               | `new EventsController(this, {
-    click: this.#onClick
-  })`            |                                                                                                                                                                                                                      |                  |
-| `#validation`         | private |                                                               | `new ValidationController(this, {
-    target: () => this.textarea
-  })` |                                                                                                                                                                                                                      |                  |
-| `internals`           |         |                                                               |                                                                         | Element internals.                                                                                                                                                                                                   |                  |
-| `textarea`            |         | `HTMLTextAreaElement`                                         |                                                                         | The textarea in the light DOM.                                                                                                                                                                                       |                  |
-| `#resizeObserver`     | private | `ResizeObserver \| undefined`                                 |                                                                         | Observe the textarea width.                                                                                                                                                                                          |                  |
-| `autocomplete`        |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined` |                                                                         | Specifies which type of data the browser can use to pre-fill the textarea.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`. |                  |
-| `maxLength`           |         | `number \| undefined`                                         |                                                                         | Maximum length (number of characters).                                                                                                                                                                               |                  |
-| `minLength`           |         | `number \| undefined`                                         |                                                                         | Minimum length (number of characters).                                                                                                                                                                               |                  |
-| `placeholder`         |         | `string \| undefined`                                         |                                                                         | Placeholder text in the input.                                                                                                                                                                                       |                  |
-| `readonly`            |         | `boolean \| undefined`                                        |                                                                         | Whether you can interact with the textarea or if it is just a static, readonly display.                                                                                                                              |                  |
-| `validators`          |         | `Validator[] \| undefined`                                    |                                                                         | Custom validators specified by the user.                                                                                                                                                                             |                  |
-| `value`               |         | `string \| undefined`                                         |                                                                         | The value for the textarea.                                                                                                                                                                                          |                  |
-| `valid`               |         | `boolean \| undefined`                                        |                                                                         | Whether the textarea is valid.                                                                                                                                                                                       |                  |
-| `showValid`           |         | `boolean`                                                     | `false`                                                                 | Whether the textarea should get valid styles when is valid.                                                                                                                                                          |                  |
-| `resize`              |         | `ResizeType`                                                  | `'vertical'`                                                            | Specifies how textarea can be resized.                                                                                                                                                                               |                  |
-| `size`                |         | `TextareaSize`                                                | `'md'`                                                                  | Textarea size.                                                                                                                                                                                                       |                  |
-| `wrap`                |         | `WrapType \| undefined`                                       | `'soft'`                                                                | Specifies how the text should be wrapped during form submission.                                                                                                                                                     |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`                               |                                                                         | The cached value for the form control.                                                                                                                                                                               | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`                             |                                                                         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`.                                                                                      | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                                        |                                                                         | No interaction is possible with this control when disabled.                                                                                                                                                          | HintMixin        |
-| `name`                |         | `string \| undefined`                                         |                                                                         | The name of the form control.                                                                                                                                                                                        | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                                        |                                                                         | Whether this form control is a required field.                                                                                                                                                                       | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                                          |                                                                         |                                                                                                                                                                                                                      | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`                                     |                                                                         |                                                                                                                                                                                                                      | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null`                        |                                                                         |                                                                                                                                                                                                                      | FormControlMixin |
-| `hint`                |         | `string \| undefined`                                         |                                                                         | The hint. If you need to display HTML, use the `hint` slot instead.                                                                                                                                                  | HintMixin        |
-| `hintSize`            |         | `HintSize`                                                    | `'md'`                                                                  | The hint size.                                                                                                                                                                                                       | HintMixin        |
-
-### Methods
-
-| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
-| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
-| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
-| `#onInput`              |         |             | `{ target }: Event & { target: HTMLTextAreaElement }`             | `void`           |                  |
-| `#setSize`              |         |             |                                                                   | `void`           |                  |
-| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
-| `shouldUpdate`          |         |             | `changes: PropertyValues<this>`                                   | `boolean`        | FormControlMixin |
-| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
-| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
-| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
-| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
-| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
-| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
-| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
-| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
-
-### Attributes
-
-| Name           | Field        | Inherited From   |
-| -------------- | ------------ | ---------------- |
-| `autocomplete` | autocomplete |                  |
-| `maxlength`    | maxLength    |                  |
-| `minlength`    | minLength    |                  |
-| `placeholder`  | placeholder  |                  |
-| `readonly`     | readonly     |                  |
-| `value`        | value        |                  |
-| `valid`        | valid        |                  |
-| `showValid`    | showValid    |                  |
-| `resize`       | resize       |                  |
-| `size`         | size         |                  |
-| `wrap`         | wrap         |                  |
-| `disabled`     | disabled     | HintMixin        |
-| `name`         | name         | FormControlMixin |
-| `required`     | required     | FormControlMixin |
-| `hint`         | hint         | HintMixin        |
-| `hintSize`     | hintSize     | HintMixin        |
-
-### Slots
-
-| Name       | Description                       |
-| ---------- | --------------------------------- |
-| `textarea` | The slot for the textarea element |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                          | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Textarea` | Textarea    | ../packages/components/textarea/src/textarea.ts |         |
-
 # `../packages/components/tabs/src/tab-group.scss.ts`:
 
 ## Exports
@@ -3025,6 +2742,130 @@
 | ---- | ----- | ----------- | -------------------------------------- | ------- |
 | `js` | `Tab` | Tab         | ../packages/components/tabs/src/tab.ts |         |
 
+# `../packages/components/text-input/src/text-input.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/text-input/src/text-input.scss.ts |         |
+
+# `../packages/components/text-input/src/text-input.ts`:
+
+## class: `TextInput`, `sl-text-input`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
+
+### Fields
+
+| Name                  | Privacy | Type                                                            | Default                                                              | Description                                                                                                                                                                                                       | Inherited From   |
+| --------------------- | ------- | --------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#onKeydown`          | private |                                                                 |                                                                      |                                                                                                                                                                                                                   |                  |
+| `#events`             | private |                                                                 | `new EventsController(this, {
+    click: this.#onClick
+  })`         |                                                                                                                                                                                                                   |                  |
+| `#validation`         | private |                                                                 | `new ValidationController(this, {
+    target: () => this.input
+  })` |                                                                                                                                                                                                                   |                  |
+| `input`               |         | `HTMLInputElement`                                              |                                                                      | The input element in the light DOM.                                                                                                                                                                               |                  |
+| `internals`           |         |                                                                 |                                                                      | Element internals.                                                                                                                                                                                                |                  |
+| `autocomplete`        |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |                                                                      | Specifies which type of data the browser can use to pre-fill the input.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`. |                  |
+| `maxLength`           |         | `number \| undefined`                                           |                                                                      | Maximum length (number of characters).                                                                                                                                                                            |                  |
+| `minLength`           |         | `number \| undefined`                                           |                                                                      | Minimum length (number of characters).                                                                                                                                                                            |                  |
+| `min`                 |         | `number \| undefined`                                           |                                                                      | Minimum value. Only applies to number input type.                                                                                                                                                                 |                  |
+| `max`                 |         | `number \| undefined`                                           |                                                                      | Maximum value. Only applies to number input type.                                                                                                                                                                 |                  |
+| `step`                |         | `number \| undefined`                                           |                                                                      | Specifies the interval between legal numbers for an input field. Only applies to number input type                                                                                                                |                  |
+| `pattern`             |         | `string \| undefined`                                           |                                                                      | Validation using pattern.                                                                                                                                                                                         |                  |
+| `placeholder`         |         | `string \| undefined`                                           |                                                                      | Placeholder text in the input.                                                                                                                                                                                    |                  |
+| `invalid`             |         | `boolean \| undefined`                                          |                                                                      | Whether the input is invalid.                                                                                                                                                                                     |                  |
+| `valid`               |         | `boolean \| undefined`                                          |                                                                      | Whether the input is valid.                                                                                                                                                                                       |                  |
+| `showValid`           |         | `boolean`                                                       | `false`                                                              | Whether the input should get valid styles when is valid.                                                                                                                                                          |                  |
+| `readonly`            |         | `boolean \| undefined`                                          |                                                                      | Whether you can interact with the input or if it is just a static, readonly display.                                                                                                                              |                  |
+| `size`                |         | `InputSize`                                                     | `'md'`                                                               | Input size.                                                                                                                                                                                                       |                  |
+| `type`                |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'`                                                             | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                             |                  |
+| `validators`          |         | `Validator[] \| undefined`                                      |                                                                      | Custom validators specified by the user.                                                                                                                                                                          |                  |
+| `value`               |         | `string \| undefined`                                           |                                                                      | The value for the input.                                                                                                                                                                                          |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`                                 |                                                                      | The cached value for the form control.                                                                                                                                                                            | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`                               |                                                                      | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`.                                                                                   | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                                          |                                                                      | No interaction is possible with this control when disabled.                                                                                                                                                       | HintMixin        |
+| `name`                |         | `string \| undefined`                                           |                                                                      | The name of the form control.                                                                                                                                                                                     | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                                          |                                                                      | Whether this form control is a required field.                                                                                                                                                                    | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                                            |                                                                      |                                                                                                                                                                                                                   | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`                                       |                                                                      |                                                                                                                                                                                                                   | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null`                          |                                                                      |                                                                                                                                                                                                                   | FormControlMixin |
+| `hint`                |         | `string \| undefined`                                           |                                                                      | The hint. If you need to display HTML, use the `hint` slot instead.                                                                                                                                               | HintMixin        |
+| `hintSize`            |         | `HintSize`                                                      | `'md'`                                                               | The hint size.                                                                                                                                                                                                    | HintMixin        |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
+| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
+| `#onInput`              |         |             | `{ target }: Event & { target: HTMLInputElement }`                | `void`           |                  |
+| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
+| `shouldUpdate`          |         |             | `changes: PropertyValues<this>`                                   | `boolean`        | FormControlMixin |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
+| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
+| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
+| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
+| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
+
+### Attributes
+
+| Name           | Field        | Inherited From   |
+| -------------- | ------------ | ---------------- |
+| `autocomplete` | autocomplete |                  |
+| `maxlength`    | maxLength    |                  |
+| `minlength`    | minLength    |                  |
+| `min`          | min          |                  |
+| `max`          | max          |                  |
+| `step`         | step         |                  |
+| `pattern`      | pattern      |                  |
+| `placeholder`  | placeholder  |                  |
+| `invalid`      | invalid      |                  |
+| `valid`        | valid        |                  |
+| `showValid`    | showValid    |                  |
+| `readonly`     | readonly     |                  |
+| `size`         | size         |                  |
+| `type`         | type         |                  |
+| `value`        | value        |                  |
+| `disabled`     | disabled     | HintMixin        |
+| `name`         | name         | FormControlMixin |
+| `required`     | required     | FormControlMixin |
+| `hint`         | hint         | HintMixin        |
+| `hintSize`     | hintSize     | HintMixin        |
+
+### Slots
+
+| Name     | Description                    |
+| -------- | ------------------------------ |
+| `prefix` | Content shown before the input |
+| `input`  | The slot for the input element |
+| `suffix` | Content shown after the input  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `TextInput` | TextInput   | ../packages/components/text-input/src/text-input.ts |         |
+
 # `../packages/components/tooltip/src/tooltip-directive.ts`:
 
 ## class: `TooltipDirective`
@@ -3116,6 +2957,216 @@
 | Kind | Name      | Declaration | Module                                        | Package |
 | ---- | --------- | ----------- | --------------------------------------------- | ------- |
 | `js` | `Tooltip` | Tooltip     | ../packages/components/tooltip/src/tooltip.ts |         |
+
+# `../packages/components/textarea/src/textarea.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/textarea/src/textarea.scss.ts |         |
+
+# `../packages/components/textarea/src/textarea.ts`:
+
+## class: `Textarea`, `sl-textarea`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
+
+### Fields
+
+| Name                  | Privacy | Type                                                          | Default                                                                 | Description                                                                                                                                                                                                          | Inherited From   |
+| --------------------- | ------- | ------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`             | private |                                                               | `new EventsController(this, {
+    click: this.#onClick
+  })`            |                                                                                                                                                                                                                      |                  |
+| `#validation`         | private |                                                               | `new ValidationController(this, {
+    target: () => this.textarea
+  })` |                                                                                                                                                                                                                      |                  |
+| `internals`           |         |                                                               |                                                                         | Element internals.                                                                                                                                                                                                   |                  |
+| `textarea`            |         | `HTMLTextAreaElement`                                         |                                                                         | The textarea in the light DOM.                                                                                                                                                                                       |                  |
+| `#resizeObserver`     | private | `ResizeObserver \| undefined`                                 |                                                                         | Observe the textarea width.                                                                                                                                                                                          |                  |
+| `autocomplete`        |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined` |                                                                         | Specifies which type of data the browser can use to pre-fill the textarea.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`. |                  |
+| `maxLength`           |         | `number \| undefined`                                         |                                                                         | Maximum length (number of characters).                                                                                                                                                                               |                  |
+| `minLength`           |         | `number \| undefined`                                         |                                                                         | Minimum length (number of characters).                                                                                                                                                                               |                  |
+| `placeholder`         |         | `string \| undefined`                                         |                                                                         | Placeholder text in the input.                                                                                                                                                                                       |                  |
+| `readonly`            |         | `boolean \| undefined`                                        |                                                                         | Whether you can interact with the textarea or if it is just a static, readonly display.                                                                                                                              |                  |
+| `validators`          |         | `Validator[] \| undefined`                                    |                                                                         | Custom validators specified by the user.                                                                                                                                                                             |                  |
+| `value`               |         | `string \| undefined`                                         |                                                                         | The value for the textarea.                                                                                                                                                                                          |                  |
+| `valid`               |         | `boolean \| undefined`                                        |                                                                         | Whether the textarea is valid.                                                                                                                                                                                       |                  |
+| `showValid`           |         | `boolean`                                                     | `false`                                                                 | Whether the textarea should get valid styles when is valid.                                                                                                                                                          |                  |
+| `resize`              |         | `ResizeType`                                                  | `'vertical'`                                                            | Specifies how textarea can be resized.                                                                                                                                                                               |                  |
+| `size`                |         | `TextareaSize`                                                | `'md'`                                                                  | Textarea size.                                                                                                                                                                                                       |                  |
+| `wrap`                |         | `WrapType \| undefined`                                       | `'soft'`                                                                | Specifies how the text should be wrapped during form submission.                                                                                                                                                     |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`                               |                                                                         | The cached value for the form control.                                                                                                                                                                               | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`                             |                                                                         | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`.                                                                                      | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                                        |                                                                         | No interaction is possible with this control when disabled.                                                                                                                                                          | HintMixin        |
+| `name`                |         | `string \| undefined`                                         |                                                                         | The name of the form control.                                                                                                                                                                                        | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                                        |                                                                         | Whether this form control is a required field.                                                                                                                                                                       | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                                          |                                                                         |                                                                                                                                                                                                                      | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`                                     |                                                                         |                                                                                                                                                                                                                      | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null`                        |                                                                         |                                                                                                                                                                                                                      | FormControlMixin |
+| `hint`                |         | `string \| undefined`                                         |                                                                         | The hint. If you need to display HTML, use the `hint` slot instead.                                                                                                                                                  | HintMixin        |
+| `hintSize`            |         | `HintSize`                                                    | `'md'`                                                                  | The hint size.                                                                                                                                                                                                       | HintMixin        |
+
+### Methods
+
+| Name                    | Privacy | Description | Parameters                                                        | Return           | Inherited From   |
+| ----------------------- | ------- | ----------- | ----------------------------------------------------------------- | ---------------- | ---------------- |
+| `#onClick`              |         |             | `event: Event`                                                    | `void`           |                  |
+| `#onInput`              |         |             | `{ target }: Event & { target: HTMLTextAreaElement }`             | `void`           |                  |
+| `#setSize`              |         |             |                                                                   | `void`           |                  |
+| `#onSlotchange`         |         |             | `event: Event & { target: HTMLSlotElement }`                      | `void`           |                  |
+| `shouldUpdate`          |         |             | `changes: PropertyValues<this>`                                   | `boolean`        | FormControlMixin |
+| `updated`               |         |             | `changes: PropertyValues<this>`                                   | `void`           | HintMixin        |
+| `checkValidity`         |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `reportValidity`        |         |             |                                                                   | `boolean`        | FormControlMixin |
+| `setFormControlElement` |         |             | `element: FormControlElement`                                     | `void`           | FormControlMixin |
+| `setValidity`           |         |             | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`           | FormControlMixin |
+| `setFormValue`          |         |             | `value: FormControlValue`                                         | `void`           | FormControlMixin |
+| `renderHint`            |         |             |                                                                   | `TemplateResult` | HintMixin        |
+| `#updateHint`           |         |             |                                                                   | `void`           | HintMixin        |
+| `#removeHint`           |         |             |                                                                   | `void`           | HintMixin        |
+
+### Attributes
+
+| Name           | Field        | Inherited From   |
+| -------------- | ------------ | ---------------- |
+| `autocomplete` | autocomplete |                  |
+| `maxlength`    | maxLength    |                  |
+| `minlength`    | minLength    |                  |
+| `placeholder`  | placeholder  |                  |
+| `readonly`     | readonly     |                  |
+| `value`        | value        |                  |
+| `valid`        | valid        |                  |
+| `showValid`    | showValid    |                  |
+| `resize`       | resize       |                  |
+| `size`         | size         |                  |
+| `wrap`         | wrap         |                  |
+| `disabled`     | disabled     | HintMixin        |
+| `name`         | name         | FormControlMixin |
+| `required`     | required     | FormControlMixin |
+| `hint`         | hint         | HintMixin        |
+| `hintSize`     | hintSize     | HintMixin        |
+
+### Slots
+
+| Name       | Description                       |
+| ---------- | --------------------------------- |
+| `textarea` | The slot for the textarea element |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                          | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `Textarea` | Textarea    | ../packages/components/textarea/src/textarea.ts |         |
+
+# `../packages/components/shared/src/data-source/array-data-source.ts`:
+
+## class: `ArrayDataSource`
+
+### Superclass
+
+| Name         | Module                                                     | Package |
+| ------------ | ---------------------------------------------------------- | ------- |
+| `DataSource` | /packages/components/shared/src/data-source/data-source.js |         |
+
+### Fields
+
+| Name             | Privacy | Type                               | Default      | Description                                                                                                                        | Inherited From |
+| ---------------- | ------- | ---------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#filteredItems` | private | `T[]`                              | `[...items]` |                                                                                                                                    |                |
+| `#items`         | private | `T[]`                              | `[...items]` |                                                                                                                                    |                |
+| `filteredItems`  |         | `T[]`                              |              | The filtered & sorted array of items.                                                                                              | DataSource     |
+| `items`          |         | `T[]`                              |              | The array of all items.                                                                                                            | DataSource     |
+| `size`           |         | `number`                           |              | Total number of items in this data source.                                                                                         | DataSource     |
+| `#filters`       | private | `Map<string, DataSourceFilter<T>>` | `new Map()`  | Map of all active filters.                                                                                                         | DataSource     |
+| `#sort`          | private | `DataSourceSort<T> \| undefined`   |              | The value and path/function to use for sorting. When setting this property,&#xA;it will cause the data to be automatically sorted. | DataSource     |
+| `filters`        |         | `Map<string, DataSourceFilter<T>>` |              |                                                                                                                                    | DataSource     |
+| `sort`           |         | `DataSourceSort<T> \| undefined`   |              |                                                                                                                                    | DataSource     |
+
+### Methods
+
+| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
+| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
+| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` | DataSource     |
+| `removeFilter` |         |             | `id: string`                                                      | `void` | DataSource     |
+| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` | DataSource     |
+| `removeSort`   |         |             |                                                                   | `void` | DataSource     |
+
+### Events
+
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                                             | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------ | ------- |
+| `js` | `ArrayDataSource` | ArrayDataSource | ../packages/components/shared/src/data-source/array-data-source.ts |         |
+
+# `../packages/components/shared/src/data-source/data-source.ts`:
+
+## class: `DataSource`
+
+### Superclass
+
+| Name          | Module                                                       | Package |
+| ------------- | ------------------------------------------------------------ | ------- |
+| `EventTarget` | ../packages/components/shared/src/data-source/data-source.ts |         |
+
+### Fields
+
+| Name            | Privacy | Type                               | Default     | Description                                                                                                                        | Inherited From |
+| --------------- | ------- | ---------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `#filters`      | private | `Map<string, DataSourceFilter<T>>` | `new Map()` | Map of all active filters.                                                                                                         |                |
+| `#sort`         | private | `DataSourceSort<T> \| undefined`   |             | The value and path/function to use for sorting. When setting this property,&#xA;it will cause the data to be automatically sorted. |                |
+| `filters`       |         | `Map<string, DataSourceFilter<T>>` |             |                                                                                                                                    |                |
+| `sort`          |         | `DataSourceSort<T> \| undefined`   |             |                                                                                                                                    |                |
+| `filteredItems` |         | `T[]`                              |             | The filtered & sorted array of items.                                                                                              |                |
+| `items`         |         | `T[]`                              |             | The array of all items.                                                                                                            |                |
+| `size`          |         | `number`                           |             | Total number of items in this data source.                                                                                         |                |
+
+### Methods
+
+| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
+| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
+| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` |                |
+| `removeFilter` |         |             | `id: string`                                                      | `void` |                |
+| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` |                |
+| `removeSort`   |         |             |                                                                   | `void` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                                       | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------ | ------- |
+| `js` | `DataSource` | DataSource  | ../packages/components/shared/src/data-source/data-source.ts |         |
+
+# `../packages/components/shared/src/data-source/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./array-data-source.js |
+| `js` | `*`  | *           |        | ./data-source.js       |
 
 # `../packages/components/shared/src/controllers/anchor.ts`:
 
@@ -3211,6 +3262,7 @@
 | `hostConnected`              |         |             |                         | `void`    |                |
 | `hostDisconnected`           |         |             |                         | `void`    |                |
 | `focus`                      |         |             | `options: FocusOptions` | `void`    |                |
+| `focusToElement`             |         |             | `elementIndex: number`  | `void`    |                |
 | `clearElementCache`          |         |             | `offset`                | `void`    |                |
 | `setCurrentIndexCircularly`  |         |             | `diff: number`          | `void`    |                |
 | `hostContainsFocus`          |         |             |                         | `void`    |                |
@@ -3295,6 +3347,7 @@
 | `hostConnected`              |         |             |                                                      | `void`    | FocusGroupController |
 | `hostDisconnected`           |         |             |                                                      | `void`    | FocusGroupController |
 | `focus`                      |         |             | `options: FocusOptions`                              | `void`    | FocusGroupController |
+| `focusToElement`             |         |             | `elementIndex: number`                               | `void`    | FocusGroupController |
 | `setCurrentIndexCircularly`  |         |             | `diff: number`                                       | `void`    | FocusGroupController |
 | `hostContainsFocus`          |         |             |                                                      | `void`    | FocusGroupController |
 | `hostNoLongerContainsFocus`  |         |             |                                                      | `void`    | FocusGroupController |
@@ -3413,100 +3466,54 @@
 | `js` | `validationStyles`     | validationStyles     | ../packages/components/shared/src/controllers/validation.ts |         |
 | `js` | `ValidationController` | ValidationController | ../packages/components/shared/src/controllers/validation.ts |         |
 
-# `../packages/components/shared/src/data-source/array-data-source.ts`:
+# `../packages/components/shared/src/directives/anchor.ts`:
 
-## class: `ArrayDataSource`
+## class: `AnchorDirective`
 
 ### Superclass
 
-| Name         | Module                                                     | Package |
-| ------------ | ---------------------------------------------------------- | ------- |
-| `DataSource` | /packages/components/shared/src/data-source/data-source.js |         |
+| Name        | Module | Package          |
+| ----------- | ------ | ---------------- |
+| `Directive` |        | lit/directive.js |
 
 ### Fields
 
-| Name             | Privacy | Type                               | Default      | Description                                                                                                                        | Inherited From |
-| ---------------- | ------- | ---------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#filteredItems` | private | `T[]`                              | `[...items]` |                                                                                                                                    |                |
-| `#items`         | private | `T[]`                              | `[...items]` |                                                                                                                                    |                |
-| `filteredItems`  |         | `T[]`                              |              | The filtered & sorted array of items.                                                                                              | DataSource     |
-| `items`          |         | `T[]`                              |              | The array of all items.                                                                                                            | DataSource     |
-| `size`           |         | `number`                           |              | Total number of items in this data source.                                                                                         | DataSource     |
-| `#filters`       | private | `Map<string, DataSourceFilter<T>>` | `new Map()`  | Map of all active filters.                                                                                                         | DataSource     |
-| `#sort`          | private | `DataSourceSort<T> \| undefined`   |              | The value and path/function to use for sorting. When setting this property,&#xA;it will cause the data to be automatically sorted. | DataSource     |
-| `filters`        |         | `Map<string, DataSourceFilter<T>>` |              |                                                                                                                                    | DataSource     |
-| `sort`           |         | `DataSourceSort<T> \| undefined`   |              |                                                                                                                                    | DataSource     |
+| Name       | Privacy | Type                                 | Default | Description | Inherited From |
+| ---------- | ------- | ------------------------------------ | ------- | ----------- | -------------- |
+| `#config`  | private | `AnchorDirectiveConfig \| undefined` |         |             |                |
+| `#host`    | private | `HTMLElement \| undefined`           |         |             |                |
+| `#cleanup` | private | `() => void \| undefined`            |         |             |                |
 
 ### Methods
 
-| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
-| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
-| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` | DataSource     |
-| `removeFilter` |         |             | `id: string`                                                      | `void` | DataSource     |
-| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` | DataSource     |
-| `removeSort`   |         |             |                                                                   | `void` | DataSource     |
+| Name              | Privacy | Description | Parameters                                     | Return | Inherited From |
+| ----------------- | ------- | ----------- | ---------------------------------------------- | ------ | -------------- |
+| `#onBeforeToggle` |         |             | `event: ToggleEvent & { target: HTMLElement }` | `void` |                |
 
-### Events
+<hr/>
 
-| Name        | Type          | Description | Inherited From |
-| ----------- | ------------- | ----------- | -------------- |
-| `sl-update` | `CustomEvent` |             |                |
+## Variables
+
+| Name     | Description | Type |
+| -------- | ----------- | ---- |
+| `anchor` |             |      |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                             | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------ | ------- |
-| `js` | `ArrayDataSource` | ArrayDataSource | ../packages/components/shared/src/data-source/array-data-source.ts |         |
+| Kind | Name              | Declaration     | Module                                                 | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------ | ------- |
+| `js` | `AnchorDirective` | AnchorDirective | ../packages/components/shared/src/directives/anchor.ts |         |
+| `js` | `anchor`          | anchor          | ../packages/components/shared/src/directives/anchor.ts |         |
 
-# `../packages/components/shared/src/data-source/data-source.ts`:
-
-## class: `DataSource`
-
-### Superclass
-
-| Name          | Module                                                       | Package |
-| ------------- | ------------------------------------------------------------ | ------- |
-| `EventTarget` | ../packages/components/shared/src/data-source/data-source.ts |         |
-
-### Fields
-
-| Name            | Privacy | Type                               | Default     | Description                                                                                                                        | Inherited From |
-| --------------- | ------- | ---------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `#filters`      | private | `Map<string, DataSourceFilter<T>>` | `new Map()` | Map of all active filters.                                                                                                         |                |
-| `#sort`         | private | `DataSourceSort<T> \| undefined`   |             | The value and path/function to use for sorting. When setting this property,&#xA;it will cause the data to be automatically sorted. |                |
-| `filters`       |         | `Map<string, DataSourceFilter<T>>` |             |                                                                                                                                    |                |
-| `sort`          |         | `DataSourceSort<T> \| undefined`   |             |                                                                                                                                    |                |
-| `filteredItems` |         | `T[]`                              |             | The filtered & sorted array of items.                                                                                              |                |
-| `items`         |         | `T[]`                              |             | The array of all items.                                                                                                            |                |
-| `size`          |         | `number`                           |             | Total number of items in this data source.                                                                                         |                |
-
-### Methods
-
-| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
-| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
-| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` |                |
-| `removeFilter` |         |             | `id: string`                                                      | `void` |                |
-| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` |                |
-| `removeSort`   |         |             |                                                                   | `void` |                |
-
-<hr/>
+# `../packages/components/shared/src/directives/index.ts`:
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                       | Package |
-| ---- | ------------ | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `DataSource` | DataSource  | ../packages/components/shared/src/data-source/data-source.ts |         |
-
-# `../packages/components/shared/src/data-source/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                |
-| ---- | ---- | ----------- | ------ | ---------------------- |
-| `js` | `*`  | *           |        | ./array-data-source.js |
-| `js` | `*`  | *           |        | ./data-source.js       |
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./anchor.js |
 
 # `../packages/components/shared/src/decorators/base.ts`:
 
@@ -3702,52 +3709,3 @@
 | ---- | ---- | ----------- | ------ | ----------------- |
 | `js` | `*`  | *           |        | ./form-control.js |
 | `js` | `*`  | *           |        | ./hint.js         |
-
-# `../packages/components/shared/src/directives/anchor.ts`:
-
-## class: `AnchorDirective`
-
-### Superclass
-
-| Name        | Module | Package          |
-| ----------- | ------ | ---------------- |
-| `Directive` |        | lit/directive.js |
-
-### Fields
-
-| Name       | Privacy | Type                                 | Default | Description | Inherited From |
-| ---------- | ------- | ------------------------------------ | ------- | ----------- | -------------- |
-| `#config`  | private | `AnchorDirectiveConfig \| undefined` |         |             |                |
-| `#host`    | private | `HTMLElement \| undefined`           |         |             |                |
-| `#cleanup` | private | `() => void \| undefined`            |         |             |                |
-
-### Methods
-
-| Name              | Privacy | Description | Parameters                                     | Return | Inherited From |
-| ----------------- | ------- | ----------- | ---------------------------------------------- | ------ | -------------- |
-| `#onBeforeToggle` |         |             | `event: ToggleEvent & { target: HTMLElement }` | `void` |                |
-
-<hr/>
-
-## Variables
-
-| Name     | Description | Type |
-| -------- | ----------- | ---- |
-| `anchor` |             |      |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                                 | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------ | ------- |
-| `js` | `AnchorDirective` | AnchorDirective | ../packages/components/shared/src/directives/anchor.ts |         |
-| `js` | `anchor`          | anchor          | ../packages/components/shared/src/directives/anchor.ts |         |
-
-# `../packages/components/shared/src/directives/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package     |
-| ---- | ---- | ----------- | ------ | ----------- |
-| `js` | `*`  | *           |        | ./anchor.js |

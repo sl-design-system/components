@@ -3390,6 +3390,10 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.none"
+    },
+    "tooltip": {
+      "value": "{elevation.shadow.none}",
+      "type": "boxShadow"
     }
   }
 }

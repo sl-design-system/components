@@ -3913,6 +3913,10 @@
         },
         "type": "composition"
       }
+    },
+    "tooltip": {
+      "value": "{elevation.shadow.none}",
+      "type": "boxShadow"
     }
   },
   "border": {

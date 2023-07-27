@@ -1430,6 +1430,19 @@
           }
         ],
         "type": "boxShadow"
+      },
+      "none": {
+        "value": [
+          {
+            "x": "0",
+            "y": "0",
+            "blur": "0",
+            "spread": "0",
+            "color": "{color.palette.transparent.base}",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
       }
     }
   }

@@ -1,16 +1,29 @@
-:host {
-  --_font: var(--sl-text-button-text-md);
+$sizes: md, lg;
 
+:host {
+  --sl-border-radius-select-item: 2px;
+  --_selected-indicator-color: var(--sl-color-select-item-default-indicator);
+  --_text-color: var(--sl-color-select-item-default-foreground);
+  border-radius: var(--sl-border-radius-select-item);
+  box-shadow: var(--_box-shadow, none);
+  color: var(--_text-color);
   cursor: pointer;
+  display: block;
   font: var(--_font);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
+  position: relative;
   white-space: nowrap;
 }
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_font: var(--sl-text-select-selectbox-text-#{$size});
+  }
 
-:host([contenttype='string']) {
-  --_padding-block: var(--sl-space-button-block-md);
-  --_padding-inline: var(--sl-space-button-inline-md);
+  :host([size='#{$size}'][contenttype='string']) {
+    --_padding-block: var(--sl-space-select-item-block-#{$size});
+    --_padding-inline: var(--sl-space-select-item-inline-#{$size});
+  }
 }
 
 :host([contenttype='element']) {
@@ -18,12 +31,37 @@
   --_padding-inline: 0;
 }
 
-:host([selected]) {
-  box-shadow: inset 3px 0 0 var(--sl-color-button-default-default-focus-border);
+:host([selected])::before {
+  background: var(--_selected-indicator-color);
+  border-radius: var(--sl-border-radius-select-item);
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: calc(2 * var(--sl-border-radius-select-item));
 }
 
 :host([disabled]) {
+  --_selected-indicator-color: var(--sl-color-select-item-disabled-indicator);
+  --_text-color: var(--sl-color-select-item-disabled-foreground);
   cursor: default;
-  opacity: 0.6;
   pointer-events: none;
+}
+
+:host(:is(:hover)) {
+  background-color: var(--sl-color-select-item-hover-background);
+}
+
+:host(:is(:active)) {
+  background-color: var(--sl-color-select-item-active-background);
+}
+
+:host(:is(:focus)) {
+  outline: none;
+}
+
+:host(:where(:focus-visible, :focus-within)) {
+  --_box-shadow: var(--sl-box-shadow-focus);
+  outline: none;
 }

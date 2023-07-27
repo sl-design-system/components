@@ -877,6 +877,23 @@
               "readonly": true
             },
             {
+              "kind": "method",
+              "name": "focusToElement",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "elementIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
               "kind": "field",
               "name": "focused",
               "type": {
@@ -1269,6 +1286,27 @@
                 "text": "number"
               },
               "readonly": true,
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusToElement",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "elementIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
               "inheritedFrom": {
                 "name": "FocusGroupController",
                 "module": "src/controllers/focus-group.ts"

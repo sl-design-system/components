@@ -61,14 +61,6 @@
             "name": "SelectOptionGroup",
             "module": "/src/select-option-group.js"
           }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-select-overlay",
-          "declaration": {
-            "name": "SelectOverlay",
-            "module": "/src/select-overlay.js"
-          }
         }
       ]
     },
@@ -97,20 +89,40 @@
           "members": [
             {
               "kind": "field",
-              "name": "groupTitle",
+              "name": "groupHeading",
               "type": {
                 "text": "string | undefined"
               },
-              "attribute": "group-title"
+              "attribute": "group-heading"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "Select size.",
+              "attribute": "size",
+              "reflects": true
             }
           ],
           "attributes": [
             {
-              "name": "group-title",
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "Select size.",
+              "fieldName": "size"
+            },
+            {
+              "name": "group-heading",
               "type": {
                 "text": "string | undefined"
               },
-              "fieldName": "groupTitle"
+              "fieldName": "groupHeading"
             }
           ],
           "superclass": {
@@ -202,9 +214,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "{ width: number; height: number }"
+                "text": "SelectSize"
               },
-              "default": "{ width: 0, height: 0 }",
+              "default": "'md'",
+              "description": "Select size.",
               "attribute": "size",
               "reflects": true
             },
@@ -219,6 +232,15 @@
             }
           ],
           "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "Select size.",
+              "fieldName": "size"
+            },
             {
               "name": "value",
               "type": {
@@ -252,14 +274,6 @@
               },
               "description": "Whether the content of the option item is a node",
               "fieldName": "contentType"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "{ width: number; height: number }"
-              },
-              "default": "{ width: 0, height: 0 }",
-              "fieldName": "size"
             }
           ],
           "superclass": {
@@ -277,104 +291,6 @@
           "declaration": {
             "name": "SelectOption",
             "module": "src/select-option.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select-overlay.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select-overlay.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select-overlay.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "SelectOverlay",
-          "members": [
-            {
-              "kind": "method",
-              "name": "hide",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget | null"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition"
-              },
-              "default": "'bottom-start'",
-              "description": "Tooltip position.",
-              "attribute": "position"
-            },
-            {
-              "kind": "method",
-              "name": "show",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition"
-              },
-              "default": "'bottom-start'",
-              "description": "Tooltip position.",
-              "fieldName": "position"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-select-overlay",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "SelectOverlay",
-          "declaration": {
-            "name": "SelectOverlay",
-            "module": "src/select-overlay.ts"
           }
         }
       ]
@@ -412,6 +328,20 @@
             },
             {
               "kind": "field",
+              "name": "button",
+              "type": {
+                "text": "HTMLButtonElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "formAssociated",
               "type": {
                 "text": "boolean"
@@ -427,28 +357,23 @@
             },
             {
               "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is invalid.",
+              "attribute": "invalid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "maxOverlayHeight",
               "type": {
                 "text": "string | undefined"
               },
-              "attribute": "maxOverlayHeight"
-            },
-            {
-              "kind": "method",
-              "name": "openSelect",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLElement }"
-                  }
-                }
-              ]
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen",
+              "attribute": "max-overlay-height",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -459,18 +384,13 @@
             },
             {
               "kind": "field",
-              "name": "options",
+              "name": "placeholder",
               "type": {
-                "text": "SelectOption[] | undefined"
+                "text": "string | undefined"
               },
-              "description": "The slotted options."
-            },
-            {
-              "kind": "field",
-              "name": "overlay",
-              "type": {
-                "text": "SelectOverlay | undefined"
-              }
+              "description": "Placeholder to show when no options is chosen.",
+              "attribute": "placeholder",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -483,29 +403,47 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "{ width: string; height: string } | undefined"
+                "text": "SelectSize"
               },
-              "default": "{ width: '500px', height: '32px' }",
-              "description": "render helpers",
-              "attribute": "size"
+              "default": "'md'",
+              "description": "Select size.",
+              "attribute": "size",
+              "reflects": true
             }
           ],
           "attributes": [
             {
-              "name": "size",
-              "type": {
-                "text": "{ width: string; height: string } | undefined"
-              },
-              "default": "{ width: '500px', height: '32px' }",
-              "description": "render helpers",
-              "fieldName": "size"
-            },
-            {
-              "name": "maxOverlayHeight",
+              "name": "max-overlay-height",
               "type": {
                 "text": "string | undefined"
               },
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen",
               "fieldName": "maxOverlayHeight"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "Select size.",
+              "fieldName": "size"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder to show when no options is chosen.",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is invalid.",
+              "fieldName": "invalid"
             }
           ],
           "mixins": [

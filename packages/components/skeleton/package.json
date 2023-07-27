@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/grid",
-  "version": "0.0.24",
-  "description": "Grid components for the SL Design System",
+  "name": "@sl-design-system/skeleton",
+  "version": "0.0.1",
+  "description": "Skeleton component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/grid"
+    "directory": "packages/skeleton"
   },
-  "homepage": "https://sanomalearning.design/components/grid",
+  "homepage": "https://sanomalearning.design/components/skeleton",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },
@@ -38,13 +38,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@lit-labs/virtualizer": "^2.0.3",
-    "@open-wc/scoped-elements": "2.2.0",
-    "@sl-design-system/checkbox": "0.0.10",
-    "@sl-design-system/icon": "0.0.3",
-    "@sl-design-system/popover": "0.0.9",
-    "@sl-design-system/shared": "0.1.5",
-    "@sl-design-system/text-input": "0.1.5",
     "lit": "^2.7.5"
   }
 }

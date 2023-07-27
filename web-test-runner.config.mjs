@@ -9,7 +9,7 @@ const config = {
   rootDir: '.',
   
   files: [
-    'packages/components/**/*.spec.ts'
+    'packages/components/**/src/**/*.spec.ts',
   ],
 
   browsers: [playwrightLauncher({ product: 'chromium' })],
@@ -25,6 +25,7 @@ const config = {
     <html>
       <body>
         <script src="/node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
+        <script src="/node_modules/@oddbird/popover-polyfill/dist/popover.min.js"></script>
         <script type="module" src="${testFramework}"></script>
       </body>
     </html>

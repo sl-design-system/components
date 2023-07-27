@@ -25,6 +25,31 @@ export const Basic: Story = {
   }
 };
 
+export const Custom: Story = {
+  render: (_, { loaded: { people } }) => {
+    const renderer = ({ firstName, lastName }: Person): TemplateResult => {
+      return html`<sl-button>${firstName} ${lastName}</sl-button>`;
+    };
+
+    const sorter = (a: Person, b: Person): number => {
+      const lastNameCmp = a.lastName.localeCompare(b.lastName);
+
+      if (lastNameCmp === 0) {
+        return a.firstName.localeCompare(b.firstName);
+      } else {
+        return lastNameCmp;
+      }
+    };
+
+    return html`
+      <sl-grid .items=${people}>
+        <sl-grid-sort-column header="User" .renderer=${renderer} .sorter=${sorter}></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const Sorted: Story = {
   render: (_, { loaded: { people } }) => {
     return html`

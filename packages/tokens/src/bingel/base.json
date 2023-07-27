@@ -1,4 +1,15 @@
 {
+  "color": {
+    "palette": {
+      "neutral": {
+        "base": {
+          "value": "#AAB3BD",
+          "type": "color",
+          "description": "color.palette.neutral.base"
+        }
+      }
+    }
+  },
   "text": {
     "typeset": {
       "fontFamily": {

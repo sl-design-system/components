@@ -1,15 +1,39 @@
+$sizes: md, lg;
+
 :host {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--_gap);
 }
 
-:host(:not(:last-child)) {
-  border-bottom: 1px solid #efefef;
-  padding-bottom: 4px;
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_divider-spacing: var(--sl-space-select-divider-line-#{$size});
+    --_font: var(--sl-text-select-selectbox-title-#{$size});
+    --_gap: var(--sl-space-select-listbox-gap-#{$size});
+    --_padding-block: var(--sl-space-select-divider-block-#{$size});
+    --_padding-inline: var(--sl-space-select-divider-inline-#{$size});
+    --_group-title-margin: calc(var(--sl-space-select-divider-line-#{$size}) - var(--_gap));
+  }
+}
+
+:host(:not(:first-child)) {
+  border-top: var(--sl-border-width-divider) solid var(--sl-color-select-item-divider-line);
+  margin-top: var(--_divider-spacing);
+  padding-top: var(--_divider-spacing);
+}
+
+:host(.bottom-divider) {
+  border-bottom: var(--sl-border-width-divider) solid var(--sl-color-select-item-divider-line);
+  margin-bottom: var(--_divider-spacing);
+  padding-bottom: var(--_divider-spacing);
 }
 
 span {
-  font-weight: bold;
-  padding: 0 4px;
+  color: var(--sl-color-select-item-group-title-foreground);
+  font: var(--_font);
+  margin-bottom: var(--_group-title-margin);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+  text-transform: uppercase;
 }

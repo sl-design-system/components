@@ -1,5 +1,89 @@
 # @sl-design-system/grid
 
+## 0.0.24
+
+### Patch Changes
+
+- [#546](https://github.com/sl-design-system/components/pull/546) [`f1aed34`](https://github.com/sl-design-system/components/commit/f1aed34f48df752f74e218558948315234e2fa49) - Fix the grid not updating when the data-source updates
+
+## 0.0.23
+
+### Patch Changes
+
+- [#543](https://github.com/sl-design-system/components/pull/543) [`6f125e6`](https://github.com/sl-design-system/components/commit/6f125e6886f85fcfb8521e656f682e7385fe8aff) - Various improvements to data source & grid state
+
+- Updated dependencies [[`6f125e6`](https://github.com/sl-design-system/components/commit/6f125e6886f85fcfb8521e656f682e7385fe8aff)]:
+  - @sl-design-system/shared@0.1.5
+  - @sl-design-system/checkbox@0.0.10
+  - @sl-design-system/popover@0.0.9
+  - @sl-design-system/text-input@0.1.5
+
+## 0.0.22
+
+### Patch Changes
+
+- [#541](https://github.com/sl-design-system/components/pull/541) [`8fee657`](https://github.com/sl-design-system/components/commit/8fee65766edce4b08815a8744196d728949226d9) - Update filter & sort state from dataSource
+
+- Updated dependencies [[`46c49dd`](https://github.com/sl-design-system/components/commit/46c49dd2e281d7efbeed40c9ee1e22b44265bc1a)]:
+  - @sl-design-system/shared@0.1.4
+  - @sl-design-system/checkbox@0.0.9
+  - @sl-design-system/popover@0.0.8
+  - @sl-design-system/text-input@0.1.4
+
+## 0.0.21
+
+### Patch Changes
+
+- [#536](https://github.com/sl-design-system/components/pull/536) [`fea2ecf`](https://github.com/sl-design-system/components/commit/fea2ecfc9c30d8525dec95eed269daadf1f54a9b) - Fix dependency issue by grouping events
+
+## 0.0.20
+
+### Patch Changes
+
+- [#534](https://github.com/sl-design-system/components/pull/534) [`a4b8d7c`](https://github.com/sl-design-system/components/commit/a4b8d7cd9bbf6234fd0d0a85bb47b63d4e627132) - Cleanup types
+
+## 0.0.19
+
+### Patch Changes
+
+- [#533](https://github.com/sl-design-system/components/pull/533) [`ac9fbc8`](https://github.com/sl-design-system/components/commit/ac9fbc8e3ff2a1408800b17db7cde56a32b8b3a6) - Add `position="bottom"` to filter popover so it does not appear below a sticky header above it in browsers that do not support popover yet
+
+- [#533](https://github.com/sl-design-system/components/pull/533) [`ac9fbc8`](https://github.com/sl-design-system/components/commit/ac9fbc8e3ff2a1408800b17db7cde56a32b8b3a6) - Use explicit grid events instead of `CustomEvent`. Allows us to add a `column` property for column related events.
+
+## 0.0.18
+
+### Patch Changes
+
+- [#521](https://github.com/sl-design-system/components/pull/521) [`46fe06a`](https://github.com/sl-design-system/components/commit/46fe06a1be95b1bc1c5244ee5631006bf9c91fc8) - Handle null & undefined when filtering
+
+## 0.0.17
+
+### Patch Changes
+
+- [#519](https://github.com/sl-design-system/components/pull/519) [`13aa7e7`](https://github.com/sl-design-system/components/commit/13aa7e75e2f26262261dba498fde3412d4259939) - Handle blank values properly when filtering
+
+- Updated dependencies [[`13aa7e7`](https://github.com/sl-design-system/components/commit/13aa7e75e2f26262261dba498fde3412d4259939)]:
+  - @sl-design-system/shared@0.1.3
+  - @sl-design-system/checkbox@0.0.8
+  - @sl-design-system/popover@0.0.7
+  - @sl-design-system/text-input@0.1.3
+
+## 0.0.16
+
+### Patch Changes
+
+- Updated dependencies [[`8a53d80`](https://github.com/sl-design-system/components/commit/8a53d800564073f7840a9f6365b234df3351c44f)]:
+  - @sl-design-system/shared@0.1.2
+  - @sl-design-system/checkbox@0.0.7
+  - @sl-design-system/popover@0.0.6
+  - @sl-design-system/text-input@0.1.2
+
+## 0.0.15
+
+### Patch Changes
+
+- [#515](https://github.com/sl-design-system/components/pull/515) [`b5f3257`](https://github.com/sl-design-system/components/commit/b5f3257d069613bce30e9417318b246023dffbab) - Add ability to use a custom sort function
+
 ## 0.0.14
 
 ### Patch Changes

@@ -697,7 +697,7 @@
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.demibold}",
             "lineHeight": "{button.label.sm}",
-            "fontSize": "{text.typeset.fontSize.md}"
+            "fontSize": "{text.typeset.fontSize.sm}"
           },
           "type": "typography"
         },
@@ -1129,7 +1129,7 @@
           "description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }

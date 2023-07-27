@@ -799,10 +799,6 @@
               "type": "color",
               "description": "color.button.success.solid.disabled.border"
             }
-          },
-          "": {
-            "value": "#",
-            "type": "color"
           }
         },
         "outline": {
@@ -2503,7 +2499,7 @@
         "x": "0",
         "y": "0",
         "blur": "0",
-        "spread": "3",
+        "spread": "3px",
         "color": "rgba({color.palette.info.500},{opacity.700})",
         "type": "dropShadow"
       },
@@ -2516,7 +2512,7 @@
         "y": "0",
         "blur": "0",
         "spread": "0",
-        "color": "",
+        "color": "{color.palette.transparent.base}",
         "type": "dropShadow"
       },
       "type": "boxShadow",

@@ -990,6 +990,38 @@
           },
           "type": "typography"
         }
+      },
+      "link": {
+        "sm": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.lg}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        }
       }
     },
     "input": {
@@ -1304,6 +1336,16 @@
     "checkbox": {
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
+    },
+    "focusring": {
+      "default": {
+        "value": "{borderRadius.default} + 1",
+        "type": "borderRadius"
+      },
+      "full": {
+        "value": "{border.radius.full}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -1342,6 +1384,12 @@
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        }
+      },
+      "focusring": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
         }
       },
       "none": {
@@ -1450,18 +1498,10 @@
             "value": "{space.lg} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
-          },
-          "sm": {
-            "value": "{space.lg} - {border.width.button.default}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.sm"
-          },
-          "lg": {
-            "value": "{space.xl} - {border.width.button.default}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
           }
-        },
+        }
+      },
+      "solid": {
         "block": {
           "sm": {
             "value": "{space.xs} - {border.width.button.default}",
@@ -1477,6 +1517,23 @@
             "value": "{space.sm} - {border.width.button.default}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "sm": {
+            "value": "{space.lg} - {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.sm"
+          },
+          "md": {
+            "value": "{space.xl} - {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.xl} - {border.width.button.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
           }
         },
         "icon-only": {
@@ -1544,7 +1601,7 @@
           }
         }
       },
-      "link": {
+      "ghost": {
         "block": {
           "sm": {
             "value": "{space.xs} - {border.width.button.link}",
@@ -1609,6 +1666,56 @@
           "value": "{space.sm}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
+        }
+      },
+      "link": {
+        "block": {
+          "sm": {
+            "value": "{space.xs} - {border.width.button.link}",
+            "type": "spacing",
+            "description": "space.button.solid.block.sm"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.link}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.sm} - {border.width.button.link}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.sm"
+          },
+          "md": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "icon-only": {
+          "sm": {
+            "value": "{space.xs} - {border.width.button.link}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.link}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{space.sm} - {border.width.button.link}",
+            "type": "spacing"
+          }
         }
       }
     },
@@ -1785,15 +1892,93 @@
       },
       "switch": {
         "padding": {
-          "outer": {
+          "container": {
             "value": "{space.xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
           },
-          "inner": {
+          "controller": {
             "value": "{space.2xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
+          },
+          "row": {
+            "sm": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.sm} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.md} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.lg} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
+          }
+        },
+        "gap": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "space.input.switch.padding.gap"
+        },
+        "margin": {
+          "top": {
+            "sm": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
+          },
+          "left": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.switch.padding.outer"
+          },
+          "bottom": {
+            "sm": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.xs}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
           }
         }
       }
@@ -1857,21 +2042,33 @@
       "description": "space.2xl"
     },
     "select": {
-      "panel": {
+      "listbox": {
         "block": {
           "lg": {
-            "value": "{space.sm} - {border.width.sm}",
+            "value": "{space.sm} - {border.width.xs}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.xs}",
             "type": "spacing"
           }
         },
         "inline": {
           "lg": {
-            "value": "{space.sm} - {border.width.sm}",
+            "value": "{space.sm} - {border.width.xs}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.xs}",
             "type": "spacing"
           }
         },
         "gap": {
           "lg": {
+            "value": "{space.xs}",
+            "type": "spacing"
+          },
+          "md": {
             "value": "{space.xs}",
             "type": "spacing"
           }
@@ -1882,24 +2079,8 @@
           "lg": {
             "value": "{space.sm}",
             "type": "spacing"
-          }
-        },
-        "inline": {
-          "lg": {
-            "value": 0,
-            "type": "spacing"
-          }
-        },
-        "gap": {
-          "lg": {
-            "value": "{space.sm}",
-            "type": "spacing"
-          }
-        }
-      },
-      "item": {
-        "block": {
-          "lg": {
+          },
+          "md": {
             "value": "{space.sm}",
             "type": "spacing"
           }
@@ -1908,12 +2089,106 @@
           "lg": {
             "value": "{space.md}",
             "type": "spacing"
+          },
+          "md": {
+            "value": "{space.md}",
+            "type": "spacing"
           }
         },
         "gap": {
           "lg": {
             "value": "{space.sm}",
             "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        },
+        "line": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        }
+      },
+      "selectbox": {
+        "block": {
+          "md": {
+            "value": "{space.input.textField.block.md}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.block.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "md": {
+            "value": "{space.input.textField.inline.md}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.inline.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.input.textField.gap.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.input.textField.gap.lg}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      },
+      "item": {
+        "block": {
+          "md": {
+            "value": "{space.input.textField.block.md}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.block.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "md": {
+            "value": "{space.input.textField.inline.md}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.inline.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.input.textField.gap.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.input.textField.gap.lg}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
           }
         }
       }
@@ -2031,6 +2306,11 @@
         "value": "check",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "xmark": {
+        "value": "xmark",
+        "type": "Icons",
+        "description": "icon.core.xmark"
       },
       "triangle-exclamation-solid": {
         "value": "triangle-exclamation",
@@ -2222,17 +2502,17 @@
       "switch": {
         "handle": {
           "sm": {
-            "value": "{size.md} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.md} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "md": {
-            "value": "{size.xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "lg": {
-            "value": "{size.2xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.2xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           }
@@ -2355,6 +2635,31 @@
       "lg": {
         "value": "{text.typeset.lineHeight.lg}",
         "type": "lineHeights"
+      }
+    }
+  },
+  "elevation": {
+    "shadow": {
+      "md": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "blur": 8,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.200})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
       }
     }
   }

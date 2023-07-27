@@ -1,8 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
-import type { GridFilterMode, GridFilterOption } from './filter-column.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import type { EventEmitter } from '@sl-design-system/shared';
+import type { DataSourceFilterFunction, EventEmitter } from '@sl-design-system/shared';
 import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
 import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
@@ -15,20 +14,16 @@ import { Popover } from '@sl-design-system/popover';
 import { event, getNameByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { type GridFilterMode, type GridFilterOption } from './filter-column.js';
 import styles from './filter.scss.js';
+import { GridFilterValueChangeEvent } from './events.js';
 
 export type GridFilterChange = 'added' | 'removed';
 
 Icon.registerIcon(faFilter, faFilterSolid, faXmark);
 
-export class GridFilterValueChangeEvent extends Event {
-  constructor(public readonly column: GridColumn, public readonly value: string | string[] | undefined) {
-    super('sl-filter-value-change', { bubbles: true, composed: true });
-  }
-}
-
 @localized()
-export class GridFilter extends ScopedElementsMixin(LitElement) {
+export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -54,15 +49,25 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) active = false;
 
   /** The grid column. */
-  @property({ attribute: false }) column!: GridColumn;
+  @property({ attribute: false }) column!: GridColumn<T>;
 
+  /** The custom filter */
+  @property({ attribute: false }) filter?: DataSourceFilterFunction<T>;
+
+  /** Emits when the filter has been added or removed. */
   @event() filterChange!: EventEmitter<GridFilterChange>;
 
-  @event() filterValueChange!: EventEmitter<GridFilterValueChangeEvent>;
+  /** Emits when the value of the this filter has changed. */
+  @event() filterValueChange!: EventEmitter<GridFilterValueChangeEvent<T>>;
 
+  /** The mode of the filter. */
   @property({ type: String }) mode?: GridFilterMode;
 
+  /** The filter options. */
   @property({ attribute: false }) options?: GridFilterOption[];
+
+  /** The path to the field to filter on. */
+  @property() path?: string;
 
   set value(value: string | string[] | undefined) {
     if (this.mode !== 'text') {
@@ -98,7 +103,7 @@ export class GridFilter extends ScopedElementsMixin(LitElement) {
         <slot></slot>
         <sl-icon .name=${this.active ? 'fas-filter' : 'far-filter'}></sl-icon>
       </sl-button>
-      <sl-popover anchor="anchor">
+      <sl-popover anchor="anchor" position="bottom">
         <header>
           <h1 id="title">
             ${msg(`Filter by`)} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>

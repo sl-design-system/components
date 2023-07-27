@@ -444,7 +444,7 @@
       },
       "white": {
         "base": {
-          "value": "#ffffff",
+          "value": "#f8f8f8",
           "type": "color",
           "description": "color.palette.white.base"
         }

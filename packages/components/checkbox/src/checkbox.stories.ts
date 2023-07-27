@@ -107,6 +107,7 @@ export const API: StoryObj = {
 
 export const All: StoryObj = {
   render: () => {
+    setTimeout(() => document.querySelector('form')?.reportValidity());
     return html`
       <style>
         table {
@@ -135,53 +136,59 @@ export const All: StoryObj = {
         tbody td:last-of-type {
           border: none;
         }
+
+        sl-error {
+          display: none;
+        }
       </style>
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            ${sizes.map(size => html` <th colspan=${states.length + 1}>Size: ${size}</th> `)}
-          </tr>
-        </thead>
-        <tbody>
-          ${checked.map(
-            c =>
-              html` <tr>
-                <td>${c}</td>
-                ${sizes.map(
-                  size =>
-                    html`${states.map(
-                        state =>
-                          html`
-                            <td>
-                              <sl-checkbox
-                                ?checked=${c === 'checked'}
-                                ?indeterminate=${c === 'indeterminate'}
-                                ?invalid=${state === 'invalid'}
-                                ?required=${state === 'invalid'}
-                                ?valid=${state === 'valid'}
-                                size=${size}
-                                data-mock-state
-                                >Label
-                              </sl-checkbox>
-                            </td>
-                          `
-                      )}
-                      <td>
-                        <sl-checkbox
-                          ?checked=${c === 'checked'}
-                          ?indeterminate=${c === 'indeterminate'}
-                          size=${size}
-                          disabled
-                          data-mock-state
-                          >Label
-                        </sl-checkbox>
-                      </td>`
-                )}
-              </tr>`
-          )}
-        </tbody>
-      </table>
+      <form>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              ${sizes.map(size => html` <th colspan=${states.length + 1}>Size: ${size}</th> `)}
+            </tr>
+          </thead>
+          <tbody>
+            ${checked.map(
+              c =>
+                html` <tr>
+                  <td>${c}</td>
+                  ${sizes.map(
+                    size =>
+                      html`${states.map(
+                          state =>
+                            html`
+                              <td>
+                                <sl-checkbox
+                                  ?checked=${c === 'checked'}
+                                  ?indeterminate=${c === 'indeterminate'}
+                                  ?invalid=${state === 'invalid'}
+                                  ?required=${state === 'invalid'}
+                                  ?valid=${state === 'valid'}
+                                  size=${size}
+                                  data-mock-state
+                                  >Label
+                                </sl-checkbox>
+                              </td>
+                            `
+                        )}
+                        <td>
+                          <sl-checkbox
+                            ?checked=${c === 'checked'}
+                            ?indeterminate=${c === 'indeterminate'}
+                            size=${size}
+                            disabled
+                            data-mock-state
+                            >Label
+                          </sl-checkbox>
+                        </td>`
+                  )}
+                </tr>`
+            )}
+          </tbody>
+        </table>
+      </form>
     `;
   }
 };

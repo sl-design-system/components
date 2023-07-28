@@ -9,6 +9,8 @@ $sizes: sm, md, lg;
   --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
   --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
   --_label-text-color: var(--sl-color-input-field-label-text-default);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: 1px;
 
   --handle-position: 0%;
   --isLTR: 1;
@@ -97,7 +99,8 @@ $sizes: sm, md, lg;
 }
 
 :host(:focus-visible) .track {
-  --_box-shadow: var(--sl-box-shadow-focus);
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }
 
 :host(:where(:disabled, [internals-disabled])) {

@@ -5,6 +5,8 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 :host {
   --_box-shadow: none;
   --sl-popover-offset: 0px;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: 1px;
 
   align-items: stretch;
   display: flex;
@@ -44,7 +46,6 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
       --_border-color: var(--sl-color-select-selectbox-#{$variant}-focus-border);
       --_color: var(--sl-color-select-selectbox-#{$variant}-focus-foreground);
       --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-focus-placeholder);
-      --_box-shadow: var(--sl-box-shadow-focus);
     }
 
     button:hover {
@@ -121,7 +122,8 @@ button {
 
   &:focus-within,
   &:focus-visible {
-    outline: none;
+    outline: var(--_focus-outline);
+    outline-offset: var(--_focus-outline-offset);
   }
 
   &.placeholder {

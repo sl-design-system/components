@@ -5,7 +5,6 @@ $sizes: md, lg;
   --_selected-indicator-color: var(--sl-color-select-item-default-indicator);
   --_text-color: var(--sl-color-select-item-default-foreground);
   border-radius: var(--sl-border-radius-select-item);
-  box-shadow: var(--_box-shadow, none);
   color: var(--_text-color);
   cursor: pointer;
   display: block;
@@ -57,11 +56,7 @@ $sizes: md, lg;
   background-color: var(--sl-color-select-item-active-background);
 }
 
-:host(:is(:focus)) {
-  outline: none;
-}
-
 :host(:where(:focus-visible, :focus-within)) {
-  --_box-shadow: var(--sl-box-shadow-focus);
-  outline: none;
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }

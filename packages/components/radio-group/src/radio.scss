@@ -13,6 +13,8 @@ $sizes: md, lg;
   --_transition: 200ms ease-in-out;
   --sl-size-input-icon-size-md: 20px;
   --sl-size-input-icon-size-lg: 28px;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: 1px;
 }
 
 @each $size in $sizes {
@@ -90,6 +92,11 @@ $sizes: md, lg;
 :host(:where(:active, :focus-visible, :hover)) .box {
   transition: var(--_transition);
   transition-property: background, border-color, box-shadow, color, filter;
+}
+
+:host(:where(:focus-visible)) .box {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }
 
 :host(:where(:disabled, [internals-disabled])) {

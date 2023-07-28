@@ -5,11 +5,25 @@ eleventyNavigation:
   parent: Editor
   key: EditorOverview
 ---
+
+<script src="editor-examples.js"></script>
 <section>
 
 <div class="ds-example">
 
-Editor example
+<sl-editor .value=${test}>
+      <h1>Rich Text Editor</h1>
+      <p>This component is a <em>rich text editor</em> based on the <a href="https://prosemirror.net/" target="_blank">ProseMirror</a> library.</p>
+      <p>It has support for the following editor actions:</p>
+      <ul>
+        <li><p>Typography: <strong>bold</strong>, <em>italic</em>, <u>underline</u> and <del>strikethrough</del></p></li>
+        <li><p>Format: paragraph, quotation and headings</p></li>
+        <li><p>Alignment: left, right or center</p></li>
+        <li><p>Lists: ordered or unordered</p></li>
+        <li><p>Indentation: indent and outdent</p></li>
+        <li><p>Insert links</p></li>
+      </ul>
+</sl-editor>
 
 </div>
 
@@ -17,6 +31,7 @@ Editor example
 
 ```html
   <sl-editor>Editor example code</sl-editor>
+<sl-editor value="Content"></sl-editor>
 ```
 
 </div>

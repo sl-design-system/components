@@ -98,6 +98,7 @@ code[class*='language-'],
 pre[class*='language-'] {
   background: none;
   color: var(--text-color);
+  display: block;
   font-family: 'source-code-pro', monospace;
   font-size: 1.2rem;
   hyphens: none;

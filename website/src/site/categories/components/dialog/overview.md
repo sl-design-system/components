@@ -9,6 +9,18 @@ eleventyNavigation:
 <div class="ds-example">
 
 Dialog example
+<sl-button>Open dialog</sl-button>
+<sl-dialog>
+<span slot="title">Dialog title</span>
+<p>
+Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et
+tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.
+Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur
+anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor
+magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
+</p>
+<sl-button slot="action" sl-dialog-close autofocus>Close</sl-button>
+</sl-dialog>
 
 </div>
 

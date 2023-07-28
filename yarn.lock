@@ -5368,6 +5368,7 @@ __metadata:
     "@custom-elements-manifest/to-markdown": ^0.1.0
     "@lit-labs/eleventy-plugin-lit": ^0.2.3
     "@luncheon/esbuild-plugin-gzip": ^0.1.0
+    "@oddbird/popover-polyfill": ^0.2.2
     "@types/markdown-it": ^12.2.3
     "@web/dev-server": ^0.2.3
     "@webcomponents/template-shadowroot": ^0.1.0

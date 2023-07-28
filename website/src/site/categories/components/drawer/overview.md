@@ -11,6 +11,17 @@ eleventyNavigation:
 
 Drawer example
 
+<sl-button>Show Drawer</sl-button>
+<sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>
+<h2 slot="title">In this sidepanel you can find a lot of info</h2>
+<p>
+Apple pie chocolate jelly-o carrot cake gummi bears halvah cake cheesecake. Sesame snaps macaroon shortbread
+cheesecake muffin soufflé. Powder croissant sugar plum candy canes cupcake chupa chups cake marzipan. Chocolate
+bar pie jujubes chocolate powder jelly. Marshmallow biscuit bear claw cookie topping. Tart sugar plum toffee
+gingerbread macaroon danish brownie. Candy canes dragée sesame snaps lollipop ice cream.
+</p>
+</sl-drawer>
+
 </div>
 
 <div class="ds-code">

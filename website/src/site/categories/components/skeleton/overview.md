@@ -5,21 +5,70 @@ eleventyNavigation:
   parent: Skeleton (PoC)
   key: SkeletonOverview
 ---
+<style>
+.ds-example__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ds-example__skeleton sl-skeleton {
+  height: 2rem;
+  border-radius: 0.5rem;
+}
+
+.ds-example__skeleton sl-skeleton:nth-child(1) {
+    inline-size: 40rem;
+}
+
+.ds-example__skeleton sl-skeleton:nth-child(2) {
+    inline-size: 90%;
+}
+
+.ds-example__skeleton sl-skeleton:nth-child(3) {
+    inline-size: 80%;
+}
+</style>
+
 <section>
 <div class="ds-example">
 
-Skeleton example
-
-<sl-skeleton></sl-skeleton>
-
+<div class="ds-example__skeleton">
 <sl-skeleton effect="shimmer" aria-label="loading avatar"></sl-skeleton>
+<sl-skeleton effect="shimmer" aria-label="loading avatar"></sl-skeleton>
+<sl-skeleton effect="shimmer" aria-label="loading avatar"></sl-skeleton>
+</div>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-skeleton>skeleton code</sl-skeleton>
+<div class="ds-example__skeleton">
+    <sl-skeleton effect="shimmer" style="--sl-skeleton-border-radius: 0.5rem;" aria-label="loading avatar"></sl-skeleton>
+    <sl-skeleton effect="shimmer" style="--sl-skeleton-border-radius: 0.5rem;" aria-label="loading avatar"></sl-skeleton>
+    <sl-skeleton effect="shimmer" style="--sl-skeleton-border-radius: 0.5rem;" aria-label="loading avatar"></sl-skeleton>
+</div>
+
+<style>
+    .ds-example__skeleton {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  
+    .ds-example__skeleton sl-skeleton:nth-child(1) {
+      inline-size: 40rem;
+    }
+  
+    .ds-example__skeleton sl-skeleton:nth-child(2) {
+      inline-size: 90%;
+    }
+  
+    .ds-example__skeleton sl-skeleton:nth-child(3) {
+      inline-size: 80%;
+    }
+</style>
   ```
 
 </div>

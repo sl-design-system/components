@@ -1,4 +1,4 @@
-$fills: default, outline, link;
+$fills: solid, outline, link, ghost;
 $sizes: sm, md, lg;
 $variants: default, primary, success, warning, danger;
 
@@ -58,16 +58,23 @@ $variants: default, primary, success, warning, danger;
     --_border-radius: var(--sl-border-radius-button-#{$size});
     --_font: var(--sl-text-button-text-#{$size});
     --_label-gap: var(--sl-space-button-gap-#{$size});
-    --_padding-block: var(--sl-space-button-default-block-#{$size});
-    --_padding-inline: var(--sl-space-button-default-inline-#{$size});
   }
 
   :host([size='#{$size}'][icon-only]) {
     --icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
     --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
-    --_padding-block: var(--sl-space-button-default-icon-only-#{$size});
-    --_padding-inline: var(--sl-space-button-default-icon-only-#{$size});
     line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
+  }
+
+  @each $fill in $fills {
+    :host([size='#{$size}'][fill='#{$fill}']) {
+      --_padding-block: var(--sl-space-button-#{$fill}-block-#{$size});
+      --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size});
+    }
+    :host([size='#{$size}'][size='#{$size}'][icon-only]) {
+      --_padding-block: var(--sl-space-button-#{$fill}-icon-only-#{$size});
+      --_padding-inline: var(--sl-space-button-#{$fill}-icon-only-#{$size});
+    }
   }
 }
 

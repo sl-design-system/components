@@ -6,7 +6,7 @@ import styles from './button.scss.js';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-export type ButtonFill = 'default' | 'outline' | 'link';
+export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
@@ -29,7 +29,7 @@ export class Button extends LitElement {
   private originalTabIndex = 0;
 
   /** The button fill. */
-  @property({ reflect: true }) fill: ButtonFill = 'default';
+  @property({ reflect: true }) fill: ButtonFill = 'solid';
 
   /** Button size. */
   @property({ reflect: true }) size: ButtonSize = 'md';

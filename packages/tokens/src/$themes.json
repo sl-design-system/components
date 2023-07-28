@@ -3677,7 +3677,7 @@
       "magister/base": "enabled",
       "magister/dark": "enabled"
     },
-    "$figmaStyleReferences": { 
+    "$figmaStyleReferences": {
       "body.background": "S:1f061e2126ece44861b8807c2fc9f06a3ed9c67f,",
       "body.foreground": "S:1d19759e4b224a4242040ba8f0a04bd2552f9b52,",
       "color.button.default.default.idle.background": "S:dc338c95b81dfb9e7b07c78d0a8dcfddbd944ea3,",

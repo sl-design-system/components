@@ -14,7 +14,7 @@
   "color": {
     "button": {
       "default": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.primary.100}",
@@ -364,7 +364,7 @@
         }
       },
       "primary": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.accent.600}",
@@ -714,7 +714,7 @@
         }
       },
       "success": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.success.300}",
@@ -1064,7 +1064,7 @@
         }
       },
       "warning": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.warning.300}",
@@ -1414,7 +1414,7 @@
         }
       },
       "danger": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.danger.600}",

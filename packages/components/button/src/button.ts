@@ -6,7 +6,7 @@ import styles from './button.scss.js';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-export type ButtonFill = 'default' | 'outline' | 'link';
+export type ButtonFill = 'default' | 'outline' | 'link' | 'ghost';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 

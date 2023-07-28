@@ -14,7 +14,7 @@
   "color": {
     "button": {
       "default": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.accent.500}",
@@ -277,7 +277,7 @@
         }
       },
       "primary": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.primary.500}",
@@ -540,7 +540,7 @@
         }
       },
       "success": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.success.300}",
@@ -803,7 +803,7 @@
         }
       },
       "warning": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.warning.300}",
@@ -1066,7 +1066,7 @@
         }
       },
       "danger": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.danger.base}",
@@ -2058,7 +2058,7 @@
         "x": "0",
         "y": "0",
         "blur": "0",
-        "spread": "3",
+        "spread": "3px",
         "color": "rgba({color.palette.info.300},{opacity.800})",
         "type": "dropShadow"
       },

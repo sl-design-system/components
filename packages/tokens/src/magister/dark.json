@@ -14,7 +14,7 @@
   "color": {
     "button": {
       "default": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.transparent.base}",
@@ -277,7 +277,7 @@
         }
       },
       "primary": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.primary.300}",
@@ -540,7 +540,7 @@
         }
       },
       "success": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.success.150}",
@@ -803,7 +803,7 @@
         }
       },
       "warning": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.warning.base}",
@@ -1066,7 +1066,7 @@
         }
       },
       "danger": {
-        "default": {
+        "solid": {
           "idle": {
             "background": {
               "value": "{color.palette.danger.200}",
@@ -2053,7 +2053,7 @@
     },
     "focusring": {
       "default": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.accent.300}",
         "type": "color"
       }
     }
@@ -2064,7 +2064,7 @@
         "x": "0",
         "y": "0",
         "blur": "0",
-        "spread": "3",
+        "spread": "3px",
         "color": "rgba({color.palette.info.base},{opacity.800})",
         "type": "dropShadow"
       },

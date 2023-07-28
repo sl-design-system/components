@@ -4017,10 +4017,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/core@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@floating-ui/core@npm:1.3.0"
+  checksum: e78837c86817213d3ff90376fe48cc2f06d4dda1d70bf5bf06bc36dbfde0ecba372ee1b3679259fff9a0320d44309fbec13b3caefae4693a347280ab7ce19127
+  languageName: node
+  linkType: hard
+
 "@floating-ui/core@npm:^1.3.1":
   version: 1.3.1
   resolution: "@floating-ui/core@npm:1.3.1"
   checksum: 894bc3637c03beda184a4460cb53155fd30c2a0956569e1c714b7df9e3439517b1c34ad9a8114ea15a6c08d1e3f1d40741d259f0f1087fc3ea96fae7dfeb697e
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@floating-ui/dom@npm:1.3.0"
+  dependencies:
+    "@floating-ui/core": ^1.3.0
+  checksum: 1a89de17499996fede35c4116e0280df81739a31552b166b12eca2d368190752bccde2a6cb23c15ee7d67148820c037b972f12964c088ca76fa732efbd0435f5
   languageName: node
   linkType: hard
 
@@ -5254,6 +5270,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/select@workspace:packages/components/select"
   dependencies:
+    "@floating-ui/dom": ^1.3.0
     "@sl-design-system/popover": 0.0.9
     "@sl-design-system/shared": 0.1.5
     lit: ^2.7.5
@@ -5265,6 +5282,14 @@ __metadata:
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:
     "@floating-ui/dom": ^1.4.3
+    lit: ^2.7.5
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/skeleton@workspace:packages/components/skeleton":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/skeleton@workspace:packages/components/skeleton"
+  dependencies:
     lit: ^2.7.5
   languageName: unknown
   linkType: soft

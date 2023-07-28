@@ -15,7 +15,7 @@ interface Props extends Pick<Button, 'fill' | 'size' | 'variant'> {
 
 type Story = StoryObj<Props>;
 
-const fills: ButtonFill[] = ['default', 'outline', 'link'];
+const fills: ButtonFill[] = ['solid', 'outline', 'link', 'ghost'];
 const variants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
 const disabledStates = [false, true];
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
@@ -26,7 +26,7 @@ export default {
     text: 'Button',
     icon: 'none',
     size: 'md',
-    fill: 'default',
+    fill: 'solid',
     variant: 'default'
   },
   argTypes: {

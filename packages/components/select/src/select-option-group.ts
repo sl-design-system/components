@@ -1,5 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import type { SelectSize } from './select.js';
+import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-option-group.scss.js';
 
@@ -7,11 +8,14 @@ export class SelectOptionGroup extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  @property({ attribute: 'group-title' }) groupTitle?: string;
+  /** Select size. */
+  @property({ reflect: true }) size: SelectSize = 'md';
+
+  @property({ attribute: 'group-heading' }) groupHeading?: string;
 
   override render(): TemplateResult {
     return html`
-      <span>${this.groupTitle}</span>
+      ${this.groupHeading ? html`<span>${this.groupHeading}</span>` : nothing}
       <slot></slot>
     `;
   }
@@ -19,6 +23,6 @@ export class SelectOptionGroup extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.setAttribute('role', 'group');
-    this.setAttribute('aria-label', this.groupTitle || '');
+    this.setAttribute('aria-label', this.groupHeading || '');
   }
 }

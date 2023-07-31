@@ -1,5 +1,14 @@
 # @sl-design-system/popover
 
+## 0.0.10
+
+### Patch Changes
+
+- [#499](https://github.com/sl-design-system/components/pull/499) [`2203785`](https://github.com/sl-design-system/components/commit/22037855352e444362e42ebfebf9e6d1295bada1) - added select component
+
+- Updated dependencies [[`c901f6c`](https://github.com/sl-design-system/components/commit/c901f6c5409367d19f2ced63c486f820af834faf), [`2203785`](https://github.com/sl-design-system/components/commit/22037855352e444362e42ebfebf9e6d1295bada1), [`b9a0b33`](https://github.com/sl-design-system/components/commit/b9a0b338b4e4047dbd809e501c163fa97a39130e)]:
+  - @sl-design-system/shared@0.1.6
+
 ## 0.0.9
 
 ### Patch Changes

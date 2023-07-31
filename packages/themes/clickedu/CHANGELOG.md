@@ -1,5 +1,13 @@
 # @sanomalearning/slds-clickedu
 
+## 0.0.7
+
+### Patch Changes
+
+- [#499](https://github.com/sl-design-system/components/pull/499) [`2203785`](https://github.com/sl-design-system/components/commit/22037855352e444362e42ebfebf9e6d1295bada1) - Added tokens for select component.
+
+- [#478](https://github.com/sl-design-system/components/pull/478) [`b9a0b33`](https://github.com/sl-design-system/components/commit/b9a0b338b4e4047dbd809e501c163fa97a39130e) - added textfield, text area and switch
+
 ## 0.0.6
 
 ### Patch Changes

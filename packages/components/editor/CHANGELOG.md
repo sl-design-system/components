@@ -1,5 +1,12 @@
 # @sl-design-system/editor
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [[`34696fb`](https://github.com/sl-design-system/components/commit/34696fb6c288a8c6101b7a5b80cef1240229a522)]:
+  - @sl-design-system/shared@0.1.7
+
 ## 0.0.10
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @sl-design-system/grid
 
+## 0.0.26
+
+### Patch Changes
+
+- Updated dependencies [[`34696fb`](https://github.com/sl-design-system/components/commit/34696fb6c288a8c6101b7a5b80cef1240229a522)]:
+  - @sl-design-system/shared@0.1.7
+  - @sl-design-system/checkbox@0.0.12
+  - @sl-design-system/popover@0.0.11
+  - @sl-design-system/text-input@0.1.7
+
 ## 0.0.25
 
 ### Patch Changes

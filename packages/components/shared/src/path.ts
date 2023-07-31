@@ -30,7 +30,7 @@ export const getValueByPath = (object: unknown, path = ''): unknown => {
       break;
     }
 
-    const [prop, index] = part.match(/(.+)\[(\d+)\]/) ?? [];
+    const [_, prop, index] = part.match(/(.+)\[(\d+)\]/) ?? [];
     if (prop) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
       result = (result as any)[prop];

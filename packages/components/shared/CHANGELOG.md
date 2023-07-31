@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.1.7
+
+### Patch Changes
+
+- [#552](https://github.com/sl-design-system/components/pull/552) [`34696fb`](https://github.com/sl-design-system/components/commit/34696fb6c288a8c6101b7a5b80cef1240229a522) - Fix regexp matching in `getValueByPath`
+
 ## 0.1.6
 
 ### Patch Changes

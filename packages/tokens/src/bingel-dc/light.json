@@ -3380,6 +3380,12 @@
         "value": "{color.palette.accent.base}",
         "type": "color"
       }
+    },
+    "focusring": {
+      "default": {
+        "value": "{color.palette.accent.base}",
+        "type": "color"
+      }
     }
   },
   "boxShadow": {

@@ -1032,10 +1032,10 @@
         "fontIcon": {
           "md": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
               "lineHeight": "{text.typeset.lineHeight.sm}",
-              "fontSize": 15
+              "fontSize": 15,
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}"
             },
             "type": "typography"
           },

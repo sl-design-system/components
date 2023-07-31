@@ -2,17 +2,21 @@ $sizes: md, lg;
 
 :host {
   --sl-border-radius-select-item: 2px;
+  --_transition: 200ms ease-in-out;
   --_selected-indicator-color: var(--sl-color-select-item-default-indicator);
   --_text-color: var(--sl-color-select-item-default-foreground);
   border-radius: var(--sl-border-radius-select-item);
-  box-shadow: var(--_box-shadow, none);
   color: var(--_text-color);
   cursor: pointer;
   display: block;
   font: var(--_font);
+  outline-color: transparent;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   position: relative;
+
+  transition: var(--_transition);
+  transition-property: outline-color;
   white-space: nowrap;
 }
 @each $size in $sizes {
@@ -57,11 +61,7 @@ $sizes: md, lg;
   background-color: var(--sl-color-select-item-active-background);
 }
 
-:host(:is(:focus)) {
-  outline: none;
-}
-
 :host(:where(:focus-visible, :focus-within)) {
-  --_box-shadow: var(--sl-box-shadow-focus);
-  outline: none;
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }

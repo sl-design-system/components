@@ -6,8 +6,9 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   --_border-size: var(--sl-border-width-button-default);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
-  --_box-shadow: var(--sl-box-shadow-none);
   --_transition: 200ms ease-in-out;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: 1px;
 }
 
 @each $size in $sizes {
@@ -84,7 +85,6 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 
   :host(#{$variant-selector}:focus-within:not([disabled])) {
     --_border-color: var(--sl-color-input-text-field-#{$variant}-focus-border);
-    --_box-shadow: var(--sl-box-shadow-focus);
 
     slot[name='input']::slotted(input) {
       --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
@@ -121,11 +121,11 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 :host {
   display: block;
   transition: var(--_transition);
-  vertical-align: top;
 }
 
-:host(:focus-visible) {
-  outline: none;
+:host(:where(:focus-visible, :focus-within)) .wrapper {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }
 
 :host(:disabled) {
@@ -159,13 +159,13 @@ slot[name='input']::slotted(input) {
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
   box-sizing: border-box;
   display: flex;
   gap: var(--_gap);
+  outline-color: transparent;
   padding: var(--_padding);
   transition: var(--_transition);
-  transition-property: background, border, box-shadow, color, filter;
+  transition-property: background, border, color, filter, outline-color;
   width: auto;
 }
 

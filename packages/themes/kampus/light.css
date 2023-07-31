@@ -116,7 +116,7 @@
   --sl-color-input-option-invalid-unchecked-default-icon: rgb(var(--sl-color-palette-danger-400));
   --sl-color-input-option-invalid-unchecked-default-border: rgb(var(--sl-color-palette-danger-base));
   --sl-color-input-option-invalid-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-option-default-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-400));
+  --sl-color-input-option-default-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-option-default-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-option-default-checked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-input-option-default-checked-focus-icon: rgb(var(--sl-color-palette-white-base));

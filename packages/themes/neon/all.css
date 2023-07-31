@@ -670,7 +670,7 @@
     --sl-color-button-danger-ghost-focus-foreground: rgb(var(--sl-color-palette-danger-800));
     --sl-color-button-danger-ghost-active-border: rgb(var(--sl-color-palette-danger-150));
     --sl-color-button-danger-ghost-active-foreground: rgb(var(--sl-color-palette-danger-800));
-    --sl-color-button-danger-ghost-active-background: rgb(var(--sl-color-palette-danger-150));
+    --sl-color-button-danger-ghost-active-background: rgb(var(--sl-color-palette-danger-100));
     --sl-color-button-danger-ghost-hover-border: rgb(var(--sl-color-palette-danger-100));
     --sl-color-button-danger-ghost-hover-foreground: rgb(var(--sl-color-palette-danger-800));
     --sl-color-button-danger-ghost-hover-background: rgb(var(--sl-color-palette-danger-100));
@@ -901,7 +901,7 @@
     --sl-color-button-default-ghost-focus-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-color-button-default-ghost-active-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-default-ghost-active-foreground: rgb(var(--sl-color-palette-primary-base));
-    --sl-color-button-default-ghost-active-background: rgb(var(--sl-color-palette-primary-100));
+    --sl-color-button-default-ghost-active-background: rgb(var(--sl-color-palette-primary-50));
     --sl-color-button-default-ghost-hover-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-default-ghost-hover-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-color-button-default-ghost-hover-background: rgb(var(--sl-color-palette-primary-50));

@@ -3,8 +3,9 @@ $variants: default, valid, invalid;
 $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 
 :host {
-  --_box-shadow: none;
   --sl-popover-offset: 0px;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: 1px;
 
   align-items: stretch;
   display: flex;
@@ -44,7 +45,6 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
       --_border-color: var(--sl-color-select-selectbox-#{$variant}-focus-border);
       --_color: var(--sl-color-select-selectbox-#{$variant}-focus-foreground);
       --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-focus-placeholder);
-      --_box-shadow: var(--sl-box-shadow-focus);
     }
 
     button:hover {
@@ -94,17 +94,17 @@ button {
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
   display: grid;
   flex: 1 1 auto;
   font: var(--_font);
   gap: var(--_gap);
   grid-template-columns: auto 24px;
   outline: none;
+  outline-color: transparent;
   padding: 0;
   text-align: start;
   transition: 0.2s ease-in-out;
-  transition-property: background, border, box-shadow, color, filter;
+  transition-property: background, border, color, filter, outline-color;
 
   > span {
     display: block;
@@ -121,7 +121,8 @@ button {
 
   &:focus-within,
   &:focus-visible {
-    outline: none;
+    outline: var(--_focus-outline);
+    outline-offset: var(--_focus-outline-offset);
   }
 
   &.placeholder {

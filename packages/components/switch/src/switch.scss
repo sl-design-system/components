@@ -3,12 +3,15 @@ $sizes: sm, md, lg;
 :host {
   --_toggle-padding: var(--sl-space-input-switch-padding-controller);
   --_track-radius: calc((var(--handle-size) + var(--_toggle-padding) * 2) / 2);
+  --_transition: var(--sl-animation-duration-normal);
 
   --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
   --_handle-color: var(--sl-color-input-switch-default-unchecked-default-handle);
   --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
   --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
   --_label-text-color: var(--sl-color-input-field-label-text-default);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: 1px;
 
   --handle-position: 0%;
   --isLTR: 1;
@@ -97,7 +100,8 @@ $sizes: sm, md, lg;
 }
 
 :host(:focus-visible) .track {
-  --_box-shadow: var(--sl-box-shadow-focus);
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }
 
 :host(:where(:disabled, [internals-disabled])) {
@@ -128,9 +132,15 @@ $sizes: sm, md, lg;
   border-radius: var(--_track-radius);
   box-shadow: var(--_box-shadow);
   display: grid;
+  outline: none;
+  outline-color: transparent;
   padding: var(--_toggle-padding);
-  transition: background-color var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   width: var(--_toggle-width);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: var(--_transition);
+    transition-property: background-color, outline-color;
+  }
 }
 
 .track div {

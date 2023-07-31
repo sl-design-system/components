@@ -13,6 +13,8 @@ $sizes: md, lg;
   --_transition: 200ms ease-in-out;
   --sl-size-input-icon-size-md: 20px;
   --sl-size-input-icon-size-lg: 28px;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: 1px;
 }
 
 @each $size in $sizes {
@@ -63,7 +65,6 @@ $sizes: md, lg;
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
       --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
-      --_box-shadow: var(--sl-box-shadow-focus);
     }
 
     :host(#{$variant-selector + $state-selector}:where(:disabled, [internals-disabled])) {
@@ -89,7 +90,12 @@ $sizes: md, lg;
 
 :host(:where(:active, :focus-visible, :hover)) .box {
   transition: var(--_transition);
-  transition-property: background, border-color, box-shadow, color, filter;
+  transition-property: background, border-color, color, filter, outline-color;
+}
+
+:host(:where(:focus-visible)) .box {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }
 
 :host(:where(:disabled, [internals-disabled])) {
@@ -101,9 +107,9 @@ $sizes: md, lg;
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
   display: inline-flex;
   flex-shrink: 0;
+  outline-color: transparent;
   padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
 }
 

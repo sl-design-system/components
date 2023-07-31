@@ -8,7 +8,6 @@ $resize-types: none, both, horizontal, vertical, auto;
   --_border-size: var(--sl-border-width-button-default);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
-  --_box-shadow: var(--sl-box-shadow-none);
   --_transition: 200ms ease-in-out;
   --_min-height: calc(var(--sl-textarea-rows) * 1lh);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
@@ -78,7 +77,6 @@ $resize-types: none, both, horizontal, vertical, auto;
   :host(#{$variant-selector}:focus-within:not([disabled])) {
     --_background: var(--sl-color-input-text-field-#{$variant}-focus-background);
     --_border-color: var(--sl-color-input-text-field-#{$variant}-focus-border);
-    --_box-shadow: var(--sl-box-shadow-focus);
     --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
     --fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
     --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-focus-placeholder);
@@ -86,7 +84,6 @@ $resize-types: none, both, horizontal, vertical, auto;
 
   slot[name='textarea']::slotted(textarea) {
     &:focus-visible {
-      --_box-shadow: var(--sl-box-shadow-focus);
       --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
     }
   }
@@ -140,11 +137,10 @@ slot[name='textarea']::slotted(textarea) {
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
   display: flex;
   position: relative;
   transition: var(--_transition);
-  transition-property: background, border, box-shadow, color, filter;
+  transition-property: background, border, color, filter;
   width: 100%;
 }
 

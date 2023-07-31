@@ -11,8 +11,9 @@ eleventyNavigation:
 <div class="ds-example">
 
 <sl-button-bar align="center">
-<sl-button>One</sl-button>
-<sl-button>Two</sl-button>
+<sl-button fill="outline" variant="primary">One</sl-button>
+<sl-button fill="outline" variant="primary">Two</sl-button>
+<sl-button fill="outline" variant="primary">Three</sl-button>
 </sl-button-bar>
 
 </div>
@@ -20,7 +21,11 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-button fill="default" variant="primary" size="md">Button</sl-button>
+<sl-button-bar align="center">
+    <sl-button fill="outline" variant="primary" size="md">One</sl-button>
+    <sl-button fill="outline" variant="primary" size="md">Two</sl-button>
+    <sl-button fill="outline" variant="primary" size="md">Three</sl-button>
+</sl-button-bar>
   ```
 
 </div>

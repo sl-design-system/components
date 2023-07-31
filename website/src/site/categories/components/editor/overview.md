@@ -12,6 +12,9 @@ eleventyNavigation:
 <div class="ds-example">
 
 <sl-editor .value=${test}>
+</sl-editor>
+
+
       <h1>Rich Text Editor</h1>
       <p>This component is a <em>rich text editor</em> based on the <a href="https://prosemirror.net/" target="_blank">ProseMirror</a> library.</p>
       <p>It has support for the following editor actions:</p>
@@ -23,7 +26,6 @@ eleventyNavigation:
         <li><p>Indentation: indent and outdent</p></li>
         <li><p>Insert links</p></li>
       </ul>
-</sl-editor>
 
 </div>
 

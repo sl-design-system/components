@@ -5,35 +5,36 @@ eleventyNavigation:
   parent: Editor
   key: EditorOverview
 ---
-
-<script src="editor-examples.js"></script>
 <section>
 
 <div class="ds-example">
 
-<sl-editor .value=${test}>
-</sl-editor>
-
-
-      <h1>Rich Text Editor</h1>
-      <p>This component is a <em>rich text editor</em> based on the <a href="https://prosemirror.net/" target="_blank">ProseMirror</a> library.</p>
-      <p>It has support for the following editor actions:</p>
-      <ul>
-        <li><p>Typography: <strong>bold</strong>, <em>italic</em>, <u>underline</u> and <del>strikethrough</del></p></li>
-        <li><p>Format: paragraph, quotation and headings</p></li>
-        <li><p>Alignment: left, right or center</p></li>
-        <li><p>Lists: ordered or unordered</p></li>
-        <li><p>Indentation: indent and outdent</p></li>
-        <li><p>Insert links</p></li>
-      </ul>
+<sl-editor id="editor-example"></sl-editor>
 
 </div>
 
 <div class="ds-code">
 
 ```html
-  <sl-editor>Editor example code</sl-editor>
-<sl-editor value="Content"></sl-editor>
+<sl-editor id="editor-example"></sl-editor>
+
+<script>
+  const editor = document.querySelector("#editor-example");
+
+  requestAnimationFrame(() => {
+    editor.value = `<h1>Rich Text Editor</h1>
+                    <p>This component is a <em>rich text editor</em> based on the <a href="https://prosemirror.net/" target="_blank">ProseMirror</a> library.</p>
+                    <p>It has support for the following editor actions:</p>
+                    <ul>
+                      <li><p>Typography: <strong>bold</strong>, <em>italic</em>, <u>underline</u> and <del>strikethrough</del></p></li>
+                      <li><p>Format: paragraph, quotation and headings</p></li>
+                      <li><p>Alignment: left, right or center</p></li>
+                      <li><p>Lists: ordered or unordered</p></li>
+                      <li><p>Indentation: indent and outdent</p></li>
+                      <li><p>Insert links</p></li>
+                    </ul>`;
+  });
+</script>
 ```
 
 </div>
@@ -106,3 +107,21 @@ Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molesti
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 
 </section>
+
+<script>
+const editor = document.querySelector("#editor-example");
+
+requestAnimationFrame(() => {
+  editor.value = `<h1>Rich Text Editor</h1>
+      <p>This component is a <em>rich text editor</em> based on the <a href="https://prosemirror.net/" target="_blank">ProseMirror</a> library.</p>
+      <p>It has support for the following editor actions:</p>
+      <ul>
+        <li><p>Typography: <strong>bold</strong>, <em>italic</em>, <u>underline</u> and <del>strikethrough</del></p></li>
+        <li><p>Format: paragraph, quotation and headings</p></li>
+        <li><p>Alignment: left, right or center</p></li>
+        <li><p>Lists: ordered or unordered</p></li>
+        <li><p>Indentation: indent and outdent</p></li>
+        <li><p>Insert links</p></li>
+      </ul>`;
+});
+</script>

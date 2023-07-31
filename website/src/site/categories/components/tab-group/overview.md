@@ -8,27 +8,25 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-Tab group example
+<sl-tab-group .vertical="false">
+  <sl-tab disabled>🧁 Tab 1</sl-tab>
+  <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
 
-    <sl-tab-group .vertical="false">
-      <sl-tab disabled>🧁 Tab 1</sl-tab>
-      <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
+  <sl-tab>🍰 Tab 2</sl-tab>
+  <sl-tab-panel>
+    <p>Contents tab 2</p>
+    <sl-avatar></sl-avatar>
+  </sl-tab-panel>
 
-      <sl-tab>🍰 Tab 2</sl-tab>
-      <sl-tab-panel>
-        <p>Contents tab 2</p>
-        <sl-avatar></sl-avatar>
-      </sl-tab-panel>
+  <sl-tab>🍡 Tab 3</sl-tab>
+  <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>
 
-      <sl-tab>🍡 Tab 3</sl-tab>
-      <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>
+  <sl-tab>🥞 Tab 4</sl-tab>
+  <sl-tab-panel>Contents tab 4</sl-tab-panel>
 
-      <sl-tab>🥞 Tab 4</sl-tab>
-      <sl-tab-panel>Contents tab 4</sl-tab-panel>
-
-      <sl-tab>🍪 Tab 5</sl-tab>
-      <sl-tab-panel>Contents tab 5</sl-tab-panel>
-    </sl-tab-group>
+  <sl-tab>🍪 Tab 5</sl-tab>
+  <sl-tab-panel>Contents tab 5</sl-tab-panel>
+</sl-tab-group>
 
 </div>
 

@@ -100,7 +100,7 @@ $sizes: md, lg;
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
   transition: var(--_transition);
-  transition-property: background, border-color, box-shadow, color, filter;
+  transition-property: background, border-color, color, filter, outline-color;
 }
 
 :host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
@@ -140,6 +140,7 @@ $sizes: md, lg;
   box-shadow: var(--_box-shadow, none);
   display: inline-flex;
   flex-shrink: 0;
+  outline-color: transparent;
   padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
 }
 

@@ -138,9 +138,10 @@ slot[name='textarea']::slotted(textarea) {
   border: var(--_border);
   border-radius: var(--_border-radius);
   display: flex;
+  outline-color: transparent;
   position: relative;
   transition: var(--_transition);
-  transition-property: background, border, color, filter;
+  transition-property: background, border, color, filter, outline-color;
   width: 100%;
 }
 

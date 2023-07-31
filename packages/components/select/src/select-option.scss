@@ -2,6 +2,7 @@ $sizes: md, lg;
 
 :host {
   --sl-border-radius-select-item: 2px;
+  --_transition: 200ms ease-in-out;
   --_selected-indicator-color: var(--sl-color-select-item-default-indicator);
   --_text-color: var(--sl-color-select-item-default-foreground);
   border-radius: var(--sl-border-radius-select-item);
@@ -9,9 +10,13 @@ $sizes: md, lg;
   cursor: pointer;
   display: block;
   font: var(--_font);
+  outline-color: transparent;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   position: relative;
+
+  transition: var(--_transition);
+  transition-property: outline-color;
   white-space: nowrap;
 }
 @each $size in $sizes {

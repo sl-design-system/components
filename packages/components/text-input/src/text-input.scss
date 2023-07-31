@@ -162,9 +162,10 @@ slot[name='input']::slotted(input) {
   box-sizing: border-box;
   display: flex;
   gap: var(--_gap);
+  outline-color: transparent;
   padding: var(--_padding);
   transition: var(--_transition);
-  transition-property: background, border, color, filter;
+  transition-property: background, border, color, filter, outline-color;
   width: auto;
 }
 

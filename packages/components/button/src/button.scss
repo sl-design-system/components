@@ -88,6 +88,7 @@ $variants: default, primary, success, warning, danger;
   display: inline-flex;
   font: var(--_font);
   gap: var(--_label-gap);
+  outline-color: transparent;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transform: var(--_transform);
@@ -102,7 +103,7 @@ $variants: default, primary, success, warning, danger;
 
 :host(:where(:active, :focus-visible, :hover)) {
   transition-duration: var(--_transition-duration);
-  transition-property: background, border-color, box-shadow, color;
+  transition-property: background, border-color, color, outline-color;
   transition-timing-function: var(--_transition-easing);
 }
 

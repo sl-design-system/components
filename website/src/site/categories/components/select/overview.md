@@ -5,10 +5,7 @@ eleventyNavigation:
   parent: Select
   key: SelectOverview
 ---
-
 <section>
-
-popover import and in build???
 
 <div class="ds-example">
 

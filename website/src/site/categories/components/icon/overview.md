@@ -5,21 +5,20 @@ eleventyNavigation:
   parent: Icon
   key: IconOverview
 ---
-
 <section>
 
 <div class="ds-example">
-
-<sl-button fill="default" variant="primary" size="md">Button</sl-button>
-
-<sl-icon name="face-smile"></sl-icon>
-
+  <sl-icon name="face-smile" size="xs"></sl-icon>
+  <sl-icon name="face-smile"></sl-icon>
+  <sl-icon name="face-smile" size="2xl"></sl-icon>
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-icon name="face-smile"></sl-icon>
+    <sl-icon name="face-smile" size="xs"></sl-icon>
+    <sl-icon name="face-smile"></sl-icon>
+    <sl-icon name="face-smile" size="2xl"></sl-icon>
   ```
 
 </div>

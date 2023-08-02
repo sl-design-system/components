@@ -90,6 +90,7 @@ $transition-timing: 300ms;
   border: 1px solid var(--code-border);
   border-radius: 0.6rem 0.6rem 0 0;
   display: flex;
+  gap: 1rem;
   justify-content: center;
   min-height: 16rem;
 }

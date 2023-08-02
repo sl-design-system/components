@@ -1,5 +1,4 @@
 import 'element-internals-polyfill';
-import '@fortawesome/pro-regular-svg-icons';
 import '@oddbird/popover-polyfill';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/avatar/register.js';
@@ -19,3 +18,9 @@ import '@sl-design-system/tabs/register.js';
 import '@sl-design-system/text-input/register.js';
 import '@sl-design-system/textarea/register.js';
 import '@sl-design-system/tooltip/register.js';
+import { setup } from '@sl-design-system/sanoma-learning';
+import { Icon } from '@sl-design-system/icon';
+import { faPenToSquare } from '@fortawesome/pro-regular-svg-icons';
+
+setup();
+Icon.registerIcon(faPenToSquare);

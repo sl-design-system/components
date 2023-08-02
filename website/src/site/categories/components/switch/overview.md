@@ -8,16 +8,14 @@ eleventyNavigation:
 <section>
 
 <div class="ds-example">
-
-<sl-switch size="md" checked></sl-switch>
-
+<sl-switch size="md" checked>switch text</sl-switch>
 </div>
 
 <div class="ds-code">
 
 ```html
 
-<sl-switch size="md"checked></sl-switch>
+<sl-switch size="md" checked>switch text</sl-switch>
 
 ```
 

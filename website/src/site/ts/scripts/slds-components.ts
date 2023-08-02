@@ -14,13 +14,20 @@ import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/skeleton/register.js';
 import '@sl-design-system/switch/register.js';
-import '@sl-design-system/tabs/register.js';
 import '@sl-design-system/text-input/register.js';
 import '@sl-design-system/textarea/register.js';
 import '@sl-design-system/tooltip/register.js';
+import { Tab, TabGroup, TabPanel } from '@sl-design-system/tabs';
 import { setup } from '@sl-design-system/sanoma-learning';
 import { Icon } from '@sl-design-system/icon';
 import { faPenToSquare } from '@fortawesome/pro-regular-svg-icons';
 
 setup();
 Icon.registerIcon(faPenToSquare);
+
+/** Workaround for the error:
+ * Uncaught DOMException: "Failed to execute 'define' on 'CustomElementRegistry': the name "sl-tab-panel" has already been used with this registry"
+ * Import "import @sl-design-system/tabs/register.js" caused the error above */
+customElements.define('sl-tab-panel', TabPanel);
+customElements.define('sl-tab', Tab);
+customElements.define('sl-tab-group', TabGroup);

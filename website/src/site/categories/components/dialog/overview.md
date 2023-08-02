@@ -8,17 +8,14 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-Dialog example
-<sl-button>Open dialog</sl-button>
-<sl-dialog>
+<sl-button id="open-button" fill="outline" variant="primary">Open dialog</sl-button>
+<sl-dialog id="dialog-example">
 <span slot="title">Dialog title</span>
-<p>
 Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et
 tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.
 Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur
 anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor
 magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
-</p>
 <sl-button slot="action" sl-dialog-close autofocus>Close</sl-button>
 </sl-dialog>
 
@@ -27,7 +24,28 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 <div class="ds-code">
 
   ```html
-  <sl-dialog>dialog code</sl-dialog>
+<sl-button id="open-button" fill="outline" variant="primary">Open dialog</sl-button>
+
+<sl-dialog id="dialog-example">
+    <span slot="title">Dialog title</span>
+    Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et
+    tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.
+    Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur
+    anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor
+    magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
+    <sl-button slot="action" sl-dialog-close autofocus>Close</sl-button>
+</sl-dialog>
+
+<script>
+  const openBtn = document.querySelector("#open-button");
+  const dialogExample = document.querySelector("#dialog-example");
+
+  openBtn.addEventListener("click", () => {
+    if (dialogExample) {
+      dialogExample.showModal();
+    }
+  })
+</script>
   ```
 
 </div>
@@ -102,3 +120,17 @@ Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molesti
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 
 </section>
+
+<script>
+
+const openBtn = document.querySelector("#open-button");
+const dialogExample = document.querySelector("#dialog-example");
+
+
+openBtn.addEventListener("click", () => {
+    if (dialogExample) {
+      dialogExample.showModal();
+    }
+  })
+
+</script>

@@ -9,14 +9,14 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-<sl-checkbox id="checkbox" name="test" value="test">Checkbox</sl-checkbox>
+<sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-checkbox id="checkbox" name="test" value="test">Checkbox</sl-checkbox>
+  <sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
   ```
 
 </div>

@@ -8,7 +8,7 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-<sl-button aria-describedby="tooltip">Button with a tooltip</sl-button>
+<sl-button aria-describedby="tooltip" fill="outline" variant="primary">Button with a tooltip</sl-button>
 <sl-tooltip id="tooltip">This is a tooltip</sl-tooltip>
 
 </div>
@@ -16,7 +16,8 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-skeleton>Tooltip code</sl-skeleton>
+<sl-button aria-describedby="tooltip" fill="outline" variant="primary">Button with a tooltip</sl-button>
+<sl-tooltip id="tooltip">This is a tooltip</sl-tooltip>
   ```
 
 </div>

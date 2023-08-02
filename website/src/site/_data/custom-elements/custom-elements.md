@@ -30,6 +30,22 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
 
+# `../packages/components/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package             |
+| ---- | ---- | ----------- | ------ | ------------------- |
+| `js` | `*`  | *           |        | ./src/button-bar.js |
+
+# `../packages/components/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                            | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
+
 # `../packages/components/checkbox/index.ts`:
 
 ## Exports
@@ -47,22 +63,6 @@
 | --------------------------- | ------------------- | ------------- | --------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/components/checkbox/src/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/components/checkbox/src/checkbox-group.js |         |
-
-# `../packages/components/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./src/button-bar.js |
-
-# `../packages/components/button-bar/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                            | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
 
 # `../packages/components/dialog/index.ts`:
 
@@ -206,6 +206,24 @@
 | `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
 | `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
 
+# `../packages/components/shared/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                    |
+| ---- | ---- | ----------- | ------ | -------------------------- |
+| `js` | `*`  | *           |        | ./src/controllers/index.js |
+| `js` | `*`  | *           |        | ./src/data-source/index.js |
+| `js` | `*`  | *           |        | ./src/decorators/index.js  |
+| `js` | `*`  | *           |        | ./src/directives/index.js  |
+| `js` | `*`  | *           |        | ./src/mixins/index.js      |
+| `js` | `*`  | *           |        | ./src/css.js               |
+| `js` | `*`  | *           |        | ./src/path.js              |
+| `js` | `*`  | *           |        | ./src/popover.js           |
+| `js` | `*`  | *           |        | ./src/string.js            |
+| `js` | `*`  | *           |        | ./src/types.js             |
+| `js` | `*`  | *           |        | ./src/validators.js        |
+
 # `../packages/components/select/index.ts`:
 
 ## Exports
@@ -225,24 +243,6 @@
 | `custom-element-definition` | `sl-select`              | Select            | /packages/components/select/src/select.js              |         |
 | `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
 | `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
-
-# `../packages/components/shared/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                    |
-| ---- | ---- | ----------- | ------ | -------------------------- |
-| `js` | `*`  | *           |        | ./src/controllers/index.js |
-| `js` | `*`  | *           |        | ./src/data-source/index.js |
-| `js` | `*`  | *           |        | ./src/decorators/index.js  |
-| `js` | `*`  | *           |        | ./src/directives/index.js  |
-| `js` | `*`  | *           |        | ./src/mixins/index.js      |
-| `js` | `*`  | *           |        | ./src/css.js               |
-| `js` | `*`  | *           |        | ./src/path.js              |
-| `js` | `*`  | *           |        | ./src/popover.js           |
-| `js` | `*`  | *           |        | ./src/string.js            |
-| `js` | `*`  | *           |        | ./src/types.js             |
-| `js` | `*`  | *           |        | ./src/validators.js        |
 
 # `../packages/components/skeleton/index.ts`:
 
@@ -345,6 +345,124 @@
 | --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/components/tooltip/src/tooltip.js |         |
 
+# `../packages/components/button/src/button.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/button/src/button.scss.ts |         |
+
+# `../packages/components/button/src/button.ts`:
+
+## class: `Button`, `sl-button`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Static Fields
+
+| Name             | Privacy | Type      | Default | Description | Inherited From |
+| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `formAssociated` | private | `boolean` | `true`  |             |                |
+
+### Fields
+
+| Name               | Privacy | Type                        | Default                      | Description                                                                            | Inherited From |
+| ------------------ | ------- | --------------------------- | ---------------------------- | -------------------------------------------------------------------------------------- | -------------- |
+| `#events`          | private |                             | `new EventsController(this)` | Event controller.                                                                      |                |
+| `internals`        | private |                             |                              |                                                                                        |                |
+| `originalTabIndex` | private | `number`                    | `0`                          | The original tabIndex before disabled.                                                 |                |
+| `fill`             |         | `ButtonFill`                | `'solid'`                    | The button fill.                                                                       |                |
+| `size`             |         | `ButtonSize`                | `'md'`                       | Button size.                                                                           |                |
+| `type`             |         | `button \| reset \| submit` | `'button'`                   | The button type. Defaults to `button`, but can be set to `submit` when used in a form. |                |
+| `variant`          |         | `ButtonVariant`             | `'default'`                  | The button variant. If no variant is specified, it uses the default button style.      |                |
+
+### Methods
+
+| Name                   | Privacy | Description | Parameters                                   | Return    | Inherited From |
+| ---------------------- | ------- | ----------- | -------------------------------------------- | --------- | -------------- |
+| `formDisabledCallback` |         |             | `disabled: boolean`                          | `void`    |                |
+| `#onClick`             |         |             | `event: Event`                               | `void`    |                |
+| `#onKeydown`           |         |             | `event: KeyboardEvent`                       | `void`    |                |
+| `#onSlotChange`        |         |             | `event: Event & { target: HTMLSlotElement }` | `void`    |                |
+| `#hasOnlyIconAsChild`  |         |             | `el: HTMLElement`                            | `boolean` |                |
+| `#setIconProperties`   |         |             | `assignedNodes: Node[]`                      | `void`    |                |
+
+### Attributes
+
+| Name      | Field   | Inherited From |
+| --------- | ------- | -------------- |
+| `fill`    | fill    |                |
+| `size`    | size    |                |
+| `type`    | type    |                |
+| `variant` | variant |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Button` | Button      | ../packages/components/button/src/button.ts |         |
+
+# `../packages/components/button-bar/src/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
+
+# `../packages/components/button-bar/src/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
+| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
+| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
+| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
+| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters | Return          | Inherited From |
+| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
+| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+
+### Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `align`     | align    |                |
+| `icon-only` | iconOnly |                |
+| `reverse`   | reverse  |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
+
 # `../packages/components/avatar/src/avatar.scss.ts`:
 
 ## Exports
@@ -437,70 +555,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Avatar` | Avatar      | ../packages/components/avatar/src/avatar.ts |         |
-
-# `../packages/components/button/src/button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/button/src/button.scss.ts |         |
-
-# `../packages/components/button/src/button.ts`:
-
-## class: `Button`, `sl-button`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name             | Privacy | Type      | Default | Description | Inherited From |
-| ---------------- | ------- | --------- | ------- | ----------- | -------------- |
-| `formAssociated` | private | `boolean` | `true`  |             |                |
-
-### Fields
-
-| Name               | Privacy | Type                        | Default                      | Description                                                                            | Inherited From |
-| ------------------ | ------- | --------------------------- | ---------------------------- | -------------------------------------------------------------------------------------- | -------------- |
-| `#events`          | private |                             | `new EventsController(this)` | Event controller.                                                                      |                |
-| `internals`        | private |                             |                              |                                                                                        |                |
-| `originalTabIndex` | private | `number`                    | `0`                          | The original tabIndex before disabled.                                                 |                |
-| `fill`             |         | `ButtonFill`                | `'solid'`                    | The button fill.                                                                       |                |
-| `size`             |         | `ButtonSize`                | `'md'`                       | Button size.                                                                           |                |
-| `type`             |         | `button \| reset \| submit` | `'button'`                   | The button type. Defaults to `button`, but can be set to `submit` when used in a form. |                |
-| `variant`          |         | `ButtonVariant`             | `'default'`                  | The button variant. If no variant is specified, it uses the default button style.      |                |
-
-### Methods
-
-| Name                   | Privacy | Description | Parameters                                   | Return    | Inherited From |
-| ---------------------- | ------- | ----------- | -------------------------------------------- | --------- | -------------- |
-| `formDisabledCallback` |         |             | `disabled: boolean`                          | `void`    |                |
-| `#onClick`             |         |             | `event: Event`                               | `void`    |                |
-| `#onKeydown`           |         |             | `event: KeyboardEvent`                       | `void`    |                |
-| `#onSlotChange`        |         |             | `event: Event & { target: HTMLSlotElement }` | `void`    |                |
-| `#hasOnlyIconAsChild`  |         |             | `el: HTMLElement`                            | `boolean` |                |
-| `#setIconProperties`   |         |             | `assignedNodes: Node[]`                      | `void`    |                |
-
-### Attributes
-
-| Name      | Field   | Inherited From |
-| --------- | ------- | -------------- |
-| `fill`    | fill    |                |
-| `size`    | size    |                |
-| `type`    | type    |                |
-| `variant` | variant |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Button` | Button      | ../packages/components/button/src/button.ts |         |
 
 # `../packages/components/checkbox/src/checkbox-group.scss.ts`:
 
@@ -698,17 +752,17 @@
 | ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Checkbox` | Checkbox    | ../packages/components/checkbox/src/checkbox.ts |         |
 
-# `../packages/components/button-bar/src/button-bar.scss.ts`:
+# `../packages/components/drawer/src/drawer.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
 
-# `../packages/components/button-bar/src/button-bar.ts`:
+# `../packages/components/drawer/src/drawer.ts`:
 
-## class: `ButtonBar`, `sl-button-bar`
+## class: `Drawer`, `sl-drawer`
 
 ### Superclass
 
@@ -716,41 +770,60 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Static Fields
+
+| Name             | Privacy | Type                | Default | Description | Inherited From |
+| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
+| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
+
 ### Fields
 
-| Name       | Privacy | Type                                        | Default   | Description                                      | Inherited From |
-| ---------- | ------- | ------------------------------------------- | --------- | ------------------------------------------------ | -------------- |
-| `align`    |         | `start \| center \| end \| 'space-between'` | `'start'` | How the buttons are aligned with the bar.        |                |
-| `iconOnly` |         | `boolean \| undefined`                      |           | Whether the bar only contains icon-only buttons. |                |
-| `reverse`  |         | `boolean`                                   | `false`   | If set, the button order is reversed.            |                |
+| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
+| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
+| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
+| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
+| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
+| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
 
 ### Methods
 
-| Name            | Privacy | Description | Parameters | Return          | Inherited From |
-| --------------- | ------- | ----------- | ---------- | --------------- | -------------- |
-| `#onSlotchange` |         |             |            | `Promise<void>` |                |
+| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
+| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `showModal` |         |             |                                                 | `void` |                |
+| `close`     |         |             |                                                 | `void` |                |
+| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
+| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
+| `#onClose`  |         |             |                                                 | `void` |                |
 
 ### Attributes
 
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `align`     | align    |                |
-| `icon-only` | iconOnly |                |
-| `reverse`   | reverse  |                |
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `disable-close`   | disableClose    |                |
+| `attachment`      | attachment      |                |
+| `closeButtonSize` | closeButtonSize |                |
 
 ### Slots
 
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
+| Name      | Description                   |
+| --------- | ----------------------------- |
+| `default` | Body content for the drawer   |
+| `header`  | Header content for the drawer |
+| `title`   | The title of the drawer       |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
 
 # `../packages/components/dialog/src/dialog.scss.ts`:
 
@@ -824,79 +897,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
-
-# `../packages/components/drawer/src/drawer.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
-
-# `../packages/components/drawer/src/drawer.ts`:
-
-## class: `Drawer`, `sl-drawer`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Static Fields
-
-| Name             | Privacy | Type                | Default | Description | Inherited From |
-| ---------------- | ------- | ------------------- | ------- | ----------- | -------------- |
-| `scopedElements` | private | `ScopedElementsMap` |         |             |                |
-
-### Fields
-
-| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
-| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
-| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
-| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
-| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
-| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters                                      | Return | Inherited From |
-| ----------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
-| `showModal` |         |             |                                                 | `void` |                |
-| `close`     |         |             |                                                 | `void` |                |
-| `#onCancel` |         |             | `event: Event`                                  | `void` |                |
-| `#onClick`  |         |             | `event: PointerEvent & { target: HTMLElement }` | `void` |                |
-| `#onClose`  |         |             |                                                 | `void` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `disable-close`   | disableClose    |                |
-| `attachment`      | attachment      |                |
-| `closeButtonSize` | closeButtonSize |                |
-
-### Slots
-
-| Name      | Description                   |
-| --------- | ----------------------------- |
-| `default` | Body content for the drawer   |
-| `header`  | Header content for the drawer |
-| `title`   | The title of the drawer       |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
 
 # `../packages/components/editor/src/commands.ts`:
 
@@ -1118,17 +1118,17 @@
 | `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
 | `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
 
-# `../packages/components/icon/src/icon.scss.ts`:
+# `../packages/components/label/src/label.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/label/src/label.scss.ts |         |
 
-# `../packages/components/icon/src/icon.ts`:
+# `../packages/components/label/src/label.ts`:
 
-## class: `Icon`, `sl-icon`
+## class: `Label`, `sl-label`
 
 ### Superclass
 
@@ -1136,54 +1136,44 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
-### Static Fields
-
-| Name              | Privacy | Type          | Default | Description | Inherited From |
-| ----------------- | ------- | ------------- | ------- | ----------- | -------------- |
-| `availableStyles` |         | `IconStyle[]` | `[]`    |             |                |
-
-### Static Methods
-
-| Name            | Privacy | Description                                                                            | Parameters                                    | Return   | Inherited From |
-| --------------- | ------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | -------- | -------------- |
-| `registerIcon`  |         | Add icon(s) to the icon registry                                                       | `faIcons: IconDefinition \| IconDefinition[]` | `void`   |                |
-| `registerIcons` |         | store all icons from the IconLibrary of the theme in the icon registry for easy access | `icons: IconLibrary`                          | `void`   |                |
-| `getColorToken` |         |                                                                                        | `pathCounter: number, style: string`          | `string` |                |
-
 ### Fields
 
-| Name          | Privacy | Type                                  | Default                                                                                                                                                                                                                                                                                                                                                            | Description                                                                                                       | Inherited From |
-| ------------- | ------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | -------------- |
-| `iconNotDef`  | private |                                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>` `` |                                                                                                                   |                |
-| `iconLoading` | private |                                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-loading"></svg>` ``                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
-| `label`       |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
-| `name`        |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    | The name of the icon to show.                                                                                     |                |
-| `size`        |         | `IconSize`                            | `'md'`                                                                                                                                                                                                                                                                                                                                                             | Icon size.                                                                                                        |                |
-| `iconHTML`    |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
-| `sldsLibrary` |         | `{ icons: IconLibrary } \| undefined` |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
+| Name             | Privacy | Type                                           | Default                                           | Description                                                     | Inherited From |
+| ---------------- | ------- | ---------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------- | -------------- |
+| `#formControlId` | private | `string \| undefined`                          |                                                   | The actual form control id this label links to.                 |                |
+| `#label`         | private | `HTMLLabelElement \| undefined`                |                                                   | The label instance in the light DOM.                            |                |
+| `#observer`      | private |                                                | `new MutationObserver(() => void this.#update())` | Observe the form control for changes to the required attribute. |                |
+| `for`            |         | `string \| undefined`                          |                                                   | The DOM id of the form control this is linked to.               |                |
+| `formControl`    |         | `(HTMLElement & FormControlInterface) \| null` | `null`                                            | The associated form control.                                    |                |
+| `optional`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as optional.                |                |
+| `required`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as required.                |                |
+| `size`           |         | `LabelSize`                                    | `'md'`                                            | Label size.                                                     |                |
+| `disabled`       |         | `boolean \| undefined`                         |                                                   | The label disabled state.                                       |                |
+| `noPadding`      |         | `boolean \| undefined`                         |                                                   | Whether this label should have no padding bottom.               |                |
 
 ### Methods
 
-| Name                    | Privacy | Description                                                                                                                                                                                                                                              | Parameters | Return          | Inherited From |
-| ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------- | -------------- |
-| `getIconHTML`           |         |                                                                                                                                                                                                                                                          |            | `string`        |                |
-| `waitForWindowProperty` |         | sometimes the icon tries to render before any icons are registered,&#xA;that's why we need to check if the icons have been registered, and if not&#xA;we need to wait a bit and then check again, so we can (re)render the icon when the library is set. |            | `Promise<void>` |                |
+| Name            | Privacy | Description | Parameters                                        | Return          | Inherited From |
+| --------------- | ------- | ----------- | ------------------------------------------------- | --------------- | -------------- |
+| `#onSlotchange` |         |             | `{ target }: Event & { target: HTMLSlotElement }` | `void`          |                |
+| `#update`       |         |             |                                                   | `Promise<void>` |                |
 
 ### Attributes
 
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `label` | label |                |
-| `name`  | name  |                |
-| `size`  | size  |                |
+| Name         | Field     | Inherited From |
+| ------------ | --------- | -------------- |
+| `for`        | for       |                |
+| `size`       | size      |                |
+| `disabled`   | disabled  |                |
+| `no-padding` | noPadding |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                  | Package |
-| ---- | ------ | ----------- | --------------------------------------- | ------- |
-| `js` | `Icon` | Icon        | ../packages/components/icon/src/icon.ts |         |
+| Kind | Name    | Declaration | Module                                    | Package |
+| ---- | ------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `Label` | Label       | ../packages/components/label/src/label.ts |         |
 
 # `../packages/components/grid/src/column-group.ts`:
 
@@ -1803,17 +1793,17 @@
 | ---- | ------------ | ----------- | ----------------------------------------- | ------- |
 | `js` | `GridSorter` | GridSorter  | ../packages/components/grid/src/sorter.ts |         |
 
-# `../packages/components/label/src/label.scss.ts`:
+# `../packages/components/icon/src/icon.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/label/src/label.scss.ts |         |
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
 
-# `../packages/components/label/src/label.ts`:
+# `../packages/components/icon/src/icon.ts`:
 
-## class: `Label`, `sl-label`
+## class: `Icon`, `sl-icon`
 
 ### Superclass
 
@@ -1821,44 +1811,54 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
+### Static Fields
+
+| Name              | Privacy | Type          | Default | Description | Inherited From |
+| ----------------- | ------- | ------------- | ------- | ----------- | -------------- |
+| `availableStyles` |         | `IconStyle[]` | `[]`    |             |                |
+
+### Static Methods
+
+| Name            | Privacy | Description                                                                            | Parameters                                    | Return   | Inherited From |
+| --------------- | ------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | -------- | -------------- |
+| `registerIcon`  |         | Add icon(s) to the icon registry                                                       | `faIcons: IconDefinition \| IconDefinition[]` | `void`   |                |
+| `registerIcons` |         | store all icons from the IconLibrary of the theme in the icon registry for easy access | `icons: IconLibrary`                          | `void`   |                |
+| `getColorToken` |         |                                                                                        | `pathCounter: number, style: string`          | `string` |                |
+
 ### Fields
 
-| Name             | Privacy | Type                                           | Default                                           | Description                                                     | Inherited From |
-| ---------------- | ------- | ---------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------- | -------------- |
-| `#formControlId` | private | `string \| undefined`                          |                                                   | The actual form control id this label links to.                 |                |
-| `#label`         | private | `HTMLLabelElement \| undefined`                |                                                   | The label instance in the light DOM.                            |                |
-| `#observer`      | private |                                                | `new MutationObserver(() => void this.#update())` | Observe the form control for changes to the required attribute. |                |
-| `for`            |         | `string \| undefined`                          |                                                   | The DOM id of the form control this is linked to.               |                |
-| `formControl`    |         | `(HTMLElement & FormControlInterface) \| null` | `null`                                            | The associated form control.                                    |                |
-| `optional`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as optional.                |                |
-| `required`       |         | `boolean \| undefined`                         |                                                   | Whether this label should be marked as required.                |                |
-| `size`           |         | `LabelSize`                                    | `'md'`                                            | Label size.                                                     |                |
-| `disabled`       |         | `boolean \| undefined`                         |                                                   | The label disabled state.                                       |                |
-| `noPadding`      |         | `boolean \| undefined`                         |                                                   | Whether this label should have no padding bottom.               |                |
+| Name          | Privacy | Type                                  | Default                                                                                                                                                                                                                                                                                                                                                            | Description                                                                                                       | Inherited From |
+| ------------- | ------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | -------------- |
+| `iconNotDef`  | private |                                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>` `` |                                                                                                                   |                |
+| `iconLoading` | private |                                       | `` `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-loading"></svg>` ``                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
+| `label`       |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    | Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
+| `name`        |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    | The name of the icon to show.                                                                                     |                |
+| `size`        |         | `IconSize`                            | `'md'`                                                                                                                                                                                                                                                                                                                                                             | Icon size.                                                                                                        |                |
+| `iconHTML`    |         | `string \| undefined`                 |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
+| `sldsLibrary` |         | `{ icons: IconLibrary } \| undefined` |                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                   |                |
 
 ### Methods
 
-| Name            | Privacy | Description | Parameters                                        | Return          | Inherited From |
-| --------------- | ------- | ----------- | ------------------------------------------------- | --------------- | -------------- |
-| `#onSlotchange` |         |             | `{ target }: Event & { target: HTMLSlotElement }` | `void`          |                |
-| `#update`       |         |             |                                                   | `Promise<void>` |                |
+| Name                    | Privacy | Description                                                                                                                                                                                                                                              | Parameters | Return          | Inherited From |
+| ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------- | -------------- |
+| `getIconHTML`           |         |                                                                                                                                                                                                                                                          |            | `string`        |                |
+| `waitForWindowProperty` |         | sometimes the icon tries to render before any icons are registered,&#xA;that's why we need to check if the icons have been registered, and if not&#xA;we need to wait a bit and then check again, so we can (re)render the icon when the library is set. |            | `Promise<void>` |                |
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `for`        | for       |                |
-| `size`       | size      |                |
-| `disabled`   | disabled  |                |
-| `no-padding` | noPadding |                |
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+| `name`  | name  |                |
+| `size`  | size  |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                    | Package |
-| ---- | ------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `Label` | Label       | ../packages/components/label/src/label.ts |         |
+| Kind | Name   | Declaration | Module                                  | Package |
+| ---- | ------ | ----------- | --------------------------------------- | ------- |
+| `js` | `Icon` | Icon        | ../packages/components/icon/src/icon.ts |         |
 
 # `../packages/components/popover/src/popover.scss.ts`:
 
@@ -2070,24 +2070,21 @@
 
 ### Fields
 
-| Name                  | Privacy | Type                                   | Default                                                                                    | Description                                                                                                                     | Inherited From   |
-| --------------------- | ------- | -------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `#events`             | private |                                        | `new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
-  })` | Events controller.                                                                                                              |                  |
-| `internals`           |         |                                        |                                                                                            | Element internals.                                                                                                              |                  |
-| `checked`             |         | `boolean \| undefined`                 |                                                                                            | Whether the radio is selected.                                                                                                  |                  |
-| `value`               |         | `string`                               | `''`                                                                                       | The value for this radio button.                                                                                                |                  |
-| `size`                |         | `RadioButtonSize`                      | `'md'`                                                                                     | Button size.                                                                                                                    |                  |
-| `#cachedValue`        | private | `FormControlValue \| undefined`        |                                                                                            | The cached value for the form control.                                                                                          | FormControlMixin |
-| `#formControlElement` | private | `FormControlElement \| undefined`      |                                                                                            | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                 |                                                                                            | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
-| `name`                |         | `string \| undefined`                  |                                                                                            | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`            |         | `boolean \| undefined`                 |                                                                                            | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `formControlElement`  |         | `FormControlElement`                   |                                                                                            |                                                                                                                                 | FormControlMixin |
-| `form`                |         | `HTMLFormElement \| null`              |                                                                                            |                                                                                                                                 | FormControlMixin |
-| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                                                                                            |                                                                                                                                 | FormControlMixin |
+| Name                  | Privacy | Type                                   | Default                      | Description                                                                                                                     | Inherited From   |
+| --------------------- | ------- | -------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `#events`             | private |                                        | `new EventsController(this)` | Events controller.                                                                                                              |                  |
+| `internals`           |         |                                        |                              | Element internals.                                                                                                              |                  |
+| `checked`             |         | `boolean \| undefined`                 |                              | Whether the radio is selected.                                                                                                  |                  |
+| `value`               |         | `string`                               | `''`                         | The value for this radio button.                                                                                                |                  |
+| `size`                |         | `RadioButtonSize`                      | `'md'`                       | Button size.                                                                                                                    |                  |
+| `#cachedValue`        | private | `FormControlValue \| undefined`        |                              | The cached value for the form control.                                                                                          | FormControlMixin |
+| `#formControlElement` | private | `FormControlElement \| undefined`      |                              | The actual element that integrates with the form; either&#xA;a Form Associated Custom Element, or an `<input>` or `<textarea>`. | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                 |                              | No interaction is possible with this control when disabled.                                                                     | FormControlMixin |
+| `name`                |         | `string \| undefined`                  |                              | The name of the form control.                                                                                                   | FormControlMixin |
+| `required`            |         | `boolean \| undefined`                 |                              | Whether this form control is a required field.                                                                                  | FormControlMixin |
+| `formControlElement`  |         | `FormControlElement`                   |                              |                                                                                                                                 | FormControlMixin |
+| `form`                |         | `HTMLFormElement \| null`              |                              |                                                                                                                                 | FormControlMixin |
+| `labels`              |         | `NodeListOf<HTMLLabelElement> \| null` |                              |                                                                                                                                 | FormControlMixin |
 
 ### Methods
 
@@ -2121,6 +2118,121 @@
 | Kind | Name    | Declaration | Module                                          | Package |
 | ---- | ------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Radio` | Radio       | ../packages/components/radio-group/src/radio.ts |         |
+
+# `../packages/components/shared/src/css.ts`:
+
+## Variables
+
+| Name                     | Description | Type     |
+| ------------------------ | ----------- | -------- |
+| `firstFocusableSelector` |             | `string` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                     | Declaration            | Module                                   | Package |
+| ---- | ------------------------ | ---------------------- | ---------------------------------------- | ------- |
+| `js` | `firstFocusableSelector` | firstFocusableSelector | ../packages/components/shared/src/css.ts |         |
+
+# `../packages/components/shared/src/path.ts`:
+
+## Functions
+
+| Name              | Description | Parameters              | Return    |
+| ----------------- | ----------- | ----------------------- | --------- |
+| `getNameByPath`   |             | `path: string`          | `string`  |
+| `getStringByPath` |             | `object: unknown, path` | `string`  |
+| `getValueByPath`  |             | `object: unknown, path` | `unknown` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                    | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | ../packages/components/shared/src/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | ../packages/components/shared/src/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | ../packages/components/shared/src/path.ts |         |
+
+# `../packages/components/shared/src/popover.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/shared/src/popover.scss.ts |         |
+
+# `../packages/components/shared/src/popover.ts`:
+
+## Functions
+
+| Name              | Description | Parameters                                                               | Return         |
+| ----------------- | ----------- | ------------------------------------------------------------------------ | -------------- |
+| `isPopoverOpen`   |             | `element: HTMLElement`                                                   | `boolean`      |
+| `positionPopover` |             | `element: HTMLElement, anchor: Element, options: PositionPopoverOptions` | `(() => void)` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                    | Declaration           | Module                                       | Package |
+| ---- | ----------------------- | --------------------- | -------------------------------------------- | ------- |
+| `js` | `popoverPolyfillStyles` | popoverPolyfillStyles | ../packages/components/shared/src/popover.ts |         |
+| `js` | `isPopoverOpen`         | isPopoverOpen         | ../packages/components/shared/src/popover.ts |         |
+| `js` | `positionPopover`       | positionPopover       | ../packages/components/shared/src/popover.ts |         |
+
+# `../packages/components/shared/src/string.ts`:
+
+## Functions
+
+| Name         | Description                                                                                                                                                                                                                                                                                                                                                                                                    | Parameters    | Return |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------ |
+| `camelize`   | Returns the lowerCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;camelize('innerHTML')          // 'innerHTML'&#xA;camelize('action_name')        // 'actionName'&#xA;camelize('css-class-name')     // 'cssClassName'&#xA;camelize('object.path.name')   // 'objectPathName'&#xA;camelize('my favorite items')  // 'myFavoriteItems'&#xA;camelize('My Favorite Items')  // 'myFavoriteItems'&#xA;\``` | `str: string` |        |
+| `capitalize` | Returns the Capitalized form of a string&#xA;&#xA;\```javascript&#xA;capitalize('innerHTML')         // 'InnerHTML'&#xA;capitalize('action_name')       // 'Action_name'&#xA;capitalize('css-class-name')    // 'Css-class-name'&#xA;capitalize('my favorite items') // 'My favorite items'&#xA;\```                                                                                                           | `str: string` |        |
+| `classify`   | Returns the UpperCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;classify('innerHTML')          // 'InnerHTML'&#xA;classify('action_name')        // 'ActionName'&#xA;classify('css-class-name')     // 'CssClassName'&#xA;classify('my favorite items')  // 'MyFavoriteItems'&#xA;\```                                                                                                                | `str: string` |        |
+| `dasherize`  | Replaces underscores, spaces, or camelCase with dashes.&#xA;&#xA;\```javascript&#xA;dasherize('innerHTML')         // 'inner-html'&#xA;dasherize('action_name')       // 'action-name'&#xA;dasherize('css-class-name')    // 'css-class-name'&#xA;dasherize('my favorite items') // 'my-favorite-items'&#xA;\```                                                                                               | `str: string` |        |
+| `decamelize` | Converts a camelized string into all lower case separated by underscores.&#xA;&#xA;\```javascript&#xA;decamelize('innerHTML')         // 'inner_html'&#xA;decamelize('action_name')       // 'action_name'&#xA;decamelize('css-class-name')    // 'css-class-name'&#xA;decamelize('my favorite items') // 'my favorite items'&#xA;\```                                                                         | `str: string` |        |
+| `humanize`   | Returns the Humanized form of a string&#xA;&#xA;\```javascript&#xA;humanize('innerHTML')         // 'Inner html'&#xA;humanize('action_name')       // 'Action name'&#xA;humanize('css-class-name')    // 'Css class name'&#xA;humanize('my favorite items') // 'My favorite items'&#xA;\```                                                                                                                    | `str: string` |        |
+| `underscore` | More general than decamelize. Returns the lower\\_case\\_and\\_underscored&#xA;form of a string.&#xA;&#xA;\```javascript&#xA;underscore('innerHTML')          // 'inner_html'&#xA;underscore('action_name')        // 'action_name'&#xA;underscore('css-class-name')     // 'css_class_name'&#xA;underscore('my favorite items')  // 'my_favorite_items'&#xA;\```                                              | `str: string` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                      | Package |
+| ---- | ------------ | ----------- | ------------------------------------------- | ------- |
+| `js` | `camelize`   | camelize    | ../packages/components/shared/src/string.ts |         |
+| `js` | `capitalize` | capitalize  | ../packages/components/shared/src/string.ts |         |
+| `js` | `classify`   | classify    | ../packages/components/shared/src/string.ts |         |
+| `js` | `dasherize`  | dasherize   | ../packages/components/shared/src/string.ts |         |
+| `js` | `decamelize` | decamelize  | ../packages/components/shared/src/string.ts |         |
+| `js` | `humanize`   | humanize    | ../packages/components/shared/src/string.ts |         |
+| `js` | `underscore` | underscore  | ../packages/components/shared/src/string.ts |         |
+
+# `../packages/components/shared/src/validators.ts`:
+
+## Variables
+
+| Name                    | Description | Type        |
+| ----------------------- | ----------- | ----------- |
+| `requiredValidator`     |             | `Validator` |
+| `programmaticValidator` |             | `Validator` |
+| `minLengthValidator`    |             | `Validator` |
+| `maxLengthValidator`    |             | `Validator` |
+| `patternValidator`      |             | `Validator` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                    | Declaration           | Module                                          | Package |
+| ---- | ----------------------- | --------------------- | ----------------------------------------------- | ------- |
+| `js` | `requiredValidator`     | requiredValidator     | ../packages/components/shared/src/validators.ts |         |
+| `js` | `programmaticValidator` | programmaticValidator | ../packages/components/shared/src/validators.ts |         |
+| `js` | `minLengthValidator`    | minLengthValidator    | ../packages/components/shared/src/validators.ts |         |
+| `js` | `maxLengthValidator`    | maxLengthValidator    | ../packages/components/shared/src/validators.ts |         |
+| `js` | `patternValidator`      | patternValidator      | ../packages/components/shared/src/validators.ts |         |
 
 # `../packages/components/select/src/select-option-group.scss.ts`:
 
@@ -2327,121 +2439,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Select` | Select      | ../packages/components/select/src/select.ts |         |
-
-# `../packages/components/shared/src/css.ts`:
-
-## Variables
-
-| Name                     | Description | Type     |
-| ------------------------ | ----------- | -------- |
-| `firstFocusableSelector` |             | `string` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                     | Declaration            | Module                                   | Package |
-| ---- | ------------------------ | ---------------------- | ---------------------------------------- | ------- |
-| `js` | `firstFocusableSelector` | firstFocusableSelector | ../packages/components/shared/src/css.ts |         |
-
-# `../packages/components/shared/src/path.ts`:
-
-## Functions
-
-| Name              | Description | Parameters              | Return    |
-| ----------------- | ----------- | ----------------------- | --------- |
-| `getNameByPath`   |             | `path: string`          | `string`  |
-| `getStringByPath` |             | `object: unknown, path` | `string`  |
-| `getValueByPath`  |             | `object: unknown, path` | `unknown` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                    | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | ../packages/components/shared/src/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | ../packages/components/shared/src/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | ../packages/components/shared/src/path.ts |         |
-
-# `../packages/components/shared/src/popover.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/shared/src/popover.scss.ts |         |
-
-# `../packages/components/shared/src/popover.ts`:
-
-## Functions
-
-| Name              | Description | Parameters                                                               | Return         |
-| ----------------- | ----------- | ------------------------------------------------------------------------ | -------------- |
-| `isPopoverOpen`   |             | `element: HTMLElement`                                                   | `boolean`      |
-| `positionPopover` |             | `element: HTMLElement, anchor: Element, options: PositionPopoverOptions` | `(() => void)` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                    | Declaration           | Module                                       | Package |
-| ---- | ----------------------- | --------------------- | -------------------------------------------- | ------- |
-| `js` | `popoverPolyfillStyles` | popoverPolyfillStyles | ../packages/components/shared/src/popover.ts |         |
-| `js` | `isPopoverOpen`         | isPopoverOpen         | ../packages/components/shared/src/popover.ts |         |
-| `js` | `positionPopover`       | positionPopover       | ../packages/components/shared/src/popover.ts |         |
-
-# `../packages/components/shared/src/string.ts`:
-
-## Functions
-
-| Name         | Description                                                                                                                                                                                                                                                                                                                                                                                                    | Parameters    | Return |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------ |
-| `camelize`   | Returns the lowerCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;camelize('innerHTML')          // 'innerHTML'&#xA;camelize('action_name')        // 'actionName'&#xA;camelize('css-class-name')     // 'cssClassName'&#xA;camelize('object.path.name')   // 'objectPathName'&#xA;camelize('my favorite items')  // 'myFavoriteItems'&#xA;camelize('My Favorite Items')  // 'myFavoriteItems'&#xA;\``` | `str: string` |        |
-| `capitalize` | Returns the Capitalized form of a string&#xA;&#xA;\```javascript&#xA;capitalize('innerHTML')         // 'InnerHTML'&#xA;capitalize('action_name')       // 'Action_name'&#xA;capitalize('css-class-name')    // 'Css-class-name'&#xA;capitalize('my favorite items') // 'My favorite items'&#xA;\```                                                                                                           | `str: string` |        |
-| `classify`   | Returns the UpperCamelCase form of a string.&#xA;&#xA;\```javascript&#xA;classify('innerHTML')          // 'InnerHTML'&#xA;classify('action_name')        // 'ActionName'&#xA;classify('css-class-name')     // 'CssClassName'&#xA;classify('my favorite items')  // 'MyFavoriteItems'&#xA;\```                                                                                                                | `str: string` |        |
-| `dasherize`  | Replaces underscores, spaces, or camelCase with dashes.&#xA;&#xA;\```javascript&#xA;dasherize('innerHTML')         // 'inner-html'&#xA;dasherize('action_name')       // 'action-name'&#xA;dasherize('css-class-name')    // 'css-class-name'&#xA;dasherize('my favorite items') // 'my-favorite-items'&#xA;\```                                                                                               | `str: string` |        |
-| `decamelize` | Converts a camelized string into all lower case separated by underscores.&#xA;&#xA;\```javascript&#xA;decamelize('innerHTML')         // 'inner_html'&#xA;decamelize('action_name')       // 'action_name'&#xA;decamelize('css-class-name')    // 'css-class-name'&#xA;decamelize('my favorite items') // 'my favorite items'&#xA;\```                                                                         | `str: string` |        |
-| `humanize`   | Returns the Humanized form of a string&#xA;&#xA;\```javascript&#xA;humanize('innerHTML')         // 'Inner html'&#xA;humanize('action_name')       // 'Action name'&#xA;humanize('css-class-name')    // 'Css class name'&#xA;humanize('my favorite items') // 'My favorite items'&#xA;\```                                                                                                                    | `str: string` |        |
-| `underscore` | More general than decamelize. Returns the lower\\_case\\_and\\_underscored&#xA;form of a string.&#xA;&#xA;\```javascript&#xA;underscore('innerHTML')          // 'inner_html'&#xA;underscore('action_name')        // 'action_name'&#xA;underscore('css-class-name')     // 'css_class_name'&#xA;underscore('my favorite items')  // 'my_favorite_items'&#xA;\```                                              | `str: string` |        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                      | Package |
-| ---- | ------------ | ----------- | ------------------------------------------- | ------- |
-| `js` | `camelize`   | camelize    | ../packages/components/shared/src/string.ts |         |
-| `js` | `capitalize` | capitalize  | ../packages/components/shared/src/string.ts |         |
-| `js` | `classify`   | classify    | ../packages/components/shared/src/string.ts |         |
-| `js` | `dasherize`  | dasherize   | ../packages/components/shared/src/string.ts |         |
-| `js` | `decamelize` | decamelize  | ../packages/components/shared/src/string.ts |         |
-| `js` | `humanize`   | humanize    | ../packages/components/shared/src/string.ts |         |
-| `js` | `underscore` | underscore  | ../packages/components/shared/src/string.ts |         |
-
-# `../packages/components/shared/src/validators.ts`:
-
-## Variables
-
-| Name                    | Description | Type        |
-| ----------------------- | ----------- | ----------- |
-| `requiredValidator`     |             | `Validator` |
-| `programmaticValidator` |             | `Validator` |
-| `minLengthValidator`    |             | `Validator` |
-| `maxLengthValidator`    |             | `Validator` |
-| `patternValidator`      |             | `Validator` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                    | Declaration           | Module                                          | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------- | ------- |
-| `js` | `requiredValidator`     | requiredValidator     | ../packages/components/shared/src/validators.ts |         |
-| `js` | `programmaticValidator` | programmaticValidator | ../packages/components/shared/src/validators.ts |         |
-| `js` | `minLengthValidator`    | minLengthValidator    | ../packages/components/shared/src/validators.ts |         |
-| `js` | `maxLengthValidator`    | maxLengthValidator    | ../packages/components/shared/src/validators.ts |         |
-| `js` | `patternValidator`      | patternValidator      | ../packages/components/shared/src/validators.ts |         |
 
 # `../packages/components/skeleton/src/skeleton.scss.ts`:
 
@@ -3466,6 +3463,89 @@
 | `js` | `*`  | *           |        | ./array-data-source.js |
 | `js` | `*`  | *           |        | ./data-source.js       |
 
+# `../packages/components/shared/src/decorators/base.ts`:
+
+## Functions
+
+| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
+    finisher,
+    descriptor
+  }: {
+    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
+    descriptor?: (property: PropertyKey) => PropertyDescriptor;
+  }, finisher: function, descriptor: function` | `ClassElement\|void` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                               | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
+| `js` | `decorateProperty` | decorateProperty | ../packages/components/shared/src/decorators/base.ts |         |
+
+# `../packages/components/shared/src/decorators/event.ts`:
+
+## class: `EventEmitter`
+
+### Methods
+
+| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
+| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
+| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
+
+<hr/>
+
+## Variables
+
+| Name    | Description | Type    |
+| ------- | ----------- | ------- |
+| `event` |             | `Event` |
+
+<hr/>
+
+## Functions
+
+| Name    | Description | Parameters              | Return |
+| ------- | ----------- | ----------------------- | ------ |
+| `event` |             | `options: EventOptions` | `any`  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | ../packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | ../packages/components/shared/src/decorators/event.ts |         |
+
+# `../packages/components/shared/src/decorators/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package      |
+| ---- | ---- | ----------- | ------ | ------------ |
+| `js` | `*`  | *           |        | ./base.js    |
+| `js` | `*`  | *           |        | ./event.js   |
+| `js` | `*`  | *           |        | ./observe.js |
+
+# `../packages/components/shared/src/decorators/observe.ts`:
+
+## Functions
+
+| Name      | Description | Parameters                                          | Return |
+| --------- | ----------- | --------------------------------------------------- | ------ |
+| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | ../packages/components/shared/src/decorators/observe.ts |         |
+
 # `../packages/components/shared/src/directives/anchor.ts`:
 
 ## class: `AnchorDirective`
@@ -3626,86 +3706,3 @@
 | ---- | ---- | ----------- | ------ | ----------------- |
 | `js` | `*`  | *           |        | ./form-control.js |
 | `js` | `*`  | *           |        | ./hint.js         |
-
-# `../packages/components/shared/src/decorators/base.ts`:
-
-## Functions
-
-| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
-    finisher,
-    descriptor
-  }: {
-    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
-    descriptor?: (property: PropertyKey) => PropertyDescriptor;
-  }, finisher: function, descriptor: function` | `ClassElement\|void` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `decorateProperty` | decorateProperty | ../packages/components/shared/src/decorators/base.ts |         |
-
-# `../packages/components/shared/src/decorators/event.ts`:
-
-## class: `EventEmitter`
-
-### Methods
-
-| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
-| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
-| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
-
-<hr/>
-
-## Variables
-
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `event` |             | `Event` |
-
-<hr/>
-
-## Functions
-
-| Name    | Description | Parameters              | Return |
-| ------- | ----------- | ----------------------- | ------ |
-| `event` |             | `options: EventOptions` | `any`  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                                | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | ../packages/components/shared/src/decorators/event.ts |         |
-| `js` | `event`        | event        | ../packages/components/shared/src/decorators/event.ts |         |
-
-# `../packages/components/shared/src/decorators/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package      |
-| ---- | ---- | ----------- | ------ | ------------ |
-| `js` | `*`  | *           |        | ./base.js    |
-| `js` | `*`  | *           |        | ./event.js   |
-| `js` | `*`  | *           |        | ./observe.js |
-
-# `../packages/components/shared/src/decorators/observe.ts`:
-
-## Functions
-
-| Name      | Description | Parameters                                          | Return |
-| --------- | ----------- | --------------------------------------------------- | ------ |
-| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | ../packages/components/shared/src/decorators/observe.ts |         |

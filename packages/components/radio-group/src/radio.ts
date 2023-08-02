@@ -15,10 +15,7 @@ export class Radio extends FormControlMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
-  });
+  #events = new EventsController(this);
 
   /** Element internals. */
   readonly internals = this.attachInternals();
@@ -37,6 +34,9 @@ export class Radio extends FormControlMixin(LitElement) {
 
     this.internals.role = 'radio';
     this.setFormControlElement(this);
+
+    this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this, 'keydown', this.#onKeydown);
 
     // Move this to a new `FocusableMixin`
     if (!this.hasAttribute('tabindex')) {

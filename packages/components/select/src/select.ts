@@ -69,7 +69,7 @@ export class Select extends FormControlMixin(LitElement) {
 
   #selectId = `sl-select-${nextUniqueId++}`;
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /** The current node selected in the list of options. */

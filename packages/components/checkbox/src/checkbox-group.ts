@@ -54,7 +54,7 @@ export class CheckboxGroup extends HintMixin(LitElement) {
     validators: [requiredValidator]
   });
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /** The slotted checkboxes. */

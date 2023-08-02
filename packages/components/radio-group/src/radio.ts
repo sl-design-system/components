@@ -17,7 +17,7 @@ export class Radio extends FormControlMixin(LitElement) {
   /** Events controller. */
   #events = new EventsController(this);
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /** Whether the radio is selected. */

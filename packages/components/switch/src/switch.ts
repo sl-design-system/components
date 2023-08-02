@@ -33,7 +33,7 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   });
   #initialState = false;
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
 
   /** Emits when the checked state changes. */

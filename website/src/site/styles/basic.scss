@@ -1,0 +1,26 @@
+@import 'breakpoints';
+
+[dsd-pending] {
+  visibility: hidden;
+}
+
+*:focus-visible:not(input, sl-button, sl-textarea) {
+  border-radius: 0.6rem;
+  box-shadow: var(--focus-box-shadow);
+  outline: none;
+}
+
+$sticky-breakpoint: 1px;
+
+html {
+  font-size: 62.5%;
+
+  @media (min-height: $sticky-breakpoint) {
+    scroll-padding-top: 100px;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    @media screen and (min-width: $lg-breakpoint) {
+      scroll-padding-top: 90px;
+    }
+  }
+}

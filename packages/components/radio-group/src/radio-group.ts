@@ -65,7 +65,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   });
   #initialState?: string;
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /** The assigned nodes. */

@@ -72,12 +72,6 @@
             },
             {
               "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
               "name": "maxLength",
               "type": {
                 "text": "number | undefined"

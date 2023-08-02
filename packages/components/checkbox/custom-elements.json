@@ -89,12 +89,6 @@
             },
             {
               "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
               "name": "name",
               "type": {
                 "text": "string | undefined"
@@ -214,13 +208,6 @@
               "default": "false",
               "description": "Whether the checkbox has the indeterminate state.",
               "attribute": "indeterminate"
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "default": "this.attachInternals()",
-              "description": "Element internals."
             },
             {
               "kind": "field",

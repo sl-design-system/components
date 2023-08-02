@@ -37,7 +37,7 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
     target: () => this.textarea
   });
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /** The textarea in the light DOM. */

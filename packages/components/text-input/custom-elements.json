@@ -88,12 +88,6 @@
             },
             {
               "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
               "name": "invalid",
               "type": {
                 "text": "boolean | undefined"

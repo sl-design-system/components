@@ -39,7 +39,7 @@ describe('sl-radio', () => {
     });
 
   });
-  
+
   describe('disabled', () => {
     beforeEach(async ()=>{
       const group = await fixture(html`<sl-radio-group><sl-radio value="1" disabled>Hello world</sl-radio></sl-radio-group>`);
@@ -65,7 +65,7 @@ describe('sl-radio', () => {
     it('should not change the state to checked on key down', async () => {
       el.disabled = true;
       await el.updateComplete;
-      
+
       el.focus();
       await sendKeys({ press: 'Enter' });
 

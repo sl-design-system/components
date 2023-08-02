@@ -117,12 +117,6 @@
             },
             {
               "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
               "name": "plugins",
               "type": {
                 "text": "Plugin[] | undefined"

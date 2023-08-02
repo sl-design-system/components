@@ -117,12 +117,6 @@
             },
             {
               "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
               "name": "validators",
               "type": {
                 "text": "Validator[] | undefined"
@@ -219,12 +213,6 @@
               "description": "Whether the radio is selected.",
               "attribute": "checked",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
             },
             {
               "kind": "field",

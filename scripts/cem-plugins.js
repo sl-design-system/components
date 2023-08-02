@@ -21,6 +21,8 @@ export function noPrivateFieldsPlugin() {
           declaration.members = declaration.members?.filter(member => {
             return member.privacy !== 'private' && !member.name.startsWith('#');
           });
+
+          console.log('declaration.members', declaration.members);
         });
       });
     }
@@ -46,6 +48,6 @@ export function sortMembersPlugin() {
           });
         });
       });
-    }    
+    }
   }
 }

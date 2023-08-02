@@ -43,7 +43,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /**

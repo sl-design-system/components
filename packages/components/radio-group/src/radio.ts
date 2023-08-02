@@ -20,7 +20,7 @@ export class Radio extends FormControlMixin(LitElement) {
     keydown: this.#onKeydown
   });
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /** Whether the radio is selected. */

@@ -6,5 +6,5 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Icon
-  order: 7
+  order: 9
 ---

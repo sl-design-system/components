@@ -1,10 +1,11 @@
 ---
-title: Switch
-description: This is a description of the switch component
+title: Grid (PoC)
+description: Grid description
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Switch
-  order: 15
+  key: Grid (PoC)
+  order: 8
 ---
+

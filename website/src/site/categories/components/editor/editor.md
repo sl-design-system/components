@@ -6,6 +6,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Editor (PoC)
-  order: 5
+  order: 7
 ---
 

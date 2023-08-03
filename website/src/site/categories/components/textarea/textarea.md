@@ -6,6 +6,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Textarea
-  order: 13
+  order: 18
 ---
 

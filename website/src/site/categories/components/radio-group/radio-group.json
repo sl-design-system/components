@@ -1,5 +1,8 @@
 {
   "layout": "components/components.njk",
   "tags": "radio-group",
-  "componentTagName": "sl-radio-group"
+  "componentTagName": [
+    "sl-radio-group",
+    "sl-radio"
+  ]
 }

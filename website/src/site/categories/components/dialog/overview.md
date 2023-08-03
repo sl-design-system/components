@@ -37,14 +37,14 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 </sl-dialog>
 
 <script>
-  const openBtn = document.querySelector("#open-button");
-  const dialogExample = document.querySelector("#dialog-example");
+    const openBtn = document.querySelector("#open-button");
+    const dialogExample = document.querySelector("#dialog-example");
 
-  openBtn.addEventListener("click", () => {
-    if (dialogExample) {
-      dialogExample.showModal();
-    }
-  })
+    openBtn.addEventListener("click", () => {
+      if (dialogExample) {
+        dialogExample.showModal();
+      }
+    })
 </script>
   ```
 

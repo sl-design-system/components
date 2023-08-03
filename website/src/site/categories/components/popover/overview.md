@@ -8,7 +8,7 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-<sl-button id="popover-button">Toggle popover</sl-button>
+<sl-button id="popover-button" fill="outline" variant="primary">Toggle popover</sl-button>
 <sl-popover id="popover-example" anchor="popover-button" position="bottom">I'm a popover</sl-popover>
 
 </div>
@@ -16,20 +16,18 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-<sl-button id="popover-button">Toggle popover</sl-button>
+<sl-button id="popover-button" fill="outline" variant="primary">Toggle popover</sl-button>
 <sl-popover id="popover-example" anchor="popover-button" position="bottom">I'm a popover</sl-popover>
 
 <script>
-  const editor = document.querySelector("#editor-example");
+    const popoverBtn = document.querySelector("#popover-button");
+    const popoverExample = document.querySelector("#popover-example");
 
-  const popoverBtn = document.querySelector("#popover-button");
-  const popoverExample = document.querySelector("#popover-example");
-
-  popoverBtn.addEventListener("click", () => {
-    if (popoverExample) {
-      popoverExample.togglePopover();
-    }
-  })
+    popoverBtn.addEventListener("click", () => {
+      if (popoverExample) {
+        popoverExample.togglePopover();
+      }
+    })
 </script>
   ```
 

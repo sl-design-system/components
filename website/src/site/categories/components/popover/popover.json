@@ -1,0 +1,5 @@
+{
+  "layout": "components/components.njk",
+  "tags": "popover",
+  "componentTagName": "sl-popover"
+}

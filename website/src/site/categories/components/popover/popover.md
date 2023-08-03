@@ -6,6 +6,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Popover (PoC)
-  order: 9
+  order: 11
 ---
 

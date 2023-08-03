@@ -6,6 +6,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Drawer (PoC)
-  order: 5
+  order: 6
 ---
 

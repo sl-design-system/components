@@ -6,6 +6,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Dialog (PoC)
-  order: 4
+  order: 5
 ---
 

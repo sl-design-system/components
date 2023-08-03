@@ -6,6 +6,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Tab group (PoC)
-  order: 11
+  order: 16
 ---
 

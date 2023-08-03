@@ -6,5 +6,5 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Label
-  order: 7
+  order: 10
 ---

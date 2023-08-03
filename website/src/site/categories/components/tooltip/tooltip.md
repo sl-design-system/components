@@ -6,6 +6,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Tooltip (PoC)
-  order: 14
+  order: 19
 ---
 

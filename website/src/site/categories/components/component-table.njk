@@ -1,9 +1,15 @@
 {% for component in collections.components -%}
   {% for module in custom-elements.custom-elements.modules -%}
+    {{ module[0] }}
     {% if page.url == component.url %}
+      {{ component.url }}
       {% for declaration in module.declarations -%}
+        <h1>declaration.tagName --- {{ declaration.tagName }} --- {{ component.data.componentTagName }} --- {{ component.data.componentTagName.length }}</h1>
+      {% for tagName in component.data.componentTagName -%}
+        <h3>tagName in for >>> {{ tagName }} >>> {{ declaration.tagName }} {{ component.data.componentTagName }} {{ declaration.tagName == component.data.componentTagName }}</h3>
         {% if declaration.tagName == component.data.componentTagName %}
           {% if declaration.members.length %}
+            {{ declaration.tagName }} {{ declaration.name }} {{ module.exports.name }} {{ component.data.componentTagName }} {{ component.url }}
 <section>
   <h2 id="properties" tabindex="-1"><a class="header-anchor" href="#properties">Properties</a></h2>
   <div class="ds-table-wrapper">
@@ -28,7 +34,8 @@
   </div>
 </section>
 {% endif %}
-{% if declaration.members.length %}
+{% if declaration.members.length %}{% if member.privacy == null %}{% if member.kind == "method" %}
+  {{ declaration.members.length }} {{ declaration.members[0].name }} {{ declaration.members[0].kind }}
 <section>
   <h2 id="methods" tabindex="-1"><a class="header-anchor" href="#methods">Methods</a></h2>
   <div class="ds-table-wrapper">
@@ -52,7 +59,7 @@
     </table>
   </div>
 </section>
-{% endif %}
+{% endif %}{% endif %}{% endif -%}
 {% if declaration.slots.length %}
 <section>
   <h2 id="slots" tabindex="-1"><a class="header-anchor" href="#slots">Slots</a></h2>
@@ -104,6 +111,7 @@
 </section>
           {% endif %}
         {% endif %}
+      {% endfor -%}
       {% endfor -%}
     {% endif %}
   {% endfor -%}

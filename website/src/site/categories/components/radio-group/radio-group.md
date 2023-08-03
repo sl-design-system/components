@@ -6,5 +6,5 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Radio group
-  order: 8
+  order: 12
 ---

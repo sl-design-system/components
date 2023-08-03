@@ -6,6 +6,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Skeleton (PoC)
-  order: 10
+  order: 14
 ---
 

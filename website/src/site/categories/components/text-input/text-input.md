@@ -6,6 +6,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Text input
-  order: 12
+  order: 17
 ---
 

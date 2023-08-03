@@ -95,8 +95,7 @@ $transition-timing: 300ms;
   min-height: 16rem;
 }
 
-code[class*='language-'],
-pre[class*='language-'] {
+code[class*='language-'] {
   background: none;
   color: var(--text-color);
   display: block;
@@ -116,10 +115,16 @@ pre[class*='language-'] {
 
 pre[class*='language-'] {
   overflow: auto;
+  padding: 0;
 }
 
 :not(pre) > code[class*='language-'],
 pre[class*='language-'] {
+  background: var(--ds-color-concrete);
+}
+
+.ds-example + .ds-code > code[class*='language-'],
+.ds-example + .ds-code pre[class*='language-'] {
   background: var(--background-color);
 }
 

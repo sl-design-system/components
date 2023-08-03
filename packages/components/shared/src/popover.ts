@@ -107,7 +107,10 @@ const isWindow = (value: unknown): boolean => {
   if (typeof value === 'undefined' || value === null || !(value instanceof Object)) {
     return false;
   }
-  return 'document' in value && 'location' in value && 'alert' in value && 'setInterval' in value;
+  if (Object.keys(value).keys.length > 0) {
+    return 'document' in value && 'location' in value && 'alert' in value && 'setInterval' in value;
+  }
+  return false;
 };
 
 export const positionPopover = (

@@ -16,6 +16,8 @@ eleventyNavigation:
 
 <section class="ds-subpage-section">
 
+Welcome to Sanoma Learning Design System.
+
 ## Development
 
 Development information...

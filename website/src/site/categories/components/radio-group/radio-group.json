@@ -2,7 +2,13 @@
   "layout": "components/components.njk",
   "tags": "radio-group",
   "componentTagName": [
-    "sl-radio-group",
-    "sl-radio"
+    {
+      "name": "RadioGroup",
+      "selector": "sl-radio-group"
+    },
+    {
+      "name": "Radio",
+      "selector": "sl-radio"
+    }
   ]
 }

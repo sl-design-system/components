@@ -1,5 +1,10 @@
 {
   "layout": "components/components.njk",
   "tags": "tooltip",
-  "componentTagName": "sl-tooltip"
+  "componentTagName": [
+    {
+      "name": "Tooltip",
+      "selector": "sl-tooltip"
+    }
+  ]
 }

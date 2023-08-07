@@ -1,5 +1,10 @@
 {
   "layout": "components/components.njk",
   "tags": "switch",
-  "componentTagName": "sl-switch"
+  "componentTagName": [
+    {
+      "name": "Switch",
+      "selector": "sl-switch"
+    }
+  ]
 }

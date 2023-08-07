@@ -1,5 +1,10 @@
 {
   "layout": "components/components.njk",
   "tags": "editor",
-  "componentTagName": "sl-editor"
+  "componentTagName": [
+    {
+      "name": "Editor",
+      "selector": "sl-editor"
+    }
+  ]
 }

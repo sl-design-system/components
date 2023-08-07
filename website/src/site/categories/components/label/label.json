@@ -1,5 +1,10 @@
 {
   "layout": "components/components.njk",
   "tags": "label",
-  "componentTagName": "sl-label"
+  "componentTagName": [
+    {
+      "name": "Label",
+      "selector": "sl-label"
+    }
+  ]
 }

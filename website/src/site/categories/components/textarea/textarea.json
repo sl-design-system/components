@@ -1,5 +1,10 @@
 {
   "layout": "components/components.njk",
   "tags": "textarea",
-  "componentTagName": "sl-textarea"
+  "componentTagName": [
+    {
+      "name": "Textarea",
+      "selector": "sl-textarea"
+    }
+  ]
 }

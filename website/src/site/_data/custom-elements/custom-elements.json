@@ -4,66 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "../packages/components/avatar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/avatar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "/packages/components/avatar/src/avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button",
-          "declaration": {
-            "name": "Button",
-            "module": "/packages/components/button/src/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/checkbox/index.ts",
       "declarations": [],
       "exports": [
@@ -110,6 +50,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/avatar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/avatar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "/packages/components/avatar/src/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/button-bar/index.ts",
       "declarations": [],
       "exports": [
@@ -134,6 +104,36 @@
           "declaration": {
             "name": "ButtonBar",
             "module": "/packages/components/button-bar/src/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button",
+          "declaration": {
+            "name": "Button",
+            "module": "/packages/components/button/src/button.js"
           }
         }
       ]
@@ -194,36 +194,6 @@
           "declaration": {
             "name": "Drawer",
             "module": "/packages/components/drawer/src/drawer.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/editor/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/editor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/editor/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-editor",
-          "declaration": {
-            "name": "Editor",
-            "module": "/packages/components/editor/src/editor.js"
           }
         }
       ]
@@ -348,6 +318,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/editor/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/editor.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/editor/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-editor",
+          "declaration": {
+            "name": "Editor",
+            "module": "/packages/components/editor/src/editor.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/icon/index.ts",
       "declarations": [],
       "exports": [
@@ -386,36 +386,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/label/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/label.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/label/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-label",
-          "declaration": {
-            "name": "Label",
-            "module": "/packages/components/label/src/label.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/popover/index.ts",
       "declarations": [],
       "exports": [
@@ -440,6 +410,36 @@
           "declaration": {
             "name": "Popover",
             "module": "/packages/components/popover/src/popover.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/label/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/label.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/label/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-label",
+          "declaration": {
+            "name": "Label",
+            "module": "/packages/components/label/src/label.js"
           }
         }
       ]
@@ -554,6 +554,128 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/switch/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/switch.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/switch/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-switch",
+          "declaration": {
+            "name": "Switch",
+            "module": "/packages/components/switch/src/switch.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/skeleton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-skeleton",
+          "declaration": {
+            "name": "Skeleton",
+            "module": "/packages/components/skeleton/src/skeleton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/tab-group.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/tab-panel.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/tab.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-tab",
+          "declaration": {
+            "name": "Tab",
+            "module": "/packages/components/tabs/src/tab.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-tab-group",
+          "declaration": {
+            "name": "TabGroup",
+            "module": "/packages/components/tabs/src/tab-group.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-tab-panel",
+          "declaration": {
+            "name": "TabPanel",
+            "module": "/packages/components/tabs/src/tab-panel.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/shared/index.ts",
       "declarations": [],
       "exports": [
@@ -649,128 +771,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/skeleton/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/skeleton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-skeleton",
-          "declaration": {
-            "name": "Skeleton",
-            "module": "/packages/components/skeleton/src/skeleton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/switch/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/switch.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/switch/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-switch",
-          "declaration": {
-            "name": "Switch",
-            "module": "/packages/components/switch/src/switch.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/tab-group.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/tab-panel.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/tab.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-tab",
-          "declaration": {
-            "name": "Tab",
-            "module": "/packages/components/tabs/src/tab.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-tab-group",
-          "declaration": {
-            "name": "TabGroup",
-            "module": "/packages/components/tabs/src/tab-group.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-tab-panel",
-          "declaration": {
-            "name": "TabPanel",
-            "module": "/packages/components/tabs/src/tab-panel.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/text-input/index.ts",
       "declarations": [],
       "exports": [
@@ -825,279 +825,6 @@
           "declaration": {
             "name": "Textarea",
             "module": "/packages/components/textarea/src/textarea.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tooltip/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/tooltip.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/tooltip-directive.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tooltip/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-tooltip",
-          "declaration": {
-            "name": "Tooltip",
-            "module": "/packages/components/tooltip/src/tooltip.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/avatar/src/avatar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/avatar/src/avatar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/avatar/src/avatar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Avatar",
-          "members": [
-            {
-              "kind": "field",
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "uniqueProfileId"
-            },
-            {
-              "kind": "field",
-              "name": "user",
-              "type": {
-                "text": "UserProfile | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "users",
-              "type": {
-                "text": "UserProfile[]"
-              },
-              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
-              "attribute": "users"
-            },
-            {
-              "kind": "field",
-              "name": "profileName",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "uniqueProfileId"
-            },
-            {
-              "name": "users",
-              "type": {
-                "text": "UserProfile[]"
-              },
-              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
-              "fieldName": "users"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-avatar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "../packages/components/avatar/src/avatar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/src/button.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button/src/button.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/src/button.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Button",
-          "members": [
-            {
-              "kind": "field",
-              "name": "fill",
-              "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
-              },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "attribute": "fill",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "type",
-              "type": {
-                "text": "'button' | 'reset' | 'submit'"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "attribute": "variant",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "disabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "fill",
-              "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
-              },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "fieldName": "fill"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "fieldName": "size"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "'button' | 'reset' | 'submit'"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "fieldName": "type"
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "fieldName": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Button",
-          "declaration": {
-            "name": "Button",
-            "module": "../packages/components/button/src/button.ts"
           }
         }
       ]
@@ -1806,109 +1533,218 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
+      "path": "../packages/components/avatar/src/avatar.scss.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
+            "module": "../packages/components/avatar/src/avatar.scss.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.ts",
+      "path": "../packages/components/avatar/src/avatar.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
-          "name": "ButtonBar",
-          "slots": [
-            {
-              "description": "Buttons to be grouped in the bar",
-              "name": "default"
-            }
-          ],
+          "description": "",
+          "name": "Avatar",
           "members": [
             {
               "kind": "field",
-              "name": "align",
+              "name": "uniqueProfileId",
               "type": {
-                "text": "start | center | end | 'space-between'"
+                "text": "number"
               },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "attribute": "align",
-              "reflects": true
+              "default": "0",
+              "attribute": "uniqueProfileId"
             },
             {
               "kind": "field",
-              "name": "iconOnly",
+              "name": "user",
               "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "attribute": "icon-only",
-              "reflects": true
+                "text": "UserProfile | undefined"
+              }
             },
             {
               "kind": "field",
-              "name": "reverse",
+              "name": "users",
               "type": {
-                "text": "boolean"
+                "text": "UserProfile[]"
               },
-              "default": "false",
-              "description": "If set, the button order is reversed.",
-              "attribute": "reverse",
-              "reflects": true
+              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
+              "attribute": "users"
+            },
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
             }
           ],
           "attributes": [
             {
-              "name": "align",
+              "name": "uniqueProfileId",
               "type": {
-                "text": "start | center | end | 'space-between'"
+                "text": "number"
               },
-              "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
-              "fieldName": "align"
+              "default": "0",
+              "fieldName": "uniqueProfileId"
             },
             {
-              "name": "icon-only",
+              "name": "users",
               "type": {
-                "text": "boolean | undefined"
+                "text": "UserProfile[]"
               },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "fieldName": "iconOnly"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "If set, the button order is reversed.",
-              "fieldName": "reverse"
+              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
+              "fieldName": "users"
             }
           ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-button-bar",
+          "tagName": "sl-avatar",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "ButtonBar",
+          "name": "Avatar",
           "declaration": {
-            "name": "ButtonBar",
-            "module": "../packages/components/button-bar/src/button-bar.ts"
+            "name": "Avatar",
+            "module": "../packages/components/avatar/src/avatar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/src/button.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button/src/button.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/src/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Button",
+          "members": [
+            {
+              "kind": "field",
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "attribute": "fill",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "default": "'button'",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "fieldName": "fill"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "fieldName": "size"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "default": "'button'",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
+              "fieldName": "type"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Button",
+          "declaration": {
+            "name": "Button",
+            "module": "../packages/components/button/src/button.ts"
           }
         }
       ]
@@ -3380,6 +3216,153 @@
           "declaration": {
             "name": "getHTML",
             "module": "../packages/components/editor/src/utils.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tooltip/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/tooltip.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/tooltip-directive.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tooltip/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-tooltip",
+          "declaration": {
+            "name": "Tooltip",
+            "module": "/packages/components/tooltip/src/tooltip.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
+          "name": "ButtonBar",
+          "slots": [
+            {
+              "description": "Buttons to be grouped in the bar",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "start | center | end | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconOnly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the bar only contains icon-only buttons.",
+              "attribute": "icon-only",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set, the button order is reversed.",
+              "attribute": "reverse",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "start | center | end | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "How the buttons are aligned with the bar.",
+              "fieldName": "align"
+            },
+            {
+              "name": "icon-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the bar only contains icon-only buttons.",
+              "fieldName": "iconOnly"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set, the button order is reversed.",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button-bar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ButtonBar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "../packages/components/button-bar/src/button-bar.ts"
           }
         }
       ]
@@ -5827,148 +5810,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/label/src/label.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/label/src/label.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/label/src/label.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Label",
-          "members": [
-            {
-              "kind": "field",
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "attribute": "for"
-            },
-            {
-              "kind": "field",
-              "name": "formControl",
-              "type": {
-                "text": "(HTMLElement & FormControlInterface) | null"
-              },
-              "default": "null",
-              "description": "The associated form control."
-            },
-            {
-              "kind": "field",
-              "name": "optional",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as optional."
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as required."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "LabelSize"
-              },
-              "default": "'md'",
-              "description": "Label size.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The label disabled state.",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "noPadding",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should have no padding bottom.",
-              "attribute": "no-padding"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "fieldName": "for"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "LabelSize"
-              },
-              "default": "'md'",
-              "description": "Label size.",
-              "fieldName": "size"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The label disabled state.",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "no-padding",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should have no padding bottom.",
-              "fieldName": "noPadding"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-label",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Label",
-          "declaration": {
-            "name": "Label",
-            "module": "../packages/components/label/src/label.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/icon/src/icon.scss.ts",
       "declarations": [],
       "exports": [
@@ -6243,6 +6084,148 @@
           "declaration": {
             "name": "Popover",
             "module": "../packages/components/popover/src/popover.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/label/src/label.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/label/src/label.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/label/src/label.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Label",
+          "members": [
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "attribute": "for"
+            },
+            {
+              "kind": "field",
+              "name": "formControl",
+              "type": {
+                "text": "(HTMLElement & FormControlInterface) | null"
+              },
+              "default": "null",
+              "description": "The associated form control."
+            },
+            {
+              "kind": "field",
+              "name": "optional",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as optional."
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as required."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "Label size.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "The label disabled state.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "noPadding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should have no padding bottom.",
+              "attribute": "no-padding"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "fieldName": "for"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "LabelSize"
+              },
+              "default": "'md'",
+              "description": "Label size.",
+              "fieldName": "size"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "The label disabled state.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "no-padding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should have no padding bottom.",
+              "fieldName": "noPadding"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-label",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "../packages/components/label/src/label.ts"
           }
         }
       ]
@@ -7739,571 +7722,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/css.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "firstFocusableSelector",
-          "type": {
-            "text": "string"
-          },
-          "default": "'button:not([tabindex=\"-1\"]), [href]:not([tabindex=\"-1\"]), input:not([tabindex=\"-1\"]), select:not([tabindex=\"-1\"]), textarea:not([tabindex=\"-1\"]), [tabindex]:not([tabindex=\"-1\"]), [focusable]:not([tabindex=\"-1\"])'"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "firstFocusableSelector",
-          "declaration": {
-            "name": "firstFocusableSelector",
-            "module": "../packages/components/shared/src/css.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/path.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "getNameByPath",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "path",
-              "optional": true,
-              "type": {
-                "text": "string"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "getStringByPath",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "object",
-              "type": {
-                "text": "unknown"
-              }
-            },
-            {
-              "name": "path",
-              "default": "''"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "getValueByPath",
-          "return": {
-            "type": {
-              "text": "unknown"
-            }
-          },
-          "parameters": [
-            {
-              "name": "object",
-              "type": {
-                "text": "unknown"
-              }
-            },
-            {
-              "name": "path",
-              "default": "''"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "getNameByPath",
-          "declaration": {
-            "name": "getNameByPath",
-            "module": "../packages/components/shared/src/path.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getStringByPath",
-          "declaration": {
-            "name": "getStringByPath",
-            "module": "../packages/components/shared/src/path.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getValueByPath",
-          "declaration": {
-            "name": "getValueByPath",
-            "module": "../packages/components/shared/src/path.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/popover.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/shared/src/popover.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/popover.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "isPopoverOpen",
-          "return": {
-            "type": {
-              "text": "boolean"
-            }
-          },
-          "parameters": [
-            {
-              "name": "element",
-              "optional": true,
-              "type": {
-                "text": "HTMLElement"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "positionPopover",
-          "return": {
-            "type": {
-              "text": "(() => void)"
-            }
-          },
-          "parameters": [
-            {
-              "name": "element",
-              "type": {
-                "text": "HTMLElement"
-              }
-            },
-            {
-              "name": "anchor",
-              "type": {
-                "text": "Element"
-              }
-            },
-            {
-              "name": "options",
-              "type": {
-                "text": "PositionPopoverOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "popoverPolyfillStyles",
-          "declaration": {
-            "name": "popoverPolyfillStyles",
-            "module": "../packages/components/shared/src/popover.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "isPopoverOpen",
-          "declaration": {
-            "name": "isPopoverOpen",
-            "module": "../packages/components/shared/src/popover.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "positionPopover",
-          "declaration": {
-            "name": "positionPopover",
-            "module": "../packages/components/shared/src/popover.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/string.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "camelize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to camelize."
-            }
-          ],
-          "description": "Returns the lowerCamelCase form of a string.\n\n```javascript\ncamelize('innerHTML')          // 'innerHTML'\ncamelize('action_name')        // 'actionName'\ncamelize('css-class-name')     // 'cssClassName'\ncamelize('object.path.name')   // 'objectPathName'\ncamelize('my favorite items')  // 'myFavoriteItems'\ncamelize('My Favorite Items')  // 'myFavoriteItems'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "capitalize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to capitalize."
-            }
-          ],
-          "description": "Returns the Capitalized form of a string\n\n```javascript\ncapitalize('innerHTML')         // 'InnerHTML'\ncapitalize('action_name')       // 'Action_name'\ncapitalize('css-class-name')    // 'Css-class-name'\ncapitalize('my favorite items') // 'My favorite items'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "classify",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "the string to classify"
-            }
-          ],
-          "description": "Returns the UpperCamelCase form of a string.\n\n```javascript\nclassify('innerHTML')          // 'InnerHTML'\nclassify('action_name')        // 'ActionName'\nclassify('css-class-name')     // 'CssClassName'\nclassify('my favorite items')  // 'MyFavoriteItems'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "dasherize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to dasherize."
-            }
-          ],
-          "description": "Replaces underscores, spaces, or camelCase with dashes.\n\n```javascript\ndasherize('innerHTML')         // 'inner-html'\ndasherize('action_name')       // 'action-name'\ndasherize('css-class-name')    // 'css-class-name'\ndasherize('my favorite items') // 'my-favorite-items'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "decamelize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to decamelize."
-            }
-          ],
-          "description": "Converts a camelized string into all lower case separated by underscores.\n\n```javascript\ndecamelize('innerHTML')         // 'inner_html'\ndecamelize('action_name')       // 'action_name'\ndecamelize('css-class-name')    // 'css-class-name'\ndecamelize('my favorite items') // 'my favorite items'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "humanize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to humanize."
-            }
-          ],
-          "description": "Returns the Humanized form of a string\n\n```javascript\nhumanize('innerHTML')         // 'Inner html'\nhumanize('action_name')       // 'Action name'\nhumanize('css-class-name')    // 'Css class name'\nhumanize('my favorite items') // 'My favorite items'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "underscore",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to underscore."
-            }
-          ],
-          "description": "More general than decamelize. Returns the lower\\_case\\_and\\_underscored\nform of a string.\n\n```javascript\nunderscore('innerHTML')          // 'inner_html'\nunderscore('action_name')        // 'action_name'\nunderscore('css-class-name')     // 'css_class_name'\nunderscore('my favorite items')  // 'my_favorite_items'\n```"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "camelize",
-          "declaration": {
-            "name": "camelize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "capitalize",
-          "declaration": {
-            "name": "capitalize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "classify",
-          "declaration": {
-            "name": "classify",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "dasherize",
-          "declaration": {
-            "name": "dasherize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "decamelize",
-          "declaration": {
-            "name": "decamelize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "humanize",
-          "declaration": {
-            "name": "humanize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "underscore",
-          "declaration": {
-            "name": "underscore",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/types.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/validators.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "requiredValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'required',\n  key: 'valueMissing',\n  message: 'Please fill out this field',\n  isValid(instance: HTMLElement & { required: boolean }, value: ValidationValue): boolean {\n    let valid = true;\n\n    if ((instance.hasAttribute('required') || instance.required) && !value) {\n      valid = false;\n    }\n\n    return valid;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "programmaticValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'error',\n  message(instance: HTMLElement & { error: string }): string {\n    return instance.error;\n  },\n  isValid(instance: HTMLElement & { error: string }): boolean {\n    return !instance.error;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "minLengthValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'minlength',\n  key: 'rangeUnderflow',\n  message(instance: { minLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use at least ${instance.minLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { minLength: number }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value) {\n      return true;\n    }\n\n    if (value && instance.minLength > value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "maxLengthValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'maxlength',\n  key: 'rangeOverflow',\n  message(instance: { maxLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use no more than ${instance.maxLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { maxLength: number }, value: string): boolean {\n    /** If maxLength isn't set, this is valid */\n    if (!instance.maxLength) {\n      return true;\n    }\n\n    if (!!value && instance.maxLength < value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "patternValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'pattern',\n  key: 'patternMismatch',\n  message: 'Please match the requested format',\n  isValid(instance: HTMLElement & { pattern: string }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value || !instance.pattern) {\n      return true;\n    }\n\n    const regExp = new RegExp(instance.pattern);\n    return !!regExp.exec(value);\n  }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "requiredValidator",
-          "declaration": {
-            "name": "requiredValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "programmaticValidator",
-          "declaration": {
-            "name": "programmaticValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "minLengthValidator",
-          "declaration": {
-            "name": "minLengthValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "maxLengthValidator",
-          "declaration": {
-            "name": "maxLengthValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "patternValidator",
-          "declaration": {
-            "name": "patternValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Skeleton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "attribute": "effect",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "fieldName": "effect"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-skeleton",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Skeleton",
-          "declaration": {
-            "name": "Skeleton",
-            "module": "../packages/components/skeleton/src/skeleton.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/switch/src/switch.scss.ts",
       "declarations": [],
       "exports": [
@@ -8857,6 +8275,506 @@
           "declaration": {
             "name": "Switch",
             "module": "../packages/components/switch/src/switch.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/css.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "firstFocusableSelector",
+          "type": {
+            "text": "string"
+          },
+          "default": "'button:not([tabindex=\"-1\"]), [href]:not([tabindex=\"-1\"]), input:not([tabindex=\"-1\"]), select:not([tabindex=\"-1\"]), textarea:not([tabindex=\"-1\"]), [tabindex]:not([tabindex=\"-1\"]), [focusable]:not([tabindex=\"-1\"])'"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "firstFocusableSelector",
+          "declaration": {
+            "name": "firstFocusableSelector",
+            "module": "../packages/components/shared/src/css.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/path.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getNameByPath",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "path",
+              "optional": true,
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getStringByPath",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "object",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "name": "path",
+              "default": "''"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getValueByPath",
+          "return": {
+            "type": {
+              "text": "unknown"
+            }
+          },
+          "parameters": [
+            {
+              "name": "object",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "name": "path",
+              "default": "''"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getNameByPath",
+          "declaration": {
+            "name": "getNameByPath",
+            "module": "../packages/components/shared/src/path.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getStringByPath",
+          "declaration": {
+            "name": "getStringByPath",
+            "module": "../packages/components/shared/src/path.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getValueByPath",
+          "declaration": {
+            "name": "getValueByPath",
+            "module": "../packages/components/shared/src/path.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/popover.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/shared/src/popover.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/popover.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "isPopoverOpen",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "optional": true,
+              "type": {
+                "text": "HTMLElement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "positionPopover",
+          "return": {
+            "type": {
+              "text": "(() => void)"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "anchor",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "PositionPopoverOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "popoverPolyfillStyles",
+          "declaration": {
+            "name": "popoverPolyfillStyles",
+            "module": "../packages/components/shared/src/popover.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPopoverOpen",
+          "declaration": {
+            "name": "isPopoverOpen",
+            "module": "../packages/components/shared/src/popover.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "positionPopover",
+          "declaration": {
+            "name": "positionPopover",
+            "module": "../packages/components/shared/src/popover.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/string.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "camelize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to camelize."
+            }
+          ],
+          "description": "Returns the lowerCamelCase form of a string.\n\n```javascript\ncamelize('innerHTML')          // 'innerHTML'\ncamelize('action_name')        // 'actionName'\ncamelize('css-class-name')     // 'cssClassName'\ncamelize('object.path.name')   // 'objectPathName'\ncamelize('my favorite items')  // 'myFavoriteItems'\ncamelize('My Favorite Items')  // 'myFavoriteItems'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "capitalize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to capitalize."
+            }
+          ],
+          "description": "Returns the Capitalized form of a string\n\n```javascript\ncapitalize('innerHTML')         // 'InnerHTML'\ncapitalize('action_name')       // 'Action_name'\ncapitalize('css-class-name')    // 'Css-class-name'\ncapitalize('my favorite items') // 'My favorite items'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "classify",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "the string to classify"
+            }
+          ],
+          "description": "Returns the UpperCamelCase form of a string.\n\n```javascript\nclassify('innerHTML')          // 'InnerHTML'\nclassify('action_name')        // 'ActionName'\nclassify('css-class-name')     // 'CssClassName'\nclassify('my favorite items')  // 'MyFavoriteItems'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "dasherize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to dasherize."
+            }
+          ],
+          "description": "Replaces underscores, spaces, or camelCase with dashes.\n\n```javascript\ndasherize('innerHTML')         // 'inner-html'\ndasherize('action_name')       // 'action-name'\ndasherize('css-class-name')    // 'css-class-name'\ndasherize('my favorite items') // 'my-favorite-items'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "decamelize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to decamelize."
+            }
+          ],
+          "description": "Converts a camelized string into all lower case separated by underscores.\n\n```javascript\ndecamelize('innerHTML')         // 'inner_html'\ndecamelize('action_name')       // 'action_name'\ndecamelize('css-class-name')    // 'css-class-name'\ndecamelize('my favorite items') // 'my favorite items'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "humanize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to humanize."
+            }
+          ],
+          "description": "Returns the Humanized form of a string\n\n```javascript\nhumanize('innerHTML')         // 'Inner html'\nhumanize('action_name')       // 'Action name'\nhumanize('css-class-name')    // 'Css class name'\nhumanize('my favorite items') // 'My favorite items'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "underscore",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to underscore."
+            }
+          ],
+          "description": "More general than decamelize. Returns the lower\\_case\\_and\\_underscored\nform of a string.\n\n```javascript\nunderscore('innerHTML')          // 'inner_html'\nunderscore('action_name')        // 'action_name'\nunderscore('css-class-name')     // 'css_class_name'\nunderscore('my favorite items')  // 'my_favorite_items'\n```"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "camelize",
+          "declaration": {
+            "name": "camelize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "capitalize",
+          "declaration": {
+            "name": "capitalize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "classify",
+          "declaration": {
+            "name": "classify",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "dasherize",
+          "declaration": {
+            "name": "dasherize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "decamelize",
+          "declaration": {
+            "name": "decamelize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "humanize",
+          "declaration": {
+            "name": "humanize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "underscore",
+          "declaration": {
+            "name": "underscore",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/types.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/validators.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "requiredValidator",
+          "type": {
+            "text": "Validator"
+          },
+          "default": "{\n  attribute: 'required',\n  key: 'valueMissing',\n  message: 'Please fill out this field',\n  isValid(instance: HTMLElement & { required: boolean }, value: ValidationValue): boolean {\n    let valid = true;\n\n    if ((instance.hasAttribute('required') || instance.required) && !value) {\n      valid = false;\n    }\n\n    return valid;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "programmaticValidator",
+          "type": {
+            "text": "Validator"
+          },
+          "default": "{\n  attribute: 'error',\n  message(instance: HTMLElement & { error: string }): string {\n    return instance.error;\n  },\n  isValid(instance: HTMLElement & { error: string }): boolean {\n    return !instance.error;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "minLengthValidator",
+          "type": {
+            "text": "Validator"
+          },
+          "default": "{\n  attribute: 'minlength',\n  key: 'rangeUnderflow',\n  message(instance: { minLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use at least ${instance.minLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { minLength: number }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value) {\n      return true;\n    }\n\n    if (value && instance.minLength > value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "maxLengthValidator",
+          "type": {
+            "text": "Validator"
+          },
+          "default": "{\n  attribute: 'maxlength',\n  key: 'rangeOverflow',\n  message(instance: { maxLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use no more than ${instance.maxLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { maxLength: number }, value: string): boolean {\n    /** If maxLength isn't set, this is valid */\n    if (!instance.maxLength) {\n      return true;\n    }\n\n    if (!!value && instance.maxLength < value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "patternValidator",
+          "type": {
+            "text": "Validator"
+          },
+          "default": "{\n  attribute: 'pattern',\n  key: 'patternMismatch',\n  message: 'Please match the requested format',\n  isValid(instance: HTMLElement & { pattern: string }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value || !instance.pattern) {\n      return true;\n    }\n\n    const regExp = new RegExp(instance.pattern);\n    return !!regExp.exec(value);\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "requiredValidator",
+          "declaration": {
+            "name": "requiredValidator",
+            "module": "../packages/components/shared/src/validators.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "programmaticValidator",
+          "declaration": {
+            "name": "programmaticValidator",
+            "module": "../packages/components/shared/src/validators.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "minLengthValidator",
+          "declaration": {
+            "name": "minLengthValidator",
+            "module": "../packages/components/shared/src/validators.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "maxLengthValidator",
+          "declaration": {
+            "name": "maxLengthValidator",
+            "module": "../packages/components/shared/src/validators.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "patternValidator",
+          "declaration": {
+            "name": "patternValidator",
+            "module": "../packages/components/shared/src/validators.ts"
           }
         }
       ]
@@ -9758,6 +9676,71 @@
           "declaration": {
             "name": "TextInput",
             "module": "../packages/components/text-input/src/text-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Skeleton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "attribute": "effect",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "fieldName": "effect"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-skeleton",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Skeleton",
+          "declaration": {
+            "name": "Skeleton",
+            "module": "../packages/components/skeleton/src/skeleton.ts"
           }
         }
       ]
@@ -11844,6 +11827,200 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/base.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "decorateProperty",
+          "parameters": [
+            {
+              "name": "{\n    finisher,\n    descriptor\n  }",
+              "type": {
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+              }
+            },
+            {
+              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
+              "name": "finisher",
+              "type": {
+                "text": "function"
+              }
+            },
+            {
+              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
+              "name": "descriptor",
+              "type": {
+                "text": "function"
+              }
+            }
+          ],
+          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
+          "return": {
+            "type": {
+              "text": "ClassElement|void"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "decorateProperty",
+          "declaration": {
+            "name": "decorateProperty",
+            "module": "../packages/components/shared/src/decorators/base.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EventEmitter",
+          "members": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "event",
+          "type": {
+            "text": "Event"
+          }
+        },
+        {
+          "kind": "function",
+          "name": "event",
+          "return": {
+            "type": {
+              "text": "any"
+            }
+          },
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": {
+                "text": "EventOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EventEmitter",
+          "declaration": {
+            "name": "EventEmitter",
+            "module": "../packages/components/shared/src/decorators/event.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "event",
+          "declaration": {
+            "name": "event",
+            "module": "../packages/components/shared/src/decorators/event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./base.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./observe.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/observe.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "observe",
+          "parameters": [
+            {
+              "name": "propertyName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "lifecycle",
+              "default": "'update'",
+              "type": {
+                "text": "ObserveLifecycle"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "observe",
+          "declaration": {
+            "name": "observe",
+            "module": "../packages/components/shared/src/decorators/observe.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/shared/src/data-source/array-data-source.ts",
       "declarations": [
         {
@@ -12215,200 +12392,6 @@
           "declaration": {
             "name": "*",
             "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/base.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "decorateProperty",
-          "parameters": [
-            {
-              "name": "{\n    finisher,\n    descriptor\n  }",
-              "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
-              }
-            },
-            {
-              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
-              "name": "finisher",
-              "type": {
-                "text": "function"
-              }
-            },
-            {
-              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
-              "name": "descriptor",
-              "type": {
-                "text": "function"
-              }
-            }
-          ],
-          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
-          "return": {
-            "type": {
-              "text": "ClassElement|void"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "decorateProperty",
-          "declaration": {
-            "name": "decorateProperty",
-            "module": "../packages/components/shared/src/decorators/base.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EventEmitter",
-          "members": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "event",
-          "type": {
-            "text": "Event"
-          }
-        },
-        {
-          "kind": "function",
-          "name": "event",
-          "return": {
-            "type": {
-              "text": "any"
-            }
-          },
-          "parameters": [
-            {
-              "name": "options",
-              "optional": true,
-              "type": {
-                "text": "EventOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EventEmitter",
-          "declaration": {
-            "name": "EventEmitter",
-            "module": "../packages/components/shared/src/decorators/event.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "event",
-          "declaration": {
-            "name": "event",
-            "module": "../packages/components/shared/src/decorators/event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./base.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/observe.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "observe",
-          "parameters": [
-            {
-              "name": "propertyName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "lifecycle",
-              "default": "'update'",
-              "type": {
-                "text": "ObserveLifecycle"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "observe",
-          "declaration": {
-            "name": "observe",
-            "module": "../packages/components/shared/src/decorators/observe.ts"
           }
         }
       ]

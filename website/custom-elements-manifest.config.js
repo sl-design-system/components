@@ -1,4 +1,4 @@
-import {noPrivateFieldsPlugin} from "@sl-design-system/scripts/cem-plugins.js";
+import { noPrivateFieldsPlugin } from '@sl-design-system/scripts/cem-plugins.js';
 
 export default {
   /** Globs to analyze */

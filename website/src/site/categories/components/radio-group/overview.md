@@ -71,7 +71,7 @@ Place text here
 </div>
 </section>
 
-{% include "../component-table.njk" %}
+{%- include "../component-table.njk" | escape -%}
 
 <section>
 

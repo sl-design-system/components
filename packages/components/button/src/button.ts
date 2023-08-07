@@ -28,19 +28,24 @@ export class Button extends LitElement {
   /** The original tabIndex before disabled. */
   private originalTabIndex = 0;
 
-  /** The button fill. */
+  /** The fill of the button.
+   * @type {'solid' | 'outline' | 'link' | 'ghost'} */
   @property({ reflect: true }) fill: ButtonFill = 'solid';
 
-  /** Button size. */
+  /** The size of the button.
+   * @type {'sm' | 'md' | 'lg'}
+   */
   @property({ reflect: true }) size: ButtonSize = 'md';
 
   /**
-   * The button type. Defaults to `button`, but can be set to `submit` when used in a form.
-   * @type {button | reset | submit}
+   * The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.
+   * @type {'button' | 'reset' | 'submit'}
    */
   @property() type: ButtonType = 'button';
 
-  /** The button variant. If no variant is specified, it uses the default button style. */
+  /** The variant of the button.
+   * @type {'default' | 'primary' | 'success' | 'warning' | 'danger'}
+   */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
 
   override connectedCallback(): void {
@@ -68,6 +73,7 @@ export class Button extends LitElement {
     return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
 
+  /** @private */
   formDisabledCallback(disabled: boolean): void {
     if (disabled) {
       this.originalTabIndex = this.tabIndex;

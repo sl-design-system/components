@@ -59,38 +59,21 @@
               "kind": "field",
               "name": "fill",
               "type": {
-                "text": "ButtonFill"
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
               },
               "default": "'solid'",
-              "description": "The button fill.",
+              "description": "The fill of the button.",
               "attribute": "fill",
               "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "disabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "ButtonSize"
+                "text": "'sm' | 'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "The size of the button.",
               "attribute": "size",
               "reflects": true
             },
@@ -98,20 +81,20 @@
               "kind": "field",
               "name": "type",
               "type": {
-                "text": "button | reset | submit"
+                "text": "'button' | 'reset' | 'submit'"
               },
               "default": "'button'",
-              "description": "The button type. Defaults to `button`, but can be set to `submit` when used in a form.",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
               "attribute": "type"
             },
             {
               "kind": "field",
               "name": "variant",
               "type": {
-                "text": "ButtonVariant"
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
               },
               "default": "'default'",
-              "description": "The button variant. If no variant is specified, it uses the default button style.",
+              "description": "The variant of the button.",
               "attribute": "variant",
               "reflects": true
             }
@@ -120,37 +103,37 @@
             {
               "name": "fill",
               "type": {
-                "text": "ButtonFill"
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
               },
               "default": "'solid'",
-              "description": "The button fill.",
+              "description": "The fill of the button.",
               "fieldName": "fill"
             },
             {
               "name": "size",
               "type": {
-                "text": "ButtonSize"
+                "text": "'sm' | 'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "The size of the button.",
               "fieldName": "size"
             },
             {
               "name": "type",
               "type": {
-                "text": "button | reset | submit"
+                "text": "'button' | 'reset' | 'submit'"
               },
               "default": "'button'",
-              "description": "The button type. Defaults to `button`, but can be set to `submit` when used in a form.",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
               "fieldName": "type"
             },
             {
               "name": "variant",
               "type": {
-                "text": "ButtonVariant"
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
               },
               "default": "'default'",
-              "description": "The button variant. If no variant is specified, it uses the default button style.",
+              "description": "The variant of the button.",
               "fieldName": "variant"
             }
           ],

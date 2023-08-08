@@ -27,6 +27,36 @@
     </table>
   </div>
 </section>
+  {{ declaration.members.length }}
+  {%- if declaration.members.kind  -%}
+    <h3>members-in-if</h3>
+  {% endif %}
+  {%- for members in declaration.members -%}
+    members --- {{ members.kind }}
+      {% for kind in members.kind | groupby("kind") %}
+        members.kind length {{ members.kind.length }} {{ forloop.index0 }}
+        {% if forloop.first %}
+          aaa forloooop-first {{ kind }}
+        {% endif %}
+        {% if forloop.index0 < 1 %}
+          aaa forloooop {{ kind }}
+        {% endif %}
+        {%- if kind == "method" -%}
+          Kind is a method
+          <h2 id="methods" tabindex="-1"><a class="header-anchor" href="#methods">Methods</a></h2>
+<table class="ds-table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Parameters</th>
+    <th>Return</th>
+    <th class="ds-table__description">Description</th>
+  </tr>
+  </thead>
+</table>
+        {% endif %}
+      {% endfor %}
+  {% endfor -%}
 <section>
   <h2 id="methods" tabindex="-1"><a class="header-anchor" href="#methods">Methods</a></h2>
   <div class="ds-table-wrapper">
@@ -42,7 +72,7 @@
       <tbody>
       {%- for member in declaration.members -%}{% if member.privacy == null %}{% if member.kind == "method" %}
         <tr>
-          <td><code>{{member.name}}</code></td>
+          <td><code>{{member.name}} {{ loop.index0 }} {{ loop.index }} {{ member[kind] }}</code></td>
           <td>{% for parameter in member.parameters -%}
               {% if parameter %}<code>{{parameter.name}}: {{ parameter.type.text }}</code>{% endif %}
             {% endfor -%}</td>

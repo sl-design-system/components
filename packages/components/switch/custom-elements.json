@@ -61,7 +61,8 @@
               "type": {
                 "text": "EventEmitter<boolean>"
               },
-              "description": "Emits when the checked state changes."
+              "description": "Emits when the checked state changes.",
+              "attribute": "change"
             },
             {
               "kind": "field",
@@ -174,6 +175,16 @@
               },
               "description": "The value for the switch.",
               "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes.",
+              "fieldName": "change"
             }
           ],
           "attributes": [

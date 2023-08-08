@@ -92,7 +92,8 @@
               "name": "tabChange",
               "type": {
                 "text": "EventEmitter<number>"
-              }
+              },
+              "attribute": "tabChange"
             },
             {
               "kind": "field",
@@ -112,6 +113,15 @@
               "description": "Renders the tabs vertically instead of the default horizontal",
               "attribute": "vertical",
               "reflects": true
+            }
+          ],
+          "events": [
+            {
+              "name": "tabChange",
+              "type": {
+                "text": "EventEmitter<number>"
+              },
+              "fieldName": "tabChange"
             }
           ],
           "attributes": [

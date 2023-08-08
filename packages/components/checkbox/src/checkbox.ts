@@ -17,6 +17,15 @@ import styles from './checkbox.scss.js';
 
 export type CheckboxSize = 'md' | 'lg';
 
+/**
+ * A single, simple button, with optionally an icon.
+ *
+ * ```html
+ *   <sl-button>Foo</sl-button>
+ * ```
+ *
+ * @slot default - Text label of the button. Optionally an `sl-icon` can be added
+ */
 export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
@@ -37,7 +46,12 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** @private Element internals. */
   readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
 
-  /** Emits when the checked state changes. */
+  /** Emits when the checked state changes.
+   *  @emits {boolean}
+   *  @event {boolean}
+   *  @fires {boolean}
+   *  @type boolean
+   */
   @event() change!: EventEmitter<boolean>;
 
   /** Whether the checkbox is checked. */
@@ -49,7 +63,9 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the checkbox has the indeterminate state. */
   @property({ type: Boolean }) indeterminate = false;
 
-  /** Checkbox size. */
+  /** The size of the checkbox
+   * @type {'md' | 'lg'}
+   */
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
   /** The value for the checkbox. */
@@ -159,6 +175,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
 
   /**
    * Updates the `no-label` attribute based on the presence of a label.
+   * @listens slotchange
    */
   #updateNoLabel(): void {
     const empty = Array.from(this.childNodes)

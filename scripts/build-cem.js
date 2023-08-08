@@ -2,7 +2,7 @@ import { create, ts } from '@custom-elements-manifest/analyzer';
 import fg from 'fast-glob';
 import fs from 'fs';
 import { basename, join, resolve } from 'path';
-import { noPrivateFieldsPlugin, sortMembersPlugin } from './cem-plugins.js';
+import { noPrivateFieldsPlugin, sortMembersPlugin, eventPlugin } from './cem-plugins.js';
 
 const cwd = new URL('.', import.meta.url).pathname;
 
@@ -21,6 +21,7 @@ const buildManifest = async (component) => {
 
   const plugins = [
     ...(litPlugin() || []),
+    eventPlugin(),
     noPrivateFieldsPlugin(),
     sortMembersPlugin()
   ];

@@ -163,6 +163,7 @@
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
+              "attribute": "columnUpdate",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -474,6 +475,20 @@
                 "module": "src/column.ts"
               }
             }
+          ],
+          "events": [
+            {
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "fieldName": "columnUpdate",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
           ]
         }
       ],
@@ -522,7 +537,8 @@
               "type": {
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
-              "description": "Emits when the column definition has changed."
+              "description": "Emits when the column definition has changed.",
+              "attribute": "columnUpdate"
             },
             {
               "kind": "field",
@@ -658,6 +674,16 @@
               },
               "description": "Width of the cells for this column in pixels.",
               "attribute": "width"
+            }
+          ],
+          "events": [
+            {
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "fieldName": "columnUpdate"
             }
           ],
           "attributes": [
@@ -883,6 +909,7 @@
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
+              "attribute": "columnUpdate",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1243,7 +1270,21 @@
             "module": "/src/column.js"
           },
           "tagName": "sl-grid-filter-column",
-          "customElement": true
+          "customElement": true,
+          "events": [
+            {
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "fieldName": "columnUpdate",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -1302,7 +1343,8 @@
               "type": {
                 "text": "EventEmitter<GridFilterChange>"
               },
-              "description": "Emits when the filter has been added or removed."
+              "description": "Emits when the filter has been added or removed.",
+              "attribute": "filterChange"
             },
             {
               "kind": "field",
@@ -1310,7 +1352,8 @@
               "type": {
                 "text": "EventEmitter<GridFilterValueChangeEvent<T>>"
               },
-              "description": "Emits when the value of the this filter has changed."
+              "description": "Emits when the value of the this filter has changed.",
+              "attribute": "filterValueChange"
             },
             {
               "kind": "field",
@@ -1345,6 +1388,24 @@
                 "text": "string | string[] | undefined"
               },
               "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "filterChange",
+              "type": {
+                "text": "EventEmitter<GridFilterChange>"
+              },
+              "description": "Emits when the filter has been added or removed.",
+              "fieldName": "filterChange"
+            },
+            {
+              "name": "filterValueChange",
+              "type": {
+                "text": "EventEmitter<GridFilterValueChangeEvent<T>>"
+              },
+              "description": "Emits when the value of the this filter has changed.",
+              "fieldName": "filterValueChange"
             }
           ],
           "attributes": [
@@ -1433,7 +1494,8 @@
               "type": {
                 "text": "EventEmitter<GridActiveItemChangeEvent<T>>"
               },
-              "description": "Emits when the active item changes"
+              "description": "Emits when the active item changes",
+              "attribute": "activeItemChange"
             },
             {
               "kind": "field",
@@ -1458,7 +1520,8 @@
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
               },
-              "description": "Emits when the items in the grid have changed."
+              "description": "Emits when the items in the grid have changed.",
+              "attribute": "gridItemsChange"
             },
             {
               "kind": "field",
@@ -1466,7 +1529,8 @@
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
               },
-              "description": "Emits when the state in the grid have changed."
+              "description": "Emits when the state in the grid have changed.",
+              "attribute": "gridStateChange"
             },
             {
               "kind": "field",
@@ -1590,6 +1654,32 @@
               "description": "The `<thead>` element."
             }
           ],
+          "events": [
+            {
+              "name": "activeItemChange",
+              "type": {
+                "text": "EventEmitter<GridActiveItemChangeEvent<T>>"
+              },
+              "description": "Emits when the active item changes",
+              "fieldName": "activeItemChange"
+            },
+            {
+              "name": "gridItemsChange",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when the items in the grid have changed.",
+              "fieldName": "gridItemsChange"
+            },
+            {
+              "name": "gridStateChange",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when the state in the grid have changed.",
+              "fieldName": "gridStateChange"
+            }
+          ],
           "attributes": [
             {
               "name": "items",
@@ -1701,6 +1791,7 @@
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
+              "attribute": "columnUpdate",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -2037,7 +2128,21 @@
             "module": "/src/column.js"
           },
           "tagName": "sl-grid-selection-column",
-          "customElement": true
+          "customElement": true,
+          "events": [
+            {
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "fieldName": "columnUpdate",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -2094,6 +2199,7 @@
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
+              "attribute": "columnUpdate",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -2421,7 +2527,21 @@
             "module": "/src/column.js"
           },
           "tagName": "sl-grid-sort-column",
-          "customElement": true
+          "customElement": true,
+          "events": [
+            {
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "fieldName": "columnUpdate",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -2500,7 +2620,8 @@
               "type": {
                 "text": "EventEmitter<GridSortDirectionChangeEvent<T>>"
               },
-              "description": "Emits when the direction has changed."
+              "description": "Emits when the direction has changed.",
+              "attribute": "sortDirectionChange"
             },
             {
               "kind": "field",
@@ -2516,7 +2637,26 @@
               "type": {
                 "text": "EventEmitter<GridSorterChange>"
               },
-              "description": "Emits when the sorter has been added or removed."
+              "description": "Emits when the sorter has been added or removed.",
+              "attribute": "sorterChange"
+            }
+          ],
+          "events": [
+            {
+              "name": "sorterChange",
+              "type": {
+                "text": "EventEmitter<GridSorterChange>"
+              },
+              "description": "Emits when the sorter has been added or removed.",
+              "fieldName": "sorterChange"
+            },
+            {
+              "name": "sortDirectionChange",
+              "type": {
+                "text": "EventEmitter<GridSortDirectionChangeEvent<T>>"
+              },
+              "description": "Emits when the direction has changed.",
+              "fieldName": "sortDirectionChange"
             }
           ],
           "attributes": [

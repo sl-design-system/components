@@ -12,6 +12,15 @@ export type ButtonType = 'button' | 'reset' | 'submit';
 
 export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
 
+/**
+ * A single, simple button, with optionally an icon.
+ *
+ * ```html
+ *   <sl-button>Foo</sl-button>
+ * ```
+ *
+ * @slot default - Text label of the button. Optionally an `sl-icon` can be added
+ */
 export class Button extends LitElement {
   /** @private */
   static formAssociated = true;
@@ -33,19 +42,16 @@ export class Button extends LitElement {
   @property({ reflect: true }) fill: ButtonFill = 'solid';
 
   /** The size of the button.
-   * @type {'sm' | 'md' | 'lg'}
-   */
+   * @type {'sm' | 'md' | 'lg'} */
   @property({ reflect: true }) size: ButtonSize = 'md';
 
   /**
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.
-   * @type {'button' | 'reset' | 'submit'}
-   */
+   * @type {'button' | 'reset' | 'submit'} */
   @property() type: ButtonType = 'button';
 
   /** The variant of the button.
-   * @type {'default' | 'primary' | 'success' | 'warning' | 'danger'}
-   */
+   * @type {'default' | 'primary' | 'success' | 'warning' | 'danger'} */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
 
   override connectedCallback(): void {

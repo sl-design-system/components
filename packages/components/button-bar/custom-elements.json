@@ -52,7 +52,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<dna-button-bar>\n  <dna-button>Foo</dna-button>\n  <dna-button>Bar</dna-button>\n</dna-button-bar>\n```",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
           "name": "ButtonBar",
           "slots": [
             {
@@ -65,21 +65,11 @@
               "kind": "field",
               "name": "align",
               "type": {
-                "text": "start | center | end | 'space-between'"
+                "text": "'start' | 'center' | 'end' | 'space-between'"
               },
               "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
               "attribute": "align",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "iconOnly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "attribute": "icon-only",
               "reflects": true
             },
             {
@@ -89,7 +79,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "If set, the button order is reversed.",
+              "description": "When set to true, the button order is reversed using flex-direction.",
               "attribute": "reverse",
               "reflects": true
             }
@@ -98,19 +88,11 @@
             {
               "name": "align",
               "type": {
-                "text": "start | center | end | 'space-between'"
+                "text": "'start' | 'center' | 'end' | 'space-between'"
               },
               "default": "'start'",
-              "description": "How the buttons are aligned with the bar.",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
               "fieldName": "align"
-            },
-            {
-              "name": "icon-only",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the bar only contains icon-only buttons.",
-              "fieldName": "iconOnly"
             },
             {
               "name": "reverse",
@@ -118,7 +100,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "If set, the button order is reversed.",
+              "description": "When set to true, the button order is reversed using flex-direction.",
               "fieldName": "reverse"
             }
           ],

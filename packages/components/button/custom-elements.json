@@ -52,8 +52,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
           "name": "Button",
+          "slots": [
+            {
+              "description": "Text label of the button. Optionally an `sl-icon` can be added",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "field",

@@ -160,16 +160,23 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
           "name": "Checkbox",
+          "slots": [
+            {
+              "description": "Text label of the button. Optionally an `sl-icon` can be added",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "field",
               "name": "change",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "boolean"
               },
-              "description": "Emits when the checked state changes."
+              "description": "Emits when the checked state changes.",
+              "attribute": "change"
             },
             {
               "kind": "field",
@@ -223,10 +230,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "CheckboxSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Checkbox size.",
+              "description": "The size of the checkbox",
               "attribute": "size",
               "reflects": true
             },
@@ -238,6 +245,16 @@
               },
               "description": "The value for the checkbox.",
               "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Emits when the checked state changes.",
+              "fieldName": "change"
             }
           ],
           "attributes": [
@@ -269,10 +286,10 @@
             {
               "name": "size",
               "type": {
-                "text": "CheckboxSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Checkbox size.",
+              "description": "The size of the checkbox",
               "fieldName": "size"
             },
             {

@@ -440,6 +440,8 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
+  --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
+  --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);
   --sl-space-select-item-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-item-block-lg: var(--sl-space-input-text-field-block-lg);

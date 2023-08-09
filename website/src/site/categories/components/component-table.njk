@@ -17,7 +17,7 @@
       {%- for member in declaration.members -%}{% if member.privacy == null %}{% if member.kind == "field" %}
         <tr>
           <td><code>{{member.name}}</code></td>
-          <td>{% if member.type %}<code>{{member.type.text}}</code>{% endif %}</td>
+          <td>{% if member.type %}<code>{{member.type}}</code>{% endif %}</td>
           <td>{% if member.default %}<code>{{member.default}}</code>{% endif %}</td>
           <td class="ds-table__description">{{member.description}}</td>
         </tr>{% endif %}{% endif %}{% endfor -%}
@@ -61,7 +61,7 @@
       <tbody>{% for event in declaration.events -%}
         <tr>
           <td><code>{{event.name}}</code></td>
-          <td>{% if event.type %}<code>{{ event.type.text }}</code>{% endif %}</td>
+          <td>{% if event.type %}<code>{{ event.type }}</code>{% endif %}</td>
           <td>{{event.description}}</td>
         </tr>
       {% endfor -%}

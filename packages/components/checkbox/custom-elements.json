@@ -170,10 +170,10 @@
           ],
           "members": [
             {
-              "kind": "field",
+              "kind": "event",
               "name": "change",
               "type": {
-                "text": "boolean"
+                "text": "EventEmitter<boolean>"
               },
               "description": "Emits when the checked state changes.",
               "attribute": "change"
@@ -251,7 +251,7 @@
             {
               "name": "change",
               "type": {
-                "text": "boolean"
+                "text": "EventEmitter<boolean>"
               },
               "description": "Emits when the checked state changes.",
               "fieldName": "change"

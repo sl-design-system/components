@@ -110,6 +110,7 @@ function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
          return;
         }
         const attribute = createAttributeFromField(field);
+        field.kind = "event";
 
         /**
          * If an attribute name is provided

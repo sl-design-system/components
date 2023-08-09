@@ -56,7 +56,7 @@
           "name": "Switch",
           "members": [
             {
-              "kind": "field",
+              "kind": "event",
               "name": "change",
               "type": {
                 "text": "EventEmitter<boolean>"

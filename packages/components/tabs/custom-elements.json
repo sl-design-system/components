@@ -88,7 +88,7 @@
           "name": "TabGroup",
           "members": [
             {
-              "kind": "field",
+              "kind": "event",
               "name": "tabChange",
               "type": {
                 "text": "EventEmitter<number>"

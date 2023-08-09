@@ -157,7 +157,7 @@
               }
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "columnUpdate",
               "type": {
                 "text": "EventEmitter<GridColumnEvent<T>>"
@@ -532,7 +532,7 @@
               "attribute": "auto-width"
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "columnUpdate",
               "type": {
                 "text": "EventEmitter<GridColumnEvent<T>>"
@@ -903,7 +903,7 @@
               }
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "columnUpdate",
               "type": {
                 "text": "EventEmitter<GridColumnEvent<T>>"
@@ -1338,7 +1338,7 @@
               "description": "The custom filter"
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "filterChange",
               "type": {
                 "text": "EventEmitter<GridFilterChange>"
@@ -1347,7 +1347,7 @@
               "attribute": "filterChange"
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "filterValueChange",
               "type": {
                 "text": "EventEmitter<GridFilterValueChangeEvent<T>>"
@@ -1489,7 +1489,7 @@
               "description": "The active item in the grid."
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "activeItemChange",
               "type": {
                 "text": "EventEmitter<GridActiveItemChangeEvent<T>>"
@@ -1515,7 +1515,7 @@
               "description": "Provide your own implementation for getting the data."
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "gridItemsChange",
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
@@ -1524,7 +1524,7 @@
               "attribute": "gridItemsChange"
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "gridStateChange",
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
@@ -1785,7 +1785,7 @@
               }
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "columnUpdate",
               "type": {
                 "text": "EventEmitter<GridColumnEvent<T>>"
@@ -2193,7 +2193,7 @@
               }
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "columnUpdate",
               "type": {
                 "text": "EventEmitter<GridColumnEvent<T>>"
@@ -2615,7 +2615,7 @@
               }
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "sortDirectionChange",
               "type": {
                 "text": "EventEmitter<GridSortDirectionChangeEvent<T>>"
@@ -2632,7 +2632,7 @@
               "description": "An optional custom sort function."
             },
             {
-              "kind": "field",
+              "kind": "event",
               "name": "sorterChange",
               "type": {
                 "text": "EventEmitter<GridSorterChange>"

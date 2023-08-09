@@ -1,4 +1,4 @@
-import { noPrivateFieldsPlugin } from '@sl-design-system/scripts/cem-plugins.js';
+import { noPrivateFieldsPlugin, eventPlugin, sortMembersPlugin } from '@sl-design-system/scripts/cem-plugins.js';
 
 export default {
   /** Globs to analyze */
@@ -9,6 +9,8 @@ export default {
   /** Enable special handling for litelement */
   litelement: true,
   plugins: [
-      noPrivateFieldsPlugin(),
+    eventPlugin(),
+    noPrivateFieldsPlugin(),
+    sortMembersPlugin()
   ]
 }

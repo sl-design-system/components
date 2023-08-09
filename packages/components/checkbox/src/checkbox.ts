@@ -46,12 +46,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** @private Element internals. */
   readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
 
-  /** Emits when the checked state changes.
-   *  @emits {boolean}
-   *  @event {boolean}
-   *  @fires {boolean}
-   *  @type boolean
-   */
+  /** Emits when the checked state changes. */
   @event() change!: EventEmitter<boolean>;
 
   /** Whether the checkbox is checked. */

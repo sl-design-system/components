@@ -63,7 +63,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
    */
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
-  /** The value for the checkbox. */
+  /** The value for the checkbox, to be used in forms */
   @property() value?: string;
 
   override connectedCallback(): void {

@@ -78,5 +78,6 @@ When you create/update a web component, please also create/update the associated
 In code documentation is used for the Design System website. To make sure the information is consistent we have some style guidelines for the code comments:
 
 - Start senctences with a capital, end with a period.
-- Use "The `property` of the `component`." to describe simple properties with clear names.
+- Use "The `property` of the `component`." to describe simple properties that are used to provide options (color, style, width etc.).
+- Use "Whether the `component` is `property`." to describe states of the component that can be set (checked, invalid, readonly etc.).
 - No need do mention what the default value is; that is apparent from other parts of the documentation website.

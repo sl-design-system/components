@@ -113,8 +113,6 @@ Place text here
 </div>
 </section>
 
-{% include "../component-table.njk" %}
-
 <section>
 
 ## Key Points

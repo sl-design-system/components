@@ -28,13 +28,12 @@ export function noPrivateFieldsPlugin() {
           declaration.members = declaration.members?.filter(member => {
             return member.privacy !== 'private' && !member.name.startsWith('#');
           });
-
-          // console.log('declaration.members', declaration.members);
         });
       });
     }
   }
 }
+
 export function eventPlugin() {
   return {
     name: 'event-plugin',
@@ -49,7 +48,7 @@ export function eventPlugin() {
           }
           break;
 
-        case ts.SyntaxKind.ClassDeclaration:    
+        case ts.SyntaxKind.ClassDeclaration:
           handleEventDecorator(node, moduleDoc);
           break;
         }
@@ -57,12 +56,35 @@ export function eventPlugin() {
   }
 }
 
+export function methodAndFieldPlugin(type) {
+  return {
+    name: 'method-plugin',
+    packageLinkPhase({ customElementsManifest, context }) {
+      customElementsManifest.modules.forEach(mod => {
+        let elements = [];
+        mod.declarations.forEach(declaration => {
+          declaration.members?.forEach(member => {
+            if (member && member.kind === type && !member.attribute) {
+              elements.push(member);
+            }
+            if (type === 'field') {
+              declaration.fields = elements;
+            } else {
+              declaration.methods = elements;
+            }
+          })
+        });
+      });
+    }
+  }
+}
+
 export function sortMembersPlugin() {
   return {
     name: 'sort-members-plugin',
     packageLinkPhase({ customElementsManifest, context }) {
-      customElementsManifest.modules.forEach(mod => {
-        mod.declarations.forEach(declaration => {
+      customElementsManifest.modules.forEach(module => {
+        module.declarations.forEach(declaration => {
           declaration.members?.sort((a, b) => {
             const nameA = a.name, nameB = b.name;
 
@@ -89,7 +111,7 @@ function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
     className = mixinName;
   }
 
-  
+
   const currClass = moduleDoc?.declarations?.find(declaration => declaration.name === className);
 
   /**
@@ -99,7 +121,7 @@ function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
     if (hasEventDecorator(member)) {
       const propertyDecorator = member.decorators.find(decorator('event'));
       const propertyOptions = propertyDecorator?.expression?.arguments?.find(arg => ts.isObjectLiteralExpression(arg));
-      
+
       /**
        * If property does _not_ have `attribute: false`, also create an attribute based on the field
       */
@@ -124,7 +146,7 @@ function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
           field.attribute = field.name;
         }
 
-        
+
         if(reflects(propertyOptions)) {
           field.attribute = attribute.name;
           field.reflects = true;
@@ -143,7 +165,7 @@ function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
 }
 
 export function hasEventDecorator(node) {
-  return node?.decorators?.some((decorator) => { 
+  return node?.decorators?.some((decorator) => {
     return decorator?.expression?.expression?.getText() === 'event'
   });
 }

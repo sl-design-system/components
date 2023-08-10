@@ -65,8 +65,6 @@ Place text here
 
 </section>
 
-{% include "../component-table.njk" %}
-
 <section>
 
 ## Key Points

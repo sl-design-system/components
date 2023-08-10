@@ -95,7 +95,7 @@ module.exports = function(eleventyConfig) {
 
   let mdIt = markdownIt({
     html: true,
-    breaks: true,
+    breaks: false,
     linkify: true,
   })
     .disable('code')

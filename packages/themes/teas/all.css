@@ -472,6 +472,8 @@
   --sl-space-input-option-inline-md: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-lg: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-md: var(--sl-space-button-outline-block-sm);
+  --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
+  --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-text-icon-font-icon-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);

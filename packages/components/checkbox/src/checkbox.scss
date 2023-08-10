@@ -9,7 +9,6 @@ $sizes: md, lg;
   --_border-size: var(--sl-border-width-input-border);
   --_box-shadow: none;
   --_cursor: pointer;
-  --_icon-size: 1rem;
   --_path-length: 23;
   --_stroke-dashoffset: var(--_path-length);
   --_stroke-linecap: round;
@@ -25,6 +24,7 @@ $sizes: md, lg;
     --_padding-inline: var(--sl-space-input-option-inline-#{$size});
     --_gap: calc(var(--sl-space-input-option-gap-#{$size}) - var(--_padding-inline));
     --_size: var(--sl-size-input-option-#{$size});
+    --_icon-size: var(--sl-size-input-option-checkbox-icon-#{$size});
 
     .wrapper {
       --_font: var(--sl-text-input-option-#{$size});

@@ -1806,6 +1806,18 @@
           "value": "{size.2xl}",
           "type": "sizing",
           "description": "size.input.lg"
+        },
+        "checkboxIcon": {
+          "md": {
+            "value": "{size.icon.md}",
+            "type": "sizing",
+            "description": "size.input.md"
+          },
+          "lg": {
+            "value": "{size.icon.lg}",
+            "type": "sizing",
+            "description": "size.input.lg"
+          }
         }
       },
       "switch": {

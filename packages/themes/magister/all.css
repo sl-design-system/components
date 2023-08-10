@@ -442,6 +442,8 @@
   --sl-color-palette-success-base: 19 196 163;
   --sl-color-palette-info-base: 31 151 249;
   --sl-color-palette-primary-base: 31 151 249;
+  --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
+  --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);
   --sl-space-select-item-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-item-block-lg: var(--sl-space-input-text-field-block-lg);

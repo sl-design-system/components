@@ -2488,7 +2488,7 @@
     },
     "focusring": {
       "default": {
-        "value": "{color.palette.accent.300}",
+        "value": "{color.palette.primary.300}",
         "type": "color"
       }
     }

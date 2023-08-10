@@ -164,7 +164,7 @@
           "name": "Checkbox",
           "slots": [
             {
-              "description": "Text label of the button. Optionally an `sl-icon` can be added",
+              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
               "name": "default"
             }
           ],
@@ -243,7 +243,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the checkbox.",
+              "description": "The value for the checkbox, to be used in forms",
               "attribute": "value"
             }
           ],
@@ -297,7 +297,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the checkbox.",
+              "description": "The value for the checkbox, to be used in forms",
               "fieldName": "value"
             }
           ],

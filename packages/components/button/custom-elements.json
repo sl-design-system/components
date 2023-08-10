@@ -56,7 +56,7 @@
           "name": "Button",
           "slots": [
             {
-              "description": "Text label of the button. Optionally an `sl-icon` can be added",
+              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
               "name": "default"
             }
           ],

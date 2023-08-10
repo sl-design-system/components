@@ -60,7 +60,7 @@
                     <td>
                       {% for parameter in member.parameters -%}
                         {% if parameter %}
-                          <code>{{parameter.name}}: {{ parameter.type.text }}</code>
+                          <code>{{parameter.name}}{% if parameter.optional%}?{% endif %}: {{ parameter.type.text }}</code>
                         {% endif %}
                       {% endfor -%}
                     </td>

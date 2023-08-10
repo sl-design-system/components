@@ -19,7 +19,7 @@ export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'dan
  *   <sl-button>Foo</sl-button>
  * ```
  *
- * @slot default - Text label of the button. Optionally an `sl-icon` can be added
+ * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  */
 export class Button extends LitElement {
   /** @private */

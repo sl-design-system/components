@@ -24,7 +24,7 @@ export type CheckboxSize = 'md' | 'lg';
  *   <sl-button>Foo</sl-button>
  * ```
  *
- * @slot default - Text label of the button. Optionally an `sl-icon` can be added
+ * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
 export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */

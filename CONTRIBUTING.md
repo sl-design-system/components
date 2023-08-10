@@ -81,3 +81,5 @@ In code documentation is used for the Design System website. To make sure the in
 - Use "The `property` of the `component`." to describe simple properties that are used to provide options (color, style, width etc.).
 - Use "Whether the `component` is `property`." to describe states of the component that can be set (checked, invalid, readonly etc.).
 - No need do mention what the default value is; that is apparent from other parts of the documentation website.
+
+- Slots are defined at the top of the file, just above the class declaration, using `@slot <slot name> - Description`

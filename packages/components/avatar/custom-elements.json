@@ -112,7 +112,25 @@
             "package": "lit"
           },
           "tagName": "sl-avatar",
-          "customElement": true
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [

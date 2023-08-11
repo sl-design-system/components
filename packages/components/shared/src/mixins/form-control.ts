@@ -62,6 +62,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     /** Whether this form control is a required field. */
     @property({ type: Boolean, reflect: true }) required?: boolean;
 
+    /** @ignore For internal use only */
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {
         return this.#formControlElement;
@@ -88,7 +89,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** @private */
+    /** @ignore */
     override shouldUpdate(changes: PropertyValues<this>): boolean {
       if (super.shouldUpdate(changes)) {
         if (changes.has('disabled') && isNative(this.formControlElement)) {
@@ -103,6 +104,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       return false;
     }
 
+    /** @ignore */
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
@@ -133,7 +135,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native ElementInternals helper function*/
+    /** @ignore Native ElementInternals helper function*/
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
     }

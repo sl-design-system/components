@@ -61,7 +61,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "The label disabled state.",
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -73,15 +73,6 @@
               },
               "description": "The DOM id of the form control this is linked to.",
               "attribute": "for"
-            },
-            {
-              "kind": "field",
-              "name": "formControl",
-              "type": {
-                "text": "(HTMLElement & FormControlInterface) | null"
-              },
-              "default": "null",
-              "description": "The associated form control."
             },
             {
               "kind": "field",
@@ -112,10 +103,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "LabelSize"
+                "text": "'sm' | 'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Label size.",
+              "description": "The size of the label.",
               "attribute": "size",
               "reflects": true
             }
@@ -132,10 +123,10 @@
             {
               "name": "size",
               "type": {
-                "text": "LabelSize"
+                "text": "'sm' | 'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Label size.",
+              "description": "The size of the label.",
               "fieldName": "size"
             },
             {
@@ -143,7 +134,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "The label disabled state.",
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
               "fieldName": "disabled"
             },
             {
@@ -160,7 +151,78 @@
             "package": "lit"
           },
           "tagName": "sl-label",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "{ target }",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#update",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#formControlId",
+              "privacy": "private",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The actual form control id this label links to."
+            },
+            {
+              "kind": "field",
+              "name": "#label",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLLabelElement | undefined"
+              },
+              "description": "The label instance in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "default": "new MutationObserver(() => void this.#update())",
+              "description": "Observe the form control for changes to the required attribute."
+            },
+            {
+              "kind": "field",
+              "name": "optional",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as optional."
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as required."
+            }
+          ]
         }
       ],
       "exports": [

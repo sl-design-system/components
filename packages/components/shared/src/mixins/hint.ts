@@ -49,6 +49,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     /** The hint disabled state. */
     @property() disabled?: boolean;
 
+    /** @ignore */
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
@@ -61,6 +62,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
       }
     }
 
+    /** @private */
     renderHint(): TemplateResult {
       const input = this.querySelector('input, textarea');
       if (input?.hasAttribute('disabled')) {

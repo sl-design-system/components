@@ -296,7 +296,114 @@
             "package": "lit"
           },
           "tagName": "sl-textarea",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onInput",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "{ target }",
+                  "type": {
+                    "text": "Event & { target: HTMLTextAreaElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#setSize",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    target: () => this.textarea\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "textarea",
+              "type": {
+                "text": "HTMLTextAreaElement"
+              },
+              "description": "The textarea in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "#resizeObserver",
+              "privacy": "private",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "description": "Observe the textarea width."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            }
+          ]
         }
       ],
       "exports": [

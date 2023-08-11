@@ -66,6 +66,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** The value for the checkbox, to be used in forms */
   @property() value?: string;
 
+  /** @ignore */
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -82,6 +83,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     }
   }
 
+  /** @ignore */
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -106,10 +108,12 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     }
   }
 
+  /** @ignore Stores the initial state of the checkbox */
   formAssociatedCallback(): void {
     this.#initialState = this.getAttribute('checked') === null ? false : true;
   }
 
+  /** @ignore  Resets the checkboxs to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.#validation.validate(this.checked ? this.value : undefined);

@@ -148,7 +148,147 @@
             "package": "lit"
           },
           "tagName": "sl-button",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#hasOnlyIconAsChild",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "el",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#setIconProperties",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "assignedNodes",
+                  "type": {
+                    "text": "Node[]"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)",
+              "description": "Event controller."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "originalTabIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0",
+              "description": "The original tabIndex before disabled."
+            }
+          ]
         }
       ],
       "exports": [

@@ -26,7 +26,7 @@ export class Label extends LitElement {
   /** The DOM id of the form control this is linked to. */
   @property() for?: string;
 
-  /** The associated form control. */
+  /** @ignore The associated form control. */
   @state() formControl: (HTMLElement & FormControlInterface) | null = null;
 
   /** Whether this label should be marked as optional. */
@@ -35,11 +35,12 @@ export class Label extends LitElement {
   /** Whether this label should be marked as required. */
   @state() required?: boolean;
 
-  /** Label size. */
+  /** The size of the label.
+   * @type {'sm' | 'md' | 'lg'} */
   @property({ reflect: true }) size: LabelSize = 'md';
 
-  /** The label disabled state. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  /** Whether the form control is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** Whether this label should have no padding bottom. */
   @property({ type: Boolean, attribute: 'no-padding' }) noPadding?: boolean;

@@ -7,4 +7,5 @@ eleventyNavigation:
   parent: Components
   key: Icon
   order: 9
+  status: ready
 ---

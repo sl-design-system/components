@@ -2,7 +2,7 @@
 title: Skeleton
 tags: overview
 eleventyNavigation:
-  parent: Skeleton (PoC)
+  parent: Skeleton
   key: SkeletonOverview
 ---
 <style>

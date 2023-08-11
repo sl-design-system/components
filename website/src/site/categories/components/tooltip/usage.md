@@ -2,7 +2,7 @@
 title: Tooltip usage
 tags: usage
 eleventyNavigation:
-  parent: Tooltip (PoC)
+  parent: Tooltip
   key: TooltipUsage
 ---
 <section>

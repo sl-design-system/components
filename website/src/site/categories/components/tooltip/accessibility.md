@@ -2,7 +2,7 @@
 title: Tooltip accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Tooltip (PoC)
+  parent: Tooltip
   key: TooltipAccessibility
 ---
 <section>

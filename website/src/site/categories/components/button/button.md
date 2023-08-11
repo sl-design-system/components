@@ -7,4 +7,5 @@ eleventyNavigation:
   parent: Components
   key: Button
   order: 2
+  status: ready
 ---

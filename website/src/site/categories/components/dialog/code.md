@@ -2,7 +2,7 @@
 title: Dialog code
 tags: code
 eleventyNavigation:
-  parent: Dialog (PoC)
+  parent: Dialog
   key: DialogCode
 ---
 <section>

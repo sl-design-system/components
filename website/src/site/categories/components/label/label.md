@@ -7,4 +7,5 @@ eleventyNavigation:
   parent: Components
   key: Label
   order: 10
+  status: ready
 ---

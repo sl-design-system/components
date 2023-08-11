@@ -2,7 +2,7 @@
 title: Skeleton code
 tags: code
 eleventyNavigation:
-  parent: Skeleton (PoC)
+  parent: Skeleton
   key: SkeletonCode
 ---
 <section>

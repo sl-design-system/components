@@ -5,7 +5,8 @@ layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Popover (PoC)
+  key: Popover
   order: 11
+  status: coming
 ---
 

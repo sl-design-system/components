@@ -2,7 +2,7 @@
 title: Tab group specs
 tags: specs
 eleventyNavigation:
-  parent: Tab group (PoC)
+  parent: Tab group
   key: TabGroupSpecs
 ---
 <section>

@@ -5,7 +5,8 @@ layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Grid (PoC)
+  key: Grid
   order: 8
+  status: coming
 ---
 

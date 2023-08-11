@@ -5,7 +5,8 @@ layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Dialog (PoC)
+  key: Dialog
   order: 5
+  status: coming
 ---
 

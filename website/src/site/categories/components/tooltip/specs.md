@@ -2,7 +2,7 @@
 title: Tooltip specs
 tags: specs
 eleventyNavigation:
-  parent: Tooltip (PoC)
+  parent: Tooltip
   key: TooltipSpecs
 ---
 <section>

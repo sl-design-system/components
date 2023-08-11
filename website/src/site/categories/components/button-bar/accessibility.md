@@ -2,7 +2,7 @@
 title: Button bar accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Button bar (PoC)
+  parent: Button bar
   key: ButtonBarAccessibility
 ---
 

@@ -83,7 +83,9 @@
             "package": "lit"
           },
           "tagName": "sl-skeleton",
-          "customElement": true
+          "customElement": true,
+          "methods": [],
+          "fields": []
         }
       ],
       "exports": [

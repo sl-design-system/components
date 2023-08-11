@@ -2,7 +2,7 @@
 title: Tab group usage
 tags: usage
 eleventyNavigation:
-  parent: Tab group (PoC)
+  parent: Tab group
   key: TabGroupUsage
 ---
 <section>

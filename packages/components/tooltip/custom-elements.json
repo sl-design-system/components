@@ -100,7 +100,58 @@
           "superclass": {
             "name": "Directive",
             "package": "lit/directive.js"
-          }
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "renderContent",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setupLazy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "content",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "didSetupLazy",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "part",
+              "type": {
+                "text": "ElementPart | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "Tooltip | undefined"
+              }
+            }
+          ]
         },
         {
           "kind": "variable",
@@ -200,7 +251,64 @@
             "package": "lit"
           },
           "tagName": "sl-tooltip",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "lazy",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "callback",
+                  "type": {
+                    "text": "(target: Tooltip) => void"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#anchor",
+              "privacy": "private",
+              "default": "new AnchorController(this)",
+              "description": "Controller for managing anchoring."
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "#matchesAnchor",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onHide",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onShow",
+              "privacy": "private"
+            }
+          ]
         }
       ],
       "exports": [

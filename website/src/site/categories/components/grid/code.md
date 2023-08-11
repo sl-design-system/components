@@ -2,7 +2,7 @@
 title: Grid code
 tags: code
 eleventyNavigation:
-  parent: Grid (PoC)
+  parent: Grid
   key: GridCode
 ---
 <section>

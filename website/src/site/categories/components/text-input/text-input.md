@@ -7,5 +7,6 @@ eleventyNavigation:
   parent: Components
   key: Text input
   order: 17
+  status: ready
 ---
 

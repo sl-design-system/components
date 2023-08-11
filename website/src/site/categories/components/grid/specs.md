@@ -2,7 +2,7 @@
 title: Grid specs
 tags: specs
 eleventyNavigation:
-  parent: Grid (PoC)
+  parent: Grid
   key: GridSpecs
 ---
 <section>

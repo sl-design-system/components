@@ -109,7 +109,19 @@
             "package": "lit"
           },
           "tagName": "sl-button-bar",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            }
+          ],
+          "fields": []
         }
       ],
       "exports": [

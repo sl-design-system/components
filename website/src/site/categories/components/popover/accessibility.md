@@ -2,7 +2,7 @@
 title: Popover accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Popover (PoC)
+  parent: Popover
   key: PopoverAccessibility
 ---
 <section>

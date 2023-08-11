@@ -167,7 +167,147 @@
             "package": "lit"
           },
           "tagName": "sl-radio-group",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "formAssociatedCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusout",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "FocusEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    focusout: this.#onFocusout\n  })",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "#mutation",
+              "privacy": "private",
+              "default": "new MutationController(this, {\n    callback: mutations => {\n      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n      if (target instanceof Radio && target.value) {\n        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));\n        this.value = target.value;\n      }\n    },\n    config: {\n      attributeFilter: ['checked'],\n      attributeOldValue: true,\n      subtree: true\n    }\n  })",
+              "description": "Observe the state of the radios."
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<Radio>(this, {\n    focusInIndex: (elements: Radio[]) => {\n      return elements.findIndex(el => {\n        return this.value ? !el.disabled && el.value === this.value : !el.disabled;\n      });\n    },\n    elementEnterAction: (el: Radio) => {\n      this.value = el.value;\n    },\n    elements: () => this.buttons,\n    isFocusableElement: (el: Radio) => !el.disabled\n  })",
+              "description": "Manage the keyboard navigation."
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#initialState",
+              "privacy": "private",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "defaultNodes",
+              "type": {
+                "text": "Node[] | undefined"
+              },
+              "description": "The assigned nodes."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "buttons",
+              "type": {
+                "text": "Radio[]"
+              },
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [
@@ -275,7 +415,68 @@
             "package": "lit"
           },
           "tagName": "sl-radio",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            }
+          ]
         }
       ],
       "exports": [

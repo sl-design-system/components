@@ -5,7 +5,8 @@ layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Button bar (PoC)
+  key: Button bar
   order: 3
+  status: coming
 ---
 TODO: change order

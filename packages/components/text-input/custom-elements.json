@@ -369,7 +369,101 @@
             "package": "lit"
           },
           "tagName": "sl-text-input",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onInput",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "{ target }",
+                  "type": {
+                    "text": "Event & { target: HTMLInputElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#onKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    target: () => this.input\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "input",
+              "type": {
+                "text": "HTMLInputElement"
+              },
+              "description": "The input element in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            }
+          ]
         }
       ],
       "exports": [

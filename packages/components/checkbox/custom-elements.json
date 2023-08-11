@@ -126,7 +126,105 @@
             "package": "lit"
           },
           "tagName": "sl-checkbox-group",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, { click: this.#onClick })",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "#mutation",
+              "privacy": "private",
+              "default": "new MutationController(this, {\n    callback: () => {\n      const value = this.boxes\n        ?.map(box => (box.checked ? box.value : null))\n        .filter(Boolean)\n        .join(', ');\n\n      this.#validation.validate(value);\n    },\n    config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }\n  })",
+              "description": "Observe changes to the checkboxes.\n\nFIXME: This causes a warning in the console: https://github.com/lit/lit/issues/3597"
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<Checkbox>(this, {\n    focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),\n    elements: () => this.boxes || [],\n    isFocusableElement: (el: Checkbox) => !el.disabled\n  })",
+              "description": "Manage the keyboard navigation."
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })",
+              "description": "Support validation that at least 1 checkbox is required in the group."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "boxes",
+              "type": {
+                "text": "Checkbox[] | undefined"
+              },
+              "description": "The slotted checkboxes."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators."
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [
@@ -316,7 +414,128 @@
             "package": "lit"
           },
           "tagName": "sl-checkbox",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "formAssociatedCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateNoLabel",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Updates the `no-label` attribute based on the presence of a label."
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#initialState",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "default": "this.attachInternals()",
+              "privacy": "private"
+            }
+          ]
         }
       ],
       "exports": [

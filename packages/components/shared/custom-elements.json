@@ -599,6 +599,227 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/decorators/base.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "decorateProperty",
+          "parameters": [
+            {
+              "name": "{\n    finisher,\n    descriptor\n  }",
+              "type": {
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+              }
+            },
+            {
+              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
+              "name": "finisher",
+              "type": {
+                "text": "function"
+              }
+            },
+            {
+              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
+              "name": "descriptor",
+              "type": {
+                "text": "function"
+              }
+            }
+          ],
+          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
+          "return": {
+            "type": {
+              "text": "ClassElement|void"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "decorateProperty",
+          "declaration": {
+            "name": "decorateProperty",
+            "module": "src/decorators/base.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/decorators/event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EventEmitter",
+          "members": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": []
+        },
+        {
+          "kind": "variable",
+          "name": "event",
+          "type": {
+            "text": "Event"
+          }
+        },
+        {
+          "kind": "function",
+          "name": "event",
+          "return": {
+            "type": {
+              "text": "any"
+            }
+          },
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": {
+                "text": "EventOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EventEmitter",
+          "declaration": {
+            "name": "EventEmitter",
+            "module": "src/decorators/event.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "event",
+          "declaration": {
+            "name": "event",
+            "module": "src/decorators/event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/decorators/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./base.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./observe.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/decorators/observe.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "observe",
+          "parameters": [
+            {
+              "name": "propertyName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "lifecycle",
+              "default": "'update'",
+              "type": {
+                "text": "ObserveLifecycle"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "observe",
+          "declaration": {
+            "name": "observe",
+            "module": "src/decorators/observe.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/controllers/anchor.ts",
       "declarations": [
         {
@@ -623,6 +844,66 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              }
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostDisconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#cleanup",
+              "privacy": "private",
+              "type": {
+                "text": "() => void | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#config",
+              "privacy": "private",
+              "type": {
+                "text": "AnchorControllerConfig"
+              },
+              "default": "config"
+            },
+            {
+              "kind": "field",
+              "name": "#host",
+              "privacy": "private",
+              "type": {
+                "text": "ReactiveControllerHost & HTMLElement"
+              },
+              "default": "this.#host"
+            },
+            {
+              "kind": "field",
+              "name": "#onBeforeToggle",
+              "privacy": "private"
             },
             {
               "kind": "field",
@@ -734,6 +1015,109 @@
                   }
                 }
               ]
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "hostDisconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "host",
+                  "type": {
+                    "text": "Node"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => void"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "host",
+                  "type": {
+                    "text": "EventTarget"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "EventListenerOrEventListenerObject"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#host",
+              "privacy": "private",
+              "type": {
+                "text": "ReactiveControllerHost & HTMLElement"
+              },
+              "default": "host"
+            },
+            {
+              "kind": "field",
+              "name": "#listeners",
+              "privacy": "private",
+              "type": {
+                "text": "Array<() => void>"
+              },
+              "default": "[]"
             }
           ]
         }
@@ -1046,6 +1430,341 @@
                   "text": "void"
                 }
               }
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "isEventWithinListenerScope",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostDisconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "focusToElement",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "elementIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "clearElementCache",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "offset",
+                  "default": "0"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setCurrentIndexCircularly",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "diff",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "hostContainsFocus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostNoLongerContainsFocus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "isRelatedTargetAnElement",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "FocusEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "acceptsEventCode",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "code",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "manage",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unmanage",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "addEventListeners",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeEventListeners",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#currentIndex",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "-1"
+            },
+            {
+              "kind": "field",
+              "name": "#direction",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#elements",
+              "privacy": "private",
+              "type": {
+                "text": "() => T[]"
+              },
+              "default": "elements"
+            },
+            {
+              "kind": "field",
+              "name": "#focused",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "#focusInIndex",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#listenerScope",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "cachedElements",
+              "type": {
+                "text": "T[] | undefined"
+              },
+              "privacy": "protected"
+            },
+            {
+              "kind": "field",
+              "name": "currentIndex",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "type": {
+                "text": "DirectionTypes"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "elements",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "elementEnterAction"
+            },
+            {
+              "kind": "field",
+              "name": "focused",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "protected"
+            },
+            {
+              "kind": "field",
+              "name": "focusInElement",
+              "type": {
+                "text": "T"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "focusInIndex",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "directionLength",
+              "type": {
+                "text": "number"
+              },
+              "default": "5"
+            },
+            {
+              "kind": "field",
+              "name": "host",
+              "type": {
+                "text": "ReactiveElement"
+              },
+              "default": "host"
+            },
+            {
+              "kind": "field",
+              "name": "isFocusableElement"
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "handleFocusin"
+            },
+            {
+              "kind": "field",
+              "name": "handleFocusout"
+            },
+            {
+              "kind": "field",
+              "name": "handleKeydown"
             }
           ]
         }
@@ -1573,7 +2292,539 @@
           "superclass": {
             "name": "FocusGroupController",
             "module": "/src/controllers/focus-group.js"
-          }
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "clearElementCache",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "offset",
+                  "default": "0"
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "manageTabindexes",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updateTabindexes",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "getTabIndex",
+                  "type": {
+                    "text": "(el: HTMLElement) => UpdateTabIndexes"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "manage",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unmanage",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostUpdated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "isEventWithinListenerScope",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostDisconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focusToElement",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "elementIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setCurrentIndexCircularly",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "diff",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostContainsFocus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostNoLongerContainsFocus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "isRelatedTargetAnElement",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "FocusEvent"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "acceptsEventCode",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "code",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "addEventListeners",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeEventListeners",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "focused",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "managed",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "manageIndexesAnimationFrame",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "#currentIndex",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "-1",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#direction",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#elements",
+              "privacy": "private",
+              "type": {
+                "text": "() => T[]"
+              },
+              "default": "elements",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#focused",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#focusInIndex",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#listenerScope",
+              "privacy": "private",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "cachedElements",
+              "type": {
+                "text": "T[] | undefined"
+              },
+              "privacy": "protected",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "currentIndex",
+              "type": {
+                "text": "number"
+              },
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "type": {
+                "text": "DirectionTypes"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "elements",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "elementEnterAction",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "focusInElement",
+              "type": {
+                "text": "T"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "focusInIndex",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "directionLength",
+              "type": {
+                "text": "number"
+              },
+              "default": "5",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "host",
+              "type": {
+                "text": "ReactiveElement"
+              },
+              "default": "host",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "isFocusableElement",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleFocusin",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleFocusout",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "handleKeydown",
+              "inheritedFrom": {
+                "name": "FocusGroupController",
+                "module": "src/controllers/focus-group.ts"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -1726,6 +2977,166 @@
                 }
               ]
             }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "select",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "selectAll",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "deselect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "deselectAll",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "areAllSelected",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "areSomeSelected",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "isSelected",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#host",
+              "privacy": "private",
+              "type": {
+                "text": "ReactiveControllerHost"
+              },
+              "default": "host"
+            },
+            {
+              "kind": "field",
+              "name": "#selectAll",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether all items are selected or not."
+            },
+            {
+              "kind": "field",
+              "name": "#selection",
+              "privacy": "private",
+              "default": "new Set<T>()",
+              "description": "The current selection; these are either the selected items, or the unselected items,\ndepending on the value of #selectAll."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "The total number of items in the selection."
+            },
+            {
+              "kind": "field",
+              "name": "multiple",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "!!options?.multiple",
+              "description": "Whether more than 1 item can be selected at a time."
+            },
+            {
+              "kind": "field",
+              "name": "selection",
+              "type": {
+                "text": "Set<T>"
+              },
+              "readonly": true
+            }
           ]
         }
       ],
@@ -1877,6 +3288,401 @@
               },
               "readonly": true
             }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostDisconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostUpdated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#setInvalidState",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#removeInvalidState",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#updateValidationMessage",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#removeValidationMessage",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "addValidator",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "validator",
+                  "type": {
+                    "text": "Validator"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeValidator",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "validator",
+                  "type": {
+                    "text": "Validator"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setCustomValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "validate",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidationValue"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#getInvalidState",
+              "return": {
+                "type": {
+                  "text": "keyof ValidityState | void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "validity",
+                  "type": {
+                    "text": "ValidityState"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#getValidationMessageForState",
+              "return": {
+                "type": {
+                  "text": "string | void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "state",
+                  "type": {
+                    "text": "keyof ValidityState"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#getValidatorMessageForValue",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "validator",
+                  "type": {
+                    "text": "Validator"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "ValidationValue"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#setValidityWithOptionalTarget",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "validity",
+                  "type": {
+                    "text": "Partial<ValidityState>"
+                  }
+                },
+                {
+                  "name": "validationMessage",
+                  "type": {
+                    "text": "string | undefined"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#abortController",
+              "privacy": "private",
+              "type": {
+                "text": "AbortController | undefined"
+              },
+              "description": "An internal abort controller for cancelling pending async validation."
+            },
+            {
+              "kind": "field",
+              "name": "#previousAbortController",
+              "privacy": "private",
+              "type": {
+                "text": "AbortController | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#customValidators",
+              "privacy": "private",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators set at runtime."
+            },
+            {
+              "kind": "field",
+              "name": "#host",
+              "privacy": "private",
+              "type": {
+                "text": "ReactiveControllerHost & HTMLElement"
+              },
+              "description": "Controller host.",
+              "default": "host"
+            },
+            {
+              "kind": "field",
+              "name": "#showErrors",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Determines when validation messages should be shown."
+            },
+            {
+              "kind": "field",
+              "name": "#messageSize",
+              "privacy": "private",
+              "type": {
+                "text": "MessageSize"
+              },
+              "default": "'md'",
+              "description": "Error message size."
+            },
+            {
+              "kind": "field",
+              "name": "#target",
+              "privacy": "private",
+              "type": {
+                "text": "ValidationTarget | undefined"
+              },
+              "description": "The element which is being validated. Either a Form Associated\nCustom Element, or an `<input>` or `<textarea>`."
+            },
+            {
+              "kind": "field",
+              "name": "#targetFn",
+              "privacy": "private",
+              "type": {
+                "text": "() => ValidationTarget | undefined"
+              },
+              "description": "The target is set after the host's connectedCallback has run."
+            },
+            {
+              "kind": "field",
+              "name": "#validationComplete",
+              "privacy": "private",
+              "description": "Used when validation is pending."
+            },
+            {
+              "kind": "field",
+              "name": "#validationCompleteResolver",
+              "privacy": "private",
+              "type": {
+                "text": "(value: void | PromiseLike<void>) => void | undefined"
+              },
+              "description": "Save a reference to the validation complete resolver"
+            },
+            {
+              "kind": "field",
+              "name": "#validationPending",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether validation is pending."
+            },
+            {
+              "kind": "field",
+              "name": "#validators",
+              "privacy": "private",
+              "type": {
+                "text": "Validator[]"
+              },
+              "default": "[]",
+              "description": "The custom validators. If the target is an `<input>` or `<textarea>`,\nthe target has built-in validators."
+            },
+            {
+              "kind": "field",
+              "name": "#errorMessageId",
+              "privacy": "private",
+              "default": "`sl-error-${nextUniqueId++}`",
+              "description": "Unique ID for error message."
+            },
+            {
+              "kind": "field",
+              "name": "#slotName",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "description": "Name of slotted validation message.",
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "#onInvalid",
+              "privacy": "private",
+              "description": "Event handler for when invalid validity must be reported."
+            },
+            {
+              "kind": "field",
+              "name": "#onReset",
+              "privacy": "private",
+              "description": "Event handler for when the parent form is reset."
+            },
+            {
+              "kind": "field",
+              "name": "target",
+              "type": {
+                "text": "ValidationTarget"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validationMessage",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validity",
+              "type": {
+                "text": "ValidityState"
+              },
+              "readonly": true
+            }
           ]
         }
       ],
@@ -1895,253 +3701,6 @@
           "declaration": {
             "name": "ValidationController",
             "module": "src/controllers/validation.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/base.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "decorateProperty",
-          "parameters": [
-            {
-              "name": "{\n    finisher,\n    descriptor\n  }",
-              "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
-              }
-            },
-            {
-              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
-              "name": "finisher",
-              "type": {
-                "text": "function"
-              }
-            },
-            {
-              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
-              "name": "descriptor",
-              "type": {
-                "text": "function"
-              }
-            }
-          ],
-          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
-          "return": {
-            "type": {
-              "text": "ClassElement|void"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "decorateProperty",
-          "declaration": {
-            "name": "decorateProperty",
-            "module": "src/decorators/base.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EventEmitter",
-          "members": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "event",
-          "type": {
-            "text": "Event"
-          }
-        },
-        {
-          "kind": "function",
-          "name": "event",
-          "return": {
-            "type": {
-              "text": "any"
-            }
-          },
-          "parameters": [
-            {
-              "name": "options",
-              "optional": true,
-              "type": {
-                "text": "EventOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EventEmitter",
-          "declaration": {
-            "name": "EventEmitter",
-            "module": "src/decorators/event.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "event",
-          "declaration": {
-            "name": "event",
-            "module": "src/decorators/event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./base.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/decorators/observe.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "observe",
-          "parameters": [
-            {
-              "name": "propertyName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "lifecycle",
-              "default": "'update'",
-              "type": {
-                "text": "ObserveLifecycle"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "observe",
-          "declaration": {
-            "name": "observe",
-            "module": "src/decorators/observe.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/directives/anchor.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "AnchorDirective",
-          "members": [],
-          "superclass": {
-            "name": "Directive",
-            "package": "lit/directive.js"
-          }
-        },
-        {
-          "kind": "variable",
-          "name": "anchor"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "AnchorDirective",
-          "declaration": {
-            "name": "AnchorDirective",
-            "module": "src/directives/anchor.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "anchor",
-          "declaration": {
-            "name": "anchor",
-            "module": "src/directives/anchor.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./anchor.js"
           }
         }
       ]
@@ -2331,7 +3890,220 @@
           "superclass": {
             "name": "DataSource",
             "module": "/src/data-source/data-source.js"
-          }
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#filteredItems",
+              "privacy": "private",
+              "type": {
+                "text": "T[]"
+              },
+              "default": "[...items]"
+            },
+            {
+              "kind": "field",
+              "name": "#items",
+              "privacy": "private",
+              "type": {
+                "text": "T[]"
+              },
+              "default": "[...items]"
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#filters",
+              "privacy": "private",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "default": "new Map()",
+              "description": "Map of all active filters.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#sort",
+              "privacy": "private",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "description": "The value and path/function to use for sorting. When setting this property,\nit will cause the data to be automatically sorted.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -2486,7 +4258,158 @@
           "superclass": {
             "name": "EventTarget",
             "module": "src/data-source/data-source.ts"
-          }
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#filters",
+              "privacy": "private",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "default": "new Map()",
+              "description": "Map of all active filters."
+            },
+            {
+              "kind": "field",
+              "name": "#sort",
+              "privacy": "private",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "description": "The value and path/function to use for sorting. When setting this property,\nit will cause the data to be automatically sorted."
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            }
+          ]
         }
       ],
       "exports": [
@@ -2729,6 +4652,179 @@
                 "text": "T"
               }
             }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "shouldUpdate",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changes",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ],
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "updated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changes",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function"
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function"
+            },
+            {
+              "kind": "method",
+              "name": "setFormControlElement",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "FormControlElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals helper function"
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function"
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function"
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#cachedValue",
+              "privacy": "private",
+              "type": {
+                "text": "FormControlValue | undefined"
+              },
+              "description": "The cached value for the form control."
+            },
+            {
+              "kind": "field",
+              "name": "#formControlElement",
+              "privacy": "private",
+              "type": {
+                "text": "FormControlElement | undefined"
+              },
+              "description": "The actual element that integrates with the form; either\na Form Associated Custom Element, or an `<input>` or `<textarea>`."
+            },
+            {
+              "kind": "field",
+              "name": "formControlElement",
+              "type": {
+                "text": "FormControlElement"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "NodeListOf<HTMLLabelElement> | null"
+              },
+              "description": "Native labels property",
+              "readonly": true
+            }
           ]
         }
       ],
@@ -2849,7 +4945,54 @@
                 "text": "T"
               }
             }
-          ]
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "updated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changes",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderHint",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#updateHint",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#removeHint",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": []
         }
       ],
       "exports": [
@@ -2890,6 +5033,104 @@
           "declaration": {
             "name": "*",
             "package": "./hint.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/directives/anchor.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AnchorDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onBeforeToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "ToggleEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#config",
+              "privacy": "private",
+              "type": {
+                "text": "AnchorDirectiveConfig | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#host",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#cleanup",
+              "privacy": "private",
+              "type": {
+                "text": "() => void | undefined"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "anchor"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AnchorDirective",
+          "declaration": {
+            "name": "AnchorDirective",
+            "module": "src/directives/anchor.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "anchor",
+          "declaration": {
+            "name": "anchor",
+            "module": "src/directives/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./anchor.js"
           }
         }
       ]

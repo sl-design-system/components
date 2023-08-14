@@ -9,14 +9,14 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-textarea placeholder="Textarea">Textarea example code</sl-text-input>
+<sl-textarea placeholder="placeholder">Textarea example code</sl-text-input>
 
 </div>
 
 <div class="ds-code">
 
 ```html
-  <sl-textarea placeholder="Textarea">Textarea example code</sl-textarea>
+  <sl-textarea placeholder="placeholder">Textarea example code</sl-textarea>
  ```
 
 </div>

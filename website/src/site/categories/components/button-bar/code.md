@@ -1,6 +1,7 @@
 ---
 title: Button bar code
 tags: code
+APIdescription: Component has a range of properties to define the experience in different use cases.
 eleventyNavigation:
   parent: Button bar
   key: ButtonBarCode

@@ -14,7 +14,7 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.component {
+.component-card {
   border: 1px solid #eaeaea;
   border-radius: 0.6rem;
   display: flex;
@@ -24,10 +24,26 @@
   padding: 1.6rem;
 }
 
+.component-card__picture {
+  display: inline-flex;
+  justify-content: center;
+}
+
 .ds-components__content {
+  display: grid;
+  grid-column-gap: 7.2rem;
+  grid-template-columns: 7fr 1fr;
+
   section {
     margin-top: 2.4rem;
   }
+}
+
+.ds-components__cards {
+  column-gap: 2.4rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 3.2rem;
 }
 
 @media screen and (min-width: $xl-breakpoint) {

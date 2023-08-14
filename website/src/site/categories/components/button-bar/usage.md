@@ -2,7 +2,7 @@
 title: Button bar usage
 tags: usage
 eleventyNavigation:
-  parent: Button bar (PoC)
+  parent: Button bar
   key: ButtonBarUsage
 ---
 

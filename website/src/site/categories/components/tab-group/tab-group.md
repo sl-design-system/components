@@ -5,7 +5,8 @@ layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Tab group (PoC)
+  key: Tab group
   order: 16
+  status: coming
 ---
 

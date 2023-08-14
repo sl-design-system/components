@@ -5,7 +5,8 @@ layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Skeleton (PoC)
+  key: Skeleton
   order: 14
+  status: coming
 ---
 

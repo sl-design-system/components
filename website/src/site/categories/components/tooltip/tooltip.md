@@ -5,7 +5,8 @@ layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Tooltip (PoC)
+  key: Tooltip
   order: 19
+  status: coming
 ---
 

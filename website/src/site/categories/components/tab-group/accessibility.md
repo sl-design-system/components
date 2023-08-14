@@ -2,7 +2,7 @@
 title: Tab group accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Tab group (PoC)
+  parent: Tab group
   key: TabGroupAccessibility
 ---
 <section>

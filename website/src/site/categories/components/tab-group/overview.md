@@ -2,7 +2,7 @@
 title: Tab group
 tags: overview
 eleventyNavigation:
-  parent: Tab group (PoC)
+  parent: Tab group
   key: TabGroupOverview
 ---
 <section>

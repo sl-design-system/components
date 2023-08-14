@@ -2,7 +2,7 @@
 title: Dialog
 tags: overview
 eleventyNavigation:
-  parent: Dialog (PoC)
+  parent: Dialog
   key: DialogOverview
 ---
 <section>

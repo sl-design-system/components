@@ -59,8 +59,9 @@
               "kind": "field",
               "name": "disabled",
               "type": {
-                "text": "boolean | undefined"
+                "text": "boolean"
               },
+              "default": "false",
               "description": "Whether the form control is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
@@ -132,8 +133,9 @@
             {
               "name": "disabled",
               "type": {
-                "text": "boolean | undefined"
+                "text": "boolean"
               },
+              "default": "false",
               "description": "Whether the form control is disabled; when set no interaction is possible.",
               "fieldName": "disabled"
             },

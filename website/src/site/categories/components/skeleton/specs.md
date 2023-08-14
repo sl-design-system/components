@@ -2,7 +2,7 @@
 title: Skeleton specs
 tags: specs
 eleventyNavigation:
-  parent: Skeleton (PoC)
+  parent: Skeleton
   key: SkeletonSpecs
 ---
 <section>

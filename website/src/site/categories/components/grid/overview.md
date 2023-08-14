@@ -2,19 +2,27 @@
 title: Grid
 tags: overview
 eleventyNavigation:
-  parent: Grid (PoC)
+  parent: Grid
   key: GridOverview
 ---
+<style>
+.grid-wrapper {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+</style>
 
 <section>
 <div class="ds-example">
-
+<div class="grid-wrapper">
 <sl-grid id="grid-example">
 <sl-grid-column path="firstName"></sl-grid-column>
 <sl-grid-column path="lastName"></sl-grid-column>
 <sl-grid-column path="email"></sl-grid-column>
 <sl-grid-column path="address.phone"></sl-grid-column>
 <sl-grid-column path="profession"></sl-grid-column>
+</div>
 </sl-grid>
 
 </div>
@@ -102,10 +110,7 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 </section>
 
 <script>
-import {getPeople} from "@sl-design-system/example-data"; 
-
 const grid = document.querySelector("#grid-example");
-/*const people = (await getPeople({ count: 10 })).people;*/
 
 requestAnimationFrame(() => {
   grid.items = [

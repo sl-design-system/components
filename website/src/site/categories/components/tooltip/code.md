@@ -2,7 +2,7 @@
 title: Tooltip code
 tags: code
 eleventyNavigation:
-  parent: Tooltip (PoC)
+  parent: Tooltip
   key: TooltipCode
 ---
 <section>

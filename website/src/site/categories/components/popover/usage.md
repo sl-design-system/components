@@ -2,7 +2,7 @@
 title: Popover usage
 tags: usage
 eleventyNavigation:
-  parent: Popover (PoC)
+  parent: Popover
   key: PopoverUsage
 ---
 <section>

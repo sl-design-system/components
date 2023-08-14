@@ -2,7 +2,7 @@
 title: Skeleton usage
 tags: usage
 eleventyNavigation:
-  parent: Skeleton (PoC)
+  parent: Skeleton
   key: SkeletonUsage
 ---
 <section>

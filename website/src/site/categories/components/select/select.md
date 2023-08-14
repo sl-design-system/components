@@ -7,4 +7,5 @@ eleventyNavigation:
   parent: Components
   key: Select
   order: 13
+  status: ready
 ---

@@ -2,7 +2,7 @@
 title: Dialog specs
 tags: specs
 eleventyNavigation:
-  parent: Dialog (PoC)
+  parent: Dialog
   key: DialogSpecs
 ---
 <section>

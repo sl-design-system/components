@@ -5,7 +5,8 @@ layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Avatar (PoC)
+  key: Avatar
   order: 1
+  status: coming
 ---
 

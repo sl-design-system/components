@@ -2,7 +2,7 @@
 title: Popover code
 tags: code
 eleventyNavigation:
-  parent: Popover (PoC)
+  parent: Popover
   key: PopoverCode
 ---
 <section>

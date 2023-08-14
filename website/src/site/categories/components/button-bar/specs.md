@@ -2,7 +2,7 @@
 title: Button bar specs
 tags: specs
 eleventyNavigation:
-  parent: Button bar (PoC)
+  parent: Button bar
   key: ButtonBarSpecs
 
 ---

@@ -5,7 +5,8 @@ layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Editor (PoC)
+  key: Editor
   order: 7
+  status: coming
 ---
 

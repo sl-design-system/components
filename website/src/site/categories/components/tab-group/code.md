@@ -2,7 +2,7 @@
 title: Tab group code
 tags: code
 eleventyNavigation:
-  parent: Tab group (PoC)
+  parent: Tab group
   key: TabGroupCode
 ---
 <section>

@@ -2,7 +2,7 @@
 title: Grid accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Grid (PoC)
+  parent: Grid
   key: GridAccessibility
 ---
 <section>

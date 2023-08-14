@@ -84,8 +84,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A way to group together options, with or without heading.\n\n```html\n <sl-select>\n   <sl-select-option-group group-heading=\"Europ\">\n   <sl-select-option>Netherlands</sl-select-option>\n   <sl-select-option>Spain</sl-select-option>\n     <sl-select-option>Poland</sl-select-option>\n   </sl-select-option-group>\n </sl-select>\n```",
           "name": "SelectOptionGroup",
+          "slots": [
+            {
+              "description": "List of sl-options",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -93,35 +99,17 @@
               "type": {
                 "text": "string | undefined"
               },
+              "description": "The heading of the option group",
               "attribute": "group-heading"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "SelectSize"
-              },
-              "default": "'md'",
-              "description": "Select size.",
-              "attribute": "size",
-              "reflects": true
             }
           ],
           "attributes": [
-            {
-              "name": "size",
-              "type": {
-                "text": "SelectSize"
-              },
-              "default": "'md'",
-              "description": "Select size.",
-              "fieldName": "size"
-            },
             {
               "name": "group-heading",
               "type": {
                 "text": "string | undefined"
               },
+              "description": "The heading of the option group",
               "fieldName": "groupHeading"
             }
           ],

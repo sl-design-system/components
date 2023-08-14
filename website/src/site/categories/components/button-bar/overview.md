@@ -2,7 +2,7 @@
 title: Button bar
 tags: overview
 eleventyNavigation:
-  parent: Button bar (PoC)
+  parent: Button bar
   key: ButtonBarOverview
 ---
 

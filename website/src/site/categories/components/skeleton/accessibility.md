@@ -2,7 +2,7 @@
 title: Skeleton accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Skeleton (PoC)
+  parent: Skeleton
   key: SkeletonAccessibility
 ---
 <section>

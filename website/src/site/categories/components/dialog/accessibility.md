@@ -2,7 +2,7 @@
 title: Dialog accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Dialog (PoC)
+  parent: Dialog
   key: DialogAccessibility
 ---
 <section>

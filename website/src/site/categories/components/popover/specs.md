@@ -2,7 +2,7 @@
 title: Popover specs
 tags: specs
 eleventyNavigation:
-  parent: Popover (PoC)
+  parent: Popover
   key: PopoverSpecs
 ---
 <section>

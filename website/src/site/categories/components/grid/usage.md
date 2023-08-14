@@ -2,7 +2,7 @@
 title: Grid usage
 tags: usage
 eleventyNavigation:
-  parent: Grid (PoC)
+  parent: Grid
   key: GridUsage
 ---
 <section>

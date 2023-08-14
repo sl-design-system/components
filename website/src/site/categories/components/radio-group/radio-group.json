@@ -3,7 +3,7 @@
   "tags": "radio-group",
   "componentTagName": [
     {
-      "name": "RadioGroup",
+      "name": "Radio group",
       "selector": "sl-radio-group"
     },
     {

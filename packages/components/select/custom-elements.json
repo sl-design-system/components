@@ -295,7 +295,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen",
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
               "attribute": "max-overlay-height",
               "reflects": true
             },
@@ -327,7 +327,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen",
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
               "fieldName": "maxOverlayHeight"
             },
             {

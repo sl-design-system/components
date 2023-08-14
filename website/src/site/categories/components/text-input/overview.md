@@ -9,14 +9,14 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-text-input>Input example code</sl-text-input>
+<sl-text-input placeholder="placeholder">Input example code</sl-text-input>
 
 </div>
 
 <div class="ds-code">
 
 ```html
-  <sl-text-input>Input example code</sl-text-input>
+  <sl-text-input placeholder="placeholder">Input example code</sl-text-input>
  ```
 
 </div>

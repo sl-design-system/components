@@ -10,25 +10,22 @@ export class SelectOption extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Select size. */
+  /** @ignore The size of the select, is set by the select component. */
   @property({ reflect: true }) size: SelectSize = 'md';
 
-  /** Whether the option item is selected*/
-  @property() value?: FormControlValue;
-
-  /** Whether the option item is selected*/
-  @property({ reflect: true, type: Boolean }) selected = false;
-
-  /** Whether the option item is disabled*/
-  @property({ reflect: true, type: Boolean }) disabled = false;
-
-  /** Whether the content of the option item is a node*/
+  /** @ignore Whether the content of the option item is a node*/
   @property({ reflect: true }) contentType?: 'string' | 'element';
 
-  /**
-   * Apply accessible attributes and values to the tab button.
-   * Observe the selected property if it changes
-   */
+  /** The value for the option item, to be used in forms.*/
+  @property() value?: FormControlValue;
+
+  /** Whether the option item is selected. */
+  @property({ reflect: true, type: Boolean }) selected = false;
+
+  /** Whether the option item is disabled. */
+  @property({ reflect: true, type: Boolean }) disabled = false;
+
+  /** @ignore Apply accessible attributes and values to the option. Observe the selected property if it changes */
   @observe('selected')
   protected handleSelectionChange(): void {
     this.setAttribute('aria-selected', this.selected ? 'true' : 'false');

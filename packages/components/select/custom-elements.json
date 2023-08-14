@@ -159,35 +159,14 @@
           "members": [
             {
               "kind": "field",
-              "name": "contentType",
-              "type": {
-                "text": "'string' | 'element' | undefined"
-              },
-              "description": "Whether the content of the option item is a node",
-              "attribute": "contentType",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether the option item is disabled",
+              "description": "Whether the option item is disabled.",
               "attribute": "disabled",
               "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
             },
             {
               "kind": "field",
@@ -196,47 +175,27 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether the option item is selected",
+              "description": "Whether the option item is selected.",
               "attribute": "selected",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "SelectSize"
-              },
-              "default": "'md'",
-              "description": "Select size.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "value",
               "type": {
                 "text": "FormControlValue | undefined"
               },
-              "description": "Whether the option item is selected",
+              "description": "The value for the option item, to be used in forms.",
               "attribute": "value"
             }
           ],
           "attributes": [
             {
-              "name": "size",
-              "type": {
-                "text": "SelectSize"
-              },
-              "default": "'md'",
-              "description": "Select size.",
-              "fieldName": "size"
-            },
-            {
               "name": "value",
               "type": {
                 "text": "FormControlValue | undefined"
               },
-              "description": "Whether the option item is selected",
+              "description": "The value for the option item, to be used in forms.",
               "fieldName": "value"
             },
             {
@@ -245,7 +204,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether the option item is selected",
+              "description": "Whether the option item is selected.",
               "fieldName": "selected"
             },
             {
@@ -254,16 +213,8 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether the option item is disabled",
+              "description": "Whether the option item is disabled.",
               "fieldName": "disabled"
-            },
-            {
-              "name": "contentType",
-              "type": {
-                "text": "'string' | 'element' | undefined"
-              },
-              "description": "Whether the content of the option item is a node",
-              "fieldName": "contentType"
             }
           ],
           "superclass": {
@@ -273,17 +224,6 @@
           "tagName": "sl-select-option",
           "customElement": true,
           "methods": [
-            {
-              "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
-            },
             {
               "kind": "method",
               "name": "#onSlotchange",
@@ -341,37 +281,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "allOptions",
-              "type": {
-                "text": "SelectOption[]"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "button",
-              "type": {
-                "text": "HTMLButtonElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "field",
               "name": "invalid",
               "type": {
                 "text": "boolean | undefined"
@@ -392,36 +301,22 @@
             },
             {
               "kind": "field",
-              "name": "optionGroups",
-              "type": {
-                "text": "SelectOptionGroup[] | undefined"
-              }
-            },
-            {
-              "kind": "field",
               "name": "placeholder",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Placeholder to show when no options is chosen.",
+              "description": "The placeholder text to show when no options is chosen.",
               "attribute": "placeholder",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "selectedOptionPlaceholder",
-              "type": {
-                "text": "HTMLElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
               "name": "size",
               "type": {
-                "text": "SelectSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Select size.",
+              "description": "The size of the select.",
               "attribute": "size",
               "reflects": true
             }
@@ -438,10 +333,10 @@
             {
               "name": "size",
               "type": {
-                "text": "SelectSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Select size.",
+              "description": "The size of the select.",
               "fieldName": "size"
             },
             {
@@ -449,7 +344,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Placeholder to show when no options is chosen.",
+              "description": "The placeholder text to show when no options is chosen.",
               "fieldName": "placeholder"
             },
             {
@@ -618,7 +513,8 @@
                 "text": "boolean"
               },
               "static": true,
-              "default": "true"
+              "default": "true",
+              "privacy": "private"
             },
             {
               "kind": "field",
@@ -635,28 +531,32 @@
               "name": "selectedOptionPlaceholder",
               "type": {
                 "text": "HTMLElement | undefined"
-              }
+              },
+              "privacy": "private"
             },
             {
               "kind": "field",
               "name": "optionGroups",
               "type": {
                 "text": "SelectOptionGroup[] | undefined"
-              }
+              },
+              "privacy": "private"
             },
             {
               "kind": "field",
               "name": "button",
               "type": {
                 "text": "HTMLButtonElement | undefined"
-              }
+              },
+              "privacy": "private"
             },
             {
               "kind": "field",
               "name": "dialog",
               "type": {
                 "text": "HTMLDialogElement | undefined"
-              }
+              },
+              "privacy": "private"
             },
             {
               "kind": "field",
@@ -705,6 +605,7 @@
               "type": {
                 "text": "SelectOption[]"
               },
+              "privacy": "private",
               "readonly": true
             },
             {

@@ -20,13 +20,14 @@ export class Radio extends FormControlMixin(LitElement) {
   /** @private Element internals. */
   readonly internals = this.attachInternals();
 
-  /** Whether the radio is selected. */
+  /** Whether the radio is checked. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** The value for this radio button. */
   @property() value = '';
 
-  /** Button size. */
+  /** The size of the radio button.
+   * @type {'md' | 'lg'} */
   @property({ reflect: true }) size: RadioButtonSize = 'md';
 
   override connectedCallback(): void {

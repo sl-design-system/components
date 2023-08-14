@@ -68,50 +68,22 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Radio group; treat a group of radio button as one form input with valitation, hints and errors\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
           "name": "RadioGroup",
+          "slots": [
+            {
+              "description": "A list of `sl-radio` elements.",
+              "name": "default"
+            }
+          ],
           "members": [
-            {
-              "kind": "field",
-              "name": "buttons",
-              "type": {
-                "text": "Radio[]"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "defaultNodes",
-              "type": {
-                "text": "Node[] | undefined"
-              },
-              "description": "The assigned nodes."
-            },
-            {
-              "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
             {
               "kind": "field",
               "name": "horizontal",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "If true, displays the radio buttons next to each other instead of below.",
+              "description": "The orientation of the radio options; when true, the radio buttons are desplayed next to each other instead of below eachother.",
               "attribute": "horizontal",
               "reflects": true
             },
@@ -121,7 +93,7 @@
               "type": {
                 "text": "Validator[] | undefined"
               },
-              "description": "Custom validators specified by the user."
+              "description": "Custom validators."
             },
             {
               "kind": "field",
@@ -129,7 +101,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for this group.",
+              "description": "The value for the radio group, to be used in forms.",
               "attribute": "value",
               "reflects": true
             }
@@ -140,7 +112,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "If true, displays the radio buttons next to each other instead of below.",
+              "description": "The orientation of the radio options; when true, the radio buttons are desplayed next to each other instead of below eachother.",
               "fieldName": "horizontal"
             },
             {
@@ -148,7 +120,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for this group.",
+              "description": "The value for the radio group, to be used in forms.",
               "fieldName": "value"
             }
           ],
@@ -169,24 +141,6 @@
           "tagName": "sl-radio-group",
           "customElement": true,
           "methods": [
-            {
-              "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
             {
               "kind": "method",
               "name": "#onClick",
@@ -285,19 +239,11 @@
             },
             {
               "kind": "field",
-              "name": "defaultNodes",
-              "type": {
-                "text": "Node[] | undefined"
-              },
-              "description": "The assigned nodes."
-            },
-            {
-              "kind": "field",
               "name": "validators",
               "type": {
                 "text": "Validator[] | undefined"
               },
-              "description": "Custom validators specified by the user."
+              "description": "Custom validators."
             },
             {
               "kind": "field",
@@ -305,6 +251,7 @@
               "type": {
                 "text": "Radio[]"
               },
+              "privacy": "private",
               "readonly": true
             }
           ]
@@ -350,7 +297,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is selected.",
+              "description": "Whether the radio is checked.",
               "attribute": "checked",
               "reflects": true
             },
@@ -358,10 +305,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "RadioButtonSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "The size of the radio button.",
               "attribute": "size",
               "reflects": true
             },
@@ -382,7 +329,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is selected.",
+              "description": "Whether the radio is checked.",
               "fieldName": "checked"
             },
             {
@@ -397,10 +344,10 @@
             {
               "name": "size",
               "type": {
-                "text": "RadioButtonSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "The size of the radio button.",
               "fieldName": "size"
             }
           ],

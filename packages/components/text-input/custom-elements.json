@@ -138,7 +138,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Validation using pattern.",
+              "description": "Validation using pattern. Native HTML input functionality.",
               "attribute": "pattern"
             },
             {
@@ -175,10 +175,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "InputSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Input size.",
+              "description": "The size of the input.",
               "attribute": "size",
               "reflects": true
             },
@@ -225,7 +225,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the input.",
+              "description": "The value for the input, to be used in forms.",
               "attribute": "value"
             }
           ],
@@ -283,7 +283,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Validation using pattern.",
+              "description": "Validation using pattern. Native HTML input functionality.",
               "fieldName": "pattern"
             },
             {
@@ -330,10 +330,10 @@
             {
               "name": "size",
               "type": {
-                "text": "InputSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Input size.",
+              "description": "The size of the input.",
               "fieldName": "size"
             },
             {
@@ -350,7 +350,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the input.",
+              "description": "The value for the input, to be used in forms.",
               "fieldName": "value"
             }
           ],

@@ -13,12 +13,21 @@ import {
 } from '@sl-design-system/shared';
 import type { IconSize } from '@sl-design-system/icon';
 import { LitElement, html } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
 export type SwitchSize = 'sm' | 'md' | 'lg';
 export type SwitchOrientation = 'horizontal' | 'vertical';
 
+/**
+ * Atoggle switch.
+ *
+ * ```html
+ *   <sl-switch>Foo</sl-switch>
+ * ```
+ *
+ * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
+ */
 export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
@@ -51,21 +60,23 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** Custom icon in "on" state. */
   @property({ reflect: true }) iconOn?: string;
 
-  /** Switch size. */
+  /** The size of the switch.
+   * @type { 'sm' | 'md' | 'lg'}*/
   @property({ reflect: true }) size: SwitchSize = 'md';
 
-  /** Switch orientation. */
+  /** The orientation of the switch.
+   * @type {'horizontal' | 'vertical'}*/
   @property({ reflect: true }) orientation: SwitchOrientation = 'horizontal';
 
-  /** The value for the switch. */
+  /** The value for the switch, to be used in forms. */
   @property() value?: string;
 
-  @queryAssignedElements() label?: string;
-
+  /** @private The name of the icon, factoring in state and custom icons. */
   get icon(): string {
     return this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark';
   }
 
+  /** @private The size of the icon, depending on the size of the switch. */
   get iconSize(): IconSize {
     return this.size === 'md' ? 'xs' : 'md';
   }
@@ -115,10 +126,12 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     }
   }
 
+  /** @ignore Stores the initial state of the switch */
   formAssociatedCallback(): void {
     this.#initialState = this.getAttribute('checked') !== null;
   }
 
+  /** @ignore  Resets the switch to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.#validation.validate(this.checked ? this.value : undefined);

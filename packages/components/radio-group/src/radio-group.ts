@@ -16,6 +16,19 @@ import { property, queryAssignedNodes } from 'lit/decorators.js';
 import { Radio } from './radio.js';
 import styles from './radio-group.scss.js';
 
+/**
+ * Radio group; treat a group of radio button as one form input with valitation, hints and errors
+ *
+ * ```html
+ *   <sl-radio-group>
+ *     <sl-radio>Option 1</sl-radio>
+ *     <sl-radio>Option 2</sl-radio>
+ *     <sl-radio>Option 3</sl-radio>
+ *   </sl-radio-group>
+ * ```
+ *
+ * @slot default - A list of `sl-radio` elements.
+ */
 export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
@@ -68,18 +81,19 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   /** @private Element internals. */
   readonly internals = this.attachInternals();
 
-  /** The assigned nodes. */
+  /** @ignore The assigned nodes. */
   @queryAssignedNodes() defaultNodes?: Node[];
 
-  /** If true, displays the radio buttons next to each other instead of below. */
+  /** The orientation of the radio options; when true, the radio buttons are desplayed next to each other instead of below eachother. */
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
 
-  /** Custom validators specified by the user. */
+  /** Custom validators. */
   @property({ attribute: false }) validators?: Validator[];
 
-  /** The value for this group. */
+  /** The value for the radio group, to be used in forms. */
   @property({ reflect: true }) value?: string;
 
+  /** @private All included sl-radio components. */
   get buttons(): Radio[] {
     return this.defaultNodes?.filter((node): node is Radio => node instanceof Radio) || [];
   }
@@ -115,10 +129,12 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     `;
   }
 
+  /** @ignore Stores the initial state of the radio group */
   formAssociatedCallback(): void {
     this.#initialState = this.value;
   }
 
+  /** @ignore  Resets the radio group to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
   }

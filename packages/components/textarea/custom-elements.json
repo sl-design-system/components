@@ -111,10 +111,10 @@
               "kind": "field",
               "name": "resize",
               "type": {
-                "text": "ResizeType"
+                "text": "'none' | 'vertical' | 'auto'"
               },
               "default": "'vertical'",
-              "description": "Specifies how textarea can be resized.",
+              "description": "The way the textarea can be resized.",
               "attribute": "resize",
               "reflects": true
             },
@@ -133,10 +133,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "TextareaSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Textarea size.",
+              "description": "The size of the textarea.",
               "attribute": "size",
               "reflects": true
             },
@@ -179,10 +179,10 @@
               "kind": "field",
               "name": "wrap",
               "type": {
-                "text": "WrapType | undefined"
+                "text": "'soft' | 'hard'"
               },
               "default": "'soft'",
-              "description": "Specifies how the text should be wrapped during form submission.",
+              "description": "The text way should be wrapped during form submission.",
               "attribute": "wrap",
               "reflects": true
             }
@@ -256,28 +256,28 @@
             {
               "name": "resize",
               "type": {
-                "text": "ResizeType"
+                "text": "'none' | 'vertical' | 'auto'"
               },
               "default": "'vertical'",
-              "description": "Specifies how textarea can be resized.",
+              "description": "The way the textarea can be resized.",
               "fieldName": "resize"
             },
             {
               "name": "size",
               "type": {
-                "text": "TextareaSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Textarea size.",
+              "description": "The size of the textarea.",
               "fieldName": "size"
             },
             {
               "name": "wrap",
               "type": {
-                "text": "WrapType | undefined"
+                "text": "'soft' | 'hard'"
               },
               "default": "'soft'",
-              "description": "Specifies how the text should be wrapped during form submission.",
+              "description": "The text way should be wrapped during form submission.",
               "fieldName": "wrap"
             }
           ],

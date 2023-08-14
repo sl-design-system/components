@@ -78,13 +78,19 @@ export class Textarea extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the textarea should get valid styles when is valid. */
   @property({ type: Boolean, reflect: true }) showValid = false;
 
-  /** Specifies how textarea can be resized. */
+  /** The way the textarea can be resized.
+   *  @type {'none' | 'vertical' | 'auto'}
+   */
   @property({ reflect: true }) resize: ResizeType = 'vertical';
 
-  /** Textarea size. */
+  /** The size of the textarea.
+   *  @type {'md' | 'lg'}
+   */
   @property({ reflect: true }) size: TextareaSize = 'md';
 
-  /** Specifies how the text should be wrapped during form submission. */
+  /** The text way should be wrapped during form submission.
+   * @type {'soft' | 'hard'}
+   */
   @property({ reflect: true }) wrap?: WrapType = 'soft';
 
   override connectedCallback(): void {

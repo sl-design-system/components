@@ -18,10 +18,10 @@ import styles from './checkbox.scss.js';
 export type CheckboxSize = 'md' | 'lg';
 
 /**
- * A single, simple button, with optionally an icon.
+ * A checkbox with 3 states; unchecked, checked and intermediate.
  *
  * ```html
- *   <sl-button>Foo</sl-button>
+ *   <sl-checkbox>Foo</sl-checkbox>
  * ```
  *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
@@ -59,11 +59,10 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   @property({ type: Boolean }) indeterminate = false;
 
   /** The size of the checkbox
-   * @type {'md' | 'lg'}
-   */
+   * @type {'md' | 'lg'} */
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
-  /** The value for the checkbox, to be used in forms */
+  /** The value for the checkbox, to be used in forms. */
   @property() value?: string;
 
   /** @ignore */
@@ -113,7 +112,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     this.#initialState = this.getAttribute('checked') === null ? false : true;
   }
 
-  /** @ignore  Resets the checkboxs to the initial state */
+  /** @ignore  Resets the checkbox to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.#validation.validate(this.checked ? this.value : undefined);

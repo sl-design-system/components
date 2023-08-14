@@ -4,66 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "../packages/components/avatar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/avatar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "/packages/components/avatar/src/avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/button-bar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button-bar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "/packages/components/button-bar/src/button-bar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/button/index.ts",
       "declarations": [],
       "exports": [
@@ -140,6 +80,66 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/button-bar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button-bar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "/packages/components/button-bar/src/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/avatar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/avatar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "/packages/components/avatar/src/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/dialog/index.ts",
       "declarations": [],
       "exports": [
@@ -170,36 +170,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/editor/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/editor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/editor/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-editor",
-          "declaration": {
-            "name": "Editor",
-            "module": "/packages/components/editor/src/editor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/drawer/index.ts",
       "declarations": [],
       "exports": [
@@ -224,6 +194,36 @@
           "declaration": {
             "name": "Drawer",
             "module": "/packages/components/drawer/src/drawer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/editor/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/editor.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/editor/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-editor",
+          "declaration": {
+            "name": "Editor",
+            "module": "/packages/components/editor/src/editor.js"
           }
         }
       ]
@@ -554,6 +554,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/skeleton/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/skeleton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-skeleton",
+          "declaration": {
+            "name": "Skeleton",
+            "module": "/packages/components/skeleton/src/skeleton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/shared/index.ts",
       "declarations": [],
       "exports": [
@@ -643,36 +673,6 @@
           "declaration": {
             "name": "*",
             "package": "./src/validators.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/skeleton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-skeleton",
-          "declaration": {
-            "name": "Skeleton",
-            "module": "/packages/components/skeleton/src/skeleton.js"
           }
         }
       ]
@@ -863,211 +863,6 @@
           "declaration": {
             "name": "Tooltip",
             "module": "/packages/components/tooltip/src/tooltip.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/avatar/src/avatar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/avatar/src/avatar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/avatar/src/avatar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Avatar",
-          "members": [
-            {
-              "kind": "field",
-              "name": "profileName",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "attribute": "uniqueProfileId"
-            },
-            {
-              "kind": "field",
-              "name": "user",
-              "type": {
-                "text": "UserProfile | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "users",
-              "type": {
-                "text": "UserProfile[]"
-              },
-              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
-              "attribute": "users"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "uniqueProfileId",
-              "type": {
-                "text": "number"
-              },
-              "default": "0",
-              "fieldName": "uniqueProfileId"
-            },
-            {
-              "name": "users",
-              "type": {
-                "text": "UserProfile[]"
-              },
-              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
-              "fieldName": "users"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-avatar",
-          "customElement": true,
-          "methods": [],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "user",
-              "type": {
-                "text": "UserProfile | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "profileName",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Avatar",
-          "declaration": {
-            "name": "Avatar",
-            "module": "../packages/components/avatar/src/avatar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
-          "name": "ButtonBar",
-          "slots": [
-            {
-              "description": "Buttons to be grouped in the bar",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "attribute": "align",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "attribute": "reverse",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "fieldName": "align"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "fieldName": "reverse"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button-bar",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ButtonBar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "../packages/components/button-bar/src/button-bar.ts"
           }
         }
       ]
@@ -1412,7 +1207,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
+          "description": "A checkbox with 3 states; unchecked, checked and intermediate.\n\n```html\n  <sl-checkbox>Foo</sl-checkbox>\n```",
           "name": "Checkbox",
           "slots": [
             {
@@ -1438,7 +1233,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1474,7 +1269,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1534,7 +1329,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1563,7 +1358,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1600,7 +1395,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1637,7 +1432,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1660,7 +1455,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the checkbox, to be used in forms",
+              "description": "The value for the checkbox, to be used in forms.",
               "attribute": "value"
             }
           ],
@@ -1714,7 +1509,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the checkbox, to be used in forms",
+              "description": "The value for the checkbox, to be used in forms.",
               "fieldName": "value"
             },
             {
@@ -1804,7 +1599,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1818,7 +1613,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1855,7 +1650,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1878,7 +1673,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1892,7 +1687,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1905,7 +1700,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1922,6 +1717,211 @@
           "declaration": {
             "name": "Checkbox",
             "module": "../packages/components/checkbox/src/checkbox.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
+          "name": "ButtonBar",
+          "slots": [
+            {
+              "description": "Buttons to be grouped in the bar",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "attribute": "reverse",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "fieldName": "align"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button-bar",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ButtonBar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "../packages/components/button-bar/src/button-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/avatar/src/avatar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/avatar/src/avatar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/avatar/src/avatar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Avatar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "uniqueProfileId"
+            },
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "users",
+              "type": {
+                "text": "UserProfile[]"
+              },
+              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
+              "attribute": "users"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "uniqueProfileId",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "uniqueProfileId"
+            },
+            {
+              "name": "users",
+              "type": {
+                "text": "UserProfile[]"
+              },
+              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
+              "fieldName": "users"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-avatar",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "../packages/components/avatar/src/avatar.ts"
           }
         }
       ]
@@ -2332,7 +2332,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2385,7 +2385,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -2425,7 +2425,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -2462,7 +2462,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2499,7 +2499,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2536,7 +2536,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2673,7 +2673,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2687,7 +2687,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2724,7 +2724,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2747,7 +2747,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2769,7 +2769,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -2782,7 +2782,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -3525,192 +3525,6 @@
           }
         }
       ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/icon/src/icon.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/icon/src/icon.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/icon/src/icon.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Icon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The label of the icon; Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
-              "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma.",
-              "attribute": "name"
-            },
-            {
-              "kind": "method",
-              "name": "registerIcon",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "faIcons",
-                  "type": {
-                    "text": "IconDefinition | IconDefinition[]"
-                  },
-                  "description": "One or more IconDefinition that have been imported from FontAwesome"
-                }
-              ],
-              "description": "Add icon(s) to the icon registry"
-            },
-            {
-              "kind": "method",
-              "name": "registerIcons",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "icons",
-                  "type": {
-                    "text": "IconLibrary"
-                  }
-                }
-              ],
-              "description": "Store all icons from the IconLibrary of the theme in the icon registry for easy access.\nIs run in the setup method of each theme."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
-              },
-              "default": "'md'",
-              "description": "The size of the icon",
-              "attribute": "size",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The label of the icon; Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
-              "fieldName": "label"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma.",
-              "fieldName": "name"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
-              },
-              "default": "'md'",
-              "description": "The size of the icon",
-              "fieldName": "size"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-icon",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "registerIcon",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "faIcons",
-                  "type": {
-                    "text": "IconDefinition | IconDefinition[]"
-                  },
-                  "description": "One or more IconDefinition that have been imported from FontAwesome"
-                }
-              ],
-              "description": "Add icon(s) to the icon registry"
-            },
-            {
-              "kind": "method",
-              "name": "registerIcons",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "icons",
-                  "type": {
-                    "text": "IconLibrary"
-                  }
-                }
-              ],
-              "description": "Store all icons from the IconLibrary of the theme in the icon registry for easy access.\nIs run in the setup method of each theme."
-            }
-          ],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Icon",
-          "declaration": {
-            "name": "Icon",
-            "module": "../packages/components/icon/src/icon.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/icon/src/models.ts",
-      "declarations": [],
-      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -7055,6 +6869,264 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/icon/src/icon.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/icon/src/icon.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/icon/src/icon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Icon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The label of the icon; Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma.",
+              "attribute": "name"
+            },
+            {
+              "kind": "method",
+              "name": "registerIcon",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "faIcons",
+                  "type": {
+                    "text": "IconDefinition | IconDefinition[]"
+                  },
+                  "description": "One or more IconDefinition that have been imported from FontAwesome"
+                }
+              ],
+              "description": "Add icon(s) to the icon registry"
+            },
+            {
+              "kind": "method",
+              "name": "registerIcons",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "icons",
+                  "type": {
+                    "text": "IconLibrary"
+                  }
+                }
+              ],
+              "description": "Store all icons from the IconLibrary of the theme in the icon registry for easy access.\nIs run in the setup method of each theme."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
+              },
+              "default": "'md'",
+              "description": "The size of the icon",
+              "attribute": "size",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The label of the icon; Describes the icon for assistive devices. If not present, the icon is considered\nto be purely presentational.",
+              "fieldName": "label"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma.",
+              "fieldName": "name"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
+              },
+              "default": "'md'",
+              "description": "The size of the icon",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-icon",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "registerIcon",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "faIcons",
+                  "type": {
+                    "text": "IconDefinition | IconDefinition[]"
+                  },
+                  "description": "One or more IconDefinition that have been imported from FontAwesome"
+                }
+              ],
+              "description": "Add icon(s) to the icon registry"
+            },
+            {
+              "kind": "method",
+              "name": "registerIcons",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "icons",
+                  "type": {
+                    "text": "IconLibrary"
+                  }
+                }
+              ],
+              "description": "Store all icons from the IconLibrary of the theme in the icon registry for easy access.\nIs run in the setup method of each theme."
+            }
+          ],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Icon",
+          "declaration": {
+            "name": "Icon",
+            "module": "../packages/components/icon/src/icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/icon/src/models.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/popover/src/popover.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/popover/src/popover.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/popover/src/popover.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Base popover web component.",
+          "name": "Popover",
+          "cssParts": [
+            {
+              "description": "The container for the popover",
+              "name": "container"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "default": "'top'",
+              "description": "The position of this popover relative to its anchor.",
+              "attribute": "position"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "default": "'top'",
+              "description": "The position of this popover relative to its anchor.",
+              "fieldName": "position"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-popover",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Popover",
+          "declaration": {
+            "name": "Popover",
+            "module": "../packages/components/popover/src/popover.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/label/src/label.scss.ts",
       "declarations": [],
       "exports": [
@@ -7209,78 +7281,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/popover/src/popover.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/popover/src/popover.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/popover/src/popover.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Base popover web component.",
-          "name": "Popover",
-          "cssParts": [
-            {
-              "description": "The container for the popover",
-              "name": "container"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition | undefined"
-              },
-              "default": "'top'",
-              "description": "The position of this popover relative to its anchor.",
-              "attribute": "position"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition | undefined"
-              },
-              "default": "'top'",
-              "description": "The position of this popover relative to its anchor.",
-              "fieldName": "position"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-popover",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Popover",
-          "declaration": {
-            "name": "Popover",
-            "module": "../packages/components/popover/src/popover.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/radio-group/src/radio-group.scss.ts",
       "declarations": [],
       "exports": [
@@ -7299,17 +7299,15 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Radio group; treat a group of radio button as one form input with valitation, hints and errors\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
           "name": "RadioGroup",
-          "members": [
+          "slots": [
             {
-              "kind": "field",
-              "name": "buttons",
-              "type": {
-                "text": "Radio[]"
-              },
-              "readonly": true
-            },
+              "description": "A list of `sl-radio` elements.",
+              "name": "default"
+            }
+          ],
+          "members": [
             {
               "kind": "method",
               "name": "checkValidity",
@@ -7318,19 +7316,11 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "field",
-              "name": "defaultNodes",
-              "type": {
-                "text": "Node[] | undefined"
-              },
-              "description": "The assigned nodes."
             },
             {
               "kind": "field",
@@ -7352,29 +7342,11 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
               }
             },
             {
@@ -7410,7 +7382,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "If true, displays the radio buttons next to each other instead of below.",
+              "description": "The orientation of the radio options; when true, the radio buttons are desplayed next to each other instead of below eachother.",
               "attribute": "horizontal",
               "reflects": true
             },
@@ -7420,7 +7392,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -7449,7 +7421,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7486,7 +7458,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7523,7 +7495,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7535,7 +7507,7 @@
               "type": {
                 "text": "Validator[] | undefined"
               },
-              "description": "Custom validators specified by the user."
+              "description": "Custom validators."
             },
             {
               "kind": "field",
@@ -7543,7 +7515,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for this group.",
+              "description": "The value for the radio group, to be used in forms.",
               "attribute": "value",
               "reflects": true
             }
@@ -7554,7 +7526,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "If true, displays the radio buttons next to each other instead of below.",
+              "description": "The orientation of the radio options; when true, the radio buttons are desplayed next to each other instead of below eachother.",
               "fieldName": "horizontal"
             },
             {
@@ -7562,7 +7534,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for this group.",
+              "description": "The value for the radio group, to be used in forms.",
               "fieldName": "value"
             },
             {
@@ -7646,31 +7618,13 @@
           "methods": [
             {
               "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
               "name": "checkValidity",
               "return": {
                 "type": {
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7684,7 +7638,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7721,7 +7675,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7744,7 +7698,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7754,27 +7708,11 @@
           "fields": [
             {
               "kind": "field",
-              "name": "defaultNodes",
-              "type": {
-                "text": "Node[] | undefined"
-              },
-              "description": "The assigned nodes."
-            },
-            {
-              "kind": "field",
               "name": "validators",
               "type": {
                 "text": "Validator[] | undefined"
               },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
-              "name": "buttons",
-              "type": {
-                "text": "Radio[]"
-              },
-              "readonly": true
+              "description": "Custom validators."
             },
             {
               "kind": "field",
@@ -7782,7 +7720,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -7795,7 +7733,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -7847,7 +7785,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7859,7 +7797,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is selected.",
+              "description": "Whether the radio is checked.",
               "attribute": "checked",
               "reflects": true
             },
@@ -7883,7 +7821,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -7896,7 +7834,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -7925,7 +7863,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7962,7 +7900,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -7999,7 +7937,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -8009,10 +7947,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "RadioButtonSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "The size of the radio button.",
               "attribute": "size",
               "reflects": true
             },
@@ -8033,7 +7971,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is selected.",
+              "description": "Whether the radio is checked.",
               "fieldName": "checked"
             },
             {
@@ -8048,10 +7986,10 @@
             {
               "name": "size",
               "type": {
-                "text": "RadioButtonSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "The size of the radio button.",
               "fieldName": "size"
             },
             {
@@ -8112,7 +8050,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -8126,7 +8064,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -8163,7 +8101,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -8186,7 +8124,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -8200,7 +8138,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -8213,7 +8151,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -8230,6 +8168,682 @@
           "declaration": {
             "name": "Radio",
             "module": "../packages/components/radio-group/src/radio.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/select/src/select-option-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/select/src/select-option-group.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/select/src/select-option-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A way to group together options, with or without heading.\n\n```html\n <sl-select>\n   <sl-select-option-group group-heading=\"Europ\">\n   <sl-select-option>Netherlands</sl-select-option>\n   <sl-select-option>Spain</sl-select-option>\n     <sl-select-option>Poland</sl-select-option>\n   </sl-select-option-group>\n </sl-select>\n```",
+          "name": "SelectOptionGroup",
+          "slots": [
+            {
+              "description": "List of sl-options",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "groupHeading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The heading of the option group",
+              "attribute": "group-heading"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "group-heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The heading of the option group",
+              "fieldName": "groupHeading"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-select-option-group",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SelectOptionGroup",
+          "declaration": {
+            "name": "SelectOptionGroup",
+            "module": "../packages/components/select/src/select-option-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/select/src/select-option.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/select/src/select-option.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/select/src/select-option.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SelectOption",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the option item is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the option item is selected.",
+              "attribute": "selected",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "FormControlValue | undefined"
+              },
+              "description": "The value for the option item, to be used in forms.",
+              "attribute": "value"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "FormControlValue | undefined"
+              },
+              "description": "The value for the option item, to be used in forms.",
+              "fieldName": "value"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the option item is selected.",
+              "fieldName": "selected"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the option item is disabled.",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-select-option",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SelectOption",
+          "declaration": {
+            "name": "SelectOption",
+            "module": "../packages/components/select/src/select-option.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/select/src/select.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/select/src/select.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/select/src/select.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Select",
+          "members": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is invalid.",
+              "attribute": "invalid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "NodeListOf<HTMLLabelElement> | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "maxOverlayHeight",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
+              "attribute": "max-overlay-height",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The placeholder text to show when no options is chosen.",
+              "attribute": "placeholder",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the select.",
+              "attribute": "size",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "max-overlay-height",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
+              "fieldName": "maxOverlayHeight"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the select.",
+              "fieldName": "size"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The placeholder text to show when no options is chosen.",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is invalid.",
+              "fieldName": "invalid"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/shared"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-select",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "NodeListOf<HTMLLabelElement> | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Select",
+          "declaration": {
+            "name": "Select",
+            "module": "../packages/components/select/src/select.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Skeleton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "attribute": "effect",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "fieldName": "effect"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-skeleton",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Skeleton",
+          "declaration": {
+            "name": "Skeleton",
+            "module": "../packages/components/skeleton/src/skeleton.ts"
           }
         }
       ]
@@ -8736,73 +9350,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Skeleton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "attribute": "effect",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "fieldName": "effect"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-skeleton",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Skeleton",
-          "declaration": {
-            "name": "Skeleton",
-            "module": "../packages/components/skeleton/src/skeleton.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/switch/src/switch.scss.ts",
       "declarations": [],
       "exports": [
@@ -8821,8 +9368,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Atoggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
           "name": "Switch",
+          "slots": [
+            {
+              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "event",
@@ -8841,7 +9394,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -8877,29 +9430,11 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
               }
             },
             {
@@ -8931,14 +9466,6 @@
             },
             {
               "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
               "name": "iconOff",
               "type": {
                 "text": "string | undefined"
@@ -8959,14 +9486,6 @@
             },
             {
               "kind": "field",
-              "name": "iconSize",
-              "type": {
-                "text": "IconSize"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
               "name": "invalid",
               "type": {
                 "text": "boolean | undefined"
@@ -8977,18 +9496,11 @@
             },
             {
               "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              }
-            },
-            {
-              "kind": "field",
               "name": "labels",
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -9013,10 +9525,10 @@
               "kind": "field",
               "name": "orientation",
               "type": {
-                "text": "SwitchOrientation"
+                "text": "'horizontal' | 'vertical'"
               },
               "default": "'horizontal'",
-              "description": "Switch orientation.",
+              "description": "The orientation of the switch.",
               "attribute": "orientation",
               "reflects": true
             },
@@ -9028,7 +9540,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9065,7 +9577,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9102,7 +9614,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9112,10 +9624,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "SwitchSize"
+                "text": "'sm' | 'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Switch size.",
+              "description": "The size of the switch.",
               "attribute": "size",
               "reflects": true
             },
@@ -9125,7 +9637,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the switch.",
+              "description": "The value for the switch, to be used in forms.",
               "attribute": "value"
             }
           ],
@@ -9175,19 +9687,19 @@
             {
               "name": "size",
               "type": {
-                "text": "SwitchSize"
+                "text": "'sm' | 'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Switch size.",
+              "description": "The size of the switch.",
               "fieldName": "size"
             },
             {
               "name": "orientation",
               "type": {
-                "text": "SwitchOrientation"
+                "text": "'horizontal' | 'vertical'"
               },
               "default": "'horizontal'",
-              "description": "Switch orientation.",
+              "description": "The orientation of the switch.",
               "fieldName": "orientation"
             },
             {
@@ -9195,7 +9707,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the switch.",
+              "description": "The value for the switch, to be used in forms.",
               "fieldName": "value"
             },
             {
@@ -9279,31 +9791,13 @@
           "methods": [
             {
               "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
               "name": "checkValidity",
               "return": {
                 "type": {
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9317,7 +9811,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9354,7 +9848,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9377,7 +9871,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9387,34 +9881,11 @@
           "fields": [
             {
               "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "iconSize",
-              "type": {
-                "text": "IconSize"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -9427,7 +9898,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -9444,1344 +9915,6 @@
           "declaration": {
             "name": "Switch",
             "module": "../packages/components/switch/src/switch.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/select/src/select-option-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/select/src/select-option-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/select/src/select-option-group.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A way to group together options, with or without heading.\n\n```html\n <sl-select>\n   <sl-select-option-group group-heading=\"Europ\">\n   <sl-select-option>Netherlands</sl-select-option>\n   <sl-select-option>Spain</sl-select-option>\n     <sl-select-option>Poland</sl-select-option>\n   </sl-select-option-group>\n </sl-select>\n```",
-          "name": "SelectOptionGroup",
-          "slots": [
-            {
-              "description": "List of sl-options",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "groupHeading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The heading of the option group",
-              "attribute": "group-heading"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "group-heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The heading of the option group",
-              "fieldName": "groupHeading"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-select-option-group",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "SelectOptionGroup",
-          "declaration": {
-            "name": "SelectOptionGroup",
-            "module": "../packages/components/select/src/select-option-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/select/src/select-option.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/select/src/select-option.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/select/src/select-option.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "SelectOption",
-          "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the option item is disabled.",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the option item is selected.",
-              "attribute": "selected",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "FormControlValue | undefined"
-              },
-              "description": "The value for the option item, to be used in forms.",
-              "attribute": "value"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "value",
-              "type": {
-                "text": "FormControlValue | undefined"
-              },
-              "description": "The value for the option item, to be used in forms.",
-              "fieldName": "value"
-            },
-            {
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the option item is selected.",
-              "fieldName": "selected"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the option item is disabled.",
-              "fieldName": "disabled"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-select-option",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "SelectOption",
-          "declaration": {
-            "name": "SelectOption",
-            "module": "../packages/components/select/src/select-option.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/select/src/select.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/select/src/select.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/select/src/select.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Select",
-          "members": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the select is invalid.",
-              "attribute": "invalid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "NodeListOf<HTMLLabelElement> | null"
-              },
-              "description": "Native labels property",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "maxOverlayHeight",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
-              "attribute": "max-overlay-height",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The placeholder text to show when no options is chosen.",
-              "attribute": "placeholder",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "attribute": "required",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the select.",
-              "attribute": "size",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "max-overlay-height",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
-              "fieldName": "maxOverlayHeight"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the select.",
-              "fieldName": "size"
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The placeholder text to show when no options is chosen.",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the select is invalid.",
-              "fieldName": "invalid"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "fieldName": "required",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-select",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "NodeListOf<HTMLLabelElement> | null"
-              },
-              "description": "Native labels property",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Select",
-          "declaration": {
-            "name": "Select",
-            "module": "../packages/components/select/src/select.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/text-input/src/text-input.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/text-input/src/text-input.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/text-input/src/text-input.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single line text input component.",
-          "name": "TextInput",
-          "slots": [
-            {
-              "description": "Content shown before the input",
-              "name": "prefix"
-            },
-            {
-              "description": "The slot for the input element",
-              "name": "input"
-            },
-            {
-              "description": "Content shown after the input",
-              "name": "suffix"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "autocomplete",
-              "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
-              },
-              "description": "Specifies which type of data the browser can use to pre-fill the input.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
-              "attribute": "autocomplete"
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "HintSize"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "input",
-              "type": {
-                "text": "HTMLInputElement"
-              },
-              "description": "The input element in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is invalid.",
-              "attribute": "invalid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "NodeListOf<HTMLLabelElement> | null"
-              },
-              "description": "Native labels property",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "max",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum value. Only applies to number input type.",
-              "attribute": "max"
-            },
-            {
-              "kind": "field",
-              "name": "maxLength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum length (number of characters).",
-              "attribute": "maxlength"
-            },
-            {
-              "kind": "field",
-              "name": "min",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum value. Only applies to number input type.",
-              "attribute": "min"
-            },
-            {
-              "kind": "field",
-              "name": "minLength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum length (number of characters).",
-              "attribute": "minlength"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "pattern",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Validation using pattern.",
-              "attribute": "pattern"
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Placeholder text in the input.",
-              "attribute": "placeholder"
-            },
-            {
-              "kind": "field",
-              "name": "readonly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether you can interact with the input or if it is just a static, readonly display.",
-              "attribute": "readonly",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "attribute": "required",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "showValid",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input should get valid styles when is valid.",
-              "attribute": "showValid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "InputSize"
-              },
-              "default": "'md'",
-              "description": "Input size.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "step",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
-              "attribute": "step"
-            },
-            {
-              "kind": "field",
-              "name": "type",
-              "type": {
-                "text": "'email' | 'number' | 'tel' | 'text' | 'url' | 'password'"
-              },
-              "default": "'text'",
-              "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",
-              "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "valid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is valid.",
-              "attribute": "valid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the input.",
-              "attribute": "value"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "autocomplete",
-              "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
-              },
-              "description": "Specifies which type of data the browser can use to pre-fill the input.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
-              "fieldName": "autocomplete"
-            },
-            {
-              "name": "maxlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum length (number of characters).",
-              "fieldName": "maxLength"
-            },
-            {
-              "name": "minlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum length (number of characters).",
-              "fieldName": "minLength"
-            },
-            {
-              "name": "min",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum value. Only applies to number input type.",
-              "fieldName": "min"
-            },
-            {
-              "name": "max",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum value. Only applies to number input type.",
-              "fieldName": "max"
-            },
-            {
-              "name": "step",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
-              "fieldName": "step"
-            },
-            {
-              "name": "pattern",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Validation using pattern.",
-              "fieldName": "pattern"
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Placeholder text in the input.",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is invalid.",
-              "fieldName": "invalid"
-            },
-            {
-              "name": "valid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is valid.",
-              "fieldName": "valid"
-            },
-            {
-              "name": "showValid",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input should get valid styles when is valid.",
-              "fieldName": "showValid"
-            },
-            {
-              "name": "readonly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether you can interact with the input or if it is just a static, readonly display.",
-              "fieldName": "readonly"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "InputSize"
-              },
-              "default": "'md'",
-              "description": "Input size.",
-              "fieldName": "size"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "'email' | 'number' | 'tel' | 'text' | 'url' | 'password'"
-              },
-              "default": "'text'",
-              "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",
-              "fieldName": "type"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the input.",
-              "fieldName": "value"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "fieldName": "required",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hintSize",
-              "type": {
-                "text": "HintSize"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-text-input",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "input",
-              "type": {
-                "text": "HTMLInputElement"
-              },
-              "description": "The input element in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "NodeListOf<HTMLLabelElement> | null"
-              },
-              "description": "Native labels property",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TextInput",
-          "declaration": {
-            "name": "TextInput",
-            "module": "../packages/components/text-input/src/text-input.ts"
           }
         }
       ]
@@ -11047,6 +10180,735 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/text-input/src/text-input.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/text-input/src/text-input.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/text-input/src/text-input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single line text input component.",
+          "name": "TextInput",
+          "slots": [
+            {
+              "description": "Content shown before the input",
+              "name": "prefix"
+            },
+            {
+              "description": "The slot for the input element",
+              "name": "input"
+            },
+            {
+              "description": "Content shown after the input",
+              "name": "suffix"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the input.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
+              "attribute": "autocomplete"
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "attribute": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "HintSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "input",
+              "type": {
+                "text": "HTMLInputElement"
+              },
+              "description": "The input element in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is invalid.",
+              "attribute": "invalid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "NodeListOf<HTMLLabelElement> | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum value. Only applies to number input type.",
+              "attribute": "max"
+            },
+            {
+              "kind": "field",
+              "name": "maxLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum length (number of characters).",
+              "attribute": "maxlength"
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum value. Only applies to number input type.",
+              "attribute": "min"
+            },
+            {
+              "kind": "field",
+              "name": "minLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum length (number of characters).",
+              "attribute": "minlength"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "pattern",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Validation using pattern. Native HTML input functionality.",
+              "attribute": "pattern"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder text in the input.",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the input or if it is just a static, readonly display.",
+              "attribute": "readonly",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the input should get valid styles when is valid.",
+              "attribute": "showValid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the input.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
+              "attribute": "step"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'email' | 'number' | 'tel' | 'text' | 'url' | 'password'"
+              },
+              "default": "'text'",
+              "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is valid.",
+              "attribute": "valid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the input, to be used in forms.",
+              "attribute": "value"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "autocomplete",
+              "type": {
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the input.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
+              "fieldName": "autocomplete"
+            },
+            {
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum length (number of characters).",
+              "fieldName": "maxLength"
+            },
+            {
+              "name": "minlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum length (number of characters).",
+              "fieldName": "minLength"
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum value. Only applies to number input type.",
+              "fieldName": "min"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum value. Only applies to number input type.",
+              "fieldName": "max"
+            },
+            {
+              "name": "step",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
+              "fieldName": "step"
+            },
+            {
+              "name": "pattern",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Validation using pattern. Native HTML input functionality.",
+              "fieldName": "pattern"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder text in the input.",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is invalid.",
+              "fieldName": "invalid"
+            },
+            {
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is valid.",
+              "fieldName": "valid"
+            },
+            {
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the input should get valid styles when is valid.",
+              "fieldName": "showValid"
+            },
+            {
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the input or if it is just a static, readonly display.",
+              "fieldName": "readonly"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the input.",
+              "fieldName": "size"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "'email' | 'number' | 'tel' | 'text' | 'url' | 'password'"
+              },
+              "default": "'text'",
+              "description": "The input type. Only text types are valid here. For other types,\nsee their respective components.",
+              "fieldName": "type"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the input, to be used in forms.",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "fieldName": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "HintSize"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/shared"
+            },
+            {
+              "name": "HintMixin",
+              "package": "@sl-design-system/shared"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-text-input",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "input",
+              "type": {
+                "text": "HTMLInputElement"
+              },
+              "description": "The input element in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "NodeListOf<HTMLLabelElement> | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TextInput",
+          "declaration": {
+            "name": "TextInput",
+            "module": "../packages/components/text-input/src/text-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/textarea/src/textarea.scss.ts",
       "declarations": [],
       "exports": [
@@ -11091,7 +10953,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -11117,7 +10979,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -11157,7 +11019,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -11223,7 +11085,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -11247,10 +11109,10 @@
               "kind": "field",
               "name": "resize",
               "type": {
-                "text": "ResizeType"
+                "text": "'none' | 'vertical' | 'auto'"
               },
               "default": "'vertical'",
-              "description": "Specifies how textarea can be resized.",
+              "description": "The way the textarea can be resized.",
               "attribute": "resize",
               "reflects": true
             },
@@ -11271,7 +11133,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -11308,7 +11170,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -11329,10 +11191,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "TextareaSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Textarea size.",
+              "description": "The size of the textarea.",
               "attribute": "size",
               "reflects": true
             },
@@ -11375,10 +11237,10 @@
               "kind": "field",
               "name": "wrap",
               "type": {
-                "text": "WrapType | undefined"
+                "text": "'soft' | 'hard'"
               },
               "default": "'soft'",
-              "description": "Specifies how the text should be wrapped during form submission.",
+              "description": "The text way should be wrapped during form submission.",
               "attribute": "wrap",
               "reflects": true
             }
@@ -11452,28 +11314,28 @@
             {
               "name": "resize",
               "type": {
-                "text": "ResizeType"
+                "text": "'none' | 'vertical' | 'auto'"
               },
               "default": "'vertical'",
-              "description": "Specifies how textarea can be resized.",
+              "description": "The way the textarea can be resized.",
               "fieldName": "resize"
             },
             {
               "name": "size",
               "type": {
-                "text": "TextareaSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Textarea size.",
+              "description": "The size of the textarea.",
               "fieldName": "size"
             },
             {
               "name": "wrap",
               "type": {
-                "text": "WrapType | undefined"
+                "text": "'soft' | 'hard'"
               },
               "default": "'soft'",
-              "description": "Specifies how the text should be wrapped during form submission.",
+              "description": "The text way should be wrapped during form submission.",
               "fieldName": "wrap"
             },
             {
@@ -11563,7 +11425,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -11577,7 +11439,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -11614,7 +11476,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -11637,7 +11499,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function",
+              "description": "Native ElementInternals function.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -11667,7 +11529,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -11680,7 +11542,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -14369,6 +14231,227 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/base.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "decorateProperty",
+          "parameters": [
+            {
+              "name": "{\n    finisher,\n    descriptor\n  }",
+              "type": {
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+              }
+            },
+            {
+              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
+              "name": "finisher",
+              "type": {
+                "text": "function"
+              }
+            },
+            {
+              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
+              "name": "descriptor",
+              "type": {
+                "text": "function"
+              }
+            }
+          ],
+          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
+          "return": {
+            "type": {
+              "text": "ClassElement|void"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "decorateProperty",
+          "declaration": {
+            "name": "decorateProperty",
+            "module": "../packages/components/shared/src/decorators/base.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EventEmitter",
+          "members": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": []
+        },
+        {
+          "kind": "variable",
+          "name": "event",
+          "type": {
+            "text": "Event"
+          }
+        },
+        {
+          "kind": "function",
+          "name": "event",
+          "return": {
+            "type": {
+              "text": "any"
+            }
+          },
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": {
+                "text": "EventOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EventEmitter",
+          "declaration": {
+            "name": "EventEmitter",
+            "module": "../packages/components/shared/src/decorators/event.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "event",
+          "declaration": {
+            "name": "event",
+            "module": "../packages/components/shared/src/decorators/event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./base.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./observe.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/observe.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "observe",
+          "parameters": [
+            {
+              "name": "propertyName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "lifecycle",
+              "default": "'update'",
+              "type": {
+                "text": "ObserveLifecycle"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "observe",
+          "declaration": {
+            "name": "observe",
+            "module": "../packages/components/shared/src/decorators/observe.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/shared/src/data-source/array-data-source.ts",
       "declarations": [
         {
@@ -15046,227 +15129,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/base.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "decorateProperty",
-          "parameters": [
-            {
-              "name": "{\n    finisher,\n    descriptor\n  }",
-              "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
-              }
-            },
-            {
-              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
-              "name": "finisher",
-              "type": {
-                "text": "function"
-              }
-            },
-            {
-              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
-              "name": "descriptor",
-              "type": {
-                "text": "function"
-              }
-            }
-          ],
-          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
-          "return": {
-            "type": {
-              "text": "ClassElement|void"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "decorateProperty",
-          "declaration": {
-            "name": "decorateProperty",
-            "module": "../packages/components/shared/src/decorators/base.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EventEmitter",
-          "members": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ],
-          "methods": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ],
-          "fields": []
-        },
-        {
-          "kind": "variable",
-          "name": "event",
-          "type": {
-            "text": "Event"
-          }
-        },
-        {
-          "kind": "function",
-          "name": "event",
-          "return": {
-            "type": {
-              "text": "any"
-            }
-          },
-          "parameters": [
-            {
-              "name": "options",
-              "optional": true,
-              "type": {
-                "text": "EventOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EventEmitter",
-          "declaration": {
-            "name": "EventEmitter",
-            "module": "../packages/components/shared/src/decorators/event.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "event",
-          "declaration": {
-            "name": "event",
-            "module": "../packages/components/shared/src/decorators/event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./base.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/observe.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "observe",
-          "parameters": [
-            {
-              "name": "propertyName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "lifecycle",
-              "default": "'update'",
-              "type": {
-                "text": "ObserveLifecycle"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "observe",
-          "declaration": {
-            "name": "observe",
-            "module": "../packages/components/shared/src/decorators/observe.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/shared/src/directives/anchor.ts",
       "declarations": [
         {
@@ -15335,7 +15197,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function"
+              "description": "Native ElementInternals function."
             },
             {
               "kind": "field",
@@ -15353,7 +15215,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true
             },
             {
@@ -15362,7 +15224,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true
             },
             {
@@ -15383,7 +15245,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function"
+              "description": "Native ElementInternals function."
             },
             {
               "kind": "field",
@@ -15412,7 +15274,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function"
+              "description": "Native ElementInternals function."
             },
             {
               "kind": "method",
@@ -15445,7 +15307,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function"
+              "description": "Native ElementInternals function."
             }
           ],
           "attributes": [
@@ -15491,7 +15353,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function"
+              "description": "Native ElementInternals function."
             },
             {
               "kind": "method",
@@ -15501,7 +15363,7 @@
                   "text": "boolean"
                 }
               },
-              "description": "Native ElementInternals function"
+              "description": "Native ElementInternals function."
             },
             {
               "kind": "method",
@@ -15534,7 +15396,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function"
+              "description": "Native ElementInternals function."
             },
             {
               "kind": "method",
@@ -15553,7 +15415,7 @@
                   }
                 }
               ],
-              "description": "Native ElementInternals function"
+              "description": "Native ElementInternals function."
             }
           ],
           "fields": [
@@ -15563,7 +15425,7 @@
               "type": {
                 "text": "HTMLFormElement | null"
               },
-              "description": "Native form property",
+              "description": "Native form property.",
               "readonly": true
             },
             {
@@ -15572,7 +15434,7 @@
               "type": {
                 "text": "NodeListOf<HTMLLabelElement> | null"
               },
-              "description": "Native labels property",
+              "description": "Native labels property.",
               "readonly": true
             }
           ]

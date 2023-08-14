@@ -258,7 +258,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
+          "description": "A checkbox with 3 states; unchecked, checked and intermediate.\n\n```html\n  <sl-checkbox>Foo</sl-checkbox>\n```",
           "name": "Checkbox",
           "slots": [
             {
@@ -323,7 +323,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the checkbox, to be used in forms",
+              "description": "The value for the checkbox, to be used in forms.",
               "attribute": "value"
             }
           ],
@@ -377,7 +377,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the checkbox, to be used in forms",
+              "description": "The value for the checkbox, to be used in forms.",
               "fieldName": "value"
             }
           ],

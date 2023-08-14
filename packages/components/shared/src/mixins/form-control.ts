@@ -71,7 +71,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native form property */
+    /** Native form property. */
     get form(): HTMLFormElement | null {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.form;
@@ -80,7 +80,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native labels property */
+    /** Native labels property. */
     get labels(): NodeListOf<HTMLLabelElement> | null {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.labels;
@@ -117,7 +117,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native ElementInternals function */
+    /** Native ElementInternals function. */
     checkValidity(): boolean {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.checkValidity();
@@ -126,7 +126,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native ElementInternals function */
+    /** Native ElementInternals function. */
     reportValidity(): boolean {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.reportValidity();
@@ -135,17 +135,17 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** @ignore Native ElementInternals helper function*/
+    /** @ignore Native ElementInternals helper function. */
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
     }
 
-    /** Native ElementInternals function */
+    /** Native ElementInternals function. */
     setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void {
       console.log('setValidity', { flags, message, anchor });
     }
 
-    /** Native ElementInternals function */
+    /** Native ElementInternals function. */
     setFormValue(value?: FormControlValue): void {
       this.#cachedValue = value;
 

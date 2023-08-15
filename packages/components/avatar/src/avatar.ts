@@ -1,11 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { LitElement, html, nothing } from 'lit';
+import { property } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
 
 export interface UserProfile {
   name: UserProfileName;
-  picture: UserProfilePicture;
+  picture?: UserProfilePicture;
 }
 export interface UserProfileName {
   first: string;
@@ -16,88 +16,63 @@ export interface UserProfilePicture {
   thumbnail: string;
 }
 
+export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+export type FallbackType = 'initials' | 'image';
+export type UserStatus = 'online' | 'offline' | 'away' | 'do-not-disturb';
+
 export class Avatar extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  @property() uniqueProfileId = 0;
-
-  @state() user?: UserProfile;
-
-  @property() users: UserProfile[] = [
-    {
-      name: {
-        title: 'Mr',
-        first: 'Yousef',
-        last: 'Van der Schaaf'
-      },
-      picture: {
-        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
-      }
-    },
-    {
-      name: {
-        title: 'Mr',
-        first: 'Chester',
-        last: 'Reid'
-      },
-      picture: {
-        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'
-      }
-    },
-    {
-      name: {
-        title: 'Mr',
-        first: 'Johnni',
-        last: 'Sullivan'
-      },
-      picture: {
-        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'
-      }
-    },
-    {
-      name: {
-        title: 'Mr',
-        first: 'Gustav',
-        last: 'Christensen'
-      },
-      picture: {
-        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'
-      }
-    },
-    {
-      name: {
-        title: 'Ms',
-        first: 'Emma',
-        last: 'Henderson'
-      },
-      picture: {
-        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'
-      }
-    }
-  ];
+  @property() user?: UserProfile;
+  @property({ reflect: true }) size?: AvatarSize = 'md';
+  @property() fallback?: FallbackType = 'initials';
+  @property() status?: UserStatus;
 
   get profileName(): string {
     return `${this.user?.name.first || 'John'} ${this.user?.name.last || 'Doe'}`;
   }
+  get image(): TemplateResult {
+    if (this.user?.picture) {
+      return html`<img
+        alt="picture of ${this.profileName}"
+        .src=${this.user?.picture?.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
+      />`;
+    } else if (this.user && this.fallback === 'initials') {
+      return html`${this.user.name.first.substring(0, 1) + this.user.name.last.substring(0, 1)}`;
+    } else {
+      return html`<svg xmlns="http://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 16 16">
+        <path
+          d="M8 1a3 3 0 1 0 .002 6.002A3 3 0 0 0 8 1zM6.5 8A4.491 4.491 0 0 0 2 12.5v.5c0 1.11.89 2 2 2h8c1.11 0 2-.89 2-2v-.5C14 10.008 11.992 8 9.5 8zm0 0"
+        />
+      </svg>`;
+    }
+  }
+
+  get statusBadge(): TemplateResult | typeof nothing {
+    if (this.status) {
+      return html`<div class="status-badge"></div>`;
+    }
+    return nothing;
+  }
 
   override render(): TemplateResult {
     return html`
-      <img
-        alt="picture of ${this.profileName}"
-        .src=${this.user?.picture.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
-      />
-      <span>${this.profileName}</span>
+      <picture> ${this.image} ${this.statusBadge} </picture>
+      <div>
+        <span>${this.profileName}</span>
+        <slot></slot>
+      </div>
     `;
   }
 
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    if (this.users[this.uniqueProfileId]) {
-      this.user = this.users[this.uniqueProfileId];
-    } else {
-      console.warn('Error loading user details');
-    }
+    // if (this.users[this.uniqueProfileId]) {
+    //   this.user = this.users[this.uniqueProfileId];
+    // } else {
+    //   console.warn('Error loading user details');
+    // }
   }
 }

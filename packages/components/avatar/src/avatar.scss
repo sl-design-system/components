@@ -1,20 +1,70 @@
+$sizes: sm, md, lg, xl, 2xl, 3xl;
+$statuses: online, offline, away, do-not-disturb;
+
 :host {
+
+  --sl-avatar-image-size-sm: 20px;
+  --sl-avatar-image-size-md: 30px;
+  --sl-avatar-image-size-lg: 40px;
+  --sl-avatar-image-size-xl: 50px;
+  --sl-avatar-image-size-2xl: 60px;
+  --sl-avatar-image-size-3xl: 70px;
+
+  --sl-avatar-status-color-online: var(--sl-color-palette-success-base);
+  --sl-avatar-status-color-offline: var(--sl-color-palette-neutral-base);
+  --sl-avatar-status-color-away: var(--sl-color-palette-warning-base);
+  --sl-avatar-status-color-do-not-disturb: var(--sl-color-palette-danger-base);
   align-items: center;
   display: flex;
   gap: 8px;
   padding: 4px;
 }
 
-img {
-  border-radius: 50%;
-  flex: 0 0 22px;
-  height: 22px;
-  width: 22px;
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_picture-size: var(--sl-avatar-image-size-#{$size});
+    --_status-badge-size: calc(var(--sl-avatar-image-size-#{$size}) * 0.3);
+  }
 }
 
-span {
+@each $status in $statuses {
+  :host([status='#{$status}']) {
+    --_status-color: var(--sl-avatar-status-color-#{$status});
+  }
+}
+
+picture {
+  background-color: rgb(var(--sl-color-palette-neutral-base));
+  border-radius: 50%;
+  display: grid;
+  flex: 0 0 var(--_picture-size);
+  height: var(--_picture-size);
+  overflow: hidden;
+  place-content: center;
+  position: relative;
+  width: var(--_picture-size);
+
+  *:not(.status-badge) {
+    height: inherit;
+    object-fit: cover;
+    width: inherit;
+  }
+}
+
+div {
+  display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.status-badge {
+  background-color: rgb(var(--_status-color));
+  border-radius: 50%;
+  height: var(--_status-badge-size);
+  position: absolute;
+  right: 10%;
+  width: var(--_status-badge-size);
 }

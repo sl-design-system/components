@@ -61,7 +61,7 @@
               "type": {
                 "text": "ButtonFill"
               },
-              "default": "'default'",
+              "default": "'solid'",
               "description": "The button fill.",
               "attribute": "fill",
               "reflects": true
@@ -122,7 +122,7 @@
               "type": {
                 "text": "ButtonFill"
               },
-              "default": "'default'",
+              "default": "'solid'",
               "description": "The button fill.",
               "fieldName": "fill"
             },

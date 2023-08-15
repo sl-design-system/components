@@ -398,7 +398,7 @@
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-button-link-md: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-link-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
+  --sl-text-button-link-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
     undefined;
@@ -497,7 +497,7 @@
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-600));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-focusring-default: rgb(var(--sl-color-palette-primary-base));
     --sl-color-input-field-label-icon-disabled: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-input-field-label-text-disabled: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-input-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-400));

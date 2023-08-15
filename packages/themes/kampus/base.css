@@ -390,7 +390,7 @@
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-button-link-md: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-link-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
+  --sl-text-button-link-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
     undefined;

@@ -35,6 +35,10 @@ $transition-timing: 300ms;
   text-decoration: none;
 }
 
+img {
+  max-width: 100%;
+}
+
 @media screen and (min-width: $lg-breakpoint) {
   .ds-container {
     padding: 3.2rem 7.2rem 0;

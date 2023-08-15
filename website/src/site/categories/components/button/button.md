@@ -1,6 +1,6 @@
 ---
 title: Button
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna.
+description: Buttons let users make choices and take action.
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:

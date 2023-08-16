@@ -2,7 +2,6 @@ $sizes: sm, md, lg, xl, 2xl, 3xl;
 $statuses: online, offline, away, do-not-disturb;
 
 :host {
-
   --sl-avatar-image-size-sm: 20px;
   --sl-avatar-image-size-md: 30px;
   --sl-avatar-image-size-lg: 40px;
@@ -34,19 +33,21 @@ $statuses: online, offline, away, do-not-disturb;
 }
 
 picture {
-  background-color: rgb(var(--sl-color-palette-neutral-base));
-  border-radius: 50%;
   display: grid;
   flex: 0 0 var(--_picture-size);
   height: var(--_picture-size);
-  overflow: hidden;
   place-content: center;
   position: relative;
   width: var(--_picture-size);
 
-  *:not(.status-badge) {
+  svg,
+  img {
+    background-color: rgb(var(--sl-color-palette-neutral-base));
+    border-radius: 50%;
+    fill: #00d;
     height: inherit;
     object-fit: cover;
+    overflow: hidden;
     width: inherit;
   }
 }
@@ -65,6 +66,6 @@ div {
   border-radius: 50%;
   height: var(--_status-badge-size);
   position: absolute;
-  right: 10%;
+  right: 2%;
   width: var(--_status-badge-size);
 }

@@ -147,11 +147,11 @@ export const All: StoryObj = {
           ${sizes.map(
             size => html` <tr>
               <th>${sizeName(size)}</th>
-              <td><sl-avatar .user=${users[0]} .size=${size}></sl-avatar></td>
+              <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>
               <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>
               <td><sl-avatar .user=${users[4]} .size=${size} fallback="image"></sl-avatar></td>
               <td><sl-avatar .user=${users[1]} .size=${size}>Very good student</sl-avatar></td>
-              <td><sl-avatar .user=${users[2]} .size=${size} status="online"></sl-avatar></td>
+              <td><sl-avatar .user=${users[0]} .size=${size} status="online"></sl-avatar></td>
             </tr>`
           )}
           </tr>

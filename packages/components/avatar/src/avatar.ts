@@ -17,7 +17,7 @@ export interface UserProfilePicture {
 }
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-export type FallbackType = 'initials' | 'image';
+export type AvatarFallbackType = 'initials' | 'image';
 export type UserStatus = 'online' | 'offline' | 'away' | 'do-not-disturb';
 
 export class Avatar extends LitElement {
@@ -26,8 +26,9 @@ export class Avatar extends LitElement {
 
   @property() user?: UserProfile;
   @property({ reflect: true }) size?: AvatarSize = 'md';
-  @property() fallback?: FallbackType = 'initials';
-  @property() status?: UserStatus;
+  @property() fallback?: AvatarFallbackType = 'initials';
+  @property({ reflect: true }) status?: UserStatus;
+  @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
 
   get profileName(): string {
     return `${this.user?.name.first || 'John'} ${this.user?.name.last || 'Doe'}`;
@@ -67,10 +68,12 @@ export class Avatar extends LitElement {
   override render(): TemplateResult {
     return html`
       <picture> ${this.image} ${this.statusBadge} </picture>
-      <div>
-        <span>${this.profileName}</span>
-        <slot></slot>
-      </div>
+      ${!this.imageOnly
+        ? html`<div>
+            <span>${this.profileName}</span>
+            <slot></slot>
+          </div>`
+        : nothing}
     `;
   }
 

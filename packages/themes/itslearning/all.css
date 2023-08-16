@@ -361,7 +361,7 @@
   --sl-border-radius-focusring-full: var(--sl-border-radius-full);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
-  --sl-border-radius-default: var(--sl-border-radius-3xs);
+  --sl-border-radius-default: var(--sl-border-radius-2xs);
   --sl-border-radius-button-icon-only-lg: var(--sl-border-radius-2xs);
   --sl-border-radius-button-icon-only-md: var(--sl-border-radius-2xs);
   --sl-border-radius-button-icon-only-sm: var(--sl-border-radius-2xs);
@@ -465,7 +465,7 @@
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-700));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-focusring-default: rgb(var(--sl-color-palette-primary-base));
     --sl-color-input-option-valid-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-input-option-valid-checked-disabled-label: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-input-option-valid-checked-disabled-background: rgb(var(--sl-color-palette-neutral-300));

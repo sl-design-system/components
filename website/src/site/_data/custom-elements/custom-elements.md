@@ -14,22 +14,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-avatar` | Avatar      | /packages/components/avatar/src/avatar.js |         |
 
-# `../packages/components/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./src/button-bar.js |
-
-# `../packages/components/button-bar/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                            | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
-
 # `../packages/components/button/index.ts`:
 
 ## Exports
@@ -45,6 +29,22 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
+
+# `../packages/components/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package             |
+| ---- | ---- | ----------- | ------ | ------------------- |
+| `js` | `*`  | *           |        | ./src/button-bar.js |
+
+# `../packages/components/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                            | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
 
 # `../packages/components/checkbox/index.ts`:
 
@@ -79,22 +79,6 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
-
-# `../packages/components/drawer/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/drawer.js |
-
-# `../packages/components/drawer/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
 
 # `../packages/components/editor/index.ts`:
 
@@ -138,6 +122,22 @@
 | `custom-element-definition` | `sl-grid-filter-column`    | GridFilterColumn    | /packages/components/grid/src/filter-column.js    |         |
 | `custom-element-definition` | `sl-grid-selection-column` | GridSelectionColumn | /packages/components/grid/src/selection-column.js |         |
 | `custom-element-definition` | `sl-grid-sort-column`      | GridSortColumn      | /packages/components/grid/src/sort-column.js      |         |
+
+# `../packages/components/drawer/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/drawer.js |
+
+# `../packages/components/drawer/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
 
 # `../packages/components/icon/index.ts`:
 
@@ -226,6 +226,22 @@
 | `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
 | `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
 
+# `../packages/components/skeleton/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package           |
+| ---- | ---- | ----------- | ------ | ----------------- |
+| `js` | `*`  | *           |        | ./src/skeleton.js |
+
+# `../packages/components/skeleton/register.ts`:
+
+## Exports
+
+| Kind                        | Name          | Declaration | Module                                        | Package |
+| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-skeleton` | Skeleton    | /packages/components/skeleton/src/skeleton.js |         |
+
 # `../packages/components/shared/index.ts`:
 
 ## Exports
@@ -244,22 +260,6 @@
 | `js` | `*`  | *           |        | ./src/types.js             |
 | `js` | `*`  | *           |        | ./src/validators.js        |
 
-# `../packages/components/skeleton/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package           |
-| ---- | ---- | ----------- | ------ | ----------------- |
-| `js` | `*`  | *           |        | ./src/skeleton.js |
-
-# `../packages/components/skeleton/register.ts`:
-
-## Exports
-
-| Kind                        | Name          | Declaration | Module                                        | Package |
-| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-skeleton` | Skeleton    | /packages/components/skeleton/src/skeleton.js |         |
-
 # `../packages/components/switch/index.ts`:
 
 ## Exports
@@ -275,6 +275,22 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-switch` | Switch      | /packages/components/switch/src/switch.js |         |
+
+# `../packages/components/text-input/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package          |
+| ---- | ---- | ----------- | ------ | ---------------- |
+| `js` | `*`  | *           |        | ./src/text-input |
+
+# `../packages/components/text-input/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                         | Package |
+| --------------------------- | --------------- | ----------- | ---------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-text-input` | TextInput   | /packages/components/text-input/src/text-input |         |
 
 # `../packages/components/tabs/index.ts`:
 
@@ -295,22 +311,6 @@
 | `custom-element-definition` | `sl-tab`       | Tab         | /packages/components/tabs/src/tab.js       |         |
 | `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/components/tabs/src/tab-group.js |         |
 | `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/components/tabs/src/tab-panel.js |         |
-
-# `../packages/components/text-input/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package          |
-| ---- | ---- | ----------- | ------ | ---------------- |
-| `js` | `*`  | *           |        | ./src/text-input |
-
-# `../packages/components/text-input/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                         | Package |
-| --------------------------- | --------------- | ----------- | ---------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-text-input` | TextInput   | /packages/components/text-input/src/text-input |         |
 
 # `../packages/components/textarea/index.ts`:
 
@@ -438,52 +438,6 @@
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Avatar` | Avatar      | ../packages/components/avatar/src/avatar.ts |         |
 
-# `../packages/components/button-bar/src/button-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
-
-# `../packages/components/button-bar/src/button-bar.ts`:
-
-## class: `ButtonBar`, `sl-button-bar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name      | Privacy | Type                                              | Default   | Description                                                                                    | Inherited From |
-| --------- | ------- | ------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------- | -------------- |
-| `align`   |         | `'start' \| 'center' \| 'end' \| 'space-between'` | `'start'` | The alignment of the buttons within the bar.&#xA;Functionally the same as flex-box alignments. |                |
-| `reverse` |         | `boolean`                                         | `false`   | When set to true, the button order is reversed using flex-direction.                           |                |
-
-### Attributes
-
-| Name      | Field   | Inherited From |
-| --------- | ------- | -------------- |
-| `align`   | align   |                |
-| `reverse` | reverse |                |
-
-### Slots
-
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
-
 # `../packages/components/button/src/button.scss.ts`:
 
 ## Exports
@@ -533,70 +487,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Button` | Button      | ../packages/components/button/src/button.ts |         |
-
-# `../packages/components/dialog/src/dialog.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
-
-# `../packages/components/dialog/src/dialog.ts`:
-
-## class: `Dialog`, `sl-dialog`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Fields
-
-| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
-| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
-| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
-| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
-| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters | Return | Inherited From |
-| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `close`     |         |             |            | `void` |                |
-| `showModal` |         |             |            | `void` |                |
-
-### Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `disable-close` | disableClose |                |
-| `role`          | role         |                |
-
-### Slots
-
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `action`  | Area where action buttons are placed |
-| `default` | Body content for the dialog          |
-| `footer`  | Footer content for the dialog        |
-| `header`  | Header content for the dialog        |
-| `title`   | The title of the dialog              |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
 
 # `../packages/components/checkbox/src/checkbox-group.scss.ts`:
 
@@ -742,6 +632,116 @@
 | ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Checkbox` | Checkbox    | ../packages/components/checkbox/src/checkbox.ts |         |
 
+# `../packages/components/button-bar/src/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
+
+# `../packages/components/button-bar/src/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name      | Privacy | Type                                              | Default   | Description                                                                                    | Inherited From |
+| --------- | ------- | ------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------- | -------------- |
+| `align`   |         | `'start' \| 'center' \| 'end' \| 'space-between'` | `'start'` | The alignment of the buttons within the bar.&#xA;Functionally the same as flex-box alignments. |                |
+| `reverse` |         | `boolean`                                         | `false`   | When set to true, the button order is reversed using flex-direction.                           |                |
+
+### Attributes
+
+| Name      | Field   | Inherited From |
+| --------- | ------- | -------------- |
+| `align`   | align   |                |
+| `reverse` | reverse |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
+
+# `../packages/components/dialog/src/dialog.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
+
+# `../packages/components/dialog/src/dialog.ts`:
+
+## class: `Dialog`, `sl-dialog`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Fields
+
+| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
+| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
+| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
+| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
+| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters | Return | Inherited From |
+| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `close`     |         |             |            | `void` |                |
+| `showModal` |         |             |            | `void` |                |
+
+### Attributes
+
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `disable-close` | disableClose |                |
+| `role`          | role         |                |
+
+### Slots
+
+| Name      | Description                          |
+| --------- | ------------------------------------ |
+| `action`  | Area where action buttons are placed |
+| `default` | Body content for the dialog          |
+| `footer`  | Footer content for the dialog        |
+| `header`  | Header content for the dialog        |
+| `title`   | The title of the dialog              |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
+
 # `../packages/components/drawer/src/drawer.scss.ts`:
 
 ## Exports
@@ -805,203 +805,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
-
-# `../packages/components/editor/src/commands.ts`:
-
-## Functions
-
-| Name      | Description | Parameters        | Return    |
-| --------- | ----------- | ----------------- | --------- |
-| `setHTML` |             | `content: string` | `Command` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `setHTML` | setHTML     | ../packages/components/editor/src/commands.ts |         |
-
-# `../packages/components/editor/src/editor.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/editor/src/editor.scss.ts |         |
-
-# `../packages/components/editor/src/editor.ts`:
-
-## class: `Editor`, `sl-editor`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-| `HintMixin`        |        | @sl-design-system/shared |
-
-### Fields
-
-| Name       | Privacy | Type                                   | Default | Description                                                                | Inherited From   |
-| ---------- | ------- | -------------------------------------- | ------- | -------------------------------------------------------------------------- | ---------------- |
-| `disabled` |         | `boolean \| undefined`                 |         | Whether the form control is disabled; when set no interaction is possible. | HintMixin        |
-| `form`     |         | `HTMLFormElement \| null`              |         | Native form property.                                                      | FormControlMixin |
-| `hint`     |         | `string \| undefined`                  |         | The hint. If you need to display HTML, use the `hint` slot instead.        | HintMixin        |
-| `hintSize` |         | `HintSize`                             | `'md'`  | The hint size.                                                             | HintMixin        |
-| `labels`   |         | `NodeListOf<HTMLLabelElement> \| null` |         | Native labels property.                                                    | FormControlMixin |
-| `name`     |         | `string \| undefined`                  |         | The name of the form control.                                              | FormControlMixin |
-| `plugins`  |         | `Plugin[] \| undefined`                |         | Additional plugins.                                                        |                  |
-| `required` |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                             | FormControlMixin |
-| `value`    |         | `string \| undefined`                  |         |                                                                            |                  |
-
-### Methods
-
-| Name             | Privacy | Description                       | Parameters                                                        | Return                             | Inherited From   |
-| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | ---------------------------------- | ---------------- |
-| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean`                          | FormControlMixin |
-| `createEditor`   |         |                                   |                                                                   | `EditorView`                       |                  |
-| `createSchema`   |         |                                   |                                                                   | `Schema<EditorNodes, EditorMarks>` |                  |
-| `createState`    |         |                                   |                                                                   | `EditorState`                      |                  |
-| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean`                          | FormControlMixin |
-| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`                             | FormControlMixin |
-| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`                             | FormControlMixin |
-
-### Attributes
-
-| Name       | Field    | Inherited From   |
-| ---------- | -------- | ---------------- |
-| `value`    | value    |                  |
-| `disabled` | disabled | HintMixin        |
-| `name`     | name     | FormControlMixin |
-| `required` | required | FormControlMixin |
-| `hint`     | hint     | HintMixin        |
-| `hintSize` | hintSize | HintMixin        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Editor` | Editor      | ../packages/components/editor/src/editor.ts |         |
-
-# `../packages/components/editor/src/keymap.ts`:
-
-## Functions
-
-| Name              | Description | Parameters                                 | Return                       |
-| ----------------- | ----------- | ------------------------------------------ | ---------------------------- |
-| `buildKeymap`     |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
-| `buildListKeymap` |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                      | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------- | ------- |
-| `js` | `buildKeymap`     | buildKeymap     | ../packages/components/editor/src/keymap.ts |         |
-| `js` | `buildListKeymap` | buildListKeymap | ../packages/components/editor/src/keymap.ts |         |
-
-# `../packages/components/editor/src/list-utils.ts`:
-
-## Functions
-
-| Name                      | Description | Parameters                                                                                | Return                |
-| ------------------------- | ----------- | ----------------------------------------------------------------------------------------- | --------------------- |
-| `rootListDepth`           |             | `pos: ResolvedPos, nodes: { [key: string]: NodeType }`                                    | `number \| undefined` |
-| `getListLiftTarget`       |             | `schema: Schema, resPos: ResolvedPos`                                                     | `number`              |
-| `liftSelectionList`       |             | `state: EditorState, tr: Transaction`                                                     | `Transaction`         |
-| `toggleList`              |             | `state: EditorState, dispatch: DispatchFn, view: EditorView, listType: string`            | `boolean`             |
-| `toggleListCommand`       |             | `listType: string`                                                                        | `Command`             |
-| `liftFollowingList`       |             | `state: EditorState, from: number, to: number, rootListDepthNum: number, tr: Transaction` | `Transaction`         |
-| `isRangeOfType`           |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos, nodeType: NodeType`                     | `boolean`             |
-| `getAncestorNodesBetween` |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos`                                         | `Node[]`              |
-| `findAncestorPosition`    |             | `doc: Node, pos: ResolvedPos`                                                             | `ResolvedPos`         |
-| `liftListItems`           |             |                                                                                           | `Command`             |
-| `wrapInList`              |             | `nodeType: NodeType`                                                                      | `Command`             |
-| `toggleUnorderedList`     |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
-| `toggleOrderedList`       |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
-| `splitListItemKeepMarks`  |             | `itemType: NodeType`                                                                      |                       |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                      | Declaration             | Module                                          | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------- | ------- |
-| `js` | `rootListDepth`           | rootListDepth           | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `getListLiftTarget`       | getListLiftTarget       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftSelectionList`       | liftSelectionList       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleList`              | toggleList              | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleListCommand`       | toggleListCommand       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftFollowingList`       | liftFollowingList       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `isRangeOfType`           | isRangeOfType           | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `findAncestorPosition`    | findAncestorPosition    | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftListItems`           | liftListItems           | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `wrapInList`              | wrapInList              | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleUnorderedList`     | toggleUnorderedList     | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleOrderedList`       | toggleOrderedList       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | ../packages/components/editor/src/list-utils.ts |         |
-
-# `../packages/components/editor/src/schema.ts`:
-
-## Variables
-
-| Name    | Description | Type                            |
-| ------- | ----------- | ------------------------------- |
-| `marks` |             | `Record<EditorMarks, MarkSpec>` |
-| `nodes` |             | `Record<EditorNodes, NodeSpec>` |
-
-<hr/>
-
-## Functions
-
-| Name                 | Description | Parameters                                                          | Return                   |
-| -------------------- | ----------- | ------------------------------------------------------------------- | ------------------------ |
-| `isEmpty`            |             | `obj: Record<string, unknown>`                                      | `boolean`                |
-| `removeEntries`      |             | `obj: Record<string, unknown>, predicate: (key: string) => boolean` | `Record<string, string>` |
-| `removeEmptyEntries` |             | `obj: Record<string, unknown>`                                      | `Record<string, string>` |
-| `commonAttributes`   |             |                                                                     | `Attrs`                  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                 | Declaration        | Module                                      | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------- | ------- |
-| `js` | `isEmpty`            | isEmpty            | ../packages/components/editor/src/schema.ts |         |
-| `js` | `removeEntries`      | removeEntries      | ../packages/components/editor/src/schema.ts |         |
-| `js` | `removeEmptyEntries` | removeEmptyEntries | ../packages/components/editor/src/schema.ts |         |
-| `js` | `commonAttributes`   | commonAttributes   | ../packages/components/editor/src/schema.ts |         |
-| `js` | `marks`              | marks              | ../packages/components/editor/src/schema.ts |         |
-| `js` | `nodes`              | nodes              | ../packages/components/editor/src/schema.ts |         |
-
-# `../packages/components/editor/src/utils.ts`:
-
-## Functions
-
-| Name                | Description | Parameters              | Return   |
-| ------------------- | ----------- | ----------------------- | -------- |
-| `createContentNode` |             | `schema: Schema, value` | `Node`   |
-| `getHTML`           |             | `state: EditorState`    | `string` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                | Declaration       | Module                                     | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------ | ------- |
-| `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
-| `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
 
 # `../packages/components/grid/src/column-group.ts`:
 
@@ -1638,6 +1441,203 @@
 | ---- | ------ | ----------- | --------------------------------------- | ------- |
 | `js` | `Icon` | Icon        | ../packages/components/icon/src/icon.ts |         |
 
+# `../packages/components/editor/src/commands.ts`:
+
+## Functions
+
+| Name      | Description | Parameters        | Return    |
+| --------- | ----------- | ----------------- | --------- |
+| `setHTML` |             | `content: string` | `Command` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `setHTML` | setHTML     | ../packages/components/editor/src/commands.ts |         |
+
+# `../packages/components/editor/src/editor.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/editor/src/editor.scss.ts |         |
+
+# `../packages/components/editor/src/editor.ts`:
+
+## class: `Editor`, `sl-editor`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
+
+### Fields
+
+| Name       | Privacy | Type                                   | Default | Description                                                                | Inherited From   |
+| ---------- | ------- | -------------------------------------- | ------- | -------------------------------------------------------------------------- | ---------------- |
+| `disabled` |         | `boolean \| undefined`                 |         | Whether the form control is disabled; when set no interaction is possible. | HintMixin        |
+| `form`     |         | `HTMLFormElement \| null`              |         | Native form property.                                                      | FormControlMixin |
+| `hint`     |         | `string \| undefined`                  |         | The hint. If you need to display HTML, use the `hint` slot instead.        | HintMixin        |
+| `hintSize` |         | `HintSize`                             | `'md'`  | The hint size.                                                             | HintMixin        |
+| `labels`   |         | `NodeListOf<HTMLLabelElement> \| null` |         | Native labels property.                                                    | FormControlMixin |
+| `name`     |         | `string \| undefined`                  |         | The name of the form control.                                              | FormControlMixin |
+| `plugins`  |         | `Plugin[] \| undefined`                |         | Additional plugins.                                                        |                  |
+| `required` |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                             | FormControlMixin |
+| `value`    |         | `string \| undefined`                  |         |                                                                            |                  |
+
+### Methods
+
+| Name             | Privacy | Description                       | Parameters                                                        | Return                             | Inherited From   |
+| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | ---------------------------------- | ---------------- |
+| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean`                          | FormControlMixin |
+| `createEditor`   |         |                                   |                                                                   | `EditorView`                       |                  |
+| `createSchema`   |         |                                   |                                                                   | `Schema<EditorNodes, EditorMarks>` |                  |
+| `createState`    |         |                                   |                                                                   | `EditorState`                      |                  |
+| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean`                          | FormControlMixin |
+| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`                             | FormControlMixin |
+| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`                             | FormControlMixin |
+
+### Attributes
+
+| Name       | Field    | Inherited From   |
+| ---------- | -------- | ---------------- |
+| `value`    | value    |                  |
+| `disabled` | disabled | HintMixin        |
+| `name`     | name     | FormControlMixin |
+| `required` | required | FormControlMixin |
+| `hint`     | hint     | HintMixin        |
+| `hintSize` | hintSize | HintMixin        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Editor` | Editor      | ../packages/components/editor/src/editor.ts |         |
+
+# `../packages/components/editor/src/keymap.ts`:
+
+## Functions
+
+| Name              | Description | Parameters                                 | Return                       |
+| ----------------- | ----------- | ------------------------------------------ | ---------------------------- |
+| `buildKeymap`     |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
+| `buildListKeymap` |             | `schema: Schema<EditorNodes, EditorMarks>` | `{ [key: string]: Command }` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                      | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------- | ------- |
+| `js` | `buildKeymap`     | buildKeymap     | ../packages/components/editor/src/keymap.ts |         |
+| `js` | `buildListKeymap` | buildListKeymap | ../packages/components/editor/src/keymap.ts |         |
+
+# `../packages/components/editor/src/list-utils.ts`:
+
+## Functions
+
+| Name                      | Description | Parameters                                                                                | Return                |
+| ------------------------- | ----------- | ----------------------------------------------------------------------------------------- | --------------------- |
+| `rootListDepth`           |             | `pos: ResolvedPos, nodes: { [key: string]: NodeType }`                                    | `number \| undefined` |
+| `getListLiftTarget`       |             | `schema: Schema, resPos: ResolvedPos`                                                     | `number`              |
+| `liftSelectionList`       |             | `state: EditorState, tr: Transaction`                                                     | `Transaction`         |
+| `toggleList`              |             | `state: EditorState, dispatch: DispatchFn, view: EditorView, listType: string`            | `boolean`             |
+| `toggleListCommand`       |             | `listType: string`                                                                        | `Command`             |
+| `liftFollowingList`       |             | `state: EditorState, from: number, to: number, rootListDepthNum: number, tr: Transaction` | `Transaction`         |
+| `isRangeOfType`           |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos, nodeType: NodeType`                     | `boolean`             |
+| `getAncestorNodesBetween` |             | `doc: Node, $from: ResolvedPos, $to: ResolvedPos`                                         | `Node[]`              |
+| `findAncestorPosition`    |             | `doc: Node, pos: ResolvedPos`                                                             | `ResolvedPos`         |
+| `liftListItems`           |             |                                                                                           | `Command`             |
+| `wrapInList`              |             | `nodeType: NodeType`                                                                      | `Command`             |
+| `toggleUnorderedList`     |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
+| `toggleOrderedList`       |             | `state: EditorState, dispatch: DispatchFn, view: EditorView`                              | `boolean`             |
+| `splitListItemKeepMarks`  |             | `itemType: NodeType`                                                                      |                       |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                      | Declaration             | Module                                          | Package |
+| ---- | ------------------------- | ----------------------- | ----------------------------------------------- | ------- |
+| `js` | `rootListDepth`           | rootListDepth           | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `getListLiftTarget`       | getListLiftTarget       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftSelectionList`       | liftSelectionList       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleList`              | toggleList              | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleListCommand`       | toggleListCommand       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftFollowingList`       | liftFollowingList       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `isRangeOfType`           | isRangeOfType           | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `findAncestorPosition`    | findAncestorPosition    | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftListItems`           | liftListItems           | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `wrapInList`              | wrapInList              | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleUnorderedList`     | toggleUnorderedList     | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleOrderedList`       | toggleOrderedList       | ../packages/components/editor/src/list-utils.ts |         |
+| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | ../packages/components/editor/src/list-utils.ts |         |
+
+# `../packages/components/editor/src/schema.ts`:
+
+## Variables
+
+| Name    | Description | Type                            |
+| ------- | ----------- | ------------------------------- |
+| `marks` |             | `Record<EditorMarks, MarkSpec>` |
+| `nodes` |             | `Record<EditorNodes, NodeSpec>` |
+
+<hr/>
+
+## Functions
+
+| Name                 | Description | Parameters                                                          | Return                   |
+| -------------------- | ----------- | ------------------------------------------------------------------- | ------------------------ |
+| `isEmpty`            |             | `obj: Record<string, unknown>`                                      | `boolean`                |
+| `removeEntries`      |             | `obj: Record<string, unknown>, predicate: (key: string) => boolean` | `Record<string, string>` |
+| `removeEmptyEntries` |             | `obj: Record<string, unknown>`                                      | `Record<string, string>` |
+| `commonAttributes`   |             |                                                                     | `Attrs`                  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                 | Declaration        | Module                                      | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------- | ------- |
+| `js` | `isEmpty`            | isEmpty            | ../packages/components/editor/src/schema.ts |         |
+| `js` | `removeEntries`      | removeEntries      | ../packages/components/editor/src/schema.ts |         |
+| `js` | `removeEmptyEntries` | removeEmptyEntries | ../packages/components/editor/src/schema.ts |         |
+| `js` | `commonAttributes`   | commonAttributes   | ../packages/components/editor/src/schema.ts |         |
+| `js` | `marks`              | marks              | ../packages/components/editor/src/schema.ts |         |
+| `js` | `nodes`              | nodes              | ../packages/components/editor/src/schema.ts |         |
+
+# `../packages/components/editor/src/utils.ts`:
+
+## Functions
+
+| Name                | Description | Parameters              | Return   |
+| ------------------- | ----------- | ----------------------- | -------- |
+| `createContentNode` |             | `schema: Schema, value` | `Node`   |
+| `getHTML`           |             | `state: EditorState`    | `string` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                | Declaration       | Module                                     | Package |
+| ---- | ------------------- | ----------------- | ------------------------------------------ | ------- |
+| `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
+| `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
+
 # `../packages/components/label/src/label.scss.ts`:
 
 ## Exports
@@ -1868,6 +1868,44 @@
 | ---- | ------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Radio` | Radio       | ../packages/components/radio-group/src/radio.ts |         |
 
+# `../packages/components/skeleton/src/skeleton.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/skeleton/src/skeleton.scss.ts |         |
+
+# `../packages/components/skeleton/src/skeleton.ts`:
+
+## class: `Skeleton`, `sl-skeleton`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name     | Privacy | Type             | Default     | Description        | Inherited From |
+| -------- | ------- | ---------------- | ----------- | ------------------ | -------------- |
+| `effect` |         | `SkeletonEffect` | `'shimmer'` | Skeleton's effect. |                |
+
+### Attributes
+
+| Name     | Field  | Inherited From |
+| -------- | ------ | -------------- |
+| `effect` | effect |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                          | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `Skeleton` | Skeleton    | ../packages/components/skeleton/src/skeleton.ts |         |
+
 # `../packages/components/select/src/select-option-group.scss.ts`:
 
 ## Exports
@@ -2020,44 +2058,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Select` | Select      | ../packages/components/select/src/select.ts |         |
-
-# `../packages/components/skeleton/src/skeleton.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/skeleton/src/skeleton.scss.ts |         |
-
-# `../packages/components/skeleton/src/skeleton.ts`:
-
-## class: `Skeleton`, `sl-skeleton`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name     | Privacy | Type             | Default     | Description        | Inherited From |
-| -------- | ------- | ---------------- | ----------- | ------------------ | -------------- |
-| `effect` |         | `SkeletonEffect` | `'shimmer'` | Skeleton's effect. |                |
-
-### Attributes
-
-| Name     | Field  | Inherited From |
-| -------- | ------ | -------------- |
-| `effect` | effect |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                          | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Skeleton` | Skeleton    | ../packages/components/skeleton/src/skeleton.ts |         |
 
 # `../packages/components/shared/src/css.ts`:
 
@@ -2264,6 +2264,110 @@
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Switch` | Switch      | ../packages/components/switch/src/switch.ts |         |
 
+# `../packages/components/text-input/src/text-input.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/text-input/src/text-input.scss.ts |         |
+
+# `../packages/components/text-input/src/text-input.ts`:
+
+## class: `TextInput`, `sl-text-input`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
+
+### Fields
+
+| Name           | Privacy | Type                                                            | Default  | Description                                                                                                                                                                                                       | Inherited From   |
+| -------------- | ------- | --------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `autocomplete` |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |          | Specifies which type of data the browser can use to pre-fill the input.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`. |                  |
+| `disabled`     |         | `boolean \| undefined`                                          |          | Whether the form control is disabled; when set no interaction is possible.                                                                                                                                        | HintMixin        |
+| `form`         |         | `HTMLFormElement \| null`                                       |          | Native form property.                                                                                                                                                                                             | FormControlMixin |
+| `hint`         |         | `string \| undefined`                                           |          | The hint. If you need to display HTML, use the `hint` slot instead.                                                                                                                                               | HintMixin        |
+| `hintSize`     |         | `HintSize`                                                      | `'md'`   | The hint size.                                                                                                                                                                                                    | HintMixin        |
+| `input`        |         | `HTMLInputElement`                                              |          | The input element in the light DOM.                                                                                                                                                                               |                  |
+| `invalid`      |         | `boolean \| undefined`                                          |          | Whether the input is invalid.                                                                                                                                                                                     |                  |
+| `labels`       |         | `NodeListOf<HTMLLabelElement> \| null`                          |          | Native labels property.                                                                                                                                                                                           | FormControlMixin |
+| `max`          |         | `number \| undefined`                                           |          | Maximum value. Only applies to number input type.                                                                                                                                                                 |                  |
+| `maxLength`    |         | `number \| undefined`                                           |          | Maximum length (number of characters).                                                                                                                                                                            |                  |
+| `min`          |         | `number \| undefined`                                           |          | Minimum value. Only applies to number input type.                                                                                                                                                                 |                  |
+| `minLength`    |         | `number \| undefined`                                           |          | Minimum length (number of characters).                                                                                                                                                                            |                  |
+| `name`         |         | `string \| undefined`                                           |          | The name of the form control.                                                                                                                                                                                     | FormControlMixin |
+| `pattern`      |         | `string \| undefined`                                           |          | Validation using pattern. Native HTML input functionality.                                                                                                                                                        |                  |
+| `placeholder`  |         | `string \| undefined`                                           |          | Placeholder text in the input.                                                                                                                                                                                    |                  |
+| `readonly`     |         | `boolean \| undefined`                                          |          | Whether you can interact with the input or if it is just a static, readonly display.                                                                                                                              |                  |
+| `required`     |         | `boolean \| undefined`                                          |          | Whether this form control is a required field.                                                                                                                                                                    | FormControlMixin |
+| `showValid`    |         | `boolean`                                                       | `false`  | Whether the input should get valid styles when is valid.                                                                                                                                                          |                  |
+| `size`         |         | `'md' \| 'lg'`                                                  | `'md'`   | The size of the input.                                                                                                                                                                                            |                  |
+| `step`         |         | `number \| undefined`                                           |          | Specifies the interval between legal numbers for an input field. Only applies to number input type                                                                                                                |                  |
+| `type`         |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                             |                  |
+| `valid`        |         | `boolean \| undefined`                                          |          | Whether the input is valid.                                                                                                                                                                                       |                  |
+| `validators`   |         | `Validator[] \| undefined`                                      |          | Custom validators specified by the user.                                                                                                                                                                          |                  |
+| `value`        |         | `string \| undefined`                                           |          | The value for the input, to be used in forms.                                                                                                                                                                     |                  |
+
+### Methods
+
+| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
+| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
+| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
+| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
+
+### Attributes
+
+| Name           | Field        | Inherited From   |
+| -------------- | ------------ | ---------------- |
+| `autocomplete` | autocomplete |                  |
+| `maxlength`    | maxLength    |                  |
+| `minlength`    | minLength    |                  |
+| `min`          | min          |                  |
+| `max`          | max          |                  |
+| `step`         | step         |                  |
+| `pattern`      | pattern      |                  |
+| `placeholder`  | placeholder  |                  |
+| `invalid`      | invalid      |                  |
+| `valid`        | valid        |                  |
+| `showValid`    | showValid    |                  |
+| `readonly`     | readonly     |                  |
+| `size`         | size         |                  |
+| `type`         | type         |                  |
+| `value`        | value        |                  |
+| `disabled`     | disabled     | HintMixin        |
+| `name`         | name         | FormControlMixin |
+| `required`     | required     | FormControlMixin |
+| `hint`         | hint         | HintMixin        |
+| `hintSize`     | hintSize     | HintMixin        |
+
+### Slots
+
+| Name     | Description                    |
+| -------- | ------------------------------ |
+| `prefix` | Content shown before the input |
+| `input`  | The slot for the input element |
+| `suffix` | Content shown after the input  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `TextInput` | TextInput   | ../packages/components/text-input/src/text-input.ts |         |
+
 # `../packages/components/tabs/src/tab-group.scss.ts`:
 
 ## Exports
@@ -2386,110 +2490,6 @@
 | Kind | Name  | Declaration | Module                                 | Package |
 | ---- | ----- | ----------- | -------------------------------------- | ------- |
 | `js` | `Tab` | Tab         | ../packages/components/tabs/src/tab.ts |         |
-
-# `../packages/components/text-input/src/text-input.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/text-input/src/text-input.scss.ts |         |
-
-# `../packages/components/text-input/src/text-input.ts`:
-
-## class: `TextInput`, `sl-text-input`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-| `HintMixin`        |        | @sl-design-system/shared |
-
-### Fields
-
-| Name           | Privacy | Type                                                            | Default  | Description                                                                                                                                                                                                       | Inherited From   |
-| -------------- | ------- | --------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `autocomplete` |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |          | Specifies which type of data the browser can use to pre-fill the input.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`. |                  |
-| `disabled`     |         | `boolean \| undefined`                                          |          | Whether the form control is disabled; when set no interaction is possible.                                                                                                                                        | HintMixin        |
-| `form`         |         | `HTMLFormElement \| null`                                       |          | Native form property.                                                                                                                                                                                             | FormControlMixin |
-| `hint`         |         | `string \| undefined`                                           |          | The hint. If you need to display HTML, use the `hint` slot instead.                                                                                                                                               | HintMixin        |
-| `hintSize`     |         | `HintSize`                                                      | `'md'`   | The hint size.                                                                                                                                                                                                    | HintMixin        |
-| `input`        |         | `HTMLInputElement`                                              |          | The input element in the light DOM.                                                                                                                                                                               |                  |
-| `invalid`      |         | `boolean \| undefined`                                          |          | Whether the input is invalid.                                                                                                                                                                                     |                  |
-| `labels`       |         | `NodeListOf<HTMLLabelElement> \| null`                          |          | Native labels property.                                                                                                                                                                                           | FormControlMixin |
-| `max`          |         | `number \| undefined`                                           |          | Maximum value. Only applies to number input type.                                                                                                                                                                 |                  |
-| `maxLength`    |         | `number \| undefined`                                           |          | Maximum length (number of characters).                                                                                                                                                                            |                  |
-| `min`          |         | `number \| undefined`                                           |          | Minimum value. Only applies to number input type.                                                                                                                                                                 |                  |
-| `minLength`    |         | `number \| undefined`                                           |          | Minimum length (number of characters).                                                                                                                                                                            |                  |
-| `name`         |         | `string \| undefined`                                           |          | The name of the form control.                                                                                                                                                                                     | FormControlMixin |
-| `pattern`      |         | `string \| undefined`                                           |          | Validation using pattern. Native HTML input functionality.                                                                                                                                                        |                  |
-| `placeholder`  |         | `string \| undefined`                                           |          | Placeholder text in the input.                                                                                                                                                                                    |                  |
-| `readonly`     |         | `boolean \| undefined`                                          |          | Whether you can interact with the input or if it is just a static, readonly display.                                                                                                                              |                  |
-| `required`     |         | `boolean \| undefined`                                          |          | Whether this form control is a required field.                                                                                                                                                                    | FormControlMixin |
-| `showValid`    |         | `boolean`                                                       | `false`  | Whether the input should get valid styles when is valid.                                                                                                                                                          |                  |
-| `size`         |         | `'md' \| 'lg'`                                                  | `'md'`   | The size of the input.                                                                                                                                                                                            |                  |
-| `step`         |         | `number \| undefined`                                           |          | Specifies the interval between legal numbers for an input field. Only applies to number input type                                                                                                                |                  |
-| `type`         |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                             |                  |
-| `valid`        |         | `boolean \| undefined`                                          |          | Whether the input is valid.                                                                                                                                                                                       |                  |
-| `validators`   |         | `Validator[] \| undefined`                                      |          | Custom validators specified by the user.                                                                                                                                                                          |                  |
-| `value`        |         | `string \| undefined`                                           |          | The value for the input, to be used in forms.                                                                                                                                                                     |                  |
-
-### Methods
-
-| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
-| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
-| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
-| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
-
-### Attributes
-
-| Name           | Field        | Inherited From   |
-| -------------- | ------------ | ---------------- |
-| `autocomplete` | autocomplete |                  |
-| `maxlength`    | maxLength    |                  |
-| `minlength`    | minLength    |                  |
-| `min`          | min          |                  |
-| `max`          | max          |                  |
-| `step`         | step         |                  |
-| `pattern`      | pattern      |                  |
-| `placeholder`  | placeholder  |                  |
-| `invalid`      | invalid      |                  |
-| `valid`        | valid        |                  |
-| `showValid`    | showValid    |                  |
-| `readonly`     | readonly     |                  |
-| `size`         | size         |                  |
-| `type`         | type         |                  |
-| `value`        | value        |                  |
-| `disabled`     | disabled     | HintMixin        |
-| `name`         | name         | FormControlMixin |
-| `required`     | required     | FormControlMixin |
-| `hint`         | hint         | HintMixin        |
-| `hintSize`     | hintSize     | HintMixin        |
-
-### Slots
-
-| Name     | Description                    |
-| -------- | ------------------------------ |
-| `prefix` | Content shown before the input |
-| `input`  | The slot for the input element |
-| `suffix` | Content shown after the input  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `TextInput` | TextInput   | ../packages/components/text-input/src/text-input.ts |         |
 
 # `../packages/components/textarea/src/textarea.scss.ts`:
 

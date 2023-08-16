@@ -16,15 +16,21 @@ $transition-timing: 300ms;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
+.ds-components__content-wrapper {
+  h2 {
+    margin-bottom: 0.8rem;
+  }
+}
+
 .component-card {
-  border: 1px solid #eaeaea;
-  border-radius: 0.6rem;
+  //border: 1px solid #eaeaea;
+  border-radius: 0.2rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   gap: 0.8rem;
-  padding: 1.6rem;
+  //padding: 0 1.6rem 1.6rem 1.6rem;
 
   svg {
     overflow: visible;
@@ -34,15 +40,29 @@ $transition-timing: 300ms;
   &:hover,
   &:focus-within {
     svg {
-      //animation: scaleAnimation 1000ms ease-in-out;
       transform: scale(1.2);
     }
+
+    .ds-heading-2 {
+      color: var(--highlight-color);
+    }
+  }
+
+  .ds-heading-2 {
+    line-height: 2rem;
+    margin-bottom: 0.8rem;
+    transition: color $transition-timing linear;
   }
 }
 
 .component-card__picture {
+  background-color: var(--component-card-background);
   display: inline-flex;
   justify-content: center;
+  //margin-left: -1.6rem;
+  //margin-right: -1.6rem;
+  margin-bottom: 1.6rem;
+  overflow: hidden;
 }
 
 //animation: scalePuzzleAnimation 700ms ease-in-out;
@@ -53,6 +73,7 @@ $transition-timing: 300ms;
   grid-template-columns: 7fr 1fr;
 
   section {
+    margin-bottom: 6.4rem;
     margin-top: 2.4rem;
   }
 }
@@ -186,19 +207,5 @@ $transition-timing: 300ms;
     column-gap: 2.4rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-}
-
-@keyframes scaleAnimation {
-  30% {
-    transform: scale(1);
-  }
-
-  60% {
-    transform: scale(1.14);
-  }
-
-  100% {
-    transform: scale(1);
   }
 }

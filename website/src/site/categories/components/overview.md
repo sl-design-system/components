@@ -9,9 +9,13 @@ eleventyNavigation:
 ---
 <div class="ds-components__content-wrapper">
 
-  Here we will have a list of all components
-
 TODO: Add zoom in animation on hover and changing component name colour
+
+TODO: coming badge for PoCs
+
+TODO: light adn dark mode
+
+TODO: different resolutions
 
 <div class="components-wrapper">
 
@@ -25,14 +29,17 @@ TODO: Add zoom in animation on hover and changing component name colour
   <div>
   <a href="{{ component.url | url }}">{{ component.data.title }}</a>
   </div>
-  {{ component.data.shortDescription }}
+<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
+{{ component.data.title }}
+</a>
+  <p>{{ component.data.shortDescription }}</p>
   </div>
 {% endfor %}
 </section>
 
 </div>
 
-## Actions
+## Actions {.ds-heading-1}
 
 This is a short introduction of the section, we want to keep this within 2 or 3 lines.
 
@@ -43,18 +50,18 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
   <div class="component-card__picture">
     {{ component.data.picture }}
   </div>
-  <h3>{{component.data.title}}</h3>{{ component.data.componentType }}
-  <div>
-  <a href="{{ component.url | url }}">{{ component.data.title }}</a>
-  </div>
-{{ component.data.shortDescription }}
+<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
+{{ component.data.title }}
+</a>
+  <p>{{ component.data.shortDescription }}</p>
+{{ component.data.componentType }}
   </div>
 {% endif %}
 {% endfor %}
 </section>
 
 
-## Selection
+## Selection {.ds-heading-1}
 
 This is a short introduction of the section, we want to keep this within 2 or 3 lines.
 
@@ -65,17 +72,17 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
   <div class="component-card__picture">
     {{ component.data.picture }}
   </div>
-  <h3>{{component.data.title}}</h3>{{ component.data.componentType }}
-  <div>
-  <a href="{{ component.url | url }}">{{ component.data.title }}</a>
-  </div>
-{{ component.data.shortDescription }}
+<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
+{{ component.data.title }}
+</a>
+  <p>{{ component.data.shortDescription }}</p>
+{{ component.data.componentType }}
   </div>
 {% endif %}
 {% endfor %}
 </section>
 
-## Editable
+## Editable {.ds-heading-1}
 
 This is a short introduction of the section, we want to keep this within 2 or 3 lines.
 
@@ -86,17 +93,17 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
   <div class="component-card__picture">
     {{ component.data.picture }}
   </div>
-  <h3>{{component.data.title}}</h3>{{ component.data.componentType }}
-  <div>
-  <a href="{{ component.url | url }}">{{ component.data.title }}</a>
-  </div>
-{{ component.data.shortDescription }}
+<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
+{{ component.data.title }}
+</a>
+  <p>{{ component.data.shortDescription }}</p>
+{{ component.data.componentType }}
   </div>
 {% endif %}
 {% endfor %}
 </section>
 
-## Feedback
+## Feedback {.ds-heading-1}
 
 This is a short introduction of the section, we want to keep this within 2 or 3 lines.
 
@@ -107,16 +114,14 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
   <div class="component-card__picture">
     {{ component.data.picture }}
   </div>
-  <h3>{{component.data.title}}</h3>{{ component.data.componentType }}
-  <div>
-  <a href="{{ component.url | url }}">{{ component.data.title }}</a>
-  </div>
-{{ component.data.shortDescription }}
+<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
+{{ component.data.title }}
+</a>
+  <p>{{ component.data.shortDescription }}</p>
+{{ component.data.componentType }}
   </div>
 {% endif %}
 {% endfor %}
 </section>
-
-<svg xmlns="http://www.w3.org/2000/svg" width="178" height="132" fill="none"><path stroke="#737373" d="M84.8058 79.006c.7278-2.7968 1.9367-5.3993 3.2102-7.9743.0385-.0802.0668-.165.0985-.2482.1893-.2351.3821-.4671.5662-.7053 1.5146-1.9581 2.8844-4.0205 4.2048-6.1059 1.3832-2.1851 2.9908-4.1971 4.5155-6.2725 1.1116-1.5119 2.3973-2.8937 3.567-4.3645 2.398-3.0158 4.896-5.9454 7.589-8.7008.836-.8552 1.568-1.808 2.513-2.5641 1.099-.8793 2.203-1.7656 3.104-2.8642.048-.0571.106-.1113.168-.1523.584-.3851.594-.4407.148-.9874.55-.0092.758-.5093 1.099-.7975 1.826-1.5478 3.404-3.3529 5.149-4.9844 2.23-2.0844 4.53-4.088 6.963-5.94 2.491-1.8927 4.798-4.002 7.153-6.0581 1.946-1.6982 3.874-3.4157 6.022-4.8715 2.304-1.5607 4.338-3.4799 6.618-5.0748 1.897-1.32672 3.811-2.62073 5.813-3.79293 1.188-.69579 2.371-1.40806 3.578-2.06615 2.005-1.09375 4.095-2.01715 6.29-2.67567 1.098-.3293 2.172-.79637 3.295-.974544 1.164-.186558 2.406-.326127 3.465.509774.149.11761.275.23446.349.40529.325.739.509 1.51386.58 2.31675.035.38979.106.77807.138 1.16794.151 1.86461-.225 3.66055-.682 5.45474-.531 2.0865-1.514 3.9893-2.367 5.9419-.848 1.9407-1.969 3.7505-2.951 5.6265-1.958 3.7433-4.205 7.3213-6.211 11.0349-.54 1.0002-1.201 1.9184-1.825 2.8652-.722 1.0979-1.363 2.2494-2.087 3.3474-.932 1.4125-1.874 2.8237-2.742 4.2704-1.209 2.0106-2.436 4.007-3.812 5.9042-1.154 1.5921-2.152 3.2882-3.311 4.8739-1.265 1.7321-2.559 3.4437-3.851 5.1568-.528.6988-1.087 1.3738-1.629 2.0647-.052.0674-.07.1617-.105.2434-.408-.1153-.739.0069-1.008.3206-.286.3327-.575.6656-.855 1.0014-1.401 1.6742-2.785 3.3644-4.204 5.0209-.79.9218-1.437 1.9531-2.259 2.8496-.768.8373-1.524 1.6876-2.244 2.568-1.429 1.7489-2.835 3.5102-4.467 5.0852-1.745 1.6833-3.345 3.5094-5.043 5.2426-1.874 1.9159-4.086 3.4144-6.074 5.1863-.808.7203-1.696 1.3686-2.527 2.0731-.226.1915-.451.4064-.459.7444-.604.1234-1.007.5931-1.517.8798-1.569.887-3.067 1.8981-4.713 2.6394-.47.2115-.98.4164-1.518.171-.185-.4873-.185-1.0089-.286-1.513-.283-1.4011-.902-2.6981-1.259-4.076-.111-.4268-.29-.8257-.473-1.2261-.5914-1.2831-1.2803-2.507-2.0772-3.6747-1.03-1.5092-2.3391-2.7327-3.9526-3.5525-3.0393-1.5454-6.2461-2.5707-9.684-2.7472l-.0034-.0015Z"/><path stroke="#737373" d="M94.4893 81.753c-3.0391-1.5471-6.2459-2.5707-9.6838-2.7472l-.0036-.0032c-.3607.0085-.7222.0124-1.0836.0184-.3966.0066-.7925.0158-1.188.0364-4.0102.2131-7.8403 1.1845-11.5016 2.816-1.8309.8158-3.6099 1.7398-5.1139 3.1006-1.2445 1.1244-2.2288 2.4805-3.2413 3.8027-1.6706 2.1851-2.6071 4.7397-3.5305 7.2937-.1013.2807-.1824.5683-.2634.8561-.1403.4986-.2811.9973-.526 1.46l.0021.0033c-.2141.3214-.3402.6776-.4336 1.0459-.2737 1.0693-.2864 2.1903-.661 3.2423-.1546.436-.2601.889-.3647 1.342l-.2188.942c-.4426 1.91-.8859 3.825-1.6291 5.636-1.5049 3.663-3.7427 6.851-6.5939 9.609-.5151.499-1.0185 1.009-1.5219 1.52-.9547.969-1.9104 1.938-2.9458 2.823-.2002.171-.3215.395-.0631.616.2086.179.4121.362.6287.531.1394.11.2844.213.4387.307 3.7183 2.244 7.7391 3.55 12.049 4.077 3.2613.4 6.5182.607 9.7991.412.8234-.048 1.6446-.115 2.4651-.197.5661-.057 1.1313-.122 1.6967-.193.3185-.039.637-.078.9555-.116.9746-.117 1.9496-.234 2.9169-.397 3.2429-.547 6.3141-1.685 9.3814-2.822l.0072-.003c1.9871-.735 3.7801-1.842 5.5779-2.953l.3846-.237c1.7822-1.098 3.3275-2.429 4.6619-4.018.6229-.741 1.1857-1.532 1.7864-2.292 1.1809-1.493 2.1473-3.118 2.9529-4.839l-.0021-.004c.2055-.184.3566-.407.4903-.642.053-.094.103-.189.152-.285.405-.779.658-1.612.911-2.445.108-.353.215-.707.334-1.057.978-2.87 1.302-5.833 1.264-8.8488-.014-1.1212-.065-2.2392-.238-3.3489-.184-.4873-.183-1.0106-.286-1.513-.16-.7901-.426-1.5472-.691-2.3043-.206-.5854-.411-1.1709-.568-1.7718-.062-.2385-.144-.4674-.237-.6925-.074-.1792-.155-.3561-.236-.5335-.5913-1.2831-1.2803-2.5071-2.0769-3.6747-1.0301-1.5092-2.3391-2.7311-3.9528-3.5525Z" clip-rule="evenodd"/><path fill="#737373" d="M48.4544 120.208c2.1386-2.069 3.9321-4.38 5.3297-6.951-.0145.026-.0286.053-.0431.079.003.218.0429.367.1349.466.1084.117.2887.163.5665.17 1.8242.045 3.6095.285 5.3492.891 2.3113.805 4.4976 1.813 6.3537 3.447.8027.707 1.4198 1.563 2.039 2.421l.0031.003.1291.179c1.1573 1.599 2.4882 3.03 4.229 4.009 1.162.653 2.38 1.157 3.7461 1.233.9355.052 1.8492.285 2.7688.461.133.025.266.052.3991.079l.2188.044c.6101.126 1.2217.251 1.8463.298.5279.04 1.0479-.067 1.5749-.063.1139.001.2206.019.3274.037l.0099.001.1111.018.7067-.262c-3.0673 1.137-6.1384 2.275-9.3814 2.822-.9673.163-1.9423.28-2.9168.397-.3186.039-.6371.077-.9555.117-.5655.071-1.1307.135-1.6967.192-.8206.082-1.6418.149-2.4652.197-3.2809.195-6.5377-.012-9.799-.411-4.3099-.527-8.3308-1.834-12.049-4.078-.1544-.094-.2994-.197-.4387-.306-.1586-.125-.3101-.256-.4616-.387l-.1672-.144c-.2583-.222-.137-.446.0632-.617 1.0353-.885 1.991-1.854 2.9457-2.823.5034-.511 1.0068-1.021 1.522-1.519Z"/><path stroke="#737373" d="M44.9252 124.861c-17.0824.56-33.7259-2.8-40.68449-18.471-8.47595-19.0924-.00064-50.1274 30.21909-50.1274.4063 0 .793.1914 1.0392 0 1.0938.1914 2.1604-.2601 2.1604-2.0511 0-20.346 13.6181-36.5354 34.8395-39.8171 23.5371-3.6395 41.4741 8.6729 46.3591 19.7262m35.025 7.0586c14.5 6.25 25.357 27.2715 22.535 47.3807-3.565 25.4001-23.034 32.2431-37.756 33.0501-14.521.796-28.976-2.317-43.4662-2.325"/></svg>
 
 </div>

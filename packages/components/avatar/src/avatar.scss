@@ -13,6 +13,10 @@ $statuses: online, offline, away, do-not-disturb;
   --sl-avatar-status-color-offline: var(--sl-color-palette-neutral-base);
   --sl-avatar-status-color-away: var(--sl-color-palette-warning-base);
   --sl-avatar-status-color-do-not-disturb: var(--sl-color-palette-danger-base);
+
+  --_avatar-background: var(--sl-body-surface-100);
+  --_avatar-foreground: var(--sl-body-foreground);
+  --_avatar_border-radius: 50%;
   align-items: center;
   display: flex;
   gap: 8px;
@@ -42,13 +46,18 @@ picture {
 
   svg,
   img {
-    background-color: rgb(var(--sl-color-palette-neutral-base));
-    border-radius: 50%;
-    fill: #00d;
+    background-color: var(--_avatar-background);
+    border-radius: var(--_avatar_border-radius);
+    fill: var(--_avatar-foreground);
     height: inherit;
     object-fit: cover;
     overflow: hidden;
     width: inherit;
+  }
+
+  svg text {
+    font: bold 8px var(--sl-text-typeset-font-family-heading);
+    text-anchor: middle;
   }
 }
 

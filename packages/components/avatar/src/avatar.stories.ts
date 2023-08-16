@@ -105,6 +105,10 @@ export default {
     imageOnly: false
   },
   argTypes: {
+    subheading: {
+      control: 'text',
+      defaultValue: null
+    },
     size: {
       control: 'inline-radio',
       options: sizes
@@ -130,7 +134,6 @@ export default {
       }
     };
     if (picture) {
-      console.log('picture');
       user = {
         ...user,
         picture: {
@@ -148,7 +151,6 @@ export const Basic: Story = {};
 
 export const All: StoryObj = {
   render: () => {
-    setTimeout(() => document.querySelector('form')?.reportValidity());
     return html` <style>
         table {
           border-collapse: collapse;

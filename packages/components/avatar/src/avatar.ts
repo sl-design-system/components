@@ -33,6 +33,11 @@ export class Avatar extends LitElement {
   get profileName(): string {
     return `${this.user?.name.first || 'John'} ${this.user?.name.last || 'Doe'}`;
   }
+
+  get initials(): string {
+    return this.user ? this.user.name.first.substring(0, 1) + this.user.name.last.substring(0, 1) : '';
+  }
+
   get image(): TemplateResult {
     if (this.user?.picture) {
       return html`<img
@@ -41,13 +46,7 @@ export class Avatar extends LitElement {
       />`;
     } else if (this.user && this.fallback === 'initials') {
       return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-        <style>
-          text {
-            font: normal 8px sans-serif;
-            text-anchor: middle;
-          }
-        </style>
-        <text x="8" y="8" dy=".3em">${this.user.name.first.substring(0, 1) + this.user.name.last.substring(0, 1)}</text>
+        <text x="8" y="8" dy=".3em">${this.initials}</text>
       </svg>`;
     } else {
       return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -75,15 +74,5 @@ export class Avatar extends LitElement {
           </div>`
         : nothing}
     `;
-  }
-
-  override async connectedCallback(): Promise<void> {
-    super.connectedCallback();
-
-    // if (this.users[this.uniqueProfileId]) {
-    //   this.user = this.users[this.uniqueProfileId];
-    // } else {
-    //   console.warn('Error loading user details');
-    // }
   }
 }

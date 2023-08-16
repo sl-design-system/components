@@ -1,5 +1,7 @@
 @import './../breakpoints';
 
+$transition-timing: 300ms;
+
 .components-wrapper {
   column-gap: 2.4rem;
   display: flex;
@@ -17,17 +19,33 @@
 .component-card {
   border: 1px solid #eaeaea;
   border-radius: 0.6rem;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   gap: 0.8rem;
   padding: 1.6rem;
+
+  svg {
+    overflow: visible;
+    transition: $transition-timing ease-in-out;
+  }
+
+  &:hover,
+  &:focus-within {
+    svg {
+      //animation: scaleAnimation 1000ms ease-in-out;
+      transform: scale(1.2);
+    }
+  }
 }
 
 .component-card__picture {
   display: inline-flex;
   justify-content: center;
 }
+
+//animation: scalePuzzleAnimation 700ms ease-in-out;
 
 .ds-components__content {
   display: grid;
@@ -168,5 +186,19 @@
     column-gap: 2.4rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@keyframes scaleAnimation {
+  30% {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(1.14);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }

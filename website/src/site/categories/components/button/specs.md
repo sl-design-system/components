@@ -40,6 +40,8 @@ A. Icon
 |Warning|   |
 |Danger|For actions that could have destructive effects on the user's data (for example, delete or remove).|
 
+{.ds-table}
+
 </section>
 
 <section>
@@ -47,11 +49,13 @@ A. Icon
 ## Types
 
 |Name |Purpose| 
-|---|---|
+|-----|-------|
 |Solid|   |
 |Outline|   |
 |Ghost|   |
 |Link|   |
+
+{.ds-table}
   
 </section>
 
@@ -64,6 +68,8 @@ A. Icon
 |Small|`sm`|Use when there is not enough vertical space for the default or field-sized button.|
 |Medium|`md`|This is the most common button size.|
 |Large|`lg`|The larger type size within this button provides balance when used with a 16px body copy. It's the most expressive type of button, that's increases the findability for the user.|
+
+{.ds-table}
   
 </section>
 

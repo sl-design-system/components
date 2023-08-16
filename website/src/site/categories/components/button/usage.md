@@ -35,6 +35,8 @@ As a general rule, on full-page screens, the primary button is on the left side 
 |Left|Default position and Full-pages.|
 |Right|Dialogs, Notifications, Steps forms and Alert messages.|
 
+{.ds-table}
+
 </section>
 
 <section>

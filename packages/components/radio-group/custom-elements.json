@@ -83,7 +83,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "The orientation of the radio options; when true, the radio buttons are desplayed next to each other instead of below eachother.",
+              "description": "The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.",
               "attribute": "horizontal",
               "reflects": true
             },
@@ -112,7 +112,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "The orientation of the radio options; when true, the radio buttons are desplayed next to each other instead of below eachother.",
+              "description": "The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.",
               "fieldName": "horizontal"
             },
             {

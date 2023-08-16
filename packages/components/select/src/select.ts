@@ -56,7 +56,7 @@ export class Select extends FormControlMixin(LitElement) {
    */
   @property({ reflect: true }) size: SelectSize = 'md';
 
-  /** The placeholder text to show when no options is chosen. */
+  /** The placeholder text to show when no option is chosen. */
   @property({ reflect: true }) placeholder?: string;
 
   /** Whether the select is invalid. */

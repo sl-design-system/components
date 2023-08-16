@@ -88,7 +88,7 @@
           "name": "SelectOptionGroup",
           "slots": [
             {
-              "description": "List of sl-options",
+              "description": "List of `sl-option` elements",
               "name": "default"
             }
           ],

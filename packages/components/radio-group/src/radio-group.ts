@@ -84,7 +84,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
   /** @ignore The assigned nodes. */
   @queryAssignedNodes() defaultNodes?: Node[];
 
-  /** The orientation of the radio options; when true, the radio buttons are desplayed next to each other instead of below eachother. */
+  /** The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other. */
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
 
   /** Custom validators. */

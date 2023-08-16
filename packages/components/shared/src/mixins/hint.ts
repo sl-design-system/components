@@ -43,7 +43,9 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     /** The hint. If you need to display HTML, use the `hint` slot instead. */
     @property() hint?: string;
 
-    /** The hint size. */
+    /** The hint size.
+     *  @type {'sm' | 'md' | 'lg'}
+     */
     @property() hintSize: HintSize = 'md';
 
     /** The hint disabled state. */

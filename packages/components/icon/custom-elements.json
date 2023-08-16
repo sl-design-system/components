@@ -118,7 +118,7 @@
                   }
                 }
               ],
-              "description": "Store all icons from the IconLibrary of the theme in the icon registry for easy access.\nIs run in the setup method of each theme."
+              "description": "Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.\nIs run in the setup method of each theme."
             },
             {
               "kind": "field",
@@ -203,7 +203,7 @@
                   }
                 }
               ],
-              "description": "Store all icons from the IconLibrary of the theme in the icon registry for easy access.\nIs run in the setup method of each theme."
+              "description": "Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.\nIs run in the setup method of each theme."
             },
             {
               "kind": "method",

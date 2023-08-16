@@ -17,7 +17,7 @@ import styles from './select-option-group.scss.js';
     </sl-select>
  * ```
  *
- * @slot default - List of sl-options
+ * @slot default - List of `sl-option` elements
  */
 export class SelectOptionGroup extends LitElement {
   /** @private */

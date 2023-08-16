@@ -52,7 +52,7 @@ export class Icon extends LitElement {
   }
 
   /**
-   * Store all icons from the IconLibrary of the theme in the icon registry for easy access.
+   * Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.
    * Is run in the setup method of each theme.
    */
   static registerIcons(icons: IconLibrary): void {

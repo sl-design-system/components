@@ -1,18 +1,18 @@
-# `../packages/components/avatar/index.ts`:
+# `../packages/components/button-bar/index.ts`:
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/avatar.js |
+| Kind | Name | Declaration | Module | Package             |
+| ---- | ---- | ----------- | ------ | ------------------- |
+| `js` | `*`  | *           |        | ./src/button-bar.js |
 
-# `../packages/components/avatar/register.ts`:
+# `../packages/components/button-bar/register.ts`:
 
 ## Exports
 
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/components/avatar/src/avatar.js |         |
+| Kind                        | Name            | Declaration | Module                                            | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
 
 # `../packages/components/button/index.ts`:
 
@@ -30,21 +30,21 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
 
-# `../packages/components/button-bar/index.ts`:
+# `../packages/components/avatar/index.ts`:
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./src/button-bar.js |
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/avatar.js |
 
-# `../packages/components/button-bar/register.ts`:
+# `../packages/components/avatar/register.ts`:
 
 ## Exports
 
-| Kind                        | Name            | Declaration | Module                                            | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-avatar` | Avatar      | /packages/components/avatar/src/avatar.js |         |
 
 # `../packages/components/checkbox/index.ts`:
 
@@ -79,22 +79,6 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
-
-# `../packages/components/editor/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/editor.js |
-
-# `../packages/components/editor/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
 
 # `../packages/components/grid/index.ts`:
 
@@ -139,6 +123,22 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
 
+# `../packages/components/editor/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/editor.js |
+
+# `../packages/components/editor/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
+
 # `../packages/components/icon/index.ts`:
 
 ## Exports
@@ -156,22 +156,6 @@
 | --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
 | `custom-element-definition` | `sl-icon` | Icon        | /packages/components/icon/src/icon.js |         |
 
-# `../packages/components/label/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package        |
-| ---- | ---- | ----------- | ------ | -------------- |
-| `js` | `*`  | *           |        | ./src/label.js |
-
-# `../packages/components/label/register.ts`:
-
-## Exports
-
-| Kind                        | Name       | Declaration | Module                                  | Package |
-| --------------------------- | ---------- | ----------- | --------------------------------------- | ------- |
-| `custom-element-definition` | `sl-label` | Label       | /packages/components/label/src/label.js |         |
-
 # `../packages/components/popover/index.ts`:
 
 ## Exports
@@ -188,23 +172,21 @@
 | --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-popover` | Popover     | /packages/components/popover/src/popover.js |         |
 
-# `../packages/components/radio-group/index.ts`:
+# `../packages/components/label/index.ts`:
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package              |
-| ---- | ---- | ----------- | ------ | -------------------- |
-| `js` | `*`  | *           |        | ./src/radio.js       |
-| `js` | `*`  | *           |        | ./src/radio-group.js |
+| Kind | Name | Declaration | Module | Package        |
+| ---- | ---- | ----------- | ------ | -------------- |
+| `js` | `*`  | *           |        | ./src/label.js |
 
-# `../packages/components/radio-group/register.ts`:
+# `../packages/components/label/register.ts`:
 
 ## Exports
 
-| Kind                        | Name             | Declaration | Module                                              | Package |
-| --------------------------- | ---------------- | ----------- | --------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
-| `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
+| Kind                        | Name       | Declaration | Module                                  | Package |
+| --------------------------- | ---------- | ----------- | --------------------------------------- | ------- |
+| `custom-element-definition` | `sl-label` | Label       | /packages/components/label/src/label.js |         |
 
 # `../packages/components/select/index.ts`:
 
@@ -226,21 +208,23 @@
 | `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
 | `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
 
-# `../packages/components/skeleton/index.ts`:
+# `../packages/components/radio-group/index.ts`:
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package           |
-| ---- | ---- | ----------- | ------ | ----------------- |
-| `js` | `*`  | *           |        | ./src/skeleton.js |
+| Kind | Name | Declaration | Module | Package              |
+| ---- | ---- | ----------- | ------ | -------------------- |
+| `js` | `*`  | *           |        | ./src/radio.js       |
+| `js` | `*`  | *           |        | ./src/radio-group.js |
 
-# `../packages/components/skeleton/register.ts`:
+# `../packages/components/radio-group/register.ts`:
 
 ## Exports
 
-| Kind                        | Name          | Declaration | Module                                        | Package |
-| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-skeleton` | Skeleton    | /packages/components/skeleton/src/skeleton.js |         |
+| Kind                        | Name             | Declaration | Module                                              | Package |
+| --------------------------- | ---------------- | ----------- | --------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
+| `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
 
 # `../packages/components/shared/index.ts`:
 
@@ -260,6 +244,22 @@
 | `js` | `*`  | *           |        | ./src/types.js             |
 | `js` | `*`  | *           |        | ./src/validators.js        |
 
+# `../packages/components/skeleton/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package           |
+| ---- | ---- | ----------- | ------ | ----------------- |
+| `js` | `*`  | *           |        | ./src/skeleton.js |
+
+# `../packages/components/skeleton/register.ts`:
+
+## Exports
+
+| Kind                        | Name          | Declaration | Module                                        | Package |
+| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-skeleton` | Skeleton    | /packages/components/skeleton/src/skeleton.js |         |
+
 # `../packages/components/switch/index.ts`:
 
 ## Exports
@@ -275,22 +275,6 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-switch` | Switch      | /packages/components/switch/src/switch.js |         |
-
-# `../packages/components/text-input/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package          |
-| ---- | ---- | ----------- | ------ | ---------------- |
-| `js` | `*`  | *           |        | ./src/text-input |
-
-# `../packages/components/text-input/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                         | Package |
-| --------------------------- | --------------- | ----------- | ---------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-text-input` | TextInput   | /packages/components/text-input/src/text-input |         |
 
 # `../packages/components/tabs/index.ts`:
 
@@ -311,6 +295,22 @@
 | `custom-element-definition` | `sl-tab`       | Tab         | /packages/components/tabs/src/tab.js       |         |
 | `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/components/tabs/src/tab-group.js |         |
 | `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/components/tabs/src/tab-panel.js |         |
+
+# `../packages/components/text-input/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package          |
+| ---- | ---- | ----------- | ------ | ---------------- |
+| `js` | `*`  | *           |        | ./src/text-input |
+
+# `../packages/components/text-input/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                         | Package |
+| --------------------------- | --------------- | ----------- | ---------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-text-input` | TextInput   | /packages/components/text-input/src/text-input |         |
 
 # `../packages/components/textarea/index.ts`:
 
@@ -438,6 +438,52 @@
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Avatar` | Avatar      | ../packages/components/avatar/src/avatar.ts |         |
 
+# `../packages/components/button-bar/src/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
+
+# `../packages/components/button-bar/src/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name      | Privacy | Type                                              | Default   | Description                                                                                    | Inherited From |
+| --------- | ------- | ------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------- | -------------- |
+| `align`   |         | `'start' \| 'center' \| 'end' \| 'space-between'` | `'start'` | The alignment of the buttons within the bar.&#xA;Functionally the same as flex-box alignments. |                |
+| `reverse` |         | `boolean`                                         | `false`   | When set to true, the button order is reversed using flex-direction.                           |                |
+
+### Attributes
+
+| Name      | Field   | Inherited From |
+| --------- | ------- | -------------- |
+| `align`   | align   |                |
+| `reverse` | reverse |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
+
 # `../packages/components/button/src/button.scss.ts`:
 
 ## Exports
@@ -487,260 +533,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Button` | Button      | ../packages/components/button/src/button.ts |         |
-
-# `../packages/components/checkbox/src/checkbox-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/checkbox/src/checkbox-group.scss.ts |         |
-
-# `../packages/components/checkbox/src/checkbox-group.ts`:
-
-## class: `CheckboxGroup`, `sl-checkbox-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name        | Module | Package                  |
-| ----------- | ------ | ------------------------ |
-| `HintMixin` |        | @sl-design-system/shared |
-
-### Fields
-
-| Name         | Privacy | Type                       | Default | Description                                                         | Inherited From |
-| ------------ | ------- | -------------------------- | ------- | ------------------------------------------------------------------- | -------------- |
-| `disabled`   |         | `boolean \| undefined`     |         | The hint disabled state.                                            | HintMixin      |
-| `form`       |         | `HTMLFormElement \| null`  |         | Native form property                                                |                |
-| `hint`       |         | `string \| undefined`      |         | The hint. If you need to display HTML, use the `hint` slot instead. | HintMixin      |
-| `hintSize`   |         | `HintSize`                 | `'md'`  | The hint size.                                                      | HintMixin      |
-| `name`       |         | `string \| undefined`      |         | Name of the form control                                            |                |
-| `validators` |         | `Validator[] \| undefined` |         | Custom validators.                                                  |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `name`     | name     |                |
-| `hint`     | hint     | HintMixin      |
-| `hintSize` | hintSize | HintMixin      |
-| `disabled` | disabled | HintMixin      |
-
-### Slots
-
-| Name      | Description                       |
-| --------- | --------------------------------- |
-| `default` | A list of `sl-checkbox` elements. |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                                | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------- | ------- |
-| `js` | `CheckboxGroup` | CheckboxGroup | ../packages/components/checkbox/src/checkbox-group.ts |         |
-
-# `../packages/components/checkbox/src/checkbox.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/checkbox/src/checkbox.scss.ts |         |
-
-# `../packages/components/checkbox/src/checkbox.ts`:
-
-## class: `Checkbox`, `sl-checkbox`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-| `HintMixin`        |        | @sl-design-system/shared |
-
-### Fields
-
-| Name            | Privacy | Type                                   | Default | Description                                                                | Inherited From   |
-| --------------- | ------- | -------------------------------------- | ------- | -------------------------------------------------------------------------- | ---------------- |
-| `checked`       |         | `boolean \| undefined`                 |         | Whether the checkbox is checked.                                           |                  |
-| `disabled`      |         | `boolean \| undefined`                 |         | Whether the form control is disabled; when set no interaction is possible. | HintMixin        |
-| `form`          |         | `HTMLFormElement \| null`              |         | Native form property.                                                      | FormControlMixin |
-| `hint`          |         | `string \| undefined`                  |         | The hint. If you need to display HTML, use the `hint` slot instead.        | HintMixin        |
-| `hintSize`      |         | `HintSize`                             | `'md'`  | The hint size.                                                             | HintMixin        |
-| `indeterminate` |         | `boolean`                              | `false` | Whether the checkbox has the indeterminate state.                          |                  |
-| `invalid`       |         | `boolean \| undefined`                 |         | Whether the checkbox is invalid.                                           |                  |
-| `labels`        |         | `NodeListOf<HTMLLabelElement> \| null` |         | Native labels property.                                                    | FormControlMixin |
-| `name`          |         | `string \| undefined`                  |         | The name of the form control.                                              | FormControlMixin |
-| `required`      |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                             | FormControlMixin |
-| `size`          |         | `'md' \| 'lg'`                         | `'md'`  | The size of the checkbox                                                   |                  |
-| `value`         |         | `string \| undefined`                  |         | The value for the checkbox, to be used in forms.                           |                  |
-
-### Methods
-
-| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
-| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
-| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
-| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
-
-### Events
-
-| Name     | Type                    | Description                           | Inherited From |
-| -------- | ----------------------- | ------------------------------------- | -------------- |
-| `change` | `EventEmitter<boolean>` | Emits when the checked state changes. |                |
-
-### Attributes
-
-| Name            | Field         | Inherited From   |
-| --------------- | ------------- | ---------------- |
-| `checked`       | checked       |                  |
-| `invalid`       | invalid       |                  |
-| `indeterminate` | indeterminate |                  |
-| `size`          | size          |                  |
-| `value`         | value         |                  |
-| `disabled`      | disabled      | HintMixin        |
-| `name`          | name          | FormControlMixin |
-| `required`      | required      | FormControlMixin |
-| `hint`          | hint          | HintMixin        |
-| `hintSize`      | hintSize      | HintMixin        |
-
-### Slots
-
-| Name      | Description                                                                                                |
-| --------- | ---------------------------------------------------------------------------------------------------------- |
-| `default` | Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc. |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                          | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Checkbox` | Checkbox    | ../packages/components/checkbox/src/checkbox.ts |         |
-
-# `../packages/components/button-bar/src/button-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
-
-# `../packages/components/button-bar/src/button-bar.ts`:
-
-## class: `ButtonBar`, `sl-button-bar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name      | Privacy | Type                                              | Default   | Description                                                                                    | Inherited From |
-| --------- | ------- | ------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------- | -------------- |
-| `align`   |         | `'start' \| 'center' \| 'end' \| 'space-between'` | `'start'` | The alignment of the buttons within the bar.&#xA;Functionally the same as flex-box alignments. |                |
-| `reverse` |         | `boolean`                                         | `false`   | When set to true, the button order is reversed using flex-direction.                           |                |
-
-### Attributes
-
-| Name      | Field   | Inherited From |
-| --------- | ------- | -------------- |
-| `align`   | align   |                |
-| `reverse` | reverse |                |
-
-### Slots
-
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
-
-# `../packages/components/dialog/src/dialog.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
-
-# `../packages/components/dialog/src/dialog.ts`:
-
-## class: `Dialog`, `sl-dialog`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Fields
-
-| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
-| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
-| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
-| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
-| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters | Return | Inherited From |
-| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `close`     |         |             |            | `void` |                |
-| `showModal` |         |             |            | `void` |                |
-
-### Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `disable-close` | disableClose |                |
-| `role`          | role         |                |
-
-### Slots
-
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `action`  | Area where action buttons are placed |
-| `default` | Body content for the dialog          |
-| `footer`  | Footer content for the dialog        |
-| `header`  | Header content for the dialog        |
-| `title`   | The title of the dialog              |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
 
 # `../packages/components/drawer/src/drawer.scss.ts`:
 
@@ -805,6 +597,214 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
+
+# `../packages/components/checkbox/src/checkbox-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/checkbox/src/checkbox-group.scss.ts |         |
+
+# `../packages/components/checkbox/src/checkbox-group.ts`:
+
+## class: `CheckboxGroup`, `sl-checkbox-group`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name        | Module | Package                  |
+| ----------- | ------ | ------------------------ |
+| `HintMixin` |        | @sl-design-system/shared |
+
+### Fields
+
+| Name         | Privacy | Type                       | Default | Description                                                         | Inherited From |
+| ------------ | ------- | -------------------------- | ------- | ------------------------------------------------------------------- | -------------- |
+| `disabled`   |         | `boolean \| undefined`     |         | The hint disabled state.                                            | HintMixin      |
+| `form`       |         | `HTMLFormElement \| null`  |         | Native form property                                                |                |
+| `hint`       |         | `string \| undefined`      |         | The hint. If you need to display HTML, use the `hint` slot instead. | HintMixin      |
+| `hintSize`   |         | `'sm' \| 'md' \| 'lg'`     | `'md'`  | The hint size.                                                      | HintMixin      |
+| `name`       |         | `string \| undefined`      |         | Name of the form control                                            |                |
+| `validators` |         | `Validator[] \| undefined` |         | Custom validators.                                                  |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `name`     | name     |                |
+| `hint`     | hint     | HintMixin      |
+| `hintSize` | hintSize | HintMixin      |
+| `disabled` | disabled | HintMixin      |
+
+### Slots
+
+| Name      | Description                       |
+| --------- | --------------------------------- |
+| `default` | A list of `sl-checkbox` elements. |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------- | ------- |
+| `js` | `CheckboxGroup` | CheckboxGroup | ../packages/components/checkbox/src/checkbox-group.ts |         |
+
+# `../packages/components/checkbox/src/checkbox.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/checkbox/src/checkbox.scss.ts |         |
+
+# `../packages/components/checkbox/src/checkbox.ts`:
+
+## class: `Checkbox`, `sl-checkbox`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
+
+### Fields
+
+| Name            | Privacy | Type                                         | Default | Description                                                                | Inherited From   |
+| --------------- | ------- | -------------------------------------------- | ------- | -------------------------------------------------------------------------- | ---------------- |
+| `checked`       |         | `boolean \| undefined`                       |         | Whether the checkbox is checked.                                           |                  |
+| `disabled`      |         | `boolean \| undefined`                       |         | Whether the form control is disabled; when set no interaction is possible. | HintMixin        |
+| `form`          |         | `HTMLFormElement \| null`                    |         | Native form property.                                                      | FormControlMixin |
+| `hint`          |         | `string \| undefined`                        |         | The hint. If you need to display HTML, use the `hint` slot instead.        | HintMixin        |
+| `hintSize`      |         | `'sm' \| 'md' \| 'lg'`                       | `'md'`  | The hint size.                                                             | HintMixin        |
+| `indeterminate` |         | `boolean`                                    | `false` | Whether the checkbox has the indeterminate state.                          |                  |
+| `invalid`       |         | `boolean \| undefined`                       |         | Whether the checkbox is invalid.                                           |                  |
+| `labels`        |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | Native labels property.                                                    | FormControlMixin |
+| `name`          |         | `string \| undefined`                        |         | The name of the form control.                                              | FormControlMixin |
+| `required`      |         | `boolean \| undefined`                       |         | Whether this form control is a required field.                             | FormControlMixin |
+| `size`          |         | `'md' \| 'lg'`                               | `'md'`  | The size of the checkbox                                                   |                  |
+| `value`         |         | `string \| undefined`                        |         | The value for the checkbox, to be used in forms.                           |                  |
+
+### Methods
+
+| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
+| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
+| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
+| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
+
+### Events
+
+| Name     | Type                    | Description                           | Inherited From |
+| -------- | ----------------------- | ------------------------------------- | -------------- |
+| `change` | `EventEmitter<boolean>` | Emits when the checked state changes. |                |
+
+### Attributes
+
+| Name            | Field         | Inherited From   |
+| --------------- | ------------- | ---------------- |
+| `checked`       | checked       |                  |
+| `invalid`       | invalid       |                  |
+| `indeterminate` | indeterminate |                  |
+| `size`          | size          |                  |
+| `value`         | value         |                  |
+| `disabled`      | disabled      | HintMixin        |
+| `name`          | name          | FormControlMixin |
+| `required`      | required      | FormControlMixin |
+| `hint`          | hint          | HintMixin        |
+| `hintSize`      | hintSize      | HintMixin        |
+
+### Slots
+
+| Name      | Description                                                                                                |
+| --------- | ---------------------------------------------------------------------------------------------------------- |
+| `default` | Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc. |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                          | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `Checkbox` | Checkbox    | ../packages/components/checkbox/src/checkbox.ts |         |
+
+# `../packages/components/dialog/src/dialog.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
+
+# `../packages/components/dialog/src/dialog.ts`:
+
+## class: `Dialog`, `sl-dialog`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Fields
+
+| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
+| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
+| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
+| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
+| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters | Return | Inherited From |
+| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `close`     |         |             |            | `void` |                |
+| `showModal` |         |             |            | `void` |                |
+
+### Attributes
+
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `disable-close` | disableClose |                |
+| `role`          | role         |                |
+
+### Slots
+
+| Name      | Description                          |
+| --------- | ------------------------------------ |
+| `action`  | Area where action buttons are placed |
+| `default` | Body content for the dialog          |
+| `footer`  | Footer content for the dialog        |
+| `header`  | Header content for the dialog        |
+| `title`   | The title of the dialog              |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
 
 # `../packages/components/grid/src/column-group.ts`:
 
@@ -1392,55 +1392,6 @@
 | ---- | ------------ | ----------- | ----------------------------------------- | ------- |
 | `js` | `GridSorter` | GridSorter  | ../packages/components/grid/src/sorter.ts |         |
 
-# `../packages/components/icon/src/icon.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
-
-# `../packages/components/icon/src/icon.ts`:
-
-## class: `Icon`, `sl-icon`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Methods
-
-| Name            | Privacy | Description                                                                                                                           | Parameters                                    | Return | Inherited From |
-| --------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------ | -------------- |
-| `registerIcon`  |         | Add icon(s) to the icon registry                                                                                                      | `faIcons: IconDefinition \| IconDefinition[]` | `void` |                |
-| `registerIcons` |         | Store all icons from the IconLibrary of the theme in the icon registry for easy access.&#xA;Is run in the setup method of each theme. | `icons: IconLibrary`                          | `void` |                |
-
-### Fields
-
-| Name    | Privacy | Type                                                              | Default | Description                                                                                                                              | Inherited From |
-| ------- | ------- | ----------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `label` |         | `string \| undefined`                                             |         | The label of the icon; Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
-| `name`  |         | `string \| undefined`                                             |         | The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma.                                         |                |
-| `size`  |         | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| '4xl'` | `'md'`  | The size of the icon                                                                                                                     |                |
-
-### Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `label` | label |                |
-| `name`  | name  |                |
-| `size`  | size  |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name   | Declaration | Module                                  | Package |
-| ---- | ------ | ----------- | --------------------------------------- | ------- |
-| `js` | `Icon` | Icon        | ../packages/components/icon/src/icon.ts |         |
-
 # `../packages/components/editor/src/commands.ts`:
 
 ## Functions
@@ -1484,17 +1435,17 @@
 
 ### Fields
 
-| Name       | Privacy | Type                                   | Default | Description                                                                | Inherited From   |
-| ---------- | ------- | -------------------------------------- | ------- | -------------------------------------------------------------------------- | ---------------- |
-| `disabled` |         | `boolean \| undefined`                 |         | Whether the form control is disabled; when set no interaction is possible. | HintMixin        |
-| `form`     |         | `HTMLFormElement \| null`              |         | Native form property.                                                      | FormControlMixin |
-| `hint`     |         | `string \| undefined`                  |         | The hint. If you need to display HTML, use the `hint` slot instead.        | HintMixin        |
-| `hintSize` |         | `HintSize`                             | `'md'`  | The hint size.                                                             | HintMixin        |
-| `labels`   |         | `NodeListOf<HTMLLabelElement> \| null` |         | Native labels property.                                                    | FormControlMixin |
-| `name`     |         | `string \| undefined`                  |         | The name of the form control.                                              | FormControlMixin |
-| `plugins`  |         | `Plugin[] \| undefined`                |         | Additional plugins.                                                        |                  |
-| `required` |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                             | FormControlMixin |
-| `value`    |         | `string \| undefined`                  |         |                                                                            |                  |
+| Name       | Privacy | Type                                         | Default | Description                                                                | Inherited From   |
+| ---------- | ------- | -------------------------------------------- | ------- | -------------------------------------------------------------------------- | ---------------- |
+| `disabled` |         | `boolean \| undefined`                       |         | Whether the form control is disabled; when set no interaction is possible. | HintMixin        |
+| `form`     |         | `HTMLFormElement \| null`                    |         | Native form property.                                                      | FormControlMixin |
+| `hint`     |         | `string \| undefined`                        |         | The hint. If you need to display HTML, use the `hint` slot instead.        | HintMixin        |
+| `hintSize` |         | `'sm' \| 'md' \| 'lg'`                       | `'md'`  | The hint size.                                                             | HintMixin        |
+| `labels`   |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | Native labels property.                                                    | FormControlMixin |
+| `name`     |         | `string \| undefined`                        |         | The name of the form control.                                              | FormControlMixin |
+| `plugins`  |         | `Plugin[] \| undefined`                      |         | Additional plugins.                                                        |                  |
+| `required` |         | `boolean \| undefined`                       |         | Whether this form control is a required field.                             | FormControlMixin |
+| `value`    |         | `string \| undefined`                        |         |                                                                            |                  |
 
 ### Methods
 
@@ -1638,17 +1589,17 @@
 | `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
 | `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
 
-# `../packages/components/label/src/label.scss.ts`:
+# `../packages/components/icon/src/icon.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/label/src/label.scss.ts |         |
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
 
-# `../packages/components/label/src/label.ts`:
+# `../packages/components/icon/src/icon.ts`:
 
-## class: `Label`, `sl-label`
+## class: `Icon`, `sl-icon`
 
 ### Superclass
 
@@ -1656,33 +1607,36 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
+### Static Methods
+
+| Name            | Privacy | Description                                                                                                                                        | Parameters                                    | Return | Inherited From |
+| --------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------ | -------------- |
+| `registerIcon`  |         | Add icon(s) to the icon registry                                                                                                                   | `faIcons: IconDefinition \| IconDefinition[]` | `void` |                |
+| `registerIcons` |         | Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.&#xA;Is run in the setup method of each theme. | `icons: IconLibrary`                          | `void` |                |
+
 ### Fields
 
-| Name        | Privacy | Type                   | Default | Description                                                                | Inherited From |
-| ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------- | -------------- |
-| `disabled`  |         | `boolean`              | `false` | Whether the form control is disabled; when set no interaction is possible. |                |
-| `for`       |         | `string \| undefined`  |         | The DOM id of the form control this is linked to.                          |                |
-| `noPadding` |         | `boolean \| undefined` |         | Whether this label should have no padding bottom.                          |                |
-| `optional`  |         | `boolean \| undefined` |         | Whether this label should be marked as optional.                           |                |
-| `required`  |         | `boolean \| undefined` |         | Whether this label should be marked as required.                           |                |
-| `size`      |         | `'sm' \| 'md' \| 'lg'` | `'md'`  | The size of the label.                                                     |                |
+| Name    | Privacy | Type                                                              | Default | Description                                                                                                                              | Inherited From |
+| ------- | ------- | ----------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `label` |         | `string \| undefined`                                             |         | The label of the icon; Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
+| `name`  |         | `string \| undefined`                                             |         | The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma.                                         |                |
+| `size`  |         | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| '4xl'` | `'md'`  | The size of the icon                                                                                                                     |                |
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `for`        | for       |                |
-| `size`       | size      |                |
-| `disabled`   | disabled  |                |
-| `no-padding` | noPadding |                |
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+| `name`  | name  |                |
+| `size`  | size  |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                    | Package |
-| ---- | ------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `Label` | Label       | ../packages/components/label/src/label.ts |         |
+| Kind | Name   | Declaration | Module                                  | Package |
+| ---- | ------ | ----------- | --------------------------------------- | ------- |
+| `js` | `Icon` | Icon        | ../packages/components/icon/src/icon.ts |         |
 
 # `../packages/components/popover/src/popover.scss.ts`:
 
@@ -1728,157 +1682,17 @@
 | ---- | --------- | ----------- | --------------------------------------------- | ------- |
 | `js` | `Popover` | Popover     | ../packages/components/popover/src/popover.ts |         |
 
-# `../packages/components/radio-group/src/radio-group.scss.ts`:
+# `../packages/components/label/src/label.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/radio-group/src/radio-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/label/src/label.scss.ts |         |
 
-# `../packages/components/radio-group/src/radio-group.ts`:
+# `../packages/components/label/src/label.ts`:
 
-## class: `RadioGroup`, `sl-radio-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-| `HintMixin`        |        | @sl-design-system/shared |
-
-### Fields
-
-| Name         | Privacy | Type                                   | Default | Description                                                                                                                     | Inherited From   |
-| ------------ | ------- | -------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `disabled`   |         | `boolean \| undefined`                 |         | Whether the form control is disabled; when set no interaction is possible.                                                      | HintMixin        |
-| `form`       |         | `HTMLFormElement \| null`              |         | Native form property.                                                                                                           | FormControlMixin |
-| `hint`       |         | `string \| undefined`                  |         | The hint. If you need to display HTML, use the `hint` slot instead.                                                             | HintMixin        |
-| `hintSize`   |         | `HintSize`                             | `'md'`  | The hint size.                                                                                                                  | HintMixin        |
-| `horizontal` |         | `boolean \| undefined`                 |         | The orientation of the radio options; when true, the radio buttons are desplayed next to each other instead of below eachother. |                  |
-| `labels`     |         | `NodeListOf<HTMLLabelElement> \| null` |         | Native labels property.                                                                                                         | FormControlMixin |
-| `name`       |         | `string \| undefined`                  |         | The name of the form control.                                                                                                   | FormControlMixin |
-| `required`   |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                                                                                  | FormControlMixin |
-| `validators` |         | `Validator[] \| undefined`             |         | Custom validators.                                                                                                              |                  |
-| `value`      |         | `string \| undefined`                  |         | The value for the radio group, to be used in forms.                                                                             |                  |
-
-### Methods
-
-| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
-| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
-| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
-| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
-
-### Attributes
-
-| Name         | Field      | Inherited From   |
-| ------------ | ---------- | ---------------- |
-| `horizontal` | horizontal |                  |
-| `value`      | value      |                  |
-| `disabled`   | disabled   | HintMixin        |
-| `name`       | name       | FormControlMixin |
-| `required`   | required   | FormControlMixin |
-| `hint`       | hint       | HintMixin        |
-| `hintSize`   | hintSize   | HintMixin        |
-
-### Slots
-
-| Name      | Description                    |
-| --------- | ------------------------------ |
-| `default` | A list of `sl-radio` elements. |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                                | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `RadioGroup` | RadioGroup  | ../packages/components/radio-group/src/radio-group.ts |         |
-
-# `../packages/components/radio-group/src/radio.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/radio-group/src/radio.scss.ts |         |
-
-# `../packages/components/radio-group/src/radio.ts`:
-
-## class: `Radio`, `sl-radio`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-
-### Fields
-
-| Name       | Privacy | Type                                   | Default | Description                                                                | Inherited From   |
-| ---------- | ------- | -------------------------------------- | ------- | -------------------------------------------------------------------------- | ---------------- |
-| `checked`  |         | `boolean \| undefined`                 |         | Whether the radio is checked.                                              |                  |
-| `disabled` |         | `boolean \| undefined`                 |         | Whether the form control is disabled; when set no interaction is possible. | FormControlMixin |
-| `form`     |         | `HTMLFormElement \| null`              |         | Native form property.                                                      | FormControlMixin |
-| `labels`   |         | `NodeListOf<HTMLLabelElement> \| null` |         | Native labels property.                                                    | FormControlMixin |
-| `name`     |         | `string \| undefined`                  |         | The name of the form control.                                              | FormControlMixin |
-| `required` |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                             | FormControlMixin |
-| `size`     |         | `'md' \| 'lg'`                         | `'md'`  | The size of the radio button.                                              |                  |
-| `value`    |         | `string`                               | `''`    | The value for this radio button.                                           |                  |
-
-### Methods
-
-| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
-| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
-| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
-| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
-
-### Attributes
-
-| Name       | Field    | Inherited From   |
-| ---------- | -------- | ---------------- |
-| `checked`  | checked  |                  |
-| `value`    | value    |                  |
-| `size`     | size     |                  |
-| `disabled` | disabled | FormControlMixin |
-| `name`     | name     | FormControlMixin |
-| `required` | required | FormControlMixin |
-
-<hr/>
-
-## Exports
-
-| Kind | Name    | Declaration | Module                                          | Package |
-| ---- | ------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Radio` | Radio       | ../packages/components/radio-group/src/radio.ts |         |
-
-# `../packages/components/skeleton/src/skeleton.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/skeleton/src/skeleton.scss.ts |         |
-
-# `../packages/components/skeleton/src/skeleton.ts`:
-
-## class: `Skeleton`, `sl-skeleton`
+## class: `Label`, `sl-label`
 
 ### Superclass
 
@@ -1888,176 +1702,31 @@
 
 ### Fields
 
-| Name     | Privacy | Type             | Default     | Description        | Inherited From |
-| -------- | ------- | ---------------- | ----------- | ------------------ | -------------- |
-| `effect` |         | `SkeletonEffect` | `'shimmer'` | Skeleton's effect. |                |
+| Name        | Privacy | Type                   | Default | Description                                                                | Inherited From |
+| ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------- | -------------- |
+| `disabled`  |         | `boolean`              | `false` | Whether the form control is disabled; when set no interaction is possible. |                |
+| `for`       |         | `string \| undefined`  |         | The DOM id of the form control this is linked to.                          |                |
+| `noPadding` |         | `boolean \| undefined` |         | Whether this label should have no padding bottom.                          |                |
+| `optional`  |         | `boolean \| undefined` |         | Whether this label should be marked as optional.                           |                |
+| `required`  |         | `boolean \| undefined` |         | Whether this label should be marked as required.                           |                |
+| `size`      |         | `'sm' \| 'md' \| 'lg'` | `'md'`  | The size of the label.                                                     |                |
 
 ### Attributes
 
-| Name     | Field  | Inherited From |
-| -------- | ------ | -------------- |
-| `effect` | effect |                |
+| Name         | Field     | Inherited From |
+| ------------ | --------- | -------------- |
+| `for`        | for       |                |
+| `size`       | size      |                |
+| `disabled`   | disabled  |                |
+| `no-padding` | noPadding |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                          | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Skeleton` | Skeleton    | ../packages/components/skeleton/src/skeleton.ts |         |
-
-# `../packages/components/select/src/select-option-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                        | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select-option-group.scss.ts |         |
-
-# `../packages/components/select/src/select-option-group.ts`:
-
-## class: `SelectOptionGroup`, `sl-select-option-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name           | Privacy | Type                  | Default | Description                     | Inherited From |
-| -------------- | ------- | --------------------- | ------- | ------------------------------- | -------------- |
-| `groupHeading` |         | `string \| undefined` |         | The heading of the option group |                |
-
-### Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `group-heading` | groupHeading |                |
-
-### Slots
-
-| Name      | Description        |
-| --------- | ------------------ |
-| `default` | List of sl-options |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                | Declaration       | Module                                                   | Package |
-| ---- | ------------------- | ----------------- | -------------------------------------------------------- | ------- |
-| `js` | `SelectOptionGroup` | SelectOptionGroup | ../packages/components/select/src/select-option-group.ts |         |
-
-# `../packages/components/select/src/select-option.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select-option.scss.ts |         |
-
-# `../packages/components/select/src/select-option.ts`:
-
-## class: `SelectOption`, `sl-select-option`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name       | Privacy | Type                            | Default | Description                                         | Inherited From |
-| ---------- | ------- | ------------------------------- | ------- | --------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean`                       | `false` | Whether the option item is disabled.                |                |
-| `selected` |         | `boolean`                       | `false` | Whether the option item is selected.                |                |
-| `value`    |         | `FormControlValue \| undefined` |         | The value for the option item, to be used in forms. |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `value`    | value    |                |
-| `selected` | selected |                |
-| `disabled` | disabled |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                             | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------- | ------- |
-| `js` | `SelectOption` | SelectOption | ../packages/components/select/src/select-option.ts |         |
-
-# `../packages/components/select/src/select.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select.scss.ts |         |
-
-# `../packages/components/select/src/select.ts`:
-
-## class: `Select`, `sl-select`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-
-### Fields
-
-| Name               | Privacy | Type                                   | Default | Description                                                                                                      | Inherited From   |
-| ------------------ | ------- | -------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `disabled`         |         | `boolean \| undefined`                 |         | Whether the form control is disabled; when set no interaction is possible.                                       | FormControlMixin |
-| `form`             |         | `HTMLFormElement \| null`              |         | Native form property.                                                                                            | FormControlMixin |
-| `invalid`          |         | `boolean \| undefined`                 |         | Whether the select is invalid.                                                                                   |                  |
-| `labels`           |         | `NodeListOf<HTMLLabelElement> \| null` |         | Native labels property.                                                                                          | FormControlMixin |
-| `maxOverlayHeight` |         | `string \| undefined`                  |         | The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen. |                  |
-| `name`             |         | `string \| undefined`                  |         | The name of the form control.                                                                                    | FormControlMixin |
-| `placeholder`      |         | `string \| undefined`                  |         | The placeholder text to show when no options is chosen.                                                          |                  |
-| `required`         |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                                                                   | FormControlMixin |
-| `size`             |         | `'md' \| 'lg'`                         | `'md'`  | The size of the select.                                                                                          |                  |
-
-### Methods
-
-| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
-| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
-| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
-| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
-
-### Attributes
-
-| Name                 | Field            | Inherited From   |
-| -------------------- | ---------------- | ---------------- |
-| `max-overlay-height` | maxOverlayHeight |                  |
-| `size`               | size             |                  |
-| `placeholder`        | placeholder      |                  |
-| `invalid`            | invalid          |                  |
-| `disabled`           | disabled         | FormControlMixin |
-| `name`               | name             | FormControlMixin |
-| `required`           | required         | FormControlMixin |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Select` | Select      | ../packages/components/select/src/select.ts |         |
+| Kind | Name    | Declaration | Module                                    | Package |
+| ---- | ------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `Label` | Label       | ../packages/components/label/src/label.ts |         |
 
 # `../packages/components/shared/src/css.ts`:
 
@@ -2174,6 +1843,299 @@
 | `js` | `maxLengthValidator`    | maxLengthValidator    | ../packages/components/shared/src/validators.ts |         |
 | `js` | `patternValidator`      | patternValidator      | ../packages/components/shared/src/validators.ts |         |
 
+# `../packages/components/select/src/select-option-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                        | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-option-group.scss.ts |         |
+
+# `../packages/components/select/src/select-option-group.ts`:
+
+## class: `SelectOptionGroup`, `sl-select-option-group`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name           | Privacy | Type                  | Default | Description                     | Inherited From |
+| -------------- | ------- | --------------------- | ------- | ------------------------------- | -------------- |
+| `groupHeading` |         | `string \| undefined` |         | The heading of the option group |                |
+
+### Attributes
+
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `group-heading` | groupHeading |                |
+
+### Slots
+
+| Name      | Description                  |
+| --------- | ---------------------------- |
+| `default` | List of `sl-option` elements |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                | Declaration       | Module                                                   | Package |
+| ---- | ------------------- | ----------------- | -------------------------------------------------------- | ------- |
+| `js` | `SelectOptionGroup` | SelectOptionGroup | ../packages/components/select/src/select-option-group.ts |         |
+
+# `../packages/components/select/src/select-option.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-option.scss.ts |         |
+
+# `../packages/components/select/src/select-option.ts`:
+
+## class: `SelectOption`, `sl-select-option`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                            | Default | Description                                         | Inherited From |
+| ---------- | ------- | ------------------------------- | ------- | --------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean`                       | `false` | Whether the option item is disabled.                |                |
+| `selected` |         | `boolean`                       | `false` | Whether the option item is selected.                |                |
+| `value`    |         | `FormControlValue \| undefined` |         | The value for the option item, to be used in forms. |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `value`    | value    |                |
+| `selected` | selected |                |
+| `disabled` | disabled |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                             | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------- | ------- |
+| `js` | `SelectOption` | SelectOption | ../packages/components/select/src/select-option.ts |         |
+
+# `../packages/components/select/src/select.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select.scss.ts |         |
+
+# `../packages/components/select/src/select.ts`:
+
+## class: `Select`, `sl-select`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+
+### Fields
+
+| Name               | Privacy | Type                                         | Default | Description                                                                                                      | Inherited From   |
+| ------------------ | ------- | -------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `disabled`         |         | `boolean \| undefined`                       |         | Whether the form control is disabled; when set no interaction is possible.                                       | FormControlMixin |
+| `form`             |         | `HTMLFormElement \| null`                    |         | Native form property.                                                                                            | FormControlMixin |
+| `invalid`          |         | `boolean \| undefined`                       |         | Whether the select is invalid.                                                                                   |                  |
+| `labels`           |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | Native labels property.                                                                                          | FormControlMixin |
+| `maxOverlayHeight` |         | `string \| undefined`                        |         | The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen. |                  |
+| `name`             |         | `string \| undefined`                        |         | The name of the form control.                                                                                    | FormControlMixin |
+| `placeholder`      |         | `string \| undefined`                        |         | The placeholder text to show when no options is chosen.                                                          |                  |
+| `required`         |         | `boolean \| undefined`                       |         | Whether this form control is a required field.                                                                   | FormControlMixin |
+| `size`             |         | `'md' \| 'lg'`                               | `'md'`  | The size of the select.                                                                                          |                  |
+
+### Methods
+
+| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
+| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
+| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
+| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
+
+### Attributes
+
+| Name                 | Field            | Inherited From   |
+| -------------------- | ---------------- | ---------------- |
+| `max-overlay-height` | maxOverlayHeight |                  |
+| `size`               | size             |                  |
+| `placeholder`        | placeholder      |                  |
+| `invalid`            | invalid          |                  |
+| `disabled`           | disabled         | FormControlMixin |
+| `name`               | name             | FormControlMixin |
+| `required`           | required         | FormControlMixin |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Select` | Select      | ../packages/components/select/src/select.ts |         |
+
+# `../packages/components/radio-group/src/radio-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/radio-group/src/radio-group.scss.ts |         |
+
+# `../packages/components/radio-group/src/radio-group.ts`:
+
+## class: `RadioGroup`, `sl-radio-group`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
+
+### Fields
+
+| Name         | Privacy | Type                                         | Default | Description                                                                                                                      | Inherited From   |
+| ------------ | ------- | -------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `disabled`   |         | `boolean \| undefined`                       |         | Whether the form control is disabled; when set no interaction is possible.                                                       | HintMixin        |
+| `form`       |         | `HTMLFormElement \| null`                    |         | Native form property.                                                                                                            | FormControlMixin |
+| `hint`       |         | `string \| undefined`                        |         | The hint. If you need to display HTML, use the `hint` slot instead.                                                              | HintMixin        |
+| `hintSize`   |         | `'sm' \| 'md' \| 'lg'`                       | `'md'`  | The hint size.                                                                                                                   | HintMixin        |
+| `horizontal` |         | `boolean \| undefined`                       |         | The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other. |                  |
+| `labels`     |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | Native labels property.                                                                                                          | FormControlMixin |
+| `name`       |         | `string \| undefined`                        |         | The name of the form control.                                                                                                    | FormControlMixin |
+| `required`   |         | `boolean \| undefined`                       |         | Whether this form control is a required field.                                                                                   | FormControlMixin |
+| `validators` |         | `Validator[] \| undefined`                   |         | Custom validators.                                                                                                               |                  |
+| `value`      |         | `string \| undefined`                        |         | The value for the radio group, to be used in forms.                                                                              |                  |
+
+### Methods
+
+| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
+| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
+| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
+| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
+
+### Attributes
+
+| Name         | Field      | Inherited From   |
+| ------------ | ---------- | ---------------- |
+| `horizontal` | horizontal |                  |
+| `value`      | value      |                  |
+| `disabled`   | disabled   | HintMixin        |
+| `name`       | name       | FormControlMixin |
+| `required`   | required   | FormControlMixin |
+| `hint`       | hint       | HintMixin        |
+| `hintSize`   | hintSize   | HintMixin        |
+
+### Slots
+
+| Name      | Description                    |
+| --------- | ------------------------------ |
+| `default` | A list of `sl-radio` elements. |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                                | Package |
+| ---- | ------------ | ----------- | ----------------------------------------------------- | ------- |
+| `js` | `RadioGroup` | RadioGroup  | ../packages/components/radio-group/src/radio-group.ts |         |
+
+# `../packages/components/radio-group/src/radio.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/radio-group/src/radio.scss.ts |         |
+
+# `../packages/components/radio-group/src/radio.ts`:
+
+## class: `Radio`, `sl-radio`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+
+### Fields
+
+| Name       | Privacy | Type                                         | Default | Description                                                                | Inherited From   |
+| ---------- | ------- | -------------------------------------------- | ------- | -------------------------------------------------------------------------- | ---------------- |
+| `checked`  |         | `boolean \| undefined`                       |         | Whether the radio is checked.                                              |                  |
+| `disabled` |         | `boolean \| undefined`                       |         | Whether the form control is disabled; when set no interaction is possible. | FormControlMixin |
+| `form`     |         | `HTMLFormElement \| null`                    |         | Native form property.                                                      | FormControlMixin |
+| `labels`   |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | Native labels property.                                                    | FormControlMixin |
+| `name`     |         | `string \| undefined`                        |         | The name of the form control.                                              | FormControlMixin |
+| `required` |         | `boolean \| undefined`                       |         | Whether this form control is a required field.                             | FormControlMixin |
+| `size`     |         | `'md' \| 'lg'`                               | `'md'`  | The size of the radio button.                                              |                  |
+| `value`    |         | `string`                                     | `''`    | The value for this radio button.                                           |                  |
+
+### Methods
+
+| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
+| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
+| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
+| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
+
+### Attributes
+
+| Name       | Field    | Inherited From   |
+| ---------- | -------- | ---------------- |
+| `checked`  | checked  |                  |
+| `value`    | value    |                  |
+| `size`     | size     |                  |
+| `disabled` | disabled | FormControlMixin |
+| `name`     | name     | FormControlMixin |
+| `required` | required | FormControlMixin |
+
+<hr/>
+
+## Exports
+
+| Kind | Name    | Declaration | Module                                          | Package |
+| ---- | ------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `Radio` | Radio       | ../packages/components/radio-group/src/radio.ts |         |
+
 # `../packages/components/switch/src/switch.scss.ts`:
 
 ## Exports
@@ -2201,22 +2163,22 @@
 
 ### Fields
 
-| Name          | Privacy | Type                                   | Default        | Description                                                                | Inherited From   |
-| ------------- | ------- | -------------------------------------- | -------------- | -------------------------------------------------------------------------- | ---------------- |
-| `checked`     |         | `boolean \| undefined`                 |                | Whether the switch is on or off.                                           |                  |
-| `disabled`    |         | `boolean \| undefined`                 |                | Whether the form control is disabled; when set no interaction is possible. | HintMixin        |
-| `form`        |         | `HTMLFormElement \| null`              |                | Native form property.                                                      | FormControlMixin |
-| `hint`        |         | `string \| undefined`                  |                | The hint. If you need to display HTML, use the `hint` slot instead.        | HintMixin        |
-| `hintSize`    |         | `HintSize`                             | `'md'`         | The hint size.                                                             | HintMixin        |
-| `iconOff`     |         | `string \| undefined`                  |                | Custom icon in "off" state.                                                |                  |
-| `iconOn`      |         | `string \| undefined`                  |                | Custom icon in "on" state.                                                 |                  |
-| `invalid`     |         | `boolean \| undefined`                 |                | Whether the switch is invalid.                                             |                  |
-| `labels`      |         | `NodeListOf<HTMLLabelElement> \| null` |                | Native labels property.                                                    | FormControlMixin |
-| `name`        |         | `string \| undefined`                  |                | The name of the form control.                                              | FormControlMixin |
-| `orientation` |         | `'horizontal' \| 'vertical'`           | `'horizontal'` | The orientation of the switch.                                             |                  |
-| `required`    |         | `boolean \| undefined`                 |                | Whether this form control is a required field.                             | FormControlMixin |
-| `size`        |         | `'sm' \| 'md' \| 'lg'`                 | `'md'`         | The size of the switch.                                                    |                  |
-| `value`       |         | `string \| undefined`                  |                | The value for the switch, to be used in forms.                             |                  |
+| Name          | Privacy | Type                                         | Default        | Description                                                                | Inherited From   |
+| ------------- | ------- | -------------------------------------------- | -------------- | -------------------------------------------------------------------------- | ---------------- |
+| `checked`     |         | `boolean \| undefined`                       |                | Whether the switch is on or off.                                           |                  |
+| `disabled`    |         | `boolean \| undefined`                       |                | Whether the form control is disabled; when set no interaction is possible. | HintMixin        |
+| `form`        |         | `HTMLFormElement \| null`                    |                | Native form property.                                                      | FormControlMixin |
+| `hint`        |         | `string \| undefined`                        |                | The hint. If you need to display HTML, use the `hint` slot instead.        | HintMixin        |
+| `hintSize`    |         | `'sm' \| 'md' \| 'lg'`                       | `'md'`         | The hint size.                                                             | HintMixin        |
+| `iconOff`     |         | `string \| undefined`                        |                | Custom icon in "off" state.                                                |                  |
+| `iconOn`      |         | `string \| undefined`                        |                | Custom icon in "on" state.                                                 |                  |
+| `invalid`     |         | `boolean \| undefined`                       |                | Whether the switch is invalid.                                             |                  |
+| `labels`      |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |                | Native labels property.                                                    | FormControlMixin |
+| `name`        |         | `string \| undefined`                        |                | The name of the form control.                                              | FormControlMixin |
+| `orientation` |         | `'horizontal' \| 'vertical'`                 | `'horizontal'` | The orientation of the switch.                                             |                  |
+| `required`    |         | `boolean \| undefined`                       |                | Whether this form control is a required field.                             | FormControlMixin |
+| `size`        |         | `'sm' \| 'md' \| 'lg'`                       | `'md'`         | The size of the switch.                                                    |                  |
+| `value`       |         | `string \| undefined`                        |                | The value for the switch, to be used in forms.                             |                  |
 
 ### Methods
 
@@ -2264,17 +2226,17 @@
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Switch` | Switch      | ../packages/components/switch/src/switch.ts |         |
 
-# `../packages/components/text-input/src/text-input.scss.ts`:
+# `../packages/components/skeleton/src/skeleton.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/text-input/src/text-input.scss.ts |         |
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/skeleton/src/skeleton.scss.ts |         |
 
-# `../packages/components/text-input/src/text-input.ts`:
+# `../packages/components/skeleton/src/skeleton.ts`:
 
-## class: `TextInput`, `sl-text-input`
+## class: `Skeleton`, `sl-skeleton`
 
 ### Superclass
 
@@ -2282,91 +2244,25 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
-### Mixins
-
-| Name               | Module | Package                  |
-| ------------------ | ------ | ------------------------ |
-| `FormControlMixin` |        | @sl-design-system/shared |
-| `HintMixin`        |        | @sl-design-system/shared |
-
 ### Fields
 
-| Name           | Privacy | Type                                                            | Default  | Description                                                                                                                                                                                                       | Inherited From   |
-| -------------- | ------- | --------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `autocomplete` |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |          | Specifies which type of data the browser can use to pre-fill the input.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`. |                  |
-| `disabled`     |         | `boolean \| undefined`                                          |          | Whether the form control is disabled; when set no interaction is possible.                                                                                                                                        | HintMixin        |
-| `form`         |         | `HTMLFormElement \| null`                                       |          | Native form property.                                                                                                                                                                                             | FormControlMixin |
-| `hint`         |         | `string \| undefined`                                           |          | The hint. If you need to display HTML, use the `hint` slot instead.                                                                                                                                               | HintMixin        |
-| `hintSize`     |         | `HintSize`                                                      | `'md'`   | The hint size.                                                                                                                                                                                                    | HintMixin        |
-| `input`        |         | `HTMLInputElement`                                              |          | The input element in the light DOM.                                                                                                                                                                               |                  |
-| `invalid`      |         | `boolean \| undefined`                                          |          | Whether the input is invalid.                                                                                                                                                                                     |                  |
-| `labels`       |         | `NodeListOf<HTMLLabelElement> \| null`                          |          | Native labels property.                                                                                                                                                                                           | FormControlMixin |
-| `max`          |         | `number \| undefined`                                           |          | Maximum value. Only applies to number input type.                                                                                                                                                                 |                  |
-| `maxLength`    |         | `number \| undefined`                                           |          | Maximum length (number of characters).                                                                                                                                                                            |                  |
-| `min`          |         | `number \| undefined`                                           |          | Minimum value. Only applies to number input type.                                                                                                                                                                 |                  |
-| `minLength`    |         | `number \| undefined`                                           |          | Minimum length (number of characters).                                                                                                                                                                            |                  |
-| `name`         |         | `string \| undefined`                                           |          | The name of the form control.                                                                                                                                                                                     | FormControlMixin |
-| `pattern`      |         | `string \| undefined`                                           |          | Validation using pattern. Native HTML input functionality.                                                                                                                                                        |                  |
-| `placeholder`  |         | `string \| undefined`                                           |          | Placeholder text in the input.                                                                                                                                                                                    |                  |
-| `readonly`     |         | `boolean \| undefined`                                          |          | Whether you can interact with the input or if it is just a static, readonly display.                                                                                                                              |                  |
-| `required`     |         | `boolean \| undefined`                                          |          | Whether this form control is a required field.                                                                                                                                                                    | FormControlMixin |
-| `showValid`    |         | `boolean`                                                       | `false`  | Whether the input should get valid styles when is valid.                                                                                                                                                          |                  |
-| `size`         |         | `'md' \| 'lg'`                                                  | `'md'`   | The size of the input.                                                                                                                                                                                            |                  |
-| `step`         |         | `number \| undefined`                                           |          | Specifies the interval between legal numbers for an input field. Only applies to number input type                                                                                                                |                  |
-| `type`         |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                             |                  |
-| `valid`        |         | `boolean \| undefined`                                          |          | Whether the input is valid.                                                                                                                                                                                       |                  |
-| `validators`   |         | `Validator[] \| undefined`                                      |          | Custom validators specified by the user.                                                                                                                                                                          |                  |
-| `value`        |         | `string \| undefined`                                           |          | The value for the input, to be used in forms.                                                                                                                                                                     |                  |
-
-### Methods
-
-| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
-| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
-| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
-| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
-| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
+| Name     | Privacy | Type             | Default     | Description        | Inherited From |
+| -------- | ------- | ---------------- | ----------- | ------------------ | -------------- |
+| `effect` |         | `SkeletonEffect` | `'shimmer'` | Skeleton's effect. |                |
 
 ### Attributes
 
-| Name           | Field        | Inherited From   |
-| -------------- | ------------ | ---------------- |
-| `autocomplete` | autocomplete |                  |
-| `maxlength`    | maxLength    |                  |
-| `minlength`    | minLength    |                  |
-| `min`          | min          |                  |
-| `max`          | max          |                  |
-| `step`         | step         |                  |
-| `pattern`      | pattern      |                  |
-| `placeholder`  | placeholder  |                  |
-| `invalid`      | invalid      |                  |
-| `valid`        | valid        |                  |
-| `showValid`    | showValid    |                  |
-| `readonly`     | readonly     |                  |
-| `size`         | size         |                  |
-| `type`         | type         |                  |
-| `value`        | value        |                  |
-| `disabled`     | disabled     | HintMixin        |
-| `name`         | name         | FormControlMixin |
-| `required`     | required     | FormControlMixin |
-| `hint`         | hint         | HintMixin        |
-| `hintSize`     | hintSize     | HintMixin        |
-
-### Slots
-
-| Name     | Description                    |
-| -------- | ------------------------------ |
-| `prefix` | Content shown before the input |
-| `input`  | The slot for the input element |
-| `suffix` | Content shown after the input  |
+| Name     | Field  | Inherited From |
+| -------- | ------ | -------------- |
+| `effect` | effect |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `TextInput` | TextInput   | ../packages/components/text-input/src/text-input.ts |         |
+| Kind | Name       | Declaration | Module                                          | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `Skeleton` | Skeleton    | ../packages/components/skeleton/src/skeleton.ts |         |
 
 # `../packages/components/tabs/src/tab-group.scss.ts`:
 
@@ -2524,8 +2420,8 @@
 | `disabled`     |         | `boolean \| undefined`                                        |              | Whether the form control is disabled; when set no interaction is possible.                                                                                                                                           | HintMixin        |
 | `form`         |         | `HTMLFormElement \| null`                                     |              | Native form property.                                                                                                                                                                                                | FormControlMixin |
 | `hint`         |         | `string \| undefined`                                         |              | The hint. If you need to display HTML, use the `hint` slot instead.                                                                                                                                                  | HintMixin        |
-| `hintSize`     |         | `HintSize`                                                    | `'md'`       | The hint size.                                                                                                                                                                                                       | HintMixin        |
-| `labels`       |         | `NodeListOf<HTMLLabelElement> \| null`                        |              | Native labels property.                                                                                                                                                                                              | FormControlMixin |
+| `hintSize`     |         | `'sm' \| 'md' \| 'lg'`                                        | `'md'`       | The hint size.                                                                                                                                                                                                       | HintMixin        |
+| `labels`       |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                  |              | Native labels property.                                                                                                                                                                                              | FormControlMixin |
 | `maxLength`    |         | `number \| undefined`                                         |              | Maximum length (number of characters).                                                                                                                                                                               |                  |
 | `minLength`    |         | `number \| undefined`                                         |              | Minimum length (number of characters).                                                                                                                                                                               |                  |
 | `name`         |         | `string \| undefined`                                         |              | The name of the form control.                                                                                                                                                                                        | FormControlMixin |
@@ -2584,6 +2480,110 @@
 | Kind | Name       | Declaration | Module                                          | Package |
 | ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Textarea` | Textarea    | ../packages/components/textarea/src/textarea.ts |         |
+
+# `../packages/components/text-input/src/text-input.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/text-input/src/text-input.scss.ts |         |
+
+# `../packages/components/text-input/src/text-input.ts`:
+
+## class: `TextInput`, `sl-text-input`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name               | Module | Package                  |
+| ------------------ | ------ | ------------------------ |
+| `FormControlMixin` |        | @sl-design-system/shared |
+| `HintMixin`        |        | @sl-design-system/shared |
+
+### Fields
+
+| Name           | Privacy | Type                                                            | Default  | Description                                                                                                                                                                                                       | Inherited From   |
+| -------------- | ------- | --------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `autocomplete` |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |          | Specifies which type of data the browser can use to pre-fill the input.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`. |                  |
+| `disabled`     |         | `boolean \| undefined`                                          |          | Whether the form control is disabled; when set no interaction is possible.                                                                                                                                        | HintMixin        |
+| `form`         |         | `HTMLFormElement \| null`                                       |          | Native form property.                                                                                                                                                                                             | FormControlMixin |
+| `hint`         |         | `string \| undefined`                                           |          | The hint. If you need to display HTML, use the `hint` slot instead.                                                                                                                                               | HintMixin        |
+| `hintSize`     |         | `'sm' \| 'md' \| 'lg'`                                          | `'md'`   | The hint size.                                                                                                                                                                                                    | HintMixin        |
+| `input`        |         | `HTMLInputElement`                                              |          | The input element in the light DOM.                                                                                                                                                                               |                  |
+| `invalid`      |         | `boolean \| undefined`                                          |          | Whether the input is invalid.                                                                                                                                                                                     |                  |
+| `labels`       |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                    |          | Native labels property.                                                                                                                                                                                           | FormControlMixin |
+| `max`          |         | `number \| undefined`                                           |          | Maximum value. Only applies to number input type.                                                                                                                                                                 |                  |
+| `maxLength`    |         | `number \| undefined`                                           |          | Maximum length (number of characters).                                                                                                                                                                            |                  |
+| `min`          |         | `number \| undefined`                                           |          | Minimum value. Only applies to number input type.                                                                                                                                                                 |                  |
+| `minLength`    |         | `number \| undefined`                                           |          | Minimum length (number of characters).                                                                                                                                                                            |                  |
+| `name`         |         | `string \| undefined`                                           |          | The name of the form control.                                                                                                                                                                                     | FormControlMixin |
+| `pattern`      |         | `string \| undefined`                                           |          | Validation using pattern. Native HTML input functionality.                                                                                                                                                        |                  |
+| `placeholder`  |         | `string \| undefined`                                           |          | Placeholder text in the input.                                                                                                                                                                                    |                  |
+| `readonly`     |         | `boolean \| undefined`                                          |          | Whether you can interact with the input or if it is just a static, readonly display.                                                                                                                              |                  |
+| `required`     |         | `boolean \| undefined`                                          |          | Whether this form control is a required field.                                                                                                                                                                    | FormControlMixin |
+| `showValid`    |         | `boolean`                                                       | `false`  | Whether the input should get valid styles when is valid.                                                                                                                                                          |                  |
+| `size`         |         | `'md' \| 'lg'`                                                  | `'md'`   | The size of the input.                                                                                                                                                                                            |                  |
+| `step`         |         | `number \| undefined`                                           |          | Specifies the interval between legal numbers for an input field. Only applies to number input type                                                                                                                |                  |
+| `type`         |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                             |                  |
+| `valid`        |         | `boolean \| undefined`                                          |          | Whether the input is valid.                                                                                                                                                                                       |                  |
+| `validators`   |         | `Validator[] \| undefined`                                      |          | Custom validators specified by the user.                                                                                                                                                                          |                  |
+| `value`        |         | `string \| undefined`                                           |          | The value for the input, to be used in forms.                                                                                                                                                                     |                  |
+
+### Methods
+
+| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From   |
+| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | ---------------- |
+| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` | FormControlMixin |
+| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    | FormControlMixin |
+| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    | FormControlMixin |
+
+### Attributes
+
+| Name           | Field        | Inherited From   |
+| -------------- | ------------ | ---------------- |
+| `autocomplete` | autocomplete |                  |
+| `maxlength`    | maxLength    |                  |
+| `minlength`    | minLength    |                  |
+| `min`          | min          |                  |
+| `max`          | max          |                  |
+| `step`         | step         |                  |
+| `pattern`      | pattern      |                  |
+| `placeholder`  | placeholder  |                  |
+| `invalid`      | invalid      |                  |
+| `valid`        | valid        |                  |
+| `showValid`    | showValid    |                  |
+| `readonly`     | readonly     |                  |
+| `size`         | size         |                  |
+| `type`         | type         |                  |
+| `value`        | value        |                  |
+| `disabled`     | disabled     | HintMixin        |
+| `name`         | name         | FormControlMixin |
+| `required`     | required     | FormControlMixin |
+| `hint`         | hint         | HintMixin        |
+| `hintSize`     | hintSize     | HintMixin        |
+
+### Slots
+
+| Name     | Description                    |
+| -------- | ------------------------------ |
+| `prefix` | Content shown before the input |
+| `input`  | The slot for the input element |
+| `suffix` | Content shown after the input  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `TextInput` | TextInput   | ../packages/components/text-input/src/text-input.ts |         |
 
 # `../packages/components/tooltip/src/tooltip-directive.ts`:
 
@@ -2917,6 +2917,186 @@
 | `js` | `validationStyles`     | validationStyles     | ../packages/components/shared/src/controllers/validation.ts |         |
 | `js` | `ValidationController` | ValidationController | ../packages/components/shared/src/controllers/validation.ts |         |
 
+# `../packages/components/shared/src/decorators/base.ts`:
+
+## Functions
+
+| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
+    finisher,
+    descriptor
+  }: {
+    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
+    descriptor?: (property: PropertyKey) => PropertyDescriptor;
+  }, finisher: function, descriptor: function` | `ClassElement\|void` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                               | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
+| `js` | `decorateProperty` | decorateProperty | ../packages/components/shared/src/decorators/base.ts |         |
+
+# `../packages/components/shared/src/decorators/event.ts`:
+
+## class: `EventEmitter`
+
+### Methods
+
+| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
+| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
+| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
+
+<hr/>
+
+## Variables
+
+| Name    | Description | Type    |
+| ------- | ----------- | ------- |
+| `event` |             | `Event` |
+
+<hr/>
+
+## Functions
+
+| Name    | Description | Parameters              | Return |
+| ------- | ----------- | ----------------------- | ------ |
+| `event` |             | `options: EventOptions` | `any`  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | ../packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | ../packages/components/shared/src/decorators/event.ts |         |
+
+# `../packages/components/shared/src/decorators/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package      |
+| ---- | ---- | ----------- | ------ | ------------ |
+| `js` | `*`  | *           |        | ./base.js    |
+| `js` | `*`  | *           |        | ./event.js   |
+| `js` | `*`  | *           |        | ./observe.js |
+
+# `../packages/components/shared/src/decorators/observe.ts`:
+
+## Functions
+
+| Name      | Description | Parameters                                          | Return |
+| --------- | ----------- | --------------------------------------------------- | ------ |
+| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | ../packages/components/shared/src/decorators/observe.ts |         |
+
+# `../packages/components/shared/src/mixins/form-control.ts`:
+
+## mixin: `FormControlMixin`
+
+### Parameters
+
+| Name          | Type | Default | Description |
+| ------------- | ---- | ------- | ----------- |
+| `constructor` | `T`  |         |             |
+
+### Fields
+
+| Name       | Privacy | Type                                         | Default | Description                                                                | Inherited From |
+| ---------- | ------- | -------------------------------------------- | ------- | -------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`                       |         | Whether the form control is disabled; when set no interaction is possible. |                |
+| `form`     |         | `HTMLFormElement \| null`                    |         | Native form property.                                                      |                |
+| `labels`   |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | Native labels property.                                                    |                |
+| `name`     |         | `string \| undefined`                        |         | The name of the form control.                                              |                |
+| `required` |         | `boolean \| undefined`                       |         | Whether this form control is a required field.                             |                |
+
+### Methods
+
+| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From |
+| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | -------------- |
+| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` |                |
+| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` |                |
+| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    |                |
+| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `disabled` | disabled |                |
+| `name`     | name     |                |
+| `required` | required |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                                   | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------- | ------- |
+| `js` | `FormControlMixin` | FormControlMixin | ../packages/components/shared/src/mixins/form-control.ts |         |
+
+# `../packages/components/shared/src/mixins/hint.ts`:
+
+## mixin: `HintMixin`
+
+### Parameters
+
+| Name          | Type | Default | Description |
+| ------------- | ---- | ------- | ----------- |
+| `constructor` | `T`  |         |             |
+
+### Fields
+
+| Name       | Privacy | Type                   | Default | Description                                                         | Inherited From |
+| ---------- | ------- | ---------------------- | ------- | ------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined` |         | The hint disabled state.                                            |                |
+| `hint`     |         | `string \| undefined`  |         | The hint. If you need to display HTML, use the `hint` slot instead. |                |
+| `hintSize` |         | `'sm' \| 'md' \| 'lg'` | `'md'`  | The hint size.                                                      |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `hint`     | hint     |                |
+| `hintSize` | hintSize |                |
+| `disabled` | disabled |                |
+
+<hr/>
+
+## Variables
+
+| Name         | Description | Type             |
+| ------------ | ----------- | ---------------- |
+| `hintStyles` |             | `CSSResultGroup` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                           | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------ | ------- |
+| `js` | `hintStyles` | hintStyles  | ../packages/components/shared/src/mixins/hint.ts |         |
+| `js` | `HintMixin`  | HintMixin   | ../packages/components/shared/src/mixins/hint.ts |         |
+
+# `../packages/components/shared/src/mixins/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package           |
+| ---- | ---- | ----------- | ------ | ----------------- |
+| `js` | `*`  | *           |        | ./form-control.js |
+| `js` | `*`  | *           |        | ./hint.js         |
+
 # `../packages/components/shared/src/data-source/array-data-source.ts`:
 
 ## class: `ArrayDataSource`
@@ -3006,89 +3186,6 @@
 | `js` | `*`  | *           |        | ./array-data-source.js |
 | `js` | `*`  | *           |        | ./data-source.js       |
 
-# `../packages/components/shared/src/decorators/base.ts`:
-
-## Functions
-
-| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
-    finisher,
-    descriptor
-  }: {
-    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
-    descriptor?: (property: PropertyKey) => PropertyDescriptor;
-  }, finisher: function, descriptor: function` | `ClassElement\|void` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `decorateProperty` | decorateProperty | ../packages/components/shared/src/decorators/base.ts |         |
-
-# `../packages/components/shared/src/decorators/event.ts`:
-
-## class: `EventEmitter`
-
-### Methods
-
-| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
-| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
-| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
-
-<hr/>
-
-## Variables
-
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `event` |             | `Event` |
-
-<hr/>
-
-## Functions
-
-| Name    | Description | Parameters              | Return |
-| ------- | ----------- | ----------------------- | ------ |
-| `event` |             | `options: EventOptions` | `any`  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                                | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | ../packages/components/shared/src/decorators/event.ts |         |
-| `js` | `event`        | event        | ../packages/components/shared/src/decorators/event.ts |         |
-
-# `../packages/components/shared/src/decorators/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package      |
-| ---- | ---- | ----------- | ------ | ------------ |
-| `js` | `*`  | *           |        | ./base.js    |
-| `js` | `*`  | *           |        | ./event.js   |
-| `js` | `*`  | *           |        | ./observe.js |
-
-# `../packages/components/shared/src/decorators/observe.ts`:
-
-## Functions
-
-| Name      | Description | Parameters                                          | Return |
-| --------- | ----------- | --------------------------------------------------- | ------ |
-| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | ../packages/components/shared/src/decorators/observe.ts |         |
-
 # `../packages/components/shared/src/directives/anchor.ts`:
 
 ## class: `AnchorDirective`
@@ -3123,100 +3220,3 @@
 | Kind | Name | Declaration | Module | Package     |
 | ---- | ---- | ----------- | ------ | ----------- |
 | `js` | `*`  | *           |        | ./anchor.js |
-
-# `../packages/components/shared/src/mixins/form-control.ts`:
-
-## mixin: `FormControlMixin`
-
-### Parameters
-
-| Name          | Type | Default | Description |
-| ------------- | ---- | ------- | ----------- |
-| `constructor` | `T`  |         |             |
-
-### Fields
-
-| Name       | Privacy | Type                                   | Default | Description                                                                | Inherited From |
-| ---------- | ------- | -------------------------------------- | ------- | -------------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined`                 |         | Whether the form control is disabled; when set no interaction is possible. |                |
-| `form`     |         | `HTMLFormElement \| null`              |         | Native form property.                                                      |                |
-| `labels`   |         | `NodeListOf<HTMLLabelElement> \| null` |         | Native labels property.                                                    |                |
-| `name`     |         | `string \| undefined`                  |         | The name of the form control.                                              |                |
-| `required` |         | `boolean \| undefined`                 |         | Whether this form control is a required field.                             |                |
-
-### Methods
-
-| Name             | Privacy | Description                       | Parameters                                                        | Return    | Inherited From |
-| ---------------- | ------- | --------------------------------- | ----------------------------------------------------------------- | --------- | -------------- |
-| `checkValidity`  |         | Native ElementInternals function. |                                                                   | `boolean` |                |
-| `reportValidity` |         | Native ElementInternals function. |                                                                   | `boolean` |                |
-| `setFormValue`   |         | Native ElementInternals function. | `value: FormControlValue`                                         | `void`    |                |
-| `setValidity`    |         | Native ElementInternals function. | `flags: ValidityStateFlags, message: string, anchor: HTMLElement` | `void`    |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `disabled` | disabled |                |
-| `name`     | name     |                |
-| `required` | required |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                                   | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------- | ------- |
-| `js` | `FormControlMixin` | FormControlMixin | ../packages/components/shared/src/mixins/form-control.ts |         |
-
-# `../packages/components/shared/src/mixins/hint.ts`:
-
-## mixin: `HintMixin`
-
-### Parameters
-
-| Name          | Type | Default | Description |
-| ------------- | ---- | ------- | ----------- |
-| `constructor` | `T`  |         |             |
-
-### Fields
-
-| Name       | Privacy | Type                   | Default | Description                                                         | Inherited From |
-| ---------- | ------- | ---------------------- | ------- | ------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined` |         | The hint disabled state.                                            |                |
-| `hint`     |         | `string \| undefined`  |         | The hint. If you need to display HTML, use the `hint` slot instead. |                |
-| `hintSize` |         | `HintSize`             | `'md'`  | The hint size.                                                      |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `hint`     | hint     |                |
-| `hintSize` | hintSize |                |
-| `disabled` | disabled |                |
-
-<hr/>
-
-## Variables
-
-| Name         | Description | Type             |
-| ------------ | ----------- | ---------------- |
-| `hintStyles` |             | `CSSResultGroup` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                           | Package |
-| ---- | ------------ | ----------- | ------------------------------------------------ | ------- |
-| `js` | `hintStyles` | hintStyles  | ../packages/components/shared/src/mixins/hint.ts |         |
-| `js` | `HintMixin`  | HintMixin   | ../packages/components/shared/src/mixins/hint.ts |         |
-
-# `../packages/components/shared/src/mixins/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package           |
-| ---- | ---- | ----------- | ------ | ----------------- |
-| `js` | `*`  | *           |        | ./form-control.js |
-| `js` | `*`  | *           |        | ./hint.js         |

@@ -33,10 +33,17 @@
     code {
       background-color: var(--table-code-background);
       border-radius: 0.6rem;
+      box-decoration-break: clone;
+      box-decoration-break: clone;
       font-family: 'source-code-pro', monospace;
       font-size: 1.4rem;
       line-height: 1.6rem;
       padding: 0.4rem 1.2rem;
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth, selector-max-compound-selectors */
+    code > code {
+      padding: 0;
     }
   }
 }

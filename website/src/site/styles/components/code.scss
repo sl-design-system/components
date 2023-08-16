@@ -97,6 +97,8 @@ $transition-timing: 300ms;
 
 code[class*='language-'] {
   background: none;
+  box-decoration-break: clone;
+  box-decoration-break: clone;
   color: var(--text-color);
   display: block;
   font-family: 'source-code-pro', monospace;

@@ -993,6 +993,38 @@
           },
           "type": "typography"
         }
+      },
+      "link": {
+        "sm": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.lg}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        }
       }
     },
     "input": {
@@ -1000,10 +1032,10 @@
         "fontIcon": {
           "md": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
               "lineHeight": "{text.typeset.lineHeight.sm}",
-              "fontSize": 15
+              "fontSize": 15,
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}"
             },
             "type": "typography"
           },
@@ -1179,6 +1211,74 @@
             "type": "typography"
           }
         }
+      },
+      "switch": {
+        "inputField": {
+          "regular": {
+            "sm": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.regular}",
+                "lineHeight": "{text.typeset.lineHeight.sm}",
+                "fontSize": "{text.typeset.fontSize.md}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.regular}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.lg}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.regular}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.xl}"
+              },
+              "type": "typography",
+              "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+            }
+          },
+          "bold": {
+            "sm": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "lineHeight": "{text.typeset.lineHeight.sm}",
+                "fontSize": "{text.typeset.fontSize.md}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.lg}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.xl}"
+              },
+              "type": "typography",
+              "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+            }
+          }
+        }
       }
     },
     "textField": {
@@ -1257,6 +1357,53 @@
           }
         }
       }
+    },
+    "select": {
+      "selectbox": {
+        "text": {
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography"
+          }
+        },
+        "title": {
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xxs}",
+              "fontSize": "{icon.typeset.fontSize.xs}",
+              "textCase": "{text.typeset.textCase.uppercase}"
+            },
+            "type": "typography"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xs}",
+              "fontSize": "{icon.typeset.fontSize.sm}",
+              "textCase": "{text.typeset.textCase.uppercase}"
+            },
+            "type": "typography"
+          }
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1307,6 +1454,26 @@
     "checkbox": {
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
+    },
+    "focusring": {
+      "default": {
+        "value": "{borderRadius.default} + 1",
+        "type": "borderRadius"
+      },
+      "full": {
+        "value": "{border.radius.full}",
+        "type": "borderRadius"
+      }
+    },
+    "select": {
+      "listbox": {
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius"
+      },
+      "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -1329,7 +1496,7 @@
         }
       },
       "select": {
-        "panel": {
+        "listbox": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.default"
@@ -1346,6 +1513,16 @@
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
+      },
+      "focusring": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
+      },
+      "divider": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
       },
       "none": {
         "value": 0,
@@ -1554,9 +1731,14 @@
         "description": "icon.core.chevron-down"
       },
       "check": {
-        "value": "chevron-down",
+        "value": "check",
         "type": "Icons",
         "description": "icon.core.check"
+      },
+      "xmark": {
+        "value": "xmark",
+        "type": "Icons",
+        "description": "icon.core.xmark"
       },
       "triangle-exclamation-solid": {
         "value": "triangle-exclamation",
@@ -1612,12 +1794,6 @@
           "description": "icon.typeset.fontSize.4xl"
         }
       }
-    }
-  },
-  "select": {
-    "panel": {
-      "value": "{border.radius.2xs}",
-      "type": "borderRadius"
     }
   },
   "opacity": {
@@ -1749,22 +1925,34 @@
           "value": "{size.2xl}",
           "type": "sizing",
           "description": "size.input.lg"
+        },
+        "checkboxIcon": {
+          "md": {
+            "value": "{size.icon.md}",
+            "type": "sizing",
+            "description": "size.input.md"
+          },
+          "lg": {
+            "value": "{size.icon.lg}",
+            "type": "sizing",
+            "description": "size.input.lg"
+          }
         }
       },
       "switch": {
         "handle": {
           "sm": {
-            "value": "{size.md} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.md} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "md": {
-            "value": "{size.xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           },
           "lg": {
-            "value": "{size.2xl} - (2 * {space.input.switch.padding.inner})",
+            "value": "{size.2xl} - (2 * {space.input.switch.padding.controller})",
             "type": "sizing",
             "description": "size.input.md"
           }
@@ -1916,7 +2104,7 @@
       "description": "space.2xl"
     },
     "button": {
-      "default": {
+      "solid": {
         "block": {
           "sm": {
             "value": "{space.xs} - {border.width.button.default}",
@@ -2016,7 +2204,7 @@
           }
         }
       },
-      "link": {
+      "ghost": {
         "block": {
           "sm": {
             "value": "{space.xs} - {border.width.button.link}",
@@ -2081,6 +2269,56 @@
           "value": "{space.sm}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
+        }
+      },
+      "link": {
+        "block": {
+          "sm": {
+            "value": "{space.xs} - {border.width.button.link}",
+            "type": "spacing",
+            "description": "space.button.solid.block.sm"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.link}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.sm} - {border.width.button.link}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.sm"
+          },
+          "md": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "icon-only": {
+          "sm": {
+            "value": "{space.xs} - {border.width.button.link}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.button.link}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{space.sm} - {border.width.button.link}",
+            "type": "spacing"
+          }
         }
       }
     },
@@ -2257,15 +2495,93 @@
       },
       "switch": {
         "padding": {
-          "outer": {
+          "container": {
             "value": "{space.xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
           },
-          "inner": {
+          "controller": {
             "value": "{space.2xs}",
             "type": "spacing",
             "description": "space.switch.padding.outer"
+          },
+          "row": {
+            "sm": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.sm} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.md} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.lg} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
+          }
+        },
+        "gap": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "space.input.switch.padding.gap"
+        },
+        "margin": {
+          "top": {
+            "sm": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
+          },
+          "left": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.switch.padding.outer"
+          },
+          "bottom": {
+            "sm": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.xs}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
           }
         }
       }
@@ -2289,21 +2605,33 @@
       }
     },
     "select": {
-      "panel": {
+      "listbox": {
         "block": {
           "lg": {
-            "value": "{space.sm} - {border.width.sm}",
+            "value": "{space.sm} - {border.width.xs}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.xs}",
             "type": "spacing"
           }
         },
         "inline": {
           "lg": {
-            "value": "{space.sm} - {border.width.sm}",
+            "value": "{space.sm} - {border.width.xs}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm} - {border.width.xs}",
             "type": "spacing"
           }
         },
         "gap": {
           "lg": {
+            "value": "{space.xs}",
+            "type": "spacing"
+          },
+          "md": {
             "value": "{space.xs}",
             "type": "spacing"
           }
@@ -2314,24 +2642,8 @@
           "lg": {
             "value": "{space.sm}",
             "type": "spacing"
-          }
-        },
-        "inline": {
-          "lg": {
-            "value": 0,
-            "type": "spacing"
-          }
-        },
-        "gap": {
-          "lg": {
-            "value": "{space.sm}",
-            "type": "spacing"
-          }
-        }
-      },
-      "item": {
-        "block": {
-          "lg": {
+          },
+          "md": {
             "value": "{space.sm}",
             "type": "spacing"
           }
@@ -2340,12 +2652,106 @@
           "lg": {
             "value": "{space.md}",
             "type": "spacing"
+          },
+          "md": {
+            "value": "{space.md}",
+            "type": "spacing"
           }
         },
         "gap": {
           "lg": {
             "value": "{space.sm}",
             "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        },
+        "line": {
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        }
+      },
+      "selectbox": {
+        "block": {
+          "md": {
+            "value": "{space.input.textField.block.md}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.block.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "md": {
+            "value": "{space.input.textField.inline.md}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.inline.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.input.textField.gap.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.input.textField.gap.lg}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      },
+      "item": {
+        "block": {
+          "md": {
+            "value": "{space.input.textField.block.md}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.block.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "md": {
+            "value": "{space.input.textField.inline.md}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.input.textField.inline.lg}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.input.textField.gap.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.input.textField.gap.lg}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
           }
         }
       }
@@ -2364,6 +2770,31 @@
       "lg": {
         "value": "{text.typeset.lineHeight.lg}",
         "type": "lineHeights"
+      }
+    }
+  },
+  "elevation": {
+    "shadow": {
+      "md": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "blur": 8,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.200})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
       }
     }
   }

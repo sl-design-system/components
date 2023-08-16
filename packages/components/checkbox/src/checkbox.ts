@@ -17,6 +17,15 @@ import styles from './checkbox.scss.js';
 
 export type CheckboxSize = 'md' | 'lg';
 
+/**
+ * A checkbox with 3 states; unchecked, checked and intermediate.
+ *
+ * ```html
+ *   <sl-checkbox>Foo</sl-checkbox>
+ * ```
+ *
+ * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
+ */
 export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
@@ -34,7 +43,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   });
   #initialState = false;
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
 
   /** Emits when the checked state changes. */
@@ -49,12 +58,14 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether the checkbox has the indeterminate state. */
   @property({ type: Boolean }) indeterminate = false;
 
-  /** Checkbox size. */
+  /** The size of the checkbox
+   * @type {'md' | 'lg'} */
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
-  /** The value for the checkbox. */
+  /** The value for the checkbox, to be used in forms. */
   @property() value?: string;
 
+  /** @ignore */
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -71,6 +82,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     }
   }
 
+  /** @ignore */
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -95,10 +107,12 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
     }
   }
 
+  /** @ignore Stores the initial state of the checkbox */
   formAssociatedCallback(): void {
     this.#initialState = this.getAttribute('checked') === null ? false : true;
   }
 
+  /** @ignore  Resets the checkbox to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.#validation.validate(this.checked ? this.value : undefined);
@@ -159,6 +173,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
 
   /**
    * Updates the `no-label` attribute based on the presence of a label.
+   * @listens slotchange
    */
   #updateNoLabel(): void {
     const empty = Array.from(this.childNodes)

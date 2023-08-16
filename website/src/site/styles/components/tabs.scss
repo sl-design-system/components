@@ -14,12 +14,12 @@ $transition-timing: 300ms;
   position: sticky;
   top: -0.1rem;
   transition: padding-top $transition-timing;
-  z-index: 1;
 }
 
 .ds-tabs__container--sticky {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
   padding-top: calc(7.8rem + 0.1rem);
+  z-index: 2;
 }
 
 .ds-tab {

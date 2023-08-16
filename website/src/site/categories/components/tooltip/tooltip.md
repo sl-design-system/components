@@ -1,11 +1,12 @@
 ---
-title: Input
-description: Input component description
+title: Tooltip (PoC)
+description: Tooltip description
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
-  key: Input
-  order: 6
+  key: Tooltip
+  order: 19
+  status: coming
 ---
 

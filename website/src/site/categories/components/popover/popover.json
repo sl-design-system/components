@@ -1,0 +1,10 @@
+{
+  "layout": "components/components.njk",
+  "tags": "popover",
+  "componentTagName": [
+    {
+      "name": "Popover",
+      "selector": "sl-popover"
+    }
+  ]
+}

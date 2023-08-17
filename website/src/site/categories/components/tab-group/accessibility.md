@@ -1,15 +1,15 @@
 ---
-title: Input accessibility
+title: Tab group accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Input
-  key: InputAccessibility
+  parent: Tab group
+  key: TabGroupAccessibility
 ---
 <section>
 
-## Input accessibility content
+## Tab group accessibility content
 
-This is the accessibility content of the input component
+This is the accessibility content
 
 </section>
 

@@ -1,0 +1,18 @@
+{
+  "layout": "components/components.njk",
+  "tags": "select",
+  "componentTagName": [
+    {
+      "name": "Select",
+      "selector": "sl-select"
+    },
+    {
+      "name": "Select option",
+      "selector": "sl-select-option"
+    },
+    {
+      "name": "Select option group",
+      "selector": "sl-select-option-group"
+    }
+  ]
+}

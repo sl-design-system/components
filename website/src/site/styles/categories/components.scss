@@ -209,3 +209,14 @@ $transition-timing: 300ms;
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.ds-badge {
+  background-color: var(--badge-background);
+  border: 1px solid var(--badge-border);
+  border-radius: 2px;
+  color: var(--badge-color);
+  display: inline-flex;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  padding: 0.1rem 0.4rem;
+}

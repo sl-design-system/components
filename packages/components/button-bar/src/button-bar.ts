@@ -9,10 +9,10 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  * Groups buttons together in a bar separated by whitespace.
  *
  * ```html
- * <dna-button-bar>
- *   <dna-button>Foo</dna-button>
- *   <dna-button>Bar</dna-button>
- * </dna-button-bar>
+ * <sl-button-bar>
+ *   <sl-button>Foo</sl-button>
+ *   <sl-button>Bar</sl-button>
+ * </sl-button-bar>
  * ```
  *
  * @slot default - Buttons to be grouped in the bar
@@ -22,23 +22,27 @@ export class ButtonBar extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /**
-   * How the buttons are aligned with the bar.
-   * @type {start | center | end | 'space-between'}
+   * The alignment of the buttons within the bar.
+   * Functionally the same as flex-box alignments.
+   * @type {'start' | 'center' | 'end' | 'space-between'}
    */
   @property({ reflect: true }) align: ButtonBarAlign = 'start';
 
-  /** Whether the bar only contains icon-only buttons. */
-  @property({ type: Boolean, reflect: true, attribute: 'icon-only' }) iconOnly?: boolean;
-
-  /** If set, the button order is reversed. */
+  /** When set to true, the button order is reversed using flex-direction.*/
   @property({ type: Boolean, reflect: true }) reverse = false;
+
+  /** Whether the bar only contains icon-only buttons.
+   *  Determined based on the actual content, so does not need to be set.
+   * @private
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'icon-only' }) iconOnly?: boolean;
 
   override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
   async #onSlotchange(): Promise<void> {
-    const buttons = Array.from(this.querySelectorAll('dna-button'));
+    const buttons = Array.from(this.querySelectorAll('sl-button'));
 
     const icons = await Promise.all(
       buttons.map(async el => {

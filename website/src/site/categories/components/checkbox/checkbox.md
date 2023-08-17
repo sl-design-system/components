@@ -9,5 +9,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Checkbox
-  order: 3
+  order: 4
+  status: ready
 ---

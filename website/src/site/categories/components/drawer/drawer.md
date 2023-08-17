@@ -1,5 +1,5 @@
 ---
-title: Drawer
+title: Drawer (PoC)
 description: Drawer component description
 componentType: action
 shortDescription: This is a short description of the drawer component
@@ -9,6 +9,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Drawer
-  order: 5
+  order: 6
+  status: coming
 ---
 

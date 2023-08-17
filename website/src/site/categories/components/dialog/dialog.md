@@ -1,5 +1,5 @@
 ---
-title: Dialog
+title: Dialog (PoC)
 description: Dialog description
 componentType: feedback
 shortDescription: This is a short description of the dialog component
@@ -9,6 +9,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Dialog
-  order: 4
+  order: 5
+  status: coming
 ---
 

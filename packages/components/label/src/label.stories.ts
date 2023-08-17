@@ -19,9 +19,10 @@ const iconSizes: IconSize[] = ['xs', 'sm', 'md'];
 export const API: StoryObj = {
   args: {
     required: false,
+    disabled: true,
     text: 'Label text'
   },
-  render: ({ required, text }) => html`
+  render: ({ required, text, disabled }) => html`
     <style>
       form {
         display: flex;
@@ -30,7 +31,7 @@ export const API: StoryObj = {
     </style>
     <form>
       <sl-label for="input">${text}</sl-label>
-      <sl-text-input ?required=${required} id="input"></sl-text-input>
+      <sl-text-input ?required=${required} id="input" ?disabled=${disabled}></sl-text-input>
     </form>
   `
 };

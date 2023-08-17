@@ -1,26 +1,35 @@
 ---
-title: Input
+title: Radio group
 tags: overview
 eleventyNavigation:
-  parent: Input
-  key: InputOverview
+  parent: Radio group
+  key: RadioGroupOverview
 ---
-<section>
 
+<section>
 <div class="ds-example">
 
-Input example
+<sl-radio-group>
+  <sl-radio value="1">One</sl-radio>
+  <sl-radio value="2">Two</sl-radio>
+  <sl-radio value="3">Three</sl-radio>
+</sl-radio-group>
 
 </div>
 
 <div class="ds-code">
 
 ```html
-  <sl-text-input>Input example code</sl-text-input>
- ```
+
+<sl-radio-group>
+  <sl-radio value="1">One</sl-radio>
+  <sl-radio value="2">Two</sl-radio>
+  <sl-radio value="3">Three</sl-radio>
+</sl-radio-group>
+
+```
 
 </div>
-
 </section>
 
 <section>
@@ -48,7 +57,7 @@ Place text here
 <div class="ds-danger">
 
 ![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
-  
+
 <div class="ds-danger__content">
 
 ### Don't
@@ -60,10 +69,7 @@ Place text here
 </div>
 
 </div>
-
 </section>
-
-{% include "../component-table.njk" %}
 
 <section>
 
@@ -87,5 +93,6 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 ## Related
 Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+
 
 </section>

@@ -1,6 +1,7 @@
 ---
 title: Tooltip (PoC)
 description: Tooltip description
+componentType: feedback
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:

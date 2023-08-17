@@ -1,6 +1,7 @@
 ---
 title: Editor (PoC)
 description: Editor component description
+componentType: editable
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:

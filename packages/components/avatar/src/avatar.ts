@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
@@ -18,6 +18,7 @@ export interface UserProfilePicture {
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type AvatarFallbackType = 'initials' | 'image';
+export type AvatarOrientation = 'horizontal' | 'vertical';
 export type UserStatus = 'online' | 'offline' | 'away' | 'do-not-disturb';
 
 export class Avatar extends LitElement {
@@ -27,6 +28,7 @@ export class Avatar extends LitElement {
   @property() user?: UserProfile;
   @property({ reflect: true }) size?: AvatarSize = 'md';
   @property() fallback?: AvatarFallbackType = 'initials';
+  @property({ reflect: true }) orientation?: AvatarOrientation = 'horizontal';
   @property({ reflect: true }) status?: UserStatus;
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
 
@@ -74,5 +76,21 @@ export class Avatar extends LitElement {
           </div>`
         : nothing}
     `;
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('orientation')) {
+      /** it appears that converting the scss files removes this style property in the css, so i'm adding it here in a hacky way. */
+      const textContainer = this.renderRoot.querySelector('div');
+      if (textContainer) {
+        if (this.orientation === 'vertical') {
+          textContainer.style.display = '-webkit-box';
+        } else {
+          textContainer.style.display = 'flex';
+        }
+      }
+    }
   }
 }

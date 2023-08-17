@@ -18,7 +18,7 @@ $statuses: online, offline, away, do-not-disturb;
   --_avatar-foreground: var(--sl-body-foreground);
   --_avatar_border-radius: 50%;
   align-items: center;
-  display: flex;
+  display: inline-flex;
   gap: 8px;
   padding: 4px;
 }
@@ -77,4 +77,18 @@ div {
   position: absolute;
   right: 2%;
   width: var(--_status-badge-size);
+}
+
+// this is VERY POC; the display gets removed when converting to css, the max-width should be a token
+:host([orientation='vertical']) {
+  flex-direction: column;
+  max-width: 100px;
+
+  div {
+    -webkit-box-orient: vertical;
+    display: box;
+    -webkit-line-clamp: 2;
+    text-align: center;
+    white-space: normal;
+  }
 }

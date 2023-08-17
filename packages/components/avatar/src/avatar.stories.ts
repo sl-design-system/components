@@ -1,14 +1,15 @@
-import type { Avatar, AvatarFallbackType, AvatarSize, UserProfile, UserStatus } from './avatar.js';
+import type { Avatar, AvatarFallbackType, AvatarOrientation, AvatarSize, UserProfile, UserStatus } from './avatar.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
 
-interface Props extends Pick<Avatar, 'title' | 'size' | 'fallback' | 'status' | 'imageOnly'> {
+interface Props extends Pick<Avatar, 'title' | 'size' | 'fallback' | 'status' | 'imageOnly' | 'orientation'> {
   title: string;
   firstName: string;
   lastName: string;
   picture: string;
   imageOnly: boolean;
+  orientation: AvatarOrientation;
   subheading: string;
 }
 
@@ -72,6 +73,7 @@ const users: UserProfile[] = [
 ];
 const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 const fallbacks: AvatarFallbackType[] = ['image', 'initials'];
+const orientations: AvatarOrientation[] = ['horizontal', 'vertical'];
 const statuses: Array<UserStatus | undefined> = [undefined, 'online', 'offline', 'away', 'do-not-disturb'];
 
 const sizeName = (size: string): string => {
@@ -102,7 +104,8 @@ export default {
     firstName: 'Rose',
     lastName: 'Nylund',
     picture: 'https://randomuser.me/api/portraits/thumb/women/14.jpg',
-    imageOnly: false
+    imageOnly: false,
+    size: 'md'
   },
   argTypes: {
     subheading: {
@@ -123,9 +126,13 @@ export default {
     },
     imageOnly: {
       control: 'boolean'
+    },
+    orientation: {
+      control: 'inline-radio',
+      options: orientations
     }
   },
-  render: ({ title, firstName, lastName, picture, size, fallback, status, imageOnly, subheading }) => {
+  render: ({ title, firstName, lastName, picture, size, fallback, status, imageOnly, subheading, orientation }) => {
     let user: UserProfile = {
       name: {
         title,
@@ -141,7 +148,13 @@ export default {
         }
       };
     }
-    return html`<sl-avatar .user=${user} .size=${size} .fallback=${fallback} .status=${status} ?image-only=${imageOnly}
+    return html`<sl-avatar
+      .user=${user}
+      .size=${size}
+      .fallback=${fallback}
+      .status=${status}
+      ?image-only=${imageOnly}
+      .orientation=${orientation}
       >${subheading}</sl-avatar
     >`;
   }

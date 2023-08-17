@@ -27,6 +27,7 @@ export type SelectSize = 'md' | 'lg';
 export class Select extends FormControlMixin(LitElement) {
   static override styles: CSSResultGroup = [popoverPolyfillStyles, validationStyles, hintStyles, styles];
 
+  /** @private */
   static formAssociated = true;
 
   static #observerOptions = {
@@ -36,20 +37,26 @@ export class Select extends FormControlMixin(LitElement) {
     attributeOldValue: true
   };
 
+  /** @private */
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
 
+  /** @private */
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
+  /** @private */
   @query('button') button?: HTMLButtonElement;
+  /** @private */
   @query('dialog') dialog?: HTMLDialogElement;
 
-  /** The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen */
+  /** The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen. */
   @property({ attribute: 'max-overlay-height', reflect: true }) maxOverlayHeight?: string;
 
-  /** Select size. */
+  /** The size of the select.
+   *  @type {'md' | 'lg'}
+   */
   @property({ reflect: true }) size: SelectSize = 'md';
 
-  /** Placeholder to show when no options is chosen. */
+  /** The placeholder text to show when no option is chosen. */
   @property({ reflect: true }) placeholder?: string;
 
   /** Whether the select is invalid. */
@@ -69,12 +76,13 @@ export class Select extends FormControlMixin(LitElement) {
 
   #selectId = `sl-select-${nextUniqueId++}`;
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /** The current node selected in the list of options. */
   @state() private selectedOption?: SelectOption | null;
 
+  /** @private */
   get allOptions(): SelectOption[] {
     return Array.from(this.querySelectorAll('sl-select-option'));
   }

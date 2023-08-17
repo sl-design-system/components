@@ -88,7 +88,27 @@
             "package": "lit"
           },
           "tagName": "sl-popover",
-          "customElement": true
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#anchor",
+              "privacy": "private",
+              "default": "new AnchorController(this, { arrow: '.arrow' })",
+              "description": "Controller for managing anchoring."
+            }
+          ]
         }
       ],
       "exports": [

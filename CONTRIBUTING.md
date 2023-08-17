@@ -72,3 +72,14 @@ To run all the tests in the project, simply run `yarn test` from the project roo
 If you want to run the tests while developing, you can go to the folder of a specific packages (`packages/core` for example) and run `yarn run wtr --watch`. This will automatically rerun the tests for that package whenever you update a file.
 
 When you create/update a web component, please also create/update the associated unit tests.
+
+## Documentation
+
+In code documentation is used for the Design System website. To make sure the information is consistent we have some style guidelines for the code comments:
+
+- Start senctences with a capital, end with a period.
+- Use "The `property` of the `component`." to describe simple properties that are used to provide options (color, style, width etc.).
+- Use "Whether the `component` is `property`." to describe states of the component that can be set (checked, invalid, readonly etc.).
+- No need do mention what the default value is; that is apparent from other parts of the documentation website.
+
+- Slots are defined at the top of the file, just above the class declaration, using `@slot <slot name> - Description`

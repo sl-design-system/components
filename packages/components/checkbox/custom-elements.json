@@ -68,30 +68,23 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Checkbox group; treat a group of checkboxes as one form input with valitation, hints and errors\n\n```html\n  <sl-checkbox-group>\n    <sl-checkbox>Option 1</sl-checkbox>\n    <sl-checkbox>Option 2</sl-checkbox>\n    <sl-checkbox>Option 3</sl-checkbox>\n  </sl-checkbox-group>\n```",
           "name": "CheckboxGroup",
-          "members": [
+          "slots": [
             {
-              "kind": "field",
-              "name": "boxes",
-              "type": {
-                "text": "Checkbox[] | undefined"
-              },
-              "description": "The slotted checkboxes."
-            },
+              "description": "A list of `sl-checkbox` elements.",
+              "name": "default"
+            }
+          ],
+          "members": [
             {
               "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
               },
+              "description": "Native form property",
               "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
             },
             {
               "kind": "field",
@@ -99,7 +92,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Name of the form element",
+              "description": "Name of the form control",
               "attribute": "name"
             },
             {
@@ -117,7 +110,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Name of the form element",
+              "description": "Name of the form control",
               "fieldName": "name"
             }
           ],
@@ -132,7 +125,106 @@
             "package": "lit"
           },
           "tagName": "sl-checkbox-group",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, { click: this.#onClick })",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "#mutation",
+              "privacy": "private",
+              "default": "new MutationController(this, {\n    callback: () => {\n      const value = this.boxes\n        ?.map(box => (box.checked ? box.value : null))\n        .filter(Boolean)\n        .join(', ');\n\n      this.#validation.validate(value);\n    },\n    config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }\n  })",
+              "description": "Observe changes to the checkboxes.\n\nFIXME: This causes a warning in the console: https://github.com/lit/lit/issues/3597"
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<Checkbox>(this, {\n    focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),\n    elements: () => this.boxes || [],\n    isFocusableElement: (el: Checkbox) => !el.disabled\n  })",
+              "description": "Manage the keyboard navigation."
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })",
+              "description": "Support validation that at least 1 checkbox is required in the group."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "boxes",
+              "type": {
+                "text": "Checkbox[] | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators."
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property",
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [
@@ -166,16 +258,23 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A checkbox with 3 states; unchecked, checked and intermediate.\n\n```html\n  <sl-checkbox>Foo</sl-checkbox>\n```",
           "name": "Checkbox",
+          "slots": [
+            {
+              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
+              "name": "default"
+            }
+          ],
           "members": [
             {
-              "kind": "field",
+              "kind": "event",
               "name": "change",
               "type": {
                 "text": "EventEmitter<boolean>"
               },
-              "description": "Emits when the checked state changes."
+              "description": "Emits when the checked state changes.",
+              "attribute": "change"
             },
             {
               "kind": "field",
@@ -188,24 +287,6 @@
               "reflects": true
             },
             {
-              "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
               "kind": "field",
               "name": "indeterminate",
               "type": {
@@ -214,13 +295,6 @@
               "default": "false",
               "description": "Whether the checkbox has the indeterminate state.",
               "attribute": "indeterminate"
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "default": "this.attachInternals()",
-              "description": "Element internals."
             },
             {
               "kind": "field",
@@ -236,10 +310,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "CheckboxSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Checkbox size.",
+              "description": "The size of the checkbox",
               "attribute": "size",
               "reflects": true
             },
@@ -249,8 +323,18 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the checkbox.",
+              "description": "The value for the checkbox, to be used in forms.",
               "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes.",
+              "fieldName": "change"
             }
           ],
           "attributes": [
@@ -282,10 +366,10 @@
             {
               "name": "size",
               "type": {
-                "text": "CheckboxSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Checkbox size.",
+              "description": "The size of the checkbox",
               "fieldName": "size"
             },
             {
@@ -293,7 +377,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the checkbox.",
+              "description": "The value for the checkbox, to be used in forms.",
               "fieldName": "value"
             }
           ],
@@ -312,7 +396,110 @@
             "package": "lit"
           },
           "tagName": "sl-checkbox",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateNoLabel",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Updates the `no-label` attribute based on the presence of a label."
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#initialState",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "default": "this.attachInternals()",
+              "privacy": "private"
+            }
+          ]
         }
       ],
       "exports": [

@@ -1,15 +1,15 @@
 ---
-title: Input specs
+title: Skeleton specs
 tags: specs
 eleventyNavigation:
-  parent: Input
-  key: InputSpecs
+  parent: Skeleton
+  key: SkeletonSpecs
 ---
 <section>
 
-## Input specs content
+## Skeleton specs content
 
-This is the input specs content
+This is the skeleton specs content
 
 </section>
 

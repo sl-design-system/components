@@ -57,6 +57,40 @@
           "members": [
             {
               "kind": "field",
+              "name": "fallback",
+              "type": {
+                "text": "AvatarFallbackType | undefined"
+              },
+              "default": "'initials'",
+              "attribute": "fallback"
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "imageOnly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "attribute": "image-only",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "profileName",
               "type": {
                 "text": "string"
@@ -65,10 +99,77 @@
             },
             {
               "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "AvatarSize | undefined"
+              },
+              "default": "'md'",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "status",
+              "type": {
+                "text": "UserStatus | undefined"
+              },
+              "attribute": "status",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "statusBadge",
+              "type": {
+                "text": "TemplateResult | typeof nothing"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "user",
               "type": {
                 "text": "UserProfile | undefined"
-              }
+              },
+              "attribute": "user"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined"
+              },
+              "fieldName": "user"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "AvatarSize | undefined"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "fallback",
+              "type": {
+                "text": "AvatarFallbackType | undefined"
+              },
+              "default": "'initials'",
+              "fieldName": "fallback"
+            },
+            {
+              "name": "status",
+              "type": {
+                "text": "UserStatus | undefined"
+              },
+              "fieldName": "status"
+            },
+            {
+              "name": "image-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "fieldName": "imageOnly"
             }
           ],
           "superclass": {
@@ -76,7 +177,42 @@
             "package": "lit"
           },
           "tagName": "sl-avatar",
-          "customElement": true
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "statusBadge",
+              "type": {
+                "text": "TemplateResult | typeof nothing"
+              },
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [

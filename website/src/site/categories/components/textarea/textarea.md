@@ -9,7 +9,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Textarea
-  order: 18
+  order: 19
   status: ready
 ---
 

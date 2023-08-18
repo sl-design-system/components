@@ -9,7 +9,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Text input
-  order: 17
+  order: 18
   status: ready
 ---
 

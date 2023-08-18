@@ -7,7 +7,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Tooltip
-  order: 19
+  order: 20
   status: coming
 ---
 

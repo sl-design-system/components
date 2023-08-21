@@ -305,7 +305,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The placeholder text to show when no options is chosen.",
+              "description": "The placeholder text to show when no option is chosen.",
               "attribute": "placeholder",
               "reflects": true
             },
@@ -344,7 +344,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The placeholder text to show when no options is chosen.",
+              "description": "The placeholder text to show when no option is chosen.",
               "fieldName": "placeholder"
             },
             {

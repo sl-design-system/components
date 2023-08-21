@@ -1,29 +1,209 @@
-import type { StoryObj } from '@storybook/web-components';
+import type { Avatar, AvatarFallbackType, AvatarOrientation, AvatarSize, UserProfile, UserStatus } from './avatar.js';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
 
-type Story = StoryObj;
+interface Props extends Pick<Avatar, 'title' | 'size' | 'fallback' | 'status' | 'imageOnly' | 'orientation'> {
+  title: string;
+  firstName: string;
+  lastName: string;
+  picture: string;
+  imageOnly: boolean;
+  orientation: AvatarOrientation;
+  subheading: string;
+}
 
-export default {
-  title: 'Avatar'
+type Story = StoryObj<Props>;
+
+const users: UserProfile[] = [
+  {
+    name: {
+      title: 'Mr',
+      first: 'Yousef',
+      last: 'Van der Schaaf'
+    },
+    picture: {
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
+    }
+  },
+  {
+    name: {
+      title: 'Mr',
+      first: 'Chester',
+      last: 'Reid'
+    },
+    picture: {
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'
+    }
+  },
+  {
+    name: {
+      title: 'Ms',
+      first: 'Emma',
+      last: 'Henderson'
+    },
+    picture: {
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'
+    }
+  },
+  {
+    name: {
+      title: 'Mr',
+      first: 'Johnni',
+      last: 'Sullivan'
+    }
+  },
+  {
+    name: {
+      title: 'Mr',
+      first: 'Gustav',
+      last: 'Christensen'
+    }
+  },
+  {
+    name: {
+      title: 'Ms',
+      first: 'Rose',
+      last: 'Nylund'
+    },
+    picture: {
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/women/10.jpg'
+    }
+  }
+];
+const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
+const fallbacks: AvatarFallbackType[] = ['image', 'initials'];
+const orientations: AvatarOrientation[] = ['horizontal', 'vertical'];
+const statuses: Array<UserStatus | undefined> = [undefined, 'online', 'offline', 'away', 'do-not-disturb'];
+
+const sizeName = (size: string): string => {
+  switch (size) {
+    case 'sm':
+      return 'Small';
+    case 'md':
+      return 'Medium';
+    case 'lg':
+      return 'Large';
+    case 'xl':
+      return 'Extra Large';
+    case '2xl':
+      return '2 Extra Large';
+    case '3xl':
+      return '3 Extra Large';
+    case '4xl':
+      return '4 Extra Large';
+    default:
+      return 'Extra Small';
+  }
 };
 
-export const Basic: Story = {
-  render: () =>
-    html`
-      <style>
-        section {
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
+export default {
+  title: 'Avatar',
+  args: {
+    title: 'Ms',
+    firstName: 'Rose',
+    lastName: 'Nylund',
+    picture: 'https://randomuser.me/api/portraits/thumb/women/14.jpg',
+    imageOnly: false,
+    size: 'md'
+  },
+  argTypes: {
+    subheading: {
+      control: 'text',
+      defaultValue: null
+    },
+    size: {
+      control: 'inline-radio',
+      options: sizes
+    },
+    fallback: {
+      control: 'inline-radio',
+      options: fallbacks
+    },
+    status: {
+      control: 'inline-radio',
+      options: statuses
+    },
+    imageOnly: {
+      control: 'boolean'
+    },
+    orientation: {
+      control: 'inline-radio',
+      options: orientations
+    }
+  },
+  render: ({ title, firstName, lastName, picture, size, fallback, status, imageOnly, subheading, orientation }) => {
+    let user: UserProfile = {
+      name: {
+        title,
+        first: firstName,
+        last: lastName
+      }
+    };
+    if (picture) {
+      user = {
+        ...user,
+        picture: {
+          thumbnail: picture
+        }
+      };
+    }
+    return html`<sl-avatar
+      .user=${user}
+      .size=${size}
+      .fallback=${fallback}
+      .status=${status}
+      ?image-only=${imageOnly}
+      .orientation=${orientation}
+      >${subheading}</sl-avatar
+    >`;
+  }
+} satisfies Meta<Props>;
+
+export const Basic: Story = {};
+
+export const All: StoryObj = {
+  render: () => {
+    return html` <style>
+        table {
+          border-collapse: collapse;
+          margin-bottom: 24px;
+        }
+
+        th {
+          text-transform: capitalize;
+        }
+        th,
+        td {
+          padding: 4px 8px;
         }
       </style>
-      <section>
-        <sl-avatar uniqueProfileId="1"></sl-avatar>
-        <sl-avatar uniqueProfileId="2"></sl-avatar>
-        <sl-avatar uniqueProfileId="3"></sl-avatar>
-        <sl-avatar uniqueProfileId="4"></sl-avatar>
-        <sl-avatar uniqueProfileId="5"></sl-avatar>
-      </section>
-    `
+      <table>
+        <thead>
+          <tr>
+            <th>Size</th>
+            <th>With avatar</th>
+            <th>With initials</th>
+            <th>With placeholder</th>
+            <th>With subheading</th>
+            <th>With status</th>
+            <th>Image only</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${sizes.map(
+            size => html` <tr>
+              <th>${sizeName(size)}</th>
+              <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>
+              <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>
+              <td><sl-avatar .user=${users[4]} .size=${size} fallback="image"></sl-avatar></td>
+              <td><sl-avatar .user=${users[1]} .size=${size}>Very good student</sl-avatar></td>
+              <td><sl-avatar .user=${users[0]} .size=${size} status="online"></sl-avatar></td>
+              <td><sl-avatar .user=${users[5]} .size=${size} image-only></sl-avatar></td>
+            </tr>`
+          )}
+          </tr>
+        </tbody>
+      </table>`;
+  }
 };

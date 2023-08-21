@@ -37,8 +37,8 @@ $transition-timing: 300ms;
     transition: $transition-timing ease-in-out;
   }
 
-  &:hover,
-  &:focus-within {
+  &:not(.component-card--disabled):hover,
+  &:not(.component-card--disabled):focus-within {
     svg {
       transform: scale(1.2);
     }
@@ -55,18 +55,24 @@ $transition-timing: 300ms;
   }
 }
 
+.component-card--disabled {
+  cursor: default;
+}
+
 .component-card__picture {
   background-color: var(--component-card-background);
   display: inline-flex;
   justify-content: center;
-  //margin-left: -1.6rem;
-  //margin-right: -1.6rem;
   margin-bottom: 1.6rem;
   overflow: hidden;
   position: relative;
-}
 
-//animation: scalePuzzleAnimation 700ms ease-in-out;
+  .ds-badge {
+    position: absolute;
+    right: 0.8rem;
+    top: 0.8rem;
+  }
+}
 
 .ds-components__content {
   display: grid;
@@ -84,6 +90,11 @@ $transition-timing: 300ms;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 3.2rem;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 @media screen and (min-width: $xl-breakpoint) {
@@ -141,16 +152,12 @@ $transition-timing: 300ms;
   }
 
   :first-child {
+    color: var(--success-color);
     font-size: 2rem;
     font-weight: 700;
     line-height: 2.5rem;
     margin: 0;
     padding: 0.8rem 0;
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    * {
-      color: var(--success-color);
-    }
   }
 }
 
@@ -181,16 +188,12 @@ $transition-timing: 300ms;
   }
 
   :first-child {
+    color: var(--danger-color);
     font-size: 2rem;
     font-weight: 700;
     line-height: 2.5rem;
     margin: 0;
     padding: 0.8rem 0;
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    * {
-      color: var(--danger-color);
-    }
   }
 }
 

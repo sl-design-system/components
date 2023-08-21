@@ -54,6 +54,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
 <section class="ds-components__cards">
 {% for component in collections.component %}
 {% if component.data.componentType == "action" %}
+{% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
   <div class="component-card__picture">
     {% if component.data.picture != null %}
@@ -66,12 +67,11 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
       <div class="ds-badge">Coming</div>
     {% endif %}
   </div>
-<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
-{{ component.data.title }}
-</a>
+<div class="header-anchor ds-heading-2">{{ component.data.title }}</div>
   <p>{{ component.data.shortDescription }}</p>
 {{ component.data.componentType }}
   </div>
+{% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}
 {% endfor %}
 </section>
@@ -84,6 +84,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
 <section class="ds-components__cards">
 {% for component in collections.component %}
 {% if component.data.componentType == "selection" %}
+{% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
   <div class="component-card__picture">
     {% if component.data.picture != null %}
@@ -96,12 +97,13 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
       <div class="ds-badge">Coming</div>
     {% endif %}
   </div>
-<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
+<div class="header-anchor ds-heading-2">
 {{ component.data.title }}
-</a>
+</div>
   <p>{{ component.data.shortDescription }}</p>
 {{ component.data.componentType }}
   </div>
+{% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}
 {% endfor %}
 </section>
@@ -113,6 +115,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
 <section class="ds-components__cards">
 {% for component in collections.component %}
 {% if component.data.componentType == "editable" %}
+{% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
   <div class="component-card__picture">
     {% if component.data.picture != null %}
@@ -125,12 +128,13 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
       <div class="ds-badge">Coming</div>
     {% endif %}
   </div>
-<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
+<div class="header-anchor ds-heading-2">
 {{ component.data.title }}
-</a>
+</div>
   <p>{{ component.data.shortDescription }}</p>
 {{ component.data.componentType }}
   </div>
+{% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}
 {% endfor %}
 </section>
@@ -144,6 +148,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
 <section class="ds-components__cards">
 {% for component in collections.component %}
 {% if component.data.componentType == "feedback" %}
+{% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
   <div class="component-card__picture">
     {% if component.data.picture != null %}
@@ -156,13 +161,14 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
       <div class="ds-badge">Coming</div>
     {% endif %}
   </div>
-<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
+<div class="header-anchor ds-heading-2">
 {{ component.data.title }}
-</a>
+</div>
 {{ component.data.eleventyNavigation.status }}
   <p>{{ component.data.shortDescription }}</p> {{ sth }}
 {{ component.data.componentType }}
   </div>
+{% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}
 {% endfor %}
 </section>

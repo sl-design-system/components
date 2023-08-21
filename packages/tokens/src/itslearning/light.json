@@ -2512,7 +2512,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.neutral.700}",
+                "value": "{color.palette.info.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2602,7 +2602,7 @@
           "checked": {
             "default": {
               "background": {
-                "value": "{color.palette.success.700}",
+                "value": "{color.palette.accent.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2624,7 +2624,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.success.800}",
+                "value": "{color.palette.accent.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2634,7 +2634,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{color.palette.accent.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2884,7 +2884,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2894,7 +2894,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },

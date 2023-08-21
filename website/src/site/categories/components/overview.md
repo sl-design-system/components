@@ -58,7 +58,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
   <div class="component-card__picture">
     {% if component.data.picture != null %}
-      {{ component.data.picture }}
+      {{ component.data.picture }} {{ component.data.pictureDark }}
     {% endif %}
     {% if component.data.picture == null %}
       {{ defaultPicture }}
@@ -88,7 +88,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
   <div class="component-card__picture">
     {% if component.data.picture != null %}
-      {{ component.data.picture }}
+      {{ component.data.picture }} {{ component.data.pictureDark }}
     {% endif %}
     {% if component.data.picture == null %}
       {{ defaultPicture }}
@@ -119,7 +119,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
   <div class="component-card__picture">
     {% if component.data.picture != null %}
-      {{ component.data.picture }}
+      {{ component.data.picture }} {{ component.data.pictureDark }}
     {% endif %}
     {% if component.data.picture == null %}
       {{ defaultPicture }}
@@ -152,7 +152,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
   <div class="component-card__picture">
     {% if component.data.picture != null %}
-      {{ component.data.picture }}
+      {{ component.data.picture }} {{ component.data.pictureDark }}
     {% endif %}
     {% if component.data.picture == null %}
       {{ defaultPicture }}

@@ -74,10 +74,40 @@ $transition-timing: 300ms;
   }
 }
 
+.component-card__picture--dark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .component-card__picture--dark {
+    background-color: var(--component-card-background);
+    display: inline-flex;
+    justify-content: center;
+    margin-bottom: 1.6rem;
+    overflow: hidden;
+    position: relative;
+
+    .ds-badge {
+      position: absolute;
+      right: 0.8rem;
+      top: 0.8rem;
+    }
+  }
+
+  .component-card__picture {
+    display: none;
+  }
+}
+
 .ds-components__content {
   display: grid;
   grid-column-gap: 7.2rem;
-  grid-template-columns: 7fr 1fr;
+  //grid-template-columns: 7fr 1fr; // grid-template-columns: 1fr; for mobile version
+  grid-template-columns: 1fr;
+
+  @media screen and (min-width: $xl-breakpoint) {
+    grid-template-columns: 7fr 1fr;
+  }
 
   section {
     margin-bottom: 6.4rem;

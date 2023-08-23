@@ -16,34 +16,56 @@ TODO: different resolutions
 
 TODO: add aria-labelledby and title and desc for SVGs to make them accessible
 
-TODO: rows of the same height...
 
-<div class="components-wrapper">
+[//]: # (<div class="components-wrapper">)
 
-<section>
-{% for component in collections.component %}
-  <div class="component-card">
-  <div class="component-card__picture">
-    {% if component.data.picture != null %}
-      {{ component.data.picture }}
-    {% endif %}
-    {% if component.data.picture == null %}
-      {{ defaultPicture }}
-    {% endif %}
-  </div>
-  <h3>{{component.data.title}}</h3>{{ component.data.componentType }}
-  <div>
-  <a href="{{ component.url | url }}">{{ component.data.title }}</a>
-  </div>
-<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">
-{{ component.data.title }}
-</a>
-  <p>{{ component.data.shortDescription }}</p>
-  </div>
-{% endfor %}
-</section>
+[//]: # ()
+[//]: # (<section>)
 
-</div>
+[//]: # ({% for component in collections.component %})
+
+[//]: # (  <div class="component-card">)
+
+[//]: # (  <div class="component-card__picture">)
+
+[//]: # (    {% if component.data.picture != null %})
+
+[//]: # (      {{ component.data.picture }})
+
+[//]: # (    {% endif %})
+
+[//]: # (    {% if component.data.picture == null %})
+
+[//]: # (      {{ defaultPicture }})
+
+[//]: # (    {% endif %})
+
+[//]: # (  </div>)
+
+[//]: # (  <h3>{{component.data.title}}</h3>{{ component.data.componentType }})
+
+[//]: # (  <div>)
+
+[//]: # (  <a href="{{ component.url | url }}">{{ component.data.title }}</a>)
+
+[//]: # (  </div>)
+
+[//]: # (<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">)
+
+[//]: # ({{ component.data.title }})
+
+[//]: # (</a>)
+
+[//]: # (  <p>{{ component.data.shortDescription }}</p>)
+
+[//]: # (  </div>)
+
+[//]: # ({% endfor %})
+
+[//]: # (</section>)
+
+[//]: # ()
+[//]: # (</div>)
 
 ## Actions {.ds-heading-1}
 
@@ -78,7 +100,6 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
     </div>
     <div class="header-anchor ds-heading-2">{{ component.data.title }}</div>
     <p>{{ component.data.shortDescription }}</p>
-    {{ component.data.componentType }}
   </div>
 {% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}
@@ -95,33 +116,32 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
 {% if component.data.componentType == "selection" %}
 {% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
-  <div class="component-card__picture">
-    {% if component.data.picture != null %}
-      {{ component.data.picture }}
-    {% endif %}
-    {% if component.data.picture == null %}
-      {{ defaultPicture }}
-    {% endif %}
-    {% if component.data.eleventyNavigation.status == 'coming' %}
-      <div class="ds-badge">Coming</div>
-    {% endif %}
-  </div>
-  <div class="component-card__picture--dark">
-    {% if component.data.pictureDark != null %}
-      {{ component.data.pictureDark }}
-    {% endif %}
-    {% if component.data.pictureDark == null %}
-      {{ defaultPicture }}
-    {% endif %}
-    {% if component.data.eleventyNavigation.status == 'coming' %}
-      <div class="ds-badge">Coming</div>
-    {% endif %}
-  </div>
-<div class="header-anchor ds-heading-2">
-{{ component.data.title }}
-</div>
-  <p>{{ component.data.shortDescription }}</p>
-{{ component.data.componentType }}
+    <div class="component-card__picture">
+      {% if component.data.picture != null %}
+        {{ component.data.picture }}
+      {% endif %}
+      {% if component.data.picture == null %}
+        {{ defaultPicture }}
+      {% endif %}
+      {% if component.data.eleventyNavigation.status == 'coming' %}
+        <div class="ds-badge">Coming</div>
+      {% endif %}
+    </div>
+    <div class="component-card__picture--dark">
+      {% if component.data.pictureDark != null %}
+        {{ component.data.pictureDark }}
+      {% endif %}
+      {% if component.data.pictureDark == null %}
+        {{ defaultPicture }}
+      {% endif %}
+      {% if component.data.eleventyNavigation.status == 'coming' %}
+        <div class="ds-badge">Coming</div>
+      {% endif %}
+    </div>
+    <div class="header-anchor ds-heading-2">
+    {{ component.data.title }}
+    </div>
+    <p>{{ component.data.shortDescription }}</p>
   </div>
 {% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}
@@ -137,33 +157,32 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
 {% if component.data.componentType == "editable" %}
 {% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
-  <div class="component-card__picture">
-    {% if component.data.picture != null %}
-      {{ component.data.picture }}
-    {% endif %}
-    {% if component.data.picture == null %}
-      {{ defaultPicture }}
-    {% endif %}
-    {% if component.data.eleventyNavigation.status == 'coming' %}
-      <div class="ds-badge">Coming</div>
-    {% endif %}
-  </div>
-  <div class="component-card__picture--dark">
-    {% if component.data.pictureDark != null %}
-      {{ component.data.pictureDark }}
-    {% endif %}
-    {% if component.data.pictureDark == null %}
-      {{ defaultPicture }}
-    {% endif %}
-    {% if component.data.eleventyNavigation.status == 'coming' %}
-      <div class="ds-badge">Coming</div>
-    {% endif %}
-  </div>
-<div class="header-anchor ds-heading-2">
-{{ component.data.title }}
-</div>
-  <p>{{ component.data.shortDescription }}</p>
-{{ component.data.componentType }}
+    <div class="component-card__picture">
+      {% if component.data.picture != null %}
+        {{ component.data.picture }}
+      {% endif %}
+      {% if component.data.picture == null %}
+        {{ defaultPicture }}
+      {% endif %}
+      {% if component.data.eleventyNavigation.status == 'coming' %}
+        <div class="ds-badge">Coming</div>
+      {% endif %}
+    </div>
+    <div class="component-card__picture--dark">
+      {% if component.data.pictureDark != null %}
+        {{ component.data.pictureDark }}
+      {% endif %}
+      {% if component.data.pictureDark == null %}
+        {{ defaultPicture }}
+      {% endif %}
+      {% if component.data.eleventyNavigation.status == 'coming' %}
+        <div class="ds-badge">Coming</div>
+      {% endif %}
+    </div>
+    <div class="header-anchor ds-heading-2">
+    {{ component.data.title }}
+    </div>
+    <p>{{ component.data.shortDescription }}</p>
   </div>
 {% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}
@@ -172,8 +191,6 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
 
 ## Feedback {.ds-heading-1}
 
-{% assign sth = 'test' %}
-
 This is a short introduction of the section, we want to keep this within 2 or 3 lines.
 
 <section class="ds-components__cards">
@@ -181,34 +198,32 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
 {% if component.data.componentType == "feedback" %}
 {% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
-  <div class="component-card__picture">
-    {% if component.data.picture != null %}
-      {{ component.data.picture }}
-    {% endif %}
-    {% if component.data.picture == null %}
-      {{ defaultPicture }}
-    {% endif %}
-    {% if component.data.eleventyNavigation.status == 'coming' %}
-      <div class="ds-badge">Coming</div>
-    {% endif %}
-  </div>
-  <div class="component-card__picture--dark">
-    {% if component.data.pictureDark != null %}
-      {{ component.data.pictureDark }}
-    {% endif %}
-    {% if component.data.pictureDark == null %}
-      {{ defaultPicture }}
-    {% endif %}
-    {% if component.data.eleventyNavigation.status == 'coming' %}
-      <div class="ds-badge">Coming</div>
-    {% endif %}
-  </div>
-<div class="header-anchor ds-heading-2">
-{{ component.data.title }}
-</div>
-{{ component.data.eleventyNavigation.status }}
-  <p>{{ component.data.shortDescription }}</p> {{ sth }}
-{{ component.data.componentType }}
+    <div class="component-card__picture">
+      {% if component.data.picture != null %}
+        {{ component.data.picture }}
+      {% endif %}
+      {% if component.data.picture == null %}
+        {{ defaultPicture }}
+      {% endif %}
+      {% if component.data.eleventyNavigation.status == 'coming' %}
+        <div class="ds-badge">Coming</div>
+      {% endif %}
+    </div>
+    <div class="component-card__picture--dark">
+      {% if component.data.pictureDark != null %}
+        {{ component.data.pictureDark }}
+      {% endif %}
+      {% if component.data.pictureDark == null %}
+        {{ defaultPicture }}
+      {% endif %}
+      {% if component.data.eleventyNavigation.status == 'coming' %}
+        <div class="ds-badge">Coming</div>
+      {% endif %}
+    </div>
+    <div class="header-anchor ds-heading-2">
+    {{ component.data.title }}
+    </div>
+    <p>{{ component.data.shortDescription }}</p>
   </div>
 {% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}

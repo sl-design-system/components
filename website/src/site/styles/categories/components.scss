@@ -118,8 +118,16 @@ $transition-timing: 300ms;
 .ds-components__cards {
   column-gap: 2.4rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr; //repeat(3, 1fr);
   row-gap: 3.2rem;
+
+  @media screen and (min-width: $md-breakpoint) {
+    grid-template-columns: repeat(2, [col-start] minmax(100px, 1fr) [col-end]); //repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: $xxl-breakpoint) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
   a {
     color: inherit;

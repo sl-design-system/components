@@ -10,62 +10,9 @@ eleventyNavigation:
 ---
 <div class="ds-components__content-wrapper">
 
-TODO: light adn dark mode, dark mode svgs
-
 TODO: different resolutions
 
 TODO: add aria-labelledby and title and desc for SVGs to make them accessible
-
-
-[//]: # (<div class="components-wrapper">)
-
-[//]: # ()
-[//]: # (<section>)
-
-[//]: # ({% for component in collections.component %})
-
-[//]: # (  <div class="component-card">)
-
-[//]: # (  <div class="component-card__picture">)
-
-[//]: # (    {% if component.data.picture != null %})
-
-[//]: # (      {{ component.data.picture }})
-
-[//]: # (    {% endif %})
-
-[//]: # (    {% if component.data.picture == null %})
-
-[//]: # (      {{ defaultPicture }})
-
-[//]: # (    {% endif %})
-
-[//]: # (  </div>)
-
-[//]: # (  <h3>{{component.data.title}}</h3>{{ component.data.componentType }})
-
-[//]: # (  <div>)
-
-[//]: # (  <a href="{{ component.url | url }}">{{ component.data.title }}</a>)
-
-[//]: # (  </div>)
-
-[//]: # (<a href="{{ component.url | url }}" class="header-anchor ds-heading-2">)
-
-[//]: # ({{ component.data.title }})
-
-[//]: # (</a>)
-
-[//]: # (  <p>{{ component.data.shortDescription }}</p>)
-
-[//]: # (  </div>)
-
-[//]: # ({% endfor %})
-
-[//]: # (</section>)
-
-[//]: # ()
-[//]: # (</div>)
 
 ## Actions {.ds-heading-1}
 

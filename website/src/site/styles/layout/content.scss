@@ -43,17 +43,17 @@ img {
 @media screen and (min-width: $lg-breakpoint) {
   .ds-container {
     padding: 3.2rem 2.4rem 0;
-    transform: translateX(27.2rem);
+    transform: translateX(28rem); //translateX(27.2rem);
     transition: none;
-    width: calc(100% - 27.2rem);
+    width: calc(100% - 28rem); //calc(100% - 27.2rem);
   }
 }
 
 @media screen and (min-width: $xl-breakpoint) {
   .ds-container {
-    padding: 3.2rem 7.2rem 0;
-    transform: translateX(27.2rem);
+    padding: 3.2rem 2.4rem 0 7.2rem; //3.2rem 7.2rem 0;
+    transform: translateX(28rem); // translateX(27.2rem);
     transition: none;
-    width: calc(100% - 27.2rem);
+    width: calc(100% - 28rem); //calc(100% - 27.2rem);
   }
 }

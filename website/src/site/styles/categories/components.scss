@@ -2,14 +2,6 @@
 
 $transition-timing: 300ms;
 
-.components-wrapper {
-  column-gap: 2.4rem;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 2.4rem 0;
-  row-gap: 2.4rem;
-}
-
 .wrapper {
   display: grid;
   gap: 0 3.2rem;
@@ -17,6 +9,10 @@ $transition-timing: 300ms;
 }
 
 .ds-components__content-wrapper {
+  .ds-heading-1:first-of-type {
+    margin-top: 4rem;
+  }
+
   h2 {
     margin-bottom: 0.8rem;
   }
@@ -106,7 +102,7 @@ $transition-timing: 300ms;
   grid-template-columns: 1fr;
 
   @media screen and (min-width: $xl-breakpoint) {
-    grid-template-columns: 7fr 1fr;
+    grid-template-columns: 6fr 1fr; //7fr 1fr;
   }
 
   section {
@@ -139,7 +135,7 @@ $transition-timing: 300ms;
   .ds-component__heading {
     display: grid;
     grid-column-gap: 7.2rem;
-    grid-template-columns: 7fr 1fr;
+    grid-template-columns: 6fr 1fr; //7fr 1fr;
   }
 }
 

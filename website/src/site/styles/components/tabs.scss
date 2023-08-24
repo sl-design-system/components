@@ -163,16 +163,17 @@ $transition-timing: 300ms;
 @media screen and (min-width: $lg-breakpoint) {
   .ds-tabs-wrapper {
     justify-content: flex-start;
-    padding-left: 7.2rem;
+    padding-left: 2.4rem; //7.2rem;
   }
 
   .ds-tabs__container {
-    margin: auto -7.2rem;
+    margin: auto -2.4rem; //margin: auto -7.2rem;
     padding-top: 2.4rem;
     top: -0.1rem;
   }
 
   .ds-tabs__container--sticky {
+    // TODO: xl-breakpoint??
     padding-top: 0.1rem;
 
     &.ds-tabs__container {
@@ -192,7 +193,15 @@ $transition-timing: 300ms;
   .ds-tabs__tab-content {
     display: grid;
     grid-column-gap: 7.2rem;
-    grid-template-columns: 7fr 1fr;
+    grid-template-columns: 6fr 1fr; //7fr 1fr;
+  }
+
+  .ds-tabs-wrapper {
+    padding-left: 7.2rem;
+  }
+
+  .ds-tabs__container {
+    margin: auto -2.4rem auto -7.2rem; //auto -7.2rem;
   }
 
   .ds-tabs[vertical] {
@@ -204,21 +213,34 @@ $transition-timing: 300ms;
       padding-left: 0;
 
       /* stylelint-disable-next-line max-nesting-depth */
-      &::before {
-        content: 'CONTENTS';
-        display: block;
-        font-size: 1.2rem;
-        font-weight: 600;
-        line-height: 1.5rem;
-        margin-bottom: 0.8rem;
-        margin-left: 0.8rem;
-      }
+      //&::before {
+      //  /* stylelint-disable-next-line max-nesting-depth */
+      //  content: 'CONTENTS';
+      //  display: block;
+      //  font-size: 1.2rem;
+      //  font-weight: 600;
+      //  line-height: 1.5rem;
+      //  margin-bottom: 0.8rem;
+      //  margin-left: 0.8rem;
+      //}
+    }
+
+    .ds-tabs-wrapper::before {
+      /* stylelint-disable-next-line max-nesting-depth */
+      content: 'CONTENTS';
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.5rem;
+      margin-bottom: 0.8rem;
+      margin-left: 0.8rem;
     }
 
     .ds-tabs__container {
       display: flex;
       flex-direction: row-reverse;
       justify-content: center;
+      margin: auto;
       overflow: hidden;
       padding-top: 0;
       top: 15%;

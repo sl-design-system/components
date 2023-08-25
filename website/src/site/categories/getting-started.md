@@ -16,6 +16,8 @@ eleventyNavigation:
 
 <section class="ds-subpage-section">
 
+<div class="ds-subpage-section__wrapper">
+
 Welcome to Sanoma Learning Design System.
 
 ## Development
@@ -84,5 +86,7 @@ This will load the button component and register it as `<sl-button>`. After that
 ## Design
 
 Design information...
+
+</div>
 
 </section>

@@ -28,9 +28,9 @@ $short-transition-timing: 200ms;
   justify-content: space-between;
   overflow-y: auto;
   position: fixed;
-  transform: translateX(-28rem); //translateX(-27.2rem);
+  transform: translateX(-28rem);
   transition: transform 400ms;
-  width: 28rem; //27.2rem;
+  width: 28rem;
   z-index: 1;
 }
 
@@ -94,7 +94,7 @@ $short-transition-timing: 200ms;
 }
 
 .ds-sidebar--closed {
-  transform: translateX(-28rem); //translateX(-27.2rem);
+  transform: translateX(-28rem);
 
   .ds-sidebar-nav,
   .ds-sidebar__help {

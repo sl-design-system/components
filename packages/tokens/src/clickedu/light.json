@@ -2282,7 +2282,7 @@
         "default": {
           "default": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{body.background}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2314,7 +2314,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.accent.base} , {opacity.300})",
+              "value": "{color.palette.accent.50}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },

@@ -1,5 +1,5 @@
 ---
-title: Drawer (PoC)
+title: Drawer
 description: Drawer component description
 componentType: action
 shortDescription: This is a short description of the drawer component

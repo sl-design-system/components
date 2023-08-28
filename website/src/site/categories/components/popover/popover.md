@@ -1,5 +1,5 @@
 ---
-title: Popover (PoC)
+title: Popover
 description: Popover description
 componentType: feedback
 shortDescription: This is a short description of the popover component

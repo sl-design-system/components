@@ -13,6 +13,17 @@ $transition-timing: 300ms;
   transform: translateX(0);
   transition: transform $transition-timing, background $transition-timing ease-in-out, opacity $transition-timing;
   width: 100%;
+
+  @media screen and (min-width: $lg-breakpoint) {
+    padding: 3.2rem 2.4rem 0;
+    transform: translateX(28rem);
+    transition: none;
+    width: calc(100% - 28rem);
+  }
+
+  @media screen and (min-width: $xl-breakpoint) {
+    padding: 3.2rem 2.4rem 0 7.2rem;
+  }
 }
 
 .ds-subpage-section {
@@ -52,22 +63,4 @@ $transition-timing: 300ms;
 
 img {
   max-width: 100%;
-}
-
-@media screen and (min-width: $lg-breakpoint) {
-  .ds-container {
-    padding: 3.2rem 2.4rem 0;
-    transform: translateX(28rem);
-    transition: none;
-    width: calc(100% - 28rem);
-  }
-}
-
-@media screen and (min-width: $xl-breakpoint) {
-  .ds-container {
-    padding: 3.2rem 2.4rem 0 7.2rem;
-    transform: translateX(28rem);
-    transition: none;
-    width: calc(100% - 28rem);
-  }
 }

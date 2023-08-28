@@ -34,7 +34,7 @@ $transition-timing: 300ms;
   &:not(.component-card--disabled):hover,
   &:not(.component-card--disabled):focus-within {
     svg {
-      transform: scale(1.2);
+      transform: none;
     }
 
     .ds-heading-2 {
@@ -46,6 +46,17 @@ $transition-timing: 300ms;
     line-height: 2rem;
     margin-bottom: 0.8rem;
     transition: color $transition-timing linear;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .component-card {
+    &:not(.component-card--disabled):hover,
+    &:not(.component-card--disabled):focus-within {
+      svg {
+        transform: scale(1.2);
+      }
+    }
   }
 }
 
@@ -61,6 +72,10 @@ $transition-timing: 300ms;
   overflow: hidden;
   position: relative;
 
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+
   .ds-badge {
     position: absolute;
     right: 0.8rem;
@@ -70,10 +85,8 @@ $transition-timing: 300ms;
 
 .component-card__picture--dark {
   display: none;
-}
 
-@media (prefers-color-scheme: dark) {
-  .component-card__picture--dark {
+  @media (prefers-color-scheme: dark) {
     background-color: var(--component-card-background);
     display: inline-flex;
     justify-content: center;
@@ -81,15 +94,17 @@ $transition-timing: 300ms;
     overflow: hidden;
     position: relative;
 
+    /* stylelint-disable-next-line max-nesting-depth */
     .ds-badge {
       position: absolute;
       right: 0.8rem;
       top: 0.8rem;
     }
-  }
 
-  .component-card__picture {
-    display: none;
+    /* stylelint-disable-next-line max-nesting-depth */
+    .component-card__picture {
+      display: none;
+    }
   }
 }
 
@@ -138,16 +153,14 @@ $transition-timing: 300ms;
   }
 }
 
-@media screen and (min-width: $xl-breakpoint) {
-  .ds-component__heading {
+.ds-component__heading {
+  @media screen and (min-width: $xl-breakpoint) {
     display: grid;
     grid-column-gap: 7.2rem;
     grid-template-columns: 6fr 1fr;
   }
-}
 
-@media screen and (min-width: $xxl-breakpoint) {
-  .ds-component__heading {
+  @media screen and (min-width: $xxl-breakpoint) {
     grid-template-columns: 88rem 1fr;
   }
 }
@@ -253,8 +266,8 @@ $transition-timing: 300ms;
   object-fit: contain;
 }
 
-@media screen and (min-width: $xl-breakpoint) {
-  .ds-do-dont {
+.ds-do-dont {
+  @media screen and (min-width: $xl-breakpoint) {
     column-gap: 2.4rem;
     display: grid;
     grid-template-columns: 1fr 1fr;

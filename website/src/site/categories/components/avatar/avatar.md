@@ -1,5 +1,5 @@
 ---
-title: Avatar (PoC)
+title: Avatar
 description: Avatar component description
 componentType: action
 shortDescription: This is a short description of the avatar component

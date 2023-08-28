@@ -1,5 +1,5 @@
 ---
-title: Editor (PoC)
+title: Editor
 description: Editor component description
 componentType: editable
 shortDescription: This is a short description of the editor component

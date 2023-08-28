@@ -1,5 +1,5 @@
 ---
-title: Tooltip (PoC)
+title: Tooltip
 description: Tooltip description
 componentType: feedback
 shortDescription: This is a short description of the tooltip component

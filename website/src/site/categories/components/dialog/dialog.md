@@ -1,5 +1,5 @@
 ---
-title: Dialog (PoC)
+title: Dialog
 description: Dialog description
 componentType: feedback
 shortDescription: This is a short description of the dialog component

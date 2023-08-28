@@ -1,5 +1,5 @@
 ---
-title: Skeleton (PoC)
+title: Skeleton
 description: Skeleton description
 componentType: feedback
 shortDescription: This is a short description of the skeleton component

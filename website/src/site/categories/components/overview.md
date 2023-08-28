@@ -11,8 +11,6 @@ eleventyNavigation:
 ---
 <div class="ds-components__content-wrapper">
 
-TODO: add aria-labelledby and title and desc for SVGs to make them accessible
-
 ## Actions {.ds-heading-1}
 
 This is a short introduction of the section, we want to keep this within 2 or 3 lines.
@@ -44,7 +42,9 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
         <div class="ds-badge">Coming</div>
       {% endif %}
     </div>
-    <div class="header-anchor ds-heading-2">{{ component.data.title }}</div>
+    <div class="header-anchor ds-heading-2">
+      {{ component.data.title }}
+    </div>
     <p>{{ component.data.shortDescription }}</p>
   </div>
 {% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
@@ -85,7 +85,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
       {% endif %}
     </div>
     <div class="header-anchor ds-heading-2">
-    {{ component.data.title }}
+      {{ component.data.title }}
     </div>
     <p>{{ component.data.shortDescription }}</p>
   </div>
@@ -126,7 +126,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
       {% endif %}
     </div>
     <div class="header-anchor ds-heading-2">
-    {{ component.data.title }}
+      {{ component.data.title }}
     </div>
     <p>{{ component.data.shortDescription }}</p>
   </div>
@@ -167,7 +167,7 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
       {% endif %}
     </div>
     <div class="header-anchor ds-heading-2">
-    {{ component.data.title }}
+      {{ component.data.title }}
     </div>
     <p>{{ component.data.shortDescription }}</p>
   </div>

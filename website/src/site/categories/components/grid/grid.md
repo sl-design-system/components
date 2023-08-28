@@ -1,5 +1,5 @@
 ---
-title: Grid (PoC)
+title: Grid
 description: Grid description
 componentType: feedback
 shortDescription: This is a short description of the grid component

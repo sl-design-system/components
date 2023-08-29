@@ -437,7 +437,7 @@
       },
       "black": {
         "base": {
-          "value": "#292929",
+          "value": "{color.palette.primary.800}",
           "type": "color",
           "description": "color.palette.black.base"
         }
@@ -1328,7 +1328,7 @@
       }
     },
     "default": {
-      "value": "{border.radius.3xs}",
+      "value": "{border.radius.sm}",
       "type": "borderRadius",
       "description": "borderRadius.button"
     },

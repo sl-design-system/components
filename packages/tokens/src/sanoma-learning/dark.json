@@ -2829,7 +2829,7 @@
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
-            "borde": {
+            "border": {
               "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"

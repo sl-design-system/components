@@ -692,7 +692,7 @@
       "color.palette.transparent.base": "S:61df98911e65b09ae42cecb9ae0876eedaffdc28,",
       "{color.palette.neutral.500}": "S:1e51566e1c0e915f972f311cc3b949b3befc6854,",
       "color.input.textField.default.active.border": "S:2c807485fed410e561f4fea5491b9a771fd440c8,",
-      "color.input.textField.default.focus.borde": "S:2ed4fae7c062a23a7ae769ca694b02413b8cba37,"
+      "color.input.textField.default.focus.border": "S:2ed4fae7c062a23a7ae769ca694b02413b8cba37,"
     }
   },
   {
@@ -1352,7 +1352,7 @@
       "color.button.default.link.active.background{color.palette.transparent.base}": "S:9ea16d9d3d4d12aaaeb7ec65277814bdabd267d8,",
       "{color.palette.neutral.500}": "S:03c37d72e31acca07adbaf13a34bc21852185f13,",
       "color.input.textField.default.active.border": "S:bf14561d8744074ca4318f085eba4626a0e6c269,",
-      "color.input.textField.default.focus.borde": "S:472c8dd73cfb2e9c5358f139246d54d5bb56c909,"
+      "color.input.textField.default.focus.border": "S:472c8dd73cfb2e9c5358f139246d54d5bb56c909,"
     }
   },
   {
@@ -2134,7 +2134,7 @@
       "color.focusring.default": "S:d27ec7a8f32de9390f961fa9e5b65a9800443bbd,",
       "{color.palette.neutral.500}": "S:363954c782cb46a1abecd64bd7360e41e7f5f266,",
       "color.input.textField.default.active.border": "S:3cd04493bcf52a81f39c8147b14217a28a87c2c4,",
-      "color.input.textField.default.focus.borde": "S:369f781f24bf744b46bd4709734999b3e25551f2,"
+      "color.input.textField.default.focus.border": "S:369f781f24bf744b46bd4709734999b3e25551f2,"
     }
   },
   {
@@ -3475,7 +3475,7 @@
       "color.palette.transparent.base": "S:aebd272f12788f14e0146201d853a963c42122de,",
       "{color.palette.neutral.500}": "S:637e49ad197a7473c71157aaf72bd51f6ed1a456,",
       "color.input.textField.default.active.border": "S:0f2aa309c0b538bcd32e49c66b38f4f528823e6a,",
-      "color.input.textField.default.focus.borde": "S:5af0a7572e41fab40692d2036a38177bc82015dc,"
+      "color.input.textField.default.focus.border": "S:5af0a7572e41fab40692d2036a38177bc82015dc,"
     }
   },
   {
@@ -4455,7 +4455,7 @@
       "color.palette.transparent.base": "S:61a0ef16e50567badb6f6386823b8db8f92a747d,",
       "{color.palette.neutral.500}": "S:d8d4fef1e8840a4ff60ceca6ca21bea9b571a93a,",
       "color.input.textField.default.active.border": "S:be2f5febee8d6eb9f496b31682005be68277509c,",
-      "color.input.textField.default.focus.borde": "S:cd4e16efafb12bd81a9bbeb7aee0e601b92463a6,"
+      "color.input.textField.default.focus.border": "S:cd4e16efafb12bd81a9bbeb7aee0e601b92463a6,"
     }
   },
   {
@@ -5066,7 +5066,7 @@
       "color.palette.transparent.base": "S:e82a582a37e41a8bff39abcec91406cd3ead8bcd,",
       "{color.palette.neutral.500}": "S:ddee82d734f517ebfe0c9132b1c16da7e856f69e,",
       "color.input.textField.default.active.border": "S:921ab535e07e4dd3b9d709507e2694e4b5b31b8e,",
-      "color.input.textField.default.focus.borde": "S:334bd28684d7b0fb0ec8e061b988bb4c3fb3e07f,"
+      "color.input.textField.default.focus.border": "S:334bd28684d7b0fb0ec8e061b988bb4c3fb3e07f,"
     }
   },
   {

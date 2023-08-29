@@ -17,7 +17,7 @@
         "solid": {
           "idle": {
             "background": {
-              "value": "{trap}",
+              "value": "{color.palette.primary.700}",
               "type": "color",
               "description": "color.button.default.idle.background"
             },

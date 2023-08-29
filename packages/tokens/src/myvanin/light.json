@@ -2830,7 +2830,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{{color.palette.primary.base}}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3112,7 +3112,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{{color.palette.primary.base}}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3139,7 +3139,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{{color.palette.primary.base}}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },

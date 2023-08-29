@@ -43,7 +43,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /**
@@ -69,7 +69,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
   /** Specifies the interval between legal numbers for an input field. Only applies to number input type */
   @property({ type: Number, attribute: 'step' }) step?: number;
 
-  /** Validation using pattern. */
+  /** Validation using pattern. Native HTML input functionality. */
   @property() pattern?: string;
 
   /** Placeholder text in the input. */
@@ -87,7 +87,8 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
   /** Whether you can interact with the input or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
-  /** Input size. */
+  /** The size of the input.
+   *  @type {'md' | 'lg'} */
   @property({ reflect: true }) size: InputSize = 'md';
 
   /**
@@ -99,7 +100,7 @@ export class TextInput extends FormControlMixin(HintMixin(LitElement)) {
   /** Custom validators specified by the user. */
   @property({ attribute: false }) validators?: Validator[];
 
-  /** The value for the input. */
+  /** The value for the input, to be used in forms. */
   @property() value?: string;
 
   override connectedCallback(): void {

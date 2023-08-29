@@ -1,0 +1,18 @@
+{
+  "layout": "components/components.njk",
+  "tags": "tab-group",
+  "componentTagName": [
+    {
+      "name": "Tab",
+      "selector": "sl-tab"
+    },
+    {
+      "name": "Tab group",
+      "selector": "sl-tab-group"
+    },
+    {
+      "name": "Tab panel",
+      "selector": "sl-tab-panel"
+    }
+  ]
+}

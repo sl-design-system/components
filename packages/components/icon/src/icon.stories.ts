@@ -15,10 +15,7 @@ interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
   icons: string[];
 }
 
-const sizes: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
-let storyId: string;
-
-const sizeName = (size: IconSize): string => {
+const sizeName = (size: string): string => {
   switch (size) {
     case 'sm':
       return 'Small';
@@ -38,6 +35,9 @@ const sizeName = (size: IconSize): string => {
       return 'Extra Small';
   }
 };
+
+const sizes: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+let storyId: string;
 
 const copyIconName = async (name: string): Promise<void> => {
   await navigator.clipboard.writeText(name);

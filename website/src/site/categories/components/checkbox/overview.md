@@ -9,14 +9,14 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-Checkbox example
+<sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-checkbox id="checkbox">Checkbox</sl-checkbox>
+  <sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
   ```
 
 </div>
@@ -60,8 +60,6 @@ Place text here
 
 </div>
 </section>
-
-{% include "../component-table.njk" %}
 
 <section>
 

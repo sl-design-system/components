@@ -90,14 +90,17 @@ $transition-timing: 300ms;
   border: 1px solid var(--code-border);
   border-radius: 0.6rem 0.6rem 0 0;
   display: flex;
+  gap: 1rem;
   justify-content: center;
   min-height: 16rem;
 }
 
-code[class*='language-'],
-pre[class*='language-'] {
+code[class*='language-'] {
   background: none;
+  box-decoration-break: clone;
+  box-decoration-break: clone;
   color: var(--text-color);
+  display: block;
   font-family: 'source-code-pro', monospace;
   font-size: 1.2rem;
   hyphens: none;
@@ -114,10 +117,16 @@ pre[class*='language-'] {
 
 pre[class*='language-'] {
   overflow: auto;
+  padding: 0;
 }
 
 :not(pre) > code[class*='language-'],
 pre[class*='language-'] {
+  background: var(--ds-color-concrete);
+}
+
+.ds-example + .ds-code > code[class*='language-'],
+.ds-example + .ds-code pre[class*='language-'] {
   background: var(--background-color);
 }
 

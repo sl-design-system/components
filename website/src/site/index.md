@@ -7,17 +7,6 @@ eleventyNavigation:
 
 [//]: # (** &#40;Left for the future use&#41;)
 
-[//]: # (<div class="collections">)
-
-[//]: # ({% for category in collections.categories %})
-
-[//]: # (- [ {{ category.data.title }} ]&#40; {{ category.url }} &#41;)
-
-[//]: # ({% endfor %})
-
-[//]: # (</div>)
-
-
 [//]: # (### Not SSR:)
 
 [//]: # (<ds-test-element></ds-test-element>)

@@ -88,11 +88,12 @@
           "name": "TabGroup",
           "members": [
             {
-              "kind": "field",
+              "kind": "event",
               "name": "tabChange",
               "type": {
                 "text": "EventEmitter<number>"
-              }
+              },
+              "attribute": "tabChange"
             },
             {
               "kind": "field",
@@ -112,6 +113,15 @@
               "description": "Renders the tabs vertically instead of the default horizontal",
               "attribute": "vertical",
               "reflects": true
+            }
+          ],
+          "events": [
+            {
+              "name": "tabChange",
+              "type": {
+                "text": "EventEmitter<number>"
+              },
+              "fieldName": "tabChange"
             }
           ],
           "attributes": [
@@ -136,7 +146,176 @@
             "package": "lit"
           },
           "tagName": "sl-tab-group",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#updateSlots",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#setupTabs",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab buttons."
+            },
+            {
+              "kind": "method",
+              "name": "#setupPanels",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab panels."
+            },
+            {
+              "kind": "method",
+              "name": "#handleTabChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateSelectedTab",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selectedTab",
+                  "type": {
+                    "text": "Tab"
+                  }
+                }
+              ],
+              "description": "Update the selected tab button with attributes and values.\nUpdate the tab group state."
+            },
+            {
+              "kind": "method",
+              "name": "#handleKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ],
+              "description": "Handle keyboard accessible controls."
+            },
+            {
+              "kind": "method",
+              "name": "#updateSelectionIndicator",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#tabGroupId",
+              "privacy": "private",
+              "default": "`sl-tab-group-${nextUniqueId++}`",
+              "description": "Unique ID for each tab group component present."
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "type": {
+                "text": "MutationObserver | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<Tab>(this, {\n    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),\n    elements: () => this.tabs || [],\n    isFocusableElement: (el: Tab) => !el.disabled\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#observerOptions",
+              "privacy": "private",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{\n    attributes: true,\n    subtree: true,\n    attributeFilter: ['selected'],\n    attributeOldValue: true\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "tabs",
+              "type": {
+                "text": "Tab[] | undefined"
+              },
+              "description": "The slotted tabs."
+            },
+            {
+              "kind": "field",
+              "name": "selectedTab",
+              "type": {
+                "text": "Tab | null"
+              },
+              "privacy": "private",
+              "description": "The current tab node selected in the tab group."
+            },
+            {
+              "kind": "field",
+              "name": "#initialSelectedTab",
+              "privacy": "private",
+              "type": {
+                "text": "Tab | null"
+              },
+              "description": "Get the selected tab button, or the first tab button.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#handleMutation",
+              "privacy": "private",
+              "description": "If the selected tab is selected programmatically update all the tabs."
+            }
+          ]
         }
       ],
       "exports": [
@@ -274,7 +453,21 @@
             "package": "lit"
           },
           "tagName": "sl-tab",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "handleSelectionChange",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+            }
+          ],
+          "fields": []
         }
       ],
       "exports": [

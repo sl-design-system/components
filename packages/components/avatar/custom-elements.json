@@ -91,6 +91,16 @@
             },
             {
               "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "AvatarOrientation | undefined"
+              },
+              "default": "'horizontal'",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "profileName",
               "type": {
                 "text": "string"
@@ -156,6 +166,14 @@
               },
               "default": "'initials'",
               "fieldName": "fallback"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "AvatarOrientation | undefined"
+              },
+              "default": "'horizontal'",
+              "fieldName": "orientation"
             },
             {
               "name": "status",

@@ -123,7 +123,6 @@
   --sl-text-typeset-font-family-heading: montserrat;
   --sl-color-palette-transparent-base: 0 0 0 / 0;
   --sl-color-palette-white-base: 255 255 255;
-  --sl-color-palette-black-base: 41 41 41;
   --sl-color-palette-danger-base: 227 10 39;
   --sl-color-palette-danger-900: 36 2 6;
   --sl-color-palette-danger-800: 74 3 13;
@@ -353,7 +352,7 @@
   --sl-border-radius-focusring-full: var(--sl-border-radius-full);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
-  --sl-border-radius-default: var(--sl-border-radius-3xs);
+  --sl-border-radius-default: var(--sl-border-radius-sm);
   --sl-border-radius-button-icon-only-lg: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-md: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-sm: var(--sl-border-radius-full);
@@ -432,6 +431,7 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
+  --sl-color-palette-black-base: 0 38 73;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);

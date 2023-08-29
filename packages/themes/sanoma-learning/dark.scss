@@ -17,6 +17,7 @@
   --sl-color-input-helper-text-disabled: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-input-text-field-valid-disabled-icon: rgb(var(--sl-color-palette-success-600));
   --sl-color-input-text-field-valid-disabled-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-input-text-field-valid-active-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-text-field-valid-active-background: rgba(
     var(--sl-color-palette-success-base) / var(--sl-opacity-100)
   );
@@ -43,6 +44,7 @@
   --sl-color-input-text-field-default-disabled-icon: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-input-text-field-default-disabled-label: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-text-field-default-disabled-border: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-input-text-field-default-focus-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-text-field-default-active-border: rgb(var(--sl-color-palette-accent-300));
   --sl-color-input-text-field-default-active-background: rgba(
     var(--sl-color-palette-accent-base) / var(--sl-opacity-200)
@@ -436,9 +438,9 @@
   --sl-color-input-text-field-valid-disabled-label: var(--sl-color-input-text-field-default-disabled-label);
   --sl-color-input-text-field-valid-disabled-border: var(--sl-color-input-text-field-default-disabled-border);
   --sl-color-input-text-field-valid-focus-icon: var(--sl-color-input-text-field-valid-default-icon);
+  --sl-color-input-text-field-valid-focus-border: var(--sl-color-input-text-field-default-focus-border);
   --sl-color-input-text-field-valid-focus-background: var(--sl-color-input-text-field-valid-active-background);
   --sl-color-input-text-field-valid-active-icon: var(--sl-color-input-text-field-valid-default-icon);
-  --sl-color-input-text-field-valid-active-border: var(--sl-color-input-text-field-default-active-border);
   --sl-color-input-text-field-valid-hover-border: var(--sl-color-input-text-field-default-hover-border);
   --sl-color-input-text-field-valid-default-border: var(--sl-color-input-text-field-default-default-border);
   --sl-color-input-text-field-invalid-disabled-placeholder: var(
@@ -458,7 +460,6 @@
   --sl-color-input-text-field-default-disabled-background: rgba(var(--sl-body-background) / var(--sl-opacity-200));
   --sl-color-input-text-field-default-focus-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-input-text-field-default-focus-icon: var(--sl-body-foreground);
-  --sl-color-input-text-field-default-focus-border: var(--sl-color-input-text-field-default-active-border);
   --sl-color-input-text-field-default-focus-background: var(--sl-color-input-text-field-default-active-background);
   --sl-color-input-text-field-default-active-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-input-text-field-default-active-icon: var(--sl-body-foreground);
@@ -589,7 +590,6 @@
   --sl-color-input-helper-text-invalid: var(--sl-color-input-text-field-invalid-default-icon);
   --sl-color-input-text-field-valid-focus-input-text: var(--sl-color-input-text-field-default-default-input-text);
   --sl-color-input-text-field-valid-focus-label: var(--sl-color-input-text-field-default-default-label);
-  --sl-color-input-text-field-valid-focus-border: var(--sl-color-input-text-field-default-focus-border);
   --sl-color-input-text-field-valid-active-input-text: var(--sl-color-input-text-field-default-default-input-text);
   --sl-color-input-text-field-valid-active-label: var(--sl-color-input-text-field-default-default-label);
   --sl-color-input-text-field-valid-hover-input-text: var(--sl-color-input-text-field-default-default-input-text);

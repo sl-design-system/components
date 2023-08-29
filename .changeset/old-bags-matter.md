@@ -1,11 +1,11 @@
 ---
-'@sl-design-system/itslearning': minor
-'@sl-design-system/bingel-int': minor
-'@sl-design-system/bingel-dc': minor
-'@sl-design-system/clickedu': minor
-'@sl-design-system/magister': minor
-'@sl-design-system/teas': minor
-'@sl-design-system/max': minor
+'@sl-design-system/itslearning': patch
+'@sl-design-system/bingel-int': patch
+'@sl-design-system/bingel-dc': patch
+'@sl-design-system/clickedu': patch
+'@sl-design-system/magister': patch
+'@sl-design-system/teas': patch
+'@sl-design-system/max': patch
 ---
 
 Added text field, textarea and switch

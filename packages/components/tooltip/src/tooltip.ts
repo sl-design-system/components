@@ -83,6 +83,14 @@ export class Tooltip extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot></slot>
+      <div class="arrow">
+        <svg xmlns="http://www.w3.org/svg/2000" width="24" height="12" viewBox="0 0 24 12">
+          <defs>
+            <clipPath id="modal-arrow-cut-stroke-top"><path d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path></clipPath>
+          </defs>
+          <path clip-path="url(#modal-arrow-cut-stroke-top)" d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path>
+        </svg>
+      </div>`;
   }
 }

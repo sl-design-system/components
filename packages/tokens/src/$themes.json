@@ -691,8 +691,8 @@
       "color.palette.black.base": "S:d1a4413bf3259721f46ca227d34422b55535a64e,",
       "color.palette.white.base": "S:25bbc9b027914a502bec2d480f59c323483ff0e9,",
       "color.palette.transparent.base": "S:61df98911e65b09ae42cecb9ae0876eedaffdc28,",
-      "{color.palette.primary.base}": "S:2c807485fed410e561f4fea5491b9a771fd440c8,",
-      "{color.palette.neutral.500}": "S:1e51566e1c0e915f972f311cc3b949b3befc6854,"
+      "{color.palette.neutral.500}": "S:1e51566e1c0e915f972f311cc3b949b3befc6854,",
+      "color.input.textField.default.active.border": "S:2c807485fed410e561f4fea5491b9a771fd440c8,"
     }
   },
   {
@@ -1351,8 +1351,8 @@
       "boxShadow.none": "S:c25fee7c6a9bd6d21a11e0840395cc77db8695c0,",
       "color.input.textField.invalid.active.border": "S:4f3aa6d42b66f475221990add0ad9ba81ffc2229,",
       "color.button.default.link.active.background{color.palette.transparent.base}": "S:9ea16d9d3d4d12aaaeb7ec65277814bdabd267d8,",
-      "{color.palette.primary.base}": "S:bf14561d8744074ca4318f085eba4626a0e6c269,",
-      "{color.palette.neutral.500}": "S:03c37d72e31acca07adbaf13a34bc21852185f13,"
+      "{color.palette.neutral.500}": "S:03c37d72e31acca07adbaf13a34bc21852185f13,",
+      "color.input.textField.default.active.border": "S:bf14561d8744074ca4318f085eba4626a0e6c269,"
     }
   },
   {
@@ -2133,8 +2133,8 @@
       "color.button.danger.link.disabled.foreground": "S:7fa9f6fbb504a8e73cd5b908250dde9eddabeb43,",
       "color.button.danger.link.disabled.border": "S:6d6b402472cd16ccb5a3c538ce353ba97bfcc50d,",
       "color.focusring.default": "S:d27ec7a8f32de9390f961fa9e5b65a9800443bbd,",
-      "{color.palette.primary.base}": "S:3cd04493bcf52a81f39c8147b14217a28a87c2c4,",
-      "{color.palette.neutral.500}": "S:363954c782cb46a1abecd64bd7360e41e7f5f266,"
+      "{color.palette.neutral.500}": "S:363954c782cb46a1abecd64bd7360e41e7f5f266,",
+      "color.input.textField.default.active.border": "S:3cd04493bcf52a81f39c8147b14217a28a87c2c4,"
     }
   },
   {
@@ -3474,8 +3474,8 @@
       "color.select.listbox.background": "S:6b9bd2fb189b4b37bbcb1e02a0158e3d3eb4019a,",
       "color.focusring.default": "S:0c71be33c13c137be61c8b310ba071a4bd13b5f7,",
       "color.palette.transparent.base": "S:aebd272f12788f14e0146201d853a963c42122de,",
-      "{color.palette.primary.base}": "S:0f2aa309c0b538bcd32e49c66b38f4f528823e6a,",
-      "{color.palette.neutral.500}": "S:637e49ad197a7473c71157aaf72bd51f6ed1a456,"
+      "{color.palette.neutral.500}": "S:637e49ad197a7473c71157aaf72bd51f6ed1a456,",
+      "color.input.textField.default.active.border": "S:0f2aa309c0b538bcd32e49c66b38f4f528823e6a,"
     }
   },
   {
@@ -4454,8 +4454,8 @@
       "color.input.fieldLabel.icon.invalid": "S:81ee693d23a2cd360d37f716536320d3732de427,",
       "color.focusring.default": "S:acc44cab76cea7a66a73bfebddce063799c201cb,",
       "color.palette.transparent.base": "S:61a0ef16e50567badb6f6386823b8db8f92a747d,",
-      "{color.palette.primary.base}": "S:be2f5febee8d6eb9f496b31682005be68277509c,",
-      "{color.palette.neutral.500}": "S:d8d4fef1e8840a4ff60ceca6ca21bea9b571a93a,"
+      "{color.palette.neutral.500}": "S:d8d4fef1e8840a4ff60ceca6ca21bea9b571a93a,",
+      "color.input.textField.default.active.border": "S:be2f5febee8d6eb9f496b31682005be68277509c,"
     }
   },
   {
@@ -5065,8 +5065,8 @@
       "color.palette.black.base": "S:e2b11c1aca5b8d5568d1d65d352f0de048e1c9d4,",
       "color.palette.white.base": "S:c3cccf67c8696ed1e6f3868cc7a59c904ee5ab10,",
       "color.palette.transparent.base": "S:e82a582a37e41a8bff39abcec91406cd3ead8bcd,",
-      "{color.palette.primary.base}": "S:921ab535e07e4dd3b9d709507e2694e4b5b31b8e,",
-      "{color.palette.neutral.500}": "S:ddee82d734f517ebfe0c9132b1c16da7e856f69e,"
+      "{color.palette.neutral.500}": "S:ddee82d734f517ebfe0c9132b1c16da7e856f69e,",
+      "color.input.textField.default.active.border": "S:921ab535e07e4dd3b9d709507e2694e4b5b31b8e,"
     }
   },
   {

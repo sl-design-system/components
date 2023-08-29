@@ -2710,6 +2710,11 @@
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
+            "border": {
+              "value": "{color.palette.primary.base}",
+              "type": "color",
+              "description": "color.surface.solid.primary.background"
+            },
             "label": {
               "value": "{color.palette.primary.base}",
               "type": "color",
@@ -3299,17 +3304,6 @@
       "default": {
         "value": "{color.palette.primary.base}",
         "type": "color"
-      }
-    }
-  },
-  "{color": {
-    "palette": {
-      "primary": {
-        "base}": {
-          "value": "{color.input.textField.default.default.border}",
-          "type": "color",
-          "description": "color.surface.solid.primary.background"
-        }
       }
     }
   },

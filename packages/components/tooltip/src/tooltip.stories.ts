@@ -20,13 +20,31 @@ export const API: StoryObj = {
   argTypes: {
     position: {
       control: 'inline-radio',
-      options: ['top', 'right', 'bottom', 'left']
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'right',
+        'right-start',
+        'right-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end'
+      ]
     }
   },
-  render: ({ message, position }) => html`
-    <sl-button aria-describedby="tooltip">Button</sl-button>
-    <sl-tooltip id="tooltip" .position=${position}>${message}</sl-tooltip>
-  `
+  render: ({ message, position }) => {
+    // setTimeout(() => {
+    //   document.querySelectorAll('sl-tooltip').forEach(tooltip => tooltip.showPopover());
+    // });
+    return html`
+      <sl-button aria-describedby="tooltip" fill="outline">Button element</sl-button>
+      <sl-tooltip id="tooltip" .position=${position}>${message}</sl-tooltip>
+    `;
+  }
 };
 
 export const Directive: StoryObj = {

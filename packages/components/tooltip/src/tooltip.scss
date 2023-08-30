@@ -18,6 +18,7 @@
   color: var(--_color);
   margin: 0;
   opacity: 0;
+  overflow: visible;
   padding: var(--_padding);
 }
 
@@ -25,4 +26,58 @@
 :host(:is(:popover-open, .\\:popover-open)) {
   opacity: 1;
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+}
+
+:host([actual-placement='bottom']) .arrow {
+  inset-block-start: -6px; //-12px;
+  inset-inline-start: 8px;
+  //scale: 1 -1;
+}
+
+:host([actual-placement='bottom-start']) .arrow {
+  inset-block-start: -6px; //-12px;
+  inset-inline-start: 8px;
+  //scale: 1 -1;
+}
+
+:host([actual-placement='bottom-end']) .arrow {
+  inset-block-start: -6px; //-12px;
+  inset-inline-end: 8px;
+  //scale: 1 -1;
+}
+
+:host([actual-placement='left']) .arrow {
+  inset-block-start: 8px; //0;
+  inset-inline-end: -11px; //-18px;
+  rotate: 90deg;
+}
+
+:host([actual-placement='right']) .arrow {
+  inset-block-start: 8px; //0;
+  inset-inline-start: -11px; //-18px;
+  rotate: -90deg;
+}
+
+:host([actual-placement='top']) .arrow {
+  //inset-block-end: -12px;
+  //inset-inline-start: 0;
+  inset-block-end: -6px;
+  inset-inline-start: 8px;
+  scale: 1 -1;
+}
+
+:host([actual-placement='top-start']) .arrow {
+  //inset-block-end: -12px;
+  //inset-inline-start: 0;
+  inset-block-end: -6px;
+  inset-inline-start: 8px;
+  scale: 1 -1;
+}
+
+.arrow {
+  display: flex;
+  fill: var(--_background);
+  position: absolute;
+  stroke: var(--_border-color);
+  stroke-width: 2px;
 }

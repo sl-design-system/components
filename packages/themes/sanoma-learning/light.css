@@ -13,7 +13,7 @@
   --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
   --sl-border-width-select-copy-listbox: var(--sl-border-width-xs);
-  --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-300));
   --sl-color-select-listbox-background: rgb(var(--sl-color-palette-primary-50));
   --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-select-item-group-title-foreground: rgb(var(--sl-color-palette-neutral-200));

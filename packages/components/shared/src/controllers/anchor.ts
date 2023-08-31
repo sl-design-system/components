@@ -4,6 +4,7 @@ import { type PopoverPosition, positionPopover } from '../popover.js';
 export interface AnchorControllerConfig {
   arrow?: string | HTMLElement;
   position?: PopoverPosition;
+  maxWidth?: number;
 }
 
 export class AnchorController implements ReactiveController {
@@ -21,19 +22,27 @@ export class AnchorController implements ReactiveController {
           (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
       }
 
+      console.log('this.maxwidth in anchor', this.maxWidth);
+
       if (anchorElement) {
         this.#cleanup = positionPopover(host, anchorElement, {
           arrow: this.#config?.arrow,
-          position: this.position ?? this.#config.position ?? 'top'
+          position: this.position ?? this.#config.position ?? 'top',
+          maxWidth: this.maxWidth ?? this.#config.maxWidth ?? undefined
         });
+        console.log('this.maxwidth in anchor111', this.maxWidth);
       }
     } else if (this.#cleanup) {
       this.#cleanup();
       this.#cleanup = undefined;
     }
+
+    console.log('this.maxwidth in anchor222', this.maxWidth);
   };
 
   position?: PopoverPosition;
+
+  maxWidth?: number;
 
   constructor(host: ReactiveControllerHost & HTMLElement, config: AnchorControllerConfig = {}) {
     this.#config = config;

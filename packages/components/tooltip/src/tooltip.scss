@@ -2,21 +2,24 @@
   --_background: #add8e6; //#fff;
   --_border: 0;
   --_border-radius: 3px;
-  --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
+  // --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
   --_color: #333;
+  --_max-width: var(--sl-tooltip-max-width, auto);
   --_padding: 0.5rem 0.75rem;
 }
 
 :host {
   // This has to be in pixels until we can use @property
   --sl-popover-offset: 8px;
+  //--sl-tooltip-max-width: auto;
 
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
+  // box-shadow: var(--_box-shadow);
   color: var(--_color);
   margin: 0;
+  max-width: var(--_max-width);
   opacity: 0;
   overflow: visible;
   padding: var(--_padding);
@@ -30,13 +33,17 @@
 
 :host([actual-placement='bottom']) .arrow {
   inset-block-start: -6px; //-12px;
-  inset-inline-start: 8px;
+  // inset-inline-start: 8px;
   //scale: 1 -1;
+  inset-inline-start: 0;
+  margin: 0 calc(50% - 16px / 2); // 16px width of arrow
+  // margin: auto 50%;
+  width: fit-content;
 }
 
 :host([actual-placement='bottom-start']) .arrow {
   inset-block-start: -6px; //-12px;
-  inset-inline-start: 8px;
+  //  inset-inline-start: 8px;
   //scale: 1 -1;
 }
 
@@ -53,7 +60,24 @@
 }
 
 :host([actual-placement='right']) .arrow {
+  height: fit-content;
+
+  inset-block: 0;
+  // inset-block-start: 8px; //0;
+  inset-inline-start: -11px; //-18px;
+  margin: calc(50% - 16px / 2) 0;
+  rotate: -90deg;
+  width: fit-content;
+}
+
+:host([actual-placement='right-start']) .arrow {
   inset-block-start: 8px; //0;
+  inset-inline-start: -11px; //-18px;
+  rotate: -90deg;
+}
+
+:host([actual-placement='right-end']) .arrow {
+  inset-block-end: 8px; //0;
   inset-inline-start: -11px; //-18px;
   rotate: -90deg;
 }
@@ -62,8 +86,13 @@
   //inset-block-end: -12px;
   //inset-inline-start: 0;
   inset-block-end: -6px;
-  inset-inline-start: 8px;
+
+  inset-inline-start: 0;
+  margin: 0 calc(50% - 16px / 2);
+  //inset-inline-start: 8px;
   scale: 1 -1;
+  // margin: auto 50%;
+  width: fit-content;
 }
 
 :host([actual-placement='top-start']) .arrow {
@@ -74,10 +103,19 @@
   scale: 1 -1;
 }
 
+:host([actual-placement='top-end']) .arrow {
+  //inset-block-end: -12px;
+  //inset-inline-start: 0;
+  inset-block-end: -6px;
+  inset-inline-end: 8px;
+  scale: 1 -1;
+}
+
 .arrow {
   display: flex;
   fill: var(--_background);
   position: absolute;
-  stroke: var(--_border-color);
-  stroke-width: 2px;
+  //stroke: var(--_border-color);
+  //stroke-width: 2px;
+  // width: 100%;
 }

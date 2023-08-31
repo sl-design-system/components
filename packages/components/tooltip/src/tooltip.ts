@@ -35,7 +35,7 @@ export class Tooltip extends LitElement {
   }
 
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this);
+  #anchor = new AnchorController(this, { /*arrow: '.arrow',*/ maxWidth: 140 });
 
   /** Events controller. */
   #events = new EventsController(this);

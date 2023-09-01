@@ -15,7 +15,8 @@ export default {
 export const API: StoryObj = {
   args: {
     message: 'Tooltip',
-    position: 'bottom'
+    position: 'bottom',
+    maxWidth: undefined
   },
   argTypes: {
     position: {
@@ -36,13 +37,13 @@ export const API: StoryObj = {
       ]
     }
   },
-  render: ({ message, position }) => {
+  render: ({ message, position, maxWidth }) => {
     // setTimeout(() => {
     //   document.querySelectorAll('sl-tooltip').forEach(tooltip => tooltip.showPopover());
     // });
     return html`
       <sl-button aria-describedby="tooltip" fill="outline">Button element</sl-button>
-      <sl-tooltip id="tooltip" .position=${position}>${message}</sl-tooltip>
+      <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}>${message}</sl-tooltip>
     `;
   }
 };

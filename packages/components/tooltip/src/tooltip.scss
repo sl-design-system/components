@@ -22,6 +22,7 @@
   max-width: var(--_max-width);
   opacity: 0;
   overflow: visible;
+  overflow-wrap: break-word;
   padding: var(--_padding);
 }
 
@@ -54,20 +55,35 @@
 }
 
 :host([actual-placement='left']) .arrow {
+  height: fit-content;
+  //inset-block-start: 8px; //0;
+  inset-block: 50%;
+  inset-inline-end: -11px; //-18px;
+  rotate: 90deg;
+}
+
+:host([actual-placement='left-start']) .arrow {
   inset-block-start: 8px; //0;
   inset-inline-end: -11px; //-18px;
   rotate: 90deg;
 }
 
-:host([actual-placement='right']) .arrow {
-  height: fit-content;
+:host([actual-placement='left-end']) .arrow {
+  inset-block-end: 8px; //0;
+  inset-inline-end: -11px; //-18px;
+  rotate: 90deg;
+}
 
-  inset-block: 0;
+:host([actual-placement='right']) .arrow {
+  // width: fit-content;
+  height: fit-content;
+  //height: fit-content;
+  inset-block: 50%; //0;//-6px;
   // inset-block-start: 8px; //0;
-  inset-inline-start: -11px; //-18px;
-  margin: calc(50% - 16px / 2) 0;
+  inset-inline-start: -11px;
+  //inset-inline-start: -14px; //20px; //-11px; //-18px;
+  // margin: calc(50% - 6px) 0;
   rotate: -90deg;
-  width: fit-content;
 }
 
 :host([actual-placement='right-start']) .arrow {

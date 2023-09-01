@@ -35,7 +35,7 @@ export class Tooltip extends LitElement {
   }
 
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this, { /*arrow: '.arrow',*/ maxWidth: 140 });
+  #anchor = new AnchorController(this, { /*arrow: '.arrow',*/ maxWidth: this.maxWidth /*140*/ });
 
   /** Events controller. */
   #events = new EventsController(this);
@@ -58,8 +58,11 @@ export class Tooltip extends LitElement {
     }
   };
 
+  /** Tooltip max-width. */
+  @property() maxWidth?: number;
+
   /** Tooltip position. */
-  @property() position: PopoverPosition = 'bottom';
+  @property() position: PopoverPosition = 'top';
 
   override connectedCallback(): void {
     super.connectedCallback();

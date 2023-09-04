@@ -629,7 +629,7 @@
       "option": {
         "block": {
           "md": {
-            "value": "{space.button.outline.block.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
@@ -667,24 +667,24 @@
       "textField": {
         "block": {
           "md": {
-            "value": "{space.xs} + {border.width.button.default}",
+            "value": "{space.xs} + {conceptual.border.width.default}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.sm} - {conceptual.border.width.default}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "md": {
-            "value": "{space.md} - {border.width.button.default}",
+            "value": "{space.md} - {conceptual.border.width.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.lg} - {border.width.button.default}",
+            "value": "{space.lg} - {conceptual.border.width.default}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }

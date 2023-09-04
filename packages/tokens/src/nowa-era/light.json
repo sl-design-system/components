@@ -1,7 +1,7 @@
 {
   "body": {
     "background": {
-      "value": "{color.palette.primary.100}",
+      "value": "{color.palette.white.base}",
       "type": "color",
       "description": "color.body.background"
     },

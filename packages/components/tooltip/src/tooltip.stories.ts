@@ -16,7 +16,7 @@ export const API: StoryObj = {
   args: {
     message: 'Tooltip',
     position: 'bottom',
-    maxWidth: undefined
+    maxWidth: 100
   },
   argTypes: {
     position: {
@@ -38,9 +38,6 @@ export const API: StoryObj = {
     }
   },
   render: ({ message, position, maxWidth }) => {
-    // setTimeout(() => {
-    //   document.querySelectorAll('sl-tooltip').forEach(tooltip => tooltip.showPopover());
-    // });
     return html`
       <sl-button aria-describedby="tooltip" fill="outline">Button element</sl-button>
       <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}>${message}</sl-tooltip>
@@ -55,7 +52,7 @@ export const Directive: StoryObj = {
 export const Overflow: StoryObj = {
   render: () => html`
     <div style="overflow: hidden">
-      <sl-button aria-describedby="tooltip">Button</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">Button</sl-button>
       <sl-tooltip id="tooltip">This appears outside the overflow parent</sl-tooltip>
     </div>
   `
@@ -64,12 +61,12 @@ export const Overflow: StoryObj = {
 export const Shared: StoryObj = {
   render: () => html`
     <sl-button-bar>
-      <sl-button aria-describedby="tooltip">We</sl-button>
-      <sl-button aria-describedby="tooltip">all</sl-button>
-      <sl-button aria-describedby="tooltip">share</sl-button>
-      <sl-button aria-describedby="tooltip">the</sl-button>
-      <sl-button aria-describedby="tooltip">same</sl-button>
-      <sl-button aria-describedby="tooltip">tooltip</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">We</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">all</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">share</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">the</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">same</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">tooltip</sl-button>
     </sl-button-bar>
     <sl-tooltip id="tooltip">I am shared between different elements</sl-tooltip>
   `

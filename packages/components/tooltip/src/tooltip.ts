@@ -34,8 +34,12 @@ export class Tooltip extends LitElement {
     ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
   }
 
+  /** Tooltip max-width. */
+  @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
+
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this, { /*arrow: '.arrow',*/ maxWidth: this.maxWidth /*140*/ });
+  #anchor = new AnchorController(this, { maxWidth: this.maxWidth });
+  // #anchor: AnchorController; // = new AnchorController(this, { maxWidth: this.maxWidth });
 
   /** Events controller. */
   #events = new EventsController(this);
@@ -58,9 +62,6 @@ export class Tooltip extends LitElement {
     }
   };
 
-  /** Tooltip max-width. */
-  @property() maxWidth?: number;
-
   /** Tooltip position. */
   @property() position: PopoverPosition = 'top';
 
@@ -72,24 +73,40 @@ export class Tooltip extends LitElement {
 
     const root = this.getRootNode();
 
-    // this.#events.listen(root, 'click', this.#onHide, { capture: true });
-    this.#events.listen(root, 'click', this.#onShow);
+    this.#events.listen(root, 'click', this.#onHide, { capture: true });
+    // this.#events.listen(root, 'click', this.#onShow);
     this.#events.listen(root, 'focusin', this.#onShow);
-    // this.#events.listen(root, 'focusout', this.#onHide);
+    this.#events.listen(root, 'focusout', this.#onHide);
     this.#events.listen(root, 'pointerover', this.#onShow);
-    // this.#events.listen(root, 'pointerout', this.#onHide);
+    this.#events.listen(root, 'pointerout', this.#onHide);
 
     // this.showPopover();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
+    console.log('changes', changes);
+
+    if (changes.has('maxWidth')) {
+      this.#anchor.maxWidth = this.maxWidth;
+      //this.showPopover();
+    }
+
     if (changes.has('position')) {
       this.#anchor.position = this.position;
       //this.showPopover();
     }
   }
 
+  // constructor() {
+  //   super();
+  //
+  //  // this.#anchor = new AnchorController(this, { maxWidth: this.maxWidth });
+  //   console.log('this.#anchor', this.#anchor);
+  //   this.#anchor.maxWidth = this.maxWidth;
+  // }
+
   override render(): TemplateResult {
+    console.log('this', this, this.maxWidth);
     return html` <slot></slot>
       <div class="arrow">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="6" viewBox="0 0 16 6">

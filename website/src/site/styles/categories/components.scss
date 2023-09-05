@@ -1,12 +1,6 @@
 @import './../breakpoints';
 
-.components-wrapper {
-  column-gap: 2.4rem;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 2.4rem 0;
-  row-gap: 2.4rem;
-}
+$transition-timing: 300ms;
 
 .wrapper {
   display: grid;
@@ -14,27 +8,159 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.component {
-  border: 1px solid #eaeaea;
-  border-radius: 0.6rem;
+.ds-components__content-wrapper {
+  .ds-heading-1:first-of-type {
+    margin-top: 4rem;
+  }
+
+  h2 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+.component-card {
+  border-radius: 0.2rem;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   gap: 0.8rem;
-  padding: 1.6rem;
+
+  svg {
+    overflow: visible;
+    transition: $transition-timing ease-in-out;
+  }
+
+  &:not(.component-card--disabled):hover,
+  &:not(.component-card--disabled):focus-within {
+    svg {
+      transform: none;
+    }
+
+    .ds-heading-2 {
+      color: var(--highlight-color);
+    }
+  }
+
+  .ds-heading-2 {
+    line-height: 2rem;
+    margin-bottom: 0.8rem;
+    transition: color $transition-timing linear;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .component-card {
+    &:not(.component-card--disabled):hover,
+    &:not(.component-card--disabled):focus-within {
+      svg {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+.component-card--disabled {
+  cursor: default;
+}
+
+.component-card__picture {
+  background-color: var(--component-card-background);
+  display: inline-flex;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  overflow: hidden;
+  position: relative;
+
+  @media (prefers-color-scheme: dark) {
+    display: none;
+  }
+
+  .ds-badge {
+    inset: 0.8rem 0.8rem auto auto;
+    position: absolute;
+  }
+}
+
+.component-card__picture--dark {
+  display: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--component-card-background);
+    display: inline-flex;
+    justify-content: center;
+    margin-bottom: 1.6rem;
+    overflow: hidden;
+    position: relative;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-badge {
+      position: absolute;
+      right: 0.8rem;
+      top: 0.8rem;
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    .component-card__picture {
+      display: none;
+    }
+  }
 }
 
 .ds-components__content {
+  display: grid;
+  gap: 0 7.2rem;
+  grid-template-columns: 1fr;
+
+  @media screen and (min-width: $xl-breakpoint) {
+    grid-template-columns: 6fr 1fr;
+  }
+
+  @media screen and (min-width: $xxl-breakpoint) {
+    grid-template-columns: 88rem 1fr;
+  }
+
   section {
+    margin-bottom: 6.4rem;
     margin-top: 2.4rem;
   }
 }
 
-@media screen and (min-width: $xl-breakpoint) {
-  .ds-component__heading {
+.ds-components__content-wrapper {
+  p {
+    max-width: 64rem;
+  }
+}
+
+.ds-components__cards {
+  column-gap: 2.4rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 3.2rem;
+
+  @media screen and (min-width: $md-breakpoint) {
+    grid-template-columns: repeat(2, [col-start] minmax(100px, 1fr) [col-end]);
+  }
+
+  @media screen and (min-width: $xxl-breakpoint) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.ds-component__heading {
+  @media screen and (min-width: $xl-breakpoint) {
     display: grid;
     grid-column-gap: 7.2rem;
-    grid-template-columns: 7fr 1fr;
+    grid-template-columns: 6fr 1fr;
+  }
+
+  @media screen and (min-width: $xxl-breakpoint) {
+    grid-template-columns: 88rem 1fr;
   }
 }
 
@@ -85,16 +211,12 @@
   }
 
   :first-child {
+    color: var(--success-color);
     font-size: 2rem;
     font-weight: 700;
     line-height: 2.5rem;
     margin: 0;
     padding: 0.8rem 0;
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    * {
-      color: var(--success-color);
-    }
   }
 }
 
@@ -125,16 +247,12 @@
   }
 
   :first-child {
+    color: var(--danger-color);
     font-size: 2rem;
     font-weight: 700;
     line-height: 2.5rem;
     margin: 0;
     padding: 0.8rem 0;
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    * {
-      color: var(--danger-color);
-    }
   }
 }
 
@@ -147,8 +265,8 @@
   object-fit: contain;
 }
 
-@media screen and (min-width: $xl-breakpoint) {
-  .ds-do-dont {
+.ds-do-dont {
+  @media screen and (min-width: $xl-breakpoint) {
     column-gap: 2.4rem;
     display: grid;
     grid-template-columns: 1fr 1fr;

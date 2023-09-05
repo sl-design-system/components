@@ -115,6 +115,16 @@ export const themes: Theme[] = [
     }
   },
   {
+    id: 'nowa-era',
+    name: 'Nowa Era',
+    fonts: ['https://use.typekit.net/ghy4rhf.css','https://use.typekit.net/qod6igq.css'],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/nowa-era');
+
+      setup();
+    }
+  },
+  {
     id: 'sanoma-learning',
     name: 'Sanoma Learning',
     fonts: [

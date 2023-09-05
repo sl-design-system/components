@@ -40,6 +40,7 @@
     { "path": "./packages/themes/max" },
     { "path": "./packages/themes/myvanin" },
     { "path": "./packages/themes/neon" },
+    { "path": "./packages/themes/nowa-era" },
     { "path": "./packages/themes/sanoma-learning" },
     { "path": "./packages/themes/teas" }
   ]

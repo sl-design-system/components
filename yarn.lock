@@ -5224,6 +5224,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/nowa-era@workspace:packages/themes/nowa-era":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/nowa-era@workspace:packages/themes/nowa-era"
+  dependencies:
+    "@sl-design-system/icon": 0.0.3
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/popover@0.0.11, @sl-design-system/popover@workspace:packages/components/popover":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/popover@workspace:packages/components/popover"

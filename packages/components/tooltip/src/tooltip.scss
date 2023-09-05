@@ -2,11 +2,12 @@
   --_background: #add8e6; //#fff;
   --_border: 0;
   --_border-radius: 3px;
-  // --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
   --_color: #333;
   --_max-width: var(--sl-tooltip-max-width, auto);
   --_padding: 0.5rem 0.75rem;
 }
+
+// TODO: use tokens
 
 :host {
   // This has to be in pixels until we can use @property
@@ -33,95 +34,74 @@
 }
 
 :host([actual-placement='bottom']) .arrow {
-  inset-block-start: -6px; //-12px;
-  // inset-inline-start: 8px;
-  //scale: 1 -1;
+  inset-block-start: -6px;
   inset-inline-start: 0;
-  margin: 0 calc(50% - 16px / 2); // 16px width of arrow
-  // margin: auto 50%;
+  margin: 0 calc(50% - 16px / 2); // 16px width of arrow SVG
   width: fit-content;
 }
 
 :host([actual-placement='bottom-start']) .arrow {
-  inset-block-start: -6px; //-12px;
-  //  inset-inline-start: 8px;
-  //scale: 1 -1;
+  inset-block-start: -6px;
 }
 
 :host([actual-placement='bottom-end']) .arrow {
-  inset-block-start: -6px; //-12px;
+  inset-block-start: -6px;
   inset-inline-end: 8px;
-  //scale: 1 -1;
 }
 
 :host([actual-placement='left']) .arrow {
   height: fit-content;
-  //inset-block-start: 8px; //0;
   inset-block: 50%;
-  inset-inline-end: -11px; //-18px;
+  inset-inline-end: -11px;
   rotate: 90deg;
 }
 
 :host([actual-placement='left-start']) .arrow {
-  inset-block-start: 8px; //0;
-  inset-inline-end: -11px; //-18px;
+  inset-block-start: 8px;
+  inset-inline-end: -11px;
   rotate: 90deg;
 }
 
 :host([actual-placement='left-end']) .arrow {
-  inset-block-end: 8px; //0;
-  inset-inline-end: -11px; //-18px;
+  inset-block-end: 8px;
+  inset-inline-end: -11px;
   rotate: 90deg;
 }
 
 :host([actual-placement='right']) .arrow {
-  // width: fit-content;
   height: fit-content;
-  //height: fit-content;
-  inset-block: 50%; //0;//-6px;
-  // inset-block-start: 8px; //0;
+  inset-block: 50%;
   inset-inline-start: -11px;
-  //inset-inline-start: -14px; //20px; //-11px; //-18px;
-  // margin: calc(50% - 6px) 0;
   rotate: -90deg;
 }
 
 :host([actual-placement='right-start']) .arrow {
-  inset-block-start: 8px; //0;
-  inset-inline-start: -11px; //-18px;
+  inset-block-start: 8px;
+  inset-inline-start: -11px;
   rotate: -90deg;
 }
 
 :host([actual-placement='right-end']) .arrow {
-  inset-block-end: 8px; //0;
-  inset-inline-start: -11px; //-18px;
+  inset-block-end: 8px;
+  inset-inline-start: -11px;
   rotate: -90deg;
 }
 
 :host([actual-placement='top']) .arrow {
-  //inset-block-end: -12px;
-  //inset-inline-start: 0;
   inset-block-end: -6px;
-
   inset-inline-start: 0;
   margin: 0 calc(50% - 16px / 2);
-  //inset-inline-start: 8px;
   scale: 1 -1;
-  // margin: auto 50%;
   width: fit-content;
 }
 
 :host([actual-placement='top-start']) .arrow {
-  //inset-block-end: -12px;
-  //inset-inline-start: 0;
   inset-block-end: -6px;
   inset-inline-start: 8px;
   scale: 1 -1;
 }
 
 :host([actual-placement='top-end']) .arrow {
-  //inset-block-end: -12px;
-  //inset-inline-start: 0;
   inset-block-end: -6px;
   inset-inline-end: 8px;
   scale: 1 -1;
@@ -131,7 +111,4 @@
   display: flex;
   fill: var(--_background);
   position: absolute;
-  //stroke: var(--_border-color);
-  //stroke-width: 2px;
-  // width: 100%;
 }

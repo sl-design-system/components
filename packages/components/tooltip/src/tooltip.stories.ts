@@ -14,9 +14,9 @@ export default {
 
 export const API: StoryObj = {
   args: {
-    message: 'Tooltip',
-    position: 'bottom',
-    maxWidth: 100
+    message: 'Tooltip message',
+    position: 'top',
+    maxWidth: 150
   },
   argTypes: {
     position: {
@@ -46,7 +46,8 @@ export const API: StoryObj = {
 };
 
 export const Directive: StoryObj = {
-  render: () => html`<sl-button ${tooltip('This tooltip is from a directive')}>I have a tooltip</sl-button>`
+  render: () =>
+    html`<sl-button ${tooltip('This tooltip is from a directive')} fill="outline">I have a tooltip</sl-button>`
 };
 
 export const Overflow: StoryObj = {

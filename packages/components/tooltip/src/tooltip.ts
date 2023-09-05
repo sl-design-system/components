@@ -79,8 +79,6 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'focusout', this.#onHide);
     this.#events.listen(root, 'pointerover', this.#onShow);
     this.#events.listen(root, 'pointerout', this.#onHide);
-
-    // this.showPopover();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -88,12 +86,10 @@ export class Tooltip extends LitElement {
 
     if (changes.has('maxWidth')) {
       this.#anchor.maxWidth = this.maxWidth;
-      //this.showPopover();
     }
 
     if (changes.has('position')) {
       this.#anchor.position = this.position;
-      //this.showPopover();
     }
   }
 

@@ -39,7 +39,6 @@ export class Tooltip extends LitElement {
 
   /** Controller for managing anchoring. */
   #anchor = new AnchorController(this, { maxWidth: this.maxWidth });
-  // #anchor: AnchorController; // = new AnchorController(this, { maxWidth: this.maxWidth });
 
   /** Events controller. */
   #events = new EventsController(this);
@@ -74,7 +73,6 @@ export class Tooltip extends LitElement {
     const root = this.getRootNode();
 
     this.#events.listen(root, 'click', this.#onHide, { capture: true });
-    // this.#events.listen(root, 'click', this.#onShow);
     this.#events.listen(root, 'focusin', this.#onShow);
     this.#events.listen(root, 'focusout', this.#onHide);
     this.#events.listen(root, 'pointerover', this.#onShow);
@@ -93,14 +91,6 @@ export class Tooltip extends LitElement {
     }
   }
 
-  // constructor() {
-  //   super();
-  //
-  //  // this.#anchor = new AnchorController(this, { maxWidth: this.maxWidth });
-  //   console.log('this.#anchor', this.#anchor);
-  //   this.#anchor.maxWidth = this.maxWidth;
-  // }
-
   override render(): TemplateResult {
     console.log('this', this, this.maxWidth);
     return html` <slot></slot>
@@ -113,11 +103,3 @@ export class Tooltip extends LitElement {
       </div>`;
   }
 }
-
-/*
-<svg xmlns="http://www.w3.org/svg/2000" width="24" height="12" viewBox="0 0 24 12">
-<defs>
-  <clipPath id="modal-arrow-cut-stroke-top"><path d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path></clipPath>
-</defs>
-<path clip-path="url(#modal-arrow-cut-stroke-top)" d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path>
-  </svg>*/

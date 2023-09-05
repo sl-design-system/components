@@ -1,5 +1,5 @@
 :host {
-  --_background: #add8e6; //#fff;
+  --_background: #add8e6;
   --_border: 0;
   --_border-radius: 3px;
   --_color: #333;
@@ -12,12 +12,10 @@
 :host {
   // This has to be in pixels until we can use @property
   --sl-popover-offset: 8px;
-  //--sl-tooltip-max-width: auto;
 
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
-  // box-shadow: var(--_box-shadow);
   color: var(--_color);
   margin: 0;
   max-width: var(--_max-width);

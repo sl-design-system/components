@@ -17,7 +17,13 @@
   .ds-tokens__main-heading {
     display: grid;
     grid-column-gap: 7.2rem;
-    grid-template-columns: 7fr 1fr;
+    grid-template-columns: 6fr 1fr;
+  }
+}
+
+@media screen and (min-width: $xxl-breakpoint) {
+  .ds-tokens__main-heading {
+    grid-template-columns: 88rem 1fr;
   }
 }
 

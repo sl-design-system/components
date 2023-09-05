@@ -13,10 +13,36 @@ $transition-timing: 300ms;
   transform: translateX(0);
   transition: transform $transition-timing, background $transition-timing ease-in-out, opacity $transition-timing;
   width: 100%;
+
+  @media screen and (min-width: $lg-breakpoint) {
+    padding: 3.2rem 2.4rem 0;
+    transform: translateX(28rem);
+    transition: none;
+    width: calc(100% - 28rem);
+  }
+
+  @media screen and (min-width: $xl-breakpoint) {
+    padding: 3.2rem 2.4rem 0 7.2rem;
+  }
 }
 
 .ds-subpage-section {
+  display: grid;
+  grid-column-gap: 7.2rem;
+  grid-template-columns: 1fr;
   margin: 2.4rem 0;
+
+  @media screen and (min-width: $xl-breakpoint) {
+    grid-template-columns: 6fr 1fr;
+  }
+
+  @media screen and (min-width: $xxl-breakpoint) {
+    grid-template-columns: 88rem 1fr;
+  }
+
+  h2 {
+    margin-top: 2.4rem;
+  }
 }
 
 @keyframes FadeIn {
@@ -37,13 +63,4 @@ $transition-timing: 300ms;
 
 img {
   max-width: 100%;
-}
-
-@media screen and (min-width: $lg-breakpoint) {
-  .ds-container {
-    padding: 3.2rem 7.2rem 0;
-    transform: translateX(27.2rem);
-    transition: none;
-    width: calc(100% - 27.2rem);
-  }
 }

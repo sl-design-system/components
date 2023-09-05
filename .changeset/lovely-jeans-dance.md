@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/nowa-era': major
+'@sl-design-system/nowa-era': patch
 ---
 
 Added Nowa Era theme.

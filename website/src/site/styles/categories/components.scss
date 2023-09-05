@@ -77,9 +77,8 @@ $transition-timing: 300ms;
   }
 
   .ds-badge {
+    inset: 0.8rem 0.8rem auto auto;
     position: absolute;
-    right: 0.8rem;
-    top: 0.8rem;
   }
 }
 
@@ -110,7 +109,7 @@ $transition-timing: 300ms;
 
 .ds-components__content {
   display: grid;
-  grid-column-gap: 7.2rem;
+  gap: 0 7.2rem;
   grid-template-columns: 1fr;
 
   @media screen and (min-width: $xl-breakpoint) {

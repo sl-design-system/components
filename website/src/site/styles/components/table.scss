@@ -33,9 +33,9 @@
     code {
       background-color: var(--table-code-background);
       border-radius: 0.6rem;
-      box-decoration-break: clone;
       /* stylelint-disable-next-line property-no-vendor-prefix */
       -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
       font-family: 'source-code-pro', monospace;
       font-size: 1.4rem;
       line-height: 1.6rem;

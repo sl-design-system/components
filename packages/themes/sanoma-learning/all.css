@@ -1002,6 +1002,9 @@
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-select-listbox: [object Object];
+    --sl-body-surface-overlay: rgba(var(--sl-body-foreground) / var(--sl-opacity-700));
+    --sl-color-dialog-foreground: var(--sl-body-foreground);
+    --sl-color-dialog-background: var(--sl-body-background);
     --sl-color-select-selectbox-valid-disabled-placeholder: var(
       --sl-color-input-text-field-default-disabled-placeholder
     );

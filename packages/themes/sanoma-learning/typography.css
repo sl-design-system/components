@@ -173,6 +173,20 @@
   line-height: var(--sl-text-typeset-line-height-sm);
 }
 
+.sl-text-dialog-subheading {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-icon-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
+.sl-text-dialog-heading {
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-size: var(--sl-icon-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-2xl);
+}
+
 .sl-text-button-link-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);

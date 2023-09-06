@@ -20,6 +20,11 @@
         "value": "{color.palette.neutral.150}",
         "type": "color",
         "description": "body.surface.100"
+      },
+      "overlay": {
+        "value": "rgba({body.foreground},{opacity.700})",
+        "type": "color",
+        "description": "body.surface.200"
       }
     }
   },
@@ -3773,6 +3778,18 @@
           "value": "{color.palette.primary.50}",
           "type": "color"
         }
+      }
+    },
+    "dialog": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
       }
     },
     "focusring": {

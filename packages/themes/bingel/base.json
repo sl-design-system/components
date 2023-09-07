@@ -1481,7 +1481,7 @@
     "dialog": {
       "desktop": {
         "container": {
-          "top": {
+          "paddingTop": {
             "value": "{space.xl}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
@@ -1491,7 +1491,7 @@
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
-          "bottom": {
+          "paddingBottom": {
             "value": "{space.xl}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
@@ -1515,7 +1515,7 @@
       },
       "mobile": {
         "container": {
-          "top": {
+          "paddingTop": {
             "value": "{space.xl} * 2",
             "type": "spacing",
             "description": "space.button.solid.block.md"
@@ -1525,7 +1525,7 @@
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
-          "bottom": {
+          "paddingBottom": {
             "value": "{space.none}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
@@ -1549,16 +1549,20 @@
           }
         }
       },
-      "header": {
-        "gap": {
+      "gap": {
+        "heading": {
           "value": "{space.xs}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
         },
-        "gap-copy": {
-          "value": "{space.sm}",
+        "header": {
+          "value": "{space.lg}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
+        },
+        "footer": {
+          "value": "{space.sm}",
+          "type": "spacing"
         }
       }
     },

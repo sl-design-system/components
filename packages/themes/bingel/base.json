@@ -1629,6 +1629,22 @@
           }
         }
       }
+    },
+    "tooltip": {
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      }
     }
   },
   "animation": {
@@ -1806,10 +1822,20 @@
     }
   },
   "opacity": {
+    "50": {
+      "value": 0.02,
+      "type": "opacity",
+      "description": "opacity.50"
+    },
     "100": {
       "value": 0.04,
       "type": "opacity",
       "description": "opacity.100"
+    },
+    "150": {
+      "value": 0.06,
+      "type": "opacity",
+      "description": "opacity.150"
     },
     "200": {
       "value": 0.08,
@@ -2089,6 +2115,27 @@
   },
   "elevation": {
     "shadow": {
+      "sm": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 6,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.50})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 2,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.200})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
+      },
       "md": {
         "value": [
           {
@@ -2101,10 +2148,44 @@
           },
           {
             "x": 0,
-            "y": 8,
+            "y": 4,
             "blur": 8,
             "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.150})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
+      },
+      "lg": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "blur": 16,
+            "spread": 0,
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
+      },
+      "none": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.transparent})",
             "type": "dropShadow"
           }
         ],

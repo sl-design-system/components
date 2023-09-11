@@ -3831,7 +3831,7 @@
     },
     "tooltip": {
       "value": {
-        "boxShadow":"{elevation.shadow.none}"
+        "boxShadow": "{elevation.shadow.none}"
       },
       "type": "composition"
     }

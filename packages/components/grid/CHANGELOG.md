@@ -1,5 +1,31 @@
 # @sl-design-system/grid
 
+## 0.0.26
+
+### Patch Changes
+
+- Updated dependencies [[`34696fb`](https://github.com/sl-design-system/components/commit/34696fb6c288a8c6101b7a5b80cef1240229a522)]:
+  - @sl-design-system/shared@0.1.7
+  - @sl-design-system/checkbox@0.0.12
+  - @sl-design-system/popover@0.0.11
+  - @sl-design-system/text-input@0.1.7
+
+## 0.0.25
+
+### Patch Changes
+
+- Updated dependencies [[`c901f6c`](https://github.com/sl-design-system/components/commit/c901f6c5409367d19f2ced63c486f820af834faf), [`2203785`](https://github.com/sl-design-system/components/commit/22037855352e444362e42ebfebf9e6d1295bada1), [`b9a0b33`](https://github.com/sl-design-system/components/commit/b9a0b338b4e4047dbd809e501c163fa97a39130e)]:
+  - @sl-design-system/shared@0.1.6
+  - @sl-design-system/popover@0.0.10
+  - @sl-design-system/checkbox@0.0.11
+  - @sl-design-system/text-input@0.1.6
+
+## 0.0.24
+
+### Patch Changes
+
+- [#546](https://github.com/sl-design-system/components/pull/546) [`f1aed34`](https://github.com/sl-design-system/components/commit/f1aed34f48df752f74e218558948315234e2fa49) - Fix the grid not updating when the data-source updates
+
 ## 0.0.23
 
 ### Patch Changes

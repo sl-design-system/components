@@ -1,5 +1,7 @@
-import { arrow, flip, offset, shift, size } from '@floating-ui/core';
-import { autoUpdate, computePosition } from '@floating-ui/dom';
+import type { Middleware } from '@floating-ui/dom';
+import { arrow, flip, shift, size } from '@floating-ui/core';
+import { autoUpdate, computePosition, offset } from '@floating-ui/dom';
+import { getContainingBlock } from '@floating-ui/utils/dom';
 import popoverPolyfillStyles from './popover.scss.js';
 
 export { popoverPolyfillStyles };
@@ -33,8 +35,9 @@ function getOffset(element: HTMLElement): number {
 
 function roundByDPR(num: number): number {
   const dpr = window.devicePixelRatio || 1;
+  const rounded = Math.round(num * dpr) / dpr;
 
-  return Math.round(num * dpr) / dpr || -10000;
+  return !isNaN(rounded) ? rounded : -10000;
 }
 
 export const isPopoverOpen = (element?: HTMLElement): boolean => {
@@ -63,6 +66,48 @@ const flipPlacement = (position: PopoverPosition): PopoverPosition => {
     replace = pos === 'left' ? 'right' : 'left';
   }
   return position.replace(pos, replace) as PopoverPosition;
+};
+
+/** This is a temporary workaround until @floating-ui fixes this issue.
+ *  https://github.com/floating-ui/floating-ui/pull/2351
+ */
+const topLayerOverTransforms = (): Middleware => ({
+  name: 'topLayer',
+  async fn({ x, y, elements: { reference, floating } }) {
+    let onTopLayer = false;
+    const diffCoords = { x: 0, y: 0 };
+
+    // browsers will throw when they do not support the following selectors, catch the errors.
+    try {
+      onTopLayer = onTopLayer || floating.matches(':modal') || floating.matches(':popover-open');
+    } catch (e) {}
+
+    if (!onTopLayer) {
+      return { x, y, data: diffCoords };
+    }
+
+    const containingBlock = getContainingBlock(reference as Element);
+    const inContainingBlock = containingBlock && !isWindow(containingBlock);
+
+    if (onTopLayer && inContainingBlock) {
+      const rect = reference.getBoundingClientRect();
+      diffCoords.x = Math.trunc(rect.x - (reference as HTMLElement).offsetLeft);
+      diffCoords.y = Math.trunc(rect.y - (reference as HTMLElement).offsetTop);
+    }
+
+    return {
+      x: x + diffCoords.x,
+      y: y + diffCoords.y,
+      data: diffCoords
+    };
+  }
+});
+
+const isWindow = (value: unknown): boolean => {
+  if (typeof value === 'undefined' || value === null || !(value instanceof Object)) {
+    return false;
+  }
+  return ['document', 'location', 'alert', 'setInterval'].every(p => Object.keys(value).includes(p));
 };
 
 export const positionPopover = (
@@ -96,7 +141,8 @@ export const positionPopover = (
             maxHeight: appliedHeight
           });
         }
-      })
+      }),
+      topLayerOverTransforms()
     ];
 
     let arrowElement: HTMLElement | undefined;

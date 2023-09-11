@@ -25,6 +25,7 @@
     { "path": "./packages/components/radio-group" },
     { "path": "./packages/components/select" },
     { "path": "./packages/components/shared" },
+    { "path": "./packages/components/skeleton" },
     { "path": "./packages/components/tabs" },
     { "path": "./packages/components/text-input"},
     { "path": "./packages/components/textarea" },
@@ -39,6 +40,7 @@
     { "path": "./packages/themes/max" },
     { "path": "./packages/themes/myvanin" },
     { "path": "./packages/themes/neon" },
+    { "path": "./packages/themes/nowa-era" },
     { "path": "./packages/themes/sanoma-learning" },
     { "path": "./packages/themes/teas" }
   ]

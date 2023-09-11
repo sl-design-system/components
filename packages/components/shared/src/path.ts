@@ -30,8 +30,17 @@ export const getValueByPath = (object: unknown, path = ''): unknown => {
       break;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-    result = (result as any)[part];
+    const [_, prop, index] = part.match(/(.+)\[(\d+)\]/) ?? [];
+    if (prop) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+      result = (result as any)[prop];
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+      result = (result as any[])?.at(parseInt(index));
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+      result = (result as any)[part];
+    }
   }
 
   return result;

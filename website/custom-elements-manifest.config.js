@@ -1,3 +1,10 @@
+import {
+  noPrivateFieldsPlugin,
+  eventPlugin,
+  sortMembersPlugin,
+  methodAndFieldPlugin
+} from '@sl-design-system/scripts/cem-plugins.js';
+
 export default {
   /** Globs to analyze */
   globs: ['../packages/components/**/*.ts'],
@@ -5,5 +12,12 @@ export default {
     /** Directory to output CEM to */
   outdir: 'src/site/_data/custom-elements',
   /** Enable special handling for litelement */
-  litelement: true
+  litelement: true,
+  plugins: [
+    noPrivateFieldsPlugin(),
+    eventPlugin(),
+    methodAndFieldPlugin('method'),
+    methodAndFieldPlugin('field'),
+    sortMembersPlugin()
+  ]
 }

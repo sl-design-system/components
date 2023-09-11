@@ -294,6 +294,38 @@
           },
           "type": "typography"
         }
+      },
+      "link": {
+        "sm": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.lg}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        }
       }
     },
     "input": {
@@ -434,6 +466,16 @@
     "checkbox": {
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
+    },
+    "focusring": {
+      "default": {
+        "value": "{borderRadius.default} + 1",
+        "type": "borderRadius"
+      },
+      "full": {
+        "value": "{border.radius.full}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -465,6 +507,12 @@
           "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        }
+      },
+      "focusring": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
         }
       }
     }

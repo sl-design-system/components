@@ -34,6 +34,8 @@
     "neon/dark",
     "neon/light",
     "teas/base",
-    "teas/light"
+    "teas/light",
+    "nowa-era/base",
+    "nowa-era/light"
   ]
 }

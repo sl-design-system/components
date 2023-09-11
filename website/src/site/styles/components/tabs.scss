@@ -14,12 +14,12 @@ $transition-timing: 300ms;
   position: sticky;
   top: -0.1rem;
   transition: padding-top $transition-timing;
-  z-index: 1;
 }
 
 .ds-tabs__container--sticky {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
   padding-top: calc(7.8rem + 0.1rem);
+  z-index: 2;
 }
 
 .ds-tab {
@@ -163,11 +163,11 @@ $transition-timing: 300ms;
 @media screen and (min-width: $lg-breakpoint) {
   .ds-tabs-wrapper {
     justify-content: flex-start;
-    padding-left: 7.2rem;
+    padding-left: 2.4rem;
   }
 
   .ds-tabs__container {
-    margin: auto -7.2rem;
+    margin: auto -2.4rem;
     padding-top: 2.4rem;
     top: -0.1rem;
   }
@@ -192,33 +192,40 @@ $transition-timing: 300ms;
   .ds-tabs__tab-content {
     display: grid;
     grid-column-gap: 7.2rem;
-    grid-template-columns: 7fr 1fr;
+    grid-template-columns: 6fr 1fr;
+  }
+
+  .ds-tabs-wrapper {
+    padding-left: 7.2rem;
+  }
+
+  .ds-tabs__container {
+    margin: auto -2.4rem auto -7.2rem;
   }
 
   .ds-tabs[vertical] {
     display: block;
 
-    /* stylelint-disable-next-line max-nesting-depth */
     .ds-tabs-wrapper {
       flex-direction: column;
       padding-left: 0;
+    }
 
-      /* stylelint-disable-next-line max-nesting-depth */
-      &::before {
-        content: 'CONTENTS';
-        display: block;
-        font-size: 1.2rem;
-        font-weight: 600;
-        line-height: 1.5rem;
-        margin-bottom: 0.8rem;
-        margin-left: 0.8rem;
-      }
+    .ds-tabs-wrapper::before {
+      content: 'CONTENTS';
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.5rem;
+      margin-bottom: 0.8rem;
+      margin-left: 0.8rem;
     }
 
     .ds-tabs__container {
       display: flex;
       flex-direction: row-reverse;
       justify-content: center;
+      margin: auto;
       overflow: hidden;
       padding-top: 0;
       top: 15%;
@@ -232,6 +239,20 @@ $transition-timing: 300ms;
       top: 2.3rem;
       transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
       width: 0.2rem;
+    }
+  }
+}
+
+@media screen and (min-width: $xxl-breakpoint) {
+  .ds-tabs__tab-content {
+    display: grid;
+    grid-column-gap: 7.2rem;
+    grid-template-columns: 88rem 1fr;
+  }
+
+  .ds-tabs[vertical] {
+    .ds-tabs__container {
+      justify-content: start;
     }
   }
 }

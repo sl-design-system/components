@@ -57,6 +57,50 @@
           "members": [
             {
               "kind": "field",
+              "name": "fallback",
+              "type": {
+                "text": "AvatarFallbackType | undefined"
+              },
+              "default": "'initials'",
+              "attribute": "fallback"
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "imageOnly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "attribute": "image-only",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "AvatarOrientation | undefined"
+              },
+              "default": "'horizontal'",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "profileName",
               "type": {
                 "text": "string"
@@ -65,46 +109,85 @@
             },
             {
               "kind": "field",
-              "name": "uniqueProfileId",
+              "name": "size",
               "type": {
-                "text": "number"
+                "text": "AvatarSize | undefined"
               },
-              "default": "0",
-              "attribute": "uniqueProfileId"
+              "default": "'md'",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "status",
+              "type": {
+                "text": "UserStatus | undefined"
+              },
+              "attribute": "status",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "statusBadge",
+              "type": {
+                "text": "TemplateResult | typeof nothing"
+              },
+              "readonly": true
             },
             {
               "kind": "field",
               "name": "user",
               "type": {
                 "text": "UserProfile | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "users",
-              "type": {
-                "text": "UserProfile[]"
               },
-              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
-              "attribute": "users"
+              "attribute": "user"
             }
           ],
           "attributes": [
             {
-              "name": "uniqueProfileId",
+              "name": "user",
               "type": {
-                "text": "number"
+                "text": "UserProfile | undefined"
               },
-              "default": "0",
-              "fieldName": "uniqueProfileId"
+              "fieldName": "user"
             },
             {
-              "name": "users",
+              "name": "size",
               "type": {
-                "text": "UserProfile[]"
+                "text": "AvatarSize | undefined"
               },
-              "default": "[\n    {\n      name: {\n        title: 'Mr',\n        first: 'Yousef',\n        last: 'Van der Schaaf'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Chester',\n        last: 'Reid'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Johnni',\n        last: 'Sullivan'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/89.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Mr',\n        first: 'Gustav',\n        last: 'Christensen'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/51.jpg'\n      }\n    },\n    {\n      name: {\n        title: 'Ms',\n        first: 'Emma',\n        last: 'Henderson'\n      },\n      picture: {\n        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'\n      }\n    }\n  ]",
-              "fieldName": "users"
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "fallback",
+              "type": {
+                "text": "AvatarFallbackType | undefined"
+              },
+              "default": "'initials'",
+              "fieldName": "fallback"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "AvatarOrientation | undefined"
+              },
+              "default": "'horizontal'",
+              "fieldName": "orientation"
+            },
+            {
+              "name": "status",
+              "type": {
+                "text": "UserStatus | undefined"
+              },
+              "fieldName": "status"
+            },
+            {
+              "name": "image-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "fieldName": "imageOnly"
             }
           ],
           "superclass": {
@@ -112,7 +195,42 @@
             "package": "lit"
           },
           "tagName": "sl-avatar",
-          "customElement": true
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "statusBadge",
+              "type": {
+                "text": "TemplateResult | typeof nothing"
+              },
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [

@@ -81,6 +81,9 @@
   --angle: url('../assets/icons/angle-right-black.svg');
   --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
   --background-color: var(--ds-color-white);
+  --badge-background: var(--ds-color-white);
+  --badge-border: var(--ds-color-light-grey);
+  --badge-color: var(--ds-color-nickel);
   --card-background: var(--ds-color-alice-blue-darker);
   --card-color--active: var(--ds-color-mariner);
   --chevron-icon: url('../assets/icons/chevron-right.svg');
@@ -89,6 +92,7 @@
   --contact-block-link: var(--ds-color-blue);
   --contact-block-link--hover: var(--ds-color-mariner);
   --close-icon: url('../assets/icons/close.svg');
+  --component-card-background: var(--ds-color-light-concrete);
   --code-border: var(--ds-color-bright-grey);
   --copy-icon: url('../assets/icons/copy.svg');
   --copy-icon--hover: url('../assets/icons/copy-hover.svg');
@@ -145,6 +149,9 @@
     --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
       brightness(107%) contrast(101%);
     --background-color: var(--ds-color-black);
+    --badge-background: var(--ds-color-base-surface);
+    --badge-border: var(--ds-color-blck-olive);
+    --badge-color: var(--ds-color-grey);
     --card-background: rgba(var(--ds-color-blue-rgb), 0.32);
     --card-color--active: var(--ds-color-baby-blue);
     --chevron-icon: url('../assets/icons/chevron-right-dark.svg');
@@ -153,6 +160,7 @@
     --contact-block-link: var(--ds-color-baby-blue);
     --contact-block-link--hover: var(--ds-color-lavender-blue);
     --close-icon: url('../assets/icons/close-light.svg');
+    --component-card-background: var(--ds-color-raisin-black-light);
     --code-border: var(--ds-color-blck-olive);
     --copy-icon: url('../assets/icons/copy-light.svg');
     --copy-icon--hover: url('../assets/icons/copy-hover-dark.svg');

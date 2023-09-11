@@ -1,26 +1,33 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { SelectOverlay } from './select-overlay.js';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { SelectOptionGroup } from './select-option-group.js';
 import {
   FormControlMixin,
   RovingTabindexController,
   ValidationController,
+  anchor,
   hintStyles,
   isPopoverOpen,
+  popoverPolyfillStyles,
   requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
 
 let nextUniqueId = 0;
+interface ToggleEvent extends Event {
+  oldState: string;
+  newState: string;
+}
+
+export type SelectSize = 'md' | 'lg';
 
 export class Select extends FormControlMixin(LitElement) {
-  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
+  static override styles: CSSResultGroup = [popoverPolyfillStyles, validationStyles, hintStyles, styles];
 
+  /** @private */
   static formAssociated = true;
 
   static #observerOptions = {
@@ -30,19 +37,33 @@ export class Select extends FormControlMixin(LitElement) {
     attributeOldValue: true
   };
 
-  @query('sl-select-overlay') overlay?: SelectOverlay;
+  /** @private */
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
 
-  /** The slotted options. */
-  @queryAssignedElements({ selector: 'sl-select-option', flatten: false }) options?: SelectOption[];
+  /** @private */
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
-  /** render helpers */
-  @property() size?: { width: string; height: string } = { width: '500px', height: '32px' };
-  @property() maxOverlayHeight?: string;
+  /** @private */
+  @query('button') button?: HTMLButtonElement;
+  /** @private */
+  @query('dialog') dialog?: HTMLDialogElement;
+
+  /** The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen. */
+  @property({ attribute: 'max-overlay-height', reflect: true }) maxOverlayHeight?: string;
+
+  /** The size of the select.
+   *  @type {'md' | 'lg'}
+   */
+  @property({ reflect: true }) size: SelectSize = 'md';
+
+  /** The placeholder text to show when no option is chosen. */
+  @property({ reflect: true }) placeholder?: string;
+
+  /** Whether the select is invalid. */
+  @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
-    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && !!isPopoverOpen(this.overlay)),
+    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && isPopoverOpen(this.dialog)),
     elements: () => this.allOptions || [],
     isFocusableElement: (el: SelectOption) => !el.disabled
   });
@@ -55,47 +76,72 @@ export class Select extends FormControlMixin(LitElement) {
 
   #selectId = `sl-select-${nextUniqueId++}`;
 
-  get allOptions(): SelectOption[] {
-    const groups = this.optionGroups?.map(og => Array.from(og.querySelectorAll('sl-select-option'))) || [];
-    return [...(this.options || []), ...groups.flat()];
-  }
-
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
-  /** The current tab node selected in the tab group. */
+  /** The current node selected in the list of options. */
   @state() private selectedOption?: SelectOption | null;
+
+  /** @private */
+  get allOptions(): SelectOption[] {
+    return Array.from(this.querySelectorAll('sl-select-option'));
+  }
+
+  get #renderSelectedOption(): HTMLElement | TemplateResult {
+    if (!this.selectedOption) {
+      return this.placeholder ? html`${this.placeholder}` : html`&nbsp;`;
+    }
+    return (this.selectedOption.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
+  }
+
+  get #optionContentType(): string {
+    if (!this.selectedOption) {
+      return `string`;
+    }
+    return (this.selectedOption?.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
+  }
 
   override render(): TemplateResult {
     return html`
-      <div
-        id=${this.#selectId}
-        tabindex="0"
+      <button
+        ?disabled=${this.disabled}
         class="select-toggle"
-        @click=${this.openSelect}
-        @keydown="${this.#handleOverallKeydown}"
+        id=${this.#selectId}
+        popovertarget="dialog-${this.#selectId}"
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-controls="dialog-${this.#selectId}"
+        aria-expanded=${isPopoverOpen(this.dialog)}
+        aria-activedescendant=${this.selectedOption || false}
+        tabindex="0"
       >
-        <span id="selectedOption" style=${styleMap(this.size || {})}></span>
-
-        <div class="toggle-icon" aria-label="Choose" role="button">🔽</div>
-        <!-- to be replaced by <sl-icon></sl-icon> -->
-      </div>
-      <sl-select-overlay
-        @keydown=${this.#handleOverlayKeydown}
+        <span aria-hidden=${!this.selectedOption} contenttype=${this.#optionContentType}
+          >${this.#renderSelectedOption}</span
+        >
+        <sl-icon name="chevron-down"></sl-icon>
+      </button>
+      <dialog
+        @beforetoggle=${this.#setPopoverWidth}
         @click=${this.#handleOptionChange}
+        @keydown=${this.#handleOverlayKeydown}
+        @toggle=${this.#handleOptionFocus}
+        id="dialog-${this.#selectId}"
+        anchor=${this.#selectId}
+        popover
+        ${anchor({ position: 'bottom' })}
         aria-labelledby=${this.#selectId}
-        style="--max-overlay-height:${this.maxOverlayHeight || 'unset'}"
+        role="listbox"
       >
         <slot @slotchange=${this.#handleOptionsSlotChange}></slot>
-      </sl-select-overlay>
+      </dialog>
       ${this.#validation.render()}
     `;
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
-    this.internals.role = 'select';
     this.setFormControlElement(this);
+
     this.#validation.validate(
       this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
     );
@@ -111,25 +157,48 @@ export class Select extends FormControlMixin(LitElement) {
     }
   }
 
-  openSelect(event: Event & { target: HTMLElement }): void {
-    const toggle = event.target.closest<HTMLElement>('.select-toggle');
-    if (!toggle) return;
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
 
-    if (!isPopoverOpen(this.overlay)) {
-      this.scrollTo({ top: 0 });
-      this.allOptions.find(option => option.selected)?.focus();
-      this.overlay?.show(toggle);
-    } else {
-      this.overlay?.hidePopover();
+    if (changes.has('size')) {
+      this.allOptions?.forEach(option => (option.size = this.size));
+      this.optionGroups?.forEach(group => (group.size = this.size));
+    }
+
+    if (changes.has('placeholder')) {
+      if (this.placeholder) {
+        this.setAttribute('aria-placeholder', this.placeholder);
+        this.button?.classList.add('placeholder');
+      } else {
+        this.removeAttribute('aria-placeholder');
+        this.button?.classList.remove('placeholder');
+      }
+    }
+    if (changes.has('maxOverlayHeight') && this.maxOverlayHeight && this.dialog) {
+      this.dialog.style.setProperty('--max-overlay-height', `${this.maxOverlayHeight}`);
     }
   }
 
   #closeSelect(): void {
-    this.overlay?.hidePopover();
+    this.dialog?.hidePopover?.();
     this.renderRoot.querySelector<HTMLElement>('.select-toggle')?.focus();
   }
 
   #handleOptionsSlotChange(): void {
+    if (this.optionGroups) {
+      this.optionGroups.forEach(group => {
+        group.size = this.size;
+        group.classList.remove('bottom-divider');
+
+        if (group.nextElementSibling?.nodeName === 'SL-SELECT-OPTION') {
+          group.classList.add('bottom-divider');
+        }
+      });
+    }
+    if (this.allOptions.length > 0) {
+      this.allOptions.forEach(option => (option.size = this.size));
+    }
+
     this.#rovingTabindexController.clearElementCache();
   }
 
@@ -144,11 +213,6 @@ export class Select extends FormControlMixin(LitElement) {
         this.#updateSelectedOption(selectedOption);
         this.#observer?.observe(this, Select.#observerOptions);
       }
-      if (mutation.attributeName === 'size') {
-        this.#observer?.disconnect();
-        this.#updateSize();
-        this.#observer?.observe(this, Select.#observerOptions);
-      }
     });
   }
 
@@ -157,9 +221,20 @@ export class Select extends FormControlMixin(LitElement) {
    * */
   #handleOptionChange(event: Event): void {
     const selectOption = (event.target as HTMLElement)?.closest('sl-select-option');
-
     if (!event.target || !(selectOption instanceof SelectOption)) return;
+
     this.#updateSelectedOption(selectOption);
+
+    if (!this.dialog?.hidePopover) return; // we can remove this check when Typescript knows the PopoverApi
+    this.dialog.hidePopover();
+  }
+
+  /**
+   * Make sure the focus is on the currently selected option
+   * */
+  #handleOptionFocus(): void {
+    this.button?.setAttribute('aria-expanded', isPopoverOpen(this.dialog) ? 'true' : 'false');
+    this.#rovingTabindexController.focusToElement(this.allOptions.findIndex(el => el.selected));
   }
 
   /**
@@ -172,7 +247,7 @@ export class Select extends FormControlMixin(LitElement) {
     /**
      * Return handler if it's not an option or if it's already selected
      */
-    if (selectedOption === this.selectedOption || selectedOption.disabled) return;
+    if (selectedOption === this.selectedOption || selectedOption.disabled || !this.dialog) return;
 
     // Reset all the selected state of the tabs, and select the clicked tab
     this.allOptions.forEach((option: SelectOption) => {
@@ -183,25 +258,11 @@ export class Select extends FormControlMixin(LitElement) {
         option.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 
         this.selectedOption = option;
-        this.#validation.validate(
-          this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
-        );
+        const selectedValue = option.value || option.innerHTML;
+        this.#validation.validate(this.selectedOption ? selectedValue : undefined);
         this.#setSelectedOptionVisible(option);
       }
     });
-  }
-
-  /**
-   * Find the largest option and set the select to that width
-   */
-  #updateSize(): void {
-    const sizes = this.allOptions ? this.allOptions.map(o => o.size) : [];
-    const maxWidth = Math.max(...sizes.map(s => s.width));
-    const maxHeight = Math.max(...sizes.map(s => s.height));
-    this.size = {
-      width: maxWidth > 0 ? `${maxWidth}px` : 'auto',
-      height: maxHeight > 0 ? `${maxHeight}px` : 'auto'
-    };
   }
 
   /**
@@ -238,21 +299,9 @@ export class Select extends FormControlMixin(LitElement) {
     }
   }
 
-  /**
-   * Handle keyboard accessible controls.
-   */
-  #handleOverallKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    switch (event.key) {
-      case 'Enter':
-      case ' ':
-        event.preventDefault();
-        this.openSelect(event);
-        break;
-      case 'Escape':
-        this.#closeSelect();
-        break;
-      default:
-        break;
+  #setPopoverWidth(event: ToggleEvent): void {
+    if (event.newState === 'open' && this.button && this.dialog) {
+      this.dialog.style.width = `${this.button.getBoundingClientRect().width}px`;
     }
   }
 }

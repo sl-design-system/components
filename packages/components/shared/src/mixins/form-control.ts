@@ -53,7 +53,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      */
     #formControlElement?: FormControlElement;
 
-    /** No interaction is possible with this control when disabled. */
+    /** Whether the form control is disabled; when set no interaction is possible. */
     @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
     /** The name of the form control. */
@@ -62,6 +62,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     /** Whether this form control is a required field. */
     @property({ type: Boolean, reflect: true }) required?: boolean;
 
+    /** @ignore For internal use only */
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {
         return this.#formControlElement;
@@ -70,6 +71,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
+    /** Native form property. */
     get form(): HTMLFormElement | null {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.form;
@@ -78,6 +80,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
+    /** Native labels property.
+     * @type {`NodeListOf<HTMLLabelElement>` | null}
+     */
     get labels(): NodeListOf<HTMLLabelElement> | null {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.labels;
@@ -86,6 +91,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
+    /** @ignore */
     override shouldUpdate(changes: PropertyValues<this>): boolean {
       if (super.shouldUpdate(changes)) {
         if (changes.has('disabled') && isNative(this.formControlElement)) {
@@ -100,6 +106,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       return false;
     }
 
+    /** @ignore */
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
@@ -112,6 +119,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
+    /** Native ElementInternals function. */
     checkValidity(): boolean {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.checkValidity();
@@ -120,6 +128,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
+    /** Native ElementInternals function. */
     reportValidity(): boolean {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.reportValidity();
@@ -128,14 +137,17 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
+    /** @ignore Native ElementInternals helper function. */
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
     }
 
+    /** Native ElementInternals function. */
     setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void {
       console.log('setValidity', { flags, message, anchor });
     }
 
+    /** Native ElementInternals function. */
     setFormValue(value?: FormControlValue): void {
       this.#cachedValue = value;
 

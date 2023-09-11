@@ -3,18 +3,119 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-@mixin sl-text-input-option-label-lg {
+@mixin sl-text-input-helper-text-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-lg);
 }
 
-@mixin sl-text-input-option-label-md {
+@mixin sl-text-input-helper-text-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   line-height: var(--sl-text-typeset-line-height-md);
+}
+
+@mixin sl-text-input-helper-text-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-input-field-label-tag-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-field-label-tag-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-field-label-tag-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-input-field-label-label-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-field-label-label-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-field-label-label-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-input-option-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-option-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
+@mixin sl-text-input-text-field-text-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-text-field-text-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
+@mixin sl-text-button-link-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-button-label-lg);
+  text-decoration: var(--sl-text-typeset-text-decoration-underline);
+}
+
+@mixin sl-text-button-link-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-button-label-md);
+  text-decoration: var(--sl-text-typeset-text-decoration-underline);
+}
+
+@mixin sl-text-button-link-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-button-label-sm);
+  text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
 
 @mixin sl-text-button-font-icon-lg {
@@ -207,14 +308,49 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
-@mixin sl-text-input-option-font-icon-lg {
+@mixin sl-text-icon-font-icon-lg {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-icon-font-icon-md {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xs);
+}
+
+@mixin sl-text-icon-font-icon-sm {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: 13;
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+}
+
+@mixin sl-text-input-helper-font-icon-lg {
   font-family: var(--sl-text-typeset-font-family-icon);
   font-size: 18;
   font-weight: var(--sl-text-typeset-font-weight-icon-solid);
   line-height: var(--sl-text-typeset-line-height-md);
 }
 
-@mixin sl-text-input-option-font-icon-md {
+@mixin sl-text-input-helper-font-icon-md {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: 15;
+  font-weight: var(--sl-text-typeset-font-weight-icon-solid);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-input-text-field-font-icon-lg {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: 18;
+  font-weight: var(--sl-text-typeset-font-weight-icon-solid);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
+@mixin sl-text-input-text-field-font-icon-md {
   font-family: var(--sl-text-typeset-font-family-icon);
   font-size: 15;
   font-weight: var(--sl-text-typeset-font-weight-icon-solid);

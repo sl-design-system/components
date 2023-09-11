@@ -28,9 +28,9 @@ $short-transition-timing: 200ms;
   justify-content: space-between;
   overflow-y: auto;
   position: fixed;
-  transform: translateX(-27.2rem);
+  transform: translateX(-28rem);
   transition: transform 400ms;
-  width: 27.2rem;
+  width: 28rem;
   z-index: 1;
 }
 
@@ -94,7 +94,7 @@ $short-transition-timing: 200ms;
 }
 
 .ds-sidebar--closed {
-  transform: translateX(-27.2rem);
+  transform: translateX(-28rem);
 
   .ds-sidebar-nav,
   .ds-sidebar__help {
@@ -282,7 +282,7 @@ $short-transition-timing: 200ms;
   display: flex;
   justify-content: space-between;
   line-height: 3.2rem;
-  padding: 0.8rem 0 0.8rem 4rem;
+  padding: 0.8rem 3.2rem 0.8rem 4rem;
   transition: color 200ms linear;
   width: 100%;
 }
@@ -292,12 +292,12 @@ $short-transition-timing: 200ms;
 }
 
 .ds-sidebar-nav__link:active,
-.ds-sublist__link:active {
+.ds-sublist__link:active:not(.ds-sublist__link--disabled) {
   color: var(--highlight-color);
 }
 
 .ds-sidebar-nav__link:hover,
-.ds-sublist__link:hover {
+.ds-sublist__link:hover:not(.ds-sublist__link--disabled) {
   color: var(--highlight-color);
   opacity: 1;
 
@@ -327,6 +327,10 @@ $short-transition-timing: 200ms;
     box-shadow: inset var(--navigation-focus-box-shadow);
     outline: none;
   }
+}
+
+.ds-sublist__link--disabled {
+  color: var(--badge-color);
 }
 
 .ds-sidebar-nav__link--active,

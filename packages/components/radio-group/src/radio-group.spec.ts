@@ -11,7 +11,7 @@ describe('sl-radio-group', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-radio-group></sl-radio-group>`);
     });
-  
+
     it('should not break', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
@@ -36,18 +36,18 @@ describe('sl-radio-group', () => {
       expect(el.internals.validity.valid).to.equal(true);
     });
 
-    it('should handle the navigating between options correctly', async () => {            
+    it('should handle the navigating between options correctly', async () => {
       expect(el.buttons?.[0].checked).to.equal(false);
       expect(el.buttons?.[0].tabIndex).to.equal(0);
       expect(el.buttons?.[1].checked).to.equal(false);
       expect(el.buttons?.[1].tabIndex).to.equal(-1);
-      
+
       el.buttons?.[0]?.focus();
       await sendKeys({ press: 'Space' });
 
       expect(el.buttons?.[0].checked).to.equal(true);
       expect(el.buttons?.[1].checked).to.equal(false);
-      
+
       await sendKeys({ press: 'ArrowRight' });
       await sendKeys({ press: 'Enter' });
 
@@ -77,7 +77,7 @@ describe('sl-radio-group', () => {
     it('should not break when the value doesn\'t match any of the options', async () => {
       el.setAttribute('value', 'non-existend');
       await el.updateComplete;
-      
+
       expect(el.value).to.equal("non-existend");
 
       expect(el.buttons?.[0].checked).to.equal(false);
@@ -103,7 +103,7 @@ describe('sl-radio-group', () => {
 
     it('should be valid when an option is chosen when it is a required group', async () => {
       expect(el.internals.validity.valid).to.equal(false);
-      
+
       el.buttons?.[0]?.focus();
       await sendKeys({ press: 'Space' });
       await el.form?.checkValidity();
@@ -131,11 +131,11 @@ describe('sl-radio-group', () => {
     it('should change the value back to the initial state when the form is reset', async () => {
       el.buttons?.[0]?.focus();
       await sendKeys({ press: 'Space' });
-      
+
       expect(el.value).to.equal('1');
-      
+
       el.formResetCallback();
-      
+
       expect(el.value).to.equal(undefined);
     });
   });

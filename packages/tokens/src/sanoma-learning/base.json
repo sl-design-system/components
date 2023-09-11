@@ -1354,5 +1354,15 @@
         "type": "fontWeights"
       }
     }
+  },
+  "space": {
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
+    }
   }
 }

@@ -187,6 +187,7 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-tooltip-offset: var(--sl-space-sm);
   --sl-space-tooltip-gap: var(--sl-space-xs);
   --sl-space-tooltip-inline: var(--sl-space-md);
   --sl-space-tooltip-block: var(--sl-space-sm);

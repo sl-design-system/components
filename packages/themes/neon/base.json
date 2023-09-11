@@ -2195,6 +2195,10 @@
       "gap": {
         "value": "{space.xs}",
         "type": "spacing"
+      },
+      "offset": {
+        "value": "{space.sm}",
+        "type": "spacing"
       }
     }
   },

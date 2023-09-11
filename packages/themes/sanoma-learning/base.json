@@ -1830,283 +1830,33 @@
       }
     }
   },
-  "opacity": {
-    "50": {
-      "value": 0.02,
-      "type": "opacity",
-      "description": "opacity.50"
-    },
-    "100": {
-      "value": 0.04,
-      "type": "opacity",
-      "description": "opacity.100"
-    },
-    "150": {
-      "value": 0.06,
-      "type": "opacity",
-      "description": "opacity.150"
-    },
-    "200": {
-      "value": 0.08,
-      "type": "opacity",
-      "description": "opacity.200"
-    },
-    "300": {
-      "value": 0.12,
-      "type": "opacity",
-      "description": "opacity.300"
-    },
-    "400": {
-      "value": 0.16,
-      "type": "opacity",
-      "description": "opacity.400"
-    },
-    "500": {
-      "value": 0.2,
-      "type": "opacity",
-      "description": "opacity.500"
-    },
-    "600": {
-      "value": 0.32,
-      "type": "opacity",
-      "description": "opacity.600"
-    },
-    "700": {
-      "value": 0.48,
-      "type": "opacity",
-      "description": "opacity.700"
-    },
-    "800": {
-      "value": 0.64,
-      "type": "opacity",
-      "description": "opacity.800"
-    },
-    "900": {
-      "value": 0.8,
-      "type": "opacity",
-      "description": "opacity.900"
-    },
-    "1000": {
-      "value": 1,
-      "type": "opacity",
-      "description": "opacity.1000"
-    },
-    "transparent": {
-      "value": 0,
-      "type": "opacity",
-      "description": "opacity.transparent"
-    }
-  },
-  "size": {
-    "none": {
-      "value": 0,
-      "type": "sizing",
-      "description": "size.none"
-    },
-    "4xs": {
-      "value": 2,
-      "type": "sizing",
-      "description": "size.4xs"
-    },
-    "3xs": {
-      "value": 4,
-      "type": "sizing",
-      "description": "size.3xs"
-    },
-    "2xs": {
-      "value": 8,
-      "type": "sizing",
-      "description": "size.2xs"
-    },
-    "xs": {
-      "value": 12,
-      "type": "sizing",
-      "description": "size.xs"
-    },
-    "sm": {
-      "value": 14,
-      "type": "sizing",
-      "description": "size.sm"
-    },
-    "md": {
-      "value": 16,
-      "type": "sizing",
-      "description": "size.md"
-    },
-    "lg": {
-      "value": 20,
-      "type": "sizing",
-      "description": "size.lg"
-    },
-    "xl": {
-      "value": 24,
-      "type": "sizing",
-      "description": "size.xl"
-    },
-    "2xl": {
-      "value": 32,
-      "type": "sizing",
-      "description": "size.2xl"
-    },
-    "3xl": {
-      "value": 48,
-      "type": "sizing",
-      "description": "size.3xl"
-    },
-    "4xl": {
-      "value": 64,
-      "type": "sizing",
-      "description": "size.4xl"
-    },
-    "input": {
-      "option": {
-        "md": {
-          "value": "{size.xl}",
-          "type": "sizing",
-          "description": "size.input.md"
-        },
-        "lg": {
-          "value": "{size.2xl}",
-          "type": "sizing",
-          "description": "size.input.lg"
-        },
-        "checkboxIcon": {
-          "md": {
-            "value": "{size.icon.md}",
-            "type": "sizing",
-            "description": "size.input.md"
-          },
-          "lg": {
-            "value": "{size.icon.lg}",
-            "type": "sizing",
-            "description": "size.input.lg"
-          }
-        }
-      },
-      "switch": {
-        "handle": {
-          "sm": {
-            "value": "{size.md} - (2 * {space.input.switch.padding.controller})",
-            "type": "sizing",
-            "description": "size.input.md"
-          },
-          "md": {
-            "value": "{size.xl} - (2 * {space.input.switch.padding.controller})",
-            "type": "sizing",
-            "description": "size.input.md"
-          },
-          "lg": {
-            "value": "{size.2xl} - (2 * {space.input.switch.padding.controller})",
-            "type": "sizing",
-            "description": "size.input.md"
-          }
-        },
-        "controller": {
-          "height": {
-            "sm": {
-              "value": "{size.md}",
-              "type": "sizing",
-              "description": "size.switch.controller.sm"
-            },
-            "md": {
-              "value": "{size.xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.md"
-            },
-            "lg": {
-              "value": "{size.2xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.lg"
-            }
-          },
-          "width": {
-            "sm": {
-              "value": "{size.2xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.sm"
-            },
-            "md": {
-              "value": "{size.3xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.md"
-            },
-            "lg": {
-              "value": "{size.4xl}",
-              "type": "sizing",
-              "description": "size.switch.controller.lg"
-            }
-          }
-        }
-      }
-    },
-    "icon": {
-      "xs": {
-        "value": "{size.xs}",
-        "type": "sizing"
-      },
-      "sm": {
-        "value": "{size.sm}",
-        "type": "sizing"
-      },
-      "md": {
-        "value": "{size.md}",
-        "type": "sizing"
-      },
-      "lg": {
-        "value": "{size.lg}",
-        "type": "sizing"
-      },
-      "xl": {
-        "value": "{size.xl}",
-        "type": "sizing"
-      },
-      "2xl": {
-        "value": "{size.2xl}",
-        "type": "sizing"
-      },
-      "3xl": {
-        "value": "{size.3xl}",
-        "type": "sizing"
-      },
-      "4xl": {
-        "value": "{size.4xl}",
-        "type": "sizing"
-      }
-    },
-    "button": {
-      "icon-container": {
-        "icon-only": {
-          "sm": {
-            "value": "{size.md}",
-            "type": "sizing"
-          },
-          "md": {
-            "value": "{size.md}",
-            "type": "sizing"
-          },
-          "lg": {
-            "value": "{size.xl}",
-            "type": "sizing"
-          }
-        },
-        "inline": {
-          "sm": {
-            "value": "{size.xs}",
-            "type": "sizing"
-          },
-          "md": {
-            "value": "{size.sm}",
-            "type": "sizing"
-          },
-          "lg": {
-            "value": "{size.md}",
-            "type": "sizing"
-          }
-        }
-      }
-    }
-  },
   "space": {
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      },
+      "offset": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      }
+    },
     "none": {
       "value": 0,
       "type": "spacing",
@@ -2799,30 +2549,280 @@
           }
         }
       }
+    }
+  },
+  "opacity": {
+    "50": {
+      "value": 0.02,
+      "type": "opacity",
+      "description": "opacity.50"
     },
-    "tooltip": {
-      "block": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.solid.block.md"
+    "100": {
+      "value": 0.04,
+      "type": "opacity",
+      "description": "opacity.100"
+    },
+    "150": {
+      "value": 0.06,
+      "type": "opacity",
+      "description": "opacity.150"
+    },
+    "200": {
+      "value": 0.08,
+      "type": "opacity",
+      "description": "opacity.200"
+    },
+    "300": {
+      "value": 0.12,
+      "type": "opacity",
+      "description": "opacity.300"
+    },
+    "400": {
+      "value": 0.16,
+      "type": "opacity",
+      "description": "opacity.400"
+    },
+    "500": {
+      "value": 0.2,
+      "type": "opacity",
+      "description": "opacity.500"
+    },
+    "600": {
+      "value": 0.32,
+      "type": "opacity",
+      "description": "opacity.600"
+    },
+    "700": {
+      "value": 0.48,
+      "type": "opacity",
+      "description": "opacity.700"
+    },
+    "800": {
+      "value": 0.64,
+      "type": "opacity",
+      "description": "opacity.800"
+    },
+    "900": {
+      "value": 0.8,
+      "type": "opacity",
+      "description": "opacity.900"
+    },
+    "1000": {
+      "value": 1,
+      "type": "opacity",
+      "description": "opacity.1000"
+    },
+    "transparent": {
+      "value": 0,
+      "type": "opacity",
+      "description": "opacity.transparent"
+    }
+  },
+  "size": {
+    "none": {
+      "value": 0,
+      "type": "sizing",
+      "description": "size.none"
+    },
+    "4xs": {
+      "value": 2,
+      "type": "sizing",
+      "description": "size.4xs"
+    },
+    "3xs": {
+      "value": 4,
+      "type": "sizing",
+      "description": "size.3xs"
+    },
+    "2xs": {
+      "value": 8,
+      "type": "sizing",
+      "description": "size.2xs"
+    },
+    "xs": {
+      "value": 12,
+      "type": "sizing",
+      "description": "size.xs"
+    },
+    "sm": {
+      "value": 14,
+      "type": "sizing",
+      "description": "size.sm"
+    },
+    "md": {
+      "value": 16,
+      "type": "sizing",
+      "description": "size.md"
+    },
+    "lg": {
+      "value": 20,
+      "type": "sizing",
+      "description": "size.lg"
+    },
+    "xl": {
+      "value": 24,
+      "type": "sizing",
+      "description": "size.xl"
+    },
+    "2xl": {
+      "value": 32,
+      "type": "sizing",
+      "description": "size.2xl"
+    },
+    "3xl": {
+      "value": 48,
+      "type": "sizing",
+      "description": "size.3xl"
+    },
+    "4xl": {
+      "value": 64,
+      "type": "sizing",
+      "description": "size.4xl"
+    },
+    "input": {
+      "option": {
+        "md": {
+          "value": "{size.xl}",
+          "type": "sizing",
+          "description": "size.input.md"
+        },
+        "lg": {
+          "value": "{size.2xl}",
+          "type": "sizing",
+          "description": "size.input.lg"
+        },
+        "checkboxIcon": {
+          "md": {
+            "value": "{size.icon.md}",
+            "type": "sizing",
+            "description": "size.input.md"
+          },
+          "lg": {
+            "value": "{size.icon.lg}",
+            "type": "sizing",
+            "description": "size.input.lg"
+          }
+        }
       },
-      "inline": {
-        "value": "{space.md}",
-        "type": "spacing",
-        "description": "space.button.solid.inline.md"
+      "switch": {
+        "handle": {
+          "sm": {
+            "value": "{size.md} - (2 * {space.input.switch.padding.controller})",
+            "type": "sizing",
+            "description": "size.input.md"
+          },
+          "md": {
+            "value": "{size.xl} - (2 * {space.input.switch.padding.controller})",
+            "type": "sizing",
+            "description": "size.input.md"
+          },
+          "lg": {
+            "value": "{size.2xl} - (2 * {space.input.switch.padding.controller})",
+            "type": "sizing",
+            "description": "size.input.md"
+          }
+        },
+        "controller": {
+          "height": {
+            "sm": {
+              "value": "{size.md}",
+              "type": "sizing",
+              "description": "size.switch.controller.sm"
+            },
+            "md": {
+              "value": "{size.xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.md"
+            },
+            "lg": {
+              "value": "{size.2xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.lg"
+            }
+          },
+          "width": {
+            "sm": {
+              "value": "{size.2xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.sm"
+            },
+            "md": {
+              "value": "{size.3xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.md"
+            },
+            "lg": {
+              "value": "{size.4xl}",
+              "type": "sizing",
+              "description": "size.switch.controller.lg"
+            }
+          }
+        }
+      }
+    },
+    "icon": {
+      "xs": {
+        "value": "{size.xs}",
+        "type": "sizing"
       },
-      "gap": {
-        "value": "{space.xs}",
-        "type": "spacing"
+      "sm": {
+        "value": "{size.sm}",
+        "type": "sizing"
       },
-      "offset": {
-        "value": "{space.sm}",
-        "type": "spacing"
+      "md": {
+        "value": "{size.md}",
+        "type": "sizing"
       },
-      "arrow": {
-        "offset": {
-          "value": "{space.sm}",
-          "type": "spacing"
+      "lg": {
+        "value": "{size.lg}",
+        "type": "sizing"
+      },
+      "xl": {
+        "value": "{size.xl}",
+        "type": "sizing"
+      },
+      "2xl": {
+        "value": "{size.2xl}",
+        "type": "sizing"
+      },
+      "3xl": {
+        "value": "{size.3xl}",
+        "type": "sizing"
+      },
+      "4xl": {
+        "value": "{size.4xl}",
+        "type": "sizing"
+      }
+    },
+    "button": {
+      "icon-container": {
+        "icon-only": {
+          "sm": {
+            "value": "{size.md}",
+            "type": "sizing"
+          },
+          "md": {
+            "value": "{size.md}",
+            "type": "sizing"
+          },
+          "lg": {
+            "value": "{size.xl}",
+            "type": "sizing"
+          }
+        },
+        "inline": {
+          "sm": {
+            "value": "{size.xs}",
+            "type": "sizing"
+          },
+          "md": {
+            "value": "{size.sm}",
+            "type": "sizing"
+          },
+          "lg": {
+            "value": "{size.md}",
+            "type": "sizing"
+          }
         }
       }
     }

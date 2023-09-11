@@ -2818,6 +2818,12 @@
       "offset": {
         "value": "{space.sm}",
         "type": "spacing"
+      },
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
       }
     }
   },

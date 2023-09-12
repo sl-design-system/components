@@ -20,6 +20,11 @@
         "value": "{color.palette.neutral.150}",
         "type": "color",
         "description": "body.surface.100"
+      },
+      "overlay": {
+        "value": "rgba({body.foreground},{opacity.700})",
+        "type": "color",
+        "description": "body.surface.200"
       }
     }
   },
@@ -2830,7 +2835,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.input.textField.default.active.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3112,7 +3117,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.input.textField.default.active.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3139,7 +3144,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.input.textField.default.active.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3426,7 +3431,7 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.input.textField.default.active.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color"
             },
             "label": {
@@ -3452,7 +3457,7 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.input.textField.default.focus.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color"
             },
             "label": {
@@ -3775,9 +3780,21 @@
         }
       }
     },
+    "dialog": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      }
+    },
     "focusring": {
       "default": {
-        "value": "{color.palette.accent.300}",
+        "value": "{color.palette.accent.base}",
         "type": "color"
       }
     }

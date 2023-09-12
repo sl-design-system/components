@@ -775,6 +775,26 @@
         }
       }
     },
+    "dialog": {
+      "heading": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.bold}",
+          "lineHeight": "{text.typeset.lineHeight.2xl}",
+          "fontSize": "{icon.typeset.fontSize.xl}"
+        },
+        "type": "typography"
+      },
+      "subheading": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{icon.typeset.fontSize.md}"
+        },
+        "type": "typography"
+      }
+    },
     "input": {
       "textField": {
         "fontIcon": {
@@ -1203,7 +1223,7 @@
       "description": "borderRadius.button"
     },
     "checkbox": {
-      "value": "{borderRadius.default}",
+      "value": "{border.radius.2xs}",
       "type": "borderRadius"
     },
     "focusring": {
@@ -1267,7 +1287,7 @@
       },
       "focusring": {
         "default": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth"
         }
       },

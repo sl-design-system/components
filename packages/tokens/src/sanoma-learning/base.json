@@ -1211,6 +1211,10 @@
         "value": "{borderRadius.default} + 1",
         "type": "borderRadius"
       },
+      "checkbox": {
+        "value": "{borderRadius.checkbox} + 1",
+        "type": "borderRadius"
+      },
       "full": {
         "value": "{border.radius.full}",
         "type": "borderRadius"

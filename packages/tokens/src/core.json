@@ -653,7 +653,7 @@
         },
         "gap": {
           "md": {
-            "value": "{space.xs}",
+            "value": "{space.sm}",
             "type": "spacing",
             "description": "{space.button.gap.md}"
           },

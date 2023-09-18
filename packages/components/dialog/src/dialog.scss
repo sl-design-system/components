@@ -42,6 +42,22 @@ dialog[open] {
   opacity: 1;
 }
 
+slot[name='header'] {
+  display: flex;
+  justify-content: space-between;
+}
+
+slot[name='titles'] {
+  display: flex;
+  flex-direction: column;
+}
+
+slot[name='close'] {
+  sl-button {
+    align-self: baseline;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   dialog {
     animation: scale-down 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;

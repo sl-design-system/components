@@ -15,8 +15,9 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
 export const API: StoryObj = {
   render: () => {
     return html`
-      <sl-button @click=${onClick}>Show Dialog</sl-button>
+      <sl-button fill="outline" size="md" @click=${onClick}>Show Dialog</sl-button>
       <sl-dialog>
+        <span slot="subtitle">Dialog subtitle</span>
         <span slot="title">Dialog title</span>
         <p>
           Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et

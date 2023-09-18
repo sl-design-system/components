@@ -3,9 +3,13 @@ import type { CSSResultGroup } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { ButtonBar } from '@sl-design-system/button-bar';
+import { Icon } from '@sl-design-system/icon';
+import { Button } from '@sl-design-system/button';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
+
+export type DialogSize = 'sm' | 'md' | 'lg'; // TODO: also xs?
 
 /**
  * A dialog component for displaying modal UI.
@@ -15,12 +19,15 @@ import styles from './dialog.scss.js';
  * @slot footer - Footer content for the dialog
  * @slot header - Header content for the dialog
  * @slot title - The title of the dialog
+ * @slot subtitle - The subtitle of the dialog
  */
 export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button-bar': ButtonBar
+      'sl-button': Button,
+      'sl-button-bar': ButtonBar,
+      'sl-icon': Icon
     };
   }
 
@@ -28,6 +35,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   @query('dialog') dialog?: HTMLDialogElement;
+
+  /** The size of the dialog
+   * @type {'sm' | 'md' | 'lg'} */ // TODO: also xs size?
+  @property({ reflect: true }) size?: DialogSize = 'md';
 
   /** Disables the ability to close the dialog using the Escape key. */
   @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
@@ -41,6 +52,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
   }
 
+  // TODO: option with no close button
+
   override render(): TemplateResult {
     return html`
       <dialog
@@ -50,9 +63,19 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         .role=${this.role}
         part="dialog"
       >
+        <!--<sl-button-bar align="end"><sl-button fill="outline" size="md" sl-dialog-close>Close</sl-button></sl-button-bar>-->
         <slot name="header">
-          <slot name="title"></slot>
+          <slot name="titles">
+            <slot name="subtitle"></slot>
+            <slot name="title"></slot>
+          </slot>
+          <slot name="close">
+            <sl-button fill="ghost" variant="default" sl-dialog-close>
+              <sl-icon name="face-smile"></sl-icon>
+            </sl-button>
+          </slot>
         </slot>
+        <sl-button fill="outline" size="md">Close</sl-button>
         <slot name="body">
           <slot></slot>
         </slot>

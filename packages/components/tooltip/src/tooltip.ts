@@ -80,8 +80,6 @@ export class Tooltip extends LitElement {
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
-    console.log('changes', changes);
-
     if (changes.has('maxWidth')) {
       this.#anchor.maxWidth = this.maxWidth;
     }
@@ -92,12 +90,11 @@ export class Tooltip extends LitElement {
   }
 
   override render(): TemplateResult {
-    console.log('this', this, this.maxWidth);
     return html` <slot></slot>
       <div class="arrow">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="6" viewBox="0 0 16 6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="6">
           <path
-            d="M14.4806 5.41145C14.8641 5.78457 15.4178 5.99897 16 6H0C0.582238 5.99897 1.13586 5.78457 1.51935 5.41146L6.47646 0.588546C7.28302 -0.196183 8.717 -0.196182 9.52356 0.588549L14.4806 5.41145Z"
+            d="M14.48 5.411c.384.374.938.588 1.52.589H0c.582-.001 1.136-.215 1.52-.589L6.475.59c.807-.785 2.241-.785 3.048 0L14.48 5.41Z"
           />
         </svg>
       </div>`;

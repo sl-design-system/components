@@ -42,83 +42,85 @@
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 
-:host([actual-placement='bottom']) .arrow {
+// Bottom
+:host([actual-placement^='bottom']) .arrow {
   inset-block-start: calc(var(--_arrow-height) * -1);
+}
+
+:host([actual-placement='bottom']) .arrow {
   inset-inline-start: calc(50% - var(--_arrow-width) / 2);
 }
 
 :host([actual-placement='bottom-start']) .arrow {
-  inset-block-start: calc(var(--_arrow-height) * -1);
   inset-inline-start: var(--_arrow-start-end-offset);
 }
 
 :host([actual-placement='bottom-end']) .arrow {
-  inset-block-start: calc(var(--_arrow-height) * -1);
   inset-inline-end: var(--_arrow-start-end-offset);
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
-:host([actual-placement^='left']) .arrow svg {
-  rotate: 90deg;
-  transform-origin: top center;
-  translate: 8px 8px;
+// Left
+:host([actual-placement^='left']) .arrow {
+  inset-inline-end: calc(var(--_arrow-height) * -1);
+
+  svg {
+    rotate: 90deg;
+    transform-origin: top center;
+    translate: 8px 8px;
+  }
 }
 
 :host([actual-placement='left']) .arrow {
   inset-block: calc(50% - var(--_arrow-width) / 2);
-  inset-inline-end: calc(var(--_arrow-height) * -1);
 }
 
 :host([actual-placement='left-start']) .arrow {
-  inset-block-start: var(--_arrow-start-end-offset);
-  inset-inline-end: calc(var(--_arrow-height) * -1);
+  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
 }
 
 :host([actual-placement='left-end']) .arrow {
-  inset-block-end: var(--_arrow-start-end-offset);
-  inset-inline-end: calc(var(--_arrow-height) * -1);
+  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
-:host([actual-placement^='right']) .arrow svg {
-  rotate: -90deg;
-  transform-origin: top center;
-  translate: -8px 8px;
+// Right
+:host([actual-placement^='right']) .arrow {
+  inset-inline-start: calc(var(--_arrow-height) * -1);
+
+  svg {
+    rotate: -90deg;
+    transform-origin: top center;
+    translate: -8px 8px;
+  }
 }
 
 :host([actual-placement='right']) .arrow {
   inset-block: calc(50% - var(--_arrow-width) / 2);
-  inset-inline-start: calc(var(--_arrow-height) * -1);
 }
 
 :host([actual-placement='right-start']) .arrow {
-  inset-block-start: var(--_arrow-start-end-offset);
-  inset-inline-start: calc(var(--_arrow-height) * -1);
+  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
 }
 
 :host([actual-placement='right-end']) .arrow {
-  inset-block-end: var(--_arrow-start-end-offset);
-  inset-inline-start: calc(var(--_arrow-height) * -1);
+  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
+}
+
+// Top
+:host([actual-placement^='top']) .arrow {
+  inset-block-end: calc(var(--_arrow-height) * -1);
+  scale: 1 -1;
 }
 
 :host([actual-placement='top']) .arrow {
-  inset-block-end: calc(var(--_arrow-height) * -1);
-  inset-inline-start: 0;
-  margin: 0 calc(50% - var(--_arrow-width) / 2);
-  scale: 1 -1;
-  width: fit-content;
+  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
 }
 
 :host([actual-placement='top-start']) .arrow {
-  inset-block-end: calc(var(--_arrow-height) * -1);
   inset-inline-start: var(--_arrow-start-end-offset);
-  scale: 1 -1;
 }
 
 :host([actual-placement='top-end']) .arrow {
-  inset-block-end: calc(var(--_arrow-height) * -1);
   inset-inline-end: var(--_arrow-start-end-offset);
-  scale: 1 -1;
 }
 
 .arrow {

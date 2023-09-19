@@ -133,7 +133,6 @@ export const positionPopover = (
         apply: ({ availableWidth, availableHeight, rects: { floating } }) => {
           // Make sure that the overlay is contained by the visible page.
           const maxHeight = Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight));
-          console.log('maxheight', maxHeight);
           const actualHeight = floating.height;
           initialHeight = !isConstrained && !virtualTrigger ? actualHeight : initialHeight || actualHeight;
           isConstrained = actualHeight < initialHeight || maxHeight <= actualHeight;

@@ -2,6 +2,7 @@ import type { TemplateResult } from 'lit-html';
 import type { CSSResultGroup } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import type { ButtonBarAlign } from '@sl-design-system/button-bar';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
@@ -46,6 +47,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
+  @property({ reflect: true }) buttonsAlign: ButtonBarAlign = 'end';
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -53,6 +56,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   // TODO: option with no close button
+
+  // TODO: add aria
 
   override render(): TemplateResult {
     return html`
@@ -69,18 +74,18 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
             <slot name="subtitle"></slot>
             <slot name="title"></slot>
           </slot>
-          <slot name="close">
-            <sl-button fill="ghost" variant="default" sl-dialog-close>
-              <sl-icon name="face-smile"></sl-icon>
+          <slot name="close" @click=${this.#onCloseClick}>
+            <sl-button fill="ghost" variant="default">
+              <sl-icon name="xmark"></sl-icon>
             </sl-button>
           </slot>
         </slot>
-        <sl-button fill="outline" size="md">Close</sl-button>
+        <!--<sl-button fill="outline" size="md">Close</sl-button>-->
         <slot name="body">
           <slot></slot>
         </slot>
         <slot name="footer">
-          <sl-button-bar align="end"><slot name="action"></slot></sl-button-bar>
+          <sl-button-bar .align=${this.buttonsAlign}><slot name="action"></slot></sl-button-bar>
         </slot>
       </dialog>
     `;
@@ -106,8 +111,18 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
+  }
+
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
+    // event.preventDefault();
+    console.log('111 onclick event target', event.target, event.target.matches('sl-button[sl-dialog-close]'));
+
     if (event.target.matches('sl-button[sl-dialog-close]')) {
+      console.log('onclick event target', event.target, event.target.matches('sl-button[sl-dialog-close]'));
       this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
     } else if (!this.disableClose && this.dialog) {
       const rect = this.dialog.getBoundingClientRect();

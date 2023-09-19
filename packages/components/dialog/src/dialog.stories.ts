@@ -12,6 +12,8 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
   (event.target.nextElementSibling as Dialog).showModal();
 };
 
+// TODO: buttonsAlign as option
+
 export const API: StoryObj = {
   render: () => {
     return html`
@@ -26,7 +28,8 @@ export const API: StoryObj = {
           anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor
           magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
         </p>
-        <sl-button slot="action" sl-dialog-close autofocus>Close</sl-button>
+        <sl-button slot="action" sl-dialog-close>Close</sl-button>
+        <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close autofocus>Action</sl-button>
       </sl-dialog>
     `;
   }

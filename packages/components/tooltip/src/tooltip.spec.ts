@@ -56,16 +56,12 @@ describe('sl-tooltip', () => {
     });
 
     it('should be positioned at the top by default', async () => {
-      await showTooltip();
-      
       expect(tooltip?.position).to.equal('top');
     });
     
     it('should set the position to the position option chosen', async () => {
       tooltip.setAttribute('position', 'bottom');
       await tooltip.updateComplete;
-      
-      await showTooltip();  
 
       expect(tooltip?.position).to.equal('bottom');
 

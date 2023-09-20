@@ -11,12 +11,17 @@
       "description": "color.body.default.foreground"
     },
     "surface": {
+      "200": {
+        "value": "{color.palette.neutral.800}",
+        "type": "color",
+        "description": "color.body.default.foreground"
+      },
       "100": {
         "value": "{color.palette.neutral.900}",
         "type": "color",
         "description": "color.body.default.foreground"
       },
-      "200": {
+      "100-copy": {
         "value": "{color.palette.neutral.800}",
         "type": "color",
         "description": "color.body.default.foreground"
@@ -3266,6 +3271,20 @@
         }
       }
     },
+    "tooltip": {
+      "background": {
+        "value": "{color.palette.accent.200}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{color.palette.black.base}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color"
+      }
+    },
     "dialog": {
       "background": {
         "value": "{body.background}",
@@ -3308,6 +3327,12 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.none"
+    },
+    "tooltip": {
+      "value": {
+        "boxShadow":"{elevation.shadow.none}"
+      },
+      "type": "composition"
     }
   }
 }

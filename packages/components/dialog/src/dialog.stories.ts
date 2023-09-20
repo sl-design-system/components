@@ -1,6 +1,7 @@
 import type { Dialog } from './dialog.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/icon/register.js';
 import { html } from 'lit';
 import '../register.js';
 
@@ -14,6 +15,8 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
 
 // TODO: buttonsAlign as option
 
+// TODO: with our own icon instead of closing icon in the top right corner
+
 export const API: StoryObj = {
   render: () => {
     return html`
@@ -21,6 +24,9 @@ export const API: StoryObj = {
       <sl-dialog>
         <span slot="subtitle">Dialog subtitle</span>
         <span slot="title">Dialog title</span>
+        <sl-button slot="close" fill="ghost" variant="default">
+          <sl-icon name="face-smile"></sl-icon>
+        </sl-button>
         <p>
           Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et
           tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.
@@ -38,7 +44,7 @@ export const API: StoryObj = {
 export const DisableClose: StoryObj = {
   render: () => html`
     <sl-button @click=${onClick}>Show Dialog</sl-button>
-    <sl-dialog disable-close>
+    <sl-dialog disable-close closing-button>
       <span slot="title">Disable close</span>
       <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>
       <sl-button slot="action" sl-dialog-close>Close</sl-button>
@@ -54,7 +60,7 @@ export const ScrollingBody: StoryObj = {
       }
     </style>
     <sl-button @click=${onClick}>Show Dialog</sl-button>
-    <sl-dialog>
+    <sl-dialog closing-button>
       <div>You cannot scroll the body once the dialog is open.</div>
     </sl-dialog>
   `

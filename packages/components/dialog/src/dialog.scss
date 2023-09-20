@@ -55,6 +55,12 @@ slot[name='titles'] {
 }
 
 slot[name='close'] {
+  display: block;
+}
+
+slot[name='close']::slotted(*) {
+  align-self: baseline;
+
   sl-button {
     align-self: baseline;
   }

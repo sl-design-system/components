@@ -7,7 +7,7 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { breakpoints } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
 
@@ -45,6 +45,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** Disables the ability to close the dialog using the Escape key. */
   @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
 
+  /** Determines whether closing button should be shown in the top right corner. */
+  @property({ type: Boolean, attribute: 'closing-button' }) closingButton?: boolean;
+
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
@@ -76,9 +79,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
             <slot name="title"></slot>
           </slot>
           <slot name="close" @click=${this.#onCloseClick}>
-            <sl-button fill="ghost" variant="default">
+            <!--            <sl-button fill="ghost" variant="default">
               <sl-icon name="xmark"></sl-icon>
-            </sl-button>
+            </sl-button>-->
+            ${this.closingButton
+              ? html`<sl-button fill="ghost" variant="default">
+                  <sl-icon name="xmark"></sl-icon>
+                </sl-button>`
+              : nothing}
           </slot>
         </slot>
         <!--<sl-button fill="outline" size="md">Close</sl-button>-->

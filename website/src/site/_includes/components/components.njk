@@ -8,7 +8,7 @@ layout: base.njk
     <p class="ds-component__heading-description">{{ description }}</p>
   </div>
 </header>
-<section>
+<section class="for-collections-component">
   {%- for post in collections.component -%}
     {% if page.url === post.url %}
       <div horizontal class="ds-tabs" role="tablist">

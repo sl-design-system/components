@@ -6,6 +6,7 @@ import type { ButtonBarAlign } from '@sl-design-system/button-bar';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
+import { breakpoints } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
@@ -33,7 +34,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   /** @private */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [breakpoints, styles];
 
   @query('dialog') dialog?: HTMLDialogElement;
 

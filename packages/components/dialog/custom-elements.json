@@ -74,9 +74,23 @@
             {
               "description": "The title of the dialog",
               "name": "title"
+            },
+            {
+              "description": "The subtitle of the dialog",
+              "name": "subtitle"
             }
           ],
           "members": [
+            {
+              "kind": "field",
+              "name": "buttonsAlign",
+              "type": {
+                "text": "ButtonBarAlign"
+              },
+              "default": "'end'",
+              "attribute": "buttonsAlign",
+              "reflects": true
+            },
             {
               "kind": "method",
               "name": "close",
@@ -121,9 +135,29 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the dialog",
+              "attribute": "size",
+              "reflects": true
             }
           ],
           "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the dialog",
+              "fieldName": "size"
+            },
             {
               "name": "disable-close",
               "type": {
@@ -141,6 +175,14 @@
               "default": "'dialog'",
               "description": "The ARIA role of the dialog.",
               "fieldName": "role"
+            },
+            {
+              "name": "buttonsAlign",
+              "type": {
+                "text": "ButtonBarAlign"
+              },
+              "default": "'end'",
+              "fieldName": "buttonsAlign"
             }
           ],
           "mixins": [
@@ -187,6 +229,23 @@
                   "name": "event",
                   "type": {
                     "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onCloseClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
                   }
                 }
               ]

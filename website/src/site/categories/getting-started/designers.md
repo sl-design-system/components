@@ -40,7 +40,7 @@ Now that you've added the Sanoma Learning Design System library, let's learn how
 
 1. Access the Components Panel: On the left sidebar, click on the 'Assets' tab again, and this time, select 'Components.' You'll find the Sanoma Learning components here.
 1. Drag and Drop: To use a component, simply drag and drop it onto your canvas. You can now customize it according to your design requirements.
-1. Instance Swap: You can easily swap instances of components by right-clicking and choosing 'Swap Instance.'
+1. Instance Swap: You can easily swap instances of components by right-clicking and choosing 'Swap Instance.'\
 
 </section>
 
@@ -63,6 +63,7 @@ The Sanoma Learning Design System supports both light and dark themes. To switch
 1. Theme Toggle: In the 'View' menu, navigate to 'Themes.' Here, you can toggle between 'Light' and 'Dark' themes. Choose the one that aligns with your design or user preferences.
 
 Congratulations! You're now equipped to seamlessly integrate the Sanoma Learning Design System components into your Figma projects. Whether you're creating educational materials or interactive interfaces, these components will empower you to design with consistency and efficiency. Happy designing!
+
 </section>
 </div>
 

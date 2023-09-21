@@ -120,6 +120,10 @@
   --input-menu-background: rgba(var(--ds-color-black-rgb), 0.04);
   --input-menu-background--hover: rgba(var(--ds-color-black-rgb), 0.08);
   --input-menu--border: var(--ds-color-light-grey);
+  --link-color: var(--ds-color-blueberry-light);
+  --link-hover-color: var(--ds-color-mariner);
+  --link-active-color: var(--ds-color-mariner);
+  --link-visited-color: var(--ds-color-blueberry-light);
   --logo: url('../assets/logo-black.svg');
   --menu-button-hover: rgba(var(--ds-color-blue-rgb), 0.04);
   --menu-font-color: var(--ds-color-raisin-black);
@@ -188,6 +192,10 @@
     --input-menu-background: rgba(var(--ds-color-faux-white-rgb), 0.16);
     --input-menu-background--hover: rgba(var(--ds-color-faux-white-rgb), 0.2);
     --logo: url('../assets/logo.svg');
+    --link-color: var(--ds-color-baby-blue);
+    --link-hover-color: var(--ds-color-lavender-blue);
+    --link-active-color: var(--ds-color-lavender-blue);
+    --link-visited-color: var(--ds-color-baby-blue);
     --menu-button-hover: rgba(var(--ds-color-blue-rgb), 0.32);
     --menu-font-color: var(--ds-color-lotion);
     --menu-second-color: #363739;

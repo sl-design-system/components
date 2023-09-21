@@ -43,6 +43,23 @@ $transition-timing: 300ms;
   h2 {
     margin-top: 2.4rem;
   }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: var(--link-hover-color);
+  }
+
+  a:active {
+    color: var(--link-active-color);
+  }
+
+  a:visited {
+    color: var(--link-visited-color);
+  }
 }
 
 @keyframes FadeIn {

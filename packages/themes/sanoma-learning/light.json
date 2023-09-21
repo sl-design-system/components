@@ -24,6 +24,12 @@
         "type": "color",
         "description": "body.surface.100",
         "failedToResolve": true
+      },
+      "overlay": {
+        "value": "rgba({body.foreground},{opacity.700})",
+        "type": "color",
+        "description": "body.surface.200",
+        "failedToResolve": true
       }
     }
   },
@@ -4470,6 +4476,20 @@
       "border": {
         "value": "{color.palette.transparent.base}",
         "type": "color",
+        "failedToResolve": true
+      }
+    },
+    "dialog": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background",
         "failedToResolve": true
       }
     },

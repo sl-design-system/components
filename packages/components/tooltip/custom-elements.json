@@ -226,22 +226,39 @@
             },
             {
               "kind": "field",
+              "name": "maxWidth",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Tooltip max-width.",
+              "attribute": "max-width"
+            },
+            {
+              "kind": "field",
               "name": "position",
               "type": {
                 "text": "PopoverPosition"
               },
-              "default": "'bottom'",
+              "default": "'top'",
               "description": "Tooltip position.",
               "attribute": "position"
             }
           ],
           "attributes": [
             {
+              "name": "max-width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Tooltip max-width.",
+              "fieldName": "maxWidth"
+            },
+            {
               "name": "position",
               "type": {
                 "text": "PopoverPosition"
               },
-              "default": "'bottom'",
+              "default": "'top'",
               "description": "Tooltip position.",
               "fieldName": "position"
             }
@@ -283,7 +300,7 @@
               "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this)",
+              "default": "new AnchorController(this, { maxWidth: this.maxWidth })",
               "description": "Controller for managing anchoring."
             },
             {

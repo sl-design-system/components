@@ -11,6 +11,11 @@
       "description": "color.body.default.foreground"
     },
     "surface": {
+      "200": {
+        "value": "{color.palette.neutral.800}",
+        "type": "color",
+        "description": "color.body.default.foreground"
+      },
       "100": {
         "value": "{color.palette.neutral.900}",
         "type": "color",
@@ -20,6 +25,11 @@
         "value": "{color.palette.neutral.800}",
         "type": "color",
         "description": "color.body.default.foreground"
+      },
+      "overlay": {
+        "value": "rgba({body.background},{opacity.400})",
+        "type": "color",
+        "description": "body.surface.200"
       }
     }
   },
@@ -3273,6 +3283,18 @@
       "border": {
         "value": "{color.palette.transparent.base}",
         "type": "color"
+      }
+    },
+    "dialog": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
       }
     },
     "focusring": {

@@ -1,3 +1,5 @@
+// @import '@sl-design-system/shared';
+
 :host {
   --_background: #fff;
   --_border: 0;
@@ -63,6 +65,16 @@ slot[name='close']::slotted(*) {
 
   sl-button {
     align-self: baseline;
+  }
+}
+
+slot[name='title']::slotted(*) {
+  color: #f00;
+}
+
+@media screen and (min-width: 600px /*$md-breakpoint*/) {
+  slot[name='title']::slotted(*) {
+    color: #00f;
   }
 }
 

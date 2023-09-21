@@ -94,7 +94,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           <slot></slot>
         </slot>
         <slot name="footer">
-          <sl-button-bar .align=${this.buttonsAlign}><slot name="action"></slot></sl-button-bar>
+          <sl-button-bar class="footer-buttons" .align=${this.buttonsAlign}><slot name="action"></slot></sl-button-bar>
         </slot>
       </dialog>
     `;

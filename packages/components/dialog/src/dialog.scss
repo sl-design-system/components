@@ -8,6 +8,12 @@
   --_gap: 0.5rem;
   --_max-inline-size: 500px;
   --_spacing: 0.5rem;
+  //--_padding-top: var(--sl-space-dialog-mobile-container-padding-top);
+  //--_padding-right: var(--sl-space-dialog-mobile-container-inline);
+  //--_padding-bottom: var(--sl-space-dialog-mobile-container-padding-bottom);
+  //--_padding-left: var(--sl-space-dialog-mobile-container-inline);
+  --_padding-block: var(--sl-space-dialog-mobile-body-block);
+  --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
 }
 
 :host {
@@ -30,7 +36,10 @@ dialog {
   max-block-size: min(80dvb, 100%);
   max-inline-size: min(90vw, var(--_max-inline-size));
   opacity: 0;
-  padding: 1rem;
+  // padding: 1rem;
+  //padding: var(--_padding-top) var(--_padding-right) var(--_padding-bottom) var(--_padding-left);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
   position: fixed;
   transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
 
@@ -68,13 +77,46 @@ slot[name='close']::slotted(*) {
   }
 }
 
+slot[name='subtitle']::slotted(*) {
+  font: var(--sl-text-dialog-subheading);
+}
+
 slot[name='title']::slotted(*) {
   color: #f00;
+  font: var(--sl-text-dialog-heading);
+}
+
+slot[name='footer']::slotted(sl-button-bar) {
+  align-items: stretch;
+  display: grid;
+  flex-direction: column;
+  flex-grow: 1;
+  /* width: 100%; */
+  flex-shrink: 0;
+}
+
+.footer-buttons {
+  --_direction: column-reverse;
+  align-items: stretch;
 }
 
 @media screen and (min-width: 600px /*$md-breakpoint*/) {
+  :host {
+    //--_padding-top: var(--sl-space-dialog-desktop-container-padding-top);
+    //--_padding-right: var(--sl-space-dialog-desktop-container-inline);
+    //--_padding-bottom: var(--sl-space-dialog-desktop-container-padding-bottom);
+    //--_padding-left: var(--sl-space-dialog-desktop-container-inline);
+    --_padding-block: var(--sl-space-dialog-desktop-body-block);
+    --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
+  }
+
   slot[name='title']::slotted(*) {
     color: #00f;
+  }
+
+  .footer-buttons {
+    --_direction: row;
+    align-items: center;
   }
 }
 

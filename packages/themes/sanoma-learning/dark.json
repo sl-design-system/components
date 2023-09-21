@@ -19,10 +19,22 @@
         "description": "color.body.default.foreground",
         "failedToResolve": true
       },
+      "200": {
+        "value": "{color.palette.neutral.800}",
+        "type": "color",
+        "description": "color.body.default.foreground",
+        "failedToResolve": true
+      },
       "100-copy": {
         "value": "{color.palette.neutral.800}",
         "type": "color",
         "description": "color.body.default.foreground",
+        "failedToResolve": true
+      },
+      "overlay": {
+        "value": "rgba({body.background},{opacity.400})",
+        "type": "color",
+        "description": "body.surface.200",
         "failedToResolve": true
       }
     }
@@ -3842,6 +3854,20 @@
       "border": {
         "value": "{color.palette.transparent.base}",
         "type": "color",
+        "failedToResolve": true
+      }
+    },
+    "dialog": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background",
         "failedToResolve": true
       }
     },

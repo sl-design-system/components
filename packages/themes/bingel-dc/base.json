@@ -2029,6 +2029,94 @@
         }
       }
     },
+    "dialog": {
+      "desktop": {
+        "container": {
+          "paddingTop": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "paddingBottom": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          }
+        },
+        "body": {
+          "block": {
+            "value": "{space.2xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "inline": {
+            "value": "{space.2xl}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.2xl}",
+            "type": "spacing"
+          }
+        }
+      },
+      "mobile": {
+        "container": {
+          "paddingTop": {
+            "value": "{space.xl} * 2",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "inline": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "paddingBottom": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          }
+        },
+        "body": {
+          "block": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          }
+        }
+      },
+      "gap": {
+        "heading": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        },
+        "header": {
+          "value": "{space.lg}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        },
+        "footer": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
+    },
     "select": {
       "listbox": {
         "block": {

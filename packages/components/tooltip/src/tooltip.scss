@@ -42,7 +42,6 @@
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 
-// Bottom
 :host([actual-placement^='bottom']) .arrow {
   inset-block-start: calc(var(--_arrow-height) * -1);
 }
@@ -59,7 +58,6 @@
   inset-inline-end: var(--_arrow-start-end-offset);
 }
 
-// Left
 :host([actual-placement^='left']) .arrow {
   inset-inline-end: calc(var(--_arrow-height) * -1);
 
@@ -82,7 +80,6 @@
   inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
 }
 
-// Right
 :host([actual-placement^='right']) .arrow {
   inset-inline-start: calc(var(--_arrow-height) * -1);
 
@@ -105,7 +102,6 @@
   inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
 }
 
-// Top
 :host([actual-placement^='top']) .arrow {
   inset-block-end: calc(var(--_arrow-height) * -1);
   scale: 1 -1;

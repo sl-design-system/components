@@ -26,7 +26,7 @@ export class AnchorController implements ReactiveController {
         this.#cleanup = positionPopover(host, anchorElement, {
           arrow: this.#config?.arrow,
           position: this.position ?? this.#config.position ?? 'top',
-          maxWidth: this.maxWidth ?? this.#config.maxWidth ?? undefined
+          maxWidth: this.maxWidth ?? this.#config.maxWidth
         });
       }
     } else if (this.#cleanup) {

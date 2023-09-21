@@ -138,7 +138,7 @@ export const positionPopover = (
           isConstrained = actualHeight < initialHeight || maxHeight <= actualHeight;
           const appliedHeight = isConstrained ? `${maxHeight}px` : '';
           Object.assign(element.style, {
-            maxWidth: `${options.maxWidth ? options.maxWidth : Math.floor(availableWidth)}px`,
+            maxWidth: `${options.maxWidth ?? Math.floor(availableWidth)}px`,
             maxHeight: appliedHeight
           });
         }

@@ -1316,6 +1316,18 @@
       "divider": {
         "value": "{border.width.xs}",
         "type": "borderWidth"
+      },
+      "tooltip": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        }
       }
     }
   },
@@ -1360,6 +1372,16 @@
       "solid": {
         "value": "{text.typeset.fontWeight.icon-solid}",
         "type": "fontWeights"
+      }
+    }
+  },
+  "space": {
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
       }
     }
   }

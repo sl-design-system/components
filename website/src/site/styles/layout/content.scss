@@ -60,6 +60,12 @@ $transition-timing: 300ms;
   a:visited {
     color: var(--link-visited-color);
   }
+
+  a.header-anchor {
+    color: var(--font-color);
+    font-size: inherit;
+    text-decoration: none;
+  }
 }
 
 @keyframes FadeIn {
@@ -70,12 +76,6 @@ $transition-timing: 300ms;
   100% {
     opacity: 1;
   }
-}
-
-.header-anchor {
-  color: var(--font-color);
-  font-size: inherit;
-  text-decoration: none;
 }
 
 img {

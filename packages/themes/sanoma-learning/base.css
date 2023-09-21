@@ -247,6 +247,21 @@
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
   --sl-space-group-sm: var(--sl-space-2xs);
+  --sl-space-dialog-gap-footer: var(--sl-space-sm);
+  --sl-space-dialog-gap-header: var(--sl-space-lg);
+  --sl-space-dialog-gap-heading: var(--sl-space-xs);
+  --sl-space-dialog-mobile-body-gap: var(--sl-space-xl);
+  --sl-space-dialog-mobile-body-inline: var(--sl-space-xl);
+  --sl-space-dialog-mobile-body-block: var(--sl-space-xl);
+  --sl-space-dialog-mobile-container-padding-bottom: var(--sl-space-none);
+  --sl-space-dialog-mobile-container-inline: var(--sl-space-none);
+  --sl-space-dialog-mobile-container-padding-top: var(--sl-space-xl) * 2;
+  --sl-space-dialog-desktop-body-gap: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-body-inline: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-body-block: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-container-padding-bottom: var(--sl-space-xl);
+  --sl-space-dialog-desktop-container-inline: var(--sl-space-xl);
+  --sl-space-dialog-desktop-container-padding-top: var(--sl-space-xl);
   --sl-space-input-switch-margin-bottom-none: var(--sl-space-none);
   --sl-space-input-switch-margin-bottom-lg: var(--sl-space-none);
   --sl-space-input-switch-margin-bottom-md: var(--sl-space-xs);
@@ -428,6 +443,10 @@
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-input-text-field-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
+  --sl-text-dialog-subheading: var(--sl-text-typeset-font-weight-demibold) var(--sl-icon-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-dialog-heading: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-tooltip-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-tooltip-text-tip: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /

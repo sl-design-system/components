@@ -255,6 +255,21 @@
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
   --sl-space-group-sm: var(--sl-space-2xs);
+  --sl-space-dialog-gap-footer: var(--sl-space-sm);
+  --sl-space-dialog-gap-header: var(--sl-space-lg);
+  --sl-space-dialog-gap-heading: var(--sl-space-xs);
+  --sl-space-dialog-mobile-body-gap: var(--sl-space-xl);
+  --sl-space-dialog-mobile-body-inline: var(--sl-space-xl);
+  --sl-space-dialog-mobile-body-block: var(--sl-space-xl);
+  --sl-space-dialog-mobile-container-padding-bottom: var(--sl-space-none);
+  --sl-space-dialog-mobile-container-inline: var(--sl-space-none);
+  --sl-space-dialog-mobile-container-padding-top: var(--sl-space-xl) * 2;
+  --sl-space-dialog-desktop-body-gap: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-body-inline: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-body-block: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-container-padding-bottom: var(--sl-space-xl);
+  --sl-space-dialog-desktop-container-inline: var(--sl-space-xl);
+  --sl-space-dialog-desktop-container-padding-top: var(--sl-space-xl);
   --sl-space-input-switch-margin-bottom-none: var(--sl-space-none);
   --sl-space-input-switch-margin-bottom-lg: var(--sl-space-none);
   --sl-space-input-switch-margin-bottom-md: var(--sl-space-xs);
@@ -436,6 +451,10 @@
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-input-text-field-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
+  --sl-text-dialog-subheading: var(--sl-text-typeset-font-weight-demibold) var(--sl-icon-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-dialog-heading: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-tooltip-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-tooltip-text-tip: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
@@ -1024,6 +1043,9 @@
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-tooltip: [object Object];
     --sl-box-shadow-select-listbox: [object Object];
+    --sl-body-surface-overlay: rgba(var(--sl-body-foreground) / var(--sl-opacity-700));
+    --sl-color-dialog-foreground: var(--sl-body-foreground);
+    --sl-color-dialog-background: var(--sl-body-background);
     --sl-color-select-selectbox-valid-disabled-placeholder: var(
       --sl-color-input-text-field-default-disabled-placeholder
     );
@@ -1303,6 +1325,7 @@
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
     --sl-body-surface-100-copy: rgb(var(--sl-color-palette-neutral-800));
+    --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-800));
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
     --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-body-background: rgb(var(--sl-color-palette-black-base));
@@ -1730,6 +1753,9 @@
     --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-150));
     --sl-box-shadow-tooltip: [object Object];
+    --sl-body-surface-overlay: rgba(var(--sl-body-background) / var(--sl-opacity-400));
+    --sl-color-dialog-foreground: var(--sl-body-foreground);
+    --sl-color-dialog-background: var(--sl-body-background);
     --sl-color-input-field-label-icon-default: var(--sl-body-foreground);
     --sl-color-input-field-label-text-default: var(--sl-body-foreground);
     --sl-color-input-helper-icon-default: var(--sl-body-foreground);

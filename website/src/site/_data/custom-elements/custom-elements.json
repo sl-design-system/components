@@ -34,6 +34,66 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/button-bar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button-bar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "/packages/components/button-bar/src/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button",
+          "declaration": {
+            "name": "Button",
+            "module": "/packages/components/button/src/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/checkbox/index.ts",
       "declarations": [],
       "exports": [
@@ -80,66 +140,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button",
-          "declaration": {
-            "name": "Button",
-            "module": "/packages/components/button/src/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/editor/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/editor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/editor/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-editor",
-          "declaration": {
-            "name": "Editor",
-            "module": "/packages/components/editor/src/editor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/dialog/index.ts",
       "declarations": [],
       "exports": [
@@ -170,36 +170,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button-bar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/button-bar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button-bar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "/packages/components/button-bar/src/button-bar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/drawer/index.ts",
       "declarations": [],
       "exports": [
@@ -224,6 +194,36 @@
           "declaration": {
             "name": "Drawer",
             "module": "/packages/components/drawer/src/drawer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/editor/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/editor.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/editor/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-editor",
+          "declaration": {
+            "name": "Editor",
+            "module": "/packages/components/editor/src/editor.js"
           }
         }
       ]
@@ -416,6 +416,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/popover/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/popover.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/popover/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-popover",
+          "declaration": {
+            "name": "Popover",
+            "module": "/packages/components/popover/src/popover.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/radio-group/index.ts",
       "declarations": [],
       "exports": [
@@ -518,36 +548,6 @@
           "declaration": {
             "name": "SelectOptionGroup",
             "module": "/packages/components/select/src/select-option-group.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/popover/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/popover.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/popover/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-popover",
-          "declaration": {
-            "name": "Popover",
-            "module": "/packages/components/popover/src/popover.js"
           }
         }
       ]
@@ -801,6 +801,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/text-input/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/text-input"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/text-input/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-text-input",
+          "declaration": {
+            "name": "TextInput",
+            "module": "/packages/components/text-input/src/text-input"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/tooltip/index.ts",
       "declarations": [],
       "exports": [
@@ -833,36 +863,6 @@
           "declaration": {
             "name": "Tooltip",
             "module": "/packages/components/tooltip/src/tooltip.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/text-input/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/text-input"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/text-input/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-text-input",
-          "declaration": {
-            "name": "TextInput",
-            "module": "/packages/components/text-input/src/text-input"
           }
         }
       ]
@@ -1075,6 +1075,138 @@
           "declaration": {
             "name": "Avatar",
             "module": "../packages/components/avatar/src/avatar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/src/button.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button/src/button.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/src/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
+          "name": "Button",
+          "slots": [
+            {
+              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "attribute": "fill",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "default": "'button'",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "fieldName": "fill"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "fieldName": "size"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "default": "'button'",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
+              "fieldName": "type"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Button",
+          "declaration": {
+            "name": "Button",
+            "module": "../packages/components/button/src/button.ts"
           }
         }
       ]
@@ -1797,6 +1929,264 @@
           "declaration": {
             "name": "Checkbox",
             "module": "../packages/components/checkbox/src/checkbox.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
+          "name": "ButtonBar",
+          "slots": [
+            {
+              "description": "Buttons to be grouped in the bar",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "attribute": "reverse",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "fieldName": "align"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button-bar",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ButtonBar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "../packages/components/button-bar/src/button-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/dialog/src/dialog.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/dialog/src/dialog.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/dialog/src/dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A dialog component for displaying modal UI.",
+          "name": "Dialog",
+          "slots": [
+            {
+              "description": "Area where action buttons are placed",
+              "name": "action"
+            },
+            {
+              "description": "Body content for the dialog",
+              "name": "default"
+            },
+            {
+              "description": "Footer content for the dialog",
+              "name": "footer"
+            },
+            {
+              "description": "Header content for the dialog",
+              "name": "header"
+            },
+            {
+              "description": "The title of the dialog",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableClose",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "attribute": "disable-close"
+            },
+            {
+              "kind": "field",
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "attribute": "role"
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disable-close",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "fieldName": "disableClose"
+            },
+            {
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "fieldName": "role"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-dialog",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Dialog",
+          "declaration": {
+            "name": "Dialog",
+            "module": "../packages/components/dialog/src/dialog.ts"
           }
         }
       ]
@@ -3061,396 +3451,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button/src/button.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button/src/button.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/src/button.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
-          "name": "Button",
-          "slots": [
-            {
-              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "fill",
-              "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
-              },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "attribute": "fill",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "type",
-              "type": {
-                "text": "'button' | 'reset' | 'submit'"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "attribute": "variant",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "fill",
-              "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
-              },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "fieldName": "fill"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "fieldName": "size"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "'button' | 'reset' | 'submit'"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "fieldName": "type"
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "fieldName": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Button",
-          "declaration": {
-            "name": "Button",
-            "module": "../packages/components/button/src/button.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/dialog/src/dialog.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/dialog/src/dialog.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/dialog/src/dialog.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A dialog component for displaying modal UI.",
-          "name": "Dialog",
-          "slots": [
-            {
-              "description": "Area where action buttons are placed",
-              "name": "action"
-            },
-            {
-              "description": "Body content for the dialog",
-              "name": "default"
-            },
-            {
-              "description": "Footer content for the dialog",
-              "name": "footer"
-            },
-            {
-              "description": "Header content for the dialog",
-              "name": "header"
-            },
-            {
-              "description": "The title of the dialog",
-              "name": "title"
-            }
-          ],
-          "members": [
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disableClose",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
-            },
-            {
-              "kind": "field",
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "attribute": "role"
-            },
-            {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disable-close",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "fieldName": "role"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-dialog",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Dialog",
-          "declaration": {
-            "name": "Dialog",
-            "module": "../packages/components/dialog/src/dialog.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
-          "name": "ButtonBar",
-          "slots": [
-            {
-              "description": "Buttons to be grouped in the bar",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "attribute": "align",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "attribute": "reverse",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "fieldName": "align"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "fieldName": "reverse"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button-bar",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ButtonBar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "../packages/components/button-bar/src/button-bar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/drawer/src/drawer.scss.ts",
       "declarations": [],
       "exports": [
@@ -3962,899 +3962,6 @@
           "declaration": {
             "name": "Label",
             "module": "../packages/components/label/src/label.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/radio-group/src/radio-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/radio-group/src/radio-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/radio-group/src/radio-group.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Radio group; treat a group of radio button as one form input with valitation, hints and errors\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
-          "name": "RadioGroup",
-          "slots": [
-            {
-              "description": "A list of `sl-radio` elements.",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "horizontal",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.",
-              "attribute": "horizontal",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "attribute": "required",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators."
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the radio group, to be used in forms.",
-              "attribute": "value",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "horizontal",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.",
-              "fieldName": "horizontal"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the radio group, to be used in forms.",
-              "fieldName": "value"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "fieldName": "required",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-radio-group",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators."
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "../packages/components/radio-group/src/radio-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/radio-group/src/radio.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/radio-group/src/radio.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/radio-group/src/radio.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Radio",
-          "members": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "checked",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the radio is checked.",
-              "attribute": "checked",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "attribute": "required",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the radio button.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "The value for this radio button.",
-              "attribute": "value"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "checked",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the radio is checked.",
-              "fieldName": "checked"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "The value for this radio button.",
-              "fieldName": "value"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the radio button.",
-              "fieldName": "size"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "fieldName": "required",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-radio",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Radio",
-          "declaration": {
-            "name": "Radio",
-            "module": "../packages/components/radio-group/src/radio.ts"
           }
         }
       ]
@@ -8202,6 +7309,971 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/popover/src/popover.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/popover/src/popover.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/popover/src/popover.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Base popover web component.",
+          "name": "Popover",
+          "cssParts": [
+            {
+              "description": "The container for the popover",
+              "name": "container"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "default": "'top'",
+              "description": "The position of this popover relative to its anchor.",
+              "attribute": "position"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "default": "'top'",
+              "description": "The position of this popover relative to its anchor.",
+              "fieldName": "position"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-popover",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Popover",
+          "declaration": {
+            "name": "Popover",
+            "module": "../packages/components/popover/src/popover.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/radio-group/src/radio-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/radio-group/src/radio-group.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/radio-group/src/radio-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Radio group; treat a group of radio button as one form input with valitation, hints and errors\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
+          "name": "RadioGroup",
+          "slots": [
+            {
+              "description": "A list of `sl-radio` elements.",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "attribute": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "horizontal",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.",
+              "attribute": "horizontal",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the radio group, to be used in forms.",
+              "attribute": "value",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "horizontal",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.",
+              "fieldName": "horizontal"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the radio group, to be used in forms.",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "fieldName": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/shared"
+            },
+            {
+              "name": "HintMixin",
+              "package": "@sl-design-system/shared"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-radio-group",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators."
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioGroup",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "../packages/components/radio-group/src/radio-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/radio-group/src/radio.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/radio-group/src/radio.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/radio-group/src/radio.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Radio",
+          "members": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the radio is checked.",
+              "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the radio button.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The value for this radio button.",
+              "attribute": "value"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the radio is checked.",
+              "fieldName": "checked"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The value for this radio button.",
+              "fieldName": "value"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the radio button.",
+              "fieldName": "size"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/shared"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-radio",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Radio",
+          "declaration": {
+            "name": "Radio",
+            "module": "../packages/components/radio-group/src/radio.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/select/src/select-option-group.scss.ts",
       "declarations": [],
       "exports": [
@@ -8811,78 +8883,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/popover/src/popover.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/popover/src/popover.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/popover/src/popover.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Base popover web component.",
-          "name": "Popover",
-          "cssParts": [
-            {
-              "description": "The container for the popover",
-              "name": "container"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition | undefined"
-              },
-              "default": "'top'",
-              "description": "The position of this popover relative to its anchor.",
-              "attribute": "position"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition | undefined"
-              },
-              "default": "'top'",
-              "description": "The position of this popover relative to its anchor.",
-              "fieldName": "position"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-popover",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Popover",
-          "declaration": {
-            "name": "Popover",
-            "module": "../packages/components/popover/src/popover.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/shared/src/css.ts",
       "declarations": [
         {
@@ -9377,6 +9377,644 @@
           "declaration": {
             "name": "patternValidator",
             "module": "../packages/components/shared/src/validators.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/switch/src/switch.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/switch/src/switch.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/switch/src/switch.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Atoggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
+          "name": "Switch",
+          "slots": [
+            {
+              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "event",
+              "name": "change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes.",
+              "attribute": "change"
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is on or off.",
+              "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "attribute": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "iconOff",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"off\" state.",
+              "attribute": "iconOff",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconOn",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"on\" state.",
+              "attribute": "iconOn",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is invalid.",
+              "attribute": "invalid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "'horizontal' | 'vertical'"
+              },
+              "default": "'horizontal'",
+              "description": "The orientation of the switch.",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the switch.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the switch, to be used in forms.",
+              "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes.",
+              "fieldName": "change"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is on or off.",
+              "fieldName": "checked"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is invalid.",
+              "fieldName": "invalid"
+            },
+            {
+              "name": "iconOff",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"off\" state.",
+              "fieldName": "iconOff"
+            },
+            {
+              "name": "iconOn",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"on\" state.",
+              "fieldName": "iconOn"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the switch.",
+              "fieldName": "size"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "'horizontal' | 'vertical'"
+              },
+              "default": "'horizontal'",
+              "description": "The orientation of the switch.",
+              "fieldName": "orientation"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the switch, to be used in forms.",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "fieldName": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/shared"
+            },
+            {
+              "name": "HintMixin",
+              "package": "@sl-design-system/shared"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-switch",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Switch",
+          "declaration": {
+            "name": "Switch",
+            "module": "../packages/components/switch/src/switch.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Skeleton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "attribute": "effect",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "fieldName": "effect"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-skeleton",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Skeleton",
+          "declaration": {
+            "name": "Skeleton",
+            "module": "../packages/components/skeleton/src/skeleton.ts"
           }
         }
       ]
@@ -10298,644 +10936,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/switch/src/switch.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/switch/src/switch.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/switch/src/switch.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Atoggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
-          "name": "Switch",
-          "slots": [
-            {
-              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "event",
-              "name": "change",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the checked state changes.",
-              "attribute": "change"
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "checked",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the switch is on or off.",
-              "attribute": "checked",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "iconOff",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Custom icon in \"off\" state.",
-              "attribute": "iconOff",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "iconOn",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Custom icon in \"on\" state.",
-              "attribute": "iconOn",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the switch is invalid.",
-              "attribute": "invalid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the switch.",
-              "attribute": "orientation",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "attribute": "required",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the switch.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the switch, to be used in forms.",
-              "attribute": "value"
-            }
-          ],
-          "events": [
-            {
-              "name": "change",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the checked state changes.",
-              "fieldName": "change"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "checked",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the switch is on or off.",
-              "fieldName": "checked"
-            },
-            {
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the switch is invalid.",
-              "fieldName": "invalid"
-            },
-            {
-              "name": "iconOff",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Custom icon in \"off\" state.",
-              "fieldName": "iconOff"
-            },
-            {
-              "name": "iconOn",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Custom icon in \"on\" state.",
-              "fieldName": "iconOn"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the switch.",
-              "fieldName": "size"
-            },
-            {
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the switch.",
-              "fieldName": "orientation"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the switch, to be used in forms.",
-              "fieldName": "value"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "fieldName": "required",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-switch",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Switch",
-          "declaration": {
-            "name": "Switch",
-            "module": "../packages/components/switch/src/switch.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Skeleton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "attribute": "effect",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "fieldName": "effect"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-skeleton",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Skeleton",
-          "declaration": {
-            "name": "Skeleton",
-            "module": "../packages/components/skeleton/src/skeleton.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/text-input/src/text-input.scss.ts",
       "declarations": [],
       "exports": [
@@ -11849,22 +11849,39 @@
             },
             {
               "kind": "field",
+              "name": "maxWidth",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Tooltip max-width.",
+              "attribute": "max-width"
+            },
+            {
+              "kind": "field",
               "name": "position",
               "type": {
                 "text": "PopoverPosition"
               },
-              "default": "'bottom'",
+              "default": "'top'",
               "description": "Tooltip position.",
               "attribute": "position"
             }
           ],
           "attributes": [
             {
+              "name": "max-width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Tooltip max-width.",
+              "fieldName": "maxWidth"
+            },
+            {
               "name": "position",
               "type": {
                 "text": "PopoverPosition"
               },
-              "default": "'bottom'",
+              "default": "'top'",
               "description": "Tooltip position.",
               "fieldName": "position"
             }
@@ -11944,6 +11961,13 @@
             },
             {
               "kind": "field",
+              "name": "maxWidth",
+              "type": {
+                "text": "number | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
@@ -11976,6 +12000,13 @@
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "maxWidth",
+              "type": {
+                "text": "number | undefined"
               }
             }
           ]
@@ -14552,59 +14583,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/directives/anchor.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "AnchorDirective",
-          "members": [],
-          "superclass": {
-            "name": "Directive",
-            "package": "lit/directive.js"
-          }
-        },
-        {
-          "kind": "variable",
-          "name": "anchor"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "AnchorDirective",
-          "declaration": {
-            "name": "AnchorDirective",
-            "module": "../packages/components/shared/src/directives/anchor.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "anchor",
-          "declaration": {
-            "name": "anchor",
-            "module": "../packages/components/shared/src/directives/anchor.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./anchor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/shared/src/data-source/array-data-source.ts",
       "declarations": [
         {
@@ -15276,6 +15254,59 @@
           "declaration": {
             "name": "*",
             "package": "./data-source.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/directives/anchor.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AnchorDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "anchor"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AnchorDirective",
+          "declaration": {
+            "name": "AnchorDirective",
+            "module": "../packages/components/shared/src/directives/anchor.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "anchor",
+          "declaration": {
+            "name": "anchor",
+            "module": "../packages/components/shared/src/directives/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./anchor.js"
           }
         }
       ]

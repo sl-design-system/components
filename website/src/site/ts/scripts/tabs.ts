@@ -115,7 +115,7 @@ function generateTabsElements(): void {
       tabContainer.appendChild(content);
     });
     tabContent.appendChild(tabContainer);
-    generateVerticalTabs(tabContent);
+    generateVerticalTabs(tabContent); // this needs to be done for more elements than just tabs
   });
 }
 

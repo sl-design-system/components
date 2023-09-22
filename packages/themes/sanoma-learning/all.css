@@ -559,6 +559,7 @@
       0 var(--sl-size-3xs) var(--sl-size-2xs) 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
+    --sl-body-surface-overlay: rgba(var(--sl-color-palette-primary-base) / var(--sl-opacity-700));
     --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
@@ -1043,7 +1044,6 @@
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-tooltip: [object Object];
     --sl-box-shadow-select-listbox: [object Object];
-    --sl-body-surface-overlay: rgba(var(--sl-body-foreground) / var(--sl-opacity-700));
     --sl-color-dialog-foreground: var(--sl-body-foreground);
     --sl-color-dialog-background: var(--sl-body-background);
     --sl-color-select-selectbox-valid-disabled-placeholder: var(
@@ -1324,6 +1324,7 @@
   :root {
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
+    --sl-body-surface-overlay: rgba(var(--sl-color-palette-white-base) / var(--sl-opacity-500));
     --sl-body-surface-100-copy: rgb(var(--sl-color-palette-neutral-800));
     --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-800));
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
@@ -1753,7 +1754,6 @@
     --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-150));
     --sl-box-shadow-tooltip: [object Object];
-    --sl-body-surface-overlay: rgba(var(--sl-body-background) / var(--sl-opacity-400));
     --sl-color-dialog-foreground: var(--sl-body-foreground);
     --sl-color-dialog-background: var(--sl-body-background);
     --sl-color-input-field-label-icon-default: var(--sl-body-foreground);

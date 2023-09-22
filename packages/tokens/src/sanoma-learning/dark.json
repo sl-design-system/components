@@ -11,13 +11,13 @@
       "description": "color.body.default.foreground"
     },
     "surface": {
-      "200": {
-        "value": "{color.palette.neutral.800}",
+      "100": {
+        "value": "{color.palette.neutral.900}",
         "type": "color",
         "description": "color.body.default.foreground"
       },
-      "100": {
-        "value": "{color.palette.neutral.900}",
+      "200": {
+        "value": "{color.palette.neutral.800}",
         "type": "color",
         "description": "color.body.default.foreground"
       },
@@ -3330,7 +3330,7 @@
     },
     "tooltip": {
       "value": {
-        "boxShadow":"{elevation.shadow.none}"
+        "boxShadow": "{elevation.shadow.none}"
       },
       "type": "composition"
     }

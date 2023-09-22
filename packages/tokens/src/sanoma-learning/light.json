@@ -22,7 +22,7 @@
         "description": "body.surface.100"
       },
       "overlay": {
-        "value": "rgba({body.foreground},{opacity.700})",
+        "value": "rgba({body.foreground} , {opacity.700})",
         "type": "color",
         "description": "body.surface.200"
       }
@@ -3848,7 +3848,7 @@
     },
     "tooltip": {
       "value": {
-        "boxShadow":"{elevation.shadow.none}"
+        "boxShadow": "{elevation.shadow.none}"
       },
       "type": "composition"
     }

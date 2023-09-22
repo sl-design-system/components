@@ -9,7 +9,7 @@ eleventyNavigation:
 <div class="ds-tokens__heading-wrapper">
   <h1 class="ds-heading-1">{{title}}</h1>
   <p class="ds-tokens__heading-description">
-  This guide will walk you through the process of gaining access to the private GitHub NPM repository, installing the SL Design System packages and using them.
+  This guide will walk you through the process of gaining access to the private GitHub NPM repository, installing the SL Design System packages and using them in your application.
   </p>
 </div>
 </header>
@@ -22,12 +22,12 @@ eleventyNavigation:
 
 ## Installing the SL Design System package(s)
 
-To get started using the SL Design System, you can install it via npm. Each component and theme has its own package. So if you want to use a button component with the Sanoma Learning theme, you do:
+To get started using the SL Design System, you can install it via npm. Each component and theme has its own package. So if you want to use a `button` component with the Sanoma Learning theme, you do:
 
 <div class="ds-code">
 
   ```bash
-  npm add @sl-design-system/button @sl-design-system/sanoma-learning
+  npm add @sl-design-system/button 
   ```
 
 </div>
@@ -40,7 +40,15 @@ Once you have been added, you can follow the instructions [here](https://docs.gi
 
 ## Setup a theme
 
-To start using the SL Design System, you need to setup a theme for your application. The theme determines how your application looks. There is a theme for every major product within Sanoma Learning. You can install a theme as shown above, by installing the NPM package.
+To start using the SL Design System, you need to setup a theme for your application. The theme determines how your application looks. There is a theme for every major product within Sanoma Learning. You can install a theme as by installing the NPM package, in this example we use the `sanoma-learning` theme.
+
+<div class="ds-code">
+
+  ```bash
+  npm add @sl-design-system/sanoma-learning
+  ```
+
+</div>
 
 After installing the theme, you need to import the theme in your application. You can do this by loading the theme in your application:
 
@@ -87,6 +95,14 @@ This will load the button component and register it as `<sl-button>`. After that
   
 </div>
 </section>
+<section>
+
+## Example project
+
+To serve as an inspiration (or just something to copy-paste from) we've made an example project that uses several Design System components so you can study how they interact or have something to compare your code to if something doesn't work as expected.
+
+You can find the [example project repository on Github](https://github.com/sl-design-system/example-design-system-lit-app)
+
 </div>
 
 </section>

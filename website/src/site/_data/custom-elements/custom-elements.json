@@ -4,7 +4,7 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "../packages/components/avatar/index.ts",
+      "path": "../packages/components/button/index.ts",
       "declarations": [],
       "exports": [
         {
@@ -12,22 +12,22 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/avatar.js"
+            "package": "./src/button.js"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/avatar/register.ts",
+      "path": "../packages/components/button/register.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "custom-element-definition",
-          "name": "sl-avatar",
+          "name": "sl-button",
           "declaration": {
-            "name": "Avatar",
-            "module": "/packages/components/avatar/src/avatar.js"
+            "name": "Button",
+            "module": "/packages/components/button/src/button.js"
           }
         }
       ]
@@ -58,6 +58,36 @@
           "declaration": {
             "name": "ButtonBar",
             "module": "/packages/components/button-bar/src/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/avatar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/avatar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "/packages/components/avatar/src/avatar.js"
           }
         }
       ]
@@ -104,36 +134,6 @@
           "declaration": {
             "name": "CheckboxGroup",
             "module": "/packages/components/checkbox/src/checkbox-group.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button",
-          "declaration": {
-            "name": "Button",
-            "module": "/packages/components/button/src/button.js"
           }
         }
       ]
@@ -348,36 +348,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/label/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/label.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/label/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-label",
-          "declaration": {
-            "name": "Label",
-            "module": "/packages/components/label/src/label.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/icon/index.ts",
       "declarations": [],
       "exports": [
@@ -410,6 +380,36 @@
           "declaration": {
             "name": "Icon",
             "module": "/packages/components/icon/src/icon.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/label/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/label.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/label/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-label",
+          "declaration": {
+            "name": "Label",
+            "module": "/packages/components/label/src/label.js"
           }
         }
       ]
@@ -869,6 +869,231 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/button/src/button.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button/src/button.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/src/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
+          "name": "Button",
+          "slots": [
+            {
+              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "attribute": "fill",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "default": "'button'",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "fieldName": "fill"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "fieldName": "size"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "default": "'button'",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
+              "fieldName": "type"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Button",
+          "declaration": {
+            "name": "Button",
+            "module": "../packages/components/button/src/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
+          "name": "ButtonBar",
+          "slots": [
+            {
+              "description": "Buttons to be grouped in the bar",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "attribute": "reverse",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "fieldName": "align"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button-bar",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ButtonBar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "../packages/components/button-bar/src/button-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/avatar/src/avatar.scss.ts",
       "declarations": [],
       "exports": [
@@ -1075,99 +1300,6 @@
           "declaration": {
             "name": "Avatar",
             "module": "../packages/components/avatar/src/avatar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
-          "name": "ButtonBar",
-          "slots": [
-            {
-              "description": "Buttons to be grouped in the bar",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "attribute": "align",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "attribute": "reverse",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "fieldName": "align"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "fieldName": "reverse"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button-bar",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ButtonBar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "../packages/components/button-bar/src/button-bar.ts"
           }
         }
       ]
@@ -1890,138 +2022,6 @@
           "declaration": {
             "name": "Checkbox",
             "module": "../packages/components/checkbox/src/checkbox.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/src/button.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button/src/button.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/src/button.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
-          "name": "Button",
-          "slots": [
-            {
-              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "fill",
-              "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
-              },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "attribute": "fill",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "type",
-              "type": {
-                "text": "'button' | 'reset' | 'submit'"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "attribute": "variant",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "fill",
-              "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
-              },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "fieldName": "fill"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "fieldName": "size"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "'button' | 'reset' | 'submit'"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "fieldName": "type"
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "fieldName": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Button",
-          "declaration": {
-            "name": "Button",
-            "module": "../packages/components/button/src/button.ts"
           }
         }
       ]
@@ -3622,160 +3622,6 @@
           "declaration": {
             "name": "getHTML",
             "module": "../packages/components/editor/src/utils.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/label/src/label.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/label/src/label.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/label/src/label.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Label",
-          "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "attribute": "for"
-            },
-            {
-              "kind": "field",
-              "name": "noPadding",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should have no padding bottom.",
-              "attribute": "no-padding"
-            },
-            {
-              "kind": "field",
-              "name": "optional",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as optional."
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as required."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the label.",
-              "attribute": "size",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The DOM id of the form control this is linked to.",
-              "fieldName": "for"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the label.",
-              "fieldName": "size"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "no-padding",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should have no padding bottom.",
-              "fieldName": "noPadding"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-label",
-          "customElement": true,
-          "methods": [],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "optional",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as optional."
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should be marked as required."
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Label",
-          "declaration": {
-            "name": "Label",
-            "module": "../packages/components/label/src/label.ts"
           }
         }
       ]
@@ -7309,6 +7155,160 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/label/src/label.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/label/src/label.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/label/src/label.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Label",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "attribute": "for"
+            },
+            {
+              "kind": "field",
+              "name": "noPadding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should have no padding bottom.",
+              "attribute": "no-padding"
+            },
+            {
+              "kind": "field",
+              "name": "optional",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as optional."
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as required."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the label.",
+              "attribute": "size",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to.",
+              "fieldName": "for"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the label.",
+              "fieldName": "size"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "no-padding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should have no padding bottom.",
+              "fieldName": "noPadding"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-label",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "optional",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as optional."
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as required."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "../packages/components/label/src/label.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/popover/src/popover.scss.ts",
       "declarations": [],
       "exports": [
@@ -10021,6 +10021,1190 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/textarea/src/textarea.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/textarea/src/textarea.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/textarea/src/textarea.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single line text input component.",
+          "name": "Textarea",
+          "slots": [
+            {
+              "description": "The slot for the textarea element",
+              "name": "textarea"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
+              "attribute": "autocomplete"
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "attribute": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "maxLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum length (number of characters).",
+              "attribute": "maxlength"
+            },
+            {
+              "kind": "field",
+              "name": "minLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum length (number of characters).",
+              "attribute": "minlength"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder text in the input.",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
+              "attribute": "readonly",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "resize",
+              "type": {
+                "text": "'none' | 'vertical' | 'auto'"
+              },
+              "default": "'vertical'",
+              "description": "The way the textarea can be resized.",
+              "attribute": "resize",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the textarea should get valid styles when is valid.",
+              "attribute": "showValid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the textarea.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "textarea",
+              "type": {
+                "text": "HTMLTextAreaElement"
+              },
+              "description": "The textarea in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is valid.",
+              "attribute": "valid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the textarea.",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "wrap",
+              "type": {
+                "text": "'soft' | 'hard'"
+              },
+              "default": "'soft'",
+              "description": "The text way should be wrapped during form submission.",
+              "attribute": "wrap",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "autocomplete",
+              "type": {
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
+              "fieldName": "autocomplete"
+            },
+            {
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum length (number of characters).",
+              "fieldName": "maxLength"
+            },
+            {
+              "name": "minlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum length (number of characters).",
+              "fieldName": "minLength"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder text in the input.",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
+              "fieldName": "readonly"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the textarea.",
+              "fieldName": "value"
+            },
+            {
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is valid.",
+              "fieldName": "valid"
+            },
+            {
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the textarea should get valid styles when is valid.",
+              "fieldName": "showValid"
+            },
+            {
+              "name": "resize",
+              "type": {
+                "text": "'none' | 'vertical' | 'auto'"
+              },
+              "default": "'vertical'",
+              "description": "The way the textarea can be resized.",
+              "fieldName": "resize"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the textarea.",
+              "fieldName": "size"
+            },
+            {
+              "name": "wrap",
+              "type": {
+                "text": "'soft' | 'hard'"
+              },
+              "default": "'soft'",
+              "description": "The text way should be wrapped during form submission.",
+              "fieldName": "wrap"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "fieldName": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/shared"
+            },
+            {
+              "name": "HintMixin",
+              "package": "@sl-design-system/shared"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-textarea",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "textarea",
+              "type": {
+                "text": "HTMLTextAreaElement"
+              },
+              "description": "The textarea in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Textarea",
+          "declaration": {
+            "name": "Textarea",
+            "module": "../packages/components/textarea/src/textarea.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tabs/src/tab-group.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TabGroup",
+          "members": [
+            {
+              "kind": "event",
+              "name": "tabChange",
+              "type": {
+                "text": "EventEmitter<number>"
+              },
+              "attribute": "tabChange"
+            },
+            {
+              "kind": "field",
+              "name": "tabs",
+              "type": {
+                "text": "Tab[] | undefined"
+              },
+              "description": "The slotted tabs."
+            },
+            {
+              "kind": "field",
+              "name": "vertical",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "attribute": "vertical",
+              "reflects": true
+            }
+          ],
+          "events": [
+            {
+              "name": "tabChange",
+              "type": {
+                "text": "EventEmitter<number>"
+              },
+              "fieldName": "tabChange"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "vertical",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "fieldName": "vertical"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tab-group",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "tabs",
+              "type": {
+                "text": "Tab[] | undefined"
+              },
+              "description": "The slotted tabs."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabGroup",
+          "declaration": {
+            "name": "TabGroup",
+            "module": "../packages/components/tabs/src/tab-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab-panel.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tabs/src/tab-panel.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab-panel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TabPanel",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tab-panel",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabPanel",
+          "declaration": {
+            "name": "TabPanel",
+            "module": "../packages/components/tabs/src/tab-panel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tabs/src/tab.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Tab",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is disabled",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "handleSelectionChange",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is selected",
+              "attribute": "selected",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is selected",
+              "fieldName": "selected"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is disabled",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tab",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "handleSelectionChange",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+            }
+          ],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Tab",
+          "declaration": {
+            "name": "Tab",
+            "module": "../packages/components/tabs/src/tab.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tooltip/src/tooltip-directive.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TooltipDirective",
+          "members": [
+            {
+              "kind": "field",
+              "name": "content",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "didSetupLazy",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "part",
+              "type": {
+                "text": "ElementPart | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderContent",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setupLazy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "Tooltip | undefined"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "renderContent",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setupLazy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "content",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "didSetupLazy",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "part",
+              "type": {
+                "text": "ElementPart | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "Tooltip | undefined"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "tooltip"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TooltipDirective",
+          "declaration": {
+            "name": "TooltipDirective",
+            "module": "../packages/components/tooltip/src/tooltip-directive.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "tooltip",
+          "declaration": {
+            "name": "tooltip",
+            "module": "../packages/components/tooltip/src/tooltip-directive.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tooltip/src/tooltip.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tooltip/src/tooltip.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tooltip/src/tooltip.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Tooltip component.",
+          "name": "Tooltip",
+          "members": [
+            {
+              "kind": "method",
+              "name": "lazy",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "callback",
+                  "type": {
+                    "text": "(target: Tooltip) => void"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "maxWidth",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Tooltip max-width.",
+              "attribute": "max-width"
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition"
+              },
+              "default": "'top'",
+              "description": "Tooltip position.",
+              "attribute": "position"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "max-width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Tooltip max-width.",
+              "fieldName": "maxWidth"
+            },
+            {
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition"
+              },
+              "default": "'top'",
+              "description": "Tooltip position.",
+              "fieldName": "position"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tooltip",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "lazy",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "callback",
+                  "type": {
+                    "text": "(target: Tooltip) => void"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Tooltip",
+          "declaration": {
+            "name": "Tooltip",
+            "module": "../packages/components/tooltip/src/tooltip.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/text-input/src/text-input.scss.ts",
       "declarations": [],
       "exports": [
@@ -10750,475 +11934,194 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tabs/src/tab-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-group.ts",
+      "path": "../packages/components/shared/src/data-source/array-data-source.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "TabGroup",
+          "name": "ArrayDataSource",
           "members": [
             {
-              "kind": "event",
-              "name": "tabChange",
-              "type": {
-                "text": "EventEmitter<number>"
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
               },
-              "attribute": "tabChange"
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
             },
             {
               "kind": "field",
-              "name": "tabs",
+              "name": "filteredItems",
               "type": {
-                "text": "Tab[] | undefined"
+                "text": "T[]"
               },
-              "description": "The slotted tabs."
+              "readonly": true,
+              "description": "The filtered & sorted array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
             },
             {
               "kind": "field",
-              "name": "vertical",
+              "name": "filters",
               "type": {
-                "text": "boolean"
+                "text": "Map<string, DataSourceFilter<T>>"
               },
-              "default": "false",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "attribute": "vertical",
-              "reflects": true
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
             }
           ],
           "events": [
             {
-              "name": "tabChange",
+              "name": "sl-update",
               "type": {
-                "text": "EventEmitter<number>"
-              },
-              "fieldName": "tabChange"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "vertical",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "fieldName": "vertical"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+                "text": "CustomEvent"
+              }
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "DataSource",
+            "module": "/packages/components/shared/src/data-source/data-source.js"
           },
-          "tagName": "sl-tab-group",
-          "customElement": true,
-          "methods": [],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "tabs",
-              "type": {
-                "text": "Tab[] | undefined"
-              },
-              "description": "The slotted tabs."
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TabGroup",
-          "declaration": {
-            "name": "TabGroup",
-            "module": "../packages/components/tabs/src/tab-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-panel.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tabs/src/tab-panel.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-panel.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "TabPanel",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-tab-panel",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TabPanel",
-          "declaration": {
-            "name": "TabPanel",
-            "module": "../packages/components/tabs/src/tab-panel.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tabs/src/tab.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Tab",
-          "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is disabled",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
-            },
-            {
-              "kind": "field",
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is selected",
-              "attribute": "selected",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is selected",
-              "fieldName": "selected"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is disabled",
-              "fieldName": "disabled"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-tab",
-          "customElement": true,
           "methods": [
             {
               "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
-            }
-          ],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Tab",
-          "declaration": {
-            "name": "Tab",
-            "module": "../packages/components/tabs/src/tab.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/textarea/src/textarea.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/textarea/src/textarea.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/textarea/src/textarea.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Single line text input component.",
-          "name": "Textarea",
-          "slots": [
-            {
-              "description": "The slot for the textarea element",
-              "name": "textarea"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "autocomplete",
-              "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
-              },
-              "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
-              "attribute": "autocomplete"
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "maxLength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum length (number of characters).",
-              "attribute": "maxlength"
-            },
-            {
-              "kind": "field",
-              "name": "minLength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum length (number of characters).",
-              "attribute": "minlength"
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "placeholder",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Placeholder text in the input.",
-              "attribute": "placeholder"
-            },
-            {
-              "kind": "field",
-              "name": "readonly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
-              "attribute": "readonly",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "attribute": "required",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resize",
-              "type": {
-                "text": "'none' | 'vertical' | 'auto'"
-              },
-              "default": "'vertical'",
-              "description": "The way the textarea can be resized.",
-              "attribute": "resize",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
+              "name": "addFilter",
               "return": {
                 "type": {
                   "text": "void"
@@ -11226,328 +12129,33 @@
               },
               "parameters": [
                 {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
+                  "name": "id",
                   "type": {
                     "text": "string"
                   }
                 },
                 {
-                  "name": "anchor",
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
                   "optional": true,
                   "type": {
-                    "text": "HTMLElement"
+                    "text": "string | string[]"
                   }
                 }
               ],
-              "description": "Native ElementInternals function.",
               "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "showValid",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the textarea should get valid styles when is valid.",
-              "attribute": "showValid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the textarea.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "textarea",
-              "type": {
-                "text": "HTMLTextAreaElement"
-              },
-              "description": "The textarea in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "valid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the textarea is valid.",
-              "attribute": "valid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the textarea.",
-              "attribute": "value"
-            },
-            {
-              "kind": "field",
-              "name": "wrap",
-              "type": {
-                "text": "'soft' | 'hard'"
-              },
-              "default": "'soft'",
-              "description": "The text way should be wrapped during form submission.",
-              "attribute": "wrap",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "autocomplete",
-              "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
-              },
-              "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
-              "fieldName": "autocomplete"
-            },
-            {
-              "name": "maxlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum length (number of characters).",
-              "fieldName": "maxLength"
-            },
-            {
-              "name": "minlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum length (number of characters).",
-              "fieldName": "minLength"
-            },
-            {
-              "name": "placeholder",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Placeholder text in the input.",
-              "fieldName": "placeholder"
-            },
-            {
-              "name": "readonly",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
-              "fieldName": "readonly"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the textarea.",
-              "fieldName": "value"
-            },
-            {
-              "name": "valid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the textarea is valid.",
-              "fieldName": "valid"
-            },
-            {
-              "name": "showValid",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the textarea should get valid styles when is valid.",
-              "fieldName": "showValid"
-            },
-            {
-              "name": "resize",
-              "type": {
-                "text": "'none' | 'vertical' | 'auto'"
-              },
-              "default": "'vertical'",
-              "description": "The way the textarea can be resized.",
-              "fieldName": "resize"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the textarea.",
-              "fieldName": "size"
-            },
-            {
-              "name": "wrap",
-              "type": {
-                "text": "'soft' | 'hard'"
-              },
-              "default": "'soft'",
-              "description": "The text way should be wrapped during form submission.",
-              "fieldName": "wrap"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "fieldName": "required",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-textarea",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
               }
             },
             {
               "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
+              "name": "removeFilter",
               "return": {
                 "type": {
                   "text": "void"
@@ -11555,98 +12163,126 @@
               },
               "parameters": [
                 {
-                  "name": "flags",
-                  "optional": true,
+                  "name": "id",
                   "type": {
-                    "text": "ValidityStateFlags"
+                    "text": "string"
                   }
-                },
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
                 {
-                  "name": "message",
-                  "optional": true,
+                  "name": "id",
                   "type": {
                     "text": "string"
                   }
                 },
                 {
-                  "name": "anchor",
-                  "optional": true,
+                  "name": "pathOrSorter",
                   "type": {
-                    "text": "HTMLElement"
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
                   }
                 }
               ],
-              "description": "Native ElementInternals function.",
               "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
               }
             },
             {
               "kind": "method",
-              "name": "setFormValue",
+              "name": "removeSort",
               "return": {
                 "type": {
                   "text": "void"
                 }
               },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
               "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
               }
             }
           ],
           "fields": [
             {
               "kind": "field",
-              "name": "textarea",
+              "name": "filteredItems",
               "type": {
-                "text": "HTMLTextAreaElement"
+                "text": "T[]"
               },
-              "description": "The textarea in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property.",
               "readonly": true,
+              "description": "The filtered & sorted array of items.",
               "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
               }
             },
             {
               "kind": "field",
-              "name": "labels",
+              "name": "items",
               "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
+                "text": "T[]"
               },
-              "description": "Native labels property.",
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
               "readonly": true,
               "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
               }
             }
           ]
@@ -11655,178 +12291,26 @@
       "exports": [
         {
           "kind": "js",
-          "name": "Textarea",
+          "name": "ArrayDataSource",
           "declaration": {
-            "name": "Textarea",
-            "module": "../packages/components/textarea/src/textarea.ts"
+            "name": "ArrayDataSource",
+            "module": "../packages/components/shared/src/data-source/array-data-source.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/tooltip/src/tooltip-directive.ts",
+      "path": "../packages/components/shared/src/data-source/data-source.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "TooltipDirective",
-          "members": [
-            {
-              "kind": "field",
-              "name": "content",
-              "type": {
-                "text": "unknown | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "didSetupLazy",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "part",
-              "type": {
-                "text": "ElementPart | undefined"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "renderContent",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setupLazy",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "tooltip",
-              "type": {
-                "text": "Tooltip | undefined"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "Directive",
-            "package": "lit/directive.js"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "renderContent",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setupLazy",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "content",
-              "type": {
-                "text": "unknown | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "didSetupLazy",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "part",
-              "type": {
-                "text": "ElementPart | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "tooltip",
-              "type": {
-                "text": "Tooltip | undefined"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "tooltip"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TooltipDirective",
-          "declaration": {
-            "name": "TooltipDirective",
-            "module": "../packages/components/tooltip/src/tooltip-directive.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "tooltip",
-          "declaration": {
-            "name": "tooltip",
-            "module": "../packages/components/tooltip/src/tooltip-directive.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tooltip/src/tooltip.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tooltip/src/tooltip.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tooltip/src/tooltip.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Tooltip component.",
-          "name": "Tooltip",
+          "name": "DataSource",
           "members": [
             {
               "kind": "method",
-              "name": "lazy",
-              "static": true,
+              "name": "addFilter",
               "return": {
                 "type": {
                   "text": "void"
@@ -11834,69 +12318,55 @@
               },
               "parameters": [
                 {
-                  "name": "target",
+                  "name": "id",
                   "type": {
-                    "text": "Element"
+                    "text": "string"
                   }
                 },
                 {
-                  "name": "callback",
+                  "name": "pathOrFilter",
                   "type": {
-                    "text": "(target: Tooltip) => void"
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
                   }
                 }
               ]
             },
             {
               "kind": "field",
-              "name": "maxWidth",
+              "name": "filteredItems",
               "type": {
-                "text": "number | undefined"
+                "text": "T[]"
               },
-              "description": "Tooltip max-width.",
-              "attribute": "max-width"
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
             },
             {
               "kind": "field",
-              "name": "position",
+              "name": "filters",
               "type": {
-                "text": "PopoverPosition"
+                "text": "Map<string, DataSourceFilter<T>>"
               },
-              "default": "'top'",
-              "description": "Tooltip position.",
-              "attribute": "position"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "max-width",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Tooltip max-width.",
-              "fieldName": "maxWidth"
+              "readonly": true
             },
             {
-              "name": "position",
+              "kind": "field",
+              "name": "items",
               "type": {
-                "text": "PopoverPosition"
+                "text": "T[]"
               },
-              "default": "'top'",
-              "description": "Tooltip position.",
-              "fieldName": "position"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-tooltip",
-          "customElement": true,
-          "methods": [
+              "readonly": true,
+              "description": "The array of all items."
+            },
             {
               "kind": "method",
-              "name": "lazy",
-              "static": true,
+              "name": "removeFilter",
               "return": {
                 "type": {
                   "text": "void"
@@ -11904,30 +12374,237 @@
               },
               "parameters": [
                 {
-                  "name": "target",
+                  "name": "id",
                   "type": {
-                    "text": "Element"
-                  }
-                },
-                {
-                  "name": "callback",
-                  "type": {
-                    "text": "(target: Tooltip) => void"
+                    "text": "string"
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
             }
           ],
-          "fields": []
+          "superclass": {
+            "name": "EventTarget",
+            "module": "../packages/components/shared/src/data-source/data-source.ts"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            }
+          ]
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "Tooltip",
+          "name": "DataSource",
           "declaration": {
-            "name": "Tooltip",
-            "module": "../packages/components/tooltip/src/tooltip.ts"
+            "name": "DataSource",
+            "module": "../packages/components/shared/src/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/data-source/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./array-data-source.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./data-source.js"
           }
         }
       ]
@@ -14577,683 +15254,6 @@
           "declaration": {
             "name": "observe",
             "module": "../packages/components/shared/src/decorators/observe.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/packages/components/shared/src/data-source/data-source.js"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "../packages/components/shared/src/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items."
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items."
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source."
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "../packages/components/shared/src/data-source/data-source.ts"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source."
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "../packages/components/shared/src/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
           }
         }
       ]

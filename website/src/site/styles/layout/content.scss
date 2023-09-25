@@ -46,9 +46,12 @@ $transition-timing: 300ms;
 
   a.header-anchor {
     color: var(--font-color);
-    font-size: inherit;
-    text-decoration: none;
   }
+}
+
+a.header-anchor {
+  font-size: inherit;
+  text-decoration: none;
 }
 
 .ds-subpage-section {

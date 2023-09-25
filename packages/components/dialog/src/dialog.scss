@@ -1,7 +1,7 @@
 // @import '@sl-design-system/shared';
 
 :host {
-  --_background: var(--sl-body-surface-overlay);
+  --_background: var(--sl-color-dialog-background); //var(--sl-body-surface-overlay);
   --_border: 0;
   --_border-radius: 3px;
   --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
@@ -21,8 +21,12 @@
   //}
 }
 
+:root,
 ::backdrop {
-  --_backdrop-background: var(--sl-body-surface-overlay); //rgba(var(--sl-body-background) / var(--sl-opacity-400));
+  --_backdrop-background: var(
+    --sl-body-surface-overlay,
+    rgba(34 34 34 / 0.48)
+  ); //rgba(var(--sl-body-background) / var(--sl-opacity-400));
 }
 
 :host {
@@ -97,6 +101,18 @@ slot[name='title']::slotted(*) {
   font: var(--sl-text-dialog-heading);
 }
 
+slot[name='body']::slotted(*) {
+  overflow-y: auto;
+}
+
+slot[name='body'] {
+  overflow-y: auto;
+}
+
+slot[name='body'] slot::slotted(*) {
+  overflow-y: auto;
+}
+
 slot[name='footer']::slotted(sl-button-bar) {
   align-items: stretch;
   display: grid;
@@ -137,9 +153,10 @@ slot[name='footer']::slotted(sl-button-bar) {
 
 @media (prefers-reduced-motion: no-preference) {
   dialog {
-    //animation: scale-down 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
-    //animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
     animation: slide-down 0.4s forwards;
+    //animation: scale-down 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
+    animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
+    //animation-delay: 500ms;
   }
 
   dialog[open] {

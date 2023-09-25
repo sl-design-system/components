@@ -57,6 +57,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
+
+    console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay'));
   }
 
   // TODO: option with no close button
@@ -106,6 +108,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     // Disable scrolling while the dialog is open
     document.documentElement.style.overflow = 'hidden';
+
+    console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay')); // this one works?
   }
 
   close(): void {

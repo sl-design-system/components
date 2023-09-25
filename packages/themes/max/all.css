@@ -10,7 +10,8 @@
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
  */
-:root {
+:root,
+::backdrop {
   --sl-size-4xl: 64px;
   --sl-size-3xl: 48px;
   --sl-size-2xl: 32px;
@@ -489,7 +490,8 @@
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
+  :root,
+  ::backdrop {
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-400));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));

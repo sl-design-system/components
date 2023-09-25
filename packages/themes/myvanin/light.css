@@ -2,7 +2,8 @@
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
  */
-:root {
+:root,
+::backdrop {
   --sl-dropshadow-select-panel: 0 0 var(--sl-size-3xs) 0
     rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
     0 var(--sl-size-3xs) var(--sl-size-2xs) 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));

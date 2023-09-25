@@ -641,12 +641,12 @@
         },
         "inline": {
           "md": {
-            "value": "{space.xs}",
+            "value": "{space.none}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.xs}",
+            "value": "{space.none}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }

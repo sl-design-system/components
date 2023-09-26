@@ -65,16 +65,16 @@ As a general rule, on full-page screens, the primary button is on the left side 
 ### Solid  (Essential)
 Solid buttons are essential; they're necessary to move forward in the user flow. They emphasize critical actions, ensuring users respond quickly and understand what to do.
 
-(visual)
+`(🖼 visual)`
 
 ### Outline (Important, but not essential)
 Outline buttons are important, but not essential in a user interface. Unlike solid buttons, outline buttons are optional in a user flow; they draw attention to certain actions but don't block progression.
-(visual)
+`(🖼 visual)`
 
 ### Ghost 👻 (Suggest)
 Ghost buttons discreetly suggest actions or options in a user interface. They're employed for advanced functionality, offering choices or recommendations without being essential or distracting from the user flow. Ghost buttons are ideal for suggesting secondary actions or guiding users to less emphasized but relevant interactions.
 
-(visual)
+`(🖼 visual)`
 
 ### Link (Inform)
 Link buttons are there to help users find more information or related content without being intrusive. They're great for actions like "Read More" or "View Details" when you want to provide extra details without cluttering the interface. They enhance user exploration while keeping the interface clean and minimalist.
@@ -121,12 +121,80 @@ Here's an example that explains which button to use in different scenarios:
 1. The "Proceed to checkout" button should be Primary-Solid; it represents the next step in the user flow and the primary reason the user is on this page.
 1. Add a "cancel" or "back" button, which should be Primary-Outline; it's part of the main user flow but a secondary action.
 
-(visual)
+`(🖼 visual)`
 </section>
 <section>
 
-## Content
+## Options
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+Discover the button's versatility with options designed for every use case.
+
+### Button Types
+There are four button types to choose from: Default, Outline, Ghost, and Link. 
+
+[More info about button types](#button-types)
+
+`(🖼 visual)`
+
+### Button variants
+The button offers four distinct intents: Default, Primary, Success, Warning, and Danger, each conveying a unique tone to the user.
+
+[More info about button variants](#button-variants)
+
+`(🖼 visual)`
+
+### Sizes
+The button is available in three sizes: Small, Medium (Default), and Large.
+
+`(🖼 visual)`
+
+### Icons 
+Elevate your buttons by including icons either before (start) or after (end) the label for enhanced functionality and visual impact.
+
+`(🖼 visual)`
+
+### Label
+Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.
+
+`(🖼 visual)`
+
+### Icon Button
+Enjoy the same options, behaviors, and properties as regular buttons, but with a single, centrally positioned icon for a sleek and focused user experience.
+
+`(🖼 visual)`
+</section>
+
+<section>
+
+## Behavior
+
+### Mouse Interaction
+Users can activate a button by clicking anywhere within the button container.
+
+`(🖼 visual)`
+
+### Tooltip When Label is Hidden
+When the button label is concealed, a tooltip appears on hover, revealing the label text and, when applicable, a keyboard shortcut.
+
+`(🖼 visual)`
+
+### Transition
+Hover and Active State Transitions: When users hover over a button or the button is in an active state, the background color and/or border color smoothly transition to provide visual feedback. 
+
+`(🖼 visual)`
+</section>
+
+<section>
+
+## Content
+**Concise Clarity**: Button text should be brief, ideally 1 or 2 words, and at most 4 words with fewer than 20 characters, spaces included. Avoid punctuation like periods or exclamation points.
+
+**Action-Centric**: Buttons should express actions, using verbs in their labels and a bare infinitive conjunction. This approach enhances clarity and user orientation.
+
+**Clear Outcomes**: The button's label should unmistakably convey the action's result, mirroring the wording elsewhere in the experience.
+
+**Sentence Case**: Always use sentence case for button text; capitalization should not be used for emphasis.
+
+**Mindful Tone**: Buttons serve a functional purpose, so emojis and exclamation points should be left behind. Keep labels as plain text, free from extra punctuation or embellishments.
 
 </section>

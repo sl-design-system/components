@@ -14,21 +14,18 @@ const TEMPLATES = [
       @import 'dark.scss';
       @import 'light.scss';
 
-      :root,
-      ::backdrop {
+      :root {
         @include sl-theme-base;
       }
 
       @media (prefers-color-scheme: light) {
-        :root,
-        ::backdrop {
+        :root {
           @include sl-theme-light;
         }
       }
 
       @media (prefers-color-scheme: dark) {
-        :root,
-        ::backdrop {
+        :root {
           @include sl-theme-dark;
         }
       }
@@ -39,8 +36,7 @@ const TEMPLATES = [
     input: `
       @import 'base.scss';
 
-      :root,
-      ::backdrop {
+      :root {
         @include sl-theme-base;
       }
     `,
@@ -50,8 +46,7 @@ const TEMPLATES = [
     input: `
       @import 'light.scss';
 
-      :root,
-      ::backdrop {
+      :root {
         @include sl-theme-light;
       }
     `,
@@ -61,8 +56,7 @@ const TEMPLATES = [
     input: `
       @import 'dark.scss';
 
-      :root,
-      ::backdrop {
+      :root {
         @include sl-theme-dark;
       }
     `,

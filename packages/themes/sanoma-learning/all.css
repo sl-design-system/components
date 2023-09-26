@@ -10,8 +10,7 @@
  * Copyright 2022 Sanoma Learning
  * SPDX-License-Identifier: Apache-2.0
  */
-:root,
-::backdrop {
+:root {
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -554,8 +553,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-  :root,
-  ::backdrop {
+  :root {
     --sl-dropshadow-select-listbox: 0 0 var(--sl-size-3xs) 0
       rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
       0 var(--sl-size-3xs) var(--sl-size-2xs) 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
@@ -1323,8 +1321,7 @@
   }
 }
 @media (prefers-color-scheme: dark) {
-  :root,
-  ::backdrop {
+  :root {
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
     --sl-body-surface-overlay: rgba(var(--sl-color-palette-white-base) / var(--sl-opacity-500));

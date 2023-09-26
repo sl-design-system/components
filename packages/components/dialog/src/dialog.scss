@@ -1,6 +1,7 @@
 // @import '@sl-design-system/shared';
 
 :host {
+  //--backdrop-background: #A4CDFF;
   --_background: var(--sl-color-dialog-background); //var(--sl-body-surface-overlay);
   --_border: 0;
   --_border-radius: 3px;
@@ -17,17 +18,28 @@
   // --_backdrop-background: grey;//var(--sl-body-surface-overlay);
 
   //&::backdrop {
-  //  --_backdrop-background: var(--sl-body-surface-overlay); //rgba(var(--sl-body-background) / var(--sl-opacity-400));
+  //  --backdrop-background: var(--sl-body-surface-overlay); //rgba(var(--sl-body-background) / var(--sl-opacity-400));
   //}
 }
 
-:root,
 ::backdrop {
-  --_backdrop-background: var(
-    --sl-body-surface-overlay,
-    rgba(34 34 34 / 0.48)
-  ); //rgba(var(--sl-body-background) / var(--sl-opacity-400));
+  --backdrop-background: #a4cdff; // TODO: should come from the token --sl-body-surface-overlay
 }
+
+dialog::backdrop {
+  background: var(--backdrop-background);
+}
+
+//:root,
+//::backdrop {
+//  background: var(--backdrop-background);
+//  //--backdrop-background: var(
+//  //    --sl-body-surface-overlay);
+//  /*--_backdrop-background: var(
+//    --sl-body-surface-overlay,
+//    rgba(34 34 34 / 0.48)
+//  );*/ //rgba(var(--sl-body-background) / var(--sl-opacity-400));
+//}
 
 :host {
   display: block;
@@ -36,6 +48,7 @@
 // TODO: breakpoints from tokens?
 
 dialog {
+  //--backdrop-background: #A4CDFF;
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
@@ -55,9 +68,10 @@ dialog {
   padding-inline: var(--_padding-inline);
   position: fixed;
   //transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
+  //--backdrop-background: var(--sl-body-surface-overlay);
 
   &::backdrop {
-    background: var(--_backdrop-background);
+    background: var(--backdrop-background);
     /* stylelint-disable-next-line property-no-vendor-prefix */
     //-webkit-backdrop-filter: blur(3px);
     //backdrop-filter: blur(3px);

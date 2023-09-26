@@ -110,6 +110,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     document.documentElement.style.overflow = 'hidden';
 
     console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay')); // this one works?
+
+    // document.documentElement.style.background = window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay');
+    //(this.dialog as HTMLElement).style.background = window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay');
+    (this.dialog as HTMLElement).style.setProperty(
+      '--backdrop-background',
+      window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay')
+    );
+    (this.dialog as HTMLElement).style.setProperty('--backdrop-background', '#A4CDFF');
   }
 
   close(): void {

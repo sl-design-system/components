@@ -75,8 +75,8 @@ dialog {
     /* stylelint-disable-next-line property-no-vendor-prefix */
     //-webkit-backdrop-filter: blur(3px);
     //backdrop-filter: blur(3px);
-    transition: backdrop-filter 0.5s ease;
-    transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
+    //transition: backdrop-filter 0.5s ease;
+    transition: opacity 0.5s ease-in-out;
   }
 }
 
@@ -166,11 +166,21 @@ slot[name='footer']::slotted(sl-button-bar) {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  dialog {
+  dialog[closing='true'] {
     animation: slide-down 0.4s forwards;
     //animation: scale-down 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
-    animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
+    //animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
     //animation-delay: 500ms;
+
+    &::backdrop {
+      animation: backdrop-hide 0.5s ease-out;
+      //animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
+      animation-delay: 200ms;
+    }
+  }
+
+  dialog::backdrop {
+    animation: backdrop-hide 0.5s ease-out;
   }
 
   dialog[open] {
@@ -178,7 +188,7 @@ slot[name='footer']::slotted(sl-button-bar) {
     animation: slide-in-up 0.5s forwards;
 
     &::backdrop {
-      animation: backdrop-show 0.5s forwards;
+      animation: backdrop-show 0.5s ease-in; //forwards;
     }
   }
 }
@@ -234,5 +244,23 @@ slot[name='footer']::slotted(sl-button-bar) {
 
   100% {
     opacity: 100%;
+  }
+}
+
+@keyframes backdrop-hide {
+  //0% {
+  //  opacity: 100%;
+  //}
+  //
+  //50% {
+  //  opacity: 75%;
+  //}
+  //
+  //100% {
+  //  opacity: 0;
+  //}
+
+  to {
+    opacity: 0;
   }
 }

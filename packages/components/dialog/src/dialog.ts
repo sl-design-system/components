@@ -58,6 +58,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.inert = true;
 
+    this.dialog?.setAttribute('closing', 'false');
+
     console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay'));
   }
 
@@ -109,6 +111,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     // Disable scrolling while the dialog is open
     document.documentElement.style.overflow = 'hidden';
 
+    this.dialog?.setAttribute('closing', 'false');
+
     console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay')); // this one works?
 
     // document.documentElement.style.background = window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay');
@@ -135,6 +139,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
     event.preventDefault();
     event.stopPropagation();
+    this.dialog?.setAttribute('closing', 'true');
     this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
   }
 
@@ -144,6 +149,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     if (event.target.matches('sl-button[sl-dialog-close]')) {
       console.log('onclick event target', event.target, event.target.matches('sl-button[sl-dialog-close]'));
+      this.dialog?.setAttribute('closing', 'true');
       this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
     } else if (!this.disableClose && this.dialog) {
       const rect = this.dialog.getBoundingClientRect();
@@ -156,6 +162,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         event.clientX > rect.right
       ) {
         // If so, close the dialog
+        this.dialog?.setAttribute('closing', 'true');
         this.dialog.close();
       }
     }

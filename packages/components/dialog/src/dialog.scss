@@ -1,8 +1,8 @@
 // @import '@sl-design-system/shared';
 
 :host {
-  //--backdrop-background: #A4CDFF;
-  --_background: var(--sl-color-dialog-background); //var(--sl-body-surface-overlay);
+  --backdrop-background: #a4cdff;
+  --_background: #fff; //var(--sl-body-surface-overlay); // var(--sl-color-dialog-background);
   --_border: 0;
   --_border-radius: 3px;
   --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
@@ -16,18 +16,22 @@
   --_padding-block: var(--sl-space-dialog-mobile-body-block);
   --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
   // --_backdrop-background: grey;//var(--sl-body-surface-overlay);
-
+  // background: lime;
   //&::backdrop {
   //  --backdrop-background: var(--sl-body-surface-overlay); //rgba(var(--sl-body-background) / var(--sl-opacity-400));
   //}
 }
 
-::backdrop {
-  --backdrop-background: #a4cdff; // TODO: should come from the token --sl-body-surface-overlay
-}
+// ::backdrop {
+// --backdrop-background: coral; // TODO: should come from the token --sl-body-surface-overlay
+// }
 
 dialog::backdrop {
-  background: var(--backdrop-background);
+  // --backdrop-background: cornflowerblue; // TODO: should come from the token --sl-body-surface-overlay
+  --backdrop-background: var(
+    --sl-color-select-item-active-foreground
+  ); // TODO: should come from the token --sl-body-surface-overlay
+  // background: var(--backdrop-background);
 }
 
 //:root,
@@ -48,7 +52,7 @@ dialog::backdrop {
 // TODO: breakpoints from tokens?
 
 dialog {
-  //--backdrop-background: #A4CDFF;
+  --backdrop-background: #a4cdff;
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
@@ -71,7 +75,7 @@ dialog {
   //--backdrop-background: var(--sl-body-surface-overlay);
 
   &::backdrop {
-    background: var(--backdrop-background);
+    // background: var(--backdrop-background);
     /* stylelint-disable-next-line property-no-vendor-prefix */
     //-webkit-backdrop-filter: blur(3px);
     //backdrop-filter: blur(3px);

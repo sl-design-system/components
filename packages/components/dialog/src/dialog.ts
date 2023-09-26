@@ -1,5 +1,5 @@
 import type { TemplateResult } from 'lit-html';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResult, CSSResultGroup } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import type { ButtonBarAlign } from '@sl-design-system/button-bar';
@@ -7,7 +7,7 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { breakpoints } from '@sl-design-system/shared';
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, adoptStyles, html, nothing, unsafeCSS } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
 
@@ -58,7 +58,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.inert = true;
 
-    console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay'));
+    // console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay'));
   }
 
   // TODO: option with no close button
@@ -109,15 +109,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     // Disable scrolling while the dialog is open
     document.documentElement.style.overflow = 'hidden';
 
-    console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay')); // this one works?
-
-    // document.documentElement.style.background = window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay');
-    //(this.dialog as HTMLElement).style.background = window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay');
-    (this.dialog as HTMLElement).style.setProperty(
-      '--backdrop-background',
-      window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay')
+    const backdrop: CSSResult = unsafeCSS(
+      `::backdrop {
+        background-color: ${window.getComputedStyle(document.body).getPropertyValue('--sl-body-surface-overlay')};
+      }
+    `
     );
-    (this.dialog as HTMLElement).style.setProperty('--backdrop-background', '#A4CDFF');
+
+    if (this.shadowRoot) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      adoptStyles(this.shadowRoot, [breakpoints, styles, backdrop]);
+    }
   }
 
   close(): void {
@@ -140,7 +142,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
     // event.preventDefault();
-    console.log('111 onclick event target', event.target, event.target.matches('sl-button[sl-dialog-close]'));
+    console.log('111 onclick event target.', event.target, event.target.matches('sl-button[sl-dialog-close]'));
 
     if (event.target.matches('sl-button[sl-dialog-close]')) {
       console.log('onclick event target', event.target, event.target.matches('sl-button[sl-dialog-close]'));

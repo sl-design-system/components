@@ -80,7 +80,10 @@ dialog {
     //-webkit-backdrop-filter: blur(3px);
     //backdrop-filter: blur(3px);
     //transition: backdrop-filter 0.5s ease;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
+    // transition: background 0.5s ease-in-out;
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    //-webkit-animation: none;
   }
 }
 
@@ -159,9 +162,9 @@ slot[name='footer']::slotted(sl-button-bar) {
     margin: auto;
   }
 
-  slot[name='title']::slotted(*) {
-    // color: #00f;
-  }
+  //slot[name='title']::slotted(*) {
+  //  // color: #00f;
+  //}
 
   .footer-buttons {
     --_direction: row;
@@ -171,28 +174,34 @@ slot[name='footer']::slotted(sl-button-bar) {
 
 @media (prefers-reduced-motion: no-preference) {
   dialog[closing='true'] {
-    animation: slide-down 0.4s forwards;
+    animation: slide-down 0.4s ease-out 100ms, slide-down 0.4s ease-out; //forwards;
     //animation: scale-down 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
     //animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
     //animation-delay: 500ms;
 
     &::backdrop {
-      animation: backdrop-hide 0.5s ease-out;
+      animation: backdrop-hide 0.4s ease-out;
       //animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
       animation-delay: 200ms;
+      /* stylelint-disable-next-line property-no-vendor-prefix */
+      //-webkit-animation: backdrop-hide 0.5s ease 0.2s normal;
     }
   }
 
-  dialog::backdrop {
-    animation: backdrop-hide 0.5s ease-out;
-  }
+  //dialog::backdrop {
+  //  animation: backdrop-hide 0.5s ease-out;
+  //}
 
   dialog[open] {
     //animation: slide-in-up 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
-    animation: slide-in-up 0.5s forwards;
+    //animation: slide-in-up 0.3s forwards;
+    animation: slide-in-up 0.2s ease-out 100ms, slide-in-up-second 0.3s ease-out;
+    //animation-delay: 300ms;
 
     &::backdrop {
-      animation: backdrop-show 0.5s ease-in; //forwards;
+      animation: backdrop-show 0.6s ease-in; //forwards;
+      /* stylelint-disable-next-line property-no-vendor-prefix */
+      //-webkit-animation: backdrop-show 0.6s ease 0.2s normal;
     }
   }
 }
@@ -209,9 +218,26 @@ slot[name='footer']::slotted(sl-button-bar) {
     transform: translateY(80px);
   }
 
-  50% {
+  100% {
     opacity: 75%;
     transform: translateY(0);
+  }
+
+  //100% {
+  //  opacity: 100%;
+  //  transform: translateY(0);
+  //}
+}
+
+@keyframes slide-in-up-second {
+  //0% {
+  //  opacity: 0;
+  //  transform: translateY(80px);
+  //}
+
+  0% {
+    opacity: 75%;
+    transform: translateY(80px);
   }
 
   100% {
@@ -252,19 +278,19 @@ slot[name='footer']::slotted(sl-button-bar) {
 }
 
 @keyframes backdrop-hide {
-  //0% {
-  //  opacity: 100%;
-  //}
-  //
-  //50% {
-  //  opacity: 75%;
-  //}
-  //
-  //100% {
-  //  opacity: 0;
-  //}
+  0% {
+    opacity: 100%;
+  }
 
-  to {
+  50% {
+    opacity: 50%; //75%;
+  }
+
+  100% {
     opacity: 0;
   }
+
+  //to {
+  //  opacity: 0;
+  //}
 }

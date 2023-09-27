@@ -67,7 +67,7 @@ export const API: StoryObj = {
 
 export const DisableClose: StoryObj = {
   render: () => html`
-    <sl-button @click=${onClick}>Show Dialog</sl-button>
+    <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
     <sl-dialog disable-close closing-button>
       <span slot="title">Disable close</span>
       <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>
@@ -83,7 +83,7 @@ export const ScrollingBody: StoryObj = {
         margin: 50vh 0 100vh;
       }
     </style>
-    <sl-button @click=${onClick}>Show Dialog</sl-button>
+    <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
     <sl-dialog closing-button>
       <div>You cannot scroll the body once the dialog is open.</div>
     </sl-dialog>

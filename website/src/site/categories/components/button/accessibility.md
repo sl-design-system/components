@@ -10,7 +10,7 @@ eleventyNavigation:
 
 ## Accessibility
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+Exploring essential accessibility considerations for buttons: ensuring an inclusive user experience.
 
 </section>
 
@@ -58,21 +58,28 @@ When the button has focus:
 
     When `disabled` is added to a button there is no need to also add `aria-disabled`; Everything `aria-disabled` does, `disabled` does as well.
 
-    You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about `aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)
+    You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)
 
 </section>
 
 <section>
 
 ## Content
-**Concise Clarity**: Button text should be brief, ideally 1 or 2 words, and at most 4 words with fewer than 20 characters, spaces included. Avoid punctuation like periods or exclamation points.
+Having an accessible application is not only achieved by writing good code, but also (maybe even MORE so) by writing good copy. To make sure buttons and their actions are clear for all users make sure to keep these points in mind:
 
-**Action-Centric**: Buttons should express actions, using verbs in their labels and a bare infinitive conjunction. This approach enhances clarity and user orientation.
+### Concise Clarity
+Button text should be brief, ideally 1 or 2 words, and at most 4 words with fewer than 20 characters, spaces included. Avoid punctuation like periods or exclamation points.
 
-**Clear Outcomes**: The button's label should unmistakably convey the action's result, mirroring the wording elsewhere in the experience.
+### Action-Centric
+Buttons should express actions, using verbs in their labels and a bare infinitive conjunction. This approach enhances clarity and user orientation.
 
-**Sentence Case**: Always use sentence case for button text; capitalization should not be used for emphasis.
+### Clear Outcomes
+The button's label should unmistakably convey the action's result, mirroring the wording elsewhere in the experience.
 
-**Mindful Tone**: Buttons serve a functional purpose, so emojis and exclamation points should be left behind. Keep labels as plain text, free from extra punctuation or embellishments.
+### Sentence Case
+Always use sentence case for button text; capitalization should not be used for emphasis.
+
+### Mindful Tone
+Buttons serve a functional purpose, so emojis and exclamation points should be left behind. Keep labels as plain text, free from extra punctuation or embellishments.
 
 </section>

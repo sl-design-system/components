@@ -31,16 +31,19 @@ eleventyNavigation:
 
 Buttons should be used in user interfaces when you want to provide users with a clear and actionable way to interact with a webpage, application, or device. Here are some common scenarios when you should use buttons:
 
-1. **To Initiate Actions**: Buttons are used to trigger specific actions or functions. For example, you can use a "Submit" button in a form to send user input to a server, or a "Save" button to save changes in an application.
+### To Initiate Actions 
+Buttons are used to trigger specific actions or functions. For example, you can use a "Submit" button in a form to send user input to a server, or a "Save" button to save changes in an application.
 
-1. **To Provide Navigation**: Buttons can be used as links or navigation elements. For instance, a "Learn More" button can take users to a detailed page about a product or service.
+### To Provide Navigation
+Buttons can be used as links or navigation elements. For instance, a "Learn More" button can take users to a detailed page about a product or service.
 
 </section>
 <section>
 
 ## When not to use
 
-1. **Menu Items**: When creating a navigation menu, such as a dropdown menu or a side menu, using text links or icons is typically more common and efficient. Buttons can make menus look bulky and less streamlined.
+### Menu Items
+When creating a navigation menu, such as a dropdown menu or a side menu, using text links or icons is typically more common and efficient. Buttons can make menus look bulky and less streamlined.
 
 </section>
 <section>
@@ -69,6 +72,7 @@ Solid buttons are essential; they're necessary to move forward in the user flow.
 
 ### Outline (Important, but not essential)
 Outline buttons are important, but not essential in a user interface. Unlike solid buttons, outline buttons are optional in a user flow; they draw attention to certain actions but don't block progression.
+
 `(🖼 visual)`
 
 ### Ghost 👻 (Suggest)
@@ -79,6 +83,7 @@ Ghost buttons discreetly suggest actions or options in a user interface. They're
 ### Link (Inform)
 Link buttons are there to help users find more information or related content without being intrusive. They're great for actions like "Read More" or "View Details" when you want to provide extra details without cluttering the interface. They enhance user exploration while keeping the interface clean and minimalist.
 
+`(🖼 visual)`
 </section>
 <section>
 
@@ -104,11 +109,11 @@ This table provides guidance on when to use each button variant (Solid, Outline,
 |Button Variants|Solid |Outline |Ghost |Link |
 |-|-|-|-|-|
 ||*Essential*|*Important but not essential*|*Suggest*|*Inform*|
-|Primary|	<sl-button fill="solid" variant="primary" size="md">Button</sl-button><br/> Used to move forward in a primary (the most important) user flow.|<sl-button fill="outline" variant="primary" size="md">Button</sl-button><br/> For secondary actions related to the primary user flow. |<sl-button fill="ghost" variant="primary" size="md">Button</sl-button><br/> To give suggestive actions related to the primary user flow.|<sl-button fill="link" variant="primary" size="md">Button</sl-button><br/> To give information related to the primary user flow.|
-|Default |<sl-button fill="solid" variant="default" size="md">Button</sl-button><br/>Used to move forward in a secondary user flow or when there is no specific user flow. | <sl-button fill="outline" variant="default" size="md">Button</sl-button><br/>For secondary actions related to the secondary user flow. | <sl-button fill="ghost" variant="default" size="md">Button</sl-button><br/>To give suggestive actions related to the secondary user flow. | <sl-button fill="link" variant="default" size="md">Button</sl-button><br/> To give information related to the secondary user flow|
-|Success|<sl-button fill="solid" variant="success" size="md">Button</sl-button><br/>For actions confirming successful operations.|<sl-button fill="outline" variant="success" size="md">Button</sl-button><br/>For secondary actions related to the successful operation. |<sl-button fill="ghost" variant="success" size="md">Button</sl-button><br/>To give suggestive actions related to the successful operation.|<sl-button fill="link" variant="success" size="md">Button</sl-button><br/>To give information related to the successful operation.|
-|Warning	|<sl-button fill="solid" variant="warning" size="md">Button</sl-button><br/>For actions requiring caution or user confirmation. |<sl-button fill="outline" variant="warning" size="md">Button</sl-button><br/>For secondary actions related to the warning.|<sl-button fill="ghost" variant="warning" size="md">Button</sl-button><br/>To give suggestions related to the warning.|<sl-button fill="link" variant="warning" size="md">Button</sl-button><br/>To give information related to the warning user flow. |
-|Danger	|<sl-button fill="solid" variant="danger" size="md">Button</sl-button><br/>For actions confirming potentially negative consequences. |<sl-button fill="outline" variant="danger" size="md">Button</sl-button><br/>For secondary actions related to potentially negative consequences.|<sl-button fill="ghost" variant="danger" size="md">Button</sl-button><br/>To give suggestions related to potentially negative consequences.|<sl-button fill="link" variant="danger" size="md">Button</sl-button><br/>To give information related to potentially negative consequences.|
+|Primary|	<sl-button fill="solid" variant="primary" size="md">Button</sl-button><br><br> Used to move forward in a primary (the most important) user flow.|<sl-button fill="outline" variant="primary" size="md">Button</sl-button><br><br> For secondary actions related to the primary user flow. |<sl-button fill="ghost" variant="primary" size="md">Button</sl-button><br><br> To give suggestive actions related to the primary user flow.|<sl-button fill="link" variant="primary" size="md">Button</sl-button><br><br> To give information related to the primary user flow.|
+|Default |<sl-button fill="solid" variant="default" size="md">Button</sl-button><br><br>Used to move forward in a secondary user flow or when there is no specific user flow. | <sl-button fill="outline" variant="default" size="md">Button</sl-button><br><br>For secondary actions related to the secondary user flow. | <sl-button fill="ghost" variant="default" size="md">Button</sl-button><br><br>To give suggestive actions related to the secondary user flow. | <sl-button fill="link" variant="default" size="md">Button</sl-button><br><br> To give information related to the secondary user flow|
+|Success|<sl-button fill="solid" variant="success" size="md">Button</sl-button><br><br>For actions confirming successful operations.|<sl-button fill="outline" variant="success" size="md">Button</sl-button><br><br>For secondary actions related to the successful operation. |<sl-button fill="ghost" variant="success" size="md">Button</sl-button><br><br>To give suggestive actions related to the successful operation.|<sl-button fill="link" variant="success" size="md">Button</sl-button><br><br>To give information related to the successful operation.|
+|Warning	|<sl-button fill="solid" variant="warning" size="md">Button</sl-button><br><br>For actions requiring caution or user confirmation. |<sl-button fill="outline" variant="warning" size="md">Button</sl-button><br><br>For secondary actions related to the warning.|<sl-button fill="ghost" variant="warning" size="md">Button</sl-button><br><br>To give suggestions related to the warning.|<sl-button fill="link" variant="warning" size="md">Button</sl-button><br><br>To give information related to the warning user flow. |
+|Danger	|<sl-button fill="solid" variant="danger" size="md">Button</sl-button><br><br>For actions confirming potentially negative consequences. |<sl-button fill="outline" variant="danger" size="md">Button</sl-button><br><br>For secondary actions related to potentially negative consequences.|<sl-button fill="ghost" variant="danger" size="md">Button</sl-button><br><br>To give suggestions related to potentially negative consequences.|<sl-button fill="link" variant="danger" size="md">Button</sl-button><br><br>To give information related to potentially negative consequences.|
 
 {.ds-table .ds-table-align-top}
 
@@ -127,41 +132,19 @@ Here's an example that explains which button to use in different scenarios:
 
 ## Options
 
-Discover the button's versatility with options designed for every use case.
+With these options you can tweak the appearance of the button in Figma. They are available in the Design Panel so you can compose the button to exactly fit the user experience need for the uses case you are working on.
 
-### Button Types
-There are four button types to choose from: Default, Outline, Ghost, and Link. 
+|||
+|-|-|
+|Button Types|There are four button types to choose from: Default, Outline, Ghost, and Link. <br> [More info about button types](#button-types)|
+|Button variants|The button offers four distinct intents: Default, Primary, Success, Warning, and Danger, each conveying a unique tone to the user. <br> [More info about button variants](#button-variants) |
+|Sizes|The button is available in three sizes: Small, Medium (Default), and Large.|
+|Icons |Elevate your buttons by including icons either before (start) or after (end) the label for enhanced functionality and visual impact.|
+|Label|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|
+|Icon Button|Enjoy the same options, behaviors, and properties as regular buttons, but with a single, centrally positioned icon for a sleek and focused user experience.|
 
-[More info about button types](#button-types)
+{.ds-table .ds-table-align-top}
 
-`(🖼 visual)`
-
-### Button variants
-The button offers four distinct intents: Default, Primary, Success, Warning, and Danger, each conveying a unique tone to the user.
-
-[More info about button variants](#button-variants)
-
-`(🖼 visual)`
-
-### Sizes
-The button is available in three sizes: Small, Medium (Default), and Large.
-
-`(🖼 visual)`
-
-### Icons 
-Elevate your buttons by including icons either before (start) or after (end) the label for enhanced functionality and visual impact.
-
-`(🖼 visual)`
-
-### Label
-Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.
-
-`(🖼 visual)`
-
-### Icon Button
-Enjoy the same options, behaviors, and properties as regular buttons, but with a single, centrally positioned icon for a sleek and focused user experience.
-
-`(🖼 visual)`
 </section>
 
 <section>
@@ -182,19 +165,4 @@ When the button label is concealed, a tooltip appears on hover, revealing the la
 Hover and Active State Transitions: When users hover over a button or the button is in an active state, the background color and/or border color smoothly transition to provide visual feedback. 
 
 `(🖼 visual)`
-</section>
-
-<section>
-
-## Content
-**Concise Clarity**: Button text should be brief, ideally 1 or 2 words, and at most 4 words with fewer than 20 characters, spaces included. Avoid punctuation like periods or exclamation points.
-
-**Action-Centric**: Buttons should express actions, using verbs in their labels and a bare infinitive conjunction. This approach enhances clarity and user orientation.
-
-**Clear Outcomes**: The button's label should unmistakably convey the action's result, mirroring the wording elsewhere in the experience.
-
-**Sentence Case**: Always use sentence case for button text; capitalization should not be used for emphasis.
-
-**Mindful Tone**: Buttons serve a functional purpose, so emojis and exclamation points should be left behind. Keep labels as plain text, free from extra punctuation or embellishments.
-
 </section>

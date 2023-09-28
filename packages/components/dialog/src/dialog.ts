@@ -61,6 +61,22 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.dialog?.setAttribute('closing', 'false');
 
     // console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay'));
+
+    // this.dialog?.addEventListener(
+    //   'animationend',
+    //   this.#handleAnimationEnd
+    //   // () => {
+    //   //   this.dialog?.setAttribute('closing', 'false');
+    //   //   // this.dialog?.close(); // then run the default close method
+    //   //   this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
+    //   // },
+    //   // { once: true }
+    // );
+  }
+
+  override disconnectedCallback(): void {
+    this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
+    super.disconnectedCallback();
   }
 
   // TODO: option with no close button
@@ -128,7 +144,19 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   close(): void {
     if (this.dialog?.open) {
+      // this.dialog?.setAttribute('closing', 'true');
       this.dialog?.close();
+
+      // this.dialog?.setAttribute('closing', 'true'); // run animation here
+      //
+      // this.dialog?.addEventListener(
+      //   'animationend',
+      //   () => {
+      //     this.dialog?.setAttribute('closing', 'false');
+      //     this.dialog?.close(); // then run the default close method
+      //   },
+      //   { once: true }
+      // ); // add this to prevent bugs when reopening the modal
     }
   }
 
@@ -138,10 +166,44 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #handleAnimationEnd = (): void => {
+    this.dialog?.setAttribute('closing', 'false');
+    this.dialog?.close(); // then run the default close method
+    //this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
+  };
+
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
     event.preventDefault();
     event.stopPropagation();
-    this.dialog?.setAttribute('closing', 'true');
+    // this.dialog?.setAttribute('closing', 'true');
+    this.dialog?.setAttribute('closing', 'true'); // run animation here
+
+    // this.dialog?.addEventListener(
+    //   'animationend',
+    //   this.#handleAnimationEnd
+    //   // () => {
+    //   //   this.dialog?.setAttribute('closing', 'false');
+    //   //   // this.dialog?.close(); // then run the default close method
+    //   //   this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
+    //   // },
+    //   // { once: true }
+    // ); // add this to prevent bugs when reopening the modal
+
+    this.dialog?.addEventListener(
+      'animationend',
+      this.#handleAnimationEnd
+      // () => {
+      //   this.dialog?.setAttribute('closing', 'false');
+      //   // this.dialog?.close(); // then run the default close method
+      //   this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
+      // },
+      // { once: true }
+    );
+
+    this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
+
+    // this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
+
     this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
   }
 
@@ -151,7 +213,22 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     if (event.target.matches('sl-button[sl-dialog-close]')) {
       console.log('onclick event target', event.target, event.target.matches('sl-button[sl-dialog-close]'));
-      this.dialog?.setAttribute('closing', 'true');
+      // this.dialog?.setAttribute('closing', 'true');
+      // this.dialog?.setAttribute('closing', 'true'); // run animation here
+
+      // this.dialog?.addEventListener(
+      //   'animationend',
+      //   this.#handleAnimationEnd
+      //   // () => {
+      //   //   this.dialog?.setAttribute('closing', 'false');
+      //   //   // this.dialog?.close(); // then run the default close method
+      //   //   this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
+      //   // },
+      //   // { once: true }
+      // ); // add this to prevent bugs when reopening the modal
+      //
+      // this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
+
       this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
     } else if (!this.disableClose && this.dialog) {
       const rect = this.dialog.getBoundingClientRect();
@@ -164,11 +241,27 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         event.clientX > rect.right
       ) {
         // If so, close the dialog
-        this.dialog?.setAttribute('closing', 'true');
+        // this.dialog?.setAttribute('closing', 'true');
+        // this.dialog?.setAttribute('closing', 'true'); // run animation here
+
+        // this.dialog?.addEventListener('animationend', this.#handleAnimationEnd); // add this to prevent bugs when reopening the modal
         this.dialog.close();
+
+        // this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
       }
     }
   }
+
+  // TODO; function for animation closing event
+
+  // document.querySelector('#close').onclick = function() {
+  //   dialog.classList.add('hide');
+  //   dialog.addEventListener('webkitAnimationEnd', function(){
+  //     dialog.classList.remove('hide');
+  //     dialog.close();
+  //     dialog.removeEventListener('webkitAnimationEnd',  arguments.callee, false);
+  //   }, false);
+  // };
 
   #onClose(): void {
     // Reenable scrolling after the dialog has closed

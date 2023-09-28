@@ -1832,12 +1832,12 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.accent.50}",
+                "value": "{color.palette.primary.50}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.primary.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1847,7 +1847,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.accent.500}",
+                "value": "{color.palette.primary.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -1859,7 +1859,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.accent.600}",
+                "value": "{color.palette.primary.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1869,7 +1869,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.accent.700}",
+                "value": "{color.palette.primary.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -1881,7 +1881,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.accent.base}",
+                "value": "{color.palette.primary.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1891,7 +1891,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.primary.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -1922,7 +1922,7 @@
           "checked": {
             "default": {
               "background": {
-                "value": "{color.palette.accent.200}",
+                "value": "{color.palette.primary.200}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1944,7 +1944,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.primary.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1966,7 +1966,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.accent.600}",
+                "value": "{color.palette.primary.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1988,7 +1988,7 @@
             },
             "focus": {
               "background": {
-                "value": "{color.palette.accent.base}",
+                "value": "{color.palette.primary.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },

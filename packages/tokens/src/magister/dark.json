@@ -2500,7 +2500,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2522,7 +2522,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2544,7 +2544,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2566,7 +2566,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2588,7 +2588,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{color.palette.neutral.300}",
+                "value": "{color.palette.neutral.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },

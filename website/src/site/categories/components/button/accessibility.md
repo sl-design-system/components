@@ -6,13 +6,12 @@ eleventyNavigation:
   key: ButtonAccessibility
 ---
 
-<section> 
+# Accessibility
 
-## Accessibility
-
+<p>
 Exploring essential accessibility considerations for buttons: ensuring an inclusive user experience.
 
-</section>
+</p>
 
 <section>
 

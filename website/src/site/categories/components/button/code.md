@@ -7,8 +7,6 @@ eleventyNavigation:
   key: ButtonCode
 ---
 
-<section>
-
 # Code
 
 <section>

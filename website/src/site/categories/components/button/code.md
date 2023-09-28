@@ -27,10 +27,3 @@ Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molesti
 
 {% include "../component-table.njk" %}
 
-<section>
-
-## CSS Properties
-
-The Button component does not offer any public CSS properties.
-
-</section>

@@ -54,6 +54,12 @@
           "kind": "class",
           "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
           "name": "Button",
+          "cssProperties": [
+            {
+              "description": "Controls the color of bar ext label of the button. Optionally an <code>sl-icon</code> can be added",
+              "name": "--background-color"
+            }
+          ],
           "slots": [
             {
               "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",

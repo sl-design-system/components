@@ -8,6 +8,7 @@
   --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
   --_gap: 0.5rem;
   --_max-inline-size: 500px;
+  --_max-inline-size-mobile: 100%;
   --_spacing: 0.5rem;
   //--_padding-top: var(--sl-space-dialog-mobile-container-padding-top);
   //--_padding-right: var(--sl-space-dialog-mobile-container-inline);
@@ -15,6 +16,7 @@
   //--_padding-left: var(--sl-space-dialog-mobile-container-inline);
   --_padding-block: var(--sl-space-dialog-mobile-body-block);
   --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
+  --_full-size: 100%;
   // --_backdrop-background: grey;//var(--sl-body-surface-overlay);
   // background: lime;
   //&::backdrop {
@@ -64,7 +66,8 @@ dialog {
   margin: auto auto 0; //auto;
   max-block-size: min(80vh, 100%);
   max-block-size: min(80dvb, 100%);
-  max-inline-size: min(90vw, var(--_max-inline-size)); // TODO: change...
+  max-inline-size: var(--_max-inline-size-mobile);
+  //max-inline-size: min(90vw, var(--_max-inline-size)); // TODO: change...
   min-inline-size: 40%;
   opacity: 0;
   // padding: 1rem;
@@ -74,18 +77,25 @@ dialog {
   position: fixed;
   //transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
   //--backdrop-background: var(--sl-body-surface-overlay);
+  //width: max(40%, calc(100% - 105px));
 
   &::backdrop {
+    animation: backdrop-show 0.6s ease-out;
+    animation-direction: reverse;
+    animation-play-state: running;
     opacity: 0;
     // background: var(--backdrop-background);
     /* stylelint-disable-next-line property-no-vendor-prefix */
     //-webkit-backdrop-filter: blur(3px);
     //backdrop-filter: blur(3px);
     //transition: backdrop-filter 0.5s ease;
-    transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
+    // transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     // transition: background 0.5s ease-in-out;
     /* stylelint-disable-next-line property-no-vendor-prefix */
     //-webkit-animation: none;
+    //animation: backdrop-hide 0.5s ease-in-out 0.2s forwards;
+    transition-delay: 0.1s;
   }
 }
 
@@ -166,7 +176,10 @@ slot[name='footer']::slotted(sl-button-bar) {
 
   dialog {
     margin: auto;
-  }
+    //max-inline-size: min(90vw, var(--_max-inline-size)); // TODO: change...
+    //max-inline-size: min(calc(100% - (4 * var(--_padding-inline))), 40%); //calc(100% - 2*(var(--_padding-inline))); //min(600px, calc(100% - (var(--_padding-inline) * 2))); // --_max-inline-size-mobile
+    max-inline-size: min(calc(100% - (4 * var(--_padding-inline))), var(--_max-inline-size));
+  } // TODO: calculate 40% of element
 
   //slot[name='title']::slotted(*) {
   //  // color: #00f;
@@ -191,13 +204,19 @@ slot[name='footer']::slotted(sl-button-bar) {
     //transition: all 0.2s cubic-bezier(0.46, -0.1, 0.98, -0.01);
 
     &::backdrop {
+      animation: backdrop-show 0.6s ease-in-out;
+      animation-direction: reverse;
+      animation-play-state: running;
+      opacity: 1;
       //animation: /*backdrop-hide*/ show 0.4s ease-out backwards;
       //animation-direction: reverse;
       //animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
       //animation-delay: 200ms;
       /* stylelint-disable-next-line property-no-vendor-prefix */
       //-webkit-animation: backdrop-hide 0.5s ease 0.2s normal;
-      animation: hide-backdrop 0.5s ease 0.2s normal;
+      // animation: hide-backdrop 0.5s ease 0.2s normal;
+      //animation-delay: 0.1s;
+      transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
     }
   }
 
@@ -221,6 +240,7 @@ slot[name='footer']::slotted(sl-button-bar) {
       //animation-delay: 200ms;
       /* stylelint-disable-next-line property-no-vendor-prefix */
       //-webkit-animation: backdrop-show 0.6s ease 0.2s normal;
+      transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
     }
   }
 }

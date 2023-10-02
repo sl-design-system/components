@@ -5,6 +5,7 @@ componentType: feedback
 shortDescription: This is a short description of the grid component
 layout: "components/components.njk"
 tags: component
+packageName: grid
 eleventyNavigation:
   parent: Components
   key: Grid

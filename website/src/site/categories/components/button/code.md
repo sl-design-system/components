@@ -1,6 +1,7 @@
 ---
 title: Button code
 tags: code
+packageName: button
 APIdescription: The SL Design System button can be used to replace the default HTML button. We've tried our best to mimic all the behaviours and options you get when using a standard button. But this one looks a lot nicer!
 eleventyNavigation:
   parent: Button
@@ -10,7 +11,6 @@ eleventyNavigation:
 # Code
 
 <section>
-
 <div class="ds-example">
   <div class="ds-component__buttons-wrapper">
     <sl-button fill="solid" size="md">Default</sl-button>

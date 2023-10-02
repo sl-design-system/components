@@ -1,5 +1,14 @@
 # @sl-design-system/label
 
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies [[`680e9a9`](https://github.com/sl-design-system/components/commit/680e9a97c4332a37b5949ca74eb699a3bc95f448)]:
+  - @sl-design-system/text-input@0.1.8
+  - @sl-design-system/textarea@0.1.8
+  - @sl-design-system/button@0.0.13
+
 ## 0.1.8
 
 ### Patch Changes

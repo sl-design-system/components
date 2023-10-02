@@ -1,6 +1,6 @@
 const { AssetCache } = require("@11ty/eleventy-fetch");
 const { Octokit} = require("octokit");
-import fetch from "node-fetch";
+const { fetch } = require("node-fetch");
 
 module.exports = async function() {
   // Pass in your unique custom cache key

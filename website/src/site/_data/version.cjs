@@ -1,5 +1,6 @@
 const { AssetCache } = require("@11ty/eleventy-fetch");
 const { Octokit} = require("octokit");
+import fetch from "node-fetch";
 
 module.exports = async function() {
   // Pass in your unique custom cache key
@@ -13,7 +14,8 @@ module.exports = async function() {
 
 
     const octokit = new Octokit({
-      auth: process.env.GITHUB_API_TOKEN
+      auth: process.env.GITHUB_API_TOKEN,
+      request: { fetch }
     })
 
 

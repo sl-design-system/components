@@ -8,7 +8,9 @@
   --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
   --_gap: 0.5rem;
   --_max-inline-size: 500px;
-  --_max-inline-size-mobile: 100%;
+  --_max-inline-size-mobile: var(--sl-size-dialog-full); //100%; // TODO: from token - full
+  --_min-inline-size-desktop: var(--sl-size-dialog-min);
+  --_max-inline-size-desktop: var(--sl-size-dialog-max);
   --_spacing: 0.5rem;
   //--_padding-top: var(--sl-space-dialog-mobile-container-padding-top);
   //--_padding-right: var(--sl-space-dialog-mobile-container-inline);
@@ -16,6 +18,7 @@
   //--_padding-left: var(--sl-space-dialog-mobile-container-inline);
   --_padding-block: var(--sl-space-dialog-mobile-body-block);
   --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
+  --_margin-container-inline-desktop: var(--sl-space-dialog-desktop-container-inline);
   --_full-size: 100%;
   // --_backdrop-background: grey;//var(--sl-body-surface-overlay);
   // background: lime;
@@ -24,28 +27,13 @@
   //}
 }
 
-// ::backdrop {
-// --backdrop-background: coral; // TODO: should come from the token --sl-body-surface-overlay
-// }
+// TODO: paddings and margin from tokens
 
 dialog::backdrop {
-  // --backdrop-background: cornflowerblue; // TODO: should come from the token --sl-body-surface-overlay
   --backdrop-background: var(
     --sl-color-select-item-active-foreground
   ); // TODO: should come from the token --sl-body-surface-overlay
-  // background: var(--backdrop-background);
 }
-
-//:root,
-//::backdrop {
-//  background: var(--backdrop-background);
-//  //--backdrop-background: var(
-//  //    --sl-body-surface-overlay);
-//  /*--_backdrop-background: var(
-//    --sl-body-surface-overlay,
-//    rgba(34 34 34 / 0.48)
-//  );*/ //rgba(var(--sl-body-background) / var(--sl-opacity-400));
-//}
 
 :host {
   display: block;
@@ -70,11 +58,13 @@ dialog {
   //max-inline-size: min(90vw, var(--_max-inline-size)); // TODO: change...
   min-inline-size: 40%;
   opacity: 0;
+  overflow: hidden;
   // padding: 1rem;
   //padding: var(--_padding-top) var(--_padding-right) var(--_padding-bottom) var(--_padding-left);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   position: fixed;
+  width: auto;
   //transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
   //--backdrop-background: var(--sl-body-surface-overlay);
   //width: max(40%, calc(100% - 105px));
@@ -117,11 +107,21 @@ slot[name='titles'] {
   flex-direction: column;
 }
 
+slot[name='header-actions'] {
+  display: inline-flex;
+}
+
+slot[name='header-buttons'],
+slot[name='header-buttons']::slotted(*) {
+  display: flex;
+}
+
 slot[name='close'] {
   display: block;
 }
 
-slot[name='close']::slotted(*) {
+slot[name='close']::slotted(*),
+slot[name='header-buttons']::slotted(*) {
   align-self: baseline;
 
   sl-button {
@@ -134,7 +134,6 @@ slot[name='subtitle']::slotted(*) {
 }
 
 slot[name='title']::slotted(*) {
-  // color: #f00;
   font: var(--sl-text-dialog-heading);
 }
 
@@ -142,12 +141,8 @@ slot[name='body']::slotted(*) {
   overflow-y: auto;
 }
 
-slot[name='body'] {
-  overflow-y: auto;
-}
-
-slot[name='body'] slot::slotted(*) {
-  overflow-y: auto;
+.body-wrapper {
+  overflow: auto;
 }
 
 slot[name='footer']::slotted(sl-button-bar) {
@@ -155,7 +150,6 @@ slot[name='footer']::slotted(sl-button-bar) {
   display: grid;
   flex-direction: column;
   flex-grow: 1;
-  /* width: 100%; */
   flex-shrink: 0;
 }
 
@@ -178,12 +172,15 @@ slot[name='footer']::slotted(sl-button-bar) {
     margin: auto;
     //max-inline-size: min(90vw, var(--_max-inline-size)); // TODO: change...
     //max-inline-size: min(calc(100% - (4 * var(--_padding-inline))), 40%); //calc(100% - 2*(var(--_padding-inline))); //min(600px, calc(100% - (var(--_padding-inline) * 2))); // --_max-inline-size-mobile
-    max-inline-size: min(calc(100% - (4 * var(--_padding-inline))), var(--_max-inline-size));
-  } // TODO: calculate 40% of element
+    //max-inline-size: min(calc(100% - (4 * var(--_padding-inline))), var(--_max-inline-size));
 
-  //slot[name='title']::slotted(*) {
-  //  // color: #00f;
-  //}
+    max-inline-size: min(
+      var(--_max-inline-size-desktop),
+      100% - 2 * var(--_margin-container-inline-desktop) - 2 * var(--_padding-inline)
+    ); //min(960px, 100% - 2 * var(--_margin-container-inline-desktop) - 2 * var(--_padding-inline)); //960px;
+    min-inline-size: var(--_min-inline-size-desktop); //400px; // TODO: max and min from tokens
+    width: fit-content;
+  } // TODO: calculate 40% of element
 
   .footer-buttons {
     --_direction: row;
@@ -194,52 +191,23 @@ slot[name='footer']::slotted(sl-button-bar) {
 @media (prefers-reduced-motion: no-preference) {
   dialog[closing='true'] {
     animation: slide-down 0.4s ease-out /*, slide-down-second 0.1s ease-out*/; //forwards;
-    //animation: slide-down 0.4s ease-out 100ms, slide-down 0.4s ease-out; //forwards;
-    //animation: scale-down 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
-    //animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
-    //animation-delay: 500ms;
-    //-webkit-transition: all 0.2s cubic-bezier(0.47, 0, 0.98, -0.01);
-    //transition: all 0.2s cubic-bezier(0.47, 0, 0.98, -0.01);
-    //-webkit-transition: all 0.2s cubic-bezier(0.46, -0.1, 0.98, -0.01);
-    //transition: all 0.2s cubic-bezier(0.46, -0.1, 0.98, -0.01);
 
     &::backdrop {
       animation: backdrop-show 0.6s ease-in-out;
       animation-direction: reverse;
       animation-play-state: running;
       opacity: 1;
-      //animation: /*backdrop-hide*/ show 0.4s ease-out backwards;
-      //animation-direction: reverse;
-      //animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
-      //animation-delay: 200ms;
-      /* stylelint-disable-next-line property-no-vendor-prefix */
-      //-webkit-animation: backdrop-hide 0.5s ease 0.2s normal;
-      // animation: hide-backdrop 0.5s ease 0.2s normal;
-      //animation-delay: 0.1s;
       transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
     }
   }
 
-  //dialog::backdrop {
-  //  animation: backdrop-hide 0.5s ease-out;
-  //}
-
   dialog[open] {
-    //animation: slide-in-up 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
-    //animation: slide-in-up 0.3s forwards;
     animation: slide-in-up 600ms ease-out /*100ms, slide-in-up-second 0.3s ease-out*/;
     transform: translateY(0);
-    //animation-delay: 300ms;
-    //-webkit-transition: all 0.2s cubic-bezier(0.47, 0, 0.98, -0.01);
-    //transition: all 0.2s cubic-bezier(0.47, 0, 0.98, -0.01);
-    //-webkit-transition: all 0.2s cubic-bezier(0.46, -0.1, 0.98, -0.01);
     transition: all 0.2s cubic-bezier(0.46, -0.1, 0.98, -0.01);
 
     &::backdrop {
       animation: backdrop-show 0.6s ease-out; //forwards;
-      //animation-delay: 200ms;
-      /* stylelint-disable-next-line property-no-vendor-prefix */
-      //-webkit-animation: backdrop-show 0.6s ease 0.2s normal;
       transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
     }
   }
@@ -262,7 +230,6 @@ slot[name='footer']::slotted(sl-button-bar) {
   }
 
   80% {
-    //opacity: 75%;
     transform: translateY(-20px);
   }
 
@@ -358,16 +325,6 @@ slot[name='footer']::slotted(sl-button-bar) {
   }
 
   100% {
-    opacity: 0;
-  }
-
-  //to {
-  //  opacity: 0;
-  //}
-}
-
-@keyframes hide-backdrop {
-  to {
     opacity: 0;
   }
 }

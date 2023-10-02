@@ -17,17 +17,24 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
 
 // TODO: with our own icon instead of closing icon in the top right corner
 
+// TODO: story with different closing icon - two possibilities, with close slot or totally other slot and closing event
+
+// buttons-align="start" as parameter
+
 export const API: StoryObj = {
   render: () => {
     return html`
       <sl-button fill="outline" size="md" @click=${onClick}>Show Dialog</sl-button>
-      <sl-dialog>
+      <sl-dialog closing-button>
         <span slot="subtitle">Dialog subtitle</span>
         <span slot="title">Dialog title</span>
-        <sl-button slot="close" fill="ghost" variant="default">
+        <!--<sl-button slot="header-buttons" fill="ghost" variant="default">
           <sl-icon name="face-smile"></sl-icon>
-        </sl-button>
-        <p>
+        </sl-button>-->
+        <!--<sl-button slot="close" fill="ghost" variant="default">
+          <sl-icon name="face-smile"></sl-icon>
+        </sl-button>-->
+        <p style="width: 1000px">
           Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et
           tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.
           Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur

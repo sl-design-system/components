@@ -11,8 +11,6 @@ import { LitElement, adoptStyles, html, nothing, unsafeCSS } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
 
-export type DialogSize = 'sm' | 'md' | 'lg'; // TODO: also xs?
-
 /**
  * A dialog component for displaying modal UI.
  *
@@ -20,6 +18,8 @@ export type DialogSize = 'sm' | 'md' | 'lg'; // TODO: also xs?
  * @slot default - Body content for the dialog
  * @slot footer - Footer content for the dialog
  * @slot header - Header content for the dialog
+ * @slot close - Closing button (placed in header) for the dialog
+ * @slot header-buttons - More space for buttons for the dialog's header
  * @slot title - The title of the dialog
  * @slot subtitle - The subtitle of the dialog
  */
@@ -38,10 +38,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   @query('dialog') dialog?: HTMLDialogElement;
 
-  /** The size of the dialog
-   * @type {'sm' | 'md' | 'lg'} */ // TODO: also xs size?
-  @property({ reflect: true }) size?: DialogSize = 'md';
-
   /** Disables the ability to close the dialog using the Escape key. */
   @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
 
@@ -51,10 +47,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
-  /** Observe the dialog width. */
-  #resizeObserver?: ResizeObserver;
-
-  @property({ reflect: true }) buttonsAlign: ButtonBarAlign = 'end';
+  @property({ reflect: true, attribute: 'buttons-align' }) buttonsAlign: ButtonBarAlign = 'end';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -62,24 +55,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
 
     this.dialog?.setAttribute('closing', 'false');
-
-    // console.log('computed style', window.getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay'));
-
-    // if (this.dialog) {
-    //
-    //   console.log('dialog');
-    //
-    //   this.#resizeObserver = new ResizeObserver(() => this.#setInlineSize());
-    //
-    //   this.#resizeObserver?.observe(this.dialog as Element);
-    // }
   }
 
   override disconnectedCallback(): void {
     this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
-
-    this.#resizeObserver?.unobserve(this.dialog as Element);
-    this.#resizeObserver = undefined;
 
     super.disconnectedCallback();
   }
@@ -90,56 +69,49 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div class="dialog-container">
-        <dialog
-          @cancel=${this.#onCancel}
-          @click=${this.#onClick}
-          @close=${this.#onClose}
-          .role=${this.role}
-          part="dialog"
-        >
-          <!--<sl-button-bar align="end"><sl-button fill="outline" size="md" sl-dialog-close>Close</sl-button></sl-button-bar>-->
-          <slot name="header">
-            <slot name="titles">
-              <slot name="subtitle"></slot>
-              <slot name="title"></slot>
-            </slot>
-            <slot name="close" @click=${this.#onCloseClick}>
-              <!--            <sl-button fill="ghost" variant="default">
-                <sl-icon name="xmark"></sl-icon>
-              </sl-button>-->
-              ${this.closingButton
-                ? html`<sl-button fill="ghost" variant="default">
+      <dialog
+        @cancel=${this.#onCancel}
+        @click=${this.#onClick}
+        @close=${this.#onClose}
+        .role=${this.role}
+        part="dialog"
+      >
+        <!--<sl-button-bar align="end"><sl-button fill="outline" size="md" sl-dialog-close>Close</sl-button></sl-button-bar>-->
+        <slot name="header">
+          <slot name="titles">
+            <slot name="subtitle"></slot>
+            <slot name="title"></slot>
+          </slot>
+          <slot name="header-actions">
+            <slot name="header-buttons"></slot>
+            <!--            <sl-button fill="ghost" variant="default">
+                  <sl-icon name="xmark"></sl-icon>
+                </sl-button>-->
+            ${this.closingButton
+              ? html`<slot name="close" @click=${this.#onCloseClick}>
+                  <sl-button fill="ghost" variant="default">
                     <sl-icon name="xmark"></sl-icon>
-                  </sl-button>`
-                : nothing}
-            </slot>
+                  </sl-button>
+                </slot>`
+              : nothing}
           </slot>
-          <!--<sl-button fill="outline" size="md">Close</sl-button>-->
-          <slot name="body">
+        </slot>
+        <!--<sl-button fill="outline" size="md">Close</sl-button>-->
+        <slot name="body">
+          <div class="body-wrapper">
             <slot></slot>
-          </slot>
-          <slot name="footer">
-            <sl-button-bar class="footer-buttons" .align=${this.buttonsAlign}
-              ><slot name="action"></slot
-            ></sl-button-bar>
-          </slot>
-        </dialog>
-      </div>
+          </div>
+        </slot>
+        <slot name="footer">
+          <sl-button-bar class="footer-buttons" align=${this.buttonsAlign}><slot name="action"></slot></sl-button-bar>
+        </slot>
+      </dialog>
     `;
   }
 
   showModal(): void {
     this.inert = false;
     this.dialog?.showModal();
-
-    if (this.dialog) {
-      console.log('dialog');
-
-      this.#resizeObserver = new ResizeObserver(() => this.#setInlineSize());
-
-      this.#resizeObserver?.observe(this.dialog as Element);
-    }
 
     // Disable scrolling while the dialog is open
     document.documentElement.style.overflow = 'hidden';
@@ -179,6 +151,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   };
 
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
+    console.log('event', event);
     event.preventDefault();
     event.stopPropagation();
 
@@ -188,11 +161,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
 
-    this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
+    if (event.target.matches('sl-button[sl-dialog-close]')) {
+      this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
+    } else {
+      this.dialog?.close();
+    }
 
     this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
-    this.#resizeObserver?.unobserve(this.dialog as Element);
-    this.#resizeObserver = undefined;
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -210,8 +185,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
 
       this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
-      this.#resizeObserver?.unobserve(this.dialog as Element);
-      this.#resizeObserver = undefined;
     } else if (!this.disableClose && this.dialog) {
       const rect = this.dialog.getBoundingClientRect();
 
@@ -231,8 +204,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         this.dialog.close();
 
         this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
-        this.#resizeObserver?.unobserve(this.dialog as Element);
-        this.#resizeObserver = undefined;
       }
     }
   }
@@ -244,21 +215,5 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     document.documentElement.style.overflow = '';
 
     this.inert = true;
-  }
-
-  #setInlineSize(): void {
-    console.log(
-      this.dialog?.scrollWidth,
-      document.documentElement.clientWidth,
-      document.documentElement.clientWidth * 0.4
-    );
-    //this.style.setProperty('--_max-inline-size', `${document.documentElement.clientWidth * 0.4}px`); // calculating 40% as the minimum size
-    this.style.setProperty('--_max-inline-size', `${document.documentElement.clientWidth * 0.6}px`); // TODO: not working
-    // if (this.resize === 'auto') {
-    //   this.textarea.style.height = 'auto';
-    //   this.textarea.style.height = `${this.textarea.scrollHeight}px`;
-    // } else {
-    //   (this.textarea.style.height as string | undefined) = undefined;
-    // }
   }
 }

@@ -55,9 +55,14 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   }
 
   renderSelectionHeader(): TemplateResult {
-    const count = this.grid?.selection.areAllSelected()
-      ? this.grid?.selection.size
-      : this.grid?.selection.selection.size;
+    let count = 0;
+    if (this.grid?.selection.areAllSelected()) {
+      count = this.grid?.selection.size;
+    } else if (this.grid?.selection.isSelectAllToggled()) {
+      count = this.grid?.selection.size - this.grid?.selection.selection.size;
+    } else {
+      count = this.grid?.selection.selection.size ?? 0;
+    }
 
     return html`
       <th part="header active-selection">

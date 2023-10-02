@@ -1,5 +1,13 @@
 # @sanomalearning/slds-bingel
 
+## 0.0.8
+
+### Patch Changes
+
+- [#641](https://github.com/sl-design-system/components/pull/641) [`0bee2dc`](https://github.com/sl-design-system/components/commit/0bee2dcaeff1b0648cfb2da397e7e8046007bea9) - added tokens for tooltip
+
+- [#563](https://github.com/sl-design-system/components/pull/563) [`7fc4823`](https://github.com/sl-design-system/components/commit/7fc482392ab89ca8cb15f0c9254b6758f6171baa) - added tokens for size of the icon in the checkbox
+
 ## 0.0.7
 
 ### Patch Changes

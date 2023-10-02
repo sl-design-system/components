@@ -100,4 +100,8 @@ export class SelectionController<T> {
       return this.#selection.has(item);
     }
   }
+
+  isSelectAllToggled(): boolean {
+    return this.#selectAll;
+  }
 }

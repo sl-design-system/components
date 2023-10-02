@@ -11,6 +11,9 @@
   --sl-space-xs: 4px;
   --sl-space-2xs: 2px;
   --sl-space-none: 0px;
+  --sl-size-dialog-full: 100%;
+  --sl-size-dialog-max: 960px;
+  --sl-size-dialog-min: 400px;
   --sl-size-4xl: 64px;
   --sl-size-3xl: 48px;
   --sl-size-2xl: 32px;

@@ -2183,6 +2183,23 @@
           }
         }
       }
+    },
+    "dialog": {
+      "min": {
+        "value": 400,
+        "type": "sizing",
+        "description": "size.input.md"
+      },
+      "max": {
+        "value": 960,
+        "type": "sizing",
+        "description": "size.input.lg"
+      },
+      "full": {
+        "value": "100%",
+        "type": "sizing",
+        "description": "size.input.lg"
+      }
     }
   },
   "button": {

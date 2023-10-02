@@ -5,18 +5,15 @@ module.exports = async function() {
   // Pass in your unique custom cache key
   // (normally this would be tied to your API URL)
   let asset = new AssetCache("component-version-numbers");
-  
-  console.log('🐙', GITHUB_API_TOKEN);
-
   // check if the cache is fresh within the last day
-  if(asset.isCacheValid("1s")) {
+  if(asset.isCacheValid("1d")) {
     // return cached data.
     return asset.getCachedValue(); // a promise
   }
 
 
     const octokit = new Octokit({
-      auth: GITHUB_API_TOKEN
+      auth: process.env.GITHUB_API_TOKEN
     })
 
 

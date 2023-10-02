@@ -4,6 +4,7 @@ import { AsyncDirective, directive } from 'lit/async-directive.js';
 import { noChange } from 'lit';
 
 export class BindDirective extends AsyncDirective {
+  control: AbstractControl | null = null;
   host: HTMLElement;
 
   constructor(partInfo: PartInfo) {
@@ -12,8 +13,22 @@ export class BindDirective extends AsyncDirective {
     this.host = (partInfo as AttributePart).element;
   }
 
-  render(control: AbstractControl, name?: string): DirectiveResult {
-    console.log('render', control, name, this.host);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  override reconnected(): void {}
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  override disconnected(): void {}
+
+  render(control: AbstractControl | null, name?: string): DirectiveResult {
+    if (control === null) {
+      throw new Error(`Could not find a form control with name: ${name ? `"${name}"` : 'undefined'}`);
+    }
+
+    if (this.control !== control) {
+      this.control = control;
+
+      this.reconnected();
+    }
 
     return noChange;
   }

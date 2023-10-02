@@ -5,6 +5,7 @@ componentType: feedback
 shortDescription: This is a short description of the popover component
 layout: "components/components.njk"
 tags: component
+packageName: popover
 eleventyNavigation:
   parent: Components
   key: Popover

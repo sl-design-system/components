@@ -5,6 +5,7 @@ componentType: feedback
 shortDescription: This is a short description of the tab group component
 layout: "components/components.njk"
 tags: component
+packageName: tab-group
 eleventyNavigation:
   parent: Components
   key: Tab group

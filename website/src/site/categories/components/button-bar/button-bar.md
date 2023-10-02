@@ -5,6 +5,7 @@ componentType: action
 shortDescription: This is a short description of the button bar component
 layout: "components/components.njk"
 tags: component
+packageName: button-bar
 eleventyNavigation:
   parent: Components
   key: Button bar

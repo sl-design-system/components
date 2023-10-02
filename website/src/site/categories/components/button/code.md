@@ -11,8 +11,6 @@ eleventyNavigation:
 # Code
 
 <section>
-
-version {{component-version[packageName]}}
 <div class="ds-example">
   <div class="ds-component__buttons-wrapper">
     <sl-button fill="solid" size="md">Default</sl-button>

@@ -1,17 +1,21 @@
+$md-breakpoint: 600px;
 // @import '@sl-design-system/shared';
 
 :host {
-  --backdrop-background: #a4cdff;
-  --_background: #fff; //var(--sl-body-surface-overlay); // var(--sl-color-dialog-background);
-  --_border: 0;
-  --_border-radius: 3px;
-  --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
-  --_gap: 0.5rem;
+  --_background: var(--sl-color-dialog-background);
+  --_border: var(--sl-border-width-dialog-default) solid var(--sl-color-dialog-border);
+  --_border-radius-mobile: var(--sl-border-radius-dialog-mobile);
+  --_border-radius-desktop: var(--sl-border-radius-dialog-desktop);
+  --_header-gap: var(--sl-space-dialog-gap-header);
+  --_heading-gap: var(--sl-space-dialog-gap-heading);
+  --_body-gap-mobile: var(--sl-space-dialog-mobile-body-gap);
+  --_body-gap-desktop: var(--sl-space-dialog-desktop-body-gap);
+  --_footer-buttons-gap: var(--sl-space-dialog-gap-footer);
   --_max-inline-size: 500px;
-  --_max-inline-size-mobile: var(--sl-size-dialog-full); //100%; // TODO: from token - full
+  --_max-inline-size-mobile: var(--sl-size-dialog-full);
   --_min-inline-size-desktop: var(--sl-size-dialog-min);
   --_max-inline-size-desktop: var(--sl-size-dialog-max);
-  --_spacing: 0.5rem;
+  // --_spacing: 0.5rem;
   //--_padding-top: var(--sl-space-dialog-mobile-container-padding-top);
   //--_padding-right: var(--sl-space-dialog-mobile-container-inline);
   //--_padding-bottom: var(--sl-space-dialog-mobile-container-padding-bottom);
@@ -19,12 +23,18 @@
   --_padding-block: var(--sl-space-dialog-mobile-body-block);
   --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
   --_margin-container-inline-desktop: var(--sl-space-dialog-desktop-container-inline);
-  --_full-size: 100%;
-  // --_backdrop-background: grey;//var(--sl-body-surface-overlay);
-  // background: lime;
-  //&::backdrop {
-  //  --backdrop-background: var(--sl-body-surface-overlay); //rgba(var(--sl-body-background) / var(--sl-opacity-400));
-  //}
+  --_margin-top-container-desktop: var(--sl-space-dialog-desktop-container-padding-top);
+  --_margin-bottom-container-desktop: var(--sl-space-dialog-desktop-container-padding-bottom);
+  --_margin-container-inline-mobile: var(--sl-space-dialog-mobile-container-inline);
+  --_margin-top-container-mobile: var(--sl-space-dialog-mobile-container-padding-top);
+  --_margin-bottom-container-mobile: var(--sl-space-dialog-mobile-container-padding-bottom);
+  --_color: var(--sl-color-dialog-foreground);
+  --_subtitle-font: var(--sl-text-dialog-subheading);
+  //--_subtitle-color: var(--sl-color-dialog-foreground);
+  --_title-font: var(--sl-text-dialog-heading);
+  //--_title-color: var(--sl-color-dialog-foreground);
+  --_body-font: var(--sl-text-body-lg-normal);
+  //--_body-color: var(--sl-color-dialog-foreground);
 }
 
 // TODO: paddings and margin from tokens
@@ -45,15 +55,21 @@ dialog {
   --backdrop-background: #a4cdff;
   background: var(--_background);
   border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
+  border-radius: var(--_border-radius-mobile);
+  //transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
+  //--backdrop-background: var(--sl-body-surface-overlay);
+  //width: max(40%, calc(100% - 105px));
+  color: var(--_color);
   display: flex;
   flex-direction: column;
-  gap: var(--_gap);
   inset: 0;
   margin: auto auto 0; //auto;
-  max-block-size: min(80vh, 100%);
-  max-block-size: min(80dvb, 100%);
+  //max-block-size: min(80vh, 100%);
+  //max-block-size: min(80dvb, 100%);
+  max-block-size: min(
+    100%,
+    100vh - var(--_margin-top-container-mobile) - var(--_margin-bottom-container-mobile) - 2 * var(--_padding-block)
+  );
   max-inline-size: var(--_max-inline-size-mobile);
   //max-inline-size: min(90vw, var(--_max-inline-size)); // TODO: change...
   min-inline-size: 40%;
@@ -65,9 +81,6 @@ dialog {
   padding-inline: var(--_padding-inline);
   position: fixed;
   width: auto;
-  //transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
-  //--backdrop-background: var(--sl-body-surface-overlay);
-  //width: max(40%, calc(100% - 105px));
 
   &::backdrop {
     animation: backdrop-show 0.6s ease-out;
@@ -100,11 +113,13 @@ dialog[open] {
 slot[name='header'] {
   display: flex;
   justify-content: space-between;
+  margin-bottom: var(--_header-gap);
 }
 
 slot[name='titles'] {
   display: flex;
   flex-direction: column;
+  gap: var(--_heading-gap);
 }
 
 slot[name='header-actions'] {
@@ -130,19 +145,29 @@ slot[name='header-buttons']::slotted(*) {
 }
 
 slot[name='subtitle']::slotted(*) {
-  font: var(--sl-text-dialog-subheading);
+  font: var(--_subtitle-font);
+  //color: var(--_subtitle-color);
 }
 
 slot[name='title']::slotted(*) {
-  font: var(--sl-text-dialog-heading);
+  font: var(--_title-font);
+  //color: var(--_title-color);
 }
 
 slot[name='body']::slotted(*) {
+  font: var(--_body-font);
   overflow-y: auto;
+  //color: var(--_body-color);
 }
 
 .body-wrapper {
+  margin-bottom: var(--_body-gap-mobile);
   overflow: auto;
+}
+
+.body-wrapper slot::slotted(*) {
+  font: var(--sl-text-body-lg-normal);
+  //color: var(--sl-color-dialog-foreground);
 }
 
 slot[name='footer']::slotted(sl-button-bar) {
@@ -156,9 +181,10 @@ slot[name='footer']::slotted(sl-button-bar) {
 .footer-buttons {
   --_direction: column-reverse;
   align-items: stretch;
+  gap: var(--_footer-buttons-gap);
 }
 
-@media screen and (min-width: 600px /*$md-breakpoint*/) {
+@media screen and (min-width: $md-breakpoint) {
   :host {
     //--_padding-top: var(--sl-space-dialog-desktop-container-padding-top);
     //--_padding-right: var(--sl-space-dialog-desktop-container-inline);
@@ -169,18 +195,23 @@ slot[name='footer']::slotted(sl-button-bar) {
   }
 
   dialog {
+    border-radius: var(--_border-radius-desktop);
     margin: auto;
-    //max-inline-size: min(90vw, var(--_max-inline-size)); // TODO: change...
-    //max-inline-size: min(calc(100% - (4 * var(--_padding-inline))), 40%); //calc(100% - 2*(var(--_padding-inline))); //min(600px, calc(100% - (var(--_padding-inline) * 2))); // --_max-inline-size-mobile
-    //max-inline-size: min(calc(100% - (4 * var(--_padding-inline))), var(--_max-inline-size));
-
+    max-block-size: min(
+      100% - var(--_margin-top-container-desktop) - var(--_margin-bottom-container-desktop) - 2 * var(--_padding-block)
+    );
     max-inline-size: min(
       var(--_max-inline-size-desktop),
       100% - 2 * var(--_margin-container-inline-desktop) - 2 * var(--_padding-inline)
     ); //min(960px, 100% - 2 * var(--_margin-container-inline-desktop) - 2 * var(--_padding-inline)); //960px;
     min-inline-size: var(--_min-inline-size-desktop); //400px; // TODO: max and min from tokens
     width: fit-content;
-  } // TODO: calculate 40% of element
+  }
+
+  .body-wrapper {
+    margin-bottom: var(--_body-gap-desktop);
+    overflow: auto;
+  }
 
   .footer-buttons {
     --_direction: row;
@@ -213,11 +244,11 @@ slot[name='footer']::slotted(sl-button-bar) {
   }
 }
 
-@keyframes scale-down {
-  to {
-    transform: scale(0.75);
-  }
-}
+//@keyframes scale-down {
+//  to {
+//    transform: scale(0.75);
+//  }
+//}
 
 @keyframes slide-in-up {
   0% {

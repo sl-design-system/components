@@ -55,18 +55,9 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   }
 
   renderSelectionHeader(): TemplateResult {
-    let count = 0;
-    if (this.grid?.selection.areAllSelected()) {
-      count = this.grid?.selection.size;
-    } else if (this.grid?.selection.isSelectAllToggled()) {
-      count = this.grid?.selection.size - this.grid?.selection.selection.size;
-    } else {
-      count = this.grid?.selection.selection.size ?? 0;
-    }
-
     return html`
       <th part="header active-selection">
-        <span class="selection-count">${msg(str`${count} selected`)}</span>
+        <span class="selection-count">${msg(str`${this.getSelectedCount()} selected`)}</span>
         <slot name="selection-header"></slot>
       </th>
     `;
@@ -91,6 +82,22 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
       padding-block: 0;
       padding-inline: 0.5rem;
     `;
+  }
+
+  getSelectedCount(): number {
+    const { selection } = this.grid!,
+      size = this.grid?.dataSource?.filteredItems.length ?? 0;
+
+    let result = 0;
+    if (selection.areAllSelected()) {
+      result = size;
+    } else if (selection.isSelectAllToggled()) {
+      result = size - selection.selection.size;
+    } else {
+      result = selection.selection.size;
+    }
+
+    return result;
   }
 
   #onActiveItemChange({ item, relatedEvent }: GridActiveItemChangeEvent<T>): void {

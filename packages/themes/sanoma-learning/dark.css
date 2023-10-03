@@ -435,6 +435,7 @@
   --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-150));
   --sl-box-shadow-tooltip: [object Object];
+  --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);
   --sl-color-dialog-background: var(--sl-body-background);
   --sl-color-input-field-label-icon-default: var(--sl-body-foreground);

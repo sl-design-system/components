@@ -1507,6 +1507,16 @@
         "type": "borderRadius"
       }
     },
+    "dialog": {
+      "desktop": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      },
+      "mobile": {
+        "value": "{border.radius.none}",
+        "type": "borderRadius"
+      }
+    },
     "select": {
       "listbox": {
         "value": "{border.radius.2xs}",
@@ -1559,6 +1569,12 @@
       "focusring": {
         "default": {
           "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
+      },
+      "dialog": {
+        "default": {
+          "value": "{border.width.none}",
           "type": "borderWidth"
         }
       },

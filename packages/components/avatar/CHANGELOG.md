@@ -1,5 +1,11 @@
 # @sl-design-system/avatar
 
+## 0.1.0
+
+### Minor Changes
+
+- [#572](https://github.com/sl-design-system/components/pull/572) [`5b5825f`](https://github.com/sl-design-system/components/commit/5b5825f7637ab81fc6acb1ca5438ceb547a326b0) - Add improved version of avatar component
+
 ## 0.0.2
 
 ### Patch Changes

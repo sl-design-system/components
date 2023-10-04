@@ -36,7 +36,7 @@ describe('sl-drawer', () => {
     });
     
     it('should open and close the drawer', async () => {
-      const dialog = el.renderRoot.querySelector('dialog')
+      const dialog = el.renderRoot.querySelector('dialog');
       el.showModal();
       await el.updateComplete;
       

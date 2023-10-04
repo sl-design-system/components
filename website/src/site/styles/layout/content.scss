@@ -26,6 +26,35 @@ $transition-timing: 300ms;
   }
 }
 
+*:where(.ds-subpage-section, .ds-tabs__tab-container) {
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: var(--link-hover-color);
+  }
+
+  a:active {
+    color: var(--link-active-color);
+  }
+
+  a:visited {
+    color: var(--link-visited-color);
+  }
+
+  a.header-anchor {
+    color: var(--font-color);
+  }
+}
+
+a.header-anchor {
+  color: inherit;
+  font-size: inherit;
+  text-decoration: none;
+}
+
 .ds-subpage-section {
   display: grid;
   grid-column-gap: 7.2rem;
@@ -53,12 +82,6 @@ $transition-timing: 300ms;
   100% {
     opacity: 1;
   }
-}
-
-.header-anchor {
-  color: var(--font-color);
-  font-size: inherit;
-  text-decoration: none;
 }
 
 img {

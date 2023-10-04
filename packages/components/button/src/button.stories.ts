@@ -125,7 +125,6 @@ export const All: Story = {
                               .fill=${fill}
                               .size=${size}
                               ?disabled=${disabledState}
-                              aria-disabled="true"
                               .variant=${variant}
                               data-mock-state
                               >Label

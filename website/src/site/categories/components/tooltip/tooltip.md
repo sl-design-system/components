@@ -5,6 +5,7 @@ componentType: feedback
 shortDescription: This is a short description of the tooltip component
 layout: "components/components.njk"
 tags: component
+packageName: tooltip
 eleventyNavigation:
   parent: Components
   key: Tooltip

@@ -171,6 +171,10 @@ $transition-timing: 300ms;
   padding: 2.4rem 4rem;
 }
 
+.ds-component__heading-wrapper .ds-badge {
+  float: right;
+}
+
 .ds-component__heading-description {
   font-size: 1.8rem;
   line-height: 2.4rem;

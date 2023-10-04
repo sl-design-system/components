@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.28
+
+### Patch Changes
+
+- [#674](https://github.com/sl-design-system/components/pull/674) [`dac4905`](https://github.com/sl-design-system/components/commit/dac4905063ad4aafb238a515b133b6621901da44) - Fix selection count when filter is active
+
 ## 0.0.27
 
 ### Patch Changes

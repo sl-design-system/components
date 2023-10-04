@@ -183,17 +183,17 @@ slot[name='footer']::slotted(sl-button-bar) {
 
     &::backdrop {
       animation: backdrop-hide 400ms ease-out;
-      animation-play-state: running;
-      transition: opacity 400ms ease-in-out, background 400ms ease-in-out;
+      // animation-play-state: paused;
+      // transition: opacity 400ms ease-in-out, background 400ms ease-in-out;
     }
   }
 
-  dialog[open] {
+  dialog[open]:not([closing='true']) {
     animation: slide-in-up 600ms ease-out;
 
     &::backdrop {
       animation: backdrop-show 600ms ease-out;
-      transition: opacity 600ms ease-in-out, background 600ms ease-in-out;
+      // transition: opacity 600ms ease-in-out, background 600ms ease-in-out;
     }
   }
 }
@@ -255,15 +255,11 @@ slot[name='footer']::slotted(sl-button-bar) {
 }
 
 @keyframes backdrop-hide {
-  0% {
+  from {
     opacity: 1;
   }
 
-  50% {
-    opacity: 0.5;
-  }
-
-  100% {
+  to {
     opacity: 0;
   }
 }

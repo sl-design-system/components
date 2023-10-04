@@ -144,26 +144,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #handleAnimationEnd = (): void => {
     this.dialog?.setAttribute('closing', 'false');
     this.dialog?.close();
+    this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
   };
 
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
-    console.log('event', event);
     event.preventDefault();
     event.stopPropagation();
+    this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
 
     requestAnimationFrame(() => {
       this.dialog?.setAttribute('closing', 'true');
     });
-
-    this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
-
-    if (event.target.matches('sl-button[sl-dialog-close]')) {
-      this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
-    } else {
-      this.dialog?.close();
-    }
-
-    this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {

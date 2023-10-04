@@ -123,13 +123,14 @@ slot[name='body']::slotted(*) {
 }
 
 .body-wrapper {
+  font: var(--sl-text-body-lg-normal);
   margin-bottom: var(--_body-gap-mobile);
   overflow: auto;
 }
 
-.body-wrapper slot::slotted(*) {
-  font: var(--sl-text-body-lg-normal);
-}
+//.body-wrapper slot::slotted(*) {
+//  font: var(--sl-text-body-lg-normal);
+//}
 
 slot[name='footer']::slotted(sl-button-bar) {
   align-items: stretch;

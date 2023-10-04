@@ -142,6 +142,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #handleAnimationEnd = (): void => {
+    console.log('handle animationend');
     this.dialog?.setAttribute('closing', 'false');
     this.dialog?.close();
     this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
@@ -155,19 +156,33 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => {
       this.dialog?.setAttribute('closing', 'true');
     });
+
+    // this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
+    //
+    // if (event.target.matches('sl-button[sl-dialog-close]')) {
+    //   this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
+    // } else {
+    //   this.dialog?.close();
+    // }
+    //
+    // this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
     if (event.target.matches('sl-button[sl-dialog-close]')) {
+      // requestAnimationFrame(() => {
+      //   this.dialog?.setAttribute('closing', 'true');
+      // });
+
+      this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
+
       requestAnimationFrame(() => {
         this.dialog?.setAttribute('closing', 'true');
       });
 
-      this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
-
       this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
 
-      this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
+      // this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
     } else if (!this.disableClose && this.dialog) {
       const rect = this.dialog.getBoundingClientRect();
 
@@ -178,15 +193,25 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         event.clientX < rect.left ||
         event.clientX > rect.right
       ) {
+        // requestAnimationFrame(() => {
+        //   this.dialog?.setAttribute('closing', 'true');
+        // });
+
+        this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
+
         requestAnimationFrame(() => {
           this.dialog?.setAttribute('closing', 'true');
         });
 
-        this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
+        // this.dialog?.addEventListener('animationend', () => {
+        //   console.log('test');
+        //   this.dialog?.setAttribute('closing', 'false');
+        //   this.dialog?.close();
+        // });
 
-        this.dialog.close();
+        // this.dialog.close();
 
-        this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
+        // this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
       }
     }
   }

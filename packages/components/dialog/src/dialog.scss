@@ -1,5 +1,4 @@
 $md-breakpoint: 600px;
-// @import '@sl-design-system/shared';
 
 :host {
   --_background: var(--sl-color-dialog-background);
@@ -15,13 +14,10 @@ $md-breakpoint: 600px;
   --_max-inline-size-mobile: var(--sl-size-dialog-full);
   --_min-inline-size-desktop: var(--sl-size-dialog-min);
   --_max-inline-size-desktop: var(--sl-size-dialog-max);
-  // --_spacing: 0.5rem;
-  //--_padding-top: var(--sl-space-dialog-mobile-container-padding-top);
-  //--_padding-right: var(--sl-space-dialog-mobile-container-inline);
-  //--_padding-bottom: var(--sl-space-dialog-mobile-container-padding-bottom);
-  //--_padding-left: var(--sl-space-dialog-mobile-container-inline);
-  --_padding-block: var(--sl-space-dialog-mobile-body-block);
-  --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
+  --_padding-block-mobile: var(--sl-space-dialog-mobile-body-block);
+  --_padding-inline-mobile: var(--sl-space-dialog-mobile-body-inline);
+  --_padding-block-desktop: var(--sl-space-dialog-desktop-body-block);
+  --_padding-inline-desktop: var(--sl-space-dialog-desktop-body-inline);
   --_margin-container-inline-desktop: var(--sl-space-dialog-desktop-container-inline);
   --_margin-top-container-desktop: var(--sl-space-dialog-desktop-container-padding-top);
   --_margin-bottom-container-desktop: var(--sl-space-dialog-desktop-container-padding-bottom);
@@ -30,14 +26,13 @@ $md-breakpoint: 600px;
   --_margin-bottom-container-mobile: var(--sl-space-dialog-mobile-container-padding-bottom);
   --_color: var(--sl-color-dialog-foreground);
   --_subtitle-font: var(--sl-text-dialog-subheading);
-  //--_subtitle-color: var(--sl-color-dialog-foreground);
   --_title-font: var(--sl-text-dialog-heading);
-  //--_title-color: var(--sl-color-dialog-foreground);
   --_body-font: var(--sl-text-body-lg-normal);
-  //--_body-color: var(--sl-color-dialog-foreground);
 }
 
-// TODO: paddings and margin from tokens
+:host {
+  display: block;
+}
 
 dialog::backdrop {
   --backdrop-background: var(
@@ -45,60 +40,31 @@ dialog::backdrop {
   ); // TODO: should come from the token --sl-body-surface-overlay
 }
 
-:host {
-  display: block;
-}
-
-// TODO: breakpoints from tokens?
-
 dialog {
-  --backdrop-background: #a4cdff;
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius-mobile);
-  //transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
-  //--backdrop-background: var(--sl-body-surface-overlay);
-  //width: max(40%, calc(100% - 105px));
   color: var(--_color);
   display: flex;
   flex-direction: column;
   inset: 0;
-  margin: auto auto 0; //auto;
-  //max-block-size: min(80vh, 100%);
-  //max-block-size: min(80dvb, 100%);
+  margin: auto auto 0;
   max-block-size: min(
     100%,
-    100vh - var(--_margin-top-container-mobile) - var(--_margin-bottom-container-mobile) - 2 * var(--_padding-block)
+    100vh - var(--_margin-top-container-mobile) - var(--_margin-bottom-container-mobile) - 2 *
+    var(--_padding-block-mobile)
   );
   max-inline-size: var(--_max-inline-size-mobile);
-  //max-inline-size: min(90vw, var(--_max-inline-size)); // TODO: change...
-  min-inline-size: 40%;
   opacity: 0;
   overflow: hidden;
-  // padding: 1rem;
-  //padding: var(--_padding-top) var(--_padding-right) var(--_padding-bottom) var(--_padding-left);
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  padding-block: var(--_padding-block-mobile);
+  padding-inline: var(--_padding-inline-mobile);
   position: fixed;
   width: auto;
 
   &::backdrop {
-    animation: backdrop-show 0.6s ease-out;
-    animation-direction: reverse;
-    animation-play-state: running;
     opacity: 0;
-    // background: var(--backdrop-background);
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    //-webkit-backdrop-filter: blur(3px);
-    //backdrop-filter: blur(3px);
-    //transition: backdrop-filter 0.5s ease;
-    // transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-    // transition: background 0.5s ease-in-out;
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    //-webkit-animation: none;
-    //animation: backdrop-hide 0.5s ease-in-out 0.2s forwards;
-    transition-delay: 0.1s;
+    transition: all 0.5s;
   }
 }
 
@@ -146,18 +112,14 @@ slot[name='header-buttons']::slotted(*) {
 
 slot[name='subtitle']::slotted(*) {
   font: var(--_subtitle-font);
-  //color: var(--_subtitle-color);
 }
 
 slot[name='title']::slotted(*) {
   font: var(--_title-font);
-  //color: var(--_title-color);
 }
 
 slot[name='body']::slotted(*) {
   font: var(--_body-font);
-  overflow-y: auto;
-  //color: var(--_body-color);
 }
 
 .body-wrapper {
@@ -167,7 +129,6 @@ slot[name='body']::slotted(*) {
 
 .body-wrapper slot::slotted(*) {
   font: var(--sl-text-body-lg-normal);
-  //color: var(--sl-color-dialog-foreground);
 }
 
 slot[name='footer']::slotted(sl-button-bar) {
@@ -186,25 +147,22 @@ slot[name='footer']::slotted(sl-button-bar) {
 
 @media screen and (min-width: $md-breakpoint) {
   :host {
-    //--_padding-top: var(--sl-space-dialog-desktop-container-padding-top);
-    //--_padding-right: var(--sl-space-dialog-desktop-container-inline);
-    //--_padding-bottom: var(--sl-space-dialog-desktop-container-padding-bottom);
-    //--_padding-left: var(--sl-space-dialog-desktop-container-inline);
-    --_padding-block: var(--sl-space-dialog-desktop-body-block);
-    --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
+    padding-block: var(--_padding-block-desktop);
+    padding-inline: var(--_padding-inline-desktop);
   }
 
   dialog {
     border-radius: var(--_border-radius-desktop);
     margin: auto;
     max-block-size: min(
-      100% - var(--_margin-top-container-desktop) - var(--_margin-bottom-container-desktop) - 2 * var(--_padding-block)
+      100% - var(--_margin-top-container-desktop) - var(--_margin-bottom-container-desktop) - 2 *
+      var(--_padding-block-desktop)
     );
     max-inline-size: min(
       var(--_max-inline-size-desktop),
-      100% - 2 * var(--_margin-container-inline-desktop) - 2 * var(--_padding-inline)
-    ); //min(960px, 100% - 2 * var(--_margin-container-inline-desktop) - 2 * var(--_padding-inline)); //960px;
-    min-inline-size: var(--_min-inline-size-desktop); //400px; // TODO: max and min from tokens
+      100% - 2 * var(--_margin-container-inline-desktop) - 2 * var(--_padding-inline-desktop)
+    );
+    min-inline-size: var(--_min-inline-size-desktop);
     width: fit-content;
   }
 
@@ -221,34 +179,24 @@ slot[name='footer']::slotted(sl-button-bar) {
 
 @media (prefers-reduced-motion: no-preference) {
   dialog[closing='true'] {
-    animation: slide-down 0.4s ease-out /*, slide-down-second 0.1s ease-out*/; //forwards;
+    animation: slide-down 400ms ease-out;
 
     &::backdrop {
-      animation: backdrop-show 0.6s ease-in-out;
-      animation-direction: reverse;
+      animation: backdrop-hide 400ms ease-out;
       animation-play-state: running;
-      opacity: 1;
-      transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
+      transition: opacity 400ms ease-in-out, background 400ms ease-in-out;
     }
   }
 
   dialog[open] {
-    animation: slide-in-up 600ms ease-out /*100ms, slide-in-up-second 0.3s ease-out*/;
-    transform: translateY(0);
-    transition: all 0.2s cubic-bezier(0.46, -0.1, 0.98, -0.01);
+    animation: slide-in-up 600ms ease-out;
 
     &::backdrop {
-      animation: backdrop-show 0.6s ease-out; //forwards;
-      transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
+      animation: backdrop-show 600ms ease-out;
+      transition: opacity 600ms ease-in-out, background 600ms ease-in-out;
     }
   }
 }
-
-//@keyframes scale-down {
-//  to {
-//    transform: scale(0.75);
-//  }
-//}
 
 @keyframes slide-in-up {
   0% {
@@ -275,28 +223,6 @@ slot[name='footer']::slotted(sl-button-bar) {
   }
 }
 
-//@keyframes slide-in-up-second {
-//  //0% {
-//  //  opacity: 0;
-//  //  transform: translateY(80px);
-//  //}
-//
-//  0% {
-//    opacity: 0.75;
-//    transform: translateY(0);
-//  }
-//
-//  //50% {
-//  //  opacity: 1;
-//  //  transform: translateY(90px);
-//  //}
-//
-//  100% {
-//    opacity: 1;
-//    transform: translateY(80px);
-//  }
-//}
-
 @keyframes slide-down {
   0% {
     opacity: 1;
@@ -304,29 +230,11 @@ slot[name='footer']::slotted(sl-button-bar) {
   }
 
   50% {
-    opacity: 0.75;
+    opacity: 0.5;
     transform: translateY(80px);
   }
 
   100% {
-    opacity: 0;
-    transform: translateY(80px);
-  }
-}
-
-@keyframes slide-down-second {
-  //0% {
-  //  opacity: 100%;
-  //  transform: translateY(0);
-  //}
-
-  //0% {
-  //  opacity: 75%;
-  //  transform: translateY(0);
-  //}
-
-  /*100%*/
-  to {
     opacity: 0;
     transform: translateY(80px);
   }
@@ -348,11 +256,11 @@ slot[name='footer']::slotted(sl-button-bar) {
 
 @keyframes backdrop-hide {
   0% {
-    opacity: 100%;
+    opacity: 1;
   }
 
   50% {
-    opacity: 50%; //75%;
+    opacity: 0.5;
   }
 
   100% {

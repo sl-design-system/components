@@ -36,18 +36,22 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
+  /** @private */
   @query('dialog') dialog?: HTMLDialogElement;
 
   /** Disables the ability to close the dialog using the Escape key. */
   @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
 
-  /** Determines whether closing button should be shown in the top right corner. */
+  /** Determines whether closing button (default one) should be shown in the top right corner. */
   @property({ type: Boolean, attribute: 'closing-button' }) closingButton?: boolean;
 
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
-  @property({ reflect: true, attribute: 'buttons-align' }) buttonsAlign: ButtonBarAlign = 'end';
+  /** Alignment of the action buttons in the dialog footer
+   * @type {'start' | 'end'} */
+  @property({ reflect: true, attribute: 'buttons-align' }) buttonsAlign: Extract<ButtonBarAlign, 'start' | 'end'> =
+    'end';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -63,8 +67,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  // TODO: option with no close button
-
   // TODO: add aria
 
   override render(): TemplateResult {
@@ -76,7 +78,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         .role=${this.role}
         part="dialog"
       >
-        <!--<sl-button-bar align="end"><sl-button fill="outline" size="md" sl-dialog-close>Close</sl-button></sl-button-bar>-->
         <slot name="header">
           <slot name="titles">
             <slot name="subtitle"></slot>
@@ -84,9 +85,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           </slot>
           <slot name="header-actions">
             <slot name="header-buttons"></slot>
-            <!--            <sl-button fill="ghost" variant="default">
-                  <sl-icon name="xmark"></sl-icon>
-                </sl-button>-->
             ${this.closingButton
               ? html`<slot name="close" @click=${this.#onCloseClick}>
                   <sl-button fill="ghost" variant="default">
@@ -96,7 +94,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
               : nothing}
           </slot>
         </slot>
-        <!--<sl-button fill="outline" size="md">Close</sl-button>-->
         <slot name="body">
           <div class="body-wrapper">
             <slot></slot>
@@ -134,7 +131,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   close(): void {
     if (this.dialog?.open) {
-      // this.dialog?.setAttribute('closing', 'true');
       this.dialog?.close();
     }
   }
@@ -171,11 +167,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
-    console.log('111 onclick event target.', event.target, event.target.matches('sl-button[sl-dialog-close]'));
-
     if (event.target.matches('sl-button[sl-dialog-close]')) {
-      console.log('onclick event target', event.target, event.target.matches('sl-button[sl-dialog-close]'));
-
       requestAnimationFrame(() => {
         this.dialog?.setAttribute('closing', 'true');
       });

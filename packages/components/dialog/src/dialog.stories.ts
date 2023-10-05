@@ -2,22 +2,14 @@ import type { Dialog } from './dialog.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
+import { faCircleXmark } from '@fortawesome/pro-regular-svg-icons';
+import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
 
 const onClick = (event: Event & { target: HTMLElement }): void => {
   (event.target.nextElementSibling as Dialog).showModal();
 };
-
-// TODO: buttonsAlign as option
-
-// TODO: with our own icon instead of closing icon in the top right corner
-
-// TODO: story with different closing icon - two possibilities, with close slot or totally other slot and closing event
-
-// TODO: buttons-align="start" as parameter
-
-// TODO: story with different buttons for closing
 
 export default {
   title: 'Dialog',
@@ -45,42 +37,7 @@ export const API: StoryObj = {
         <span slot="subtitle">${subtitle}</span>
         <span slot="title">${title}</span>
         ${bodyContent}
-        <!--<sl-button slot="header-buttons" fill="ghost" variant="default">
-          <sl-icon name="face-smile"></sl-icon>
-        </sl-button>-->
-        <!--<sl-button slot="close" fill="ghost" variant="default">
-          <sl-icon name="face-smile"></sl-icon>
-        </sl-button>-->
-        <!--        <p>
-          Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et
-          tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum.
-          Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur
-          anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor
-          magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do. Dolore nulla ad magna nostrud cillum
-          veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et tempor veniam eu fugiat fugiat. Fugiat
-          mollit sint labore adipisicing do mollit eu dolore nulla enim cillum. Pariatur amet occaecat dolor consectetur
-          aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur anim sunt voluptate dolor aute non enim
-          aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor magna duis. Voluptate tempor amet
-          cupidatat officia labore ipsum ad do. Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim
-          Lorem. Sint fugiat id deserunt magna et tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing
-          do mollit eu dolore nulla enim cillum. Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip
-          irure cupidatat. Reprehenderit consectetur anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure
-          ullamco aliquip minim labore occaecat dolor magna duis. Voluptate tempor amet cupidatat officia labore ipsum
-          ad do. Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt
-          magna et tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim
-          cillum. Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit
-          consectetur anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore
-          occaecat dolor magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do. Dolore nulla ad magna
-          nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et tempor veniam eu fugiat
-          fugiat. Fugiat mollit sint labore adipisicing do mollit eu dolore nulla enim cillum. Pariatur amet occaecat
-          dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur anim sunt voluptate
-          dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor magna duis.
-          Voluptate tempor amet cupidatat officia labore ipsum ad do. Dolore nulla ad magna nostrud cillum veniam sint
-          et consectetur anim Lorem. Sint fugiat id deserunt magna et tempor veniam eu fugiat fugiat. Fugiat mollit sint
-          labore adipisicing do mollit eu dolore nulla enim cillum. Pariatur amet occaecat dolor consectetur aliqua
-          mollit est aliquip irure cupidatat.
-        </p>-->
-        <sl-button slot="action" sl-dialog-close>Close</sl-button>
+        <sl-button slot="action" sl-dialog-close autofocus>Close</sl-button>
         <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close autofocus>Action</sl-button>
       </sl-dialog>
     `;
@@ -107,7 +64,26 @@ export const ScrollingBody: StoryObj = {
     </style>
     <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
     <sl-dialog closing-button>
+      <span slot="subtitle">Dialog subtitle example</span>
+      <span slot="title">Dialog title example</span>
       <div>You cannot scroll the body once the dialog is open.</div>
     </sl-dialog>
   `
+};
+
+export const CustomClosingIcon: StoryObj = {
+  render: () => {
+    Icon.registerIcon(faCircleXmark);
+
+    return html`
+      <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
+      <sl-dialog closing-button>
+        <span slot="title">Custom icon dialog</span>
+        <sl-button slot="close" fill="ghost" variant="default">
+          <sl-icon name="far-circle-xmark"></sl-icon>
+        </sl-button>
+        <div>Dialog with custom closing icon</div>
+      </sl-dialog>
+    `;
+  }
 };

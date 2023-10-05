@@ -62,26 +62,26 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
-    this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
+    this.dialog?.removeEventListener('animationend', event => this.#handleAnimationEnd(event));
 
     super.disconnectedCallback();
   }
-
-  // TODO: add aria
 
   override render(): TemplateResult {
     return html`
       <dialog
         @cancel=${this.#onCancel}
         @click=${this.#onClick}
+        @keydown=${this.#onKeydown}
         @close=${this.#onClose}
         .role=${this.role}
+        aria-labelledby="titleId"
         part="dialog"
       >
         <slot name="header">
           <slot name="titles">
             <slot name="subtitle"></slot>
-            <slot name="title"></slot>
+            <slot name="title" id="titleId"></slot>
           </slot>
           <slot name="header-actions">
             <slot name="header-buttons"></slot>
@@ -115,10 +115,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.dialog?.setAttribute('closing', 'false');
 
+    /** Workaround for the backdrop background */
     const backdrop: CSSResult = unsafeCSS(
       `::backdrop {
         background-color: ${window.getComputedStyle(document.body).getPropertyValue('--sl-body-surface-overlay')};
-        transition: opacity 0.5s ease-in-out, background 0.5s ease-in-out;
       }
     `
     );
@@ -141,48 +141,38 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #handleAnimationEnd = (): void => {
-    console.log('handle animationend');
-    this.dialog?.setAttribute('closing', 'false');
-    this.dialog?.close();
-    this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
+  #handleAnimationEnd = (event: AnimationEvent, target?: HTMLElement): void => {
+    if (event.animationName === 'backdrop-hide') {
+      this.dialog?.setAttribute('closing', 'false');
+
+      if (target?.matches('sl-button[sl-dialog-close]')) {
+        this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
+      } else {
+        this.dialog?.close();
+      }
+      this.dialog?.removeEventListener('animationend', event => this.#handleAnimationEnd(event, target));
+    }
   };
 
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
     event.preventDefault();
     event.stopPropagation();
-    this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
+    const clickTarget = event.target;
+    this.dialog?.addEventListener('animationend', event => this.#handleAnimationEnd(event, clickTarget));
 
     requestAnimationFrame(() => {
       this.dialog?.setAttribute('closing', 'true');
     });
-
-    // this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
-    //
-    // if (event.target.matches('sl-button[sl-dialog-close]')) {
-    //   this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
-    // } else {
-    //   this.dialog?.close();
-    // }
-    //
-    // this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
+    const clickTarget = event.target;
     if (event.target.matches('sl-button[sl-dialog-close]')) {
-      // requestAnimationFrame(() => {
-      //   this.dialog?.setAttribute('closing', 'true');
-      // });
-
-      this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
+      this.dialog?.addEventListener('animationend', event => this.#handleAnimationEnd(event, clickTarget));
 
       requestAnimationFrame(() => {
         this.dialog?.setAttribute('closing', 'true');
       });
-
-      this.dialog?.close(event.target.getAttribute('sl-dialog-close') || '');
-
-      // this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
     } else if (!this.disableClose && this.dialog) {
       const rect = this.dialog.getBoundingClientRect();
 
@@ -193,26 +183,24 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         event.clientX < rect.left ||
         event.clientX > rect.right
       ) {
-        // requestAnimationFrame(() => {
-        //   this.dialog?.setAttribute('closing', 'true');
-        // });
-
-        this.dialog?.addEventListener('animationend', this.#handleAnimationEnd);
+        this.dialog?.addEventListener('animationend', event => this.#handleAnimationEnd(event, clickTarget));
 
         requestAnimationFrame(() => {
           this.dialog?.setAttribute('closing', 'true');
         });
-
-        // this.dialog?.addEventListener('animationend', () => {
-        //   console.log('test');
-        //   this.dialog?.setAttribute('closing', 'false');
-        //   this.dialog?.close();
-        // });
-
-        // this.dialog.close();
-
-        // this.dialog?.removeEventListener('animationend', this.#handleAnimationEnd);
       }
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.code === 'Escape') {
+      this.dialog?.addEventListener('animationend', event =>
+        this.#handleAnimationEnd(event, event.target as HTMLElement)
+      );
+
+      requestAnimationFrame(() => {
+        this.dialog?.setAttribute('closing', 'true');
+      });
     }
   }
 

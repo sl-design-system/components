@@ -2424,6 +2424,17 @@
       }
     }
   },
+  "conceptual": {
+    "border": {
+      "width": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "Conceptual Theme Border Token"
+        }
+      }
+    }
+  },
   "opacity": {
     "100": {
       "value": 0.04,

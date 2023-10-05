@@ -57,7 +57,7 @@
   --sl-color-input-text-field-default-default-icon: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-input-text-field-default-default-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-input-text-field-default-default-background: rgb(var(--sl-color-palette-transparent-base));
-  --sl-color-input-switch-default-checked-disabled-background: rgb(var(--sl-color-palette-success-600));
+  --sl-color-input-switch-default-checked-disabled-background: rgb(var(--sl-color-palette-success-700));
   --sl-color-input-switch-default-checked-focus-handle: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-switch-default-checked-focus-background: rgb(var(--sl-color-palette-success-400));
   --sl-color-input-switch-default-checked-active-handle: rgb(var(--sl-color-palette-white-base));
@@ -67,13 +67,13 @@
   --sl-color-input-switch-default-checked-default-handle: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-switch-default-checked-default-background: rgb(var(--sl-color-palette-success-400));
   --sl-color-input-switch-default-unchecked-disabled-handle: rgb(var(--sl-color-palette-neutral-150));
-  --sl-color-input-switch-default-unchecked-disabled-icon: rgb(var(--sl-color-palette-neutral-700));
+  --sl-color-input-switch-default-unchecked-disabled-icon: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-switch-default-unchecked-disabled-background: rgb(var(--sl-color-palette-neutral-700));
   --sl-color-input-switch-default-unchecked-focus-handle: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-switch-default-unchecked-active-handle: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-switch-default-unchecked-active-background: rgb(var(--sl-color-palette-accent-400));
+  --sl-color-input-switch-default-unchecked-active-background: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-input-switch-default-unchecked-hover-handle: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-switch-default-unchecked-hover-background: rgb(var(--sl-color-palette-accent-300));
+  --sl-color-input-switch-default-unchecked-hover-background: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-input-switch-default-unchecked-default-handle: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-switch-default-unchecked-default-icon: rgb(var(--sl-color-palette-black-base));
   --sl-color-input-switch-default-unchecked-default-background: rgb(var(--sl-color-palette-neutral-300));

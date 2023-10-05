@@ -2958,7 +2958,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.accent.300}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2984,7 +2984,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.neutral.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true

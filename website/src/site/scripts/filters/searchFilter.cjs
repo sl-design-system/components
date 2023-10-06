@@ -8,11 +8,16 @@ module.exports = function (collection) {
   });
 
   collection.forEach(page => {
-    index.addDoc({
-      id: page.url,
-      title: page.template.frontMatter.data.title,
-      content: page.templateContent.replace(/<[^>]+>/g, '')
-    });
+    if(page.template._frontMatter){
+      index.addDoc({
+        id: page.url,
+        title: page.template._frontMatter?.data.title,
+        content: page.template._frontMatter.content?.replace(/<[^>]+>/g, '')
+      });
+    } else {
+      console.warn(`⛔️ "${page.template.inputPath}" is empty, are you sure this isn't an error?`);
+    }
+
   });
 
   return index.toJSON();

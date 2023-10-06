@@ -77,14 +77,12 @@ module.exports = function(eleventyConfig) {
     return weight;
   });
 
-  eleventyConfig.addLiquidFilter('svgImage', function(src) {
-    // TODO: needs to be rewritten so it returns the actual svg code, not an image tag
-    // let metadata = Image(`./src/site/assets/images/${src}`, {
-    //   formats: ['svg'],
-    //   dryRun: true,
-    // })
-    // return metadata.svg[0].buffer.toString();
-    return `<img src="/assets/images/${src}">`;
+  eleventyConfig.addLiquidFilter('svgImage', async function(src) {
+    let metadata = await Image(`./src/site/assets/images/${src}`, {
+      formats: ['svg'],
+      dryRun: true
+    })
+    return metadata.svg[0].buffer.toString();
   });
 
   eleventyConfig.addCollection('content', collection => {

@@ -10,7 +10,7 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-button fill="solid" variant="primary" size="md">Button</sl-button>
+<sl-button fill="solid" variant="primary" size="md"> Button</sl-button>
 
 </div>
 

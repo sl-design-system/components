@@ -327,6 +327,7 @@
     "wireit": "^0.9.5"
   },
   "dependencies": {
+    "@11ty/eleventy-img": "^3.1.1",
     "@11ty/is-land": "^3.0.0",
     "elasticlunr": "^0.9.5",
     "lit": "^2.7.5",

@@ -2770,6 +2770,15 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getSelectedCount",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "grid",
               "type": {
@@ -3170,6 +3179,15 @@
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getSelectedCount",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
               }
             },
             {

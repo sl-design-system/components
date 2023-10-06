@@ -5,7 +5,6 @@ eleventyNavigation:
   parent: Button
   key: ButtonUsage
 ---
-
 # Usage
 <section>
 
@@ -171,7 +170,7 @@ Take a look at our button options designed for different user needs and situatio
 ## Types vs Variants
 This table provides guidance on when to use each button variant (Solid, Outline, Ghost, and Link) for different button types, considering their specific characteristics and purposes in user interface design.
 
-<img src="https://placehold.co/600x400">
+{{ 'components/button/sl-button-importance-graph.svg' | svgImage }}
 
 |Variants|Solid |Outline |Ghost |Link |
 |-|-|-|-|-|

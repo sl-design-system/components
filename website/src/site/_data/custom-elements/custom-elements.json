@@ -64,6 +64,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/button/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button",
+          "declaration": {
+            "name": "Button",
+            "module": "/packages/components/button/src/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/checkbox/index.ts",
       "declarations": [],
       "exports": [
@@ -110,36 +140,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button",
-          "declaration": {
-            "name": "Button",
-            "module": "/packages/components/button/src/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/dialog/index.ts",
       "declarations": [],
       "exports": [
@@ -170,36 +170,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/editor/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/editor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/editor/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-editor",
-          "declaration": {
-            "name": "Editor",
-            "module": "/packages/components/editor/src/editor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/drawer/index.ts",
       "declarations": [],
       "exports": [
@@ -224,6 +194,36 @@
           "declaration": {
             "name": "Drawer",
             "module": "/packages/components/drawer/src/drawer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/editor/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/editor.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/editor/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-editor",
+          "declaration": {
+            "name": "Editor",
+            "module": "/packages/components/editor/src/editor.js"
           }
         }
       ]
@@ -554,36 +554,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/skeleton/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/skeleton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-skeleton",
-          "declaration": {
-            "name": "Skeleton",
-            "module": "/packages/components/skeleton/src/skeleton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/shared/index.ts",
       "declarations": [],
       "exports": [
@@ -679,7 +649,7 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/switch/index.ts",
+      "path": "../packages/components/skeleton/index.ts",
       "declarations": [],
       "exports": [
         {
@@ -687,22 +657,22 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/switch.js"
+            "package": "./src/skeleton.js"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/switch/register.ts",
+      "path": "../packages/components/skeleton/register.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "custom-element-definition",
-          "name": "sl-switch",
+          "name": "sl-skeleton",
           "declaration": {
-            "name": "Switch",
-            "module": "/packages/components/switch/src/switch.js"
+            "name": "Skeleton",
+            "module": "/packages/components/skeleton/src/skeleton.js"
           }
         }
       ]
@@ -765,6 +735,36 @@
           "declaration": {
             "name": "TabPanel",
             "module": "/packages/components/tabs/src/tab-panel.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/switch/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/switch.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/switch/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-switch",
+          "declaration": {
+            "name": "Switch",
+            "module": "/packages/components/switch/src/switch.js"
           }
         }
       ]
@@ -863,99 +863,6 @@
           "declaration": {
             "name": "Tooltip",
             "module": "/packages/components/tooltip/src/tooltip.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
-          "name": "ButtonBar",
-          "slots": [
-            {
-              "description": "Buttons to be grouped in the bar",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "attribute": "align",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "attribute": "reverse",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "fieldName": "align"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "fieldName": "reverse"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button-bar",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ButtonBar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "../packages/components/button-bar/src/button-bar.ts"
           }
         }
       ]
@@ -1168,6 +1075,396 @@
           "declaration": {
             "name": "Avatar",
             "module": "../packages/components/avatar/src/avatar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
+          "name": "ButtonBar",
+          "slots": [
+            {
+              "description": "Buttons to be grouped in the bar",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "attribute": "reverse",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "fieldName": "align"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button-bar",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ButtonBar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "../packages/components/button-bar/src/button-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/src/button.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button/src/button.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button/src/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
+          "name": "Button",
+          "slots": [
+            {
+              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "attribute": "fill",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "default": "'button'",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "fieldName": "fill"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "fieldName": "size"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "default": "'button'",
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
+              "fieldName": "type"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Button",
+          "declaration": {
+            "name": "Button",
+            "module": "../packages/components/button/src/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/dialog/src/dialog.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/dialog/src/dialog.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/dialog/src/dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A dialog component for displaying modal UI.",
+          "name": "Dialog",
+          "slots": [
+            {
+              "description": "Area where action buttons are placed",
+              "name": "action"
+            },
+            {
+              "description": "Body content for the dialog",
+              "name": "default"
+            },
+            {
+              "description": "Footer content for the dialog",
+              "name": "footer"
+            },
+            {
+              "description": "Header content for the dialog",
+              "name": "header"
+            },
+            {
+              "description": "The title of the dialog",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableClose",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "attribute": "disable-close"
+            },
+            {
+              "kind": "field",
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "attribute": "role"
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disable-close",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "fieldName": "disableClose"
+            },
+            {
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "fieldName": "role"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-dialog",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Dialog",
+          "declaration": {
+            "name": "Dialog",
+            "module": "../packages/components/dialog/src/dialog.ts"
           }
         }
       ]
@@ -1896,181 +2193,52 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button/src/button.scss.ts",
+      "path": "../packages/components/drawer/src/drawer.scss.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "../packages/components/button/src/button.scss.ts"
+            "module": "../packages/components/drawer/src/drawer.scss.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button/src/button.ts",
+      "path": "../packages/components/drawer/src/drawer.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
-          "name": "Button",
+          "description": "A drawer component for displaying UI at the side of the screen.",
+          "name": "Drawer",
           "slots": [
             {
-              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "fill",
-              "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
-              },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "attribute": "fill",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "type",
-              "type": {
-                "text": "'button' | 'reset' | 'submit'"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "attribute": "variant",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "fill",
-              "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
-              },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "fieldName": "fill"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "fieldName": "size"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "'button' | 'reset' | 'submit'"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "fieldName": "type"
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "fieldName": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Button",
-          "declaration": {
-            "name": "Button",
-            "module": "../packages/components/button/src/button.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/dialog/src/dialog.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/dialog/src/dialog.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/dialog/src/dialog.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A dialog component for displaying modal UI.",
-          "name": "Dialog",
-          "slots": [
-            {
-              "description": "Area where action buttons are placed",
-              "name": "action"
-            },
-            {
-              "description": "Body content for the dialog",
+              "description": "Body content for the drawer",
               "name": "default"
             },
             {
-              "description": "Footer content for the dialog",
-              "name": "footer"
-            },
-            {
-              "description": "Header content for the dialog",
+              "description": "Header content for the drawer",
               "name": "header"
             },
             {
-              "description": "The title of the dialog",
+              "description": "The title of the drawer",
               "name": "title"
             }
           ],
           "members": [
+            {
+              "kind": "field",
+              "name": "attachment",
+              "type": {
+                "text": "DrawerAttachment"
+              },
+              "default": "'right'",
+              "description": "The side of the screen where the drawer is attached",
+              "attribute": "attachment",
+              "reflects": true
+            },
             {
               "kind": "method",
               "name": "close",
@@ -2079,6 +2247,16 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "field",
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'sm'",
+              "description": "The size of the button",
+              "attribute": "closeButtonSize"
             },
             {
               "kind": "field",
@@ -2096,16 +2274,6 @@
               "default": "false",
               "description": "Disables the ability to close the dialog using the Escape key.",
               "attribute": "disable-close"
-            },
-            {
-              "kind": "field",
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "attribute": "role"
             },
             {
               "kind": "method",
@@ -2128,13 +2296,22 @@
               "fieldName": "disableClose"
             },
             {
-              "name": "role",
+              "name": "attachment",
               "type": {
-                "text": "'dialog' | 'alertdialog'"
+                "text": "DrawerAttachment"
               },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "fieldName": "role"
+              "default": "'right'",
+              "description": "The side of the screen where the drawer is attached",
+              "fieldName": "attachment"
+            },
+            {
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'sm'",
+              "description": "The size of the button",
+              "fieldName": "closeButtonSize"
             }
           ],
           "mixins": [
@@ -2147,7 +2324,7 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-dialog",
+          "tagName": "sl-drawer",
           "customElement": true,
           "methods": [
             {
@@ -2183,10 +2360,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "Dialog",
+          "name": "Drawer",
           "declaration": {
-            "name": "Dialog",
-            "module": "../packages/components/dialog/src/dialog.ts"
+            "name": "Drawer",
+            "module": "../packages/components/drawer/src/drawer.ts"
           }
         }
       ]
@@ -3445,183 +3622,6 @@
           "declaration": {
             "name": "getHTML",
             "module": "../packages/components/editor/src/utils.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/drawer/src/drawer.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/drawer/src/drawer.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/drawer/src/drawer.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A drawer component for displaying UI at the side of the screen.",
-          "name": "Drawer",
-          "slots": [
-            {
-              "description": "Body content for the drawer",
-              "name": "default"
-            },
-            {
-              "description": "Header content for the drawer",
-              "name": "header"
-            },
-            {
-              "description": "The title of the drawer",
-              "name": "title"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "attachment",
-              "type": {
-                "text": "DrawerAttachment"
-              },
-              "default": "'right'",
-              "description": "The side of the screen where the drawer is attached",
-              "attribute": "attachment",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "closeButtonSize",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'sm'",
-              "description": "The size of the button",
-              "attribute": "closeButtonSize"
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disableClose",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
-            },
-            {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disable-close",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "attachment",
-              "type": {
-                "text": "DrawerAttachment"
-              },
-              "default": "'right'",
-              "description": "The side of the screen where the drawer is attached",
-              "fieldName": "attachment"
-            },
-            {
-              "name": "closeButtonSize",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'sm'",
-              "description": "The size of the button",
-              "fieldName": "closeButtonSize"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-drawer",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Drawer",
-          "declaration": {
-            "name": "Drawer",
-            "module": "../packages/components/drawer/src/drawer.ts"
           }
         }
       ]
@@ -5788,6 +5788,15 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getSelectedCount",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "grid",
               "type": {
@@ -6188,6 +6197,15 @@
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getSelectedCount",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
               }
             },
             {
@@ -7323,6 +7341,78 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/popover/src/popover.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/popover/src/popover.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/popover/src/popover.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Base popover web component.",
+          "name": "Popover",
+          "cssParts": [
+            {
+              "description": "The container for the popover",
+              "name": "container"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "default": "'top'",
+              "description": "The position of this popover relative to its anchor.",
+              "attribute": "position"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "default": "'top'",
+              "description": "The position of this popover relative to its anchor.",
+              "fieldName": "position"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-popover",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Popover",
+          "declaration": {
+            "name": "Popover",
+            "module": "../packages/components/popover/src/popover.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/radio-group/src/radio-group.scss.ts",
       "declarations": [],
       "exports": [
@@ -8216,139 +8306,500 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/popover/src/popover.scss.ts",
+      "path": "../packages/components/shared/src/css.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "firstFocusableSelector",
+          "type": {
+            "text": "string"
+          },
+          "default": "'button:not([tabindex=\"-1\"]), [href]:not([tabindex=\"-1\"]), input:not([tabindex=\"-1\"]), select:not([tabindex=\"-1\"]), textarea:not([tabindex=\"-1\"]), [tabindex]:not([tabindex=\"-1\"]), [focusable]:not([tabindex=\"-1\"])'"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "firstFocusableSelector",
+          "declaration": {
+            "name": "firstFocusableSelector",
+            "module": "../packages/components/shared/src/css.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/path.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getNameByPath",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "path",
+              "optional": true,
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getStringByPath",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "object",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "name": "path",
+              "default": "''"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getValueByPath",
+          "return": {
+            "type": {
+              "text": "unknown"
+            }
+          },
+          "parameters": [
+            {
+              "name": "object",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "name": "path",
+              "default": "''"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getNameByPath",
+          "declaration": {
+            "name": "getNameByPath",
+            "module": "../packages/components/shared/src/path.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getStringByPath",
+          "declaration": {
+            "name": "getStringByPath",
+            "module": "../packages/components/shared/src/path.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getValueByPath",
+          "declaration": {
+            "name": "getValueByPath",
+            "module": "../packages/components/shared/src/path.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/popover.scss.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "../packages/components/popover/src/popover.scss.ts"
+            "module": "../packages/components/shared/src/popover.scss.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/popover/src/popover.ts",
+      "path": "../packages/components/shared/src/popover.ts",
       "declarations": [
         {
-          "kind": "class",
-          "description": "Base popover web component.",
-          "name": "Popover",
-          "cssParts": [
-            {
-              "description": "The container for the popover",
-              "name": "container"
+          "kind": "function",
+          "name": "isPopoverOpen",
+          "return": {
+            "type": {
+              "text": "boolean"
             }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition | undefined"
-              },
-              "default": "'top'",
-              "description": "The position of this popover relative to its anchor.",
-              "attribute": "position"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition | undefined"
-              },
-              "default": "'top'",
-              "description": "The position of this popover relative to its anchor.",
-              "fieldName": "position"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
           },
-          "tagName": "sl-popover",
-          "customElement": true,
-          "methods": [],
-          "fields": []
+          "parameters": [
+            {
+              "name": "element",
+              "optional": true,
+              "type": {
+                "text": "HTMLElement"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "positionPopover",
+          "return": {
+            "type": {
+              "text": "(() => void)"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "anchor",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "PositionPopoverOptions"
+              }
+            }
+          ]
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "Popover",
+          "name": "popoverPolyfillStyles",
           "declaration": {
-            "name": "Popover",
-            "module": "../packages/components/popover/src/popover.ts"
+            "name": "popoverPolyfillStyles",
+            "module": "../packages/components/shared/src/popover.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPopoverOpen",
+          "declaration": {
+            "name": "isPopoverOpen",
+            "module": "../packages/components/shared/src/popover.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "positionPopover",
+          "declaration": {
+            "name": "positionPopover",
+            "module": "../packages/components/shared/src/popover.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
+      "path": "../packages/components/shared/src/string.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "camelize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to camelize."
+            }
+          ],
+          "description": "Returns the lowerCamelCase form of a string.\n\n```javascript\ncamelize('innerHTML')          // 'innerHTML'\ncamelize('action_name')        // 'actionName'\ncamelize('css-class-name')     // 'cssClassName'\ncamelize('object.path.name')   // 'objectPathName'\ncamelize('my favorite items')  // 'myFavoriteItems'\ncamelize('My Favorite Items')  // 'myFavoriteItems'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "capitalize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to capitalize."
+            }
+          ],
+          "description": "Returns the Capitalized form of a string\n\n```javascript\ncapitalize('innerHTML')         // 'InnerHTML'\ncapitalize('action_name')       // 'Action_name'\ncapitalize('css-class-name')    // 'Css-class-name'\ncapitalize('my favorite items') // 'My favorite items'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "classify",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "the string to classify"
+            }
+          ],
+          "description": "Returns the UpperCamelCase form of a string.\n\n```javascript\nclassify('innerHTML')          // 'InnerHTML'\nclassify('action_name')        // 'ActionName'\nclassify('css-class-name')     // 'CssClassName'\nclassify('my favorite items')  // 'MyFavoriteItems'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "dasherize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to dasherize."
+            }
+          ],
+          "description": "Replaces underscores, spaces, or camelCase with dashes.\n\n```javascript\ndasherize('innerHTML')         // 'inner-html'\ndasherize('action_name')       // 'action-name'\ndasherize('css-class-name')    // 'css-class-name'\ndasherize('my favorite items') // 'my-favorite-items'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "decamelize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to decamelize."
+            }
+          ],
+          "description": "Converts a camelized string into all lower case separated by underscores.\n\n```javascript\ndecamelize('innerHTML')         // 'inner_html'\ndecamelize('action_name')       // 'action_name'\ndecamelize('css-class-name')    // 'css-class-name'\ndecamelize('my favorite items') // 'my favorite items'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "humanize",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to humanize."
+            }
+          ],
+          "description": "Returns the Humanized form of a string\n\n```javascript\nhumanize('innerHTML')         // 'Inner html'\nhumanize('action_name')       // 'Action name'\nhumanize('css-class-name')    // 'Css class name'\nhumanize('my favorite items') // 'My favorite items'\n```"
+        },
+        {
+          "kind": "function",
+          "name": "underscore",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              },
+              "description": "The string to underscore."
+            }
+          ],
+          "description": "More general than decamelize. Returns the lower\\_case\\_and\\_underscored\nform of a string.\n\n```javascript\nunderscore('innerHTML')          // 'inner_html'\nunderscore('action_name')        // 'action_name'\nunderscore('css-class-name')     // 'css_class_name'\nunderscore('my favorite items')  // 'my_favorite_items'\n```"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "camelize",
+          "declaration": {
+            "name": "camelize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "capitalize",
+          "declaration": {
+            "name": "capitalize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "classify",
+          "declaration": {
+            "name": "classify",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "dasherize",
+          "declaration": {
+            "name": "dasherize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "decamelize",
+          "declaration": {
+            "name": "decamelize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "humanize",
+          "declaration": {
+            "name": "humanize",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "underscore",
+          "declaration": {
+            "name": "underscore",
+            "module": "../packages/components/shared/src/string.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/types.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.ts",
+      "path": "../packages/components/shared/src/validators.ts",
       "declarations": [
         {
-          "kind": "class",
-          "description": "",
-          "name": "Skeleton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "attribute": "effect",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "fieldName": "effect"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+          "kind": "variable",
+          "name": "requiredValidator",
+          "type": {
+            "text": "Validator"
           },
-          "tagName": "sl-skeleton",
-          "customElement": true,
-          "methods": [],
-          "fields": []
+          "default": "{\n  attribute: 'required',\n  key: 'valueMissing',\n  message: 'Please fill out this field',\n  isValid(instance: HTMLElement & { required: boolean }, value: ValidationValue): boolean {\n    let valid = true;\n\n    if ((instance.hasAttribute('required') || instance.required) && !value) {\n      valid = false;\n    }\n\n    return valid;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "programmaticValidator",
+          "type": {
+            "text": "Validator"
+          },
+          "default": "{\n  attribute: 'error',\n  message(instance: HTMLElement & { error: string }): string {\n    return instance.error;\n  },\n  isValid(instance: HTMLElement & { error: string }): boolean {\n    return !instance.error;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "minLengthValidator",
+          "type": {
+            "text": "Validator"
+          },
+          "default": "{\n  attribute: 'minlength',\n  key: 'rangeUnderflow',\n  message(instance: { minLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use at least ${instance.minLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { minLength: number }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value) {\n      return true;\n    }\n\n    if (value && instance.minLength > value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "maxLengthValidator",
+          "type": {
+            "text": "Validator"
+          },
+          "default": "{\n  attribute: 'maxlength',\n  key: 'rangeOverflow',\n  message(instance: { maxLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use no more than ${instance.maxLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { maxLength: number }, value: string): boolean {\n    /** If maxLength isn't set, this is valid */\n    if (!instance.maxLength) {\n      return true;\n    }\n\n    if (!!value && instance.maxLength < value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "patternValidator",
+          "type": {
+            "text": "Validator"
+          },
+          "default": "{\n  attribute: 'pattern',\n  key: 'patternMismatch',\n  message: 'Please match the requested format',\n  isValid(instance: HTMLElement & { pattern: string }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value || !instance.pattern) {\n      return true;\n    }\n\n    const regExp = new RegExp(instance.pattern);\n    return !!regExp.exec(value);\n  }\n}"
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "Skeleton",
+          "name": "requiredValidator",
           "declaration": {
-            "name": "Skeleton",
-            "module": "../packages/components/skeleton/src/skeleton.ts"
+            "name": "requiredValidator",
+            "module": "../packages/components/shared/src/validators.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "programmaticValidator",
+          "declaration": {
+            "name": "programmaticValidator",
+            "module": "../packages/components/shared/src/validators.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "minLengthValidator",
+          "declaration": {
+            "name": "minLengthValidator",
+            "module": "../packages/components/shared/src/validators.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "maxLengthValidator",
+          "declaration": {
+            "name": "maxLengthValidator",
+            "module": "../packages/components/shared/src/validators.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "patternValidator",
+          "declaration": {
+            "name": "patternValidator",
+            "module": "../packages/components/shared/src/validators.ts"
           }
         }
       ]
@@ -8964,1060 +9415,96 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/css.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "firstFocusableSelector",
-          "type": {
-            "text": "string"
-          },
-          "default": "'button:not([tabindex=\"-1\"]), [href]:not([tabindex=\"-1\"]), input:not([tabindex=\"-1\"]), select:not([tabindex=\"-1\"]), textarea:not([tabindex=\"-1\"]), [tabindex]:not([tabindex=\"-1\"]), [focusable]:not([tabindex=\"-1\"])'"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "firstFocusableSelector",
-          "declaration": {
-            "name": "firstFocusableSelector",
-            "module": "../packages/components/shared/src/css.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/path.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "getNameByPath",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "path",
-              "optional": true,
-              "type": {
-                "text": "string"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "getStringByPath",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "object",
-              "type": {
-                "text": "unknown"
-              }
-            },
-            {
-              "name": "path",
-              "default": "''"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "getValueByPath",
-          "return": {
-            "type": {
-              "text": "unknown"
-            }
-          },
-          "parameters": [
-            {
-              "name": "object",
-              "type": {
-                "text": "unknown"
-              }
-            },
-            {
-              "name": "path",
-              "default": "''"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "getNameByPath",
-          "declaration": {
-            "name": "getNameByPath",
-            "module": "../packages/components/shared/src/path.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getStringByPath",
-          "declaration": {
-            "name": "getStringByPath",
-            "module": "../packages/components/shared/src/path.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getValueByPath",
-          "declaration": {
-            "name": "getValueByPath",
-            "module": "../packages/components/shared/src/path.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/popover.scss.ts",
+      "path": "../packages/components/tabs/src/tab-group.scss.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "../packages/components/shared/src/popover.scss.ts"
+            "module": "../packages/components/tabs/src/tab-group.scss.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/popover.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "isPopoverOpen",
-          "return": {
-            "type": {
-              "text": "boolean"
-            }
-          },
-          "parameters": [
-            {
-              "name": "element",
-              "optional": true,
-              "type": {
-                "text": "HTMLElement"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "positionPopover",
-          "return": {
-            "type": {
-              "text": "(() => void)"
-            }
-          },
-          "parameters": [
-            {
-              "name": "element",
-              "type": {
-                "text": "HTMLElement"
-              }
-            },
-            {
-              "name": "anchor",
-              "type": {
-                "text": "Element"
-              }
-            },
-            {
-              "name": "options",
-              "type": {
-                "text": "PositionPopoverOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "popoverPolyfillStyles",
-          "declaration": {
-            "name": "popoverPolyfillStyles",
-            "module": "../packages/components/shared/src/popover.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "isPopoverOpen",
-          "declaration": {
-            "name": "isPopoverOpen",
-            "module": "../packages/components/shared/src/popover.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "positionPopover",
-          "declaration": {
-            "name": "positionPopover",
-            "module": "../packages/components/shared/src/popover.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/string.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "camelize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to camelize."
-            }
-          ],
-          "description": "Returns the lowerCamelCase form of a string.\n\n```javascript\ncamelize('innerHTML')          // 'innerHTML'\ncamelize('action_name')        // 'actionName'\ncamelize('css-class-name')     // 'cssClassName'\ncamelize('object.path.name')   // 'objectPathName'\ncamelize('my favorite items')  // 'myFavoriteItems'\ncamelize('My Favorite Items')  // 'myFavoriteItems'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "capitalize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to capitalize."
-            }
-          ],
-          "description": "Returns the Capitalized form of a string\n\n```javascript\ncapitalize('innerHTML')         // 'InnerHTML'\ncapitalize('action_name')       // 'Action_name'\ncapitalize('css-class-name')    // 'Css-class-name'\ncapitalize('my favorite items') // 'My favorite items'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "classify",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "the string to classify"
-            }
-          ],
-          "description": "Returns the UpperCamelCase form of a string.\n\n```javascript\nclassify('innerHTML')          // 'InnerHTML'\nclassify('action_name')        // 'ActionName'\nclassify('css-class-name')     // 'CssClassName'\nclassify('my favorite items')  // 'MyFavoriteItems'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "dasherize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to dasherize."
-            }
-          ],
-          "description": "Replaces underscores, spaces, or camelCase with dashes.\n\n```javascript\ndasherize('innerHTML')         // 'inner-html'\ndasherize('action_name')       // 'action-name'\ndasherize('css-class-name')    // 'css-class-name'\ndasherize('my favorite items') // 'my-favorite-items'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "decamelize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to decamelize."
-            }
-          ],
-          "description": "Converts a camelized string into all lower case separated by underscores.\n\n```javascript\ndecamelize('innerHTML')         // 'inner_html'\ndecamelize('action_name')       // 'action_name'\ndecamelize('css-class-name')    // 'css-class-name'\ndecamelize('my favorite items') // 'my favorite items'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "humanize",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to humanize."
-            }
-          ],
-          "description": "Returns the Humanized form of a string\n\n```javascript\nhumanize('innerHTML')         // 'Inner html'\nhumanize('action_name')       // 'Action name'\nhumanize('css-class-name')    // 'Css class name'\nhumanize('my favorite items') // 'My favorite items'\n```"
-        },
-        {
-          "kind": "function",
-          "name": "underscore",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "str",
-              "type": {
-                "text": "string"
-              },
-              "description": "The string to underscore."
-            }
-          ],
-          "description": "More general than decamelize. Returns the lower\\_case\\_and\\_underscored\nform of a string.\n\n```javascript\nunderscore('innerHTML')          // 'inner_html'\nunderscore('action_name')        // 'action_name'\nunderscore('css-class-name')     // 'css_class_name'\nunderscore('my favorite items')  // 'my_favorite_items'\n```"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "camelize",
-          "declaration": {
-            "name": "camelize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "capitalize",
-          "declaration": {
-            "name": "capitalize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "classify",
-          "declaration": {
-            "name": "classify",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "dasherize",
-          "declaration": {
-            "name": "dasherize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "decamelize",
-          "declaration": {
-            "name": "decamelize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "humanize",
-          "declaration": {
-            "name": "humanize",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "underscore",
-          "declaration": {
-            "name": "underscore",
-            "module": "../packages/components/shared/src/string.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/types.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/validators.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "requiredValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'required',\n  key: 'valueMissing',\n  message: 'Please fill out this field',\n  isValid(instance: HTMLElement & { required: boolean }, value: ValidationValue): boolean {\n    let valid = true;\n\n    if ((instance.hasAttribute('required') || instance.required) && !value) {\n      valid = false;\n    }\n\n    return valid;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "programmaticValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'error',\n  message(instance: HTMLElement & { error: string }): string {\n    return instance.error;\n  },\n  isValid(instance: HTMLElement & { error: string }): boolean {\n    return !instance.error;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "minLengthValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'minlength',\n  key: 'rangeUnderflow',\n  message(instance: { minLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use at least ${instance.minLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { minLength: number }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value) {\n      return true;\n    }\n\n    if (value && instance.minLength > value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "maxLengthValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'maxlength',\n  key: 'rangeOverflow',\n  message(instance: { maxLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use no more than ${instance.maxLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { maxLength: number }, value: string): boolean {\n    /** If maxLength isn't set, this is valid */\n    if (!instance.maxLength) {\n      return true;\n    }\n\n    if (!!value && instance.maxLength < value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "patternValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'pattern',\n  key: 'patternMismatch',\n  message: 'Please match the requested format',\n  isValid(instance: HTMLElement & { pattern: string }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value || !instance.pattern) {\n      return true;\n    }\n\n    const regExp = new RegExp(instance.pattern);\n    return !!regExp.exec(value);\n  }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "requiredValidator",
-          "declaration": {
-            "name": "requiredValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "programmaticValidator",
-          "declaration": {
-            "name": "programmaticValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "minLengthValidator",
-          "declaration": {
-            "name": "minLengthValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "maxLengthValidator",
-          "declaration": {
-            "name": "maxLengthValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "patternValidator",
-          "declaration": {
-            "name": "patternValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/switch/src/switch.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/switch/src/switch.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/switch/src/switch.ts",
+      "path": "../packages/components/tabs/src/tab-group.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Atoggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
-          "name": "Switch",
-          "slots": [
-            {
-              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
-              "name": "default"
-            }
-          ],
+          "description": "",
+          "name": "TabGroup",
           "members": [
             {
               "kind": "event",
-              "name": "change",
+              "name": "tabChange",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<number>"
               },
-              "description": "Emits when the checked state changes.",
-              "attribute": "change"
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
+              "attribute": "tabChange"
             },
             {
               "kind": "field",
-              "name": "checked",
+              "name": "tabs",
               "type": {
-                "text": "boolean | undefined"
+                "text": "Tab[] | undefined"
               },
-              "description": "Whether the switch is on or off.",
-              "attribute": "checked",
+              "description": "The slotted tabs."
+            },
+            {
+              "kind": "field",
+              "name": "vertical",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "attribute": "vertical",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "iconOff",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Custom icon in \"off\" state.",
-              "attribute": "iconOff",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "iconOn",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Custom icon in \"on\" state.",
-              "attribute": "iconOn",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the switch is invalid.",
-              "attribute": "invalid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the switch.",
-              "attribute": "orientation",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "attribute": "required",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the switch.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the switch, to be used in forms.",
-              "attribute": "value"
             }
           ],
           "events": [
             {
-              "name": "change",
+              "name": "tabChange",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<number>"
               },
-              "description": "Emits when the checked state changes.",
-              "fieldName": "change"
+              "fieldName": "tabChange"
             }
           ],
           "attributes": [
             {
-              "name": "checked",
+              "name": "vertical",
               "type": {
-                "text": "boolean | undefined"
+                "text": "boolean"
               },
-              "description": "Whether the switch is on or off.",
-              "fieldName": "checked"
-            },
-            {
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the switch is invalid.",
-              "fieldName": "invalid"
-            },
-            {
-              "name": "iconOff",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Custom icon in \"off\" state.",
-              "fieldName": "iconOff"
-            },
-            {
-              "name": "iconOn",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Custom icon in \"on\" state.",
-              "fieldName": "iconOn"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the switch.",
-              "fieldName": "size"
-            },
-            {
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the switch.",
-              "fieldName": "orientation"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the switch, to be used in forms.",
-              "fieldName": "value"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "fieldName": "required",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
+              "default": "false",
+              "description": "Renders the tabs vertically instead of the default horizontal",
+              "fieldName": "vertical"
             }
           ],
           "mixins": [
             {
-              "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
             }
           ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-switch",
+          "tagName": "sl-tab-group",
           "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "flags",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidityStateFlags"
-                  }
-                },
-                {
-                  "name": "message",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "anchor",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "FormControlValue"
-                  }
-                }
-              ],
-              "description": "Native ElementInternals function.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
+          "methods": [],
           "fields": [
             {
               "kind": "field",
-              "name": "form",
+              "name": "tabs",
               "type": {
-                "text": "HTMLFormElement | null"
+                "text": "Tab[] | undefined"
               },
-              "description": "Native form property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
+              "description": "The slotted tabs."
             }
           ]
         }
@@ -10025,10 +9512,229 @@
       "exports": [
         {
           "kind": "js",
-          "name": "Switch",
+          "name": "TabGroup",
           "declaration": {
-            "name": "Switch",
-            "module": "../packages/components/switch/src/switch.ts"
+            "name": "TabGroup",
+            "module": "../packages/components/tabs/src/tab-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab-panel.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tabs/src/tab-panel.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab-panel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TabPanel",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tab-panel",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabPanel",
+          "declaration": {
+            "name": "TabPanel",
+            "module": "../packages/components/tabs/src/tab-panel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tabs/src/tab.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Tab",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is disabled",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "handleSelectionChange",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is selected",
+              "attribute": "selected",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is selected",
+              "fieldName": "selected"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the tab item is disabled",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tab",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "handleSelectionChange",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+            }
+          ],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Tab",
+          "declaration": {
+            "name": "Tab",
+            "module": "../packages/components/tabs/src/tab.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Skeleton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "attribute": "effect",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "fieldName": "effect"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-skeleton",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Skeleton",
+          "declaration": {
+            "name": "Skeleton",
+            "module": "../packages/components/skeleton/src/skeleton.ts"
           }
         }
       ]
@@ -10764,96 +10470,560 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-group.scss.ts",
+      "path": "../packages/components/switch/src/switch.scss.ts",
       "declarations": [],
       "exports": [
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "module": "../packages/components/tabs/src/tab-group.scss.ts"
+            "module": "../packages/components/switch/src/switch.scss.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-group.ts",
+      "path": "../packages/components/switch/src/switch.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "",
-          "name": "TabGroup",
+          "description": "Atoggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
+          "name": "Switch",
+          "slots": [
+            {
+              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "event",
-              "name": "tabChange",
+              "name": "change",
               "type": {
-                "text": "EventEmitter<number>"
+                "text": "EventEmitter<boolean>"
               },
-              "attribute": "tabChange"
+              "description": "Emits when the checked state changes.",
+              "attribute": "change"
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
             },
             {
               "kind": "field",
-              "name": "tabs",
+              "name": "checked",
               "type": {
-                "text": "Tab[] | undefined"
+                "text": "boolean | undefined"
               },
-              "description": "The slotted tabs."
-            },
-            {
-              "kind": "field",
-              "name": "vertical",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "attribute": "vertical",
+              "description": "Whether the switch is on or off.",
+              "attribute": "checked",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "attribute": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "hintSize",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "attribute": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "iconOff",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"off\" state.",
+              "attribute": "iconOff",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconOn",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"on\" state.",
+              "attribute": "iconOn",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is invalid.",
+              "attribute": "invalid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "'horizontal' | 'vertical'"
+              },
+              "default": "'horizontal'",
+              "description": "The orientation of the switch.",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "attribute": "required",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the switch.",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the switch, to be used in forms.",
+              "attribute": "value"
             }
           ],
           "events": [
             {
-              "name": "tabChange",
+              "name": "change",
               "type": {
-                "text": "EventEmitter<number>"
+                "text": "EventEmitter<boolean>"
               },
-              "fieldName": "tabChange"
+              "description": "Emits when the checked state changes.",
+              "fieldName": "change"
             }
           ],
           "attributes": [
             {
-              "name": "vertical",
+              "name": "checked",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
-              "description": "Renders the tabs vertically instead of the default horizontal",
-              "fieldName": "vertical"
+              "description": "Whether the switch is on or off.",
+              "fieldName": "checked"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is invalid.",
+              "fieldName": "invalid"
+            },
+            {
+              "name": "iconOff",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"off\" state.",
+              "fieldName": "iconOff"
+            },
+            {
+              "name": "iconOn",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom icon in \"on\" state.",
+              "fieldName": "iconOn"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the switch.",
+              "fieldName": "size"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "'horizontal' | 'vertical'"
+              },
+              "default": "'horizontal'",
+              "description": "The orientation of the switch.",
+              "fieldName": "orientation"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the switch, to be used in forms.",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible.",
+              "fieldName": "disabled",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this form control is a required field.",
+              "fieldName": "required",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "fieldName": "hint",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
+            },
+            {
+              "name": "hintSize",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The hint size.",
+              "fieldName": "hintSize",
+              "inheritedFrom": {
+                "name": "HintMixin",
+                "module": "../packages/components/shared/src/mixins/hint.ts"
+              }
             }
           ],
           "mixins": [
             {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/shared"
+            },
+            {
+              "name": "HintMixin",
+              "package": "@sl-design-system/shared"
             }
           ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-tab-group",
+          "tagName": "sl-switch",
           "customElement": true,
-          "methods": [],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flags",
+                  "optional": true,
+                  "type": {
+                    "text": "ValidityStateFlags"
+                  }
+                },
+                {
+                  "name": "message",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "anchor",
+                  "optional": true,
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setFormValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "FormControlValue"
+                  }
+                }
+              ],
+              "description": "Native ElementInternals function.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
           "fields": [
             {
               "kind": "field",
-              "name": "tabs",
+              "name": "form",
               "type": {
-                "text": "Tab[] | undefined"
+                "text": "HTMLFormElement | null"
               },
-              "description": "The slotted tabs."
+              "description": "Native form property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "Native labels property.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
             }
           ]
         }
@@ -10861,162 +11031,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "TabGroup",
+          "name": "Switch",
           "declaration": {
-            "name": "TabGroup",
-            "module": "../packages/components/tabs/src/tab-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-panel.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tabs/src/tab-panel.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-panel.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "TabPanel",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-tab-panel",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "TabPanel",
-          "declaration": {
-            "name": "TabPanel",
-            "module": "../packages/components/tabs/src/tab-panel.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tabs/src/tab.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Tab",
-          "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is disabled",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
-            },
-            {
-              "kind": "field",
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is selected",
-              "attribute": "selected",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is selected",
-              "fieldName": "selected"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is disabled",
-              "fieldName": "disabled"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-tab",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
-            }
-          ],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Tab",
-          "declaration": {
-            "name": "Tab",
-            "module": "../packages/components/tabs/src/tab.ts"
+            "name": "Switch",
+            "module": "../packages/components/switch/src/switch.ts"
           }
         }
       ]
@@ -11942,6 +11960,683 @@
           "declaration": {
             "name": "Tooltip",
             "module": "../packages/components/tooltip/src/tooltip.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/data-source/array-data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ArrayDataSource",
+          "members": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-update",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "DataSource",
+            "module": "/packages/components/shared/src/data-source/data-source.js"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ArrayDataSource",
+          "declaration": {
+            "name": "ArrayDataSource",
+            "module": "../packages/components/shared/src/data-source/array-data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/data-source/data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSource",
+          "members": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items."
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
+            }
+          ],
+          "superclass": {
+            "name": "EventTarget",
+            "module": "../packages/components/shared/src/data-source/data-source.ts"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataSource",
+          "declaration": {
+            "name": "DataSource",
+            "module": "../packages/components/shared/src/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/data-source/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./array-data-source.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./data-source.js"
           }
         }
       ]
@@ -14394,736 +15089,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/packages/components/shared/src/data-source/data-source.js"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "../packages/components/shared/src/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items."
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items."
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source."
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "../packages/components/shared/src/data-source/data-source.ts"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source."
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "../packages/components/shared/src/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/directives/anchor.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "AnchorDirective",
-          "members": [],
-          "superclass": {
-            "name": "Directive",
-            "package": "lit/directive.js"
-          }
-        },
-        {
-          "kind": "variable",
-          "name": "anchor"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "AnchorDirective",
-          "declaration": {
-            "name": "AnchorDirective",
-            "module": "../packages/components/shared/src/directives/anchor.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "anchor",
-          "declaration": {
-            "name": "anchor",
-            "module": "../packages/components/shared/src/directives/anchor.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./anchor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/shared/src/decorators/base.ts",
       "declarations": [
         {
@@ -15339,6 +15304,59 @@
           "declaration": {
             "name": "observe",
             "module": "../packages/components/shared/src/decorators/observe.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/directives/anchor.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AnchorDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "anchor"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AnchorDirective",
+          "declaration": {
+            "name": "AnchorDirective",
+            "module": "../packages/components/shared/src/directives/anchor.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "anchor",
+          "declaration": {
+            "name": "anchor",
+            "module": "../packages/components/shared/src/directives/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./anchor.js"
           }
         }
       ]

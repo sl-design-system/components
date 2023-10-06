@@ -3,5 +3,5 @@ title: Figma toolkit
 eleventyNavigation:
   parent: Guidelines
   key: Figma Toolkit
-  order: 2
+  order: 3
 ---

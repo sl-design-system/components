@@ -78,6 +78,7 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addLiquidFilter('svgImage', function(src) {
+    // TODO: needs to be rewritten so it returns the actual svg code, not an image tag
     // let metadata = Image(`./src/site/assets/images/${src}`, {
     //   formats: ['svg'],
     //   dryRun: true,

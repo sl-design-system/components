@@ -49,15 +49,18 @@ describe('sl-tooltip', () => {
       expect(dialog?.shadowRoot?.firstElementChild?.hasAttribute('open')).to.be.false;
     });
 
-    it('should show the dialog after showDialog running', async () => {
+    it('should show the dialog after showModal running', async () => {
       await showDialog();
       expect(dialog?.shadowRoot?.firstElementChild?.hasAttribute('open')).to.be.true;
     });
 
-    it('should close the dialog when the backdrop is clicked and there is no disable-close attribute', async () => {
-      await showDialog();
-      expect(dialog?.shadowRoot?.firstElementChild?.hasAttribute('open')).to.be.true;
-    });
+    // TODO: should have title when is set, subtitle, body, buttons in the footer aligned start and end by default,
+    //  should not jave closing button when closingbutton is not set, should have closing attribute false after connectedcallback, close on escape pressed
+
+    // it('should close the dialog when the backdrop is clicked and there is no disable-close attribute', async () => {
+    //   await showDialog();
+    //   expect(dialog?.shadowRoot?.firstElementChild?.hasAttribute('open')).to.be.true;
+    // });
 
     // it('should not show the tooltip by default', () => {
     //   expect(tooltip.matches(':popover-open')).to.be.false;
@@ -160,6 +163,20 @@ describe('sl-tooltip', () => {
       expect(dialog.hasAttribute('open')).to.be.false;
     });
 
+    it('should close the dialog when the button with sl-dialog-close attribute is clicked', async () => {
+      const closeButton = slDialog.querySelector('sl-button[sl-dialog-close]');
+      console.log('closeButton---------', closeButton);
+
+      (closeButton as HTMLButtonElement)?.click();
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      console.log('el after click', el, dialog);
+
+      // expect(dialogCloseSpy).to.have.been.called;
+      expect(dialog.hasAttribute('open')).to.be.false;
+    });
+
     it('should close the dialog when the backdrop is clicked and there is no disable-close attribute', async () => {
       if(dialog){
         // const clickEvent = new PointerEvent('click');
@@ -191,6 +208,28 @@ describe('sl-tooltip', () => {
 
         // expect(dialogCloseSpy).to.have.been.called;
         expect(dialog.hasAttribute('open')).to.be.false;
+      }
+    });
+
+    it('should not close the dialog when the backdrop is clicked and there is the disable-close attribute', async () => {
+      slDialog.setAttribute('disable-close', '');
+      await slDialog.updateComplete;
+
+      if(dialog){
+        stub(dialog,'getBoundingClientRect').returns({
+          top: 400,
+          right: 1400,
+          bottom: 900,
+          left: 700
+        } as DOMRect);
+        stub(clickEvent, 'clientX').value(100);
+        stub(clickEvent, 'clientY').value(100);
+
+        dialog.dispatchEvent(clickEvent);
+
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        expect(dialog.hasAttribute('open')).to.be.true;
       }
     });
     //

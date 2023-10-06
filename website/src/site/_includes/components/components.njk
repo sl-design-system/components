@@ -12,8 +12,6 @@ layout: base.njk
   </div>
 </header>
 <section>
-
-{# {% svgImage './src/site/assets/images/components/button/sl-button-importance-graph.svg' %} #}
   {%- for post in collections.component -%}
     {% if page.url === post.url %}
       <div horizontal class="ds-tabs" role="tablist">

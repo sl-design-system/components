@@ -127,6 +127,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       adoptStyles(this.shadowRoot, [breakpoints, styles, backdrop]);
     }
+
+    console.log(this.dialog?.getBoundingClientRect());
   }
 
   close(): void {
@@ -183,6 +185,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         event.clientX < rect.left ||
         event.clientX > rect.right
       ) {
+        console.log('zamykaaa?');
         this.dialog?.addEventListener('animationend', event => this.#handleAnimationEnd(event, clickTarget));
 
         requestAnimationFrame(() => {

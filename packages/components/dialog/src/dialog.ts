@@ -127,8 +127,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       adoptStyles(this.shadowRoot, [breakpoints, styles, backdrop]);
     }
-
-    console.log(this.dialog?.getBoundingClientRect());
   }
 
   close(): void {
@@ -159,55 +157,40 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
     event.preventDefault();
     event.stopPropagation();
-    const clickTarget = event.target;
-    this.dialog?.addEventListener('animationend', event => this.#handleAnimationEnd(event, clickTarget));
 
-    requestAnimationFrame(() => {
-      this.dialog?.setAttribute('closing', 'true');
-    });
+    this.#closeDialogOnAnimationend(event.target as HTMLElement);
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
-    const clickTarget = event.target;
-    if (event.target.matches('sl-button[sl-dialog-close]')) {
-      this.dialog?.addEventListener('animationend', event => this.#handleAnimationEnd(event, clickTarget));
-
-      requestAnimationFrame(() => {
-        this.dialog?.setAttribute('closing', 'true');
-      });
-    } else if (!this.disableClose && this.dialog) {
+    if (event.target && this.dialog) {
       const rect = this.dialog.getBoundingClientRect();
-
-      // Check if the user clicked on the backdrop
+      // Check if the user clicked on the sl-dialog-close button or on the backdrop
       if (
-        event.clientY < rect.top ||
-        event.clientY > rect.bottom ||
-        event.clientX < rect.left ||
-        event.clientX > rect.right
+        event.target.matches('sl-button[sl-dialog-close]') ||
+        (!this.disableClose &&
+          (event.clientY < rect.top ||
+            event.clientY > rect.bottom ||
+            event.clientX < rect.left ||
+            event.clientX > rect.right))
       ) {
-        console.log('zamykaaa?');
-        this.dialog?.addEventListener('animationend', event => this.#handleAnimationEnd(event, clickTarget));
-
-        requestAnimationFrame(() => {
-          this.dialog?.setAttribute('closing', 'true');
-        });
+        this.#closeDialogOnAnimationend(event.target as HTMLElement);
       }
     }
   }
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.code === 'Escape') {
-      this.dialog?.addEventListener('animationend', event =>
-        this.#handleAnimationEnd(event, event.target as HTMLElement)
-      );
-
-      requestAnimationFrame(() => {
-        this.dialog?.setAttribute('closing', 'true');
-      });
+      this.#closeDialogOnAnimationend(event.target as HTMLElement);
     }
   }
 
-  // TODO; function for animation closing event
+  #closeDialogOnAnimationend(target: HTMLElement): void {
+    this.dialog?.addEventListener('animationend', event => this.#handleAnimationEnd(event, target));
+
+    requestAnimationFrame(() => {
+      this.dialog?.setAttribute('closing', 'true');
+    });
+  }
 
   #onClose(): void {
     // Reenable scrolling after the dialog has closed

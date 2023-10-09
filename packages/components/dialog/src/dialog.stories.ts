@@ -12,7 +12,10 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
 };
 
 export default {
-  title: 'Dialog',
+  title: 'Dialog'
+};
+
+export const API: StoryObj = {
   args: {
     closingButton: true,
     title: 'Dialog title',
@@ -26,10 +29,7 @@ export default {
       control: 'radio',
       options: ['start', 'end']
     }
-  }
-};
-
-export const API: StoryObj = {
+  },
   render: ({ title, subtitle, buttonsAlign, bodyContent, closingButton }) => {
     return html`
       <sl-button fill="outline" size="md" @click=${onClick}>Show Dialog</sl-button>
@@ -38,7 +38,7 @@ export const API: StoryObj = {
         <span slot="title">${title}</span>
         ${bodyContent}
         <sl-button slot="action" sl-dialog-close autofocus>Close</sl-button>
-        <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close autofocus>Action</sl-button>
+        <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
       </sl-dialog>
     `;
   }

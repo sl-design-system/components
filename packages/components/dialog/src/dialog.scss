@@ -33,12 +33,6 @@ $md-breakpoint: 600px;
   display: block;
 }
 
-dialog::backdrop {
-  --backdrop-background: var(
-    --sl-color-select-item-active-foreground
-  ); // TODO: should come from the token --sl-body-surface-overlay
-}
-
 dialog {
   background: var(--_background);
   border: var(--_border);
@@ -62,6 +56,9 @@ dialog {
   width: auto;
 
   &::backdrop {
+    --backdrop-background: var(
+      --sl-color-select-item-active-foreground
+    ); // TODO: should come from the token --sl-body-surface-overlay
     opacity: 0;
     transition: all 0.5s;
   }
@@ -103,10 +100,6 @@ slot[name='close'] {
 slot[name='close']::slotted(*),
 slot[name='header-buttons']::slotted(*) {
   align-self: baseline;
-
-  sl-button {
-    align-self: baseline;
-  }
 }
 
 slot[name='subtitle']::slotted(*) {
@@ -117,12 +110,8 @@ slot[name='title']::slotted(*) {
   font: var(--_title-font);
 }
 
-slot[name='body']::slotted(*) {
-  font: var(--_body-font);
-}
-
 .body-wrapper {
-  font: var(--sl-text-body-lg-normal);
+  font: var(--_body-font);
   margin-bottom: var(--_body-gap-mobile);
   overflow: auto;
 }
@@ -164,7 +153,6 @@ slot[name='footer']::slotted(sl-button-bar) {
 
   .body-wrapper {
     margin-bottom: var(--_body-gap-desktop);
-    overflow: auto;
   }
 
   .footer-buttons {
@@ -198,7 +186,7 @@ slot[name='footer']::slotted(sl-button-bar) {
   }
 
   50% {
-    opacity: 75%;
+    opacity: 0.75;
   }
 
   80% {
@@ -206,12 +194,12 @@ slot[name='footer']::slotted(sl-button-bar) {
   }
 
   90% {
-    opacity: 100%;
+    opacity: 1;
     transform: translateY(-10px);
   }
 
   100% {
-    opacity: 100%;
+    opacity: 1;
     transform: translateY(0);
   }
 }

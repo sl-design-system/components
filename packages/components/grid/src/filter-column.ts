@@ -84,8 +84,10 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   }
 
   override renderHeader(): TemplateResult {
+    const parts = ['header', 'filter', ...this.getParts()];
+
     return html`
-      <th part="header filter">
+      <th part=${parts.join(' ')}>
         <sl-grid-filter
           .column=${this}
           .mode=${this.mode || 'select'}

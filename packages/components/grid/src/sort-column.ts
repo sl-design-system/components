@@ -35,8 +35,10 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
   }
 
   override renderHeader(): TemplateResult {
+    const parts = ['header', 'sort', ...this.getParts()];
+
     return html`
-      <th part="header sort">
+      <th part=${parts.join(' ')}>
         <sl-grid-sorter .column=${this} .direction=${this.direction} .path=${this.path} .sorter=${this.sorter}>
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-sorter>

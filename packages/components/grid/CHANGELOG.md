@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.0.29
+
+### Patch Changes
+
+- [#676](https://github.com/sl-design-system/components/pull/676) [`8210783`](https://github.com/sl-design-system/components/commit/8210783b47f97d299ea4005628cbfc21d3e393b9) - Fix missing parts in columns
+
 ## 0.0.28
 
 ### Patch Changes

@@ -123,13 +123,13 @@ export class GridColumn<T = any> extends LitElement {
   stateChanged(): void {}
 
   renderHeader(): TemplateResult {
-    const parts = ['header', ...this.#getParts()];
+    const parts = ['header', ...this.getParts()];
 
     return html`<th part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
   }
 
   renderData(item: T): TemplateResult {
-    const parts = ['data', ...this.#getParts(item)];
+    const parts = ['data', ...this.getParts(item)];
 
     return html`
       <td part=${parts.join(' ')}>
@@ -141,7 +141,7 @@ export class GridColumn<T = any> extends LitElement {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   renderStyles(): CSSResult | void {}
 
-  #getParts(item?: T): string[] {
+  getParts(item?: T): string[] {
     let parts: string[] = [];
 
     if (typeof this.parts === 'string') {

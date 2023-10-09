@@ -32,7 +32,7 @@ Buttons should be used in user interfaces when you want to provide users with a 
 
 <section class="ds-cards">
   <figure>
-    <img src="https://placehold.co/600x400">
+    {{'components/button/sl-button-when-use-actions.svg' | svgImage}}
     <figcaption>
     
   ### To Initiate Actions 
@@ -40,7 +40,7 @@ Buttons should be used in user interfaces when you want to provide users with a 
     </figcaption>
   </figure>
   <figure>
-    <img src="https://placehold.co/600x400">
+    {{'components/button/sl-button-when-use-navigation.svg' | svgImage}}
     <figcaption>
 
   ### To Provide Navigation
@@ -56,7 +56,7 @@ Buttons should be used in user interfaces when you want to provide users with a 
 
 <section class="ds-cards">
   <figure>
-    <img src="https://placehold.co/600x400">
+    {{'components/button/sl-button-when-not-use-menu.svg' | svgImage}}
     <figcaption>
 
   ### Menu Items
@@ -68,7 +68,7 @@ Buttons should be used in user interfaces when you want to provide users with a 
 <section>
 
 ## Anatomy
-<img src="https://placehold.co/600x400">
+{{ 'components/button/sl-buttons-anatomy.svg' | svgImage }}
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
@@ -185,7 +185,7 @@ This table provides guidance on when to use each button variant (Solid, Outline,
 ### Example
 
 Here's an example that explains which button to use in different scenarios:
-<img src="https://placehold.co/600x400">
+{{ 'components/button/sl-button-variants-types-example.svg' | svgImage}}
 
 1. The "remove" button should be Default-Outline; it's a secondary action and not part of the main user flow on this page.
 1. The "add coupon" button should be Default-Solid; although it's not part of the main user flow, it requires emphasis.
@@ -198,7 +198,7 @@ Here's an example that explains which button to use in different scenarios:
 
 With these options you can tweak the appearance of the button in Figma. They are available in the Design Panel so you can compose the button to exactly fit the user experience need for the uses case you are working on.
 
-<img src="https://placehold.co/600x400">
+{{'components/button/sl-button-figma-options.svg' | svgImage}}
 
 |Item|Options|Description|
 |-|-|-|

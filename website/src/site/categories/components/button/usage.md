@@ -198,7 +198,7 @@ Here's an example that explains which button to use in different scenarios:
 
 With these options you can tweak the appearance of the button in Figma. They are available in the Design Panel so you can compose the button to exactly fit the user experience need for the uses case you are working on.
 
-{{'components/button/sl-button-figma-options.svg' | svgImage}}
+{{ 'components/button/sl-button-figma-options.svg' | svgImage }}
 
 |Item|Options|Description|
 |-|-|-|

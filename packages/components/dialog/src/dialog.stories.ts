@@ -37,7 +37,7 @@ export const API: StoryObj = {
         <span slot="subtitle">${subtitle}</span>
         <span slot="title">${title}</span>
         ${bodyContent}
-        <sl-button slot="action" sl-dialog-close autofocus>Close</sl-button>
+        <sl-button slot="action" sl-dialog-close autofocus>Cancel</sl-button>
         <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
       </sl-dialog>
     `;
@@ -50,7 +50,7 @@ export const DisableClose: StoryObj = {
     <sl-dialog disable-close closing-button>
       <span slot="title">Disable close</span>
       <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>
-      <sl-button slot="action" sl-dialog-close>Close</sl-button>
+      <sl-button slot="action" sl-dialog-close>Cancel</sl-button>
     </sl-dialog>
   `
 };

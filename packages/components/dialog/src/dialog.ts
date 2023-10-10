@@ -62,7 +62,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
-    this.dialog?.removeEventListener('animationend', event => this.#handleAnimationEnd(event));
+    this.dialog?.removeEventListener('animationend', event => this.#onAnimationEnd(event));
 
     super.disconnectedCallback();
   }
@@ -72,25 +72,27 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       <dialog
         @cancel=${this.#onCancel}
         @click=${this.#onClick}
-        @keydown=${this.#onKeydown}
         @close=${this.#onClose}
+        @keydown=${this.#onKeydown}
         .role=${this.role}
-        aria-labelledby="titleId"
+        aria-labelledby="title"
         part="dialog"
       >
         <slot name="header">
           <slot name="titles">
             <slot name="subtitle"></slot>
-            <slot name="title" id="titleId"></slot>
+            <slot name="title" id="title"></slot>
           </slot>
           <slot name="header-actions">
             <slot name="header-buttons"></slot>
             ${this.closingButton
-              ? html`<slot name="close" @click=${this.#onCloseClick}>
-                  <sl-button fill="ghost" variant="default">
-                    <sl-icon name="xmark"></sl-icon>
-                  </sl-button>
-                </slot>`
+              ? html`
+                  <slot name="close" @click=${this.#onCloseClick}>
+                    <sl-button fill="ghost" variant="default">
+                      <sl-icon name="xmark"></sl-icon>
+                    </sl-button>
+                  </slot>
+                `
               : nothing}
           </slot>
         </slot>
@@ -141,7 +143,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #handleAnimationEnd = (event: AnimationEvent, target?: HTMLElement): void => {
+  #onAnimationEnd = (event: AnimationEvent, target?: HTMLElement): void => {
     if (event.animationName === 'backdrop-hide') {
       this.dialog?.setAttribute('closing', 'false');
 
@@ -150,7 +152,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       } else {
         this.dialog?.close();
       }
-      this.dialog?.removeEventListener('animationend', event => this.#handleAnimationEnd(event, target));
+      this.dialog?.removeEventListener('animationend', event => this.#onAnimationEnd(event, target));
     }
   };
 
@@ -185,7 +187,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #closeDialogOnAnimationend(target: HTMLElement): void {
-    this.dialog?.addEventListener('animationend', event => this.#handleAnimationEnd(event, target));
+    this.dialog?.addEventListener('animationend', event => this.#onAnimationEnd(event, target));
 
     requestAnimationFrame(() => {
       this.dialog?.setAttribute('closing', 'true');

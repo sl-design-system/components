@@ -12,5 +12,5 @@ eleventyNavigation:
   parent: Components
   key: Icon
   order: 10
-  status: ready
+  status: coming
 ---

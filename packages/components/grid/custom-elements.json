@@ -179,6 +179,28 @@
               "description": "The nested columns in the group."
             },
             {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "grid",
               "type": {
@@ -585,7 +607,7 @@
             },
             {
               "kind": "method",
-              "name": "#getParts",
+              "name": "getParts",
               "return": {
                 "type": {
                   "text": "string[]"
@@ -725,6 +747,24 @@
               },
               "description": "Emits when the column definition has changed.",
               "attribute": "columnUpdate"
+            },
+            {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
             },
             {
               "kind": "field",
@@ -1004,7 +1044,7 @@
             },
             {
               "kind": "method",
-              "name": "#getParts",
+              "name": "getParts",
               "return": {
                 "type": {
                   "text": "string[]"
@@ -1224,6 +1264,28 @@
                 "text": "DataSourceFilterFunction<T> | undefined"
               },
               "description": "The filter function if you want to do custom filtering."
+            },
+            {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
             },
             {
               "kind": "field",
@@ -1665,7 +1727,7 @@
             },
             {
               "kind": "method",
-              "name": "#getParts",
+              "name": "getParts",
               "return": {
                 "type": {
                   "text": "string[]"
@@ -2771,6 +2833,28 @@
             },
             {
               "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
               "name": "getSelectedCount",
               "return": {
                 "type": {
@@ -3277,7 +3361,7 @@
             },
             {
               "kind": "method",
-              "name": "#getParts",
+              "name": "getParts",
               "return": {
                 "type": {
                   "text": "string[]"
@@ -3429,6 +3513,28 @@
               },
               "description": "The direction this columns should be sorted in.",
               "attribute": "direction"
+            },
+            {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
             },
             {
               "kind": "field",
@@ -3836,7 +3942,7 @@
             },
             {
               "kind": "method",
-              "name": "#getParts",
+              "name": "getParts",
               "return": {
                 "type": {
                   "text": "string[]"

@@ -12,6 +12,6 @@ eleventyNavigation:
   parent: Components
   key: Textarea
   order: 19
-  status: ready
+  status: coming
 ---
 

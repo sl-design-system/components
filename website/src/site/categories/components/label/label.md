@@ -12,5 +12,5 @@ eleventyNavigation:
   parent: Components
   key: Label
   order: 11
-  status: ready
+  status: coming
 ---

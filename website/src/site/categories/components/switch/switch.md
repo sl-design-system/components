@@ -12,5 +12,5 @@ eleventyNavigation:
   parent: Components
   key: Switch
   order: 16
-  status: ready
+  status: coming
 ---

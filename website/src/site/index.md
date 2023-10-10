@@ -110,9 +110,9 @@ Guidelines
 
 LATEST RELEASE {.ds-call-to-action__main-text}
 
-Sanoma Learning Design System v0.0.1 {.ds-call-to-action__heading .ds-heading-1}
+Sanoma Learning Design System {.ds-call-to-action__heading .ds-heading-1}
 
-This latest release includes form controls.
+Check out our latest releases on our github page.
 
 <a class="ds-call-to-action__link" href="https://github.com/sl-design-system/components/releases" target="_blank">
   View the release notes 

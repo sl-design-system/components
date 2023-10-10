@@ -92,6 +92,7 @@
   --contact-block-link: var(--ds-color-blue);
   --contact-block-link--hover: var(--ds-color-mariner);
   --close-icon: url('../assets/icons/close.svg');
+  --component-card-background: var(--ds-color-light-concrete);
   --code-border: var(--ds-color-bright-grey);
   --copy-icon: url('../assets/icons/copy.svg');
   --copy-icon--hover: url('../assets/icons/copy-hover.svg');
@@ -119,6 +120,10 @@
   --input-menu-background: rgba(var(--ds-color-black-rgb), 0.04);
   --input-menu-background--hover: rgba(var(--ds-color-black-rgb), 0.08);
   --input-menu--border: var(--ds-color-light-grey);
+  --link-color: var(--ds-color-blueberry-light);
+  --link-hover-color: var(--ds-color-mariner);
+  --link-active-color: var(--ds-color-mariner);
+  --link-visited-color: var(--ds-color-blueberry-light);
   --logo: url('../assets/logo-black.svg');
   --menu-button-hover: rgba(var(--ds-color-blue-rgb), 0.04);
   --menu-font-color: var(--ds-color-raisin-black);
@@ -159,6 +164,7 @@
     --contact-block-link: var(--ds-color-baby-blue);
     --contact-block-link--hover: var(--ds-color-lavender-blue);
     --close-icon: url('../assets/icons/close-light.svg');
+    --component-card-background: var(--ds-color-raisin-black-light);
     --code-border: var(--ds-color-blck-olive);
     --copy-icon: url('../assets/icons/copy-light.svg');
     --copy-icon--hover: url('../assets/icons/copy-hover-dark.svg');
@@ -186,6 +192,10 @@
     --input-menu-background: rgba(var(--ds-color-faux-white-rgb), 0.16);
     --input-menu-background--hover: rgba(var(--ds-color-faux-white-rgb), 0.2);
     --logo: url('../assets/logo.svg');
+    --link-color: var(--ds-color-baby-blue);
+    --link-hover-color: var(--ds-color-lavender-blue);
+    --link-active-color: var(--ds-color-lavender-blue);
+    --link-visited-color: var(--ds-color-baby-blue);
     --menu-button-hover: rgba(var(--ds-color-blue-rgb), 0.32);
     --menu-font-color: var(--ds-color-lotion);
     --menu-second-color: #363739;

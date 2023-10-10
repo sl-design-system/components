@@ -1,12 +1,14 @@
 ---
-title: Tab group (PoC)
+title: Tab group
 description: Tab group description
+componentType: feedback
+shortDescription: This is a short description of the tab group component
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:
   parent: Components
   key: Tab group
-  order: 16
+  order: 17
   status: coming
 ---
 

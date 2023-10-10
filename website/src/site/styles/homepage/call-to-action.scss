@@ -31,6 +31,7 @@ $transition-timing: 200ms;
   @media screen and (min-width: $xl-breakpoint) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: none;
+    margin-right: 4.8rem;
     padding: 4rem;
   }
 

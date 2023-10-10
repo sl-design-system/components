@@ -25,7 +25,9 @@
   --sl-opacity-400: 0.16;
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
+  --sl-opacity-150: 0.06;
   --sl-opacity-100: 0.04;
+  --sl-opacity-50: 0.02;
   --sl-icon-core-circle-check-solid: circle-check;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
   --sl-icon-core-xmark: xmark;
@@ -208,9 +210,18 @@
   --sl-color-palette-primary-150: 224 210 239;
   --sl-color-palette-primary-100: 240 236 245;
   --sl-color-palette-primary-50: 254 254 255;
+  --sl-elevation-shadow-none: calc(0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0));
+  --sl-elevation-shadow-lg: calc(
+    0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 8 16 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+  );
   --sl-elevation-shadow-md: calc(
     0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0 8 8 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+    0 4 8 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150))
+  );
+  --sl-elevation-shadow-sm: calc(
+    0 0 6 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
+    0 2 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
   );
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
@@ -255,6 +266,10 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-tooltip-offset: var(--sl-space-sm);
+  --sl-space-tooltip-gap: var(--sl-space-xs);
+  --sl-space-tooltip-inline: var(--sl-space-md);
+  --sl-space-tooltip-block: var(--sl-space-sm);
   --sl-space-select-divider-line-md: var(--sl-space-sm);
   --sl-space-select-divider-line-lg: var(--sl-space-sm);
   --sl-space-select-divider-gap-md: var(--sl-space-sm);
@@ -269,6 +284,21 @@
   --sl-space-select-listbox-inline-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-select-listbox-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-select-listbox-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
+  --sl-space-dialog-gap-footer: var(--sl-space-sm);
+  --sl-space-dialog-gap-header: var(--sl-space-lg);
+  --sl-space-dialog-gap-heading: var(--sl-space-xs);
+  --sl-space-dialog-mobile-body-gap: var(--sl-space-xl);
+  --sl-space-dialog-mobile-body-inline: var(--sl-space-xl);
+  --sl-space-dialog-mobile-body-block: var(--sl-space-xl);
+  --sl-space-dialog-mobile-container-padding-bottom: var(--sl-space-none);
+  --sl-space-dialog-mobile-container-inline: var(--sl-space-none);
+  --sl-space-dialog-mobile-container-padding-top: var(--sl-space-xl) * 2;
+  --sl-space-dialog-desktop-body-gap: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-body-inline: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-body-block: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-container-padding-bottom: var(--sl-space-xl);
+  --sl-space-dialog-desktop-container-inline: var(--sl-space-xl);
+  --sl-space-dialog-desktop-container-padding-top: var(--sl-space-xl);
   --sl-space-button-link-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-link));

@@ -31,6 +31,10 @@
     padding: 7rem 4rem;
   }
 
+  @media screen and (min-width: $xl-breakpoint) {
+    margin-right: 4.8rem;
+  }
+
   @media screen and (prefers-reduced-motion: reduce) {
     /* stylelint-disable-next-line max-nesting-depth */
     h1 {

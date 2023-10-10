@@ -7,9 +7,6 @@ eleventyNavigation:
   parent: Button
   key: ButtonCode
 ---
-
-# Code
-
 <section>
 <div class="ds-example">
   <div class="ds-component__buttons-wrapper">

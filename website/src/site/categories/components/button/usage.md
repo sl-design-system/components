@@ -5,8 +5,7 @@ eleventyNavigation:
   parent: Button
   key: ButtonUsage
 ---
-# Usage
-<section>
+<section class="no-heading">
 
 <div class="ds-example">
 
@@ -220,15 +219,9 @@ With these options you can tweak the appearance of the button in Figma. They are
 ### Mouse Interaction
 Users can activate a button by clicking anywhere within the button container.
 
-`(🖼 visual)`
-
 ### Tooltip When Label is Hidden
 When the button label is concealed, a tooltip appears on hover, revealing the label text and, when applicable, a keyboard shortcut.
 
-`(🖼 visual)`
-
 ### Transition
 Hover and Active State Transitions: When users hover over a button or the button is in an active state, the background color and/or border color smoothly transition to provide visual feedback. 
-
-`(🖼 visual)`
 </section>

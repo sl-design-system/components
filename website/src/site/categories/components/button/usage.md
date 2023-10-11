@@ -30,15 +30,15 @@ eleventyNavigation:
 Buttons should be used in user interfaces when you want to provide users with a clear and actionable way to interact with a webpage, application, or device. Here are some common scenarios when you should use buttons:
 
 <section class="ds-cards">
-  <figure>
-    {{'components/button/sl-button-when-use-actions.svg' | svgImage}}
-    <figcaption>
-    
-  ### To Initiate Actions 
-  Buttons are used to trigger specific actions or functions. For example, you can use a "Submit" button in a form to send user input to a server, or a "Save" button to save changes in an application.
-    </figcaption>
-  </figure>
-  <figure>
+<figure>
+{{'components/button/sl-button-when-use-actions.svg' | svgImage}}
+<figcaption>
+
+### To Initiate Actions 
+Buttons are used to trigger specific actions or functions. For example, you can use a "Submit" button in a form to send user input to a server, or a "Save" button to save changes in an application.
+</figcaption>
+</figure>
+<figure>
     {{'components/button/sl-button-when-use-navigation.svg' | svgImage}}
     <figcaption>
 
@@ -84,14 +84,21 @@ Buttons should be used in user interfaces when you want to provide users with a 
 
 <section class="ds-cards">
   <figure>
-    <div class="ds-example"><sl-button fill="solid" variant="primary" size="lg">Solid</sl-button></div>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-button fill="solid" variant="primary" size="lg">Solid</sl-button>
+    </div>
+    <figcaption>
 
   ### Solid  (Essential)
   Solid buttons are essential; they're necessary to move forward in the user flow. They emphasize critical actions, ensuring users respond quickly and understand what to do.
 </figcaption>
   </figure>
   <figure>
-    <div class="ds-example"><sl-button fill="outline" variant="primary" size="lg">Outline</sl-button></div>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-button fill="outline" variant="primary" size="lg">Outline</sl-button>
+    </div>
     <figcaption>
 
 ### Outline (Important, but not essential)
@@ -99,7 +106,10 @@ Outline buttons are important, but not essential in a user interface. Unlike sol
 </figcaption>
   </figure>
   <figure>
-    <div class="ds-example"><sl-button fill="ghost" variant="primary" size="lg">Ghost</sl-button></div>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-button fill="ghost" variant="primary" size="lg">Ghost</sl-button>
+    </div>
     <figcaption>
 
 ### Ghost 👻 (Suggest)
@@ -107,7 +117,10 @@ Ghost buttons discreetly suggest actions or options in a user interface. They're
 </figcaption>
   </figure>
   <figure>
-    <div class="ds-example"><sl-button fill="link" variant="primary" size="lg">Link</sl-button></div>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-button fill="link" variant="primary" size="lg">Link</sl-button>
+    </div>
     <figcaption>
 
 ### Link (Inform)
@@ -124,7 +137,10 @@ Take a look at our button options designed for different user needs and situatio
 
 <section class="ds-cards">
   <figure>
-    <div class="ds-example"><sl-button fill="solid" variant="primary" size="lg">Primary</sl-button></div>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-button fill="solid" variant="primary" size="lg">Primary</sl-button>
+    </div>
     <figcaption>
   
   ### Primary
@@ -132,7 +148,10 @@ Take a look at our button options designed for different user needs and situatio
   </figcaption>
   </figure>
   <figure>
-    <div class="ds-example"><sl-button fill="solid" variant="default" size="lg">Default</sl-button></div>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-button fill="solid" variant="default" size="lg">Default</sl-button>
+    </div>
     <figcaption>
   
   ### Default
@@ -140,7 +159,10 @@ Take a look at our button options designed for different user needs and situatio
   </figcaption>
   </figure>
   <figure>    
-    <div class="ds-example"><sl-button fill="solid" variant="success" size="lg">Success</sl-button></div>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-button fill="solid" variant="success" size="lg">Success</sl-button>
+    </div>
     <figcaption>
   
   ### Success 
@@ -148,7 +170,10 @@ Take a look at our button options designed for different user needs and situatio
   </figcaption>
   </figure>
   <figure>    
-    <div class="ds-example"><sl-button fill="solid" variant="warning" size="lg">Warning</sl-button></div>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-button fill="solid" variant="warning" size="lg">Warning</sl-button>
+    </div>
     <figcaption>
 
   ### Warning
@@ -156,7 +181,10 @@ Take a look at our button options designed for different user needs and situatio
   </figcaption>
   </figure>
   <figure>    
-    <div class="ds-example"><sl-button fill="solid" variant="danger" size="lg">Danger</sl-button></div>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-button fill="solid" variant="danger" size="lg">Danger</sl-button>
+    </div>
     <figcaption>
   
   ### Danger

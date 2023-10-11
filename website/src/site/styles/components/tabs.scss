@@ -131,16 +131,21 @@ $transition-timing: 300ms;
     scroll-margin-top: 1rem;
 
     &:not(:first-child):not(.no-heading) {
-      margin-top: var(--scale-1200-scale, 64px);
+      margin-top: var(--scale-1200-scale);
     }
   }
 
   h3 {
-    margin-top: var(--scale-400-scale, 24px);
+    margin-top: var(--scale-400-scale);
   }
 
   li {
     font-size: 1.6rem;
+  }
+
+  svg,
+  .ds-cards {
+    margin: var(--scale-400-scale) 0;
   }
 }
 

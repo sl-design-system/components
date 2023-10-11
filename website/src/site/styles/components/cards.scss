@@ -2,20 +2,28 @@
 
 section.ds-cards {
   display: grid;
-  gap: 16px 24px;
+  gap: 24px 16px;
   grid-template-columns: 1fr;
 
   @media screen and (min-width: $md-breakpoint) {
     grid-template-columns: repeat(2, 1fr);
   }
-}
 
-.ds-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+  figure {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
-.ds-cards .ds-example {
-  border-radius: 0;
+  svg {
+    margin: 0;
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+
+  .ds-cards .ds-example {
+    border-radius: 0;
+  }
 }

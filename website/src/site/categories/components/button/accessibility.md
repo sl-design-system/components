@@ -38,14 +38,15 @@ When the button has focus:
 |`role`	|`'button'`|Makes it clear that our custom component is a button |no [Note 1]|
 |`aria-labelledby`|string| When different element serves as the label, for example in the case of an icon-only button that has a label outside the button, this property can be set to the `id` of that element|yes|
 |`aria-label`|string|To be used when the button is icon-only|yes|
-|`aria-describedby`|string| When different element serves as the label, for example in the case of an icon-only button that has a label outside the button, this property can be set to the `id` of that element| yes|
-|`aria-disabled`| boolean| Announces the button as disabled with a screenreader. See [Note 2] below for more explanation| yes|
+|`aria-describedby`|string| When the button needs extra explanation or description you can reference this element here by the `id`. See [Note 2] below for more explanation| yes|
+|`aria-disabled`| boolean| Announces the button as disabled with a screenreader. See [Note 3] below for more explanation| yes|
 |`aria-pressed`| boolean | When the button is used as a toggle and is toggled on, the value of this state is true, and when toggled off, the state is false.| yes|
 
 {.ds-table .ds-table-align-top}
 
 **Notes:** 
 1. This means the attribute is always set in the component, so you don't need to do anyting.
+1. There is a subtle difference between `aria-labelledby` and `aria-describedby`; a label should be concise, where a description is intended to provide more verbose information. A description can for example be "Items in the trash will be permanently removed after 30 days." to explain what (delayed) effect a "Move to trash" button has.
 1. The `aria-disabled` should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities:
 
     - `disabled` dims the button visually, takes it out of the tab-focus sequence, prevents actions (click, enter) on it and anounces it as 'dimmed' or 'disabled' in a screenreader. 

@@ -79,6 +79,7 @@ slot[name='header'] {
 }
 
 slot[name='titles'] {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   gap: var(--_heading-gap);
@@ -116,19 +117,29 @@ slot[name='title']::slotted(*) {
   overflow: auto;
 }
 
-slot[name='footer']::slotted(sl-button-bar) {
-  align-items: stretch;
-  display: grid;
-  flex-direction: column;
-  flex-grow: 1;
-  flex-shrink: 0;
+slot[name='footer']/*::slotted(sl-button-bar)*/ {
+  //slot[name='footer']::slotted(*) {
+  sl-button-bar {
+    align-items: stretch;
+    //display: grid;
+    flex-direction: column-reverse;
+    flex-grow: 1;
+    flex-shrink: 0;
+    //--_direction: column-reverse;
+    //align-items: stretch;
+    gap: var(--_footer-buttons-gap);
+  }
 }
 
-.footer-buttons {
-  --_direction: column-reverse;
-  align-items: stretch;
-  gap: var(--_footer-buttons-gap);
+slot[name='action']::slotted(*) {
+  display: flex;
 }
+
+//.footer-buttons {
+//  --_direction: column-reverse;
+//  align-items: stretch;
+//  gap: var(--_footer-buttons-gap);
+//}
 
 @media screen and (min-width: $md-breakpoint) {
   :host {
@@ -155,9 +166,33 @@ slot[name='footer']::slotted(sl-button-bar) {
     margin-bottom: var(--_body-gap-desktop);
   }
 
-  .footer-buttons {
-    --_direction: row;
-    align-items: center;
+  //.footer-buttons, slot[name='footer']::slotted(*) {
+  ////slot[name='footer']::slotted(sl-button-bar) {
+  ////  --_direction: row;
+  //  //flex-direction: row;
+  //  align-items: center;
+  //}
+
+  slot[name='footer']/*::slotted(sl-button-bar)*/ {
+    //slot[name='footer']::slotted(*) {
+    sl-button-bar {
+      align-items: center;
+      flex-direction: var(--_direction);
+      //display: grid;
+      //flex-direction: column-reverse;
+      //flex-grow: 1;
+      //flex-shrink: 0;
+      //--_direction: initial; //inherit;
+      //align-items: stretch;
+      //gap: var(--_footer-buttons-gap);
+    }
+  }
+
+  slot[name='action'],
+  slot[name='cancel'] {
+    display: flex;
+    flex-direction: var(--_direction);
+    gap: var(--_footer-buttons-gap);
   }
 }
 

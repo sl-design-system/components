@@ -49,9 +49,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
   /** Alignment of the action buttons in the dialog footer
-   * @type {'start' | 'end'} */
-  @property({ reflect: true, attribute: 'buttons-align' }) buttonsAlign: Extract<ButtonBarAlign, 'start' | 'end'> =
-    'end';
+   * @type {'end' | 'space-between'} */
+  @property({ reflect: true }) align: Extract<ButtonBarAlign, 'end' | 'space-between'> = 'end';
+
+  /** When set to true, the button order in the dialog footer is reversed using flex-direction.*/
+  @property({ type: Boolean, reflect: true }) reverse = false;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -102,11 +104,15 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           </div>
         </slot>
         <slot name="footer">
-          <sl-button-bar class="footer-buttons" align=${this.buttonsAlign}><slot name="action"></slot></sl-button-bar>
+          <sl-button-bar align=${this.align} .reverse=${this.reverse}>
+            <slot name="cancel"></slot>
+            <slot name="action"></slot>
+          </sl-button-bar>
         </slot>
       </dialog>
     `;
   }
+  // <sl-button-bar class="footer-buttons" align=${this.buttonsAlign}><slot name="action"></slot></sl-button-bar>
 
   showModal(): void {
     this.inert = false;
@@ -181,7 +187,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.code === 'Escape') {
+    if (event.code === 'Escape' && !this.disableClose) {
       this.#closeDialogOnAnimationend(event.target as HTMLElement);
     }
   }

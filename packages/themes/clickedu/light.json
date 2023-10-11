@@ -3303,6 +3303,13 @@
           }
         }
       }
+    },
+    "focusring": {
+      "default": {
+        "value": "{color.palette.accent.300}",
+        "type": "color",
+        "failedToResolve": true
+      }
     }
   },
   "boxShadow": {

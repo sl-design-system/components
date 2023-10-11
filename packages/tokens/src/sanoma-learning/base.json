@@ -1245,12 +1245,16 @@
       "description": "borderRadius.button"
     },
     "checkbox": {
-      "value": "{border.radius.2xs}",
+      "value": "{border.radius.3xs}",
       "type": "borderRadius"
     },
     "focusring": {
       "default": {
         "value": "{borderRadius.default} + 1",
+        "type": "borderRadius"
+      },
+      "checkbox": {
+        "value": "{borderRadius.checkbox} + 1",
         "type": "borderRadius"
       },
       "full": {
@@ -1273,24 +1277,24 @@
     "width": {
       "button": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.default"
         },
         "outline": {
-          "value": "{border.width.xs}",
+          "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.xs}",
+          "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.link"
         }
       },
       "select": {
         "listbox": {
-          "value": "{border.width.xs}",
+          "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.default"
         }
@@ -1302,14 +1306,19 @@
           "description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.sm}",
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        },
+        "option": {
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
       },
       "focusring": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth"
         }
       },
@@ -1327,6 +1336,17 @@
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        }
+      }
+    }
+  },
+  "conceptual": {
+    "border": {
+      "width": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "Conceptual Theme Border Token"
         }
       }
     }

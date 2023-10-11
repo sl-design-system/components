@@ -18,7 +18,7 @@ export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 window.SLDS ||= { icons: {} };
 
 /**
- * A single, simple button, with optionally an icon.
+ * An icon that uses either FontAwesome custom svg's straight from Figma.
  *
  * ```html
  *   <sl-icon name="unicorn"></sl-icon>

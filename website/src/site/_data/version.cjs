@@ -3,7 +3,6 @@ const { Octokit} = require("octokit");
 
 module.exports = async function() {
   // Pass in your unique custom cache key
-  // (normally this would be tied to your API URL)
   let asset = new AssetCache("component-version-numbers");
   // check if the cache is fresh within the last day
   if(asset.isCacheValid("1d")) {
@@ -45,8 +44,6 @@ module.exports = async function() {
         [p.name]:latestVersions.find(version => version.package_html_url === p.html_url).name
       }
     });
-
-    // { button: 'v0.0.12' };
   await asset.save(releases, "json");
 
   return releases;

@@ -1256,7 +1256,7 @@
       },
       "focusring": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth"
         }
       }
@@ -1264,44 +1264,6 @@
   },
   "space": {
     "input": {
-      "option": {
-        "block": {
-          "md": {
-            "value": "{space.button.outline.block.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
-          },
-          "lg": {
-            "value": "{space.button.outline.block.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
-          }
-        },
-        "inline": {
-          "md": {
-            "value": "{space.button.outline.block.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
-          },
-          "lg": {
-            "value": "{space.button.outline.block.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
-          }
-        },
-        "gap": {
-          "md": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          }
-        }
-      },
       "textField": {
         "block": {
           "md": {
@@ -1401,6 +1363,17 @@
       "solid": {
         "value": "{text.typeset.fontWeight.icon-solid}",
         "type": "fontWeights"
+      }
+    }
+  },
+  "conceptual": {
+    "border": {
+      "width": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "Conceptual Theme Border Token"
+        }
       }
     }
   }

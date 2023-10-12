@@ -2,7 +2,7 @@
 title: Button bar
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna.
 componentType: action
-shortDescription: This is a short description of the button bar component
+shortDescription: We are still working on the button bar component
 layout: "components/components.njk"
 tags: component
 packageName: button-bar

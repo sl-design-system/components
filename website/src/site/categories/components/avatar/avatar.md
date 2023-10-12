@@ -2,7 +2,7 @@
 title: Avatar
 description: Avatar component description
 componentType: action
-shortDescription: This is a short description of the avatar component
+shortDescription: We are still working on the avatar component
 layout: "components/components.njk"
 tags: component
 packageName: avatar

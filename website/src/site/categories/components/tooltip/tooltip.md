@@ -1,8 +1,8 @@
 ---
 title: Tooltip
 description: Tooltip description
-componentType: feedback
-shortDescription: This is a short description of the tooltip component
+componentType: overlay
+shortDescription: We are still working on the tooltip component
 layout: "components/components.njk"
 tags: component
 packageName: tooltip

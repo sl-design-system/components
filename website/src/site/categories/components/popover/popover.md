@@ -1,8 +1,8 @@
 ---
 title: Popover
 description: Popover description
-componentType: feedback
-shortDescription: This is a short description of the popover component
+componentType: overlay
+shortDescription: We are still working on the popover component
 layout: "components/components.njk"
 tags: component
 packageName: popover

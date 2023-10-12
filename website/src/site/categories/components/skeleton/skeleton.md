@@ -2,7 +2,7 @@
 title: Skeleton
 description: Skeleton description
 componentType: feedback
-shortDescription: This is a short description of the skeleton component
+shortDescription: We are still working on the skeleton component
 layout: "components/components.njk"
 tags: component
 packageName: skeleton

@@ -25,6 +25,7 @@ $transition-timing: 300ms;
   flex-direction: column;
   flex-grow: 1;
   gap: 0.8rem;
+  overflow: hidden;
 
   svg {
     overflow: visible;

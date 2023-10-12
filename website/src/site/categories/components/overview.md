@@ -13,7 +13,7 @@ eleventyNavigation:
 
 ## Actions {.ds-heading-1}
 
-This is a short introduction of the section, we want to keep this within 2 or 3 lines.
+Components that can be clicked to trigger an action.
 
 <section class="ds-components__cards">
 {% for component in collections.component %}
@@ -101,6 +101,47 @@ This is a short introduction of the section, we want to keep this within 2 or 3 
 <section class="ds-components__cards">
 {% for component in collections.component %}
 {% if component.data.componentType == "editable" %}
+{% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
+  <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
+    <div class="component-card__picture">
+      {% if component.data.picture != null %}
+        {{ component.data.picture }}
+      {% endif %}
+      {% if component.data.picture == null %}
+        {{ defaultPicture }}
+      {% endif %}
+      {% if component.data.eleventyNavigation.status == 'coming' %}
+        <div class="ds-badge">Coming</div>
+      {% endif %}
+    </div>
+    <div class="component-card__picture--dark">
+      {% if component.data.pictureDark != null %}
+        {{ component.data.pictureDark }}
+      {% endif %}
+      {% if component.data.pictureDark == null %}
+        {{ defaultDarkPicture }}
+      {% endif %}
+      {% if component.data.eleventyNavigation.status == 'coming' %}
+        <div class="ds-badge">Coming</div>
+      {% endif %}
+    </div>
+    <div class="header-anchor ds-heading-2">
+      {{ component.data.title }}
+    </div>
+    <p>{{ component.data.shortDescription }}</p>
+  </div>
+{% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
+{% endif %}
+{% endfor %}
+</section>
+
+## Overlay {.ds-heading-1}
+
+Components that add a bit of extra screen real estate. Or will focus the attention of the user in a specific, smaller area of the screen.
+
+<section class="ds-components__cards">
+{% for component in collections.component %}
+{% if component.data.componentType == "overlay" %}
 {% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
   <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
     <div class="component-card__picture">

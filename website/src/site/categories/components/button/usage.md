@@ -5,6 +5,9 @@ eleventyNavigation:
   parent: Button
   key: ButtonUsage
 ---
+
+
+
 <section class="no-heading">
 
 <div class="ds-example">
@@ -85,7 +88,7 @@ Buttons are used to trigger specific actions or functions. For example, you can 
 <section class="ds-cards">
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="solid" variant="primary" size="lg">Solid</sl-button>
     </div>
     <figcaption>
@@ -96,7 +99,7 @@ Buttons are used to trigger specific actions or functions. For example, you can 
   </figure>
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="outline" variant="primary" size="lg">Outline</sl-button>
     </div>
     <figcaption>
@@ -107,7 +110,7 @@ Outline buttons are important, but not essential in a user interface. Unlike sol
   </figure>
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="ghost" variant="primary" size="lg">Ghost</sl-button>
     </div>
     <figcaption>
@@ -118,7 +121,7 @@ Ghost buttons discreetly suggest actions or options in a user interface. They're
   </figure>
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="link" variant="primary" size="lg">Link</sl-button>
     </div>
     <figcaption>
@@ -138,7 +141,7 @@ Take a look at our button options designed for different user needs and situatio
 <section class="ds-cards">
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="solid" variant="primary" size="lg">Primary</sl-button>
     </div>
     <figcaption>
@@ -149,7 +152,7 @@ Take a look at our button options designed for different user needs and situatio
   </figure>
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="solid" variant="default" size="lg">Default</sl-button>
     </div>
     <figcaption>
@@ -160,7 +163,7 @@ Take a look at our button options designed for different user needs and situatio
   </figure>
   <figure>    
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="solid" variant="success" size="lg">Success</sl-button>
     </div>
     <figcaption>
@@ -171,7 +174,7 @@ Take a look at our button options designed for different user needs and situatio
   </figure>
   <figure>    
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="solid" variant="warning" size="lg">Warning</sl-button>
     </div>
     <figcaption>
@@ -182,7 +185,7 @@ Take a look at our button options designed for different user needs and situatio
   </figure>
   <figure>    
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" title="Interactive example" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
       <sl-button fill="solid" variant="danger" size="lg">Danger</sl-button>
     </div>
     <figcaption>

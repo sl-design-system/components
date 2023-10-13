@@ -21,6 +21,7 @@ export const API: StoryObj = {
     closingButton: true,
     title: 'Dialog title',
     subtitle: 'Dialog subtitle',
+    titleReverse: false,
     align: 'end',
     reverse: false,
     bodyContent: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac augue neque. Nunc sed ex ut neque lacinia rutrum nec vitae mi. Donec dictum urna elit, et feugiat nunc fringilla nec. Maecenas nisi lorem, facilisis nec libero ut, hendrerit ultricies orci. Vivamus massa ligula, ultricies quis odio a, scelerisque tincidunt lorem. Morbi quis pulvinar augue. Nunc eros magna, laoreet vitae ornare at, iaculis quis diam. Duis odio urna, viverra ut ex mattis, egestas tincidunt enim. Praesent ac ex tincidunt, hendrerit sem et, aliquam metus. Nunc quis nisi nulla. Sed nibh ante, posuere eu volutpat vitae, elementum ut leo. Ut aliquet tincidunt tellus, ut molestie urna ultrices in. Suspendisse potenti. Nunc non nunc eu nibh venenatis vestibulum. Maecenas rutrum nibh lacus.
@@ -32,12 +33,12 @@ export const API: StoryObj = {
       options: ['end', 'space-between']
     }
   },
-  render: ({ title, subtitle, align, reverse, bodyContent, closingButton }) => {
+  render: ({ title, subtitle, titleReverse, align, reverse, bodyContent, closingButton }) => {
     return html`
       <sl-button fill="outline" size="md" @click=${onClick}>Show Dialog</sl-button>
-      <sl-dialog ?closing-button=${closingButton} align=${align} .reverse=${reverse}>
-        <span slot="subtitle">${subtitle}</span>
+      <sl-dialog ?closing-button=${closingButton} ?title-reverse=${titleReverse} align=${align} .reverse=${reverse}>
         <span slot="title">${title}</span>
+        <span slot="subtitle">${subtitle}</span>
         ${bodyContent}
         <sl-button slot="cancel" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
         <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close>Action 2</sl-button>
@@ -53,12 +54,6 @@ export const DisableClose: StoryObj = {
     <sl-dialog disable-close closing-button align="space-between">
       <span slot="title">Disable close</span>
       <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>
-      <!--      <sl-button slot="action" sl-dialog-close>Cancel</sl-button>-->
-      <!--              <sl-button-bar align="space-between">-->
-      <!--                <sl-button slot="buttons" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>-->
-      <!--                <sl-button slot="action" fill="solid" variant="default" sl-dialog-close autofocus>Action 2</sl-button>-->
-      <!--                <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>-->
-      <!--              </sl-button-bar>-->
       <sl-button slot="cancel" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
       <sl-button slot="action" fill="solid" variant="default" sl-dialog-close autofocus>Action 2</sl-button>
       <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>

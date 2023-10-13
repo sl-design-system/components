@@ -6,7 +6,8 @@ $md-breakpoint: 600px;
   --_border-radius-mobile: var(--sl-border-radius-dialog-mobile);
   --_border-radius-desktop: var(--sl-border-radius-dialog-desktop);
   --_header-gap: var(--sl-space-dialog-gap-header);
-  --_heading-gap: var(--sl-space-dialog-gap-heading);
+  --_heading-gap: var(--sl-space-dialog-gap-heading-top);
+  --_heading-gap-reverse: var(--sl-space-dialog-gap-heading-bottom);
   --_body-gap-mobile: var(--sl-space-dialog-mobile-body-gap);
   --_body-gap-desktop: var(--sl-space-dialog-desktop-body-gap);
   --_footer-buttons-gap: var(--sl-space-dialog-gap-footer);
@@ -31,6 +32,14 @@ $md-breakpoint: 600px;
 
 :host {
   display: block;
+  text-align: inherit;
+}
+
+:host([title-reverse]) {
+  slot[name='titles'] {
+    flex-direction: column-reverse;
+    gap: var(--_heading-gap-reverse);
+  }
 }
 
 dialog {
@@ -117,16 +126,12 @@ slot[name='title']::slotted(*) {
   overflow: auto;
 }
 
-slot[name='footer']/*::slotted(sl-button-bar)*/ {
-  //slot[name='footer']::slotted(*) {
+slot[name='footer'] {
   sl-button-bar {
     align-items: stretch;
-    //display: grid;
     flex-direction: column-reverse;
     flex-grow: 1;
     flex-shrink: 0;
-    //--_direction: column-reverse;
-    //align-items: stretch;
     gap: var(--_footer-buttons-gap);
   }
 }
@@ -134,12 +139,6 @@ slot[name='footer']/*::slotted(sl-button-bar)*/ {
 slot[name='action']::slotted(*) {
   display: flex;
 }
-
-//.footer-buttons {
-//  --_direction: column-reverse;
-//  align-items: stretch;
-//  gap: var(--_footer-buttons-gap);
-//}
 
 @media screen and (min-width: $md-breakpoint) {
   :host {
@@ -166,25 +165,10 @@ slot[name='action']::slotted(*) {
     margin-bottom: var(--_body-gap-desktop);
   }
 
-  //.footer-buttons, slot[name='footer']::slotted(*) {
-  ////slot[name='footer']::slotted(sl-button-bar) {
-  ////  --_direction: row;
-  //  //flex-direction: row;
-  //  align-items: center;
-  //}
-
-  slot[name='footer']/*::slotted(sl-button-bar)*/ {
-    //slot[name='footer']::slotted(*) {
+  slot[name='footer'] {
     sl-button-bar {
       align-items: center;
       flex-direction: var(--_direction);
-      //display: grid;
-      //flex-direction: column-reverse;
-      //flex-grow: 1;
-      //flex-shrink: 0;
-      //--_direction: initial; //inherit;
-      //align-items: stretch;
-      //gap: var(--_footer-buttons-gap);
     }
   }
 

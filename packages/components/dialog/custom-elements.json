@@ -56,6 +56,10 @@
           "name": "Dialog",
           "slots": [
             {
+              "description": "Area where cancel button can be placed",
+              "name": "cancel"
+            },
+            {
               "description": "Area where action buttons are placed",
               "name": "action"
             },
@@ -72,6 +76,14 @@
               "name": "header"
             },
             {
+              "description": "Closing button (placed in header) for the dialog",
+              "name": "close"
+            },
+            {
+              "description": "More space for buttons for the dialog's header",
+              "name": "header-buttons"
+            },
+            {
               "description": "The title of the dialog",
               "name": "title"
             },
@@ -83,12 +95,13 @@
           "members": [
             {
               "kind": "field",
-              "name": "buttonsAlign",
+              "name": "align",
               "type": {
-                "text": "ButtonBarAlign"
+                "text": "'end' | 'space-between'"
               },
               "default": "'end'",
-              "attribute": "buttonsAlign",
+              "description": "Alignment of the action buttons in the dialog footer",
+              "attribute": "align",
               "reflects": true
             },
             {
@@ -102,10 +115,12 @@
             },
             {
               "kind": "field",
-              "name": "dialog",
+              "name": "closingButton",
               "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "attribute": "closing-button"
             },
             {
               "kind": "field",
@@ -116,6 +131,17 @@
               "default": "false",
               "description": "Disables the ability to close the dialog using the Escape key.",
               "attribute": "disable-close"
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order in the dialog footer is reversed using flex-direction.",
+              "attribute": "reverse",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -138,26 +164,17 @@
             },
             {
               "kind": "field",
-              "name": "size",
+              "name": "titleReverse",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "boolean"
               },
-              "default": "'md'",
-              "description": "The size of the dialog",
-              "attribute": "size",
+              "default": "false",
+              "description": "When set to true, the title and subtitle order in the dialog header is reversed using flex-direction.",
+              "attribute": "title-reverse",
               "reflects": true
             }
           ],
           "attributes": [
-            {
-              "name": "size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the dialog",
-              "fieldName": "size"
-            },
             {
               "name": "disable-close",
               "type": {
@@ -166,6 +183,14 @@
               "default": "false",
               "description": "Disables the ability to close the dialog using the Escape key.",
               "fieldName": "disableClose"
+            },
+            {
+              "name": "closing-button",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "fieldName": "closingButton"
             },
             {
               "name": "role",
@@ -177,12 +202,31 @@
               "fieldName": "role"
             },
             {
-              "name": "buttonsAlign",
+              "name": "title-reverse",
               "type": {
-                "text": "ButtonBarAlign"
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the title and subtitle order in the dialog header is reversed using flex-direction.",
+              "fieldName": "titleReverse"
+            },
+            {
+              "name": "align",
+              "type": {
+                "text": "'end' | 'space-between'"
               },
               "default": "'end'",
-              "fieldName": "buttonsAlign"
+              "description": "Alignment of the action buttons in the dialog footer",
+              "fieldName": "align"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order in the dialog footer is reversed using flex-direction.",
+              "fieldName": "reverse"
             }
           ],
           "mixins": [
@@ -269,6 +313,40 @@
             },
             {
               "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#closeDialogOnAnimationend",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onClose",
               "return": {
                 "type": {
@@ -293,7 +371,13 @@
               "name": "dialog",
               "type": {
                 "text": "HTMLDialogElement | undefined"
-              }
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onAnimationEnd",
+              "privacy": "private"
             }
           ]
         }

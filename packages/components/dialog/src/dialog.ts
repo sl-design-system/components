@@ -14,6 +14,7 @@ import styles from './dialog.scss.js';
 /**
  * A dialog component for displaying modal UI.
  *
+ * @slot cancel - Area where cancel button can be placed
  * @slot action - Area where action buttons are placed
  * @slot default - Body content for the dialog
  * @slot footer - Footer content for the dialog
@@ -47,6 +48,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
+
+  /** When set to true, the title and subtitle order in the dialog header is reversed using flex-direction.*/
+  @property({ type: Boolean, reflect: true, attribute: 'title-reverse' }) titleReverse = false;
 
   /** Alignment of the action buttons in the dialog footer
    * @type {'end' | 'space-between'} */
@@ -82,8 +86,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       >
         <slot name="header">
           <slot name="titles">
-            <slot name="subtitle"></slot>
             <slot name="title" id="title"></slot>
+            <slot name="subtitle"></slot>
           </slot>
           <slot name="header-actions">
             <slot name="header-buttons"></slot>
@@ -112,7 +116,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       </dialog>
     `;
   }
-  // <sl-button-bar class="footer-buttons" align=${this.buttonsAlign}><slot name="action"></slot></sl-button-bar>
 
   showModal(): void {
     this.inert = false;

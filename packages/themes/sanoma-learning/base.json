@@ -2488,8 +2488,13 @@
         }
       },
       "gap": {
-        "heading": {
+        "headingBottom": {
           "value": "{space.xs}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        },
+        "headingTop": {
+          "value": "{space.none}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
         },

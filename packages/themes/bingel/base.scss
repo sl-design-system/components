@@ -203,7 +203,8 @@
   --sl-space-select-listbox-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-dialog-gap-footer: var(--sl-space-sm);
   --sl-space-dialog-gap-header: var(--sl-space-lg);
-  --sl-space-dialog-gap-heading: var(--sl-space-xs);
+  --sl-space-dialog-gap-heading-top: var(--sl-space-none);
+  --sl-space-dialog-gap-heading-bottom: var(--sl-space-xs);
   --sl-space-dialog-mobile-body-gap: var(--sl-space-xl);
   --sl-space-dialog-mobile-body-inline: var(--sl-space-xl);
   --sl-space-dialog-mobile-body-block: var(--sl-space-xl);

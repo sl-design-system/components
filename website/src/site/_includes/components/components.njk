@@ -4,7 +4,7 @@ layout: base.njk
 
 <header class="ds-component__heading">
   <div class="ds-component__heading-wrapper">
-    {% if version[packageName] %}<span class="ds-badge">v{{version[packageName]}}</span>{% endif %}
+    {% if version[packageName] %}<a href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F{{packageName}}%40{{version[packageName]}}"><span class="ds-badge">v{{version[packageName]}}</span></a>{% endif %}
     <h1 class="ds-heading-1">
       {{ title }} 
     </h1>

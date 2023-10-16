@@ -1,8 +1,8 @@
 ---
 title: Dialog
 description: Dialog description
-componentType: feedback
-shortDescription: This is a short description of the dialog component
+componentType: overlay
+shortDescription: We are still working on the dialog component
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:

@@ -69,7 +69,7 @@
       elasticlunr.clearStopWords(); /** Remove default stop words, we can add customized stop words*/
       // eslint-disable-next-line no-undef
       window.searchIndex = elasticlunr.Index.load(rawIndex);
-      document.getElementById('searchField').addEventListener('input', search);
+      document.getElementById('searchField')?.addEventListener('input', search);
     })
   );
 })(window, document);

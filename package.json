@@ -281,7 +281,7 @@
     }
   },
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.2",
+    "@11ty/eleventy": "^2.0.1",
     "@changesets/cli": "^2.26.2",
     "@changesets/get-github-info": "^0.5.2",
     "@custom-elements-manifest/analyzer": "^0.8.3",

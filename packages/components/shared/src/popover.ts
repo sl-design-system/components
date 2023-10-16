@@ -1,7 +1,7 @@
-import type { Middleware } from '@floating-ui/dom';
+import type { Middleware, MiddlewareState } from '@floating-ui/dom';
 import { arrow, flip, shift, size } from '@floating-ui/core';
 import { autoUpdate, computePosition, offset } from '@floating-ui/dom';
-import { getContainingBlock } from '@floating-ui/utils/dom';
+import { getContainingBlock, getWindow, isContainingBlock } from '@floating-ui/utils/dom';
 import popoverPolyfillStyles from './popover.scss.js';
 
 export { popoverPolyfillStyles };
@@ -74,42 +74,99 @@ const flipPlacement = (position: PopoverPosition): PopoverPosition => {
  */
 const topLayerOverTransforms = (): Middleware => ({
   name: 'topLayer',
-  async fn({ x, y, elements: { reference, floating } }) {
+  async fn(middlewareArguments: MiddlewareState) {
+    const {
+      x,
+      y,
+      elements: { reference, floating }
+    } = middlewareArguments;
     let onTopLayer = false;
-    const diffCoords = { x: 0, y: 0 };
-
-    // browsers will throw when they do not support the following selectors, catch the errors.
+    let topLayerIsFloating = false;
+    let withinReference = false;
+    const diffCoords = {
+      x: 0,
+      y: 0
+    };
     try {
-      onTopLayer = onTopLayer || floating.matches(':modal') || floating.matches(':popover-open');
-    } catch (e) {}
+      onTopLayer = onTopLayer || floating.matches(':popover-open');
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
+    try {
+      onTopLayer = onTopLayer || floating.matches(':open');
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
+    try {
+      onTopLayer = onTopLayer || floating.matches(':modal');
+      // eslint-disable-next-line no-empty
+      /* c8 ignore next 3 */
+    } catch (error) {}
+    topLayerIsFloating = onTopLayer;
+    const dialogAncestorQueryEvent = new Event('floating-ui-dialog-test', {
+      composed: true,
+      bubbles: true
+    });
+    floating.addEventListener(
+      'floating-ui-dialog-test',
+      (event: Event) => {
+        (event.composedPath() as unknown as Element[]).forEach(el => {
+          withinReference = withinReference || el === reference;
+          if (el === floating || el.localName !== 'dialog') return;
+          try {
+            onTopLayer = onTopLayer || el.matches(':modal');
+            // eslint-disable-next-line no-empty
+            /* c8 ignore next */
+          } catch (error) {}
+        });
+      },
+      { once: true }
+    );
+    floating.dispatchEvent(dialogAncestorQueryEvent);
+    let overTransforms = false;
 
-    if (!onTopLayer) {
-      return { x, y, data: diffCoords };
+    const root = (withinReference ? reference : floating) as Element;
+    const containingBlock = isContainingBlock(root) ? root : getContainingBlock(root);
+
+    if (containingBlock !== null && getWindow(containingBlock) !== (containingBlock as unknown as Window)) {
+      const css = getComputedStyle(containingBlock);
+      overTransforms = css.transform !== 'none' || (css.filter ? css.filter !== 'none' : false);
     }
 
-    const containingBlock = getContainingBlock(reference as Element);
-    const inContainingBlock = containingBlock && !isWindow(containingBlock);
+    if (onTopLayer && overTransforms && containingBlock) {
+      const rect = containingBlock.getBoundingClientRect();
+      diffCoords.x = rect.x;
+      diffCoords.y = rect.y;
+    }
 
-    if (onTopLayer && inContainingBlock) {
-      const rect = reference.getBoundingClientRect();
-      diffCoords.x = Math.trunc(rect.x - (reference as HTMLElement).offsetLeft);
-      diffCoords.y = Math.trunc(rect.y - (reference as HTMLElement).offsetTop);
+    if (onTopLayer && topLayerIsFloating) {
+      return {
+        x: x + diffCoords.x,
+        y: y + diffCoords.y,
+        data: diffCoords
+      };
+    }
+
+    if (onTopLayer) {
+      return {
+        x,
+        y,
+        data: diffCoords
+      };
     }
 
     return {
-      x: x + diffCoords.x,
-      y: y + diffCoords.y,
+      x: x - diffCoords.x,
+      y: y - diffCoords.y,
       data: diffCoords
     };
   }
 });
 
-const isWindow = (value: unknown): boolean => {
-  if (typeof value === 'undefined' || value === null || !(value instanceof Object)) {
-    return false;
-  }
-  return ['document', 'location', 'alert', 'setInterval'].every(p => Object.keys(value).includes(p));
-};
+// const isWindow = (value: unknown): boolean => {
+//   if (typeof value === 'undefined' || value === null || !(value instanceof Object)) {
+//     return false;
+//   }
+//   return ['document', 'location', 'alert', 'setInterval'].every(p => Object.keys(value).includes(p));
+// };
 
 export const positionPopover = (
   element: HTMLElement,

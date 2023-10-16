@@ -86,13 +86,41 @@ $transition-timing: 300ms;
 
 .ds-example {
   align-items: center;
-  background: var(--copy-button-background);
+  background: var(--control-color-surface-200-surface);
   border: 1px solid var(--code-border);
   border-radius: 0.6rem 0.6rem 0 0;
   display: flex;
   gap: 1rem;
   justify-content: center;
   min-height: 16rem;
+  position: relative;
+}
+
+.ds-cards .ds-example {
+  background: var(--control-color-surface-100-surface);
+  border-radius: 0;
+}
+
+.ds-example sl-icon[name='fas-hand-back-point-up'] {
+  --_icon-container-size: 20px;
+  background-color: var(--control-color-surface-400-surface);
+  border-radius: 2px;
+  color: var(--control-color-surface-100-surface);
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+code {
+  background-color: var(--table-code-background);
+  border-radius: 0.6rem;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  font-family: 'source-code-pro', monospace;
+  font-size: 1.2rem;
+  line-height: 1rem;
+  padding: 0.2rem 0.8rem;
 }
 
 code[class*='language-'] {

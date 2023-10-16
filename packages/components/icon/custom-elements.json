@@ -60,8 +60,22 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "An icon that uses either FontAwesome custom svg's straight from Figma.\n\n```html\n  <sl-icon name=\"unicorn\"></sl-icon>\n```",
           "name": "Icon",
+          "cssProperties": [
+            {
+              "description": "currentColor;",
+              "name": "--fill-default:"
+            },
+            {
+              "description": "Accent color, only used for multicolor icons",
+              "name": "--fill-accent: rgb(var(--sl-color-palette-accent-300))"
+            },
+            {
+              "description": "unset;",
+              "name": "--icon-container-size:"
+            }
+          ],
           "members": [
             {
               "kind": "field",

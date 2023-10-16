@@ -3,8 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
-  --sl-string-dialog-header-reverse: column-reverse;
-  --sl-string-dialog-header-column: column;
+  --sl-justify-content-end: end;
+  --sl-justify-content-space-between: space-between;
+  --sl-justify-content-start: start;
+  --sl-flex-direction-row: row;
+  --sl-flex-direction-row-reverse: row-reverse;
+  --sl-flex-direction-column-reverse: column-reverse;
+  --sl-flex-direction-column: column;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;

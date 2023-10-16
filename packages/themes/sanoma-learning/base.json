@@ -2688,21 +2688,21 @@
       }
     }
   },
-  "string": {
-    "dialog": {
-      "header": {
-        "default": {
-          "value": "{string.dialog.header.column}",
-          "type": "Flex-Direction"
-        },
-        "column": {
-          "value": "column",
-          "type": "Flex-Direction"
-        },
-        "reverse": {
-          "value": "column-reverse",
-          "type": "Flex-Direction"
-        }
+  "dialog": {
+    "header": {
+      "flexDirection": {
+        "value": "{flexDirection.column}",
+        "type": "Flex"
+      }
+    },
+    "footer": {
+      "flexDirection": {
+        "value": "{flexDirection.row}",
+        "type": "Flex"
+      },
+      "justifyContent": {
+        "value": "{justifyContent.end}",
+        "type": "Flex"
       }
     }
   },
@@ -3093,6 +3093,38 @@
         ],
         "type": "boxShadow"
       }
+    }
+  },
+  "flexDirection": {
+    "column": {
+      "value": "column",
+      "type": "Flex"
+    },
+    "columnReverse": {
+      "value": "column-reverse",
+      "type": "Flex"
+    },
+    "rowReverse": {
+      "value": "row-reverse",
+      "type": "Flex"
+    },
+    "row": {
+      "value": "row",
+      "type": "Flex"
+    }
+  },
+  "justifyContent": {
+    "start": {
+      "value": "start",
+      "type": "Flex"
+    },
+    "spaceBetween": {
+      "value": "space-between",
+      "type": "Flex"
+    },
+    "end": {
+      "value": "end",
+      "type": "Flex"
     }
   }
 }

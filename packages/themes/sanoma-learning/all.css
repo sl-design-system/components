@@ -11,6 +11,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
+  --sl-justify-content-end: end;
+  --sl-justify-content-space-between: space-between;
+  --sl-justify-content-start: start;
+  --sl-flex-direction-row: row;
+  --sl-flex-direction-row-reverse: row-reverse;
+  --sl-flex-direction-column-reverse: column-reverse;
+  --sl-flex-direction-column: column;
   --sl-size-dialog-full: 100%;
   --sl-size-dialog-max: 960px;
   --sl-size-dialog-min: 400px;
@@ -39,8 +46,6 @@
   --sl-opacity-150: 0.06;
   --sl-opacity-100: 0.04;
   --sl-opacity-50: 0.02;
-  --sl-string-dialog-header-reverse: column-reverse;
-  --sl-string-dialog-header-column: column;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -264,7 +269,9 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
-  --sl-string-dialog-header-default: var(--sl-string-dialog-header-column);
+  --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
+  --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
+  --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
   --sl-space-select-divider-line-md: var(--sl-space-sm);
   --sl-space-select-divider-line-lg: var(--sl-space-sm);
   --sl-space-select-divider-gap-md: var(--sl-space-sm);

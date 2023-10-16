@@ -41,6 +41,6 @@
     "@sl-design-system/button": "0.0.13",
     "@sl-design-system/text-input": "0.1.8",
     "@sl-design-system/textarea": "0.1.8",
-    "lit": "^2.8.0"
+    "lit": "^3.0.0"
   }
 }

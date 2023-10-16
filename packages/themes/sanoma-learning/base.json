@@ -2688,6 +2688,24 @@
       }
     }
   },
+  "string": {
+    "dialog": {
+      "header": {
+        "default": {
+          "value": "{string.dialog.header.column}",
+          "type": "Flex-Direction"
+        },
+        "column": {
+          "value": "column",
+          "type": "Flex-Direction"
+        },
+        "reverse": {
+          "value": "column-reverse",
+          "type": "Flex-Direction"
+        }
+      }
+    }
+  },
   "opacity": {
     "50": {
       "value": 0.02,

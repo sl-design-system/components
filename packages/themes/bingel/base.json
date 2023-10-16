@@ -2314,5 +2314,19 @@
         "type": "boxShadow"
       }
     }
+  },
+  "string": {
+    "dialog": {
+      "header": {
+        "column": {
+          "value": "column",
+          "type": "Flex-Direction"
+        },
+        "reverse": {
+          "value": "column-reverse",
+          "type": "Flex-Direction"
+        }
+      }
+    }
   }
 }

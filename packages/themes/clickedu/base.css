@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
+  --sl-string-dialog-header-reverse: column-reverse;
+  --sl-string-dialog-header-column: column;
   --sl-size-dialog-full: 100%;
   --sl-size-dialog-max: 960px;
   --sl-size-dialog-min: 400px;

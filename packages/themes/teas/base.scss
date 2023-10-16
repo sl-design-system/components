@@ -4,6 +4,8 @@
  */
 
 @mixin sl-theme-base {
+  --sl-string-dialog-header-reverse: column-reverse;
+  --sl-string-dialog-header-column: column;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;

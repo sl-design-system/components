@@ -10,7 +10,7 @@ const fs = require('fs');
 const searchFilter = require("./src/site/scripts/filters/searchFilter.cjs");
 const anchor = require('markdown-it-anchor');
 const { customElementsManifestToMarkdown } = require('@custom-elements-manifest/to-markdown');
-const Image = require("@11ty/eleventy-img");
+const image = require("@11ty/eleventy-img");
 
 const DEV = process.env.NODE_ENV === 'DEV';
 const jsFolder = DEV ? 'lib' : 'build';
@@ -78,7 +78,7 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addLiquidFilter('svgImage', async function(src) {
-    let metadata = await Image(`./src/site/assets/images/${src}`, {
+    let metadata = await image(`./src/site/assets/images/${src}`, {
       formats: ['svg'],
       dryRun: true
     })

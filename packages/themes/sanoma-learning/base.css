@@ -272,7 +272,7 @@
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
   --sl-space-group-sm: var(--sl-space-2xs);
-  --sl-space-dialog-gap-footer: var(--sl-space-sm);
+  --sl-space-button-bar-gap-block: var(--sl-space-sm);
   --sl-space-dialog-gap-header: var(--sl-space-lg);
   --sl-space-dialog-gap-heading-top: var(--sl-space-none);
   --sl-space-dialog-gap-heading-bottom: var(--sl-space-xs);
@@ -521,6 +521,7 @@
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
+  --sl-space-button-bar-gap-inline: var(--sl-space-button-bar-gap-block);
   --sl-space-input-switch-padding-row-lg: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
     (var(--sl-space-input-switch-padding-container) * 2)

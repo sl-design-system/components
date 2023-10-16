@@ -2,7 +2,6 @@ import type { TemplateResult } from 'lit-html';
 import type { CSSResult, CSSResultGroup } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import type { ButtonBarAlign } from '@sl-design-system/button-bar';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
@@ -14,7 +13,6 @@ import styles from './dialog.scss.js';
 /**
  * A dialog component for displaying modal UI.
  *
- * @slot cancel - Area where cancel button can be placed
  * @slot action - Area where action buttons are placed
  * @slot default - Body content for the dialog
  * @slot footer - Footer content for the dialog
@@ -48,16 +46,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
-
-  /** When set to true, the title and subtitle order in the dialog header is reversed using flex-direction.*/
-  @property({ type: Boolean, reflect: true, attribute: 'title-reverse' }) titleReverse = false;
-
-  /** Alignment of the action buttons in the dialog footer
-   * @type {'end' | 'space-between'} */
-  @property({ reflect: true }) align: Extract<ButtonBarAlign, 'end' | 'space-between'> = 'end';
-
-  /** When set to true, the button order in the dialog footer is reversed using flex-direction.*/
-  @property({ type: Boolean, reflect: true }) reverse = false;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -108,8 +96,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           </div>
         </slot>
         <slot name="footer">
-          <sl-button-bar align=${this.align} .reverse=${this.reverse}>
-            <slot name="cancel"></slot>
+          <sl-button-bar>
             <slot name="action"></slot>
           </sl-button-bar>
         </slot>

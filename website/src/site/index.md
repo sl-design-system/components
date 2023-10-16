@@ -48,6 +48,22 @@ Explore {.ds-heading-1}
 
 <div class="ds-explore-wrapper">
 
+<div class="ds-explore__guidelines ds-explore__card">
+
+<div class="ds-explore__card-image">
+{{'homepage/newspaper.svg' | svgImage }}
+</div>
+
+<div class="ds-heading-2">
+<a href="/categories/whats-new/" aria-labelledby="whatsNewParagraph">
+What's new
+</a>
+</div>
+
+<p id="whatsNewParagraph">Stay updated with the SL Design System's latest improvements and news.</p>
+
+</div>
+
 <div class="ds-explore__components ds-explore__card">
 
 <div class="ds-explore__card-image">
@@ -80,21 +96,7 @@ Design tokens
 
 </div>
 
-<div class="ds-explore__guidelines ds-explore__card">
 
-<div class="ds-explore__card-image">
-{{'homepage/brush-ruler.svg' | svgImage }}
-</div>
-
-<div class="ds-heading-2">
-<a href="/categories/guidelines/" aria-labelledby="guidelinesParagraph">
-Guidelines
-</a>
-</div>
-
-<p id="guidelinesParagraph">Practical guides to get started with designing and developing your experience with Sanoma Learning's Design System.</p>
-
-</div>
 
 </div>
 

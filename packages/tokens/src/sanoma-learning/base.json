@@ -1400,5 +1400,15 @@
         }
       }
     }
+  },
+  "string": {
+    "dialog": {
+      "header": {
+        "default": {
+          "value": "{string.dialog.header.column}",
+          "type": "Flex-Direction"
+        }
+      }
+    }
   }
 }

@@ -12,5 +12,5 @@ eleventyNavigation:
   parent: Components
   key: Radio group
   order: 13
-  status: coming
+  status: ready
 ---

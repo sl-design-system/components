@@ -252,12 +252,16 @@
     "test:components": {
       "command": "wtr --static-logging",
       "dependencies": [
-        "build:components"
+        "build:components",
+        "test:setup"
       ],
       "files": [
         "web-test-runner.config.mjs",
         "packages/components/**/*.spec.ts"
       ]
+    },
+    "test:setup": {
+      "command": "playwright install --with-deps"
     },
     "transform-tokens": {
       "dependencies": [

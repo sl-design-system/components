@@ -25,6 +25,7 @@ $transition-timing: 300ms;
   flex-direction: column;
   flex-grow: 1;
   gap: 0.8rem;
+  overflow: hidden;
 
   svg {
     overflow: visible;
@@ -169,6 +170,10 @@ $transition-timing: 300ms;
   border-radius: 0.6rem;
   color: var(--heading-color);
   padding: 2.4rem 4rem;
+}
+
+.ds-component__heading-wrapper .ds-badge {
+  float: right;
 }
 
 .ds-component__heading-description {

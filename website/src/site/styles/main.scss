@@ -1,9 +1,15 @@
 @import '../../shared/styles/reset';
 @import '../../shared/styles/base';
 
+/* deprecated; use new tokens */
 @import 'dark-light-mode';
 @import 'variables';
 
+@import 'tokens-core';
+@import 'tokens-dark';
+@import 'tokens-light';
+
+@import 'components/cards';
 @import 'components/code';
 @import 'components/table';
 @import 'components/tabs';

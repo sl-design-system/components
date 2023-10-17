@@ -1,0 +1,29 @@
+@import './../breakpoints';
+
+section.ds-cards {
+  display: grid;
+  gap: 24px 16px;
+  grid-template-columns: 1fr;
+
+  @media screen and (min-width: $md-breakpoint) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  svg {
+    margin: 0;
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+
+  .ds-cards .ds-example {
+    border-radius: 0;
+  }
+}

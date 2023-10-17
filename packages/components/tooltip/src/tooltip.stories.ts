@@ -52,10 +52,22 @@ export const Directive: StoryObj = {
 
 export const Overflow: StoryObj = {
   render: () => html`
-    <div style="overflow: hidden">
-      <sl-button aria-describedby="tooltip" fill="outline">Button</sl-button>
-      <sl-tooltip id="tooltip">This appears outside the overflow parent</sl-tooltip>
-    </div>
+    <section style="display:grid">
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <figure>
+        <section style="border: 1px solid red; position:relative; padding:40px 100px;">
+          <sl-button aria-describedby="tooltip" fill="outline" style="position: absolute;">Button</sl-button>
+          <div style="overflow: hidden; position: absolute;">
+            <sl-tooltip id="tooltip">This appears outside the overflow parent</sl-tooltip>
+          </div>
+        </section>
+      </figure>
+    </section>
   `
 };
 

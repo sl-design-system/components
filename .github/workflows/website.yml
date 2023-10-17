@@ -17,6 +17,7 @@ on:
 
 env:
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -37,14 +38,14 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'yarn'
       - run: yarn install --immutable
       - run: yarn website
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: 'website/dist/teaser'
+          path: 'website/dist/site'
       - id: deployment
         uses: actions/deploy-pages@v1
 
@@ -55,7 +56,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'yarn'
       - run: yarn install --immutable
       - run: yarn website

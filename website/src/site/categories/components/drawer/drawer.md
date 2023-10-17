@@ -1,8 +1,8 @@
 ---
 title: Drawer
 description: Drawer component description
-componentType: action
-shortDescription: This is a short description of the drawer component
+componentType: overlay
+shortDescription: We are still working on the drawer component
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:

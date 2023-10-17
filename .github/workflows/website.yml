@@ -45,7 +45,7 @@ jobs:
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: 'website/dist/teaser'
+          path: 'website/dist/site'
       - id: deployment
         uses: actions/deploy-pages@v1
 

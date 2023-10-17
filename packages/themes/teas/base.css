@@ -304,10 +304,16 @@
   --sl-space-input-helper-gap-sm: var(--sl-space-xs);
   --sl-space-input-text-field-gap-lg: var(--sl-space-sm);
   --sl-space-input-text-field-gap-md: var(--sl-space-sm);
-  --sl-space-input-text-field-inline-lg: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));
-  --sl-space-input-text-field-inline-md: calc(var(--sl-space-md) - var(--sl-border-width-button-default));
-  --sl-space-input-text-field-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
-  --sl-space-input-text-field-block-md: calc(var(--sl-space-xs) + var(--sl-border-width-button-default));
+  --sl-space-input-text-field-inline-lg: calc(var(--sl-space-lg) - var(--sl-conceptual-border-width-default));
+  --sl-space-input-text-field-inline-md: calc(var(--sl-space-md) - var(--sl-conceptual-border-width-default));
+  --sl-space-input-text-field-block-lg: calc(var(--sl-space-sm) - var(--sl-conceptual-border-width-default));
+  --sl-space-input-text-field-block-md: calc(var(--sl-space-xs) + var(--sl-conceptual-border-width-default));
+  --sl-space-input-option-gap-lg: var(--sl-space-sm);
+  --sl-space-input-option-gap-md: var(--sl-space-sm);
+  --sl-space-input-option-inline-lg: var(--sl-space-none);
+  --sl-space-input-option-inline-md: var(--sl-space-none);
+  --sl-space-input-option-block-lg: var(--sl-space-xs);
+  --sl-space-input-option-block-md: var(--sl-space-xs);
   --sl-space-button-link-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-link));
@@ -372,6 +378,7 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
+  --sl-conceptual-border-width-default: var(--sl-border-width-xs);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
   --sl-icon-typeset-font-size-3xl: var(--sl-size-3xl);
   --sl-icon-typeset-font-size-2xl: var(--sl-size-2xl);
@@ -386,8 +393,8 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
-  --sl-border-width-focusring-default: var(--sl-border-width-xs);
-  --sl-border-width-input-border: var(--sl-border-width-sm);
+  --sl-border-width-focusring-default: var(--sl-border-width-sm);
+  --sl-border-width-input-border: var(--sl-border-width-xs);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-button-link: var(--sl-border-width-xs);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
@@ -499,12 +506,6 @@
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
     (var(--sl-space-input-switch-padding-container) * 2)
   );
-  --sl-space-input-option-gap-lg: var(--sl-space-button-outline-block-md);
-  --sl-space-input-option-gap-md: var(--sl-space-button-outline-block-md);
-  --sl-space-input-option-inline-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-option-inline-md: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-option-block-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-option-block-md: var(--sl-space-button-outline-block-sm);
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);

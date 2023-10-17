@@ -2,7 +2,7 @@
 title: Editor
 description: Editor component description
 componentType: editable
-shortDescription: This is a short description of the editor component
+shortDescription: We are still working on the editor component
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:

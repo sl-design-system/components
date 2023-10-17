@@ -2118,7 +2118,7 @@
           "unchecked": {
             "default": {
               "background": {
-                "value": "{color.palette.transparent.base}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true

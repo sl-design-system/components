@@ -4,7 +4,7 @@
     <a href="/" class="ds-sidebar-nav__logo" title="Go to homepage"></a>
   </section>
 
-  {% include "./search.njk" %}
+  {# {% include "./search.njk" %} #}
 
   {% set navPages = collections.all | eleventyNavigation("Pages") %}
   <ul class="ds-sidebar-nav__list" role="group">
@@ -36,5 +36,5 @@
   </ul>
 </nav>
 <section class="ds-sidebar__bottom-section">
-  <a href="/" class="ds-sidebar__help">Help and feedback</a>
+  <a href="https://sanoma.slack.com/archives/C03SA9HUUA3" class="ds-sidebar__help">Help and feedback</a>
 </section>

@@ -21,10 +21,13 @@ import '@sl-design-system/tooltip/register.js';
 import { Tab, TabGroup, TabPanel } from '@sl-design-system/tabs';
 import { setup } from '@sl-design-system/sanoma-learning';
 import { Icon } from '@sl-design-system/icon';
-import { faPenToSquare } from '@fortawesome/pro-regular-svg-icons';
+import { faBug, faMessagesQuestion, faPenToSquare } from '@fortawesome/pro-regular-svg-icons';
+import { faHandBackPointUp } from '@fortawesome/pro-solid-svg-icons';
+import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 
 setup();
-Icon.registerIcon(faPenToSquare);
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+Icon.registerIcon(faBug, faGithub, faHandBackPointUp, faMessagesQuestion, faPenToSquare, faSlack);
 
 /** Workaround for the error:
  * Uncaught DOMException: "Failed to execute 'define' on 'CustomElementRegistry': the name "sl-tab-panel" has already been used with this registry"

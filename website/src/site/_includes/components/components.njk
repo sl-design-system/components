@@ -4,7 +4,10 @@ layout: base.njk
 
 <header class="ds-component__heading">
   <div class="ds-component__heading-wrapper">
-    <h1 class="ds-heading-1">{{ title }}</h1>
+    {% if version[packageName] %}<span class="ds-badge">v{{version[packageName]}}</span>{% endif %}
+    <h1 class="ds-heading-1">
+      {{ title }} 
+    </h1>
     <p class="ds-component__heading-description">{{ description }}</p>
   </div>
 </header>
@@ -42,3 +45,4 @@ layout: base.njk
     {% endif %}
   {%- endfor -%}
 </section>
+<sl-tooltip id="interactiveexample">Interactive example</sl-tooltip>

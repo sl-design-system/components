@@ -2542,6 +2542,17 @@
       }
     }
   },
+  "conceptual": {
+    "border": {
+      "width": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "Conceptual Theme Border Token"
+        }
+      }
+    }
+  },
   "opacity": {
     "50": {
       "value": 0.02,

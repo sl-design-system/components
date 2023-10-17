@@ -10,6 +10,7 @@ const fs = require('fs');
 const searchFilter = require("./src/site/scripts/filters/searchFilter.cjs");
 const anchor = require('markdown-it-anchor');
 const { customElementsManifestToMarkdown } = require('@custom-elements-manifest/to-markdown');
+const image = require("@11ty/eleventy-img");
 
 const DEV = process.env.NODE_ENV === 'DEV';
 const jsFolder = DEV ? 'lib' : 'build';
@@ -74,6 +75,14 @@ module.exports = function(eleventyConfig) {
         weight = value;
     }
     return weight;
+  });
+
+  eleventyConfig.addLiquidFilter('svgImage', async function(src) {
+    let metadata = await image(`./src/site/assets/images/${src}`, {
+      formats: ['svg'],
+      dryRun: true
+    })
+    return metadata.svg[0].buffer.toString();
   });
 
   eleventyConfig.addCollection('content', collection => {

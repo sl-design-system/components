@@ -17,6 +17,17 @@ export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 window.SLDS ||= { icons: {} };
 
+/**
+ * An icon that uses either FontAwesome custom svg's straight from Figma.
+ *
+ * ```html
+ *   <sl-icon name="unicorn"></sl-icon>
+ * ```
+ *
+ * @cssproperty --fill-default: currentColor;
+ * @cssproperty  [--fill-accent: rgb(var(--sl-color-palette-accent-300))] Accent color, only used for multicolor icons
+ * @cssproperty --icon-container-size: unset;
+ */
 export class Icon extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;

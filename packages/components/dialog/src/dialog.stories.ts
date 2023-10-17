@@ -52,12 +52,20 @@ export const MoreFooterButtons: StoryObj = {
         margin-right: auto;
       }
 
-      @media screen and (min-width: 600px) {
+      @media screen and (max-width: 600px) {
         sl-button-bar {
           align-items: stretch;
           flex-direction: column-reverse;
           flex-grow: 1;
           flex-shrink: 0;
+        }
+
+        sl-button-bar[reverse] > sl-button:first-child {
+          margin-left: inherit;
+        }
+
+        sl-button-bar:not([reverse]) > sl-button:first-child {
+          margin-right: inherit;
         }
       }
     </style>

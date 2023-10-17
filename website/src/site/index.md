@@ -38,8 +38,12 @@ eleventyNavigation:
 
 # Learn, develop, deploy
 
-Create enjoyable, usable and accessible products that meet students and teachers needs.
+Craft products that are not only enjoyable and user-friendly but also meet the needs of both students and teachers, while ensuring accessibility for all.
 
+<span>
+  <a class="ds-call-to-action__button" href="/categories/getting-started/designers"><sl-icon name="far-pen-ruler"></sl-icon>Start designing</a>
+  <a class="ds-call-to-action__button" href="/categories/getting-started/developers"><sl-icon name="far-code"></sl-icon>Start developing</a>
+</span>
 </section>
 
 <section class="ds-explore">
@@ -48,7 +52,7 @@ Explore {.ds-heading-1}
 
 <div class="ds-explore-wrapper">
 
-<div class="ds-explore__guidelines ds-explore__card">
+<div class="ds-explore__whats-new ds-explore__card">
 
 <div class="ds-explore__card-image">
 {{'homepage/newspaper.svg' | svgImage }}

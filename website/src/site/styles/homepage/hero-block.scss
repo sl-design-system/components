@@ -23,6 +23,12 @@
     line-height: 28px;
   }
 
+  span {
+    display: flex;
+    gap: 8px;
+    margin-top: 2.4rem;
+  }
+
   @media screen and (min-width: $md-breakpoint) {
     padding: 4.8rem 3.2rem;
   }

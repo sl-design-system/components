@@ -2565,19 +2565,16 @@
           }
         }
       },
-      "gap": {
-        "headingBottom": {
+      "subtitle": {
+        "paddingBottom": {
           "value": "{space.xs}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
-        },
-        "headingTop": {
-          "value": "{space.none}",
-          "type": "spacing",
-          "description": "space.button.solid.block.md"
-        },
+        }
+      },
+      "gap": {
         "header": {
-          "value": "{space.lg}",
+          "value": "{space.none}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
         }

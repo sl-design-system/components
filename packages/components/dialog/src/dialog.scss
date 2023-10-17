@@ -7,8 +7,7 @@ $md-breakpoint: 600px;
   --_border-radius-desktop: var(--sl-border-radius-dialog-desktop);
   --_header-gap: var(--sl-space-dialog-gap-header);
   --_heading-direction: var(--sl-dialog-header-flex-direction);
-  --_heading-gap: var(--sl-space-dialog-gap-heading-top); // TODO: we need only one value for the gap
-  --_heading-gap-reverse: var(--sl-space-dialog-gap-heading-bottom); // TODO: this one will be removed?
+  --_heading-gap: var(--sl-space-dialog-gap-header);
   --_body-gap-mobile: var(--sl-space-dialog-mobile-body-gap);
   --_body-gap-desktop: var(--sl-space-dialog-desktop-body-gap);
   --_footer-direction: var(--sl-dialog-footer-flex-direction);
@@ -28,6 +27,7 @@ $md-breakpoint: 600px;
   --_margin-bottom-container-mobile: var(--sl-space-dialog-mobile-container-padding-bottom);
   --_color: var(--sl-color-dialog-foreground);
   --_subtitle-font: var(--sl-text-dialog-subheading);
+  --_subtitle-padding-bottom: var(--sl-space-dialog-subtitle-padding-bottom);
   --_title-font: var(--sl-text-dialog-heading);
   --_body-font: var(--sl-text-body-lg-normal);
 }
@@ -109,6 +109,7 @@ slot[name='header-buttons']::slotted(*) {
 
 slot[name='subtitle']::slotted(*) {
   font: var(--_subtitle-font);
+  padding-bottom: var(--_subtitle-padding-bottom);
 }
 
 slot[name='title']::slotted(*) {
@@ -117,7 +118,7 @@ slot[name='title']::slotted(*) {
 
 .body-wrapper {
   font: var(--_body-font);
-  margin-bottom: var(--_body-gap-mobile);
+  margin: var(--_body-gap-mobile) 0;
   overflow: auto;
 }
 
@@ -152,7 +153,7 @@ slot[name='footer'] {
   }
 
   .body-wrapper {
-    margin-bottom: var(--_body-gap-desktop);
+    margin: var(--_body-gap-desktop) 0;
   }
 
   slot[name='footer'] {

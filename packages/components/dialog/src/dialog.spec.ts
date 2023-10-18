@@ -7,7 +7,7 @@ import type { Button } from '@sl-design-system/button';
 import { SinonStub, stub } from 'sinon';
 
 
-describe('sl-tooltip', () => {
+describe('sl-dialog', () => {
   let el: HTMLElement;
   let button: Button;
   let dialog: Dialog;

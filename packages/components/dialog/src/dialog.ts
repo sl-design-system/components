@@ -51,14 +51,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
-
-    this.dialog?.setAttribute('closing', 'false');
   }
 
-  override disconnectedCallback(): void {
-    this.dialog?.removeEventListener('animationend', event => this.#onAnimationEnd(event));
-
-    super.disconnectedCallback();
+  override firstUpdated(): void {
+    this.dialog?.setAttribute('closing', 'false');
   }
 
   override render(): TemplateResult {
@@ -73,10 +69,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         part="dialog"
       >
         <slot name="header">
-          <slot name="titles">
+          <div class="titles" part="titles">
             <slot name="title" id="title"></slot>
             <slot name="subtitle"></slot>
-          </slot>
+          </div>
           <slot name="header-actions">
             <slot name="header-buttons"></slot>
             ${this.closingButton
@@ -91,7 +87,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           </slot>
         </slot>
         <slot name="body">
-          <div class="body-wrapper">
+          <div class="body-content" part="body-content">
             <slot></slot>
           </div>
         </slot>
@@ -113,7 +109,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.dialog?.setAttribute('closing', 'false');
 
-    /** Workaround for the backdrop background */
+    /** Workaround for the backdrop background,
+     *  the backdrop doesn't inherit from the :root, so we cannot use tokens for the background-color,
+     *  needs to be removed in the future,
+     * the bug should be fixed: https://drafts.csswg.org/css-position-4/#backdrop */
     const backdrop: CSSResult = unsafeCSS(
       `::backdrop {
         background-color: ${window.getComputedStyle(document.body).getPropertyValue('--sl-body-surface-overlay')};
@@ -138,19 +137,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
     }
   }
-
-  #onAnimationEnd = (event: AnimationEvent, target?: HTMLElement): void => {
-    if (event.animationName === 'backdrop-hide') {
-      this.dialog?.setAttribute('closing', 'false');
-
-      if (target?.matches('sl-button[sl-dialog-close]')) {
-        this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
-      } else {
-        this.dialog?.close();
-      }
-      this.dialog?.removeEventListener('animationend', event => this.#onAnimationEnd(event, target));
-    }
-  };
 
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
     event.preventDefault();
@@ -183,7 +169,19 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #closeDialogOnAnimationend(target: HTMLElement): void {
-    this.dialog?.addEventListener('animationend', event => this.#onAnimationEnd(event, target));
+    this.dialog?.addEventListener(
+      'animationend',
+      () => {
+        this.dialog?.setAttribute('closing', 'false');
+
+        if (target?.matches('sl-button[sl-dialog-close]')) {
+          this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
+        } else {
+          this.dialog?.close();
+        }
+      },
+      { once: true }
+    );
 
     requestAnimationFrame(() => {
       this.dialog?.setAttribute('closing', 'true');

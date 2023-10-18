@@ -82,7 +82,7 @@ slot[name='header'] {
   margin-bottom: var(--_header-gap);
 }
 
-slot[name='titles'] {
+.titles {
   align-items: flex-start;
   display: flex;
   flex-direction: var(--_heading-direction);
@@ -116,7 +116,7 @@ slot[name='title']::slotted(*) {
   font: var(--_title-font);
 }
 
-.body-wrapper {
+.body-content {
   font: var(--_body-font);
   margin: var(--_body-gap-mobile) 0;
   overflow: auto;
@@ -152,7 +152,7 @@ slot[name='footer'] {
     width: fit-content;
   }
 
-  .body-wrapper {
+  .body-content {
     margin: var(--_body-gap-desktop) 0;
   }
 

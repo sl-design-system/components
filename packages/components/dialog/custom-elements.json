@@ -56,10 +56,6 @@
           "name": "Dialog",
           "slots": [
             {
-              "description": "Area where cancel button can be placed",
-              "name": "cancel"
-            },
-            {
               "description": "Area where action buttons are placed",
               "name": "action"
             },
@@ -94,17 +90,6 @@
           ],
           "members": [
             {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "'end' | 'space-between'"
-              },
-              "default": "'end'",
-              "description": "Alignment of the action buttons in the dialog footer",
-              "attribute": "align",
-              "reflects": true
-            },
-            {
               "kind": "method",
               "name": "close",
               "return": {
@@ -134,17 +119,6 @@
             },
             {
               "kind": "field",
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order in the dialog footer is reversed using flex-direction.",
-              "attribute": "reverse",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "role",
               "type": {
                 "text": "'dialog' | 'alertdialog'"
@@ -161,17 +135,6 @@
                   "text": "void"
                 }
               }
-            },
-            {
-              "kind": "field",
-              "name": "titleReverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the title and subtitle order in the dialog header is reversed using flex-direction.",
-              "attribute": "title-reverse",
-              "reflects": true
             }
           ],
           "attributes": [
@@ -200,33 +163,6 @@
               "default": "'dialog'",
               "description": "The ARIA role of the dialog.",
               "fieldName": "role"
-            },
-            {
-              "name": "title-reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the title and subtitle order in the dialog header is reversed using flex-direction.",
-              "fieldName": "titleReverse"
-            },
-            {
-              "name": "align",
-              "type": {
-                "text": "'end' | 'space-between'"
-              },
-              "default": "'end'",
-              "description": "Alignment of the action buttons in the dialog footer",
-              "fieldName": "align"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order in the dialog footer is reversed using flex-direction.",
-              "fieldName": "reverse"
             }
           ],
           "mixins": [

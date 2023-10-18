@@ -6,14 +6,11 @@ eleventyNavigation:
   key: CheckboxAccessibility
 ---
 
-## Content
-
 Having an accessible application is not only achieved by writing good code, but also (maybe even MORE so) by writing good copy. To make sure checkbox groups and their options are clear for all users make sure to keep these points in mind:
 
 <section>
 
 ### Group labels
-
 
 Positioned above checkbox groups to ensure clear organization when multiple checkboxes share a common category. They must effectively convey the common theme while maintaining a balance between brevity and descriptiveness for user clarity.
 
@@ -34,6 +31,21 @@ By following the tips below, you can write group labels that effectively categor
 
 ### Checkbox labels
 
+Positioned alongside individual checkboxes, checkbox labels play a pivotal role in user understanding and interaction. Follow these tips for creating clear and user-friendly checkbox labels:
+
+- **Conciseness**: Keep the label concise. Use as few words as necessary to convey the checkbox's primary purpose or action.
+
+- **Descriptive Clarity**: While being concise, ensure the label provides enough information to make it clear what the checkbox represents or the action it triggers. Use descriptive language that leaves no room for ambiguity.
+
+- **User-Centered Language**: Use language that your target audience can easily understand. Avoid using technical jargon or industry-specific terms that might confuse users.
+
+- **No Negative Statements**: Avoid using negative statements that might confuse users, such as "checking the checkbox to turn off" or "opt-out." Instead, positively frame the label.
+
+- **Avoid Mixing "Enable" and "Disable" Options**: In a group of checkboxes, maintain consistency by not mixing "enable" and "disable" options. Users should easily discern the purpose of each checkbox.
+
+- **Consistency**: Ensure that all options in a group have the same form or category. Avoid mixing unrelated categories (e.g., nationalities and countries) within the same checkbox group.
+
+- **Sorting Options**: When presenting checkboxes in a group, consider sorting them logically. You can arrange them alphabetically or by importance.
 
 </section>
 
@@ -41,6 +53,17 @@ By following the tips below, you can write group labels that effectively categor
 
 ### Help text
 
+Positioned beneath checkbox groups, help text offers valuable context and guidance. Follow these tips to craft informative and user-friendly help text:
+
+- **Conciseness**: Keep the help text brief, using only 1-2 short, complete sentences. Avoid unnecessary verbosity to maintain clarity.
+
+- **Descriptive Clarity**: While being concise, ensure the help text provides clear and informative guidance. Explain what happens when the user selects the option, ensuring they understand the consequences or benefits associated with their choice.
+
+- **User-Centered Language**: Use language that aligns with your target audience. Avoid technical jargon or industry-specific terms that might confuse users.
+
+- **No Repetition**: Avoid merely restating the label in different phrasing within your help text. Instead, focus on providing additional context and information that enhances the user's understanding.
+
+- **Consistency**: Maintain a consistent style and tone throughout your help text. This consistency aids users in understanding and interacting with your interface.
 
 </section>
 
@@ -48,6 +71,14 @@ By following the tips below, you can write group labels that effectively categor
 
 ## Focus order
 
+The focus order for a checkbox determines the sequence in which users can navigate and interact with checkboxes using the keyboard or other input methods. This order ensures accessibility and allows users to select or deselect checkboxes by tabbing through them logically and consistently. It makes it easier for individuals who rely on keyboard navigation or assistive technologies to interact with checkboxes in a web or application interface.
+
+
+|Order|Element|Role|
+|-|-|-|
+|1|Checkbox input|Navigate to the Checkbox Input|
+
+{.ds-table .ds-table-align-top}
 
 </section>
 
@@ -55,6 +86,16 @@ By following the tips below, you can write group labels that effectively categor
 
 ## Keyboard interactions
 
+Keyboard interaction with a checkbox refers to how users can interact with checkboxes using keyboard inputs. Typically, users can navigate to a checkbox using the "Tab" key, select or deselect it with the "Spacebar" key, and sometimes use other keyboard shortcuts for efficiency. Keyboard interaction ensures that individuals who rely on keyboard navigation or assistive technologies can easily control checkboxes within a user interface.
+We use a tab to switch between checkbox groups to enable faster navigation in a form; when you want to navigate to the "Save" button quickly, you shouldn't be required to go over the complete list of options just to get to the end of the form.
+
+|Command|Description|
+|-|-|
+|Tab|Shifts focus to the first checkbox input in a checkbox group or a checkbox that isn't in a group.|
+|Space/Enter|Toggles the checkbox between checked and unchecked states.|
+|Arrow Keys|Once you are in a checkbox group you can navigate to the next checkbox by using the right or down arrow key. You can navigate back to the previous box with left or up. The focus indicator loops, so when you are at the last option and press "down" it will focus on the first option.|
+
+{.ds-table .ds-table-align-top}
 
 </section>
 
@@ -62,5 +103,18 @@ By following the tips below, you can write group labels that effectively categor
 
 ## WAI-ARIA Roles, States, and Properties
 
+WAI-ARIA Roles, States, and Properties for a checkbox provide essential information to assistive technologies and screen readers. They convey the checkbox's role, state (checked or unchecked), and additional properties to ensure accessibility and a better user experience for individuals with disabilities.
+
+|Element|Attribute|Value|Description|User-supplied|
+|-|-|-|-|-|
+|Checkbox|ariaChecked|`'true','false','mixed'`|The state of the checkbox|no|
+|Checkbox|role|`'checkbox''`|Declare our custom component as a checkbox|no|
+|Checkbox|aria-label|`string`|Can be added when the checkbox doesn't have a label text. <ul><li>Right now this throws an error in the A11y test because it's set on a different component than the role of "checkbox"</li></ul>|yes|
+
+{.ds-table .ds-table-align-top}
+
+```html
+check aria-label in the code and arias for checkbox-group??
+```
 
 </section>

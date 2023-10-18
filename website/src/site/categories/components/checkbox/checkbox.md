@@ -12,5 +12,5 @@ eleventyNavigation:
   parent: Components
   key: Checkbox
   order: 5
-  status: coming
+  status: ready
 ---

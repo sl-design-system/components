@@ -4297,7 +4297,7 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/site/_includes/theme-switch.js",
+      "path": "src/_includes/theme-switch.js",
       "declarations": [],
       "exports": []
     },

@@ -7,7 +7,7 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const slugify = require('slugify');
 const htmlMinifier = require('html-minifier');
 const fs = require('fs');
-const searchFilter = require("./src/site/scripts/filters/searchFilter.cjs");
+const searchFilter = require("./src/scripts/filters/searchFilter.cjs");
 const anchor = require('markdown-it-anchor');
 const { customElementsManifestToMarkdown } = require('@custom-elements-manifest/to-markdown');
 const image = require("@11ty/eleventy-img");
@@ -18,11 +18,11 @@ const outputFolder = DEV ? 'public' : 'dist';
 
 module.exports = function(eleventyConfig) {
   eleventyConfig
-    .addPassthroughCopy({ [`${jsFolder}/site`]: 'js/' });
+    .addPassthroughCopy({ [`${jsFolder}`]: 'js/' });
 
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',
-    componentModules: [`./${jsFolder}/site/ssr.js`],
+    componentModules: [`./${jsFolder}/ssr.js`],
   });
 
   eleventyConfig.addWatchTarget(`./${jsFolder}/**/*.js`);
@@ -78,7 +78,7 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addLiquidFilter('svgImage', async function(src) {
-    let metadata = await image(`./src/site/assets/images/${src}`, {
+    let metadata = await image(`./src/assets/images/${src}`, {
       formats: ['svg'],
       dryRun: true
     })
@@ -86,7 +86,7 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addCollection('content', collection => {
-    return [...collection.getFilteredByGlob('./src/site/categories/**/*.md')];
+    return [...collection.getFilteredByGlob('./src/categories/**/*.md')];
   });
 
   function removeExtraText(s) {
@@ -120,18 +120,17 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.setBrowserSyncConfig({
     notify: true,
-    files: './public/site/styles/**/*.css',
+    files: './public/styles/**/*.css',
   });
 
   eleventyConfig.setLibrary('md', mdIt);
 
   eleventyConfig
-    .addPassthroughCopy({ './src/shared/assets': 'assets' })
-    .addPassthroughCopy('./src/site/assets')
+    .addPassthroughCopy('./src/assets')
     .addPassthroughCopy({ './../packages/themes/sanoma-learning': `styles/slds-sanoma-learning` })
     .addPassthroughCopy({ './../packages/tokens/src/sanoma-learning/*.json': `_data` });
 
-  const NOT_FOUND_PATH = `${outputFolder}/site/404.html`;
+  const NOT_FOUND_PATH = `${outputFolder}/404.html`;
 
   eleventyConfig.setBrowserSyncConfig({
     callbacks: {
@@ -166,7 +165,7 @@ module.exports = function(eleventyConfig) {
     if (DEV) {
       return `<script type="module" src="/js/${path}"></script>`;
     }
-    const script = fs.readFileSync(`${jsFolder}/site/${path}`, 'utf8').trim();
+    const script = fs.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
     return `<script type="module">${script}</script>`;
   });
 
@@ -182,7 +181,7 @@ module.exports = function(eleventyConfig) {
     return content;
   });
 
-  const customElementsPath = './src/site/_data/custom-elements';
+  const customElementsPath = './src/_data/custom-elements';
   const manifest = fs.readFileSync(`${customElementsPath}/custom-elements.json`, 'utf-8');
   const markdown = customElementsManifestToMarkdown(JSON.parse(manifest));
 
@@ -190,8 +189,8 @@ module.exports = function(eleventyConfig) {
 
   return {
     dir: {
-      input: 'src/site',
-      output: `${outputFolder}/site`,
+      input: 'src',
+      output: `${outputFolder}`,
       data: '_data',
     },
     passthroughFileCopy: true,

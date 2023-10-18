@@ -15,7 +15,7 @@
     "build": "wireit",
     "build:dev": "wireit",
     "clean": "wireit",
-    "copy:tokens": "cpx '../packages/themes/sanoma-learning/base.json' 'src/site/_data/tokens/'",
+    "copy:tokens": "cpx '../packages/themes/sanoma-learning/base.json' 'src/_data/tokens/'",
     "lint": "wireit",
     "start": "wireit",
     "start:dev": "wireit"
@@ -33,7 +33,7 @@
       ]
     },
     "build:dev:eleventy": {
-      "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
+      "command": "NODE_ENV=DEV eleventy --config=.eleventy.cjs",
       "dependencies": [
         "..:transform-tokens",
         "analyze",
@@ -48,12 +48,12 @@
       ]
     },
     "build:dev:styles": {
-      "command": "NODE_ENV=DEV sass src/site/styles:public/site/styles",
+      "command": "NODE_ENV=DEV sass src/styles:public/styles",
       "files": [
-        "src/site/styles"
+        "src/styles"
       ],
       "output": [
-        "public/site/styles"
+        "public/styles"
       ]
     },
     "build:dev:ts": {
@@ -78,7 +78,7 @@
       ]
     },
     "build:prod:eleventy": {
-      "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
+      "command": "NODE_ENV=PROD eleventy --config=.eleventy.cjs",
       "dependencies": [
         "..:transform-tokens",
         "analyze",
@@ -93,12 +93,12 @@
       ]
     },
     "build:prod:styles": {
-      "command": "NODE_ENV=PROD sass src/site/styles:dist/site/styles",
+      "command": "NODE_ENV=PROD sass src/styles:dist/styles",
       "files": [
-        "src/site/styles"
+        "src/styles"
       ],
       "output": [
-        "dist/site/styles"
+        "dist/styles"
       ]
     },
     "build:prod:ts": {

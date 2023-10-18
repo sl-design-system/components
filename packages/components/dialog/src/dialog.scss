@@ -5,26 +5,36 @@ $md-breakpoint: 600px;
   --_border: var(--sl-border-width-dialog-default) solid var(--sl-color-dialog-border);
   --_border-radius-mobile: var(--sl-border-radius-dialog-mobile);
   --_border-radius-desktop: var(--sl-border-radius-dialog-desktop);
+  --_border-radius: var(--_border-radius-mobile);
   --_header-gap: var(--sl-space-dialog-gap-header);
   --_heading-direction: var(--sl-dialog-header-flex-direction);
   --_heading-gap: var(--sl-space-dialog-gap-header);
   --_body-gap-mobile: var(--sl-space-dialog-mobile-body-gap);
   --_body-gap-desktop: var(--sl-space-dialog-desktop-body-gap);
-  --_footer-direction: var(--sl-dialog-footer-flex-direction);
+  --_body-gap: var(--_body-gap-mobile);
+  --_footer-direction-mobile: column-reverse;
+  --_footer-direction-desktop: var(--sl-dialog-footer-flex-direction);
+  --_footer-direction: var(--_footer-direction-mobile);
   --_footer-align: var(--sl-dialog-footer-justify-content);
   --_max-inline-size-mobile: var(--sl-size-dialog-full);
-  --_min-inline-size-desktop: var(--sl-size-dialog-min);
+  --_min-inline-size: var(--sl-size-dialog-min);
   --_max-inline-size-desktop: var(--sl-size-dialog-max);
+  --_max-inline-size: var(--_max-inline-size-mobile);
   --_padding-block-mobile: var(--sl-space-dialog-mobile-body-block);
   --_padding-inline-mobile: var(--sl-space-dialog-mobile-body-inline);
   --_padding-block-desktop: var(--sl-space-dialog-desktop-body-block);
   --_padding-inline-desktop: var(--sl-space-dialog-desktop-body-inline);
+  --_padding-block: var(--_padding-block-mobile);
+  --_padding-inline: var(--_padding-inline-mobile);
   --_margin-container-inline-desktop: var(--sl-space-dialog-desktop-container-inline);
   --_margin-top-container-desktop: var(--sl-space-dialog-desktop-container-padding-top);
   --_margin-bottom-container-desktop: var(--sl-space-dialog-desktop-container-padding-bottom);
   --_margin-container-inline-mobile: var(--sl-space-dialog-mobile-container-inline);
   --_margin-top-container-mobile: var(--sl-space-dialog-mobile-container-padding-top);
   --_margin-bottom-container-mobile: var(--sl-space-dialog-mobile-container-padding-bottom);
+  --_margin-container-inline: var(--_margin-container-inline-mobile);
+  --_margin-top-container: var(--_margin-top-container-mobile);
+  --_margin-bottom-container: var(--_margin-bottom-container-mobile);
   --_color: var(--sl-color-dialog-foreground);
   --_subtitle-font: var(--sl-text-dialog-subheading);
   --_subtitle-padding-bottom: var(--sl-space-dialog-subtitle-padding-bottom);
@@ -40,7 +50,7 @@ $md-breakpoint: 600px;
 dialog {
   background: var(--_background);
   border: var(--_border);
-  border-radius: var(--_border-radius-mobile);
+  border-radius: var(--_border-radius);
   color: var(--_color);
   display: flex;
   flex-direction: column;
@@ -48,14 +58,13 @@ dialog {
   margin: auto auto 0;
   max-block-size: min(
     100%,
-    100vh - var(--_margin-top-container-mobile) - var(--_margin-bottom-container-mobile) - 2 *
-    var(--_padding-block-mobile)
+    100vh - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
   );
-  max-inline-size: var(--_max-inline-size-mobile);
+  max-inline-size: var(--_max-inline-size);
   opacity: 0;
   overflow: hidden;
-  padding-block: var(--_padding-block-mobile);
-  padding-inline: var(--_padding-inline-mobile);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
   position: fixed;
   width: auto;
 
@@ -98,11 +107,11 @@ slot[name='header-buttons']::slotted(*) {
   display: flex;
 }
 
-slot[name='close'] {
+slot[name='close-button'] {
   display: block;
 }
 
-slot[name='close']::slotted(*),
+slot[name='close-button']::slotted(*),
 slot[name='header-buttons']::slotted(*) {
   align-self: baseline;
 }
@@ -118,14 +127,14 @@ slot[name='title']::slotted(*) {
 
 .body-content {
   font: var(--_body-font);
-  margin: var(--_body-gap-mobile) 0;
+  margin: var(--_body-gap) 0;
   overflow: auto;
 }
 
 slot[name='footer'] {
   sl-button-bar {
     align-items: stretch;
-    flex-direction: column-reverse;
+    flex-direction: var(--_footer-direction);
     flex-grow: 1;
     flex-shrink: 0;
   }
@@ -133,33 +142,33 @@ slot[name='footer'] {
 
 @media screen and (min-width: $md-breakpoint) {
   :host {
-    padding-block: var(--_padding-block-desktop);
-    padding-inline: var(--_padding-inline-desktop);
+    --_border-radius: var(--_border-radius-desktop);
+    --_padding-block: var(--_padding-block-desktop);
+    --_padding-inline: var(--_padding-inline-desktop);
+    --_margin-bottom-container: var(--_margin-bottom-container-desktop);
+    --_margin-top-container: var(--_margin-top-container-desktop);
+    --_max-inline-size: var(--_max-inline-size-desktop);
+    --_margin-container-inline: var(--_margin-container-inline-desktop);
+    --_body-gap: var(--_body-gap-desktop);
+    --_footer-direction: var(--_footer-direction-desktop);
   }
 
   dialog {
-    border-radius: var(--_border-radius-desktop);
     margin: auto;
     max-block-size: min(
-      100% - var(--_margin-top-container-desktop) - var(--_margin-bottom-container-desktop) - 2 *
-      var(--_padding-block-desktop)
+      100% - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
     );
     max-inline-size: min(
-      var(--_max-inline-size-desktop),
-      100% - 2 * var(--_margin-container-inline-desktop) - 2 * var(--_padding-inline-desktop)
+      var(--_max-inline-size),
+      100% - 2 * var(--_margin-container-inline) - 2 * var(--_padding-inline)
     );
-    min-inline-size: var(--_min-inline-size-desktop);
+    min-inline-size: var(--_min-inline-size);
     width: fit-content;
-  }
-
-  .body-content {
-    margin: var(--_body-gap-desktop) 0;
   }
 
   slot[name='footer'] {
     sl-button-bar {
       align-items: center;
-      flex-direction: var(--_footer-direction);
       justify-content: var(--_footer-align);
     }
   }

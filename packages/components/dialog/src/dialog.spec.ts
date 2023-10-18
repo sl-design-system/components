@@ -31,7 +31,7 @@ describe('sl-dialog', () => {
           <sl-dialog id="dialog" closing-button>
             <span slot="title">Dialog title</span>
             <p>The dialog content</p>
-            <sl-button slot="action" sl-dialog-close>Close</sl-button>
+            <sl-button slot="actions" sl-dialog-close>Close</sl-button>
           </sl-dialog>
         </div>
       `);
@@ -47,7 +47,7 @@ describe('sl-dialog', () => {
       expect(dialog?.shadowRoot?.firstElementChild?.hasAttribute('open')).to.be.false;
     });
 
-    it('should show the dialog after showModal running', async () => {
+    it('should show the dialog after showModal was called', async () => {
       await showDialog();
 
       expect(dialog?.shadowRoot?.firstElementChild?.hasAttribute('open')).to.be.true;
@@ -57,7 +57,7 @@ describe('sl-dialog', () => {
       dialog?.removeAttribute('closing-button');
       await showDialog();
 
-      expect(dialog?.shadowRoot?.firstElementChild?.querySelector('slot[name="close"] sl-button')).to.be.null;
+      expect(dialog?.shadowRoot?.firstElementChild?.querySelector('slot[name="close-button"] sl-button')).to.be.null;
     });
   });
 
@@ -74,7 +74,7 @@ describe('sl-dialog', () => {
           <sl-dialog id="dialog" closing-button>
             <span slot="title">Dialog title</span>
             <p>The dialog content</p>
-            <sl-button slot="action" sl-dialog-close>Close</sl-button>
+            <sl-button slot="actions" sl-dialog-close>Close</sl-button>
           </sl-dialog>
         </div>
       `);
@@ -98,7 +98,7 @@ describe('sl-dialog', () => {
     })
 
     it('should close the dialog when the close button in the close slot is clicked', async () => {
-      const closeButton = dialog.querySelector('slot[name="close"] sl-button');
+      const closeButton = dialog.querySelector('slot[name="close-button"] sl-button');
 
       (closeButton as HTMLButtonElement)?.click();
 

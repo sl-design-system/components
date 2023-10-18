@@ -13,11 +13,11 @@ import styles from './dialog.scss.js';
 /**
  * A dialog component for displaying modal UI.
  *
- * @slot action - Area where action buttons are placed
+ * @slot actions - Area where action buttons are placed
  * @slot default - Body content for the dialog
  * @slot footer - Footer content for the dialog
  * @slot header - Header content for the dialog
- * @slot close - Closing button (placed in header) for the dialog
+ * @slot close-button - Closing button (placed in header) for the dialog
  * @slot header-buttons - More space for buttons for the dialog's header
  * @slot title - The title of the dialog
  * @slot subtitle - The subtitle of the dialog
@@ -73,7 +73,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
             <slot name="header-buttons"></slot>
             ${this.closingButton
               ? html`
-                  <slot name="close" @click=${this.#onCloseClick}>
+                  <slot name="close-button" @click=${this.#onCloseClick}>
                     <sl-button fill="ghost" variant="default">
                       <sl-icon name="xmark"></sl-icon>
                     </sl-button>
@@ -89,7 +89,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         </slot>
         <slot name="footer">
           <sl-button-bar>
-            <slot name="action"></slot>
+            <slot name="actions"></slot>
           </sl-button-bar>
         </slot>
       </dialog>

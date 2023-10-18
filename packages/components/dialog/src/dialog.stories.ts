@@ -31,8 +31,8 @@ export const API: StoryObj = {
         <span slot="title">${title}</span>
         <span slot="subtitle">${subtitle}</span>
         ${bodyContent}
-        <sl-button slot="action" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-        <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
+        <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
+        <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
       </sl-dialog>
     `;
   }
@@ -89,9 +89,8 @@ export const DisableClose: StoryObj = {
     <sl-dialog disable-close closing-button align="space-between">
       <span slot="title">Disable close</span>
       <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>
-      <sl-button slot="cancel" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-      <sl-button slot="action" fill="solid" variant="default" sl-dialog-close autofocus>Action 2</sl-button>
-      <sl-button slot="action" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
+      <sl-button slot="actions" fill="solid" variant="default" sl-dialog-close autofocus>Action 2</sl-button>
+      <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
     </sl-dialog>
   `
 };
@@ -120,7 +119,7 @@ export const CustomClosingIcon: StoryObj = {
       <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
       <sl-dialog closing-button>
         <span slot="title">Custom icon dialog</span>
-        <sl-button slot="close" fill="ghost" variant="default">
+        <sl-button slot="close-button" fill="ghost" variant="default">
           <sl-icon name="far-circle-xmark"></sl-icon>
         </sl-button>
         <div>Dialog with custom closing icon</div>

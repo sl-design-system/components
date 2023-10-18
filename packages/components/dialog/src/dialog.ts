@@ -53,10 +53,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
   }
 
-  override firstUpdated(): void {
-    this.dialog?.setAttribute('closing', 'false');
-  }
-
   override render(): TemplateResult {
     return html`
       <dialog
@@ -106,8 +102,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     // Disable scrolling while the dialog is open
     document.documentElement.style.overflow = 'hidden';
-
-    this.dialog?.setAttribute('closing', 'false');
 
     /** Workaround for the backdrop background,
      *  the backdrop doesn't inherit from the :root, so we cannot use tokens for the background-color,
@@ -172,7 +166,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.dialog?.addEventListener(
       'animationend',
       () => {
-        this.dialog?.setAttribute('closing', 'false');
+        this.dialog?.removeAttribute('closing');
 
         if (target?.matches('sl-button[sl-dialog-close]')) {
           this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
@@ -184,7 +178,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     );
 
     requestAnimationFrame(() => {
-      this.dialog?.setAttribute('closing', 'true');
+      this.dialog?.setAttribute('closing', '');
     });
   }
 

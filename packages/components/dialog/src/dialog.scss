@@ -166,7 +166,7 @@ slot[name='footer'] {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  dialog[closing='true'] {
+  dialog[closing] {
     animation: slide-down 400ms ease-out;
 
     &::backdrop {
@@ -174,7 +174,7 @@ slot[name='footer'] {
     }
   }
 
-  dialog[open]:not([closing='true']) {
+  dialog[open]:not([closing]) {
     animation: slide-in-up 600ms ease-out;
 
     &::backdrop {

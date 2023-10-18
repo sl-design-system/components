@@ -188,7 +188,7 @@
       "command": "rimraf --glob \"**/.wireit\""
     },
     "start": {
-      "command": "storybook dev -p 6006 --no-open --quiet",
+      "command": "storybook dev -p 6006 --no-open",
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"

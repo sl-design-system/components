@@ -38,7 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@lit-labs/preact-signals": "^1.0.0",
     "@sl-design-system/shared": "0.1.7",
-    "lit": "^2.7.5"
+    "lit": "^3.0.0"
   }
 }

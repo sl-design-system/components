@@ -1,5 +1,6 @@
 import type { DirectiveResult } from 'lit/directive.js';
 import type { ReactiveControllerHost } from 'lit';
+import type { ValidatorFn } from './validators.js';
 import { AbstractControl } from './abstract-control.js';
 import { bind } from './bind-directive.js';
 
@@ -7,8 +8,8 @@ import { bind } from './bind-directive.js';
 export class FormControl<T = any> extends AbstractControl {
   readonly defaultValue: T = null as unknown as T;
 
-  constructor(host: ReactiveControllerHost, value: T) {
-    super(host);
+  constructor(host: ReactiveControllerHost, value: T, validators: ValidatorFn[] = []) {
+    super(host, validators);
 
     this.value = value;
     this.defaultValue = value;
@@ -22,11 +23,11 @@ export class FormControl<T = any> extends AbstractControl {
     return this.value;
   }
 
-  override setValue(value: T): void {
+  override patchValue(value: T): void {
     this.value = value;
   }
 
-  override patchValue(value: T): void {
+  override setValue(value: T): void {
     this.value = value;
   }
 }

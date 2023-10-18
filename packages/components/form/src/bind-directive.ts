@@ -1,16 +1,20 @@
-import type { AttributePart, DirectiveResult, PartInfo } from 'lit/async-directive.js';
+import type { DirectiveResult, ElementPart, PartInfo } from 'lit/async-directive.js';
 import type { AbstractControl } from './abstract-control';
-import { AsyncDirective, directive } from 'lit/async-directive.js';
+import { AsyncDirective, PartType, directive } from 'lit/async-directive.js';
 import { noChange } from 'lit';
 
 export class BindDirective extends AsyncDirective {
   control: AbstractControl | null = null;
-  host: HTMLElement;
+  host: Element;
 
   constructor(partInfo: PartInfo) {
     super(partInfo);
 
-    this.host = (partInfo as AttributePart).element;
+    if (partInfo.type !== PartType.ELEMENT) {
+      throw new Error('The `anchor` directive must be used on the element itself');
+    }
+
+    this.host = (partInfo as ElementPart).element;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -26,6 +30,7 @@ export class BindDirective extends AsyncDirective {
 
     if (this.control !== control) {
       this.control = control;
+      this.control.setControlElement(this.host);
 
       this.reconnected();
     }

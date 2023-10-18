@@ -1,8 +1,8 @@
 :host {
   --_align: flex-start;
   --_direction: row;
-  --gap-h: 1rem;
-  --gap-v: 0.5rem;
+  --gap-h: var(--sl-space-button-bar-gap-inline);
+  --gap-v: var(--sl-space-button-bar-gap-block);
 }
 
 :host {

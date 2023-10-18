@@ -1,66 +1,241 @@
+$md-breakpoint: 600px;
+
 :host {
-  --_background: #fff;
-  --_border: 0;
-  --_border-radius: 3px;
-  --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
-  --_gap: 0.5rem;
-  --_max-inline-size: 500px;
-  --_spacing: 0.5rem;
+  --_background: var(--sl-color-dialog-background);
+  --_border: var(--sl-border-width-dialog-default) solid var(--sl-color-dialog-border);
+  --_border-radius: var(--sl-border-radius-dialog-mobile);
+  --_header-gap: var(--sl-space-dialog-gap-header);
+  --_heading-direction: var(--sl-dialog-header-flex-direction);
+  --_heading-gap: var(--sl-space-dialog-gap-header);
+  --_body-gap: var(--sl-space-dialog-mobile-body-gap);
+  --_footer-direction: column-reverse;
+  --_footer-align: var(--sl-dialog-footer-justify-content);
+  --_min-inline-size: var(--sl-size-dialog-min);
+  --_max-inline-size: var(--sl-size-dialog-full);
+  --_padding-block: var(--sl-space-dialog-mobile-body-block);
+  --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
+  --_margin-container-inline: var(--sl-space-dialog-mobile-container-inline);
+  --_margin-top-container: var(--sl-space-dialog-mobile-container-padding-top);
+  --_margin-bottom-container: var(--sl-space-dialog-mobile-container-padding-bottom);
+  --_color: var(--sl-color-dialog-foreground);
+  --_subtitle-font: var(--sl-text-dialog-subheading);
+  --_subtitle-padding-bottom: var(--sl-space-dialog-subtitle-padding-bottom);
+  --_title-font: var(--sl-text-dialog-heading);
+  --_body-font: var(--sl-text-body-lg-normal);
 }
 
 :host {
   display: block;
+  text-align: inherit;
 }
 
 dialog {
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
+  color: var(--_color);
   display: flex;
   flex-direction: column;
-  gap: var(--_gap);
   inset: 0;
-  margin: auto;
-  max-block-size: min(80vh, 100%);
-  max-block-size: min(80dvb, 100%);
-  max-inline-size: min(90vw, var(--_max-inline-size));
+  margin: auto auto 0;
+  max-block-size: min(
+    100%,
+    100vh - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
+  );
+  max-inline-size: var(--_max-inline-size);
   opacity: 0;
-  padding: 1rem;
+  overflow: hidden;
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
   position: fixed;
-  transition: opacity 0.5s cubic-bezier(0.25, 0, 0.3, 1);
+  width: auto;
 
   &::backdrop {
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
-    transition: backdrop-filter 0.5s ease;
+    --backdrop-background: var(
+      --sl-color-select-item-active-foreground
+    ); // TODO: should come from the token --sl-body-surface-overlay
+    opacity: 0;
+    transition: all 0.5s;
   }
 }
 
 dialog[open] {
   opacity: 1;
+
+  &::backdrop {
+    opacity: 1;
+  }
+}
+
+slot[name='header'] {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--_header-gap);
+}
+
+.titles {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: var(--_heading-direction);
+  gap: var(--_heading-gap);
+}
+
+slot[name='header-actions'] {
+  display: inline-flex;
+}
+
+slot[name='header-buttons'],
+slot[name='header-buttons']::slotted(*) {
+  display: flex;
+}
+
+slot[name='close-button'] {
+  display: block;
+}
+
+slot[name='close-button']::slotted(*),
+slot[name='header-buttons']::slotted(*) {
+  align-self: baseline;
+}
+
+slot[name='subtitle']::slotted(*) {
+  font: var(--_subtitle-font);
+  padding-bottom: var(--_subtitle-padding-bottom);
+}
+
+slot[name='title']::slotted(*) {
+  font: var(--_title-font);
+}
+
+.body-content {
+  font: var(--_body-font);
+  margin: var(--_body-gap) 0;
+  overflow: auto;
+}
+
+slot[name='footer'] {
+  sl-button-bar {
+    align-items: stretch;
+    flex-direction: var(--_footer-direction);
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+}
+
+@media screen and (min-width: $md-breakpoint) {
+  :host {
+    --_border-radius: var(--sl-border-radius-dialog-desktop);
+    --_padding-block: var(--sl-space-dialog-desktop-body-block);
+    --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
+    --_margin-bottom-container: var(--sl-space-dialog-desktop-container-padding-bottom);
+    --_margin-top-container: var(--sl-space-dialog-desktop-container-padding-top);
+    --_max-inline-size: var(--sl-size-dialog-max);
+    --_margin-container-inline: var(--sl-space-dialog-desktop-container-inline);
+    --_body-gap: var(--sl-space-dialog-desktop-body-gap);
+    --_footer-direction: var(--sl-dialog-footer-flex-direction);
+  }
+
+  dialog {
+    margin: auto;
+    max-block-size: min(
+      100% - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
+    );
+    max-inline-size: min(
+      var(--_max-inline-size),
+      100% - 2 * var(--_margin-container-inline) - 2 * var(--_padding-inline)
+    );
+    min-inline-size: var(--_min-inline-size);
+    width: fit-content;
+  }
+
+  slot[name='footer'] {
+    sl-button-bar {
+      align-items: center;
+      justify-content: var(--_footer-align);
+    }
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  dialog {
-    animation: scale-down 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
-    animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
+  dialog[closing] {
+    animation: slide-down 400ms ease-out;
+
+    &::backdrop {
+      animation: backdrop-hide 400ms ease-out;
+    }
   }
 
-  dialog[open] {
-    animation: slide-in-up 0.5s cubic-bezier(0.25, 0, 0.3, 1) forwards;
-  }
-}
+  dialog[open]:not([closing]) {
+    animation: slide-in-up 600ms ease-out;
 
-@keyframes scale-down {
-  to {
-    transform: scale(0.75);
+    &::backdrop {
+      animation: backdrop-show 600ms ease-out;
+    }
   }
 }
 
 @keyframes slide-in-up {
   0% {
-    transform: translateY(100%);
+    opacity: 0;
+    transform: translateY(80px);
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+
+  80% {
+    transform: translateY(-20px);
+  }
+
+  90% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: translateY(80px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+}
+
+@keyframes backdrop-show {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes backdrop-hide {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }

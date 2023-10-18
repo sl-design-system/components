@@ -11,49 +11,119 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build:dev": "wireit",
-    "build:prod": "wireit",
-    "start:site": "wireit",
-    "start:teaser": "wireit",
-    "dev:site": "wireit",
-    "dev:teaser": "wireit",
-    "serve:site": "wireit",
-    "serve:teaser": "wireit",
-    "serve:site:dev": "wireit",
-    "serve:teaser:dev": "wireit",
-    "build:site:dev": "wireit",
-    "build:teaser:dev": "wireit",
-    "build:site:dev:eleventy": "wireit",
-    "build:teaser:dev:eleventy": "wireit",
-    "build:site:dev:styles": "wireit",
-    "build:teaser:dev:styles": "wireit",
-    "build:site:dev:ts": "wireit",
-    "build:type-check": "wireit",
-    "build:site:prod": "wireit",
-    "build:teaser:prod": "wireit",
-    "build:site:prod:eleventy": "wireit",
-    "build:teaser:prod:eleventy": "wireit",
-    "build:site:prod:styles": "wireit",
-    "build:teaser:prod:styles": "wireit",
-    "build:site:prod:ts": "wireit",
-    "clean": "wireit",
-    "lint": "wireit",
-    "lint:scss": "wireit",
-    "lint:ts": "wireit",
     "analyze": "wireit",
-    "copy:tokens": "cpx '../packages/themes/sanoma-learning/base.json' 'src/site/_data/tokens/'"
+    "build": "wireit",
+    "build:dev": "wireit",
+    "clean": "wireit",
+    "copy:tokens": "cpx '../packages/themes/sanoma-learning/base.json' 'src/site/_data/tokens/'",
+    "lint": "wireit",
+    "start": "wireit",
+    "start:dev": "wireit"
   },
   "wireit": {
+    "analyze": {
+      "command": "cem analyze --litelement"
+    },
     "build:dev": {
       "dependencies": [
-        "build:site:dev",
-        "build:teaser:dev"
+        "build:dev:eleventy",
+        "build:dev:styles",
+        "build:dev:ts",
+        "build:type-check"
       ]
     },
-    "build:prod": {
+    "build:dev:eleventy": {
+      "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
       "dependencies": [
-        "build:site:prod",
-        "build:teaser:prod"
+        "..:transform-tokens",
+        "analyze",
+        "copy:tokens",
+        "build:dev:styles",
+        "build:dev:ts"
+      ],
+      "files": [
+        ".eleventy.cjs",
+        "lib/site/**/*",
+        "src/site/**/*"
+      ]
+    },
+    "build:dev:styles": {
+      "command": "NODE_ENV=DEV sass src/site/styles:public/site/styles",
+      "files": [
+        "src/site/styles"
+      ],
+      "output": [
+        "public/site/styles"
+      ]
+    },
+    "build:dev:ts": {
+      "command": "NODE_ENV=DEV node esbuild.config.mjs",
+      "dependencies": [
+        "..:build"
+      ],
+      "files": [
+        "src/site/ts/**/*",
+        "tsconfig.json",
+        "esbuild.config.mjs"
+      ],
+      "output": [
+        "lib/site/**/*"
+      ]
+    },
+    "build": {
+      "dependencies": [
+        "build:prod:eleventy",
+        "build:prod:styles",
+        "build:prod:ts"
+      ]
+    },
+    "build:prod:eleventy": {
+      "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
+      "dependencies": [
+        "..:transform-tokens",
+        "analyze",
+        "copy:tokens",
+        "build:prod:styles",
+        "build:prod:ts"
+      ],
+      "files": [
+        ".eleventy.cjs",
+        "build/site/**/*",
+        "src/site/**/*"
+      ]
+    },
+    "build:prod:styles": {
+      "command": "NODE_ENV=PROD sass src/site/styles:dist/site/styles",
+      "files": [
+        "src/site/styles"
+      ],
+      "output": [
+        "dist/site/styles"
+      ]
+    },
+    "build:prod:ts": {
+      "command": "NODE_ENV=PROD node esbuild.config.mjs",
+      "dependencies": [
+        "..:build"
+      ],
+      "files": [
+        "src/site/ts/**/*",
+        "tsconfig.json",
+        "esbuild.config.mjs"
+      ],
+      "output": [
+        "build/**/*"
+      ]
+    },
+    "build:type-check": {
+      "command": "tsc -p tsconfig.json --pretty --incremental",
+      "files": [
+        "src/**/*",
+        "tsconfig.json"
+      ],
+      "clean": "if-file-deleted",
+      "output": [
+        "tsconfig.tsbuildinfo"
       ]
     },
     "clean": {
@@ -84,216 +154,22 @@
         "src/**/*.ts"
       ]
     },
-    "build:site:dev:styles": {
-      "command": "NODE_ENV=DEV sass src/site/styles:public/site/styles",
-      "files": [
-        "src/site/styles"
-      ],
-      "output": [
-        "public/site/styles"
-      ]
-    },
-    "build:teaser:dev:styles": {
-      "command": "NODE_ENV=DEV sass src/teaser/styles:public/teaser/styles",
-      "files": [
-        "src/teaser/styles"
-      ],
-      "output": [
-        "public/teaser/styles"
-      ]
-    },
-    "build:site:prod:styles": {
-      "command": "NODE_ENV=PROD sass src/site/styles:dist/site/styles",
-      "files": [
-        "src/site/styles"
-      ],
-      "output": [
-        "dist/site/styles"
-      ]
-    },
-    "build:teaser:prod:styles": {
-      "command": "NODE_ENV=PROD sass src/teaser/styles:dist/teaser/styles",
-      "files": [
-        "src/teaser/styles"
-      ],
-      "output": [
-        "dist/teaser/styles"
-      ]
-    },
-    "build:site:dev": {
-      "dependencies": [
-        "build:site:dev:styles",
-        "build:site:dev:eleventy",
-        "build:site:dev:ts",
-        "build:type-check"
-      ]
-    },
-    "build:teaser:dev": {
-      "dependencies": [
-        "build:teaser:dev:styles",
-        "build:teaser:dev:eleventy"
-      ]
-    },
-    "build:site:dev:eleventy": {
-      "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
-      "dependencies": [
-        "..:transform-tokens",
-        "analyze",
-        "copy:tokens",
-        "build:site:dev:styles",
-        "build:site:dev:ts"
-      ],
-      "files": [
-        "lib/site/**/*",
-        "src/site/**/*",
-        "site.eleventy.cjs"
-      ]
-    },
-    "build:teaser:dev:eleventy": {
-      "command": "NODE_ENV=DEV eleventy --config=teaser.eleventy.cjs",
-      "dependencies": [
-        {
-          "script": "build:teaser:dev:styles",
-          "cascade": false
-        }
-      ],
-      "files": [
-        "src/teaser/**/*",
-        "teaser.eleventy.cjs"
-      ]
-    },
-    "build:site:dev:ts": {
-      "command": "NODE_ENV=DEV node esbuild.config.mjs",
-      "dependencies": [
-        "..:build"
-      ],
-      "files": [
-        "src/site/ts/**/*",
-        "tsconfig.json",
-        "esbuild.config.mjs"
-      ],
-      "output": [
-        "lib/site/**/*"
-      ]
-    },
-    "build:type-check": {
-      "command": "tsc -p tsconfig.json --pretty --incremental",
-      "files": [
-        "src/**/*",
-        "tsconfig.json"
-      ],
-      "clean": "if-file-deleted",
-      "output": [
-        "tsconfig.tsbuildinfo"
-      ]
-    },
-    "build:site:prod": {
-      "dependencies": [
-        "build:site:prod:styles",
-        "build:site:prod:eleventy",
-        "build:site:prod:ts"
-      ]
-    },
-    "build:teaser:prod": {
-      "dependencies": [
-        "build:teaser:prod:styles",
-        "build:teaser:prod:eleventy"
-      ]
-    },
-    "build:site:prod:eleventy": {
-      "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
-      "dependencies": [
-        "..:transform-tokens",
-        "analyze",
-        "copy:tokens",
-        "build:site:prod:styles",
-        "build:site:prod:ts"
-      ],
-      "files": [
-        "build/site/**/*",
-        "src/site/**/*",
-        "site.eleventy.cjs"
-      ]
-    },
-    "analyze": {
-      "command": "cem analyze --litelement"
-    },
-    "build:teaser:prod:eleventy": {
-      "command": "NODE_ENV=PROD eleventy --config=teaser.eleventy.cjs",
-      "dependencies": [
-        "build:teaser:prod:styles"
-      ],
-      "files": [
-        "src/teaser/**/*",
-        "teaser.eleventy.cjs"
-      ]
-    },
-    "build:site:prod:ts": {
-      "command": "NODE_ENV=PROD node esbuild.config.mjs",
-      "dependencies": [
-        "..:build"
-      ],
-      "files": [
-        "src/site/ts/**/*",
-        "tsconfig.json",
-        "esbuild.config.mjs"
-      ],
-      "output": [
-        "build/**/*"
-      ]
-    },
-    "start:site": {
-      "command": "yarn run serve:site",
-      "service": true
-    },
-    "start:teaser": {
-      "command": "yarn run serve:teaser --watch",
-      "service": true
-    },
-    "dev:site": {
-      "command": "yarn run serve:site:dev --watch",
-      "service": true
-    },
-    "dev:teaser": {
-      "command": "yarn run serve:teaser:dev --watch",
-      "service": true
-    },
-    "serve:site:dev": {
-      "command": "wds --watch --root-dir public/site --open",
-      "service": true,
-      "dependencies": [
-        {
-          "script": "build:site:dev",
-          "cascade": false
-        }
-      ]
-    },
-    "serve:teaser:dev": {
-      "command": "wds --watch --root-dir public/teaser --open",
-      "service": true,
-      "dependencies": [
-        {
-          "script": "build:teaser:dev",
-          "cascade": false
-        }
-      ]
-    },
-    "serve:site": {
+    "start": {
       "command": "wds --watch --root-dir dist/site",
       "service": true,
       "dependencies": [
         {
-          "script": "build:site:prod",
+          "script": "build:prod",
           "cascade": false
         }
       ]
     },
-    "serve:teaser": {
-      "command": "wds --watch --root-dir dist/teaser",
+    "start:dev": {
+      "command": "wds --watch --root-dir public/site --open",
       "service": true,
       "dependencies": [
         {
-          "script": "build:teaser:prod",
+          "script": "build:dev",
           "cascade": false
         }
       ]

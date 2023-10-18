@@ -48,6 +48,53 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/avatar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    return html` <style>\n        table {\n          border-collapse: collapse;\n          margin-bottom: 24px;\n        }\n\n        th {\n          text-transform: capitalize;\n        }\n        th,\n        td {\n          padding: 4px 8px;\n        }\n      </style>\n      <table>\n        <thead>\n          <tr>\n            <th>Size</th>\n            <th>With avatar</th>\n            <th>With initials</th>\n            <th>With placeholder</th>\n            <th>With subheading</th>\n            <th>With status</th>\n            <th>Image only</th>\n          </tr>\n        </thead>\n        <tbody>\n          ${sizes.map(\n            size => html` <tr>\n              <th>${sizeName(size)}</th>\n              <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>\n              <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>\n              <td><sl-avatar .user=${users[4]} .size=${size} fallback=\"image\"></sl-avatar></td>\n              <td><sl-avatar .user=${users[1]} .size=${size}>Very good student</sl-avatar></td>\n              <td><sl-avatar .user=${users[0]} .size=${size} status=\"online\"></sl-avatar></td>\n              <td><sl-avatar .user=${users[5]} .size=${size} image-only></sl-avatar></td>\n            </tr>`\n          )}\n          </tr>\n        </tbody>\n      </table>`;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/avatar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/avatar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/avatar.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/avatar.ts",
       "declarations": [
         {

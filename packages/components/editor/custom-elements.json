@@ -81,6 +81,37 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/editor.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  args: {\n    value: `\n      <h1>Rich Text Editor</h1>\n      <p>This component is a <em>rich text editor</em> based on the <a href=\"https://prosemirror.net/\" target=\"_blank\">ProseMirror</a> library.</p>\n      <p>It has support for the following editor actions:</p>\n      <ul>\n        <li><p>Typography: <strong>bold</strong>, <em>italic</em>, <u>underline</u> and <del>strikethrough</del></p></li>\n        <li><p>Format: paragraph, quotation and headings</p></li>\n        <li><p>Alignment: left, right or center</p></li>\n        <li><p>Lists: ordered or unordered</p></li>\n        <li><p>Indentation: indent and outdent</p></li>\n        <li><p>Insert links</p></li>\n      </ul>\n    `\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/editor.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/editor.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/editor.ts",
       "declarations": [
         {

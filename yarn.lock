@@ -5338,6 +5338,7 @@ __metadata:
   dependencies:
     "@open-wc/scoped-elements": 2.2.1
     "@sl-design-system/button-bar": 0.0.2
+    "@sl-design-system/icon": 0.0.3
     lit: ^3.0.0
   languageName: unknown
   linkType: soft

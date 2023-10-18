@@ -48,6 +48,107 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/dialog.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/dialog.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    closingButton: true,\n    title: 'Dialog title',\n    subtitle: 'Dialog subtitle',\n    bodyContent: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac augue neque. Nunc sed ex ut neque lacinia rutrum nec vitae mi. Donec dictum urna elit, et feugiat nunc fringilla nec. Maecenas nisi lorem, facilisis nec libero ut, hendrerit ultricies orci. Vivamus massa ligula, ultricies quis odio a, scelerisque tincidunt lorem. Morbi quis pulvinar augue. Nunc eros magna, laoreet vitae ornare at, iaculis quis diam. Duis odio urna, viverra ut ex mattis, egestas tincidunt enim. Praesent ac ex tincidunt, hendrerit sem et, aliquam metus. Nunc quis nisi nulla. Sed nibh ante, posuere eu volutpat vitae, elementum ut leo. Ut aliquet tincidunt tellus, ut molestie urna ultrices in. Suspendisse potenti. Nunc non nunc eu nibh venenatis vestibulum. Maecenas rutrum nibh lacus.\n    Fusce sodales purus ut arcu hendrerit, non interdum nulla suscipit. Duis vitae felis facilisis, eleifend ipsum ut, condimentum est. Nullam metus massa, venenatis vitae suscipit in, feugiat quis turpis. In pellentesque velit at sagittis mattis. Nam ut tellus elit. Proin luctus lectus velit, ut ultricies libero blandit blandit. Aenean molestie est ipsum, in dictum turpis dictum nec. Curabitur eu convallis quam. Proin efficitur velit nec quam ornare, id volutpat ex ornare. Vestibulum porttitor lobortis lacus, eu efficitur libero congue nec. Maecenas volutpat massa non nulla venenatis, aliquet gravida lectus aliquam. Pellentesque aliquam blandit condimentum. Phasellus non justo odio. Phasellus a dui posuere, dapibus risus tempus, laoreet augue. Sed tincidunt, lorem a placerat aliquet, nisi erat lobortis orci, in aliquet mi ante nec nisi. Pellentesque porttitor elit sem, nec scelerisque arcu suscipit eu.`\n  },\n  render: ({ title, subtitle, bodyContent, closingButton }) => {\n    return html`\n      <sl-button fill=\"outline\" size=\"md\" @click=${onClick}>Show Dialog</sl-button>\n      <sl-dialog ?closing-button=${closingButton}>\n        <span slot=\"title\">${title}</span>\n        <span slot=\"subtitle\">${subtitle}</span>\n        ${bodyContent}\n        <sl-button slot=\"actions\" fill=\"ghost\" variant=\"default\" sl-dialog-close autofocus>Cancel</sl-button>\n        <sl-button slot=\"actions\" fill=\"solid\" variant=\"primary\" sl-dialog-close>Action</sl-button>\n      </sl-dialog>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "MoreFooterButtons",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    reverse: false\n  },\n  render: ({ reverse }) => html`\n    <style>\n      sl-button-bar[reverse] > sl-button:first-child {\n        margin-left: auto;\n      }\n\n      sl-button-bar:not([reverse]) > sl-button:first-child {\n        margin-right: auto;\n      }\n\n      @media screen and (max-width: 600px) {\n        sl-button-bar {\n          align-items: stretch;\n          flex-direction: column-reverse;\n          flex-grow: 1;\n          flex-shrink: 0;\n        }\n\n        sl-button-bar[reverse] > sl-button:first-child {\n          margin-left: inherit;\n        }\n\n        sl-button-bar:not([reverse]) > sl-button:first-child {\n          margin-right: inherit;\n        }\n      }\n    </style>\n    <sl-button fill=\"outline\" @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog closing-button>\n      <span slot=\"subtitle\">Dialog subtitle</span>\n      <span slot=\"title\">Dialog title</span>\n      <div>You cannot scroll the body once the dialog is open.</div>\n      <sl-button-bar slot=\"footer\" align=\"space-between\" .reverse=${reverse}>\n        <sl-button fill=\"ghost\" variant=\"default\" sl-dialog-close autofocus>Cancel</sl-button>\n        <sl-button fill=\"outline\" variant=\"primary\" sl-dialog-close>Action 2</sl-button>\n        <sl-button fill=\"solid\" variant=\"primary\" sl-dialog-close>Action</sl-button>\n      </sl-button-bar>\n    </sl-dialog>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "DisableClose",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-button fill=\"outline\" @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog disable-close closing-button align=\"space-between\">\n      <span slot=\"title\">Disable close</span>\n      <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>\n      <sl-button slot=\"actions\" fill=\"solid\" variant=\"default\" sl-dialog-close autofocus>Action 2</sl-button>\n      <sl-button slot=\"actions\" fill=\"solid\" variant=\"primary\" sl-dialog-close>Action</sl-button>\n    </sl-dialog>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "ScrollingBody",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      sl-button {\n        margin: 50vh 0 100vh;\n      }\n    </style>\n    <sl-button fill=\"outline\" @click=${onClick}>Show Dialog</sl-button>\n    <sl-dialog closing-button>\n      <span slot=\"subtitle\">Dialog subtitle example</span>\n      <span slot=\"title\">Dialog title example</span>\n      <div>You cannot scroll the body once the dialog is open.</div>\n    </sl-dialog>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomClosingIcon",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    Icon.registerIcon(faCircleXmark);\n\n    return html`\n      <sl-button fill=\"outline\" @click=${onClick}>Show Dialog</sl-button>\n      <sl-dialog closing-button>\n        <span slot=\"title\">Custom icon dialog</span>\n        <sl-button slot=\"close-button\" fill=\"ghost\" variant=\"default\">\n          <sl-icon name=\"far-circle-xmark\"></sl-icon>\n        </sl-button>\n        <div>Dialog with custom closing icon</div>\n      </sl-dialog>\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MoreFooterButtons",
+          "declaration": {
+            "name": "MoreFooterButtons",
+            "module": "src/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DisableClose",
+          "declaration": {
+            "name": "DisableClose",
+            "module": "src/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ScrollingBody",
+          "declaration": {
+            "name": "ScrollingBody",
+            "module": "src/dialog.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomClosingIcon",
+          "declaration": {
+            "name": "CustomClosingIcon",
+            "module": "src/dialog.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/dialog.ts",
       "declarations": [
         {
@@ -57,7 +158,7 @@
           "slots": [
             {
               "description": "Area where action buttons are placed",
-              "name": "action"
+              "name": "actions"
             },
             {
               "description": "Body content for the dialog",
@@ -73,7 +174,7 @@
             },
             {
               "description": "Closing button (placed in header) for the dialog",
-              "name": "close"
+              "name": "close-button"
             },
             {
               "description": "More space for buttons for the dialog's header",
@@ -308,11 +409,6 @@
               "type": {
                 "text": "HTMLDialogElement | undefined"
               },
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#onAnimationEnd",
               "privacy": "private"
             }
           ]

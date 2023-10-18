@@ -56,6 +56,59 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/icon.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/icon.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "RegisterAdditionalIcons",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  render: () => {\n    // load the entire FA library of a certain variant:\n    Icon.registerIcon(...Object.values(far));\n\n    // load a single icon:\n    Icon.registerIcon(fatPinata);\n    Icon.registerIcon(fatPinata);\n\n    // load multiple icons at once:\n    Icon.registerIcon(falPinata, fasPinata, fadNarwhal);\n\n    return html`\n      <style>\n        section {\n          display: flex;\n          gap: 8px;\n        }\n      </style>\n      <h2>Icons added directly from FontAwesome:</h2>\n      <section>\n        <sl-icon name=\"fas-pinata\"></sl-icon>\n        <sl-icon name=\"far-pinata\"></sl-icon>\n        <sl-icon name=\"fal-pinata\"></sl-icon>\n        <sl-icon name=\"fat-pinata\"></sl-icon>\n        <sl-icon name=\"far-narwhal\"></sl-icon>\n        <sl-icon name=\"fad-narwhal\"></sl-icon>\n      </section>\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/icon.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/icon.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RegisterAdditionalIcons",
+          "declaration": {
+            "name": "RegisterAdditionalIcons",
+            "module": "src/icon.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/icon.ts",
       "declarations": [
         {

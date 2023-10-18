@@ -64,6 +64,171 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/radio-group.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-group.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    disabled: false,\n    horizontal: false,\n    value: undefined,\n    size: 'md'\n  },\n  argTypes: {\n    value: {\n      control: 'inline-radio',\n      options: ['1', '2', '3']\n    },\n    size: {\n      control: 'inline-radio',\n      options: ['md', 'lg']\n    }\n  },\n  render: ({ disabled, horizontal, value, size }) => html`\n    <sl-radio-group ?disabled=${disabled} ?horizontal=${horizontal} .value=${value}>\n      <sl-radio value=\"1\" .size=${size}>One</sl-radio>\n      <sl-radio value=\"2\" .size=${size}>Two</sl-radio>\n      <sl-radio value=\"3\" .size=${size}>Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      table {\n        border-collapse: collapse;\n        margin-bottom: 24px;\n      }\n\n      th {\n        text-transform: capitalize;\n      }\n      th,\n      td {\n        padding: 4px 8px;\n      }\n      thead td {\n        text-align: center;\n      }\n\n      tbody td:nth-of-type(4n + 5) {\n        border-right: 2px solid #dedede;\n        padding-right: 24px;\n      }\n      tbody td:nth-of-type(4n + 2):not(:first-of-type) {\n        padding-left: 24px;\n      }\n      tbody td:last-of-type {\n        border: none;\n      }\n    </style>\n    <table>\n      <thead>\n        <tr>\n          <th></th>\n          ${sizes.map(size => html` <th colspan=${states.length + 1}>Size: ${size}</th> `)}\n        </tr>\n      </thead>\n      <tbody>\n        ${checked.map(\n          c =>\n            html` <tr>\n              <td>${c}</td>\n              ${sizes.map(\n                size =>\n                  html`${states.map(\n                      state =>\n                        html`\n                          <td>\n                            <sl-radio\n                              ?checked=${c === 'checked'}\n                              ?invalid=${state === 'invalid'}\n                              ?required=${state === 'invalid'}\n                              ?valid=${state === 'valid'}\n                              size=${size}\n                              data-mock-state\n                              >Label\n                            </sl-radio>\n                          </td>\n                        `\n                    )}\n                    <td>\n                      <sl-radio ?checked=${c === 'checked'} size=${size} disabled data-mock-state>Label </sl-radio>\n                    </td>`\n              )}\n            </tr>`\n        )}\n      </tbody>\n    </table>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Horizontal",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-radio-group horizontal>\n      <sl-radio value=\"1\">One</sl-radio>\n      <sl-radio value=\"2\">Two</sl-radio>\n      <sl-radio value=\"3\">Three</sl-radio>\n    </sl-radio-group>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Overflow",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      div {\n        display: flex;\n        flex-direction: column;\n        gap: 16px;\n      }\n      .wrapper {\n        border: 2px solid rgb(var(--sl-color-palette-accent-base));\n      }\n    </style>\n    <em>Borders are added to show the allignment in the container</em>\n    <div class=\"wrapper\">\n      <sl-radio\n        >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla\n        consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident\n        enim.\n      </sl-radio>\n    </div>\n    <div class=\"wrapper\">\n      <sl-radio>Elit consectetur. </sl-radio>\n    </div>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Label",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"radio-group\">How many pets do you have?</sl-label>\n      <sl-radio-group id=\"radio-group\">\n        <sl-radio value=\"0\">None</sl-radio>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n      </sl-radio-group>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Hint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"radio-group\">How many pets do you have?</sl-label>\n      <sl-radio-group id=\"radio-group\" hint=\"Fish count as well.\">\n        <sl-radio value=\"0\">None</sl-radio>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n      </sl-radio-group>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "RichLabelHint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"radio-group\">\n        <label slot=\"label\">Custom <i>label</i></label>\n      </sl-label>\n      <sl-radio-group id=\"radio-group\">\n        <sl-radio value=\"0\">None</sl-radio>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n        <div slot=\"hint\">\n          Hint is an accessible way to provide <strong>additional information</strong> that might help the user\n        </div>\n      </sl-radio-group>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "InForm",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    return html`\n      <form @submit=${onSubmit} name=\"formpje\">\n        <sl-label for=\"hm\">How many pets do you have?</sl-label>\n        <sl-radio-group required name=\"how-many\" id=\"hm\">\n          <sl-radio value=\"1\">One</sl-radio>\n          <sl-radio value=\"2\">Two</sl-radio>\n          <sl-radio value=\"3\">Three</sl-radio>\n        </sl-radio-group>\n        <sl-label for=\"preselected\">What's your favourite letter?</sl-label>\n        <sl-radio-group required name=\"preselected\" id=\"preselected\" value=\"c\">\n          <sl-radio value=\"a\">A</sl-radio>\n          <sl-radio value=\"b\">B</sl-radio>\n          <sl-radio value=\"c\">C</sl-radio>\n        </sl-radio-group>\n        <sl-button type=\"reset\">Reset</sl-button>\n        <sl-button type=\"submit\">Validate</sl-button>\n      </form>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomValidation",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as RadioGroup)?.reportValidity();\n    };\n\n    return html`\n      <sl-radio-group required>\n        <sl-radio value=\"1\">One</sl-radio>\n        <sl-radio value=\"2\">Two</sl-radio>\n        <sl-radio value=\"3\">Three</sl-radio>\n        <div slot=\"value-missing\">This is the custom value-missing message (for the required attribute).</div>\n      </sl-radio-group>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Horizontal",
+          "declaration": {
+            "name": "Horizontal",
+            "module": "src/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Overflow",
+          "declaration": {
+            "name": "Overflow",
+            "module": "src/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "src/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Hint",
+          "declaration": {
+            "name": "Hint",
+            "module": "src/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RichLabelHint",
+          "declaration": {
+            "name": "RichLabelHint",
+            "module": "src/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InForm",
+          "declaration": {
+            "name": "InForm",
+            "module": "src/radio-group.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomValidation",
+          "declaration": {
+            "name": "CustomValidation",
+            "module": "src/radio-group.stories.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/radio-group.ts",
       "declarations": [
         {
@@ -281,6 +446,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio.spec.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",

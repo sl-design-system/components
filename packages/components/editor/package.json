@@ -39,14 +39,14 @@
   },
   "dependencies": {
     "@sl-design-system/shared": "0.1.8",
-    "lit": "^2.7.5",
+    "lit": "^3.0.0",
     "prosemirror-commands": "^1.5.2",
     "prosemirror-history": "^1.3.2",
     "prosemirror-inputrules": "^1.2.1",
     "prosemirror-keymap": "^1.2.2",
-    "prosemirror-model": "^1.19.2",
+    "prosemirror-model": "^1.19.3",
     "prosemirror-schema-list": "^1.3.0",
     "prosemirror-state": "^1.4.3",
-    "prosemirror-view": "^1.31.5"
+    "prosemirror-view": "^1.32.1"
   }
 }

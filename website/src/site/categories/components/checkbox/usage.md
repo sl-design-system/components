@@ -35,7 +35,7 @@ The following guidance describes when to use the Checkbox component.
 {{'components/button/sl-button-when-use-actions.svg' | svgImage}}
 <figcaption>
 
-### Binary Decisions
+### Yes or No Decisions
 Checkboxes simplify making yes-or-no decisions. Users can independently toggle options, whether it's about their preferences, agreeing to terms, or picking from a list.
 </figcaption>
 </figure>
@@ -167,6 +167,28 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 |Focus ring|`???`|Turn the focus ring option to show the focus state of the checkbox|
 
 {.ds-table .ds-table-align-top}
+
+</section>
+
+<section>
+
+<div class="ds-example">
+
+<sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
+
+Example of the checkbox group
+
+</div>
+
+<div class="ds-code">
+
+  ```html
+  <sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
+
+Example of the checkbox group
+  ```
+
+</div>
 
 </section>
 

@@ -108,8 +108,10 @@ WAI-ARIA Roles, States, and Properties for a checkbox provide essential informat
 |Element|Attribute|Value|Description|User-supplied|
 |-|-|-|-|-|
 |Checkbox|ariaChecked|`'true','false','mixed'`|The state of the checkbox|no|
-|Checkbox|role|`'checkbox''`|Declare our custom component as a checkbox|no|
-|Checkbox|aria-label|`string`|Can be added when the checkbox doesn't have a label text. <ul><li>Right now this throws an error in the A11y test because it's set on a different component than the role of "checkbox"</li></ul>|yes|
+|Checkbox|`role`|`'checkbox''`|Declare our custom component as a checkbox|no|
+|Checkbox|`aria-label`|string|Can be added when the checkbox doesn't have a label text. <ul><li>Right now this throws an error in the A11y test because it's set on a different component than the role of "checkbox"</li></ul>|yes|
+|Checkbox|`aria-labelledby`|string|????? |yes???|
+|Checkbox|`aria-describedby`|string|Used to describe hint (helper text) or error message (connected with hint...) |no|
 
 {.ds-table .ds-table-align-top}
 

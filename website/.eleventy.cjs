@@ -1,4 +1,3 @@
-const litPlugin = require('@lit-labs/eleventy-plugin-lit');
 const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
 const markdownItAnchor = require('markdown-it-anchor');
 const markdownIt = require('markdown-it');
@@ -12,18 +11,12 @@ const anchor = require('markdown-it-anchor');
 const { customElementsManifestToMarkdown } = require('@custom-elements-manifest/to-markdown');
 const image = require("@11ty/eleventy-img");
 
-const DEV = process.env.NODE_ENV !== 'PROD';
-const jsFolder = DEV ? 'lib' : 'build';
-const outputFolder = DEV ? 'public' : 'dist';
+const jsFolder = 'build';
+const outputFolder = 'dist';
 
 module.exports = function(eleventyConfig) {
   eleventyConfig
     .addPassthroughCopy({ [`${jsFolder}`]: 'js/' });
-
-  eleventyConfig.addPlugin(litPlugin, {
-    mode: 'worker',
-    componentModules: [`./${jsFolder}/ssr.js`],
-  });
 
   eleventyConfig.addWatchTarget(`./${jsFolder}/**/*.js`);
 
@@ -167,21 +160,25 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addShortcode('inlinejs', (path) => {
-    if (DEV) {
+    if (process.env.NODE_ENV === 'production') {
+      const script = fs.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
+      
+      return `<script type="module">${script}</script>`;
+    } else {
       return `<script type="module" src="/js/${path}"></script>`;
     }
-
-    const script = fs.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
-
-    return `<script type="module">${script}</script>`;
   });
-
+  
   eleventyConfig.addTransform('htmlMinifier', content => {
-    return DEV ? content : htmlMinifier.minify(content, {
-      useShortDoctype: true,
-      removeComments: true,
-      collapseWhitespace: true,
-    });
+    if (process.env.NODE_ENV === 'production') {
+      return htmlMinifier.minify(content, {
+        useShortDoctype: true,
+        removeComments: true,
+        collapseWhitespace: true,
+      });
+    } else {
+      return content;
+    }
   });
 
   const customElementsPath = './src/_data/custom-elements';

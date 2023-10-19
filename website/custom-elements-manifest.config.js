@@ -1,8 +1,8 @@
 import {
-  noPrivateFieldsPlugin,
   eventPlugin,
-  sortMembersPlugin,
-  methodAndFieldPlugin
+  methodAndFieldPlugin,
+  noPrivateFieldsPlugin,
+  sortMembersPlugin
 } from '@sl-design-system/scripts/cem-plugins.js';
 
 export default {

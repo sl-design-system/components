@@ -13,50 +13,58 @@
   "scripts": {
     "analyze": "wireit",
     "build": "wireit",
-    "build:dev": "wireit",
-    "clean": "wireit",
     "copy:tokens": "cpx '../packages/themes/sanoma-learning/base.json' 'src/_data/tokens/'",
     "lint": "wireit",
-    "start": "wireit",
-    "start:dev": "wireit"
+    "start": "wireit"
   },
   "wireit": {
     "analyze": {
-      "command": "cem analyze --litelement"
-    },
-    "build:dev": {
-      "dependencies": [
-        "build:dev:eleventy",
-        "build:dev:styles",
-        "build:dev:ts",
-        "build:type-check"
+      "command": "cem analyze",
+      "files": [
+        "custom-elements-manifest.config.js"
+      ],
+      "output": [
+        "src/_data/custom-elements/custom-elements.{json,md}"
       ]
     },
-    "build:dev:eleventy": {
+    "build": {
+      "dependencies": [
+        "build:eleventy",
+        "build:styles",
+        "build:ts"
+      ]
+    },
+    "build:eleventy": {
       "command": "eleventy --config=.eleventy.cjs",
+      "env": {
+        "NODE_ENV": {
+          "external": true
+        }
+      },
       "dependencies": [
         "..:transform-tokens",
         "analyze",
-        "build:dev:styles",
-        "build:dev:ts",
         "copy:tokens"
       ],
       "files": [
         ".eleventy.cjs",
         "src/{_data,_includes,assets,categories,scripts,site}/**/*"
+      ],
+      "output": [
+        "dist/**/*.{html,json}"
       ]
     },
-    "build:dev:styles": {
-      "command": "sass src/styles:public/styles",
+    "build:styles": {
+      "command": "sass src/styles:dist/styles",
       "files": [
         "src/styles/**/*.scss"
       ],
       "output": [
-        "public/styles"
+        "dist/styles/**/*.{css,css.map}"
       ]
     },
-    "build:dev:ts": {
-      "command": "node esbuild.config.mjs",
+    "build:ts": {
+      "command": "node esbuild.config.js",
       "dependencies": [
         "..:build"
       ],
@@ -66,53 +74,8 @@
         "src/ts/**/*.ts"
       ],
       "output": [
-        "lib/**/*.js",
-        "lib/**/*.js.map"
-      ]
-    },
-    "build": {
-      "dependencies": [
-        "build:prod:eleventy",
-        "build:prod:styles",
-        "build:prod:ts"
-      ]
-    },
-    "build:prod:eleventy": {
-      "command": "NODE_ENV=PROD eleventy --config=.eleventy.cjs",
-      "dependencies": [
-        "..:transform-tokens",
-        "analyze",
-        "build:prod:styles",
-        "build:prod:ts",
-        "copy:tokens"
-      ],
-      "files": [
-        ".eleventy.cjs",
-        "build/**/*",
-        "src/**/*"
-      ]
-    },
-    "build:prod:styles": {
-      "command": "NODE_ENV=PROD sass src/styles:dist/styles",
-      "files": [
-        "src/styles"
-      ],
-      "output": [
-        "dist/styles"
-      ]
-    },
-    "build:prod:ts": {
-      "command": "NODE_ENV=PROD node esbuild.config.mjs",
-      "dependencies": [
-        "..:build"
-      ],
-      "files": [
-        "esbuild.config.mjs",
-        "tsconfig.json",
-        "src/ts/**/*"
-      ],
-      "output": [
-        "build/**/*"
+        "build/**/*.js",
+        "build/**/*.js.map"
       ]
     },
     "build:type-check": {
@@ -125,9 +88,6 @@
       "output": [
         "tsconfig.tsbuildinfo"
       ]
-    },
-    "clean": {
-      "command": "rimraf dist"
     },
     "lint": {
       "dependencies": [
@@ -159,17 +119,19 @@
       "service": true,
       "dependencies": [
         {
-          "script": "build",
+          "script": "build:eleventy",
           "cascade": false
-        }
-      ]
-    },
-    "start:dev": {
-      "command": "wds -w -r public -o",
-      "service": true,
-      "dependencies": [
+        },
         {
-          "script": "build:dev",
+          "script": "build:styles",
+          "cascade": false
+        },
+        {
+          "script": "build:ts",
+          "cascade": false
+        },
+        {
+          "script": "build:type-check",
           "cascade": false
         }
       ]
@@ -182,12 +144,10 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
     "@custom-elements-manifest/analyzer": "^0.9.0",
     "@custom-elements-manifest/to-markdown": "^0.1.0",
-    "@lit-labs/eleventy-plugin-lit": "^1.0.2",
     "@luncheon/esbuild-plugin-gzip": "^0.1.0",
     "@oddbird/popover-polyfill": "^0.2.3",
     "@types/markdown-it": "^13.0.2",
     "@web/dev-server": "^0.3.3",
-    "@webcomponents/template-shadowroot": "^0.2.1",
     "cpx": "^1.5.0",
     "esbuild": "^0.19.5",
     "esbuild-plugin-minify-html-literals": "^1.0.5",
@@ -195,7 +155,6 @@
     "markdown-it": "^13.0.2",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-attrs": "^4.1.6",
-    "rimraf": "^5.0.5",
     "sass": "^1.69.3",
     "slugify": "^1.6.6",
     "tiny-glob": "^0.2.9",

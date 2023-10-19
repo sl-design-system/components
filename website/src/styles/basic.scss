@@ -1,9 +1,5 @@
 @import 'breakpoints';
 
-[dsd-pending] {
-  visibility: hidden;
-}
-
 *:focus-visible:not(input, sl-button, sl-textarea) {
   border-radius: 0.6rem;
   box-shadow: var(--focus-box-shadow);

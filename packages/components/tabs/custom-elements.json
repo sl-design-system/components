@@ -66,20 +66,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/tab-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/tab-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/tab-group.ts",
       "declarations": [
         {
@@ -331,20 +317,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/tab-panel.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/tab-panel.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/tab-panel.ts",
       "declarations": [
         {
@@ -367,20 +339,6 @@
           "declaration": {
             "name": "TabPanel",
             "module": "src/tab-panel.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/tab.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/tab.scss.ts"
           }
         }
       ]

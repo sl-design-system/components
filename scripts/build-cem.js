@@ -8,7 +8,7 @@ const cwd = new URL('.', import.meta.url).pathname;
 
 const buildManifest = async (component) => {
   const folder = join(cwd, `../packages/components/${component}`),
-    entryPoints = await fg('**/!(*.{d,spec,stories}).ts', { cwd: folder });
+    entryPoints = await fg(['!**/*.{d,scss,spec,stories}.ts', '**/*.ts'], { cwd: folder });
 
   const modules = entryPoints.map(entryPoint => {
     const fullPath = resolve(folder, entryPoint),

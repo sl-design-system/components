@@ -11,7 +11,6 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "analyze": "wireit",
     "build": "wireit",
     "lint": "wireit",
     "start": "wireit"
@@ -20,6 +19,8 @@
     "analyze": {
       "command": "cem analyze",
       "files": [
+        "../packages/components/**/*.ts",
+        "!../packages/components/**/*.{d,spec,stories}.ts",
         "custom-elements-manifest.config.js"
       ],
       "output": [
@@ -46,6 +47,7 @@
       ],
       "files": [
         ".eleventy.cjs",
+        "src/*.md",
         "src/{_data,_includes,assets,categories,scripts,site}/**/*"
       ],
       "output": [
@@ -58,13 +60,14 @@
         "src/styles/**/*.scss"
       ],
       "output": [
-        "dist/styles/**/*.{css,css.map}"
+        "dist/styles/**/*.{css,css.map}",
+        "!dist/styles/slds-sanoma-learning/**/*"
       ]
     },
     "build:ts": {
       "command": "node esbuild.config.js",
       "dependencies": [
-        "..:build"
+        "..:build:components"
       ],
       "files": [
         "esbuild.config.mjs",
@@ -91,6 +94,12 @@
       "command": "cpx '../packages/themes/sanoma-learning/base.json' 'src/_data/tokens/'",
       "dependencies": [
         "..:transform-tokens"
+      ],
+      "files": [
+        "../packages/themes/sanoma-learning/base.json"
+      ],
+      "output": [
+        "src/_data/tokens/base.json"
       ]
     },
     "lint": {

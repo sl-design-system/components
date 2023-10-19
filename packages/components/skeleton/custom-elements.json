@@ -34,20 +34,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/skeleton.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/skeleton.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/skeleton.ts",
       "declarations": [
         {

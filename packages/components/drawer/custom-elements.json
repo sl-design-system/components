@@ -34,20 +34,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/drawer.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/drawer.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/drawer.ts",
       "declarations": [
         {

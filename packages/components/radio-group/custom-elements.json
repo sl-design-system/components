@@ -50,20 +50,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/radio-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/radio-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/radio-group.ts",
       "declarations": [
         {
@@ -264,20 +250,6 @@
           "declaration": {
             "name": "RadioGroup",
             "module": "src/radio-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/radio.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/radio.scss.ts"
           }
         }
       ]

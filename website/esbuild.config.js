@@ -63,27 +63,6 @@ if (DEV) {
     .catch(() => process.exit(1));
 }
 
-// // seperate build so that the SSR bundle doesn't affect bundling for the frontend
-// const ssrBuild = esbuild
-//   .build({
-//     ...config,
-//     format: 'iife',
-//     splitting: false,
-//     entryPoints: ['src/ts/ssr.ts'],
-//   })
-//   .catch(() => process.exit(1));
-
-// // this code is inlined into the HTML because it is performance-sensitive
-// const inlineBuild = esbuild
-//   .build({
-//     ...config,
-//     format: 'iife',
-//     splitting: false,
-//     entryPoints: ['src/ts/ssr-utils/dsd-polyfill.ts'],
-//   })
-//   .catch(() => process.exit(1));
-
-// await Promise.all([componentsBuild, ssrBuild, inlineBuild]);
 await Promise.all([componentsBuild]);
 
 process.exit(0);

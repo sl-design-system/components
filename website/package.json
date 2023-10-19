@@ -33,22 +33,22 @@
       ]
     },
     "build:dev:eleventy": {
-      "command": "NODE_ENV=DEV eleventy --config=.eleventy.cjs",
+      "command": "eleventy --config=.eleventy.cjs",
       "dependencies": [
         "..:transform-tokens",
         "analyze",
-        "copy:tokens",
         "build:dev:styles",
-        "build:dev:ts"
+        "build:dev:ts",
+        "copy:tokens"
       ],
       "files": [
         ".eleventy.cjs",
-        "lib/site/**/*",
-        "src/site/**/*"
+        "lib/**/*",
+        "src/**/*"
       ]
     },
     "build:dev:styles": {
-      "command": "NODE_ENV=DEV sass src/styles:public/styles",
+      "command": "sass src/styles:public/styles",
       "files": [
         "src/styles"
       ],
@@ -57,17 +57,17 @@
       ]
     },
     "build:dev:ts": {
-      "command": "NODE_ENV=DEV node esbuild.config.mjs",
+      "command": "node esbuild.config.mjs",
       "dependencies": [
         "..:build"
       ],
       "files": [
-        "src/site/ts/**/*",
+        "esbuild.config.mjs",
         "tsconfig.json",
-        "esbuild.config.mjs"
+        "src/ts/**/*"
       ],
       "output": [
-        "lib/site/**/*"
+        "lib/**/*"
       ]
     },
     "build": {
@@ -82,14 +82,14 @@
       "dependencies": [
         "..:transform-tokens",
         "analyze",
-        "copy:tokens",
         "build:prod:styles",
-        "build:prod:ts"
+        "build:prod:ts",
+        "copy:tokens"
       ],
       "files": [
         ".eleventy.cjs",
-        "build/site/**/*",
-        "src/site/**/*"
+        "build/**/*",
+        "src/**/*"
       ]
     },
     "build:prod:styles": {
@@ -107,9 +107,9 @@
         "..:build"
       ],
       "files": [
-        "src/site/ts/**/*",
+        "esbuild.config.mjs",
         "tsconfig.json",
-        "esbuild.config.mjs"
+        "src/ts/**/*"
       ],
       "output": [
         "build/**/*"
@@ -118,8 +118,8 @@
     "build:type-check": {
       "command": "tsc -p tsconfig.json --pretty --incremental",
       "files": [
-        "src/**/*",
-        "tsconfig.json"
+        "tsconfig.json",
+        "src/**/*"
       ],
       "clean": "if-file-deleted",
       "output": [
@@ -155,17 +155,17 @@
       ]
     },
     "start": {
-      "command": "wds --watch --root-dir dist/site",
+      "command": "wds --watch --root-dir dist",
       "service": true,
       "dependencies": [
         {
-          "script": "build:prod",
+          "script": "build",
           "cascade": false
         }
       ]
     },
     "start:dev": {
-      "command": "wds --watch --root-dir public/site --open",
+      "command": "wds --watch --root-dir public --open",
       "service": true,
       "dependencies": [
         {

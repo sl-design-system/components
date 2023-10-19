@@ -3,7 +3,7 @@ import gzipPlugin from '@luncheon/esbuild-plugin-gzip';
 import { minifyHTMLLiteralsPlugin } from 'esbuild-plugin-minify-html-literals';
 import tinyGlob from 'tiny-glob';
 
-const DEV = process.env.NODE_ENV === 'DEV';
+const DEV = process.env.NODE_ENV !== 'PROD';
 const jsFolder = DEV ? 'lib' : 'build';
 
 const tsEntrypoints = [

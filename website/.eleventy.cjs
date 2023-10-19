@@ -12,7 +12,7 @@ const anchor = require('markdown-it-anchor');
 const { customElementsManifestToMarkdown } = require('@custom-elements-manifest/to-markdown');
 const image = require("@11ty/eleventy-img");
 
-const DEV = process.env.NODE_ENV === 'DEV';
+const DEV = process.env.NODE_ENV !== 'PROD';
 const jsFolder = DEV ? 'lib' : 'build';
 const outputFolder = DEV ? 'public' : 'dist';
 
@@ -35,29 +35,32 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {
     const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
+    
     return `--sl-${newValue?.replaceAll('.', '-')}`;
   });
 
   eleventyConfig.addLiquidFilter("tokenDescription",  function(value) {
     const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
+
     return newValue?.replaceAll('.', ' ');
   });
 
   eleventyConfig.addLiquidFilter("hasNoUnit",  function(value) {
     const lastCharacter = (value.toString())?.slice(-1);
+
     return /[0-9]/.test(lastCharacter);
   });
 
-  eleventyConfig.addLiquidFilter("notContainsIconValue",  function(value) {
+  eleventyConfig.addLiquidFilter("notContainsIconValue",  function (value) {
     return value?.indexOf('icon') === -1;
   });
 
-  eleventyConfig.addLiquidFilter("fontWeight",  function(value) {
+  eleventyConfig.addLiquidFilter("fontWeight",  function (value) {
     if (!value) {
       return;
     }
-    let weight;
 
+    let weight;
     switch(value) {
       case "Regular":
         weight = "400";
@@ -74,6 +77,7 @@ module.exports = function(eleventyConfig) {
       default:
         weight = value;
     }
+
     return weight;
   });
 
@@ -81,7 +85,8 @@ module.exports = function(eleventyConfig) {
     let metadata = await image(`./src/assets/images/${src}`, {
       formats: ['svg'],
       dryRun: true
-    })
+    });
+
     return metadata.svg[0].buffer.toString();
   });
 
@@ -136,7 +141,7 @@ module.exports = function(eleventyConfig) {
     callbacks: {
       ready: function(err, bs) {
 
-        bs.addMiddleware('*', (req, res) => {
+        bs.addMiddleware('*', (_, res) => {
           if (!fs.existsSync(NOT_FOUND_PATH)) {
             throw new Error(`Expected a \`${NOT_FOUND_PATH}\` file but could not find one. Did you create a 404.html template?`);
           }
@@ -165,20 +170,18 @@ module.exports = function(eleventyConfig) {
     if (DEV) {
       return `<script type="module" src="/js/${path}"></script>`;
     }
+
     const script = fs.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
+
     return `<script type="module">${script}</script>`;
   });
 
   eleventyConfig.addTransform('htmlMinifier', content => {
-    if (process.env.NODE_ENV !== 'DEV') {
-      return htmlMinifier.minify(content, {
-        useShortDoctype: true,
-        removeComments: true,
-        collapseWhitespace: true,
-      });
-    }
-
-    return content;
+    return DEV ? content : htmlMinifier.minify(content, {
+      useShortDoctype: true,
+      removeComments: true,
+      collapseWhitespace: true,
+    });
   });
 
   const customElementsPath = './src/_data/custom-elements';

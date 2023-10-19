@@ -4499,6 +4499,28 @@
         "type": "color",
         "failedToResolve": true
       }
+    },
+    "badge": {
+      "red": {
+        "value": "{color.palette.danger.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "green": {
+        "value": "{color.palette.success.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "yellow": {
+        "value": "{color.palette.warning.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "accent": {
+        "value": "{color.palette.accent.base}",
+        "type": "color",
+        "failedToResolve": true
+      }
     }
   },
   "boxShadow": {

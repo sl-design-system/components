@@ -43,7 +43,7 @@
           "slots": [
             {
               "description": "Area where action buttons are placed",
-              "name": "action"
+              "name": "actions"
             },
             {
               "description": "Body content for the dialog",
@@ -58,8 +58,20 @@
               "name": "header"
             },
             {
+              "description": "Closing button (placed in header) for the dialog",
+              "name": "close-button"
+            },
+            {
+              "description": "More space for buttons for the dialog's header",
+              "name": "header-buttons"
+            },
+            {
               "description": "The title of the dialog",
               "name": "title"
+            },
+            {
+              "description": "The subtitle of the dialog",
+              "name": "subtitle"
             }
           ],
           "members": [
@@ -74,10 +86,12 @@
             },
             {
               "kind": "field",
-              "name": "dialog",
+              "name": "closingButton",
               "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "attribute": "closing-button"
             },
             {
               "kind": "field",
@@ -118,6 +132,14 @@
               "default": "false",
               "description": "Disables the ability to close the dialog using the Escape key.",
               "fieldName": "disableClose"
+            },
+            {
+              "name": "closing-button",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "fieldName": "closingButton"
             },
             {
               "name": "role",
@@ -179,6 +201,23 @@
             },
             {
               "kind": "method",
+              "name": "#onCloseClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onClick",
               "return": {
                 "type": {
@@ -190,6 +229,40 @@
                   "name": "event",
                   "type": {
                     "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#closeDialogOnAnimationend",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement"
                   }
                 }
               ]
@@ -220,7 +293,8 @@
               "name": "dialog",
               "type": {
                 "text": "HTMLDialogElement | undefined"
-              }
+              },
+              "privacy": "private"
             }
           ]
         }

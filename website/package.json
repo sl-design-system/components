@@ -13,7 +13,6 @@
   "scripts": {
     "analyze": "wireit",
     "build": "wireit",
-    "copy:tokens": "cpx '../packages/themes/sanoma-learning/base.json' 'src/_data/tokens/'",
     "lint": "wireit",
     "start": "wireit"
   },
@@ -42,9 +41,8 @@
         }
       },
       "dependencies": [
-        "..:transform-tokens",
         "analyze",
-        "copy:tokens"
+        "copy-tokens"
       ],
       "files": [
         ".eleventy.cjs",
@@ -87,6 +85,12 @@
       ],
       "output": [
         "tsconfig.tsbuildinfo"
+      ]
+    },
+    "copy-tokens": {
+      "command": "cpx '../packages/themes/sanoma-learning/base.json' 'src/_data/tokens/'",
+      "dependencies": [
+        "..:transform-tokens"
       ]
     },
     "lint": {

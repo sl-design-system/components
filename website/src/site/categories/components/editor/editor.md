@@ -9,6 +9,6 @@ eleventyNavigation:
   parent: Components
   key: Editor
   order: 8
-  status: coming
+  status: ready
 ---
 

@@ -27,3 +27,17 @@ section.ds-cards {
     border-radius: 0;
   }
 }
+
+@media screen and (min-width: $md-breakpoint) {
+  section.ds-cards-horizontal {
+    grid-template-columns: 1fr;
+
+    figure {
+      flex-direction: row;
+    }
+  }
+
+  svg {
+    flex: 0 0 30%;
+  }
+}

@@ -3811,6 +3811,24 @@
         "value": "{color.palette.accent.base}",
         "type": "color"
       }
+    },
+    "badge": {
+      "red": {
+        "value": "{color.palette.danger.base}",
+        "type": "color"
+      },
+      "green": {
+        "value": "{color.palette.success.base}",
+        "type": "color"
+      },
+      "yellow": {
+        "value": "{color.palette.warning.base}",
+        "type": "color"
+      },
+      "accent": {
+        "value": "{color.palette.accent.base}",
+        "type": "color"
+      }
     }
   },
   "boxShadow": {

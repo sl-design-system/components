@@ -43,14 +43,13 @@
       ],
       "files": [
         ".eleventy.cjs",
-        "lib/**/*",
-        "src/**/*"
+        "src/{_data,_includes,assets,categories,scripts,site}/**/*"
       ]
     },
     "build:dev:styles": {
       "command": "sass src/styles:public/styles",
       "files": [
-        "src/styles"
+        "src/styles/**/*.scss"
       ],
       "output": [
         "public/styles"
@@ -64,10 +63,11 @@
       "files": [
         "esbuild.config.mjs",
         "tsconfig.json",
-        "src/ts/**/*"
+        "src/ts/**/*.ts"
       ],
       "output": [
-        "lib/**/*"
+        "lib/**/*.js",
+        "lib/**/*.js.map"
       ]
     },
     "build": {
